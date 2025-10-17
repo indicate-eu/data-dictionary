@@ -17,7 +17,7 @@ mod_dictionary_explorer_ui <- function(id) {
     # Application header
     div(class = "header",
         tags$img(src = "www/logo.png", class = "header-logo"),
-        h1("INDICATE Minimal Dataset", class = "header-title")
+        h1("INDICATE Minimal Dictionary", class = "header-title")
     ),
 
     # Main application content
@@ -82,7 +82,7 @@ mod_dictionary_explorer_ui <- function(id) {
 #' @description Server function for the dictionary explorer module
 #'
 #' @param id Module ID
-#' @param data Reactive containing the main dataset
+#' @param data Reactive containing the main data dictionary
 #' @param comments Reactive containing comments data
 #' @param config Configuration list
 #'

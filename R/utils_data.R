@@ -1,6 +1,6 @@
-#' Load INDICATE Dataset
+#' Load INDICATE Data Dictionary
 #'
-#' @description Load and preprocess the INDICATE minimal dataset from Excel file
+#' @description Load and preprocess the INDICATE minimal dictionary from Excel file
 #'
 #' @param file_path Path to the Excel file. If NULL, uses the default path in inst/extdata
 #'
@@ -14,12 +14,12 @@ load_indicate_data <- function(file_path = NULL) {
 
   # Use default path if not provided
   if (is.null(file_path)) {
-    file_path <- app_sys("extdata", "minimal_dataset.xlsx")
+    file_path <- app_sys("extdata", "minimal_data_dictionary.xlsx")
   }
 
   # Check if file exists
   if (!file.exists(file_path)) {
-    stop("Dataset file not found at: ", file_path)
+    stop("File not found at: ", file_path)
   }
 
   # Define expected column types

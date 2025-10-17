@@ -16,11 +16,11 @@ app_server <- function(input, output, session) {
   config <- get_config()
 
   # Load data
-  dataset <- load_indicate_data()
+  data_dictionary <- load_indicate_data()
 
   # Create reactive values for data and comments
-  data <- reactive({ dataset$data })
-  comments <- reactive({ dataset$comments })
+  data <- reactive({ data_dictionary$data })
+  comments <- reactive({ data_dictionary$comments })
 
   # Call dictionary explorer module
   mod_dictionary_explorer_server(
