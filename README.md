@@ -1,4 +1,4 @@
-# INDICATE Minimal Data Dictionary R Package
+# INDICATE Minimal Data Dictionary
 
 ![Application Interface](man/figures/web_interface.png)
 
