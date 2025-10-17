@@ -1,0 +1,32 @@
+Package: indicate
+Title: INDICATE Minimal Data Dictionary Explorer
+Version: 0.1.0
+Authors@R:
+    person("Boris", "Delange", , "boris.delange@univ-rennes.fr", role = c("aut", "cre"))
+Description: An interactive Shiny application to explore the INDICATE Minimal
+    Data Dictionary, a consensus-based collection of standardized clinical
+    concepts for harmonizing intensive care unit (ICU) data across Europe. The
+    application provides tools to explore standardized terminologies (SNOMED CT,
+    LOINC, RxNorm, ICD-10), perform semantic alignment, and propose improvements
+    to the dictionary.
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports:
+    shiny (>= 1.7.0),
+    DT (>= 0.20),
+    dplyr (>= 1.1.0),
+    magrittr,
+    purrr (>= 1.0.0),
+    readxl (>= 1.4.0),
+    htmltools (>= 0.5.0),
+    htmlwidgets
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Depends:
+    R (>= 4.0.0)
+LazyData: true
