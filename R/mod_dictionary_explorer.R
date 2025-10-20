@@ -17,7 +17,7 @@ mod_dictionary_explorer_ui <- function(id) {
     # Application header
     div(class = "header",
         tags$img(src = "www/logo.png", class = "header-logo"),
-        h1("INDICATE Minimal Dictionary", class = "header-title")
+        h1("INDICATE Data Dictionary", class = "header-title")
     ),
 
     # Main application content
