@@ -167,6 +167,10 @@ app_server <- function(input, output, session) {
     current_page("mapping")
   })
 
+  observeEvent(input$nav_dev_tools, {
+    current_page("dev_tools")
+  })
+
   observeEvent(input$nav_settings, {
     current_page("settings")
   })
@@ -177,6 +181,8 @@ app_server <- function(input, output, session) {
       mod_dictionary_explorer_ui("dictionary_explorer")
     } else if (current_page() == "mapping") {
       mod_concepts_mapping_ui("concepts_mapping")
+    } else if (current_page() == "dev_tools") {
+      mod_dev_tools_ui("dev_tools")
     } else if (current_page() == "settings") {
       mod_settings_ui("settings")
     }
@@ -194,6 +200,12 @@ app_server <- function(input, output, session) {
     "concepts_mapping",
     data = data,
     config = config
+  )
+
+  mod_dev_tools_server(
+    "dev_tools",
+    data = data,
+    vocabularies = reactive({ vocabularies() })
   )
 
   mod_settings_server(

@@ -56,6 +56,11 @@ app_ui <- function() {
               "nav_mapping",
               label = tagList(icon("project-diagram"), "Concepts Mapping"),
               class = "nav-tab"
+            ),
+            actionButton(
+              "nav_dev_tools",
+              label = tagList(icon("code"), "Dev Tools"),
+              class = "nav-tab"
             )
         ),
 

@@ -28,7 +28,8 @@ Imports:
     htmlwidgets,
     promises (>= 1.2.0),
     future (>= 1.30.0),
-    shinycssloaders (>= 1.0.0)
+    shinycssloaders (>= 1.0.0),
+    shinyAce (>= 0.4.0)
 Suggests:
     testthat (>= 3.0.0),
     knitr,

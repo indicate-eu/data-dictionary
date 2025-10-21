@@ -297,6 +297,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       if (!is.null(concept_id)) {
         selected_concept_id(as.integer(concept_id))
         current_view("detail")
+        current_mappings(NULL)  # Reset cache when changing concept
       }
     }, ignoreNULL = TRUE, ignoreInit = TRUE)
 
@@ -452,48 +453,58 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       relationships_tab(input$switch_relationships_tab)
     })
 
+    # Cache for current mappings to avoid recalculation
+    current_mappings <- reactiveVal(NULL)
+
     # Observe selection in concept mappings table
     observeEvent(input$concept_mappings_table_rows_selected, {
       selected_row <- input$concept_mappings_table_rows_selected
       if (!is.null(selected_row) && length(selected_row) > 0) {
-        concept_id <- selected_concept_id()
-        req(concept_id)
+        # Use cached mappings if available
+        mappings <- current_mappings()
 
-        # Get the mappings data
-        csv_mappings <- data()$concept_mappings %>%
-          dplyr::filter(general_concept_id == concept_id) %>%
-          dplyr::select(
-            concept_name,
-            vocabulary_id,
-            concept_code,
-            omop_concept_id,
-            recommended
-          )
+        if (is.null(mappings)) {
+          concept_id <- selected_concept_id()
+          req(concept_id)
 
-        concept_info <- data()$general_concepts %>%
-          dplyr::filter(general_concept_id == concept_id)
-        athena_concept_id <- concept_info$athena_concept_id[1]
-
-        if (!is.na(athena_concept_id) && !is.null(athena_concept_id)) {
-          vocab_data <- vocabularies()
-          if (!is.null(vocab_data)) {
-            athena_concepts <- get_all_related_concepts(
-              athena_concept_id,
-              vocab_data,
-              csv_mappings
+          # Get the mappings data
+          csv_mappings <- data()$concept_mappings %>%
+            dplyr::filter(general_concept_id == concept_id) %>%
+            dplyr::select(
+              concept_name,
+              vocabulary_id,
+              concept_code,
+              omop_concept_id,
+              recommended
             )
-            if (nrow(athena_concepts) > 0) {
-              mappings <- dplyr::bind_rows(csv_mappings, athena_concepts) %>%
-                dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
-                dplyr::arrange(dplyr::desc(recommended), concept_name)
+
+          concept_info <- data()$general_concepts %>%
+            dplyr::filter(general_concept_id == concept_id)
+          athena_concept_id <- concept_info$athena_concept_id[1]
+
+          if (!is.na(athena_concept_id) && !is.null(athena_concept_id)) {
+            vocab_data <- vocabularies()
+            if (!is.null(vocab_data)) {
+              athena_concepts <- get_all_related_concepts(
+                athena_concept_id,
+                vocab_data,
+                csv_mappings
+              )
+              if (nrow(athena_concepts) > 0) {
+                mappings <- dplyr::bind_rows(csv_mappings, athena_concepts) %>%
+                  dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
+                  dplyr::arrange(dplyr::desc(recommended), concept_name)
+              } else {
+                mappings <- csv_mappings
+              }
             } else {
               mappings <- csv_mappings
             }
           } else {
             mappings <- csv_mappings
           }
-        } else {
-          mappings <- csv_mappings
+
+          current_mappings(mappings)
         }
 
         # Get the selected concept's OMOP ID
@@ -502,7 +513,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           selected_mapped_concept_id(selected_omop_id)
         }
       }
-    })
+    }, ignoreNULL = FALSE, ignoreInit = FALSE, priority = 1000)
 
     # Render concept details (top-right quadrant)
     output$concept_details_display <- renderUI({
@@ -587,8 +598,17 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       # Display full details from concept_mappings
       info <- concept_mapping[1, ]
 
+      # Build URLs
+      athena_url <- paste0(config$athena_base_url, "/", info$omop_concept_id)
+      fhir_url <- build_fhir_url(info$vocabulary_id, info$concept_code, config)
+      athena_unit_url <- if (!is.na(info$omop_unit_concept_id) && info$omop_unit_concept_id != "") {
+        paste0(config$athena_base_url, "/", info$omop_unit_concept_id)
+      } else {
+        NULL
+      }
+
       # Create detail items with proper formatting
-      create_detail_item <- function(label, value, format_number = FALSE) {
+      create_detail_item <- function(label, value, format_number = FALSE, url = NULL) {
         display_value <- if (is.na(value) || is.null(value) || value == "") {
           "/"
         } else if (is.logical(value)) {
@@ -597,6 +617,16 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           format(value, big.mark = ",", scientific = FALSE)
         } else {
           as.character(value)
+        }
+
+        # Create link if URL provided
+        if (!is.null(url) && display_value != "/") {
+          display_value <- tags$a(
+            href = url,
+            target = "_blank",
+            style = "color: #0f60af; text-decoration: underline;",
+            display_value
+          )
         }
 
         tags$div(
@@ -608,19 +638,34 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
       tags$div(
         class = "concept-details-container",
+        style = "display: grid; grid-template-columns: 1fr 1fr; gap: 4px 15px;",
+        # Column 1
         create_detail_item("Selected Concept Name", info$concept_name),
         create_detail_item("Vocabulary ID", info$vocabulary_id),
         create_detail_item("Concept Code", info$concept_code),
-        create_detail_item("OMOP Concept ID", info$omop_concept_id),
-        create_detail_item("Unit Concept Name", info$unit_concept_code),
-        create_detail_item("OMOP Unit Concept ID", info$omop_unit_concept_id),
+        create_detail_item("OMOP Concept ID", info$omop_concept_id, url = athena_url),
+        if (!is.null(fhir_url)) {
+          tags$div(
+            class = "detail-item",
+            tags$strong("FHIR Resource: "),
+            tags$a(
+              href = fhir_url,
+              target = "_blank",
+              style = "color: #0f60af; text-decoration: underline;",
+              "View"
+            )
+          )
+        },
         create_detail_item("Recommended", info$recommended),
+        # Column 2
         create_detail_item("Category",
                           ifelse(nrow(general_concept_info) > 0,
                                 general_concept_info$category[1], NA)),
         create_detail_item("Sub-category",
                           ifelse(nrow(general_concept_info) > 0,
                                 general_concept_info$subcategory[1], NA)),
+        create_detail_item("Unit Concept Name", info$unit_concept_code),
+        create_detail_item("OMOP Unit Concept ID", info$omop_unit_concept_id, url = athena_unit_url),
         create_detail_item("EHDEN Rows Count", info$ehden_rows_count, format_number = TRUE),
         create_detail_item("EHDEN Data Sources", info$ehden_num_data_sources, format_number = TRUE),
         create_detail_item("LOINC Rank", info$loinc_rank)

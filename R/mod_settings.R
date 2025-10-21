@@ -74,34 +74,6 @@ mod_settings_ui <- function(id) {
                          )
                      )
               )
-            ),
-
-            # About section
-            fluidRow(
-              column(12,
-                     div(class = "settings-section",
-                         style = "background: #fff; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
-                         h4(tags$i(class = "fas fa-info-circle", style = "margin-right: 8px;"), "About"),
-                         p(style = "margin-top: 15px;",
-                           strong("INDICATE Data Dictionary Explorer"), " - Version 0.1.0"
-                         ),
-                         p("An interactive application to explore the INDICATE Minimal Data Dictionary."),
-                         p(
-                           "Author: Boris Delange (",
-                           tags$a(href = "mailto:boris.delange@univ-rennes.fr", "boris.delange@univ-rennes.fr"),
-                           ")"
-                         ),
-                         p(
-                           "License: GPL (>= 3)"
-                         ),
-                         tags$div(
-                           style = "margin-top: 20px; padding-top: 20px; border-top: 1px solid #dee2e6;",
-                           p(style = "color: #666; font-size: 14px;",
-                             "Part of the INDICATE project for ICU data harmonization in Europe."
-                           )
-                         )
-                     )
-              )
             )
         )
     )
