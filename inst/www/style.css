@@ -133,7 +133,7 @@ h3, h4 {
 -------------------------------------------------- */
 .main-panel {
   background-color: #f8f9fa;
-  padding: 20px 30px 10px 30px;
+  padding: 5px 30px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -347,6 +347,10 @@ hr {
   font-size: 11px !important;
   border-radius: 5px !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .dataTable thead th {
@@ -654,7 +658,7 @@ a.paginate_button.current * {
 .quadrant-layout {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 180px);
+  height: calc(100vh - 130px);
   width: 100%;
 }
 
@@ -1009,6 +1013,7 @@ a.paginate_button.current * {
 
 .info-icon:hover {
   background: #0f60af;
+  color: white;
 }
 
 .info-icon::after {
@@ -1023,7 +1028,7 @@ a.paginate_button.current * {
   border-radius: 6px;
   font-size: 12px;
   font-weight: normal;
-  white-space: normal;
+  white-space: pre-line;
   width: 280px;
   text-align: left;
   z-index: 10000;

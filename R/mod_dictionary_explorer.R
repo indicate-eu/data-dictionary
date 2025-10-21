@@ -153,7 +153,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
                 "Mapped Concepts",
                 tags$span(
                   class = "info-icon",
-                  `data-tooltip` = "Concepts selected by the Data Dictionary group (marked as 'Recommended'), plus valid and standard related concepts from ATHENA (hierarchical descendants and equivalent terms)",
+                  `data-tooltip` = "Concepts presented here are:
+• Those selected by INDICATE, marked as 'Recommended'
+• Child and same-level concepts, retrieved via ATHENA mappings",
                   "ⓘ"
                 )
               )
@@ -299,8 +301,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         options = list(
           pageLength = 25,
           lengthMenu = list(c(10, 25, 50, 100, -1), c('10', '25', '50', '100', 'All')),
-          dom = 'lftp',
-          language = list(search = ""),
+          dom = 'ltp',
           columnDefs = list(
             list(targets = 0, visible = FALSE),
             list(targets = 1, width = "150px"),
@@ -760,8 +761,16 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         } else {
           tags$div(class = "detail-item", style = "visibility: hidden;")
         },
-        create_detail_item("Unit Concept Name", info$unit_concept_code),
-        create_detail_item("OMOP Unit Concept ID", info$omop_unit_concept_id, url = athena_unit_url),
+        if (!is.na(info$unit_concept_code) && info$unit_concept_code != "") {
+          create_detail_item("Unit Concept Name", info$unit_concept_code)
+        } else {
+          tags$div(class = "detail-item", style = "visibility: hidden;")
+        },
+        if (!is.na(info$omop_unit_concept_id) && info$omop_unit_concept_id != "") {
+          create_detail_item("OMOP Unit Concept ID", info$omop_unit_concept_id, url = athena_unit_url)
+        } else {
+          tags$div(class = "detail-item", style = "visibility: hidden;")
+        },
         if (!is.null(unit_fhir_url)) {
           tags$div(
             class = "detail-item",
@@ -899,12 +908,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           initComplete = JS(sprintf("
             function(settings, json) {
               var table = this.api();
-
-              // Add double-click handler for table rows
               $(table.table().node()).on('dblclick', 'tbody tr', function() {
                 var rowData = table.row(this).data();
                 if (rowData && rowData[4]) {
-                  var conceptId = rowData[4];  // OMOP ID is in column 4 (hidden)
+                  var conceptId = rowData[4];
                   Shiny.setInputValue('%s', conceptId, {priority: 'event'});
                   $('#%s').show();
                 }
@@ -925,7 +932,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
       # Get concept information from vocabularies
       concept_info <- vocab_data$concept %>%
-        dplyr::filter(concept_id == concept_id)
+        dplyr::filter(concept_id == !!concept_id)
 
       if (nrow(concept_info) == 0) {
         return(tags$p("Concept not found.", style = "color: #666; font-style: italic;"))
