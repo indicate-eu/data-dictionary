@@ -24,11 +24,19 @@ html, body {
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background: #ffffff;
   padding: 10px 20px;
   border-bottom: 2px solid #0f60af;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   margin-bottom: 0;
+  gap: 20px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .header-logo {
@@ -41,6 +49,67 @@ html, body {
   font-weight: 700;
   margin: 0;
   color: #0f60af;
+  white-space: nowrap;
+}
+
+/* Navigation tabs */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  justify-content: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.nav-tab {
+  background: transparent;
+  border: none;
+  color: #6c757d;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.nav-tab:hover {
+  background: #f2f7fd;
+  color: #0f60af;
+}
+
+.nav-tab-active {
+  background: #0f60af !important;
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+.nav-tab-active:hover {
+  background: #0d4d8f !important;
+  color: #ffffff !important;
+}
+
+.nav-tab-settings {
+  padding: 8px 12px;
+  font-size: 16px;
+}
+
+.nav-tab i {
+  font-size: 14px;
+}
+
+.nav-tab-settings i {
+  font-size: 16px;
 }
 
 /* Headings
