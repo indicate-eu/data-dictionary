@@ -820,12 +820,13 @@ a.paginate_button.current * {
 /* Section header with tabs
 -------------------------------------------------- */
 .section-header-with-tabs {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  position: relative;
   padding: 12px 15px;
   background: #f8f9fa;
   border-bottom: 2px solid #0f60af;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
 }
 
 .section-header-with-tabs h4 {
@@ -833,13 +834,22 @@ a.paginate_button.current * {
   font-size: 16px;
   font-weight: 600;
   color: #0f60af;
-  flex: 1;
+}
+
+/* Ensure standard section headers have same height */
+.quadrant .section-header {
+  min-height: 52px;
+  display: flex;
+  align-items: center;
 }
 
 .section-tabs {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   gap: 4px;
-  flex-shrink: 0;
 }
 
 .tab-btn {

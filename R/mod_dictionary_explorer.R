@@ -364,8 +364,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
               dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended)
           }
 
-          # Get same-level concepts (Maps to / Mapped from)
-          same_level <- get_related_concepts(athena_concept_id, vocab_data)
+          # Get same-level concepts (Maps to / Mapped from) - filtered for standard and valid
+          same_level <- get_related_concepts_filtered(athena_concept_id, vocab_data)
           if (nrow(same_level) > 0) {
             # Filter only Maps to and Mapped from
             same_level <- same_level %>%
@@ -408,19 +408,27 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       mappings <- mappings %>%
         dplyr::select(concept_name, vocabulary_id, concept_code, recommended, omop_concept_id, is_general_concept)
 
+      # Load JavaScript callbacks
+      callback <- JS(paste(readLines(app_sys("www", "dt_callback.js")), collapse = "\n"))
+      keyboard_nav <- paste(readLines(app_sys("www", "keyboard_nav.js")), collapse = "\n")
+
       dt <- DT::datatable(
         mappings,
-        selection = 'single',
+        selection = 'none',
         rownames = FALSE,
+        extensions = c('Select'),
         colnames = c("Concept Name", "Vocabulary", "Code", "Recommended", "OMOP ID", ""),
         options = list(
           pageLength = 10,
           dom = 'tp',
+          select = list(style = 'single', info = FALSE),
           columnDefs = list(
             list(targets = 3, width = "100px", className = 'dt-center'),  # Recommended column
             list(targets = c(4, 5), visible = FALSE)  # OMOP ID and IsGeneral columns hidden
-          )
-        )
+          ),
+          initComplete = create_keyboard_nav(keyboard_nav, TRUE, FALSE)
+        ),
+        callback = callback
       ) %>%
         DT::formatStyle(
           'recommended',
@@ -606,6 +614,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       } else {
         NULL
       }
+      unit_fhir_url <- build_unit_fhir_url(info$unit_concept_code, config)
 
       # Create detail items with proper formatting
       create_detail_item <- function(label, value, format_number = FALSE, url = NULL) {
@@ -631,23 +640,34 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
         tags$div(
           class = "detail-item",
-          tags$strong(paste0(label, ": ")),
+          tags$strong(label),
           tags$span(display_value)
         )
       }
 
       tags$div(
         class = "concept-details-container",
-        style = "display: grid; grid-template-columns: 1fr 1fr; gap: 4px 15px;",
+        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(7, auto); grid-auto-flow: column; gap: 4px 15px;",
         # Column 1
-        create_detail_item("Selected Concept Name", info$concept_name),
+        create_detail_item("Concept Name", info$concept_name),
+        create_detail_item("Category",
+                          ifelse(nrow(general_concept_info) > 0,
+                                general_concept_info$category[1], NA)),
+        create_detail_item("Sub-category",
+                          ifelse(nrow(general_concept_info) > 0,
+                                general_concept_info$subcategory[1], NA)),
+        create_detail_item("EHDEN Data Sources", info$ehden_num_data_sources, format_number = TRUE),
+        create_detail_item("EHDEN Rows Count", info$ehden_rows_count, format_number = TRUE),
+        create_detail_item("LOINC Rank", info$loinc_rank),
+        tags$div(class = "detail-item", style = "visibility: hidden;"),
+        # Column 2
         create_detail_item("Vocabulary ID", info$vocabulary_id),
         create_detail_item("Concept Code", info$concept_code),
         create_detail_item("OMOP Concept ID", info$omop_concept_id, url = athena_url),
         if (!is.null(fhir_url)) {
           tags$div(
             class = "detail-item",
-            tags$strong("FHIR Resource: "),
+            tags$strong("FHIR Resource"),
             tags$a(
               href = fhir_url,
               target = "_blank",
@@ -655,20 +675,25 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
               "View"
             )
           )
+        } else {
+          tags$div(class = "detail-item", style = "visibility: hidden;")
         },
-        create_detail_item("Recommended", info$recommended),
-        # Column 2
-        create_detail_item("Category",
-                          ifelse(nrow(general_concept_info) > 0,
-                                general_concept_info$category[1], NA)),
-        create_detail_item("Sub-category",
-                          ifelse(nrow(general_concept_info) > 0,
-                                general_concept_info$subcategory[1], NA)),
         create_detail_item("Unit Concept Name", info$unit_concept_code),
         create_detail_item("OMOP Unit Concept ID", info$omop_unit_concept_id, url = athena_unit_url),
-        create_detail_item("EHDEN Rows Count", info$ehden_rows_count, format_number = TRUE),
-        create_detail_item("EHDEN Data Sources", info$ehden_num_data_sources, format_number = TRUE),
-        create_detail_item("LOINC Rank", info$loinc_rank)
+        if (!is.null(unit_fhir_url)) {
+          tags$div(
+            class = "detail-item",
+            tags$strong("FHIR Unit Resource"),
+            tags$a(
+              href = unit_fhir_url,
+              target = "_blank",
+              style = "color: #0f60af; text-decoration: underline;",
+              "View"
+            )
+          )
+        } else {
+          tags$div(class = "detail-item", style = "visibility: hidden;")
+        }
       )
     })
 

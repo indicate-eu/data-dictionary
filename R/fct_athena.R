@@ -103,7 +103,65 @@ load_ohdsi_vocabularies <- function(vocab_folder) {
 #'
 #' @importFrom dplyr filter select left_join bind_rows distinct arrange mutate
 
-#' Get related concepts (maps to / mapped from)
+#' Get related concepts (maps to / mapped from) - filtered for standard and valid
+get_related_concepts_filtered <- function(concept_id, vocabularies) {
+  if (is.null(vocabularies)) {
+    return(data.frame())
+  }
+
+  tryCatch({
+    concept_relationship <- vocabularies$concept_relationship
+    concept <- vocabularies$concept
+
+    # Get all relationships for this concept
+    relationships <- concept_relationship %>%
+      dplyr::filter(
+        concept_id_1 == concept_id | concept_id_2 == concept_id
+      )
+
+    if (nrow(relationships) == 0) {
+      return(data.frame())
+    }
+
+    # Build related concepts with relationship information
+    related_data <- data.frame()
+
+    for (i in 1:nrow(relationships)) {
+      rel <- relationships[i, ]
+      related_concept_id <- ifelse(rel$concept_id_1 == concept_id, rel$concept_id_2, rel$concept_id_1)
+
+      # Get concept details (only standard and valid concepts)
+      concept_info <- concept %>%
+        dplyr::filter(
+          concept_id == related_concept_id,
+          standard_concept == 'S',
+          is.na(invalid_reason)
+        )
+
+      if (nrow(concept_info) > 0) {
+        related_data <- dplyr::bind_rows(
+          related_data,
+          data.frame(
+            omop_concept_id = concept_info$concept_id[1],
+            concept_name = concept_info$concept_name[1],
+            vocabulary_id = concept_info$vocabulary_id[1],
+            concept_code = concept_info$concept_code[1],
+            relationship_id = rel$relationship_id,
+            stringsAsFactors = FALSE
+          )
+        )
+      }
+    }
+
+    return(related_data)
+
+  }, error = function(e) {
+    message("Error querying related concepts: ", e$message)
+    return(data.frame())
+  })
+}
+
+#' Get related concepts (maps to / mapped from) - all concepts without filtering
 get_related_concepts <- function(concept_id, vocabularies) {
   if (is.null(vocabularies)) {
     return(data.frame())
@@ -130,13 +188,9 @@ get_related_concepts <- function(concept_id, vocabularies) {
       rel <- relationships[i, ]
       related_concept_id <- ifelse(rel$concept_id_1 == concept_id, rel$concept_id_2, rel$concept_id_1)
 
-      # Get concept details
+      # Get concept details (no filtering)
       concept_info <- concept %>%
-        dplyr::filter(
-          concept_id == related_concept_id,
-          standard_concept == 'S',
-          is.na(invalid_reason)
-        )
+        dplyr::filter(concept_id == related_concept_id)
 
       if (nrow(concept_info) > 0) {
         related_data <- dplyr::bind_rows(
