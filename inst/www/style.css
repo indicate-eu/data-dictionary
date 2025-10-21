@@ -714,8 +714,21 @@ a.paginate_button.current * {
 .quadrant-content {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 15px;
   background: white;
+  position: relative;
+}
+
+/* Fix shinycssloaders creating unwanted scrollbars */
+.quadrant-content > div {
+  height: 100%;
+  overflow: visible !important;
+}
+
+.quadrant-content .shiny-spinner-output-container {
+  height: 100%;
+  overflow: visible !important;
 }
 
 /* Splitter variants for quadrant layout */
@@ -779,23 +792,29 @@ a.paginate_button.current * {
 .concept-details-container {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 4px;
+  font-size: 12px;
 }
 
 .detail-item {
-  padding: 10px;
+  padding: 6px 10px;
   background: #f8f9fa;
   border-left: 3px solid #0f60af;
-  border-radius: 4px;
+  border-radius: 3px;
+  line-height: 1.4;
 }
 
 .detail-item strong {
   color: #0f60af;
   font-weight: 600;
+  font-size: 11px;
+  display: inline-block;
+  min-width: 140px;
 }
 
 .detail-item span {
   color: #333;
+  font-size: 12px;
 }
 
 /* Section header with tabs

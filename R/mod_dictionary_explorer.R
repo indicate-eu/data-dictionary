@@ -156,8 +156,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
             )
           )
         ),
-        # Horizontal splitter
-        tags$div(class = "splitter splitter-h"),
         # Bottom section: Comments and Relationships
         tags$div(
           class = "bottom-section",
@@ -520,60 +518,112 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         ))
       }
 
-      vocab_data <- vocabularies()
+      # Get concept details from concept_mappings
+      concept_id <- selected_concept_id()
+      req(concept_id)
 
-      if (is.null(vocab_data)) {
+      concept_mapping <- data()$concept_mappings %>%
+        dplyr::filter(
+          general_concept_id == concept_id,
+          omop_concept_id == !!omop_concept_id
+        )
+
+      general_concept_info <- data()$general_concepts %>%
+        dplyr::filter(general_concept_id == concept_id)
+
+      if (nrow(concept_mapping) == 0) {
+        # If not in concept_mappings, get from OHDSI vocabularies
+        vocab_data <- vocabularies()
+        if (is.null(vocab_data)) {
+          return(tags$div(
+            style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic;",
+            "Concept details not available."
+          ))
+        }
+
+        concept_details <- vocab_data$concept %>%
+          dplyr::filter(concept_id == omop_concept_id)
+
+        if (nrow(concept_details) == 0) {
+          return(tags$div(
+            style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic;",
+            "Concept details not found."
+          ))
+        }
+
+        info <- concept_details[1, ]
+
+        # Display minimal info for OHDSI-only concepts
         return(tags$div(
-          style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic;",
-          "OHDSI vocabularies not loaded."
+          class = "concept-details-container",
+          tags$div(
+            class = "detail-item",
+            tags$strong("General Concept Name: "),
+            tags$span(ifelse(nrow(general_concept_info) > 0, general_concept_info$general_concept_name[1], "/"))
+          ),
+          tags$div(
+            class = "detail-item",
+            tags$strong("Selected Concept Name: "),
+            tags$span(ifelse(is.na(info$concept_name), "/", info$concept_name))
+          ),
+          tags$div(
+            class = "detail-item",
+            tags$strong("Vocabulary ID: "),
+            tags$span(ifelse(is.na(info$vocabulary_id), "/", info$vocabulary_id))
+          ),
+          tags$div(
+            class = "detail-item",
+            tags$strong("Concept Code: "),
+            tags$span(ifelse(is.na(info$concept_code), "/", info$concept_code))
+          ),
+          tags$div(
+            class = "detail-item",
+            tags$strong("OMOP Concept ID: "),
+            tags$span(ifelse(is.na(info$concept_id), "/", as.character(info$concept_id)))
+          )
         ))
       }
 
-      # Get concept details from OHDSI vocabularies
-      concept_details <- vocab_data$concept %>%
-        dplyr::filter(concept_id == omop_concept_id)
+      # Display full details from concept_mappings
+      info <- concept_mapping[1, ]
 
-      if (nrow(concept_details) == 0) {
-        return(tags$div(
-          style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic;",
-          "Concept details not found in OHDSI vocabularies."
-        ))
+      # Create detail items with proper formatting
+      create_detail_item <- function(label, value, format_number = FALSE) {
+        display_value <- if (is.na(value) || is.null(value) || value == "") {
+          "/"
+        } else if (is.logical(value)) {
+          if (value) "Yes" else "No"
+        } else if (format_number && is.numeric(value)) {
+          format(value, big.mark = ",", scientific = FALSE)
+        } else {
+          as.character(value)
+        }
+
+        tags$div(
+          class = "detail-item",
+          tags$strong(paste0(label, ": ")),
+          tags$span(display_value)
+        )
       }
-
-      info <- concept_details[1, ]
 
       tags$div(
         class = "concept-details-container",
-        tags$div(
-          class = "detail-item",
-          tags$strong("Concept Name: "),
-          tags$span(ifelse(is.na(info$concept_name), "/", info$concept_name))
-        ),
-        tags$div(
-          class = "detail-item",
-          tags$strong("Domain ID: "),
-          tags$span(ifelse(is.na(info$domain_id), "/", info$domain_id))
-        ),
-        tags$div(
-          class = "detail-item",
-          tags$strong("Concept Class ID: "),
-          tags$span(ifelse(is.na(info$concept_class_id), "/", info$concept_class_id))
-        ),
-        tags$div(
-          class = "detail-item",
-          tags$strong("Vocabulary ID: "),
-          tags$span(ifelse(is.na(info$vocabulary_id), "/", info$vocabulary_id))
-        ),
-        tags$div(
-          class = "detail-item",
-          tags$strong("Concept ID: "),
-          tags$span(ifelse(is.na(info$concept_id), "/", as.character(info$concept_id)))
-        ),
-        tags$div(
-          class = "detail-item",
-          tags$strong("Concept Code: "),
-          tags$span(ifelse(is.na(info$concept_code), "/", info$concept_code))
-        )
+        create_detail_item("Selected Concept Name", info$concept_name),
+        create_detail_item("Vocabulary ID", info$vocabulary_id),
+        create_detail_item("Concept Code", info$concept_code),
+        create_detail_item("OMOP Concept ID", info$omop_concept_id),
+        create_detail_item("Unit Concept Name", info$unit_concept_code),
+        create_detail_item("OMOP Unit Concept ID", info$omop_unit_concept_id),
+        create_detail_item("Recommended", info$recommended),
+        create_detail_item("Category",
+                          ifelse(nrow(general_concept_info) > 0,
+                                general_concept_info$category[1], NA)),
+        create_detail_item("Sub-category",
+                          ifelse(nrow(general_concept_info) > 0,
+                                general_concept_info$subcategory[1], NA)),
+        create_detail_item("EHDEN Rows Count", info$ehden_rows_count, format_number = TRUE),
+        create_detail_item("EHDEN Data Sources", info$ehden_num_data_sources, format_number = TRUE),
+        create_detail_item("LOINC Rank", info$loinc_rank)
       )
     })
 
