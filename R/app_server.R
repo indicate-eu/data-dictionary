@@ -15,15 +15,12 @@ app_server <- function(input, output, session) {
   # Load configuration
   config <- get_config()
 
-  # Load data
-  data_dictionary <- load_indicate_data()
+  # Load CSV data
+  csv_data <- load_csv_data()
 
-  # Create reactive values for data and comments
+  # Create reactive value for data
   data <- reactive({
-    data_dictionary$data
-  })
-  comments <- reactive({
-    data_dictionary$comments
+    csv_data
   })
 
   # Track current page
@@ -57,7 +54,6 @@ app_server <- function(input, output, session) {
   mod_dictionary_explorer_server(
     "dictionary_explorer",
     data = data,
-    comments = comments,
     config = config
   )
 

@@ -1,0 +1,7 @@
+"use_case_id","use_case_name","description"
+1,"COVID-19 ICU","Patients admitted to ICU with COVID-19"
+2,"Sepsis monitoring","Monitoring of sepsis patients"
+3,"Ventilation management","Mechanical ventilation parameters"
+4,"Laboratory tracking","Laboratory results tracking"
+5,"Medication administration","Drug administration records"
+6,"Vital signs monitoring","Continuous vital signs monitoring"

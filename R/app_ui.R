@@ -31,7 +31,8 @@ app_ui <- function() {
       ),
       tags$script(src = "www/resizable_splitter.js"),
       tags$script(src = "www/nav_handler.js"),
-      tags$script(src = "www/folder_display.js")
+      tags$script(src = "www/folder_display.js"),
+      tags$script(src = "www/view_details.js")
     ),
 
     # Application header with navigation

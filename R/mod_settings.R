@@ -133,7 +133,6 @@ mod_settings_server <- function(id, config) {
     observe({
       tryCatch({
         saved_path <- get_vocab_folder()
-        message("Loaded vocab folder from DB: ", saved_path)
 
         if (!is.null(saved_path) && nchar(saved_path) > 0) {
           selected_folder(saved_path)
@@ -406,7 +405,6 @@ mod_settings_server <- function(id, config) {
         # Save to database
         tryCatch({
           set_vocab_folder(folder_path)
-          message("Saved vocab folder to DB: ", folder_path)
         }, error = function(e) {
           message("Error saving vocab folder: ", e$message)
           showModal(
