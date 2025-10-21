@@ -31,8 +31,6 @@ app_server <- function(input, output, session) {
   vocab_folder <- get_vocab_folder()
 
   if (!is.null(vocab_folder) && vocab_folder != "") {
-    message("Starting vocabulary loading in background...")
-
     # Load in isolate to avoid blocking
     isolate({
       # Start loading in background
@@ -48,20 +46,15 @@ app_server <- function(input, output, session) {
         }
 
         tryCatch({
-          message("Loading OHDSI vocabularies from: ", vocab_folder_local)
-
           concept_path <- file.path(vocab_folder_local, "CONCEPT.csv")
           concept_relationship_path <- file.path(vocab_folder_local, "CONCEPT_RELATIONSHIP.csv")
           concept_ancestor_path <- file.path(vocab_folder_local, "CONCEPT_ANCESTOR.csv")
 
           if (!file.exists(concept_path) || !file.exists(concept_relationship_path) || !file.exists(concept_ancestor_path)) {
-            message("Required vocabulary files not found")
             return(NULL)
           }
 
           # Load all three files in parallel
-          message("  Loading CONCEPT, CONCEPT_RELATIONSHIP, and CONCEPT_ANCESTOR in parallel...")
-
           concept_future <- future::future({
             readr::read_tsv(
               concept_path,
@@ -106,8 +99,6 @@ app_server <- function(input, output, session) {
           concept_relationship <- future::value(concept_relationship_future)
           concept_ancestor <- future::value(concept_ancestor_future)
 
-          message("  OHDSI vocabularies loaded successfully!")
-
           list(
             concept = concept,
             concept_relationship = concept_relationship,
@@ -121,16 +112,19 @@ app_server <- function(input, output, session) {
 
       # Poll for completion
       observe({
+        # Only continue polling if still loading
+        if (vocab_loading_status() != "loading") {
+          return()
+        }
+
         invalidateLater(500)  # Check every 500ms
 
         if (future::resolved(vocab_future)) {
           result <- future::value(vocab_future)
           if (!is.null(result)) {
-            message("Background loading complete - vocabularies ready")
             vocabularies(result)
             vocab_loading_status("loaded")
           } else {
-            message("Background loading failed")
             vocab_loading_status("error")
           }
         }
