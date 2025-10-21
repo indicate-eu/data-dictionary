@@ -23,6 +23,15 @@ app_server <- function(input, output, session) {
     csv_data
   })
 
+  # Load OHDSI vocabularies once at startup
+  vocab_folder <- get_vocab_folder()
+  ohdsi_vocabularies <- load_ohdsi_vocabularies(vocab_folder)
+
+  # Create reactive value for vocabularies
+  vocabularies <- reactive({
+    ohdsi_vocabularies
+  })
+
   # Track current page
   current_page <- reactiveVal("explorer")
 
@@ -54,7 +63,8 @@ app_server <- function(input, output, session) {
   mod_dictionary_explorer_server(
     "dictionary_explorer",
     data = data,
-    config = config
+    config = config,
+    vocabularies = vocabularies
   )
 
   mod_concepts_mapping_server(

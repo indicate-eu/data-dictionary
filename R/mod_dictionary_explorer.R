@@ -33,6 +33,7 @@ mod_dictionary_explorer_ui <- function(id) {
 #' @param id Module ID
 #' @param data Reactive containing the CSV data
 #' @param config Configuration list
+#' @param vocabularies Reactive containing preloaded OHDSI vocabularies
 #'
 #' @return Module server logic
 #' @noRd
@@ -43,7 +44,7 @@ mod_dictionary_explorer_ui <- function(id) {
 #' @importFrom magrittr %>%
 #' @importFrom htmltools HTML tags tagList
 #' @importFrom htmlwidgets JS
-mod_dictionary_explorer_server <- function(id, data, config) {
+mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -188,6 +189,7 @@ mod_dictionary_explorer_server <- function(id, data, config) {
           pageLength = 25,
           lengthMenu = list(c(10, 25, 50, 100, -1), c('10', '25', '50', '100', 'All')),
           dom = 'lftp',
+          language = list(search = ""),
           columnDefs = list(
             list(targets = 0, visible = FALSE),
             list(targets = 1, width = "150px"),
@@ -271,7 +273,8 @@ mod_dictionary_explorer_server <- function(id, data, config) {
       concept_id <- selected_concept_id()
       req(concept_id)
 
-      mappings <- data()$concept_mappings %>%
+      # Get CSV mappings
+      csv_mappings <- data()$concept_mappings %>%
         dplyr::filter(general_concept_id == concept_id) %>%
         dplyr::select(
           concept_name,
@@ -279,6 +282,44 @@ mod_dictionary_explorer_server <- function(id, data, config) {
           concept_code,
           omop_concept_id,
           recommended
+        )
+
+      # Get athena_concept_id for this general concept
+      concept_info <- data()$general_concepts %>%
+        dplyr::filter(general_concept_id == concept_id)
+
+      athena_concept_id <- concept_info$athena_concept_id[1]
+
+      # If athena_concept_id exists, get related concepts from OHDSI vocabularies
+      if (!is.na(athena_concept_id) && !is.null(athena_concept_id)) {
+        vocab_data <- vocabularies()
+
+        if (!is.null(vocab_data)) {
+          athena_concepts <- get_all_related_concepts(
+            athena_concept_id,
+            vocab_data,
+            csv_mappings
+          )
+
+          # Combine CSV and ATHENA concepts
+          if (nrow(athena_concepts) > 0) {
+            mappings <- dplyr::bind_rows(csv_mappings, athena_concepts) %>%
+              dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
+              dplyr::arrange(dplyr::desc(recommended), concept_name)
+          } else {
+            mappings <- csv_mappings
+          }
+        } else {
+          mappings <- csv_mappings
+        }
+      } else {
+        mappings <- csv_mappings
+      }
+
+      # Convert recommended to Yes/No
+      mappings <- mappings %>%
+        dplyr::mutate(
+          recommended = ifelse(recommended, "Yes", "No")
         )
 
       DT::datatable(
@@ -299,15 +340,15 @@ mod_dictionary_explorer_server <- function(id, data, config) {
           'recommended',
           target = 'cell',
           backgroundColor = DT::styleEqual(
-            c(TRUE, FALSE),
+            c("Yes", "No"),
             c('#d4edda', '#f8f9fa')
           ),
           fontWeight = DT::styleEqual(
-            c(TRUE, FALSE),
+            c("Yes", "No"),
             c('bold', 'normal')
           ),
           color = DT::styleEqual(
-            c(TRUE, FALSE),
+            c("Yes", "No"),
             c('#155724', '#666')
           )
         )

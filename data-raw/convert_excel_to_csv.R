@@ -108,8 +108,7 @@ concept_mappings <- all_data %>%
     by = c("category", "subcategory", "general_concept_name")
   ) %>%
   mutate(
-    recommended = ifelse(is.na(recommended) | recommended == "", FALSE,
-                        ifelse(tolower(recommended) == "x" | tolower(recommended) == "true", TRUE, FALSE))
+    recommended = TRUE
   ) %>%
   select(
     general_concept_id,

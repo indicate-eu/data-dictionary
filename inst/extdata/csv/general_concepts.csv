@@ -330,7 +330,7 @@ Finally, if no detail is available about whether the tidal volume is set or meas
 324,"Vitals","Haemodynamics","Cardiac output",,
 325,"Vitals","Haemodynamics","Central venous pressure",,
 326,"Vitals","Haemodynamics","Diastolic blood pressure",,
-327,"Vitals","Haemodynamics","Heart rate",,
+327,"Vitals","Haemodynamics","Heart rate",3027018,
 328,"Vitals","Haemodynamics","Mean blood pressure",,
 329,"Vitals","Haemodynamics","Systolic blood pressure",,
 330,"Vitals","Other vitals","Temperature",,
