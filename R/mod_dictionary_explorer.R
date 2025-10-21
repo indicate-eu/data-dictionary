@@ -22,6 +22,29 @@ mod_dictionary_explorer_ui <- function(id) {
             # Dynamic content area
             uiOutput(ns("content_area"))
         )
+    ),
+
+    # Modal for concept details
+    tags$div(
+      id = ns("concept_modal"),
+      class = "modal-overlay",
+      style = "display: none;",
+      tags$div(
+        class = "modal-content",
+        tags$div(
+          class = "modal-header",
+          tags$h3("Concept Details"),
+          tags$button(
+            class = "modal-close",
+            onclick = sprintf("$('#%s').hide();", ns("concept_modal")),
+            "×"
+          )
+        ),
+        tags$div(
+          class = "modal-body",
+          uiOutput(ns("concept_modal_body"))
+        )
+      )
     )
   )
 }
@@ -126,7 +149,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
             class = "quadrant quadrant-top-left",
             tags$div(
               class = "section-header",
-              tags$h4("Mapped Concepts")
+              tags$h4(
+                "Mapped Concepts",
+                tags$span(
+                  class = "info-icon",
+                  `data-tooltip` = "Concepts selected by the Data Dictionary group (marked as 'Recommended'), plus valid and standard related concepts from ATHENA (hierarchical descendants and equivalent terms)",
+                  "ⓘ"
+                )
+              )
             ),
             tags$div(
               class = "quadrant-content",
@@ -143,7 +173,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
             class = "quadrant quadrant-top-right",
             tags$div(
               class = "section-header",
-              tags$h4("Selected Concept Details")
+              tags$h4(
+                "Selected Concept Details",
+                tags$span(
+                  class = "info-icon",
+                  `data-tooltip` = "Detailed information about the selected concept from Mapped Concepts, including vocabulary, codes, links to ATHENA and FHIR resources",
+                  "ⓘ"
+                )
+              )
             ),
             tags$div(
               class = "quadrant-content",
@@ -164,7 +201,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
             class = "quadrant quadrant-bottom-left",
             tags$div(
               class = "section-header",
-              tags$h4("ETL Guidance & Comments")
+              tags$h4(
+                "ETL Guidance & Comments",
+                tags$span(
+                  class = "info-icon",
+                  `data-tooltip` = "Expert guidance and comments for ETL (Extract, Transform, Load) processes related to this concept",
+                  "ⓘ"
+                )
+              )
             ),
             tags$div(
               class = "quadrant-content",
@@ -181,7 +225,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
             class = "quadrant quadrant-bottom-right",
             tags$div(
               class = "section-header section-header-with-tabs",
-              tags$h4("Concept Relationships & Hierarchy"),
+              tags$h4(
+                "Concept Relationships & Hierarchy",
+                tags$span(
+                  class = "info-icon",
+                  `data-tooltip` = "All related concepts and hierarchical relationships from OHDSI vocabularies, including both standard and non-standard concepts. Double-click a row to see details.",
+                  "ⓘ"
+                )
+              ),
               tags$div(
                 class = "section-tabs",
                 tags$button(
@@ -334,7 +385,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       concept_id <- selected_concept_id()
       req(concept_id)
 
-      # Get CSV mappings
+      # Get CSV mappings (recommended concepts)
       csv_mappings <- data()$concept_mappings %>%
         dplyr::filter(general_concept_id == concept_id) %>%
         dplyr::select(
@@ -345,54 +396,77 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           recommended
         )
 
-      # Get athena_concept_id for this general concept
-      concept_info <- data()$general_concepts %>%
-        dplyr::filter(general_concept_id == concept_id)
+      # Get OHDSI vocabulary concepts from recommended concepts
+      vocab_data <- vocabularies()
 
-      athena_concept_id <- concept_info$athena_concept_id[1]
+      if (!is.null(vocab_data) && nrow(csv_mappings) > 0) {
+        # Get all recommended concept IDs
+        recommended_ids <- csv_mappings %>%
+          dplyr::filter(recommended == TRUE) %>%
+          dplyr::pull(omop_concept_id)
 
-      # Get concepts from OHDSI vocabularies
-      if (!is.na(athena_concept_id) && !is.null(athena_concept_id)) {
-        vocab_data <- vocabularies()
+        # Initialize data frames for descendants and related concepts
+        all_descendants <- data.frame()
+        all_related <- data.frame()
 
-        if (!is.null(vocab_data)) {
-          # Get descendant concepts (hierarchy)
-          descendants <- get_descendant_concepts(athena_concept_id, vocab_data)
-          if (nrow(descendants) > 0) {
-            descendants <- descendants %>%
-              dplyr::mutate(recommended = FALSE) %>%
-              dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended)
+        # For each recommended concept, get descendants and related concepts
+        for (rec_id in recommended_ids) {
+          if (!is.na(rec_id) && !is.null(rec_id)) {
+            # Get descendant concepts (hierarchy)
+            descendants <- get_descendant_concepts(rec_id, vocab_data)
+            if (nrow(descendants) > 0) {
+              all_descendants <- dplyr::bind_rows(all_descendants, descendants)
+            }
+
+            # Get same-level concepts (Maps to / Mapped from) - filtered for standard and valid
+            same_level <- get_related_concepts_filtered(rec_id, vocab_data)
+            if (nrow(same_level) > 0) {
+              # Filter only Maps to and Mapped from
+              same_level <- same_level %>%
+                dplyr::filter(relationship_id %in% c("Maps to", "Mapped from"))
+              all_related <- dplyr::bind_rows(all_related, same_level)
+            }
           }
-
-          # Get same-level concepts (Maps to / Mapped from) - filtered for standard and valid
-          same_level <- get_related_concepts_filtered(athena_concept_id, vocab_data)
-          if (nrow(same_level) > 0) {
-            # Filter only Maps to and Mapped from
-            same_level <- same_level %>%
-              dplyr::filter(relationship_id %in% c("Maps to", "Mapped from")) %>%
-              dplyr::mutate(recommended = FALSE) %>%
-              dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended)
-          }
-
-          # Combine all sources
-          all_concepts <- dplyr::bind_rows(csv_mappings, descendants, same_level) %>%
-            dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
-            dplyr::arrange(dplyr::desc(recommended), concept_name)
-
-          mappings <- all_concepts
-        } else {
-          mappings <- csv_mappings
         }
+
+        # Remove duplicates and add recommended flag
+        if (nrow(all_descendants) > 0) {
+          all_descendants <- all_descendants %>%
+            dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
+            dplyr::mutate(recommended = FALSE) %>%
+            dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended)
+        }
+
+        if (nrow(all_related) > 0) {
+          all_related <- all_related %>%
+            dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
+            dplyr::mutate(recommended = FALSE) %>%
+            dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended)
+        }
+
+        # Combine all sources
+        mappings <- dplyr::bind_rows(csv_mappings, all_descendants, all_related) %>%
+          dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
+          dplyr::arrange(dplyr::desc(recommended), concept_name)
       } else {
         mappings <- csv_mappings
       }
+
+      # Get athena_concept_id for marking the general concept
+      concept_info <- data()$general_concepts %>%
+        dplyr::filter(general_concept_id == concept_id)
+      athena_concept_id <- concept_info$athena_concept_id[1]
 
       # Mark the general concept and convert recommended to Yes/No
       if (nrow(mappings) > 0) {
         mappings <- mappings %>%
           dplyr::mutate(
             recommended = ifelse(recommended, "Yes", "No"),
-            is_general_concept = omop_concept_id == athena_concept_id
+            is_general_concept = if (!is.na(athena_concept_id)) {
+              omop_concept_id == athena_concept_id
+            } else {
+              FALSE
+            }
           )
       } else {
         # If no concepts, show empty table
@@ -464,9 +538,17 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     # Cache for current mappings to avoid recalculation
     current_mappings <- reactiveVal(NULL)
 
-    # Observe selection in concept mappings table
-    observeEvent(input$concept_mappings_table_rows_selected, {
-      selected_row <- input$concept_mappings_table_rows_selected
+    # Debounce the table selection to avoid excessive updates when navigating with arrow keys
+    debounced_selection <- debounce(
+      reactive({
+        input$concept_mappings_table_rows_selected
+      }),
+      300  # Wait 300ms after user stops navigating
+    )
+
+    # Observe selection in concept mappings table with debounce
+    observeEvent(debounced_selection(), {
+      selected_row <- debounced_selection()
       if (!is.null(selected_row) && length(selected_row) > 0) {
         # Use cached mappings if available
         mappings <- current_mappings()
@@ -521,7 +603,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           selected_mapped_concept_id(selected_omop_id)
         }
       }
-    }, ignoreNULL = FALSE, ignoreInit = FALSE, priority = 1000)
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
     # Render concept details (top-right quadrant)
     output$concept_details_display <- renderUI({
@@ -755,7 +837,22 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           columnDefs = list(
             list(targets = 4, visible = FALSE),  # OMOP ID hidden
             list(targets = 0, width = "150px")   # Relationship column width
-          )
+          ),
+          initComplete = JS(sprintf("
+            function(settings, json) {
+              var table = this.api();
+
+              // Add double-click handler for table rows
+              $(table.table().node()).on('dblclick', 'tbody tr', function() {
+                var rowData = table.row(this).data();
+                if (rowData && rowData[4]) {
+                  var conceptId = rowData[4];  // OMOP ID is in column 4 (hidden)
+                  Shiny.setInputValue('%s', conceptId, {priority: 'event'});
+                  $('#%s').show();
+                }
+              });
+            }
+          ", ns("modal_concept_id"), ns("concept_modal")))
         )
       )
     }, server = FALSE)
@@ -798,9 +895,124 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           columnDefs = list(
             list(targets = 4, visible = FALSE),  # OMOP ID hidden
             list(targets = 0, width = "150px")   # Relationship column width
-          )
+          ),
+          initComplete = JS(sprintf("
+            function(settings, json) {
+              var table = this.api();
+
+              // Add double-click handler for table rows
+              $(table.table().node()).on('dblclick', 'tbody tr', function() {
+                var rowData = table.row(this).data();
+                if (rowData && rowData[4]) {
+                  var conceptId = rowData[4];  // OMOP ID is in column 4 (hidden)
+                  Shiny.setInputValue('%s', conceptId, {priority: 'event'});
+                  $('#%s').show();
+                }
+              });
+            }
+          ", ns("modal_concept_id"), ns("concept_modal")))
         )
       )
     }, server = FALSE)
+
+    # Modal concept details
+    output$concept_modal_body <- renderUI({
+      concept_id <- input$modal_concept_id
+      req(concept_id)
+
+      vocab_data <- vocabularies()
+      req(vocab_data)
+
+      # Get concept information from vocabularies
+      concept_info <- vocab_data$concept %>%
+        dplyr::filter(concept_id == concept_id)
+
+      if (nrow(concept_info) == 0) {
+        return(tags$p("Concept not found.", style = "color: #666; font-style: italic;"))
+      }
+
+      info <- concept_info[1, ]
+
+      # Build ATHENA URL
+      athena_url <- build_athena_url(info$concept_id, config)
+
+      # Build FHIR URL
+      fhir_url <- build_fhir_url(info$vocabulary_id, info$concept_code, config)
+
+      # Helper function to create detail items
+      create_detail_item <- function(label, value, url = NULL, color = NULL) {
+        display_value <- if (is.na(value) || is.null(value) || value == "") {
+          "/"
+        } else {
+          as.character(value)
+        }
+
+        # Create link if URL provided
+        if (!is.null(url) && display_value != "/") {
+          display_value <- tags$a(
+            href = url,
+            target = "_blank",
+            style = "color: #0f60af; text-decoration: underline;",
+            display_value
+          )
+        } else if (!is.null(color)) {
+          # Apply color if specified
+          display_value <- tags$span(
+            style = paste0("color: ", color, "; font-weight: 600;"),
+            display_value
+          )
+        }
+
+        tags$div(
+          class = "detail-item",
+          tags$strong(label),
+          tags$span(display_value)
+        )
+      }
+
+      # Determine if concept is valid
+      is_valid <- is.na(info$invalid_reason) || info$invalid_reason == ""
+      validity_color <- if (is_valid) "#28a745" else "#dc3545"
+      validity_text <- if (is_valid) "Valid" else paste0("Invalid (", info$invalid_reason, ")")
+
+      # Determine if concept is standard
+      is_standard <- !is.na(info$standard_concept) && info$standard_concept == "S"
+      standard_color <- if (is_standard) "#28a745" else "#dc3545"
+      standard_text <- if (is_standard) "Standard" else "Non-standard"
+
+      tags$div(
+        class = "concept-details-container",
+        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(7, auto); grid-auto-flow: column; gap: 4px 15px;",
+        # Column 1
+        create_detail_item("Concept Name", info$concept_name),
+        create_detail_item("Category", info$domain_id),
+        create_detail_item("Sub-category", info$concept_class_id),
+        create_detail_item("Validity", validity_text, color = validity_color),
+        create_detail_item("Standard", standard_text, color = standard_color),
+        tags$div(class = "detail-item", style = "visibility: hidden;"),
+        tags$div(class = "detail-item", style = "visibility: hidden;"),
+        # Column 2
+        create_detail_item("Vocabulary ID", info$vocabulary_id),
+        create_detail_item("Concept Code", info$concept_code),
+        create_detail_item("OMOP Concept ID", info$concept_id, url = athena_url),
+        if (!is.null(fhir_url)) {
+          tags$div(
+            class = "detail-item",
+            tags$strong("FHIR Resource"),
+            tags$a(
+              href = fhir_url,
+              target = "_blank",
+              style = "color: #0f60af; text-decoration: underline;",
+              "View"
+            )
+          )
+        } else {
+          tags$div(class = "detail-item", style = "visibility: hidden;")
+        },
+        tags$div(class = "detail-item", style = "visibility: hidden;"),
+        tags$div(class = "detail-item", style = "visibility: hidden;"),
+        tags$div(class = "detail-item", style = "visibility: hidden;")
+      )
+    })
   })
 }
