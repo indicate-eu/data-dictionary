@@ -23,8 +23,11 @@ Imports:
     magrittr,
     purrr (>= 1.0.0),
     readxl (>= 1.4.0),
+    readr (>= 2.0.0),
     htmltools (>= 0.5.0),
-    htmlwidgets
+    htmlwidgets,
+    promises (>= 1.2.0),
+    future (>= 1.30.0)
 Suggests:
     testthat (>= 3.0.0),
     knitr,

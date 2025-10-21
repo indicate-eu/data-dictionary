@@ -57,8 +57,9 @@ app_ui <- function() {
             )
         ),
 
-        # Settings button on the right
+        # Settings button and loading status on the right
         div(class = "header-right",
+            uiOutput("vocab_status_indicator"),
             actionButton(
               "nav_settings",
               label = icon("cog"),

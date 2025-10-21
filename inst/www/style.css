@@ -612,3 +612,39 @@ a.paginate_button.current * {
 .view-details-btn:hover {
   background: #3a8ad6 !important;
 }
+
+/* Vocabulary loading status indicator
+-------------------------------------------------- */
+.vocab-status {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+.vocab-status-loading {
+  background: #ff9800;
+  color: white;
+  animation: pulse 1.5s infinite;
+}
+
+.vocab-status-loaded {
+  background: #28a745;
+  color: white;
+}
+
+.vocab-status-loaded i {
+  margin-right: 4px;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}

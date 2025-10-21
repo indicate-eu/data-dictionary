@@ -27,44 +27,52 @@ load_ohdsi_vocabularies <- function(vocab_folder) {
       return(NULL)
     }
 
-    # Load CONCEPT
-    message("  Loading CONCEPT...")
-    concept <- readr::read_tsv(
-      concept_path,
-      col_types = readr::cols(
-        concept_id = readr::col_integer(),
-        concept_name = readr::col_character(),
-        domain_id = readr::col_character(),
-        vocabulary_id = readr::col_character(),
-        concept_class_id = readr::col_character(),
-        standard_concept = readr::col_character(),
-        concept_code = readr::col_character()
-      ),
-      show_col_types = FALSE
-    )
+    # Load all three files in parallel using future
+    message("  Loading CONCEPT, CONCEPT_RELATIONSHIP, and CONCEPT_ANCESTOR in parallel...")
 
-    # Load CONCEPT_RELATIONSHIP
-    message("  Loading CONCEPT_RELATIONSHIP...")
-    concept_relationship <- readr::read_tsv(
-      concept_relationship_path,
-      col_types = readr::cols(
-        concept_id_1 = readr::col_integer(),
-        concept_id_2 = readr::col_integer(),
-        relationship_id = readr::col_character()
-      ),
-      show_col_types = FALSE
-    )
+    concept_future <- future::future({
+      readr::read_tsv(
+        concept_path,
+        col_types = readr::cols(
+          concept_id = readr::col_integer(),
+          concept_name = readr::col_character(),
+          domain_id = readr::col_character(),
+          vocabulary_id = readr::col_character(),
+          concept_class_id = readr::col_character(),
+          standard_concept = readr::col_character(),
+          concept_code = readr::col_character()
+        ),
+        show_col_types = FALSE
+      )
+    })
 
-    # Load CONCEPT_ANCESTOR
-    message("  Loading CONCEPT_ANCESTOR...")
-    concept_ancestor <- readr::read_tsv(
-      concept_ancestor_path,
-      col_types = readr::cols(
-        ancestor_concept_id = readr::col_integer(),
-        descendant_concept_id = readr::col_integer()
-      ),
-      show_col_types = FALSE
-    )
+    concept_relationship_future <- future::future({
+      readr::read_tsv(
+        concept_relationship_path,
+        col_types = readr::cols(
+          concept_id_1 = readr::col_integer(),
+          concept_id_2 = readr::col_integer(),
+          relationship_id = readr::col_character()
+        ),
+        show_col_types = FALSE
+      )
+    })
+
+    concept_ancestor_future <- future::future({
+      readr::read_tsv(
+        concept_ancestor_path,
+        col_types = readr::cols(
+          ancestor_concept_id = readr::col_integer(),
+          descendant_concept_id = readr::col_integer()
+        ),
+        show_col_types = FALSE
+      )
+    })
+
+    # Wait for all futures to complete
+    concept <- future::value(concept_future)
+    concept_relationship <- future::value(concept_relationship_future)
+    concept_ancestor <- future::value(concept_ancestor_future)
 
     message("  OHDSI vocabularies loaded successfully!")
 

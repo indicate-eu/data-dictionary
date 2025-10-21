@@ -9,7 +9,7 @@
 #' @return Server logic
 #' @noRd
 #'
-#' @importFrom shiny reactive observeEvent renderUI reactiveVal
+#' @importFrom shiny reactive observeEvent renderUI reactiveVal tags icon observe isolate invalidateLater
 app_server <- function(input, output, session) {
 
   # Load configuration
@@ -23,13 +23,141 @@ app_server <- function(input, output, session) {
     csv_data
   })
 
-  # Load OHDSI vocabularies once at startup
-  vocab_folder <- get_vocab_folder()
-  ohdsi_vocabularies <- load_ohdsi_vocabularies(vocab_folder)
+  # Reactive value to track vocabulary loading status
+  vocabularies <- reactiveVal(NULL)
+  vocab_loading_status <- reactiveVal("loading")  # "loading", "loaded", "error"
 
-  # Create reactive value for vocabularies
-  vocabularies <- reactive({
-    ohdsi_vocabularies
+  # Load OHDSI vocabularies in background
+  vocab_folder <- get_vocab_folder()
+
+  if (!is.null(vocab_folder) && vocab_folder != "") {
+    message("Starting vocabulary loading in background...")
+
+    # Load in isolate to avoid blocking
+    isolate({
+      # Start loading in background
+      future::future({
+        # Load packages in the future session
+        library(readr)
+        library(dplyr)
+
+        vocab_folder_local <- vocab_folder
+
+        if (is.null(vocab_folder_local) || vocab_folder_local == "" || !dir.exists(vocab_folder_local)) {
+          return(NULL)
+        }
+
+        tryCatch({
+          message("Loading OHDSI vocabularies from: ", vocab_folder_local)
+
+          concept_path <- file.path(vocab_folder_local, "CONCEPT.csv")
+          concept_relationship_path <- file.path(vocab_folder_local, "CONCEPT_RELATIONSHIP.csv")
+          concept_ancestor_path <- file.path(vocab_folder_local, "CONCEPT_ANCESTOR.csv")
+
+          if (!file.exists(concept_path) || !file.exists(concept_relationship_path) || !file.exists(concept_ancestor_path)) {
+            message("Required vocabulary files not found")
+            return(NULL)
+          }
+
+          # Load all three files in parallel
+          message("  Loading CONCEPT, CONCEPT_RELATIONSHIP, and CONCEPT_ANCESTOR in parallel...")
+
+          concept_future <- future::future({
+            readr::read_tsv(
+              concept_path,
+              col_types = readr::cols(
+                concept_id = readr::col_integer(),
+                concept_name = readr::col_character(),
+                domain_id = readr::col_character(),
+                vocabulary_id = readr::col_character(),
+                concept_class_id = readr::col_character(),
+                standard_concept = readr::col_character(),
+                concept_code = readr::col_character()
+              ),
+              show_col_types = FALSE
+            )
+          })
+
+          concept_relationship_future <- future::future({
+            readr::read_tsv(
+              concept_relationship_path,
+              col_types = readr::cols(
+                concept_id_1 = readr::col_integer(),
+                concept_id_2 = readr::col_integer(),
+                relationship_id = readr::col_character()
+              ),
+              show_col_types = FALSE
+            )
+          })
+
+          concept_ancestor_future <- future::future({
+            readr::read_tsv(
+              concept_ancestor_path,
+              col_types = readr::cols(
+                ancestor_concept_id = readr::col_integer(),
+                descendant_concept_id = readr::col_integer()
+              ),
+              show_col_types = FALSE
+            )
+          })
+
+          # Wait for all to complete
+          concept <- future::value(concept_future)
+          concept_relationship <- future::value(concept_relationship_future)
+          concept_ancestor <- future::value(concept_ancestor_future)
+
+          message("  OHDSI vocabularies loaded successfully!")
+
+          list(
+            concept = concept,
+            concept_relationship = concept_relationship,
+            concept_ancestor = concept_ancestor
+          )
+        }, error = function(e) {
+          message("Error loading OHDSI vocabularies: ", e$message)
+          NULL
+        })
+      }, seed = TRUE) -> vocab_future
+
+      # Poll for completion
+      observe({
+        invalidateLater(500)  # Check every 500ms
+
+        if (future::resolved(vocab_future)) {
+          result <- future::value(vocab_future)
+          if (!is.null(result)) {
+            message("Background loading complete - vocabularies ready")
+            vocabularies(result)
+            vocab_loading_status("loaded")
+          } else {
+            message("Background loading failed")
+            vocab_loading_status("error")
+          }
+        }
+      })
+    })
+  } else {
+    vocab_loading_status("error")
+  }
+
+  # Render vocabulary loading status indicator
+  output$vocab_status_indicator <- renderUI({
+    status <- vocab_loading_status()
+
+    if (status == "loading") {
+      tags$span(
+        class = "vocab-status vocab-status-loading",
+        "Loading OHDSI data"
+      )
+    } else if (status == "loaded") {
+      tags$span(
+        class = "vocab-status vocab-status-loaded",
+        icon("check"),
+        "OHDSI data loaded"
+      )
+    } else {
+      NULL
+    }
   })
 
   # Track current page
@@ -64,7 +192,7 @@ app_server <- function(input, output, session) {
     "dictionary_explorer",
     data = data,
     config = config,
-    vocabularies = vocabularies
+    vocabularies = reactive({ vocabularies() })
   )
 
   mod_concepts_mapping_server(
