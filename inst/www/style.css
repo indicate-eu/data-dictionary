@@ -648,3 +648,244 @@ a.paginate_button.current * {
     opacity: 0.7;
   }
 }
+
+/* Quadrant layout for concept details view
+-------------------------------------------------- */
+.quadrant-layout {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 180px);
+  width: 100%;
+}
+
+.top-section,
+.bottom-section {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.top-section {
+  height: 50%;
+  flex: 1;
+  min-height: 200px;
+}
+
+.bottom-section {
+  height: 50%;
+  flex: 1;
+  min-height: 200px;
+}
+
+.quadrant {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.quadrant-top-left,
+.quadrant-bottom-left {
+  width: 50%;
+  flex: 1;
+  min-width: 300px;
+}
+
+.quadrant-top-right,
+.quadrant-bottom-right {
+  width: 50%;
+  flex: 1;
+  min-width: 300px;
+}
+
+.quadrant .section-header {
+  flex-shrink: 0;
+  background: #f8f9fa;
+  padding: 12px 15px;
+  border-bottom: 2px solid #0f60af;
+}
+
+.quadrant .section-header h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f60af;
+}
+
+.quadrant-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  background: white;
+}
+
+/* Splitter variants for quadrant layout */
+.splitter-h {
+  width: 100%;
+  height: 8px;
+  cursor: row-resize;
+  background-color: #dee2e6;
+  flex-shrink: 0;
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+.splitter-v {
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+  background-color: #dee2e6;
+  flex-shrink: 0;
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+.splitter-h:hover,
+.splitter-v:hover,
+.splitter-active {
+  background-color: #0f60af;
+}
+
+.splitter-h:before {
+  content: '≡';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  color: #fff;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.splitter-v:before {
+  content: '≡';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  color: #fff;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.splitter-h:hover:before,
+.splitter-v:hover:before {
+  opacity: 1;
+}
+
+/* Concept details styling
+-------------------------------------------------- */
+.concept-details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detail-item {
+  padding: 10px;
+  background: #f8f9fa;
+  border-left: 3px solid #0f60af;
+  border-radius: 4px;
+}
+
+.detail-item strong {
+  color: #0f60af;
+  font-weight: 600;
+}
+
+.detail-item span {
+  color: #333;
+}
+
+/* Section header with tabs
+-------------------------------------------------- */
+.section-header-with-tabs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background: #f8f9fa;
+  border-bottom: 2px solid #0f60af;
+}
+
+.section-header-with-tabs h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f60af;
+  flex: 1;
+}
+
+.section-tabs {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.tab-btn {
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  color: #666;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.tab-btn:hover {
+  background: #e9ecef;
+  color: #0f60af;
+}
+
+.tab-btn-active {
+  background: #0f60af;
+  color: white;
+}
+
+.tab-btn-active:hover {
+  background: #0d4d8c;
+  color: white;
+}
+
+/* Relationship table
+-------------------------------------------------- */
+.relationship-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.relationship-table thead {
+  background: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.relationship-table th {
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #0f60af;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.relationship-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #333;
+  font-size: 14px;
+}
+
+.relationship-table tbody tr:hover {
+  background: #f8f9fa;
+}
+
+.relationship-table tbody tr:last-child td {
+  border-bottom: none;
+}

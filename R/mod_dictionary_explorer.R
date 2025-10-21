@@ -51,6 +51,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     # Track current view and selected concept
     current_view <- reactiveVal("list")  # "list" or "detail"
     selected_concept_id <- reactiveVal(NULL)
+    selected_mapped_concept_id <- reactiveVal(NULL)  # Track selected concept in mappings table
+    relationships_tab <- reactiveVal("related")  # Track active tab: "related", "hierarchy", "synonyms"
 
     # Render breadcrumb
     output$breadcrumb <- renderUI({
@@ -114,46 +116,106 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
     # Function to render concept details
     render_concept_details <- function() {
-      fluidRow(
-        # Left panel: Comments and concept mappings
-        column(6,
-               tags$div(
-                 class = "detail-panel-left",
-                 style = "height: calc(100vh - 180px); overflow-y: auto;",
-                 # Comments section
-                 tags$div(
-                   class = "section-header",
-                   tags$h4("ETL Guidance & Comments")
-                 ),
-                 uiOutput(ns("comments_display")),
-
-                 # Concept mappings section
-                 tags$div(
-                   class = "section-header",
-                   style = "margin-top: 20px;",
-                   tags$h4("Mapped Concepts")
-                 ),
-                 DT::DTOutput(ns("concept_mappings_table"))
-               )
+      tags$div(
+        class = "quadrant-layout",
+        # Top section: Mapped Concepts and Selected Concept Details
+        tags$div(
+          class = "top-section",
+          # Top-left: Mapped Concepts
+          tags$div(
+            class = "quadrant quadrant-top-left",
+            tags$div(
+              class = "section-header",
+              tags$h4("Mapped Concepts")
+            ),
+            tags$div(
+              class = "quadrant-content",
+              shinycssloaders::withSpinner(
+                DT::DTOutput(ns("concept_mappings_table")),
+                type = 4,
+                color = "#0f60af",
+                size = 0.5
+              )
+            )
+          ),
+          # Top-right: Selected Concept Details
+          tags$div(
+            class = "quadrant quadrant-top-right",
+            tags$div(
+              class = "section-header",
+              tags$h4("Selected Concept Details")
+            ),
+            tags$div(
+              class = "quadrant-content",
+              shinycssloaders::withSpinner(
+                uiOutput(ns("concept_details_display")),
+                type = 4,
+                color = "#0f60af",
+                size = 0.5
+              )
+            )
+          )
         ),
-
-        # Right panel: Concept relationships (placeholder for now)
-        column(6,
-               tags$div(
-                 class = "detail-panel-right",
-                 style = "height: calc(100vh - 180px); overflow-y: auto;",
-                 tags$div(
-                   class = "section-header",
-                   tags$h4("Concept Relationships")
-                 ),
-                 tags$div(
-                   style = "padding: 20px; background: #f8f9fa; border-radius: 6px; text-align: center;",
-                   tags$p(
-                     style = "color: #666;",
-                     "Select a concept from the left panel to view its relationships and hierarchy."
-                   )
-                 )
-               )
+        # Horizontal splitter
+        tags$div(class = "splitter splitter-h"),
+        # Bottom section: Comments and Relationships
+        tags$div(
+          class = "bottom-section",
+          # Bottom-left: Comments
+          tags$div(
+            class = "quadrant quadrant-bottom-left",
+            tags$div(
+              class = "section-header",
+              tags$h4("ETL Guidance & Comments")
+            ),
+            tags$div(
+              class = "quadrant-content",
+              shinycssloaders::withSpinner(
+                uiOutput(ns("comments_display")),
+                type = 4,
+                color = "#0f60af",
+                size = 0.5
+              )
+            )
+          ),
+          # Bottom-right: Concept Relationships
+          tags$div(
+            class = "quadrant quadrant-bottom-right",
+            tags$div(
+              class = "section-header section-header-with-tabs",
+              tags$h4("Concept Relationships & Hierarchy"),
+              tags$div(
+                class = "section-tabs",
+                tags$button(
+                  class = "tab-btn tab-btn-active",
+                  id = ns("tab_related"),
+                  onclick = sprintf("Shiny.setInputValue('%s', 'related', {priority: 'event'})", ns("switch_relationships_tab")),
+                  "Related"
+                ),
+                tags$button(
+                  class = "tab-btn",
+                  id = ns("tab_hierarchy"),
+                  onclick = sprintf("Shiny.setInputValue('%s', 'hierarchy', {priority: 'event'})", ns("switch_relationships_tab")),
+                  "Hierarchy"
+                ),
+                tags$button(
+                  class = "tab-btn",
+                  id = ns("tab_synonyms"),
+                  onclick = sprintf("Shiny.setInputValue('%s', 'synonyms', {priority: 'event'})", ns("switch_relationships_tab")),
+                  "Synonyms"
+                )
+              )
+            ),
+            tags$div(
+              class = "quadrant-content",
+              shinycssloaders::withSpinner(
+                uiOutput(ns("concept_relationships_display")),
+                type = 4,
+                color = "#0f60af",
+                size = 0.5
+              )
+            )
+          )
         )
       )
     }
@@ -290,25 +352,35 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
       athena_concept_id <- concept_info$athena_concept_id[1]
 
-      # If athena_concept_id exists, get related concepts from OHDSI vocabularies
+      # Get concepts from OHDSI vocabularies
       if (!is.na(athena_concept_id) && !is.null(athena_concept_id)) {
         vocab_data <- vocabularies()
 
         if (!is.null(vocab_data)) {
-          athena_concepts <- get_all_related_concepts(
-            athena_concept_id,
-            vocab_data,
-            csv_mappings
-          )
-
-          # Combine CSV and ATHENA concepts
-          if (nrow(athena_concepts) > 0) {
-            mappings <- dplyr::bind_rows(csv_mappings, athena_concepts) %>%
-              dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
-              dplyr::arrange(dplyr::desc(recommended), concept_name)
-          } else {
-            mappings <- csv_mappings
+          # Get descendant concepts (hierarchy)
+          descendants <- get_descendant_concepts(athena_concept_id, vocab_data)
+          if (nrow(descendants) > 0) {
+            descendants <- descendants %>%
+              dplyr::mutate(recommended = FALSE) %>%
+              dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended)
           }
+
+          # Get same-level concepts (Maps to / Mapped from)
+          same_level <- get_related_concepts(athena_concept_id, vocab_data)
+          if (nrow(same_level) > 0) {
+            # Filter only Maps to and Mapped from
+            same_level <- same_level %>%
+              dplyr::filter(relationship_id %in% c("Maps to", "Mapped from")) %>%
+              dplyr::mutate(recommended = FALSE) %>%
+              dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended)
+          }
+
+          # Combine all sources
+          all_concepts <- dplyr::bind_rows(csv_mappings, descendants, same_level) %>%
+            dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
+            dplyr::arrange(dplyr::desc(recommended), concept_name)
+
+          mappings <- all_concepts
         } else {
           mappings <- csv_mappings
         }
@@ -316,23 +388,38 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         mappings <- csv_mappings
       }
 
-      # Convert recommended to Yes/No
-      mappings <- mappings %>%
-        dplyr::mutate(
-          recommended = ifelse(recommended, "Yes", "No")
-        )
+      # Mark the general concept and convert recommended to Yes/No
+      if (nrow(mappings) > 0) {
+        mappings <- mappings %>%
+          dplyr::mutate(
+            recommended = ifelse(recommended, "Yes", "No"),
+            is_general_concept = omop_concept_id == athena_concept_id
+          )
+      } else {
+        # If no concepts, show empty table
+        return(DT::datatable(
+          data.frame(Message = "No concepts found."),
+          options = list(dom = 't'),
+          rownames = FALSE,
+          selection = 'none'
+        ))
+      }
 
-      DT::datatable(
+      # Reorder columns to put is_general_concept at the end and hide OMOP ID
+      mappings <- mappings %>%
+        dplyr::select(concept_name, vocabulary_id, concept_code, recommended, omop_concept_id, is_general_concept)
+
+      dt <- DT::datatable(
         mappings,
         selection = 'single',
         rownames = FALSE,
-        colnames = c("Concept Name", "Vocabulary", "Code", "OMOP ID", "Recommended"),
+        colnames = c("Concept Name", "Vocabulary", "Code", "Recommended", "OMOP ID", ""),
         options = list(
           pageLength = 10,
           dom = 'tp',
           columnDefs = list(
-            list(targets = 3, visible = FALSE),
-            list(targets = 4, width = "100px", className = 'dt-center')
+            list(targets = 3, width = "100px", className = 'dt-center'),  # Recommended column
+            list(targets = c(4, 5), visible = FALSE)  # OMOP ID and IsGeneral columns hidden
           )
         )
       ) %>%
@@ -351,7 +438,249 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
             c("Yes", "No"),
             c('#155724', '#666')
           )
+        ) %>%
+        DT::formatStyle(
+          0,  # First column (concept_name)
+          valueColumns = 'is_general_concept',
+          fontWeight = DT::styleEqual(c(TRUE, FALSE), c('bold', 'normal')),
+          color = DT::styleEqual(c(TRUE, FALSE), c('#000', '#333'))
         )
+
+      dt
+    }, server = FALSE)
+
+    # Observe tab switching for relationships
+    observeEvent(input$switch_relationships_tab, {
+      relationships_tab(input$switch_relationships_tab)
+    })
+
+    # Observe selection in concept mappings table
+    observeEvent(input$concept_mappings_table_rows_selected, {
+      selected_row <- input$concept_mappings_table_rows_selected
+      if (!is.null(selected_row) && length(selected_row) > 0) {
+        concept_id <- selected_concept_id()
+        req(concept_id)
+
+        # Get the mappings data
+        csv_mappings <- data()$concept_mappings %>%
+          dplyr::filter(general_concept_id == concept_id) %>%
+          dplyr::select(
+            concept_name,
+            vocabulary_id,
+            concept_code,
+            omop_concept_id,
+            recommended
+          )
+
+        concept_info <- data()$general_concepts %>%
+          dplyr::filter(general_concept_id == concept_id)
+        athena_concept_id <- concept_info$athena_concept_id[1]
+
+        if (!is.na(athena_concept_id) && !is.null(athena_concept_id)) {
+          vocab_data <- vocabularies()
+          if (!is.null(vocab_data)) {
+            athena_concepts <- get_all_related_concepts(
+              athena_concept_id,
+              vocab_data,
+              csv_mappings
+            )
+            if (nrow(athena_concepts) > 0) {
+              mappings <- dplyr::bind_rows(csv_mappings, athena_concepts) %>%
+                dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
+                dplyr::arrange(dplyr::desc(recommended), concept_name)
+            } else {
+              mappings <- csv_mappings
+            }
+          } else {
+            mappings <- csv_mappings
+          }
+        } else {
+          mappings <- csv_mappings
+        }
+
+        # Get the selected concept's OMOP ID
+        if (selected_row <= nrow(mappings)) {
+          selected_omop_id <- mappings$omop_concept_id[selected_row]
+          selected_mapped_concept_id(selected_omop_id)
+        }
+      }
+    })
+
+    # Render concept details (top-right quadrant)
+    output$concept_details_display <- renderUI({
+      omop_concept_id <- selected_mapped_concept_id()
+
+      if (is.null(omop_concept_id)) {
+        return(tags$div(
+          style = "padding: 20px; background: #f8f9fa; border-radius: 6px; text-align: center;",
+          tags$p(
+            style = "color: #666; font-style: italic;",
+            "Select a concept from the Mapped Concepts table to view its details."
+          )
+        ))
+      }
+
+      vocab_data <- vocabularies()
+
+      if (is.null(vocab_data)) {
+        return(tags$div(
+          style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic;",
+          "OHDSI vocabularies not loaded."
+        ))
+      }
+
+      # Get concept details from OHDSI vocabularies
+      concept_details <- vocab_data$concept %>%
+        dplyr::filter(concept_id == omop_concept_id)
+
+      if (nrow(concept_details) == 0) {
+        return(tags$div(
+          style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic;",
+          "Concept details not found in OHDSI vocabularies."
+        ))
+      }
+
+      info <- concept_details[1, ]
+
+      tags$div(
+        class = "concept-details-container",
+        tags$div(
+          class = "detail-item",
+          tags$strong("Concept Name: "),
+          tags$span(ifelse(is.na(info$concept_name), "/", info$concept_name))
+        ),
+        tags$div(
+          class = "detail-item",
+          tags$strong("Domain ID: "),
+          tags$span(ifelse(is.na(info$domain_id), "/", info$domain_id))
+        ),
+        tags$div(
+          class = "detail-item",
+          tags$strong("Concept Class ID: "),
+          tags$span(ifelse(is.na(info$concept_class_id), "/", info$concept_class_id))
+        ),
+        tags$div(
+          class = "detail-item",
+          tags$strong("Vocabulary ID: "),
+          tags$span(ifelse(is.na(info$vocabulary_id), "/", info$vocabulary_id))
+        ),
+        tags$div(
+          class = "detail-item",
+          tags$strong("Concept ID: "),
+          tags$span(ifelse(is.na(info$concept_id), "/", as.character(info$concept_id)))
+        ),
+        tags$div(
+          class = "detail-item",
+          tags$strong("Concept Code: "),
+          tags$span(ifelse(is.na(info$concept_code), "/", info$concept_code))
+        )
+      )
+    })
+
+    # Render concept relationships (bottom-right quadrant)
+    output$concept_relationships_display <- renderUI({
+      active_tab <- relationships_tab()
+
+      # Render DT output based on active tab
+      if (active_tab == "related") {
+        DT::DTOutput(ns("related_concepts_table"))
+      } else if (active_tab == "hierarchy") {
+        DT::DTOutput(ns("hierarchy_concepts_table"))
+      } else if (active_tab == "synonyms") {
+        tags$div(
+          style = "padding: 20px; background: #f8f9fa; border-radius: 6px; text-align: center;",
+          tags$p(
+            style = "color: #666; font-style: italic;",
+            "Synonyms functionality coming soon."
+          )
+        )
+      }
+    })
+
+    # Render related concepts table
+    output$related_concepts_table <- DT::renderDT({
+      omop_concept_id <- selected_mapped_concept_id()
+      req(omop_concept_id)
+
+      vocab_data <- vocabularies()
+      req(vocab_data)
+
+      related_concepts <- get_related_concepts(omop_concept_id, vocab_data)
+
+      # Remove the selected concept itself from the results
+      if (nrow(related_concepts) > 0) {
+        related_concepts <- related_concepts %>%
+          dplyr::filter(omop_concept_id != !!omop_concept_id)
+      }
+
+      if (nrow(related_concepts) == 0) {
+        return(DT::datatable(data.frame(Message = "No related concepts found."),
+                             options = list(dom = 't'),
+                             rownames = FALSE,
+                             selection = 'none'))
+      }
+
+      # Reorder columns: relationship_id, concept_name, vocabulary_id, concept_code, omop_concept_id (hidden)
+      related_concepts <- related_concepts %>%
+        dplyr::select(relationship_id, concept_name, vocabulary_id, concept_code, omop_concept_id)
+
+      DT::datatable(
+        related_concepts,
+        selection = 'none',
+        rownames = FALSE,
+        colnames = c("Relationship", "Concept Name", "Vocabulary", "Code", "OMOP ID"),
+        options = list(
+          pageLength = 10,
+          dom = 'tp',
+          columnDefs = list(
+            list(targets = 4, visible = FALSE),  # OMOP ID hidden
+            list(targets = 0, width = "150px")   # Relationship column width
+          )
+        )
+      )
+    }, server = FALSE)
+
+    # Render hierarchy concepts table
+    output$hierarchy_concepts_table <- DT::renderDT({
+      omop_concept_id <- selected_mapped_concept_id()
+      req(omop_concept_id)
+
+      vocab_data <- vocabularies()
+      req(vocab_data)
+
+      descendant_concepts <- get_descendant_concepts(omop_concept_id, vocab_data)
+
+      # Remove the selected concept itself from the results
+      if (nrow(descendant_concepts) > 0) {
+        descendant_concepts <- descendant_concepts %>%
+          dplyr::filter(omop_concept_id != !!omop_concept_id)
+      }
+
+      if (nrow(descendant_concepts) == 0) {
+        return(DT::datatable(data.frame(Message = "No descendant concepts found in hierarchy."),
+                             options = list(dom = 't'),
+                             rownames = FALSE,
+                             selection = 'none'))
+      }
+
+      # Reorder columns: relationship_id, concept_name, vocabulary_id, concept_code, omop_concept_id (hidden)
+      descendant_concepts <- descendant_concepts %>%
+        dplyr::select(relationship_id, concept_name, vocabulary_id, concept_code, omop_concept_id)
+
+      DT::datatable(
+        descendant_concepts,
+        selection = 'none',
+        rownames = FALSE,
+        colnames = c("Relationship", "Concept Name", "Vocabulary", "Code", "OMOP ID"),
+        options = list(
+          pageLength = 10,
+          dom = 'tp',
+          columnDefs = list(
+            list(targets = 4, visible = FALSE),  # OMOP ID hidden
+            list(targets = 0, width = "150px")   # Relationship column width
+          )
+        )
+      )
     }, server = FALSE)
   })
 }

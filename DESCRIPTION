@@ -27,7 +27,8 @@ Imports:
     htmltools (>= 0.5.0),
     htmlwidgets,
     promises (>= 1.2.0),
-    future (>= 1.30.0)
+    future (>= 1.30.0),
+    shinycssloaders (>= 1.0.0)
 Suggests:
     testthat (>= 3.0.0),
     knitr,

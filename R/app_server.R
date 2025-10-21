@@ -65,7 +65,8 @@ app_server <- function(input, output, session) {
                 vocabulary_id = readr::col_character(),
                 concept_class_id = readr::col_character(),
                 standard_concept = readr::col_character(),
-                concept_code = readr::col_character()
+                concept_code = readr::col_character(),
+                invalid_reason = readr::col_character()
               ),
               show_col_types = FALSE
             )

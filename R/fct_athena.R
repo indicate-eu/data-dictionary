@@ -40,7 +40,8 @@ load_ohdsi_vocabularies <- function(vocab_folder) {
           vocabulary_id = readr::col_character(),
           concept_class_id = readr::col_character(),
           standard_concept = readr::col_character(),
-          concept_code = readr::col_character()
+          concept_code = readr::col_character(),
+          invalid_reason = readr::col_character()
         ),
         show_col_types = FALSE
       )
@@ -112,34 +113,47 @@ get_related_concepts <- function(concept_id, vocabularies) {
     concept_relationship <- vocabularies$concept_relationship
     concept <- vocabularies$concept
 
-    # Get relationships: Maps to / Mapped from
+    # Get all relationships for this concept
     relationships <- concept_relationship %>%
       dplyr::filter(
-        (concept_id_1 == concept_id | concept_id_2 == concept_id) &
-        relationship_id %in% c("Maps to", "Mapped from")
+        concept_id_1 == concept_id | concept_id_2 == concept_id
       )
 
-    # Get related concept IDs
-    related_ids <- unique(c(
-      relationships$concept_id_1[relationships$concept_id_2 == concept_id],
-      relationships$concept_id_2[relationships$concept_id_1 == concept_id]
-    ))
-
-    if (length(related_ids) == 0) {
+    if (nrow(relationships) == 0) {
       return(data.frame())
     }
 
-    # Get concept details
-    related_concepts <- concept %>%
-      dplyr::filter(concept_id %in% related_ids) %>%
-      dplyr::select(
-        omop_concept_id = concept_id,
-        concept_name,
-        vocabulary_id,
-        concept_code
-      )
+    # Build related concepts with relationship information
+    related_data <- data.frame()
 
-    return(related_concepts)
+    for (i in 1:nrow(relationships)) {
+      rel <- relationships[i, ]
+      related_concept_id <- ifelse(rel$concept_id_1 == concept_id, rel$concept_id_2, rel$concept_id_1)
+
+      # Get concept details
+      concept_info <- concept %>%
+        dplyr::filter(
+          concept_id == related_concept_id,
+          standard_concept == 'S',
+          is.na(invalid_reason)
+        )
+
+      if (nrow(concept_info) > 0) {
+        related_data <- dplyr::bind_rows(
+          related_data,
+          data.frame(
+            omop_concept_id = concept_info$concept_id[1],
+            concept_name = concept_info$concept_name[1],
+            vocabulary_id = concept_info$vocabulary_id[1],
+            concept_code = concept_info$concept_code[1],
+            relationship_id = rel$relationship_id,
+            stringsAsFactors = FALSE
+          )
+        )
+      }
+    }
+
+    return(related_data)
 
   }, error = function(e) {
     message("Error querying related concepts: ", e$message)
@@ -165,15 +179,20 @@ get_descendant_concepts <- function(concept_id, vocabularies) {
       return(data.frame())
     }
 
-    # Get concept details
+    # Get concept details (only standard and valid concepts)
     descendant_concepts <- concept %>%
-      dplyr::filter(concept_id %in% descendants$descendant_concept_id) %>%
+      dplyr::filter(
+        concept_id %in% descendants$descendant_concept_id,
+        standard_concept == 'S',
+        is.na(invalid_reason)
+      ) %>%
       dplyr::select(
         omop_concept_id = concept_id,
         concept_name,
         vocabulary_id,
         concept_code
-      )
+      ) %>%
+      dplyr::mutate(relationship_id = "Is a")
 
     return(descendant_concepts)
 
