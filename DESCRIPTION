@@ -16,6 +16,9 @@ RoxygenNote: 7.3.2
 Imports:
     shiny (>= 1.7.0),
     DT (>= 0.20),
+    DBI (>= 1.1.0),
+    RSQLite (>= 2.2.0),
+    rappdirs (>= 0.3.0),
     dplyr (>= 1.1.0),
     magrittr,
     purrr (>= 1.0.0),

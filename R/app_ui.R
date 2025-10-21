@@ -30,7 +30,8 @@ app_ui <- function() {
         )
       ),
       tags$script(src = "www/resizable_splitter.js"),
-      tags$script(src = "www/nav_handler.js")
+      tags$script(src = "www/nav_handler.js"),
+      tags$script(src = "www/folder_display.js")
     ),
 
     # Application header with navigation
@@ -66,6 +67,6 @@ app_ui <- function() {
     ),
 
     # Main content area - shows different modules based on navigation
-    uiOutput("page_content")
+    uiOutput("page_content", style = "height: 100%; flex: 1; display: flex; flex-direction: column;")
   )
 }

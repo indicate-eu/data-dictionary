@@ -9,6 +9,13 @@ html, body {
   padding: 0;
   margin: 0;
   height: 100%;
+  overflow: hidden;
+}
+
+body > div {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .container-fluid {
@@ -546,4 +553,46 @@ a.paginate_button.current * {
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+/* File browser styling
+-------------------------------------------------- */
+.file-browser-header {
+  transition: background-color 0.2s ease;
+}
+
+.file-browser-header:hover {
+  background-color: #e9ecef !important;
+}
+
+.file-browser-item {
+  transition: background-color 0.2s ease;
+}
+
+.file-browser-folder:hover {
+  background-color: #f2f7fd !important;
+}
+
+.file-browser-item:hover {
+  background-color: #f8f9fa;
+}
+
+/* Modal customization
+-------------------------------------------------- */
+.modal-lg {
+  max-width: 800px;
+  width: 90%;
+}
+
+.modal-dialog {
+  max-height: 90vh;
+}
+
+.modal-content {
+  max-height: 90vh;
+}
+
+.modal-body {
+  max-height: calc(90vh - 200px);
+  overflow-y: auto;
 }

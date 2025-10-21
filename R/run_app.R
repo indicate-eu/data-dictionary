@@ -15,9 +15,17 @@
 #' \dontrun{
 #' run_app()
 #' }
-run_app <- function(..., options = list(launch.browser = TRUE)) {
+run_app <- function(..., options = list()) {
   # Add resource path for www directory
   addResourcePath("www", system.file("www", package = "indicate"))
+
+  # Force browser launch
+  if (!"launch.browser" %in% names(options)) {
+    options$launch.browser <- function(url) {
+      message("Opening application in browser: ", url)
+      utils::browseURL(url)
+    }
+  }
 
   shinyApp(
     ui = app_ui,
