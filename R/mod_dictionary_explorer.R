@@ -203,12 +203,13 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
     # Observe current_view to show/hide appropriate content
     observeEvent(current_view(), {
-      if (current_view() == "list") {
-        shinyjs::show("general_concepts_container")
-        shinyjs::hide("concept_details_container")
+      view <- current_view()
+      if (view == "list") {
+        shinyjs::show(id = "general_concepts_container")
+        shinyjs::hide(id = "concept_details_container")
       } else {
-        shinyjs::hide("general_concepts_container")
-        shinyjs::show("concept_details_container")
+        shinyjs::hide(id = "general_concepts_container")
+        shinyjs::show(id = "concept_details_container")
       }
     })
 

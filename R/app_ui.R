@@ -118,7 +118,36 @@ app_ui <- function() {
         )
     ),
 
-    # Main content area - shows different modules based on navigation
-    uiOutput("page_content", style = "height: 100%; flex: 1; display: flex; flex-direction: column;")
+    # Main content area - all modules are created and shown/hidden with CSS
+    tags$div(
+      id = "page_explorer",
+      style = "height: 100%; flex: 1; display: flex; flex-direction: column;",
+      mod_dictionary_explorer_ui("dictionary_explorer")
+    ),
+    tags$div(
+      id = "page_mapping",
+      style = "height: 100%; flex: 1; display: none; flex-direction: column;",
+      mod_concepts_mapping_ui("concepts_mapping")
+    ),
+    tags$div(
+      id = "page_use_cases",
+      style = "height: 100%; flex: 1; display: none; flex-direction: column;",
+      mod_use_cases_ui("use_cases")
+    ),
+    tags$div(
+      id = "page_improvements",
+      style = "height: 100%; flex: 1; display: none; flex-direction: column;",
+      mod_improvements_ui("improvements")
+    ),
+    tags$div(
+      id = "page_dev_tools",
+      style = "height: 100%; flex: 1; display: none; flex-direction: column;",
+      mod_dev_tools_ui("dev_tools")
+    ),
+    tags$div(
+      id = "page_settings",
+      style = "height: 100%; flex: 1; display: none; flex-direction: column;",
+      mod_settings_ui("settings")
+    )
   )
 }

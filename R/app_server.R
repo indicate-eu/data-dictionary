@@ -217,22 +217,32 @@ app_server <- function(input, output, session) {
     current_page("settings")
   })
 
-  # Render page content based on current page
-  output$page_content <- renderUI({
-    if (current_page() == "explorer") {
-      mod_dictionary_explorer_ui("dictionary_explorer")
-    } else if (current_page() == "mapping") {
-      mod_concepts_mapping_ui("concepts_mapping")
-    } else if (current_page() == "use_cases") {
-      mod_use_cases_ui("use_cases")
-    } else if (current_page() == "improvements") {
-      mod_improvements_ui("improvements")
-    } else if (current_page() == "dev_tools") {
-      mod_dev_tools_ui("dev_tools")
-    } else if (current_page() == "settings") {
-      mod_settings_ui("settings")
+  # Show/hide page content based on current page using shinyjs
+  observeEvent(current_page(), {
+    # Hide all pages
+    shinyjs::hide("page_explorer")
+    shinyjs::hide("page_mapping")
+    shinyjs::hide("page_use_cases")
+    shinyjs::hide("page_improvements")
+    shinyjs::hide("page_dev_tools")
+    shinyjs::hide("page_settings")
+
+    # Show selected page
+    page <- current_page()
+    if (page == "explorer") {
+      shinyjs::show("page_explorer")
+    } else if (page == "mapping") {
+      shinyjs::show("page_mapping")
+    } else if (page == "use_cases") {
+      shinyjs::show("page_use_cases")
+    } else if (page == "improvements") {
+      shinyjs::show("page_improvements")
+    } else if (page == "dev_tools") {
+      shinyjs::show("page_dev_tools")
+    } else if (page == "settings") {
+      shinyjs::show("page_settings")
     }
-  })
+  }, ignoreInit = FALSE)
 
   # Call module servers
   mod_dictionary_explorer_server(
