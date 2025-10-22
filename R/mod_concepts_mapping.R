@@ -17,19 +17,6 @@ mod_concepts_mapping_ui <- function(id) {
     div(class = "main-panel",
         div(class = "main-content",
 
-            # Page header
-            fluidRow(
-              column(12,
-                     div(class = "section-header",
-                         h3("Concepts Mapping")
-                     ),
-                     div(class = "summary-container",
-                         p("Map your local clinical concepts to standardized terminologies in the INDICATE Data Dictionary."),
-                         p(style = "color: #666; font-style: italic;", "This feature is currently under development.")
-                     )
-              )
-            ),
-
             # Placeholder content for future implementation
             fluidRow(
               column(12,

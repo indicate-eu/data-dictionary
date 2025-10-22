@@ -26,6 +26,32 @@ body > div {
   flex-direction: column;
 }
 
+/* Link styles
+-------------------------------------------------- */
+a {
+  color: #0f60af !important;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #3a8ad6 !important;
+  text-decoration: underline;
+}
+
+/* Breadcrumb link specific styling */
+.breadcrumb-link {
+  color: #0f60af !important;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.breadcrumb-link:hover {
+  color: #3a8ad6 !important;
+  text-decoration: underline;
+}
+
 /* Header styling
 -------------------------------------------------- */
 .header {
@@ -601,8 +627,9 @@ a.paginate_button.current * {
   overflow-y: auto;
 }
 
-/* View Details button styling
+/* Action buttons styling (View Details, Load Data, etc.)
 -------------------------------------------------- */
+.btn-action,
 .view-details-btn {
   background: #0f60af !important;
   border: none !important;
@@ -613,8 +640,23 @@ a.paginate_button.current * {
   transition: background-color 0.2s ease !important;
 }
 
+.btn-action:hover,
 .view-details-btn:hover {
   background: #3a8ad6 !important;
+}
+
+/* Load data button spacing */
+#load_vocab_data {
+  margin-right: 15px;
+}
+
+/* DuckDB buttons styling */
+.btn-duckdb-create:hover {
+  background: #3a8ad6 !important;
+}
+
+.btn-duckdb-delete:hover {
+  background: #c82333 !important;
 }
 
 /* Vocabulary loading status indicator
@@ -995,7 +1037,9 @@ a.paginate_button.current * {
 /* Info icons with tooltips
 -------------------------------------------------- */
 .info-icon {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-left: 8px;
   font-size: 14px;
   color: #666;
@@ -1004,11 +1048,9 @@ a.paginate_button.current * {
   font-weight: normal;
   width: 18px;
   height: 18px;
-  line-height: 18px;
-  text-align: center;
   border-radius: 50%;
   background: #e9ecef;
-  transition: background 0.2s;
+  transition: all 0.2s;
 }
 
 .info-icon:hover {

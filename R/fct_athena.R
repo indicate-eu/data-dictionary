@@ -18,6 +18,18 @@ load_ohdsi_vocabularies <- function(vocab_folder) {
   tryCatch({
     message("Loading OHDSI vocabularies from: ", vocab_folder)
 
+    # Check if DuckDB option is enabled and database exists
+    use_duckdb <- get_use_duckdb()
+    db_exists <- duckdb_exists(vocab_folder)
+
+    if (use_duckdb && db_exists) {
+      message("  Loading from DuckDB database...")
+      result <- load_vocabularies_from_duckdb(vocab_folder)
+      message("  OHDSI vocabularies loaded successfully from DuckDB!")
+      return(result)
+    }
+
+    # Fall back to CSV loading
     concept_path <- file.path(vocab_folder, "CONCEPT.csv")
     concept_relationship_path <- file.path(vocab_folder, "CONCEPT_RELATIONSHIP.csv")
     concept_ancestor_path <- file.path(vocab_folder, "CONCEPT_ANCESTOR.csv")
@@ -28,7 +40,7 @@ load_ohdsi_vocabularies <- function(vocab_folder) {
     }
 
     # Load all three files in parallel using future
-    message("  Loading CONCEPT, CONCEPT_RELATIONSHIP, and CONCEPT_ANCESTOR in parallel...")
+    message("  Loading CONCEPT, CONCEPT_RELATIONSHIP, and CONCEPT_ANCESTOR in parallel from CSV...")
 
     concept_future <- future::future({
       readr::read_tsv(
@@ -75,7 +87,7 @@ load_ohdsi_vocabularies <- function(vocab_folder) {
     concept_relationship <- future::value(concept_relationship_future)
     concept_ancestor <- future::value(concept_ancestor_future)
 
-    message("  OHDSI vocabularies loaded successfully!")
+    message("  OHDSI vocabularies loaded successfully from CSV!")
 
     return(list(
       concept = concept,
@@ -110,16 +122,33 @@ get_related_concepts_filtered <- function(concept_id, vocabularies) {
   }
 
   tryCatch({
-    concept_relationship <- vocabularies$concept_relationship
-    concept <- vocabularies$concept
-
-    # Get all relationships for this concept
-    relationships <- concept_relationship %>%
+    # Get all relationships for this concept (filter BEFORE collecting)
+    relationships <- vocabularies$concept_relationship %>%
       dplyr::filter(
         concept_id_1 == concept_id | concept_id_2 == concept_id
-      )
+      ) %>%
+      dplyr::collect()
 
     if (nrow(relationships) == 0) {
+      return(data.frame())
+    }
+
+    # Get related concept IDs
+    related_ids <- unique(c(
+      relationships$concept_id_1[relationships$concept_id_2 == concept_id],
+      relationships$concept_id_2[relationships$concept_id_1 == concept_id]
+    ))
+
+    # Get concept details for related concepts (filter BEFORE collecting)
+    concepts_info <- vocabularies$concept %>%
+      dplyr::filter(
+        concept_id %in% related_ids,
+        standard_concept == 'S',
+        is.na(invalid_reason)
+      ) %>%
+      dplyr::collect()
+
+    if (nrow(concepts_info) == 0) {
       return(data.frame())
     }
 
@@ -130,13 +159,8 @@ get_related_concepts_filtered <- function(concept_id, vocabularies) {
       rel <- relationships[i, ]
       related_concept_id <- ifelse(rel$concept_id_1 == concept_id, rel$concept_id_2, rel$concept_id_1)
 
-      # Get concept details (only standard and valid concepts)
-      concept_info <- concept %>%
-        dplyr::filter(
-          concept_id == related_concept_id,
-          standard_concept == 'S',
-          is.na(invalid_reason)
-        )
+      # Find concept info
+      concept_info <- concepts_info[concepts_info$concept_id == related_concept_id, ]
 
       if (nrow(concept_info) > 0) {
         related_data <- dplyr::bind_rows(
@@ -168,16 +192,29 @@ get_related_concepts <- function(concept_id, vocabularies) {
   }
 
   tryCatch({
-    concept_relationship <- vocabularies$concept_relationship
-    concept <- vocabularies$concept
-
-    # Get all relationships for this concept
-    relationships <- concept_relationship %>%
+    # Get all relationships for this concept (filter BEFORE collecting)
+    relationships <- vocabularies$concept_relationship %>%
       dplyr::filter(
         concept_id_1 == concept_id | concept_id_2 == concept_id
-      )
+      ) %>%
+      dplyr::collect()
 
     if (nrow(relationships) == 0) {
+      return(data.frame())
+    }
+
+    # Get related concept IDs
+    related_ids <- unique(c(
+      relationships$concept_id_1[relationships$concept_id_2 == concept_id],
+      relationships$concept_id_2[relationships$concept_id_1 == concept_id]
+    ))
+
+    # Get concept details for related concepts (filter BEFORE collecting, no other filtering)
+    concepts_info <- vocabularies$concept %>%
+      dplyr::filter(concept_id %in% related_ids) %>%
+      dplyr::collect()
+
+    if (nrow(concepts_info) == 0) {
       return(data.frame())
     }
 
@@ -188,9 +225,8 @@ get_related_concepts <- function(concept_id, vocabularies) {
       rel <- relationships[i, ]
       related_concept_id <- ifelse(rel$concept_id_1 == concept_id, rel$concept_id_2, rel$concept_id_1)
 
-      # Get concept details (no filtering)
-      concept_info <- concept %>%
-        dplyr::filter(concept_id == related_concept_id)
+      # Find concept info
+      concept_info <- concepts_info[concepts_info$concept_id == related_concept_id, ]
 
       if (nrow(concept_info) > 0) {
         related_data <- dplyr::bind_rows(
@@ -222,19 +258,17 @@ get_descendant_concepts <- function(concept_id, vocabularies) {
   }
 
   tryCatch({
-    concept_ancestor <- vocabularies$concept_ancestor
-    concept <- vocabularies$concept
-
-    # Get descendants
-    descendants <- concept_ancestor %>%
-      dplyr::filter(ancestor_concept_id == concept_id)
+    # Get descendants (filter BEFORE collecting)
+    descendants <- vocabularies$concept_ancestor %>%
+      dplyr::filter(ancestor_concept_id == concept_id) %>%
+      dplyr::collect()
 
     if (nrow(descendants) == 0) {
       return(data.frame())
     }
 
-    # Get concept details (only standard and valid concepts)
-    descendant_concepts <- concept %>%
+    # Get concept details for descendants (filter BEFORE collecting)
+    descendant_concepts <- vocabularies$concept %>%
       dplyr::filter(
         concept_id %in% descendants$descendant_concept_id,
         standard_concept == 'S',
@@ -246,6 +280,7 @@ get_descendant_concepts <- function(concept_id, vocabularies) {
         vocabulary_id,
         concept_code
       ) %>%
+      dplyr::collect() %>%
       dplyr::mutate(relationship_id = "Is a")
 
     return(descendant_concepts)

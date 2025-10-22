@@ -9,6 +9,9 @@
 #' @importFrom htmltools tagList
 app_ui <- function() {
   fluidPage(
+    # Initialize shinyjs
+    shinyjs::useShinyjs(),
+
     # CSS and JavaScript dependencies
     tags$head(
       tags$link(
@@ -41,8 +44,13 @@ app_ui <- function() {
     div(class = "header",
         # Logo and title section
         div(class = "header-left",
-            tags$img(src = "www/logo.png", class = "header-logo"),
-            tags$h1("INDICATE Data Dictionary", class = "header-title")
+            tags$a(
+              href = "#",
+              onclick = "Shiny.setInputValue('nav_explorer', true, {priority: 'event'}); return false;",
+              style = "text-decoration: none; display: flex; align-items: center; gap: 15px; cursor: pointer;",
+              tags$img(src = "www/logo.png", class = "header-logo"),
+              tags$h1("INDICATE Data Dictionary", class = "header-title")
+            )
         ),
 
         # Navigation tabs
@@ -55,6 +63,11 @@ app_ui <- function() {
             actionButton(
               "nav_mapping",
               label = tagList(icon("project-diagram"), "Concepts Mapping"),
+              class = "nav-tab"
+            ),
+            actionButton(
+              "nav_use_cases",
+              label = tagList(icon("list-check"), "Use Cases"),
               class = "nav-tab"
             ),
             actionButton(

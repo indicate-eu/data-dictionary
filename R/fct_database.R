@@ -189,3 +189,27 @@ get_vocab_folder <- function() {
 set_vocab_folder <- function(path) {
   set_config_value("vocab_folder_path", path)
 }
+
+#' Get DuckDB option status
+#'
+#' @description Get whether DuckDB database should be used
+#'
+#' @return TRUE or FALSE
+#' @export
+get_use_duckdb <- function() {
+  value <- get_config_value("use_duckdb", default = "false")
+  return(value == "true")
+}
+
+#' Set DuckDB option status
+#'
+#' @description Set whether DuckDB database should be used
+#'
+#' @param use_duckdb Logical value
+#'
+#' @return TRUE if successful
+#' @export
+set_use_duckdb <- function(use_duckdb) {
+  value <- if (use_duckdb) "true" else "false"
+  set_config_value("use_duckdb", value)
+}

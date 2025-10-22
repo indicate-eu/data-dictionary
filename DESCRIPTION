@@ -18,6 +18,7 @@ Imports:
     DT (>= 0.20),
     DBI (>= 1.1.0),
     RSQLite (>= 2.2.0),
+    duckdb (>= 0.8.0),
     rappdirs (>= 0.3.0),
     dplyr (>= 1.1.0),
     magrittr,
@@ -29,7 +30,8 @@ Imports:
     promises (>= 1.2.0),
     future (>= 1.30.0),
     shinycssloaders (>= 1.0.0),
-    shinyAce (>= 0.4.0)
+    shinyAce (>= 0.4.0),
+    shinyjs (>= 2.1.0)
 Suggests:
     testthat (>= 3.0.0),
     knitr,

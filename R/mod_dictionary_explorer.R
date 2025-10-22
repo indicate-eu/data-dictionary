@@ -99,7 +99,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
             tags$a(
               href = "#",
               onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("back_to_list")),
-              style = "color: #0f60af; text-decoration: none; cursor: pointer; font-weight: 600;",
+              class = "breadcrumb-link",
+              style = "font-weight: 600;",
               "General Concepts"
             ),
             tags$span(
@@ -115,14 +116,33 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       }
     })
 
-    # Render content area
+    # Render content area - render both and use shinyjs to show/hide
     output$content_area <- renderUI({
+      tagList(
+        # General Concepts table container
+        tags$div(
+          id = ns("general_concepts_container"),
+          class = "table-container",
+          style = "height: calc(100vh - 130px); overflow: auto;",
+          DT::DTOutput(ns("general_concepts_table"))
+        ),
+        # Concept details container
+        tags$div(
+          id = ns("concept_details_container"),
+          style = "display: none;",
+          render_concept_details()
+        )
+      )
+    })
+
+    # Observe current_view to show/hide appropriate content
+    observeEvent(current_view(), {
       if (current_view() == "list") {
-        # Show General Concepts table
-        render_general_concepts_table()
+        shinyjs::show("general_concepts_container")
+        shinyjs::hide("concept_details_container")
       } else {
-        # Show concept details
-        render_concept_details()
+        shinyjs::hide("general_concepts_container")
+        shinyjs::show("concept_details_container")
       }
     })
 
@@ -274,14 +294,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     # Render general concepts table
     output$general_concepts_table <- DT::renderDT({
       general_concepts <- data()$general_concepts
-      use_case_counts <- data()$general_concept_use_cases %>%
-        dplyr::group_by(general_concept_id) %>%
-        dplyr::summarise(use_case_count = dplyr::n(), .groups = "drop")
 
       table_data <- general_concepts %>%
-        dplyr::left_join(use_case_counts, by = "general_concept_id") %>%
         dplyr::mutate(
-          use_case_count = ifelse(is.na(use_case_count), 0, use_case_count),
           category = factor(category),
           subcategory = factor(subcategory),
           actions = sprintf(
@@ -289,7 +304,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
             general_concept_id
           )
         ) %>%
-        dplyr::select(general_concept_id, category, subcategory, general_concept_name, use_case_count, actions)
+        dplyr::select(general_concept_id, category, subcategory, general_concept_name, actions)
 
       dt <- DT::datatable(
         table_data,
@@ -297,7 +312,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         rownames = FALSE,
         escape = FALSE,
         filter = 'top',
-        colnames = c("ID", "Category", "Subcategory", "General Concept Name", "Use Cases", "Actions"),
+        colnames = c("ID", "Category", "Subcategory", "General Concept Name", "Actions"),
         options = list(
           pageLength = 25,
           lengthMenu = list(c(10, 25, 50, 100, -1), c('10', '25', '50', '100', 'All')),
@@ -307,8 +322,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
             list(targets = 1, width = "150px"),
             list(targets = 2, width = "150px"),
             list(targets = 3, width = "300px"),
-            list(targets = 4, width = "100px", className = 'dt-center'),
-            list(targets = 5, width = "120px", className = 'dt-center', orderable = FALSE)
+            list(targets = 4, width = "120px", className = 'dt-center', orderable = FALSE)
           )
         )
       )
@@ -644,7 +658,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         }
 
         concept_details <- vocab_data$concept %>%
-          dplyr::filter(concept_id == omop_concept_id)
+          dplyr::filter(concept_id == omop_concept_id) %>%
+          dplyr::collect()
 
         if (nrow(concept_details) == 0) {
           return(tags$div(

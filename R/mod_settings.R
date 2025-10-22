@@ -7,7 +7,7 @@
 #' @return Shiny UI elements
 #' @noRd
 #'
-#' @importFrom shiny NS fluidRow column h3 h4 p textOutput actionButton
+#' @importFrom shiny NS fluidRow column h3 h4 p textOutput actionButton uiOutput
 #' @importFrom htmltools tags tagList
 mod_settings_ui <- function(id) {
   ns <- NS(id)
@@ -16,15 +16,6 @@ mod_settings_ui <- function(id) {
     # Main content for settings
     div(class = "main-panel",
         div(class = "main-content",
-
-            # Page header
-            fluidRow(
-              column(12,
-                     div(class = "section-header",
-                         h3("Application Settings")
-                     )
-              )
-            ),
 
             # OHDSI Vocabularies folder selector
             fluidRow(
@@ -71,6 +62,28 @@ mod_settings_ui <- function(id) {
                              ),
                              " (registration required)."
                            )
+                         ),
+
+                         # DuckDB option
+                         tags$div(
+                           style = "margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #dee2e6;",
+                           tags$div(
+                             style = "margin-bottom: 10px;",
+                             tags$div(
+                               style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 5px;",
+                               tags$i(class = "fas fa-database", style = "margin-right: 8px; color: #0f60af;"),
+                               "DuckDB Database"
+                             ),
+                             tags$p(
+                               style = "margin: 0; font-size: 12px; color: #666;",
+                               "Creates a DuckDB database from CSV files for instant loading at startup."
+                             )
+                           ),
+                           tags$div(
+                             style = "display: flex; align-items: center; gap: 15px;",
+                             uiOutput(ns("duckdb_status")),
+                             uiOutput(ns("duckdb_button"))
+                           )
                          )
                      )
               )
@@ -86,12 +99,14 @@ mod_settings_ui <- function(id) {
 #'
 #' @param id Module ID
 #' @param config Configuration list
+#' @param vocabularies Reactive containing vocabularies data with connection
+#' @param reset_vocabularies Function to reset vocabularies to NULL
 #'
 #' @return Module server logic
 #' @noRd
 #'
-#' @importFrom shiny moduleServer reactive observeEvent reactiveVal renderUI showModal modalDialog removeModal observe
-mod_settings_server <- function(id, config) {
+#' @importFrom shiny moduleServer reactive observeEvent reactiveVal renderUI showModal modalDialog removeModal observe textInput
+mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabularies = NULL) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -112,6 +127,46 @@ mod_settings_server <- function(id, config) {
       }, error = function(e) {
         message("Error loading vocab folder: ", e$message)
       })
+    })
+
+    # Render DuckDB button
+    output$duckdb_button <- renderUI({
+      vocab_folder <- selected_folder()
+
+      if (is.null(vocab_folder) || nchar(vocab_folder) == 0) {
+        return(NULL)
+      }
+
+      # Check if processing
+      if (duckdb_processing()) {
+        return(NULL)
+      }
+
+      db_exists <- duckdb_exists(vocab_folder)
+
+      if (db_exists) {
+        # Delete button (red)
+        actionButton(
+          ns("delete_duckdb"),
+          label = tagList(
+            tags$i(class = "fas fa-trash", style = "margin-right: 6px;"),
+            "Delete Database"
+          ),
+          class = "btn-duckdb-delete",
+          style = "background: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 4px; font-size: 13px; cursor: pointer; transition: background-color 0.2s ease; font-weight: 500;"
+        )
+      } else {
+        # Create button (blue)
+        actionButton(
+          ns("create_duckdb"),
+          label = tagList(
+            tags$i(class = "fas fa-plus-circle", style = "margin-right: 6px;"),
+            "Create Database"
+          ),
+          class = "btn-duckdb-create",
+          style = "background: #0f60af; color: white; border: none; padding: 8px 16px; border-radius: 4px; font-size: 13px; cursor: pointer; transition: background-color 0.2s ease; font-weight: 500;"
+        )
+      }
     })
 
     # Render folder path display
@@ -400,6 +455,170 @@ mod_settings_server <- function(id, config) {
     # Handle cancel
     observeEvent(input$cancel_browse, {
       removeModal()
+    })
+
+    # Reactive value to track DuckDB processing
+    duckdb_processing <- reactiveVal(FALSE)
+    duckdb_message <- reactiveVal(NULL)
+
+    # Handle DuckDB creation button
+    observeEvent(input$create_duckdb, {
+      vocab_folder <- selected_folder()
+
+      if (is.null(vocab_folder) || nchar(vocab_folder) == 0) {
+        return()
+      }
+
+      duckdb_processing(TRUE)
+      duckdb_message(NULL)
+
+      # Close DuckDB connection if it exists
+      if (!is.null(vocabularies)) {
+        vocab_data <- vocabularies()
+        if (!is.null(vocab_data) && !is.null(vocab_data$connection)) {
+          tryCatch({
+            DBI::dbDisconnect(vocab_data$connection, shutdown = TRUE)
+          }, error = function(e) {
+            message("Error closing DuckDB connection: ", e$message)
+          })
+        }
+      }
+
+      # Reset vocabularies to NULL
+      if (!is.null(reset_vocabularies)) {
+        reset_vocabularies()
+      }
+
+      # Force garbage collection and wait for file to be released
+      gc()
+      Sys.sleep(1.0)  # Increased delay to ensure file is unlocked
+
+      # Create DuckDB database
+      result <- tryCatch({
+        create_duckdb_database(vocab_folder)
+      }, error = function(e) {
+        list(success = FALSE, message = paste("Error:", e$message))
+      })
+
+      duckdb_processing(FALSE)
+
+      # Save setting
+      if (result$success) {
+        tryCatch({
+          set_use_duckdb(TRUE)
+        }, error = function(e) {
+          message("Error saving DuckDB option: ", e$message)
+        })
+        duckdb_message(NULL)
+      } else {
+        duckdb_message(result)
+      }
+    })
+
+    # Handle DuckDB deletion button
+    observeEvent(input$delete_duckdb, {
+      vocab_folder <- selected_folder()
+
+      if (is.null(vocab_folder) || nchar(vocab_folder) == 0) {
+        return()
+      }
+
+      duckdb_processing(TRUE)
+      duckdb_message(NULL)
+
+      # Close DuckDB connection if it exists
+      if (!is.null(vocabularies)) {
+        vocab_data <- vocabularies()
+        if (!is.null(vocab_data) && !is.null(vocab_data$connection)) {
+          tryCatch({
+            DBI::dbDisconnect(vocab_data$connection, shutdown = TRUE)
+          }, error = function(e) {
+            message("Error closing DuckDB connection: ", e$message)
+          })
+        }
+      }
+
+      # Reset vocabularies to NULL
+      if (!is.null(reset_vocabularies)) {
+        reset_vocabularies()
+      }
+
+      # Delete DuckDB database
+      result <- tryCatch({
+        delete_duckdb_database(vocab_folder)
+      }, error = function(e) {
+        list(success = FALSE, message = paste("Error:", e$message))
+      })
+
+      duckdb_processing(FALSE)
+
+      # Save setting
+      if (result$success) {
+        tryCatch({
+          set_use_duckdb(FALSE)
+        }, error = function(e) {
+          message("Error saving DuckDB option: ", e$message)
+        })
+        duckdb_message(NULL)
+      } else {
+        duckdb_message(result)
+      }
+    })
+
+    # Render DuckDB status
+    output$duckdb_status <- renderUI({
+      vocab_folder <- selected_folder()
+
+      if (is.null(vocab_folder) || nchar(vocab_folder) == 0) {
+        return(NULL)
+      }
+
+      if (duckdb_processing()) {
+        return(
+          tags$div(
+            style = "margin-top: 10px; padding: 10px; background: #fff3cd; border-left: 3px solid #ffc107; border-radius: 4px; font-size: 12px;",
+            tags$i(class = "fas fa-spinner fa-spin", style = "margin-right: 6px;"),
+            if (input$use_duckdb) {
+              "Creating DuckDB database... This may take a few minutes."
+            } else {
+              "Deleting DuckDB database..."
+            }
+          )
+        )
+      }
+
+      # Show error message if there was one
+      msg <- duckdb_message()
+      if (!is.null(msg) && !msg$success) {
+        return(
+          tags$div(
+            style = "margin-top: 10px; padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px;",
+            tags$i(class = "fas fa-exclamation-circle", style = "margin-right: 6px; color: #dc3545;"),
+            msg$message
+          )
+        )
+      }
+
+      # Show current status: green if exists, red if doesn't exist
+      db_exists <- duckdb_exists(vocab_folder)
+      if (db_exists) {
+        db_path <- get_duckdb_path(vocab_folder)
+        return(
+          tags$div(
+            style = "padding: 10px; background: #d4edda; border-left: 3px solid #28a745; border-radius: 4px; font-size: 12px;",
+            tags$i(class = "fas fa-check-circle", style = "margin-right: 6px; color: #28a745;"),
+            "Database exists: ", tags$code(basename(db_path))
+          )
+        )
+      } else {
+        return(
+          tags$div(
+            style = "padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px;",
+            tags$i(class = "fas fa-times-circle", style = "margin-right: 6px; color: #dc3545;"),
+            "Database does not exist"
+          )
+        )
+      }
     })
 
     # Return reactive settings
