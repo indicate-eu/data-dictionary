@@ -37,7 +37,8 @@ app_ui <- function() {
       tags$script(src = "www/tab_handler.js"),
       tags$script(src = "www/nav_handler.js"),
       tags$script(src = "www/folder_display.js"),
-      tags$script(src = "www/view_details.js")
+      tags$script(src = "www/view_details.js"),
+      tags$script(src = "www/settings_menu.js")
     ),
 
     # Application header with navigation
@@ -71,6 +72,11 @@ app_ui <- function() {
               class = "nav-tab"
             ),
             actionButton(
+              "nav_improvements",
+              label = tagList(icon("lightbulb"), "Improvements"),
+              class = "nav-tab"
+            ),
+            actionButton(
               "nav_dev_tools",
               label = tagList(icon("code"), "Dev Tools"),
               class = "nav-tab"
@@ -80,10 +86,33 @@ app_ui <- function() {
         # Settings button and loading status on the right
         div(class = "header-right",
             uiOutput("vocab_status_indicator"),
-            actionButton(
-              "nav_settings",
-              label = icon("cog"),
-              class = "nav-tab nav-tab-settings"
+            tags$div(
+              style = "position: relative;",
+              actionButton(
+                "nav_settings",
+                label = icon("cog"),
+                class = "nav-tab nav-tab-settings"
+              ),
+              # Dropdown menu for settings
+              tags$div(
+                id = "settings_dropdown",
+                class = "settings-dropdown",
+                style = "display: none; position: absolute; right: 0; top: 100%; margin-top: 5px; background: #2c3e50; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 1000; min-width: 200px;",
+                tags$div(
+                  class = "settings-dropdown-item",
+                  style = "padding: 12px 20px; cursor: pointer; color: white; border-bottom: 1px solid rgba(255,255,255,0.1); transition: background 0.2s;",
+                  onclick = "$('#settings_dropdown').hide(); Shiny.setInputValue('nav_general_settings', true, {priority: 'event'});",
+                  tags$i(class = "fas fa-cog", style = "margin-right: 10px;"),
+                  "General settings"
+                ),
+                tags$div(
+                  class = "settings-dropdown-item",
+                  style = "padding: 12px 20px; cursor: pointer; color: white; transition: background 0.2s;",
+                  onclick = "$('#settings_dropdown').hide(); Shiny.setInputValue('nav_users', true, {priority: 'event'});",
+                  tags$i(class = "fas fa-users", style = "margin-right: 10px;"),
+                  "Users"
+                )
+              )
             )
         )
     ),

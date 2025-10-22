@@ -16,79 +16,104 @@ mod_settings_ui <- function(id) {
     # Main content for settings
     div(class = "main-panel",
         div(class = "main-content",
-
-            # OHDSI Vocabularies folder selector
-            fluidRow(
-              column(12,
-                     div(class = "settings-section",
-                         style = "background: #fff; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
-                         h4(
-                           tags$i(class = "fas fa-folder-open", style = "margin-right: 8px;"),
-                           "OHDSI Vocabularies Location"
-                         ),
-                         p(
-                           style = "color: #666; margin-bottom: 15px;",
-                           "Browse and select the folder containing your OHDSI Vocabularies files."
-                         ),
-
-                         # Browse button and selected folder display
-                         tags$div(
-                           style = "display: flex; align-items: center; gap: 15px;",
-                           actionButton(
-                             ns("browse_folder"),
-                             label = tagList(
-                               tags$i(class = "fas fa-folder-open", style = "margin-right: 6px;"),
-                               "Browse..."
-                             ),
-                             style = "background: #0f60af; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer;"
-                           ),
-                           tags$div(
-                             style = "flex: 1;",
-                             uiOutput(ns("folder_path_display"))
-                           )
-                         ),
-
-                         tags$div(
-                           style = "margin-top: 15px; padding: 12px; background: #e6f3ff; border-left: 4px solid #0f60af; border-radius: 4px;",
-                           tags$p(
-                             style = "margin: 0; font-size: 13px; color: #333;",
-                             tags$i(class = "fas fa-info-circle", style = "margin-right: 6px; color: #0f60af;"),
-                             tags$strong("Note:"), " The OHDSI Vocabularies can be downloaded from ",
-                             tags$a(
-                               href = "https://athena.ohdsi.org/",
-                               target = "_blank",
-                               "ATHENA",
-                               style = "color: #0f60af; text-decoration: underline;"
-                             ),
-                             " (registration required)."
-                           )
-                         ),
-
-                         # DuckDB option
-                         tags$div(
-                           style = "margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #dee2e6;",
-                           tags$div(
-                             style = "margin-bottom: 10px;",
-                             tags$div(
-                               style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 5px;",
-                               tags$i(class = "fas fa-database", style = "margin-right: 8px; color: #0f60af;"),
-                               "DuckDB Database"
-                             ),
-                             tags$p(
-                               style = "margin: 0; font-size: 12px; color: #666;",
-                               "Creates a DuckDB database from CSV files for instant loading at startup."
-                             )
-                           ),
-                           tags$div(
-                             style = "display: flex; align-items: center; gap: 15px;",
-                             uiOutput(ns("duckdb_status")),
-                             uiOutput(ns("duckdb_button"))
-                           )
-                         )
-                     )
-              )
-            )
+            uiOutput(ns("settings_content"))
         )
+    )
+  )
+}
+
+# Helper function for General Settings content
+general_settings_ui <- function(ns) {
+  fluidRow(
+    column(12,
+           div(class = "settings-section",
+               style = "background: #fff; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
+               h4(
+                 tags$i(class = "fas fa-folder-open", style = "margin-right: 8px;"),
+                 "OHDSI Vocabularies Location"
+               ),
+               p(
+                 style = "color: #666; margin-bottom: 15px;",
+                 "Browse and select the folder containing your OHDSI Vocabularies files."
+               ),
+
+               # Browse button and selected folder display
+               tags$div(
+                 style = "display: flex; align-items: center; gap: 15px;",
+                 actionButton(
+                   ns("browse_folder"),
+                   label = tagList(
+                     tags$i(class = "fas fa-folder-open", style = "margin-right: 6px;"),
+                     "Browse..."
+                   ),
+                   style = "background: #0f60af; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer;"
+                 ),
+                 tags$div(
+                   style = "flex: 1;",
+                   uiOutput(ns("folder_path_display"))
+                 )
+               ),
+
+               tags$div(
+                 style = "margin-top: 15px; padding: 12px; background: #e6f3ff; border-left: 4px solid #0f60af; border-radius: 4px;",
+                 tags$p(
+                   style = "margin: 0; font-size: 13px; color: #333;",
+                   tags$i(class = "fas fa-info-circle", style = "margin-right: 6px; color: #0f60af;"),
+                   tags$strong("Note:"), " The OHDSI Vocabularies can be downloaded from ",
+                   tags$a(
+                     href = "https://athena.ohdsi.org/",
+                     target = "_blank",
+                     "ATHENA",
+                     style = "color: #0f60af; text-decoration: underline;"
+                   ),
+                   " (registration required)."
+                 )
+               ),
+
+               # DuckDB option
+               tags$div(
+                 style = "margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #dee2e6;",
+                 tags$div(
+                   style = "margin-bottom: 10px;",
+                   tags$div(
+                     style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 5px;",
+                     tags$i(class = "fas fa-database", style = "margin-right: 8px; color: #0f60af;"),
+                     "DuckDB Database"
+                   ),
+                   tags$p(
+                     style = "margin: 0; font-size: 12px; color: #666;",
+                     "Creates a DuckDB database from CSV files for instant loading at startup."
+                   )
+                 ),
+                 tags$div(
+                   style = "display: flex; align-items: center; gap: 15px;",
+                   uiOutput(ns("duckdb_status")),
+                   uiOutput(ns("duckdb_button"))
+                 )
+               )
+           )
+    )
+  )
+}
+
+# Helper function for Users content
+users_ui <- function(ns) {
+  fluidRow(
+    column(12,
+           div(class = "users-placeholder",
+               style = "padding: 40px; text-align: center; background: #f8f9fa; border-radius: 8px; margin-top: 20px;",
+               tags$i(class = "fas fa-users", style = "font-size: 64px; color: #0f60af; margin-bottom: 20px;"),
+               tags$h3("User Management", style = "color: #0f60af;"),
+               tags$p("Manage user profiles for tracking contributions and improvements to the dictionary."),
+               tags$p(style = "color: #666;", "Features coming soon:"),
+               tags$ul(
+                 style = "list-style: none; padding: 0; color: #666;",
+                 tags$li(tags$i(class = "fas fa-check", style = "color: #28a745; margin-right: 8px;"), "Add and edit user profiles"),
+                 tags$li(tags$i(class = "fas fa-check", style = "color: #28a745; margin-right: 8px;"), "Assign roles and permissions"),
+                 tags$li(tags$i(class = "fas fa-check", style = "color: #28a745; margin-right: 8px;"), "Track user contributions"),
+                 tags$li(tags$i(class = "fas fa-check", style = "color: #28a745; margin-right: 8px;"), "Export user activity reports")
+               )
+           )
     )
   )
 }
@@ -106,9 +131,22 @@ mod_settings_ui <- function(id) {
 #' @noRd
 #'
 #' @importFrom shiny moduleServer reactive observeEvent reactiveVal renderUI showModal modalDialog removeModal observe textInput
-mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabularies = NULL) {
+mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabularies = NULL, page_type = reactive("general")) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
+
+    # Render settings content based on page type
+    output$settings_content <- renderUI({
+      type <- page_type()
+
+      if (type == "general") {
+        general_settings_ui(ns)
+      } else if (type == "users") {
+        users_ui(ns)
+      } else {
+        general_settings_ui(ns)
+      }
+    })
 
     # Store current browsing path, selected folder, sort order and filter
     current_path <- reactiveVal(path.expand("~"))

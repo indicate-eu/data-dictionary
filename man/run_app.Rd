@@ -4,7 +4,7 @@
 \alias{run_app}
 \title{Run the INDICATE Shiny Application}
 \usage{
-run_app(..., options = list(launch.browser = TRUE))
+run_app(..., options = list())
 }
 \arguments{
 \item{...}{Additional arguments passed to \code{\link[shiny]{shinyApp}}}

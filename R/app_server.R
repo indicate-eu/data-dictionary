@@ -184,6 +184,7 @@ app_server <- function(input, output, session) {
 
   # Track current page
   current_page <- reactiveVal("explorer")
+  settings_page_type <- reactiveVal("general")
 
   # Navigation handlers
   observeEvent(input$nav_explorer, {
@@ -198,11 +199,21 @@ app_server <- function(input, output, session) {
     current_page("use_cases")
   })
 
+  observeEvent(input$nav_improvements, {
+    current_page("improvements")
+  })
+
   observeEvent(input$nav_dev_tools, {
     current_page("dev_tools")
   })
 
-  observeEvent(input$nav_settings, {
+  observeEvent(input$nav_general_settings, {
+    settings_page_type("general")
+    current_page("settings")
+  })
+
+  observeEvent(input$nav_users, {
+    settings_page_type("users")
     current_page("settings")
   })
 
@@ -214,6 +225,8 @@ app_server <- function(input, output, session) {
       mod_concepts_mapping_ui("concepts_mapping")
     } else if (current_page() == "use_cases") {
       mod_use_cases_ui("use_cases")
+    } else if (current_page() == "improvements") {
+      mod_improvements_ui("improvements")
     } else if (current_page() == "dev_tools") {
       mod_dev_tools_ui("dev_tools")
     } else if (current_page() == "settings") {
@@ -240,6 +253,12 @@ app_server <- function(input, output, session) {
     data = data
   )
 
+  mod_improvements_server(
+    "improvements",
+    data = data,
+    config = config
+  )
+
   mod_dev_tools_server(
     "dev_tools",
     data = data,
@@ -253,6 +272,7 @@ app_server <- function(input, output, session) {
     reset_vocabularies = function() {
       vocabularies(NULL)
       vocab_loading_status("not_loaded")
-    }
+    },
+    page_type = reactive({ settings_page_type() })
   )
 }
