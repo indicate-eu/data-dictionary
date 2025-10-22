@@ -78,14 +78,71 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     selected_mapped_concept_id <- reactiveVal(NULL)  # Track selected concept in mappings table
     relationships_tab <- reactiveVal("related")  # Track active tab: "related", "hierarchy", "synonyms"
     modal_concept_id <- reactiveVal(NULL)  # Track concept ID for modal display
+    selected_categories <- reactiveVal(character(0))  # Track selected category filters
+
+    # Get unique categories from data
+    categories_list <- reactive({
+      req(data())
+      unique_cats <- unique(data()$general_concepts$category)
+      sorted_cats <- sort(unique_cats[!is.na(unique_cats)])
+
+      # Move "Other" to the end if it exists
+      if ("Other" %in% sorted_cats) {
+        sorted_cats <- c(setdiff(sorted_cats, "Other"), "Other")
+      }
+
+      sorted_cats
+    })
+
+    # Observe category selection
+    observeEvent(input$category_filter, {
+      category <- input$category_filter
+      current_selected <- selected_categories()
+
+      if (category %in% current_selected) {
+        # Remove category
+        selected_categories(setdiff(current_selected, category))
+      } else {
+        # Add category
+        selected_categories(c(current_selected, category))
+      }
+    })
 
     # Render breadcrumb
     output$breadcrumb <- renderUI({
       if (current_view() == "list") {
+        categories <- categories_list()
+        selected <- selected_categories()
+
         tags$div(
           class = "breadcrumb-nav",
-          style = "padding: 10px 0 15px 0; font-size: 16px; color: #0f60af; font-weight: 600;",
-          tags$span("General Concepts")
+          style = "padding: 10px 0 15px 0; display: flex; align-items: center; gap: 15px;",
+          # Title
+          tags$div(
+            style = "font-size: 16px; color: #0f60af; font-weight: 600;",
+            tags$span("General Concepts")
+          ),
+          # Category badges
+          tags$div(
+            class = "category-filters",
+            style = "display: flex; flex-wrap: wrap; gap: 8px; flex: 1;",
+            lapply(categories, function(cat) {
+              is_selected <- cat %in% selected
+              tags$span(
+                class = "category-badge",
+                style = sprintf(
+                  "padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; transition: all 0.2s; %s",
+                  if (is_selected) {
+                    "background: #ff8c00; color: white; font-weight: 500;"
+                  } else {
+                    "background: #e9ecef; color: #6c757d;"
+                  }
+                ),
+                onclick = sprintf("Shiny.setInputValue('%s', '%s', {priority: 'event'})", ns("category_filter"), cat),
+                cat
+              )
+            })
+          )
         )
       } else {
         concept_id <- selected_concept_id()
@@ -118,27 +175,30 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       }
     })
 
-    # Render content area - render both and use shinyjs to show/hide
+    # Render content area once - both containers are created and shown/hidden
     output$content_area <- renderUI({
-      # Check if a concept is already selected
-      concept_id <- selected_concept_id()
-      show_details <- !is.null(concept_id) && current_view() == "detail"
-
       tagList(
         # General Concepts table container
         tags$div(
           id = ns("general_concepts_container"),
           class = "table-container",
-          style = if (show_details) "display: none;" else "height: calc(100vh - 130px); overflow: auto;",
+          style = "height: calc(100vh - 130px); overflow: auto;",
           DT::DTOutput(ns("general_concepts_table"))
         ),
         # Concept details container
         tags$div(
           id = ns("concept_details_container"),
-          style = if (show_details) "" else "display: none;",
-          render_concept_details()
+          style = "display: none;",
+          uiOutput(ns("concept_details_ui"))
         )
       )
+    })
+
+    # Render concept details when needed
+    output$concept_details_ui <- renderUI({
+      req(current_view() == "detail")
+      req(selected_concept_id())
+      render_concept_details()
     })
 
     # Observe current_view to show/hide appropriate content
@@ -380,6 +440,31 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       selected_mapped_concept_id(NULL)
       current_mappings(NULL)
       relationships_tab("related")
+    })
+
+    # Update DataTable filter when categories change
+    observeEvent(selected_categories(), {
+      categories <- selected_categories()
+
+      # Create proxy for the DataTable
+      proxy <- DT::dataTableProxy("general_concepts_table", session = session)
+
+      if (length(categories) > 0) {
+        # Format as JSON array for multi-select filter: ["Category1", "Category2"]
+        search_string <- jsonlite::toJSON(categories, auto_unbox = FALSE)
+
+        # Update the search for the Category column (column index 1, 0-based)
+        DT::updateSearch(proxy, keywords = list(
+          global = NULL,
+          columns = list(NULL, as.character(search_string))  # NULL for ID column, JSON array for Category column
+        ))
+      } else {
+        # Clear the filter
+        DT::updateSearch(proxy, keywords = list(
+          global = NULL,
+          columns = list(NULL, NULL)
+        ))
+      }
     })
 
     # Render comments

@@ -52,6 +52,23 @@ a:hover {
   text-decoration: underline;
 }
 
+/* Category badge styling
+-------------------------------------------------- */
+.category-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.category-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
 /* Header styling
 -------------------------------------------------- */
 .header {
@@ -373,6 +390,10 @@ hr {
   font-size: 11px !important;
   border-radius: 5px !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Disable text selection only during double-click */
+.dataTable.no-select {
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
