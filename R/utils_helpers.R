@@ -75,6 +75,25 @@ build_unit_fhir_url <- function(unit_concept_name, config) {
   return(NULL)
 }
 
+#' Build ATHENA OHDSI URL
+#'
+#' @description Build ATHENA OHDSI URL for concept lookup
+#'
+#' @param concept_id OMOP concept ID
+#' @param config Configuration list containing ATHENA base URL
+#'
+#' @return ATHENA lookup URL or NULL if concept_id is invalid
+#' @noRd
+build_athena_url <- function(concept_id, config) {
+  # Validate input
+  if (is.null(concept_id) || is.na(concept_id)) {
+    return(NULL)
+  }
+
+  # Build ATHENA URL
+  return(paste0(config$athena_base_url, "/", concept_id))
+}
+
 #' Create Clickable HTML Link
 #'
 #' @description Create clickable HTML link

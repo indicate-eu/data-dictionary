@@ -777,6 +777,38 @@ a.paginate_button.current * {
   overflow: visible !important;
 }
 
+.quadrant-content .shiny-spinner-placeholder {
+  overflow: hidden !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+/* Center spinner only when loading */
+.quadrant-content .shiny-spinner-output-container.recalculating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Comments section should not take full height */
+.quadrant-bottom-left .shiny-spinner-output-container {
+  height: auto !important;
+  min-height: 300px;
+}
+
+.quadrant-bottom-left > div {
+  height: auto !important;
+}
+
+/* Center spinner in comments section when loading */
+.quadrant-bottom-left .shiny-spinner-output-container.recalculating {
+  min-height: 300px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100%;
+}
+
 /* Splitter variants for quadrant layout */
 .splitter-h {
   width: 100%;
@@ -984,7 +1016,7 @@ a.paginate_button.current * {
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  max-width: 700px;
+  max-width: 900px;
   width: 90%;
   max-height: 80vh;
   overflow: auto;

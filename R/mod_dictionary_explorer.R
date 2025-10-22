@@ -29,6 +29,7 @@ mod_dictionary_explorer_ui <- function(id) {
       id = ns("concept_modal"),
       class = "modal-overlay",
       style = "display: none;",
+      onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("concept_modal")),
       tags$div(
         class = "modal-content",
         tags$div(
@@ -76,6 +77,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     selected_concept_id <- reactiveVal(NULL)
     selected_mapped_concept_id <- reactiveVal(NULL)  # Track selected concept in mappings table
     relationships_tab <- reactiveVal("related")  # Track active tab: "related", "hierarchy", "synonyms"
+    modal_concept_id <- reactiveVal(NULL)  # Track concept ID for modal display
 
     # Render breadcrumb
     output$breadcrumb <- renderUI({
@@ -118,18 +120,22 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
     # Render content area - render both and use shinyjs to show/hide
     output$content_area <- renderUI({
+      # Check if a concept is already selected
+      concept_id <- selected_concept_id()
+      show_details <- !is.null(concept_id) && current_view() == "detail"
+
       tagList(
         # General Concepts table container
         tags$div(
           id = ns("general_concepts_container"),
           class = "table-container",
-          style = "height: calc(100vh - 130px); overflow: auto;",
+          style = if (show_details) "display: none;" else "height: calc(100vh - 130px); overflow: auto;",
           DT::DTOutput(ns("general_concepts_table"))
         ),
         # Concept details container
         tags$div(
           id = ns("concept_details_container"),
-          style = "display: none;",
+          style = if (show_details) "" else "display: none;",
           render_concept_details()
         )
       )
@@ -314,8 +320,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         filter = 'top',
         colnames = c("ID", "Category", "Subcategory", "General Concept Name", "Actions"),
         options = list(
-          pageLength = 25,
-          lengthMenu = list(c(10, 25, 50, 100, -1), c('10', '25', '50', '100', 'All')),
+          pageLength = 20,
+          lengthMenu = list(c(10, 20, 25, 50, 100, -1), c('10', '20', '25', '50', '100', 'All')),
           dom = 'ltp',
           columnDefs = list(
             list(targets = 0, visible = FALSE),
@@ -371,6 +377,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     observeEvent(input$back_to_list, {
       current_view("list")
       selected_concept_id(NULL)
+      selected_mapped_concept_id(NULL)
+      current_mappings(NULL)
+      relationships_tab("related")
     })
 
     # Render comments
@@ -497,6 +506,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       mappings <- mappings %>%
         dplyr::select(concept_name, vocabulary_id, concept_code, recommended, omop_concept_id, is_general_concept)
 
+      # Cache mappings for selection handling (before converting recommended to Yes/No)
+      mappings_for_cache <- mappings %>%
+        dplyr::mutate(recommended = recommended == "Yes")
+      current_mappings(mappings_for_cache)
+
       # Load JavaScript callbacks
       callback <- JS(paste(readLines(app_sys("www", "dt_callback.js")), collapse = "\n"))
       keyboard_nav <- paste(readLines(app_sys("www", "keyboard_nav.js")), collapse = "\n")
@@ -564,6 +578,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     # Observe selection in concept mappings table with debounce
     observeEvent(debounced_selection(), {
       selected_row <- debounced_selection()
+
       if (!is.null(selected_row) && length(selected_row) > 0) {
         # Use cached mappings if available
         mappings <- current_mappings()
@@ -670,39 +685,110 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
         info <- concept_details[1, ]
 
-        # Display minimal info for OHDSI-only concepts
+        # Build URLs for OHDSI-only concepts
+        athena_url <- paste0(config$athena_base_url, "/", info$concept_id)
+        fhir_url <- build_fhir_url(info$vocabulary_id, info$concept_code, config)
+
+        # Determine validity and standard
+        is_valid <- is.na(info$invalid_reason) || info$invalid_reason == ""
+        validity_color <- if (is_valid) "#28a745" else "#dc3545"
+        validity_text <- if (is_valid) {
+          "Valid"
+        } else {
+          paste0("Invalid (", info$invalid_reason, ")")
+        }
+
+        is_standard <- !is.na(info$standard_concept) && info$standard_concept == "S"
+        standard_color <- if (is_standard) "#28a745" else "#dc3545"
+        standard_text <- if (is_standard) "Standard" else "Non-standard"
+
+        # Helper function to create detail items
+        create_detail_item_ohdsi <- function(label, value, url = NULL, color = NULL) {
+          display_value <- if (is.na(value) || is.null(value) || value == "") {
+            "/"
+          } else {
+            as.character(value)
+          }
+
+          # Create link if URL provided
+          if (!is.null(url) && display_value != "/") {
+            display_value <- tags$a(
+              href = url,
+              target = "_blank",
+              style = "color: #0f60af; text-decoration: underline;",
+              display_value
+            )
+          } else if (!is.null(color) && display_value != "/") {
+            # Apply color if specified
+            display_value <- tags$span(
+              style = paste0("color: ", color, "; font-weight: 600;"),
+              display_value
+            )
+          }
+
+          tags$div(
+            class = "detail-item",
+            tags$strong(label),
+            tags$span(display_value)
+          )
+        }
+
+        # Display full info for OHDSI-only concepts (with "/" for missing EHDEN/LOINC data)
         return(tags$div(
           class = "concept-details-container",
-          tags$div(
-            class = "detail-item",
-            tags$strong("General Concept Name: "),
-            tags$span(ifelse(nrow(general_concept_info) > 0, general_concept_info$general_concept_name[1], "/"))
-          ),
-          tags$div(
-            class = "detail-item",
-            tags$strong("Selected Concept Name: "),
-            tags$span(ifelse(is.na(info$concept_name), "/", info$concept_name))
-          ),
-          tags$div(
-            class = "detail-item",
-            tags$strong("Vocabulary ID: "),
-            tags$span(ifelse(is.na(info$vocabulary_id), "/", info$vocabulary_id))
-          ),
-          tags$div(
-            class = "detail-item",
-            tags$strong("Concept Code: "),
-            tags$span(ifelse(is.na(info$concept_code), "/", info$concept_code))
-          ),
-          tags$div(
-            class = "detail-item",
-            tags$strong("OMOP Concept ID: "),
-            tags$span(ifelse(is.na(info$concept_id), "/", as.character(info$concept_id)))
-          )
+          style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(7, auto); grid-auto-flow: column; gap: 4px 15px;",
+          # Column 1
+          create_detail_item_ohdsi("Concept Name", info$concept_name),
+          create_detail_item_ohdsi("Category",
+                                   ifelse(nrow(general_concept_info) > 0,
+                                         general_concept_info$category[1], NA)),
+          create_detail_item_ohdsi("Sub-category",
+                                   ifelse(nrow(general_concept_info) > 0,
+                                         general_concept_info$subcategory[1], NA)),
+          create_detail_item_ohdsi("EHDEN Data Sources", "/"),
+          create_detail_item_ohdsi("EHDEN Rows Count", "/"),
+          create_detail_item_ohdsi("LOINC Rank", "/"),
+          create_detail_item_ohdsi("Validity", validity_text, color = validity_color),
+          # Column 2 (must have exactly 7 items)
+          create_detail_item_ohdsi("Vocabulary ID", info$vocabulary_id),
+          create_detail_item_ohdsi("Concept Code", info$concept_code),
+          create_detail_item_ohdsi("OMOP Concept ID", info$concept_id, url = athena_url),
+          if (!is.null(fhir_url)) {
+            tags$div(
+              class = "detail-item",
+              tags$strong("FHIR Resource"),
+              tags$a(
+                href = fhir_url,
+                target = "_blank",
+                style = "color: #0f60af; text-decoration: underline;",
+                "View"
+              )
+            )
+          } else {
+            tags$div(class = "detail-item", style = "visibility: hidden;")
+          },
+          tags$div(class = "detail-item", style = "visibility: hidden;"),
+          tags$div(class = "detail-item", style = "visibility: hidden;"),
+          create_detail_item_ohdsi("Standard", standard_text, color = standard_color)
         ))
       }
 
       # Display full details from concept_mappings
       info <- concept_mapping[1, ]
+
+      # Get validity and standard info from OHDSI vocabularies
+      vocab_data <- vocabularies()
+      validity_info <- NULL
+      if (!is.null(vocab_data)) {
+        validity_info <- vocab_data$concept %>%
+          dplyr::filter(concept_id == omop_concept_id) %>%
+          dplyr::collect()
+        if (nrow(validity_info) > 0) {
+          validity_info <- validity_info[1, ]
+        } else {
+          validity_info <- NULL
+        }
+      }
 
       # Build URLs
       athena_url <- paste0(config$athena_base_url, "/", info$omop_concept_id)
@@ -715,7 +801,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       unit_fhir_url <- build_unit_fhir_url(info$unit_concept_code, config)
 
       # Create detail items with proper formatting
-      create_detail_item <- function(label, value, format_number = FALSE, url = NULL) {
+      create_detail_item <- function(label, value, format_number = FALSE, url = NULL, color = NULL) {
         display_value <- if (is.na(value) || is.null(value) || value == "") {
           "/"
         } else if (is.logical(value)) {
@@ -734,6 +820,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
             style = "color: #0f60af; text-decoration: underline;",
             display_value
           )
+        } else if (!is.null(color) && display_value != "/") {
+          # Apply color if specified
+          display_value <- tags$span(
+            style = paste0("color: ", color, "; font-weight: 600;"),
+            display_value
+          )
         }
 
         tags$div(
@@ -741,6 +833,47 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           tags$strong(label),
           tags$span(display_value)
         )
+      }
+
+      # Determine validity and standard from vocab_data
+      is_valid <- if (!is.null(validity_info)) {
+        is.na(validity_info$invalid_reason) || validity_info$invalid_reason == ""
+      } else {
+        NA
+      }
+      validity_color <- if (!is.na(is_valid)) {
+        if (is_valid) "#28a745" else "#dc3545"
+      } else {
+        NULL
+      }
+      validity_text <- if (!is.na(is_valid)) {
+        if (is_valid) {
+          "Valid"
+        } else {
+          if (!is.null(validity_info) && !is.na(validity_info$invalid_reason)) {
+            paste0("Invalid (", validity_info$invalid_reason, ")")
+          } else {
+            "Invalid"
+          }
+        }
+      } else {
+        "/"
+      }
+
+      is_standard <- if (!is.null(validity_info)) {
+        !is.na(validity_info$standard_concept) && validity_info$standard_concept == "S"
+      } else {
+        NA
+      }
+      standard_color <- if (!is.na(is_standard)) {
+        if (is_standard) "#28a745" else "#dc3545"
+      } else {
+        NULL
+      }
+      standard_text <- if (!is.na(is_standard)) {
+        if (is_standard) "Standard" else "Non-standard"
+      } else {
+        "/"
       }
 
       tags$div(
@@ -757,8 +890,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         create_detail_item("EHDEN Data Sources", info$ehden_num_data_sources, format_number = TRUE),
         create_detail_item("EHDEN Rows Count", info$ehden_rows_count, format_number = TRUE),
         create_detail_item("LOINC Rank", info$loinc_rank),
-        tags$div(class = "detail-item", style = "visibility: hidden;"),
-        # Column 2
+        create_detail_item("Validity", validity_text, color = validity_color),
+        # Column 2 (must have exactly 7 items)
         create_detail_item("Vocabulary ID", info$vocabulary_id),
         create_detail_item("Concept Code", info$concept_code),
         create_detail_item("OMOP Concept ID", info$omop_concept_id, url = athena_url),
@@ -786,20 +919,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         } else {
           tags$div(class = "detail-item", style = "visibility: hidden;")
         },
-        if (!is.null(unit_fhir_url)) {
-          tags$div(
-            class = "detail-item",
-            tags$strong("FHIR Unit Resource"),
-            tags$a(
-              href = unit_fhir_url,
-              target = "_blank",
-              style = "color: #0f60af; text-decoration: underline;",
-              "View"
-            )
-          )
-        } else {
-          tags$div(class = "detail-item", style = "visibility: hidden;")
-        }
+        create_detail_item("Standard", standard_text, color = standard_color)
       )
     })
 
@@ -870,7 +990,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
               $(table.table().node()).on('dblclick', 'tbody tr', function() {
                 var rowData = table.row(this).data();
                 if (rowData && rowData[4]) {
-                  var conceptId = rowData[4];  // OMOP ID is in column 4 (hidden)
+                  var conceptId = rowData[4];
                   Shiny.setInputValue('%s', conceptId, {priority: 'event'});
                   $('#%s').show();
                 }
@@ -937,17 +1057,28 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       )
     }, server = FALSE)
 
+    # Observe modal_concept_id input and update reactiveVal
+    observeEvent(input$modal_concept_id, {
+      modal_concept_id(input$modal_concept_id)
+    }, ignoreNULL = TRUE, ignoreInit = FALSE)
+
     # Modal concept details
     output$concept_modal_body <- renderUI({
-      concept_id <- input$modal_concept_id
-      req(concept_id)
+      concept_id <- modal_concept_id()
+
+      if (is.null(concept_id)) {
+        return(tags$div("No concept selected"))
+      }
 
       vocab_data <- vocabularies()
-      req(vocab_data)
+      if (is.null(vocab_data)) {
+        return(tags$div("Vocabulary data not available"))
+      }
 
       # Get concept information from vocabularies
       concept_info <- vocab_data$concept %>%
-        dplyr::filter(concept_id == !!concept_id)
+        dplyr::filter(concept_id == !!concept_id) %>%
+        dplyr::collect()
 
       if (nrow(concept_info) == 0) {
         return(tags$p("Concept not found.", style = "color: #666; font-style: italic;"))
@@ -1036,5 +1167,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         tags$div(class = "detail-item", style = "visibility: hidden;")
       )
     })
+
+    # Force Shiny to render output even when hidden
+    outputOptions(output, "concept_modal_body", suspendWhenHidden = FALSE)
   })
 }

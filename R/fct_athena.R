@@ -122,22 +122,17 @@ get_related_concepts_filtered <- function(concept_id, vocabularies) {
   }
 
   tryCatch({
-    # Get all relationships for this concept (filter BEFORE collecting)
+    # Get all relationships for this concept (filter only on concept_id_1)
     relationships <- vocabularies$concept_relationship %>%
-      dplyr::filter(
-        concept_id_1 == concept_id | concept_id_2 == concept_id
-      ) %>%
+      dplyr::filter(concept_id_1 == concept_id) %>%
       dplyr::collect()
 
     if (nrow(relationships) == 0) {
       return(data.frame())
     }
 
-    # Get related concept IDs
-    related_ids <- unique(c(
-      relationships$concept_id_1[relationships$concept_id_2 == concept_id],
-      relationships$concept_id_2[relationships$concept_id_1 == concept_id]
-    ))
+    # Get related concept IDs (only concept_id_2 since we filtered on concept_id_1)
+    related_ids <- unique(relationships$concept_id_2)
 
     # Get concept details for related concepts (filter BEFORE collecting)
     concepts_info <- vocabularies$concept %>%
@@ -157,7 +152,7 @@ get_related_concepts_filtered <- function(concept_id, vocabularies) {
 
     for (i in 1:nrow(relationships)) {
       rel <- relationships[i, ]
-      related_concept_id <- ifelse(rel$concept_id_1 == concept_id, rel$concept_id_2, rel$concept_id_1)
+      related_concept_id <- rel$concept_id_2
 
       # Find concept info
       concept_info <- concepts_info[concepts_info$concept_id == related_concept_id, ]
@@ -192,22 +187,17 @@ get_related_concepts <- function(concept_id, vocabularies) {
   }
 
   tryCatch({
-    # Get all relationships for this concept (filter BEFORE collecting)
+    # Get all relationships for this concept (filter only on concept_id_1)
     relationships <- vocabularies$concept_relationship %>%
-      dplyr::filter(
-        concept_id_1 == concept_id | concept_id_2 == concept_id
-      ) %>%
+      dplyr::filter(concept_id_1 == concept_id) %>%
       dplyr::collect()
 
     if (nrow(relationships) == 0) {
       return(data.frame())
     }
 
-    # Get related concept IDs
-    related_ids <- unique(c(
-      relationships$concept_id_1[relationships$concept_id_2 == concept_id],
-      relationships$concept_id_2[relationships$concept_id_1 == concept_id]
-    ))
+    # Get related concept IDs (only concept_id_2 since we filtered on concept_id_1)
+    related_ids <- unique(relationships$concept_id_2)
 
     # Get concept details for related concepts (filter BEFORE collecting, no other filtering)
     concepts_info <- vocabularies$concept %>%
@@ -223,7 +213,7 @@ get_related_concepts <- function(concept_id, vocabularies) {
 
     for (i in 1:nrow(relationships)) {
       rel <- relationships[i, ]
-      related_concept_id <- ifelse(rel$concept_id_1 == concept_id, rel$concept_id_2, rel$concept_id_1)
+      related_concept_id <- rel$concept_id_2
 
       # Find concept info
       concept_info <- concepts_info[concepts_info$concept_id == related_concept_id, ]
