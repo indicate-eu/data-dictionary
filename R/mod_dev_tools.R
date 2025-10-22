@@ -34,7 +34,7 @@ mod_dev_tools_ui <- function(id) {
                 "R Console",
                 value = "r_console",
                 tags$div(
-                  style = "margin-top: 20px; height: calc(100vh - 240px); display: flex; flex-direction: column;",
+                  style = "margin-top: 20px; height: calc(100vh - 140px); display: flex; flex-direction: column;",
                   tags$div(
                     style = "display: flex; gap: 15px; height: 100%;",
                     # Left: Editor
@@ -53,7 +53,39 @@ mod_dev_tools_ui <- function(id) {
                           height = "100%",
                           fontSize = 11,
                           value = "# Query vocabularies using dplyr\n# Example:\nconcept %>% \n  filter(concept_id == 3004249)"
-                        )
+                        ),
+                        tags$script(HTML(sprintf("
+                          $(document).ready(function() {
+                            var editor = ace.edit('%s');
+
+                            // CMD/CTRL + SHIFT + ENTER: Run all code
+                            editor.commands.addCommand({
+                              name: 'runAllCode',
+                              bindKey: {win: 'Ctrl-Shift-Enter', mac: 'Command-Shift-Enter'},
+                              exec: function(editor) {
+                                $('#%s').click();
+                              }
+                            });
+
+                            // CMD/CTRL + ENTER: Run selection or current line
+                            editor.commands.addCommand({
+                              name: 'runSelectionOrLine',
+                              bindKey: {win: 'Ctrl-Enter', mac: 'Command-Enter'},
+                              exec: function(editor) {
+                                var selection = editor.getSelectedText();
+                                if (selection) {
+                                  // Run selection
+                                  Shiny.setInputValue('%s', selection, {priority: 'event'});
+                                } else {
+                                  // Run current line
+                                  var cursor = editor.getCursorPosition();
+                                  var line = editor.session.getLine(cursor.row);
+                                  Shiny.setInputValue('%s', line, {priority: 'event'});
+                                }
+                              }
+                            });
+                          });
+                        ", ns("r_editor"), ns("run_code"), ns("run_selection"), ns("run_selection"))))
                       ),
                       tags$div(
                         style = "margin-top: 10px; margin-bottom: 10px; padding: 10px; background: #e6f3ff; border-left: 3px solid #0f60af; border-radius: 4px; font-size: 12px;",
@@ -407,9 +439,8 @@ mod_dev_tools_server <- function(id, data, vocabularies) {
     })
 
     # Execute R code
-    observeEvent(input$run_code, {
-      code <- input$r_editor
-
+    # Helper function to execute code
+    execute_code <- function(code) {
       if (is.null(code) || nchar(trimws(code)) == 0) {
         code_status("no_code")
         return()
@@ -440,6 +471,18 @@ mod_dev_tools_server <- function(id, data, vocabularies) {
         code_error_msg(as.character(e$message))
         code_status("error")
       })
+    }
+
+    # Run all code (button click or Ctrl/Cmd + Shift + Enter)
+    observeEvent(input$run_code, {
+      code <- input$r_editor
+      execute_code(code)
+    })
+
+    # Run selection or current line (Ctrl/Cmd + Enter)
+    observeEvent(input$run_selection, {
+      code <- input$run_selection
+      execute_code(code)
     })
   })
 }

@@ -736,7 +736,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         # Display full info for OHDSI-only concepts (with "/" for missing EHDEN/LOINC data)
         return(tags$div(
           class = "concept-details-container",
-          style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(7, auto); grid-auto-flow: column; gap: 4px 15px;",
+          style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(8, auto); grid-auto-flow: column; gap: 4px 15px;",
           # Column 1
           create_detail_item_ohdsi("Concept Name", info$concept_name),
           create_detail_item_ohdsi("Category",
@@ -749,8 +749,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           create_detail_item_ohdsi("EHDEN Rows Count", "/"),
           create_detail_item_ohdsi("LOINC Rank", "/"),
           create_detail_item_ohdsi("Validity", validity_text, color = validity_color),
-          # Column 2 (must have exactly 7 items)
+          create_detail_item_ohdsi("Standard", standard_text, color = standard_color),
+          # Column 2 (must have exactly 8 items)
           create_detail_item_ohdsi("Vocabulary ID", info$vocabulary_id),
+          create_detail_item_ohdsi("Domain ID", if (!is.na(info$domain_id)) info$domain_id else "/"),
           create_detail_item_ohdsi("Concept Code", info$concept_code),
           create_detail_item_ohdsi("OMOP Concept ID", info$concept_id, url = athena_url),
           if (!is.null(fhir_url)) {
@@ -767,9 +769,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           } else {
             tags$div(class = "detail-item", style = "visibility: hidden;")
           },
-          tags$div(class = "detail-item", style = "visibility: hidden;"),
-          tags$div(class = "detail-item", style = "visibility: hidden;"),
-          create_detail_item_ohdsi("Standard", standard_text, color = standard_color)
+          create_detail_item_ohdsi("Unit Concept Name", "/"),
+          create_detail_item_ohdsi("OMOP Unit Concept ID", "/"),
+          tags$div(class = "detail-item", style = "visibility: hidden;")
         ))
       }
 
@@ -878,7 +880,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
       tags$div(
         class = "concept-details-container",
-        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(7, auto); grid-auto-flow: column; gap: 4px 15px;",
+        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(8, auto); grid-auto-flow: column; gap: 4px 15px;",
         # Column 1
         create_detail_item("Concept Name", info$concept_name),
         create_detail_item("Category",
@@ -891,8 +893,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         create_detail_item("EHDEN Rows Count", info$ehden_rows_count, format_number = TRUE),
         create_detail_item("LOINC Rank", info$loinc_rank),
         create_detail_item("Validity", validity_text, color = validity_color),
-        # Column 2 (must have exactly 7 items)
+        create_detail_item("Standard", standard_text, color = standard_color),
+        # Column 2 (must have exactly 8 items)
         create_detail_item("Vocabulary ID", info$vocabulary_id),
+        create_detail_item("Domain ID", if (!is.null(validity_info) && !is.na(validity_info$domain_id)) validity_info$domain_id else "/"),
         create_detail_item("Concept Code", info$concept_code),
         create_detail_item("OMOP Concept ID", info$omop_concept_id, url = athena_url),
         if (!is.null(fhir_url)) {
@@ -909,17 +913,19 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         } else {
           tags$div(class = "detail-item", style = "visibility: hidden;")
         },
-        if (!is.na(info$unit_concept_code) && info$unit_concept_code != "") {
-          create_detail_item("Unit Concept Name", info$unit_concept_code)
-        } else {
-          tags$div(class = "detail-item", style = "visibility: hidden;")
-        },
-        if (!is.na(info$omop_unit_concept_id) && info$omop_unit_concept_id != "") {
-          create_detail_item("OMOP Unit Concept ID", info$omop_unit_concept_id, url = athena_unit_url)
-        } else {
-          tags$div(class = "detail-item", style = "visibility: hidden;")
-        },
-        create_detail_item("Standard", standard_text, color = standard_color)
+        create_detail_item("Unit Concept Name",
+                          if (!is.na(info$unit_concept_code) && info$unit_concept_code != "") {
+                            info$unit_concept_code
+                          } else {
+                            "/"
+                          }),
+        create_detail_item("OMOP Unit Concept ID",
+                          if (!is.na(info$omop_unit_concept_id) && info$omop_unit_concept_id != "") {
+                            info$omop_unit_concept_id
+                          } else {
+                            "/"
+                          },
+                          url = athena_unit_url)
       )
     })
 
@@ -1135,7 +1141,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
       tags$div(
         class = "concept-details-container",
-        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(7, auto); grid-auto-flow: column; gap: 4px 15px;",
+        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(6, auto); grid-auto-flow: column; gap: 4px 15px;",
         # Column 1
         create_detail_item("Concept Name", info$concept_name),
         create_detail_item("Category", info$domain_id),
@@ -1143,9 +1149,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         create_detail_item("Validity", validity_text, color = validity_color),
         create_detail_item("Standard", standard_text, color = standard_color),
         tags$div(class = "detail-item", style = "visibility: hidden;"),
-        tags$div(class = "detail-item", style = "visibility: hidden;"),
         # Column 2
         create_detail_item("Vocabulary ID", info$vocabulary_id),
+        create_detail_item("Domain ID", info$domain_id),
         create_detail_item("Concept Code", info$concept_code),
         create_detail_item("OMOP Concept ID", info$concept_id, url = athena_url),
         if (!is.null(fhir_url)) {
@@ -1162,8 +1168,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         } else {
           tags$div(class = "detail-item", style = "visibility: hidden;")
         },
-        tags$div(class = "detail-item", style = "visibility: hidden;"),
-        tags$div(class = "detail-item", style = "visibility: hidden;"),
         tags$div(class = "detail-item", style = "visibility: hidden;")
       )
     })
