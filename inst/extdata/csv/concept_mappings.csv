@@ -615,3 +615,4 @@ general_concept_id,concept_name,vocabulary_id,concept_code,omop_concept_id,recom
 331,Urine volume,SNOMED,993701000000102,37397937,TRUE,mL,8687,numeric,measurement,measurement_concept_id,Measurement,136000,8,NA
 332,Respiratory rate,SNOMED,86290005,4313591,TRUE,/min,8541,numeric,measurement,measurement_concept_id,Measurement,55000000,>20,NA
 333,Peripheral oxygen saturation,SNOMED,431314004,4196147,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,33600000,12,NA
+16,Human immunodeficiency virus infection,SNOMED,86406008,439727,TRUE,/,/,/,/,/,/,0,0,NA

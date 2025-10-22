@@ -39,7 +39,8 @@ app_ui <- function() {
       tags$script(src = "www/folder_display.js"),
       tags$script(src = "www/view_details.js"),
       tags$script(src = "www/settings_menu.js"),
-      tags$script(src = "www/prevent_doubleclick_selection.js")
+      tags$script(src = "www/prevent_doubleclick_selection.js"),
+      tags$script(src = "www/recommended_toggle.js")
     ),
 
     # Application header with navigation
