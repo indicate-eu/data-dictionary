@@ -5,7 +5,7 @@ general_concept_id,category,subcategory,general_concept_name,athena_concept_id,c
 4,Clinical observation,Neurological assessment,Confusion Assessment Method for the Intensive Care Unit (CAM-ICU) score,NA,NA
 5,Clinical observation,Neurological assessment,Delirium Detection Score (DDS) score,NA,NA
 6,Clinical observation,Neurological assessment,Delirium Observation Scale (DOS) score,NA,NA
-7,Clinical observation,Neurological assessment,Delirium Rating Scale (DRS) score,NA,NA
+7,Clinical observation,Neurological assessment,Delirium Rating Scale (DRS) score,NA,
 8,Clinical observation,Neurological assessment,Glasgow coma scale,NA,NA
 9,Clinical observation,Neurological assessment,Intensive Care Delirium Screening Checklist (ICDSC) score,NA,NA
 10,Clinical observation,Neurological assessment,Numeric Pain Rating Scale,NA,NA

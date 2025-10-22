@@ -12,6 +12,75 @@ html, body {
   overflow: hidden;
 }
 
+/* Shiny notifications
+-------------------------------------------------- */
+.shiny-notification {
+  position: fixed !important;
+  top: 72px !important; /* Header height (10px padding + 40px logo + 10px padding + 2px border + 10px margin) */
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: auto !important;
+  max-width: 500px !important;
+  min-width: 300px !important;
+  z-index: 9999 !important;
+}
+
+/* Comments display - special handling for comments quadrant */
+.quadrant-bottom-left .quadrant-content {
+  overflow-y: hidden !important; /* Prevent double scrollbar */
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.quadrant-bottom-left .quadrant-content > div {
+  flex: 1 !important;
+  min-height: 0 !important;
+}
+
+.quadrant-bottom-left .shiny-spinner-output-container {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.quadrant-bottom-left .shiny-spinner-placeholder {
+  display: none !important; /* Hide the spinner placeholder that creates fixed height */
+}
+
+#dictionary_explorer-comments_display {
+  flex: 1 !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+#dictionary_explorer-comments_display > div {
+  flex: 1 !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+#dictionary_explorer-comments_display .comments-container {
+  flex: 1 !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+}
+
+/* Textarea in edit mode should fill the container */
+#dictionary_explorer-comments_display .shiny-input-textarea {
+  flex: 1 !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+#dictionary_explorer-comments_display textarea {
+  flex: 1 !important;
+  min-height: 0 !important;
+  resize: none !important;
+  box-sizing: border-box !important;
+}
+
 body > div {
   height: 100vh;
   display: flex;

@@ -79,11 +79,35 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     relationships_tab <- reactiveVal("related")  # Track active tab: "related", "hierarchy", "synonyms"
     modal_concept_id <- reactiveVal(NULL)  # Track concept ID for modal display
     selected_categories <- reactiveVal(character(0))  # Track selected category filters
+    edit_mode <- reactiveVal(FALSE)  # Track edit mode state
+
+    # Track temporary edits in edit mode
+    # edited_recommended <- reactiveVal(list())  # Store recommended changes by omop_concept_id
+    # edited_comment <- reactiveVal(NULL)  # Store comment changes
+
+    # Create a local copy of data that can be updated
+    local_data <- reactiveVal(NULL)
+
+    # Initialize local_data with data from parameter
+    observe({
+      if (is.null(local_data())) {
+        local_data(data())
+      }
+    })
+
+    # Create a reactive that uses local_data if available, otherwise data
+    current_data <- reactive({
+      if (!is.null(local_data())) {
+        local_data()
+      } else {
+        data()
+      }
+    })
 
     # Get unique categories from data
     categories_list <- reactive({
-      req(data())
-      unique_cats <- unique(data()$general_concepts$category)
+      req(current_data())
+      unique_cats <- unique(current_data()$general_concepts$category)
       sorted_cats <- sort(unique_cats[!is.na(unique_cats)])
 
       # Move "Other" to the end if it exists
@@ -110,6 +134,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
     # Render breadcrumb
     output$breadcrumb <- renderUI({
+      # Force re-render when edit_mode changes
+      edit_mode()
+
       if (current_view() == "list") {
         categories <- categories_list()
         selected <- selected_categories()
@@ -148,27 +175,57 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         concept_id <- selected_concept_id()
         req(concept_id)
 
-        concept_info <- data()$general_concepts %>%
+        concept_info <- current_data()$general_concepts %>%
           dplyr::filter(general_concept_id == concept_id)
 
         if (nrow(concept_info) > 0) {
           tags$div(
             class = "breadcrumb-nav",
-            style = "padding: 10px 0 15px 0; font-size: 16px;",
-            tags$a(
-              href = "#",
-              onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("back_to_list")),
-              class = "breadcrumb-link",
-              style = "font-weight: 600;",
-              "General Concepts"
+            style = "padding: 10px 0 15px 0; font-size: 16px; display: flex; justify-content: space-between; align-items: center;",
+            # Left side: breadcrumb
+            tags$div(
+              tags$a(
+                href = "#",
+                onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("back_to_list")),
+                class = "breadcrumb-link",
+                style = "font-weight: 600;",
+                "General Concepts"
+              ),
+              tags$span(
+                style = "margin: 0 8px; color: #999;",
+                ">"
+              ),
+              tags$span(
+                style = "color: #333; font-weight: 600;",
+                concept_info$general_concept_name[1]
+              )
             ),
-            tags$span(
-              style = "margin: 0 8px; color: #999;",
-              ">"
-            ),
-            tags$span(
-              style = "color: #333; font-weight: 600;",
-              concept_info$general_concept_name[1]
+            # Right side: edit buttons
+            tags$div(
+              style = "display: flex; gap: 10px;",
+              if (!edit_mode()) {
+                tags$button(
+                  class = "btn btn-primary",
+                  style = "padding: 6px 16px; font-size: 14px; background: #0f60af; color: white; border: none; border-radius: 4px; cursor: pointer;",
+                  onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("edit_page")),
+                  "Edit page"
+                )
+              } else {
+                tagList(
+                  tags$button(
+                    class = "btn btn-secondary",
+                    style = "padding: 6px 16px; font-size: 14px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;",
+                    onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("cancel_edit")),
+                    "Cancel"
+                  ),
+                  tags$button(
+                    class = "btn btn-success",
+                    style = "padding: 6px 16px; font-size: 14px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;",
+                    onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("save_updates")),
+                    "Save updates"
+                  )
+                )
+              }
             )
           )
         }
@@ -198,6 +255,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     output$concept_details_ui <- renderUI({
       req(current_view() == "detail")
       req(selected_concept_id())
+      # Force re-render when edit_mode changes
+      edit_mode()
       render_concept_details()
     })
 
@@ -249,6 +308,23 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
             ),
             tags$div(
               class = "quadrant-content",
+              # # Athena concept ID input (only in edit mode)
+              # if (edit_mode()) {
+              #   tags$div(
+              #     style = "margin-bottom: 15px;",
+              #     tags$label(
+              #       "Athena Concept ID:",
+              #       style = "display: block; font-weight: 600; margin-bottom: 5px; font-size: 14px;"
+              #     ),
+              #     shiny::textInput(
+              #       ns("athena_concept_id_input"),
+              #       label = NULL,
+              #       value = "",
+              #       placeholder = "Enter Athena Concept ID",
+              #       width = "100%"
+              #     )
+              #   )
+              # },
               shinycssloaders::withSpinner(
                 DT::DTOutput(ns("concept_mappings_table")),
                 type = 4,
@@ -360,7 +436,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
     # Render general concepts table
     output$general_concepts_table <- DT::renderDT({
-      general_concepts <- data()$general_concepts
+      general_concepts <- current_data()$general_concepts
 
       table_data <- general_concepts %>%
         dplyr::mutate(
@@ -441,7 +517,166 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       selected_mapped_concept_id(NULL)
       current_mappings(NULL)
       relationships_tab("related")
+      edit_mode(FALSE)  # Exit edit mode when going back to list
     })
+
+    # Handle edit page button
+    observeEvent(input$edit_page, {
+      edit_mode(TRUE)
+
+      # # Initialize athena_concept_id input with current value
+      # concept_id <- selected_concept_id()
+      # if (!is.null(concept_id)) {
+      #   concept_info <- data()$general_concepts %>%
+      #     dplyr::filter(general_concept_id == concept_id)
+      #
+      #   if (nrow(concept_info) > 0) {
+      #     athena_id <- concept_info$athena_concept_id[1]
+      #     if (!is.na(athena_id)) {
+      #       shiny::updateTextInput(session, "athena_concept_id_input", value = as.character(athena_id))
+      #     } else {
+      #       shiny::updateTextInput(session, "athena_concept_id_input", value = "")
+      #     }
+      #   }
+      # }
+    })
+
+    # Handle cancel edit button
+    observeEvent(input$cancel_edit, {
+      # Reset all unsaved changes
+      # edited_recommended(list())
+      # edited_comment(NULL)
+      edit_mode(FALSE)
+    })
+
+    # Handle save updates button
+    observeEvent(input$save_updates, {
+      req(edit_mode())
+
+      concept_id <- selected_concept_id()
+      req(concept_id)
+
+      # Get current data
+      general_concepts <- current_data()$general_concepts
+      # concept_mappings <- current_data()$concept_mappings
+
+      # # Update athena_concept_id in general_concepts
+      # new_athena_id <- input$athena_concept_id_input
+      # if (!is.null(new_athena_id) && nchar(new_athena_id) > 0) {
+      #   general_concepts <- general_concepts %>%
+      #     dplyr::mutate(
+      #       athena_concept_id = ifelse(
+      #         general_concept_id == concept_id,
+      #         as.integer(new_athena_id),
+      #         athena_concept_id
+      #       )
+      #     )
+      # }
+
+      # Update comments in general_concepts
+      new_comment <- input$comments_input
+      if (!is.null(new_comment)) {
+        general_concepts <- general_concepts %>%
+          dplyr::mutate(
+            comments = ifelse(
+              general_concept_id == concept_id,
+              new_comment,
+              comments
+            )
+          )
+      }
+
+      # # Update recommended values in concept_mappings
+      # recommended_edits <- edited_recommended()
+      # if (length(recommended_edits) > 0) {
+      #   for (omop_id in names(recommended_edits)) {
+      #     new_rec_value <- recommended_edits[[omop_id]]
+      #     concept_mappings <- concept_mappings %>%
+      #       dplyr::mutate(
+      #         recommended = ifelse(
+      #           general_concept_id == concept_id & omop_concept_id == as.integer(omop_id),
+      #           new_rec_value,
+      #           recommended
+      #         )
+      #       )
+      #   }
+      # }
+
+      # Write to CSV files
+      tryCatch({
+        readr::write_csv(
+          general_concepts,
+          app_sys("extdata", "csv", "general_concepts.csv")
+        )
+        # readr::write_csv(
+        #   concept_mappings,
+        #   app_sys("extdata", "csv", "concept_mappings.csv")
+        # )
+
+        # Update local data
+        updated_data <- list(
+          general_concepts = general_concepts,
+          concept_mappings = current_data()$concept_mappings
+        )
+        local_data(updated_data)
+
+        # Reset edit state
+        # edited_recommended(list())
+        # edited_comment(NULL)
+        edit_mode(FALSE)
+
+        # Show success message
+        shiny::showNotification(
+          "Changes saved successfully!",
+          type = "message",
+          duration = 3
+        )
+      }, error = function(e) {
+        shiny::showNotification(
+          paste("Error saving changes:", e$message),
+          type = "error",
+          duration = 5
+        )
+      })
+    })
+
+    # # Handle toggle recommended in edit mode
+    # observeEvent(input$toggle_recommended, {
+    #   req(edit_mode())
+    #
+    #   toggle_data <- input$toggle_recommended
+    #   omop_id <- toggle_data$omop_id
+    #   new_value <- toggle_data$new_value
+    #
+    #   # Store the change in edited_recommended
+    #   current_edits <- edited_recommended()
+    #   current_edits[[as.character(omop_id)]] <- (new_value == "Yes")
+    #   edited_recommended(current_edits)
+    #
+    #   # Update the DataTable cell
+    #   proxy <- DT::dataTableProxy("concept_mappings_table", session = session)
+    #
+    #   # Find the row index for this omop_id
+    #   mappings <- current_mappings()
+    #   if (!is.null(mappings)) {
+    #     row_idx <- which(mappings$omop_concept_id == omop_id)
+    #     if (length(row_idx) > 0) {
+    #       # Update cell data (row_idx - 1 for 0-based indexing, column 3 for Recommended)
+    #       DT::replaceData(proxy, mappings %>%
+    #         dplyr::mutate(
+    #           recommended = ifelse(omop_concept_id == omop_id, new_value, recommended)
+    #         ) %>%
+    #         dplyr::select(concept_name, vocabulary_id, concept_code, recommended, omop_concept_id, is_general_concept),
+    #         resetPaging = FALSE, rownames = FALSE)
+    #     }
+    #   }
+    # })
+
+    # # Track comment changes in edit mode
+    # observeEvent(input$comments_input, {
+    #   req(edit_mode())
+    #   edited_comment(input$comments_input)
+    # }, ignoreInit = TRUE)
 
     # Update DataTable filter when categories change
     observeEvent(selected_categories(), {
@@ -473,20 +708,55 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       concept_id <- selected_concept_id()
       req(concept_id)
 
-      concept_info <- data()$general_concepts %>%
+      # Force re-render when edit_mode changes
+      is_editing <- edit_mode()
+      local_data()  # Add dependency to trigger re-render when data updates
+
+      concept_info <- current_data()$general_concepts %>%
         dplyr::filter(general_concept_id == concept_id)
 
-      if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1]) && nchar(concept_info$comments[1]) > 0) {
+      if (is_editing) {
+        # Edit mode: show textarea
+        current_comment <- if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1])) {
+          concept_info$comments[1]
+        } else {
+          ""
+        }
+
         tags$div(
-          class = "comments-container",
-          style = "background: #e6f3ff; border: 1px solid #0f60af; border-radius: 6px; padding: 15px; margin-bottom: 20px;",
-          HTML(concept_info$comments[1])
+          style = "height: 100%;",
+          shiny::textAreaInput(
+            ns("comments_input"),
+            label = NULL,
+            value = current_comment,
+            placeholder = "Enter ETL guidance and comments here...",
+            width = "100%",
+            height = "100%"
+          )
         )
       } else {
-        tags$div(
-          style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic;",
-          "No comments available for this concept."
-        )
+        # View mode: show formatted comment
+        if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1]) && nchar(concept_info$comments[1]) > 0) {
+          # Convert markdown-style formatting to HTML
+          comment_html <- concept_info$comments[1]
+          # Convert **text** to <strong>text</strong>
+          comment_html <- gsub("\\*\\*([^*]+)\\*\\*", "<strong>\\1</strong>", comment_html)
+          # Convert *text* to <em>text</em>
+          comment_html <- gsub("\\*([^*]+)\\*", "<em>\\1</em>", comment_html)
+          # Convert line breaks to <br>
+          comment_html <- gsub("\n", "<br>", comment_html)
+
+          tags$div(
+            class = "comments-container",
+            style = "background: #e6f3ff; border: 1px solid #0f60af; border-radius: 6px; padding: 15px; height: 100%; overflow-y: auto; box-sizing: border-box;",
+            HTML(comment_html)
+          )
+        } else {
+          tags$div(
+            style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic; height: 100%; overflow-y: auto; box-sizing: border-box;",
+            "No comments available for this concept."
+          )
+        }
       }
     })
 
@@ -494,6 +764,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     output$concept_mappings_table <- DT::renderDT({
       concept_id <- selected_concept_id()
       req(concept_id)
+
+      # Force re-render when edit_mode changes
+      is_editing <- edit_mode()
 
       # Get concept category
       concept_info <- data()$general_concepts %>%
@@ -548,7 +821,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         }
       } else {
         # For non-Drug concepts, use original approach with CSV mappings
-        csv_mappings <- data()$concept_mappings %>%
+        csv_mappings <- current_data()$concept_mappings %>%
           dplyr::filter(general_concept_id == concept_id) %>%
           dplyr::select(
             concept_name,
@@ -654,6 +927,38 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       callback <- JS(paste(readLines(app_sys("www", "dt_callback.js")), collapse = "\n"))
       keyboard_nav <- paste(readLines(app_sys("www", "keyboard_nav.js")), collapse = "\n")
 
+      # Build initComplete callback that includes keyboard nav and click handler for edit mode
+      init_complete_js <- create_keyboard_nav(keyboard_nav, TRUE, FALSE)
+      # init_complete_js <- if (is_editing) {
+      #   JS(sprintf("
+      #     function(settings, json) {
+      #       var table = this.api();
+      #
+      #       // Keyboard navigation
+      #       %s
+      #
+      #       // Add click handler for Recommended column in edit mode
+      #       $(table.table().node()).on('click', 'tbody td:nth-child(4)', function() {
+      #         var cell = table.cell(this);
+      #         var currentValue = cell.data();
+      #         var rowData = table.row(this).data();
+      #         var omopId = rowData[4];  // OMOP ID is in column index 4
+      #
+      #         // Toggle value
+      #         var newValue = (currentValue === 'Yes') ? 'No' : 'Yes';
+      #
+      #         // Send to Shiny
+      #         Shiny.setInputValue('%s', {
+      #           omop_id: omopId,
+      #           new_value: newValue
+      #         }, {priority: 'event'});
+      #       });
+      #     }
+      #   ", keyboard_nav, ns("toggle_recommended")))
+      # } else {
+      #   create_keyboard_nav(keyboard_nav, TRUE, FALSE)
+      # }
+
       dt <- DT::datatable(
         mappings,
         selection = 'none',
@@ -668,7 +973,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
             list(targets = 3, width = "100px", className = 'dt-center'),  # Recommended column
             list(targets = c(4, 5), visible = FALSE)  # OMOP ID and IsGeneral columns hidden
           ),
-          initComplete = create_keyboard_nav(keyboard_nav, TRUE, FALSE)
+          initComplete = init_complete_js
         ),
         callback = callback
       ) %>%
@@ -727,7 +1032,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           req(concept_id)
 
           # Get the mappings data
-          csv_mappings <- data()$concept_mappings %>%
+          csv_mappings <- current_data()$concept_mappings %>%
             dplyr::filter(general_concept_id == concept_id) %>%
             dplyr::select(
               concept_name,
@@ -792,7 +1097,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       concept_id <- selected_concept_id()
       req(concept_id)
 
-      concept_mapping <- data()$concept_mappings %>%
+      concept_mapping <- current_data()$concept_mappings %>%
         dplyr::filter(
           general_concept_id == concept_id,
           omop_concept_id == !!omop_concept_id
