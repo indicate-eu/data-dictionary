@@ -6,7 +6,7 @@
 #' @param concept_code The concept code to look up
 #' @param config Configuration list containing FHIR settings
 #'
-#' @return FHIR lookup URL or NULL if vocabulary not supported
+#' @return FHIR lookup URL, "no_link" for vocabularies without FHIR support, or NULL
 #' @noRd
 #'
 #' @importFrom htmltools tags
@@ -15,6 +15,11 @@ build_fhir_url <- function(vocabulary_id, concept_code, config) {
   if (length(vocabulary_id) != 1 || length(concept_code) != 1) {
     warning("build_fhir_url expects single values, got multiple")
     return(NULL)
+  }
+
+  # Check if vocabulary should show "No link available"
+  if (vocabulary_id %in% config$fhir_no_link_vocabularies) {
+    return("no_link")
   }
 
   # Check if vocabulary is supported
@@ -147,4 +152,62 @@ create_keyboard_nav <- function(keyboard_nav, auto_select_first_row = TRUE, auto
 #' @noRd
 app_sys <- function(...) {
   system.file(..., package = "indicate")
+}
+
+#' Get Clinical Drug Concepts from Ingredient
+#'
+#' @description Query OHDSI vocabularies to retrieve Clinical Drug concepts
+#' that are descendants of a given RxNorm Ingredient concept
+#'
+#' @param ingredient_concept_id Integer. The RxNorm Ingredient concept_id
+#' @param vocabularies Reactive containing preloaded OHDSI vocabulary tables
+#'
+#' @return Data frame with Clinical Drug concepts
+#' @noRd
+#'
+#' @importFrom dplyr filter select arrange distinct inner_join
+get_clinical_drugs_from_ingredient <- function(
+    ingredient_concept_id,
+    vocabularies
+) {
+  # Validate input
+  if (is.null(ingredient_concept_id) || is.na(ingredient_concept_id)) {
+    return(data.frame(
+      concept_id = integer(),
+      concept_name = character(),
+      vocabulary_id = character(),
+      concept_code = character(),
+      concept_class_id = character()
+    ))
+  }
+
+  # Get vocabulary tables
+  concept <- vocabularies$concept
+  concept_ancestor <- vocabularies$concept_ancestor
+
+  # Get Clinical Drug descendants using concept_ancestor
+  clinical_drugs <- concept_ancestor %>%
+    filter(ancestor_concept_id == ingredient_concept_id) %>%
+    inner_join(
+      concept %>%
+        filter(
+          concept_class_id == "Clinical Drug",
+          vocabulary_id %in% c("RxNorm", "RxNorm Extension"),
+          domain_id == "Drug",
+          is.na(invalid_reason) | invalid_reason == ""
+        ),
+      by = c("descendant_concept_id" = "concept_id")
+    ) %>%
+    select(
+      concept_id = descendant_concept_id,
+      concept_name,
+      vocabulary_id,
+      concept_code,
+      concept_class_id,
+      standard_concept
+    ) %>%
+    distinct() %>%
+    arrange(concept_name)
+
+  return(as.data.frame(clinical_drugs))
 }

@@ -494,71 +494,124 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       concept_id <- selected_concept_id()
       req(concept_id)
 
-      # Get CSV mappings (recommended concepts)
-      csv_mappings <- data()$concept_mappings %>%
-        dplyr::filter(general_concept_id == concept_id) %>%
-        dplyr::select(
-          concept_name,
-          vocabulary_id,
-          concept_code,
-          omop_concept_id,
-          recommended
-        )
+      # Get concept category
+      concept_info <- data()$general_concepts %>%
+        dplyr::filter(general_concept_id == concept_id)
+      category <- concept_info$category[1]
 
-      # Get OHDSI vocabulary concepts from recommended concepts
-      vocab_data <- vocabularies()
+      # For Drug concepts, use new approach with Clinical Drugs from Ingredient
+      if (category == "Drug") {
+        # Get athena_concept_id (Ingredient or Multiple Ingredients)
+        athena_concept_id <- concept_info$athena_concept_id[1]
 
-      if (!is.null(vocab_data) && nrow(csv_mappings) > 0) {
-        # Get all recommended concept IDs
-        recommended_ids <- csv_mappings %>%
-          dplyr::filter(recommended == TRUE) %>%
-          dplyr::pull(omop_concept_id)
+        vocab_data <- vocabularies()
 
-        # Initialize data frames for descendants and related concepts
-        all_descendants <- data.frame()
-        all_related <- data.frame()
+        if (!is.null(vocab_data) && !is.na(athena_concept_id)) {
+          # Get Clinical Drug descendants from the Ingredient
+          clinical_drugs <- get_clinical_drugs_from_ingredient(
+            athena_concept_id,
+            vocab_data
+          )
 
-        # For each recommended concept, get descendants and related concepts
-        for (rec_id in recommended_ids) {
-          if (!is.na(rec_id) && !is.null(rec_id)) {
-            # Get descendant concepts (hierarchy)
-            descendants <- get_descendant_concepts(rec_id, vocab_data)
-            if (nrow(descendants) > 0) {
-              all_descendants <- dplyr::bind_rows(all_descendants, descendants)
-            }
+          if (nrow(clinical_drugs) > 0) {
+            # Format as mappings table with all Clinical Drugs marked as recommended
+            mappings <- clinical_drugs %>%
+              dplyr::rename(omop_concept_id = concept_id) %>%
+              dplyr::mutate(recommended = TRUE) %>%
+              dplyr::select(
+                concept_name,
+                vocabulary_id,
+                concept_code,
+                omop_concept_id,
+                recommended
+              )
+          } else {
+            # No Clinical Drugs found
+            mappings <- data.frame(
+              concept_name = character(),
+              vocabulary_id = character(),
+              concept_code = character(),
+              omop_concept_id = integer(),
+              recommended = logical()
+            )
+          }
+        } else {
+          # No vocabulary data or no athena_concept_id
+          mappings <- data.frame(
+            concept_name = character(),
+            vocabulary_id = character(),
+            concept_code = character(),
+            omop_concept_id = integer(),
+            recommended = logical()
+          )
+        }
+      } else {
+        # For non-Drug concepts, use original approach with CSV mappings
+        csv_mappings <- data()$concept_mappings %>%
+          dplyr::filter(general_concept_id == concept_id) %>%
+          dplyr::select(
+            concept_name,
+            vocabulary_id,
+            concept_code,
+            omop_concept_id,
+            recommended
+          )
 
-            # Get same-level concepts (Maps to / Mapped from) - filtered for standard and valid
-            same_level <- get_related_concepts_filtered(rec_id, vocab_data)
-            if (nrow(same_level) > 0) {
-              # Filter only Maps to and Mapped from
-              same_level <- same_level %>%
-                dplyr::filter(relationship_id %in% c("Maps to", "Mapped from"))
-              all_related <- dplyr::bind_rows(all_related, same_level)
+        # Get OHDSI vocabulary concepts from recommended concepts
+        vocab_data <- vocabularies()
+
+        if (!is.null(vocab_data) && nrow(csv_mappings) > 0) {
+          # Get all recommended concept IDs
+          recommended_ids <- csv_mappings %>%
+            dplyr::filter(recommended == TRUE) %>%
+            dplyr::pull(omop_concept_id)
+
+          # Initialize data frames for descendants and related concepts
+          all_descendants <- data.frame()
+          all_related <- data.frame()
+
+          # For each recommended concept, get descendants and related concepts
+          for (rec_id in recommended_ids) {
+            if (!is.na(rec_id) && !is.null(rec_id)) {
+              # Get descendant concepts (hierarchy)
+              descendants <- get_descendant_concepts(rec_id, vocab_data)
+              if (nrow(descendants) > 0) {
+                all_descendants <- dplyr::bind_rows(all_descendants, descendants)
+              }
+
+              # Get same-level concepts (Maps to / Mapped from) - filtered for standard and valid
+              same_level <- get_related_concepts_filtered(rec_id, vocab_data)
+              if (nrow(same_level) > 0) {
+                # Filter only Maps to and Mapped from
+                same_level <- same_level %>%
+                  dplyr::filter(relationship_id %in% c("Maps to", "Mapped from"))
+                all_related <- dplyr::bind_rows(all_related, same_level)
+              }
             }
           }
-        }
 
-        # Remove duplicates and add recommended flag
-        if (nrow(all_descendants) > 0) {
-          all_descendants <- all_descendants %>%
+          # Remove duplicates and add recommended flag
+          if (nrow(all_descendants) > 0) {
+            all_descendants <- all_descendants %>%
+              dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
+              dplyr::mutate(recommended = FALSE) %>%
+              dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended)
+          }
+
+          if (nrow(all_related) > 0) {
+            all_related <- all_related %>%
+              dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
+              dplyr::mutate(recommended = FALSE) %>%
+              dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended)
+          }
+
+          # Combine all sources
+          mappings <- dplyr::bind_rows(csv_mappings, all_descendants, all_related) %>%
             dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
-            dplyr::mutate(recommended = FALSE) %>%
-            dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended)
+            dplyr::arrange(dplyr::desc(recommended), concept_name)
+        } else {
+          mappings <- csv_mappings
         }
-
-        if (nrow(all_related) > 0) {
-          all_related <- all_related %>%
-            dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
-            dplyr::mutate(recommended = FALSE) %>%
-            dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended)
-        }
-
-        # Combine all sources
-        mappings <- dplyr::bind_rows(csv_mappings, all_descendants, all_related) %>%
-          dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
-          dplyr::arrange(dplyr::desc(recommended), concept_name)
-      } else {
-        mappings <- csv_mappings
       }
 
       # Get athena_concept_id for marking the general concept
@@ -841,16 +894,27 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           create_detail_item_ohdsi("Concept Code", info$concept_code),
           create_detail_item_ohdsi("OMOP Concept ID", info$concept_id, url = athena_url),
           if (!is.null(fhir_url)) {
-            tags$div(
-              class = "detail-item",
-              tags$strong("FHIR Resource"),
-              tags$a(
-                href = fhir_url,
-                target = "_blank",
-                style = "color: #0f60af; text-decoration: underline;",
-                "View"
+            if (fhir_url == "no_link") {
+              tags$div(
+                class = "detail-item",
+                tags$strong("FHIR Resource"),
+                tags$span(
+                  style = "color: #999; font-style: italic;",
+                  "No link available"
+                )
               )
-            )
+            } else {
+              tags$div(
+                class = "detail-item",
+                tags$strong("FHIR Resource"),
+                tags$a(
+                  href = fhir_url,
+                  target = "_blank",
+                  style = "color: #0f60af; text-decoration: underline;",
+                  "View"
+                )
+              )
+            }
           } else {
             tags$div(class = "detail-item", style = "visibility: hidden;")
           },
@@ -985,16 +1049,27 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         create_detail_item("Concept Code", info$concept_code),
         create_detail_item("OMOP Concept ID", info$omop_concept_id, url = athena_url),
         if (!is.null(fhir_url)) {
-          tags$div(
-            class = "detail-item",
-            tags$strong("FHIR Resource"),
-            tags$a(
-              href = fhir_url,
-              target = "_blank",
-              style = "color: #0f60af; text-decoration: underline;",
-              "View"
+          if (fhir_url == "no_link") {
+            tags$div(
+              class = "detail-item",
+              tags$strong("FHIR Resource"),
+              tags$span(
+                style = "color: #999; font-style: italic;",
+                "No link available"
+              )
             )
-          )
+          } else {
+            tags$div(
+              class = "detail-item",
+              tags$strong("FHIR Resource"),
+              tags$a(
+                href = fhir_url,
+                target = "_blank",
+                style = "color: #0f60af; text-decoration: underline;",
+                "View"
+              )
+            )
+          }
         } else {
           tags$div(class = "detail-item", style = "visibility: hidden;")
         },
@@ -1240,16 +1315,27 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         create_detail_item("Concept Code", info$concept_code),
         create_detail_item("OMOP Concept ID", info$concept_id, url = athena_url),
         if (!is.null(fhir_url)) {
-          tags$div(
-            class = "detail-item",
-            tags$strong("FHIR Resource"),
-            tags$a(
-              href = fhir_url,
-              target = "_blank",
-              style = "color: #0f60af; text-decoration: underline;",
-              "View"
+          if (fhir_url == "no_link") {
+            tags$div(
+              class = "detail-item",
+              tags$strong("FHIR Resource"),
+              tags$span(
+                style = "color: #999; font-style: italic;",
+                "No link available"
+              )
             )
-          )
+          } else {
+            tags$div(
+              class = "detail-item",
+              tags$strong("FHIR Resource"),
+              tags$a(
+                href = fhir_url,
+                target = "_blank",
+                style = "color: #0f60af; text-decoration: underline;",
+                "View"
+              )
+            )
+          }
         } else {
           tags$div(class = "detail-item", style = "visibility: hidden;")
         },

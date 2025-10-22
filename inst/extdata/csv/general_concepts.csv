@@ -1,339 +1,336 @@
-"general_concept_id","category","subcategory","general_concept_name","athena_concept_id","comments"
-1,"Clinical observation","Neurological assessment","3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM) score",,
-2,"Clinical observation","Neurological assessment","4 A<U+2019>s Test for Delirium Screening score",,
-3,"Clinical observation","Neurological assessment","Behavior pain scale",,
-4,"Clinical observation","Neurological assessment","Confusion Assessment Method for the Intensive Care Unit (CAM-ICU) score",,
-5,"Clinical observation","Neurological assessment","Delirium Detection Score (DDS) score",,
-6,"Clinical observation","Neurological assessment","Delirium Observation Scale (DOS) score",,
-7,"Clinical observation","Neurological assessment","Delirium Rating Scale (DRS) score",,
-8,"Clinical observation","Neurological assessment","Glasgow coma scale",,
-9,"Clinical observation","Neurological assessment","Intensive Care Delirium Screening Checklist (ICDSC) score",,
-10,"Clinical observation","Neurological assessment","Numeric Pain Rating Scale",,
-11,"Clinical observation","Neurological assessment","Nursing Delirium Screening Scale (NU-DESC) score",,
-12,"Clinical observation","Neurological assessment","Pupillary response",,
-13,"Clinical observation","Neurological assessment","Ramsay sedation scale",,
-14,"Clinical observation","Neurological assessment","Richmond agitation-sedation scale",,
-15,"Clinical observation","Neurological assessment","Visual analog pain scale",,
-16,"Condition","APACHE IV - Chronic health conditions","AIDS",,
-17,"Condition","APACHE IV - Chronic health conditions","Alcoholic liver disease",,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
-18,"Condition","APACHE IV - Chronic health conditions","Chronic kidney disease",,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
-19,"Condition","APACHE IV - Chronic health conditions","Cirrhosis of liver",,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
-20,"Condition","APACHE IV - Chronic health conditions","Hepatic failure, not elsewhere classified",,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
-21,"Condition","APACHE IV - Chronic health conditions","Immunosuppression",,
-22,"Condition","APACHE IV - Chronic health conditions","Leukemia",,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
-23,"Condition","APACHE IV - Chronic health conditions","Lymphoma",,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
-24,"Condition","APACHE IV - Chronic health conditions","Metastatic carcinoma",,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
-25,"Condition","APACHE IV - Chronic health conditions","Multiple myeloma",,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
-26,"Condition","General conditions","ARDS",,
-27,"Condition","General conditions","COPD",,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
-28,"Condition","General conditions","Chronic heart failure",,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
-29,"Condition","General conditions","Dependence on home ventilator",,
-30,"Condition","General conditions","Diabetes mellitus",,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
-31,"Condition","Hospitalization complications","Catheter infection",,
-32,"Condition","Hospitalization complications","Ventilator-associated pneumonia",,
-33,"Drug","Anticoagulants","Acenocoumarol",,
-34,"Drug","Anticoagulants","Apixaban",,
-35,"Drug","Anticoagulants","Argatroban",,
-36,"Drug","Anticoagulants","Bemiparin",,
-37,"Drug","Anticoagulants","Betrixaban",,
-38,"Drug","Anticoagulants","Bivalirudin",,
-39,"Drug","Anticoagulants","Clorindione",,
-40,"Drug","Anticoagulants","Dabigatran etexilate",,
-41,"Drug","Anticoagulants","Dalteparin",,
-42,"Drug","Anticoagulants","Danaparoid",,
-43,"Drug","Anticoagulants","Desirudin",,
-44,"Drug","Anticoagulants","Dicumarol",,
-45,"Drug","Anticoagulants","Edoxaban",,
-46,"Drug","Anticoagulants","Enoxaparin",,
-47,"Drug","Anticoagulants","Fluindione",,
-48,"Drug","Anticoagulants","Fondaparinux",,
-49,"Drug","Anticoagulants","Heparin",,
-50,"Drug","Anticoagulants","Lepirudin",,
-51,"Drug","Anticoagulants","Melagatran",,
-52,"Drug","Anticoagulants","Nadroparin",,
-53,"Drug","Anticoagulants","Parnaparin",,
-54,"Drug","Anticoagulants","Phenindione",,
-55,"Drug","Anticoagulants","Phenprocoumon",,
-56,"Drug","Anticoagulants","Reviparin",,
-57,"Drug","Anticoagulants","Rivaroxaban",,
-58,"Drug","Anticoagulants","Sulodexide",,
-59,"Drug","Anticoagulants","Tinzaparin",,
-60,"Drug","Anticoagulants","Tioclomarol",,
-61,"Drug","Anticoagulants","Warfarin",,
-62,"Drug","Anticoagulants","Ximelagatran",,
-63,"Drug","Antimicrobials","Amikacin",,
-64,"Drug","Antimicrobials","Amoxicillin",,
-65,"Drug","Antimicrobials","Amoxicillin / clavulanate",,
-66,"Drug","Antimicrobials","Amphotericin B",,
-67,"Drug","Antimicrobials","Ampicillin",,
-68,"Drug","Antimicrobials","Ampicillin/Sulbactam",,
-69,"Drug","Antimicrobials","Aztreonam",,
-70,"Drug","Antimicrobials","Caspofungin",,
-71,"Drug","Antimicrobials","Cefazolin",,
-72,"Drug","Antimicrobials","Cefiderocol",,
-73,"Drug","Antimicrobials","Cefotaxime",,
-74,"Drug","Antimicrobials","Cefoxitin",,
-75,"Drug","Antimicrobials","Ceftazidime",,
-76,"Drug","Antimicrobials","Ceftriaxone",,
-77,"Drug","Antimicrobials","Cefuroxime",,
-78,"Drug","Antimicrobials","Clarithromycin",,
-79,"Drug","Antimicrobials","Clavulanate",,
-80,"Drug","Antimicrobials","Clindamycin",,
-81,"Drug","Antimicrobials","Colistin",,
-82,"Drug","Antimicrobials","Daptomycin",,
-83,"Drug","Antimicrobials","Doxycycline",,
-84,"Drug","Antimicrobials","Eryhromycin",,
-85,"Drug","Antimicrobials","Floxacillin",,
-86,"Drug","Antimicrobials","Fluconazole",,
-87,"Drug","Antimicrobials","Fosfomycin",,
-88,"Drug","Antimicrobials","Gentamicin",,
-89,"Drug","Antimicrobials","Imipenem",,
-90,"Drug","Antimicrobials","Itraconazole",,
-91,"Drug","Antimicrobials","Ketoconazole",,
-92,"Drug","Antimicrobials","Levofloxacin",,
-93,"Drug","Antimicrobials","Linezolid",,
-94,"Drug","Antimicrobials","Meropenem",,
-95,"Drug","Antimicrobials","Metronidazole",,
-96,"Drug","Antimicrobials","Mupirocin",,
-97,"Drug","Antimicrobials","Norfloxacin",,
-98,"Drug","Antimicrobials","Penicillin",,
-99,"Drug","Antimicrobials","Piperacillin",,
-100,"Drug","Antimicrobials","Piperacillin / tazobactam",,
-101,"Drug","Antimicrobials","Posaconazole",,
-102,"Drug","Antimicrobials","Rifampicin",,
-103,"Drug","Antimicrobials","Sulfamethoxazole",,
-104,"Drug","Antimicrobials","Sulfamethoxazole / trimethoprim",,
-105,"Drug","Antimicrobials","Tazobactam",,
-106,"Drug","Antimicrobials","Teicoplanin",,
-107,"Drug","Antimicrobials","Tetracycline",,
-108,"Drug","Antimicrobials","Tigecycline",,
-109,"Drug","Antimicrobials","Tobramycin",,
-110,"Drug","Antimicrobials","Trimethoprim",,
-111,"Drug","Antimicrobials","Vancomycin",,
-112,"Drug","Antimicrobials","Voriconazole",,
-113,"Drug","Corticosteroids","Betamethasone",,
-114,"Drug","Corticosteroids","Clobetasol",,
-115,"Drug","Corticosteroids","Cortisone",,
-116,"Drug","Corticosteroids","Dexamethasone",,
-117,"Drug","Corticosteroids","Fludrocortisone",,
-118,"Drug","Corticosteroids","Hydrocortisone",,
-119,"Drug","Corticosteroids","Methylprednisolone",,
-120,"Drug","Corticosteroids","Prednisolone",,
-121,"Drug","Corticosteroids","Prednisone",,
-122,"Drug","Other drugs","Insulin aspart",,
-123,"Drug","Other drugs","Insulin aspart, human",,
-124,"Drug","Other drugs","Insulin degludec",,
-125,"Drug","Other drugs","Insulin detemir",,
-126,"Drug","Other drugs","Insulin glargine",,
-127,"Drug","Other drugs","Insulin glulisine, human",,
-128,"Drug","Sedative drugs","Alfentanil",,
-129,"Drug","Sedative drugs","Clonidine",,
-130,"Drug","Sedative drugs","Dexmedetomidine",,
-131,"Drug","Sedative drugs","Etomidate",,
-132,"Drug","Sedative drugs","Fentanyl",,
-133,"Drug","Sedative drugs","Ketamine",,
-134,"Drug","Sedative drugs","Midazolam",,
-135,"Drug","Sedative drugs","Morphine",,
-136,"Drug","Sedative drugs","Propofol",,
-137,"Drug","Sedative drugs","Remifentanil",,
-138,"Drug","Sedative drugs","Sufentanil",,
-139,"Drug","Sedative drugs","Thiopenthal",,
-140,"Drug","Vasoactive drugs","Dobutamine",,
-141,"Drug","Vasoactive drugs","Dopamine",,
-142,"Drug","Vasoactive drugs","Epinephrine",,
-143,"Drug","Vasoactive drugs","Levosimendan",,
-144,"Drug","Vasoactive drugs","Milrinone",,
-145,"Drug","Vasoactive drugs","Norepinephrine",,
-146,"Drug","Vasoactive drugs","Phenylephrine",,
-147,"Drug","Vasoactive drugs","Vasopressin",,
-148,"Labs","Arterial blood gases","ABG Ammonia",,
-149,"Labs","Arterial blood gases","ABG Base excess",,
-150,"Labs","Arterial blood gases","ABG Hematocrit",,
-151,"Labs","Arterial blood gases","ABG PaCO2",,
-152,"Labs","Arterial blood gases","ABG PaO2",,
-153,"Labs","Arterial blood gases","ABG SaO2",,
-154,"Labs","Arterial blood gases","ABG bicarbonate",,
-155,"Labs","Arterial blood gases","ABG calcium ionized",,
-156,"Labs","Arterial blood gases","ABG chloride",,
-157,"Labs","Arterial blood gases","ABG glucose",,
-158,"Labs","Arterial blood gases","ABG hemoglobin",,
-159,"Labs","Arterial blood gases","ABG lactate",,
-160,"Labs","Arterial blood gases","ABG pH",,
-161,"Labs","Arterial blood gases","ABG potassium",,
-162,"Labs","Arterial blood gases","ABG sodium",,
-163,"Labs","Blood specimen type","Arterial blood specimen",,
-164,"Labs","Blood specimen type","Peripheral blood specimen",,
-165,"Labs","Blood specimen type","Venous blood specimen",,
-166,"Labs","Blood specimen type","Whole blood specimen",,
-167,"Labs","Hemostasis","Coagulation factor V",,
-168,"Labs","Hemostasis","Fibrin D-dimer",,
-169,"Labs","Hemostasis","Fibrinogen",,
-170,"Labs","Hemostasis","INR",,
-171,"Labs","Hemostasis","Prothrombin time",,
-172,"Labs","Hemostasis","aPTT",,
-173,"Labs","Liver test","ALP",,
-174,"Labs","Liver test","ALT",,
-175,"Labs","Liver test","AST",,
-176,"Labs","Liver test","Ammonia",,
-177,"Labs","Liver test","Conjugated bilirubin",,
-178,"Labs","Liver test","GGT",,
-179,"Labs","Liver test","Indirect bilirubin",,
-180,"Labs","Liver test","Total bilirubin",,
-181,"Labs","Other labs","1,3 beta glucan",,
-182,"Labs","Other labs","BNP",,
-183,"Labs","Other labs","CRP",,
-184,"Labs","Other labs","HbA1c",,
-185,"Labs","Other labs","Interleukin 6",,
-186,"Labs","Other labs","Lipase",,
-187,"Labs","Other labs","NT-proBNP",,
-188,"Labs","Other labs","PCT",,
-189,"Labs","Other labs","Troponin T",,
-190,"Labs","Plasma blood count","Hematocrit",,
-191,"Labs","Plasma blood count","Plasma basophils",,
-192,"Labs","Plasma blood count","Plasma eosinophils",,
-193,"Labs","Plasma blood count","Plasma erythrocytes",,
-194,"Labs","Plasma blood count","Plasma hemoglobin",,
-195,"Labs","Plasma blood count","Plasma leukocytes",,
-196,"Labs","Plasma blood count","Plasma lymphocytes",,
-197,"Labs","Plasma blood count","Plasma monocytes",,
-198,"Labs","Plasma blood count","Plasma neutrophils",,
-199,"Labs","Plasma blood count","Plasma platelets",,
-200,"Labs","Plasma blood count","Plasma reticulocytes",,
-201,"Labs","Plasma ionogram","Plasma LDH",,
-202,"Labs","Plasma ionogram","Plasma albumin",,
-203,"Labs","Plasma ionogram","Plasma bicarbonate",,
-204,"Labs","Plasma ionogram","Plasma calcium",,
-205,"Labs","Plasma ionogram","Plasma chloride",,
-206,"Labs","Plasma ionogram","Plasma creatinine",,
-207,"Labs","Plasma ionogram","Plasma glucose",,
-208,"Labs","Plasma ionogram","Plasma lactate",,
-209,"Labs","Plasma ionogram","Plasma magnesium",,
-210,"Labs","Plasma ionogram","Plasma phosphate",,
-211,"Labs","Plasma ionogram","Plasma potassium",,
-212,"Labs","Plasma ionogram","Plasma sodium",,
-213,"Labs","Plasma ionogram","Plasma urea",,
-214,"Labs","Urinary ionogram","Urinary bicarbonate",,
-215,"Labs","Urinary ionogram","Urinary calcium",,
-216,"Labs","Urinary ionogram","Urinary chloride",,
-217,"Labs","Urinary ionogram","Urinary creatinine",,
-218,"Labs","Urinary ionogram","Urinary glucose",,
-219,"Labs","Urinary ionogram","Urinary phosphate",,
-220,"Labs","Urinary ionogram","Urinary potassium",,
-221,"Labs","Urinary ionogram","Urinary sodium",,
-222,"Labs","Urinary ionogram","Urinary urea",,
-223,"Microbiology","Microorganism","Actinomyces neuii subspecies neuii",,
-224,"Microbiology","Microorganism","Bacillus cereus group",,
-225,"Microbiology","Microorganism","Bacillus mycoides",,
-226,"Microbiology","Microorganism","Citrobacter freundii complex",,
-227,"Microbiology","Microorganism","Citrobacter koseri",,
-228,"Microbiology","Microorganism","Corynebacterium amycolatum",,
-229,"Microbiology","Microorganism","Corynebacterium species",,
-230,"Microbiology","Microorganism","Corynebacterium striatum",,
-231,"Microbiology","Microorganism","Dermabacter hominis",,
-232,"Microbiology","Microorganism","Enterobacter aerogenes",,
-233,"Microbiology","Microorganism","Enterobacter cloacae",,
-234,"Microbiology","Microorganism","Enterobacter cloacae complex",,
-235,"Microbiology","Microorganism","Enterococcus faecalis",,
-236,"Microbiology","Microorganism","Enterococcus faecium",,
-237,"Microbiology","Microorganism","Escherichia coli",,
-238,"Microbiology","Microorganism","Gram-negative bacteria",,
-239,"Microbiology","Microorganism","Gram-positive bacteria",,
-240,"Microbiology","Microorganism","Gram-positive cocci in clusters",,
-241,"Microbiology","Microorganism","Granulicatella adiacens",,
-242,"Microbiology","Microorganism","Klebsiella oxytoca",,
-243,"Microbiology","Microorganism","Klebsiella pneumoniae",,
-244,"Microbiology","Microorganism","Klebsiella variicola",,
-245,"Microbiology","Microorganism","Lysinibacillus",,
-246,"Microbiology","Microorganism","Micrococcus luteus",,
-247,"Microbiology","Microorganism","Paenibacillus pabuli",,
-248,"Microbiology","Microorganism","Pantoea agglomerans",,
-249,"Microbiology","Microorganism","Pantoea septica",,
-250,"Microbiology","Microorganism","Pseudomonas aeruginosa",,
-251,"Microbiology","Microorganism","Raoultella ornithinolytica",,
-252,"Microbiology","Microorganism","Rothia dentocariosa",,
-253,"Microbiology","Microorganism","Rothia mucilaginosa",,
-254,"Microbiology","Microorganism","Serratia",,
-255,"Microbiology","Microorganism","Serratia liquefaciens",,
-256,"Microbiology","Microorganism","Serratia marcescens",,
-257,"Microbiology","Microorganism","Staphylococcus aureus",,
-258,"Microbiology","Microorganism","Staphylococcus capitis",,
-259,"Microbiology","Microorganism","Staphylococcus epidermidis",,
-260,"Microbiology","Microorganism","Staphylococcus haemolyticus",,
-261,"Microbiology","Microorganism","Staphylococcus hominis",,
-262,"Microbiology","Microorganism","Staphylococcus warneri",,
-263,"Microbiology","Microorganism","Streptococcus agalactiae (Group B streptococcus)",,
-264,"Microbiology","Microorganism","Streptococcus anginosus",,
-265,"Microbiology","Microorganism","Streptococcus dysgalactiae",,
-266,"Microbiology","Microorganism","Streptococcus mitis (Streptococcus mitis group)",,
-267,"Microbiology","Microorganism","Streptococcus mitis group",,
-268,"Microbiology","Microorganism","Streptococcus vestibularis",,
-269,"Microbiology","Microorganism","Streptococcus, viridans group",,
-270,"Microbiology","Specimen","Blood culture",,
-271,"Other","Demographic data","Birth datetime",,
-272,"Other","Demographic data","Birth height",,
-273,"Other","Demographic data","Birth weight",,
-274,"Other","Demographic data","Body height",,
-275,"Other","Demographic data","Body weight",,
-276,"Other","Demographic data","Death datetime",,
-277,"Other","Demographic data","Gender",,
-278,"Other","Demographic data","Gestational age",,
-279,"Other","Demographic data","Gestational age at birth",,
-280,"Other","Demographic data","Hospital admission datetime",,
-281,"Other","Demographic data","Hospital discharge datetime",,
-282,"Other","Demographic data","ICU admission datetime",,
-283,"Other","Demographic data","ICU discharge datetime",,
-284,"Other","Demographic data","Ideal body weight",,
-285,"Other","Nutrition","Contraindication to enteral feeding",,
-286,"Other","Nutrition","Energy intake",,
-287,"Other","Nutrition","Energy requirement",,
-288,"Other","Other","Advance care plan agreed",,
-289,"Other","Other","Consultation with patient",,
-290,"Other","Other","Surrogate decision maker documented",,
-291,"Procedure","Catheter","Central venous catheter",,
-292,"Procedure","ECMO","ECMO",,
-293,"Procedure","Nutrition","Enteral feeding",,
-294,"Procedure","Patient position","Mobilization",,
-295,"Procedure","Patient position","Order to not mobilize",,
-296,"Procedure","Patient position","Prone positioning",,
-297,"Procedure","Plasmapheresis","Plasmapheresis",,
-298,"Procedure","Renal replacement therapy","Renal replacement therapy",,
-299,"Ventilation","Airway device","Endotracheal tube",,
-300,"Ventilation","Airway device","Tracheostomy tube",,
-301,"Ventilation","Oxygenation","FiO2",,
-302,"Ventilation","Oxygenation","Oxygen flow rate",,
-303,"Ventilation","Ventilation device","Extubation",,
-304,"Ventilation","Ventilation device","Humidification Therapy",,
-305,"Ventilation","Ventilation device","Intubation",,
-306,"Ventilation","Ventilation device","Invasive mechanical ventilation",,
-307,"Ventilation","Ventilation device","Non-invasive ventilation",,
-308,"Ventilation","Ventilation device","Oxygen device",,
-309,"Ventilation","Ventilation device","Trial of spontaneous breathing",,
-310,"Ventilation","Ventilation parameters","Breath cycle timing",,
-311,"Ventilation","Ventilation parameters","Carbon dioxide production",,
-312,"Ventilation","Ventilation parameters","End tidal carbone dioxyde concentration",,
-313,"Ventilation","Ventilation parameters","Horowitz index",,
-314,"Ventilation","Ventilation parameters","Inspiratory pressure setting",,
-315,"Ventilation","Ventilation parameters","Lung compliance",,
-316,"Ventilation","Ventilation parameters","Mean airway pressure",,
-317,"Ventilation","Ventilation parameters","Minute volume",,
-318,"Ventilation","Ventilation parameters","PEEP",,"Positive End Expiratory Pressure (PEEP) can be both set and measured on the ventilator.<br />Measured PEEP can include distinct values such as total, extrinsic, and intrinsic PEEP.<br />
+general_concept_id,category,subcategory,general_concept_name,athena_concept_id,comments
+1,Clinical observation,Neurological assessment,3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM) score,NA,NA
+2,Clinical observation,Neurological assessment,4 A<U+2019>s Test for Delirium Screening score,NA,NA
+3,Clinical observation,Neurological assessment,Behavior pain scale,NA,NA
+4,Clinical observation,Neurological assessment,Confusion Assessment Method for the Intensive Care Unit (CAM-ICU) score,NA,NA
+5,Clinical observation,Neurological assessment,Delirium Detection Score (DDS) score,NA,NA
+6,Clinical observation,Neurological assessment,Delirium Observation Scale (DOS) score,NA,NA
+7,Clinical observation,Neurological assessment,Delirium Rating Scale (DRS) score,NA,NA
+8,Clinical observation,Neurological assessment,Glasgow coma scale,NA,NA
+9,Clinical observation,Neurological assessment,Intensive Care Delirium Screening Checklist (ICDSC) score,NA,NA
+10,Clinical observation,Neurological assessment,Numeric Pain Rating Scale,NA,NA
+11,Clinical observation,Neurological assessment,Nursing Delirium Screening Scale (NU-DESC) score,NA,NA
+12,Clinical observation,Neurological assessment,Pupillary response,NA,NA
+13,Clinical observation,Neurological assessment,Ramsay sedation scale,NA,NA
+14,Clinical observation,Neurological assessment,Richmond agitation-sedation scale,NA,NA
+15,Clinical observation,Neurological assessment,Visual analog pain scale,NA,NA
+16,Condition,APACHE IV - Chronic health conditions,AIDS,NA,NA
+17,Condition,APACHE IV - Chronic health conditions,Alcoholic liver disease,NA,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
+18,Condition,APACHE IV - Chronic health conditions,Chronic kidney disease,NA,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
+19,Condition,APACHE IV - Chronic health conditions,Cirrhosis of liver,NA,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
+20,Condition,APACHE IV - Chronic health conditions,"Hepatic failure, not elsewhere classified",NA,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
+21,Condition,APACHE IV - Chronic health conditions,Immunosuppression,NA,NA
+22,Condition,APACHE IV - Chronic health conditions,Leukemia,NA,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
+23,Condition,APACHE IV - Chronic health conditions,Lymphoma,NA,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
+24,Condition,APACHE IV - Chronic health conditions,Metastatic carcinoma,NA,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
+25,Condition,APACHE IV - Chronic health conditions,Multiple myeloma,NA,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
+26,Condition,General conditions,ARDS,NA,NA
+27,Condition,General conditions,COPD,NA,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
+28,Condition,General conditions,Chronic heart failure,NA,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
+29,Condition,General conditions,Dependence on home ventilator,NA,NA
+30,Condition,General conditions,Diabetes mellitus,NA,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
+31,Condition,Hospitalization complications,Catheter infection,NA,NA
+32,Condition,Hospitalization complications,Ventilator-associated pneumonia,NA,NA
+33,Drug,Anticoagulants,Acenocoumarol,19024063,NA
+34,Drug,Anticoagulants,Apixaban,43013024,NA
+35,Drug,Anticoagulants,Argatroban,1322207,NA
+36,Drug,Anticoagulants,Bemiparin,19069137,NA
+37,Drug,Anticoagulants,Betrixaban,1592988,NA
+38,Drug,Anticoagulants,Bivalirudin,19084670,NA
+39,Drug,Anticoagulants,Clorindione,40798763,NA
+40,Drug,Anticoagulants,Dabigatran Etexilate,40228152,NA
+41,Drug,Anticoagulants,Dalteparin,1301065,NA
+42,Drug,Anticoagulants,Danaparoid,19026343,NA
+43,Drug,Anticoagulants,Desirudin,19011712,NA
+44,Drug,Anticoagulants,Dicumarol,1325124,NA
+45,Drug,Anticoagulants,Edoxaban,45892847,NA
+46,Drug,Anticoagulants,Enoxaparin,1301025,NA
+47,Drug,Anticoagulants,Fluindione,19113013,NA
+48,Drug,Anticoagulants,Fondaparinux,1315865,NA
+49,Drug,Anticoagulants,Heparin,1367571,NA
+50,Drug,Anticoagulants,Lepirudin,19092139,NA
+51,Drug,Anticoagulants,Melagatran,40798953,NA
+52,Drug,Anticoagulants,Nadroparin,19001014,NA
+53,Drug,Anticoagulants,Parnaparin,19008276,NA
+54,Drug,Anticoagulants,Phenindione,19033934,NA
+55,Drug,Anticoagulants,Phenprocoumon,19035344,NA
+56,Drug,Anticoagulants,Reviparin,19129274,NA
+57,Drug,Anticoagulants,Rivaroxaban,40241331,NA
+58,Drug,Anticoagulants,Sulodexide,43009029,NA
+59,Drug,Anticoagulants,Tinzaparin,1308473,NA
+60,Drug,Anticoagulants,Tioclomarol,19018364,NA
+61,Drug,Anticoagulants,Warfarin,1310149,NA
+62,Drug,Anticoagulants,Ximelagatran,40799186,NA
+63,Drug,Antimicrobials,Amikacin,1790868,NA
+64,Drug,Antimicrobials,Amoxicillin,1713332,NA
+66,Drug,Antimicrobials,Amphotericin B,1717240,NA
+67,Drug,Antimicrobials,Ampicillin,1717327,NA
+69,Drug,Antimicrobials,Aztreonam,1715117,NA
+70,Drug,Antimicrobials,Caspofungin,1718054,NA
+71,Drug,Antimicrobials,Cefazolin,1771162,NA
+72,Drug,Antimicrobials,Cefiderocol,37498010,NA
+73,Drug,Antimicrobials,Cefotaxime,1774470,NA
+74,Drug,Antimicrobials,Cefoxitin,1775741,NA
+75,Drug,Antimicrobials,Ceftazidime,1776684,NA
+76,Drug,Antimicrobials,Ceftriaxone,1777806,NA
+77,Drug,Antimicrobials,Cefuroxime,1778162,NA
+78,Drug,Antimicrobials,Clarithromycin,1750500,NA
+79,Drug,Antimicrobials,Clavulanate,1759842,NA
+80,Drug,Antimicrobials,Clindamycin,997881,NA
+81,Drug,Antimicrobials,Colistin,901845,NA
+82,Drug,Antimicrobials,Daptomycin,1786617,NA
+83,Drug,Antimicrobials,Doxycycline,1738521,NA
+84,Drug,Antimicrobials,Eryhromycin,1734104,NA
+85,Drug,Antimicrobials,Floxacillin,19054936,NA
+86,Drug,Antimicrobials,Fluconazole,1754994,NA
+87,Drug,Antimicrobials,Fosfomycin,956653,NA
+88,Drug,Antimicrobials,Gentamicin,45892419,NA
+89,Drug,Antimicrobials,Imipenem,1778262,NA
+90,Drug,Antimicrobials,Itraconazole,1703653,NA
+91,Drug,Antimicrobials,Ketoconazole,985708,NA
+92,Drug,Antimicrobials,Levofloxacin,1742253,NA
+93,Drug,Antimicrobials,Linezolid,1736887,NA
+94,Drug,Antimicrobials,Meropenem,1709170,NA
+95,Drug,Antimicrobials,Metronidazole,1707164,NA
+96,Drug,Antimicrobials,Mupirocin,951511,NA
+97,Drug,Antimicrobials,Norfloxacin,1721543,NA
+98,Drug,Antimicrobials,Penicillin,1728416,NA
+99,Drug,Antimicrobials,Piperacillin,1746114,NA
+101,Drug,Antimicrobials,Posaconazole,1704139,NA
+102,Drug,Antimicrobials,Rifampicin,1776029,NA
+103,Drug,Antimicrobials,Sulfamethoxazole,1836430,NA
+105,Drug,Antimicrobials,Tazobactam,1741122,NA
+106,Drug,Antimicrobials,Teicoplanin,19078399,NA
+107,Drug,Antimicrobials,Tetracycline,1836948,NA
+108,Drug,Antimicrobials,Tigecycline,1742432,NA
+109,Drug,Antimicrobials,Tobramycin,902722,NA
+110,Drug,Antimicrobials,Trimethoprim,1705674,NA
+111,Drug,Antimicrobials,Vancomycin,1707687,NA
+112,Drug,Antimicrobials,Voriconazole,1714277,NA
+113,Drug,Corticosteroids,Betamethasone,920458,NA
+114,Drug,Corticosteroids,Clobetasol,998415,NA
+115,Drug,Corticosteroids,Cortisone,1507705,NA
+116,Drug,Corticosteroids,Dexamethasone,1518254,NA
+117,Drug,Corticosteroids,Fludrocortisone,1555120,NA
+118,Drug,Corticosteroids,Hydrocortisone,975125,NA
+119,Drug,Corticosteroids,Methylprednisolone,1506270,NA
+120,Drug,Corticosteroids,Prednisolone,1550557,NA
+121,Drug,Corticosteroids,Prednisone,1551099,NA
+122,Drug,Other drugs,Insulin Aspart,35198096,NA
+123,Drug,Other drugs,"Insulin Aspart, Human",1567198,NA
+124,Drug,Other drugs,Insulin Degludec,35602717,NA
+125,Drug,Other drugs,Insulin Detemir,1516976,NA
+126,Drug,Other drugs,Insulin Glargine,1502905,NA
+127,Drug,Other drugs,"Insulin Glulisine, Human",1544838,NA
+128,Drug,Sedative drugs,Alfentanil,19059528,NA
+129,Drug,Sedative drugs,Clonidine,1398937,NA
+130,Drug,Sedative drugs,Dexmedetomidine,19061088,NA
+131,Drug,Sedative drugs,Etomidate,19050488,NA
+132,Drug,Sedative drugs,Fentanyl,1154029,NA
+133,Drug,Sedative drugs,Ketamine,785649,NA
+134,Drug,Sedative drugs,Midazolam,708298,NA
+135,Drug,Sedative drugs,Morphine,1110410,NA
+136,Drug,Sedative drugs,Propofol,753626,NA
+137,Drug,Sedative drugs,Remifentanil,19016749,NA
+138,Drug,Sedative drugs,Sufentanil,19078219,NA
+139,Drug,Sedative drugs,Thiopenthal,797399,NA
+140,Drug,Vasoactive drugs,Dobutamine,1337720,NA
+141,Drug,Vasoactive drugs,Dopamine,1337860,NA
+142,Drug,Vasoactive drugs,Epinephrine,1343916,NA
+143,Drug,Vasoactive drugs,Levosimendan,40173184,NA
+144,Drug,Vasoactive drugs,Milrinone,1368671,NA
+145,Drug,Vasoactive drugs,Norepinephrine,1321341,NA
+146,Drug,Vasoactive drugs,Phenylephrine,1135766,NA
+147,Drug,Vasoactive drugs,Vasopressin,1507835,NA
+148,Labs,Arterial blood gases,ABG Ammonia,NA,NA
+149,Labs,Arterial blood gases,ABG Base excess,NA,NA
+150,Labs,Arterial blood gases,ABG Hematocrit,NA,NA
+151,Labs,Arterial blood gases,ABG PaCO2,NA,NA
+152,Labs,Arterial blood gases,ABG PaO2,NA,NA
+153,Labs,Arterial blood gases,ABG SaO2,NA,NA
+154,Labs,Arterial blood gases,ABG bicarbonate,NA,NA
+155,Labs,Arterial blood gases,ABG calcium ionized,NA,NA
+156,Labs,Arterial blood gases,ABG chloride,NA,NA
+157,Labs,Arterial blood gases,ABG glucose,NA,NA
+158,Labs,Arterial blood gases,ABG hemoglobin,NA,NA
+159,Labs,Arterial blood gases,ABG lactate,NA,NA
+160,Labs,Arterial blood gases,ABG pH,NA,NA
+161,Labs,Arterial blood gases,ABG potassium,NA,NA
+162,Labs,Arterial blood gases,ABG sodium,NA,NA
+163,Labs,Blood specimen type,Arterial blood specimen,NA,NA
+164,Labs,Blood specimen type,Peripheral blood specimen,NA,NA
+165,Labs,Blood specimen type,Venous blood specimen,NA,NA
+166,Labs,Blood specimen type,Whole blood specimen,NA,NA
+167,Labs,Hemostasis,Coagulation factor V,NA,NA
+168,Labs,Hemostasis,Fibrin D-dimer,NA,NA
+169,Labs,Hemostasis,Fibrinogen,NA,NA
+170,Labs,Hemostasis,INR,NA,NA
+171,Labs,Hemostasis,Prothrombin time,NA,NA
+172,Labs,Hemostasis,aPTT,NA,NA
+173,Labs,Liver test,ALP,NA,NA
+174,Labs,Liver test,ALT,NA,NA
+175,Labs,Liver test,AST,NA,NA
+176,Labs,Liver test,Ammonia,NA,NA
+177,Labs,Liver test,Conjugated bilirubin,NA,NA
+178,Labs,Liver test,GGT,NA,NA
+179,Labs,Liver test,Indirect bilirubin,NA,NA
+180,Labs,Liver test,Total bilirubin,NA,NA
+181,Labs,Other labs,"1,3 beta glucan",NA,NA
+182,Labs,Other labs,BNP,NA,NA
+183,Labs,Other labs,CRP,NA,NA
+184,Labs,Other labs,HbA1c,NA,NA
+185,Labs,Other labs,Interleukin 6,NA,NA
+186,Labs,Other labs,Lipase,NA,NA
+187,Labs,Other labs,NT-proBNP,NA,NA
+188,Labs,Other labs,PCT,NA,NA
+189,Labs,Other labs,Troponin T,NA,NA
+190,Labs,Plasma blood count,Hematocrit,NA,NA
+191,Labs,Plasma blood count,Plasma basophils,NA,NA
+192,Labs,Plasma blood count,Plasma eosinophils,NA,NA
+193,Labs,Plasma blood count,Plasma erythrocytes,NA,NA
+194,Labs,Plasma blood count,Plasma hemoglobin,NA,NA
+195,Labs,Plasma blood count,Plasma leukocytes,NA,NA
+196,Labs,Plasma blood count,Plasma lymphocytes,NA,NA
+197,Labs,Plasma blood count,Plasma monocytes,NA,NA
+198,Labs,Plasma blood count,Plasma neutrophils,NA,NA
+199,Labs,Plasma blood count,Plasma platelets,NA,NA
+200,Labs,Plasma blood count,Plasma reticulocytes,NA,NA
+201,Labs,Plasma ionogram,Plasma LDH,NA,NA
+202,Labs,Plasma ionogram,Plasma albumin,NA,NA
+203,Labs,Plasma ionogram,Plasma bicarbonate,NA,NA
+204,Labs,Plasma ionogram,Plasma calcium,NA,NA
+205,Labs,Plasma ionogram,Plasma chloride,NA,NA
+206,Labs,Plasma ionogram,Plasma creatinine,NA,NA
+207,Labs,Plasma ionogram,Plasma glucose,NA,NA
+208,Labs,Plasma ionogram,Plasma lactate,NA,NA
+209,Labs,Plasma ionogram,Plasma magnesium,NA,NA
+210,Labs,Plasma ionogram,Plasma phosphate,NA,NA
+211,Labs,Plasma ionogram,Plasma potassium,NA,NA
+212,Labs,Plasma ionogram,Plasma sodium,NA,NA
+213,Labs,Plasma ionogram,Plasma urea,NA,NA
+214,Labs,Urinary ionogram,Urinary bicarbonate,NA,NA
+215,Labs,Urinary ionogram,Urinary calcium,NA,NA
+216,Labs,Urinary ionogram,Urinary chloride,NA,NA
+217,Labs,Urinary ionogram,Urinary creatinine,NA,NA
+218,Labs,Urinary ionogram,Urinary glucose,NA,NA
+219,Labs,Urinary ionogram,Urinary phosphate,NA,NA
+220,Labs,Urinary ionogram,Urinary potassium,NA,NA
+221,Labs,Urinary ionogram,Urinary sodium,NA,NA
+222,Labs,Urinary ionogram,Urinary urea,NA,NA
+223,Microbiology,Microorganism,Actinomyces neuii subspecies neuii,NA,NA
+224,Microbiology,Microorganism,Bacillus cereus group,NA,NA
+225,Microbiology,Microorganism,Bacillus mycoides,NA,NA
+226,Microbiology,Microorganism,Citrobacter freundii complex,NA,NA
+227,Microbiology,Microorganism,Citrobacter koseri,NA,NA
+228,Microbiology,Microorganism,Corynebacterium amycolatum,NA,NA
+229,Microbiology,Microorganism,Corynebacterium species,NA,NA
+230,Microbiology,Microorganism,Corynebacterium striatum,NA,NA
+231,Microbiology,Microorganism,Dermabacter hominis,NA,NA
+232,Microbiology,Microorganism,Enterobacter aerogenes,NA,NA
+233,Microbiology,Microorganism,Enterobacter cloacae,NA,NA
+234,Microbiology,Microorganism,Enterobacter cloacae complex,NA,NA
+235,Microbiology,Microorganism,Enterococcus faecalis,NA,NA
+236,Microbiology,Microorganism,Enterococcus faecium,NA,NA
+237,Microbiology,Microorganism,Escherichia coli,NA,NA
+238,Microbiology,Microorganism,Gram-negative bacteria,NA,NA
+239,Microbiology,Microorganism,Gram-positive bacteria,NA,NA
+240,Microbiology,Microorganism,Gram-positive cocci in clusters,NA,NA
+241,Microbiology,Microorganism,Granulicatella adiacens,NA,NA
+242,Microbiology,Microorganism,Klebsiella oxytoca,NA,NA
+243,Microbiology,Microorganism,Klebsiella pneumoniae,NA,NA
+244,Microbiology,Microorganism,Klebsiella variicola,NA,NA
+245,Microbiology,Microorganism,Lysinibacillus,NA,NA
+246,Microbiology,Microorganism,Micrococcus luteus,NA,NA
+247,Microbiology,Microorganism,Paenibacillus pabuli,NA,NA
+248,Microbiology,Microorganism,Pantoea agglomerans,NA,NA
+249,Microbiology,Microorganism,Pantoea septica,NA,NA
+250,Microbiology,Microorganism,Pseudomonas aeruginosa,NA,NA
+251,Microbiology,Microorganism,Raoultella ornithinolytica,NA,NA
+252,Microbiology,Microorganism,Rothia dentocariosa,NA,NA
+253,Microbiology,Microorganism,Rothia mucilaginosa,NA,NA
+254,Microbiology,Microorganism,Serratia,NA,NA
+255,Microbiology,Microorganism,Serratia liquefaciens,NA,NA
+256,Microbiology,Microorganism,Serratia marcescens,NA,NA
+257,Microbiology,Microorganism,Staphylococcus aureus,NA,NA
+258,Microbiology,Microorganism,Staphylococcus capitis,NA,NA
+259,Microbiology,Microorganism,Staphylococcus epidermidis,NA,NA
+260,Microbiology,Microorganism,Staphylococcus haemolyticus,NA,NA
+261,Microbiology,Microorganism,Staphylococcus hominis,NA,NA
+262,Microbiology,Microorganism,Staphylococcus warneri,NA,NA
+263,Microbiology,Microorganism,Streptococcus agalactiae (Group B streptococcus),NA,NA
+264,Microbiology,Microorganism,Streptococcus anginosus,NA,NA
+265,Microbiology,Microorganism,Streptococcus dysgalactiae,NA,NA
+266,Microbiology,Microorganism,Streptococcus mitis (Streptococcus mitis group),NA,NA
+267,Microbiology,Microorganism,Streptococcus mitis group,NA,NA
+268,Microbiology,Microorganism,Streptococcus vestibularis,NA,NA
+269,Microbiology,Microorganism,"Streptococcus, viridans group",NA,NA
+270,Microbiology,Specimen,Blood culture,NA,NA
+271,Other,Demographic data,Birth datetime,NA,NA
+272,Other,Demographic data,Birth height,NA,NA
+273,Other,Demographic data,Birth weight,NA,NA
+274,Other,Demographic data,Body height,NA,NA
+275,Other,Demographic data,Body weight,NA,NA
+276,Other,Demographic data,Death datetime,NA,NA
+277,Other,Demographic data,Gender,NA,NA
+278,Other,Demographic data,Gestational age,NA,NA
+279,Other,Demographic data,Gestational age at birth,NA,NA
+280,Other,Demographic data,Hospital admission datetime,NA,NA
+281,Other,Demographic data,Hospital discharge datetime,NA,NA
+282,Other,Demographic data,ICU admission datetime,NA,NA
+283,Other,Demographic data,ICU discharge datetime,NA,NA
+284,Other,Demographic data,Ideal body weight,NA,NA
+285,Other,Nutrition,Contraindication to enteral feeding,NA,NA
+286,Other,Nutrition,Energy intake,NA,NA
+287,Other,Nutrition,Energy requirement,NA,NA
+288,Other,Other,Advance care plan agreed,NA,NA
+289,Other,Other,Consultation with patient,NA,NA
+290,Other,Other,Surrogate decision maker documented,NA,NA
+291,Procedure,Catheter,Central venous catheter,NA,NA
+292,Procedure,ECMO,ECMO,NA,NA
+293,Procedure,Nutrition,Enteral feeding,NA,NA
+294,Procedure,Patient position,Mobilization,NA,NA
+295,Procedure,Patient position,Order to not mobilize,NA,NA
+296,Procedure,Patient position,Prone positioning,NA,NA
+297,Procedure,Plasmapheresis,Plasmapheresis,NA,NA
+298,Procedure,Renal replacement therapy,Renal replacement therapy,NA,NA
+299,Ventilation,Airway device,Endotracheal tube,NA,NA
+300,Ventilation,Airway device,Tracheostomy tube,NA,NA
+301,Ventilation,Oxygenation,FiO2,NA,NA
+302,Ventilation,Oxygenation,Oxygen flow rate,NA,NA
+303,Ventilation,Ventilation device,Extubation,NA,NA
+304,Ventilation,Ventilation device,Humidification Therapy,NA,NA
+305,Ventilation,Ventilation device,Intubation,NA,NA
+306,Ventilation,Ventilation device,Invasive mechanical ventilation,NA,NA
+307,Ventilation,Ventilation device,Non-invasive ventilation,NA,NA
+308,Ventilation,Ventilation device,Oxygen device,NA,NA
+309,Ventilation,Ventilation device,Trial of spontaneous breathing,NA,NA
+310,Ventilation,Ventilation parameters,Breath cycle timing,NA,NA
+311,Ventilation,Ventilation parameters,Carbon dioxide production,NA,NA
+312,Ventilation,Ventilation parameters,End tidal carbone dioxyde concentration,NA,NA
+313,Ventilation,Ventilation parameters,Horowitz index,NA,NA
+314,Ventilation,Ventilation parameters,Inspiratory pressure setting,NA,NA
+315,Ventilation,Ventilation parameters,Lung compliance,NA,NA
+316,Ventilation,Ventilation parameters,Mean airway pressure,NA,NA
+317,Ventilation,Ventilation parameters,Minute volume,NA,NA
+318,Ventilation,Ventilation parameters,PEEP,NA,"Positive End Expiratory Pressure (PEEP) can be both set and measured on the ventilator.<br />Measured PEEP can include distinct values such as total, extrinsic, and intrinsic PEEP.<br />
 When <strong>all these details are available</strong>, we recommend using the concept ""<strong>Positive end expiratory pressure setting</strong>"" for the value set on the ventilator, and ""<strong>Intrinsic PEEP Respiratory system</strong>"", ""<strong>Extrinsic PEEP Respiratory system</strong>"", or ""<strong>Total PEEP Respiratory system</strong>"" for the measured values.<br />
 Intrinsic and extrinsic PEEP values are typically obtained during an expiratory flow pause performed by the clinician. To differentiate PEEP values obtained with or without this maneuver, we suggest using ""<strong>Total PEEP Respiratory system</strong>"" for any measured PEEP, and specifying ""<strong>Intrinsic PEEP Respiratory system</strong>"" and ""<strong>Extrinsic PEEP Respiratory system</strong>"" only when a pause was performed to obtain them.
 Finally, if no detail is available about whether the PEEP is set or measured, the more generic concept ""<strong>Positive end expiratory pressure</strong>"" should be used."
-319,"Ventilation","Ventilation parameters","Peak inspiration pressure",,
-320,"Ventilation","Ventilation parameters","Plateau pressure",,
-321,"Ventilation","Ventilation parameters","Respiratory rate",,
-322,"Ventilation","Ventilation parameters","Tidal volume",,"Tidal volume can be both set and measured on the ventilator (with distinct inspiratory and expiratory values for the measured tidal volume).<br />When <strong>all this information is available</strong>, we recommend using the concept ""<strong>Mandatory tidal volume</strong>"" for the value set on the ventilator, and ""<strong>Inspiratory tidal volume</strong>"" or ""<strong>Expiratory tidal volume</strong>"" for the measured values.<br />
+319,Ventilation,Ventilation parameters,Peak inspiration pressure,NA,NA
+320,Ventilation,Ventilation parameters,Plateau pressure,NA,NA
+321,Ventilation,Ventilation parameters,Respiratory rate,NA,NA
+322,Ventilation,Ventilation parameters,Tidal volume,NA,"Tidal volume can be both set and measured on the ventilator (with distinct inspiratory and expiratory values for the measured tidal volume).<br />When <strong>all this information is available</strong>, we recommend using the concept ""<strong>Mandatory tidal volume</strong>"" for the value set on the ventilator, and ""<strong>Inspiratory tidal volume</strong>"" or ""<strong>Expiratory tidal volume</strong>"" for the measured values.<br />
 If the measured tidal volume is documented but the source (inspiratory or expiratory) is not specified, we suggest using ""<strong>Spontaneous tidal volume</strong>"".<br />
 Finally, if no detail is available about whether the tidal volume is set or measured, the generic concept ""<strong>Tidal volume</strong>"" should be used.<br />"
-323,"Ventilation","Ventilation parameters","Ventilation mode",,
-324,"Vitals","Haemodynamics","Cardiac output",,
-325,"Vitals","Haemodynamics","Central venous pressure",,
-326,"Vitals","Haemodynamics","Diastolic blood pressure",,
-327,"Vitals","Haemodynamics","Heart rate",3027018,
-328,"Vitals","Haemodynamics","Mean blood pressure",,
-329,"Vitals","Haemodynamics","Systolic blood pressure",,
-330,"Vitals","Other vitals","Temperature",,
-331,"Vitals","Other vitals","Urine output",,
-332,"Vitals","Ventilatory","Respiratory rate",,
-333,"Vitals","Ventilatory","SpO2",,
+323,Ventilation,Ventilation parameters,Ventilation mode,NA,NA
+324,Vitals,Haemodynamics,Cardiac output,NA,NA
+325,Vitals,Haemodynamics,Central venous pressure,NA,NA
+326,Vitals,Haemodynamics,Diastolic blood pressure,NA,NA
+327,Vitals,Haemodynamics,Heart rate,3027018,NA
+328,Vitals,Haemodynamics,Mean blood pressure,NA,NA
+329,Vitals,Haemodynamics,Systolic blood pressure,NA,NA
+330,Vitals,Other vitals,Temperature,NA,NA
+331,Vitals,Other vitals,Urine output,NA,NA
+332,Vitals,Ventilatory,Respiratory rate,NA,NA
+333,Vitals,Ventilatory,SpO2,NA,NA
+335,Drug,Antimicrobials,Sulbactam,1836241,NA

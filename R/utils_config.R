@@ -24,6 +24,9 @@ get_config <- function() {
       RxNorm = "http://www.nlm.nih.gov/research/umls/rxnorm"
     ),
 
+    # Vocabularies that should show "No link available" for FHIR
+    fhir_no_link_vocabularies = c("RxNorm Extension"),
+
     # External links
     athena_base_url = "https://athena.ohdsi.org/search-terms/terms"
   )
