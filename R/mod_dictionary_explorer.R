@@ -593,6 +593,49 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           )
       }
 
+      # Update EHDEN and LOINC values in concept_mappings for selected concept
+      selected_omop_id <- selected_mapped_concept_id()
+      if (!is.null(selected_omop_id)) {
+        # Update ehden_num_data_sources
+        new_ehden_data_sources <- input$ehden_num_data_sources_input
+        if (!is.null(new_ehden_data_sources)) {
+          concept_mappings <- concept_mappings %>%
+            dplyr::mutate(
+              ehden_num_data_sources = ifelse(
+                general_concept_id == concept_id & omop_concept_id == selected_omop_id,
+                as.character(new_ehden_data_sources),
+                ehden_num_data_sources
+              )
+            )
+        }
+
+        # Update ehden_rows_count
+        new_ehden_rows <- input$ehden_rows_count_input
+        if (!is.null(new_ehden_rows)) {
+          concept_mappings <- concept_mappings %>%
+            dplyr::mutate(
+              ehden_rows_count = ifelse(
+                general_concept_id == concept_id & omop_concept_id == selected_omop_id,
+                as.integer(new_ehden_rows),
+                ehden_rows_count
+              )
+            )
+        }
+
+        # Update loinc_rank
+        new_loinc_rank <- input$loinc_rank_input
+        if (!is.null(new_loinc_rank)) {
+          concept_mappings <- concept_mappings %>%
+            dplyr::mutate(
+              loinc_rank = ifelse(
+                general_concept_id == concept_id & omop_concept_id == selected_omop_id,
+                as.integer(new_loinc_rank),
+                loinc_rank
+              )
+            )
+        }
+      }
+
       # Update recommended values in concept_mappings
       recommended_edits <- edited_recommended()
 
@@ -714,7 +757,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         shiny::showNotification(
           "Changes saved successfully!",
           type = "message",
-          duration = 3
+          duration = 10
         )
       }, error = function(e) {
         shiny::showNotification(
@@ -737,6 +780,38 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       current_edits <- edited_recommended()
       current_edits[[as.character(omop_id)]] <- (new_value == "Yes")
       edited_recommended(current_edits)
+    }, ignoreInit = TRUE)
+
+    # Handle delete concept in edit mode
+    observeEvent(input$delete_concept, {
+      req(edit_mode())
+
+      concept_id <- selected_concept_id()
+      req(concept_id)
+
+      delete_data <- input$delete_concept
+      omop_id <- as.integer(delete_data$omop_id)
+
+      # Get current data
+      concept_mappings <- current_data()$concept_mappings
+
+      # Remove the row from concept_mappings
+      concept_mappings <- concept_mappings %>%
+        dplyr::filter(!(general_concept_id == concept_id & omop_concept_id == omop_id))
+
+      # Update local data immediately
+      updated_data <- list(
+        general_concepts = current_data()$general_concepts,
+        concept_mappings = concept_mappings
+      )
+      local_data(updated_data)
+
+      # Show confirmation message
+      shiny::showNotification(
+        "Concept removed from mappings",
+        type = "message",
+        duration = 10
+      )
     }, ignoreInit = TRUE)
 
     # # Track comment changes in edit mode
@@ -890,12 +965,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         # For non-Drug concepts, use original approach with CSV mappings
         csv_mappings <- current_data()$concept_mappings %>%
           dplyr::filter(general_concept_id == concept_id) %>%
+          dplyr::mutate(source = "CSV") %>%
           dplyr::select(
             concept_name,
             vocabulary_id,
             concept_code,
             omop_concept_id,
-            recommended
+            recommended,
+            source
           )
 
         # Get OHDSI vocabulary concepts from recommended concepts
@@ -931,19 +1008,19 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
             }
           }
 
-          # Remove duplicates and add recommended flag
+          # Remove duplicates and add recommended flag and source
           if (nrow(all_descendants) > 0) {
             all_descendants <- all_descendants %>%
               dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
-              dplyr::mutate(recommended = FALSE) %>%
-              dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended)
+              dplyr::mutate(recommended = FALSE, source = "OHDSI") %>%
+              dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended, source)
           }
 
           if (nrow(all_related) > 0) {
             all_related <- all_related %>%
               dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
-              dplyr::mutate(recommended = FALSE) %>%
-              dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended)
+              dplyr::mutate(recommended = FALSE, source = "OHDSI") %>%
+              dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended, source)
           }
 
           # Combine all sources
@@ -951,17 +1028,18 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           all_concepts <- dplyr::bind_rows(all_descendants, all_related) %>%
             dplyr::distinct(omop_concept_id, .keep_all = TRUE)
 
-          # Merge with csv_mappings, updating recommended flag from CSV where it exists
+          # Merge with csv_mappings, updating recommended flag and source from CSV where it exists
           mappings <- all_concepts %>%
             dplyr::left_join(
-              csv_mappings %>% dplyr::select(omop_concept_id, recommended),
+              csv_mappings %>% dplyr::select(omop_concept_id, recommended, source),
               by = "omop_concept_id",
               suffix = c("_auto", "_csv")
             ) %>%
             dplyr::mutate(
-              recommended = dplyr::coalesce(recommended_csv, recommended_auto)
+              recommended = dplyr::coalesce(recommended_csv, recommended_auto),
+              source = dplyr::coalesce(source_csv, source_auto)
             ) %>%
-            dplyr::select(-recommended_auto, -recommended_csv) %>%
+            dplyr::select(-recommended_auto, -recommended_csv, -source_auto, -source_csv) %>%
             dplyr::bind_rows(
               # Add CSV concepts that aren't in descendants/related
               csv_mappings %>%
@@ -998,6 +1076,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
                 '<label class="toggle-switch" data-omop-id="%s"><input type="checkbox" %s><span class="toggle-slider"></span></label>',
                 omop_concept_id,
                 ifelse(recommended, 'checked', '')
+              ),
+              action = ifelse(
+                source == "CSV",
+                sprintf('<i class="fa fa-trash delete-icon" data-omop-id="%s" style="cursor: pointer; color: #dc3545;"></i>', omop_concept_id),
+                ""
               )
             )
         } else {
@@ -1014,9 +1097,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         ))
       }
 
-      # Reorder columns to put is_general_concept at the end and hide OMOP ID
-      mappings <- mappings %>%
-        dplyr::select(concept_name, vocabulary_id, concept_code, recommended, omop_concept_id, is_general_concept)
+      # Reorder columns - source and action only in edit mode
+      if (is_editing) {
+        mappings <- mappings %>%
+          dplyr::select(concept_name, vocabulary_id, concept_code, recommended, source, action, omop_concept_id, is_general_concept)
+      } else {
+        mappings <- mappings %>%
+          dplyr::select(concept_name, vocabulary_id, concept_code, recommended, omop_concept_id, is_general_concept)
+      }
 
       # Cache mappings for selection handling (before converting recommended to Yes/No)
       mappings_for_cache <- mappings %>%
@@ -1030,21 +1118,37 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       # Build initComplete callback that includes keyboard nav
       init_complete_js <- create_keyboard_nav(keyboard_nav, TRUE, FALSE)
 
+      # Configure DataTable columns based on edit mode
+      if (is_editing) {
+        escape_cols <- c(TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE)  # Don't escape HTML in recommended and action columns
+        col_names <- c("Concept Name", "Vocabulary", "Code", "Recommended", "Source", "Action", "OMOP ID", "")
+        col_defs <- list(
+          list(targets = 3, width = "100px", className = 'dt-center'),  # Recommended column
+          list(targets = 4, width = "80px", className = 'dt-center'),   # Source column
+          list(targets = 5, width = "60px", className = 'dt-center'),   # Action column
+          list(targets = c(6, 7), visible = FALSE)  # OMOP ID and IsGeneral columns hidden
+        )
+      } else {
+        escape_cols <- TRUE
+        col_names <- c("Concept Name", "Vocabulary", "Code", "Recommended", "OMOP ID", "")
+        col_defs <- list(
+          list(targets = 3, width = "100px", className = 'dt-center'),  # Recommended column
+          list(targets = c(4, 5), visible = FALSE)  # OMOP ID and IsGeneral columns hidden
+        )
+      }
+
       dt <- DT::datatable(
         mappings,
         selection = 'none',
         rownames = FALSE,
-        escape = if (is_editing) c(TRUE, TRUE, TRUE, FALSE, TRUE, TRUE) else TRUE,  # Don't escape HTML in recommended column when editing
+        escape = escape_cols,
         extensions = c('Select'),
-        colnames = c("Concept Name", "Vocabulary", "Code", "Recommended", "OMOP ID", ""),
+        colnames = col_names,
         options = list(
           pageLength = 8,
           dom = 'tp',
           select = list(style = 'single', info = FALSE),
-          columnDefs = list(
-            list(targets = 3, width = "100px", className = 'dt-center'),  # Recommended column
-            list(targets = c(4, 5), visible = FALSE)  # OMOP ID and IsGeneral columns hidden
-          ),
+          columnDefs = col_defs,
           initComplete = init_complete_js
         ),
         callback = callback
@@ -1336,8 +1440,37 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       }
       unit_fhir_url <- build_unit_fhir_url(info$unit_concept_code, config)
 
+      # Get edit mode status
+      is_editing <- edit_mode()
+
       # Create detail items with proper formatting
-      create_detail_item <- function(label, value, format_number = FALSE, url = NULL, color = NULL) {
+      create_detail_item <- function(label, value, format_number = FALSE, url = NULL, color = NULL, editable = FALSE, input_id = NULL, step = 1) {
+        # If editable and in edit mode, show numeric input
+        if (editable && is_editing && !is.null(input_id)) {
+          input_value <- if (is.na(value) || is.null(value) || value == "") {
+            NA
+          } else if (is.character(value)) {
+            suppressWarnings(as.numeric(value))
+          } else {
+            as.numeric(value)
+          }
+
+          return(tags$div(
+            class = "detail-item",
+            tags$strong(label),
+            tags$span(
+              shiny::numericInput(
+                ns(input_id),
+                label = NULL,
+                value = input_value,
+                width = "100px",
+                step = step
+              )
+            )
+          ))
+        }
+
+        # Otherwise, display as read-only
         display_value <- if (is.na(value) || is.null(value) || value == "") {
           "/"
         } else if (is.logical(value)) {
@@ -1423,9 +1556,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         create_detail_item("Sub-category",
                           ifelse(nrow(general_concept_info) > 0,
                                 general_concept_info$subcategory[1], NA)),
-        create_detail_item("EHDEN Data Sources", info$ehden_num_data_sources, format_number = TRUE),
-        create_detail_item("EHDEN Rows Count", info$ehden_rows_count, format_number = TRUE),
-        create_detail_item("LOINC Rank", info$loinc_rank),
+        create_detail_item("EHDEN Data Sources", info$ehden_num_data_sources, format_number = TRUE, editable = TRUE, input_id = "ehden_num_data_sources_input", step = 1),
+        create_detail_item("EHDEN Rows Count", info$ehden_rows_count, format_number = TRUE, editable = TRUE, input_id = "ehden_rows_count_input", step = 1000),
+        create_detail_item("LOINC Rank", info$loinc_rank, editable = TRUE, input_id = "loinc_rank_input", step = 1),
         create_detail_item("Validity", validity_text, color = validity_color),
         create_detail_item("Standard", standard_text, color = standard_color),
         # Column 2 (must have exactly 8 items)

@@ -20,7 +20,7 @@ general_concept_id,concept_name,vocabulary_id,concept_code,omop_concept_id,recom
 13,Ramsay sedation scale,SNOMED,281400004,4105091,TRUE,/,/,numeric,observation,observation_concept_id,Observation,220000,3,NA
 14,Richmond agitation-sedation scale,SNOMED,457441000124102,36684829,TRUE,/,/,numeric,measurement,measurement_concept_id,Measurement,79500,2,NA
 15,Visual analog pain scale,SNOMED,273904000,4165600,TRUE,/,/,numeric,observation,observation_concept_id,Observation,4520000,10,NA
-16,Unspecified human immunodeficiency virus [HIV] disease,ICD10,B24,45547443,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
+16,Unspecified human immunodeficiency virus [HIV] disease,ICD10,B24,45547443,FALSE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
 17,Alcoholic cirrhosis of liver,ICD10,K70.3,45596343,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
 17,Alcoholic fatty liver,ICD10,K70.0,45567323,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
 17,Alcoholic fibrosis and sclerosis of liver,ICD10,K70.2,45557669,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
@@ -616,3 +616,4 @@ general_concept_id,concept_name,vocabulary_id,concept_code,omop_concept_id,recom
 332,Respiratory rate,SNOMED,86290005,4313591,TRUE,/min,8541,numeric,measurement,measurement_concept_id,Measurement,55000000,>20,NA
 333,Peripheral oxygen saturation,SNOMED,431314004,4196147,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,33600000,12,NA
 16,Human immunodeficiency virus infection,SNOMED,86406008,439727,TRUE,/,/,/,/,/,/,0,0,NA
+16,AIDS,SNOMED,62479008,4267414,TRUE,/,/,/,/,/,/,0,1,NA

@@ -14,15 +14,22 @@ html, body {
 
 /* Shiny notifications
 -------------------------------------------------- */
+#shiny-notification-panel {
+  pointer-events: none !important; /* Allow clicks to pass through the panel */
+  z-index: 1000 !important; /* Lower z-index to stay behind buttons */
+}
+
 .shiny-notification {
   position: fixed !important;
   top: 72px !important; /* Header height (10px padding + 40px logo + 10px padding + 2px border + 10px margin) */
   left: 50% !important;
   transform: translateX(-50%) !important;
   width: auto !important;
-  max-width: 500px !important;
-  min-width: 300px !important;
-  z-index: 9999 !important;
+  max-width: fit-content !important;
+  min-width: auto !important;
+  padding: 10px 20px !important;
+  white-space: nowrap !important;
+  pointer-events: auto !important; /* Re-enable pointer events on the notification itself */
 }
 
 /* Athena concept ID input in header - compact styling */
@@ -31,6 +38,39 @@ html, body {
   font-size: 12px !important;
   padding: 2px 6px !important;
   line-height: 1.2 !important;
+}
+
+/* Numeric inputs in concept details - compact styling */
+#dictionary_explorer-ehden_num_data_sources_input,
+#dictionary_explorer-ehden_rows_count_input,
+#dictionary_explorer-loinc_rank_input {
+  height: 28px !important;
+  font-size: 13px !important;
+  padding: 2px 6px !important;
+}
+
+.detail-item .form-group {
+  margin-bottom: 0 !important;
+}
+
+.detail-item .shiny-input-container {
+  margin-bottom: 0 !important;
+}
+
+/* Align numeric inputs with labels using flexbox */
+.detail-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.detail-item strong {
+  flex-shrink: 0;
+}
+
+.detail-item > span {
+  display: flex;
+  align-items: center;
 }
 
 .section-header .shiny-input-container {

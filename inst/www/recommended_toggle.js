@@ -1,4 +1,4 @@
-// Handle recommended column toggle in edit mode
+// Handle recommended column toggle and delete actions in edit mode
 $(document).ready(function() {
 
   // Use event delegation on document to handle clicks on toggle switches
@@ -24,5 +24,22 @@ $(document).ready(function() {
   // Prevent toggle clicks from triggering row selection
   $(document).on('click', '.toggle-switch', function(e) {
     e.stopPropagation();
+  });
+
+  // Handle delete icon clicks
+  $(document).on('click', '.delete-icon', function(e) {
+    e.stopPropagation();
+
+    try {
+      var omopId = $(this).data('omop-id');
+
+      // Send delete request to Shiny
+      Shiny.setInputValue('dictionary_explorer-delete_concept', {
+        omop_id: omopId
+      }, {priority: 'event'});
+
+    } catch (error) {
+      console.error('Error deleting concept:', error);
+    }
   });
 });
