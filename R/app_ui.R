@@ -46,7 +46,7 @@ app_ui <- function() {
         div(class = "header-left",
             tags$a(
               href = "#",
-              onclick = "Shiny.setInputValue('nav_explorer', true, {priority: 'event'}); return false;",
+              onclick = "$('#nav_explorer').click(); return false;",
               style = "text-decoration: none; display: flex; align-items: center; gap: 15px; cursor: pointer;",
               tags$img(src = "www/logo.png", class = "header-logo"),
               tags$h1("INDICATE Data Dictionary", class = "header-title")

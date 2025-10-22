@@ -107,10 +107,8 @@ $(document).ready(function() {
         }, 50);
       }
     });
-    
-    console.log('Splitter initialized successfully');
   }
-  
+
   // Handle window resize
   $(window).on('resize', function() {
     setTimeout(function() {
