@@ -431,7 +431,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
                   actionButton(
                     ns("cancel_edit"),
                     "Cancel",
-                    class = "btn-toggle"
+                    class = "btn-cancel"
                   ),
                   actionButton(
                     ns("save_updates"),
@@ -503,7 +503,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
               actionButton(
                 ns("list_cancel"),
                 "Cancel",
-                class = "btn-toggle"
+                class = "btn-cancel"
               ),
               actionButton(
                 ns("list_save_updates"),
@@ -543,20 +543,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 • Child and same-level concepts, retrieved via ATHENA mappings",
                   "ⓘ"
                 )
-              ),
-              # Athena concept ID input (only in edit mode)
-              if (edit_mode()) {
-                tags$div(
-                  style = "width: 250px; margin-left: auto;",
-                  shiny::textInput(
-                    ns("athena_concept_id_input"),
-                    label = NULL,
-                    value = "",
-                    placeholder = "Athena Concept ID",
-                    width = "100%"
-                  )
-                )
-              }
+              )
             ),
             tags$div(
               class = "quadrant-content",
@@ -1258,22 +1245,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     # Handle edit page button
     observeEvent(input$edit_page, {
       edit_mode(TRUE)
-
-      # Initialize athena_concept_id input with current value
-      concept_id <- selected_concept_id()
-      if (!is.null(concept_id)) {
-        concept_info <- current_data()$general_concepts %>%
-          dplyr::filter(general_concept_id == concept_id)
-
-        if (nrow(concept_info) > 0) {
-          athena_id <- concept_info$athena_concept_id[1]
-          if (!is.na(athena_id)) {
-            shiny::updateTextInput(session, "athena_concept_id_input", value = as.character(athena_id))
-          } else {
-            shiny::updateTextInput(session, "athena_concept_id_input", value = "")
-          }
-        }
-      }
     })
 
     # Handle cancel edit button
@@ -1294,29 +1265,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       # Get current data
       general_concepts <- current_data()$general_concepts
       concept_mappings <- current_data()$concept_mappings
-
-      # Update athena_concept_id in general_concepts
-      new_athena_id <- input$athena_concept_id_input
-      if (!is.null(new_athena_id) && nchar(trimws(new_athena_id)) > 0) {
-        general_concepts <- general_concepts %>%
-          dplyr::mutate(
-            athena_concept_id = ifelse(
-              general_concept_id == concept_id,
-              as.integer(new_athena_id),
-              athena_concept_id
-            )
-          )
-      } else {
-        # If empty, set to NA
-        general_concepts <- general_concepts %>%
-          dplyr::mutate(
-            athena_concept_id = ifelse(
-              general_concept_id == concept_id,
-              NA_integer_,
-              athena_concept_id
-            )
-          )
-      }
 
       # Update comments in general_concepts
       new_comment <- input$comments_input
@@ -1671,13 +1619,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
             # Format as mappings table with all Clinical Drugs marked as recommended
             mappings <- clinical_drugs %>%
               dplyr::rename(omop_concept_id = concept_id) %>%
-              dplyr::mutate(recommended = TRUE) %>%
+              dplyr::mutate(recommended = TRUE, source = "OHDSI") %>%
               dplyr::select(
                 concept_name,
                 vocabulary_id,
                 concept_code,
                 omop_concept_id,
-                recommended
+                recommended,
+                source
               )
           } else {
             # No Clinical Drugs found
@@ -1686,7 +1635,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
               vocabulary_id = character(),
               concept_code = character(),
               omop_concept_id = integer(),
-              recommended = logical()
+              recommended = logical(),
+              source = character()
             )
           }
         } else {
@@ -1696,7 +1646,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
             vocabulary_id = character(),
             concept_code = character(),
             omop_concept_id = integer(),
-            recommended = logical()
+            recommended = logical(),
+            source = character()
           )
         }
       } else {
@@ -1815,7 +1766,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           )
 
         # Create toggle HTML for edit mode, or simple Yes/No for view mode
-        if (is_editing) {
+        # For Drug concepts, don't show recommended/action columns
+        if (is_editing && category != "Drug") {
           mappings <- mappings %>%
             dplyr::mutate(
               recommended = sprintf(
@@ -1829,7 +1781,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
                 ""
               )
             )
-        } else {
+        } else if (!is_editing) {
           mappings <- mappings %>%
             dplyr::mutate(recommended = ifelse(recommended, "Yes", "No"))
         }
@@ -1843,18 +1795,26 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         ))
       }
 
-      # Reorder columns - source and action only in edit mode
-      if (is_editing) {
+      # Reorder columns - for Drug in edit mode, exclude recommended/action/source
+      if (is_editing && category != "Drug") {
         mappings <- mappings %>%
           dplyr::select(concept_name, vocabulary_id, concept_code, recommended, source, action, omop_concept_id, is_general_concept)
+      } else if (is_editing && category == "Drug") {
+        mappings <- mappings %>%
+          dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, is_general_concept)
       } else {
         mappings <- mappings %>%
           dplyr::select(concept_name, vocabulary_id, concept_code, recommended, omop_concept_id, is_general_concept)
       }
 
       # Cache mappings for selection handling (before converting recommended to Yes/No)
-      mappings_for_cache <- mappings %>%
-        dplyr::mutate(recommended = recommended == "Yes")
+      # For Drug concepts, the recommended column doesn't exist in edit mode
+      if (is_editing && category == "Drug") {
+        mappings_for_cache <- mappings
+      } else {
+        mappings_for_cache <- mappings %>%
+          dplyr::mutate(recommended = recommended == "Yes")
+      }
       current_mappings(mappings_for_cache)
 
       # Load JavaScript callbacks
@@ -1864,8 +1824,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       # Build initComplete callback that includes keyboard nav
       init_complete_js <- create_keyboard_nav(keyboard_nav, TRUE, FALSE)
 
-      # Configure DataTable columns based on edit mode
-      if (is_editing) {
+      # Configure DataTable columns based on edit mode and category
+      if (is_editing && category != "Drug") {
         escape_cols <- c(TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE)  # Don't escape HTML in recommended and action columns
         col_names <- c("Concept Name", "Vocabulary", "Code", "Recommended", "Source", "Action", "OMOP ID", "")
         col_defs <- list(
@@ -1873,6 +1833,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           list(targets = 4, width = "80px", className = 'dt-center'),   # Source column
           list(targets = 5, width = "60px", className = 'dt-center'),   # Action column
           list(targets = c(6, 7), visible = FALSE)  # OMOP ID and IsGeneral columns hidden
+        )
+      } else if (is_editing && category == "Drug") {
+        escape_cols <- TRUE
+        col_names <- c("Concept Name", "Vocabulary", "Code", "OMOP ID", "")
+        col_defs <- list(
+          list(targets = c(3, 4), visible = FALSE)  # OMOP ID and IsGeneral columns hidden
         )
       } else {
         escape_cols <- TRUE

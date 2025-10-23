@@ -918,6 +918,21 @@ a.paginate_button.current * {
   background: #5a6268 !important;
 }
 
+.btn-cancel {
+  padding: 6px 12px !important;
+  background: #6c757d !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  margin-top: 1px !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.btn-cancel:hover {
+  background: #5a6268 !important;
+}
+
 /* Legacy button styles */
 .btn-action:hover,
 .view-details-btn:hover {
