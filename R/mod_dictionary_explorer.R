@@ -1571,8 +1571,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           comment_html <- gsub("\\*\\*([^*]+)\\*\\*", "<strong>\\1</strong>", comment_html)
           # Convert *text* to <em>text</em>
           comment_html <- gsub("\\*([^*]+)\\*", "<em>\\1</em>", comment_html)
-          # Convert line breaks to <br>
-          comment_html <- gsub("\n", "<br>", comment_html)
+          # Wrap content in paragraph tags
+          comment_html <- paste0("<p>", comment_html, "</p>")
+          # Convert line breaks to paragraph breaks
+          comment_html <- gsub("\n", "</p><p>", comment_html)
 
           tags$div(
             class = "comments-container",
