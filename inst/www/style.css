@@ -834,6 +834,91 @@ a.paginate_button.current * {
   transition: background-color 0.2s ease !important;
 }
 
+/* Reusable button classes
+-------------------------------------------------- */
+.btn-primary-custom {
+  background: #0f60af !important;
+  border: none !important;
+  padding: 6px 16px !important;
+  border-radius: 4px !important;
+  color: white !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.btn-primary-custom:hover {
+  background: #3a8ad6 !important;
+}
+
+.btn-success-custom {
+  background: #28a745 !important;
+  border: none !important;
+  padding: 6px 16px !important;
+  border-radius: 4px !important;
+  color: white !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.btn-success-custom:hover {
+  background: #218838 !important;
+}
+
+.btn-secondary-custom {
+  background: #6c757d !important;
+  border: none !important;
+  padding: 6px 16px !important;
+  border-radius: 4px !important;
+  color: white !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.btn-secondary-custom:hover {
+  background: #5a6268 !important;
+}
+
+.btn-danger-custom {
+  background: #dc3545 !important;
+  border: none !important;
+  padding: 4px 12px !important;
+  border-radius: 4px !important;
+  color: white !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.btn-danger-custom:hover {
+  background: #c82333 !important;
+}
+
+.btn-toggle {
+  padding: 6px 12px !important;
+  background: #28a745 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  margin-top: 1px !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.btn-toggle:hover {
+  background: #218838 !important;
+}
+
+.btn-toggle.active {
+  background: #6c757d !important;
+}
+
+.btn-toggle.active:hover {
+  background: #5a6268 !important;
+}
+
+/* Legacy button styles */
 .btn-action:hover,
 .view-details-btn:hover {
   background: #3a8ad6 !important;
@@ -1327,4 +1412,19 @@ a.paginate_button.current * {
 
 .info-icon:hover::before {
   opacity: 1;
+}
+
+/* Delete concept button
+-------------------------------------------------- */
+.delete-concept-btn {
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.delete-concept-btn:hover {
+  background-color: #c82333 !important;
+  transform: scale(1.05);
+}
+
+.delete-concept-btn:active {
+  transform: scale(0.95);
 }

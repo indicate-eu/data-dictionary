@@ -46,6 +46,183 @@ mod_dictionary_explorer_ui <- function(id) {
           uiOutput(ns("concept_modal_body"))
         )
       )
+    ),
+
+    # Modal for adding new concept
+    tags$div(
+      id = ns("add_concept_modal"),
+      class = "modal-overlay",
+      style = "display: none;",
+      onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("add_concept_modal")),
+      tags$div(
+        class = "modal-content",
+        style = "max-width: 600px;",
+        tags$div(
+          class = "modal-header",
+          tags$h3("Add New Concept"),
+          tags$button(
+            class = "modal-close",
+            onclick = sprintf("$('#%s').hide();", ns("add_concept_modal")),
+            "×"
+          )
+        ),
+        tags$div(
+          class = "modal-body",
+          style = "padding: 20px;",
+          tags$div(
+            id = ns("new_concept_name_group"),
+            style = "margin-bottom: 20px;",
+            tags$label(
+              "General Concept Name",
+              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+            ),
+            shiny::textInput(
+              ns("new_concept_name"),
+              label = NULL,
+              placeholder = "Enter concept name",
+              width = "100%"
+            )
+          ),
+          tags$div(
+            id = ns("new_concept_category_group"),
+            style = "margin-bottom: 20px;",
+            tags$label(
+              "Category",
+              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+            ),
+            tags$div(
+              style = "display: flex; gap: 10px; align-items: flex-start;",
+              tags$div(
+                id = ns("category_select_container"),
+                style = "flex: 1;",
+                selectizeInput(
+                  ns("new_concept_category"),
+                  label = NULL,
+                  choices = character(0),
+                  selected = character(0),
+                  options = list(
+                    placeholder = "Select category..."
+                  ),
+                  width = "100%"
+                )
+              ),
+              tags$div(
+                id = ns("category_text_container"),
+                style = "flex: 1; display: none;",
+                shiny::textInput(
+                  ns("new_concept_category_text"),
+                  label = NULL,
+                  placeholder = "Enter new category",
+                  width = "100%"
+                )
+              ),
+              tags$button(
+                id = ns("toggle_category_mode"),
+                class = "btn-toggle",
+                onclick = sprintf("
+                  var selectContainer = document.getElementById('%s');
+                  var textContainer = document.getElementById('%s');
+                  var btn = document.getElementById('%s');
+                  if (selectContainer.style.display === 'none') {
+                    selectContainer.style.display = 'block';
+                    textContainer.style.display = 'none';
+                    btn.innerHTML = '+';
+                    btn.classList.remove('active');
+                  } else {
+                    selectContainer.style.display = 'none';
+                    textContainer.style.display = 'block';
+                    btn.innerHTML = '×';
+                    btn.classList.add('active');
+                  }
+                ", ns("category_select_container"), ns("category_text_container"), ns("toggle_category_mode")),
+                "+"
+              )
+            )
+          ),
+          tags$div(
+            id = ns("new_concept_subcategory_group"),
+            style = "margin-bottom: 20px;",
+            tags$label(
+              "Subcategory",
+              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+            ),
+            tags$div(
+              style = "display: flex; gap: 10px; align-items: flex-start;",
+              tags$div(
+                id = ns("subcategory_select_container"),
+                style = "flex: 1;",
+                selectizeInput(
+                  ns("new_concept_subcategory"),
+                  label = NULL,
+                  choices = character(0),
+                  selected = character(0),
+                  options = list(
+                    placeholder = "First select a category..."
+                  ),
+                  width = "100%"
+                )
+              ),
+              tags$div(
+                id = ns("subcategory_text_container"),
+                style = "flex: 1; display: none;",
+                shiny::textInput(
+                  ns("new_concept_subcategory_text"),
+                  label = NULL,
+                  placeholder = "Enter new subcategory",
+                  width = "100%"
+                )
+              ),
+              tags$button(
+                id = ns("toggle_subcategory_mode"),
+                class = "btn-toggle",
+                onclick = sprintf("
+                  var selectContainer = document.getElementById('%s');
+                  var textContainer = document.getElementById('%s');
+                  var btn = document.getElementById('%s');
+                  if (selectContainer.style.display === 'none') {
+                    selectContainer.style.display = 'block';
+                    textContainer.style.display = 'none';
+                    btn.innerHTML = '+';
+                    btn.classList.remove('active');
+                  } else {
+                    selectContainer.style.display = 'none';
+                    textContainer.style.display = 'block';
+                    btn.innerHTML = '×';
+                    btn.classList.add('active');
+                  }
+                ", ns("subcategory_select_container"), ns("subcategory_text_container"), ns("toggle_subcategory_mode")),
+                "+"
+              )
+            )
+          ),
+          tags$div(
+            style = "margin-bottom: 20px;",
+            tags$label(
+              "Athena Concept ID",
+              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+            ),
+            shiny::textInput(
+              ns("new_concept_athena_id"),
+              label = NULL,
+              placeholder = "Enter Athena Concept ID (optional)",
+              width = "100%"
+            )
+          ),
+          tags$div(
+            style = "display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #dee2e6;",
+            tags$button(
+              class = "btn btn-secondary btn-secondary-custom",
+              onclick = sprintf("$('#%s').hide();", ns("add_concept_modal")),
+              "Cancel"
+            ),
+            actionButton(
+              ns("add_new_concept"),
+              "Add Concept",
+              class = "btn-primary-custom"
+            )
+          )
+        )
+      )
     )
   )
 }
@@ -79,11 +256,15 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     relationships_tab <- reactiveVal("related")  # Track active tab: "related", "hierarchy", "synonyms"
     modal_concept_id <- reactiveVal(NULL)  # Track concept ID for modal display
     selected_categories <- reactiveVal(character(0))  # Track selected category filters
-    edit_mode <- reactiveVal(FALSE)  # Track edit mode state
+    edit_mode <- reactiveVal(FALSE)  # Track edit mode state for detail view
+    saved_table_page <- reactiveVal(0)  # Track datatable page for edit mode restoration
+    list_edit_mode <- reactiveVal(FALSE)  # Track edit mode state for list view
+    saved_table_search <- reactiveVal(NULL)  # Track datatable search state for edit mode
 
     # Track temporary edits in edit mode
     edited_recommended <- reactiveVal(list())  # Store recommended changes by omop_concept_id
     # edited_comment <- reactiveVal(NULL)  # Store comment changes
+    original_general_concepts <- reactiveVal(NULL)  # Store original state for cancel in list edit mode
 
     # Create a local copy of data that can be updated
     local_data <- reactiveVal(NULL)
@@ -134,8 +315,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
     # Render breadcrumb
     output$breadcrumb <- renderUI({
-      # Force re-render when edit_mode changes
+      # Force re-render when edit modes change
       edit_mode()
+      list_edit_mode()
 
       if (current_view() == "list") {
         categories <- categories_list()
@@ -143,32 +325,67 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
         tags$div(
           class = "breadcrumb-nav",
-          style = "padding: 10px 0 15px 0; display: flex; align-items: center; gap: 15px;",
-          # Title
+          style = "padding: 10px 0 15px 0; display: flex; align-items: center; gap: 15px; justify-content: space-between;",
+          # Left side: Title and category badges
           tags$div(
-            style = "font-size: 16px; color: #0f60af; font-weight: 600;",
-            tags$span("General Concepts")
+            style = "display: flex; align-items: center; gap: 15px; flex: 1;",
+            # Title
+            tags$div(
+              style = "font-size: 16px; color: #0f60af; font-weight: 600;",
+              tags$span("General Concepts")
+            ),
+            # Category badges
+            tags$div(
+              class = "category-filters",
+              style = "display: flex; flex-wrap: wrap; gap: 8px; flex: 1;",
+              lapply(categories, function(cat) {
+                is_selected <- cat %in% selected
+                tags$span(
+                  class = "category-badge",
+                  style = sprintf(
+                    "padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; transition: all 0.2s; %s",
+                    if (is_selected) {
+                      "background: #ff8c00; color: white; font-weight: 500;"
+                    } else {
+                      "background: #e9ecef; color: #6c757d;"
+                    }
+                  ),
+                  onclick = sprintf("Shiny.setInputValue('%s', '%s', {priority: 'event'})", ns("category_filter"), cat),
+                  cat
+                )
+              })
+            )
           ),
-          # Category badges
+          # Right side: Edit/Cancel/Save/Add buttons
           tags$div(
-            class = "category-filters",
-            style = "display: flex; flex-wrap: wrap; gap: 8px; flex: 1;",
-            lapply(categories, function(cat) {
-              is_selected <- cat %in% selected
-              tags$span(
-                class = "category-badge",
-                style = sprintf(
-                  "padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; transition: all 0.2s; %s",
-                  if (is_selected) {
-                    "background: #ff8c00; color: white; font-weight: 500;"
-                  } else {
-                    "background: #e9ecef; color: #6c757d;"
-                  }
+            style = "display: flex; gap: 10px;",
+            if (!list_edit_mode()) {
+              tagList(
+                actionButton(
+                  ns("show_add_concept_modal"),
+                  "Add concept",
+                  class = "btn-success-custom"
                 ),
-                onclick = sprintf("Shiny.setInputValue('%s', '%s', {priority: 'event'})", ns("category_filter"), cat),
-                cat
+                actionButton(
+                  ns("list_edit_page"),
+                  "Edit page",
+                  class = "btn-primary-custom"
+                )
               )
-            })
+            } else {
+              tagList(
+                actionButton(
+                  ns("list_cancel"),
+                  "Cancel",
+                  class = "btn-secondary-custom"
+                ),
+                actionButton(
+                  ns("list_save_updates"),
+                  "Save updates",
+                  class = "btn-success-custom"
+                )
+              )
+            }
           )
         )
       } else {
@@ -204,25 +421,22 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
             tags$div(
               style = "display: flex; gap: 10px;",
               if (!edit_mode()) {
-                tags$button(
-                  class = "btn btn-primary",
-                  style = "padding: 6px 16px; font-size: 14px; background: #0f60af; color: white; border: none; border-radius: 4px; cursor: pointer;",
-                  onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("edit_page")),
-                  "Edit page"
+                actionButton(
+                  ns("edit_page"),
+                  "Edit page",
+                  class = "btn-toggle"
                 )
               } else {
                 tagList(
-                  tags$button(
-                    class = "btn btn-secondary",
-                    style = "padding: 6px 16px; font-size: 14px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;",
-                    onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("cancel_edit")),
-                    "Cancel"
+                  actionButton(
+                    ns("cancel_edit"),
+                    "Cancel",
+                    class = "btn-toggle"
                   ),
-                  tags$button(
-                    class = "btn btn-success",
-                    style = "padding: 6px 16px; font-size: 14px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;",
-                    onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("save_updates")),
-                    "Save updates"
+                  actionButton(
+                    ns("save_updates"),
+                    "Save updates",
+                    class = "btn-toggle"
                   )
                 )
               }
@@ -275,9 +489,33 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     # Function to render general concepts table
     render_general_concepts_table <- function() {
       tagList(
+        # Edit/Cancel/Save buttons
+        tags$div(
+          style = "padding: 10px 0 15px 0; display: flex; justify-content: flex-end; gap: 10px;",
+          if (!list_edit_mode()) {
+            actionButton(
+              ns("list_edit_page"),
+              "Edit page",
+              class = "btn-toggle"
+            )
+          } else {
+            tagList(
+              actionButton(
+                ns("list_cancel"),
+                "Cancel",
+                class = "btn-toggle"
+              ),
+              actionButton(
+                ns("list_save_updates"),
+                "Save updates",
+                class = "btn-toggle"
+              )
+            )
+          }
+        ),
         tags$div(
           class = "table-container",
-          style = "height: calc(100vh - 180px); overflow: auto;",
+          style = "height: calc(100vh - 220px); overflow: auto;",
           DT::DTOutput(ns("general_concepts_table"))
         )
       )
@@ -433,18 +671,58 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
     # Render general concepts table
     output$general_concepts_table <- DT::renderDT({
+      # Force re-render when edit mode changes
+      list_edit_mode()
+
       general_concepts <- current_data()$general_concepts
 
+      # Prepare table data
       table_data <- general_concepts %>%
         dplyr::mutate(
+          # Always keep as factor to preserve dropdown filters
           category = factor(category),
           subcategory = factor(subcategory),
-          actions = sprintf(
-            '<button class="view-details-btn" data-id="%s">View Details</button>',
-            general_concept_id
-          )
-        ) %>%
-        dplyr::select(general_concept_id, category, subcategory, general_concept_name, actions)
+          athena_concept_id = as.character(athena_concept_id),
+          actions = if (list_edit_mode()) {
+            sprintf(
+              '<button class="delete-concept-btn" data-id="%s" style="padding: 4px 12px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Delete</button>',
+              general_concept_id
+            )
+          } else {
+            sprintf(
+              '<button class="view-details-btn" data-id="%s">View Details</button>',
+              general_concept_id
+            )
+          }
+        )
+
+      # Select columns based on edit mode
+      if (list_edit_mode()) {
+        table_data <- table_data %>%
+          dplyr::select(general_concept_id, category, subcategory, general_concept_name, athena_concept_id, actions)
+        col_names <- c("ID", "Category", "Subcategory", "General Concept Name", "Athena Concept ID", "Actions")
+        col_defs <- list(
+          list(targets = 0, visible = FALSE),
+          list(targets = 1, width = "150px"),
+          list(targets = 2, width = "150px"),
+          list(targets = 3, width = "300px"),
+          list(targets = 4, width = "150px"),
+          list(targets = 5, width = "120px", className = 'dt-center', orderable = FALSE)
+        )
+        editable_cols <- list(target = 'cell', disable = list(columns = c(0, 5)))
+      } else {
+        table_data <- table_data %>%
+          dplyr::select(general_concept_id, category, subcategory, general_concept_name, actions)
+        col_names <- c("ID", "Category", "Subcategory", "General Concept Name", "Actions")
+        col_defs <- list(
+          list(targets = 0, visible = FALSE),
+          list(targets = 1, width = "150px"),
+          list(targets = 2, width = "150px"),
+          list(targets = 3, width = "350px"),
+          list(targets = 4, width = "120px", className = 'dt-center', orderable = FALSE)
+        )
+        editable_cols <- FALSE
+      }
 
       dt <- DT::datatable(
         table_data,
@@ -452,18 +730,13 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         rownames = FALSE,
         escape = FALSE,
         filter = 'top',
-        colnames = c("ID", "Category", "Subcategory", "General Concept Name", "Actions"),
+        editable = editable_cols,
+        colnames = col_names,
         options = list(
           pageLength = 20,
           lengthMenu = list(c(10, 20, 25, 50, 100, -1), c('10', '20', '25', '50', '100', 'All')),
           dom = 'ltp',
-          columnDefs = list(
-            list(targets = 0, visible = FALSE),
-            list(targets = 1, width = "150px"),
-            list(targets = 2, width = "150px"),
-            list(targets = 3, width = "300px"),
-            list(targets = 4, width = "120px", className = 'dt-center', orderable = FALSE)
-          )
+          columnDefs = col_defs
         )
       )
 
@@ -474,6 +747,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
           // Remove existing handlers to avoid duplicates
           $(table.table().node()).off('click', '.view-details-btn');
+          $(table.table().node()).off('click', '.delete-concept-btn');
           $(table.table().node()).off('dblclick', 'tbody tr');
 
           // Add click handler for View Details button
@@ -483,16 +757,26 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
             Shiny.setInputValue('%s', conceptId, {priority: 'event'});
           });
 
-          // Add double-click handler for table rows
-          $(table.table().node()).on('dblclick', 'tbody tr', function() {
-            var rowData = table.row(this).data();
-            if (rowData && rowData[0]) {
-              var conceptId = rowData[0];
-              Shiny.setInputValue('%s', conceptId, {priority: 'event'});
-            }
+          // Add click handler for Delete button
+          $(table.table().node()).on('click', '.delete-concept-btn', function(e) {
+            e.stopPropagation();
+            var conceptId = $(this).data('id');
+            Shiny.setInputValue('%s', conceptId, {priority: 'event'});
           });
+
+          // Add double-click handler for table rows (only when not in edit mode)
+          if (!%s) {
+            $(table.table().node()).on('dblclick', 'tbody tr', function() {
+              var rowData = table.row(this).data();
+              if (rowData && rowData[0]) {
+                var conceptId = rowData[0];
+                Shiny.setInputValue('%s', conceptId, {priority: 'event'});
+              }
+            });
+          }
         }
-      ", ns("view_concept_details"), ns("view_concept_details")))
+      ", ns("view_concept_details"), ns("delete_general_concept"),
+         tolower(as.character(list_edit_mode())), ns("view_concept_details")))
 
       dt
     }, server = FALSE)
@@ -515,6 +799,460 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       current_mappings(NULL)
       relationships_tab("related")
       edit_mode(FALSE)  # Exit edit mode when going back to list
+      list_edit_mode(FALSE)  # Exit list edit mode when going back to list
+    })
+
+    # Handle list edit page button
+    observeEvent(input$list_edit_page, {
+      # Save current state for cancel functionality
+      original_general_concepts(current_data()$general_concepts)
+
+      # Save current page number
+      if (!is.null(input$general_concepts_table_state)) {
+        current_page <- input$general_concepts_table_state$start / input$general_concepts_table_state$length + 1
+        saved_table_page(current_page)
+      }
+
+      # Save column search filters
+      if (!is.null(input$general_concepts_table_search_columns)) {
+        saved_table_search(input$general_concepts_table_search_columns)
+      }
+
+      list_edit_mode(TRUE)
+
+      # Wait for datatable to re-render, then restore state
+      shiny::observe({
+        req(list_edit_mode())
+
+        proxy <- DT::dataTableProxy("general_concepts_table", session = session)
+
+        # Restore column filters
+        search_columns <- saved_table_search()
+        if (!is.null(search_columns)) {
+          DT::updateSearch(proxy, keywords = list(
+            global = NULL,
+            columns = search_columns
+          ))
+        }
+
+        # Restore page position
+        page_num <- saved_table_page()
+        if (!is.null(page_num) && page_num > 0) {
+          DT::selectPage(proxy, page_num)
+        }
+      }) %>% shiny::bindEvent(input$general_concepts_table_state, once = TRUE)
+    })
+
+    # Handle list cancel button
+    observeEvent(input$list_cancel, {
+      # Save current filters and page before exiting edit mode
+      if (!is.null(input$general_concepts_table_search_columns)) {
+        saved_table_search(input$general_concepts_table_search_columns)
+      }
+      if (!is.null(input$general_concepts_table_state)) {
+        current_page <- input$general_concepts_table_state$start / input$general_concepts_table_state$length + 1
+        saved_table_page(current_page)
+      }
+
+      # Restore original state
+      if (!is.null(original_general_concepts())) {
+        data <- local_data()
+        data$general_concepts <- original_general_concepts()
+        local_data(data)
+        original_general_concepts(NULL)
+      }
+      list_edit_mode(FALSE)
+
+      # Wait for datatable to re-render, then restore state
+      shiny::observe({
+        req(!list_edit_mode())
+
+        proxy <- DT::dataTableProxy("general_concepts_table", session = session)
+
+        # Restore column filters
+        search_columns <- saved_table_search()
+        if (!is.null(search_columns)) {
+          DT::updateSearch(proxy, keywords = list(
+            global = NULL,
+            columns = search_columns
+          ))
+        }
+
+        # Restore page position
+        page_num <- saved_table_page()
+        if (!is.null(page_num) && page_num > 0) {
+          DT::selectPage(proxy, page_num)
+        }
+      }) %>% shiny::bindEvent(input$general_concepts_table_state, once = TRUE)
+    })
+
+    # Handle list save updates button
+    observeEvent(input$list_save_updates, {
+      req(list_edit_mode())
+
+      # Save current filters and page before exiting edit mode
+      if (!is.null(input$general_concepts_table_search_columns)) {
+        saved_table_search(input$general_concepts_table_search_columns)
+      }
+      if (!is.null(input$general_concepts_table_state)) {
+        current_page <- input$general_concepts_table_state$start / input$general_concepts_table_state$length + 1
+        saved_table_page(current_page)
+      }
+
+      # Get current data
+      general_concepts <- current_data()$general_concepts
+
+      # Save general_concepts to CSV
+      csv_path <- system.file("extdata", "csv", "general_concepts.csv", package = "indicate")
+
+      # If package path doesn't exist, try local development path
+      if (!file.exists(csv_path) || csv_path == "") {
+        csv_path <- file.path("inst", "extdata", "csv", "general_concepts.csv")
+      }
+
+      if (file.exists(csv_path)) {
+        readr::write_csv(general_concepts, csv_path)
+        shiny::showNotification(
+          "General concepts updated successfully!",
+          type = "message",
+          duration = 10
+        )
+      } else {
+        shiny::showNotification(
+          "Error: Could not find general_concepts.csv file",
+          type = "error",
+          duration = 10
+        )
+      }
+
+      list_edit_mode(FALSE)
+      original_general_concepts(NULL)
+
+      # Wait for datatable to re-render, then restore state
+      shiny::observe({
+        req(!list_edit_mode())
+
+        proxy <- DT::dataTableProxy("general_concepts_table", session = session)
+
+        # Restore column filters
+        search_columns <- saved_table_search()
+        if (!is.null(search_columns)) {
+          DT::updateSearch(proxy, keywords = list(
+            global = NULL,
+            columns = search_columns
+          ))
+        }
+
+        # Restore page position
+        page_num <- saved_table_page()
+        if (!is.null(page_num) && page_num > 0) {
+          DT::selectPage(proxy, page_num)
+        }
+      }) %>% shiny::bindEvent(input$general_concepts_table_state, once = TRUE)
+    })
+
+    # Handle cell edits in general concepts table
+    observeEvent(input$general_concepts_table_cell_edit, {
+      req(list_edit_mode())
+
+      info <- input$general_concepts_table_cell_edit
+
+      # Get current data
+      general_concepts <- current_data()$general_concepts
+
+      # Update the cell value
+      row_num <- info$row
+      col_num <- info$col + 1  # DT uses 0-based indexing for columns, add 1 for R
+      new_value <- info$value
+
+      # Map column number to actual column name
+      # Columns: general_concept_id (1), category (2), subcategory (3), general_concept_name (4), athena_concept_id (5)
+      if (col_num == 2) {
+        # Category column
+        general_concepts[row_num, "category"] <- new_value
+      } else if (col_num == 3) {
+        # Subcategory column
+        general_concepts[row_num, "subcategory"] <- new_value
+      } else if (col_num == 4) {
+        # General concept name column
+        general_concepts[row_num, "general_concept_name"] <- new_value
+      } else if (col_num == 5) {
+        # Athena concept ID column
+        general_concepts[row_num, "athena_concept_id"] <- as.integer(new_value)
+      }
+
+      # Update local data
+      data <- local_data()
+      data$general_concepts <- general_concepts
+      local_data(data)
+    })
+
+    # Handle delete general concept button
+    observeEvent(input$delete_general_concept, {
+      req(list_edit_mode())
+
+      # Save current page number before deletion
+      if (!is.null(input$general_concepts_table_state)) {
+        current_page <- input$general_concepts_table_state$start / input$general_concepts_table_state$length + 1
+        saved_table_page(current_page)
+      }
+
+      concept_id <- input$delete_general_concept
+      if (!is.null(concept_id)) {
+        # Remove from general_concepts
+        general_concepts <- current_data()$general_concepts %>%
+          dplyr::filter(general_concept_id != as.integer(concept_id))
+
+        # Also remove associated mappings
+        concept_mappings <- current_data()$concept_mappings %>%
+          dplyr::filter(general_concept_id != as.integer(concept_id))
+
+        # Update local data
+        data <- local_data()
+        data$general_concepts <- general_concepts
+        data$concept_mappings <- concept_mappings
+        local_data(data)
+
+        # Restore page position
+        page_num <- saved_table_page()
+        if (!is.null(page_num) && page_num > 0) {
+          # Check if page still exists after deletion
+          total_rows <- nrow(general_concepts)
+          page_length <- 25
+          max_page <- ceiling(total_rows / page_length)
+
+          # If current page no longer exists, go to last page
+          target_page <- min(page_num, max_page)
+
+          proxy <- DT::dataTableProxy("general_concepts_table", session = session)
+          DT::selectPage(proxy, target_page)
+        }
+
+        shiny::showNotification(
+          "Concept deleted",
+          type = "message",
+          duration = 5
+        )
+      }
+    })
+
+    # Handle show add concept modal button
+    observeEvent(input$show_add_concept_modal, {
+      # Update category choices
+      general_concepts <- current_data()$general_concepts
+      categories <- sort(unique(general_concepts$category))
+
+      updateSelectizeInput(session, "new_concept_category", choices = categories, selected = character(0))
+      updateSelectizeInput(session, "new_concept_subcategory", choices = character(0), selected = character(0))
+
+      # Show the custom modal
+      shinyjs::runjs(sprintf("$('#%s').show();", ns("add_concept_modal")))
+    })
+
+    # Update subcategories when category changes in add concept modal
+    observeEvent(input$new_concept_category, {
+      if (is.null(input$new_concept_category) || identical(input$new_concept_category, "")) {
+        return()
+      }
+
+      general_concepts <- current_data()$general_concepts
+      selected_category <- input$new_concept_category
+
+      # Get subcategories for the selected category
+      subcategories_for_category <- general_concepts %>%
+        dplyr::filter(category == selected_category) %>%
+        dplyr::pull(subcategory) %>%
+        unique() %>%
+        sort()
+
+      # Update subcategory choices
+      updateSelectizeInput(
+        session,
+        "new_concept_subcategory",
+        choices = subcategories_for_category,
+        server = TRUE
+      )
+    }, ignoreInit = TRUE)
+
+    # Handle add new concept
+    observeEvent(input$add_new_concept, {
+      # Determine which category/subcategory field is active
+      category <- if (!is.null(input$new_concept_category_text) && nchar(trimws(input$new_concept_category_text)) > 0) {
+        input$new_concept_category_text
+      } else {
+        input$new_concept_category
+      }
+
+      subcategory <- if (!is.null(input$new_concept_subcategory_text) && nchar(trimws(input$new_concept_subcategory_text)) > 0) {
+        input$new_concept_subcategory_text
+      } else {
+        input$new_concept_subcategory
+      }
+
+      concept_name <- input$new_concept_name
+      athena_id <- input$new_concept_athena_id
+
+      # Validation with visual feedback
+      has_error <- FALSE
+
+      # Reset all borders first
+      shinyjs::runjs(sprintf("
+        document.getElementById('%s').style.border = '';
+        $('#%s').parent().find('.selectize-control .selectize-input').css('border', '');
+        document.getElementById('%s').style.border = '';
+        $('#%s').parent().find('.selectize-control .selectize-input').css('border', '');
+        document.getElementById('%s').style.border = '';
+      ", ns("new_concept_name"), ns("new_concept_category"), ns("new_concept_category_text"), ns("new_concept_subcategory"), ns("new_concept_subcategory_text")))
+
+      # Validate concept name
+      if (is.null(concept_name) || nchar(trimws(concept_name)) == 0) {
+        has_error <- TRUE
+        shinyjs::runjs(sprintf("document.getElementById('%s').style.border = '2px solid #dc3545'", ns("new_concept_name")))
+      }
+
+      # Validate category - only highlight the visible field
+      if (is.null(category) || nchar(trimws(category)) == 0) {
+        has_error <- TRUE
+        shinyjs::runjs(sprintf("
+          var categorySelectContainer = document.getElementById('%s');
+          var categoryTextContainer = document.getElementById('%s');
+          if (categorySelectContainer.style.display !== 'none') {
+            $('#%s').parent().find('.selectize-control .selectize-input').css('border', '2px solid #dc3545');
+          } else {
+            document.getElementById('%s').style.border = '2px solid #dc3545';
+          }
+        ", ns("category_select_container"), ns("category_text_container"), ns("new_concept_category"), ns("new_concept_category_text")))
+      }
+
+      # Validate subcategory - only highlight the visible field
+      if (is.null(subcategory) || nchar(trimws(subcategory)) == 0) {
+        has_error <- TRUE
+        shinyjs::runjs(sprintf("
+          var subcategorySelectContainer = document.getElementById('%s');
+          var subcategoryTextContainer = document.getElementById('%s');
+          if (subcategorySelectContainer.style.display !== 'none') {
+            $('#%s').parent().find('.selectize-control .selectize-input').css('border', '2px solid #dc3545');
+          } else {
+            document.getElementById('%s').style.border = '2px solid #dc3545';
+          }
+        ", ns("subcategory_select_container"), ns("subcategory_text_container"), ns("new_concept_subcategory"), ns("new_concept_subcategory_text")))
+      }
+
+      if (has_error) {
+        return()
+      }
+
+      # Get current data
+      general_concepts <- current_data()$general_concepts
+
+      # Generate new ID (max + 1)
+      new_id <- max(general_concepts$general_concept_id, na.rm = TRUE) + 1
+
+      # Process athena_id (convert to integer if valid number, otherwise NA)
+      athena_id_value <- if (is.null(athena_id) || nchar(trimws(athena_id)) == 0) {
+        NA_integer_
+      } else {
+        as_int <- suppressWarnings(as.integer(trimws(athena_id)))
+        if (is.na(as_int)) NA_integer_ else as_int
+      }
+
+      # Create new row
+      new_row <- data.frame(
+        general_concept_id = new_id,
+        category = trimws(category),
+        subcategory = trimws(subcategory),
+        general_concept_name = trimws(concept_name),
+        athena_concept_id = athena_id_value,
+        comments = NA_character_,
+        stringsAsFactors = FALSE
+      )
+
+      # Add to general_concepts and sort alphabetically
+      general_concepts <- rbind(general_concepts, new_row) %>%
+        dplyr::arrange(category, subcategory, general_concept_name)
+
+      # Find the row index of the newly added concept after sorting
+      new_concept_row_index <- which(
+        general_concepts$general_concept_id == new_id &
+        general_concepts$category == trimws(category) &
+        general_concepts$subcategory == trimws(subcategory) &
+        general_concepts$general_concept_name == trimws(concept_name)
+      )[1]
+
+      # Save to CSV
+      csv_path <- system.file("extdata", "csv", "general_concepts.csv", package = "indicate")
+      if (!file.exists(csv_path) || csv_path == "") {
+        csv_path <- file.path("inst", "extdata", "csv", "general_concepts.csv")
+      }
+
+      if (file.exists(csv_path)) {
+        readr::write_csv(general_concepts, csv_path)
+
+        # Update local data
+        data <- local_data()
+        data$general_concepts <- general_concepts
+        local_data(data)
+
+        # Close modal and reset fields
+        shinyjs::runjs(sprintf("$('#%s').hide();", ns("add_concept_modal")))
+
+        # Reset input fields
+        shiny::updateTextInput(session, "new_concept_name", value = "")
+        shiny::updateTextInput(session, "new_concept_athena_id", value = "")
+        shiny::updateTextInput(session, "new_concept_category_text", value = "")
+        shiny::updateTextInput(session, "new_concept_subcategory_text", value = "")
+        updateSelectizeInput(session, "new_concept_category", selected = character(0))
+        updateSelectizeInput(session, "new_concept_subcategory", selected = character(0))
+
+        # Calculate which page the new concept is on (1-indexed for DT::selectPage)
+        page_length <- 25  # Default page length from datatable
+        target_page <- ceiling(new_concept_row_index / page_length)
+
+        # Use DT proxy to navigate to the correct page
+        proxy <- DT::dataTableProxy("general_concepts_table", session = session)
+        DT::selectPage(proxy, target_page)
+
+        # Highlight the row with green fade effect
+        # Row index in DataTable is 0-indexed
+        dt_row_index <- new_concept_row_index - 1
+
+        shinyjs::runjs(sprintf("
+          setTimeout(function() {
+            try {
+              var tableElement = $('#%s');
+              if (tableElement.length && $.fn.DataTable.isDataTable(tableElement)) {
+                var table = tableElement.DataTable();
+                var row = table.row(%d).node();
+                if (row) {
+                  $(row).css({
+                    'background-color': '#28a745',
+                    'transition': 'background-color 2s ease-out'
+                  });
+
+                  // Fade back to normal
+                  setTimeout(function() {
+                    $(row).css('background-color', '');
+                  }, 100);
+                }
+              }
+            } catch(e) {
+              console.error('Row highlight error:', e);
+            }
+          }, 200);
+        ", ns("general_concepts_table"), dt_row_index))
+
+        shiny::showNotification(
+          "Concept added successfully!",
+          type = "message",
+          duration = 10
+        )
+      } else {
+        shiny::showNotification(
+          "Error: Could not find general_concepts.csv file",
+          type = "error",
+          duration = 10
+        )
+      }
     })
 
     # Handle edit page button
@@ -1025,28 +1763,36 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
           # Combine all sources
           # For duplicates, csv_mappings values take priority (especially for recommended flag)
-          all_concepts <- dplyr::bind_rows(all_descendants, all_related) %>%
-            dplyr::distinct(omop_concept_id, .keep_all = TRUE)
+          all_concepts <- dplyr::bind_rows(all_descendants, all_related)
 
-          # Merge with csv_mappings, updating recommended flag and source from CSV where it exists
-          mappings <- all_concepts %>%
-            dplyr::left_join(
-              csv_mappings %>% dplyr::select(omop_concept_id, recommended, source),
-              by = "omop_concept_id",
-              suffix = c("_auto", "_csv")
-            ) %>%
-            dplyr::mutate(
-              recommended = dplyr::coalesce(recommended_csv, recommended_auto),
-              source = dplyr::coalesce(source_csv, source_auto)
-            ) %>%
-            dplyr::select(-recommended_auto, -recommended_csv, -source_auto, -source_csv) %>%
-            dplyr::bind_rows(
-              # Add CSV concepts that aren't in descendants/related
-              csv_mappings %>%
-                dplyr::anti_join(all_concepts, by = "omop_concept_id")
-            ) %>%
-            dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
-            dplyr::arrange(dplyr::desc(recommended), concept_name)
+          # Only process if there are concepts from OHDSI
+          if (nrow(all_concepts) > 0) {
+            all_concepts <- all_concepts %>%
+              dplyr::distinct(omop_concept_id, .keep_all = TRUE)
+
+            # Merge with csv_mappings, updating recommended flag and source from CSV where it exists
+            mappings <- all_concepts %>%
+              dplyr::left_join(
+                csv_mappings %>% dplyr::select(omop_concept_id, recommended, source),
+                by = "omop_concept_id",
+                suffix = c("_auto", "_csv")
+              ) %>%
+              dplyr::mutate(
+                recommended = dplyr::coalesce(recommended_csv, recommended_auto),
+                source = dplyr::coalesce(source_csv, source_auto)
+              ) %>%
+              dplyr::select(-recommended_auto, -recommended_csv, -source_auto, -source_csv) %>%
+              dplyr::bind_rows(
+                # Add CSV concepts that aren't in descendants/related
+                csv_mappings %>%
+                  dplyr::anti_join(all_concepts, by = "omop_concept_id")
+              ) %>%
+              dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
+              dplyr::arrange(dplyr::desc(recommended), concept_name)
+          } else {
+            # No OHDSI concepts, just use csv_mappings
+            mappings <- csv_mappings
+          }
         } else {
           mappings <- csv_mappings
         }
