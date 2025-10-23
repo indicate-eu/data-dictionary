@@ -593,7 +593,7 @@ general_concept_id,concept_name,vocabulary_id,concept_code,omop_concept_id,recom
 326,Diastolic arterial pressure,SNOMED,1091811000000100,35610320,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,175000000,8,NA
 326,Invasive diastolic arterial pressure,SNOMED,251073000,4354253,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,3780000,2,NA
 326,Non-invasive diastolic arterial pressure,SNOMED,174255007,4068414,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,903000,3,NA
-327,Heart rate,LOINC,8867-4,3027018,TRUE,/min,8541,numeric,measurement,measurement_concept_id,Measurement,49100000,>20,0
+327,Heart rate,LOINC,8867-4,3027018,TRUE,/min,8541,numeric,measurement,measurement_concept_id,Measurement,49100000,NA,0
 327,Heart rate Intra arterial line by Invasive,LOINC,60978-4,21490670,TRUE,/min,8541,numeric,measurement,measurement_concept_id,Measurement,0,0,0
 327,Heart rate by Pulse oxymetry,LOINC,8889-8,3001376,TRUE,/min,8541,numeric,measurement,measurement_concept_id,Measurement,5180000,1,0
 327,Heart rate.beat-to-beat by EKG,LOINC,76282-3,21490872,TRUE,/min,8541,numeric,measurement,measurement_concept_id,Measurement,37700000,1,0

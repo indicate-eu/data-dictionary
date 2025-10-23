@@ -254,6 +254,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     selected_concept_id <- reactiveVal(NULL)
     selected_mapped_concept_id <- reactiveVal(NULL)  # Track selected concept in mappings table
     relationships_tab <- reactiveVal("related")  # Track active tab: "related", "hierarchy", "synonyms"
+    comments_tab <- reactiveVal("comments")  # Track active tab: "comments", "statistical_summary"
     modal_concept_id <- reactiveVal(NULL)  # Track concept ID for modal display
     selected_categories <- reactiveVal(character(0))  # Track selected category filters
     edit_mode <- reactiveVal(FALSE)  # Track edit mode state for detail view
@@ -587,13 +588,28 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           tags$div(
             class = "quadrant quadrant-bottom-left",
             tags$div(
-              class = "section-header",
+              class = "section-header section-header-with-tabs",
               tags$h4(
                 "ETL Guidance & Comments",
                 tags$span(
                   class = "info-icon",
                   `data-tooltip` = "Expert guidance and comments for ETL (Extract, Transform, Load) processes related to this concept",
                   "ⓘ"
+                )
+              ),
+              tags$div(
+                class = "section-tabs",
+                tags$button(
+                  class = "tab-btn tab-btn-active",
+                  id = ns("tab_comments"),
+                  onclick = sprintf("Shiny.setInputValue('%s', 'comments', {priority: 'event'})", ns("switch_comments_tab")),
+                  "Comments"
+                ),
+                tags$button(
+                  class = "tab-btn",
+                  id = ns("tab_statistical_summary"),
+                  onclick = sprintf("Shiny.setInputValue('%s', 'statistical_summary', {priority: 'event'})", ns("switch_comments_tab")),
+                  "Statistical Summary"
                 )
               )
             ),
@@ -1253,6 +1269,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       edited_recommended(list())
       # edited_comment(NULL)
       edit_mode(FALSE)
+      # Reset tab to comments
+      comments_tab("comments")
     })
 
     # Handle save updates button
@@ -1277,6 +1295,36 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
               comments
             )
           )
+      }
+
+      # Update statistical_summary in general_concepts
+      new_statistical_summary <- input$statistical_summary_editor
+      if (!is.null(new_statistical_summary)) {
+        # Validate JSON before saving
+        is_valid_json <- tryCatch({
+          jsonlite::fromJSON(new_statistical_summary)
+          TRUE
+        }, error = function(e) {
+          FALSE
+        })
+
+        if (is_valid_json) {
+          general_concepts <- general_concepts %>%
+            dplyr::mutate(
+              statistical_summary = ifelse(
+                general_concept_id == concept_id,
+                new_statistical_summary,
+                statistical_summary
+              )
+            )
+        } else {
+          # Show error notification for invalid JSON
+          shiny::showNotification(
+            "Invalid JSON in Statistical Summary. Changes not saved.",
+            type = "error",
+            duration = 5
+          )
+        }
       }
 
       # Update EHDEN and LOINC values in concept_mappings for selected concept
@@ -1438,6 +1486,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         edited_recommended(list())
         # edited_comment(NULL)
         edit_mode(FALSE)
+        # Reset tab to comments
+        comments_tab("comments")
 
         # Show success message
         shiny::showNotification(
@@ -1452,6 +1502,15 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           duration = 5
         )
       })
+    })
+
+    # Handle reset statistical summary button
+    observeEvent(input$reset_statistical_summary, {
+      shinyAce::updateAceEditor(
+        session,
+        "statistical_summary_editor",
+        value = get_default_statistical_summary_template()
+      )
     })
 
     # Handle toggle recommended in edit mode
@@ -1531,61 +1590,213 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       }
     })
 
-    # Render comments
+    # Render comments or statistical summary based on active tab
     output$comments_display <- renderUI({
       concept_id <- selected_concept_id()
       req(concept_id)
 
-      # Force re-render when edit_mode changes
+      # Force re-render when edit_mode or tab changes
       is_editing <- edit_mode()
+      active_tab <- comments_tab()
       local_data()  # Add dependency to trigger re-render when data updates
 
       concept_info <- current_data()$general_concepts %>%
         dplyr::filter(general_concept_id == concept_id)
 
-      if (is_editing) {
-        # Edit mode: show textarea
-        current_comment <- if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1])) {
-          concept_info$comments[1]
+      # Display based on active tab
+      if (active_tab == "comments") {
+        # Comments tab
+        if (is_editing) {
+          # Edit mode: show textarea
+          current_comment <- if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1])) {
+            concept_info$comments[1]
+          } else {
+            ""
+          }
+
+          tags$div(
+            style = "height: 100%;",
+            shiny::textAreaInput(
+              ns("comments_input"),
+              label = NULL,
+              value = current_comment,
+              placeholder = "Enter ETL guidance and comments here...",
+              width = "100%",
+              height = "100%"
+            )
+          )
         } else {
-          ""
+          # View mode: show formatted comment
+          if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1]) && nchar(concept_info$comments[1]) > 0) {
+            # Convert markdown-style formatting to HTML
+            comment_html <- concept_info$comments[1]
+            # Convert **text** to <strong>text</strong>
+            comment_html <- gsub("\\*\\*([^*]+)\\*\\*", "<strong>\\1</strong>", comment_html)
+            # Convert *text* to <em>text</em>
+            comment_html <- gsub("\\*([^*]+)\\*", "<em>\\1</em>", comment_html)
+            # Wrap content in paragraph tags
+            comment_html <- paste0("<p>", comment_html, "</p>")
+            # Convert line breaks to paragraph breaks
+            comment_html <- gsub("\n", "</p><p>", comment_html)
+
+            tags$div(
+              class = "comments-container",
+              style = "background: #e6f3ff; border: 1px solid #0f60af; border-radius: 6px; padding: 15px; height: 100%; overflow-y: auto; box-sizing: border-box;",
+              HTML(comment_html)
+            )
+          } else {
+            tags$div(
+              style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic; height: 100%; overflow-y: auto; box-sizing: border-box;",
+              "No comments available for this concept."
+            )
+          }
         }
-
-        tags$div(
-          style = "height: 100%;",
-          shiny::textAreaInput(
-            ns("comments_input"),
-            label = NULL,
-            value = current_comment,
-            placeholder = "Enter ETL guidance and comments here...",
-            width = "100%",
-            height = "100%"
-          )
-        )
       } else {
-        # View mode: show formatted comment
-        if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1]) && nchar(concept_info$comments[1]) > 0) {
-          # Convert markdown-style formatting to HTML
-          comment_html <- concept_info$comments[1]
-          # Convert **text** to <strong>text</strong>
-          comment_html <- gsub("\\*\\*([^*]+)\\*\\*", "<strong>\\1</strong>", comment_html)
-          # Convert *text* to <em>text</em>
-          comment_html <- gsub("\\*([^*]+)\\*", "<em>\\1</em>", comment_html)
-          # Wrap content in paragraph tags
-          comment_html <- paste0("<p>", comment_html, "</p>")
-          # Convert line breaks to paragraph breaks
-          comment_html <- gsub("\n", "</p><p>", comment_html)
+        # Statistical Summary tab
+        if (is_editing) {
+          # Edit mode: show JSON editor with aceEditor
+          current_summary <- if (nrow(concept_info) > 0 && !is.na(concept_info$statistical_summary[1])) {
+            concept_info$statistical_summary[1]
+          } else {
+            get_default_statistical_summary_template()
+          }
 
           tags$div(
-            class = "comments-container",
-            style = "background: #e6f3ff; border: 1px solid #0f60af; border-radius: 6px; padding: 15px; height: 100%; overflow-y: auto; box-sizing: border-box;",
-            HTML(comment_html)
+            style = "height: 100%; display: flex; flex-direction: column;",
+            tags$div(
+              style = "padding: 10px; background: #f8f9fa; border-bottom: 1px solid #dee2e6; display: flex; justify-content: space-between; align-items: center;",
+              tags$span(
+                style = "font-weight: 600; color: #495057;",
+                "JSON Editor"
+              ),
+              actionButton(
+                ns("reset_statistical_summary"),
+                "Reset to Template",
+                class = "btn btn-sm",
+                style = "background: #6c757d; color: white; border: none; padding: 4px 12px; border-radius: 4px;"
+              )
+            ),
+            tags$div(
+              style = "flex: 1; min-height: 0;",
+              shinyAce::aceEditor(
+                ns("statistical_summary_editor"),
+                value = current_summary,
+                mode = "json",
+                theme = "chrome",
+                height = "100%",
+                fontSize = 11,
+                showLineNumbers = TRUE,
+                highlightActiveLine = TRUE,
+                tabSize = 2
+              )
+            )
           )
         } else {
-          tags$div(
-            style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic; height: 100%; overflow-y: auto; box-sizing: border-box;",
-            "No comments available for this concept."
-          )
+          # View mode: show statistical summary display
+          summary_data <- NULL
+          if (nrow(concept_info) > 0 && !is.na(concept_info$statistical_summary[1]) && nchar(concept_info$statistical_summary[1]) > 0) {
+            tryCatch({
+              summary_data <- jsonlite::fromJSON(concept_info$statistical_summary[1])
+            }, error = function(e) {
+              summary_data <<- NULL
+            })
+          }
+
+          if (!is.null(summary_data)) {
+            # Helper function to create detail items
+            create_detail_item <- function(label, value) {
+              display_value <- if (is.null(value) || (is.character(value) && value == "")) {
+                "/"
+              } else {
+                as.character(value)
+              }
+
+              tags$div(
+                class = "detail-item",
+                tags$strong(paste0(label, ":")),
+                tags$span(display_value)
+              )
+            }
+
+            # Display statistical summary in 2-column layout
+            tags$div(
+              style = "height: 100%; overflow-y: auto; padding: 15px; background: #ffffff;",
+              tags$div(
+                style = "display: grid; grid-template-columns: 1fr 1fr; gap: 20px;",
+
+                # Left Column
+                tags$div(
+                  # Data Types Section
+                  tags$h5(style = "margin: 0 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Data Types"),
+                  if (!is.null(summary_data$data_types) && length(summary_data$data_types) > 0) {
+                    tags$div(
+                      style = "margin-bottom: 20px;",
+                      create_detail_item("Types", paste(summary_data$data_types, collapse = ", "))
+                    )
+                  } else {
+                    tags$p(style = "color: #6c757d; font-style: italic; margin-bottom: 20px;", "No data types specified")
+                  },
+
+                  # Statistical Data Section
+                  tags$h5(style = "margin: 20px 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Statistical Data"),
+                  if (!is.null(summary_data$statistical_data) && length(summary_data$statistical_data) > 0) {
+                    tagList(
+                      lapply(names(summary_data$statistical_data), function(key) {
+                        value <- summary_data$statistical_data[[key]]
+                        create_detail_item(gsub("_", " ", tools::toTitleCase(key)), if (is.null(value)) "/" else value)
+                      })
+                    )
+                  } else {
+                    tags$p(style = "color: #6c757d; font-style: italic;", "No statistical data available")
+                  }
+                ),
+
+                # Right Column
+                tags$div(
+                  # Temporal Information Section
+                  tags$h5(style = "margin: 0 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Temporal Information"),
+                  if (!is.null(summary_data$temporal_info)) {
+                    tagList(
+                      if (!is.null(summary_data$temporal_info$frequency_range)) {
+                        tagList(
+                          create_detail_item("Frequency Min", if (is.null(summary_data$temporal_info$frequency_range$min)) "/" else summary_data$temporal_info$frequency_range$min),
+                          create_detail_item("Frequency Max", if (is.null(summary_data$temporal_info$frequency_range$max)) "/" else summary_data$temporal_info$frequency_range$max)
+                        )
+                      },
+                      if (!is.null(summary_data$temporal_info$measurement_period) && length(summary_data$temporal_info$measurement_period) > 0) {
+                        create_detail_item("Measurement Period", paste(summary_data$temporal_info$measurement_period, collapse = ", "))
+                      } else {
+                        create_detail_item("Measurement Period", "/")
+                      }
+                    )
+                  } else {
+                    tags$p(style = "color: #6c757d; font-style: italic;", "No temporal information available")
+                  },
+
+                  # Possible Values Section
+                  tags$h5(style = "margin: 20px 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Possible Values"),
+                  if (!is.null(summary_data$possible_values) && length(summary_data$possible_values) > 0) {
+                    tags$div(
+                      style = "margin-top: 8px;",
+                      tags$ul(
+                        style = "margin: 0; padding-left: 20px;",
+                        lapply(summary_data$possible_values, function(val) {
+                          tags$li(style = "color: #212529; padding: 2px 0;", val)
+                        })
+                      )
+                    )
+                  } else {
+                    tags$p(style = "color: #6c757d; font-style: italic;", "No possible values specified")
+                  }
+                )
+              )
+            )
+          } else {
+            tags$div(
+              style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic; height: 100%; overflow-y: auto; box-sizing: border-box;",
+              "No statistical summary available for this concept."
+            )
+          }
         }
       }
     })
@@ -1903,6 +2114,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     # Observe tab switching for relationships
     observeEvent(input$switch_relationships_tab, {
       relationships_tab(input$switch_relationships_tab)
+    })
+
+    # Observe tab switching for comments
+    observeEvent(input$switch_comments_tab, {
+      comments_tab(input$switch_comments_tab)
     })
 
     # Cache for current mappings to avoid recalculation

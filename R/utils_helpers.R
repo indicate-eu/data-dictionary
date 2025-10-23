@@ -211,3 +211,34 @@ get_clinical_drugs_from_ingredient <- function(
 
   return(as.data.frame(clinical_drugs))
 }
+
+#' Get Default Statistical Summary JSON Template
+#'
+#' @description Returns the default JSON structure for statistical summary
+#'
+#' @return Character string containing default JSON template
+#' @noRd
+get_default_statistical_summary_template <- function() {
+  '{
+  "data_types": ["numeric"],
+  "statistical_data": {
+    "min": null,
+    "max": null,
+    "median": null,
+    "mean": null,
+    "p5": null,
+    "p25": null,
+    "p75": null,
+    "p95": null,
+    "outliers_count": null
+  },
+  "temporal_info": {
+    "frequency_range": {
+      "min": null,
+      "max": null
+    },
+    "measurement_period": []
+  },
+  "possible_values": []
+}'
+}
