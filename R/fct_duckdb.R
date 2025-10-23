@@ -41,7 +41,8 @@ create_duckdb_database <- function(vocab_folder) {
   required_files <- c(
     "CONCEPT.csv",
     "CONCEPT_RELATIONSHIP.csv",
-    "CONCEPT_ANCESTOR.csv"
+    "CONCEPT_ANCESTOR.csv",
+    "CONCEPT_SYNONYM.csv"
   )
 
   # Check if all required files exist
@@ -118,6 +119,18 @@ create_duckdb_database <- function(vocab_folder) {
     )
     DBI::dbWriteTable(con, "concept_ancestor", concept_ancestor, overwrite = TRUE)
 
+    # Load CONCEPT_SYNONYM table
+    concept_synonym <- readr::read_tsv(
+      file.path(vocab_folder, "CONCEPT_SYNONYM.csv"),
+      col_types = readr::cols(
+        concept_id = readr::col_integer(),
+        concept_synonym_name = readr::col_character(),
+        language_concept_id = readr::col_integer()
+      ),
+      show_col_types = FALSE
+    )
+    DBI::dbWriteTable(con, "concept_synonym", concept_synonym, overwrite = TRUE)
+
     # Create indexes for better performance
     DBI::dbExecute(con, "CREATE INDEX idx_concept_id ON concept(concept_id)")
     DBI::dbExecute(con, "CREATE INDEX idx_concept_code ON concept(concept_code)")
@@ -127,6 +140,7 @@ create_duckdb_database <- function(vocab_folder) {
     DBI::dbExecute(con, "CREATE INDEX idx_concept_rel_2 ON concept_relationship(concept_id_2)")
     DBI::dbExecute(con, "CREATE INDEX idx_ancestor ON concept_ancestor(ancestor_concept_id)")
     DBI::dbExecute(con, "CREATE INDEX idx_descendant ON concept_ancestor(descendant_concept_id)")
+    DBI::dbExecute(con, "CREATE INDEX idx_synonym_concept ON concept_synonym(concept_id)")
 
     # Close connection
     DBI::dbDisconnect(con, shutdown = TRUE)
@@ -244,6 +258,7 @@ load_vocabularies_from_duckdb <- function(vocab_folder) {
     concept <- dplyr::tbl(con, "concept")
     concept_relationship <- dplyr::tbl(con, "concept_relationship")
     concept_ancestor <- dplyr::tbl(con, "concept_ancestor")
+    concept_synonym <- dplyr::tbl(con, "concept_synonym")
 
     # Return list with lazy connections
     # IMPORTANT: Connection stays open for lazy evaluation
@@ -251,6 +266,7 @@ load_vocabularies_from_duckdb <- function(vocab_folder) {
       concept = concept,
       concept_relationship = concept_relationship,
       concept_ancestor = concept_ancestor,
+      concept_synonym = concept_synonym,
       connection = con  # Keep connection alive
     ))
 

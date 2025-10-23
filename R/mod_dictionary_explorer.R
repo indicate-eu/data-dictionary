@@ -2547,13 +2547,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       } else if (active_tab == "hierarchy") {
         DT::DTOutput(ns("hierarchy_concepts_table"))
       } else if (active_tab == "synonyms") {
-        tags$div(
-          style = "padding: 20px; background: #f8f9fa; border-radius: 6px; text-align: center;",
-          tags$p(
-            style = "color: #666; font-style: italic;",
-            "Synonyms functionality coming soon."
-          )
-        )
+        DT::DTOutput(ns("synonyms_table"))
       }
     })
 
@@ -2667,6 +2661,42 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
               });
             }
           ", ns("modal_concept_id"), ns("concept_modal")))
+        )
+      )
+    }, server = FALSE)
+
+    # Render synonyms table
+    output$synonyms_table <- DT::renderDT({
+      omop_concept_id <- selected_mapped_concept_id()
+      req(omop_concept_id)
+
+      vocab_data <- vocabularies()
+      req(vocab_data)
+
+      synonyms <- get_concept_synonyms(omop_concept_id, vocab_data)
+
+      if (nrow(synonyms) == 0) {
+        return(DT::datatable(data.frame(Message = "No synonyms found for this concept."),
+                             options = list(dom = 't'),
+                             rownames = FALSE,
+                             selection = 'none'))
+      }
+
+      # Select only synonym and language columns (hide language_concept_id)
+      synonyms <- synonyms %>%
+        dplyr::select(synonym, language, language_concept_id)
+
+      DT::datatable(
+        synonyms,
+        selection = 'none',
+        rownames = FALSE,
+        colnames = c("Synonym", "Language", "Language ID"),
+        options = list(
+          pageLength = 10,
+          dom = 'tp',
+          columnDefs = list(
+            list(targets = 2, visible = FALSE)  # Language ID hidden
+          )
         )
       )
     }, server = FALSE)

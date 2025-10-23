@@ -33,14 +33,15 @@ load_ohdsi_vocabularies <- function(vocab_folder) {
     concept_path <- file.path(vocab_folder, "CONCEPT.csv")
     concept_relationship_path <- file.path(vocab_folder, "CONCEPT_RELATIONSHIP.csv")
     concept_ancestor_path <- file.path(vocab_folder, "CONCEPT_ANCESTOR.csv")
+    concept_synonym_path <- file.path(vocab_folder, "CONCEPT_SYNONYM.csv")
 
     if (!file.exists(concept_path) || !file.exists(concept_relationship_path) || !file.exists(concept_ancestor_path)) {
       message("Required vocabulary files not found in: ", vocab_folder)
       return(NULL)
     }
 
-    # Load all three files in parallel using future
-    message("  Loading CONCEPT, CONCEPT_RELATIONSHIP, and CONCEPT_ANCESTOR in parallel from CSV...")
+    # Load files in parallel using future
+    message("  Loading CONCEPT, CONCEPT_RELATIONSHIP, CONCEPT_ANCESTOR, and CONCEPT_SYNONYM in parallel from CSV...")
 
     concept_future <- future::future({
       readr::read_tsv(
@@ -82,17 +83,40 @@ load_ohdsi_vocabularies <- function(vocab_folder) {
       )
     })
 
+    # Load CONCEPT_SYNONYM if file exists
+    concept_synonym_future <- if (file.exists(concept_synonym_path)) {
+      future::future({
+        readr::read_tsv(
+          concept_synonym_path,
+          col_types = readr::cols(
+            concept_id = readr::col_integer(),
+            concept_synonym_name = readr::col_character(),
+            language_concept_id = readr::col_integer()
+          ),
+          show_col_types = FALSE
+        )
+      })
+    } else {
+      NULL
+    }
+
     # Wait for all futures to complete
     concept <- future::value(concept_future)
     concept_relationship <- future::value(concept_relationship_future)
     concept_ancestor <- future::value(concept_ancestor_future)
+    concept_synonym <- if (!is.null(concept_synonym_future)) {
+      future::value(concept_synonym_future)
+    } else {
+      NULL
+    }
 
     message("  OHDSI vocabularies loaded successfully from CSV!")
 
     return(list(
       concept = concept,
       concept_relationship = concept_relationship,
-      concept_ancestor = concept_ancestor
+      concept_ancestor = concept_ancestor,
+      concept_synonym = concept_synonym
     ))
 
   }, error = function(e) {
@@ -277,6 +301,50 @@ get_descendant_concepts <- function(concept_id, vocabularies) {
 
   }, error = function(e) {
     message("Error querying descendant concepts: ", e$message)
+    return(data.frame())
+  })
+}
+
+#' Get concept synonyms from concept_synonym table
+get_concept_synonyms <- function(concept_id, vocabularies) {
+  if (is.null(vocabularies) || is.null(vocabularies$concept_synonym)) {
+    return(data.frame())
+  }
+
+  tryCatch({
+    # Get synonyms for this concept (filter BEFORE collecting)
+    synonyms <- vocabularies$concept_synonym %>%
+      dplyr::filter(concept_id == !!concept_id) %>%
+      dplyr::collect()
+
+    if (nrow(synonyms) == 0) {
+      return(data.frame())
+    }
+
+    # Get language names for language_concept_id
+    language_ids <- unique(synonyms$language_concept_id)
+    language_info <- vocabularies$concept %>%
+      dplyr::filter(concept_id %in% language_ids) %>%
+      dplyr::select(concept_id, concept_name) %>%
+      dplyr::collect()
+
+    # Join synonym names with language names
+    result <- synonyms %>%
+      dplyr::left_join(
+        language_info,
+        by = c("language_concept_id" = "concept_id")
+      ) %>%
+      dplyr::select(
+        synonym = concept_synonym_name,
+        language = concept_name,
+        language_concept_id
+      ) %>%
+      dplyr::arrange(synonym)
+
+    return(result)
+
+  }, error = function(e) {
+    message("Error querying concept synonyms: ", e$message)
     return(data.frame())
   })
 }
