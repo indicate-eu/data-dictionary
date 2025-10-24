@@ -223,6 +223,36 @@ mod_dictionary_explorer_ui <- function(id) {
           )
         )
       )
+    ),
+
+    # Modal for fullscreen hierarchy graph
+    tags$div(
+      id = ns("hierarchy_graph_modal"),
+      class = "modal-overlay modal-fullscreen",
+      style = "display: none; background: white; z-index: 9999;",
+      tags$div(
+        class = "modal-fullscreen-content",
+        style = "height: 100vh; display: flex; flex-direction: column;",
+        # Header with breadcrumb and close button
+        tags$div(
+          style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
+          tags$div(
+            style = "display: flex; align-items: center; gap: 15px;",
+            uiOutput(ns("hierarchy_graph_breadcrumb"))
+          ),
+          tags$button(
+            class = "modal-close-graph",
+            onclick = sprintf("$('#%s').hide();", ns("hierarchy_graph_modal")),
+            style = "font-size: 28px; font-weight: 300; color: #666; border: none; background: none; cursor: pointer; padding: 0; width: 30px; height: 30px; line-height: 1;",
+            "×"
+          )
+        ),
+        # Graph content
+        tags$div(
+          style = "flex: 1; overflow: hidden; padding: 20px;",
+          visNetwork::visNetworkOutput(ns("hierarchy_graph"), height = "100%", width = "100%")
+        )
+      )
     )
   )
 }
@@ -2545,7 +2575,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       if (active_tab == "related") {
         DT::DTOutput(ns("related_concepts_table"))
       } else if (active_tab == "hierarchy") {
-        DT::DTOutput(ns("hierarchy_concepts_table"))
+        tags$div(
+          uiOutput(ns("hierarchy_stats_widget")),
+          DT::DTOutput(ns("hierarchy_concepts_table"))
+        )
       } else if (active_tab == "synonyms") {
         DT::DTOutput(ns("synonyms_table"))
       }
@@ -2608,6 +2641,68 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         )
       )
     }, server = FALSE)
+
+    # Render hierarchy statistics widget
+    output$hierarchy_stats_widget <- renderUI({
+      omop_concept_id <- selected_mapped_concept_id()
+      req(omop_concept_id)
+
+      vocab_data <- vocabularies()
+      req(vocab_data)
+
+      # Get hierarchy graph data to extract stats
+      hierarchy_data <- get_concept_hierarchy_graph(omop_concept_id, vocab_data)
+
+      if (is.null(hierarchy_data$stats)) {
+        return(NULL)
+      }
+
+      stats <- hierarchy_data$stats
+
+      tags$div(
+        class = "hierarchy-stats-widget",
+        style = "padding: 10px; margin-bottom: 10px; background: #f8f9fa; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;",
+        tags$div(
+          style = "display: flex; gap: 20px;",
+          tags$div(
+            style = "display: flex; align-items: center; gap: 8px;",
+            tags$span(
+              style = "font-size: 18px; color: #6c757d;",
+              "⬆"
+            ),
+            tags$span(
+              style = "font-weight: bold; color: #333;",
+              stats$total_ancestors
+            ),
+            tags$span(
+              style = "color: #666; font-size: 13px;",
+              "ancestors"
+            )
+          ),
+          tags$div(
+            style = "display: flex; align-items: center; gap: 8px;",
+            tags$span(
+              style = "font-size: 18px; color: #28a745;",
+              "⬇"
+            ),
+            tags$span(
+              style = "font-weight: bold; color: #333;",
+              stats$total_descendants
+            ),
+            tags$span(
+              style = "color: #666; font-size: 13px;",
+              "descendants"
+            )
+          )
+        ),
+        actionButton(
+          ns("view_hierarchy_graph"),
+          "View Graph",
+          class = "btn-view-graph",
+          style = "padding: 8px 16px; background: #0f60af; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 500;"
+        )
+      )
+    })
 
     # Render hierarchy concepts table
     output$hierarchy_concepts_table <- DT::renderDT({
@@ -2821,7 +2916,124 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       )
     })
 
+    # Render hierarchy graph breadcrumb
+    output$hierarchy_graph_breadcrumb <- renderUI({
+      omop_concept_id <- selected_mapped_concept_id()
+      req(omop_concept_id)
+
+      vocab_data <- vocabularies()
+      req(vocab_data)
+
+      # Get concept details
+      concept_info <- vocab_data$concept %>%
+        dplyr::filter(concept_id == omop_concept_id) %>%
+        dplyr::collect()
+
+      if (nrow(concept_info) == 0) {
+        return(NULL)
+      }
+
+      tags$div(
+        style = "display: flex; align-items: center; gap: 10px;",
+        tags$span(
+          style = "font-weight: 600; color: #333; font-size: 16px;",
+          "Concept Hierarchy:"
+        ),
+        tags$span(
+          style = "color: #0f60af; font-size: 16px; font-weight: 500;",
+          concept_info$concept_name
+        ),
+        tags$span(
+          style = "color: #999; font-size: 14px;",
+          paste0("(", concept_info$vocabulary_id, " - ", concept_info$concept_code, ")")
+        )
+      )
+    })
+
+    # Render hierarchy graph
+    output$hierarchy_graph <- visNetwork::renderVisNetwork({
+      omop_concept_id <- selected_mapped_concept_id()
+      req(omop_concept_id)
+
+      vocab_data <- vocabularies()
+      req(vocab_data)
+
+      # Get hierarchy graph data
+      hierarchy_data <- get_concept_hierarchy_graph(omop_concept_id, vocab_data,
+                                                     max_levels_up = 5,
+                                                     max_levels_down = 5)
+
+      if (nrow(hierarchy_data$nodes) == 0) {
+        return(NULL)
+      }
+
+      # Create visNetwork graph
+      visNetwork::visNetwork(
+        hierarchy_data$nodes,
+        hierarchy_data$edges,
+        height = "100%",
+        width = "100%"
+      ) %>%
+        visNetwork::visHierarchicalLayout(
+          direction = "UD",
+          sortMethod = "directed",
+          levelSeparation = 150,
+          nodeSpacing = 200,
+          treeSpacing = 250,
+          blockShifting = TRUE,
+          edgeMinimization = TRUE,
+          parentCentralization = TRUE
+        ) %>%
+        visNetwork::visNodes(
+          shadow = list(enabled = TRUE, size = 5),
+          borderWidth = 2,
+          margin = 10,
+          widthConstraint = list(maximum = 250)
+        ) %>%
+        visNetwork::visEdges(
+          smooth = list(type = "cubicBezier", roundness = 0.5),
+          color = list(
+            color = "#999",
+            highlight = "#0f60af",
+            hover = "#0f60af"
+          )
+        ) %>%
+        visNetwork::visInteraction(
+          navigationButtons = TRUE,
+          hover = TRUE,
+          zoomView = TRUE,
+          dragView = TRUE,
+          tooltipDelay = 100,
+          hideEdgesOnDrag = FALSE,
+          hideEdgesOnZoom = FALSE
+        ) %>%
+        visNetwork::visOptions(
+          highlightNearest = list(
+            enabled = TRUE,
+            degree = 1,
+            hover = TRUE,
+            algorithm = "hierarchical"
+          )
+        ) %>%
+        visNetwork::visPhysics(enabled = FALSE) %>%
+        visNetwork::visLayout(randomSeed = 123)
+    })
+
+    # Observe view graph button click
+    observeEvent(input$view_hierarchy_graph, {
+      # Show modal
+      shinyjs::runjs(sprintf("$('#%s').show();", ns("hierarchy_graph_modal")))
+
+      # Wait for modal to render, then fit the graph
+      shinyjs::delay(500, {
+        visNetwork::visNetworkProxy(ns("hierarchy_graph")) %>%
+          visNetwork::visFit(animation = list(duration = 500))
+      })
+    })
+
     # Force Shiny to render output even when hidden
     outputOptions(output, "concept_modal_body", suspendWhenHidden = FALSE)
+    outputOptions(output, "hierarchy_graph", suspendWhenHidden = FALSE)
+    outputOptions(output, "hierarchy_graph_breadcrumb", suspendWhenHidden = FALSE)
   })
 }

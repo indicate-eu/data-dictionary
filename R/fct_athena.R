@@ -374,3 +374,182 @@ get_all_related_concepts <- function(concept_id, vocabularies, existing_mappings
 
   return(all_concepts)
 }
+
+#' Build hierarchy graph data for visNetwork visualization
+#'
+#' @description
+#' Get ancestors, descendants, and relationships for a concept to build
+#' an interactive hierarchy graph
+#'
+#' @param concept_id OMOP concept ID
+#' @param vocabularies List containing vocabulary data
+#' @param max_levels_up Maximum ancestor levels to include (default: 5)
+#' @param max_levels_down Maximum descendant levels to include (default: 5)
+#'
+#' @return List with nodes and edges data frames for visNetwork
+#' @noRd
+get_concept_hierarchy_graph <- function(concept_id, vocabularies,
+                                        max_levels_up = 5,
+                                        max_levels_down = 5) {
+  if (is.null(vocabularies)) {
+    return(list(nodes = data.frame(), edges = data.frame()))
+  }
+
+  tryCatch({
+    # Get selected concept details
+    selected_concept <- vocabularies$concept %>%
+      dplyr::filter(concept_id == !!concept_id) %>%
+      dplyr::collect()
+
+    if (nrow(selected_concept) == 0) {
+      return(list(nodes = data.frame(), edges = data.frame()))
+    }
+
+    # Get ancestors and descendants from concept_ancestor
+    ancestors_data <- vocabularies$concept_ancestor %>%
+      dplyr::filter(descendant_concept_id == !!concept_id) %>%
+      dplyr::collect()
+
+    descendants_data <- vocabularies$concept_ancestor %>%
+      dplyr::filter(ancestor_concept_id == !!concept_id) %>%
+      dplyr::collect()
+
+    # Get unique concept IDs
+    ancestor_ids <- setdiff(unique(ancestors_data$ancestor_concept_id), concept_id)
+    descendant_ids <- setdiff(unique(descendants_data$descendant_concept_id), concept_id)
+
+    # Calculate hierarchy levels
+    ancestors_with_level <- ancestors_data %>%
+      dplyr::filter(ancestor_concept_id != !!concept_id) %>%
+      dplyr::group_by(ancestor_concept_id) %>%
+      dplyr::summarise(
+        min_separation = min(min_levels_of_separation),
+        .groups = "drop"
+      ) %>%
+      dplyr::mutate(hierarchy_level = -min_separation)
+
+    descendants_with_level <- descendants_data %>%
+      dplyr::filter(descendant_concept_id != !!concept_id) %>%
+      dplyr::group_by(descendant_concept_id) %>%
+      dplyr::summarise(
+        min_separation = min(min_levels_of_separation),
+        .groups = "drop"
+      ) %>%
+      dplyr::mutate(hierarchy_level = min_separation)
+
+    # Combine levels
+    concept_levels <- dplyr::bind_rows(
+      data.frame(concept_id = concept_id, hierarchy_level = 0),
+      data.frame(
+        concept_id = ancestors_with_level$ancestor_concept_id,
+        hierarchy_level = ancestors_with_level$hierarchy_level
+      ),
+      data.frame(
+        concept_id = descendants_with_level$descendant_concept_id,
+        hierarchy_level = descendants_with_level$hierarchy_level
+      )
+    )
+
+    # Get all concept details
+    all_concept_ids <- c(concept_id, ancestor_ids, descendant_ids)
+    all_concepts <- vocabularies$concept %>%
+      dplyr::filter(concept_id %in% all_concept_ids) %>%
+      dplyr::collect()
+
+    # Join with levels and add relationship type
+    all_concepts <- all_concepts %>%
+      dplyr::left_join(concept_levels, by = "concept_id") %>%
+      dplyr::mutate(
+        relationship_type = dplyr::case_when(
+          concept_id == !!concept_id ~ "selected",
+          concept_id %in% ancestor_ids ~ "ancestor",
+          concept_id %in% descendant_ids ~ "descendant",
+          TRUE ~ "other"
+        )
+      )
+
+    # Limit to specified levels
+    all_concepts_limited <- all_concepts %>%
+      dplyr::filter(
+        hierarchy_level >= -max_levels_up,
+        hierarchy_level <= max_levels_down
+      )
+
+    limited_concept_ids <- all_concepts_limited$concept_id
+
+    # Get relationships between limited concepts
+    relationships <- vocabularies$concept_relationship %>%
+      dplyr::filter(
+        concept_id_1 %in% limited_concept_ids,
+        concept_id_2 %in% limited_concept_ids,
+        relationship_id %in% c("Is a", "Subsumes")
+      ) %>%
+      dplyr::collect()
+
+    # Build nodes data frame
+    nodes <- all_concepts_limited %>%
+      dplyr::mutate(
+        id = concept_id,
+        label = dplyr::if_else(
+          nchar(concept_name) > 50,
+          paste0(substr(concept_name, 1, 47), "..."),
+          concept_name
+        ),
+        title = paste0(
+          "<div style='font-family: Arial; padding: 12px; max-width: 300px;'>",
+          "<b style='font-size: 15px; color: #0f60af;'>", concept_name, "</b><br><br>",
+          "<table style='width: 100%; font-size: 13px;'>",
+          "<tr><td style='color: #666; padding-right: 15px;'>OMOP ID:</td><td><b>", concept_id, "</b></td></tr>",
+          "<tr><td style='color: #666; padding-right: 15px;'>Vocabulary:</td><td>", vocabulary_id, "</td></tr>",
+          "<tr><td style='color: #666; padding-right: 15px;'>Code:</td><td>", concept_code, "</td></tr>",
+          "<tr><td style='color: #666; padding-right: 15px;'>Class:</td><td>", concept_class_id, "</td></tr>",
+          "<tr><td style='color: #666; padding-right: 15px;'>Level:</td><td>", hierarchy_level, "</td></tr>",
+          "</table>",
+          "</div>"
+        ),
+        level = hierarchy_level,
+        color = dplyr::case_when(
+          relationship_type == "selected" ~ "#0f60af",
+          relationship_type == "ancestor" ~ "#6c757d",
+          relationship_type == "descendant" ~ "#28a745",
+          TRUE ~ "#ffc107"
+        ),
+        shape = "box",
+        borderWidth = dplyr::if_else(relationship_type == "selected", 4, 2),
+        font.size = dplyr::if_else(relationship_type == "selected", 16, 13),
+        font.color = "white",
+        shadow = dplyr::if_else(relationship_type == "selected", TRUE, FALSE),
+        mass = dplyr::if_else(relationship_type == "selected", 5, 1)
+      ) %>%
+      dplyr::select(id, label, title, level, color, shape, borderWidth,
+                    font.size, font.color, shadow, mass)
+
+    # Build edges data frame (parent -> child direction)
+    edges <- relationships %>%
+      dplyr::mutate(
+        from = dplyr::if_else(relationship_id == "Is a", concept_id_2, concept_id_1),
+        to = dplyr::if_else(relationship_id == "Is a", concept_id_1, concept_id_2),
+        arrows = "to",
+        color = "#999",
+        width = 2,
+        smooth = TRUE
+      ) %>%
+      dplyr::select(from, to, arrows, color, width, smooth) %>%
+      dplyr::distinct()
+
+    return(list(
+      nodes = nodes,
+      edges = edges,
+      stats = list(
+        total_ancestors = length(ancestor_ids),
+        total_descendants = length(descendant_ids),
+        displayed_ancestors = sum(nodes$color == "#6c757d"),
+        displayed_descendants = sum(nodes$color == "#28a745")
+      )
+    ))
+
+  }, error = function(e) {
+    message("Error building hierarchy graph: ", e$message)
+    return(list(nodes = data.frame(), edges = data.frame()))
+  })
+}
