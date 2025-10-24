@@ -1,620 +1,611 @@
-general_concept_id,concept_name,vocabulary_id,concept_code,omop_concept_id,recommended,unit_concept_code,omop_unit_concept_id,data_type,omop_table,omop_column,omop_domain_id,ehden_rows_count,ehden_num_data_sources,loinc_rank
-1,3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM) score,INDICATE,/,NA,TRUE,/,/,numeric,observation,observation_concept_id,Observation,0,0,NA
-2,5 A<U+2019>s Test for Delirium Screening score,INDICATE,/,NA,TRUE,/,/,numeric,observation,observation_concept_id,Observation,0,0,NA
-3,Behavior pain scale,INDICATE,/,NA,TRUE,/,/,numeric,observation,observation_concept_id,Observation,0,0,NA
-4,Confusion Assessment Method for the Intensive Care Unit (CAM-ICU) score,INDICATE,/,NA,TRUE,/,/,numeric,observation,observation_concept_id,Observation,0,0,NA
-5,Delirium Detection Score (DDS) score,INDICATE,/,NA,TRUE,/,/,numeric,observation,observation_concept_id,Observation,0,0,NA
-6,Delirium Observation Scale (DOS) score,INDICATE,/,NA,TRUE,/,/,numeric,observation,observation_concept_id,Observation,0,0,NA
-7,Delirium Rating Scale (DRS) score,INDICATE,/,NA,TRUE,/,/,numeric,observation,observation_concept_id,Observation,0,0,NA
-8,Glasgow coma scale,LOINC,35088-4,3032652,FALSE,/,/,categorical,observation,observation_concept_id,Observation,183000,15,0
-8,Glasgow coma score eye opening,LOINC,9267-6,3016335,TRUE,/,/,categorical,observation,observation_concept_id,Observation,22200000,12,0
-8,Glasgow coma score motor,LOINC,9268-4,3008223,TRUE,/,/,categorical,observation,observation_concept_id,Observation,22200000,12,0
-8,Glasgow coma score verbal,LOINC,9270-0,3009094,TRUE,/,/,categorical,observation,observation_concept_id,Observation,22200000,12,0
-9,Intensive Care Delirium Screening Checklist (ICDSC) score,INDICATE,/,NA,TRUE,/,/,numeric,observation,observation_concept_id,Observation,0,0,NA
-10,Numeric Pain Rating Scale,SNOMED,1284852002,37151627,TRUE,/,/,numeric,observation,observation_concept_id,Observation,0,0,NA
-11,Nursing Delirium Screening Scale (NU-DESC) score,INDICATE,/,NA,TRUE,/,/,numeric,observation,observation_concept_id,Observation,0,0,NA
-12,Left eye Pupil diameter Manual,LOINC,8641-3,3026611,TRUE,mm,8588,numeric,measurement,measurement_concept_id,Measurement,978000,2,0
-12,Left pupil Pupillary response,LOINC,79899-1,21491763,TRUE,/,/,categorical,measurement,measurement_concept_id,Measurement,245000,1,0
-12,Right eye Pupil diameter Manual,LOINC,8643-9,3010321,TRUE,mm,8588,numeric,measurement,measurement_concept_id,Measurement,979000,2,0
-12,Right pupil Pupillary response,LOINC,79815-7,21490963,TRUE,/,/,categorical,measurement,measurement_concept_id,Measurement,243000,1,0
-13,Ramsay sedation scale,SNOMED,281400004,4105091,TRUE,/,/,numeric,observation,observation_concept_id,Observation,220000,3,NA
-14,Richmond agitation-sedation scale,SNOMED,457441000124102,36684829,TRUE,/,/,numeric,measurement,measurement_concept_id,Measurement,79500,2,NA
-15,Visual analog pain scale,SNOMED,273904000,4165600,TRUE,/,/,numeric,observation,observation_concept_id,Observation,4520000,10,NA
-16,Unspecified human immunodeficiency virus [HIV] disease,ICD10,B24,45547443,FALSE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-17,Alcoholic cirrhosis of liver,ICD10,K70.3,45596343,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-17,Alcoholic fatty liver,ICD10,K70.0,45567323,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-17,Alcoholic fibrosis and sclerosis of liver,ICD10,K70.2,45557669,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-17,Alcoholic hepatic failure,ICD10,K70.4,45586729,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-17,Alcoholic hepatitis,ICD10,K70.1,45557668,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-17,Alcoholic liver disease,ICD10,K70,45591605,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-17,"Alcoholic liver disease, unspecified",ICD10,K70.9,45605953,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-18,Chronic kidney disease,ICD10,N18,45582391,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-18,"Chronic kidney disease, stage 1",ICD10,N18.1,45582392,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-18,"Chronic kidney disease, stage 2",ICD10,N18.2,45553437,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-18,"Chronic kidney disease, stage 3",ICD10,N18.3,45543858,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-18,"Chronic kidney disease, stage 4",ICD10,N18.4,45582393,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-18,"Chronic kidney disease, stage 5",ICD10,N18.5,45582394,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-18,"Chronic kidney disease, unspecified",ICD10,N18.9,45553438,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-19,"Biliary cirrhosis, unspecified",ICD10,K74.5,45533615,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-19,Fibrosis and cirrhosis of liver,ICD10,K74,45755467,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-19,Hepatic fibrosis,ICD10,K74.0,45586732,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-19,Hepatic fibrosis with hepatic sclerosis,ICD10,K74.2,45533614,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-19,Hepatic sclerosis,ICD10,K74.1,45572229,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-19,Other and unspecified cirrhosis of liver,ICD10,K74.6,45538546,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-19,Primary biliary cirrhosis,ICD10,K74.3,45557676,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-19,Secondary biliary cirrhosis,ICD10,K74.4,45586733,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-20,Acute and subacute hepatic failure,ICD10,K72.0,45557674,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-20,Chronic hepatic failure,ICD10,K72.1,45601186,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-20,"Hepatic failure, not elsewhere classified",ICD10,K72,45755466,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-20,"Hepatic failure, unspecified",ICD10,K72.9,45533613,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-21,Immunosuppression,SNOMED,38013005,4242843,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Acute erythroid leukaemia,ICD10,C94.0,45571576,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Acute leukaemia of unspecified cell type,ICD10,C95.0,45600572,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Acute lymphoblastic leukaemia [ALL],ICD10,C91.0,45537873,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Acute megakaryoblastic leukaemia,ICD10,C94.2,45542667,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Acute monoblastic/monocytic leukaemia,ICD10,C93.0,45561880,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Acute myeloblastic leukaemia [AML],ICD10,C92.0,45600565,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Acute myeloid leukaemia with 11q23-abnormality,ICD10,C92.6,45581256,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Acute myeloid leukaemia with multilineage dysplasia,ICD10,C92.8,45557044,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Acute myelomonocytic leukaemia,ICD10,C92.5,45557042,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Acute panmyelosis with myelofibrosis,ICD10,C94.4,45537880,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Acute promyelocytic leukaemia [PML],ICD10,C92.4,45571572,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Adult T-cell lymphoma/leukaemia [HTLV-1-associated],ICD10,C91.5,45552312,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,"Atypical chronic myeloid leukaemia, BCR/ABL- negative",ICD10,C92.2,45571571,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Chronic leukaemia of unspecified cell type,ICD10,C95.1,45561882,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Chronic lymphocytic leukaemia of B-cell type,ICD10,C91.1,45600564,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,"Chronic myeloid leukaemia [CML], BCR/ABL-positive",ICD10,C92.1,45576367,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Chronic myelomonocytic leukaemia,ICD10,C93.1,45605333,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Hairy-cell leukaemia,ICD10,C91.4,45557041,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Histiocytic sarcoma,ICD10,C96.8,45581265,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Juvenile myelomonocytic leukaemia,ICD10,C93.3,45600568,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Leukaemia of unspecified cell type,ICD10,C95,45557048,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,"Leukaemia, unspecified",ICD10,C95.9,45586073,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Lymphoid leukaemia,ICD10,C91,45586062,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,"Lymphoid leukaemia, unspecified",ICD10,C91.9,45542663,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Malignant mast cell tumour,ICD10,C96.2,45600573,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,"Malignant neoplasm of lymphoid, haematopoietic and related tissue, unspecified",ICD10,C96.9,45547561,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Mast cell leukaemia,ICD10,C94.3,45537879,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Mature B-cell leukaemia Burkitt-type,ICD10,C91.8,45755349,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Monocytic leukaemia,ICD10,C93,45547558,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,"Monocytic leukaemia, unspecified",ICD10,C93.9,45576370,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Multifocal and multisystemic (disseminated) Langerhans-cell histiocytosis [Letterer-Siwe disease],ICD10,C96.0,45542670,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Multifocal and unisystemic Langerhans-cell histiocytosis,ICD10,C96.5,45590969,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,"Myelodysplastic and myeloproliferative disease, not elsewhere classified",ICD10,C94.6,45600571,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Myeloid leukaemia,ICD10,C92,45571570,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,"Myeloid leukaemia, unspecified",ICD10,C92.9,45561878,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Myeloid sarcoma,ICD10,C92.3,45537876,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,"Other and unspecified malignant neoplasms of lymphoid, haematopoietic and related tissue",ICD10,C96,45595727,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Other leukaemia of unspecified cell type,ICD10,C95.7,45581262,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Other leukaemias of specified cell type,ICD10,C94,45755351,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Other lymphoid leukaemia,ICD10,C91.7,45561874,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Other monocytic leukaemia,ICD10,C93.7,45581258,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Other myeloid leukaemia,ICD10,C92.7,45600566,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Other specified leukaemias,ICD10,C94.7,45595725,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,"Other specified malignant neoplasms of lymphoid, haematopoietic and related tissue",ICD10,C96.7,45581264,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Prolymphocytic leukaemia of B-cell type,ICD10,C91.3,45542661,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Prolymphocytic leukaemia of T-cell type,ICD10,C91.6,45581254,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Sarcoma of dendritic cells (accessory cells),ICD10,C96.4,45586074,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-22,Unifocal Langerhans-cell histiocytosis,ICD10,C96.6,45581263,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,"Anaplastic large cell lymphoma, ALK-negative",ICD10,C84.7,45586051,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,"Anaplastic large cell lymphoma, ALK-positive",ICD10,C84.6,45561858,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Angioimmunoblastic T-cell lymphoma,ICD10,C86.5,45561869,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,"B-cell lymphoma, unspecified",ICD10,C85.1,45586056,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Blastic NK-cell lymphoma,ICD10,C86.4,45566646,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Burkitt lymphoma,ICD10,C83.7,45590945,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,"Cutaneous T-cell lymphoma, unspecified",ICD10,C84.8,45590950,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Cutaneous follicle centre lymphoma,ICD10,C82.6,45605300,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Diffuse follicle centre lymphoma,ICD10,C82.5,45576353,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Diffuse large B-cell lymphoma,ICD10,C83.3,45600549,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Enteropathy-type (intestinal) T-cell lymphoma,ICD10,C86.2,45600561,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,"Extranodal NK/T-cell lymphoma, nasal type",ICD10,C86.0,45571566,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Extranodal marginal zone B-cell lymphoma of mucosa-associated lymphoid tissue [MALT-lyphoma],ICD10,C88.4,45537871,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Follicular lymphoma,ICD10,C82,45571549,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Follicular lymphoma grade I,ICD10,C82.0,45595698,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Follicular lymphoma grade II,ICD10,C82.1,45532946,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,"Follicular lymphoma grade III, unspecified",ICD10,C82.2,45542638,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Follicular lymphoma grade IIIa,ICD10,C82.3,45590936,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Follicular lymphoma grade IIIb,ICD10,C82.4,45552299,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,"Follicular lymphoma, unspecified",ICD10,C82.9,45605303,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Hepatosplenic T-cell lymphoma,ICD10,C86.1,45605328,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Hodgkin lymphoma,ICD10,C81,45576344,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,"Hodgkin lymphoma, unspecified",ICD10,C81.9,45581232,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Immunoproliferative small intestinal disease,ICD10,C88.3,45586059,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Lymphoblastic (diffuse) lymphoma,ICD10,C83.5,45586044,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Lymphocyte depleted classical Hodgkin lymphoma,ICD10,C81.3,45571545,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Lymphocyte-rich (classical) Hodgkin lymphoma,ICD10,C81.4,45547532,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,"Malignant immunoproliferative disease, unspecified",ICD10,C88.9,45590962,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Malignant immunoproliferative diseases,ICD10,C88,45561870,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Mantle cell lymphoma,ICD10,C83.1,45542646,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,"Mature T/NK-cell lymphoma, unspecified",ICD10,C84.9,45595711,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Mature T/NK-cell lymphomas,ICD10,C84,45755344,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Mediastinal (thymic) large B-cell lymphoma,ICD10,C85.2,45542659,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Mixed cellularity classical Hodgkin lymphoma,ICD10,C81.2,45566622,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Nodular lymphocyte predominant Hodgkin lymphoma,ICD10,C81.0,45586030,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Nodular sclerosis classical Hodgkin lymphoma,ICD10,C81.1,45547530,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,"Non-Hodgkin lymphoma, unspecified",ICD10,C85.9,45561867,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,"Non-follicular (diffuse) lymphoma, unspecified",ICD10,C83.9,45542649,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Non-follicular lymphoma,ICD10,C83,45755342,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Other and unspecified types of non-Hodgkin lymphoma,ICD10,C85,45547547,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Other classical Hodgkin lymphoma,ICD10,C81.7,45552293,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Other heavy chain disease,ICD10,C88.2,45532957,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Other malignant immunoproliferative diseases,ICD10,C88.7,45552309,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Other mature T/NK-cell lymphomas,ICD10,C84.5,45561857,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Other non-follicular lymphoma,ICD10,C83.8,45576359,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Other specified types of T/NK-cell lymphoma,ICD10,C86,45755346,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Other specified types of non-Hodgkin lymphoma,ICD10,C85.7,45595715,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Other types of follicular lymphoma,ICD10,C82.7,45600546,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,"Peripheral T-cell lymphoma, not elsewhere classified",ICD10,C84.4,45571560,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Primary cutaneous C,ICD10,C86.6,45590961,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Small cell B-cell lymphoma,ICD10,C83.0,45590939,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Subcutaneous panniculitis-like T-cell lymphoma,ICD10,C86.3,45532956,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,S<U+00E9>zary disease,ICD10,C84.1,45595708,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-23,Waldenstr<U+00F6>m macroglobulinaemia,ICD10,C88.0,45557037,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary and unspecified malignant neoplasm of lymph nodes,ICD10,C77,45561830,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary and unspecified malignant neoplasm: Axillary and upper limb lymph nodes,ICD10,C77.3,45571538,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary and unspecified malignant neoplasm: Inguinal and lower limb lymph nodes,ICD10,C77.4,45542627,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary and unspecified malignant neoplasm: Intra-abdominal lymph nodes,ICD10,C77.2,45576338,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary and unspecified malignant neoplasm: Intrapelvic lymph nodes,ICD10,C77.5,45595685,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary and unspecified malignant neoplasm: Intrathoracic lymph nodes,ICD10,C77.1,45557012,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,"Secondary and unspecified malignant neoplasm: Lymph node, unspecified",ICD10,C77.9,45557014,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary and unspecified malignant neoplasm: Lymph nodes of multiple regions,ICD10,C77.8,45557013,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of adrenal gland,ICD10,C79.7,45590926,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of bladder and other and unspecified urinary organs,ICD10,C79.1,45552284,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of bone and bone marrow,ICD10,C79.5,45571540,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of brain and cerebral meninges,ICD10,C79.3,45561831,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of kidney and renal pelvis,ICD10,C79.0,45547523,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of large intestine and rectum,ICD10,C78.5,45595687,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of liver and intrahepatic bile duct,ICD10,C78.7,45595688,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of lung,ICD10,C78.0,45537839,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of mediastinum,ICD10,C78.1,45532936,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of other and unspecified digestive organs,ICD10,C78.8,45576339,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of other and unspecified parts of nervous system,ICD10,C79.4,45561832,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of other and unspecified respiratory organs,ICD10,C78.3,45586028,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of other and unspecified sites,ICD10,C79,45537841,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of other specified sites,ICD10,C79.8,45547524,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of ovary,ICD10,C79.6,45532938,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of pleura,ICD10,C78.2,45552282,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of respiratory and digestive organs,ICD10,C78,45755341,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of retroperitoneum and peritoneum,ICD10,C78.6,45547522,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of skin,ICD10,C79.2,45571539,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,Secondary malignant neoplasm of small intestine,ICD10,C78.4,45595686,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-24,"Secondary malignant neoplasm, unspecified site",ICD10,C79.9,45600529,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-25,Extramedullary plasmacytoma,ICD10,C90.2,45581252,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-25,Multiple myeloma,ICD10,C90.0,45600562,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-25,Multiple myeloma and malignant plasma cell neoplasms,ICD10,C90,45755347,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-25,Plasma cell leukaemia,ICD10,C90.1,45552310,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-25,Solitary plasmacytoma,ICD10,C90.3,45586061,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-26,Adult respiratory distress syndrome,ICD10,J80,45552897,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-27,"Chronic obstructive pulmonary disease with acute exacerbation, unspecified",ICD10,J44.1,45601132,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-27,Chronic obstructive pulmonary disease with acute lower respiratory infection,ICD10,J44.0,45601131,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-27,"Chronic obstructive pulmonary disease, unspecified",ICD10,J44.9,45548115,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-27,Other chronic obstructive pulmonary disease,ICD10,J44,45543268,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-27,Other specified chronic obstructive pulmonary disease,ICD10,J44.8,45586673,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-28,Congestive heart failure,ICD10,I50.0,45567179,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-28,Heart failure,ICD10,I50,45581779,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-28,"Heart failure, unspecified",ICD10,I50.9,45576879,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-28,Left ventricular failure,ICD10,I50.1,45543181,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-29,Dependence on home ventilator,SNOMED,60631000119109,46273524,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,Malnutrition-related diabetes mellitus,ICD10,E12,45586141,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Malnutrition-related diabetes mellitus, with ketoacidosis",ICD10,E12.1,45542740,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Malnutrition-related diabetes mellitus, with multiple complications",ICD10,E12.7,45600643,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Malnutrition-related diabetes mellitus, with neurological complications",ICD10,E12.4,45547628,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Malnutrition-related diabetes mellitus, with ophthalmic complications",ICD10,E12.3,45571657,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Malnutrition-related diabetes mellitus, with other specified complications",ICD10,E12.6,45557115,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Malnutrition-related diabetes mellitus, with peripheral circulatory complications",ICD10,E12.5,45605406,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Malnutrition-related diabetes mellitus, with renal complications",ICD10,E12.2,45576445,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Malnutrition-related diabetes mellitus, with unspecified complications",ICD10,E12.8,45755356,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Malnutrition-related diabetes mellitus, without complications",ICD10,E12.9,45547629,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,Other specified diabetes mellitus,ICD10,E13,45566732,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Other specified diabetes mellitus, with ketoacidosis",ICD10,E13.1,45547630,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Other specified diabetes mellitus, with multiple complications",ICD10,E13.7,45547637,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Other specified diabetes mellitus, with neurological complications",ICD10,E13.4,45542742,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Other specified diabetes mellitus, with ophthalmic complications",ICD10,E13.3,45591032,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Other specified diabetes mellitus, with other specified complications",ICD10,E13.6,45547636,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Other specified diabetes mellitus, with peripheral circulatory complications",ICD10,E13.5,45571660,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Other specified diabetes mellitus, with renal complications",ICD10,E13.2,45547631,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Other specified diabetes mellitus, with unspecified complications",ICD10,E13.8,45566738,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Other specified diabetes mellitus, without complications",ICD10,E13.9,45537964,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,Type 1 diabetes mellitus,ICD10,E10,45576436,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 1 diabetes mellitus, With coma",ICD10,E10.0,45755355,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 1 diabetes mellitus, With ketoacidosis",ICD10,E10.1,45542735,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 1 diabetes mellitus, With multiple complications",ICD10,E10.7,45571655,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 1 diabetes mellitus, With neurological complications",ICD10,E10.4,45533016,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 1 diabetes mellitus, With ophthalmic complications",ICD10,E10.3,45552380,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 1 diabetes mellitus, With other specified complications",ICD10,E10.6,45537959,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 1 diabetes mellitus, With peripheral circulatory complications",ICD10,E10.5,45595796,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 1 diabetes mellitus, With renal complications",ICD10,E10.2,45586137,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 1 diabetes mellitus, With unspecified complications",ICD10,E10.8,45552384,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 1 diabetes mellitus, Without complications",ICD10,E10.9,45581351,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,Type 2 diabetes mellitus,ICD10,E11,45571656,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 2 diabetes mellitus, with ketoacidosis",ICD10,E11.1,45542739,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 2 diabetes mellitus, with multiple complications",ICD10,E11.7,45561950,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 2 diabetes mellitus, with neurological complications",ICD10,E11.4,45576442,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 2 diabetes mellitus, with ophthalmic complications",ICD10,E11.3,45591028,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 2 diabetes mellitus, with other specified complications",ICD10,E11.6,45552387,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 2 diabetes mellitus, with peripheral circulatory complications",ICD10,E11.5,45557114,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 2 diabetes mellitus, with renal complications",ICD10,E11.2,45605400,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 2 diabetes mellitus, with unspecified complications",ICD10,E11.8,45561951,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Type 2 diabetes mellitus, without complications",ICD10,E11.9,45561952,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,Unspecified diabetes mellitus,ICD10,E14,45571663,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,Unspecified diabetes mellitus without complications,ICD10,E14.9,45605408,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Unspecified diabetes mellitus, with ketoacidosis",ICD10,E14.1,45591035,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Unspecified diabetes mellitus, with multiple complications",ICD10,E14.7,45600646,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Unspecified diabetes mellitus, with neurological complications",ICD10,E14.4,45571664,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Unspecified diabetes mellitus, with ophthalmic complications",ICD10,E14.3,45591036,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Unspecified diabetes mellitus, with other specified complications",ICD10,E14.6,45566739,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Unspecified diabetes mellitus, with peripheral circulatory complications",ICD10,E14.5,45547638,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Unspecified diabetes mellitus, with renal complications",ICD10,E14.2,45605407,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-30,"Unspecified diabetes mellitus, with unspecified complications",ICD10,E14.8,45576449,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-31,Catheter related bloodstream infection,SNOMED,736442006,42537216,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-31,Infection of hemodialyses catheter,SNOMED,841000124105,764921,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-31,Infection of intravenous catheter,SNOMED,310643001,4149606,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-32,Ventilator associated pneumonia,SNOMED,429271009,259992,TRUE,/,/,logical,condition_occurrence,condition_concept_id,Condition,0,0,NA
-148,Ammonia [Moles/volume] in Arterial blood,LOINC,93684-9,1002144,TRUE,umol/L,8749,numeric,measurement,measurement_concept_id,Measurement,0,NA,0
-149,Base excess in Arterial blood by calculation,LOINC,1925-7,3003396,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,9200000,16,360
-150,Hematocrit [Volume Fraction] of Arterial blood,LOINC,32354-3,3023230,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,3130000,10,548
-151,Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Arterial blood,LOINC,32771-8,3045156,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,2600000,4,505
-151,Carbon dioxide [Partial pressure] in Arterial blood,LOINC,2019-8,3027946,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,14100000,>20,179
-152,Oxygen [Partial pressure] adjusted to patient's actual temperature in Arterial blood,LOINC,19255-9,3022803,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,2260000,6,514
-152,Oxygen [Partial pressure] in Arterial blood,LOINC,2703-7,3027801,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,31900000,20,196
-153,Oxygen saturation in Arterial blood,LOINC,2708-6,3016502,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,11800000,>20,248
-154,Bicarbonate [Moles/volume] in Arterial blood,LOINC,1960-4,3008152,TRUE,mmol/L,8756,numeric,measurement,measurement_concept_id,Measurement,6950000,19,198
-155,Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Arterial blood,LOINC,53138-4,3041706,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,1910000,3,0
-156,Chloride [Moles/volume] in Arterial blood,LOINC,41650-3,3031248,TRUE,mmol/L,8755,numeric,measurement,measurement_concept_id,Measurement,1570000,12,588
-157,Glucose [Mass/volume] in Arterial blood,LOINC,41651-1,3031266,TRUE,g/L,8636,numeric,measurement,measurement_concept_id,Measurement,1220000,9,431
-158,Hemoglobin [Mass/volume] in Arterial blood,LOINC,30313-1,3002173,TRUE,g/dl,8713,numeric,measurement,measurement_concept_id,Measurement,6740000,10,434
-158,Hemoglobin [Mass/volume] in Arterial blood by Oximetry,LOINC,14775-1,3006239,TRUE,g/dl,8713,numeric,measurement,measurement_concept_id,Measurement,2020000,1,450
-159,Lactate [Moles/volume] in Arterial blood,LOINC,2518-9,3018405,TRUE,mmol/L,8756,numeric,measurement,measurement_concept_id,Measurement,4470000,17,346
-160,pH of Arterial blood,LOINC,2744-1,3019977,TRUE,/,/,numeric,measurement,measurement_concept_id,Measurement,12100000,18,184
-160,pH of Arterial blood adjusted to patient's actual temperature,LOINC,33254-4,3029473,TRUE,/,/,numeric,measurement,measurement_concept_id,Measurement,2340000,7,766
-161,Potassium [Moles/volume] in Arterial blood,LOINC,32713-0,3043409,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,4030000,14,310
-162,Sodium [Moles/volume] in Arterial blood,LOINC,32717-1,3043706,TRUE,mmol/L,8754,numeric,measurement,measurement_concept_id,Measurement,3950000,15,299
-163,Arterial blood specimen,SNOMED,122552005,4047496,TRUE,/,/,numeric,measurement,measurement_concept_id,Measurement,0,0,NA
-164,Peripheral blood specimen,SNOMED,122551003,4047495,TRUE,/,/,numeric,measurement,measurement_concept_id,Measurement,800,1,NA
-165,Venous blood specimen,SNOMED,122555007,4045667,TRUE,/,/,numeric,measurement,measurement_concept_id,Measurement,200,2,NA
-166,Whole blood specimen,SNOMED,258580003,4122283,TRUE,/,/,numeric,measurement,measurement_concept_id,Measurement,0,0,NA
-167,Coagulation factor V activity actual/normal in Platelet poor plasma by Coagulation assay,LOINC,3193-0,3005757,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,318000,>20,1577
-168,Fibrin D-dimer DDU [Mass/volume] in Platelet poor plasma,LOINC,48066-5,3048530,TRUE,[iU]/L,8923,numeric,measurement,measurement_concept_id,Measurement,101000,3,584
-168,Fibrin D-dimer DDU [Mass/volume] in Platelet poor plasma by Immunoassay,LOINC,48058-2,3052716,TRUE,[iU]/L,8923,numeric,measurement,measurement_concept_id,Measurement,0,NA,267
-168,Fibrin D-dimer FEU [Mass/volume] in Platelet poor plasma,LOINC,48065-7,3051714,TRUE,[iU]/L,8923,numeric,measurement,measurement_concept_id,Measurement,2330000,17,583
-168,Fibrin D-dimer FEU [Mass/volume] in Platelet poor plasma by Immunoassay,LOINC,48067-3,3052648,TRUE,[iU]/L,8923,numeric,measurement,measurement_concept_id,Measurement,122000,4,2555
-169,Fibrinogen [Mass/volume] in Platelet poor plasma by Coagulation assay,LOINC,3255-7,3016407,TRUE,g/L,8636,numeric,measurement,measurement_concept_id,Measurement,5500000,>20,303
-170,INR in Blood by Coagulation assay,LOINC,34714-6,3032080,TRUE,/,/,numeric,measurement,measurement_concept_id,Measurement,29000000,>20,405
-170,INR in Capillary blood by Coagulation assay,LOINC,46418-0,3051593,TRUE,/,/,numeric,measurement,measurement_concept_id,Measurement,547000,5,430
-170,INR in Platelet poor plasma by Coagulation assay,LOINC,6301-6,3022217,TRUE,/,/,numeric,measurement,measurement_concept_id,Measurement,29700000,>20,92
-170,INR in Platelet poor plasma or blood by Coagulation assay,LOINC,38875-1,3042605,TRUE,/,/,numeric,measurement,measurement_concept_id,Measurement,274000,1,205
-171,Prothrombin time (PT),LOINC,5902-2,3034426,TRUE,s,8555,numeric,measurement,measurement_concept_id,Measurement,31500000,>20,54
-171,Prothrombin time (PT) actual/Normal,LOINC,5894-1,3033658,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,19300000,>20,4671
-171,Prothrombin time (PT) in Blood by Coagulation assay,LOINC,5964-2,3002417,TRUE,s,8555,numeric,measurement,measurement_concept_id,Measurement,978000,9,623
-171,Prothrombin time (PT) in Capillary blood by Coagulation assay,LOINC,46417-2,3053181,TRUE,s,8555,numeric,measurement,measurement_concept_id,Measurement,0,NA,3118
-171,Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --baseline,LOINC,40088-7,3041133,TRUE,s,8555,numeric,measurement,measurement_concept_id,Measurement,0,NA,19800
-171,Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --post heparin neutralization,LOINC,52122-9,3039931,TRUE,s,8555,numeric,measurement,measurement_concept_id,Measurement,0,NA,4764
-172,aPTT actual/normal in Platelet poor plasma by Coagulation assay,LOINC,63561-5,40766287,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,11100000,15,12500
-172,aPTT in Blood by Coagulation assay,LOINC,3173-2,3013466,TRUE,s,8555,numeric,measurement,measurement_concept_id,Measurement,9030000,19,829
-172,aPTT in Platelet poor plasma by Coagulation assay,LOINC,14979-9,3018677,TRUE,s,8555,numeric,measurement,measurement_concept_id,Measurement,15400000,>20,93
-172,aPTT in Platelet poor plasma by Coagulation assay -- after addition of protein C activator + Factor V depleted plasma/aPTT,LOINC,52766-3,3041974,TRUE,s,8555,numeric,measurement,measurement_concept_id,Measurement,0,NA,4763
-172,aPTT in Platelet poor plasma by Coagulation assay --after addition of APC,LOINC,48590-4,3052968,TRUE,s,8555,numeric,measurement,measurement_concept_id,Measurement,5400,1,10056
-172,aPTT in Platelet poor plasma by Coagulation assay --baseline,LOINC,40100-0,3042436,TRUE,s,8555,numeric,measurement,measurement_concept_id,Measurement,0,NA,18449
-172,aPTT in Platelet poor plasma by Coagulation assay --post heparin neutralization,LOINC,52123-7,3041232,TRUE,s,8555,numeric,measurement,measurement_concept_id,Measurement,0,NA,870
-173,Alkaline phosphatase [Enzymatic activity/volume] in Blood,LOINC,1783-0,3001110,TRUE,[iU]/L,8923,numeric,measurement,measurement_concept_id,Measurement,5150000,11,6032
-173,Alkaline phosphatase [Enzymatic activity/volume] in Serum or Plasma,LOINC,6768-6,3035995,TRUE,[iU]/L,8923,numeric,measurement,measurement_concept_id,Measurement,58600000,>20,26
-174,Alanine aminotransferase [Enzymatic activity/volume] in Blood,LOINC,76625-3,46235106,TRUE,[iU]/L,8923,numeric,measurement,measurement_concept_id,Measurement,7020000,12,14038
-174,Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma,LOINC,1742-6,3006923,TRUE,[iU]/L,8923,numeric,measurement,measurement_concept_id,Measurement,90900000,>20,24
-174,Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma by No addition of P-5'-P,LOINC,1744-2,3027388,TRUE,[iU]/L,8923,numeric,measurement,measurement_concept_id,Measurement,1630000,3,234
-174,Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma by With P-5'-P,LOINC,1743-4,3005755,TRUE,[iU]/L,8923,numeric,measurement,measurement_concept_id,Measurement,3920000,6,216
-175,Aspartate aminotransferase [Enzymatic activity/volume] in Serum or Plasma,LOINC,1920-8,3013721,TRUE,[iU]/L,8923,numeric,measurement,measurement_concept_id,Measurement,77900000,>20,27
-175,Aspartate aminotransferase [Enzymatic activity/volume] in Serum or Plasma by No addition of P-5'-P,LOINC,88112-8,36305398,TRUE,[iU]/L,8923,numeric,measurement,measurement_concept_id,Measurement,0,NA,0
-175,Aspartate aminotransferase [Enzymatic activity/volume] in Serum or Plasma by With P-5'-P,LOINC,30239-8,3037081,TRUE,[iU]/L,8923,numeric,measurement,measurement_concept_id,Measurement,3230000,5,202
-176,Ammonia [Moles/volume] in Blood,LOINC,1839-0,3005347,TRUE,umol/L,8749,numeric,measurement,measurement_concept_id,Measurement,14500,5,1475
-176,Ammonia [Moles/volume] in Plasma,LOINC,16362-6,3011958,TRUE,umol/L,8749,numeric,measurement,measurement_concept_id,Measurement,256000,18,456
-177,Bilirubin.conjugated [Moles/volume] in Serum or Plasma,LOINC,29760-6,3005772,TRUE,umol/L,8749,numeric,measurement,measurement_concept_id,Measurement,3610000,12,16844
-178,Gamma glutamyl transferase [Enzymatic activity/volume] in Serum or Plasma,LOINC,2324-2,3026910,TRUE,[iU]/L,8923,numeric,measurement,measurement_concept_id,Measurement,77700000,>20,274
-179,Bilirubin.indirect [Moles/volume] in Serum or Plasma,LOINC,14630-8,3007242,TRUE,umol/L,8749,numeric,measurement,measurement_concept_id,Measurement,2340000,6,12608
-180,Bilirubin.total [Moles/volume] in Blood,LOINC,54363-7,40757494,TRUE,umol/L,8749,numeric,measurement,measurement_concept_id,Measurement,2280000,9,0
-180,Bilirubin.total [Moles/volume] in Capillary blood,LOINC,97770-2,1616780,TRUE,umol/L,8749,numeric,measurement,measurement_concept_id,Measurement,0,NA,0
-180,Bilirubin.total [Moles/volume] in Serum or Plasma,LOINC,14631-6,3006140,TRUE,umol/L,8749,numeric,measurement,measurement_concept_id,Measurement,36900000,>20,22
-180,Bilirubin.total [Moles/volume] in Venous blood,LOINC,89871-8,1175191,TRUE,umol/L,8749,numeric,measurement,measurement_concept_id,Measurement,0,NA,0
-181,"1,3 beta glucan [Mass/volume] in Serum",LOINC,42176-8,3034360,TRUE,pg/mL,8845,numeric,measurement,measurement_concept_id,Measurement,0,NA,1834
-182,Natriuretic peptide B [Mass/volume] in Blood,LOINC,42637-9,3031569,TRUE,pg/mL,8845,numeric,measurement,measurement_concept_id,Measurement,893000,8,1092
-182,Natriuretic peptide B [Mass/volume] in Serum or Plasma,LOINC,30934-4,3011960,TRUE,pg/mL,8845,numeric,measurement,measurement_concept_id,Measurement,526000,13,180
-183,C reactive protein [Mass/volume] in Blood by High sensitivity method,LOINC,71426-1,42870365,TRUE,mg/L,8751,numeric,measurement,measurement_concept_id,Measurement,6050000,6,5632
-183,C reactive protein [Mass/volume] in Capillary blood,LOINC,48421-2,3051387,TRUE,mg/L,8751,numeric,measurement,measurement_concept_id,Measurement,941000,5,0
-183,C reactive protein [Mass/volume] in Serum or Plasma,LOINC,1988-5,3020460,TRUE,mg/L,8751,numeric,measurement,measurement_concept_id,Measurement,68000000,>20,128
-183,C reactive protein [Mass/volume] in Serum or Plasma by High sensitivity method,LOINC,30522-7,3010156,TRUE,mg/L,8751,numeric,measurement,measurement_concept_id,Measurement,5220000,>20,473
-184,Hemoglobin A1c/Hemoglobin.total in Blood,LOINC,4548-4,3004410,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,15700000,>20,88
-184,Hemoglobin A1c/Hemoglobin.total in Blood by Electrophoresis,LOINC,4549-2,3003309,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,130000,2,6089
-184,Hemoglobin A1c/Hemoglobin.total in Blood by HPLC,LOINC,17856-6,3005673,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,1450000,15,136
-184,Hemoglobin A1c/Hemoglobin.total in Blood by IFCC protocol,LOINC,59261-8,40762352,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,15200000,>20,2804
-184,Hemoglobin A1c/Hemoglobin.total in Blood by calculation,LOINC,17855-8,3007263,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,359000,2,2688
-185,Interleukin 6 [Mass/volume] in Serum or Plasma,LOINC,26881-3,3023091,TRUE,pg/mL,8845,numeric,measurement,measurement_concept_id,Measurement,193000,>20,1146
-186,Lipase [Enzymatic activity/volume] in Serum or Plasma,LOINC,3040-3,3004905,TRUE,[iU]/L,8923,numeric,measurement,measurement_concept_id,Measurement,5140000,>20,122
-187,Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Blood by Immunoassay,LOINC,71425-3,42870364,TRUE,pg/mL,8845,numeric,measurement,measurement_concept_id,Measurement,155000,4,6474
-187,Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Serum or Plasma,LOINC,33762-6,3029187,TRUE,pg/mL,8845,numeric,measurement,measurement_concept_id,Measurement,2670000,>20,353
-187,Natriuretic peptide.B prohormone N-Terminal [Moles/volume] in Serum or Plasma by Immunoassay,LOINC,83108-1,42529225,TRUE,pg/mL,8845,numeric,measurement,measurement_concept_id,Measurement,77800,3,0
-188,Procalcitonin [Mass/volume] in Serum or Plasma,LOINC,33959-8,3046279,TRUE,ng/mL,8842,numeric,measurement,measurement_concept_id,Measurement,3780000,>20,334
-188,Procalcitonin [Mass/volume] in Serum or Plasma by Immunoassay,LOINC,75241-0,44817130,TRUE,ng/mL,8842,numeric,measurement,measurement_concept_id,Measurement,263000,5,14740
-189,Troponin T.cardiac [Mass/volume] in Blood,LOINC,48425-3,3048529,TRUE,ng/mL,8842,numeric,measurement,measurement_concept_id,Measurement,364000,10,3656
-189,Troponin T.cardiac [Mass/volume] in Serum or Plasma,LOINC,6598-7,3019800,TRUE,ng/mL,8842,numeric,measurement,measurement_concept_id,Measurement,4130000,>20,604
-189,Troponin T.cardiac [Mass/volume] in Serum or Plasma by High sensitivity method,LOINC,67151-1,40769783,TRUE,ng/mL,8842,numeric,measurement,measurement_concept_id,Measurement,1160000,14,371
-189,Troponin T.cardiac [Mass/volume] in Venous blood,LOINC,6597-9,3019572,TRUE,ng/mL,8842,numeric,measurement,measurement_concept_id,Measurement,0,NA,5723
-190,Hematocrit [Volume Fraction] of Blood,LOINC,20570-8,3009542,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,93300000,>20,40
-190,Hematocrit [Volume Fraction] of Blood by Automated count,LOINC,4544-3,3023314,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,62700000,>20,28
-190,Hematocrit [Volume Fraction] of Blood by Centrifugation,LOINC,4545-0,3019909,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,8480000,2,6416
-190,Hematocrit [Volume Fraction] of Blood by Estimated,LOINC,48703-3,3050746,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,999000,1,11791
-190,Hematocrit [Volume Fraction] of Blood by Impedance,LOINC,31100-1,3013752,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,0,NA,268
-190,Hematocrit [Volume Fraction] of Capillary blood,LOINC,42908-4,3028813,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,128000,4,16383
-190,Hematocrit [Volume Fraction] of Venous blood,LOINC,41654-5,3034976,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,351000,5,803
-191,Basophils [#/volume] in Blood,LOINC,26444-0,3006315,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,61800000,>20,212
-191,Basophils [#/volume] in Blood by Automated count,LOINC,704-7,3013429,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,54500000,18,31
-191,Basophils [#/volume] in Blood by Manual count,LOINC,705-4,3027651,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,41000,2,306
-192,Eosinophils [#/volume] in Blood,LOINC,26449-9,3013115,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,58500000,>20,110
-192,Eosinophils [#/volume] in Blood by Automated count,LOINC,711-2,3028615,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,54300000,>20,34
-192,Eosinophils [#/volume] in Blood by Manual count,LOINC,712-0,3009932,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,1740000,3,311
-193,Erythrocytes [#/volume] in Blood,LOINC,26453-1,3026361,TRUE,10*12/L,8734,numeric,measurement,measurement_concept_id,Measurement,53100000,>20,99
-193,Erythrocytes [#/volume] in Blood by Automated count,LOINC,789-8,3020416,TRUE,10*12/L,8734,numeric,measurement,measurement_concept_id,Measurement,79100000,>20,16
-193,Erythrocytes [#/volume] in Blood by Manual count,LOINC,790-6,3027017,TRUE,10*12/L,8734,numeric,measurement,measurement_concept_id,Measurement,2390000,2,0
-194,Hemoglobin [Mass/volume] in Blood,LOINC,718-7,3000963,TRUE,g/dl,8713,numeric,measurement,measurement_concept_id,Measurement,146000000,>20,238
-194,Hemoglobin [Mass/volume] in Blood by Oximetry,LOINC,55782-7,40758903,TRUE,g/dl,8713,numeric,measurement,measurement_concept_id,Measurement,33200,5,2246
-194,Hemoglobin [Mass/volume] in Blood by calculation,LOINC,20509-6,3027484,TRUE,g/dl,8713,numeric,measurement,measurement_concept_id,Measurement,33500,1,244
-194,Hemoglobin [Mass/volume] in Capillary blood,LOINC,30352-9,3006184,TRUE,g/dl,8713,numeric,measurement,measurement_concept_id,Measurement,176000,5,1522
-194,Hemoglobin [Mass/volume] in Capillary blood by Oximetry,LOINC,97556-5,1616317,TRUE,g/dl,8713,numeric,measurement,measurement_concept_id,Measurement,0,NA,0
-194,Hemoglobin [Mass/volume] in Mixed venous blood,LOINC,30351-1,3007302,TRUE,g/dl,8713,numeric,measurement,measurement_concept_id,Measurement,65500,2,1709
-194,Hemoglobin [Mass/volume] in Mixed venous blood by Oximetry,LOINC,76768-1,46235391,TRUE,g/dl,8713,numeric,measurement,measurement_concept_id,Measurement,0,0,6280
-194,Hemoglobin [Mass/volume] in Venous blood,LOINC,30350-3,3004119,TRUE,g/dl,8713,numeric,measurement,measurement_concept_id,Measurement,773000,6,270
-194,Hemoglobin [Mass/volume] in Venous blood by Oximetry,LOINC,76769-9,46235392,TRUE,g/dl,8713,numeric,measurement,measurement_concept_id,Measurement,402000,2,7267
-195,Leukocytes [#/volume] in Blood,LOINC,26464-8,3010813,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,89000000,>20,68
-195,Leukocytes [#/volume] in Blood by Automated count,LOINC,6690-2,3000905,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,71600000,>20,21
-195,Leukocytes [#/volume] in Blood by Estimate,LOINC,49498-9,3032393,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,0,NA,16378
-195,Leukocytes [#/volume] in Blood by Manual count,LOINC,804-5,3003282,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,4960000,1,1676
-196,Lymphocytes [#/volume] in Blood,LOINC,26474-7,3019198,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,60000000,>20,112
-196,Lymphocytes [#/volume] in Blood by Automated count,LOINC,731-0,3004327,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,58300000,>20,33
-196,Lymphocytes [#/volume] in Blood by Manual count,LOINC,732-8,3003215,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,600,1,271
-197,Monocytes [#/volume] in Blood,LOINC,26484-6,3001604,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,58900000,>20,111
-197,Monocytes [#/volume] in Blood by Automated count,LOINC,742-7,3033575,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,54500000,>20,32
-197,Monocytes [#/volume] in Blood by Manual count,LOINC,743-5,3034107,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,107000,2,266
-198,Neutrophils [#/volume] in Blood,LOINC,26499-4,3017732,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,62400000,>20,118
-198,Neutrophils [#/volume] in Blood by Automated count,LOINC,751-8,3013650,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,55100000,>20,30
-198,Neutrophils [#/volume] in Blood by Manual count,LOINC,753-4,3017501,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,126000,2,407
-199,Platelets [#/volume] in Blood,LOINC,26515-7,3007461,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,79600000,>20,71
-199,Platelets [#/volume] in Blood by Automated count,LOINC,777-3,3024929,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,65600000,>20,20
-199,Platelets [#/volume] in Blood by Estimate,LOINC,49497-1,3031586,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,200,2,NA
-199,Platelets [#/volume] in Blood by Manual count,LOINC,778-1,3010834,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,10400,4,7062
-199,Platelets [#/volume] in Plasma,LOINC,26516-5,3006297,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,20000000,3,0
-199,Platelets [#/volume] in Plasma by Automated count,LOINC,13056-7,3016682,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,8140000,3,19151
-200,Reticulocytes [#/volume] in Blood,LOINC,14196-0,3023520,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,6700000,>20,573
-200,Reticulocytes [#/volume] in Blood by Automated count,LOINC,60474-4,40763528,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,850000,8,1079
-200,Reticulocytes [#/volume] in Blood by Manual count,LOINC,40665-2,3041154,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,0,NA,3420
-200,Reticulocytes [#/volume] in Blood by calculation,LOINC,42758-3,3037637,TRUE,10*9/L,9444,numeric,measurement,measurement_concept_id,Measurement,500,1,2395
-201,Lactate dehydrogenase [Enzymatic activity/volume] in Serum or Plasma,LOINC,2532-0,3016436,TRUE,[iU]/L,8923,numeric,measurement,measurement_concept_id,Measurement,17600000,>20,0
-202,Albumin [Mass/volume] in Serum or Plasma,LOINC,1751-7,3024561,TRUE,g/L,8636,numeric,measurement,measurement_concept_id,Measurement,45200000,>20,39
-203,Bicarbonate [Moles/volume] in Blood,LOINC,1959-6,3006576,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,13700000,>20,236
-203,Bicarbonate [Moles/volume] in Capillary blood,LOINC,1961-2,3015235,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,184000,6,3013
-203,Bicarbonate [Moles/volume] in Mixed venous blood,LOINC,19229-4,3025817,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,1100,2,1564
-203,Bicarbonate [Moles/volume] in Serum or Plasma,LOINC,1963-8,3016293,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,10700000,17,206
-203,Bicarbonate [Moles/volume] in Venous blood,LOINC,14627-4,3027273,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,1790000,14,277
-204,Calcium [Mass/volume] in Blood,LOINC,49765-1,3006906,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,29500000,19,1109
-204,Calcium [Moles/volume] in Capillary blood,LOINC,42593-4,3034988,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,0,0,0
-204,Calcium [Moles/volume] in Serum or Plasma,LOINC,2000-8,3005162,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,2610000,9,496
-204,Calcium [Moles/volume] in Venous blood,LOINC,42857-3,3032543,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,0,0,0
-205,Chloride [Moles/volume] in Blood,LOINC,2069-3,3018572,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,7700000,>20,315
-205,Chloride [Moles/volume] in Capillary blood,LOINC,51590-8,3039964,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,97100,4,3998
-205,Chloride [Moles/volume] in Mixed venous blood,LOINC,100745-9,1761323,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,0,0,0
-205,Chloride [Moles/volume] in Serum or Plasma,LOINC,2075-0,3014576,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,67300000,>20,8
-205,Chloride [Moles/volume] in Venous blood,LOINC,41649-5,3035285,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,911000,8,592
-206,Creatinine [Moles/volume] in Blood,LOINC,59826-8,40762887,TRUE,umol/L,8749,numeric,measurement,measurement_concept_id,Measurement,23100000,9,1891
-206,Creatinine [Moles/volume] in Serum or Plasma,LOINC,14682-9,3020564,TRUE,umol/L,8749,numeric,measurement,measurement_concept_id,Measurement,57600000,>20,2641
-206,Creatinine [Moles/volume] in Venous blood,LOINC,101475-2,3964702,TRUE,umol/L,8749,numeric,measurement,measurement_concept_id,Measurement,0,0,0
-207,Glucose [Moles/volume] in Blood,LOINC,15074-8,3020491,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,8430000,>20,7338
-207,Glucose [Moles/volume] in Capillary blood by Glucometer,LOINC,14743-9,3001501,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,4690000,6,654
-207,Glucose [Moles/volume] in Mixed venous blood,LOINC,100746-7,1761753,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,0,0,0
-207,Glucose [Moles/volume] in Serum or Plasma,LOINC,14749-6,3013826,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,29600000,>20,4506
-207,Glucose [Moles/volume] in Venous blood,LOINC,39480-9,3038515,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,6340000,6,4643
-208,Lactate [Moles/volume] in Blood,LOINC,32693-4,3047181,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,2340000,13,313
-208,Lactate [Moles/volume] in Capillary blood,LOINC,19239-3,3028271,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,115000,5,2897
-208,Lactate [Moles/volume] in Mixed venous blood,LOINC,19240-1,3005949,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,0,0,6369
-208,Lactate [Moles/volume] in Serum or Plasma,LOINC,2524-7,3014111,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,7670000,>20,298
-208,Lactate [Moles/volume] in Venous blood,LOINC,2519-7,3008037,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,382000,11,291
-209,Magnesium [Mass/volume] in Blood,LOINC,21377-7,3033836,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,496000,6,14362
-209,Magnesium [Moles/volume] in Serum or Plasma,LOINC,2601-3,3012095,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,6830000,>20,1643
-210,Phosphate [Mass/volume] in Blood,LOINC,2774-8,3018913,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,389000,4,2916
-210,Phosphate [Mass/volume] in Serum or Plasma,LOINC,2777-1,3003458,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,17200000,>20,55
-211,Potassium [Moles/volume] in Blood,LOINC,6298-4,3005456,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,24000000,>20,219
-211,Potassium [Moles/volume] in Capillary blood,LOINC,39790-1,3040893,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,168000,7,3536
-211,Potassium [Moles/volume] in Mixed venous blood,LOINC,41656-0,3031219,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,237000,1,2365
-211,Potassium [Moles/volume] in Serum or Plasma,LOINC,2823-3,3023103,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,112000000,>20,7
-211,Potassium [Moles/volume] in Venous blood,LOINC,39789-3,3041354,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,1050000,11,253
-212,Sodium [Moles/volume] in Blood,LOINC,2947-0,3000285,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,18300000,16,261
-212,Sodium [Moles/volume] in Capillary blood,LOINC,39792-7,3038702,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,187000,7,17253
-212,Sodium [Moles/volume] in Mixed venous blood,LOINC,41657-8,3031579,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,0,0,3263
-212,Sodium [Moles/volume] in Serum or Plasma,LOINC,2951-2,3019550,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,117000000,15,5
-212,Sodium [Moles/volume] in Venous blood,LOINC,39791-9,3041473,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,1000000,11,257
-213,Urea [Moles/volume] in Blood,LOINC,72903-8,43534077,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,2780000,9,0
-213,Urea [Moles/volume] in Serum or Plasma,LOINC,22664-7,3020779,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,32800000,>20,0
-213,Urea [Moles/volume] in Venous blood,LOINC,72926-9,43534100,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,3400,1,0
-214,Bicarbonate [Moles/time] in 24 hour Urine,LOINC,47579-8,3052013,TRUE,mmol,9573,numeric,measurement,measurement_concept_id,Measurement,100,1,19634
-214,Bicarbonate [Moles/volume] in Urine,LOINC,1964-6,3008251,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,300,3,8146
-215,Calcium [Moles/time] in 24 hour Urine,LOINC,14637-3,3010838,TRUE,mmol,9573,numeric,measurement,measurement_concept_id,Measurement,288000,16,14337
-215,Calcium [Moles/volume] in Urine,LOINC,2004-0,3018133,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,610000,20,9949
-216,Chloride [Moles/volume] in 24 hour Urine,LOINC,21194-6,3002752,TRUE,mmol,9573,numeric,measurement,measurement_concept_id,Measurement,1140000,11,5452
-216,Chloride [Moles/volume] in Urine,LOINC,2078-4,3007733,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,2180000,>20,963
-217,Creatinine [Moles/volume] in 24 hour Urine,LOINC,25886-3,3013539,TRUE,mmol/L,9573,numeric,measurement,measurement_concept_id,Measurement,29000,5,9003
-217,Creatinine [Moles/volume] in Urine,LOINC,14683-7,3009508,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,10900000,18,2915
-218,Glucose [Moles/time] in 24 hour Urine,LOINC,15077-1,3000361,TRUE,g,8504,numeric,measurement,measurement_concept_id,Measurement,75800,8,15764
-219,Phosphate [Moles/time] in 24 hour Urine,LOINC,14881-7,3010600,TRUE,mmol,9573,numeric,measurement,measurement_concept_id,Measurement,59000,11,14716
-219,Phosphate [Moles/volume] in Urine,LOINC,13539-2,3022229,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,229000,17,18221
-220,Potassium [Moles/volume] in 24 hour Urine,LOINC,21476-7,3010796,TRUE,mmol,9573,numeric,measurement,measurement_concept_id,Measurement,1270000,11,2663
-220,Potassium [Moles/volume] in Urine,LOINC,2828-2,3016038,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,2940000,>20,901
-221,Sodium [Moles/volume] in 24 hour Urine,LOINC,21525-1,3014485,TRUE,mmol,9573,numeric,measurement,measurement_concept_id,Measurement,1200000,11,2655
-221,Sodium [Moles/volume] in Urine,LOINC,2955-3,3003181,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,3050000,>20,486
-222,Urea [Moles/volume] in 24 hour Urine,LOINC,25998-6,3015672,TRUE,mmol,9573,numeric,measurement,measurement_concept_id,Measurement,14200,4,16663
-222,Urea [Moles/volume] in Urine,LOINC,22700-9,3012898,TRUE,mmol/L,8753,numeric,measurement,measurement_concept_id,Measurement,3790000,17,15818
-223,Actinomyces neuii subspecies neuii,SNOMED,113420003,4013794,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,0,NA,NA
-224,Bacillus cereus group,SNOMED,413618005,4186712,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,0,NA,NA
-225,Bacillus mycoides,SNOMED,33900003,4143451,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,100,1,NA
-226,Citrobacter freundii complex,SNOMED,782522004,36684336,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,0,NA,NA
-227,Citrobacter koseri,SNOMED,114264004,4016448,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,3400,6,NA
-228,Corynebacterium amycolatum,SNOMED,113611002,4015383,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,600,4,NA
-229,Corynebacterium species,SNOMED,77086004,4299363,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,1600,7,NA
-230,Corynebacterium striatum,SNOMED,63815007,4274350,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,1200,5,NA
-231,Dermabacter hominis,SNOMED,413977006,4212869,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,200,2,NA
-232,Klebsiella aerogenes,SNOMED,62592009,4267438,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,5000,5,NA
-233,Enterobacter cloacae,SNOMED,14385002,4030716,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,26600,6,NA
-234,Enterobacter cloacae complex,SNOMED,414102007,4189174,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,1700,5,NA
-235,Enterococcus faecalis,SNOMED,78065002,4302157,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,134000,6,NA
-236,Enterococcus faecium,SNOMED,90272000,4234555,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,30400,5,NA
-237,Escherichia coli,SNOMED,112283007,4011683,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,346000,8,NA
-238,Gram-negative bacterium,SNOMED,81325006,4217941,TRUE,/,/,/,observation,observation_concept_id,Observation,300,2,NA
-239,Gram-positive bacteria,SNOMED,8745002,4337977,TRUE,/,/,/,observation,observation_concept_id,Observation,200,2,NA
-240,Gram-positive cocci in clusters,SNOMED,70003006,4320771,TRUE,CFU,9278,numeric,measurement,measurement_concept_id,Measurement,0,NA,NA
-241,Granulicatella adiacens,SNOMED,113713009,4034131,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,700,5,NA
-242,Klebsiella oxytoca,SNOMED,40886007,4254213,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,21000,6,NA
-243,Klebsiella pneumoniae,SNOMED,56415008,4209452,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,53800,5,NA
-244,Klebsiella variicola,SNOMED,431976004,4329767,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,700,4,NA
-245,Lysinibacillus,SNOMED,444611003,40480223,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,0,NA,NA
-246,Micrococcus luteus,SNOMED,48299003,4174810,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,1800,7,NA
-247,Paenibacillus pabuli,SNOMED,114103000,4015237,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,0,NA,NA
-248,Pantoea agglomerans,SNOMED,115015008,4018788,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,800,7,NA
-249,Pantoea septica,SNOMED,5681000146105,37018965,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,100,1,NA
-250,Pseudomonas aeruginosa,SNOMED,52499004,4198675,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,111000,8,NA
-251,Raoultella ornithinolytica,SNOMED,416832000,4212063,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,1700,6,NA
-252,Rothia dentocariosa,SNOMED,35379007,4261653,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,300,3,NA
-253,Rothia mucilaginosa,SNOMED,416544005,4211809,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,300,3,NA
-254,Serratia,SNOMED,42025004,4170580,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,1900,6,NA
-255,Serratia liquefaciens,SNOMED,23787004,4028952,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,900,5,NA
-256,Serratia marcescens,SNOMED,33522002,4140691,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,16800,7,NA
-257,Staphylococcus aureus,SNOMED,3092008,4149419,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,323000,9,NA
-258,Staphylococcus capitis,SNOMED,40347003,4222739,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,7000,6,NA
-259,Staphylococcus epidermidis,SNOMED,60875001,4246180,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,88800,6,NA
-260,Staphylococcus haemolyticus,SNOMED,83452006,4308865,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,8800,4,NA
-261,Staphylococcus hominis,SNOMED,44827007,4264368,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,3700,7,NA
-262,Staphylococcus warneri,SNOMED,63550006,4270057,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,2600,6,NA
-263,Group B streptococcus,SNOMED,43492007,4183468,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,115000,5,NA
-264,Streptococcus anginosus,SNOMED,44304009,4185892,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,5600,5,NA
-265,Streptococcus dysgalactiae,SNOMED,40812000,4246822,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,15700,6,NA
-266,Streptococcus mitis,SNOMED,57997003,4237427,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,1000,6,NA
-267,Streptococcus mitis group,SNOMED,127539005,4133816,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,500,2,NA
-268,Streptococcus vestibularis,SNOMED,113998009,4015550,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,200,2,NA
-269,"Streptococcus, viridans group",SNOMED,31703004,4136500,TRUE,CFU,9278,numeric,observation,observation_concept_id,Observation,33700,4,NA
-270,Aerobic blood culture,SNOMED,409611004,4252846,TRUE,/,/,logical,procedure_occurrence,procedure_concept_id,Procedure,124000,10,NA
-270,Anaerobic blood culture,SNOMED,409612006,4252847,TRUE,/,/,logical,procedure_occurrence,procedure_concept_id,Procedure,91900,7,NA
-270,Blood culture,SNOMED,30088009,4107893,TRUE,/,/,logical,procedure_occurrence,procedure_concept_id,Procedure,672000,20,NA
-271,Date of birth,SNOMED,184099003,4083587,TRUE,/,/,datetime,person,birth_datetime,Observation,147000,6,NA
-272,Birth length,SNOMED,169886007,4014465,TRUE,cm,8582,numeric,measurement,measurement_concept_id,Measurement,15300,7,NA
-273,Birth weight,SNOMED,364589006,4264825,TRUE,g,8504,numeric,measurement,measurement_concept_id,Measurement,3580000,12,NA
-274,Body height,LOINC,8302-2,3036277,TRUE,cm,8582,numeric,measurement,measurement_concept_id,Measurement,63400000,>20,NA
-275,Body weight,SNOMED,27113001,4099154,TRUE,kg,9529,numeric,measurement,measurement_concept_id,Measurement,269000000,>20,NA
-276,Date of death,SNOMED,399753006,4265167,TRUE,/,/,datetime,death,death_datetime,Observation,209000,5,NA
-277,Gender,SNOMED,263495000,4135376,TRUE,/,/,character,person,gender_concept_id,Observation,17900,8,NA
-278,Gestational age,LOINC,18185-9,3012266,TRUE,wk,8511,numeric,measurement,measurement_concept_id,Measurement,58800,3,NA
-279,Length of gestation at birth,SNOMED,412726003,4260747,TRUE,wk,8511,numeric,observation,observation_concept_id,Observation,4380000,10,NA
-280,Hospital admission date,LOINC,8656-1,3023170,TRUE,/,/,datetime,visit_occurrence,visit_start_datetime,Observation,400,1,0
-281,Hospital discharge date,LOINC,8649-6,3021690,TRUE,/,/,datetime,visit_occurrence,visit_end_datetime,Observation,1200,2,0
-282,Intensive care unit (ICU) admission date,LOINC,95367-9,36659961,TRUE,/,/,datetime,visit_detail,visit_detail_start_datetime,Observation,0,0,0
-283,Intensive care unit (ICU) discharge date,LOINC,95368-7,36659649,TRUE,/,/,datetime,visit_detail,visit_detail_end_datetime,Observation,0,0,0
-284,Ideal body weight,SNOMED,170804003,4062985,TRUE,kg,9529,numeric,observation,observation_concept_id,Observation,27500000,8,NA
-285,Medical contraindication to procedure,SNOMED,266757004,4141768,TRUE,/,/,character,observation,observation_concept_id,Observation,2500,7,NA
-286,Calorie intake total 24 hour,LOINC,9057-1,3026267,TRUE,cal,9472,numeric,measurement,measurement_concept_id,Measurement,600,1,0
-287,Energy requirement,SNOMED,226244007,4022415,TRUE,cal,9472,numeric,observation,observation_concept_id,Observation,134000,8,NA
-288,Advance care plan agreed,SNOMED,1095851000000100,36685263,TRUE,/,/,character,observation,observation_concept_id,Observation,900,1,NA
-289,Consultation with patient,SNOMED,1237136005,37164964,TRUE,/,/,character,observation,observation_concept_id,Observation,0,0,NA
-290,Active heathcare surrogate,SNOMED,3021000175108,762209,TRUE,/,/,/,observation,observation_concept_id,Observation,0,0,NA
-291,Central venous cannula insertion,SNOMED,233527006,4052413,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,1050000,>20,NA
-291,Central venous cannula insertion via femoral vein,SNOMED,233534008,4052416,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,200,2,NA
-291,Central venous cannula insertion via internal jugular vein,SNOMED,233528001,4051188,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,400,4,NA
-291,Central venous cannula insertion via subclavian vein,SNOMED,233530004,4052415,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,151000,16,NA
-291,Central venous catheter,SNOMED,52124006,4179206,TRUE,/,/,/,device_exposure,device_concept_id,Device,56700,9,NA
-291,Removal of central venous line,SNOMED,175853000,4022792,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,132000,>20,NA
-292,Extracorporeal membrane oxygenation,SNOMED,233573008,4052536,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,15300,>20,NA
-292,Venoarterial extracorporeal membrane oxygenation,SNOMED,786451004,37206601,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,6900,7,NA
-292,Venovenous extracorporeal membrane oxygenation,SNOMED,786453001,37206603,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,2500,5,NA
-293,Enteral feeding,SNOMED,229912004,4042005,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,338000,>20,NA
-294,Mobilization,SNOMED,74923002,4327195,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,538000,8,NA
-295,Procedure contraindicated,SNOMED,183932001,4082089,TRUE,/,/,character,procedure_occurrence,observation_concept_id,Observation,51600,6,NA
-296,Placing subject in prone position,SNOMED,431182000,4196006,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,15800,2,NA
-297,Plasmapheresis,SNOMED,20720000,4049372,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,37500,>20,NA
-298,Continuous venovenous hemodiafiltration,SNOMED,233590002,4049846,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,800,6,NA
-298,Continuous venovenous hemodialysis,SNOMED,233580005,4051329,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,27100,10,NA
-298,Continuous venovenous hemofiltration,SNOMED,233585000,4051330,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,2180000,15,NA
-298,Intermittent hemodialysis,SNOMED,233575001,4051326,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,639000,11,NA
-299,Endotracheal tube,SNOMED,26412008,4097216,TRUE,/,/,/,device,device_concept_id,Device,0,0,NA
-299,Endotracheal tube Diameter,LOINC,79562-5,21491186,TRUE,cm,8582,numeric,measurement,measurement_concept_id,Measurement,8700,1,0
-300,Tracheostomy tube,SNOMED,129121000,4044008,TRUE,/,/,/,device,device_concept_id,Device,6200,5,NA
-301,Inspired oxygen concentration,SNOMED,250774007,4353936,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,14400000,17,NA
-302,Delivered oxygen flow rate,SNOMED,427081008,4141684,TRUE,L/min,8698,numeric,measurement,measurement_concept_id,Measurement,1950000,11,NA
-303,Extubation of trachea,SNOMED,309812005,4148972,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,5000,5,NA
-303,Invadvertent tracheal extubation,SNOMED,405639008,4231838,TRUE,/,/,/,observation,observation_concept_id,Observation,0,0,NA
-304,Humidification therapy,SNOMED,243130008,4055258,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,25200,5,NA
-305,Intubation,SNOMED,52765003,4202832,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,321000,>20,NA
-306,Invasive mechanical ventilation,SNOMED,1258985005,37158404,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,0,0,NA
-307,Continuous positive airway pressure ventilation treatment,SNOMED,47545007,4165535,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,0,0,NA
-307,Dual pressure spontaneous ventilation support,SNOMED,243142003,4055262,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,0,0,NA
-307,Non-invasive ventilation,SNOMED,428311008,4177224,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,0,0,NA
-308,High flow oxygen nasal cannula,SNOMED,426854004,4139525,TRUE,/,/,/,device,device_concept_id,Device,2700,3,NA
-308,Oxygen administration by Venturi mask,SNOMED,429253002,4323763,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,200,2,NA
-308,Oxygen administration by mask,SNOMED,371908008,4162736,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,2900,5,NA
-308,Oxygen administration by nasal cannula,SNOMED,371907003,4155151,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,594000,8,NA
-308,Oxygen administration by non rebreather mask,SNOMED,240000000000000,44790731,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,7900,2,NA
-308,Oxygenator therapy,SNOMED,182714002,4082249,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,23600,7,NA
-309,Trial of spontaneous breathing,SNOMED,424139009,4308797,TRUE,/,/,/,procedure_occurrence,procedure_concept_id,Procedure,0,0,NA
-310,Expiratory time,SNOMED,250820008,4353622,TRUE,s,8555,numeric,measurement,measurement_concept_id,Measurement,78500,5,NA
-310,Inspiratory pause time,SNOMED,250821007,4353623,TRUE,s,8555,numeric,measurement,measurement_concept_id,Measurement,200,2,NA
-310,Inspiratory time,SNOMED,250819002,4353947,TRUE,s,8555,numeric,measurement,measurement_concept_id,Measurement,5330000,5,NA
-311,Carbon dioxide production (VCO2) in Respiratory system,LOINC,60825-7,21490580,TRUE,L/min,8698,numeric,measurement,measurement_concept_id,Measurement,43800000,1,0
-312,End tidal carbone dioxyde concentration,SNOMED,250784008,4353938,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,2740000,4,NA
-313,Horowitz index in Arterial blood,LOINC,50984-4,3029943,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,NA,2,1912
-314,Inspiratory pressure setting,SNOMED,417071008,4215838,TRUE,cmH2O,44777590,numeric,measurement,measurement_concept_id,Measurement,0,0,NA
-315,Dynamic compliance,SNOMED,251885009,4090654,TRUE,ml/cmH2O,720866,numeric,measurement,measurement_concept_id,Measurement,54100,3,NA
-315,Lung compliance,SNOMED,3863008,4298264,TRUE,ml/cmH2O,720866,numeric,measurement,measurement_concept_id,Measurement,863000,2,NA
-315,Static lung compliance,SNOMED,251886005,4090322,TRUE,ml/cmH2O,720866,numeric,measurement,measurement_concept_id,Measurement,153000,2,NA
-316,Mean inspiratory airway pressure,SNOMED,698821009,44782824,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,0,0,NA
-317,Expiratory minute volume,SNOMED,426168008,4144329,TRUE,L/min,8698,numeric,measurement,measurement_concept_id,Measurement,0,0,NA
-317,Inspiratory minute volume,SNOMED,426102006,4141207,TRUE,L/min,8698,numeric,measurement,measurement_concept_id,Measurement,0,0,NA
-317,Minute volume,SNOMED,250811004,4353621,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,0,0,NA
-317,Minute volume setting Ventilator,LOINC,33425-0,3045410,TRUE,L/min,8698,numeric,measurement,measurement_concept_id,Measurement,1140000,2,16124
-317,Spontaneous minute volume,SNOMED,250813001,4108000,TRUE,L/min,8698,numeric,measurement,measurement_concept_id,Measurement,0,0,NA
-318,Extrinsic PEEP Respiratory system,LOINC,83386-3,42528515,TRUE,cmH2O,44777590,numeric,measurement,measurement_concept_id,Measurement,0,0,0
-318,Intrinsic PEEP Respiratory system,LOINC,38199-6,3035822,TRUE,cmH2O,44777590,numeric,measurement,measurement_concept_id,Measurement,424000,2,18367
-318,Positive end expiratory pressure,SNOMED,250854009,4353713,TRUE,cmH2O,44777590,numeric,measurement,measurement_concept_id,Measurement,0,0,NA
-318,Positive end expiratory pressure setting,SNOMED,416595007,4216746,TRUE,cmH2O,44777590,numeric,measurement,measurement_concept_id,Measurement,0,0,NA
-318,Total PEEP Respiratory system,LOINC,76247-6,42527140,TRUE,cmH2O,44777590,numeric,measurement,measurement_concept_id,Measurement,7400,1,0
-319,Peak inspiratory pressure,SNOMED,27913002,4101694,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,1220000,2,NA
-320,Airway plateau pressure,SNOMED,698822002,44782825,TRUE,cmH2O,44777590,numeric,measurement,measurement_concept_id,Measurement,1010000,2,NA
-321,Breath rate setting Ventilator,LOINC,19834-1,3007469,TRUE,per minute,8541,numeric,measurement,measurement_concept_id,Measurement,5220000,3,2160
-321,Breath rate spontaneous --on ventilator,LOINC,19839-0,3026892,TRUE,per minute,8541,numeric,measurement,measurement_concept_id,Measurement,45200,1,2174
-321,Respiratory rate,SNOMED,86290005,4313591,TRUE,per minute,8541,numeric,measurement,measurement_concept_id,Measurement,55000000,20,NA
-322,Expiratory tidal volume,SNOMED,698824001,44782827,TRUE,mL,8587,numeric,measurement,measurement_concept_id,Measurement,24300,2,NA
-322,Inspiratory tidal volume,SNOMED,698823007,44782826,TRUE,mL,8587,numeric,measurement,measurement_concept_id,Measurement,1180000,1,NA
-322,Spontaneous tidal volume,SNOMED,250816009,4108448,TRUE,mL,8587,numeric,measurement,measurement_concept_id,Measurement,0,0,NA
-322,Tidal volume,SNOMED,13621006,4029625,TRUE,mL,8587,numeric,measurement,measurement_concept_id,Measurement,2130000,6,NA
-322,Tidal volume setting Ventilator,LOINC,20112-9,3012410,TRUE,mL,8587,numeric,measurement,measurement_concept_id,Measurement,720000,1,1432
-323,Ventilation mode Ventilator,LOINC,20124-4,3004921,TRUE,/,/,factor,measurement,measurement_concept_id,Measurement,19800000,3,0
-324,Cardiac output,SNOMED,82799009,4221102,TRUE,L/min,8698,numeric,measurement,measurement_concept_id,Measurement,496000,7,NA
-325,Central venous pressure,SNOMED,71420008,4323687,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,288000,6,NA
-326,Diastolic arterial pressure,SNOMED,1091811000000100,35610320,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,175000000,8,NA
-326,Invasive diastolic arterial pressure,SNOMED,251073000,4354253,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,3780000,2,NA
-326,Non-invasive diastolic arterial pressure,SNOMED,174255007,4068414,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,903000,3,NA
-327,Heart rate,LOINC,8867-4,3027018,TRUE,/min,8541,numeric,measurement,measurement_concept_id,Measurement,49100000,NA,0
-327,Heart rate Intra arterial line by Invasive,LOINC,60978-4,21490670,TRUE,/min,8541,numeric,measurement,measurement_concept_id,Measurement,0,0,0
-327,Heart rate by Pulse oxymetry,LOINC,8889-8,3001376,TRUE,/min,8541,numeric,measurement,measurement_concept_id,Measurement,5180000,1,0
-327,Heart rate.beat-to-beat by EKG,LOINC,76282-3,21490872,TRUE,/min,8541,numeric,measurement,measurement_concept_id,Measurement,37700000,1,0
-328,Invasive mean arterial pressure,SNOMED,251075007,4108290,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,3780000,2,NA
-328,Mean arterial pressure,SNOMED,1285244000,37168599,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,0,0,NA
-328,Non-invasive mean arterial pressure,SNOMED,251074006,4108289,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,9530000,10,NA
-329,Invasive systolic arterial pressure,SNOMED,251071003,4353843,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,3790000,2,NA
-329,Non-invasive systolic arterial pressure,SNOMED,251070002,4354252,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,903000,3,NA
-329,Systolic arterial pressure,SNOMED,72313002,4217013,TRUE,mm[Hg],8876,numeric,measurement,measurement_concept_id,Measurement,175000000,9,NA
-330,Body temperature,SNOMED,386725007,4302666,TRUE,Cel,586323,numeric,measurement,measurement_concept_id,Measurement,46300000,>20,NA
-330,Oral temperature,SNOMED,415945006,4218834,TRUE,Cel,586323,numeric,measurement,measurement_concept_id,Measurement,1060000,11,NA
-330,Rectal temperature,SNOMED,307047009,4143731,TRUE,Cel,586323,numeric,measurement,measurement_concept_id,Measurement,600,1,NA
-330,Temperature of esophagus,SNOMED,431598003,4333349,TRUE,Cel,586323,numeric,measurement,measurement_concept_id,Measurement,500,1,NA
-330,Temperature of skin,SNOMED,364537001,4265708,TRUE,Cel,586323,numeric,measurement,measurement_concept_id,Measurement,140000,3,NA
-330,Tympanic temperature,SNOMED,415974002,4215364,TRUE,Cel,586323,numeric,measurement,measurement_concept_id,Measurement,17100000,8,NA
-331,24 hour urine output,SNOMED,395060000,4191836,TRUE,mL,8687,numeric,measurement,measurement_concept_id,Measurement,128000,8,NA
-331,Urine output by in and out urethral catheter,LOINC,9195-9,3016267,TRUE,mL,8687,numeric,measurement,measurement_concept_id,Measurement,1300,1,0
-331,Urine output measured by nephrostomy,LOINC,79549-2,21491173,TRUE,mL,8687,numeric,measurement,measurement_concept_id,Measurement,67700,2,0
-331,Urine volume,SNOMED,993701000000102,37397937,TRUE,mL,8687,numeric,measurement,measurement_concept_id,Measurement,136000,8,NA
-332,Respiratory rate,SNOMED,86290005,4313591,TRUE,/min,8541,numeric,measurement,measurement_concept_id,Measurement,55000000,>20,NA
-333,Peripheral oxygen saturation,SNOMED,431314004,4196147,TRUE,%,8554,numeric,measurement,measurement_concept_id,Measurement,33600000,12,NA
-16,Human immunodeficiency virus infection,SNOMED,86406008,439727,TRUE,/,/,/,/,/,/,0,0,NA
-16,AIDS,SNOMED,62479008,4267414,TRUE,/,/,/,/,/,/,0,1,NA
-8,Glasgow coma score total,LOINC,9269-2,3007194,TRUE,/,/,/,/,/,/,0,0,NA
+general_concept_id,omop_concept_id,omop_unit_concept_id,recommended
+8,3032652,/,FALSE
+8,3016335,/,TRUE
+8,3008223,/,TRUE
+8,3009094,/,TRUE
+10,37151627,/,TRUE
+12,3026611,8588,TRUE
+12,21491763,/,TRUE
+12,3010321,8588,TRUE
+12,21490963,/,TRUE
+13,4105091,/,TRUE
+14,36684829,/,TRUE
+15,4165600,/,TRUE
+16,45547443,/,FALSE
+17,45596343,/,TRUE
+17,45567323,/,TRUE
+17,45557669,/,TRUE
+17,45586729,/,TRUE
+17,45557668,/,TRUE
+17,45591605,/,TRUE
+17,45605953,/,TRUE
+18,45582391,/,TRUE
+18,45582392,/,TRUE
+18,45553437,/,TRUE
+18,45543858,/,TRUE
+18,45582393,/,TRUE
+18,45582394,/,TRUE
+18,45553438,/,TRUE
+19,45533615,/,TRUE
+19,45755467,/,TRUE
+19,45586732,/,TRUE
+19,45533614,/,TRUE
+19,45572229,/,TRUE
+19,45538546,/,TRUE
+19,45557676,/,TRUE
+19,45586733,/,TRUE
+20,45557674,/,TRUE
+20,45601186,/,TRUE
+20,45755466,/,TRUE
+20,45533613,/,TRUE
+21,4242843,/,TRUE
+22,45571576,/,TRUE
+22,45600572,/,TRUE
+22,45537873,/,TRUE
+22,45542667,/,TRUE
+22,45561880,/,TRUE
+22,45600565,/,TRUE
+22,45581256,/,TRUE
+22,45557044,/,TRUE
+22,45557042,/,TRUE
+22,45537880,/,TRUE
+22,45571572,/,TRUE
+22,45552312,/,TRUE
+22,45571571,/,TRUE
+22,45561882,/,TRUE
+22,45600564,/,TRUE
+22,45576367,/,TRUE
+22,45605333,/,TRUE
+22,45557041,/,TRUE
+22,45581265,/,TRUE
+22,45600568,/,TRUE
+22,45557048,/,TRUE
+22,45586073,/,TRUE
+22,45586062,/,TRUE
+22,45542663,/,TRUE
+22,45600573,/,TRUE
+22,45547561,/,TRUE
+22,45537879,/,TRUE
+22,45755349,/,TRUE
+22,45547558,/,TRUE
+22,45576370,/,TRUE
+22,45542670,/,TRUE
+22,45590969,/,TRUE
+22,45600571,/,TRUE
+22,45571570,/,TRUE
+22,45561878,/,TRUE
+22,45537876,/,TRUE
+22,45595727,/,TRUE
+22,45581262,/,TRUE
+22,45755351,/,TRUE
+22,45561874,/,TRUE
+22,45581258,/,TRUE
+22,45600566,/,TRUE
+22,45595725,/,TRUE
+22,45581264,/,TRUE
+22,45542661,/,TRUE
+22,45581254,/,TRUE
+22,45586074,/,TRUE
+22,45581263,/,TRUE
+23,45586051,/,TRUE
+23,45561858,/,TRUE
+23,45561869,/,TRUE
+23,45586056,/,TRUE
+23,45566646,/,TRUE
+23,45590945,/,TRUE
+23,45590950,/,TRUE
+23,45605300,/,TRUE
+23,45576353,/,TRUE
+23,45600549,/,TRUE
+23,45600561,/,TRUE
+23,45571566,/,TRUE
+23,45537871,/,TRUE
+23,45571549,/,TRUE
+23,45595698,/,TRUE
+23,45532946,/,TRUE
+23,45542638,/,TRUE
+23,45590936,/,TRUE
+23,45552299,/,TRUE
+23,45605303,/,TRUE
+23,45605328,/,TRUE
+23,45576344,/,TRUE
+23,45581232,/,TRUE
+23,45586059,/,TRUE
+23,45586044,/,TRUE
+23,45571545,/,TRUE
+23,45547532,/,TRUE
+23,45590962,/,TRUE
+23,45561870,/,TRUE
+23,45542646,/,TRUE
+23,45595711,/,TRUE
+23,45755344,/,TRUE
+23,45542659,/,TRUE
+23,45566622,/,TRUE
+23,45586030,/,TRUE
+23,45547530,/,TRUE
+23,45561867,/,TRUE
+23,45542649,/,TRUE
+23,45755342,/,TRUE
+23,45547547,/,TRUE
+23,45552293,/,TRUE
+23,45532957,/,TRUE
+23,45552309,/,TRUE
+23,45561857,/,TRUE
+23,45576359,/,TRUE
+23,45755346,/,TRUE
+23,45595715,/,TRUE
+23,45600546,/,TRUE
+23,45571560,/,TRUE
+23,45590961,/,TRUE
+23,45590939,/,TRUE
+23,45532956,/,TRUE
+23,45595708,/,TRUE
+23,45557037,/,TRUE
+24,45561830,/,TRUE
+24,45571538,/,TRUE
+24,45542627,/,TRUE
+24,45576338,/,TRUE
+24,45595685,/,TRUE
+24,45557012,/,TRUE
+24,45557014,/,TRUE
+24,45557013,/,TRUE
+24,45590926,/,TRUE
+24,45552284,/,TRUE
+24,45571540,/,TRUE
+24,45561831,/,TRUE
+24,45547523,/,TRUE
+24,45595687,/,TRUE
+24,45595688,/,TRUE
+24,45537839,/,TRUE
+24,45532936,/,TRUE
+24,45576339,/,TRUE
+24,45561832,/,TRUE
+24,45586028,/,TRUE
+24,45537841,/,TRUE
+24,45547524,/,TRUE
+24,45532938,/,TRUE
+24,45552282,/,TRUE
+24,45755341,/,TRUE
+24,45547522,/,TRUE
+24,45571539,/,TRUE
+24,45595686,/,TRUE
+24,45600529,/,TRUE
+25,45581252,/,TRUE
+25,45600562,/,TRUE
+25,45755347,/,TRUE
+25,45552310,/,TRUE
+25,45586061,/,TRUE
+26,45552897,/,TRUE
+27,45601132,/,TRUE
+27,45601131,/,TRUE
+27,45548115,/,TRUE
+27,45543268,/,TRUE
+27,45586673,/,TRUE
+28,45567179,/,TRUE
+28,45581779,/,TRUE
+28,45576879,/,TRUE
+28,45543181,/,TRUE
+29,46273524,/,TRUE
+30,45586141,/,TRUE
+30,45542740,/,TRUE
+30,45600643,/,TRUE
+30,45547628,/,TRUE
+30,45571657,/,TRUE
+30,45557115,/,TRUE
+30,45605406,/,TRUE
+30,45576445,/,TRUE
+30,45755356,/,TRUE
+30,45547629,/,TRUE
+30,45566732,/,TRUE
+30,45547630,/,TRUE
+30,45547637,/,TRUE
+30,45542742,/,TRUE
+30,45591032,/,TRUE
+30,45547636,/,TRUE
+30,45571660,/,TRUE
+30,45547631,/,TRUE
+30,45566738,/,TRUE
+30,45537964,/,TRUE
+30,45576436,/,TRUE
+30,45755355,/,TRUE
+30,45542735,/,TRUE
+30,45571655,/,TRUE
+30,45533016,/,TRUE
+30,45552380,/,TRUE
+30,45537959,/,TRUE
+30,45595796,/,TRUE
+30,45586137,/,TRUE
+30,45552384,/,TRUE
+30,45581351,/,TRUE
+30,45571656,/,TRUE
+30,45542739,/,TRUE
+30,45561950,/,TRUE
+30,45576442,/,TRUE
+30,45591028,/,TRUE
+30,45552387,/,TRUE
+30,45557114,/,TRUE
+30,45605400,/,TRUE
+30,45561951,/,TRUE
+30,45561952,/,TRUE
+30,45571663,/,TRUE
+30,45605408,/,TRUE
+30,45591035,/,TRUE
+30,45600646,/,TRUE
+30,45571664,/,TRUE
+30,45591036,/,TRUE
+30,45566739,/,TRUE
+30,45547638,/,TRUE
+30,45605407,/,TRUE
+30,45576449,/,TRUE
+31,42537216,/,TRUE
+31,764921,/,TRUE
+31,4149606,/,TRUE
+32,259992,/,TRUE
+148,1002144,8749,TRUE
+149,3003396,8753,TRUE
+150,3023230,8554,TRUE
+151,3045156,8876,TRUE
+151,3027946,8876,TRUE
+152,3022803,8876,TRUE
+152,3027801,8876,TRUE
+153,3016502,8554,TRUE
+154,3008152,8756,TRUE
+155,3041706,8753,TRUE
+156,3031248,8755,TRUE
+157,3031266,8636,TRUE
+158,3002173,8713,TRUE
+158,3006239,8713,TRUE
+159,3018405,8756,TRUE
+160,3019977,/,TRUE
+160,3029473,/,TRUE
+161,3043409,8753,TRUE
+162,3043706,8754,TRUE
+163,4047496,/,TRUE
+164,4047495,/,TRUE
+165,4045667,/,TRUE
+166,4122283,/,TRUE
+167,3005757,8554,TRUE
+168,3048530,8923,TRUE
+168,3052716,8923,TRUE
+168,3051714,8923,TRUE
+168,3052648,8923,TRUE
+169,3016407,8636,TRUE
+170,3032080,/,TRUE
+170,3051593,/,TRUE
+170,3022217,/,TRUE
+170,3042605,/,TRUE
+171,3034426,8555,TRUE
+171,3033658,8554,TRUE
+171,3002417,8555,TRUE
+171,3053181,8555,TRUE
+171,3041133,8555,TRUE
+171,3039931,8555,TRUE
+172,40766287,8554,TRUE
+172,3013466,8555,TRUE
+172,3018677,8555,TRUE
+172,3041974,8555,TRUE
+172,3052968,8555,TRUE
+172,3042436,8555,TRUE
+172,3041232,8555,TRUE
+173,3001110,8923,TRUE
+173,3035995,8923,TRUE
+174,46235106,8923,TRUE
+174,3006923,8923,TRUE
+174,3027388,8923,TRUE
+174,3005755,8923,TRUE
+175,3013721,8923,TRUE
+175,36305398,8923,TRUE
+175,3037081,8923,TRUE
+176,3005347,8749,TRUE
+176,3011958,8749,TRUE
+177,3005772,8749,TRUE
+178,3026910,8923,TRUE
+179,3007242,8749,TRUE
+180,40757494,8749,TRUE
+180,1616780,8749,TRUE
+180,3006140,8749,TRUE
+180,1175191,8749,TRUE
+181,3034360,8845,TRUE
+182,3031569,8845,TRUE
+182,3011960,8845,TRUE
+183,42870365,8751,TRUE
+183,3051387,8751,TRUE
+183,3020460,8751,TRUE
+183,3010156,8751,TRUE
+184,3004410,8554,TRUE
+184,3003309,8554,TRUE
+184,3005673,8554,TRUE
+184,40762352,8554,TRUE
+184,3007263,8554,TRUE
+185,3023091,8845,TRUE
+186,3004905,8923,TRUE
+187,42870364,8845,TRUE
+187,3029187,8845,TRUE
+187,42529225,8845,TRUE
+188,3046279,8842,TRUE
+188,44817130,8842,TRUE
+189,3048529,8842,TRUE
+189,3019800,8842,TRUE
+189,40769783,8842,TRUE
+189,3019572,8842,TRUE
+190,3009542,8554,TRUE
+190,3023314,8554,TRUE
+190,3019909,8554,TRUE
+190,3050746,8554,TRUE
+190,3013752,8554,TRUE
+190,3028813,8554,TRUE
+190,3034976,8554,TRUE
+191,3006315,9444,TRUE
+191,3013429,9444,TRUE
+191,3027651,9444,TRUE
+192,3013115,9444,TRUE
+192,3028615,9444,TRUE
+192,3009932,9444,TRUE
+193,3026361,8734,TRUE
+193,3020416,8734,TRUE
+193,3027017,8734,TRUE
+194,3000963,8713,TRUE
+194,40758903,8713,TRUE
+194,3027484,8713,TRUE
+194,3006184,8713,TRUE
+194,1616317,8713,TRUE
+194,3007302,8713,TRUE
+194,46235391,8713,TRUE
+194,3004119,8713,TRUE
+194,46235392,8713,TRUE
+195,3010813,9444,TRUE
+195,3000905,9444,TRUE
+195,3032393,9444,TRUE
+195,3003282,9444,TRUE
+196,3019198,9444,TRUE
+196,3004327,9444,TRUE
+196,3003215,9444,TRUE
+197,3001604,9444,TRUE
+197,3033575,9444,TRUE
+197,3034107,9444,TRUE
+198,3017732,9444,TRUE
+198,3013650,9444,TRUE
+198,3017501,9444,TRUE
+199,3007461,9444,TRUE
+199,3024929,9444,TRUE
+199,3031586,9444,TRUE
+199,3010834,9444,TRUE
+199,3006297,9444,TRUE
+199,3016682,9444,TRUE
+200,3023520,9444,TRUE
+200,40763528,9444,TRUE
+200,3041154,9444,TRUE
+200,3037637,9444,TRUE
+201,3016436,8923,TRUE
+202,3024561,8636,TRUE
+203,3006576,8753,TRUE
+203,3015235,8753,TRUE
+203,3025817,8753,TRUE
+203,3016293,8753,TRUE
+203,3027273,8753,TRUE
+204,3006906,8753,TRUE
+204,3034988,8753,TRUE
+204,3005162,8753,TRUE
+204,3032543,8753,TRUE
+205,3018572,8753,TRUE
+205,3039964,8753,TRUE
+205,1761323,8753,TRUE
+205,3014576,8753,TRUE
+205,3035285,8753,TRUE
+206,40762887,8749,TRUE
+206,3020564,8749,TRUE
+206,3964702,8749,TRUE
+207,3020491,8753,TRUE
+207,3001501,8753,TRUE
+207,1761753,8753,TRUE
+207,3013826,8753,TRUE
+207,3038515,8753,TRUE
+208,3047181,8753,TRUE
+208,3028271,8753,TRUE
+208,3005949,8753,TRUE
+208,3014111,8753,TRUE
+208,3008037,8753,TRUE
+209,3033836,8753,TRUE
+209,3012095,8753,TRUE
+210,3018913,8753,TRUE
+210,3003458,8753,TRUE
+211,3005456,8753,TRUE
+211,3040893,8753,TRUE
+211,3031219,8753,TRUE
+211,3023103,8753,TRUE
+211,3041354,8753,TRUE
+212,3000285,8753,TRUE
+212,3038702,8753,TRUE
+212,3031579,8753,TRUE
+212,3019550,8753,TRUE
+212,3041473,8753,TRUE
+213,43534077,8753,TRUE
+213,3020779,8753,TRUE
+213,43534100,8753,TRUE
+214,3052013,9573,TRUE
+214,3008251,8753,TRUE
+215,3010838,9573,TRUE
+215,3018133,8753,TRUE
+216,3002752,9573,TRUE
+216,3007733,8753,TRUE
+217,3013539,9573,TRUE
+217,3009508,8753,TRUE
+218,3000361,8504,TRUE
+219,3010600,9573,TRUE
+219,3022229,8753,TRUE
+220,3010796,9573,TRUE
+220,3016038,8753,TRUE
+221,3014485,9573,TRUE
+221,3003181,8753,TRUE
+222,3015672,9573,TRUE
+222,3012898,8753,TRUE
+223,4013794,9278,TRUE
+224,4186712,9278,TRUE
+225,4143451,9278,TRUE
+226,36684336,9278,TRUE
+227,4016448,9278,TRUE
+228,4015383,9278,TRUE
+229,4299363,9278,TRUE
+230,4274350,9278,TRUE
+231,4212869,9278,TRUE
+232,4267438,9278,TRUE
+233,4030716,9278,TRUE
+234,4189174,9278,TRUE
+235,4302157,9278,TRUE
+236,4234555,9278,TRUE
+237,4011683,9278,TRUE
+238,4217941,/,TRUE
+239,4337977,/,TRUE
+240,4320771,9278,TRUE
+241,4034131,9278,TRUE
+242,4254213,9278,TRUE
+243,4209452,9278,TRUE
+244,4329767,9278,TRUE
+245,40480223,9278,TRUE
+246,4174810,9278,TRUE
+247,4015237,9278,TRUE
+248,4018788,9278,TRUE
+249,37018965,9278,TRUE
+250,4198675,9278,TRUE
+251,4212063,9278,TRUE
+252,4261653,9278,TRUE
+253,4211809,9278,TRUE
+254,4170580,9278,TRUE
+255,4028952,9278,TRUE
+256,4140691,9278,TRUE
+257,4149419,9278,TRUE
+258,4222739,9278,TRUE
+259,4246180,9278,TRUE
+260,4308865,9278,TRUE
+261,4264368,9278,TRUE
+262,4270057,9278,TRUE
+263,4183468,9278,TRUE
+264,4185892,9278,TRUE
+265,4246822,9278,TRUE
+266,4237427,9278,TRUE
+267,4133816,9278,TRUE
+268,4015550,9278,TRUE
+269,4136500,9278,TRUE
+270,4252846,/,TRUE
+270,4252847,/,TRUE
+270,4107893,/,TRUE
+271,4083587,/,TRUE
+272,4014465,8582,TRUE
+273,4264825,8504,TRUE
+274,3036277,8582,TRUE
+275,4099154,9529,TRUE
+276,4265167,/,TRUE
+277,4135376,/,TRUE
+278,3012266,8511,TRUE
+279,4260747,8511,TRUE
+280,3023170,/,TRUE
+281,3021690,/,TRUE
+282,36659961,/,TRUE
+283,36659649,/,TRUE
+284,4062985,9529,TRUE
+285,4141768,/,TRUE
+286,3026267,9472,TRUE
+287,4022415,9472,TRUE
+288,36685263,/,TRUE
+289,37164964,/,TRUE
+290,762209,/,TRUE
+291,4052413,/,TRUE
+291,4052416,/,TRUE
+291,4051188,/,TRUE
+291,4052415,/,TRUE
+291,4179206,/,TRUE
+291,4022792,/,TRUE
+292,4052536,/,TRUE
+292,37206601,/,TRUE
+292,37206603,/,TRUE
+293,4042005,/,TRUE
+294,4327195,/,TRUE
+295,4082089,/,TRUE
+296,4196006,/,TRUE
+297,4049372,/,TRUE
+298,4049846,/,TRUE
+298,4051329,/,TRUE
+298,4051330,/,TRUE
+298,4051326,/,TRUE
+299,4097216,/,TRUE
+299,21491186,8582,TRUE
+300,4044008,/,TRUE
+301,4353936,8554,TRUE
+302,4141684,8698,TRUE
+303,4148972,/,TRUE
+303,4231838,/,TRUE
+304,4055258,/,TRUE
+305,4202832,/,TRUE
+306,37158404,/,TRUE
+307,4165535,/,TRUE
+307,4055262,/,TRUE
+307,4177224,/,TRUE
+308,4139525,/,TRUE
+308,4323763,/,TRUE
+308,4162736,/,TRUE
+308,4155151,/,TRUE
+308,44790731,/,TRUE
+308,4082249,/,TRUE
+309,4308797,/,TRUE
+310,4353622,8555,TRUE
+310,4353623,8555,TRUE
+310,4353947,8555,TRUE
+311,21490580,8698,TRUE
+312,4353938,8876,TRUE
+313,3029943,8876,TRUE
+314,4215838,44777590,TRUE
+315,4090654,720866,TRUE
+315,4298264,720866,TRUE
+315,4090322,720866,TRUE
+316,44782824,8876,TRUE
+317,4144329,8698,TRUE
+317,4141207,8698,TRUE
+317,4353621,8876,TRUE
+317,3045410,8698,TRUE
+317,4108000,8698,TRUE
+318,42528515,44777590,TRUE
+318,3035822,44777590,TRUE
+318,4353713,44777590,TRUE
+318,4216746,44777590,TRUE
+318,42527140,44777590,TRUE
+319,4101694,8876,TRUE
+320,44782825,44777590,TRUE
+321,3007469,8541,TRUE
+321,3026892,8541,TRUE
+321,4313591,8541,TRUE
+322,44782827,8587,TRUE
+322,44782826,8587,TRUE
+322,4108448,8587,TRUE
+322,4029625,8587,TRUE
+322,3012410,8587,TRUE
+323,3004921,/,TRUE
+324,4221102,8698,TRUE
+325,4323687,8876,TRUE
+326,35610320,8876,TRUE
+326,4354253,8876,TRUE
+326,4068414,8876,TRUE
+327,3027018,8541,TRUE
+327,21490670,8541,TRUE
+327,3001376,8541,TRUE
+327,21490872,8541,TRUE
+328,4108290,8876,TRUE
+328,37168599,8876,TRUE
+328,4108289,8876,TRUE
+329,4353843,8876,TRUE
+329,4354252,8876,TRUE
+329,4217013,8876,TRUE
+330,4302666,586323,TRUE
+330,4218834,586323,TRUE
+330,4143731,586323,TRUE
+330,4333349,586323,TRUE
+330,4265708,586323,TRUE
+330,4215364,586323,TRUE
+331,4191836,8687,TRUE
+331,3016267,8687,TRUE
+331,21491173,8687,TRUE
+331,37397937,8687,TRUE
+332,4313591,8541,TRUE
+333,4196147,8554,TRUE
+16,439727,/,TRUE
+16,4267414,/,TRUE
+8,3007194,/,TRUE

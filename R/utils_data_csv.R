@@ -37,6 +37,18 @@ load_csv_data <- function() {
     na.strings = c("", "NA")
   )
 
+  concept_statistics <- read.csv(
+    file.path(csv_dir, "concept_statistics.csv"),
+    stringsAsFactors = FALSE,
+    na.strings = c("", "NA")
+  )
+
+  custom_concepts <- read.csv(
+    file.path(csv_dir, "custom_concepts.csv"),
+    stringsAsFactors = FALSE,
+    na.strings = c("", "NA")
+  )
+
   unit_conversions <- read.csv(
     file.path(csv_dir, "unit_conversions.csv"),
     stringsAsFactors = FALSE,
@@ -48,6 +60,8 @@ load_csv_data <- function() {
     use_cases = use_cases,
     general_concept_use_cases = general_concept_use_cases,
     concept_mappings = concept_mappings,
+    concept_statistics = concept_statistics,
+    custom_concepts = custom_concepts,
     unit_conversions = unit_conversions
   ))
 }

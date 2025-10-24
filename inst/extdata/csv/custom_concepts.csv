@@ -1,0 +1,10 @@
+general_concept_id,vocabulary_id,concept_code,concept_name,omop_unit_concept_id,recommended
+1,INDICATE,/,3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM) score,/,TRUE
+2,INDICATE,/,5 A<U+2019>s Test for Delirium Screening score,/,TRUE
+3,INDICATE,/,Behavior pain scale,/,TRUE
+4,INDICATE,/,Confusion Assessment Method for the Intensive Care Unit (CAM-ICU) score,/,TRUE
+5,INDICATE,/,Delirium Detection Score (DDS) score,/,TRUE
+6,INDICATE,/,Delirium Observation Scale (DOS) score,/,TRUE
+7,INDICATE,/,Delirium Rating Scale (DRS) score,/,TRUE
+9,INDICATE,/,Intensive Care Delirium Screening Checklist (ICDSC) score,/,TRUE
+11,INDICATE,/,Nursing Delirium Screening Scale (NU-DESC) score,/,TRUE

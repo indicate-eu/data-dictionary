@@ -1440,48 +1440,21 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
               })
 
               if (nrow(new_concept) > 0) {
-                # Safely extract values with default fallbacks
-                concept_name <- if (length(new_concept$concept_name) > 0) new_concept$concept_name[1] else "Unknown"
-                vocab_id <- if (length(new_concept$vocabulary_id) > 0) new_concept$vocabulary_id[1] else "Unknown"
-                concept_code <- if (length(new_concept$concept_code) > 0) new_concept$concept_code[1] else "Unknown"
-
-                # Create new row by copying a template from existing data
+                # Create new row with minimal structure (new schema)
                 if (nrow(concept_mappings) > 0) {
                   # Take first row as template and modify it
                   new_row <- concept_mappings[1, ]
                   new_row$general_concept_id <- as.integer(concept_id)
-                  new_row$concept_name <- as.character(concept_name)
-                  new_row$vocabulary_id <- as.character(vocab_id)
-                  new_row$concept_code <- as.character(concept_code)
                   new_row$omop_concept_id <- as.integer(omop_id)
-                  new_row$recommended <- TRUE
-                  new_row$unit_concept_code <- as.character("/")
                   new_row$omop_unit_concept_id <- as.character("/")
-                  new_row$data_type <- as.character("/")
-                  new_row$omop_table <- as.character("/")
-                  new_row$omop_column <- as.character("/")
-                  new_row$omop_domain_id <- as.character("/")
-                  new_row$ehden_rows_count <- as.integer(0)
-                  new_row$ehden_num_data_sources <- as.character("0")
-                  new_row$loinc_rank <- as.integer(NA)
+                  new_row$recommended <- TRUE
                 } else {
                   # Fallback if concept_mappings is empty
                   new_row <- data.frame(
                     general_concept_id = as.integer(concept_id),
-                    concept_name = as.character(concept_name),
-                    vocabulary_id = as.character(vocab_id),
-                    concept_code = as.character(concept_code),
                     omop_concept_id = as.integer(omop_id),
-                    recommended = TRUE,
-                    unit_concept_code = "/",
                     omop_unit_concept_id = "/",
-                    data_type = "/",
-                    omop_table = "/",
-                    omop_column = "/",
-                    omop_domain_id = "/",
-                    ehden_rows_count = 0L,
-                    ehden_num_data_sources = 0L,
-                    loinc_rank = NA_integer_,
+                    recommended = TRUE,
                     stringsAsFactors = FALSE
                   )
                 }
@@ -1897,7 +1870,28 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         # For non-Drug concepts, use original approach with CSV mappings
         csv_mappings <- current_data()$concept_mappings %>%
           dplyr::filter(general_concept_id == concept_id) %>%
-          dplyr::mutate(source = "CSV") %>%
+          dplyr::mutate(source = "CSV")
+
+        # Enrich with OMOP data (concept_name, vocabulary_id, concept_code)
+        vocab_data_for_enrichment <- vocabularies()
+        if (!is.null(vocab_data_for_enrichment) && nrow(csv_mappings) > 0) {
+          # Get concept details from OMOP
+          concept_ids <- csv_mappings$omop_concept_id
+          omop_concepts <- vocab_data_for_enrichment$concept %>%
+            dplyr::filter(concept_id %in% concept_ids) %>%
+            dplyr::select(concept_id, concept_name, vocabulary_id, concept_code) %>%
+            dplyr::collect()
+
+          # Join with csv_mappings
+          csv_mappings <- csv_mappings %>%
+            dplyr::left_join(
+              omop_concepts,
+              by = c("omop_concept_id" = "concept_id")
+            )
+        }
+
+        # Select final columns
+        csv_mappings <- csv_mappings %>%
           dplyr::select(
             concept_name,
             vocabulary_id,
@@ -2376,7 +2370,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       # Display full details from concept_mappings
       info <- concept_mapping[1, ]
 
-      # Get validity and standard info from OHDSI vocabularies
+      # Get concept details from OHDSI vocabularies (for concept_name, vocabulary_id, concept_code)
       vocab_data <- vocabularies()
       validity_info <- NULL
       if (!is.null(vocab_data)) {
@@ -2385,20 +2379,58 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           dplyr::collect()
         if (nrow(validity_info) > 0) {
           validity_info <- validity_info[1, ]
+          # Enrich info with OMOP data
+          info$concept_name <- validity_info$concept_name
+          info$vocabulary_id <- validity_info$vocabulary_id
+          info$concept_code <- validity_info$concept_code
         } else {
           validity_info <- NULL
         }
       }
 
+      # Get statistics from concept_statistics
+      concept_stats <- current_data()$concept_statistics %>%
+        dplyr::filter(omop_concept_id == !!omop_concept_id)
+
+      if (nrow(concept_stats) > 0) {
+        info$ehden_num_data_sources <- concept_stats$ehden_num_data_sources[1]
+        info$ehden_rows_count <- concept_stats$ehden_rows_count[1]
+        info$loinc_rank <- concept_stats$loinc_rank[1]
+      } else {
+        info$ehden_num_data_sources <- NA
+        info$ehden_rows_count <- NA
+        info$loinc_rank <- NA
+      }
+
       # Build URLs
       athena_url <- paste0(config$athena_base_url, "/", info$omop_concept_id)
-      fhir_url <- build_fhir_url(info$vocabulary_id, info$concept_code, config)
-      athena_unit_url <- if (!is.na(info$omop_unit_concept_id) && info$omop_unit_concept_id != "") {
+      fhir_url <- if (!is.null(info$vocabulary_id) && !is.null(info$concept_code)) {
+        build_fhir_url(info$vocabulary_id, info$concept_code, config)
+      } else {
+        NULL
+      }
+      athena_unit_url <- if (!is.na(info$omop_unit_concept_id) && info$omop_unit_concept_id != "" && info$omop_unit_concept_id != "/") {
         paste0(config$athena_base_url, "/", info$omop_unit_concept_id)
       } else {
         NULL
       }
-      unit_fhir_url <- build_unit_fhir_url(info$unit_concept_code, config)
+
+      # Get unit concept code from OMOP if unit concept ID exists
+      unit_concept_code <- NULL
+      if (!is.null(vocab_data) && !is.na(info$omop_unit_concept_id) && info$omop_unit_concept_id != "" && info$omop_unit_concept_id != "/") {
+        unit_concept_info <- vocab_data$concept %>%
+          dplyr::filter(concept_id == as.integer(info$omop_unit_concept_id)) %>%
+          dplyr::collect()
+        if (nrow(unit_concept_info) > 0) {
+          unit_concept_code <- unit_concept_info$concept_code[1]
+        }
+      }
+
+      unit_fhir_url <- if (!is.null(unit_concept_code)) {
+        build_unit_fhir_url(unit_concept_code, config)
+      } else {
+        NULL
+      }
 
       # Get edit mode status
       is_editing <- edit_mode()
@@ -2407,7 +2439,13 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       create_detail_item <- function(label, value, format_number = FALSE, url = NULL, color = NULL, editable = FALSE, input_id = NULL, step = 1) {
         # If editable and in edit mode, show numeric input
         if (editable && is_editing && !is.null(input_id)) {
-          input_value <- if (is.na(value) || is.null(value) || value == "") {
+          input_value <- if (is.null(value)) {
+            NA
+          } else if (length(value) == 0) {
+            NA
+          } else if (length(value) == 1 && is.na(value)) {
+            NA
+          } else if (identical(value, "")) {
             NA
           } else if (is.character(value)) {
             suppressWarnings(as.numeric(value))
@@ -2431,10 +2469,16 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         }
 
         # Otherwise, display as read-only
-        display_value <- if (is.na(value) || is.null(value) || value == "") {
+        display_value <- if (is.null(value)) {
+          "/"
+        } else if (length(value) == 0) {
+          "/"
+        } else if (length(value) == 1 && is.na(value)) {
+          "/"
+        } else if (identical(value, "")) {
           "/"
         } else if (is.logical(value)) {
-          if (value) "Yes" else "No"
+          if (isTRUE(value)) "Yes" else if (isFALSE(value)) "No" else "/"
         } else if (format_number && is.numeric(value)) {
           format(value, big.mark = ",", scientific = FALSE)
         } else {
@@ -2552,13 +2596,13 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           tags$div(class = "detail-item", style = "visibility: hidden;")
         },
         create_detail_item("Unit Concept Name",
-                          if (!is.na(info$unit_concept_code) && info$unit_concept_code != "") {
-                            info$unit_concept_code
+                          if (!is.null(unit_concept_code) && unit_concept_code != "") {
+                            unit_concept_code
                           } else {
                             "/"
                           }),
         create_detail_item("OMOP Unit Concept ID",
-                          if (!is.na(info$omop_unit_concept_id) && info$omop_unit_concept_id != "") {
+                          if (!is.null(info$omop_unit_concept_id) && !is.na(info$omop_unit_concept_id) && info$omop_unit_concept_id != "" && info$omop_unit_concept_id != "/") {
                             info$omop_unit_concept_id
                           } else {
                             "/"
