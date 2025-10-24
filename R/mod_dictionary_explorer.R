@@ -3024,11 +3024,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       # Show modal
       shinyjs::runjs(sprintf("$('#%s').show();", ns("hierarchy_graph_modal")))
 
-      # Wait for modal to render, then fit the graph
-      shinyjs::delay(500, {
-        visNetwork::visNetworkProxy(ns("hierarchy_graph")) %>%
-          visNetwork::visFit(animation = list(duration = 500))
-      })
+      # Fit the graph immediately
+      visNetwork::visNetworkProxy(ns("hierarchy_graph")) %>%
+        visNetwork::visFit(animation = list(duration = 500))
     })
 
     # Force Shiny to render output even when hidden

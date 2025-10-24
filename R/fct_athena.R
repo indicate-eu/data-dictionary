@@ -419,22 +419,31 @@ get_concept_hierarchy_graph <- function(concept_id, vocabularies,
     descendant_ids <- setdiff(unique(descendants_data$descendant_concept_id), concept_id)
 
     # Calculate hierarchy levels
+    # Helper function to safely compute min
+    safe_min <- function(x) {
+      x_clean <- x[!is.na(x)]
+      if (length(x_clean) == 0) return(NA_real_)
+      min(x_clean)
+    }
+
     ancestors_with_level <- ancestors_data %>%
       dplyr::filter(ancestor_concept_id != !!concept_id) %>%
       dplyr::group_by(ancestor_concept_id) %>%
       dplyr::summarise(
-        min_separation = min(min_levels_of_separation),
+        min_separation = safe_min(min_levels_of_separation),
         .groups = "drop"
       ) %>%
+      dplyr::filter(!is.na(min_separation)) %>%
       dplyr::mutate(hierarchy_level = -min_separation)
 
     descendants_with_level <- descendants_data %>%
       dplyr::filter(descendant_concept_id != !!concept_id) %>%
       dplyr::group_by(descendant_concept_id) %>%
       dplyr::summarise(
-        min_separation = min(min_levels_of_separation),
+        min_separation = safe_min(min_levels_of_separation),
         .groups = "drop"
       ) %>%
+      dplyr::filter(!is.na(min_separation)) %>%
       dplyr::mutate(hierarchy_level = min_separation)
 
     # Combine levels
@@ -482,7 +491,7 @@ get_concept_hierarchy_graph <- function(concept_id, vocabularies,
       dplyr::filter(
         concept_id_1 %in% limited_concept_ids,
         concept_id_2 %in% limited_concept_ids,
-        relationship_id %in% c("Is a", "Subsumes")
+        relationship_id %in% c("Is a", "Subsumes", "Contained in panel", "Panel contains")
       ) %>%
       dplyr::collect()
 
@@ -496,14 +505,16 @@ get_concept_hierarchy_graph <- function(concept_id, vocabularies,
           concept_name
         ),
         title = paste0(
-          "<div style='font-family: Arial; padding: 12px; max-width: 300px;'>",
-          "<b style='font-size: 15px; color: #0f60af;'>", concept_name, "</b><br><br>",
+          "<div style='font-family: Arial; padding: 12px; max-width: 600px; min-width: 250px; white-space: normal;'>",
+          "<b style='font-size: 15px; color: #0f60af; word-wrap: break-word; overflow-wrap: break-word; display: block; line-height: 1.4; white-space: normal;'>",
+          concept_name,
+          "</b><br><br>",
           "<table style='width: 100%; font-size: 13px;'>",
-          "<tr><td style='color: #666; padding-right: 15px;'>OMOP ID:</td><td><b>", concept_id, "</b></td></tr>",
-          "<tr><td style='color: #666; padding-right: 15px;'>Vocabulary:</td><td>", vocabulary_id, "</td></tr>",
-          "<tr><td style='color: #666; padding-right: 15px;'>Code:</td><td>", concept_code, "</td></tr>",
-          "<tr><td style='color: #666; padding-right: 15px;'>Class:</td><td>", concept_class_id, "</td></tr>",
-          "<tr><td style='color: #666; padding-right: 15px;'>Level:</td><td>", hierarchy_level, "</td></tr>",
+          "<tr><td style='color: #666; padding-right: 15px; white-space: nowrap;'>OMOP ID:</td><td style='word-break: break-word;'><b>", concept_id, "</b></td></tr>",
+          "<tr><td style='color: #666; padding-right: 15px; white-space: nowrap;'>Vocabulary:</td><td style='word-break: break-word;'>", vocabulary_id, "</td></tr>",
+          "<tr><td style='color: #666; padding-right: 15px; white-space: nowrap;'>Code:</td><td style='word-break: break-word;'>", concept_code, "</td></tr>",
+          "<tr><td style='color: #666; padding-right: 15px; white-space: nowrap;'>Class:</td><td style='word-break: break-word;'>", concept_class_id, "</td></tr>",
+          "<tr><td style='color: #666; padding-right: 15px; white-space: nowrap;'>Level:</td><td style='word-break: break-word;'>", hierarchy_level, "</td></tr>",
           "</table>",
           "</div>"
         ),
@@ -527,8 +538,16 @@ get_concept_hierarchy_graph <- function(concept_id, vocabularies,
     # Build edges data frame (parent -> child direction)
     edges <- relationships %>%
       dplyr::mutate(
-        from = dplyr::if_else(relationship_id == "Is a", concept_id_2, concept_id_1),
-        to = dplyr::if_else(relationship_id == "Is a", concept_id_1, concept_id_2),
+        from = dplyr::if_else(
+          relationship_id %in% c("Is a", "Contained in panel"),
+          concept_id_2,
+          concept_id_1
+        ),
+        to = dplyr::if_else(
+          relationship_id %in% c("Is a", "Contained in panel"),
+          concept_id_1,
+          concept_id_2
+        ),
         arrows = "to",
         color = "#999",
         width = 2,
