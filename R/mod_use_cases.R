@@ -476,7 +476,7 @@ render_use_case_config_ui <- function(ns) {
 #'
 #' @importFrom shiny moduleServer reactive req renderUI observeEvent showModal
 #' @importFrom shiny reactiveVal updateTextInput updateTextAreaInput modalDialog
-#' @importFrom shiny removeModal showNotification
+#' @importFrom shiny removeModal
 #' @importFrom htmltools tags tagList HTML
 #' @importFrom DT renderDT datatable formatStyle styleEqual
 #' @importFrom dplyr left_join group_by summarise n filter inner_join select collect
@@ -609,19 +609,10 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
       # Add to use cases
       use_cases_data <- rbind(use_cases_data, new_use_case)
 
-      # Save to CSV
       tryCatch({
         save_use_cases_csv(use_cases_data)
         use_cases_reactive(use_cases_data)
-        showNotification(
-          "Use case added successfully",
-          type = "message"
-        )
       }, error = function(e) {
-        showNotification(
-          paste("Error saving use case:", e$message),
-          type = "error"
-        )
       })
 
       # Close modal and reset
@@ -631,23 +622,14 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
       updateTextAreaInput(session, "new_use_case_long_description", value = "")
     })
 
-    # Edit use case name and descriptions button
     observeEvent(input$edit_name_description_btn, {
       selected_rows <- input$use_cases_table_rows_selected
 
       if (is.null(selected_rows) || length(selected_rows) == 0) {
-        showNotification(
-          "Please select a use case to edit",
-          type = "warning"
-        )
         return()
       }
 
       if (length(selected_rows) > 1) {
-        showNotification(
-          "Please select only one use case to edit",
-          type = "warning"
-        )
         return()
       }
 
@@ -736,19 +718,10 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
         use_cases_data$use_case_id == use_case$id
       ] <- if (long_desc == "") NA_character_ else long_desc
 
-      # Save to CSV
       tryCatch({
         save_use_cases_csv(use_cases_data)
         use_cases_reactive(use_cases_data)
-        showNotification(
-          "Use case updated successfully",
-          type = "message"
-        )
       }, error = function(e) {
-        showNotification(
-          paste("Error updating use case:", e$message),
-          type = "error"
-        )
       })
 
       # Close modal
@@ -775,23 +748,14 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
       }
     })
 
-    # Configure use case button
     observeEvent(input$configure_use_case_btn, {
       selected_rows <- input$use_cases_table_rows_selected
 
       if (is.null(selected_rows) || length(selected_rows) == 0) {
-        showNotification(
-          "Please select a use case to configure",
-          type = "warning"
-        )
         return()
       }
 
       if (length(selected_rows) > 1) {
-        showNotification(
-          "Please select only one use case to configure",
-          type = "warning"
-        )
         return()
       }
 
@@ -808,15 +772,10 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
       current_view("config")
     })
 
-    # Delete selected use cases
     observeEvent(input$delete_selected_btn, {
       selected_rows <- input$use_cases_table_rows_selected
 
       if (is.null(selected_rows) || length(selected_rows) == 0) {
-        showNotification(
-          "Please select use cases to delete",
-          type = "warning"
-        )
         return()
       }
 
@@ -835,21 +794,12 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
         !gc_uc_data$use_case_id %in% ids_to_delete,
       ]
 
-      # Save both files
       tryCatch({
         save_use_cases_csv(use_cases_data)
         save_general_concept_use_cases_csv(gc_uc_data)
         use_cases_reactive(use_cases_data)
         general_concept_use_cases_reactive(gc_uc_data)
-        showNotification(
-          paste("Deleted", length(ids_to_delete), "use case(s)"),
-          type = "message"
-        )
       }, error = function(e) {
-        showNotification(
-          paste("Error deleting use cases:", e$message),
-          type = "error"
-        )
       })
     })
 
@@ -899,13 +849,8 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
           save_general_concept_use_cases_csv(gc_uc_data)
           general_concept_use_cases_reactive(gc_uc_data)
 
-          # Reset selection in available general concepts table
           DT::selectRows(DT::dataTableProxy("available_general_concepts_table", session = session), NULL)
         }, error = function(e) {
-          showNotification(
-            paste("Error adding general concepts:", e$message),
-            type = "error"
-          )
         })
       }
     })
@@ -928,7 +873,6 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
       selected_df <- get_selected_general_concepts()
       gc_ids_to_remove <- selected_df$general_concept_id[selected_rows]
 
-      # Remove mappings
       gc_uc_data <- general_concept_use_cases_reactive()
       gc_uc_data <- gc_uc_data[!(
         gc_uc_data$general_concept_id %in% gc_ids_to_remove &
@@ -939,10 +883,6 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
         save_general_concept_use_cases_csv(gc_uc_data)
         general_concept_use_cases_reactive(gc_uc_data)
       }, error = function(e) {
-        showNotification(
-          paste("Error removing general concepts:", e$message),
-          type = "error"
-        )
       })
     })
 

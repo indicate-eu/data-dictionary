@@ -8,3 +8,4 @@ general_concept_id,vocabulary_id,concept_code,concept_name,omop_unit_concept_id,
 7,INDICATE,/,Delirium Rating Scale (DRS) score,/,TRUE
 9,INDICATE,/,Intensive Care Delirium Screening Checklist (ICDSC) score,/,TRUE
 11,INDICATE,/,Nursing Delirium Screening Scale (NU-DESC) score,/,TRUE
+5,INDICATE,/,test,/,TRUE

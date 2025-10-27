@@ -37,6 +37,11 @@ load_csv_data <- function() {
     na.strings = c("", "NA")
   )
 
+  # Rename is_recommended to recommended for consistency with UI
+  if ("is_recommended" %in% names(concept_mappings)) {
+    names(concept_mappings)[names(concept_mappings) == "is_recommended"] <- "recommended"
+  }
+
   concept_statistics <- read.csv(
     file.path(csv_dir, "concept_statistics.csv"),
     stringsAsFactors = FALSE,

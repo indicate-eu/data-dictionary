@@ -1573,3 +1573,39 @@ div.dataTables_paginate a.paginate_button.current *,
     transform: translateY(0);
   }
 }
+
+/* Add Concept Modal - FORCE flexbox layout
+-------------------------------------------------- */
+#dictionary_explorer-add_concept_to_mapping_modal .modal-content {
+  width: 95vw !important;
+  height: 95vh !important;
+  max-width: none !important;
+  max-height: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+#dictionary_explorer-add_concept_to_mapping_modal .modal-header {
+  flex-shrink: 0 !important;
+}
+
+#dictionary_explorer-add_concept_to_mapping_modal .modal-body {
+  flex: 1 !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+#dictionary_explorer-omop_mode_content {
+  flex: 1 !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Fix checkbox styling in add concept modal */
+#dictionary_explorer-add_concept_to_mapping_modal .form-group {
+  margin-bottom: 0 !important;
+  width: auto !important;
+}
