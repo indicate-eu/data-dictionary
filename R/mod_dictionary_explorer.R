@@ -1809,6 +1809,17 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       concept_id <- selected_concept_id()
       req(concept_id)
 
+      # Check if OHDSI vocabularies are loaded
+      vocab_data <- vocabularies()
+      if (is.null(vocab_data)) {
+        return(DT::datatable(
+          data.frame(Message = "OHDSI vocabularies not loaded. Please configure the ATHENA folder in Settings."),
+          options = list(dom = 't'),
+          rownames = FALSE,
+          selection = 'none'
+        ))
+      }
+
       # Force re-render when edit_mode changes
       is_editing <- edit_mode()
 
@@ -2631,7 +2642,16 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     # Render related concepts table
     output$related_concepts_table <- DT::renderDT({
       omop_concept_id <- selected_mapped_concept_id()
-      req(omop_concept_id)
+
+      # Show instruction message if no concept is selected
+      if (is.null(omop_concept_id)) {
+        return(DT::datatable(
+          data.frame(Message = "Select a concept from the Mapped Concepts table to view its details."),
+          options = list(dom = 't'),
+          rownames = FALSE,
+          selection = 'none'
+        ))
+      }
 
       vocab_data <- vocabularies()
       req(vocab_data)
@@ -2751,7 +2771,16 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     # Render hierarchy concepts table
     output$hierarchy_concepts_table <- DT::renderDT({
       omop_concept_id <- selected_mapped_concept_id()
-      req(omop_concept_id)
+
+      # Show instruction message if no concept is selected
+      if (is.null(omop_concept_id)) {
+        return(DT::datatable(
+          data.frame(Message = "Select a concept from the Mapped Concepts table to view its details."),
+          options = list(dom = 't'),
+          rownames = FALSE,
+          selection = 'none'
+        ))
+      }
 
       vocab_data <- vocabularies()
       req(vocab_data)
@@ -2807,7 +2836,16 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     # Render synonyms table
     output$synonyms_table <- DT::renderDT({
       omop_concept_id <- selected_mapped_concept_id()
-      req(omop_concept_id)
+
+      # Show instruction message if no concept is selected
+      if (is.null(omop_concept_id)) {
+        return(DT::datatable(
+          data.frame(Message = "Select a concept from the Mapped Concepts table to view its details."),
+          options = list(dom = 't'),
+          rownames = FALSE,
+          selection = 'none'
+        ))
+      }
 
       vocab_data <- vocabularies()
       req(vocab_data)

@@ -11,14 +11,20 @@
 
 #' Get DuckDB database path
 #'
-#' @description Get the path where DuckDB database should be stored
-#'
-#' @param vocab_folder Path to vocabularies folder
+#' @description Get the path where DuckDB database should be stored in app_folder/indicate_files
 #'
 #' @return Path to DuckDB database file
 #' @noRd
-get_duckdb_path <- function(vocab_folder) {
-  file.path(vocab_folder, "vocabularies.duckdb")
+get_duckdb_path <- function() {
+  app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = path.expand("~"))
+  indicate_files_folder <- file.path(app_folder, "indicate_files")
+
+  # Create indicate_files folder if it doesn't exist
+  if (!dir.exists(indicate_files_folder)) {
+    dir.create(indicate_files_folder, recursive = TRUE)
+  }
+
+  file.path(indicate_files_folder, "vocabularies.duckdb")
 }
 
 #' Create DuckDB database from CSV files
@@ -60,7 +66,7 @@ create_duckdb_database <- function(vocab_folder) {
     ))
   }
 
-  db_path <- get_duckdb_path(vocab_folder)
+  db_path <- get_duckdb_path()
 
   # Force close all DuckDB connections before removing the file
   if (file.exists(db_path)) {
@@ -194,21 +200,12 @@ create_duckdb_database <- function(vocab_folder) {
 
 #' Delete DuckDB database
 #'
-#' @description Delete the DuckDB database file
-#'
-#' @param vocab_folder Path to vocabularies folder
+#' @description Delete the DuckDB database file from app_folder
 #'
 #' @return List with success status and message
 #' @export
-delete_duckdb_database <- function(vocab_folder) {
-  if (is.null(vocab_folder) || !dir.exists(vocab_folder)) {
-    return(list(
-      success = FALSE,
-      message = "Invalid vocabularies folder path"
-    ))
-  }
-
-  db_path <- get_duckdb_path(vocab_folder)
+delete_duckdb_database <- function() {
+  db_path <- get_duckdb_path()
 
   if (!file.exists(db_path)) {
     return(list(
@@ -240,18 +237,12 @@ delete_duckdb_database <- function(vocab_folder) {
 
 #' Check if DuckDB database exists
 #'
-#' @description Check if DuckDB database file exists
-#'
-#' @param vocab_folder Path to vocabularies folder
+#' @description Check if DuckDB database file exists in app_folder
 #'
 #' @return TRUE if database exists, FALSE otherwise
 #' @export
-duckdb_exists <- function(vocab_folder) {
-  if (is.null(vocab_folder) || !dir.exists(vocab_folder)) {
-    return(FALSE)
-  }
-
-  db_path <- get_duckdb_path(vocab_folder)
+duckdb_exists <- function() {
+  db_path <- get_duckdb_path()
   return(file.exists(db_path))
 }
 
@@ -259,16 +250,10 @@ duckdb_exists <- function(vocab_folder) {
 #'
 #' @description Load OHDSI vocabularies from DuckDB database using lazy connections
 #'
-#' @param vocab_folder Path to vocabularies folder
-#'
 #' @return List with dplyr::tbl connections to concept, concept_relationship, and concept_ancestor tables
 #' @export
-load_vocabularies_from_duckdb <- function(vocab_folder) {
-  if (is.null(vocab_folder) || !dir.exists(vocab_folder)) {
-    stop("Invalid vocabularies folder path")
-  }
-
-  db_path <- get_duckdb_path(vocab_folder)
+load_vocabularies_from_duckdb <- function() {
+  db_path <- get_duckdb_path()
 
   if (!file.exists(db_path)) {
     stop("DuckDB database does not exist")

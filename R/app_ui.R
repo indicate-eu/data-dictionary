@@ -64,13 +64,13 @@ app_ui <- function() {
               class = "nav-tab nav-tab-active"
             ),
             actionButton(
-              "nav_mapping",
-              label = tagList(icon("project-diagram"), "Concepts Mapping"),
+              "nav_use_cases",
+              label = tagList(icon("list-check"), "Use Cases"),
               class = "nav-tab"
             ),
             actionButton(
-              "nav_use_cases",
-              label = tagList(icon("list-check"), "Use Cases"),
+              "nav_mapping",
+              label = tagList(icon("project-diagram"), "Concepts Mapping"),
               class = "nav-tab"
             ),
             actionButton(

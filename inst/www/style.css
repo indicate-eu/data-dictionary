@@ -354,6 +354,7 @@ h3, h4 {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  height: 100%;
 }
 
 .main-content {
@@ -1434,6 +1435,54 @@ div.dataTables_paginate a.paginate_button.current *,
 }
 
 .info-icon:hover::before {
+  opacity: 1;
+}
+
+/* Tooltip for elements without style change on hover
+-------------------------------------------------- */
+.has-tooltip {
+  position: relative;
+}
+
+.has-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  right: 0;
+  top: 125%;
+  background: #333;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: normal;
+  white-space: nowrap;
+  text-align: left;
+  z-index: 10000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  line-height: 1.4;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease 0.5s;
+}
+
+.has-tooltip:hover::after {
+  opacity: 1;
+}
+
+.has-tooltip::before {
+  content: '';
+  position: absolute;
+  right: 20px;
+  top: 115%;
+  border: 6px solid transparent;
+  border-bottom-color: #333;
+  z-index: 10000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease 0.5s;
+}
+
+.has-tooltip:hover::before {
   opacity: 1;
 }
 

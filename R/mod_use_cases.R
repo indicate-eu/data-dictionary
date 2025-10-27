@@ -264,7 +264,7 @@ render_use_cases_list_ui <- function(ns) {
     # Action buttons bar
     tags$div(
       style = paste0(
-        "margin-bottom: 20px; display: flex; ",
+        "margin: 5px 0 15px 0; display: flex; ",
         "justify-content: space-between; align-items: center;"
       ),
       # Title (matching dictionary explorer style)
@@ -294,7 +294,7 @@ render_use_cases_list_ui <- function(ns) {
         ),
         actionButton(
           ns("delete_selected_btn"),
-          "Delete Selected",
+          "Delete",
           class = "btn btn-danger",
           icon = icon("trash")
         )
@@ -303,7 +303,7 @@ render_use_cases_list_ui <- function(ns) {
 
     # Split panel layout
     tags$div(
-      style = "display: flex; gap: 20px; height: calc(100vh - 200px);",
+      style = "display: flex; gap: 20px; height: calc(100vh - 130px);",
 
       # Left panel: Use cases table (70%)
       tags$div(
@@ -360,7 +360,7 @@ render_use_case_config_ui <- function(ns) {
   tagList(
     # Two-panel layout for concept selection
     tags$div(
-      style = "display: flex; gap: 20px; height: calc(100vh - 150px);",
+      style = "display: flex; gap: 20px; height: calc(100vh - 130px);",
 
       # Left panel: Available general concepts (50% width, 100% height)
       tags$div(

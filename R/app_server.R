@@ -33,10 +33,10 @@ app_server <- function(input, output, session) {
   use_duckdb <- get_use_duckdb()
 
   # If DuckDB is enabled and exists, load synchronously immediately
-  if (!is.null(vocab_folder) && vocab_folder != "" && use_duckdb && duckdb_exists(vocab_folder)) {
+  if (!is.null(vocab_folder) && vocab_folder != "" && use_duckdb && duckdb_exists()) {
     isolate({
       tryCatch({
-        vocab_data <- load_vocabularies_from_duckdb(vocab_folder)
+        vocab_data <- load_vocabularies_from_duckdb()
         vocabularies(vocab_data)
         vocab_loading_status("loaded")
       }, error = function(e) {
@@ -160,11 +160,13 @@ app_server <- function(input, output, session) {
   output$vocab_status_indicator <- renderUI({
     status <- vocab_loading_status()
 
-    if (status == "not_loaded") {
-      actionButton(
-        "load_vocab_data",
-        label = "Load OHDSI Data",
-        class = "btn-action"
+    if (status == "not_loaded" || status == "error") {
+      tags$span(
+        class = "vocab-status vocab-status-error has-tooltip",
+        style = "color: #dc3545; font-weight: 600; font-size: 14px;",
+        `data-tooltip` = "Please configure the OHDSI Vocabularies folder in General Settings.",
+        icon("exclamation-triangle"),
+        " Need configuration"
       )
     } else if (status == "loading") {
       tags$span(
@@ -283,6 +285,10 @@ app_server <- function(input, output, session) {
     reset_vocabularies = function() {
       vocabularies(NULL)
       vocab_loading_status("not_loaded")
+    },
+    set_vocabularies = function(vocab_data) {
+      vocabularies(vocab_data)
+      vocab_loading_status("loaded")
     },
     page_type = reactive({ settings_page_type() })
   )
