@@ -527,9 +527,20 @@ mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabular
         reset_vocabularies()
       }
 
-      # Force garbage collection and wait for file to be released
+      # Try to close all DuckDB connections globally
+      tryCatch({
+        all_cons <- DBI::dbListConnections(duckdb::duckdb())
+        for (con in all_cons) {
+          try(DBI::dbDisconnect(con, shutdown = TRUE), silent = TRUE)
+        }
+      }, error = function(e) {
+        # Ignore errors
+      })
+
+      # Force garbage collection multiple times and wait longer
       gc()
-      Sys.sleep(1.0)  # Increased delay to ensure file is unlocked
+      gc()
+      Sys.sleep(1.5)  # Longer delay to ensure file is unlocked
 
       # Create DuckDB database
       result <- tryCatch({

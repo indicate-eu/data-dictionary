@@ -2,6 +2,8 @@
 #'
 #' @description Launch the INDICATE Minimal Data Dictionary Explorer application
 #'
+#' @param app_folder Path to the folder where application files will be stored.
+#'   If NULL (default), uses the user's home directory.
 #' @param ... Additional arguments passed to \code{\link[shiny]{shinyApp}}
 #' @param options A named list of options to pass to \code{\link[shiny]{shinyApp}}.
 #'   By default, the browser is launched automatically.
@@ -14,8 +16,19 @@
 #' @examples
 #' \dontrun{
 #' run_app()
+#' run_app(app_folder = "~/Documents/my_indicate_data")
 #' }
-run_app <- function(..., options = list()) {
+run_app <- function(app_folder = NULL, ..., options = list()) {
+  # Set app folder for database location
+  if (is.null(app_folder)) {
+    app_folder <- path.expand("~")
+  } else {
+    app_folder <- path.expand(app_folder)
+  }
+
+  # Store app_folder in an environment variable for use by other functions
+  Sys.setenv(INDICATE_APP_FOLDER = app_folder)
+
   # Set up future plan for parallel processing
   future::plan(future::multisession, workers = 3)
 

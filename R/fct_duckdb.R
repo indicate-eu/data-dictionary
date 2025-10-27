@@ -62,9 +62,34 @@ create_duckdb_database <- function(vocab_folder) {
 
   db_path <- get_duckdb_path(vocab_folder)
 
-  # Remove existing database if it exists
+  # Force close all DuckDB connections before removing the file
   if (file.exists(db_path)) {
+    # Try to disconnect all DuckDB connections
+    tryCatch({
+      # Get all DuckDB drivers and disconnect them
+      all_cons <- DBI::dbListConnections(duckdb::duckdb())
+      for (con in all_cons) {
+        try(DBI::dbDisconnect(con, shutdown = TRUE), silent = TRUE)
+      }
+    }, error = function(e) {
+      # Ignore errors during cleanup
+    })
+
+    # Force garbage collection multiple times
+    gc()
+    gc()
+    Sys.sleep(0.5)
+
+    # Try to remove the file
     unlink(db_path)
+
+    # If file still exists, it's locked - return error
+    if (file.exists(db_path)) {
+      return(list(
+        success = FALSE,
+        message = "Cannot delete existing database file. Please restart R and try again."
+      ))
+    }
   }
 
   tryCatch({
