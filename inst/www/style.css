@@ -636,7 +636,15 @@ table.dataTable + div.dataTables_paginate a.paginate_button.current {
 }
 
 a.paginate_button.current > span,
-a.paginate_button.current * {
+a.paginate_button.current *,
+.dataTables_paginate a.paginate_button.current > span,
+.dataTables_paginate a.paginate_button.current *,
+div.dataTables_paginate a.paginate_button.current > span,
+div.dataTables_paginate a.paginate_button.current *,
+.dataTables_wrapper .dataTables_paginate a.paginate_button.current,
+.dataTables_wrapper .dataTables_paginate a.paginate_button.current *,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current * {
   color: white !important;
 }
 
