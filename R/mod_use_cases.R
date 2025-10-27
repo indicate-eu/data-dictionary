@@ -1032,10 +1032,6 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
     output$use_cases_table <- renderDT({
       df <- get_use_cases_with_counts()
 
-      # Load keyboard navigation JavaScript
-      keyboard_nav <- paste(readLines(app_sys("www", "keyboard_nav.js")), collapse = "\n")
-      init_complete_js <- create_keyboard_nav(keyboard_nav, TRUE, FALSE)
-
       # Create double-click callback
       double_click_js <- JS(sprintf("
         function(settings) {
@@ -1076,7 +1072,6 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
           language = list(
             emptyTable = "No use cases found. Click 'Add Use Case' to create one."
           ),
-          initComplete = init_complete_js,
           drawCallback = double_click_js
         )
       )

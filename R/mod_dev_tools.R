@@ -293,14 +293,20 @@ mod_dev_tools_server <- function(id, data, vocabularies) {
 
       missing_data <- data()$general_concepts %>%
         dplyr::filter(is.na(comments) | comments == "") %>%
-        dplyr::select(category, subcategory, general_concept_name)
+        dplyr::select(category, subcategory, general_concept_name) %>%
+        dplyr::mutate(
+          category = as.factor(category),
+          subcategory = as.factor(subcategory)
+        )
 
       DT::datatable(
         missing_data,
         rownames = FALSE,
+        selection = 'none',
+        filter = 'top',
         options = list(
           pageLength = 25,
-          dom = 'ftp',
+          dom = 'tp',
           columnDefs = list(
             list(targets = 0, width = "150px"),
             list(targets = 1, width = "150px")
@@ -319,16 +325,16 @@ mod_dev_tools_server <- function(id, data, vocabularies) {
 
       # Get concept data (may be lazy dplyr::tbl)
       concept_data <- vocab_data$concept %>%
-        dplyr::select(concept_id, standard_concept) %>%
+        dplyr::select(concept_id, concept_name, standard_concept) %>%
         dplyr::collect()
 
       # Get recommended mappings
       concept_mappings <- data()$concept_mappings
       recommended_mappings <- concept_mappings %>%
         dplyr::filter(recommended == TRUE, !is.na(omop_concept_id)) %>%
-        dplyr::select(general_concept_id, concept_name, omop_concept_id)
+        dplyr::select(general_concept_id, omop_concept_id)
 
-      # Join with concept data to check standard status
+      # Join with concept data to get concept_name and check standard status
       recommended_with_standard <- recommended_mappings %>%
         dplyr::left_join(
           concept_data,
@@ -343,14 +349,21 @@ mod_dev_tools_server <- function(id, data, vocabularies) {
             dplyr::select(general_concept_id, category, subcategory, general_concept_name),
           by = "general_concept_id"
         ) %>%
-        dplyr::select(category, subcategory, general_concept_name, concept_name, omop_concept_id, standard_concept)
+        dplyr::select(category, subcategory, general_concept_name, concept_name, omop_concept_id, standard_concept) %>%
+        dplyr::mutate(
+          category = as.factor(category),
+          subcategory = as.factor(subcategory),
+          omop_concept_id = as.character(omop_concept_id)
+        )
 
       DT::datatable(
         non_standard_data,
         rownames = FALSE,
+        selection = 'none',
+        filter = 'top',
         options = list(
           pageLength = 25,
-          dom = 'ftp',
+          dom = 'tp',
           columnDefs = list(
             list(targets = 0, width = "120px"),
             list(targets = 1, width = "120px"),
