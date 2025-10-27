@@ -260,7 +260,8 @@ app_server <- function(input, output, session) {
 
   mod_use_cases_server(
     "use_cases",
-    data = data
+    data = data,
+    vocabularies = reactive({ vocabularies() })
   )
 
   mod_improvements_server(

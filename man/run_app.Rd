@@ -4,9 +4,12 @@
 \alias{run_app}
 \title{Run the INDICATE Shiny Application}
 \usage{
-run_app(..., options = list())
+run_app(app_folder = NULL, ..., options = list())
 }
 \arguments{
+\item{app_folder}{Path to the folder where application files will be stored.
+If NULL (default), uses the user's home directory.}
+
 \item{...}{Additional arguments passed to \code{\link[shiny]{shinyApp}}}
 
 \item{options}{A named list of options to pass to \code{\link[shiny]{shinyApp}}.
@@ -21,5 +24,6 @@ Launch the INDICATE Minimal Data Dictionary Explorer application
 \examples{
 \dontrun{
 run_app()
+run_app(app_folder = "~/Documents/my_indicate_data")
 }
 }

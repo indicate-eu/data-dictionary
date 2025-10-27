@@ -242,3 +242,60 @@ get_default_statistical_summary_template <- function() {
   "possible_values": []
 }'
 }
+
+#' Save Use Cases to CSV
+#'
+#' @description Save use cases data to CSV file
+#'
+#' @param use_cases_data Data frame with use cases
+#'
+#' @return NULL (side effect: saves file)
+#' @noRd
+save_use_cases_csv <- function(use_cases_data) {
+  csv_dir <- app_sys("extdata", "csv")
+  if (!dir.exists(csv_dir)) {
+    dir.create(csv_dir, recursive = TRUE)
+  }
+  write.csv(
+    use_cases_data,
+    file.path(csv_dir, "use_cases.csv"),
+    row.names = FALSE,
+    quote = TRUE
+  )
+}
+
+#' Save General Concept Use Cases to CSV
+#'
+#' @description Save general concept use cases mappings to CSV file
+#'
+#' @param general_concept_use_cases_data Data frame with mappings
+#'
+#' @return NULL (side effect: saves file)
+#' @noRd
+save_general_concept_use_cases_csv <- function(general_concept_use_cases_data) {
+  csv_dir <- app_sys("extdata", "csv")
+  if (!dir.exists(csv_dir)) {
+    dir.create(csv_dir, recursive = TRUE)
+  }
+  write.csv(
+    general_concept_use_cases_data,
+    file.path(csv_dir, "general_concept_use_cases.csv"),
+    row.names = FALSE,
+    quote = TRUE
+  )
+}
+
+#' Get Next Use Case ID
+#'
+#' @description Get the next available use case ID
+#'
+#' @param use_cases_data Current use cases data frame
+#'
+#' @return Integer representing next ID
+#' @noRd
+get_next_use_case_id <- function(use_cases_data) {
+  if (nrow(use_cases_data) == 0) {
+    return(1)
+  }
+  return(max(use_cases_data$use_case_id, na.rm = TRUE) + 1)
+}
