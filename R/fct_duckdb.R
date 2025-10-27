@@ -48,7 +48,8 @@ create_duckdb_database <- function(vocab_folder) {
     "CONCEPT.csv",
     "CONCEPT_RELATIONSHIP.csv",
     "CONCEPT_ANCESTOR.csv",
-    "CONCEPT_SYNONYM.csv"
+    "CONCEPT_SYNONYM.csv",
+    "RELATIONSHIP.csv"
   )
 
   # Check if all required files exist
@@ -162,6 +163,21 @@ create_duckdb_database <- function(vocab_folder) {
     )
     DBI::dbWriteTable(con, "concept_synonym", concept_synonym, overwrite = TRUE)
 
+    # Load RELATIONSHIP table
+    relationship <- readr::read_tsv(
+      file.path(vocab_folder, "RELATIONSHIP.csv"),
+      col_types = readr::cols(
+        relationship_id = readr::col_character(),
+        relationship_name = readr::col_character(),
+        is_hierarchical = readr::col_integer(),
+        defines_ancestry = readr::col_integer(),
+        reverse_relationship_id = readr::col_character(),
+        relationship_concept_id = readr::col_integer()
+      ),
+      show_col_types = FALSE
+    )
+    DBI::dbWriteTable(con, "relationship", relationship, overwrite = TRUE)
+
     # Create indexes for better performance
     DBI::dbExecute(con, "CREATE INDEX idx_concept_id ON concept(concept_id)")
     DBI::dbExecute(con, "CREATE INDEX idx_concept_code ON concept(concept_code)")
@@ -169,9 +185,12 @@ create_duckdb_database <- function(vocab_folder) {
     DBI::dbExecute(con, "CREATE INDEX idx_standard_concept ON concept(standard_concept)")
     DBI::dbExecute(con, "CREATE INDEX idx_concept_rel_1 ON concept_relationship(concept_id_1)")
     DBI::dbExecute(con, "CREATE INDEX idx_concept_rel_2 ON concept_relationship(concept_id_2)")
+    DBI::dbExecute(con, "CREATE INDEX idx_concept_rel_id ON concept_relationship(relationship_id)")
     DBI::dbExecute(con, "CREATE INDEX idx_ancestor ON concept_ancestor(ancestor_concept_id)")
     DBI::dbExecute(con, "CREATE INDEX idx_descendant ON concept_ancestor(descendant_concept_id)")
     DBI::dbExecute(con, "CREATE INDEX idx_synonym_concept ON concept_synonym(concept_id)")
+    DBI::dbExecute(con, "CREATE INDEX idx_relationship_id ON relationship(relationship_id)")
+    DBI::dbExecute(con, "CREATE INDEX idx_defines_ancestry ON relationship(defines_ancestry)")
 
     # Close connection
     DBI::dbDisconnect(con, shutdown = TRUE)
@@ -269,6 +288,7 @@ load_vocabularies_from_duckdb <- function() {
     concept_relationship <- dplyr::tbl(con, "concept_relationship")
     concept_ancestor <- dplyr::tbl(con, "concept_ancestor")
     concept_synonym <- dplyr::tbl(con, "concept_synonym")
+    relationship <- dplyr::tbl(con, "relationship")
 
     # Return list with lazy connections
     # IMPORTANT: Connection stays open for lazy evaluation
@@ -277,6 +297,7 @@ load_vocabularies_from_duckdb <- function() {
       concept_relationship = concept_relationship,
       concept_ancestor = concept_ancestor,
       concept_synonym = concept_synonym,
+      relationship = relationship,
       connection = con  # Keep connection alive
     ))
 

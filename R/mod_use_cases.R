@@ -755,6 +755,26 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
       shinyjs::runjs(sprintf("$('#%s').hide();", ns("edit_use_case_modal")))
     })
 
+    # Handle double-click on use case row
+    observeEvent(input$dblclick_use_case_id, {
+      use_case_id <- input$dblclick_use_case_id
+      req(use_case_id)
+
+      # Get use case data by ID
+      use_cases_data <- use_cases_reactive()
+      selected_uc <- use_cases_data[use_cases_data$use_case_id == use_case_id, ]
+
+      if (nrow(selected_uc) == 1) {
+        selected_use_case(list(
+          id = selected_uc$use_case_id,
+          name = selected_uc$use_case_name,
+          short_description = selected_uc$short_description,
+          long_description = selected_uc$long_description
+        ))
+        current_view("config")
+      }
+    })
+
     # Configure use case button
     observeEvent(input$configure_use_case_btn, {
       selected_rows <- input$use_cases_table_rows_selected
@@ -953,8 +973,9 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
       # Replace NA counts with 0
       result$concept_count[is.na(result$concept_count)] <- 0
 
-      # Format for display
+      # Format for display (include use_case_id as first column, will be hidden)
       display_df <- data.frame(
+        use_case_id = result$use_case_id,
         Name = result$use_case_name,
         `Short Description` = ifelse(
           is.na(result$short_description),
@@ -1085,19 +1106,18 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
 
           // Add double-click handler for table rows
           $(table.table().node()).on('dblclick', 'tbody tr', function() {
-            var rowIdx = table.row(this).index();
+            var rowData = table.row(this).data();
 
-            // Select the row first
-            table.rows().deselect();
-            table.row(rowIdx).select();
+            if (rowData && rowData[0]) {
+              // Get the use case ID from the first column (hidden)
+              var useCaseId = rowData[0];
 
-            // Trigger configure button click
-            setTimeout(function() {
-              $('#%s').click();
-            }, 100);
+              // Send the use case ID directly to Shiny
+              Shiny.setInputValue('%s', useCaseId, {priority: 'event'});
+            }
           });
         }
-      ", session$ns("configure_use_case_btn")))
+      ", session$ns("dblclick_use_case_id")))
 
       datatable(
         df,
@@ -1110,6 +1130,9 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
           dom = "tip",
           ordering = TRUE,
           autoWidth = FALSE,
+          columnDefs = list(
+            list(targets = 0, visible = FALSE)  # Hide use_case_id column
+          ),
           language = list(
             emptyTable = "No use cases found. Click 'Add Use Case' to create one."
           ),

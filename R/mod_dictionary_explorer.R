@@ -768,7 +768,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         options = list(
           pageLength = 20,
           lengthMenu = list(c(10, 20, 25, 50, 100, -1), c('10', '20', '25', '50', '100', 'All')),
-          dom = 'ltp',
+          dom = 'ltip',
           columnDefs = col_defs
         )
       )
@@ -2106,7 +2106,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         colnames = col_names,
         options = list(
           pageLength = 8,
-          dom = 'tp',
+          dom = 'tip',
           select = list(style = 'single', info = FALSE),
           columnDefs = col_defs,
           initComplete = init_complete_js
@@ -2628,7 +2628,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
       # Render DT output based on active tab
       if (active_tab == "related") {
-        DT::DTOutput(ns("related_concepts_table"))
+        tags$div(
+          uiOutput(ns("related_stats_widget")),
+          DT::DTOutput(ns("related_concepts_table"))
+        )
       } else if (active_tab == "hierarchy") {
         tags$div(
           uiOutput(ns("hierarchy_stats_widget")),
@@ -2681,8 +2684,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         rownames = FALSE,
         colnames = c("Relationship", "Concept Name", "Vocabulary", "Code", "OMOP ID"),
         options = list(
-          pageLength = 10,
-          dom = 'tp',
+          pageLength = 8,
+          dom = 'tip',
           columnDefs = list(
             list(targets = 4, visible = FALSE),  # OMOP ID hidden
             list(targets = 0, width = "150px")   # Relationship column width
@@ -2705,6 +2708,83 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         )
       )
     }, server = FALSE)
+
+    # Render related concepts statistics widget
+    output$related_stats_widget <- renderUI({
+      omop_concept_id <- selected_mapped_concept_id()
+      req(omop_concept_id)
+
+      vocab_data <- vocabularies()
+      req(vocab_data)
+
+      related_concepts <- get_related_concepts(omop_concept_id, vocab_data)
+
+      # Remove the selected concept itself from the results
+      if (nrow(related_concepts) > 0) {
+        related_concepts <- related_concepts %>%
+          dplyr::filter(omop_concept_id != !!omop_concept_id)
+      }
+
+      if (nrow(related_concepts) == 0) {
+        return(NULL)
+      }
+
+      # Count relationship types
+      rel_counts <- related_concepts %>%
+        dplyr::count(relationship_id, sort = TRUE)
+
+      # Get top 4 relationships
+      top_4 <- rel_counts %>%
+        dplyr::slice_head(n = 4)
+
+      # Calculate "Other" count
+      other_count <- if (nrow(rel_counts) > 4) {
+        sum(rel_counts$n[5:nrow(rel_counts)])
+      } else {
+        0
+      }
+
+      # Build stat items
+      stat_items <- lapply(1:nrow(top_4), function(i) {
+        tags$div(
+          style = "display: flex; align-items: center; gap: 8px;",
+          tags$span(
+            style = "font-weight: bold; color: #333;",
+            top_4$n[i]
+          ),
+          tags$span(
+            style = "color: #666; font-size: 13px;",
+            top_4$relationship_id[i]
+          )
+        )
+      })
+
+      # Add "Other" if needed
+      if (other_count > 0) {
+        stat_items <- c(stat_items, list(
+          tags$div(
+            style = "display: flex; align-items: center; gap: 8px;",
+            tags$span(
+              style = "font-weight: bold; color: #333;",
+              other_count
+            ),
+            tags$span(
+              style = "color: #666; font-size: 13px;",
+              "Other"
+            )
+          )
+        ))
+      }
+
+      tags$div(
+        class = "related-stats-widget",
+        style = "padding: 10px; margin-bottom: 10px; background: #f8f9fa; border-radius: 6px;",
+        tags$div(
+          style = "display: flex; gap: 20px; flex-wrap: wrap;",
+          stat_items
+        )
+      )
+    })
 
     # Render hierarchy statistics widget
     output$hierarchy_stats_widget <- renderUI({
@@ -2810,8 +2890,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         rownames = FALSE,
         colnames = c("Relationship", "Concept Name", "Vocabulary", "Code", "OMOP ID"),
         options = list(
-          pageLength = 10,
-          dom = 'tp',
+          pageLength = 8,
+          dom = 'tip',
           columnDefs = list(
             list(targets = 4, visible = FALSE),  # OMOP ID hidden
             list(targets = 0, width = "150px")   # Relationship column width
@@ -2869,8 +2949,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         rownames = FALSE,
         colnames = c("Synonym", "Language", "Language ID"),
         options = list(
-          pageLength = 10,
-          dom = 'tp',
+          pageLength = 8,
+          dom = 'tip',
           columnDefs = list(
             list(targets = 2, visible = FALSE)  # Language ID hidden
           )

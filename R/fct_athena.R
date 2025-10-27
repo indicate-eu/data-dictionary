@@ -257,6 +257,19 @@ get_related_concepts <- function(concept_id, vocabularies) {
       }
     }
 
+    # Sort by relationship_id frequency (descending), then by concept_name
+    # First, count frequency of each relationship_id
+    rel_counts <- related_data %>%
+      dplyr::count(relationship_id, sort = TRUE)
+
+    # Create a factor with levels ordered by frequency
+    related_data <- related_data %>%
+      dplyr::mutate(
+        relationship_id = factor(relationship_id, levels = rel_counts$relationship_id)
+      ) %>%
+      dplyr::arrange(relationship_id, concept_name) %>%
+      dplyr::mutate(relationship_id = as.character(relationship_id))
+
     return(related_data)
 
   }, error = function(e) {
@@ -265,26 +278,49 @@ get_related_concepts <- function(concept_id, vocabularies) {
   })
 }
 
-#' Get descendant concepts from concept_ancestor
+#' Get all hierarchy concepts (ancestors and descendants) for a given concept
 get_descendant_concepts <- function(concept_id, vocabularies) {
   if (is.null(vocabularies)) {
     return(data.frame())
   }
 
   tryCatch({
-    # Get descendants (filter BEFORE collecting)
+    # Get hierarchical relationship IDs (where defines_ancestry = 1)
+    hierarchical_rels <- vocabularies$relationship %>%
+      dplyr::filter(defines_ancestry == 1) %>%
+      dplyr::select(relationship_id, reverse_relationship_id) %>%
+      dplyr::collect()
+
+    hierarchical_rel_ids <- hierarchical_rels$relationship_id
+
+    # Identify child-to-parent relationships (like "Is a")
+    child_to_parent_rels <- hierarchical_rels %>%
+      dplyr::filter(relationship_id < reverse_relationship_id) %>%
+      dplyr::pull(relationship_id)
+
+    # Get ancestors
+    ancestors <- vocabularies$concept_ancestor %>%
+      dplyr::filter(descendant_concept_id == concept_id) %>%
+      dplyr::collect()
+
+    # Get descendants
     descendants <- vocabularies$concept_ancestor %>%
       dplyr::filter(ancestor_concept_id == concept_id) %>%
       dplyr::collect()
 
-    if (nrow(descendants) == 0) {
+    # Combine all related concept IDs
+    ancestor_ids <- if (nrow(ancestors) > 0) ancestors$ancestor_concept_id else c()
+    descendant_ids <- if (nrow(descendants) > 0) descendants$descendant_concept_id else c()
+    all_related_ids <- unique(c(ancestor_ids, descendant_ids))
+
+    if (length(all_related_ids) == 0) {
       return(data.frame())
     }
 
-    # Get concept details for descendants (filter BEFORE collecting)
-    descendant_concepts <- vocabularies$concept %>%
+    # Get concept details for all related concepts
+    all_concepts <- vocabularies$concept %>%
       dplyr::filter(
-        concept_id %in% descendants$descendant_concept_id,
+        concept_id %in% all_related_ids,
         standard_concept == 'S',
         is.na(invalid_reason)
       ) %>%
@@ -294,13 +330,93 @@ get_descendant_concepts <- function(concept_id, vocabularies) {
         vocabulary_id,
         concept_code
       ) %>%
-      dplyr::collect() %>%
-      dplyr::mutate(relationship_id = "Is a")
+      dplyr::collect()
 
-    return(descendant_concepts)
+    if (nrow(all_concepts) == 0) {
+      return(data.frame())
+    }
+
+    # Get direct relationships from concept_relationship
+    # For ancestors: current concept is concept_id_1, ancestor is concept_id_2
+    ancestor_relationships <- vocabularies$concept_relationship %>%
+      dplyr::filter(
+        concept_id_1 == concept_id,
+        concept_id_2 %in% ancestor_ids,
+        relationship_id %in% hierarchical_rel_ids
+      ) %>%
+      dplyr::select(concept_id_2, relationship_id) %>%
+      dplyr::collect() %>%
+      dplyr::mutate(direction = "ancestor")
+
+    # For descendants: current concept is concept_id_1, descendant is concept_id_2
+    descendant_relationships <- vocabularies$concept_relationship %>%
+      dplyr::filter(
+        concept_id_1 == concept_id,
+        concept_id_2 %in% descendant_ids,
+        relationship_id %in% hierarchical_rel_ids
+      ) %>%
+      dplyr::select(concept_id_2, relationship_id) %>%
+      dplyr::collect() %>%
+      dplyr::mutate(direction = "descendant")
+
+    # Also check reverse direction for ancestors (current concept is concept_id_2)
+    ancestor_relationships_reverse <- vocabularies$concept_relationship %>%
+      dplyr::filter(
+        concept_id_2 == concept_id,
+        concept_id_1 %in% ancestor_ids,
+        relationship_id %in% hierarchical_rel_ids
+      ) %>%
+      dplyr::select(concept_id_1, relationship_id) %>%
+      dplyr::collect() %>%
+      dplyr::rename(concept_id_2 = concept_id_1) %>%
+      dplyr::mutate(direction = "ancestor")
+
+    # Combine all relationships
+    all_relationships <- dplyr::bind_rows(
+      ancestor_relationships,
+      ancestor_relationships_reverse,
+      descendant_relationships
+    )
+
+    # Join to add relationship_id and direction
+    if (nrow(all_relationships) > 0) {
+      all_concepts <- all_concepts %>%
+        dplyr::left_join(
+          all_relationships,
+          by = c("omop_concept_id" = "concept_id_2")
+        ) %>%
+        dplyr::mutate(
+          relationship_id = dplyr::case_when(
+            !is.na(direction) & direction == "ancestor" ~ "Ancestor",
+            !is.na(direction) & direction == "descendant" ~ "Descendant",
+            omop_concept_id %in% ancestor_ids ~ "Ancestor",
+            omop_concept_id %in% descendant_ids ~ "Descendant",
+            TRUE ~ "Related"
+          )
+        ) %>%
+        dplyr::select(-direction)
+    } else {
+      all_concepts <- all_concepts %>%
+        dplyr::mutate(
+          relationship_id = dplyr::if_else(
+            omop_concept_id %in% ancestor_ids,
+            "Ancestor",
+            "Descendant"
+          )
+        )
+    }
+
+    # Sort: Ancestors first, then Descendants, then alphabetically by concept_name
+    all_concepts <- all_concepts %>%
+      dplyr::arrange(
+        dplyr::desc(relationship_id == "Ancestor"),
+        concept_name
+      )
+
+    return(all_concepts)
 
   }, error = function(e) {
-    message("Error querying descendant concepts: ", e$message)
+    message("Error querying hierarchy concepts: ", e$message)
     return(data.frame())
   })
 }
@@ -486,12 +602,26 @@ get_concept_hierarchy_graph <- function(concept_id, vocabularies,
 
     limited_concept_ids <- all_concepts_limited$concept_id
 
-    # Get relationships between limited concepts
+    # Get hierarchical relationships metadata (where defines_ancestry = 1)
+    hierarchical_rel_info <- vocabularies$relationship %>%
+      dplyr::filter(defines_ancestry == 1) %>%
+      dplyr::select(relationship_id, reverse_relationship_id) %>%
+      dplyr::collect()
+
+    hierarchical_rels <- hierarchical_rel_info$relationship_id
+
+    # Identify child-to-parent relationships (like "Is a")
+    # These are relationships where the reverse is the parent-to-child form
+    child_to_parent_rels <- hierarchical_rel_info %>%
+      dplyr::filter(relationship_id < reverse_relationship_id) %>%
+      dplyr::pull(relationship_id)
+
+    # Get relationships between limited concepts using hierarchical relationships
     relationships <- vocabularies$concept_relationship %>%
       dplyr::filter(
         concept_id_1 %in% limited_concept_ids,
         concept_id_2 %in% limited_concept_ids,
-        relationship_id %in% c("Is a", "Subsumes", "Contained in panel", "Panel contains")
+        relationship_id %in% hierarchical_rels
       ) %>%
       dplyr::collect()
 
@@ -536,15 +666,17 @@ get_concept_hierarchy_graph <- function(concept_id, vocabularies,
                     font.size, font.color, shadow, mass)
 
     # Build edges data frame (parent -> child direction)
+    # For child-to-parent relationships: swap direction (parent=concept_id_2, child=concept_id_1)
+    # For parent-to-child relationships: keep direction (parent=concept_id_1, child=concept_id_2)
     edges <- relationships %>%
       dplyr::mutate(
         from = dplyr::if_else(
-          relationship_id %in% c("Is a", "Contained in panel"),
+          relationship_id %in% child_to_parent_rels,
           concept_id_2,
           concept_id_1
         ),
         to = dplyr::if_else(
-          relationship_id %in% c("Is a", "Contained in panel"),
+          relationship_id %in% child_to_parent_rels,
           concept_id_1,
           concept_id_2
         ),

@@ -174,11 +174,7 @@ app_server <- function(input, output, session) {
         "Loading OHDSI data"
       )
     } else if (status == "loaded") {
-      tags$span(
-        class = "vocab-status vocab-status-loaded",
-        icon("check"),
-        "OHDSI data loaded"
-      )
+      NULL
     } else {
       NULL
     }
