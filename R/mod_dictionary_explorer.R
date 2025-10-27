@@ -196,19 +196,6 @@ mod_dictionary_explorer_ui <- function(id) {
             )
           ),
           tags$div(
-            style = "margin-bottom: 20px;",
-            tags$label(
-              "Athena Concept ID",
-              style = "display: block; font-weight: 600; margin-bottom: 8px;"
-            ),
-            shiny::textInput(
-              ns("new_concept_athena_id"),
-              label = NULL,
-              placeholder = "Enter Athena Concept ID (optional)",
-              width = "100%"
-            )
-          ),
-          tags$div(
             style = "display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #dee2e6;",
             tags$button(
               class = "btn btn-secondary btn-secondary-custom",
@@ -715,7 +702,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           # Always keep as factor to preserve dropdown filters
           category = factor(category),
           subcategory = factor(subcategory),
-          athena_concept_id = as.character(athena_concept_id),
           actions = if (list_edit_mode()) {
             sprintf(
               '<button class="delete-concept-btn" data-id="%s" style="padding: 4px 12px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Delete</button>',
@@ -732,17 +718,16 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       # Select columns based on edit mode
       if (list_edit_mode()) {
         table_data <- table_data %>%
-          dplyr::select(general_concept_id, category, subcategory, general_concept_name, athena_concept_id, actions)
-        col_names <- c("ID", "Category", "Subcategory", "General Concept Name", "Athena Concept ID", "Actions")
+          dplyr::select(general_concept_id, category, subcategory, general_concept_name, actions)
+        col_names <- c("ID", "Category", "Subcategory", "General Concept Name", "Actions")
         col_defs <- list(
           list(targets = 0, visible = FALSE),
           list(targets = 1, width = "150px"),
           list(targets = 2, width = "150px"),
           list(targets = 3, width = "300px"),
-          list(targets = 4, width = "150px"),
-          list(targets = 5, width = "120px", className = 'dt-center', orderable = FALSE)
+          list(targets = 4, width = "120px", className = 'dt-center', orderable = FALSE)
         )
-        editable_cols <- list(target = 'cell', disable = list(columns = c(0, 5)))
+        editable_cols <- list(target = 'cell', disable = list(columns = c(0, 4)))
       } else {
         table_data <- table_data %>%
           dplyr::select(general_concept_id, category, subcategory, general_concept_name, actions)
@@ -999,7 +984,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       new_value <- info$value
 
       # Map column number to actual column name
-      # Columns: general_concept_id (1), category (2), subcategory (3), general_concept_name (4), athena_concept_id (5)
+      # Columns: general_concept_id (1), category (2), subcategory (3), general_concept_name (4)
       if (col_num == 2) {
         # Category column
         general_concepts[row_num, "category"] <- new_value
@@ -1009,9 +994,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       } else if (col_num == 4) {
         # General concept name column
         general_concepts[row_num, "general_concept_name"] <- new_value
-      } else if (col_num == 5) {
-        # Athena concept ID column
-        general_concepts[row_num, "athena_concept_id"] <- as.integer(new_value)
       }
 
       # Update local data
@@ -1024,10 +1006,15 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     observeEvent(input$delete_general_concept, {
       req(list_edit_mode())
 
-      # Save current page number before deletion
+      # Save current page number and search filters before deletion
       if (!is.null(input$general_concepts_table_state)) {
         current_page <- input$general_concepts_table_state$start / input$general_concepts_table_state$length + 1
         saved_table_page(current_page)
+      }
+
+      # Save column search filters
+      if (!is.null(input$general_concepts_table_search_columns)) {
+        saved_table_search(input$general_concepts_table_search_columns)
       }
 
       concept_id <- input$delete_general_concept
@@ -1046,26 +1033,38 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         data$concept_mappings <- concept_mappings
         local_data(data)
 
-        # Restore page position
-        page_num <- saved_table_page()
-        if (!is.null(page_num) && page_num > 0) {
-          # Check if page still exists after deletion
-          total_rows <- nrow(general_concepts)
-          page_length <- 25
-          max_page <- ceiling(total_rows / page_length)
-
-          # If current page no longer exists, go to last page
-          target_page <- min(page_num, max_page)
-
-          proxy <- DT::dataTableProxy("general_concepts_table", session = session)
-          DT::selectPage(proxy, target_page)
-        }
-
         shiny::showNotification(
           "Concept deleted",
           type = "message",
           duration = 5
         )
+
+        # Wait for datatable to re-render, then restore state
+        shiny::observe({
+          proxy <- DT::dataTableProxy("general_concepts_table", session = session)
+
+          # Restore column filters
+          search_columns <- saved_table_search()
+          if (!is.null(search_columns)) {
+            DT::updateSearch(proxy, keywords = list(
+              global = NULL,
+              columns = search_columns
+            ))
+          }
+
+          # Restore page position
+          page_num <- saved_table_page()
+          if (!is.null(page_num) && page_num > 0) {
+            # Check if page still exists after deletion
+            total_rows <- nrow(general_concepts)
+            page_length <- input$general_concepts_table_state$length
+            max_page <- ceiling(total_rows / page_length)
+
+            # If current page no longer exists, go to last page
+            target_page <- min(page_num, max_page)
+            DT::selectPage(proxy, target_page)
+          }
+        }) %>% shiny::bindEvent(input$general_concepts_table_state, once = TRUE)
       }
     })
 
@@ -1123,7 +1122,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       }
 
       concept_name <- input$new_concept_name
-      athena_id <- input$new_concept_athena_id
 
       # Validation with visual feedback
       has_error <- FALSE
@@ -1181,22 +1179,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       # Generate new ID (max + 1)
       new_id <- max(general_concepts$general_concept_id, na.rm = TRUE) + 1
 
-      # Process athena_id (convert to integer if valid number, otherwise NA)
-      athena_id_value <- if (is.null(athena_id) || nchar(trimws(athena_id)) == 0) {
-        NA_integer_
-      } else {
-        as_int <- suppressWarnings(as.integer(trimws(athena_id)))
-        if (is.na(as_int)) NA_integer_ else as_int
-      }
-
       # Create new row
       new_row <- data.frame(
         general_concept_id = new_id,
         category = trimws(category),
         subcategory = trimws(subcategory),
         general_concept_name = trimws(concept_name),
-        athena_concept_id = athena_id_value,
         comments = NA_character_,
+        statistical_summary = NA_character_,
         stringsAsFactors = FALSE
       )
 
@@ -1231,7 +1221,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
         # Reset input fields
         shiny::updateTextInput(session, "new_concept_name", value = "")
-        shiny::updateTextInput(session, "new_concept_athena_id", value = "")
         shiny::updateTextInput(session, "new_concept_category_text", value = "")
         shiny::updateTextInput(session, "new_concept_subcategory_text", value = "")
         updateSelectizeInput(session, "new_concept_category", selected = character(0))
@@ -1823,199 +1812,51 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       # Force re-render when edit_mode changes
       is_editing <- edit_mode()
 
-      # Get concept category
-      concept_info <- data()$general_concepts %>%
+      # Read directly from concept_mappings.csv
+      csv_mappings <- current_data()$concept_mappings %>%
         dplyr::filter(general_concept_id == concept_id)
-      category <- concept_info$category[1]
 
-      # For Drug concepts, use new approach with Clinical Drugs from Ingredient
-      if (category == "Drug") {
-        # Get athena_concept_id (Ingredient or Multiple Ingredients)
-        athena_concept_id <- concept_info$athena_concept_id[1]
+      # Enrich with OMOP data (concept_name, vocabulary_id, concept_code)
+      vocab_data_for_enrichment <- vocabularies()
+      if (!is.null(vocab_data_for_enrichment) && nrow(csv_mappings) > 0) {
+        # Get concept details from OMOP
+        concept_ids <- csv_mappings$omop_concept_id
+        omop_concepts <- vocab_data_for_enrichment$concept %>%
+          dplyr::filter(concept_id %in% concept_ids) %>%
+          dplyr::select(concept_id, concept_name, vocabulary_id, concept_code) %>%
+          dplyr::collect()
 
-        vocab_data <- vocabularies()
-
-        if (!is.null(vocab_data) && !is.na(athena_concept_id)) {
-          # Get Clinical Drug descendants from the Ingredient
-          clinical_drugs <- get_clinical_drugs_from_ingredient(
-            athena_concept_id,
-            vocab_data
-          )
-
-          if (nrow(clinical_drugs) > 0) {
-            # Format as mappings table with all Clinical Drugs marked as recommended
-            mappings <- clinical_drugs %>%
-              dplyr::rename(omop_concept_id = concept_id) %>%
-              dplyr::mutate(recommended = TRUE, source = "OHDSI") %>%
-              dplyr::select(
-                concept_name,
-                vocabulary_id,
-                concept_code,
-                omop_concept_id,
-                recommended,
-                source
-              )
-          } else {
-            # No Clinical Drugs found
-            mappings <- data.frame(
-              concept_name = character(),
-              vocabulary_id = character(),
-              concept_code = character(),
-              omop_concept_id = integer(),
-              recommended = logical(),
-              source = character()
-            )
-          }
-        } else {
-          # No vocabulary data or no athena_concept_id
-          mappings <- data.frame(
-            concept_name = character(),
-            vocabulary_id = character(),
-            concept_code = character(),
-            omop_concept_id = integer(),
-            recommended = logical(),
-            source = character()
-          )
-        }
-      } else {
-        # For non-Drug concepts, use original approach with CSV mappings
-        csv_mappings <- current_data()$concept_mappings %>%
-          dplyr::filter(general_concept_id == concept_id) %>%
-          dplyr::mutate(source = "CSV")
-
-        # Enrich with OMOP data (concept_name, vocabulary_id, concept_code)
-        vocab_data_for_enrichment <- vocabularies()
-        if (!is.null(vocab_data_for_enrichment) && nrow(csv_mappings) > 0) {
-          # Get concept details from OMOP
-          concept_ids <- csv_mappings$omop_concept_id
-          omop_concepts <- vocab_data_for_enrichment$concept %>%
-            dplyr::filter(concept_id %in% concept_ids) %>%
-            dplyr::select(concept_id, concept_name, vocabulary_id, concept_code) %>%
-            dplyr::collect()
-
-          # Join with csv_mappings
-          csv_mappings <- csv_mappings %>%
-            dplyr::left_join(
-              omop_concepts,
-              by = c("omop_concept_id" = "concept_id")
-            )
-        }
-
-        # Select final columns
+        # Join with csv_mappings
         csv_mappings <- csv_mappings %>%
-          dplyr::select(
-            concept_name,
-            vocabulary_id,
-            concept_code,
-            omop_concept_id,
-            recommended,
-            source
+          dplyr::left_join(
+            omop_concepts,
+            by = c("omop_concept_id" = "concept_id")
           )
-
-        # Get OHDSI vocabulary concepts from recommended concepts
-        vocab_data <- vocabularies()
-
-        if (!is.null(vocab_data) && nrow(csv_mappings) > 0) {
-          # Get all recommended concept IDs
-          recommended_ids <- csv_mappings %>%
-            dplyr::filter(recommended == TRUE) %>%
-            dplyr::pull(omop_concept_id)
-
-          # Initialize data frames for descendants and related concepts
-          all_descendants <- data.frame()
-          all_related <- data.frame()
-
-          # For each recommended concept, get descendants and related concepts
-          for (rec_id in recommended_ids) {
-            if (!is.na(rec_id) && !is.null(rec_id)) {
-              # Get descendant concepts (hierarchy)
-              descendants <- get_descendant_concepts(rec_id, vocab_data)
-              if (nrow(descendants) > 0) {
-                all_descendants <- dplyr::bind_rows(all_descendants, descendants)
-              }
-
-              # Get same-level concepts (Maps to / Mapped from) - filtered for standard and valid
-              same_level <- get_related_concepts_filtered(rec_id, vocab_data)
-              if (nrow(same_level) > 0) {
-                # Filter only Maps to and Mapped from
-                same_level <- same_level %>%
-                  dplyr::filter(relationship_id %in% c("Maps to", "Mapped from"))
-                all_related <- dplyr::bind_rows(all_related, same_level)
-              }
-            }
-          }
-
-          # Remove duplicates and add recommended flag and source
-          if (nrow(all_descendants) > 0) {
-            all_descendants <- all_descendants %>%
-              dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
-              dplyr::mutate(recommended = FALSE, source = "OHDSI") %>%
-              dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended, source)
-          }
-
-          if (nrow(all_related) > 0) {
-            all_related <- all_related %>%
-              dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
-              dplyr::mutate(recommended = FALSE, source = "OHDSI") %>%
-              dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended, source)
-          }
-
-          # Combine all sources
-          # For duplicates, csv_mappings values take priority (especially for recommended flag)
-          all_concepts <- dplyr::bind_rows(all_descendants, all_related)
-
-          # Only process if there are concepts from OHDSI
-          if (nrow(all_concepts) > 0) {
-            all_concepts <- all_concepts %>%
-              dplyr::distinct(omop_concept_id, .keep_all = TRUE)
-
-            # Merge with csv_mappings, updating recommended flag and source from CSV where it exists
-            mappings <- all_concepts %>%
-              dplyr::left_join(
-                csv_mappings %>% dplyr::select(omop_concept_id, recommended, source),
-                by = "omop_concept_id",
-                suffix = c("_auto", "_csv")
-              ) %>%
-              dplyr::mutate(
-                recommended = dplyr::coalesce(recommended_csv, recommended_auto),
-                source = dplyr::coalesce(source_csv, source_auto)
-              ) %>%
-              dplyr::select(-recommended_auto, -recommended_csv, -source_auto, -source_csv) %>%
-              dplyr::bind_rows(
-                # Add CSV concepts that aren't in descendants/related
-                csv_mappings %>%
-                  dplyr::anti_join(all_concepts, by = "omop_concept_id")
-              ) %>%
-              dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
-              dplyr::arrange(dplyr::desc(recommended), concept_name)
-          } else {
-            # No OHDSI concepts, just use csv_mappings
-            mappings <- csv_mappings
-          }
-        } else {
-          mappings <- csv_mappings
-        }
+      } else {
+        # If no vocabulary data, add placeholder columns
+        csv_mappings <- csv_mappings %>%
+          dplyr::mutate(
+            concept_name = NA_character_,
+            vocabulary_id = NA_character_,
+            concept_code = NA_character_
+          )
       }
 
-      # Get athena_concept_id for marking the general concept
-      concept_info <- data()$general_concepts %>%
-        dplyr::filter(general_concept_id == concept_id)
-      athena_concept_id <- concept_info$athena_concept_id[1]
+      # Select final columns and arrange
+      mappings <- csv_mappings %>%
+        dplyr::select(
+          concept_name,
+          vocabulary_id,
+          concept_code,
+          omop_concept_id,
+          recommended
+        ) %>%
+        dplyr::arrange(dplyr::desc(recommended), concept_name)
 
-      # Mark the general concept and convert recommended to Yes/No or toggle
+      # Convert recommended to Yes/No or toggle
       if (nrow(mappings) > 0) {
-        mappings <- mappings %>%
-          dplyr::mutate(
-            is_general_concept = if (!is.na(athena_concept_id)) {
-              omop_concept_id == athena_concept_id
-            } else {
-              FALSE
-            }
-          )
-
         # Create toggle HTML for edit mode, or simple Yes/No for view mode
-        # For Drug concepts, don't show recommended/action columns
-        if (is_editing && category != "Drug") {
+        if (is_editing) {
           mappings <- mappings %>%
             dplyr::mutate(
               recommended = sprintf(
@@ -2023,13 +1864,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
                 omop_concept_id,
                 ifelse(recommended, 'checked', '')
               ),
-              action = ifelse(
-                source == "CSV",
-                sprintf('<i class="fa fa-trash delete-icon" data-omop-id="%s" style="cursor: pointer; color: #dc3545;"></i>', omop_concept_id),
-                ""
-              )
+              action = sprintf('<i class="fa fa-trash delete-icon" data-omop-id="%s" style="cursor: pointer; color: #dc3545;"></i>', omop_concept_id)
             )
-        } else if (!is_editing) {
+        } else {
           mappings <- mappings %>%
             dplyr::mutate(recommended = ifelse(recommended, "Yes", "No"))
         }
@@ -2043,26 +1880,18 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         ))
       }
 
-      # Reorder columns - for Drug in edit mode, exclude recommended/action/source
-      if (is_editing && category != "Drug") {
+      # Reorder columns
+      if (is_editing) {
         mappings <- mappings %>%
-          dplyr::select(concept_name, vocabulary_id, concept_code, recommended, source, action, omop_concept_id, is_general_concept)
-      } else if (is_editing && category == "Drug") {
-        mappings <- mappings %>%
-          dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, is_general_concept)
+          dplyr::select(concept_name, vocabulary_id, concept_code, recommended, action, omop_concept_id)
       } else {
         mappings <- mappings %>%
-          dplyr::select(concept_name, vocabulary_id, concept_code, recommended, omop_concept_id, is_general_concept)
+          dplyr::select(concept_name, vocabulary_id, concept_code, recommended, omop_concept_id)
       }
 
       # Cache mappings for selection handling (before converting recommended to Yes/No)
-      # For Drug concepts, the recommended column doesn't exist in edit mode
-      if (is_editing && category == "Drug") {
-        mappings_for_cache <- mappings
-      } else {
-        mappings_for_cache <- mappings %>%
-          dplyr::mutate(recommended = recommended == "Yes")
-      }
+      mappings_for_cache <- mappings %>%
+        dplyr::mutate(recommended = recommended == "Yes")
       current_mappings(mappings_for_cache)
 
       # Load JavaScript callbacks
@@ -2072,28 +1901,21 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       # Build initComplete callback that includes keyboard nav
       init_complete_js <- create_keyboard_nav(keyboard_nav, TRUE, FALSE)
 
-      # Configure DataTable columns based on edit mode and category
-      if (is_editing && category != "Drug") {
-        escape_cols <- c(TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE)  # Don't escape HTML in recommended and action columns
-        col_names <- c("Concept Name", "Vocabulary", "Code", "Recommended", "Source", "Action", "OMOP ID", "")
+      # Configure DataTable columns based on edit mode
+      if (is_editing) {
+        escape_cols <- c(TRUE, TRUE, TRUE, FALSE, FALSE, TRUE)  # Don't escape HTML in recommended and action columns
+        col_names <- c("Concept Name", "Vocabulary", "Code", "Recommended", "Action", "OMOP ID")
         col_defs <- list(
           list(targets = 3, width = "100px", className = 'dt-center'),  # Recommended column
-          list(targets = 4, width = "80px", className = 'dt-center'),   # Source column
-          list(targets = 5, width = "60px", className = 'dt-center'),   # Action column
-          list(targets = c(6, 7), visible = FALSE)  # OMOP ID and IsGeneral columns hidden
-        )
-      } else if (is_editing && category == "Drug") {
-        escape_cols <- TRUE
-        col_names <- c("Concept Name", "Vocabulary", "Code", "OMOP ID", "")
-        col_defs <- list(
-          list(targets = c(3, 4), visible = FALSE)  # OMOP ID and IsGeneral columns hidden
+          list(targets = 4, width = "60px", className = 'dt-center'),   # Action column
+          list(targets = 5, visible = FALSE)  # OMOP ID column hidden
         )
       } else {
         escape_cols <- TRUE
-        col_names <- c("Concept Name", "Vocabulary", "Code", "Recommended", "OMOP ID", "")
+        col_names <- c("Concept Name", "Vocabulary", "Code", "Recommended", "OMOP ID")
         col_defs <- list(
           list(targets = 3, width = "100px", className = 'dt-center'),  # Recommended column
-          list(targets = c(4, 5), visible = FALSE)  # OMOP ID and IsGeneral columns hidden
+          list(targets = 4, visible = FALSE)  # OMOP ID column hidden
         )
       }
 
@@ -2135,14 +1957,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           )
       }
 
-      dt <- dt %>%
-        DT::formatStyle(
-          0,  # First column (concept_name)
-          valueColumns = 'is_general_concept',
-          fontWeight = DT::styleEqual(c(TRUE, FALSE), c('bold', 'normal')),
-          color = DT::styleEqual(c(TRUE, FALSE), c('#000', '#333'))
-        )
-
       dt
     }, server = FALSE)
 
@@ -2174,50 +1988,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       if (!is.null(selected_row) && length(selected_row) > 0) {
         # Use cached mappings if available
         mappings <- current_mappings()
-
-        if (is.null(mappings)) {
-          concept_id <- selected_concept_id()
-          req(concept_id)
-
-          # Get the mappings data
-          csv_mappings <- current_data()$concept_mappings %>%
-            dplyr::filter(general_concept_id == concept_id) %>%
-            dplyr::select(
-              concept_name,
-              vocabulary_id,
-              concept_code,
-              omop_concept_id,
-              recommended
-            )
-
-          concept_info <- data()$general_concepts %>%
-            dplyr::filter(general_concept_id == concept_id)
-          athena_concept_id <- concept_info$athena_concept_id[1]
-
-          if (!is.na(athena_concept_id) && !is.null(athena_concept_id)) {
-            vocab_data <- vocabularies()
-            if (!is.null(vocab_data)) {
-              athena_concepts <- get_all_related_concepts(
-                athena_concept_id,
-                vocab_data,
-                csv_mappings
-              )
-              if (nrow(athena_concepts) > 0) {
-                mappings <- dplyr::bind_rows(csv_mappings, athena_concepts) %>%
-                  dplyr::distinct(omop_concept_id, .keep_all = TRUE) %>%
-                  dplyr::arrange(dplyr::desc(recommended), concept_name)
-              } else {
-                mappings <- csv_mappings
-              }
-            } else {
-              mappings <- csv_mappings
-            }
-          } else {
-            mappings <- csv_mappings
-          }
-
-          current_mappings(mappings)
-        }
 
         # Get the selected concept's OMOP ID
         if (selected_row <= nrow(mappings)) {

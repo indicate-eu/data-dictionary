@@ -147,11 +147,7 @@ mod_dev_tools_server <- function(id, data, vocabularies) {
       req(data())
 
       general_concepts <- data()$general_concepts
-
-      # Count missing athena_concept_id
-      missing_athena <- sum(is.na(general_concepts$athena_concept_id))
       total_concepts <- nrow(general_concepts)
-      pct_missing_athena <- round(missing_athena / total_concepts * 100, 1)
 
       # Count missing comments
       missing_comments <- sum(is.na(general_concepts$comments) | general_concepts$comments == "")
@@ -198,24 +194,7 @@ mod_dev_tools_server <- function(id, data, vocabularies) {
         tags$div(
           style = "flex: 0 0 50%; display: flex; flex-wrap: wrap; gap: 20px; align-content: flex-start;",
 
-          # Card 1: Athena Concept ID
-          tags$div(
-            style = "flex: 0 0 calc(50% - 10px); background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #dc3545;",
-            tags$div(
-              style = "font-size: 14px; color: #666; margin-bottom: 8px;",
-              "Missing Athena Concept ID"
-            ),
-            tags$div(
-              style = "font-size: 32px; font-weight: 700; color: #dc3545; margin-bottom: 5px;",
-              paste0(missing_athena, " / ", total_concepts)
-            ),
-            tags$div(
-              style = "font-size: 18px; color: #999;",
-              paste0(pct_missing_athena, "%")
-            )
-          ),
-
-          # Card 2: Comments
+          # Card 1: Comments
           tags$div(
             style = "flex: 0 0 calc(50% - 10px); background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #ffc107;",
             tags$div(
@@ -269,12 +248,6 @@ mod_dev_tools_server <- function(id, data, vocabularies) {
               class = "section-tabs",
               tags$button(
                 class = "tab-btn tab-btn-active",
-                id = ns("tab_missing_athena"),
-                onclick = sprintf("Shiny.setInputValue('%s', 'missing_athena', {priority: 'event'})", ns("switch_data_quality_tab")),
-                "Missing Athena ID"
-              ),
-              tags$button(
-                class = "tab-btn",
                 id = ns("tab_missing_comments"),
                 onclick = sprintf("Shiny.setInputValue('%s', 'missing_comments', {priority: 'event'})", ns("switch_data_quality_tab")),
                 "Missing Comments"
@@ -296,7 +269,7 @@ mod_dev_tools_server <- function(id, data, vocabularies) {
     })
 
     # Track active data quality tab
-    data_quality_tab <- reactiveVal("missing_athena")
+    data_quality_tab <- reactiveVal("missing_comments")
 
     # Observe tab switching
     observeEvent(input$switch_data_quality_tab, {
@@ -307,37 +280,12 @@ mod_dev_tools_server <- function(id, data, vocabularies) {
     output$data_quality_table_output <- renderUI({
       active_tab <- data_quality_tab()
 
-      if (active_tab == "missing_athena") {
-        DT::DTOutput(ns("missing_athena_table"))
-      } else if (active_tab == "missing_comments") {
+      if (active_tab == "missing_comments") {
         DT::DTOutput(ns("missing_comments_table"))
       } else if (active_tab == "recommended_non_standard") {
         DT::DTOutput(ns("recommended_non_standard_table"))
       }
     })
-
-    # Table of concepts missing athena_concept_id
-    output$missing_athena_table <- DT::renderDT({
-      req(data())
-
-      missing_data <- data()$general_concepts %>%
-        dplyr::filter(is.na(athena_concept_id)) %>%
-        dplyr::select(category, subcategory, general_concept_name)
-
-      DT::datatable(
-        missing_data,
-        rownames = FALSE,
-        options = list(
-          pageLength = 25,
-          dom = 'ftp',
-          columnDefs = list(
-            list(targets = 0, width = "150px"),
-            list(targets = 1, width = "150px")
-          )
-        ),
-        colnames = c("Category", "Subcategory", "General Concept Name")
-      )
-    }, server = FALSE)
 
     # Table of concepts missing comments
     output$missing_comments_table <- DT::renderDT({
