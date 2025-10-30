@@ -119,36 +119,57 @@ app_ui <- function() {
         )
     ),
 
-    # Main content area - all modules are created and shown/hidden with CSS
+    # Main content wrapper
     tags$div(
-      id = "page_explorer",
-      style = "height: 100%; flex: 1; display: flex; flex-direction: column;",
-      mod_dictionary_explorer_ui("dictionary_explorer")
+      style = "flex: 1; overflow: hidden; display: flex; flex-direction: column;",
+      # Main content area - all modules are created and shown/hidden with CSS
+      tags$div(
+        id = "page_explorer",
+        style = "height: 100%; flex: 1; display: flex; flex-direction: column;",
+        mod_dictionary_explorer_ui("dictionary_explorer")
+      ),
+      tags$div(
+        id = "page_mapping",
+        style = "height: 100%; flex: 1; display: none; flex-direction: column;",
+        mod_concept_mapping_ui("concept_mapping")
+      ),
+      tags$div(
+        id = "page_use_cases",
+        style = "height: 100%; flex: 1; display: none; flex-direction: column;",
+        mod_use_cases_ui("use_cases")
+      ),
+      tags$div(
+        id = "page_improvements",
+        style = "height: 100%; flex: 1; display: none; flex-direction: column;",
+        mod_improvements_ui("improvements")
+      ),
+      tags$div(
+        id = "page_dev_tools",
+        style = "height: 100%; flex: 1; display: none; flex-direction: column;",
+        mod_dev_tools_ui("dev_tools")
+      ),
+      tags$div(
+        id = "page_settings",
+        style = "height: 100%; flex: 1; display: none; flex-direction: column;",
+        mod_settings_ui("settings")
+      )
     ),
+
+    # Footer
     tags$div(
-      id = "page_mapping",
-      style = "height: 100%; flex: 1; display: none; flex-direction: column;",
-      mod_concepts_mapping_ui("concepts_mapping")
-    ),
-    tags$div(
-      id = "page_use_cases",
-      style = "height: 100%; flex: 1; display: none; flex-direction: column;",
-      mod_use_cases_ui("use_cases")
-    ),
-    tags$div(
-      id = "page_improvements",
-      style = "height: 100%; flex: 1; display: none; flex-direction: column;",
-      mod_improvements_ui("improvements")
-    ),
-    tags$div(
-      id = "page_dev_tools",
-      style = "height: 100%; flex: 1; display: none; flex-direction: column;",
-      mod_dev_tools_ui("dev_tools")
-    ),
-    tags$div(
-      id = "page_settings",
-      style = "height: 100%; flex: 1; display: none; flex-direction: column;",
-      mod_settings_ui("settings")
+      class = "app-footer",
+      style = "background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 10px 20px; text-align: center; color: #666; font-size: 13px; flex-shrink: 0;",
+      tags$span(
+        paste0("INDICATE Data Dictionary v", utils::packageVersion("indicate")),
+        style = "margin-right: 15px;"
+      ),
+      tags$span("|", style = "margin-right: 15px; color: #ccc;"),
+      tags$a(
+        href = "https://indicate-europe.eu/",
+        target = "_blank",
+        style = "color: #0f60af; text-decoration: none;",
+        "INDICATE Project"
+      )
     )
   )
 }

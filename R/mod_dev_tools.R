@@ -34,7 +34,7 @@ mod_dev_tools_ui <- function(id) {
                 "R Console",
                 value = "r_console",
                 tags$div(
-                  style = "margin-top: 20px; height: calc(100vh - 140px); display: flex; flex-direction: column;",
+                  style = "margin-top: 20px; height: calc(100vh - 185px); display: flex; flex-direction: column;",
                   tags$div(
                     style = "display: flex; gap: 15px; height: 100%;",
                     # Left: Editor
@@ -188,7 +188,7 @@ mod_dev_tools_server <- function(id, data, vocabularies) {
       }
 
       tags$div(
-        style = "display: flex; gap: 20px; height: calc(100vh - 140px);",
+        style = "display: flex; gap: 20px; height: calc(100vh - 185px);",
 
         # Left side: Summary cards
         tags$div(
@@ -305,7 +305,7 @@ mod_dev_tools_server <- function(id, data, vocabularies) {
         selection = 'none',
         filter = 'top',
         options = list(
-          pageLength = 25,
+          pageLength = 20,
           dom = 'tp',
           columnDefs = list(
             list(targets = 0, width = "150px"),
@@ -362,7 +362,7 @@ mod_dev_tools_server <- function(id, data, vocabularies) {
         selection = 'none',
         filter = 'top',
         options = list(
-          pageLength = 25,
+          pageLength = 20,
           dom = 'tp',
           columnDefs = list(
             list(targets = 0, width = "120px"),

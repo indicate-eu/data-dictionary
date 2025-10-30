@@ -711,6 +711,49 @@ div.dataTables_paginate a.paginate_button.current *,
   padding: 0 5px !important;
 }
 
+/* DataTable column filter inputs */
+table.dataTable thead tr th input.form-control,
+table.dataTable thead tr td input.form-control,
+table.dataTable thead tr th .selectize-input,
+table.dataTable thead tr td .selectize-input {
+  height: 26px !important;
+  min-height: 26px !important;
+  max-height: 26px !important;
+  font-size: 11px !important;
+  padding: 4px 8px !important;
+  line-height: 1.2 !important;
+  box-sizing: border-box !important;
+}
+
+table.dataTable thead tr th input.form-control::placeholder,
+table.dataTable thead tr td input.form-control::placeholder {
+  font-size: 11px !important;
+  color: #999 !important;
+}
+
+table.dataTable thead tr th .selectize-input input,
+table.dataTable thead tr td .selectize-input input {
+  font-size: 11px !important;
+  padding: 0 !important;
+}
+
+table.dataTable thead tr th .form-group,
+table.dataTable thead tr td .form-group {
+  margin-bottom: 0 !important;
+}
+
+/* Selectize dropdown items */
+table.dataTable thead tr th .selectize-dropdown,
+table.dataTable thead tr td .selectize-dropdown {
+  font-size: 11px !important;
+}
+
+table.dataTable thead tr th .selectize-dropdown .option,
+table.dataTable thead tr td .selectize-dropdown .option {
+  padding: 4px 8px !important;
+  font-size: 11px !important;
+}
+
 /* Utility classes
 -------------------------------------------------- */
 .bold-value {
@@ -836,7 +879,7 @@ div.dataTables_paginate a.paginate_button.current *,
 .view-details-btn {
   background: #0f60af !important;
   border: none !important;
-  padding: 4px 12px !important;
+  padding: 3px 12px !important;
   border-radius: 4px !important;
   color: white !important;
   cursor: pointer !important;

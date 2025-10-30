@@ -356,7 +356,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     ns <- session$ns
 
     # Track current view and selected concept
-    current_view <- reactiveVal("list")  # "list" or "detail"
+    current_view <- reactiveVal("list")  # "list", "detail", "history", or "list_history"
     selected_concept_id <- reactiveVal(NULL)
     selected_mapped_concept_id <- reactiveVal(NULL)  # Track selected concept in mappings table
     relationships_tab <- reactiveVal("related")  # Track active tab: "related", "hierarchy", "synonyms"
@@ -477,6 +477,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
                   class = "btn-success-custom"
                 ),
                 actionButton(
+                  ns("show_list_history"),
+                  "History",
+                  class = "btn-secondary-custom"
+                ),
+                actionButton(
                   ns("list_edit_page"),
                   "Edit page",
                   class = "btn-primary-custom"
@@ -496,6 +501,26 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
                 )
               )
             }
+          )
+        )
+      } else if (current_view() == "list_history") {
+        # Breadcrumb for list history view
+        tags$div(
+          class = "breadcrumb-nav",
+          style = "padding: 10px 0 15px 0; font-size: 16px; display: flex; justify-content: space-between; align-items: center;",
+          # Left side: title
+          tags$div(
+            style = "font-size: 16px; color: #0f60af; font-weight: 600;",
+            "General Concepts"
+          ),
+          # Right side: back button
+          tags$div(
+            style = "display: flex; gap: 10px;",
+            actionButton(
+              ns("back_to_list_from_history"),
+              "Back to List",
+              class = "btn-primary-custom"
+            )
           )
         )
       } else {
@@ -579,7 +604,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         tags$div(
           id = ns("general_concepts_container"),
           class = "table-container",
-          style = "height: calc(100vh - 130px); overflow: auto;",
+          style = "height: calc(100vh - 175px); overflow: auto;",
           DT::DTOutput(ns("general_concepts_table"))
         ),
         # Concept details container
@@ -588,11 +613,17 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           style = "display: none;",
           uiOutput(ns("concept_details_ui"))
         ),
-        # History container
+        # History container (for individual concept)
         tags$div(
           id = ns("history_container"),
           style = "display: none;",
           uiOutput(ns("history_ui"))
+        ),
+        # List history container (for all concepts)
+        tags$div(
+          id = ns("list_history_container"),
+          style = "display: none;",
+          uiOutput(ns("list_history_ui"))
         )
       )
     })
@@ -613,14 +644,22 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         shinyjs::show(id = "general_concepts_container")
         shinyjs::hide(id = "concept_details_container")
         shinyjs::hide(id = "history_container")
+        shinyjs::hide(id = "list_history_container")
       } else if (view == "detail") {
         shinyjs::hide(id = "general_concepts_container")
         shinyjs::show(id = "concept_details_container")
         shinyjs::hide(id = "history_container")
+        shinyjs::hide(id = "list_history_container")
       } else if (view == "history") {
         shinyjs::hide(id = "general_concepts_container")
         shinyjs::hide(id = "concept_details_container")
         shinyjs::show(id = "history_container")
+        shinyjs::hide(id = "list_history_container")
+      } else if (view == "list_history") {
+        shinyjs::hide(id = "general_concepts_container")
+        shinyjs::hide(id = "concept_details_container")
+        shinyjs::hide(id = "history_container")
+        shinyjs::show(id = "list_history_container")
       }
     })
 
@@ -653,7 +692,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         ),
         tags$div(
           class = "table-container",
-          style = "height: calc(100vh - 220px); overflow: auto;",
+          style = "height: calc(100vh - 265px); overflow: auto;",
           DT::DTOutput(ns("general_concepts_table"))
         )
       )
@@ -837,7 +876,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         dplyr::filter(general_concept_id == concept_id)
 
       tags$div(
-        style = "height: calc(100vh - 130px); overflow: auto; padding: 20px;",
+        style = "height: calc(100vh - 175px); overflow: auto; padding: 20px;",
         # Blank content for now
         tags$div(
           style = "padding: 20px; background: #f8f9fa; border-radius: 8px; text-align: center; color: #666;",
@@ -851,6 +890,24 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       req(current_view() == "history")
       req(selected_concept_id())
       render_history()
+    })
+
+    # Function to render list history page
+    render_list_history <- function() {
+      tags$div(
+        style = "height: calc(100vh - 175px); overflow: auto; padding: 20px;",
+        # Blank content for now
+        tags$div(
+          style = "padding: 20px; background: #f8f9fa; border-radius: 8px; text-align: center; color: #666;",
+          tags$p("History view for all general concepts will be implemented here.")
+        )
+      )
+    }
+
+    # Render list history page when needed
+    output$list_history_ui <- renderUI({
+      req(current_view() == "list_history")
+      render_list_history()
     })
 
     # Render general concepts table
@@ -889,7 +946,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           list(targets = 1, width = "150px"),
           list(targets = 2, width = "150px"),
           list(targets = 3, width = "300px"),
-          list(targets = 4, width = "120px", className = 'dt-center', orderable = FALSE)
+          list(targets = 4, width = "120px", className = 'dt-center', orderable = FALSE, searchable = FALSE)
         )
         editable_cols <- list(target = 'cell', disable = list(columns = c(0, 4)))
       } else {
@@ -901,7 +958,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           list(targets = 1, width = "150px"),
           list(targets = 2, width = "150px"),
           list(targets = 3, width = "350px"),
-          list(targets = 4, width = "120px", className = 'dt-center', orderable = FALSE)
+          list(targets = 4, width = "120px", className = 'dt-center', orderable = FALSE, searchable = FALSE)
         )
         editable_cols <- FALSE
       }
@@ -916,7 +973,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         colnames = col_names,
         options = list(
           pageLength = 20,
-          lengthMenu = list(c(10, 20, 25, 50, 100, -1), c('10', '20', '25', '50', '100', 'All')),
+          lengthMenu = list(c(10, 15, 20, 25, 50, 100, -1), c('10', '15', '20', '25', '50', '100', 'All')),
           dom = 'ltip',
           columnDefs = col_defs
         )
@@ -982,6 +1039,16 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       relationships_tab("related")
       edit_mode(FALSE)  # Exit edit mode when going back to list
       list_edit_mode(FALSE)  # Exit list edit mode when going back to list
+    })
+
+    # Handle list history button
+    observeEvent(input$show_list_history, {
+      current_view("list_history")
+    })
+
+    # Handle back to list from history button
+    observeEvent(input$back_to_list_from_history, {
+      current_view("list")
     })
 
     # Handle list edit page button
