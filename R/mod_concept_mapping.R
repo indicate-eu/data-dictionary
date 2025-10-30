@@ -82,35 +82,38 @@ mod_concept_mapping_ui <- function(id) {
             id = ns("modal_page_2"),
             style = "display: none;",
             tags$div(
-              style = "display: flex; gap: 20px; height: 60vh;",
+              style = "display: flex; gap: 20px; height: 80vh; overflow: hidden;",
               # Left: Upload and column mapping
               tags$div(
-                style = "flex: 1; display: flex; flex-direction: column;",
+                style = "flex: 1; min-width: 50%; display: flex; flex-direction: column; overflow-y: auto; gap: 10px;",
                 tags$div(
-                  style = "margin-bottom: 20px;",
-                  tags$label("Upload CSV File", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
-                  fileInput(
-                    ns("alignment_file"),
-                    label = NULL,
-                    accept = c(".csv", ".xlsx", ".xls")
+                  style = "background-color: #f8f9fa; border-radius: 4px; overflow: hidden;",
+                  tags$div(
+                    style = "background-color: #fd7e14; color: white; padding: 10px 15px; font-weight: 600; font-size: 14px;",
+                    "Upload CSV File"
                   ),
                   tags$div(
-                    id = ns("alignment_file_error"),
-                    style = "color: #dc3545; font-size: 13px; margin-top: 5px; display: none;",
-                    "Please upload a file"
+                    style = "padding: 15px;",
+                    fileInput(
+                      ns("alignment_file"),
+                      label = NULL,
+                      accept = c(".csv", ".xlsx", ".xls")
+                    ),
+                    tags$div(
+                      id = ns("alignment_file_error"),
+                      style = "color: #dc3545; font-size: 13px; margin-top: 5px; display: none;",
+                      "Please upload a file"
+                    )
                   )
                 ),
-                tags$div(
-                  style = "flex: 1; display: flex; flex-direction: column; gap: 15px; overflow-y: auto;",
-                  uiOutput(ns("column_mapping_title")),
-                  uiOutput(ns("column_mapping_controls"))
-                )
+                uiOutput(ns("csv_options")),
+                uiOutput(ns("column_mapping_wrapper"))
               ),
               # Right: File preview
               tags$div(
-                style = "flex: 1; display: flex; flex-direction: column;",
+                style = "width: 50%; display: flex; flex-direction: column; overflow-x: auto;",
                 tags$div(
-                  style = "flex: 1; overflow: auto; border: 1px solid #dee2e6; border-radius: 4px;",
+                  style = "border: 1px solid #dee2e6; border-radius: 4px; margin-right: 20px;",
                   DT::DTOutput(ns("file_preview_table"))
                 )
               )
@@ -130,15 +133,15 @@ mod_concept_mapping_ui <- function(id) {
           ),
           tags$div(
             style = "display: flex; gap: 10px;",
-            tags$button(
-              class = "btn btn-secondary btn-secondary-custom",
-              onclick = sprintf("$('#%s').hide();", ns("alignment_modal")),
-              "Cancel"
+            actionButton(
+              ns("alignment_modal_cancel"),
+              "Cancel",
+              class = "btn btn-secondary btn-secondary-custom"
             ),
             actionButton(
               ns("alignment_modal_back"),
               "Back",
-              class = "btn-secondary-custom",
+              class = "btn btn-secondary btn-secondary-custom",
               style = "display: none;"
             ),
             actionButton(
@@ -362,7 +365,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         # No selection: show simple title
         tags$div(
           class = "section-header",
-          style = "height: 40px;",
           tags$h4(
             "General Concepts",
             tags$span(
@@ -388,7 +390,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
 
         tags$div(
           class = "section-header",
-          style = "height: 40px;",
           tags$div(
             style = "flex: 1;",
             tags$a(
@@ -453,7 +454,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
           )
         ),
         tags$div(
-          style = "background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
+          class = "card-container",
+          style = "padding: 20px;",
           DT::DTOutput(ns("alignments_table"))
         )
       )
@@ -462,16 +464,15 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
     # View 2: Mapping realization interface
     render_mapping_view <- function() {
       tags$div(
-        style = "display: flex; flex-direction: column; height: calc(100vh - 185px); gap: 15px;",
+        class = "panel-container-full",
         # Top section: Source concepts (left) and target concepts (right)
         tags$div(
           style = "flex: 1; display: flex; gap: 15px; min-height: 0;",
           # Left: Source concepts to map
           tags$div(
-            style = "flex: 1; display: flex; flex-direction: column; background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
+            class = "card-container card-container-flex",
             tags$div(
               class = "section-header",
-              style = "height: 40px;",
               tags$h4(
                 "Source Concepts",
                 tags$span(
@@ -488,7 +489,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
           ),
           # Right: Target concepts (general concepts or mapped concepts)
           tags$div(
-            style = "flex: 1; display: flex; flex-direction: column; background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
+            class = "card-container card-container-flex",
             uiOutput(ns("general_concepts_header")),
             tags$div(
               style = "flex: 1; min-height: 0; overflow: auto;",
@@ -515,10 +516,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         ),
         # Bottom section: Realized mappings
         tags$div(
-          style = "flex: 0 0 auto; max-height: 40%; display: flex; flex-direction: column; background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
+          class = "card-container panel-container-top",
           tags$div(
             class = "section-header",
-            style = "height: 40px;",
+            
             tags$h4(
               "Realized Mappings",
               tags$span(
@@ -539,16 +540,16 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
     # Nested view: Mapped concepts for selected general concept
     render_mapped_concepts_view <- function() {
       tags$div(
-        style = "display: flex; flex-direction: column; height: calc(100vh - 185px); gap: 15px;",
+        class = "panel-container-full",
         # Top section: Source concepts (left) and mapped concepts (right)
         tags$div(
           style = "flex: 1; display: flex; gap: 15px; min-height: 0;",
           # Left: Source concepts to map
           tags$div(
-            style = "flex: 1; display: flex; flex-direction: column; background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
+            class = "card-container card-container-flex",
             tags$div(
               class = "section-header",
-              style = "height: 40px;",
+              
               tags$h4(
                 "Source Concepts",
                 tags$span(
@@ -565,7 +566,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
           ),
           # Right: Mapped concepts (OMOP concepts for selected general concept)
           tags$div(
-            style = "flex: 1; display: flex; flex-direction: column; background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
+            class = "card-container card-container-flex",
             tags$div(
               class = "section-header",
               style = "height: 40px; display: flex; justify-content: space-between; align-items: center;",
@@ -593,10 +594,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         ),
         # Bottom section: Realized mappings
         tags$div(
-          style = "flex: 0 0 auto; max-height: 40%; display: flex; flex-direction: column; background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
+          class = "card-container panel-container-top",
           tags$div(
             class = "section-header",
-            style = "height: 40px;",
+            
             tags$h4(
               "Realized Mappings",
               tags$span(
@@ -635,9 +636,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
           Actions = sprintf(
             '<button class="btn btn-sm btn-primary" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Open</button>
              <button class="btn btn-sm btn-warning" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Edit</button>
+             <button class="btn btn-sm btn-success" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Export</button>
              <button class="btn btn-sm btn-danger" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Delete</button>',
             ns("open_alignment"), alignment_id,
             ns("edit_alignment"), alignment_id,
+            ns("export_alignment"), alignment_id,
             ns("delete_alignment"), alignment_id
           )
         ) %>%
@@ -648,13 +651,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         escape = FALSE,
         rownames = FALSE,
         selection = 'none',
-        filter = 'top',
         options = list(
           pageLength = 25,
           dom = 'tp',
           columnDefs = list(
             list(targets = 0, visible = FALSE),  # Hide alignment_id column
-            list(targets = 4, orderable = FALSE, width = "220px", searchable = FALSE)
+            list(targets = 4, orderable = FALSE, width = "300px", searchable = FALSE)
           )
         ),
         colnames = c("ID", "Name", "Description", "Created", "Actions")
@@ -858,11 +860,81 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       alignment_to_delete(NULL)
     })
 
+    # Render CSV options only for CSV files
+    output$csv_options <- renderUI({
+      req(input$alignment_file)
+      file_ext <- tools::file_ext(input$alignment_file$name)
+
+      if (file_ext != "csv") {
+        return(NULL)
+      }
+
+      tags$div(
+        style = "background-color: #f8f9fa; border-radius: 4px; overflow: hidden;",
+        tags$div(
+          style = "background-color: #fd7e14; color: white; padding: 10px 15px; font-weight: 600; font-size: 14px;",
+          "CSV Options"
+        ),
+        tags$div(
+          style = "padding: 15px;",
+          tags$div(
+            style = "display: flex; flex-wrap: wrap; gap: 15px;",
+            tags$div(
+              style = "flex: 1; min-width: 150px;",
+              tags$label("Delimiter", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+              selectInput(
+                ns("csv_delimiter"),
+                label = NULL,
+                choices = c(
+                  "Auto-detect" = "auto",
+                  "Comma (,)" = ",",
+                  "Semicolon (;)" = ";",
+                  "Tab" = "\t",
+                  "Pipe (|)" = "|"
+                ),
+                selected = "auto"
+              )
+            ),
+            tags$div(
+              style = "flex: 1; min-width: 150px;",
+              tags$label("Encoding", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+              selectInput(
+                ns("csv_encoding"),
+                label = NULL,
+                choices = c(
+                  "UTF-8" = "UTF-8",
+                  "Latin1 (ISO-8859-1)" = "Latin1",
+                  "Windows-1252" = "Windows-1252"
+                ),
+                selected = "UTF-8"
+              )
+            )
+          )
+        )
+      )
+    })
+
+    # Render column mapping wrapper (only shows when file is uploaded)
+    output$column_mapping_wrapper <- renderUI({
+      req(input$alignment_file)
+
+      tags$div(
+        style = "background-color: #f8f9fa; border-radius: 4px;",
+        uiOutput(ns("column_mapping_title")),
+        tags$div(
+          style = "padding: 15px;",
+          uiOutput(ns("column_mapping_controls"))
+        )
+      )
+    })
 
     # Render column mapping title only when file is uploaded
     output$column_mapping_title <- renderUI({
       req(input$alignment_file)
-      tags$h5("Column Mapping", style = "margin: 0;")
+      tags$div(
+        style = "background-color: #fd7e14; color: white; padding: 10px 15px; font-weight: 600; font-size: 14px; border-radius: 4px 4px 0 0;",
+        "Column Mapping"
+      )
     })
 
     # Render column mapping controls based on uploaded file
@@ -874,7 +946,22 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       file_ext <- tools::file_ext(input$alignment_file$name)
 
       if (file_ext == "csv") {
-        df <- read.csv(file_path, nrows = 1)
+        # Get delimiter and encoding
+        delimiter <- if (!is.null(input$csv_delimiter) && input$csv_delimiter != "auto") {
+          input$csv_delimiter
+        } else {
+          NULL
+        }
+        encoding <- if (!is.null(input$csv_encoding)) input$csv_encoding else "UTF-8"
+
+        df <- vroom::vroom(
+          file_path,
+          delim = delimiter,
+          locale = vroom::locale(encoding = encoding),
+          show_col_types = FALSE,
+          n_max = 1
+        )
+        df <- as.data.frame(df)
       } else if (file_ext %in% c("xlsx", "xls")) {
         df <- readxl::read_excel(file_path, n_max = 1)
       } else {
@@ -887,9 +974,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       tagList(
         # Two-column layout for dropdowns
         tags$div(
-          style = "display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;",
+          style = "display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;",
           # Column 1
           tags$div(
+            style = "flex: 1; min-width: 150px;",
             tags$label("Vocabulary ID Column", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
             selectInput(
               ns("col_vocabulary_id"),
@@ -905,6 +993,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
           ),
           # Column 2
           tags$div(
+            style = "flex: 1; min-width: 150px;",
             tags$label("Concept Code Column", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
             selectInput(
               ns("col_concept_code"),
@@ -920,9 +1009,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
           )
         ),
         tags$div(
-          style = "display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;",
+          style = "display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;",
           # Column 1
           tags$div(
+            style = "flex: 1; min-width: 150px;",
             tags$label("Concept Name Column", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
             selectInput(
               ns("col_concept_name"),
@@ -938,6 +1028,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
           ),
           # Column 2
           tags$div(
+            style = "flex: 1; min-width: 150px;",
             tags$label("Statistical Summary Column", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
             selectInput(
               ns("col_statistical_summary"),
@@ -949,7 +1040,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         ),
         # Full width for additional columns
         tags$div(
-          style = "margin-bottom: 15px;",
+          style = "margin-bottom: 0px;",
           tags$label("Additional Columns to Keep", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
           selectizeInput(
             ns("col_additional"),
@@ -970,27 +1061,48 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       file_ext <- tools::file_ext(input$alignment_file$name)
 
       if (file_ext == "csv") {
-        df <- read.csv(file_path)
+        # Get delimiter
+        delimiter <- if (!is.null(input$csv_delimiter) && input$csv_delimiter != "auto") {
+          input$csv_delimiter
+        } else {
+          NULL  # Auto-detect
+        }
+
+        # Get encoding
+        encoding <- if (!is.null(input$csv_encoding)) {
+          input$csv_encoding
+        } else {
+          "UTF-8"
+        }
+
+        df <- vroom::vroom(
+          file_path,
+          delim = delimiter,
+          locale = vroom::locale(encoding = encoding),
+          show_col_types = FALSE
+        )
       } else if (file_ext %in% c("xlsx", "xls")) {
         df <- readxl::read_excel(file_path)
       } else {
         return(NULL)
       }
 
+      # Convert to regular dataframe and remove duplicate rows
+      df <- as.data.frame(df) %>% dplyr::distinct()
+
       datatable(
         df,
         options = list(
-          pageLength = 10,
+          pageLength = 8,
           dom = 'tp',
-          scrollX = TRUE,
-          ordering = FALSE
+          ordering = TRUE
         ),
         rownames = FALSE,
         selection = 'none',
         filter = 'none',
         class = 'display'
       )
-    }, server = FALSE)
+    }, server = TRUE)
 
     # Handle modal navigation
     observeEvent(input$alignment_modal_next, {
@@ -1043,6 +1155,41 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         shinyjs::runjs(sprintf("$('#%s').show();", ns("alignment_modal_next")))
         shinyjs::runjs(sprintf("$('#%s').hide();", ns("alignment_modal_save")))
       }
+    })
+
+    # Handle Cancel button - reset all fields and close modal
+    observeEvent(input$alignment_modal_cancel, {
+      # Close modal first
+      shinyjs::runjs(sprintf("$('#%s').hide();", ns("alignment_modal")))
+
+      # Then reset everything (after modal is closed)
+      # Reset page 1 inputs
+      updateTextInput(session, "alignment_name", value = "")
+      updateTextAreaInput(session, "alignment_description", value = "")
+
+      # Reset file input using shinyjs - this will cause csv_options and column_mapping_wrapper to disappear
+      shinyjs::reset("alignment_file")
+
+      # Hide all error messages
+      shinyjs::runjs(sprintf("$('#%s').hide();", ns("alignment_name_error")))
+      shinyjs::runjs(sprintf("$('#%s').hide();", ns("alignment_file_error")))
+      shinyjs::runjs(sprintf("$('#%s').hide();", ns("col_vocabulary_id_error")))
+      shinyjs::runjs(sprintf("$('#%s').hide();", ns("col_concept_code_error")))
+      shinyjs::runjs(sprintf("$('#%s').hide();", ns("col_concept_name_error")))
+
+      # Reset to page 1
+      modal_page(1)
+
+      # Reset modal UI to page 1
+      shinyjs::show(id = "modal_page_1")
+      shinyjs::hide(id = "modal_page_2")
+      shinyjs::runjs(sprintf("$('#%s').css('max-width', '600px');", ns("alignment_modal_dialog")))
+
+      # Reset modal button visibility
+      shinyjs::runjs(sprintf("$('#%s').text('Page 1 of 2');", ns("modal_page_indicator")))
+      shinyjs::runjs(sprintf("$('#%s').hide();", ns("alignment_modal_back")))
+      shinyjs::runjs(sprintf("$('#%s').show();", ns("alignment_modal_next")))
+      shinyjs::runjs(sprintf("$('#%s').hide();", ns("alignment_modal_save")))
     })
 
     # Hide file upload error when file is uploaded
@@ -1114,7 +1261,21 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         file_ext <- tools::file_ext(input$alignment_file$name)
 
         if (file_ext == "csv") {
-          df <- read.csv(file_path, stringsAsFactors = FALSE)
+          # Get delimiter and encoding from user inputs
+          delimiter <- if (!is.null(input$csv_delimiter) && input$csv_delimiter != "auto") {
+            input$csv_delimiter
+          } else {
+            NULL
+          }
+          encoding <- if (!is.null(input$csv_encoding)) input$csv_encoding else "UTF-8"
+
+          df <- vroom::vroom(
+            file_path,
+            delim = delimiter,
+            locale = vroom::locale(encoding = encoding),
+            show_col_types = FALSE
+          )
+          df <- as.data.frame(df)
         } else if (file_ext %in% c("xlsx", "xls")) {
           df <- readxl::read_excel(file_path)
         } else {
@@ -1162,6 +1323,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
 
         # Create dataframe from list
         new_df <- as.data.frame(new_cols, stringsAsFactors = FALSE)
+
+        # Remove duplicate rows
+        new_df <- new_df %>% dplyr::distinct()
 
         # Generate unique file ID
         file_id <- paste0("alignment_", format(Sys.time(), "%Y%m%d_%H%M%S"), "_", sample(1000:9999, 1))
@@ -1275,7 +1439,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       # Select and reorder columns, excluding target columns
       standard_cols <- c("vocabulary_id", "concept_code", "concept_name", "statistical_summary")
       available_standard <- standard_cols[standard_cols %in% colnames(df)]
-      target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id")
+      target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime")
       other_cols <- setdiff(colnames(df), c(standard_cols, target_cols, "Mapped"))
       df_display <- df[, c(available_standard, other_cols, "Mapped"), drop = FALSE]
 
@@ -1292,7 +1456,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         options = list(
           pageLength = 8,
           dom = 'tp',
-          scrollX = TRUE,
           columnDefs = list(
             list(targets = which(colnames(df_display) == "Mapped") - 1, width = "80px", className = 'dt-center')
           )
@@ -1347,8 +1510,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         options = list(
           pageLength = 8,
           dom = 'tp',
-          scrollX = TRUE,
-          scrollY = TRUE,
           columnDefs = list(
             list(targets = 0, visible = FALSE),  # Hide general_concept_id column
             list(targets = 1, width = "200px")
@@ -1713,11 +1874,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
 
       dt <- datatable(
         mappings,
-        filter = 'top',
         options = list(
           pageLength = 6,
           dom = 'tp',
-          scrollX = TRUE,
           columnDefs = list(
             list(targets = 4, width = "100px", className = 'dt-center'),  # Recommended column
             list(targets = 5, visible = FALSE)  # is_custom column hidden
@@ -1814,11 +1973,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
 
       datatable(
         mapped_with_details,
-        filter = 'top',
         options = list(
           pageLength = 25,
-          dom = 'tp',
-          scrollX = TRUE
+          dom = 'tp'
         ),
         rownames = FALSE,
         selection = 'single',
@@ -1865,16 +2022,15 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       # Reorder columns to show standard ones first
       standard_cols <- c("vocabulary_id", "concept_code", "concept_name", "statistical_summary")
       available_standard <- standard_cols[standard_cols %in% colnames(df)]
-      other_cols <- setdiff(colnames(df), standard_cols)
+      excluded_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime")
+      other_cols <- setdiff(colnames(df), c(standard_cols, excluded_cols))
       df <- df[, c(available_standard, other_cols), drop = FALSE]
 
       datatable(
         df,
-        filter = 'top',
         options = list(
           pageLength = 8,
-          dom = 'tp',
-          scrollX = TRUE
+          dom = 'tp'
         ),
         rownames = FALSE,
         selection = 'single'
@@ -2193,6 +2349,141 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
     })
 
+    # Handle Export Alignment (SOURCE_TO_CONCEPT_MAP format)
+    observeEvent(input$export_alignment, {
+      # Get alignment info
+      alignment_id <- input$export_alignment
+      alignments <- alignments_data()
+      alignment <- alignments %>%
+        dplyr::filter(alignment_id == !!alignment_id)
+
+      if (nrow(alignment) == 0) return()
+
+      file_id <- alignment$file_id[1]
+      alignment_name <- alignment$name[1]
+
+      # Get app folder and construct path
+      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
+      if (is.na(app_folder) || app_folder == "") {
+        mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
+      } else {
+        mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
+      }
+
+      csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
+
+      # Read CSV
+      if (!file.exists(csv_path)) {
+        showNotification("No mapping file found for this alignment", type = "error")
+        return()
+      }
+
+      df <- read.csv(csv_path, stringsAsFactors = FALSE)
+
+      # Find all mapped rows
+      if (!"target_general_concept_id" %in% colnames(df)) {
+        showNotification("No mappings found in this alignment", type = "warning")
+        return()
+      }
+
+      mapped_rows <- df %>%
+        dplyr::filter(!is.na(target_general_concept_id))
+
+      if (nrow(mapped_rows) == 0) {
+        showNotification("No mappings found in this alignment", type = "warning")
+        return()
+      }
+
+      # Get vocabulary data for target concept enrichment
+      vocab_data <- vocabularies()
+
+      # Build SOURCE_TO_CONCEPT_MAP format for all mappings
+      export_data <- data.frame(
+        source_code = character(),
+        source_concept_id = integer(),
+        source_code_description = character(),
+        source_vocabulary_id = character(),
+        target_concept_id = integer(),
+        target_vocabulary_id = character(),
+        valid_start_date = character(),
+        valid_end_date = character(),
+        invalid_reason = character(),
+        stringsAsFactors = FALSE
+      )
+
+      # Process each mapped row
+      for (i in 1:nrow(mapped_rows)) {
+        mapped_concept <- mapped_rows[i, ]
+
+        # For target_concept_id: only use target_omop_concept_id, if NA/0 then 0
+        target_concept_id <- 0
+        target_vocabulary_id <- NA_character_
+
+        if (!is.na(mapped_concept$target_omop_concept_id) && mapped_concept$target_omop_concept_id != 0) {
+          # OMOP concept
+          target_concept_id <- mapped_concept$target_omop_concept_id
+          if (!is.null(vocab_data)) {
+            target_info <- vocab_data$concept %>%
+              dplyr::filter(concept_id == mapped_concept$target_omop_concept_id) %>%
+              dplyr::select(concept_id, vocabulary_id) %>%
+              dplyr::collect()
+
+            if (nrow(target_info) > 0) {
+              target_vocabulary_id <- target_info$vocabulary_id[1]
+            }
+          }
+        }
+
+        # Get valid_start_date from mapping_datetime or use default
+        valid_start_date <- "1970-01-01"
+        if ("mapping_datetime" %in% colnames(mapped_concept) && !is.na(mapped_concept$mapping_datetime)) {
+          valid_start_date <- format(as.Date(as.POSIXct(mapped_concept$mapping_datetime)), "%Y-%m-%d")
+        }
+
+        # Create complete row with all columns (using correct CSV column names)
+        export_row <- data.frame(
+          source_code = as.character(mapped_concept$concept_code),
+          source_concept_id = 0L,
+          source_code_description = as.character(mapped_concept$concept_name),
+          source_vocabulary_id = as.character(mapped_concept$vocabulary_id),
+          target_concept_id = as.integer(target_concept_id),
+          target_vocabulary_id = as.character(target_vocabulary_id),
+          valid_start_date = valid_start_date,
+          valid_end_date = "2099-12-31",
+          invalid_reason = NA_character_,
+          stringsAsFactors = FALSE
+        )
+
+        export_data <- rbind(export_data, export_row)
+      }
+
+      # Create download filename with timestamp
+      safe_name <- gsub("[^a-zA-Z0-9_-]", "_", alignment_name)
+      timestamp <- format(Sys.time(), "%Y-%m-%d_%H-%M-%S")
+      filename <- paste0(safe_name, "_source_to_concept_map_", timestamp, ".csv")
+
+      # Convert to CSV string
+      csv_lines <- c(
+        paste(colnames(export_data), collapse = ","),
+        apply(export_data, 1, function(row) paste(row, collapse = ","))
+      )
+      csv_content <- paste(csv_lines, collapse = "\n")
+
+      # Create data URI for download
+      csv_encoded <- base64enc::base64encode(charToRaw(csv_content))
+      download_js <- sprintf(
+        "var link = document.createElement('a');
+         link.href = 'data:text/csv;base64,%s';
+         link.download = '%s';
+         link.click();",
+        csv_encoded,
+        filename
+      )
+
+      # Trigger download
+      shinyjs::runjs(download_js)
+    })
+
     # Observe mappings_refresh_trigger and reload datatables using proxy
     observeEvent(mappings_refresh_trigger(), {
       # Skip initial trigger
@@ -2236,7 +2527,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
             # Select columns for display
             standard_cols <- c("vocabulary_id", "concept_code", "concept_name", "statistical_summary")
             available_standard <- standard_cols[standard_cols %in% colnames(df)]
-            target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id")
+            target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime")
             other_cols <- setdiff(colnames(df), c(standard_cols, target_cols, "Mapped"))
             df_display <- df[, c(available_standard, other_cols, "Mapped"), drop = FALSE]
 
@@ -2570,6 +2861,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       if (!"target_custom_concept_id" %in% colnames(df)) {
         df$target_custom_concept_id <- NA_integer_
       }
+      if (!"mapping_datetime" %in% colnames(df)) {
+        df$mapping_datetime <- NA_character_
+      }
 
       # Update the selected row with mapping info
       df$target_general_concept_id[source_row] <- selected_general_concept_id()
@@ -2582,6 +2876,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         df$target_omop_concept_id[source_row] <- target_mapping$omop_concept_id
         df$target_custom_concept_id[source_row] <- NA_integer_
       }
+
+      # Set mapping datetime
+      df$mapping_datetime[source_row] <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
 
       # Save CSV
       write.csv(df, csv_path, row.names = FALSE)

@@ -33,7 +33,6 @@ app_ui <- function() {
         )
       ),
       tags$script(src = "www/resizable_splitter.js"),
-      tags$script(src = "www/quadrant_splitter.js"),
       tags$script(src = "www/tab_handler.js"),
       tags$script(src = "www/nav_handler.js"),
       tags$script(src = "www/folder_display.js"),

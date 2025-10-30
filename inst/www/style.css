@@ -49,30 +49,6 @@ html, body {
   padding: 2px 6px !important;
 }
 
-.detail-item .form-group {
-  margin-bottom: 0 !important;
-}
-
-.detail-item .shiny-input-container {
-  margin-bottom: 0 !important;
-}
-
-/* Align numeric inputs with labels using flexbox */
-.detail-item {
-  display: flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-}
-
-.detail-item strong {
-  flex-shrink: 0;
-}
-
-.detail-item > span {
-  display: flex;
-  align-items: center;
-}
-
 .section-header .shiny-input-container {
   margin-bottom: 0 !important;
 }
@@ -216,6 +192,8 @@ a:hover {
 /* Breadcrumb link specific styling */
 .breadcrumb-link {
   color: #0f60af !important;
+  font-size: 18px;
+  font-weight: 600;
   text-decoration: none;
   cursor: pointer;
 }
@@ -408,7 +386,6 @@ h3, h4 {
   -ms-user-select: none;
 }
 
-/* Legacy divider (replaced by splitter) */
 hr {
   border: 0;
   height: 1px;
@@ -452,16 +429,17 @@ hr {
   flex: 1;
 }
 
-/* Section headers 
+/* Section headers
 -------------------------------------------------- */
 .section-header {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
   flex-shrink: 0;
+  height: 40px;
 }
 
-.section-header h3, 
+.section-header h3,
 .section-header h4 {
   margin: 0;
 }
@@ -474,6 +452,33 @@ hr {
   background-color: #0f60af;
   border-radius: 50%;
   margin-right: 10px;
+}
+
+/* Card container - reusable white box with shadow */
+.card-container {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card-container-flex {
+  flex: 1;
+}
+
+/* Panel containers for split layouts */
+.panel-container-top {
+  flex: 0 0 auto;
+  max-height: 40%;
+}
+
+.panel-container-full {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 185px);
+  gap: 15px;
 }
 
 /* Content containers
@@ -1155,62 +1160,6 @@ table.dataTable thead tr td .selectize-dropdown .option {
   width: 100%;
 }
 
-/* Splitter variants for quadrant layout */
-.splitter-h {
-  width: 100%;
-  height: 8px;
-  cursor: row-resize;
-  background-color: #dee2e6;
-  flex-shrink: 0;
-  position: relative;
-  transition: background-color 0.2s;
-}
-
-.splitter-v {
-  width: 8px;
-  height: 100%;
-  cursor: col-resize;
-  background-color: #dee2e6;
-  flex-shrink: 0;
-  position: relative;
-  transition: background-color 0.2s;
-}
-
-.splitter-h:hover,
-.splitter-v:hover,
-.splitter-active {
-  background-color: #0f60af;
-}
-
-.splitter-h:before {
-  content: '≡';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(0deg);
-  color: #fff;
-  font-size: 12px;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.splitter-v:before {
-  content: '≡';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(90deg);
-  color: #fff;
-  font-size: 12px;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.splitter-h:hover:before,
-.splitter-v:hover:before {
-  opacity: 1;
-}
-
 /* Concept details styling
 -------------------------------------------------- */
 .concept-details-container {
@@ -1221,6 +1170,9 @@ table.dataTable thead tr td .selectize-dropdown .option {
 }
 
 .detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   padding: 6px 10px;
   background: #f8f9fa;
   border-left: 3px solid #0f60af;
@@ -1228,7 +1180,13 @@ table.dataTable thead tr td .selectize-dropdown .option {
   line-height: 1.4;
 }
 
+.detail-item .form-group,
+.detail-item .shiny-input-container {
+  margin-bottom: 0 !important;
+}
+
 .detail-item strong {
+  flex-shrink: 0;
   color: #0f60af;
   font-weight: 600;
   font-size: 11px;
@@ -1236,7 +1194,9 @@ table.dataTable thead tr td .selectize-dropdown .option {
   min-width: 140px;
 }
 
-.detail-item span {
+.detail-item > span {
+  display: flex;
+  align-items: center;
   color: #333;
   font-size: 12px;
 }
@@ -1651,4 +1611,9 @@ table.dataTable thead tr td .selectize-dropdown .option {
 #dictionary_explorer-add_concept_to_mapping_modal .form-group {
   margin-bottom: 0 !important;
   width: auto !important;
+}
+
+/* Remove margin-bottom from all form-group elements */
+.form-group {
+  margin-bottom: 0;
 }
