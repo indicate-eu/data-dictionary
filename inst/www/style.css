@@ -1051,7 +1051,7 @@ table.dataTable thead tr td .selectize-dropdown .option {
 .quadrant-layout {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 130px);
+  height: calc(100vh - 170px);
   width: 100%;
 }
 
@@ -1111,7 +1111,6 @@ table.dataTable thead tr td .selectize-dropdown .option {
 .quadrant-content {
   flex: 1;
   overflow-y: auto;
-  overflow-x: hidden;
   padding: 15px;
   background: white;
   position: relative;

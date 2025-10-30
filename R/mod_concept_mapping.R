@@ -82,7 +82,7 @@ mod_concept_mapping_ui <- function(id) {
             id = ns("modal_page_2"),
             style = "display: none;",
             tags$div(
-              style = "display: flex; gap: 20px; height: 80vh; overflow: hidden;",
+              style = "display: flex; gap: 20px; overflow: hidden;",
               # Left: Upload and column mapping
               tags$div(
                 style = "flex: 1; min-width: 50%; display: flex; flex-direction: column; overflow-y: auto; gap: 10px;",
@@ -113,7 +113,7 @@ mod_concept_mapping_ui <- function(id) {
               tags$div(
                 style = "width: 50%; display: flex; flex-direction: column; overflow-x: auto;",
                 tags$div(
-                  style = "border: 1px solid #dee2e6; border-radius: 4px; margin-right: 20px;",
+                  style = "margin-right: 20px;",
                   DT::DTOutput(ns("file_preview_table"))
                 )
               )
@@ -285,6 +285,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
     modal_mode <- reactiveVal("add")  # "add" or "edit"
     alignment_to_delete <- reactiveVal(NULL)  # Track alignment ID to delete
     concept_mappings_view <- reactiveVal("table")  # "table" or "comments" - for right panel when general concept is selected
+    file_preview_data <- reactiveVal(NULL)  # Store file preview data
 
     # Load existing alignments from database
     initial_alignments <- get_all_alignments()
@@ -1053,9 +1054,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       )
     })
 
-    # Render file preview
-    output$file_preview_table <- DT::renderDT({
-      req(input$alignment_file)
+    # Update file preview data when file changes
+    observeEvent(input$alignment_file, {
+      if (is.null(input$alignment_file)) {
+        file_preview_data(NULL)
+        return()
+      }
 
       file_path <- input$alignment_file$datapath
       file_ext <- tools::file_ext(input$alignment_file$name)
@@ -1084,11 +1088,34 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       } else if (file_ext %in% c("xlsx", "xls")) {
         df <- readxl::read_excel(file_path)
       } else {
-        return(NULL)
+        file_preview_data(NULL)
+        return()
       }
 
       # Convert to regular dataframe and remove duplicate rows
       df <- as.data.frame(df) %>% dplyr::distinct()
+      file_preview_data(df)
+    })
+
+    # Render file preview based on reactive data
+    output$file_preview_table <- DT::renderDT({
+      df <- file_preview_data()
+
+      # If no data, return empty datatable
+      if (is.null(df)) {
+        return(datatable(
+          data.frame(),
+          options = list(
+            pageLength = 8,
+            dom = 'tp',
+            ordering = TRUE
+          ),
+          rownames = FALSE,
+          selection = 'none',
+          filter = 'none',
+          class = 'display'
+        ))
+      }
 
       datatable(
         df,
@@ -1126,8 +1153,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         shinyjs::hide(id = "modal_page_1")
         shinyjs::show(id = "modal_page_2")
 
-        # Change modal width for page 2
-        shinyjs::runjs(sprintf("$('#%s').css('max-width', '90vw');", ns("alignment_modal_dialog")))
+        # Change modal width and height for page 2
+        shinyjs::runjs(sprintf("$('#%s').css({'max-width': '90vw', 'height': '80vh', 'max-height': '80vh'});", ns("alignment_modal_dialog")))
 
         # Update buttons and indicator
         shinyjs::runjs(sprintf("$('#%s').text('Page 2 of 2');", ns("modal_page_indicator")))
@@ -1146,8 +1173,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         shinyjs::show(id = "modal_page_1")
         shinyjs::hide(id = "modal_page_2")
 
-        # Change modal width back for page 1
-        shinyjs::runjs(sprintf("$('#%s').css('max-width', '600px');", ns("alignment_modal_dialog")))
+        # Change modal width and height back for page 1
+        shinyjs::runjs(sprintf("$('#%s').css({'max-width': '600px', 'height': 'auto', 'max-height': '90vh'});", ns("alignment_modal_dialog")))
 
         # Update buttons and indicator
         shinyjs::runjs(sprintf("$('#%s').text('Page 1 of 2');", ns("modal_page_indicator")))
@@ -1167,8 +1194,24 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       updateTextInput(session, "alignment_name", value = "")
       updateTextAreaInput(session, "alignment_description", value = "")
 
-      # Reset file input using shinyjs - this will cause csv_options and column_mapping_wrapper to disappear
+      # Force datatable to clear before resetting file input
+      file_preview_data(NULL)
+
+      # Reset file input using shinyjs
       shinyjs::reset("alignment_file")
+
+      # Reset page 2 dropdowns
+      updateSelectInput(session, "csv_delimiter", selected = "auto")
+      updateSelectInput(session, "csv_encoding", selected = "UTF-8")
+      updateSelectInput(session, "col_vocabulary_id", selected = "")
+      updateSelectInput(session, "col_concept_code", selected = "")
+      updateSelectInput(session, "col_concept_name", selected = "")
+      updateSelectInput(session, "col_statistical_summary", selected = "")
+      updateSelectInput(session, "col_additional", selected = character(0))
+
+      # Hide CSV Options and Column Mapping sections
+      shinyjs::runjs(sprintf("$('#%s').html('');", ns("csv_options")))
+      shinyjs::runjs(sprintf("$('#%s').html('');", ns("column_mapping_wrapper")))
 
       # Hide all error messages
       shinyjs::runjs(sprintf("$('#%s').hide();", ns("alignment_name_error")))
@@ -1183,7 +1226,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       # Reset modal UI to page 1
       shinyjs::show(id = "modal_page_1")
       shinyjs::hide(id = "modal_page_2")
-      shinyjs::runjs(sprintf("$('#%s').css('max-width', '600px');", ns("alignment_modal_dialog")))
+      shinyjs::runjs(sprintf("$('#%s').css({'max-width': '600px', 'height': 'auto', 'max-height': '90vh'});", ns("alignment_modal_dialog")))
 
       # Reset modal button visibility
       shinyjs::runjs(sprintf("$('#%s').text('Page 1 of 2');", ns("modal_page_indicator")))
@@ -1378,7 +1421,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       # Reset modal UI to page 1
       shinyjs::show(id = "modal_page_1")
       shinyjs::hide(id = "modal_page_2")
-      shinyjs::runjs(sprintf("$('#%s').css('max-width', '600px');", ns("alignment_modal_dialog")))
+      shinyjs::runjs(sprintf("$('#%s').css({'max-width': '600px', 'height': 'auto', 'max-height': '90vh'});", ns("alignment_modal_dialog")))
 
       # Reset modal button visibility
       shinyjs::runjs(sprintf("$('#%s').text('Page 1 of 2');", ns("modal_page_indicator")))
