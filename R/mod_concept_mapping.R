@@ -352,7 +352,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           tags$span(style = "color: #6c757d; font-size: 16px;", ">"),
           if (mapping_view() == "general") {
             tags$span(
-              style = "font-size: 16px; color: #333; font-weight: 600;",
+              class = "section-title",
+              style = "color: #333;",
               alignment_name
             )
           } else {
@@ -365,7 +366,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               ),
               tags$span(style = "color: #6c757d; font-size: 16px; margin: 0 10px;", ">"),
               tags$span(
-                style = "font-size: 16px; color: #0f60af; font-weight: 600;",
+                class = "section-title",
                 "Mapped Concepts"
               )
             )
@@ -463,7 +464,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           style = "padding: 10px 0 15px 0; display: flex; align-items: center; gap: 15px; justify-content: space-between;",
           # Left side: Title
           tags$div(
-            style = "font-size: 16px; color: #0f60af; font-weight: 600;",
+            class = "section-title",
             "Concept Mappings"
           ),
           # Right side: Add button

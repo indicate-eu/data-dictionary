@@ -12,6 +12,14 @@ html, body {
   overflow: hidden;
 }
 
+/* Section titles
+-------------------------------------------------- */
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f60af;
+}
+
 /* Shiny notifications
 -------------------------------------------------- */
 #shiny-notification-panel {

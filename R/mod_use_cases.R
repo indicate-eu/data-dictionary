@@ -269,7 +269,7 @@ render_use_cases_list_ui <- function(ns) {
       ),
       # Title (matching dictionary explorer style)
       tags$div(
-        style = "font-size: 16px; color: #0f60af; font-weight: 600;",
+        class = "section-title",
         tags$span("Use Cases")
       ),
       tags$div(
@@ -278,25 +278,29 @@ render_use_cases_list_ui <- function(ns) {
           ns("add_use_case_btn"),
           "Add Use Case",
           class = "btn btn-primary",
-          icon = icon("plus")
+          icon = icon("plus"),
+          style = "display: none;"  # Hidden by default
         ),
         actionButton(
           ns("edit_name_description_btn"),
           "Edit",
           class = "btn btn-secondary",
-          icon = icon("edit")
+          icon = icon("edit"),
+          style = "display: none;"  # Hidden by default
         ),
         actionButton(
           ns("configure_use_case_btn"),
           "Configure",
           class = "btn btn-secondary",
-          icon = icon("cog")
+          icon = icon("cog"),
+          style = "display: none;"  # Hidden by default
         ),
         actionButton(
           ns("delete_selected_btn"),
           "Delete",
           class = "btn btn-danger",
-          icon = icon("trash")
+          icon = icon("trash"),
+          style = "display: none;"  # Hidden by default
         )
       )
     ),
@@ -384,7 +388,8 @@ render_use_case_config_ui <- function(ns) {
             ns("add_general_concepts_btn"),
             "Add Selected Concepts",
             class = "btn btn-primary btn-sm",
-            icon = icon("arrow-right")
+            icon = icon("arrow-right"),
+            style = "display: none;"  # Hidden by default
           ),
           tags$div(
             style = "display: flex; gap: 3px;",
@@ -393,14 +398,16 @@ render_use_case_config_ui <- function(ns) {
               NULL,
               class = "btn btn-sm btn-secondary",
               icon = icon("check-square"),
-              title = "Select all rows"
+              title = "Select all rows",
+              style = "display: none;"  # Hidden by default
             ),
             actionButton(
               ns("unselect_all_available"),
               NULL,
               class = "btn btn-sm btn-secondary",
               icon = icon("square"),
-              title = "Unselect all rows"
+              title = "Unselect all rows",
+              style = "display: none;"  # Hidden by default
             )
           )
         ),
@@ -433,7 +440,8 @@ render_use_case_config_ui <- function(ns) {
             ns("remove_general_concepts_btn"),
             "Remove Selected Concepts",
             class = "btn btn-danger btn-sm",
-            icon = icon("times")
+            icon = icon("times"),
+            style = "display: none;"
           ),
           tags$div(
             style = "display: flex; gap: 3px;",
@@ -442,14 +450,16 @@ render_use_case_config_ui <- function(ns) {
               NULL,
               class = "btn btn-sm btn-secondary",
               icon = icon("check-square"),
-              title = "Select all rows"
+              title = "Select all rows",
+              style = "display: none;"
             ),
             actionButton(
               ns("unselect_all_selected"),
               NULL,
               class = "btn btn-sm btn-secondary",
               icon = icon("square"),
-              title = "Unselect all rows"
+              title = "Unselect all rows",
+              style = "display: none;"
             )
           )
         ),
@@ -506,11 +516,25 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
         shinyjs::hide("edit_name_description_btn")
         shinyjs::hide("configure_use_case_btn")
         shinyjs::hide("delete_selected_btn")
+        # Hide concept management buttons in config view
+        shinyjs::hide("add_general_concepts_btn")
+        shinyjs::hide("remove_general_concepts_btn")
+        shinyjs::hide("select_all_available")
+        shinyjs::hide("unselect_all_available")
+        shinyjs::hide("select_all_selected")
+        shinyjs::hide("unselect_all_selected")
       } else {
         shinyjs::show("add_use_case_btn")
         shinyjs::show("edit_name_description_btn")
         shinyjs::show("configure_use_case_btn")
         shinyjs::show("delete_selected_btn")
+        # Show concept management buttons in config view
+        shinyjs::show("add_general_concepts_btn")
+        shinyjs::show("remove_general_concepts_btn")
+        shinyjs::show("select_all_available")
+        shinyjs::show("unselect_all_available")
+        shinyjs::show("select_all_selected")
+        shinyjs::show("unselect_all_selected")
       }
     })
 

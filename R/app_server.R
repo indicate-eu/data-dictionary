@@ -33,15 +33,21 @@ app_server <- function(input, output, session) {
         vocab_folder <- get_vocab_folder()
         use_duckdb <- get_use_duckdb()
 
-        # If DuckDB is enabled and exists, load synchronously
+        # If DuckDB is enabled and exists, load asynchronously after UI update
         if (!is.null(vocab_folder) && vocab_folder != "" && use_duckdb && duckdb_exists()) {
-          tryCatch({
-            vocab_data <- load_vocabularies_from_duckdb()
-            vocabularies(vocab_data)
-            vocab_loading_status("loaded")
-          }, error = function(e) {
-            message("Error loading from DuckDB: ", e$message)
-            vocab_loading_status("error")
+          # Set loading status immediately
+          vocab_loading_status("loading")
+
+          # Use shinyjs::delay to load after UI has updated
+          shinyjs::delay(300, {
+            tryCatch({
+              vocab_data <- load_vocabularies_from_duckdb()
+              vocabularies(vocab_data)
+              vocab_loading_status("loaded")
+            }, error = function(e) {
+              message("Error loading from DuckDB: ", e$message)
+              vocab_loading_status("error")
+            })
           })
         }
 
@@ -54,13 +60,19 @@ app_server <- function(input, output, session) {
         shinyjs::hide("nav_mapping")
         shinyjs::hide("nav_improvements")
         shinyjs::hide("nav_dev_tools")
-        shinyjs::hide("nav_settings")
+
+        # Hide settings menu items except logout
+        shinyjs::hide("settings_item_general")
+        shinyjs::hide("settings_item_users")
       } else {
         # Show all navigation for authenticated users
         shinyjs::show("nav_mapping")
         shinyjs::show("nav_improvements")
         shinyjs::show("nav_dev_tools")
-        shinyjs::show("nav_settings")
+
+        # Show all settings menu items
+        shinyjs::show("settings_item_general")
+        shinyjs::show("settings_item_users")
       }
     } else {
       shinyjs::show("login_page")
@@ -256,6 +268,17 @@ app_server <- function(input, output, session) {
     }
   })
 
+  # Show/hide vocabulary status indicator based on loading status
+  observe({
+    status <- vocab_loading_status()
+
+    if (status == "loaded") {
+      shinyjs::hide("vocab_status_indicator")
+    } else {
+      shinyjs::show("vocab_status_indicator")
+    }
+  })
+
   # Render vocabulary loading status indicator
   output$vocab_status_indicator <- renderUI({
     status <- vocab_loading_status()
@@ -273,8 +296,6 @@ app_server <- function(input, output, session) {
         class = "vocab-status vocab-status-loading",
         "Loading OHDSI data"
       )
-    } else if (status == "loaded") {
-      NULL
     } else {
       NULL
     }
@@ -348,6 +369,7 @@ app_server <- function(input, output, session) {
     data = data,
     config = config,
     vocabularies = reactive({ vocabularies() }),
+    vocab_loading_status = reactive({ vocab_loading_status() }),
     current_user = current_user
   )
 

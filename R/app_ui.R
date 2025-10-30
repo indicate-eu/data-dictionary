@@ -118,6 +118,7 @@ app_ui <- function() {
                 class = "settings-dropdown",
                 style = "display: none; position: absolute; right: 0; top: 100%; margin-top: 5px; background: #2c3e50; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 1000; min-width: 200px;",
                 tags$div(
+                  id = "settings_item_general",
                   class = "settings-dropdown-item",
                   style = "padding: 12px 20px; cursor: pointer; color: white; border-bottom: 1px solid rgba(255,255,255,0.1); transition: background 0.2s;",
                   onclick = "$('#settings_dropdown').hide(); Shiny.setInputValue('nav_general_settings', true, {priority: 'event'});",
@@ -125,6 +126,7 @@ app_ui <- function() {
                   "General settings"
                 ),
                 tags$div(
+                  id = "settings_item_users",
                   class = "settings-dropdown-item",
                   style = "padding: 12px 20px; cursor: pointer; color: white; border-bottom: 1px solid rgba(255,255,255,0.1); transition: background 0.2s;",
                   onclick = "$('#settings_dropdown').hide(); Shiny.setInputValue('nav_users', true, {priority: 'event'});",
@@ -132,6 +134,7 @@ app_ui <- function() {
                   "Users"
                 ),
                 tags$div(
+                  id = "settings_item_logout",
                   class = "settings-dropdown-item",
                   style = "padding: 12px 20px; cursor: pointer; color: white; transition: background 0.2s;",
                   onclick = "$('#settings_dropdown').hide(); Shiny.setInputValue('logout', true, {priority: 'event'});",

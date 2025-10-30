@@ -351,7 +351,7 @@ mod_dictionary_explorer_ui <- function(id) {
 #' @importFrom magrittr %>%
 #' @importFrom htmltools HTML tags tagList
 #' @importFrom htmlwidgets JS
-mod_dictionary_explorer_server <- function(id, data, config, vocabularies, current_user = reactive(NULL)) {
+mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab_loading_status = reactive("not_loaded"), current_user = reactive(NULL)) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -408,6 +408,19 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, curre
       sorted_cats
     })
 
+    # Show/hide action buttons based on user role
+    observe({
+      user <- current_user()
+
+      if (!is.null(user) && user$role != "Anonymous") {
+        shinyjs::show("action_buttons_container")
+        shinyjs::show("detail_action_buttons")
+      } else {
+        shinyjs::hide("action_buttons_container")
+        shinyjs::hide("detail_action_buttons")
+      }
+    })
+
     # Observe category selection
     observeEvent(input$category_filter, {
       category <- input$category_filter
@@ -441,7 +454,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, curre
             style = "display: flex; align-items: center; gap: 15px; flex: 1;",
             # Title
             tags$div(
-              style = "font-size: 16px; color: #0f60af; font-weight: 600;",
+              class = "section-title",
               tags$span("General Concepts")
             ),
             # Category badges
@@ -468,7 +481,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, curre
           ),
           # Right side: Edit/Cancel/Save/Add buttons
           tags$div(
-            style = "display: flex; gap: 10px;",
+            id = ns("action_buttons_container"),
+            style = "display: none; gap: 10px;",  # Hidden by default
             if (!list_edit_mode()) {
               tagList(
                 actionButton(
@@ -510,7 +524,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, curre
           style = "padding: 10px 0 15px 0; font-size: 16px; display: flex; justify-content: space-between; align-items: center;",
           # Left side: title
           tags$div(
-            style = "font-size: 16px; color: #0f60af; font-weight: 600;",
+            class = "section-title",
             "General Concepts"
           ),
           # Right side: back button
@@ -564,7 +578,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, curre
                 )
               } else if (!edit_mode()) {
                 # Show History and Edit page buttons in detail view (not editing)
-                tagList(
+                tags$div(
+                  id = ns("detail_action_buttons"),
+                  style = "display: none;",  # Hidden by default
                   actionButton(
                     ns("show_history"),
                     "History",
@@ -599,17 +615,38 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, curre
 
     # Render content area once - all containers are created and shown/hidden
     output$content_area <- renderUI({
-      # Check if vocabularies are loaded
+      # Check vocabularies loading status
       vocab_data <- vocabularies()
-      vocab_loaded <- !is.null(vocab_data)
+      loading_status <- vocab_loading_status()
 
       tagList(
-        # General Concepts table container - show error if vocabs not loaded
+        # General Concepts table container - show loading/error/table based on status
         tags$div(
           id = ns("general_concepts_container"),
           class = "table-container",
           style = "height: calc(100vh - 175px); overflow: auto;",
-          if (!vocab_loaded) {
+          if (loading_status == "loading") {
+            # Show loading message
+            tags$div(
+              style = "display: flex; align-items: center; justify-content: center; height: 100%; flex-direction: column; gap: 20px;",
+              tags$div(
+                style = "text-align: center; padding: 40px; background: #e6f3ff; border: 2px solid #0f60af; border-radius: 8px; max-width: 600px;",
+                tags$div(
+                  style = "color: #0f60af; font-size: 48px; margin-bottom: 15px;",
+                  tags$i(class = "fas fa-spinner fa-spin")
+                ),
+                tags$h3(
+                  style = "color: #0f60af; margin-bottom: 15px; font-size: 24px;",
+                  "Loading OHDSI Vocabularies"
+                ),
+                tags$p(
+                  style = "color: #0f60af; font-size: 16px; line-height: 1.5;",
+                  "Please wait while the vocabularies database is being loaded..."
+                )
+              )
+            )
+          } else if (loading_status == "not_loaded" || loading_status == "error" || is.null(vocab_data)) {
+            # Show error message
             tags$div(
               style = "display: flex; align-items: center; justify-content: center; height: 100%; flex-direction: column; gap: 20px;",
               tags$div(
@@ -636,6 +673,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, curre
               )
             )
           } else {
+            # Show table
             DT::DTOutput(ns("general_concepts_table"))
           }
         ),
@@ -2696,7 +2734,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, curre
         rownames = FALSE,
         colnames = c("Relationship", "Concept Name", "Vocabulary", "Code", "OMOP ID"),
         options = list(
-          pageLength = 8,
+          pageLength = 6,
           dom = 'tip',
           columnDefs = list(
             list(targets = 4, visible = FALSE),  # OMOP ID hidden
@@ -2902,7 +2940,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, curre
         rownames = FALSE,
         colnames = c("Relationship", "Concept Name", "Vocabulary", "Code", "OMOP ID"),
         options = list(
-          pageLength = 8,
+          pageLength = 6,
           dom = 'tip',
           columnDefs = list(
             list(targets = 4, visible = FALSE),  # OMOP ID hidden
@@ -2961,7 +2999,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, curre
         rownames = FALSE,
         colnames = c("Synonym", "Language", "Language ID"),
         options = list(
-          pageLength = 8,
+          pageLength = 6,
           dom = 'tip',
           columnDefs = list(
             list(targets = 2, visible = FALSE)  # Language ID hidden
