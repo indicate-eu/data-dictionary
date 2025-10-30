@@ -515,7 +515,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         ),
         # Bottom section: Realized mappings
         tags$div(
-          style = "flex: 0 0 40%; display: flex; flex-direction: column; background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
+          style = "flex: 0 0 auto; max-height: 40%; display: flex; flex-direction: column; background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
           tags$div(
             class = "section-header",
             style = "height: 40px;",
@@ -529,7 +529,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
             )
           ),
           tags$div(
-            style = "flex: 1; min-height: 0; overflow: hidden;",
+            style = "flex: 1; min-height: 0; overflow: auto;",
             DT::DTOutput(ns("realized_mappings_table"))
           )
         )
@@ -559,7 +559,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
               )
             ),
             tags$div(
-              style = "flex: 1; min-height: 0; overflow: hidden;",
+              style = "flex: 1; min-height: 0; overflow: auto;",
               DT::DTOutput(ns("source_concepts_table_mapped"))
             )
           ),
@@ -593,7 +593,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         ),
         # Bottom section: Realized mappings
         tags$div(
-          style = "flex: 0 0 40%; display: flex; flex-direction: column; background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
+          style = "flex: 0 0 auto; max-height: 40%; display: flex; flex-direction: column; background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
           tags$div(
             class = "section-header",
             style = "height: 40px;",
@@ -607,7 +607,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
             )
           ),
           tags$div(
-            style = "flex: 1; min-height: 0; overflow: hidden;",
+            style = "flex: 1; min-height: 0; overflow: auto;",
             DT::DTOutput(ns("realized_mappings_table_mapped"))
           )
         )
@@ -1574,7 +1574,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
             concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"
           ),
           Actions = sprintf(
-            '<button class="btn btn-sm btn-danger" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Remove</button>',
+            '<button class="btn btn-sm btn-danger" style="padding: 2px 8px; font-size: 11px; line-height: 1.2;" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Remove</button>',
             ns("remove_mapping"), dplyr::row_number()
           )
         ) %>%
@@ -1583,7 +1583,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       datatable(
         display_df,
         escape = FALSE,
-        options = list(pageLength = 10, dom = 'tp'),
+        options = list(pageLength = 6, dom = 'tp'),
         rownames = FALSE,
         selection = 'none',
         colnames = c("Source Concept", "Target Concept", "Actions")
@@ -2031,7 +2031,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
             Source = paste0(concept_name_source, " (", vocabulary_id_source, ": ", concept_code_source, ")"),
             Target = paste0(concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"),
             Actions = sprintf(
-              '<button class="btn btn-sm btn-danger" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Remove</button>',
+              '<button class="btn btn-sm btn-danger" style="padding: 2px 8px; font-size: 11px; line-height: 1.2;" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Remove</button>',
               ns("remove_mapping_mapped"), dplyr::row_number()
             )
           ) %>%
@@ -2052,7 +2052,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
             Source = paste0(concept_name_source, " (", vocabulary_id_source, ": ", concept_code_source, ")"),
             Target = paste0(concept_name, " (", vocabulary_id, ": ", concept_code, ")"),
             Actions = sprintf(
-              '<button class="btn btn-sm btn-danger" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Remove</button>',
+              '<button class="btn btn-sm btn-danger" style="padding: 2px 8px; font-size: 11px; line-height: 1.2;" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Remove</button>',
               ns("remove_mapping_mapped"), dplyr::row_number()
             )
           ) %>%
@@ -2062,7 +2062,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       datatable(
         display_df,
         escape = FALSE,
-        options = list(pageLength = 10, dom = 'tp'),
+        options = list(pageLength = 6, dom = 'tp'),
         rownames = FALSE,
         selection = 'none',
         colnames = c("Source Concept", "Target Concept", "Actions")
@@ -2397,7 +2397,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
                     concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"
                   ),
                   Actions = sprintf(
-                    '<button class="btn btn-sm btn-danger" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Remove</button>',
+                    '<button class="btn btn-sm btn-danger" style="padding: 2px 8px; font-size: 11px; line-height: 1.2;" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Remove</button>',
                     ns("remove_mapping"), dplyr::row_number()
                   )
                 ) %>%

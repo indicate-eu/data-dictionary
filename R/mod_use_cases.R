@@ -1152,10 +1152,6 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
       df <- get_available_general_concepts()
       df_display <- df[, -1]  # Remove general_concept_id column
 
-      # Load keyboard navigation JavaScript
-      keyboard_nav <- paste(readLines(app_sys("www", "keyboard_nav.js")), collapse = "\n")
-      init_complete_js <- create_keyboard_nav(keyboard_nav, TRUE, FALSE)
-
       datatable(
         df_display,
         filter = "top",
@@ -1166,8 +1162,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
           pageLength = 10,
           dom = "tip",
           ordering = TRUE,
-          autoWidth = FALSE,
-          initComplete = init_complete_js
+          autoWidth = FALSE
         )
       )
     }, server = FALSE)
@@ -1176,10 +1171,6 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
     output$selected_general_concepts_table <- renderDT({
       df <- get_selected_general_concepts()
       df_display <- df[, -1]  # Remove general_concept_id column
-
-      # Load keyboard navigation JavaScript
-      keyboard_nav <- paste(readLines(app_sys("www", "keyboard_nav.js")), collapse = "\n")
-      init_complete_js <- create_keyboard_nav(keyboard_nav, TRUE, FALSE)
 
       datatable(
         df_display,
@@ -1198,8 +1189,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
               "Select general concepts from the left panel ",
               "and click 'Add Selected Concepts'."
             )
-          ),
-          initComplete = init_complete_js
+          )
         )
       )
     }, server = FALSE)
