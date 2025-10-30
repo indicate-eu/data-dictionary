@@ -351,7 +351,7 @@ mod_dictionary_explorer_ui <- function(id) {
 #' @importFrom magrittr %>%
 #' @importFrom htmltools HTML tags tagList
 #' @importFrom htmlwidgets JS
-mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
+mod_dictionary_explorer_server <- function(id, data, config, vocabularies, current_user = reactive(NULL)) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -599,13 +599,45 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
     # Render content area once - all containers are created and shown/hidden
     output$content_area <- renderUI({
+      # Check if vocabularies are loaded
+      vocab_data <- vocabularies()
+      vocab_loaded <- !is.null(vocab_data)
+
       tagList(
-        # General Concepts table container
+        # General Concepts table container - show error if vocabs not loaded
         tags$div(
           id = ns("general_concepts_container"),
           class = "table-container",
           style = "height: calc(100vh - 175px); overflow: auto;",
-          DT::DTOutput(ns("general_concepts_table"))
+          if (!vocab_loaded) {
+            tags$div(
+              style = "display: flex; align-items: center; justify-content: center; height: 100%; flex-direction: column; gap: 20px;",
+              tags$div(
+                style = "text-align: center; padding: 40px; background: #f8d7da; border: 2px solid #dc3545; border-radius: 8px; max-width: 600px;",
+                tags$div(
+                  style = "color: #dc3545; font-size: 48px; margin-bottom: 15px;",
+                  tags$i(class = "fas fa-exclamation-triangle")
+                ),
+                tags$h3(
+                  style = "color: #dc3545; margin-bottom: 15px; font-size: 24px;",
+                  "OHDSI Vocabularies Not Loaded"
+                ),
+                tags$p(
+                  style = "color: #721c24; font-size: 16px; margin-bottom: 20px; line-height: 1.5;",
+                  "The OHDSI Vocabularies database is required to display concept mappings and terminology details. Please configure the vocabularies folder in settings."
+                ),
+                tags$button(
+                  class = "btn btn-primary-custom",
+                  onclick = "$('#nav_settings').click(); $('#settings_dropdown').show(); setTimeout(function() { $('#settings_dropdown .settings-dropdown-item:first').click(); }, 100);",
+                  style = "font-size: 16px; padding: 12px 24px;",
+                  tags$i(class = "fas fa-cog", style = "margin-right: 8px;"),
+                  "Go to Settings"
+                )
+              )
+            )
+          } else {
+            DT::DTOutput(ns("general_concepts_table"))
+          }
         ),
         # Concept details container
         tags$div(

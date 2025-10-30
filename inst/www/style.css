@@ -266,6 +266,7 @@ a:hover {
   display: flex;
   align-items: center;
   flex-shrink: 0;
+  gap: 12px;
 }
 
 .nav-tab {
@@ -341,6 +342,24 @@ h3, h4 {
   flex: 1;
   min-height: 0;
   overflow: hidden;
+}
+
+/* Settings page should take full height */
+#page_settings {
+  display: flex !important;
+  flex-direction: column;
+}
+
+#page_settings .main-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#page_settings .main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Splitter
@@ -1615,4 +1634,123 @@ table.dataTable thead tr td .selectize-dropdown .option {
 /* Remove margin-bottom from all form-group elements */
 .form-group {
   margin-bottom: 0;
+}
+/* Login Page Styles
+-------------------------------------------------- */
+.login-container {
+  background: #f0f2f5;
+}
+
+.login-box {
+  animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-box input {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.login-box input:focus {
+  outline: none;
+  border-color: #0f60af;
+  box-shadow: 0 0 0 3px rgba(15, 96, 175, 0.1);
+}
+
+.login-box button {
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.login-box button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.login-box button:active {
+  transform: translateY(0);
+}
+
+/* User Management Styles
+-------------------------------------------------- */
+.users-container .btn-edit,
+.users-container .btn-delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin: 0 3px;
+  border-radius: 3px;
+  transition: background-color 0.2s;
+}
+
+.users-container .btn-edit {
+  color: #0f60af;
+}
+
+.users-container .btn-edit:hover {
+  background: #e6f3ff;
+}
+
+.users-container .btn-delete {
+  color: #dc3545;
+}
+
+.users-container .btn-delete:hover {
+  background: #fee;
+}
+
+/* Modal overlay for user management */
+.modal-overlay {
+  backdrop-filter: blur(4px);
+}
+
+.modal-content input,
+.modal-content select {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.modal-content input:focus,
+.modal-content select:focus {
+  outline: none;
+  border-color: #0f60af;
+  box-shadow: 0 0 0 3px rgba(15, 96, 175, 0.1);
+}
+
+.close-button:hover {
+  color: #333 !important;
+}
+
+/* Settings dropdown improvements */
+.settings-dropdown-item:hover {
+  background: rgba(255,255,255,0.1) !important;
+}
+
+/* Password toggle button */
+.password-toggle-btn {
+  transition: color 0.2s ease;
+}
+
+.password-toggle-btn:hover {
+  color: #0f60af !important;
+}
+
+.password-toggle-btn:active {
+  transform: translateY(-50%) scale(0.95) !important;
 }

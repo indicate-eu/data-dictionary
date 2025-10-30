@@ -12,6 +12,124 @@
 #' @importFrom shiny reactive observeEvent renderUI reactiveVal tags icon observe isolate invalidateLater
 app_server <- function(input, output, session) {
 
+  # Initialize login module and get current user
+  login_module <- mod_login_server("login")
+  current_user <- login_module$user
+
+  # Track if data has been loaded
+  data_loaded <- reactiveVal(FALSE)
+
+  # Show main app when user is authenticated and load data
+  observe({
+    user <- current_user()
+
+    if (!is.null(user)) {
+      shinyjs::hide("login_page")
+      shinyjs::show("main_app")
+
+      # Load DuckDB data AFTER login (only once)
+      if (!data_loaded()) {
+        # Get vocabulary folder and DuckDB setting
+        vocab_folder <- get_vocab_folder()
+        use_duckdb <- get_use_duckdb()
+
+        # If DuckDB is enabled and exists, load synchronously
+        if (!is.null(vocab_folder) && vocab_folder != "" && use_duckdb && duckdb_exists()) {
+          tryCatch({
+            vocab_data <- load_vocabularies_from_duckdb()
+            vocabularies(vocab_data)
+            vocab_loading_status("loaded")
+          }, error = function(e) {
+            message("Error loading from DuckDB: ", e$message)
+            vocab_loading_status("error")
+          })
+        }
+
+        data_loaded(TRUE)
+      }
+
+      # Hide certain features for anonymous users
+      if (user$role == "Anonymous") {
+        # Hide pages for anonymous users
+        shinyjs::hide("nav_mapping")
+        shinyjs::hide("nav_improvements")
+        shinyjs::hide("nav_dev_tools")
+        shinyjs::hide("nav_settings")
+      } else {
+        # Show all navigation for authenticated users
+        shinyjs::show("nav_mapping")
+        shinyjs::show("nav_improvements")
+        shinyjs::show("nav_dev_tools")
+        shinyjs::show("nav_settings")
+      }
+    } else {
+      shinyjs::show("login_page")
+      shinyjs::hide("main_app")
+    }
+  })
+
+  # Handle logout
+  observeEvent(input$logout, {
+    # Call logout function from login module
+    login_module$logout()
+
+    # Reset data loaded flag
+    data_loaded(FALSE)
+
+    # Close DuckDB connection if exists
+    if (!is.null(vocabularies())) {
+      vocab_data <- vocabularies()
+      if (!is.null(vocab_data$connection)) {
+        tryCatch({
+          DBI::dbDisconnect(vocab_data$connection, shutdown = TRUE)
+        }, error = function(e) {
+          message("Error closing DuckDB connection: ", e$message)
+        })
+      }
+    }
+
+    # Reset vocabularies
+    vocabularies(NULL)
+    vocab_loading_status("not_loaded")
+
+    # Show login page, hide main app
+    shinyjs::show("login_page")
+    shinyjs::hide("main_app")
+  })
+
+  # Display current user in header
+  output$current_user_display <- renderUI({
+    user <- current_user()
+
+    if (is.null(user)) {
+      return(NULL)
+    }
+
+    # Build user display name
+    if (!is.null(user$first_name) && nchar(user$first_name) > 0) {
+      user_name <- paste(user$first_name, user$last_name)
+    } else {
+      user_name <- user$login
+    }
+
+    # Choose icon based on role
+    user_icon <- if (user$role == "Anonymous") {
+      "user"
+    } else {
+      "user-circle"
+    }
+
+    tags$div(
+      class = "current-user-badge",
+      style = "display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: #0f60af; border-radius: 20px; color: white; font-size: 14px;",
+      tags$i(class = paste0("fas fa-", user_icon), style = "font-size: 16px;"),
+      tags$span(
+        style = "font-weight: 500;",
+        user_name
+      )
+    )
+  })
+
   # Load configuration
   config <- get_config()
 
@@ -27,24 +145,6 @@ app_server <- function(input, output, session) {
   vocabularies <- reactiveVal(NULL)
   vocab_loading_status <- reactiveVal("not_loaded")  # "not_loaded", "loading", "loaded", "error"
   vocab_future <- reactiveVal(NULL)
-
-  # Get vocabulary folder and DuckDB setting
-  vocab_folder <- get_vocab_folder()
-  use_duckdb <- get_use_duckdb()
-
-  # If DuckDB is enabled and exists, load synchronously immediately
-  if (!is.null(vocab_folder) && vocab_folder != "" && use_duckdb && duckdb_exists()) {
-    isolate({
-      tryCatch({
-        vocab_data <- load_vocabularies_from_duckdb()
-        vocabularies(vocab_data)
-        vocab_loading_status("loaded")
-      }, error = function(e) {
-        message("Error loading from DuckDB: ", e$message)
-        vocab_loading_status("error")
-      })
-    })
-  }
 
   # Handle manual loading when user clicks button
   observeEvent(input$load_vocab_data, {
@@ -247,26 +347,30 @@ app_server <- function(input, output, session) {
     "dictionary_explorer",
     data = data,
     config = config,
-    vocabularies = reactive({ vocabularies() })
+    vocabularies = reactive({ vocabularies() }),
+    current_user = current_user
   )
 
   mod_concept_mapping_server(
     "concept_mapping",
     data = data,
     config = config,
-    vocabularies = reactive({ vocabularies() })
+    vocabularies = reactive({ vocabularies() }),
+    current_user = current_user
   )
 
   mod_use_cases_server(
     "use_cases",
     data = data,
-    vocabularies = reactive({ vocabularies() })
+    vocabularies = reactive({ vocabularies() }),
+    current_user = current_user
   )
 
   mod_improvements_server(
     "improvements",
     data = data,
-    config = config
+    config = config,
+    current_user = current_user
   )
 
   mod_dev_tools_server(
@@ -287,6 +391,7 @@ app_server <- function(input, output, session) {
       vocabularies(vocab_data)
       vocab_loading_status("loaded")
     },
-    page_type = reactive({ settings_page_type() })
+    page_type = reactive({ settings_page_type() }),
+    current_user = current_user
   )
 }

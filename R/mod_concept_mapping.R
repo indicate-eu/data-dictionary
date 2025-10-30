@@ -14,6 +14,8 @@ mod_concept_mapping_ui <- function(id) {
   ns <- NS(id)
 
   tagList(
+    shinyjs::useShinyjs(),
+
     # Main content for concept mapping
     div(class = "main-panel",
         div(class = "main-content",
@@ -272,7 +274,7 @@ mod_concept_mapping_ui <- function(id) {
 #' @importFrom DT renderDT datatable formatStyle DTOutput
 #' @importFrom dplyr filter select mutate arrange
 #' @importFrom htmltools tags tagList HTML
-mod_concept_mapping_server <- function(id, data, config, vocabularies) {
+mod_concept_mapping_server <- function(id, data, config, vocabularies, current_user = reactive(NULL)) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -298,6 +300,35 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
 
     # Trigger to force refresh of completed mappings table
     mappings_refresh_trigger <- reactiveVal(0)
+
+    # Track active mapping tab
+    mapping_tab <- reactiveVal("summary")  # "summary", "edit_mappings", or "evaluate_mappings"
+
+    # Handle tab switching
+    observeEvent(input$switch_mapping_tab, {
+      mapping_tab(input$switch_mapping_tab)
+
+      # Update tab button active state
+      shinyjs::runjs(sprintf("
+        $('#%s .tab-btn').removeClass('tab-btn-active');
+        $('#%s').addClass('tab-btn-active');
+      ", ns(""), ns(paste0("tab_", input$switch_mapping_tab))))
+
+      # Show/hide tab content
+      if (input$switch_mapping_tab == "summary") {
+        shinyjs::show("summary_tab_content")
+        shinyjs::hide("edit_mappings_tab_content")
+        shinyjs::hide("evaluate_mappings_tab_content")
+      } else if (input$switch_mapping_tab == "edit_mappings") {
+        shinyjs::hide("summary_tab_content")
+        shinyjs::show("edit_mappings_tab_content")
+        shinyjs::hide("evaluate_mappings_tab_content")
+      } else if (input$switch_mapping_tab == "evaluate_mappings") {
+        shinyjs::hide("summary_tab_content")
+        shinyjs::hide("edit_mappings_tab_content")
+        shinyjs::show("evaluate_mappings_tab_content")
+      }
+    })
 
     # Render breadcrumb navigation
     output$breadcrumb <- renderUI({
@@ -458,85 +489,143 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
     render_mapping_view <- function() {
       tags$div(
         class = "panel-container-full",
-        # Top section: Source concepts (left) and target concepts (right)
+
+        # Tabs header
         tags$div(
-          style = "flex: 1; display: flex; gap: 15px; min-height: 0;",
-          # Left: Source concepts to map
+          class = "section-header section-header-with-tabs",
+          style = "margin-bottom: 15px;",
           tags$div(
-            class = "card-container card-container-flex",
-            style = "flex: 1; min-width: 0;",
+            class = "section-tabs",
+            tags$button(
+              class = "tab-btn tab-btn-active",
+              id = ns("tab_summary"),
+              onclick = sprintf("Shiny.setInputValue('%s', 'summary', {priority: 'event'})", ns("switch_mapping_tab")),
+              "Summary"
+            ),
+            tags$button(
+              class = "tab-btn",
+              id = ns("tab_edit_mappings"),
+              onclick = sprintf("Shiny.setInputValue('%s', 'edit_mappings', {priority: 'event'})", ns("switch_mapping_tab")),
+              "Edit Mappings"
+            ),
+            tags$button(
+              class = "tab-btn",
+              id = ns("tab_evaluate_mappings"),
+              onclick = sprintf("Shiny.setInputValue('%s', 'evaluate_mappings', {priority: 'event'})", ns("switch_mapping_tab")),
+              "Evaluate Mappings"
+            )
+          )
+        ),
+
+        # Tab content
+        tags$div(
+          style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
+
+          # Summary tab content
+          tags$div(
+            id = ns("summary_tab_content"),
+            style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
+            uiOutput(ns("summary_content"))
+          ),
+
+          # Edit mappings tab content
+          tags$div(
+            id = ns("edit_mappings_tab_content"),
+            style = "flex: 1; min-height: 0; display: none; flex-direction: column;",
+            # Top section: Source concepts (left) and target concepts (right)
             tags$div(
-              class = "section-header",
+              style = "flex: 1; display: flex; gap: 15px; min-height: 0;",
+              # Left: Source concepts to map
               tags$div(
-                style = "flex: 1;",
+                class = "card-container card-container-flex",
+                style = "flex: 1; min-width: 0;",
+                tags$div(
+                  class = "section-header",
+                  tags$div(
+                    style = "flex: 1;",
+                    tags$h4(
+                      style = "margin: 0;",
+                      "Source Concepts",
+                      tags$span(
+                        class = "info-icon",
+                        `data-tooltip` = "Concepts from your uploaded CSV file to be mapped to INDICATE concepts",
+                        "ⓘ"
+                      )
+                    )
+                  ),
+                  actionButton(
+                    ns("add_mapping_from_general"),
+                    "Add Mapping",
+                    class = "btn-success-custom",
+                    style = "height: 32px; padding: 5px 15px; font-size: 14px; display: none;"
+                  )
+                ),
+                tags$div(
+                  style = "flex: 1; min-height: 0; overflow: auto;",
+                  DT::DTOutput(ns("source_concepts_table"))
+                )
+              ),
+              # Right: Target concepts (general concepts or mapped concepts)
+              tags$div(
+                class = "card-container card-container-flex",
+                style = "flex: 1; min-width: 0;",
+                uiOutput(ns("general_concepts_header")),
+                tags$div(
+                  style = "flex: 1; min-height: 0; overflow: auto;",
+                  # General concepts table - always present, just hidden
+                  tags$div(
+                    id = ns("general_concepts_table_container"),
+                    style = "height: 100%;",
+                    DT::DTOutput(ns("general_concepts_table"))
+                  ),
+                  # Concept mappings table - always present, just hidden
+                  tags$div(
+                    id = ns("concept_mappings_table_container"),
+                    style = "height: 100%; display: none;",
+                    DT::DTOutput(ns("concept_mappings_table"))
+                  ),
+                  # Comments display - always present, just hidden
+                  tags$div(
+                    id = ns("comments_display_container"),
+                    style = "display: none;",
+                    uiOutput(ns("comments_display"))
+                  )
+                )
+              )
+            ),
+            # Bottom section: Completed mappings
+            tags$div(
+              class = "card-container panel-container-top",
+              tags$div(
+                class = "section-header",
+
                 tags$h4(
-                  style = "margin: 0;",
-                  "Source Concepts",
+                  "Completed Mappings",
                   tags$span(
                     class = "info-icon",
-                    `data-tooltip` = "Concepts from your uploaded CSV file to be mapped to INDICATE concepts",
+                    `data-tooltip` = "Mappings between your source concepts and INDICATE concepts that you have created",
                     "ⓘ"
                   )
                 )
               ),
-              actionButton(
-                ns("add_mapping_from_general"),
-                "Add Mapping",
-                class = "btn-success-custom",
-                style = "height: 32px; padding: 5px 15px; font-size: 14px; display: none;"
-              )
-            ),
-            tags$div(
-              style = "flex: 1; min-height: 0; overflow: auto;",
-              DT::DTOutput(ns("source_concepts_table"))
-            )
-          ),
-          # Right: Target concepts (general concepts or mapped concepts)
-          tags$div(
-            class = "card-container card-container-flex",
-            style = "flex: 1; min-width: 0;",
-            uiOutput(ns("general_concepts_header")),
-            tags$div(
-              style = "flex: 1; min-height: 0; overflow: auto;",
-              # General concepts table - always present, just hidden
               tags$div(
-                id = ns("general_concepts_table_container"),
-                style = "height: 100%;",
-                DT::DTOutput(ns("general_concepts_table"))
-              ),
-              # Concept mappings table - always present, just hidden
-              tags$div(
-                id = ns("concept_mappings_table_container"),
-                style = "height: 100%; display: none;",
-                DT::DTOutput(ns("concept_mappings_table"))
-              ),
-              # Comments display - always present, just hidden
-              tags$div(
-                id = ns("comments_display_container"),
-                style = "display: none;",
-                uiOutput(ns("comments_display"))
-              )
-            )
-          )
-        ),
-        # Bottom section: Completed mappings
-        tags$div(
-          class = "card-container panel-container-top",
-          tags$div(
-            class = "section-header",
-            
-            tags$h4(
-              "Completed Mappings",
-              tags$span(
-                class = "info-icon",
-                `data-tooltip` = "Mappings between your source concepts and INDICATE concepts that you have created",
-                "ⓘ"
+                style = "flex: 1; min-height: 0; overflow: auto;",
+                DT::DTOutput(ns("realized_mappings_table"))
               )
             )
           ),
+
+          # Evaluate mappings tab content
           tags$div(
-            style = "flex: 1; min-height: 0; overflow: auto;",
-            DT::DTOutput(ns("realized_mappings_table"))
+            id = ns("evaluate_mappings_tab_content"),
+            style = "flex: 1; min-height: 0; display: none;",
+            tags$div(
+              style = "padding: 40px; text-align: center; color: #999;",
+              tags$p(
+                style = "font-size: 18px;",
+                "Evaluate Mappings functionality coming soon..."
+              )
+            )
           )
         )
       )
@@ -619,6 +708,215 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         )
       )
     }
+
+    # Render summary content
+    output$summary_content <- renderUI({
+      req(selected_alignment_id())
+      req(data())
+
+      alignments <- alignments_data()
+      alignment <- alignments %>%
+        dplyr::filter(alignment_id == selected_alignment_id())
+
+      if (nrow(alignment) != 1) {
+        return(tags$div("No alignment selected"))
+      }
+
+      file_id <- alignment$file_id[1]
+
+      # Get app folder and construct path
+      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
+      if (is.na(app_folder) || app_folder == "") {
+        mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
+      } else {
+        mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
+      }
+
+      csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
+
+      # Check if file exists
+      if (!file.exists(csv_path)) {
+        return(tags$div("CSV file not found"))
+      }
+
+      # Read CSV
+      df <- read.csv(csv_path, stringsAsFactors = FALSE)
+
+      # Calculate statistics
+      total_source_concepts <- nrow(df)
+      mapped_source_concepts <- sum(!is.na(df$target_general_concept_id))
+      pct_mapped_source <- round((mapped_source_concepts / total_source_concepts) * 100, 1)
+
+      # Get all general concepts mapped
+      mapped_general_concept_ids <- unique(df$target_general_concept_id[!is.na(df$target_general_concept_id)])
+      total_dictionary_concepts <- nrow(data()$general_concepts)
+      mapped_dictionary_concepts <- length(mapped_general_concept_ids)
+      pct_mapped_dictionary <- round((mapped_dictionary_concepts / total_dictionary_concepts) * 100, 1)
+
+      # Calculate use case alignment
+      use_cases <- data()$use_cases
+      general_concept_use_cases <- data()$general_concept_use_cases
+
+      use_case_stats <- use_cases %>%
+        dplyr::rowwise() %>%
+        dplyr::mutate(
+          required_concepts = {
+            req_concepts <- general_concept_use_cases %>%
+              dplyr::filter(use_case_id == id) %>%
+              dplyr::pull(general_concept_id)
+            length(req_concepts)
+          },
+          mapped_concepts = {
+            req_concepts <- general_concept_use_cases %>%
+              dplyr::filter(use_case_id == id) %>%
+              dplyr::pull(general_concept_id)
+            sum(req_concepts %in% mapped_general_concept_ids)
+          },
+          pct_aligned = ifelse(required_concepts > 0, round((mapped_concepts / required_concepts) * 100, 1), 0)
+        ) %>%
+        dplyr::ungroup() %>%
+        dplyr::select(name, short_name, required_concepts, mapped_concepts, pct_aligned) %>%
+        dplyr::arrange(dplyr::desc(pct_aligned))
+
+      # Render UI
+      tags$div(
+        style = "display: flex; gap: 20px; height: 100%;",
+
+        # Left side: Summary cards
+        tags$div(
+          style = "flex: 0 0 50%; display: flex; flex-wrap: wrap; gap: 20px; align-content: flex-start;",
+
+          # Card 1: Source concepts mapped
+          tags$div(
+            style = "flex: 0 0 calc(50% - 10px); background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #28a745;",
+            tags$div(
+              style = "font-size: 14px; color: #666; margin-bottom: 8px;",
+              "Source Concepts Mapped"
+            ),
+            tags$div(
+              style = "font-size: 32px; font-weight: 700; color: #28a745; margin-bottom: 5px;",
+              paste0(mapped_source_concepts, " / ", total_source_concepts)
+            ),
+            tags$div(
+              style = "font-size: 18px; color: #999;",
+              paste0(pct_mapped_source, "%")
+            )
+          ),
+
+          # Card 2: Dictionary concepts used
+          tags$div(
+            style = "flex: 0 0 calc(50% - 10px); background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #17a2b8;",
+            tags$div(
+              style = "font-size: 14px; color: #666; margin-bottom: 8px;",
+              "Dictionary Concepts Used"
+            ),
+            tags$div(
+              style = "font-size: 32px; font-weight: 700; color: #17a2b8; margin-bottom: 5px;",
+              paste0(mapped_dictionary_concepts, " / ", total_dictionary_concepts)
+            ),
+            tags$div(
+              style = "font-size: 18px; color: #999;",
+              paste0(pct_mapped_dictionary, "%")
+            )
+          )
+        ),
+
+        # Right side: Use case alignment table
+        tags$div(
+          style = "flex: 1; display: flex; flex-direction: column; min-width: 0;",
+          tags$div(
+            class = "section-header",
+            tags$h4("Use Case Alignment")
+          ),
+          tags$div(
+            style = "flex: 1; margin-top: 10px; overflow: auto; background: white; border-radius: 6px; padding: 10px;",
+            DT::DTOutput(ns("use_case_alignment_table"))
+          )
+        )
+      )
+    })
+
+    # Render use case alignment table
+    output$use_case_alignment_table <- DT::renderDT({
+      req(selected_alignment_id())
+      req(data())
+
+      alignments <- alignments_data()
+      alignment <- alignments %>%
+        dplyr::filter(alignment_id == selected_alignment_id())
+
+      if (nrow(alignment) != 1) {
+        return(datatable(data.frame()))
+      }
+
+      file_id <- alignment$file_id[1]
+
+      # Get app folder and construct path
+      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
+      if (is.na(app_folder) || app_folder == "") {
+        mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
+      } else {
+        mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
+      }
+
+      csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
+
+      if (!file.exists(csv_path)) {
+        return(datatable(data.frame()))
+      }
+
+      df <- read.csv(csv_path, stringsAsFactors = FALSE)
+      mapped_general_concept_ids <- unique(df$target_general_concept_id[!is.na(df$target_general_concept_id)])
+
+      use_cases <- data()$use_cases
+      general_concept_use_cases <- data()$general_concept_use_cases
+
+      use_case_stats <- use_cases %>%
+        dplyr::rowwise() %>%
+        dplyr::mutate(
+          required_concepts = {
+            req_concepts <- general_concept_use_cases %>%
+              dplyr::filter(use_case_id == id) %>%
+              dplyr::pull(general_concept_id)
+            length(req_concepts)
+          },
+          mapped_concepts = {
+            req_concepts <- general_concept_use_cases %>%
+              dplyr::filter(use_case_id == id) %>%
+              dplyr::pull(general_concept_id)
+            sum(req_concepts %in% mapped_general_concept_ids)
+          },
+          pct_aligned = ifelse(required_concepts > 0, round((mapped_concepts / required_concepts) * 100, 1), 0)
+        ) %>%
+        dplyr::ungroup() %>%
+        dplyr::select(Use_Case = name, Required = required_concepts, Mapped = mapped_concepts, Alignment = pct_aligned) %>%
+        dplyr::arrange(dplyr::desc(Alignment))
+
+      dt <- datatable(
+        use_case_stats,
+        options = list(
+          pageLength = 10,
+          dom = 'tp',
+          ordering = TRUE
+        ),
+        rownames = FALSE,
+        selection = 'none'
+      )
+
+      # Add background color based on alignment percentage
+      dt <- dt %>%
+        DT::formatStyle(
+          'Alignment',
+          target = 'row',
+          backgroundColor = DT::styleInterval(
+            c(99.9),
+            c('#ffcccc', '#ccffcc')
+          )
+        ) %>%
+        DT::formatString('Alignment', suffix = '%')
+
+      dt
+    }, server = FALSE)
 
     # Render alignments table
     output$alignments_table <- DT::renderDT({

@@ -53,7 +53,7 @@ mod_improvements_ui <- function(id) {
 #' @noRd
 #'
 #' @importFrom shiny moduleServer reactive req
-mod_improvements_server <- function(id, data, config) {
+mod_improvements_server <- function(id, data, config, current_user = reactive(NULL)) {
   moduleServer(id, function(input, output, session) {
 
     # Placeholder for future implementation

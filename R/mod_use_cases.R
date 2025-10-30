@@ -480,7 +480,7 @@ render_use_case_config_ui <- function(ns) {
 #' @importFrom htmltools tags tagList HTML
 #' @importFrom DT renderDT datatable formatStyle styleEqual
 #' @importFrom dplyr left_join group_by summarise n filter inner_join select collect
-mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
+mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), current_user = reactive(NULL)) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -496,6 +496,22 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL })) {
       req(data())
       use_cases_reactive(data()$use_cases)
       general_concept_use_cases_reactive(data()$general_concept_use_cases)
+    })
+
+    # Hide action buttons for anonymous users
+    observe({
+      user <- current_user()
+      if (!is.null(user) && user$role == "Anonymous") {
+        shinyjs::hide("add_use_case_btn")
+        shinyjs::hide("edit_name_description_btn")
+        shinyjs::hide("configure_use_case_btn")
+        shinyjs::hide("delete_selected_btn")
+      } else {
+        shinyjs::show("add_use_case_btn")
+        shinyjs::show("edit_name_description_btn")
+        shinyjs::show("configure_use_case_btn")
+        shinyjs::show("delete_selected_btn")
+      }
     })
 
     # Render breadcrumb navigation

@@ -42,10 +42,23 @@ app_ui <- function() {
       tags$script(src = "www/view_details.js"),
       tags$script(src = "www/settings_menu.js"),
       tags$script(src = "www/prevent_doubleclick_selection.js"),
-      tags$script(src = "www/recommended_toggle.js")
+      tags$script(src = "www/recommended_toggle.js"),
+      tags$script(src = "www/login_handler.js"),
+      tags$script(src = "www/users_table.js")
     ),
 
-    # Application header with navigation
+    # Login page (shown first)
+    div(
+      id = "login_page",
+      mod_login_ui("login")
+    ),
+
+    # Main application (hidden until authenticated)
+    div(
+      id = "main_app",
+      style = "display: none;",
+
+      # Application header with navigation
     div(class = "header",
         # Logo and title section
         div(class = "header-left",
@@ -89,6 +102,8 @@ app_ui <- function() {
 
         # Settings button and loading status on the right
         div(class = "header-right",
+            # Current user display
+            uiOutput("current_user_display"),
             uiOutput("vocab_status_indicator"),
             tags$div(
               style = "position: relative;",
@@ -111,10 +126,17 @@ app_ui <- function() {
                 ),
                 tags$div(
                   class = "settings-dropdown-item",
-                  style = "padding: 12px 20px; cursor: pointer; color: white; transition: background 0.2s;",
+                  style = "padding: 12px 20px; cursor: pointer; color: white; border-bottom: 1px solid rgba(255,255,255,0.1); transition: background 0.2s;",
                   onclick = "$('#settings_dropdown').hide(); Shiny.setInputValue('nav_users', true, {priority: 'event'});",
                   tags$i(class = "fas fa-users", style = "margin-right: 10px;"),
                   "Users"
+                ),
+                tags$div(
+                  class = "settings-dropdown-item",
+                  style = "padding: 12px 20px; cursor: pointer; color: white; transition: background 0.2s;",
+                  onclick = "$('#settings_dropdown').hide(); Shiny.setInputValue('logout', true, {priority: 'event'});",
+                  tags$i(class = "fas fa-sign-out-alt", style = "margin-right: 10px;"),
+                  "Logout"
                 )
               )
             )
@@ -157,21 +179,22 @@ app_ui <- function() {
       )
     ),
 
-    # Footer
-    tags$div(
-      class = "app-footer",
-      style = "background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 10px 20px; text-align: center; color: #666; font-size: 13px; flex-shrink: 0;",
-      tags$span(
-        paste0("INDICATE Data Dictionary v", utils::packageVersion("indicate")),
-        style = "margin-right: 15px;"
-      ),
-      tags$span("|", style = "margin-right: 15px; color: #ccc;"),
-      tags$a(
-        href = "https://indicate-europe.eu/",
-        target = "_blank",
-        style = "color: #0f60af; text-decoration: none;",
-        "INDICATE Project"
+      # Footer
+      tags$div(
+        class = "app-footer",
+        style = "background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 10px 20px; text-align: center; color: #666; font-size: 13px; flex-shrink: 0;",
+        tags$span(
+          paste0("INDICATE Data Dictionary v", utils::packageVersion("indicate")),
+          style = "margin-right: 15px;"
+        ),
+        tags$span("|", style = "margin-right: 15px; color: #ccc;"),
+        tags$a(
+          href = "https://indicate-europe.eu/",
+          target = "_blank",
+          style = "color: #0f60af; text-decoration: none;",
+          "INDICATE Project"
+        )
       )
-    )
+    ) # End main_app div
   )
 }

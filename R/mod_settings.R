@@ -94,24 +94,7 @@ general_settings_ui <- function(ns) {
 
 # Helper function for Users content
 users_ui <- function(ns) {
-  fluidRow(
-    column(12,
-           div(class = "users-placeholder",
-               style = "padding: 40px; text-align: center; background: #f8f9fa; border-radius: 8px; margin-top: 20px;",
-               tags$i(class = "fas fa-users", style = "font-size: 64px; color: #0f60af; margin-bottom: 20px;"),
-               tags$h3("User Management", style = "color: #0f60af;"),
-               tags$p("Manage user profiles for tracking contributions and improvements to the dictionary."),
-               tags$p(style = "color: #666;", "Features coming soon:"),
-               tags$ul(
-                 style = "list-style: none; padding: 0; color: #666;",
-                 tags$li(tags$i(class = "fas fa-check", style = "color: #28a745; margin-right: 8px;"), "Add and edit user profiles"),
-                 tags$li(tags$i(class = "fas fa-check", style = "color: #28a745; margin-right: 8px;"), "Assign roles and permissions"),
-                 tags$li(tags$i(class = "fas fa-check", style = "color: #28a745; margin-right: 8px;"), "Track user contributions"),
-                 tags$li(tags$i(class = "fas fa-check", style = "color: #28a745; margin-right: 8px;"), "Export user activity reports")
-               )
-           )
-    )
-  )
+  mod_users_ui(ns("users"))
 }
 
 #' Settings Module - Server
@@ -123,14 +106,18 @@ users_ui <- function(ns) {
 #' @param vocabularies Reactive containing vocabularies data with connection
 #' @param reset_vocabularies Function to reset vocabularies to NULL
 #' @param set_vocabularies Function to set vocabularies and update loading status
+#' @param current_user Reactive containing current user data
 #'
 #' @return Module server logic
 #' @noRd
 #'
 #' @importFrom shiny moduleServer reactive observeEvent reactiveVal renderUI showModal modalDialog removeModal observe textInput
-mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabularies = NULL, set_vocabularies = NULL, page_type = reactive("general")) {
+mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabularies = NULL, set_vocabularies = NULL, page_type = reactive("general"), current_user = reactive(NULL)) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
+
+    # Call users module server
+    mod_users_server("users", current_user = current_user)
 
     # Render settings content based on page type
     output$settings_content <- renderUI({
@@ -446,7 +433,7 @@ mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabular
         # Close modal
         removeModal()
 
-        # Check if DuckDB database needs to be created
+        # Check if DuckDB database needs to be created or loaded
         if (!duckdb_exists()) {
           # Set processing status to update UI immediately
           duckdb_processing(TRUE)
@@ -457,6 +444,21 @@ mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabular
             shinyjs::runjs(sprintf(
               "Shiny.setInputValue('%s', Math.random(), {priority: 'event'})",
               session$ns("trigger_duckdb_creation")
+            ))
+          })
+        } else {
+          # Database exists - load it immediately
+          tryCatch({
+            set_use_duckdb(TRUE)
+            vocab_data <- load_vocabularies_from_duckdb()
+            if (!is.null(set_vocabularies)) {
+              set_vocabularies(vocab_data)
+            }
+          }, error = function(e) {
+            message("Error loading existing DuckDB: ", e$message)
+            duckdb_message(list(
+              success = FALSE,
+              message = paste("Failed to load database:", e$message)
             ))
           })
         }
@@ -684,11 +686,10 @@ mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabular
         db_path <- get_duckdb_path()
         return(
           tags$div(
-            style = "padding: 10px; background: #d4edda; border-left: 3px solid #28a745; border-radius: 4px; font-size: 12px; display: flex; justify-content: space-between; align-items: center;",
-            tags$div(
-              tags$i(class = "fas fa-check-circle", style = "margin-right: 6px; color: #28a745;"),
-              "Database exists: ", tags$code(basename(db_path))
-            ),
+            style = "padding: 10px; background: #d4edda; border-left: 3px solid #28a745; border-radius: 4px; font-size: 12px; display: flex; align-items: center; gap: 8px;",
+            tags$i(class = "fas fa-check-circle", style = "color: #28a745;"),
+            tags$span("Database exists: "),
+            tags$code(basename(db_path)),
             actionButton(
               ns("recreate_duckdb"),
               label = tagList(
@@ -696,7 +697,7 @@ mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabular
                 "Recreate"
               ),
               class = "btn-sm",
-              style = "background: #17a2b8; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 12px; cursor: pointer;"
+              style = "background: #fd7e14; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 12px; cursor: pointer;"
             )
           )
         )
