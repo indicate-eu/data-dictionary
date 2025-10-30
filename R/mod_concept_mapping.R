@@ -1275,7 +1275,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       # Select and reorder columns, excluding target columns
       standard_cols <- c("vocabulary_id", "concept_code", "concept_name", "statistical_summary")
       available_standard <- standard_cols[standard_cols %in% colnames(df)]
-      target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_vocabulary_id", "target_concept_code", "target_concept_name")
+      target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id")
       other_cols <- setdiff(colnames(df), c(standard_cols, target_cols, "Mapped"))
       df_display <- df[, c(available_standard, other_cols, "Mapped"), drop = FALSE]
 
@@ -1345,7 +1345,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         general_concepts_display,
         filter = 'top',
         options = list(
-          pageLength = 6,
+          pageLength = 8,
           dom = 'tp',
           scrollX = TRUE,
           scrollY = TRUE,
@@ -1462,16 +1462,81 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
           by = c("target_general_concept_id" = "general_concept_id")
         )
 
-      # Use target concept info from CSV (supports both OMOP and custom concepts)
-      if ("target_concept_name" %in% colnames(enriched_rows)) {
-        enriched_rows <- enriched_rows %>%
-          dplyr::rename(
-            concept_name_target = target_concept_name,
-            vocabulary_id_target = target_vocabulary_id,
-            concept_code_target = target_concept_code
-          )
+      # Enrich with target concept info (OMOP or custom)
+      if ("target_custom_concept_id" %in% colnames(enriched_rows)) {
+        # New approach: use target_custom_concept_id or target_omop_concept_id
+
+        # Enrich OMOP concepts
+        vocab_data <- vocabularies()
+        if (!is.null(vocab_data)) {
+          omop_rows <- enriched_rows %>% dplyr::filter(!is.na(target_omop_concept_id))
+          if (nrow(omop_rows) > 0) {
+            concept_ids <- omop_rows$target_omop_concept_id
+            omop_concepts <- vocab_data$concept %>%
+              dplyr::filter(concept_id %in% concept_ids) %>%
+              dplyr::select(
+                concept_id,
+                concept_name_target = concept_name,
+                vocabulary_id_target = vocabulary_id,
+                concept_code_target = concept_code
+              ) %>%
+              dplyr::collect()
+
+            enriched_rows <- enriched_rows %>%
+              dplyr::left_join(
+                omop_concepts,
+                by = c("target_omop_concept_id" = "concept_id")
+              )
+          } else {
+            enriched_rows <- enriched_rows %>%
+              dplyr::mutate(
+                concept_name_target = NA_character_,
+                vocabulary_id_target = NA_character_,
+                concept_code_target = NA_character_
+              )
+          }
+        } else {
+          enriched_rows <- enriched_rows %>%
+            dplyr::mutate(
+              concept_name_target = NA_character_,
+              vocabulary_id_target = NA_character_,
+              concept_code_target = NA_character_
+            )
+        }
+
+        # Enrich custom concepts
+        custom_concepts_path <- app_sys("extdata", "csv", "custom_concepts.csv")
+        if (file.exists(custom_concepts_path)) {
+          custom_rows <- enriched_rows %>% dplyr::filter(!is.na(target_custom_concept_id))
+          if (nrow(custom_rows) > 0) {
+            custom_concepts_all <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)
+            custom_concept_ids <- custom_rows$target_custom_concept_id
+
+            custom_concepts_info <- custom_concepts_all %>%
+              dplyr::filter(custom_concept_id %in% custom_concept_ids) %>%
+              dplyr::select(
+                custom_concept_id,
+                concept_name_custom = concept_name,
+                vocabulary_id_custom = vocabulary_id,
+                concept_code_custom = concept_code
+              )
+
+            # For custom concepts, fill in the target columns
+            enriched_rows <- enriched_rows %>%
+              dplyr::left_join(
+                custom_concepts_info,
+                by = c("target_custom_concept_id" = "custom_concept_id")
+              ) %>%
+              dplyr::mutate(
+                concept_name_target = ifelse(is.na(concept_name_target), concept_name_custom, concept_name_target),
+                vocabulary_id_target = ifelse(is.na(vocabulary_id_target), vocabulary_id_custom, vocabulary_id_target),
+                concept_code_target = ifelse(is.na(concept_code_target), concept_code_custom, concept_code_target)
+              ) %>%
+              dplyr::select(-concept_name_custom, -vocabulary_id_custom, -concept_code_custom)
+          }
+        }
       } else {
-        # Fallback: enrich with OMOP concept info from vocabularies (for old CSV files)
+        # Fallback: old CSV format without target_custom_concept_id
         vocab_data <- vocabularies()
         if (!is.null(vocab_data) && nrow(enriched_rows) > 0) {
           concept_ids <- enriched_rows$target_omop_concept_id
@@ -1588,6 +1653,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         custom_concepts <- readr::read_csv(custom_concepts_path, show_col_types = FALSE) %>%
           dplyr::filter(general_concept_id == selected_general_concept_id()) %>%
           dplyr::select(
+            custom_concept_id,
             concept_name,
             vocabulary_id,
             concept_code,
@@ -1599,6 +1665,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
           )
       } else {
         custom_concepts <- data.frame(
+          custom_concept_id = integer(),
           concept_name = character(),
           vocabulary_id = character(),
           concept_code = character(),
@@ -1888,12 +1955,81 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         ))
       }
 
-      # Use target concept info from CSV (supports both OMOP and custom concepts)
-      if ("target_concept_name" %in% colnames(mapped_rows)) {
+      # Enrich with target concept info (OMOP or custom)
+      if ("target_custom_concept_id" %in% colnames(mapped_rows)) {
+        # Enrich OMOP concepts
+        vocab_data <- vocabularies()
+        if (!is.null(vocab_data)) {
+          omop_rows <- mapped_rows %>% dplyr::filter(!is.na(target_omop_concept_id))
+          if (nrow(omop_rows) > 0) {
+            concept_ids <- omop_rows$target_omop_concept_id
+            omop_concepts <- vocab_data$concept %>%
+              dplyr::filter(concept_id %in% concept_ids) %>%
+              dplyr::select(
+                concept_id,
+                concept_name_target = concept_name,
+                vocabulary_id_target = vocabulary_id,
+                concept_code_target = concept_code
+              ) %>%
+              dplyr::collect()
+
+            mapped_rows <- mapped_rows %>%
+              dplyr::left_join(
+                omop_concepts,
+                by = c("target_omop_concept_id" = "concept_id")
+              )
+          } else {
+            mapped_rows <- mapped_rows %>%
+              dplyr::mutate(
+                concept_name_target = NA_character_,
+                vocabulary_id_target = NA_character_,
+                concept_code_target = NA_character_
+              )
+          }
+        } else {
+          mapped_rows <- mapped_rows %>%
+            dplyr::mutate(
+              concept_name_target = NA_character_,
+              vocabulary_id_target = NA_character_,
+              concept_code_target = NA_character_
+            )
+        }
+
+        # Enrich custom concepts
+        custom_concepts_path <- app_sys("extdata", "csv", "custom_concepts.csv")
+        if (file.exists(custom_concepts_path)) {
+          custom_rows <- mapped_rows %>% dplyr::filter(!is.na(target_custom_concept_id))
+          if (nrow(custom_rows) > 0) {
+            custom_concepts_all <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)
+            custom_concept_ids <- custom_rows$target_custom_concept_id
+
+            custom_concepts_info <- custom_concepts_all %>%
+              dplyr::filter(custom_concept_id %in% custom_concept_ids) %>%
+              dplyr::select(
+                custom_concept_id,
+                concept_name_custom = concept_name,
+                vocabulary_id_custom = vocabulary_id,
+                concept_code_custom = concept_code
+              )
+
+            mapped_rows <- mapped_rows %>%
+              dplyr::left_join(
+                custom_concepts_info,
+                by = c("target_custom_concept_id" = "custom_concept_id")
+              ) %>%
+              dplyr::mutate(
+                concept_name_target = ifelse(is.na(concept_name_target), concept_name_custom, concept_name_target),
+                vocabulary_id_target = ifelse(is.na(vocabulary_id_target), vocabulary_id_custom, vocabulary_id_target),
+                concept_code_target = ifelse(is.na(concept_code_target), concept_code_custom, concept_code_target)
+              ) %>%
+              dplyr::select(-concept_name_custom, -vocabulary_id_custom, -concept_code_custom)
+          }
+        }
+
         display_df <- mapped_rows %>%
           dplyr::mutate(
             Source = paste0(concept_name_source, " (", vocabulary_id_source, ": ", concept_code_source, ")"),
-            Target = paste0(target_concept_name, " (", target_vocabulary_id, ": ", target_concept_code, ")"),
+            Target = paste0(concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"),
             Actions = sprintf(
               '<button class="btn btn-sm btn-danger" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Remove</button>',
               ns("remove_mapping_mapped"), dplyr::row_number()
@@ -1901,7 +2037,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
           ) %>%
           dplyr::select(Source, Target, Actions)
       } else {
-        # Fallback: join with vocabularies to get target concept details (for old CSV files)
+        # Fallback: old CSV format
         req(vocabularies())
         vocabs <- vocabularies()
 
@@ -2100,7 +2236,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
             # Select columns for display
             standard_cols <- c("vocabulary_id", "concept_code", "concept_name", "statistical_summary")
             available_standard <- standard_cols[standard_cols %in% colnames(df)]
-            target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_vocabulary_id", "target_concept_code", "target_concept_name")
+            target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id")
             other_cols <- setdiff(colnames(df), c(standard_cols, target_cols, "Mapped"))
             df_display <- df[, c(available_standard, other_cols, "Mapped"), drop = FALSE]
 
@@ -2152,16 +2288,78 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
                   by = c("target_general_concept_id" = "general_concept_id")
                 )
 
-              # Use target concept info from CSV (supports both OMOP and custom concepts)
-              if ("target_concept_name" %in% colnames(enriched_rows)) {
-                enriched_rows <- enriched_rows %>%
-                  dplyr::rename(
-                    concept_name_target = target_concept_name,
-                    vocabulary_id_target = target_vocabulary_id,
-                    concept_code_target = target_concept_code
-                  )
+              # Enrich with target concept info (OMOP or custom)
+              if ("target_custom_concept_id" %in% colnames(enriched_rows)) {
+                # Enrich OMOP concepts
+                vocab_data <- vocabularies()
+                if (!is.null(vocab_data)) {
+                  omop_rows <- enriched_rows %>% dplyr::filter(!is.na(target_omop_concept_id))
+                  if (nrow(omop_rows) > 0) {
+                    concept_ids <- omop_rows$target_omop_concept_id
+                    omop_concepts <- vocab_data$concept %>%
+                      dplyr::filter(concept_id %in% concept_ids) %>%
+                      dplyr::select(
+                        concept_id,
+                        concept_name_target = concept_name,
+                        vocabulary_id_target = vocabulary_id,
+                        concept_code_target = concept_code
+                      ) %>%
+                      dplyr::collect()
+
+                    enriched_rows <- enriched_rows %>%
+                      dplyr::left_join(
+                        omop_concepts,
+                        by = c("target_omop_concept_id" = "concept_id")
+                      )
+                  } else {
+                    enriched_rows <- enriched_rows %>%
+                      dplyr::mutate(
+                        concept_name_target = NA_character_,
+                        vocabulary_id_target = NA_character_,
+                        concept_code_target = NA_character_
+                      )
+                  }
+                } else {
+                  enriched_rows <- enriched_rows %>%
+                    dplyr::mutate(
+                      concept_name_target = NA_character_,
+                      vocabulary_id_target = NA_character_,
+                      concept_code_target = NA_character_
+                    )
+                }
+
+                # Enrich custom concepts
+                custom_concepts_path <- app_sys("extdata", "csv", "custom_concepts.csv")
+                if (file.exists(custom_concepts_path)) {
+                  custom_rows <- enriched_rows %>% dplyr::filter(!is.na(target_custom_concept_id))
+                  if (nrow(custom_rows) > 0) {
+                    custom_concepts_all <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)
+                    custom_concept_ids <- custom_rows$target_custom_concept_id
+
+                    custom_concepts_info <- custom_concepts_all %>%
+                      dplyr::filter(custom_concept_id %in% custom_concept_ids) %>%
+                      dplyr::select(
+                        custom_concept_id,
+                        concept_name_custom = concept_name,
+                        vocabulary_id_custom = vocabulary_id,
+                        concept_code_custom = concept_code
+                      )
+
+                    enriched_rows <- enriched_rows %>%
+                      dplyr::left_join(
+                        custom_concepts_info,
+                        by = c("target_custom_concept_id" = "custom_concept_id")
+                      ) %>%
+                      dplyr::mutate(
+                        concept_name_target = ifelse(is.na(concept_name_target), concept_name_custom, concept_name_target),
+                        vocabulary_id_target = ifelse(is.na(vocabulary_id_target), vocabulary_id_custom, vocabulary_id_target),
+                        concept_code_target = ifelse(is.na(concept_code_target), concept_code_custom, concept_code_target)
+                      ) %>%
+                      dplyr::select(-concept_name_custom, -vocabulary_id_custom, -concept_code_custom)
+                  }
+                }
               } else {
-                # Fallback: enrich with OMOP concept info from vocabularies (for old CSV files)
+                # Fallback: old CSV format
                 vocab_data <- vocabularies()
                 if (!is.null(vocab_data) && nrow(enriched_rows) > 0) {
                   concept_ids <- enriched_rows$target_omop_concept_id
@@ -2326,6 +2524,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         custom_concepts <- readr::read_csv(custom_concepts_path, show_col_types = FALSE) %>%
           dplyr::filter(general_concept_id == selected_general_concept_id()) %>%
           dplyr::select(
+            custom_concept_id,
             concept_name,
             vocabulary_id,
             concept_code,
@@ -2337,6 +2536,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
           )
       } else {
         custom_concepts <- data.frame(
+          custom_concept_id = integer(),
           concept_name = character(),
           vocabulary_id = character(),
           concept_code = character(),
@@ -2367,22 +2567,21 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       if (!"target_omop_concept_id" %in% colnames(df)) {
         df$target_omop_concept_id <- NA_integer_
       }
-      if (!"target_vocabulary_id" %in% colnames(df)) {
-        df$target_vocabulary_id <- NA_character_
-      }
-      if (!"target_concept_code" %in% colnames(df)) {
-        df$target_concept_code <- NA_character_
-      }
-      if (!"target_concept_name" %in% colnames(df)) {
-        df$target_concept_name <- NA_character_
+      if (!"target_custom_concept_id" %in% colnames(df)) {
+        df$target_custom_concept_id <- NA_integer_
       }
 
       # Update the selected row with mapping info
       df$target_general_concept_id[source_row] <- selected_general_concept_id()
-      df$target_omop_concept_id[source_row] <- ifelse(is.na(target_mapping$omop_concept_id), NA_integer_, target_mapping$omop_concept_id)
-      df$target_vocabulary_id[source_row] <- as.character(target_mapping$vocabulary_id)
-      df$target_concept_code[source_row] <- as.character(target_mapping$concept_code)
-      df$target_concept_name[source_row] <- as.character(target_mapping$concept_name)
+
+      # Set either OMOP concept ID or custom concept ID depending on the type
+      if (target_mapping$is_custom) {
+        df$target_omop_concept_id[source_row] <- NA_integer_
+        df$target_custom_concept_id[source_row] <- target_mapping$custom_concept_id
+      } else {
+        df$target_omop_concept_id[source_row] <- target_mapping$omop_concept_id
+        df$target_custom_concept_id[source_row] <- NA_integer_
+      }
 
       # Save CSV
       write.csv(df, csv_path, row.names = FALSE)
