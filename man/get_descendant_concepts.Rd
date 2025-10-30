@@ -2,10 +2,10 @@
 % Please edit documentation in R/fct_athena.R
 \name{get_descendant_concepts}
 \alias{get_descendant_concepts}
-\title{Get descendant concepts from concept_ancestor}
+\title{Get all hierarchy concepts (ancestors and descendants) for a given concept}
 \usage{
 get_descendant_concepts(concept_id, vocabularies)
 }
 \description{
-Get descendant concepts from concept_ancestor
+Get all hierarchy concepts (ancestors and descendants) for a given concept
 }

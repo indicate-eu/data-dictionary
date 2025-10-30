@@ -287,7 +287,7 @@ a:hover {
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
   white-space: nowrap;

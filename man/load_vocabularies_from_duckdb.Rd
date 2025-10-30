@@ -4,10 +4,7 @@
 \alias{load_vocabularies_from_duckdb}
 \title{Load vocabularies from DuckDB}
 \usage{
-load_vocabularies_from_duckdb(vocab_folder)
-}
-\arguments{
-\item{vocab_folder}{Path to vocabularies folder}
+load_vocabularies_from_duckdb()
 }
 \value{
 List with dplyr::tbl connections to concept, concept_relationship, and concept_ancestor tables

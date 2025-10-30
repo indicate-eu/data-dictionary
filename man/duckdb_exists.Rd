@@ -4,14 +4,11 @@
 \alias{duckdb_exists}
 \title{Check if DuckDB database exists}
 \usage{
-duckdb_exists(vocab_folder)
-}
-\arguments{
-\item{vocab_folder}{Path to vocabularies folder}
+duckdb_exists()
 }
 \value{
 TRUE if database exists, FALSE otherwise
 }
 \description{
-Check if DuckDB database file exists
+Check if DuckDB database file exists in app_folder
 }

@@ -10,7 +10,11 @@
 #' @noRd
 #'
 #' @importFrom shiny reactive observeEvent renderUI reactiveVal tags icon observe isolate invalidateLater
+#' @importFrom shiny.router router_server
 app_server <- function(input, output, session) {
+
+  # Initialize router
+  shiny.router::router_server(root_page = "/")
 
   # Initialize login module and get current user
   login_module <- mod_login_server("login")
@@ -53,35 +57,23 @@ app_server <- function(input, output, session) {
 
         data_loaded(TRUE)
       }
-
-      # Hide certain features for anonymous users
-      if (user$role == "Anonymous") {
-        # Hide pages for anonymous users
-        shinyjs::hide("nav_mapping")
-        shinyjs::hide("nav_improvements")
-        shinyjs::hide("nav_dev_tools")
-
-        # Hide settings menu items except logout
-        shinyjs::hide("settings_item_general")
-        shinyjs::hide("settings_item_users")
-      } else {
-        # Show all navigation for authenticated users
-        shinyjs::show("nav_mapping")
-        shinyjs::show("nav_improvements")
-        shinyjs::show("nav_dev_tools")
-
-        # Show all settings menu items
-        shinyjs::show("settings_item_general")
-        shinyjs::show("settings_item_users")
-      }
     } else {
       shinyjs::show("login_page")
       shinyjs::hide("main_app")
     }
   })
 
-  # Handle logout
-  observeEvent(input$logout, {
+  # Initialize page header module
+  header_module <- mod_page_header_server(
+    "page_header",
+    current_user = current_user,
+    vocab_loading_status = reactive({ vocab_loading_status() })
+  )
+
+  # Handle logout from header
+  observeEvent(header_module$logout(), {
+    req(header_module$logout())
+
     # Call logout function from login module
     login_module$logout()
 
@@ -107,39 +99,6 @@ app_server <- function(input, output, session) {
     # Show login page, hide main app
     shinyjs::show("login_page")
     shinyjs::hide("main_app")
-  })
-
-  # Display current user in header
-  output$current_user_display <- renderUI({
-    user <- current_user()
-
-    if (is.null(user)) {
-      return(NULL)
-    }
-
-    # Build user display name
-    if (!is.null(user$first_name) && nchar(user$first_name) > 0) {
-      user_name <- paste(user$first_name, user$last_name)
-    } else {
-      user_name <- user$login
-    }
-
-    # Choose icon based on role
-    user_icon <- if (user$role == "Anonymous") {
-      "user"
-    } else {
-      "user-circle"
-    }
-
-    tags$div(
-      class = "current-user-badge",
-      style = "display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: #0f60af; border-radius: 20px; color: white; font-size: 14px;",
-      tags$i(class = paste0("fas fa-", user_icon), style = "font-size: 16px;"),
-      tags$span(
-        style = "font-weight: 500;",
-        user_name
-      )
-    )
   })
 
   # Load configuration
@@ -268,101 +227,6 @@ app_server <- function(input, output, session) {
     }
   })
 
-  # Show/hide vocabulary status indicator based on loading status
-  observe({
-    status <- vocab_loading_status()
-
-    if (status == "loaded") {
-      shinyjs::hide("vocab_status_indicator")
-    } else {
-      shinyjs::show("vocab_status_indicator")
-    }
-  })
-
-  # Render vocabulary loading status indicator
-  output$vocab_status_indicator <- renderUI({
-    status <- vocab_loading_status()
-
-    if (status == "not_loaded" || status == "error") {
-      tags$span(
-        class = "vocab-status vocab-status-error has-tooltip",
-        style = "color: #dc3545; font-weight: 600; font-size: 14px;",
-        `data-tooltip` = "Please configure the OHDSI Vocabularies folder in General Settings.",
-        icon("exclamation-triangle"),
-        " Need configuration"
-      )
-    } else if (status == "loading") {
-      tags$span(
-        class = "vocab-status vocab-status-loading",
-        "Loading OHDSI data"
-      )
-    } else {
-      NULL
-    }
-  })
-
-  # Track current page
-  current_page <- reactiveVal("explorer")
-  settings_page_type <- reactiveVal("general")
-
-  # Navigation handlers
-  observeEvent(input$nav_explorer, {
-    current_page("explorer")
-  })
-
-  observeEvent(input$nav_mapping, {
-    current_page("mapping")
-  })
-
-  observeEvent(input$nav_use_cases, {
-    current_page("use_cases")
-  })
-
-  observeEvent(input$nav_improvements, {
-    current_page("improvements")
-  })
-
-  observeEvent(input$nav_dev_tools, {
-    current_page("dev_tools")
-  })
-
-  observeEvent(input$nav_general_settings, {
-    settings_page_type("general")
-    current_page("settings")
-  })
-
-  observeEvent(input$nav_users, {
-    settings_page_type("users")
-    current_page("settings")
-  })
-
-  # Show/hide page content based on current page using shinyjs
-  observeEvent(current_page(), {
-    # Hide all pages
-    shinyjs::hide("page_explorer")
-    shinyjs::hide("page_mapping")
-    shinyjs::hide("page_use_cases")
-    shinyjs::hide("page_improvements")
-    shinyjs::hide("page_dev_tools")
-    shinyjs::hide("page_settings")
-
-    # Show selected page
-    page <- current_page()
-    if (page == "explorer") {
-      shinyjs::show("page_explorer")
-    } else if (page == "mapping") {
-      shinyjs::show("page_mapping")
-    } else if (page == "use_cases") {
-      shinyjs::show("page_use_cases")
-    } else if (page == "improvements") {
-      shinyjs::show("page_improvements")
-    } else if (page == "dev_tools") {
-      shinyjs::show("page_dev_tools")
-    } else if (page == "settings") {
-      shinyjs::show("page_settings")
-    }
-  }, ignoreInit = FALSE)
-
   # Call module servers
   mod_dictionary_explorer_server(
     "dictionary_explorer",
@@ -401,8 +265,8 @@ app_server <- function(input, output, session) {
     vocabularies = reactive({ vocabularies() })
   )
 
-  mod_settings_server(
-    "settings",
+  mod_general_settings_server(
+    "general_settings",
     config = config,
     vocabularies = reactive({ vocabularies() }),
     reset_vocabularies = function() {
@@ -413,7 +277,11 @@ app_server <- function(input, output, session) {
       vocabularies(vocab_data)
       vocab_loading_status("loaded")
     },
-    page_type = reactive({ settings_page_type() }),
+    current_user = current_user
+  )
+
+  mod_users_server(
+    "users",
     current_user = current_user
   )
 }

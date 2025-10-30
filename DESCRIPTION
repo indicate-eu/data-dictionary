@@ -15,6 +15,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports:
     shiny (>= 1.7.0),
+    shiny.router (>= 0.2.3),
     DT (>= 0.20),
     DBI (>= 1.1.0),
     RSQLite (>= 2.2.0),

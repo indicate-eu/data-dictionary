@@ -4,14 +4,11 @@
 \alias{delete_duckdb_database}
 \title{Delete DuckDB database}
 \usage{
-delete_duckdb_database(vocab_folder)
-}
-\arguments{
-\item{vocab_folder}{Path to vocabularies folder}
+delete_duckdb_database()
 }
 \value{
 List with success status and message
 }
 \description{
-Delete the DuckDB database file
+Delete the DuckDB database file from app_folder
 }

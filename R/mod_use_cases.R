@@ -15,6 +15,9 @@ mod_use_cases_ui <- function(id) {
   ns <- NS(id)
 
   tagList(
+    # Initialize shinyjs
+    shinyjs::useShinyjs(),
+
     tags$div(
       class = "main-panel",
       tags$div(
@@ -508,22 +511,12 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
       general_concept_use_cases_reactive(data()$general_concept_use_cases)
     })
 
-    # Hide action buttons for anonymous users
+    # Show/hide action buttons based on user role
     observe({
       user <- current_user()
-      if (!is.null(user) && user$role == "Anonymous") {
-        shinyjs::hide("add_use_case_btn")
-        shinyjs::hide("edit_name_description_btn")
-        shinyjs::hide("configure_use_case_btn")
-        shinyjs::hide("delete_selected_btn")
-        # Hide concept management buttons in config view
-        shinyjs::hide("add_general_concepts_btn")
-        shinyjs::hide("remove_general_concepts_btn")
-        shinyjs::hide("select_all_available")
-        shinyjs::hide("unselect_all_available")
-        shinyjs::hide("select_all_selected")
-        shinyjs::hide("unselect_all_selected")
-      } else {
+
+      # Show buttons only for authenticated non-anonymous users
+      if (!is.null(user) && user$role != "Anonymous") {
         shinyjs::show("add_use_case_btn")
         shinyjs::show("edit_name_description_btn")
         shinyjs::show("configure_use_case_btn")
@@ -535,6 +528,19 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
         shinyjs::show("unselect_all_available")
         shinyjs::show("select_all_selected")
         shinyjs::show("unselect_all_selected")
+      } else {
+        # Hide for anonymous or NULL user
+        shinyjs::hide("add_use_case_btn")
+        shinyjs::hide("edit_name_description_btn")
+        shinyjs::hide("configure_use_case_btn")
+        shinyjs::hide("delete_selected_btn")
+        # Hide concept management buttons in config view
+        shinyjs::hide("add_general_concepts_btn")
+        shinyjs::hide("remove_general_concepts_btn")
+        shinyjs::hide("select_all_available")
+        shinyjs::hide("unselect_all_available")
+        shinyjs::hide("select_all_selected")
+        shinyjs::hide("unselect_all_selected")
       }
     })
 

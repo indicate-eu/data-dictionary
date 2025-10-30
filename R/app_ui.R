@@ -5,8 +5,9 @@
 #' @return Shiny UI
 #' @noRd
 #'
-#' @importFrom shiny fluidPage tags uiOutput actionButton icon
+#' @importFrom shiny fluidPage tags uiOutput
 #' @importFrom htmltools tagList
+#' @importFrom shiny.router router_ui route
 app_ui <- function() {
   fluidPage(
     # Initialize shinyjs
@@ -36,8 +37,6 @@ app_ui <- function() {
         src = "https://cdn.datatables.net/plug-ins/2.2.1/filtering/type-based/accent-neutralise.js"
       ),
       tags$script(src = "www/resizable_splitter.js"),
-      tags$script(src = "www/tab_handler.js"),
-      tags$script(src = "www/nav_handler.js"),
       tags$script(src = "www/folder_display.js"),
       tags$script(src = "www/view_details.js"),
       tags$script(src = "www/settings_menu.js"),
@@ -58,129 +57,23 @@ app_ui <- function() {
       id = "main_app",
       style = "display: none;",
 
-      # Application header with navigation
-    div(class = "header",
-        # Logo and title section
-        div(class = "header-left",
-            tags$a(
-              href = "#",
-              onclick = "$('#nav_explorer').click(); return false;",
-              style = "text-decoration: none; display: flex; align-items: center; gap: 15px; cursor: pointer;",
-              tags$img(src = "www/logo.png", class = "header-logo"),
-              tags$h1("INDICATE Data Dictionary", class = "header-title")
-            )
-        ),
+      # Page header module
+      mod_page_header_ui("page_header"),
 
-        # Navigation tabs
-        div(class = "header-nav",
-            actionButton(
-              "nav_explorer",
-              label = tagList(icon("search"), "Dictionary Explorer"),
-              class = "nav-tab nav-tab-active"
-            ),
-            actionButton(
-              "nav_use_cases",
-              label = tagList(icon("list-check"), "Use Cases"),
-              class = "nav-tab"
-            ),
-            actionButton(
-              "nav_mapping",
-              label = tagList(icon("project-diagram"), "Concepts Mapping"),
-              class = "nav-tab"
-            ),
-            actionButton(
-              "nav_improvements",
-              label = tagList(icon("lightbulb"), "Improvements"),
-              class = "nav-tab"
-            ),
-            actionButton(
-              "nav_dev_tools",
-              label = tagList(icon("code"), "Dev Tools"),
-              class = "nav-tab"
-            )
-        ),
-
-        # Settings button and loading status on the right
-        div(class = "header-right",
-            # Current user display
-            uiOutput("current_user_display"),
-            uiOutput("vocab_status_indicator"),
-            tags$div(
-              style = "position: relative;",
-              actionButton(
-                "nav_settings",
-                label = icon("cog"),
-                class = "nav-tab nav-tab-settings"
-              ),
-              # Dropdown menu for settings
-              tags$div(
-                id = "settings_dropdown",
-                class = "settings-dropdown",
-                style = "display: none; position: absolute; right: 0; top: 100%; margin-top: 5px; background: #2c3e50; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 1000; min-width: 200px;",
-                tags$div(
-                  id = "settings_item_general",
-                  class = "settings-dropdown-item",
-                  style = "padding: 12px 20px; cursor: pointer; color: white; border-bottom: 1px solid rgba(255,255,255,0.1); transition: background 0.2s;",
-                  onclick = "$('#settings_dropdown').hide(); Shiny.setInputValue('nav_general_settings', true, {priority: 'event'});",
-                  tags$i(class = "fas fa-cog", style = "margin-right: 10px;"),
-                  "General settings"
-                ),
-                tags$div(
-                  id = "settings_item_users",
-                  class = "settings-dropdown-item",
-                  style = "padding: 12px 20px; cursor: pointer; color: white; border-bottom: 1px solid rgba(255,255,255,0.1); transition: background 0.2s;",
-                  onclick = "$('#settings_dropdown').hide(); Shiny.setInputValue('nav_users', true, {priority: 'event'});",
-                  tags$i(class = "fas fa-users", style = "margin-right: 10px;"),
-                  "Users"
-                ),
-                tags$div(
-                  id = "settings_item_logout",
-                  class = "settings-dropdown-item",
-                  style = "padding: 12px 20px; cursor: pointer; color: white; transition: background 0.2s;",
-                  onclick = "$('#settings_dropdown').hide(); Shiny.setInputValue('logout', true, {priority: 'event'});",
-                  tags$i(class = "fas fa-sign-out-alt", style = "margin-right: 10px;"),
-                  "Logout"
-                )
-              )
-            )
+      # Main content wrapper with router
+      tags$div(
+        style = "flex: 1; overflow: hidden; display: flex; flex-direction: column;",
+        # Router with all routes
+        router_ui(
+          route("/", create_page_container(mod_dictionary_explorer_ui("dictionary_explorer"))),
+          route("use-cases", create_page_container(mod_use_cases_ui("use_cases"))),
+          route("mapping", create_page_container(mod_concept_mapping_ui("concept_mapping"))),
+          route("improvements", create_page_container(mod_improvements_ui("improvements"))),
+          route("dev-tools", create_page_container(mod_dev_tools_ui("dev_tools"))),
+          route("general-settings", create_page_container(mod_general_settings_ui("general_settings"))),
+          route("users", create_page_container(mod_users_ui("users")))
         )
-    ),
-
-    # Main content wrapper
-    tags$div(
-      style = "flex: 1; overflow: hidden; display: flex; flex-direction: column;",
-      # Main content area - all modules are created and shown/hidden with CSS
-      tags$div(
-        id = "page_explorer",
-        style = "height: 100%; flex: 1; display: flex; flex-direction: column;",
-        mod_dictionary_explorer_ui("dictionary_explorer")
       ),
-      tags$div(
-        id = "page_mapping",
-        style = "height: 100%; flex: 1; display: none; flex-direction: column;",
-        mod_concept_mapping_ui("concept_mapping")
-      ),
-      tags$div(
-        id = "page_use_cases",
-        style = "height: 100%; flex: 1; display: none; flex-direction: column;",
-        mod_use_cases_ui("use_cases")
-      ),
-      tags$div(
-        id = "page_improvements",
-        style = "height: 100%; flex: 1; display: none; flex-direction: column;",
-        mod_improvements_ui("improvements")
-      ),
-      tags$div(
-        id = "page_dev_tools",
-        style = "height: 100%; flex: 1; display: none; flex-direction: column;",
-        mod_dev_tools_ui("dev_tools")
-      ),
-      tags$div(
-        id = "page_settings",
-        style = "height: 100%; flex: 1; display: none; flex-direction: column;",
-        mod_settings_ui("settings")
-      )
-    ),
 
       # Footer
       tags$div(
@@ -199,5 +92,20 @@ app_ui <- function() {
         )
       )
     ) # End main_app div
+  )
+}
+
+#' Create Page Container
+#'
+#' @description Helper function to wrap page UI in consistent container
+#'
+#' @param ui_content UI content for the page
+#'
+#' @return Wrapped UI
+#' @noRd
+create_page_container <- function(ui_content) {
+  tags$div(
+    style = "height: 100%; flex: 1; display: flex; flex-direction: column;",
+    ui_content
   )
 }
