@@ -408,18 +408,36 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       sorted_cats
     })
 
-    # Show/hide action buttons based on user role
-    observe({
+    # Function to update button visibility based on user role
+    update_button_visibility <- function() {
       user <- current_user()
 
-      if (!is.null(user) && user$role != "Anonymous") {
-        shinyjs::show("action_buttons_container")
-        shinyjs::show("detail_action_buttons")
-      } else {
-        shinyjs::hide("action_buttons_container")
-        shinyjs::hide("detail_action_buttons")
-      }
+      # Use shinyjs::delay to ensure DOM is ready
+      shinyjs::delay(100, {
+        if (!is.null(user) && user$role != "Anonymous") {
+          shinyjs::show("action_buttons_container")
+          shinyjs::show("detail_action_buttons")
+        } else {
+          shinyjs::hide("action_buttons_container")
+          shinyjs::hide("detail_action_buttons")
+        }
+      })
+    }
+
+    # Update visibility when user changes
+    observeEvent(current_user(), {
+      update_button_visibility()
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+
+    # Update visibility when view changes (within the module)
+    observeEvent(current_view(), {
+      update_button_visibility()
     })
+
+    # Update visibility when data is loaded (module initialization)
+    observeEvent(data(), {
+      update_button_visibility()
+    }, once = TRUE)
 
     # Observe category selection
     observeEvent(input$category_filter, {
@@ -480,10 +498,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             )
           ),
           # Right side: Edit/Cancel/Save/Add buttons
-          tags$div(
-            id = ns("action_buttons_container"),
-            style = "display: none; gap: 10px;",  # Hidden by default
-            if (!list_edit_mode()) {
+          shinyjs::hidden(
+            tags$div(
+              id = ns("action_buttons_container"),
+              style = "gap: 10px;",  # Visibility controlled by shinyjs
+              if (!list_edit_mode()) {
               tagList(
                 actionButton(
                   ns("show_add_concept_modal"),
@@ -515,6 +534,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 )
               )
             }
+            )
           )
         )
       } else if (current_view() == "list_history") {
@@ -578,18 +598,19 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 )
               } else if (!edit_mode()) {
                 # Show History and Edit page buttons in detail view (not editing)
-                tags$div(
-                  id = ns("detail_action_buttons"),
-                  style = "display: none;",  # Hidden by default
-                  actionButton(
-                    ns("show_history"),
-                    "History",
-                    class = "btn-secondary-custom"
-                  ),
-                  actionButton(
-                    ns("edit_page"),
-                    "Edit page",
-                    class = "btn-toggle"
+                shinyjs::hidden(
+                  tags$div(
+                    id = ns("detail_action_buttons"),
+                    actionButton(
+                      ns("show_history"),
+                      "History",
+                      class = "btn-secondary-custom"
+                    ),
+                    actionButton(
+                      ns("edit_page"),
+                      "Edit page",
+                      class = "btn-toggle"
+                    )
                   )
                 )
               } else {

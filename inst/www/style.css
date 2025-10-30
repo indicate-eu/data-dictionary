@@ -1762,3 +1762,23 @@ table.dataTable thead tr td .selectize-dropdown .option {
 .password-toggle-btn:active {
   transform: translateY(-50%) scale(0.95) !important;
 }
+
+/* Application footer
+-------------------------------------------------- */
+#main_app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.app-footer {
+  background: #f8f9fa;
+  border-top: 1px solid #e0e0e0;
+  padding: 10px 20px;
+  text-align: center;
+  color: #666;
+  font-size: 13px;
+  flex-shrink: 0;
+  height: 40px;
+  line-height: 20px;
+}

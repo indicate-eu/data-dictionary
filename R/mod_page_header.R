@@ -208,7 +208,7 @@ mod_page_header_server <- function(id, current_user, vocab_loading_status) {
     })
 
     # Hide/show menu items based on user role
-    observe({
+    observeEvent(current_user(), {
       user <- current_user()
 
       if (!is.null(user) && user$role == "Anonymous") {
@@ -218,7 +218,7 @@ mod_page_header_server <- function(id, current_user, vocab_loading_status) {
         shinyjs::show("settings_item_general")
         shinyjs::show("settings_item_users")
       }
-    })
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
     # Display current user in header
     output$current_user_display <- renderUI({

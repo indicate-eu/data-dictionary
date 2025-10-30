@@ -277,33 +277,37 @@ render_use_cases_list_ui <- function(ns) {
       ),
       tags$div(
         style = "display: flex; gap: 10px;",
-        actionButton(
-          ns("add_use_case_btn"),
-          "Add Use Case",
-          class = "btn btn-primary",
-          icon = icon("plus"),
-          style = "display: none;"  # Hidden by default
+        shinyjs::hidden(
+          actionButton(
+            ns("add_use_case_btn"),
+            "Add Use Case",
+            class = "btn btn-primary",
+            icon = icon("plus")
+          )
         ),
-        actionButton(
-          ns("edit_name_description_btn"),
-          "Edit",
-          class = "btn btn-secondary",
-          icon = icon("edit"),
-          style = "display: none;"  # Hidden by default
+        shinyjs::hidden(
+          actionButton(
+            ns("edit_name_description_btn"),
+            "Edit",
+            class = "btn btn-secondary",
+            icon = icon("edit")
+          )
         ),
-        actionButton(
-          ns("configure_use_case_btn"),
-          "Configure",
-          class = "btn btn-secondary",
-          icon = icon("cog"),
-          style = "display: none;"  # Hidden by default
+        shinyjs::hidden(
+          actionButton(
+            ns("configure_use_case_btn"),
+            "Configure",
+            class = "btn btn-secondary",
+            icon = icon("cog")
+          )
         ),
-        actionButton(
-          ns("delete_selected_btn"),
-          "Delete",
-          class = "btn btn-danger",
-          icon = icon("trash"),
-          style = "display: none;"  # Hidden by default
+        shinyjs::hidden(
+          actionButton(
+            ns("delete_selected_btn"),
+            "Delete",
+            class = "btn btn-danger",
+            icon = icon("trash")
+          )
         )
       )
     ),
@@ -385,32 +389,32 @@ render_use_case_config_ui <- function(ns) {
           )
         ),
         # Buttons row
-        tags$div(
-          style = "display: flex; gap: 10px; margin-bottom: 15px;",
-          actionButton(
-            ns("add_general_concepts_btn"),
-            "Add Selected Concepts",
-            class = "btn btn-primary btn-sm",
-            icon = icon("arrow-right"),
-            style = "display: none;"  # Hidden by default
-          ),
+        shinyjs::hidden(
           tags$div(
-            style = "display: flex; gap: 3px;",
+            id = ns("available_action_buttons"),
+            style = "display: flex; gap: 10px; margin-bottom: 15px;",
             actionButton(
-              ns("select_all_available"),
-              NULL,
-              class = "btn btn-sm btn-secondary",
-              icon = icon("check-square"),
-              title = "Select all rows",
-              style = "display: none;"  # Hidden by default
+              ns("add_general_concepts_btn"),
+              "Add Selected Concepts",
+              class = "btn btn-primary btn-sm",
+              icon = icon("arrow-right")
             ),
-            actionButton(
-              ns("unselect_all_available"),
-              NULL,
-              class = "btn btn-sm btn-secondary",
-              icon = icon("square"),
-              title = "Unselect all rows",
-              style = "display: none;"  # Hidden by default
+            tags$div(
+              style = "display: flex; gap: 3px;",
+              actionButton(
+                ns("select_all_available"),
+                NULL,
+                class = "btn btn-sm btn-secondary",
+                icon = icon("check-square"),
+                title = "Select all rows"
+              ),
+              actionButton(
+                ns("unselect_all_available"),
+                NULL,
+                class = "btn btn-sm btn-secondary",
+                icon = icon("square"),
+                title = "Unselect all rows"
+              )
             )
           )
         ),
@@ -437,32 +441,32 @@ render_use_case_config_ui <- function(ns) {
           )
         ),
         # Buttons row
-        tags$div(
-          style = "display: flex; gap: 10px; margin-bottom: 15px;",
-          actionButton(
-            ns("remove_general_concepts_btn"),
-            "Remove Selected Concepts",
-            class = "btn btn-danger btn-sm",
-            icon = icon("times"),
-            style = "display: none;"
-          ),
+        shinyjs::hidden(
           tags$div(
-            style = "display: flex; gap: 3px;",
+            id = ns("selected_action_buttons"),
+            style = "display: flex; gap: 10px; margin-bottom: 15px;",
             actionButton(
-              ns("select_all_selected"),
-              NULL,
-              class = "btn btn-sm btn-secondary",
-              icon = icon("check-square"),
-              title = "Select all rows",
-              style = "display: none;"
+              ns("remove_general_concepts_btn"),
+              "Remove Selected Concepts",
+              class = "btn btn-danger btn-sm",
+              icon = icon("times")
             ),
-            actionButton(
-              ns("unselect_all_selected"),
-              NULL,
-              class = "btn btn-sm btn-secondary",
-              icon = icon("square"),
-              title = "Unselect all rows",
-              style = "display: none;"
+            tags$div(
+              style = "display: flex; gap: 3px;",
+              actionButton(
+                ns("select_all_selected"),
+                NULL,
+                class = "btn btn-sm btn-secondary",
+                icon = icon("check-square"),
+                title = "Select all rows"
+              ),
+              actionButton(
+                ns("unselect_all_selected"),
+                NULL,
+                class = "btn btn-sm btn-secondary",
+                icon = icon("square"),
+                title = "Unselect all rows"
+              )
             )
           )
         ),
@@ -511,38 +515,44 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
       general_concept_use_cases_reactive(data()$general_concept_use_cases)
     })
 
-    # Show/hide action buttons based on user role
-    observe({
+    # Function to update button visibility based on user role
+    update_button_visibility <- function() {
       user <- current_user()
 
-      # Show buttons only for authenticated non-anonymous users
-      if (!is.null(user) && user$role != "Anonymous") {
-        shinyjs::show("add_use_case_btn")
-        shinyjs::show("edit_name_description_btn")
-        shinyjs::show("configure_use_case_btn")
-        shinyjs::show("delete_selected_btn")
-        # Show concept management buttons in config view
-        shinyjs::show("add_general_concepts_btn")
-        shinyjs::show("remove_general_concepts_btn")
-        shinyjs::show("select_all_available")
-        shinyjs::show("unselect_all_available")
-        shinyjs::show("select_all_selected")
-        shinyjs::show("unselect_all_selected")
-      } else {
-        # Hide for anonymous or NULL user
-        shinyjs::hide("add_use_case_btn")
-        shinyjs::hide("edit_name_description_btn")
-        shinyjs::hide("configure_use_case_btn")
-        shinyjs::hide("delete_selected_btn")
-        # Hide concept management buttons in config view
-        shinyjs::hide("add_general_concepts_btn")
-        shinyjs::hide("remove_general_concepts_btn")
-        shinyjs::hide("select_all_available")
-        shinyjs::hide("unselect_all_available")
-        shinyjs::hide("select_all_selected")
-        shinyjs::hide("unselect_all_selected")
-      }
+      # Use shinyjs::delay to ensure DOM is ready
+      shinyjs::delay(100, {
+        if (!is.null(user) && user$role != "Anonymous") {
+          shinyjs::show("add_use_case_btn")
+          shinyjs::show("edit_name_description_btn")
+          shinyjs::show("configure_use_case_btn")
+          shinyjs::show("delete_selected_btn")
+          shinyjs::show("available_action_buttons")
+          shinyjs::show("selected_action_buttons")
+        } else {
+          shinyjs::hide("add_use_case_btn")
+          shinyjs::hide("edit_name_description_btn")
+          shinyjs::hide("configure_use_case_btn")
+          shinyjs::hide("delete_selected_btn")
+          shinyjs::hide("available_action_buttons")
+          shinyjs::hide("selected_action_buttons")
+        }
+      })
+    }
+
+    # Update visibility when user changes
+    observeEvent(current_user(), {
+      update_button_visibility()
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+
+    # Update visibility when view changes (page navigation)
+    observeEvent(current_view(), {
+      update_button_visibility()
     })
+
+    # Update visibility when data is loaded (module initialization)
+    observeEvent(data(), {
+      update_button_visibility()
+    }, once = TRUE)
 
     # Render breadcrumb navigation
     output$breadcrumb <- renderUI({

@@ -78,7 +78,6 @@ app_ui <- function() {
       # Footer
       tags$div(
         class = "app-footer",
-        style = "background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 10px 20px; text-align: center; color: #666; font-size: 13px; flex-shrink: 0;",
         tags$span(
           paste0("INDICATE Data Dictionary v", utils::packageVersion("indicate")),
           style = "margin-right: 15px;"
