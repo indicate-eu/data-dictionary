@@ -1,7 +1,7 @@
 general_concept_id,category,subcategory,general_concept_name,comments,statistical_summary
 1,Clinical observation,Neurological assessment,3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM) score,NA,NA
 2,Clinical observation,Neurological assessment,4 A<U+2019>s Test for Delirium Screening score,NA,NA
-3,Clinical observation,Neurological assessment,Behavior pain scale,,NA
+3,Clinical observation,Neurological assessment,Behavior pain scale,NA,NA
 4,Clinical observation,Neurological assessment,Confusion Assessment Method for the Intensive Care Unit (CAM-ICU) score,NA,NA
 5,Clinical observation,Neurological assessment,Delirium Detection Score (DDS) score,NA,NA
 6,Clinical observation,Neurological assessment,Delirium Observation Scale (DOS) score,NA,NA
@@ -313,10 +313,11 @@ general_concept_id,category,subcategory,general_concept_name,comments,statistica
 315,Ventilation,Ventilation parameters,Lung compliance,NA,NA
 316,Ventilation,Ventilation parameters,Mean airway pressure,NA,NA
 317,Ventilation,Ventilation parameters,Minute volume,NA,NA
-318,Ventilation,Ventilation parameters,PEEP,"Positive End Expiratory Pressure (PEEP) can be both set and measured on the ventilator.<br />Measured PEEP can include distinct values such as total, extrinsic, and intrinsic PEEP.<br />
-When <strong>all these details are available</strong>, we recommend using the concept ""<strong>Positive end expiratory pressure setting</strong>"" for the value set on the ventilator, and ""<strong>Intrinsic PEEP Respiratory system</strong>"", ""<strong>Extrinsic PEEP Respiratory system</strong>"", or ""<strong>Total PEEP Respiratory system</strong>"" for the measured values.<br />
-Intrinsic and extrinsic PEEP values are typically obtained during an expiratory flow pause performed by the clinician. To differentiate PEEP values obtained with or without this maneuver, we suggest using ""<strong>Total PEEP Respiratory system</strong>"" for any measured PEEP, and specifying ""<strong>Intrinsic PEEP Respiratory system</strong>"" and ""<strong>Extrinsic PEEP Respiratory system</strong>"" only when a pause was performed to obtain them.
-Finally, if no detail is available about whether the PEEP is set or measured, the more generic concept ""<strong>Positive end expiratory pressure</strong>"" should be used.",NA
+318,Ventilation,Ventilation parameters,PEEP,"Positive End Expiratory Pressure (PEEP) can be both set and measured on the ventilator.
+Measured PEEP can include distinct values such as total, extrinsic, and intrinsic PEEP.
+When **all these details are available**, we recommend using the concept ""**Positive end expiratory pressure setting**"" for the value set on the ventilator, and ""**Intrinsic PEEP Respiratory system**"", ""**Extrinsic PEEP Respiratory system*"", or ""**Total PEEP Respiratory system</strong>"" for the measured values.
+Intrinsic and extrinsic PEEP values are typically obtained during an expiratory flow pause performed by the clinician. To differentiate PEEP values obtained with or without this maneuver, we suggest using ""**Total PEEP Respiratory system**"" for any measured PEEP, and specifying ""**Intrinsic PEEP Respiratory system**"" and ""**Extrinsic PEEP Respiratory system**"" only when a pause was performed to obtain them.
+Finally, if no detail is available about whether the PEEP is set or measured, the more generic concept ""**Positive end expiratory pressure**"" should be used.",NA
 319,Ventilation,Ventilation parameters,Peak inspiration pressure,NA,NA
 320,Ventilation,Ventilation parameters,Plateau pressure,NA,NA
 321,Ventilation,Ventilation parameters,Respiratory rate,NA,NA
@@ -328,7 +329,17 @@ Finally, if no detail is available about whether the tidal volume is set or meas
 324,Vitals,Haemodynamics,Cardiac output,NA,NA
 325,Vitals,Haemodynamics,Central venous pressure,NA,NA
 326,Vitals,Haemodynamics,Diastolic blood pressure,NA,NA
-327,Vitals,Haemodynamics,Heart rate,NA,"{
+327,Vitals,Haemodynamics,Heart rate,"Heart rate can be captured through various clinical measurement methods, each with different levels of precision and clinical context.
+
+When heart rate data is available without specification of the measurement method, use the generic concept **""Heart rate""** (LOINC 8867-4), which is the least granular option.
+
+For more specific measurement methods, use the following concepts:
+
+- **""Heart rate by Pulse oximetry""** (LOINC 8889-8) should be used when heart rate is derived from photoplethysmography, typically captured via a pulse oximeter sensor placed on a patient's finger or other peripheral site.
+- **""Heart rate Intra arterial line by Invasive""** (LOINC 60978-4) should be used when heart rate is measured via an intra-arterial catheter, commonly placed in intensive care or critical care settings for continuous hemodynamic monitoring.
+- **""Heart rate.beat-to-beat by EKG""** (LOINC 76282-3) should be used when heart rate is captured via electrocardiography, either during a formal 12-lead ECG recording or through continuous cardiac monitoring (e.g., when a patient has telemetry patches placed on the chest for ongoing rhythm surveillance, typically in intensive care or critical care units).
+
+When the specific measurement method is unknown or not documented, default to the generic **""Heart rate""** concept.","{
   ""data_types"": [""numeric""],
   ""statistical_data"": {
     ""min"": 0,
