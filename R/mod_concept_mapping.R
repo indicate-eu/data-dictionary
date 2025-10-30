@@ -296,7 +296,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
     # Store uploaded file data for current alignment
     uploaded_alignment_data <- reactiveVal(NULL)
 
-    # Trigger to force refresh of realized mappings table
+    # Trigger to force refresh of completed mappings table
     mappings_refresh_trigger <- reactiveVal(0)
 
     # Render breadcrumb navigation
@@ -404,19 +404,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
           ),
           # Buttons based on view
           if (concept_mappings_view() == "table") {
-            tagList(
-              actionButton(
-                ns("add_mapping_from_general"),
-                "Add Mapping",
-                class = "btn-success-custom",
-                style = "height: 32px; padding: 5px 15px; font-size: 14px; margin-right: 8px;"
-              ),
-              actionButton(
-                ns("show_comments"),
-                "Comments",
-                class = "btn-secondary-custom",
-                style = "height: 32px; padding: 5px 15px; font-size: 14px;"
-              )
+            actionButton(
+              ns("show_comments"),
+              "Comments",
+              class = "btn-secondary-custom",
+              style = "height: 32px; padding: 5px 15px; font-size: 14px;"
             )
           } else {
             actionButton(
@@ -472,25 +464,37 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
           # Left: Source concepts to map
           tags$div(
             class = "card-container card-container-flex",
+            style = "flex: 1; min-width: 0;",
             tags$div(
               class = "section-header",
-              tags$h4(
-                "Source Concepts",
-                tags$span(
-                  class = "info-icon",
-                  `data-tooltip` = "Concepts from your uploaded CSV file to be mapped to INDICATE concepts",
-                  "ⓘ"
+              tags$div(
+                style = "flex: 1;",
+                tags$h4(
+                  style = "margin: 0;",
+                  "Source Concepts",
+                  tags$span(
+                    class = "info-icon",
+                    `data-tooltip` = "Concepts from your uploaded CSV file to be mapped to INDICATE concepts",
+                    "ⓘ"
+                  )
                 )
+              ),
+              actionButton(
+                ns("add_mapping_from_general"),
+                "Add Mapping",
+                class = "btn-success-custom",
+                style = "height: 32px; padding: 5px 15px; font-size: 14px; display: none;"
               )
             ),
             tags$div(
-              style = "flex: 1; min-height: 0; overflow: hidden;",
+              style = "flex: 1; min-height: 0; overflow: auto;",
               DT::DTOutput(ns("source_concepts_table"))
             )
           ),
           # Right: Target concepts (general concepts or mapped concepts)
           tags$div(
             class = "card-container card-container-flex",
+            style = "flex: 1; min-width: 0;",
             uiOutput(ns("general_concepts_header")),
             tags$div(
               style = "flex: 1; min-height: 0; overflow: auto;",
@@ -509,20 +513,20 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
               # Comments display - always present, just hidden
               tags$div(
                 id = ns("comments_display_container"),
-                style = "height: 100%; display: none;",
+                style = "display: none;",
                 uiOutput(ns("comments_display"))
               )
             )
           )
         ),
-        # Bottom section: Realized mappings
+        # Bottom section: Completed mappings
         tags$div(
           class = "card-container panel-container-top",
           tags$div(
             class = "section-header",
             
             tags$h4(
-              "Realized Mappings",
+              "Completed Mappings",
               tags$span(
                 class = "info-icon",
                 `data-tooltip` = "Mappings between your source concepts and INDICATE concepts that you have created",
@@ -593,14 +597,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
             )
           )
         ),
-        # Bottom section: Realized mappings
+        # Bottom section: Completed mappings
         tags$div(
           class = "card-container panel-container-top",
           tags$div(
             class = "section-header",
             
             tags$h4(
-              "Realized Mappings",
+              "Completed Mappings",
               tags$span(
                 class = "info-icon",
                 `data-tooltip` = "Mappings between your source concepts and INDICATE concepts that you have created",
@@ -734,14 +738,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       shinyjs::show("concept_mappings_table_container")
       shinyjs::hide("comments_display_container")
 
-      # Disable Add Mapping button until selections are made
-      shinyjs::disable("add_mapping_from_general")
+      # Hide Add Mapping button until selections are made
+      shinyjs::hide("add_mapping_from_general")
     })
 
-    # Disable Add Mapping button when general concept is selected for the first time
+    # Hide Add Mapping button when general concept is selected for the first time
     observeEvent(selected_general_concept_id(), {
       if (!is.null(selected_general_concept_id())) {
-        shinyjs::disable("add_mapping_from_general")
+        shinyjs::hide("add_mapping_from_general")
       }
     })
 
@@ -1467,6 +1471,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       # Read CSV
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
 
+      # Convert vocabulary_id to factor if it exists
+      if ("vocabulary_id" %in% colnames(df)) {
+        df <- df %>%
+          dplyr::mutate(vocabulary_id = as.factor(vocabulary_id))
+      }
+
       # Add Mapped column based on target columns
       has_target_cols <- "target_general_concept_id" %in% colnames(df)
       if (has_target_cols) {
@@ -1498,7 +1508,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         filter = 'top',
         options = list(
           pageLength = 8,
-          dom = 'tp',
+          lengthMenu = list(c(5, 8, 10, 15, 20, 50, 100), c('5', '8', '10', '15', '20', '50', '100')),
+          dom = 'ltp',
           columnDefs = list(
             list(targets = which(colnames(df_display) == "Mapped") - 1, width = "80px", className = 'dt-center')
           )
@@ -1552,7 +1563,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         filter = 'top',
         options = list(
           pageLength = 8,
-          dom = 'tp',
+          lengthMenu = list(c(5, 8, 10, 15, 20, 50, 100), c('5', '8', '10', '15', '20', '50', '100')),
+          dom = 'ltp',
           columnDefs = list(
             list(targets = 0, visible = FALSE),  # Hide general_concept_id column
             list(targets = 1, width = "200px")
@@ -2017,8 +2029,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       datatable(
         mapped_with_details,
         options = list(
-          pageLength = 25,
-          dom = 'tp'
+          pageLength = 10,
+          lengthMenu = list(c(5, 8, 10, 15, 20, 50, 100), c('5', '8', '10', '15', '20', '50', '100')),
+          dom = 'ltp'
         ),
         rownames = FALSE,
         selection = 'single',
@@ -2073,14 +2086,15 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         df,
         options = list(
           pageLength = 8,
-          dom = 'tp'
+          lengthMenu = list(c(5, 8, 10, 15, 20, 50, 100), c('5', '8', '10', '15', '20', '50', '100')),
+          dom = 'ltp'
         ),
         rownames = FALSE,
         selection = 'single'
       )
     }, server = FALSE)
 
-    # Realized mappings table for mapped view (copy of original)
+    # Completed mappings table for mapped view (copy of original)
     output$realized_mappings_table_mapped <- DT::renderDT({
       req(selected_alignment_id())
 
@@ -2328,12 +2342,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       # Save CSV
       write.csv(df, csv_path, row.names = FALSE)
 
-      # Force refresh of realized mappings table and source concepts table
-      mappings_refresh_trigger(mappings_refresh_trigger() + 1)
+      # Deselect only the source concepts table
+      proxy_source <- DT::dataTableProxy("source_concepts_table_mapped", session)
+      DT::selectRows(proxy_source, NULL)
 
-      # Deselect rows in concept_mappings_table using DT proxy
-      proxy <- DT::dataTableProxy("concept_mappings_table", session)
-      DT::selectRows(proxy, NULL)
+      # Keep the selection in mapped_concepts_table so user can add multiple mappings
+
+      # Force refresh of completed mappings table and source concepts table
+      mappings_refresh_trigger(mappings_refresh_trigger() + 1)
     })
 
     # Handle Remove Mapping
@@ -2581,7 +2597,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
         }
       }
 
-      # Always reload Realized Mappings table
+      # Always reload Completed Mappings table
       alignments <- alignments_data()
       alignment <- alignments %>%
         dplyr::filter(alignment_id == selected_alignment_id())
@@ -2746,20 +2762,21 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       }
     })
 
-    # Enable/disable Add Mapping button based on selections (for general view with concept mappings)
+    # Show/hide Add Mapping button based on selections (for general view with concept mappings)
     observe({
       if (is.null(selected_general_concept_id()) || concept_mappings_view() != "table") {
+        shinyjs::hide("add_mapping_from_general")
         return()
       }
 
       source_selected <- !is.null(input$source_concepts_table_rows_selected)
       mapped_selected <- !is.null(input$concept_mappings_table_rows_selected)
 
-      # Enable/disable button based on selections
+      # Show/hide button based on selections
       if (source_selected && mapped_selected) {
-        shinyjs::enable("add_mapping_from_general")
+        shinyjs::show("add_mapping_from_general")
       } else {
-        shinyjs::disable("add_mapping_from_general")
+        shinyjs::hide("add_mapping_from_general")
       }
     })
 
@@ -2926,14 +2943,13 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies) {
       # Save CSV
       write.csv(df, csv_path, row.names = FALSE)
 
-      # Deselect rows in both tables
+      # Deselect only the source concepts table
       proxy_source <- DT::dataTableProxy("source_concepts_table", session)
       DT::selectRows(proxy_source, NULL)
 
-      proxy_mappings <- DT::dataTableProxy("concept_mappings_table", session)
-      DT::selectRows(proxy_mappings, NULL)
+      # Keep the selection in concept_mappings_table so user can add multiple mappings
 
-      # Force refresh of realized mappings table and source concepts table
+      # Force refresh of completed mappings table and source concepts table
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
     })
 

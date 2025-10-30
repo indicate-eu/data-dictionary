@@ -32,6 +32,9 @@ app_ui <- function() {
           "jqueryui/1.12.1/jquery-ui.min.js"
         )
       ),
+      tags$script(
+        src = "https://cdn.datatables.net/plug-ins/2.2.1/filtering/type-based/accent-neutralise.js"
+      ),
       tags$script(src = "www/resizable_splitter.js"),
       tags$script(src = "www/tab_handler.js"),
       tags$script(src = "www/nav_handler.js"),
