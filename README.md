@@ -49,30 +49,78 @@ The dictionary was developed to support six clinical use cases:
 
 ## Features
 
-### Current Module: Dictionary Explorer
+The INDICATE Data Dictionary application provides a comprehensive suite of tools for working with standardized clinical concepts:
 
-The Dictionary Explorer module provides:
+### 1. Dictionary Explorer
 
-- **General Concepts Overview**: Browse high-level clinical concepts organized by category and subcategory
-- **Use Case Mapping**: See which use cases require each concept
-- **Detailed Concept Information**: View complete details for each standardized terminology code including:
+Browse and explore the INDICATE Minimal Data Dictionary:
+
+- **Four-Panel Quadrant Layout**: Simultaneous view of general concepts, mappings, and detailed information
+- **General Concepts Overview**: Browse 11,924 clinical concepts organized by category and subcategory
+- **Use Case Mapping**: See which of the 6 use cases require each concept
+- **Detailed Concept Information**: View complete details for each standardized terminology code:
   - Vocabulary ID (SNOMED CT, LOINC, RxNorm, ICD-10)
   - Concept codes and OMOP Concept IDs
   - Preferred units with UCUM codes
   - Usage statistics from EHDEN network
-  - Recommendations from clinical experts
+  - Expert recommendations
 - **External Integration**: Direct links to:
   - **ATHENA OHDSI** vocabulary browser for OMOP mapping
   - **FHIR Terminology Server** for FHIR-based transformations
 - **Expert Comments**: Collaborative guidance from clinicians and data scientists
 - **Interactive Filtering**: Search and filter concepts by category, subcategory, or use case
-- **Keyboard Navigation**: Efficient browsing with keyboard shortcuts
+- **Keyboard Navigation**: Efficient browsing with arrow keys and keyboard shortcuts
+- **Resizable Panels**: Customize your workspace with draggable panel splitters
 
-### Future Modules
+### 2. Concept Mapping
 
-Planned modules include:
-- **Semantic Alignment**: Tools to align user-imported concepts with the INDICATE dictionary
-- **Dictionary Improvement**: Interface to propose additions and modifications to the dictionary
+Align your own clinical concepts with the INDICATE dictionary:
+
+- **Custom Concept Management**: Create and organize your own clinical concepts
+- **Folder-Based Organization**: Hierarchical structure for organizing concepts by project or domain
+- **Semantic Alignment**: Map custom concepts to INDICATE dictionary concepts
+- **ATHENA Integration**: Search ATHENA vocabulary for concept suggestions
+- **Concept Descendants**: Automatically find child concepts (e.g., all types of a medication)
+- **Alignment History**: Track when and how concepts were mapped
+- **Multi-Step Wizards**: Guided forms for creating alignments with validation
+
+### 3. Use Case Management
+
+Define and manage clinical use cases:
+
+- **Use Case Definitions**: Create and edit use case metadata (name, description, objectives)
+- **Concept Assignment**: Assign INDICATE concepts to specific use cases
+- **Requirement Tracking**: Mark which concepts are required vs. optional
+- **Coverage Analysis**: View which concepts are covered by each use case
+- **Breadcrumb Navigation**: Intuitive hierarchical navigation
+
+### 4. Settings
+
+Configure the application to your needs:
+
+- **Database Settings**: Configure data storage and connection parameters
+- **UI Preferences**: Customize interface behavior and appearance
+- **Data Export/Import**: Export your custom concepts and mappings for sharing
+- **Development Mode**: Enable advanced features for debugging
+
+### 5. Development Tools
+
+Database inspection and debugging (development mode):
+
+- **Table Browser**: View all database tables and their schemas
+- **SQL Console**: Execute custom SQL queries
+- **Data Inspector**: Examine table contents and relationships
+- **Query Performance**: Analyze query execution
+
+### Future Enhancements
+
+Planned improvements include:
+- **Dictionary Improvement Module**: Interface to propose additions and modifications to the INDICATE dictionary
+- **Extended Data Dictionary**: Additional clinical concepts beyond the current scope
+- **Enhanced Visualization**: Concept relationship mapping and dependency graphs
+- **Integration with National Catalogues**: Connect to European health data catalogues
+- **Support for Additional Terminologies**: Beyond SNOMED CT, LOINC, RxNorm, and ICD-10
+- **Collaborative Features**: Multi-user editing and concept review workflows
 
 ## Installation
 
@@ -95,28 +143,82 @@ The application will open in your default web browser.
 
 ### Usage Guide
 
-#### Exploring General Concepts
+#### 1. Dictionary Explorer
 
-1. The **General Concepts** table shows aggregated clinical concepts grouped by category and subcategory
-2. Use the column filters to search for specific concepts or categories
-3. The use case columns (UC1-UC6) indicate which use cases require each concept
-4. Click on any row to see detailed concept information
+**Exploring General Concepts**:
+1. Navigate to the **Dictionary Explorer** tab
+2. The top-left panel shows general concepts grouped by category and subcategory
+3. Use column filters to search for specific concepts (e.g., "lactate", "sepsis")
+4. The use case columns (UC1-UC6) show which use cases require each concept
+5. Click any row to load detailed information
 
-#### Viewing Concept Details
+**Viewing Concept Mappings**:
+1. After selecting a general concept, the bottom-left panel shows all terminology mappings
+2. Each row represents a specific code in a standard vocabulary (SNOMED, LOINC, RxNorm, ICD-10)
+3. The "Recommended" column (✓) indicates the preferred mapping
+4. Click on a mapping to see full details in the right panels
 
-When you select a general concept:
-1. The **Concepts List** table displays all specific terminology codes associated with the concept
-2. The **Comments** section shows expert guidance for using the concept
-3. Click on any specific concept to view complete details in the **Selected Concept Details** panel
-4. The "Recommended" column indicates the preferred concept when multiple options exist
+**Using External Links**:
+- **OMOP Concept ID**: Click to open ATHENA vocabulary browser
+- **FHIR Resource**: Click to open FHIR Terminology Server
+- These facilitate ETL processes and data transformation
 
-#### Using External Links
+**Keyboard Navigation**:
+- **Arrow keys**: Navigate between table rows
+- **Page Up/Down**: Move between pages
+- **Home/End**: Jump to first/last row
+- **Tab**: Move between panels
 
-The application provides direct links to:
-- **OMOP Concept ID**: Links to ATHENA vocabulary browser for OMOP CDM mapping
-- **FHIR Resource**: Links to FHIR Terminology Server for FHIR-based transformations
+#### 2. Concept Mapping
 
-These links facilitate data transformation and ETL (Extract, Transform, Load) processes.
+**Creating Custom Concepts**:
+1. Navigate to the **Concept Mapping** tab
+2. Click **Add Concept** to create a new custom concept
+3. Enter a name and description
+4. Organize concepts in folders for better structure
+
+**Aligning to Dictionary**:
+1. Select a custom concept from your list
+2. Click **Add Alignment** to map it to the INDICATE dictionary
+3. **Page 1**: Select the general concept from the dictionary
+4. **Page 2**: Choose specific mappings (you can select multiple)
+   - Use "Add descendants" to include child concepts automatically
+5. Save the alignment
+
+**Searching ATHENA**:
+- In the alignment wizard, use the ATHENA search to find concepts
+- Filter by vocabulary (SNOMED, LOINC, RxNorm, ICD-10)
+- Select concepts and add them to your mapping
+
+#### 3. Use Case Management
+
+**Defining Use Cases**:
+1. Navigate to the **Use Cases** tab
+2. Click **Add Use Case** to create a new use case
+3. Enter name, description, and short name
+4. Save the use case
+
+**Assigning Concepts**:
+1. Select a use case from the list
+2. View assigned concepts in the table
+3. Add or remove concept assignments as needed
+4. Mark concepts as required or optional
+
+#### 4. Settings
+
+**Configuring the Application**:
+1. Navigate to the **Settings** tab
+2. Adjust database and UI preferences
+3. Export your custom concepts and mappings
+4. Import previously saved configurations
+
+#### 5. Development Tools
+
+**Inspecting the Database** (development mode only):
+1. Navigate to the **Dev Tools** tab
+2. Browse tables and view schemas
+3. Execute SQL queries to inspect data
+4. Debug data issues
 
 ## Governance and Versioning
 
@@ -157,13 +259,68 @@ Visit: [INDICATE Project Website](https://indicate-europe.eu/)
 
 Contributions to improve the package are welcome. Please contact the author for collaboration opportunities.
 
-## Future Enhancements
+## Technical Architecture
 
-Planned improvements include:
-- **Semantic Alignment Module**: Tool to align user concepts with the dictionary
-- **Dictionary Improvement Module**: Interface to propose additions and modifications
-- **Extended Data Dictionary**: Additional clinical concepts
-- **Enhanced semantic relationship mapping**
-- **Integration with national and European health data catalogues**
-- **Support for additional standard terminologies**
-- **Improved visualization of concept relationships**
+### Data Storage
+
+The application uses a **dual data architecture**:
+
+1. **CSV Files** (`inst/extdata/csv/`): Normalized data tables for efficient loading
+2. **DuckDB** (runtime): In-memory SQL database for fast queries and joins
+
+### Key Technologies
+
+- **R (≥ 4.0.0)**: Core application language
+- **Shiny (≥ 1.7.0)**: Web application framework
+- **DuckDB**: In-memory analytical database
+- **DT**: Interactive DataTables
+- **dplyr**: Data manipulation
+- **jQuery/jQuery UI**: Client-side interactions
+- **Custom CSS/JS**: Quadrant layout, keyboard navigation, modal dialogs
+
+### Module Architecture
+
+The application follows the **Shiny module pattern** for maintainability:
+- `mod_dictionary_explorer.R`: Dictionary browsing
+- `mod_concept_mapping.R`: Custom concept alignment
+- `mod_use_cases.R`: Use case management
+- `mod_settings.R`: Application configuration
+- `mod_dev_tools.R`: Database inspection
+
+Each module is self-contained with its own UI and server logic.
+
+## Data Dictionary Structure
+
+The dictionary comprises **11,924 clinical concepts** organized across:
+
+- **General Concepts** (`general_concepts.csv`): High-level clinical concepts
+- **Concept Mappings** (`concept_mappings.csv`): Links to standard terminologies
+- **Use Case Assignments** (`general_concept_use_cases.csv`): Concept-to-use-case relationships
+- **Custom Concepts** (`custom_concepts.csv`): User-defined concepts
+- **Unit Conversions** (`unit_conversions.csv`): Measurement unit mappings
+
+## Advanced Features
+
+### ATHENA Integration
+
+The application integrates with the **ATHENA OHDSI** vocabulary:
+- Search for concepts by name or code
+- Retrieve concept hierarchies (ancestors/descendants)
+- Direct links to concept details
+- Support for multiple vocabularies
+
+### FHIR Terminology Server
+
+Integration with the **FHIR Terminology Server**:
+- CodeSystem lookups
+- ValueSet expansions
+- FHIR-compliant concept representations
+- Support for SNOMED CT, LOINC, RxNorm, ICD-10, UCUM
+
+### Export/Import
+
+Export your custom concepts and mappings:
+- CSV format for spreadsheet analysis
+- JSON format for programmatic use
+- Full database dumps for backup
+- Import previously exported data

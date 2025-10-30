@@ -250,10 +250,11 @@ app_server <- function(input, output, session) {
     vocabularies = reactive({ vocabularies() })
   )
 
-  mod_concepts_mapping_server(
-    "concepts_mapping",
+  mod_concept_mapping_server(
+    "concept_mapping",
     data = data,
-    config = config
+    config = config,
+    vocabularies = reactive({ vocabularies() })
   )
 
   mod_use_cases_server(
