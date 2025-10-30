@@ -424,9 +424,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
 
     # Render breadcrumb
     output$breadcrumb <- renderUI({
-      # Force re-render when edit modes change
+      # Force re-render when edit modes or view changes
       edit_mode()
       list_edit_mode()
+      current_view()
 
       if (current_view() == "list") {
         categories <- categories_list()
@@ -529,13 +530,29 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
             # Right side: edit buttons
             tags$div(
               style = "display: flex; gap: 10px;",
-              if (!edit_mode()) {
+              if (current_view() == "history") {
+                # Show only Back to Details button in history view
                 actionButton(
-                  ns("edit_page"),
-                  "Edit page",
-                  class = "btn-toggle"
+                  ns("back_to_detail"),
+                  "Back to Details",
+                  class = "btn-primary-custom"
+                )
+              } else if (!edit_mode()) {
+                # Show History and Edit page buttons in detail view (not editing)
+                tagList(
+                  actionButton(
+                    ns("show_history"),
+                    "History",
+                    class = "btn-secondary-custom"
+                  ),
+                  actionButton(
+                    ns("edit_page"),
+                    "Edit page",
+                    class = "btn-toggle"
+                  )
                 )
               } else {
+                # Show Cancel and Save buttons in edit mode
                 tagList(
                   actionButton(
                     ns("cancel_edit"),
@@ -555,7 +572,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       }
     })
 
-    # Render content area once - both containers are created and shown/hidden
+    # Render content area once - all containers are created and shown/hidden
     output$content_area <- renderUI({
       tagList(
         # General Concepts table container
@@ -570,6 +587,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
           id = ns("concept_details_container"),
           style = "display: none;",
           uiOutput(ns("concept_details_ui"))
+        ),
+        # History container
+        tags$div(
+          id = ns("history_container"),
+          style = "display: none;",
+          uiOutput(ns("history_ui"))
         )
       )
     })
@@ -589,9 +612,15 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
       if (view == "list") {
         shinyjs::show(id = "general_concepts_container")
         shinyjs::hide(id = "concept_details_container")
-      } else {
+        shinyjs::hide(id = "history_container")
+      } else if (view == "detail") {
         shinyjs::hide(id = "general_concepts_container")
         shinyjs::show(id = "concept_details_container")
+        shinyjs::hide(id = "history_container")
+      } else if (view == "history") {
+        shinyjs::hide(id = "general_concepts_container")
+        shinyjs::hide(id = "concept_details_container")
+        shinyjs::show(id = "history_container")
       }
     })
 
@@ -797,6 +826,32 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
         )
       )
     }
+
+    # Function to render history page
+    render_history <- function() {
+      req(selected_concept_id())
+
+      concept_id <- selected_concept_id()
+      general_concepts <- current_data()$general_concepts
+      concept_info <- general_concepts %>%
+        dplyr::filter(general_concept_id == concept_id)
+
+      tags$div(
+        style = "height: calc(100vh - 130px); overflow: auto; padding: 20px;",
+        # Blank content for now
+        tags$div(
+          style = "padding: 20px; background: #f8f9fa; border-radius: 8px; text-align: center; color: #666;",
+          tags$p("History view will be implemented here.")
+        )
+      )
+    }
+
+    # Render history page when needed
+    output$history_ui <- renderUI({
+      req(current_view() == "history")
+      req(selected_concept_id())
+      render_history()
+    })
 
     # Render general concepts table
     output$general_concepts_table <- DT::renderDT({
@@ -1364,6 +1419,16 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies) {
     # Handle edit page button
     observeEvent(input$edit_page, {
       edit_mode(TRUE)
+    })
+
+    # Handle show history button
+    observeEvent(input$show_history, {
+      current_view("history")
+    })
+
+    # Handle back to detail button (from history view)
+    observeEvent(input$back_to_detail, {
+      current_view("detail")
     })
 
     # Handle cancel edit button
