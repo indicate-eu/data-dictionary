@@ -610,7 +610,7 @@ mod_dictionary_explorer_ui <- function(id) {
               tags$div(
                 style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
                 tags$div(
-                  style = "flex: 1; min-height: 0; overflow: auto; position: relative;",
+                  style = "flex: 1; min-height: 0; overflow: hidden; position: relative;",
                   shinycssloaders::withSpinner(
                     DT::DTOutput(ns("mapped_concepts_add_omop_table")),
                     type = 4,
@@ -650,12 +650,16 @@ mod_dictionary_explorer_ui <- function(id) {
               tags$div(
                 style = "display: flex; justify-content: flex-end; align-items: center; gap: 10px; flex-shrink: 0;",
                 tags$div(
-                  style = "width: auto;",
-                  checkboxInput(
-                    ns("mapped_concepts_add_include_descendants"),
-                    "Include descendants",
-                    value = FALSE,
-                    width = NULL
+                  style = "width: auto !important;",
+                  tags$div(
+                    class = "form-group shiny-input-container",
+                    style = "width: auto !important; margin-bottom: 0;",
+                    checkboxInput(
+                      ns("mapped_concepts_add_include_descendants"),
+                      "Include descendants",
+                      value = FALSE,
+                      width = NULL
+                    )
                   )
                 ),
                 tags$button(
@@ -2291,499 +2295,315 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
     #### Add Mapping to Selected Concept (OMOP Search Modal) ----
-    # 
-    # # Store all modal concepts
-    # modal_concepts_all <- reactive({
-    #   vocab_data <- vocabularies()
-    #   req(vocab_data)
-    #   
-    #   # Get ALL OMOP concepts (no limit)
-    #   vocab_data$concept %>%
-    #     dplyr::filter(
-    #       vocabulary_id %in% c("RxNorm", "RxNorm Extension", "LOINC", "SNOMED", "ICD10"),
-    #       is.na(invalid_reason)
-    #     ) %>%
-    #     dplyr::select(
-    #       concept_id,
-    #       concept_name,
-    #       vocabulary_id,
-    #       domain_id,
-    #       concept_class_id,
-    #       concept_code
-    #     ) %>%
-    #     dplyr::arrange(concept_name) %>%
-    #     dplyr::collect()
-    # })
-    # 
-    # # Reactive value to store selected concept from modal
-    # modal_selected_concept <- reactiveVal(NULL)
-    # 
-    # # Render add modal concept details
-    # observe_event(modal_selected_concept(), {
-    #   
-    #   concept <- modal_selected_concept()
-    #   
-    #   # Concept details
-    #   output$modal_concept_details <- renderUI({
-    #     
-    #     if (is.null(concept) || nrow(concept) == 0) {
-    #       return(tags$div(
-    #         style = "padding: 20px; background: #f8f9fa; border-radius: 6px; text-align: center;",
-    #         tags$p(
-    #           style = "color: #666; font-style: italic;",
-    #           "Select a concept from the table to view details."
-    #         )
-    #       ))
-    #     }
-    #     
-    #     # Use grid layout like Selected Concept Details
-    #     tags$div(
-    #       class = "concept-details-container",
-    #       style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); grid-auto-flow: column; gap: 4px 15px;",
-    #       # Column 1
-    #       create_detail_item("Concept Name", concept$concept_name, include_colon = FALSE),
-    #       create_detail_item("Vocabulary ID", concept$vocabulary_id, include_colon = FALSE),
-    #       create_detail_item("Domain ID", concept$domain_id, include_colon = FALSE),
-    #       create_detail_item("Concept Class", concept$concept_class_id, include_colon = FALSE),
-    #       # Column 2
-    #       create_detail_item("OMOP Concept ID", concept$concept_id, include_colon = FALSE),
-    #       create_detail_item("Concept Code", concept$concept_code, include_colon = FALSE),
-    #       create_detail_item("Standard", ifelse(is.na(concept$standard_concept), "No", concept$standard_concept), include_colon = FALSE),
-    #       tags$div()  # Empty slot to balance grid
-    #     )
-    #   })
-    #   
-    #   # Render descendants as DataTable
-    #   output$modal_descendants_table <- DT::renderDT({
-    #     
-    #     if (is.null(concept) || nrow(concept) == 0) {
-    #       return(DT::datatable(
-    #         data.frame(Message = "Select a concept to view descendants."),
-    #         options = list(dom = 't'),
-    #         rownames = FALSE,
-    #         selection = 'none'
-    #       ))
-    #     }
-    #     
-    #     vocab_data <- vocabularies()
-    #     req(vocab_data)
-    #     
-    #     # Get descendants
-    #     descendants <- vocab_data$concept_ancestor %>%
-    #       dplyr::filter(ancestor_concept_id == concept$concept_id) %>%
-    #       dplyr::select(descendant_concept_id) %>%
-    #       dplyr::collect()
-    #     
-    #     if (nrow(descendants) == 0) {
-    #       return(DT::datatable(
-    #         data.frame(Message = "No descendants found."),
-    #         options = list(dom = 't'),
-    #         rownames = FALSE,
-    #         selection = 'none'
-    #       ))
-    #     }
-    #     
-    #     # Get concept details for descendants
-    #     desc_concepts <- vocab_data$concept %>%
-    #       dplyr::filter(
-    #         concept_id %in% descendants$descendant_concept_id,
-    #         is.na(invalid_reason)
-    #       ) %>%
-    #       dplyr::select(concept_id, concept_name, vocabulary_id) %>%
-    #       dplyr::collect()
-    #     
-    #     # Render DataTable with 8 rows per page
-    #     DT::datatable(
-    #       desc_concepts,
-    #       rownames = FALSE,
-    #       selection = 'none',
-    #       options = list(
-    #         pageLength = 8,
-    #         dom = 'ftp',
-    #         ordering = TRUE,
-    #         autoWidth = FALSE,
-    #         columnDefs = list(
-    #           list(width = '80px', targets = 0),
-    #           list(width = '250px', targets = 1),
-    #           list(width = '100px', targets = 2)
-    #         )
-    #       ),
-    #       colnames = c("ID", "Name", "Vocabulary")
-    #     )
-    #   })
-    #   
-    #   # Render OMOP concepts table for adding to mapping (server-side)
-    #   output$mapped_concepts_add_omop_table <- DT::renderDT({
-    #     concepts <- modal_concepts_all()
-    #     req(concepts)
-    #     
-    #     # Select only display columns (not concept_code for table)
-    #     display_concepts <- concepts %>%
-    #       dplyr::select(concept_id, concept_name, vocabulary_id, domain_id, concept_class_id)
-    #     
-    #     # Convert concept_id to character and other columns to factors for filtering
-    #     display_concepts$concept_id <- as.character(display_concepts$concept_id)
-    #     display_concepts$vocabulary_id <- as.factor(display_concepts$vocabulary_id)
-    #     display_concepts$domain_id <- as.factor(display_concepts$domain_id)
-    #     display_concepts$concept_class_id <- as.factor(display_concepts$concept_class_id)
-    #     
-    #     # Render DataTable with server-side processing
-    #     DT::datatable(
-    #       display_concepts,
-    #       rownames = FALSE,
-    #       selection = 'single',
-    #       filter = 'top',
-    #       options = list(
-    #         pageLength = 8,
-    #         dom = 'tp',
-    #         ordering = TRUE,
-    #         autoWidth = FALSE
-    #       ),
-    #       colnames = c("Concept ID", "Concept Name", "Vocabulary", "Domain", "Concept Class")
-    #     )
-    #   }, server = TRUE)
-    # })
-    # 
-    # # Track selected concept in add modal
-    # observe_event(input$mapped_concepts_add_omop_table_rows_selected, {
-    #   selected_row <- input$mapped_concepts_add_omop_table_rows_selected
-    #   
-    #   if (length(selected_row) > 0) {
-    #     all_concepts <- modal_concepts_all()
-    #     req(all_concepts)
-    #     
-    #     # Get selected concept
-    #     selected_concept <- all_concepts[selected_row, ]
-    #     add_modal_selected_concept(selected_concept)
-    #   } else {
-    #     add_modal_selected_concept(NULL)
-    #   }
-    # }, ignoreInit = TRUE)
-    
-    # Render concept details in add modal
-    # output$mapped_concepts_add_concept_details <- renderUI({
-    #   concept <- add_modal_selected_concept()
-    #   
-    #   if (is.null(concept)) {
-    #     return(tags$div(
-    #       style = "padding: 20px; background: #f8f9fa; border-radius: 6px; text-align: center;",
-    #       tags$p(
-    #         style = "color: #666; font-style: italic;",
-    #         "Select a concept from the table to view details."
-    #       )
-    #     ))
-    #   }
-    #   
-    #   # Helper function to create detail items (same as modal_concept_details)
-    #   # Use grid layout like Selected Concept Details
-    #   tags$div(
-    #     class = "concept-details-container",
-    #     style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); grid-auto-flow: column; gap: 4px 15px;",
-    #     # Column 1
-    #     create_detail_item("Concept Name", concept$concept_name, include_colon = FALSE),
-    #     create_detail_item("Vocabulary ID", concept$vocabulary_id, include_colon = FALSE),
-    #     create_detail_item("Domain ID", concept$domain_id, include_colon = FALSE),
-    #     create_detail_item("Concept Class", concept$concept_class_id, include_colon = FALSE),
-    #     # Column 2
-    #     create_detail_item("OMOP Concept ID", concept$concept_id, include_colon = FALSE),
-    #     create_detail_item("Concept Code", concept$concept_code, include_colon = FALSE),
-    #     tags$div(),  # Empty slot
-    #     tags$div()   # Empty slot to balance grid
-    #   )
-    # })
-    
-    # Render descendants table in add modal
-    # output$mapped_concepts_add_descendants_table <- DT::renderDT({
-    #   concept <- add_modal_selected_concept()
-    #   
-    #   if (is.null(concept)) {
-    #     return(DT::datatable(
-    #       data.frame(Message = "Select a concept to view descendants."),
-    #       options = list(dom = 't'),
-    #       rownames = FALSE,
-    #       selection = 'none'
-    #     ))
-    #   }
-    #   
-    #   vocab_data <- vocabularies()
-    #   req(vocab_data)
-    #   
-    #   # Get descendants
-    #   descendants <- vocab_data$concept_ancestor %>%
-    #     dplyr::filter(ancestor_concept_id == concept$concept_id) %>%
-    #     dplyr::select(descendant_concept_id) %>%
-    #     dplyr::collect()
-    #   
-    #   if (nrow(descendants) == 0) {
-    #     return(DT::datatable(
-    #       data.frame(Message = "No descendants found."),
-    #       options = list(dom = 't'),
-    #       rownames = FALSE,
-    #       selection = 'none'
-    #     ))
-    #   }
-    #   
-    #   # Get concept details for descendants (exclude the concept itself)
-    #   desc_concepts <- vocab_data$concept %>%
-    #     dplyr::filter(
-    #       concept_id %in% descendants$descendant_concept_id,
-    #       concept_id != concept$concept_id,
-    #       is.na(invalid_reason)
-    #     ) %>%
-    #     dplyr::select(concept_id, concept_name, vocabulary_id) %>%
-    #     dplyr::collect()
-    #   
-    #   # Render DataTable with 8 rows per page
-    #   DT::datatable(
-    #     desc_concepts,
-    #     rownames = FALSE,
-    #     selection = 'none',
-    #     options = list(
-    #       pageLength = 8,
-    #       dom = 'tp',
-    #       ordering = TRUE,
-    #       autoWidth = FALSE
-    #     ),
-    #     colnames = c("Concept ID", "Name", "Vocabulary")
-    #   )
-    # })
-    
-    # Add selected concept from OMOP search modal
-    # observe_event(input$mapped_concepts_add_selected, {
-    #   if (!general_concept_detail_edit_mode()) return()
-    #   
-    #   # Get selected row from mapped_concepts_add_omop_table
-    #   selected_row <- input$mapped_concepts_add_omop_table_rows_selected
-    #   req(selected_row)
-    #   
-    #   # Use cached concepts
-    #   all_concepts <- modal_concepts_all()
-    #   req(all_concepts)
-    #   
-    #   # Get the selected concept
-    #   selected_concept <- all_concepts[selected_row, ]
-    #   
-    #   # Get current general concept
-    #   concept_id <- selected_concept_id()
-    #   if (is.null(concept_id)) return()
-    #   
-    #   # Get concepts to add (including descendants if checked)
-    #   concepts_to_add <- selected_concept$concept_id
-    #   
-    #   if (isTRUE(input$mapped_concepts_add_include_descendants)) {
-    #     vocab_data <- vocabularies()
-    #     req(vocab_data)
-    #     
-    #     descendants <- vocab_data$concept_ancestor %>%
-    #       dplyr::filter(ancestor_concept_id == selected_concept$concept_id) %>%
-    #       dplyr::select(descendant_concept_id) %>%
-    #       dplyr::collect()
-    #     
-    #     if (nrow(descendants) > 0) {
-    #       # Filter to keep only valid concepts
-    #       valid_descendants <- vocab_data$concept %>%
-    #         dplyr::filter(
-    #           concept_id %in% descendants$descendant_concept_id,
-    #           is.na(invalid_reason)
-    #         ) %>%
-    #         dplyr::select(concept_id) %>%
-    #         dplyr::collect()
-    #       
-    #       concepts_to_add <- c(concepts_to_add, valid_descendants$concept_id)
-    #     }
-    #   }
-    #   
-    #   # Read current mappings
-    #   concept_mappings_file <- app_sys("extdata", "csv", "concept_mappings.csv")
-    #   
-    #   if (file.exists(concept_mappings_file)) {
-    #     concept_mappings <- readr::read_csv(concept_mappings_file, show_col_types = FALSE)
-    #     # Rename is_recommended to recommended for consistency with UI
-    #     if ("is_recommended" %in% names(concept_mappings)) {
-    #       names(concept_mappings)[names(concept_mappings) == "is_recommended"] <- "recommended"
-    #     }
-    #   } else {
-    #     concept_mappings <- data.frame(
-    #       general_concept_id = integer(),
-    #       omop_concept_id = integer(),
-    #       recommended = logical()
-    #     )
-    #   }
-    #   
-    #   # Add new mappings for all concepts
-    #   new_mappings <- data.frame(
-    #     general_concept_id = rep(concept_id, length(concepts_to_add)),
-    #     omop_concept_id = concepts_to_add,
-    #     recommended = FALSE
-    #   )
-    #   
-    #   concept_mappings <- dplyr::bind_rows(concept_mappings, new_mappings) %>%
-    #     dplyr::distinct()
-    #   
-    #   # Rename back to is_recommended for CSV
-    #   concept_mappings_to_save <- concept_mappings
-    #   if ("recommended" %in% names(concept_mappings_to_save)) {
-    #     names(concept_mappings_to_save)[names(concept_mappings_to_save) == "recommended"] <- "is_recommended"
-    #   }
-    #   
-    #   # Save mappings
-    #   readr::write_csv(concept_mappings_to_save, concept_mappings_file)
-    #   
-    #   # Reload data - update the entire local_data object
-    #   current_data <- local_data()
-    #   current_data$concept_mappings <- concept_mappings
-    #   local_data(current_data)
-    #   
-    #   # Close modal
-    #   shinyjs::runjs(sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")))
-    # }, ignoreInit = TRUE)
-    # 
-    # # Confirm add OMOP concept
-    # observe_event(input$confirm_add_omop_concept, {
-    #   concept <- modal_selected_concept()
-    #   if (is.null(concept)) return()
-    #   
-    #   selected_concept_row <- selected_concept_reactive()
-    #   req(selected_concept_row)
-    #   
-    #   general_concept_id <- selected_concept_row$general_concept_id
-    #   
-    #   vocab_data <- vocabularies()
-    #   req(vocab_data)
-    #   
-    #   # Get concepts to add
-    #   concepts_to_add <- concept$concept_id
-    #   
-    #   # Include descendants if checked
-    #   if (isTRUE(input$include_descendants)) {
-    #     descendants <- vocab_data$concept_ancestor %>%
-    #       dplyr::filter(ancestor_concept_id == concept$concept_id) %>%
-    #       dplyr::select(descendant_concept_id) %>%
-    #       dplyr::collect()
-    #     
-    #     if (nrow(descendants) > 0) {
-    #       # Filter valid descendants
-    #       valid_descendants <- vocab_data$concept %>%
-    #         dplyr::filter(
-    #           concept_id %in% descendants$descendant_concept_id,
-    #           is.na(invalid_reason)
-    #         ) %>%
-    #         dplyr::pull(concept_id) %>%
-    #         unique()
-    #       
-    #       concepts_to_add <- c(concepts_to_add, valid_descendants)
-    #     }
-    #   }
-    #   
-    #   # Add to concept_mappings
-    #   concept_mappings <- current_data()$concept_mappings
-    #   
-    #   new_mappings <- data.frame(
-    #     general_concept_id = general_concept_id,
-    #     omop_concept_id = concepts_to_add,
-    #     omop_unit_concept_id = "/",
-    #     recommended = TRUE,
-    #     stringsAsFactors = FALSE
-    #   )
-    #   
-    #   # Filter out already existing mappings
-    #   existing_keys <- concept_mappings %>%
-    #     dplyr::mutate(key = paste(general_concept_id, omop_concept_id, sep = "_")) %>%
-    #     dplyr::pull(key)
-    #   
-    #   new_mappings <- new_mappings %>%
-    #     dplyr::mutate(key = paste(general_concept_id, omop_concept_id, sep = "_")) %>%
-    #     dplyr::filter(!key %in% existing_keys) %>%
-    #     dplyr::select(-key)
-    #   
-    #   if (nrow(new_mappings) > 0) {
-    #     concept_mappings <- dplyr::bind_rows(concept_mappings, new_mappings)
-    #     
-    #     # Save to CSV
-    #     readr::write_csv(
-    #       concept_mappings,
-    #       app_sys("extdata", "csv", "concept_mappings.csv")
-    #     )
-    #     
-    #     # Update local data
-    #     updated_data <- current_data()
-    #     updated_data$concept_mappings <- concept_mappings
-    #     local_data(updated_data)
-    #     
-    #     shinyjs::hide(ns("mapped_concepts_add_modal"))
-    #     modal_selected_concept(NULL)
-    #   }
-    # })
-    # 
-    # # Confirm add custom concept
-    # observe_event(input$confirm_add_custom_concept, {
-    #   # Validate concept name is not empty
-    #   concept_name <- trimws(input$custom_concept_name)
-    #   if (is.null(concept_name) || concept_name == "") {
-    #     shinyjs::show("custom_concept_name_error")
-    #     shinyjs::runjs(sprintf("$('#%s').closest('.form-group').addClass('has-error');", ns("custom_concept_name")))
-    #     return()
-    #   }
-    #   
-    #   # Hide error if validation passes
-    #   shinyjs::hide("custom_concept_name_error")
-    #   shinyjs::runjs(sprintf("$('#%s').closest('.form-group').removeClass('has-error');", ns("custom_concept_name")))
-    #   
-    #   general_concept_id <- selected_concept_id()
-    #   req(general_concept_id)
-    #   
-    #   # Load custom_concepts
-    #   custom_concepts_path <- app_sys("extdata", "csv", "custom_concepts.csv")
-    #   
-    #   if (file.exists(custom_concepts_path)) {
-    #     custom_concepts <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)
-    #   } else {
-    #     custom_concepts <- data.frame(
-    #       general_concept_id = integer(),
-    #       vocabulary_id = character(),
-    #       concept_code = character(),
-    #       concept_name = character(),
-    #       omop_unit_concept_id = character(),
-    #       recommended = logical(),
-    #       stringsAsFactors = FALSE
-    #     )
-    #   }
-    #   
-    #   # Create new custom concept
-    #   new_custom <- data.frame(
-    #     general_concept_id = general_concept_id,
-    #     vocabulary_id = input$custom_vocabulary_id,
-    #     concept_code = ifelse(nchar(trimws(input$custom_concept_code)) > 0 && trimws(input$custom_concept_code) != "/", trimws(input$custom_concept_code), "/"),
-    #     concept_name = concept_name,
-    #     omop_unit_concept_id = "/",
-    #     recommended = input$custom_recommended,
-    #     stringsAsFactors = FALSE
-    #   )
-    #   
-    #   # Check for duplicates
-    #   existing <- custom_concepts %>%
-    #     dplyr::filter(
-    #       general_concept_id == new_custom$general_concept_id,
-    #       concept_name == new_custom$concept_name
-    #     )
-    #   
-    #   if (nrow(existing) > 0) {
-    #     return()
-    #   }
-    #   
-    #   # Add to custom_concepts
-    #   custom_concepts <- dplyr::bind_rows(custom_concepts, new_custom)
-    #   
-    #   # Save to CSV
-    #   readr::write_csv(custom_concepts, custom_concepts_path)
-    #   
-    #   # Close modal and reset
-    #   shinyjs::hide(ns("mapped_concepts_add_modal"))
-    #   
-    #   # Reset inputs
-    #   shiny::updateTextInput(session, "custom_concept_name", value = "")
-    #   shiny::updateTextInput(session, "custom_concept_code", value = "/")
-    # })
+
+    # Load all OMOP concepts for modal search
+    modal_concepts_all <- reactive({
+      vocab_data <- vocabularies()
+
+      # Debug: log vocabulary status
+      if (log_level == "debug") {
+        cat("[DEBUG modal_concepts_all] vocabularies() is NULL:", is.null(vocab_data), "\n")
+      }
+
+      if (is.null(vocab_data)) return(NULL)
+
+      # Get ALL OMOP concepts from allowed vocabularies
+      result <- vocab_data$concept %>%
+        dplyr::filter(
+          vocabulary_id %in% c("RxNorm", "RxNorm Extension", "LOINC", "SNOMED", "ICD10"),
+          is.na(invalid_reason)
+        ) %>%
+        dplyr::select(
+          concept_id,
+          concept_name,
+          vocabulary_id,
+          domain_id,
+          concept_class_id,
+          concept_code,
+          standard_concept
+        ) %>%
+        dplyr::arrange(concept_name) %>%
+        dplyr::collect()
+
+      # Debug: log result
+      if (log_level == "debug") {
+        cat("[DEBUG modal_concepts_all] Loaded", nrow(result), "concepts\n")
+      }
+
+      result
+    })
+
+    # Track row selection in OMOP concepts table
+    observe_event(input$mapped_concepts_add_omop_table_rows_selected, {
+      selected_row <- input$mapped_concepts_add_omop_table_rows_selected
+
+      if (length(selected_row) > 0) {
+        all_concepts <- modal_concepts_all()
+        if (is.null(all_concepts)) return()
+
+        # Get selected concept
+        selected_concept <- all_concepts[selected_row, ]
+        add_modal_selected_concept(selected_concept)
+      } else {
+        add_modal_selected_concept(NULL)
+      }
+    }, ignoreInit = TRUE)
+
+    # Render OMOP concepts table in add modal
+    observe_event(add_modal_selected_concept(), {
+      concept <- add_modal_selected_concept()
+
+      # Render concept details
+      output$mapped_concepts_add_concept_details <- renderUI({
+        if (is.null(concept) || nrow(concept) == 0) {
+          return(tags$div(
+            style = "padding: 20px; background: #f8f9fa; border-radius: 6px; text-align: center;",
+            tags$p(
+              style = "color: #666; font-style: italic;",
+              "Select a concept from the table to view details."
+            )
+          ))
+        }
+
+        # Use grid layout like Selected Concept Details
+        tags$div(
+          class = "concept-details-container",
+          style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); grid-auto-flow: column; gap: 4px 15px;",
+          # Column 1
+          create_detail_item("Concept Name", concept$concept_name, include_colon = FALSE),
+          create_detail_item("Vocabulary ID", concept$vocabulary_id, include_colon = FALSE),
+          create_detail_item("Domain ID", concept$domain_id, include_colon = FALSE),
+          create_detail_item("Concept Class", concept$concept_class_id, include_colon = FALSE),
+          # Column 2
+          create_detail_item("OMOP Concept ID", concept$concept_id, include_colon = FALSE),
+          create_detail_item("Concept Code", concept$concept_code, include_colon = FALSE),
+          create_detail_item("Standard", if (!is.na(concept$standard_concept)) concept$standard_concept else "No", include_colon = FALSE),
+          tags$div()  # Empty slot to balance grid
+        )
+      })
+
+      # Render descendants table
+      output$mapped_concepts_add_descendants_table <- DT::renderDT({
+        if (is.null(concept) || nrow(concept) == 0) {
+          return(DT::datatable(
+            data.frame(Message = "Select a concept to view descendants."),
+            options = list(dom = 't'),
+            rownames = FALSE,
+            selection = 'none'
+          ))
+        }
+
+        vocab_data <- vocabularies()
+        if (is.null(vocab_data)) {
+          return(DT::datatable(
+            data.frame(Message = "Vocabularies not loaded."),
+            options = list(dom = 't'),
+            rownames = FALSE,
+            selection = 'none'
+          ))
+        }
+
+        # Get descendants
+        descendants <- vocab_data$concept_ancestor %>%
+          dplyr::filter(ancestor_concept_id == concept$concept_id) %>%
+          dplyr::select(descendant_concept_id) %>%
+          dplyr::collect()
+
+        if (nrow(descendants) == 0) {
+          return(DT::datatable(
+            data.frame(Message = "No descendants found."),
+            options = list(dom = 't'),
+            rownames = FALSE,
+            selection = 'none'
+          ))
+        }
+
+        # Get concept details for descendants (exclude the concept itself)
+        desc_concepts <- vocab_data$concept %>%
+          dplyr::filter(
+            concept_id %in% descendants$descendant_concept_id,
+            concept_id != concept$concept_id,
+            is.na(invalid_reason)
+          ) %>%
+          dplyr::select(concept_id, concept_name, vocabulary_id) %>%
+          dplyr::collect()
+
+        # Render DataTable with 8 rows per page
+        DT::datatable(
+          desc_concepts,
+          rownames = FALSE,
+          selection = 'none',
+          options = list(
+            pageLength = 8,
+            dom = 'tp',
+            ordering = TRUE,
+            autoWidth = FALSE
+          ),
+          colnames = c("Concept ID", "Name", "Vocabulary")
+        )
+      })
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+
+    # Render OMOP concepts table for adding to mapping (server-side processing)
+    output$mapped_concepts_add_omop_table <- DT::renderDT({
+      concepts <- modal_concepts_all()
+
+      # Debug: log render trigger
+      if (log_level == "debug") {
+        cat("[DEBUG renderDT] concepts is NULL:", is.null(concepts), "\n")
+        if (!is.null(concepts)) {
+          cat("[DEBUG renderDT] concepts has", nrow(concepts), "rows\n")
+        }
+      }
+
+      # Show loading message if vocabularies not loaded
+      if (is.null(concepts)) {
+        if (log_level == "debug") {
+          cat("[DEBUG renderDT] Returning loading message\n")
+        }
+        return(DT::datatable(
+          data.frame(Message = "Loading OMOP vocabularies..."),
+          options = list(dom = 't', ordering = FALSE),
+          rownames = FALSE,
+          selection = 'none'
+        ))
+      }
+
+      # Show message if no concepts found
+      if (nrow(concepts) == 0) {
+        return(DT::datatable(
+          data.frame(Message = "No OMOP concepts found in vocabularies."),
+          options = list(dom = 't', ordering = FALSE),
+          rownames = FALSE,
+          selection = 'none'
+        ))
+      }
+
+      # Select only display columns
+      display_concepts <- concepts %>%
+        dplyr::select(concept_id, concept_name, vocabulary_id, domain_id, concept_class_id)
+
+      # Convert for better filtering
+      display_concepts$concept_id <- as.character(display_concepts$concept_id)
+      display_concepts$vocabulary_id <- as.factor(display_concepts$vocabulary_id)
+      display_concepts$domain_id <- as.factor(display_concepts$domain_id)
+      display_concepts$concept_class_id <- as.factor(display_concepts$concept_class_id)
+
+      # Render DataTable with server-side processing and internal scrolling
+      DT::datatable(
+        display_concepts,
+        rownames = FALSE,
+        selection = 'single',
+        filter = 'top',
+        options = list(
+          pageLength = 25,
+          dom = 'ftp',
+          ordering = TRUE,
+          autoWidth = FALSE,
+          scrollY = "400px",
+          scrollCollapse = TRUE,
+          paging = TRUE
+        ),
+        colnames = c("Concept ID", "Concept Name", "Vocabulary", "Domain", "Concept Class")
+      )
+    }, server = TRUE)
+
+    # Add selected OMOP concept with optional descendants
+    observe_event(input$mapped_concepts_add_selected, {
+      if (!general_concept_detail_edit_mode()) return()
+
+      # Get selected concept
+      selected_row <- input$mapped_concepts_add_omop_table_rows_selected
+      if (is.null(selected_row) || length(selected_row) == 0) return()
+
+      all_concepts <- modal_concepts_all()
+      if (is.null(all_concepts)) return()
+
+      selected_concept <- all_concepts[selected_row, ]
+
+      # Get current general concept
+      concept_id <- selected_concept_id()
+      if (is.null(concept_id)) return()
+
+      # Start with the selected concept
+      concepts_to_add <- selected_concept$concept_id
+
+      # Add descendants if checkbox is checked
+      if (isTRUE(input$mapped_concepts_add_include_descendants)) {
+        vocab_data <- vocabularies()
+        if (!is.null(vocab_data)) {
+          descendants <- vocab_data$concept_ancestor %>%
+            dplyr::filter(ancestor_concept_id == selected_concept$concept_id) %>%
+            dplyr::select(descendant_concept_id) %>%
+            dplyr::collect()
+
+          if (nrow(descendants) > 0) {
+            # Filter to keep only valid concepts
+            valid_descendants <- vocab_data$concept %>%
+              dplyr::filter(
+                concept_id %in% descendants$descendant_concept_id,
+                is.na(invalid_reason)
+              ) %>%
+              dplyr::pull(concept_id)
+
+            concepts_to_add <- c(concepts_to_add, valid_descendants)
+          }
+        }
+      }
+
+      # Load current concept_mappings
+      concept_mappings_path <- app_sys("extdata", "csv", "concept_mappings.csv")
+      if (file.exists(concept_mappings_path)) {
+        concept_mappings <- readr::read_csv(concept_mappings_path, show_col_types = FALSE)
+      } else {
+        concept_mappings <- data.frame(
+          general_concept_id = integer(),
+          omop_concept_id = integer(),
+          omop_unit_concept_id = character(),
+          is_recommended = logical(),
+          stringsAsFactors = FALSE
+        )
+      }
+
+      # Create new mappings
+      new_mappings <- data.frame(
+        general_concept_id = rep(concept_id, length(concepts_to_add)),
+        omop_concept_id = concepts_to_add,
+        omop_unit_concept_id = "/",
+        is_recommended = FALSE,
+        stringsAsFactors = FALSE
+      )
+
+      # Remove duplicates
+      existing_keys <- concept_mappings %>%
+        dplyr::mutate(key = paste(general_concept_id, omop_concept_id, sep = "_")) %>%
+        dplyr::pull(key)
+
+      new_mappings <- new_mappings %>%
+        dplyr::mutate(key = paste(general_concept_id, omop_concept_id, sep = "_")) %>%
+        dplyr::filter(!key %in% existing_keys) %>%
+        dplyr::select(-key)
+
+      if (nrow(new_mappings) > 0) {
+        # Add new mappings
+        concept_mappings <- dplyr::bind_rows(concept_mappings, new_mappings)
+
+        # Save to CSV
+        readr::write_csv(concept_mappings, concept_mappings_path)
+
+        # Update local data
+        data_updated <- local_data()
+        data_updated$concept_mappings <- concept_mappings
+        local_data(data_updated)
+
+        # Trigger table re-render
+        concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
+      }
+
+      # Close modal and reset selection
+      shinyjs::runjs(sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")))
+      add_modal_selected_concept(NULL)
+    }, ignoreInit = TRUE)
 
     # Add custom concept
     observe_event(input$add_custom_concept, {

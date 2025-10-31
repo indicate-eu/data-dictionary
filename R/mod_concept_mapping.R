@@ -15,63 +15,41 @@
 #
 # SERVER STRUCTURE:
 #   ## 1) Server - Reactive Values & State
-#      ### Navigation State (current_view, mapping_view)
-#      ### Selection State (selected_alignment_id, selected_general_concept_id)
-#      ### Modal State (modal_page, modal_mode)
-#      ### Data Management (alignments_data, uploaded_alignment_data)
-#      ### Triggers (mappings_refresh_trigger)
+#      ### View & Selection State - current_view, selected_alignment_id, mapping_view, etc.
+#      ### Data Management - alignments_data, uploaded_alignment_data
+#      ### Triggers - mappings_refresh_trigger, mapping_tab
 #
-#   ## 2) Server - Outputs & Rendering
-#      ### a) Navigation & Headers
-#         #### Breadcrumb Rendering
-#         #### Content Area Rendering (alignments list / mapping interface)
-#         #### General Concepts Header
-#      ### b) Table Outputs
-#         #### Alignments Table (main list view)
-#         #### Use Case Alignment Table
-#         #### Source Concepts Table
-#         #### General Concepts Table
-#         #### Realized Mappings Table
-#         #### Concept Mappings Table (bottom panel)
-#         #### Mapped Concepts Table
-#      ### c) Modal Renderings
-#         #### Concept Detail Modal Body
-#         #### ETL Comments Modal Body
-#         #### File Preview Table
-#         #### Column Mapping UI
+#   ## 2) Server - Navigation & Events
+#      ### Tab Switching - summary/edit_mappings/evaluate_mappings tabs
 #
-#   ## 3) Server - Navigation & Events
-#      ### Tab Switching (summary/edit_mappings/evaluate_mappings)
-#      ### View Transitions (back buttons, navigation clicks)
-#      ### Row Selection Handlers (table clicks)
+#   ## 3) Server - Outputs & Rendering
+#      ### Breadcrumb Rendering - Dynamic breadcrumb navigation
+#      ### Content Area Rendering - Main view switching (alignments/mapping)
+#      ### General Concepts Header Rendering - Header for general concepts section
+#      ### Helper Functions - View Renderers - render_alignments_view(), render_mapping_view(), etc.
+#      ### Tab Content Outputs - summary_content and tab-specific outputs
+#      ### Table Outputs - All DataTables (alignments, use_case_alignment, etc.)
 #
-#   ## 4) Server - Alignment Management
-#      ### a) Add/Edit Alignment Modal
-#         #### Open Modal (add vs edit mode)
-#         #### Modal Page Navigation (next/back buttons)
-#         #### Form Validation
-#         #### Save Alignment
-#         #### Cancel/Close Modal
-#      ### b) Delete Alignment
-#         #### Delete Button Handler
-#         #### Confirmation Modal
-#         #### Execute Deletion
-#      ### c) File Upload & Processing
-#         #### File Upload Handler
-#         #### CSV Parsing & Preview
-#         #### Column Mapping Controls
-#         #### Data Validation
+#   ## 4) Server - Navigation Handlers
+#      ### Back button handlers - back_to_alignments, back_to_general, etc.
 #
-#   ## 5) Server - Concept Mapping Interface
-#      ### Source Concepts Display
-#      ### General Concepts Search & Selection
-#      ### Mapping Creation (add/remove mappings)
-#      ### Alignment Export
+#   ## 5) Server - Alignment Management
+#      ### Add/Edit Alignment Modal - Modal handlers for creating/editing alignments
+#      ### Delete Alignment - Delete confirmation and execution
+#      ### File Upload & Processing - CSV/Excel upload, parsing, column mapping
 #
-#   ## 6) Server - Helper Functions
-#      ### render_mapping_view() - Main mapping interface renderer
-#      ### render_mapped_concepts_view() - Mapped concepts display
-#      ### Utility functions for data processing
+#   ## 6) Server - Concept Mapping Interface
+#      ### Source Concepts Display - source_concepts_table
+#      ### General Concepts Table - general_concepts_table
+#      ### Realized Mappings Table - realized_mappings_table (both views)
+#      ### Concept Mappings Table (Detailed View) - concept_mappings_table
+#      ### Comments Display - comments_display
+#      ### Modal Renderings - concept_detail_modal_body, etl_comments_modal_body
+#      ### Mapped View Tables - source_concepts_table_mapped, mapped_concepts_table
+#
+#   ## 7) Server - Table Interaction Handlers
+#      ### Mapping Creation & Deletion - add_mapping, remove_mapping handlers
+#      ### Export Functionality - export_alignment handler
 
 #' Concept Mapping Module - UI
 #'
@@ -385,31 +363,45 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     ## 2) Server - Navigation & Events ----
     ### Tab Switching ----
-    # Handle tab switching
+    # Observer 1: Update reactive value when input changes
     observe_event(input$switch_mapping_tab, {
+      cat("\n[TAB DEBUG 1] Input:", input$switch_mapping_tab, "| Current:", mapping_tab(), "\n")
       mapping_tab(input$switch_mapping_tab)
+    })
 
-      # Update tab button active state
-      shinyjs::runjs(sprintf("
-        $('#%s .tab-btn').removeClass('tab-btn-active');
-        $('#%s').addClass('tab-btn-active');
-      ", ns(""), ns(paste0("tab_", input$switch_mapping_tab))))
+    # Observer 2: Update UI when mapping_tab reactive value changes
+    observe_event(mapping_tab(), {
+      active_tab <- mapping_tab()
+      cat("[TAB DEBUG 2] Updating UI for tab:", active_tab, "\n")
+
+      # Update tab button styling using shinyjs functions
+      shinyjs::removeCssClass(id = "tab_summary", class = "tab-btn-active")
+      shinyjs::removeCssClass(id = "tab_edit_mappings", class = "tab-btn-active")
+      shinyjs::removeCssClass(id = "tab_evaluate_mappings", class = "tab-btn-active")
+
+      if (active_tab == "summary") {
+        shinyjs::addCssClass(id = "tab_summary", class = "tab-btn-active")
+      } else if (active_tab == "edit_mappings") {
+        shinyjs::addCssClass(id = "tab_edit_mappings", class = "tab-btn-active")
+      } else if (active_tab == "evaluate_mappings") {
+        shinyjs::addCssClass(id = "tab_evaluate_mappings", class = "tab-btn-active")
+      }
 
       # Show/hide tab content
-      if (input$switch_mapping_tab == "summary") {
+      if (active_tab == "summary") {
         shinyjs::show("summary_tab_content")
         shinyjs::hide("edit_mappings_tab_content")
         shinyjs::hide("evaluate_mappings_tab_content")
-      } else if (input$switch_mapping_tab == "edit_mappings") {
+      } else if (active_tab == "edit_mappings") {
         shinyjs::hide("summary_tab_content")
         shinyjs::show("edit_mappings_tab_content")
         shinyjs::hide("evaluate_mappings_tab_content")
-      } else if (input$switch_mapping_tab == "evaluate_mappings") {
+      } else if (active_tab == "evaluate_mappings") {
         shinyjs::hide("summary_tab_content")
         shinyjs::hide("edit_mappings_tab_content")
         shinyjs::show("evaluate_mappings_tab_content")
       }
-    })
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
     ## 3) Server - Outputs & Rendering ----
     ### Breadcrumb Rendering ----
@@ -793,8 +785,19 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     }
 
     ### Tab Content Outputs ----
-    # Render summary content
     output$summary_content <- renderUI({
+      tags$div(
+        style = "display: flex; align-items: center; justify-content: center; height: 300px;",
+        tags$div(
+          style = "text-align: center; color: #6c757d;",
+          tags$h3("Summary Tab"),
+          tags$p("This feature is coming soon...")
+        )
+      )
+    })
+
+    # Old summary content - commented out
+    output$summary_content_OLD <- renderUI({
       if (is.null(selected_alignment_id())) return()
       if (is.null(data())) return()
 
@@ -1177,6 +1180,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
         # Update modal title
         shinyjs::runjs(sprintf("$('#%s').text('Edit Alignment');", ns("alignment_modal_title")))
+
+        # In edit mode: hide Next button, show Save button, keep page 1 only
+        shinyjs::runjs(sprintf("$('#%s').hide();", ns("alignment_modal_next")))
+        shinyjs::runjs(sprintf("$('#%s').show();", ns("alignment_modal_save")))
 
         # Show modal
         shinyjs::runjs(sprintf("$('#%s').show();", ns("alignment_modal")))
@@ -1648,30 +1655,34 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Validate all inputs and show error messages
       has_errors <- FALSE
 
+      # Name is always required
       if (is.null(input$alignment_name) || input$alignment_name == "") {
         shinyjs::runjs(sprintf("$('#%s').show();", ns("alignment_name_error")))
         shinyjs::runjs(sprintf("$('#%s input').css('border-color', '#dc3545');", ns("alignment_name")))
         has_errors <- TRUE
       }
 
-      if (is.null(input$alignment_file)) {
-        shinyjs::runjs(sprintf("$('#%s').show();", ns("alignment_file_error")))
-        has_errors <- TRUE
-      }
+      # File and columns are only required in add mode (not in edit mode)
+      if (modal_mode() == "add") {
+        if (is.null(input$alignment_file)) {
+          shinyjs::runjs(sprintf("$('#%s').show();", ns("alignment_file_error")))
+          has_errors <- TRUE
+        }
 
-      if (is.null(input$col_vocabulary_id) || input$col_vocabulary_id == "") {
-        shinyjs::runjs(sprintf("$('#%s').show();", ns("col_vocabulary_id_error")))
-        has_errors <- TRUE
-      }
+        if (is.null(input$col_vocabulary_id) || input$col_vocabulary_id == "") {
+          shinyjs::runjs(sprintf("$('#%s').show();", ns("col_vocabulary_id_error")))
+          has_errors <- TRUE
+        }
 
-      if (is.null(input$col_concept_code) || input$col_concept_code == "") {
-        shinyjs::runjs(sprintf("$('#%s').show();", ns("col_concept_code_error")))
-        has_errors <- TRUE
-      }
+        if (is.null(input$col_concept_code) || input$col_concept_code == "") {
+          shinyjs::runjs(sprintf("$('#%s').show();", ns("col_concept_code_error")))
+          has_errors <- TRUE
+        }
 
-      if (is.null(input$col_concept_name) || input$col_concept_name == "") {
-        shinyjs::runjs(sprintf("$('#%s').show();", ns("col_concept_name_error")))
-        has_errors <- TRUE
+        if (is.null(input$col_concept_name) || input$col_concept_name == "") {
+          shinyjs::runjs(sprintf("$('#%s').show();", ns("col_concept_name_error")))
+          has_errors <- TRUE
+        }
       }
 
       if (has_errors) {
@@ -3141,18 +3152,19 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
     })
 
-    # Show/hide Add Mapping button based on selections (for general view with concept mappings)
+    # Show/hide Add Mapping button based on selections
     observe({
-      if (is.null(selected_general_concept_id()) || concept_mappings_view() != "table") {
+      # Only show in general view (not when viewing mapped concepts)
+      if (mapping_view() != "general") {
         shinyjs::hide("add_mapping_from_general")
         return()
       }
 
       source_selected <- !is.null(input$source_concepts_table_rows_selected)
-      mapped_selected <- !is.null(input$concept_mappings_table_rows_selected)
+      general_selected <- !is.null(input$general_concepts_table_rows_selected)
 
-      # Show/hide button based on selections
-      if (source_selected && mapped_selected) {
+      # Show button when both a source concept and a general concept are selected
+      if (source_selected && general_selected) {
         shinyjs::show("add_mapping_from_general")
       } else {
         shinyjs::hide("add_mapping_from_general")
@@ -3164,11 +3176,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       # Get selected rows
       source_row <- input$source_concepts_table_rows_selected
-      mapped_row <- input$concept_mappings_table_rows_selected
-
+      general_row <- input$general_concepts_table_rows_selected
 
       # Validate selections
-      if (is.null(source_row) || is.null(mapped_row)) {
+      if (is.null(source_row) || is.null(general_row)) {
         return()
       }
 

@@ -268,8 +268,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
           tags$div(
             style = paste0(
               "border: 1px solid #dee2e6; border-radius: 4px; ",
-              "background: white; height: 60vh; max-height: 600px; ",
-              "overflow-y: auto;"
+              "background: white; height: 400px; overflow-y: auto;"
             ),
             # Table header
             tags$div(
