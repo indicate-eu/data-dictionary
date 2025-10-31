@@ -40,6 +40,12 @@ html, body {
   pointer-events: auto !important; /* Re-enable pointer events on the notification itself */
 }
 
+/* Prevent recalculating opacity for OHDSI vocabularies loading message
+-------------------------------------------------- */
+#dictionary_explorer-content_area.shiny-html-output.recalculating {
+  opacity: 1 !important;
+}
+
 /* Athena concept ID input in header - compact styling */
 #dictionary_explorer-athena_concept_id_input {
   height: 26px !important;
@@ -755,6 +761,11 @@ table.dataTable thead tr td .selectize-input {
   padding: 4px 8px !important;
   line-height: 1.2 !important;
   box-sizing: border-box !important;
+}
+
+/* DataTable form control feedback */
+table.dataTable .form-control-feedback {
+  line-height: 27px !important;
 }
 
 table.dataTable thead tr th input.form-control::placeholder,

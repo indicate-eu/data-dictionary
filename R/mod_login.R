@@ -12,10 +12,12 @@
 mod_login_ui <- function(id) {
   ns <- NS(id)
 
-  div(
-    class = "login-container",
-    style = "display: flex; align-items: center; justify-content: center; min-height: 100vh;",
+  tagList(
+    shinyjs::useShinyjs(),
     div(
+      class = "login-container",
+      style = "display: flex; align-items: center; justify-content: center; min-height: 100vh;",
+      div(
       class = "login-box",
       style = "background: white; padding: 40px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 100%; max-width: 400px;",
       # Logo and title
@@ -104,6 +106,7 @@ mod_login_ui <- function(id) {
         )
       )
     )
+    )
   )
 }
 
@@ -126,7 +129,11 @@ mod_login_server <- function(id) {
 
     # Handle login button
     observeEvent(input$login_btn, {
-      # Hide error message first
+      # Immediately block UI to prevent multiple clicks
+      shinyjs::disable("login")
+      shinyjs::disable("password")
+      shinyjs::disable("login_btn")
+      shinyjs::disable("anonymous_btn")
       shinyjs::hide("login_error")
 
       # Validate inputs - handle NULL and empty string
@@ -140,6 +147,11 @@ mod_login_server <- function(id) {
           "Please enter your login."
         )
         shinyjs::show("login_error")
+        # Re-enable UI
+        shinyjs::enable("login")
+        shinyjs::enable("password")
+        shinyjs::enable("login_btn")
+        shinyjs::enable("anonymous_btn")
         return()
       }
 
@@ -149,40 +161,62 @@ mod_login_server <- function(id) {
           "Please enter your password."
         )
         shinyjs::show("login_error")
+        # Re-enable UI
+        shinyjs::enable("login")
+        shinyjs::enable("password")
+        shinyjs::enable("login_btn")
+        shinyjs::enable("anonymous_btn")
         return()
       }
 
-      # Authenticate user
-      user <- authenticate_user(login_value, password_value)
+      # Proceed with authentication after a delay to allow UI to update
+      shinyjs::delay(200, {
+        # Authenticate user
+        user <- authenticate_user(login_value, password_value)
 
-      if (!is.null(user)) {
-        # Successful login
-        current_user(user)
-      } else {
-        # Failed login
-        shinyjs::html(
-          "login_error",
-          "Invalid login or password. Please try again."
-        )
-        shinyjs::show("login_error")
-      }
+        if (!is.null(user)) {
+          # Successful login
+          current_user(user)
+        } else {
+          # Failed login
+          shinyjs::html(
+            "login_error",
+            "Invalid login or password. Please try again."
+          )
+          shinyjs::show("login_error")
+          # Re-enable UI for retry
+          shinyjs::enable("login")
+          shinyjs::enable("password")
+          shinyjs::enable("login_btn")
+          shinyjs::enable("anonymous_btn")
+        }
+      })
     }, ignoreNULL = FALSE, ignoreInit = TRUE)
 
     # Handle anonymous login
     observeEvent(input$anonymous_btn, {
-      # Create anonymous user object
-      anonymous_user <- data.frame(
-        user_id = 0,
-        login = "anonymous",
-        first_name = "Anonymous",
-        last_name = "User",
-        role = "Anonymous",
-        affiliation = "",
-        is_active = 1,
-        stringsAsFactors = FALSE
-      )
+      # Immediately block UI to prevent multiple clicks
+      shinyjs::disable("login")
+      shinyjs::disable("password")
+      shinyjs::disable("login_btn")
+      shinyjs::disable("anonymous_btn")
+      shinyjs::hide("login_error")
 
-      current_user(anonymous_user)
+      # Create anonymous user object after a delay to allow UI to update
+      shinyjs::delay(200, {
+        anonymous_user <- data.frame(
+          user_id = 0,
+          login = "anonymous",
+          first_name = "Anonymous",
+          last_name = "User",
+          role = "Anonymous",
+          affiliation = "",
+          is_active = 1,
+          stringsAsFactors = FALSE
+        )
+
+        current_user(anonymous_user)
+      })
     })
 
     # Return current user reactive and logout function
@@ -195,6 +229,11 @@ mod_login_server <- function(id) {
         shinyjs::reset("password")
         # Hide error message
         shinyjs::hide("login_error")
+        # Re-enable all login UI elements
+        shinyjs::enable("login")
+        shinyjs::enable("password")
+        shinyjs::enable("login_btn")
+        shinyjs::enable("anonymous_btn")
       }
     ))
   })
