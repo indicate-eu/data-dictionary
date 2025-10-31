@@ -637,21 +637,17 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               class = "card-container",
               style = "height: 30%; display: flex; flex-direction: column; margin-top: 15px;",
               tags$div(
-                class = "section-header",
+                class = "section-header-with-tabs",
+                tags$h4(
+                  "Completed Mappings (Last 5)",
+                  tags$span(
+                    class = "info-icon",
+                    `data-tooltip` = "Most recent mappings between your source concepts and INDICATE concepts",
+                    "ⓘ"
+                  )
+                ),
                 tags$div(
-                  style = "display: flex; justify-content: space-between; align-items: center; flex: 1;",
-                  tags$div(
-                    style = "display: flex; align-items: center; gap: 8px;",
-                    tags$h4(
-                      style = "margin: 0;",
-                      "Completed Mappings (Last 5)"
-                    ),
-                    tags$span(
-                      class = "info-icon",
-                      `data-tooltip` = "Most recent mappings between your source concepts and INDICATE concepts",
-                      "ⓘ"
-                    )
-                  ),
+                  style = "position: absolute; right: 15px; top: 50%; transform: translateY(-50%);",
                   actionButton(
                     ns("view_all_mappings"),
                     "View All",
