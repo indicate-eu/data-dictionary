@@ -8,11 +8,15 @@ $(document).ready(function() {
     try {
       var $label = $(this).closest('.toggle-switch');
       var omopId = $label.data('omop-id');
+      var customId = $label.data('custom-id');
+      var isCustom = customId !== '' && customId !== undefined;
       var isChecked = $(this).is(':checked');
 
       // Send to Shiny
       Shiny.setInputValue('dictionary_explorer-toggle_recommended', {
         omop_id: omopId,
+        custom_id: customId,
+        is_custom: isCustom,
         new_value: isChecked ? 'Yes' : 'No'
       }, {priority: 'event'});
 
@@ -32,10 +36,14 @@ $(document).ready(function() {
 
     try {
       var omopId = $(this).data('omop-id');
+      var customId = $(this).data('custom-id');
+      var isCustom = customId !== '' && customId !== undefined;
 
       // Send delete request to Shiny
       Shiny.setInputValue('dictionary_explorer-delete_concept', {
-        omop_id: omopId
+        omop_id: omopId,
+        custom_id: customId,
+        is_custom: isCustom
       }, {priority: 'event'});
 
     } catch (error) {

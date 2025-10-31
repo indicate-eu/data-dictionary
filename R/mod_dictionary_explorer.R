@@ -2082,6 +2082,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         custom_concepts <- readr::read_csv(custom_concepts_path, show_col_types = FALSE) %>%
           dplyr::filter(general_concept_id == concept_id) %>%
           dplyr::select(
+            custom_concept_id,
             concept_name,
             vocabulary_id,
             concept_code,
@@ -2093,6 +2094,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           )
       } else {
         custom_concepts <- data.frame(
+          custom_concept_id = integer(),
           concept_name = character(),
           vocabulary_id = character(),
           concept_code = character(),
@@ -2118,7 +2120,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             omop_concepts,
             by = c("omop_concept_id" = "concept_id")
           ) %>%
-          dplyr::mutate(is_custom = FALSE)
+          dplyr::mutate(
+            is_custom = FALSE,
+            custom_concept_id = NA_integer_
+          )
       } else {
         # If no vocabulary data, add placeholder columns
         csv_mappings <- csv_mappings %>%
@@ -2126,20 +2131,22 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             concept_name = NA_character_,
             vocabulary_id = NA_character_,
             concept_code = NA_character_,
-            is_custom = FALSE
+            is_custom = FALSE,
+            custom_concept_id = NA_integer_
           )
       }
 
       # Combine OMOP and custom concepts
       all_concepts <- dplyr::bind_rows(
         csv_mappings %>%
-          dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended, is_custom),
+          dplyr::select(custom_concept_id, concept_name, vocabulary_id, concept_code, omop_concept_id, recommended, is_custom),
         custom_concepts
       )
 
       # Select final columns and arrange
       mappings <- all_concepts %>%
         dplyr::select(
+          custom_concept_id,
           concept_name,
           vocabulary_id,
           concept_code,
@@ -2155,8 +2162,25 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         concept_key <- as.character(concept_id)
         if (!is.null(current_deletions[[concept_key]])) {
           deleted_ids <- current_deletions[[concept_key]]
+          cat("[FILTER] Deleted IDs for concept", concept_key, ":", paste(deleted_ids, collapse=", "), "\n")
+          # Create unique_id for filtering (before adding HTML columns)
           mappings <- mappings %>%
-            dplyr::filter(!omop_concept_id %in% deleted_ids)
+            dplyr::mutate(
+              unique_id_filter = dplyr::case_when(
+                is_custom & !is.na(custom_concept_id) ~ paste0("custom-", custom_concept_id),
+                !is_custom & !is.na(omop_concept_id) ~ paste0("omop-", omop_concept_id),
+                TRUE ~ "unknown"
+              )
+            )
+
+          cat("[FILTER] First 3 unique_id_filter values:", paste(head(mappings$unique_id_filter, 3), collapse=", "), "\n")
+          cat("[FILTER] Rows before filter:", nrow(mappings), "\n")
+
+          mappings <- mappings %>%
+            dplyr::filter(!unique_id_filter %in% deleted_ids) %>%
+            dplyr::select(-unique_id_filter)
+
+          cat("[FILTER] Rows after filter:", nrow(mappings), "\n")
         }
       }
 
@@ -2164,14 +2188,40 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       if (nrow(mappings) > 0) {
         # Create toggle HTML for edit mode, or simple Yes/No for view mode
         if (is_editing) {
+          cat("[MAPPINGS] Before creating unique_id, checking columns:\n")
+          cat("  - custom_concept_id present:", "custom_concept_id" %in% names(mappings), "\n")
+          cat("  - omop_concept_id present:", "omop_concept_id" %in% names(mappings), "\n")
+          cat("  - is_custom present:", "is_custom" %in% names(mappings), "\n")
+          if (nrow(mappings) > 0) {
+            cat("  - First row custom_concept_id:", mappings$custom_concept_id[1], "\n")
+            cat("  - First row omop_concept_id:", mappings$omop_concept_id[1], "\n")
+            cat("  - First row is_custom:", mappings$is_custom[1], "\n")
+          }
+
+          mappings <- mappings %>%
+            dplyr::mutate(
+              # Create unique ID: "omop-{id}" for OMOP concepts, "custom-{id}" for custom concepts
+              unique_id = dplyr::case_when(
+                is_custom & !is.na(custom_concept_id) ~ paste0("custom-", custom_concept_id),
+                !is_custom & !is.na(omop_concept_id) ~ paste0("omop-", omop_concept_id),
+                TRUE ~ paste0("unknown-", dplyr::row_number())
+              )
+            )
+
+          # Create HTML with both data attributes (one will be empty)
           mappings <- mappings %>%
             dplyr::mutate(
               recommended = sprintf(
-                '<label class="toggle-switch" data-omop-id="%s"><input type="checkbox" %s><span class="toggle-slider"></span></label>',
-                omop_concept_id,
+                '<label class="toggle-switch" data-omop-id="%s" data-custom-id="%s"><input type="checkbox" %s><span class="toggle-slider"></span></label>',
+                ifelse(is.na(omop_concept_id), "", omop_concept_id),
+                ifelse(is.na(custom_concept_id), "", custom_concept_id),
                 ifelse(recommended, 'checked', '')
               ),
-              action = sprintf('<i class="fa fa-trash delete-icon" data-omop-id="%s" style="cursor: pointer; color: #dc3545;"></i>', omop_concept_id)
+              action = sprintf(
+                '<i class="fa fa-trash delete-icon" data-omop-id="%s" data-custom-id="%s" style="cursor: pointer; color: #dc3545;"></i>',
+                ifelse(is.na(omop_concept_id), "", omop_concept_id),
+                ifelse(is.na(custom_concept_id), "", custom_concept_id)
+              )
             )
         } else {
           mappings <- mappings %>%
@@ -3343,37 +3393,47 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     # Handle toggle recommended for mappings in detail edit mode
     observe_event(input$toggle_recommended, {
       if (!general_concept_detail_edit_mode()) return()
-      
+
       toggle_data <- input$toggle_recommended
-      omop_id <- as.integer(toggle_data$omop_id)
+      # Create unique ID based on is_custom flag
+      if (toggle_data$is_custom) {
+        concept_unique_id <- paste0("custom-", toggle_data$custom_id)
+      } else {
+        concept_unique_id <- paste0("omop-", toggle_data$omop_id)
+      }
       new_value <- toggle_data$new_value
-      
+
       # Store the change in edited_recommended
       current_edits <- edited_recommended()
-      current_edits[[as.character(omop_id)]] <- (new_value == "Yes")
+      current_edits[[concept_unique_id]] <- (new_value == "Yes")
       edited_recommended(current_edits)
     }, ignoreInit = TRUE)
     
     # Handle delete mapping in detail edit mode
     observe_event(input$delete_concept, {
       if (!general_concept_detail_edit_mode()) return()
-      
+
       concept_id <- selected_concept_id()
       if (is.null(concept_id)) return()
-      
+
       delete_data <- input$delete_concept
-      omop_id <- as.integer(delete_data$omop_id)
-      
+      # Create unique ID based on is_custom flag
+      if (delete_data$is_custom) {
+        concept_unique_id <- paste0("custom-", delete_data$custom_id)
+      } else {
+        concept_unique_id <- paste0("omop-", delete_data$omop_id)
+      }
+
       # Track the deletion for this general_concept_id
       current_deletions <- deleted_concepts()
       concept_key <- as.character(concept_id)
-      
+
       if (is.null(current_deletions[[concept_key]])) {
-        current_deletions[[concept_key]] <- c(omop_id)
+        current_deletions[[concept_key]] <- c(concept_unique_id)
       } else {
-        current_deletions[[concept_key]] <- unique(c(current_deletions[[concept_key]], omop_id))
+        current_deletions[[concept_key]] <- unique(c(current_deletions[[concept_key]], concept_unique_id))
       }
-      
+
       deleted_concepts(current_deletions)
     }, ignoreInit = TRUE)
 

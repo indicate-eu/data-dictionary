@@ -108,11 +108,10 @@ init_database <- function(con) {
         login TEXT UNIQUE NOT NULL,
         password_hash TEXT NOT NULL,
         salt TEXT NOT NULL,
-        first_name TEXT,
-        last_name TEXT,
+        first_name TEXT NOT NULL,
+        last_name TEXT NOT NULL,
         role TEXT,
         affiliation TEXT,
-        is_active INTEGER DEFAULT 1,
         created_at TEXT,
         updated_at TEXT
       )"
@@ -124,9 +123,9 @@ init_database <- function(con) {
 
     DBI::dbExecute(
       con,
-      "INSERT INTO users (login, password_hash, salt, first_name, last_name, role, affiliation, is_active, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-      params = list("admin", password_hash, "", "Admin", "User", "Administrator", "", 1, timestamp, timestamp)
+      "INSERT INTO users (login, password_hash, salt, first_name, last_name, role, affiliation, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      params = list("admin", password_hash, "", "Admin", "User", "Administrator", "", timestamp, timestamp)
     )
   }
 
@@ -443,9 +442,9 @@ authenticate_user <- function(login, password) {
   result <- DBI::dbGetQuery(
     con,
     "SELECT user_id, login, password_hash, first_name, last_name,
-            role, affiliation, is_active
+            role, affiliation
      FROM users
-     WHERE login = ? AND is_active = 1",
+     WHERE login = ?",
     params = list(login)
   )
 
@@ -476,7 +475,7 @@ get_all_users <- function() {
   result <- DBI::dbGetQuery(
     con,
     "SELECT user_id, login, first_name, last_name, role, affiliation,
-            is_active, created_at, updated_at
+            created_at, updated_at
      FROM users
      ORDER BY created_at DESC"
   )
@@ -519,10 +518,10 @@ add_user <- function(login, password, first_name = "", last_name = "",
   DBI::dbExecute(
     con,
     "INSERT INTO users (login, password_hash, salt, first_name, last_name,
-                        role, affiliation, is_active, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        role, affiliation, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
     params = list(login, password_hash, "", first_name, last_name,
-                  role, affiliation, 1, timestamp, timestamp)
+                  role, affiliation, timestamp, timestamp)
   )
 
   # Get the ID of the newly inserted user
@@ -542,13 +541,12 @@ add_user <- function(login, password, first_name = "", last_name = "",
 #' @param last_name Last name
 #' @param role User role
 #' @param affiliation User affiliation
-#' @param is_active Active status
 #'
 #' @return TRUE if successful
 #' @noRd
 update_user <- function(user_id, login = NULL, password = NULL,
                         first_name = NULL, last_name = NULL, role = NULL,
-                        affiliation = NULL, is_active = NULL) {
+                        affiliation = NULL) {
   con <- get_db_connection()
   on.exit(DBI::dbDisconnect(con))
 
@@ -587,11 +585,6 @@ update_user <- function(user_id, login = NULL, password = NULL,
   if (!is.null(affiliation)) {
     updates <- c(updates, "affiliation = ?")
     params <- c(params, affiliation)
-  }
-
-  if (!is.null(is_active)) {
-    updates <- c(updates, "is_active = ?")
-    params <- c(params, as.integer(is_active))
   }
 
   updates <- c(updates, "updated_at = ?")

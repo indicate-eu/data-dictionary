@@ -88,18 +88,6 @@ mod_users_ui <- function(id) {
           )
         ),
 
-        # Error message
-        div(
-          id = ns("user_error"),
-          style = "display: none; background: #fee; border: 1px solid #fcc; color: #c33; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 14px;"
-        ),
-
-        # Success message
-        div(
-          id = ns("user_success"),
-          style = "display: none; background: #efe; border: 1px solid #cfc; color: #3c3; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 14px;"
-        ),
-
         # Form fields
         div(
           style = "margin-bottom: 15px;",
@@ -112,6 +100,10 @@ mod_users_ui <- function(id) {
             label = NULL,
             placeholder = "Enter login",
             width = "100%"
+          ),
+          div(
+            id = ns("login_error"),
+            class = "input-error-message"
           )
         ),
 
@@ -121,11 +113,25 @@ mod_users_ui <- function(id) {
             "Password *",
             style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
           ),
-          passwordInput(
-            ns("user_password"),
-            label = NULL,
-            placeholder = "Enter password",
-            width = "100%"
+          div(
+            style = "position: relative;",
+            passwordInput(
+              ns("user_password"),
+              label = NULL,
+              placeholder = "Enter password",
+              width = "100%"
+            ),
+            tags$button(
+              id = ns("toggle_password"),
+              type = "button",
+              class = "password-toggle-btn",
+              style = "position: absolute; right: 10px; top: 8px; background: none; border: none; cursor: pointer; color: #7f8c8d;",
+              tags$i(class = "fas fa-eye", id = ns("password_icon"))
+            )
+          ),
+          div(
+            id = ns("password_error"),
+            class = "input-error-message"
           ),
           tags$small(
             id = ns("password_help"),
@@ -137,7 +143,7 @@ mod_users_ui <- function(id) {
         div(
           style = "margin-bottom: 15px;",
           tags$label(
-            "First Name",
+            "First Name *",
             style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
           ),
           textInput(
@@ -145,13 +151,17 @@ mod_users_ui <- function(id) {
             label = NULL,
             placeholder = "Enter first name",
             width = "100%"
+          ),
+          div(
+            id = ns("first_name_error"),
+            class = "input-error-message"
           )
         ),
 
         div(
           style = "margin-bottom: 15px;",
           tags$label(
-            "Last Name",
+            "Last Name *",
             style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
           ),
           textInput(
@@ -159,6 +169,10 @@ mod_users_ui <- function(id) {
             label = NULL,
             placeholder = "Enter last name",
             width = "100%"
+          ),
+          div(
+            id = ns("last_name_error"),
+            class = "input-error-message"
           )
         ),
 
@@ -189,11 +203,10 @@ mod_users_ui <- function(id) {
             "Affiliation",
             style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
           ),
-          textInput(
-            ns("user_affiliation"),
-            label = NULL,
+          tags$textarea(
+            id = ns("user_affiliation"),
             placeholder = "Enter institution or organization",
-            width = "100%"
+            style = "width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 14px; resize: vertical; min-height: 60px;"
           )
         ),
 
@@ -209,6 +222,49 @@ mod_users_ui <- function(id) {
             ns("save_user"),
             "Save",
             style = "background: #0f60af; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;"
+          )
+        )
+      )
+    ),
+
+    ## Modal - Delete Confirmation ----
+    tags$div(
+      id = ns("delete_confirmation_modal"),
+      class = "modal-overlay",
+      style = "display: none;",
+      onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("delete_confirmation_modal")),
+      tags$div(
+        class = "modal-content",
+        style = "max-width: 500px;",
+        tags$div(
+          class = "modal-header",
+          tags$h3("Confirm Deletion"),
+          tags$button(
+            class = "modal-close",
+            onclick = sprintf("$('#%s').hide();", ns("delete_confirmation_modal")),
+            "×"
+          )
+        ),
+        tags$div(
+          class = "modal-body",
+          style = "padding: 20px;",
+          tags$p(
+            id = ns("delete_confirmation_message"),
+            style = "margin-bottom: 20px; font-size: 14px;"
+          )
+        ),
+        tags$div(
+          class = "modal-footer",
+          style = "display: flex; gap: 10px; justify-content: flex-end; padding: 15px 20px; border-top: 1px solid #dee2e6;",
+          actionButton(
+            ns("cancel_delete"),
+            "Cancel",
+            class = "btn-secondary-custom"
+          ),
+          actionButton(
+            ns("confirm_delete"),
+            "Delete",
+            class = "btn-danger-custom"
           )
         )
       )
@@ -235,11 +291,9 @@ mod_users_server <- function(id, current_user, log_level = character()) {
     ns <- session$ns
 
     ## 1) Server - Reactive Values & State ====
-
-    ### Editing State ----
+    
     editing_user_id <- reactiveVal(NULL)
-
-    ### Data Management ----
+    deleting_user_id <- reactiveVal(NULL)
     users_data <- reactiveVal(NULL)
 
     ## 2) Server - Data Loading & Rendering ====
@@ -259,20 +313,17 @@ mod_users_server <- function(id, current_user, log_level = character()) {
 
         # Add action buttons
         users$Actions <- sprintf(
-          '<button class="btn-edit" data-user-id="%d"><i class="fas fa-edit"></i></button>
-           <button class="btn-delete" data-user-id="%d"><i class="fas fa-trash"></i></button>',
+          '<button class="btn-edit" data-id="%d"><i class="fas fa-edit"></i></button>
+           <button class="btn-delete" data-id="%d"><i class="fas fa-trash"></i></button>',
           users$user_id,
           users$user_id
         )
 
-        # Format active status
-        users$Status <- ifelse(users$is_active == 1, "Active", "Inactive")
-
         # Select display columns
-        display_data <- users[, c("login", "first_name", "last_name", "role", "affiliation", "Status", "Actions")]
-        colnames(display_data) <- c("Login", "First Name", "Last Name", "Role", "Affiliation", "Status", "Actions")
+        display_data <- users[, c("login", "first_name", "last_name", "role", "affiliation", "Actions")]
+        colnames(display_data) <- c("Login", "First Name", "Last Name", "Role", "Affiliation", "Actions")
 
-        datatable(
+        dt <- datatable(
           display_data,
           selection = "none",
           rownames = FALSE,
@@ -285,22 +336,22 @@ mod_users_server <- function(id, current_user, log_level = character()) {
             ordering = TRUE,
             autoWidth = FALSE,
             columnDefs = list(
-              list(width = "120px", targets = 6),
-              list(searchable = FALSE, targets = 6)
+              list(width = "120px", targets = 5),
+              list(searchable = FALSE, targets = 5)
             )
           )
-        ) %>%
-          formatStyle(
-            "Status",
-            backgroundColor = styleEqual(
-              c("Active", "Inactive"),
-              c("#d4edda", "#f8d7da")
-            ),
-            color = styleEqual(
-              c("Active", "Inactive"),
-              c("#155724", "#721c24")
-            )
+        )
+
+        # Add button handlers
+        dt <- add_button_handlers(
+          dt,
+          handlers = list(
+            list(selector = ".btn-edit", input_id = ns("edit_user")),
+            list(selector = ".btn-delete", input_id = ns("delete_user"))
           )
+        )
+
+        dt
       })
     }, ignoreInit = FALSE)
 
@@ -312,11 +363,7 @@ mod_users_server <- function(id, current_user, log_level = character()) {
       if (is.null(current_user())) return()
 
       user <- current_user()
-      if (user$role == "Anonymous") {
-        shinyjs::html("user_error", "You must be logged in to add users.")
-        shinyjs::show("user_error")
-        return()
-      }
+      if (user$role == "Anonymous") return()
 
       # Reset form
       editing_user_id(NULL)
@@ -327,10 +374,15 @@ mod_users_server <- function(id, current_user, log_level = character()) {
       updateTextInput(session, "user_first_name", value = "")
       updateTextInput(session, "user_last_name", value = "")
       updateSelectInput(session, "user_role", selected = "Data Scientist")
-      updateTextInput(session, "user_affiliation", value = "")
 
-      shinyjs::hide("user_error")
-      shinyjs::hide("user_success")
+      # Clear textarea using JavaScript
+      shinyjs::runjs(sprintf("$('#%s').val('');", ns("user_affiliation")))
+
+      # Hide all error messages
+      shinyjs::hide("login_error")
+      shinyjs::hide("password_error")
+      shinyjs::hide("first_name_error")
+      shinyjs::hide("last_name_error")
       shinyjs::show("user_modal")
     })
 
@@ -343,11 +395,7 @@ mod_users_server <- function(id, current_user, log_level = character()) {
       if (is.null(current_user())) return()
 
       user <- current_user()
-      if (user$role == "Anonymous") {
-        shinyjs::html("user_error", "You must be logged in to edit users.")
-        shinyjs::show("user_error")
-        return()
-      }
+      if (user$role == "Anonymous") return()
 
       # Find user
       users <- users_data()
@@ -368,14 +416,21 @@ mod_users_server <- function(id, current_user, log_level = character()) {
       updateTextInput(session, "user_first_name", value = edit_user$first_name)
       updateTextInput(session, "user_last_name", value = edit_user$last_name)
       updateSelectInput(session, "user_role", selected = edit_user$role)
-      updateTextInput(session, "user_affiliation", value = edit_user$affiliation)
 
-      shinyjs::hide("user_error")
-      shinyjs::hide("user_success")
+      # Update textarea using JavaScript
+      affiliation_value <- if (!is.na(edit_user$affiliation)) edit_user$affiliation else ""
+      shinyjs::runjs(sprintf("$('#%s').val('%s');", ns("user_affiliation"),
+                             gsub("'", "\\\\'", affiliation_value)))
+
+      # Hide all error messages
+      shinyjs::hide("login_error")
+      shinyjs::hide("password_error")
+      shinyjs::hide("first_name_error")
+      shinyjs::hide("last_name_error")
       shinyjs::show("user_modal")
     })
 
-    ### Delete User ----
+    ### Delete User - Show Confirmation Modal ----
     observe_event(input$delete_user, {
       if (is.null(input$delete_user)) return()
 
@@ -388,34 +443,99 @@ mod_users_server <- function(id, current_user, log_level = character()) {
       # Prevent deleting own account
       if (user$user_id == input$delete_user) return()
 
-      # Delete user
-      if (input$delete_user > 0) {
-        delete_user(input$delete_user)
+      # Find user to get name
+      users <- users_data()
+      user_to_delete <- users[users$user_id == input$delete_user, ]
 
-        # Reload users
-        users <- get_all_users()
-        users_data(users)
-      }
+      if (nrow(user_to_delete) == 0) return()
+
+      user_to_delete <- user_to_delete[1, ]
+
+      # Set deleting user ID
+      deleting_user_id(input$delete_user)
+
+      # Build user name
+      user_name <- paste(user_to_delete$first_name, user_to_delete$last_name)
+      if (user_name == " ") user_name <- user_to_delete$login
+
+      # Update confirmation message
+      shinyjs::html("delete_confirmation_message",
+                    sprintf("Are you sure you want to delete user <strong>%s</strong>?", user_name))
+
+      # Show modal
+      shinyjs::show("delete_confirmation_modal")
+    })
+
+    ### Confirm Delete ----
+    observe_event(input$confirm_delete, {
+      if (is.null(deleting_user_id())) return()
+
+      # Delete user
+      delete_user(deleting_user_id())
+
+      # Reload users
+      users <- get_all_users()
+      users_data(users)
+
+      # Clear deleting state
+      deleting_user_id(NULL)
+
+      # Hide modal
+      shinyjs::hide("delete_confirmation_modal")
+    })
+
+    ### Cancel Delete ----
+    observe_event(input$cancel_delete, {
+      deleting_user_id(NULL)
+      shinyjs::hide("delete_confirmation_modal")
     })
 
     ### Save User ----
     observe_event(input$save_user, {
+      # Hide all error messages first
+      shinyjs::hide("login_error")
+      shinyjs::hide("password_error")
+      shinyjs::hide("first_name_error")
+      shinyjs::hide("last_name_error")
+
+      has_errors <- FALSE
+
       # Validate login
       if (is.null(input$user_login) || nchar(input$user_login) == 0) {
-        shinyjs::html("user_error", "Login is required.")
-        shinyjs::show("user_error")
-        return()
+        shinyjs::html("login_error", "Login is required.")
+        shinyjs::show("login_error")
+        has_errors <- TRUE
+      }
+
+      # Validate first name
+      if (is.null(input$user_first_name) || nchar(trimws(input$user_first_name)) == 0) {
+        shinyjs::html("first_name_error", "First name is required.")
+        shinyjs::show("first_name_error")
+        has_errors <- TRUE
+      }
+
+      # Validate last name
+      if (is.null(input$user_last_name) || nchar(trimws(input$user_last_name)) == 0) {
+        shinyjs::html("last_name_error", "Last name is required.")
+        shinyjs::show("last_name_error")
+        has_errors <- TRUE
       }
 
       # Check if editing or adding
       if (is.null(editing_user_id())) {
         # Adding new user - password required
         if (is.null(input$user_password) || nchar(input$user_password) == 0) {
-          shinyjs::html("user_error", "Password is required for new users.")
-          shinyjs::show("user_error")
-          return()
+          shinyjs::html("password_error", "Password is required for new users.")
+          shinyjs::show("password_error")
+          has_errors <- TRUE
         }
+      }
 
+      # Stop if there are validation errors
+      if (has_errors) return()
+
+      # Proceed with adding/updating user
+      if (is.null(editing_user_id())) {
         # Add user
         result <- add_user(
           login = input$user_login,
@@ -427,14 +547,10 @@ mod_users_server <- function(id, current_user, log_level = character()) {
         )
 
         if (is.null(result)) {
-          shinyjs::html("user_error", "Login already exists. Please choose a different login.")
-          shinyjs::show("user_error")
+          shinyjs::html("login_error", "Login already exists. Please choose a different login.")
+          shinyjs::show("login_error")
           return()
         }
-
-        # Success
-        shinyjs::html("user_success", "User created successfully.")
-        shinyjs::show("user_success")
       } else {
         # Editing existing user
         update_params <- list(
@@ -452,18 +568,14 @@ mod_users_server <- function(id, current_user, log_level = character()) {
         }
 
         do.call(update_user, update_params)
-
-        # Success
-        shinyjs::html("user_success", "User updated successfully.")
-        shinyjs::show("user_success")
       }
 
       # Reload users
       users <- get_all_users()
       users_data(users)
 
-      # Close modal after short delay
-      shinyjs::delay(1500, shinyjs::hide("user_modal"))
+      # Close modal immediately
+      shinyjs::hide("user_modal")
     })
 
     ### Cancel/Close Modal ----
@@ -473,6 +585,22 @@ mod_users_server <- function(id, current_user, log_level = character()) {
 
     observe_event(input$close_modal, {
       shinyjs::hide("user_modal")
+    })
+
+    ### Toggle Password Visibility ----
+    observe_event(input$toggle_password, {
+      # Get current input type
+      shinyjs::runjs(sprintf("
+        var input = $('#%s');
+        var icon = $('#%s');
+        if (input.attr('type') === 'password') {
+          input.attr('type', 'text');
+          icon.removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+          input.attr('type', 'password');
+          icon.removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+      ", ns("user_password"), ns("password_icon")))
     })
   })
 }
