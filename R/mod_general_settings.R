@@ -1,3 +1,30 @@
+# MODULE STRUCTURE OVERVIEW ====
+#
+# This module manages general application settings
+#
+# UI STRUCTURE:
+#   ## UI - Main Layout
+#      ### OHDSI Vocabularies Location - Browse and select vocabulary folder
+#      ### DuckDB Database Status - Display database status and controls
+#
+# SERVER STRUCTURE:
+#   ## 1) Server - Reactive Values & State
+#      ### Folder Browser State - Track current path, selection, sort order
+#      ### DuckDB Status - Processing status and messages
+#
+#   ## 2) Server - Folder Browser
+#      ### Folder Path Display - Show selected folder path
+#      ### Browser Modal - Modal dialog for folder selection
+#      ### File Browser Rendering - Display folders and files
+#      ### Navigation Handlers - Handle folder navigation and selection
+#
+#   ## 3) Server - DuckDB Management
+#      ### Database Creation - Create DuckDB from CSV files
+#      ### Database Recreation - Recreate existing database
+#      ### Status Display - Show database status and controls
+
+# UI SECTION ====
+
 #' General Settings Module - UI
 #'
 #' @description UI function for general settings
@@ -13,79 +40,81 @@ mod_general_settings_ui <- function(id) {
   ns <- NS(id)
 
   tagList(
-    # Main content for general settings
+    ## UI - Main Layout ----
     div(class = "main-panel",
-        div(class = "main-content",
-            fluidRow(
-              column(12,
-                     div(class = "settings-section",
-                         style = "background: #fff; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
-                         h4(
-                           tags$i(class = "fas fa-folder-open", style = "margin-right: 8px;"),
-                           "OHDSI Vocabularies Location"
-                         ),
-                         p(
-                           style = "color: #666; margin-bottom: 15px;",
-                           "Browse and select the folder containing your OHDSI Vocabularies files."
-                         ),
+      div(class = "main-content",
+        fluidRow(
+          column(12,
+             div(class = "settings-section",
+                 style = "background: #fff; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
+                 h4(
+                   tags$i(class = "fas fa-folder-open", style = "margin-right: 8px;"),
+                   "OHDSI Vocabularies Location"
+                 ),
+                 p(
+                   style = "color: #666; margin-bottom: 15px;",
+                   "Browse and select the folder containing your OHDSI Vocabularies files."
+                 ),
 
-                         # Browse button and selected folder display
-                         tags$div(
-                           style = "display: flex; align-items: center; gap: 15px;",
-                           actionButton(
-                             ns("browse_folder"),
-                             label = tagList(
-                               tags$i(class = "fas fa-folder-open", style = "margin-right: 6px;"),
-                               "Browse..."
-                             ),
-                             style = "background: #0f60af; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer;"
-                           ),
-                           tags$div(
-                             style = "flex: 1;",
-                             uiOutput(ns("folder_path_display"))
-                           )
-                         ),
+                 # Browse button and selected folder display
+                 tags$div(
+                   style = "display: flex; align-items: center; gap: 15px;",
+                   actionButton(
+                     ns("browse_folder"),
+                     label = tagList(
+                       tags$i(class = "fas fa-folder-open", style = "margin-right: 6px;"),
+                       "Browse..."
+                     ),
+                     style = "background: #0f60af; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer;"
+                   ),
+                   tags$div(
+                     style = "flex: 1;",
+                     uiOutput(ns("folder_path_display"))
+                   )
+                 ),
 
-                         tags$div(
-                           style = "margin-top: 15px; padding: 12px; background: #e6f3ff; border-left: 4px solid #0f60af; border-radius: 4px;",
-                           tags$p(
-                             style = "margin: 0; font-size: 13px; color: #333;",
-                             tags$i(class = "fas fa-info-circle", style = "margin-right: 6px; color: #0f60af;"),
-                             tags$strong("Note:"), " The OHDSI Vocabularies can be downloaded from ",
-                             tags$a(
-                               href = "https://athena.ohdsi.org/",
-                               target = "_blank",
-                               "ATHENA",
-                               style = "color: #0f60af; text-decoration: underline;"
-                             ),
-                             " (registration required)."
-                           )
-                         ),
+                 tags$div(
+                   style = "margin-top: 15px; padding: 12px; background: #e6f3ff; border-left: 4px solid #0f60af; border-radius: 4px;",
+                   tags$p(
+                     style = "margin: 0; font-size: 13px; color: #333;",
+                     tags$i(class = "fas fa-info-circle", style = "margin-right: 6px; color: #0f60af;"),
+                     tags$strong("Note:"), " The OHDSI Vocabularies can be downloaded from ",
+                     tags$a(
+                       href = "https://athena.ohdsi.org/",
+                       target = "_blank",
+                       "ATHENA",
+                       style = "color: #0f60af; text-decoration: underline;"
+                     ),
+                     " (registration required)."
+                   )
+                 ),
 
-                         # DuckDB status
-                         tags$div(
-                           style = "margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #dee2e6;",
-                           tags$div(
-                             style = "margin-bottom: 10px;",
-                             tags$div(
-                               style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 5px;",
-                               tags$i(class = "fas fa-database", style = "margin-right: 8px; color: #0f60af;"),
-                               "DuckDB Database Status"
-                             ),
-                             tags$p(
-                               style = "margin: 0; font-size: 12px; color: #666;",
-                               "A DuckDB database is automatically created from ATHENA CSV files for instant loading at startup."
-                             )
-                           ),
-                           uiOutput(ns("duckdb_status"))
-                         )
+                 # DuckDB status
+                 tags$div(
+                   style = "margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #dee2e6;",
+                   tags$div(
+                     style = "margin-bottom: 10px;",
+                     tags$div(
+                       style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 5px;",
+                       tags$i(class = "fas fa-database", style = "margin-right: 8px; color: #0f60af;"),
+                       "DuckDB Database Status"
+                     ),
+                     tags$p(
+                       style = "margin: 0; font-size: 12px; color: #666;",
+                       "A DuckDB database is automatically created from ATHENA CSV files for instant loading at startup."
                      )
-              )
-            )
+                   ),
+                   uiOutput(ns("duckdb_status"))
+                 )
+             )
+          )
         )
+      )
     )
   )
 }
+
+# SERVER SECTION ====
 
 #' General Settings Module - Server
 #'
@@ -106,50 +135,74 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    # Store current browsing path, selected folder, sort order and filter
+    ## 1) Server - Reactive Values & State ----
+
+    ### Folder Browser State ----
     current_path <- reactiveVal(path.expand("~"))
     selected_folder <- reactiveVal(NULL)
     sort_order <- reactiveVal("asc")
     filter_text <- reactiveVal("")
 
+    ### DuckDB Status ----
+    duckdb_processing <- reactiveVal(FALSE)
+    duckdb_message <- reactiveVal(NULL)
+
     # Load saved vocab folder from database on initialization
     observe({
-      tryCatch({
-        saved_path <- get_vocab_folder()
+      saved_path <- get_vocab_folder()
 
-        if (!is.null(saved_path) && nchar(saved_path) > 0) {
-          selected_folder(saved_path)
-        }
-      }, error = function(e) {
-        message("Error loading vocab folder: ", e$message)
-      })
-    })
-
-    # Render folder path display
-    output$folder_path_display <- renderUI({
-      folder_path <- selected_folder()
-
-      if (is.null(folder_path) || nchar(folder_path) == 0) {
-        tags$div(
-          style = "font-family: monospace; background: #f8f9fa; padding: 10px; border-radius: 4px; font-size: 12px; min-height: 40px; display: flex; align-items: center; border: 1px solid #dee2e6;",
-          tags$span(
-            style = "color: #999;",
-            "No folder selected"
-          )
-        )
-      } else {
-        tags$div(
-          style = "font-family: monospace; background: #e6f3ff; padding: 10px; border-radius: 4px; font-size: 12px; min-height: 40px; display: flex; align-items: center; border: 1px solid #0f60af;",
-          tags$span(
-            style = "color: #333;",
-            folder_path
-          )
-        )
+      if (!is.null(saved_path) && nchar(saved_path) > 0) {
+        selected_folder(saved_path)
       }
     })
 
-    # Show folder browser modal
-    observeEvent(input$browse_folder, {
+    ## 2) Server - Folder Browser ----
+
+    ### Folder Path Display ----
+
+    folder_path_trigger <- reactiveVal(0)
+
+    observe_event(selected_folder(), {
+      folder_path_trigger(folder_path_trigger() + 1)
+    }, ignoreInit = FALSE)
+
+    observe_event(folder_path_trigger(), {
+      folder_path <- selected_folder()
+
+      output$folder_path_display <- renderUI({
+        if (is.null(folder_path) || nchar(folder_path) == 0) {
+          tags$div(
+            style = paste0(
+              "font-family: monospace; background: #f8f9fa; ",
+              "padding: 10px; border-radius: 4px; font-size: 12px; ",
+              "min-height: 40px; display: flex; align-items: center; ",
+              "border: 1px solid #dee2e6;"
+            ),
+            tags$span(
+              style = "color: #999;",
+              "No folder selected"
+            )
+          )
+        } else {
+          tags$div(
+            style = paste0(
+              "font-family: monospace; background: #e6f3ff; ",
+              "padding: 10px; border-radius: 4px; font-size: 12px; ",
+              "min-height: 40px; display: flex; align-items: center; ",
+              "border: 1px solid #0f60af;"
+            ),
+            tags$span(
+              style = "color: #333;",
+              folder_path
+            )
+          )
+        }
+      })
+    }, ignoreInit = FALSE)
+
+    ### Browser Modal ----
+
+    observe_event(input$browse_folder, {
       # Start at selected folder if it exists, otherwise home
       start_path <- selected_folder()
       if (is.null(start_path) || !dir.exists(start_path)) {
@@ -160,21 +213,20 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
       sort_order("asc")
       filter_text("")
       show_browser_modal()
-    })
+    }, ignoreInit = FALSE)
 
-    # Toggle sort order
-    observeEvent(input$toggle_sort, {
+    observe_event(input$toggle_sort, {
       if (sort_order() == "asc") {
         sort_order("desc")
       } else {
         sort_order("asc")
       }
-    })
+    }, ignoreInit = FALSE)
 
-    # Update filter text
-    observeEvent(input$filter_input, {
+    observe_event(input$filter_input, {
+      if (is.null(input$filter_input)) return()
       filter_text(input$filter_input)
-    })
+    }, ignoreInit = FALSE)
 
     # Function to show browser modal
     show_browser_modal <- function() {
@@ -214,7 +266,11 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
 
           # File browser with table header
           tags$div(
-            style = "border: 1px solid #dee2e6; border-radius: 4px; background: white; max-height: 600px; overflow-y: auto;",
+            style = paste0(
+              "border: 1px solid #dee2e6; border-radius: 4px; ",
+              "background: white; height: 60vh; max-height: 600px; ",
+              "overflow-y: auto;"
+            ),
             # Table header
             tags$div(
               style = "background: #f8f9fa; border-bottom: 2px solid #dee2e6; position: sticky; top: 0; z-index: 10;",
@@ -238,33 +294,52 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
       )
     }
 
-    # Render current path
-    output$current_path <- renderUI({
-      tags$span(current_path())
-    })
+    ### File Browser Rendering ----
 
-    # Render sort icon
-    output$sort_icon <- renderUI({
-      if (sort_order() == "asc") {
-        tags$i(class = "fas fa-sort-alpha-down", title = "Sort A-Z")
-      } else {
-        tags$i(class = "fas fa-sort-alpha-up", title = "Sort Z-A")
-      }
-    })
+    current_path_trigger <- reactiveVal(0)
 
-    # Go to home directory
-    observeEvent(input$go_home, {
+    observe_event(current_path(), {
+      current_path_trigger(current_path_trigger() + 1)
+    }, ignoreInit = FALSE)
+
+    observe_event(current_path_trigger(), {
+      output$current_path <- renderUI({
+        tags$span(current_path())
+      })
+    }, ignoreInit = FALSE)
+
+    sort_order_trigger <- reactiveVal(0)
+
+    observe_event(sort_order(), {
+      sort_order_trigger(sort_order_trigger() + 1)
+    }, ignoreInit = FALSE)
+
+    observe_event(sort_order_trigger(), {
+      output$sort_icon <- renderUI({
+        if (sort_order() == "asc") {
+          tags$i(class = "fas fa-sort-alpha-down", title = "Sort A-Z")
+        } else {
+          tags$i(class = "fas fa-sort-alpha-up", title = "Sort Z-A")
+        }
+      })
+    }, ignoreInit = FALSE)
+
+    observe_event(input$go_home, {
       current_path(path.expand("~"))
-    })
+    }, ignoreInit = FALSE)
 
-    # Render file browser
-    output$file_browser <- renderUI({
+    file_browser_trigger <- reactiveVal(0)
+
+    observe_event(list(current_path(), filter_text(), sort_order()), {
+      file_browser_trigger(file_browser_trigger() + 1)
+    }, ignoreInit = FALSE)
+
+    observe_event(file_browser_trigger(), {
       path <- current_path()
       filter <- filter_text()
       order <- sort_order()
 
-      # Get list of files and directories
-      tryCatch({
+      output$file_browser <- renderUI({
         items <- list.files(path, full.names = TRUE, include.dirs = TRUE)
 
         if (length(items) == 0) {
@@ -359,49 +434,26 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
         }
 
         tagList(items_ui)
-
-      }, error = function(e) {
-        tags$div(
-          style = "padding: 20px; text-align: center; color: #dc3545;",
-          tags$i(class = "fas fa-exclamation-triangle", style = "font-size: 32px; margin-bottom: 10px;"),
-          tags$p("Error reading folder"),
-          tags$p(style = "font-size: 12px;", as.character(e$message))
-        )
       })
-    })
+    }, ignoreInit = FALSE)
 
-    # Handle navigation to folder
-    observeEvent(input$navigate_to, {
+    ### Navigation Handlers ----
+
+    observe_event(input$navigate_to, {
       new_path <- input$navigate_to
       if (dir.exists(new_path)) {
         current_path(new_path)
       }
-    })
+    }, ignoreInit = FALSE)
 
-    # Handle folder selection
-    observeEvent(input$select_folder_path, {
+    observe_event(input$select_folder_path, {
       folder_path <- input$select_folder_path
       if (dir.exists(folder_path)) {
         # Update reactive value
         selected_folder(folder_path)
 
         # Save to database
-        tryCatch({
-          set_vocab_folder(folder_path)
-        }, error = function(e) {
-          message("Error saving vocab folder: ", e$message)
-          showModal(
-            modalDialog(
-              title = "Error",
-              tags$p(
-                style = "color: #dc3545;",
-                "Failed to save folder path to database: ", e$message
-              ),
-              easyClose = TRUE
-            )
-          )
-          return()
-        })
+        set_vocab_folder(folder_path)
 
         # Close modal
         removeModal()
@@ -421,25 +473,20 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
           })
         } else {
           # Database exists - load it immediately
-          tryCatch({
-            set_use_duckdb(TRUE)
-            vocab_data <- load_vocabularies_from_duckdb()
-            if (!is.null(set_vocabularies)) {
-              set_vocabularies(vocab_data)
-            }
-          }, error = function(e) {
-            message("Error loading existing DuckDB: ", e$message)
-            duckdb_message(list(
-              success = FALSE,
-              message = paste("Failed to load database:", e$message)
-            ))
-          })
+          set_use_duckdb(TRUE)
+          vocab_data <- load_vocabularies_from_duckdb()
+          if (!is.null(set_vocabularies)) {
+            set_vocabularies(vocab_data)
+          }
         }
       }
-    })
+    }, ignoreInit = FALSE)
 
-    # Observer to actually create DuckDB database
-    observeEvent(input$trigger_duckdb_creation, {
+    ## 3) Server - DuckDB Management ----
+
+    ### Database Creation ----
+
+    observe_event(input$trigger_duckdb_creation, {
       vocab_folder <- selected_folder()
 
       if (is.null(vocab_folder) || nchar(vocab_folder) == 0) {
@@ -451,11 +498,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
       if (!is.null(vocabularies)) {
         vocab_data <- vocabularies()
         if (!is.null(vocab_data) && !is.null(vocab_data$connection)) {
-          tryCatch({
-            DBI::dbDisconnect(vocab_data$connection, shutdown = TRUE)
-          }, error = function(e) {
-            message("Error closing DuckDB connection: ", e$message)
-          })
+          DBI::dbDisconnect(vocab_data$connection, shutdown = TRUE)
         }
       }
 
@@ -465,14 +508,10 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
       }
 
       # Try to close all DuckDB connections globally
-      tryCatch({
-        all_cons <- DBI::dbListConnections(duckdb::duckdb())
-        for (con in all_cons) {
-          try(DBI::dbDisconnect(con, shutdown = TRUE), silent = TRUE)
-        }
-      }, error = function(e) {
-        # Ignore errors
-      })
+      all_cons <- DBI::dbListConnections(duckdb::duckdb())
+      for (con in all_cons) {
+        try(DBI::dbDisconnect(con, shutdown = TRUE), silent = TRUE)
+      }
 
       # Force garbage collection and wait
       gc()
@@ -480,52 +519,32 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
       Sys.sleep(1.5)
 
       # Create DuckDB database
-      result <- tryCatch({
-        create_duckdb_database(vocab_folder)
-      }, error = function(e) {
-        list(success = FALSE, message = paste("Error:", e$message))
-      })
+      result <- create_duckdb_database(vocab_folder)
 
       duckdb_processing(FALSE)
 
       # Save setting and load vocabularies if successful
       if (result$success) {
-        tryCatch({
-          set_use_duckdb(TRUE)
-        }, error = function(e) {
-          message("Error saving DuckDB option: ", e$message)
-        })
+        set_use_duckdb(TRUE)
         duckdb_message(NULL)
 
         # Load vocabularies immediately after creation
-        tryCatch({
-          vocab_data <- load_vocabularies_from_duckdb()
-          if (!is.null(set_vocabularies)) {
-            set_vocabularies(vocab_data)
-          }
-        }, error = function(e) {
-          message("Error loading vocabularies after creation: ", e$message)
-          duckdb_message(list(
-            success = FALSE,
-            message = paste("Database created but failed to load:", e$message)
-          ))
-        })
+        vocab_data <- load_vocabularies_from_duckdb()
+        if (!is.null(set_vocabularies)) {
+          set_vocabularies(vocab_data)
+        }
       } else {
         duckdb_message(result)
       }
-    })
+    }, ignoreInit = FALSE)
 
-    # Handle cancel
-    observeEvent(input$cancel_browse, {
+    observe_event(input$cancel_browse, {
       removeModal()
-    })
+    }, ignoreInit = FALSE)
 
-    # Reactive value to track DuckDB processing
-    duckdb_processing <- reactiveVal(FALSE)
-    duckdb_message <- reactiveVal(NULL)
+    ### Database Recreation ----
 
-    # Handle DuckDB recreation button
-    observeEvent(input$recreate_duckdb, {
+    observe_event(input$recreate_duckdb, {
       vocab_folder <- selected_folder()
 
       if (is.null(vocab_folder) || nchar(vocab_folder) == 0) {
@@ -543,10 +562,9 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
           session$ns("trigger_duckdb_recreation")
         ))
       })
-    })
+    }, ignoreInit = FALSE)
 
-    # Observer to actually recreate DuckDB database
-    observeEvent(input$trigger_duckdb_recreation, {
+    observe_event(input$trigger_duckdb_recreation, {
       vocab_folder <- selected_folder()
 
       if (is.null(vocab_folder) || nchar(vocab_folder) == 0) {
@@ -558,11 +576,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
       if (!is.null(vocabularies)) {
         vocab_data <- vocabularies()
         if (!is.null(vocab_data) && !is.null(vocab_data$connection)) {
-          tryCatch({
-            DBI::dbDisconnect(vocab_data$connection, shutdown = TRUE)
-          }, error = function(e) {
-            message("Error closing DuckDB connection: ", e$message)
-          })
+          DBI::dbDisconnect(vocab_data$connection, shutdown = TRUE)
         }
       }
 
@@ -572,14 +586,10 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
       }
 
       # Try to close all DuckDB connections globally
-      tryCatch({
-        all_cons <- DBI::dbListConnections(duckdb::duckdb())
-        for (con in all_cons) {
-          try(DBI::dbDisconnect(con, shutdown = TRUE), silent = TRUE)
-        }
-      }, error = function(e) {
-        # Ignore errors
-      })
+      all_cons <- DBI::dbListConnections(duckdb::duckdb())
+      for (con in all_cons) {
+        try(DBI::dbDisconnect(con, shutdown = TRUE), silent = TRUE)
+      }
 
       # Force garbage collection and wait
       gc()
@@ -587,76 +597,68 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
       Sys.sleep(1.5)
 
       # Recreate DuckDB database
-      result <- tryCatch({
-        create_duckdb_database(vocab_folder)
-      }, error = function(e) {
-        list(success = FALSE, message = paste("Error:", e$message))
-      })
+      result <- create_duckdb_database(vocab_folder)
 
       duckdb_processing(FALSE)
 
       # Save setting and load vocabularies if successful
       if (result$success) {
-        tryCatch({
-          set_use_duckdb(TRUE)
-        }, error = function(e) {
-          message("Error saving DuckDB option: ", e$message)
-        })
+        set_use_duckdb(TRUE)
         duckdb_message(NULL)
 
         # Load vocabularies immediately after recreation
-        tryCatch({
-          vocab_data <- load_vocabularies_from_duckdb()
-          if (!is.null(set_vocabularies)) {
-            set_vocabularies(vocab_data)
-          }
-        }, error = function(e) {
-          message("Error loading vocabularies after recreation: ", e$message)
-          duckdb_message(list(
-            success = FALSE,
-            message = paste("Database recreated but failed to load:", e$message)
-          ))
-        })
+        vocab_data <- load_vocabularies_from_duckdb()
+        if (!is.null(set_vocabularies)) {
+          set_vocabularies(vocab_data)
+        }
       } else {
         duckdb_message(result)
       }
-    })
+    }, ignoreInit = FALSE)
 
-    # Render DuckDB status
-    output$duckdb_status <- renderUI({
+    ### Status Display ----
+
+    duckdb_status_trigger <- reactiveVal(0)
+
+    observe_event(list(selected_folder(), duckdb_processing(), duckdb_message()), {
+      duckdb_status_trigger(duckdb_status_trigger() + 1)
+    }, ignoreInit = FALSE)
+
+    observe_event(duckdb_status_trigger(), {
       vocab_folder <- selected_folder()
 
-      if (is.null(vocab_folder) || nchar(vocab_folder) == 0) {
-        return(NULL)
-      }
+      output$duckdb_status <- renderUI({
+        if (is.null(vocab_folder) || nchar(vocab_folder) == 0) {
+          return(NULL)
+        }
 
-      if (duckdb_processing()) {
-        return(
+        if (duckdb_processing()) {
+          return(
           tags$div(
             style = "padding: 10px; background: #fff3cd; border-left: 3px solid #ffc107; border-radius: 4px; font-size: 12px;",
             tags$i(class = "fas fa-spinner fa-spin", style = "margin-right: 6px;"),
             "Creating DuckDB database... This may take a few minutes."
           )
-        )
-      }
+          )
+        }
 
-      # Show error message if there was one
-      msg <- duckdb_message()
-      if (!is.null(msg) && !msg$success) {
-        return(
+        # Show error message if there was one
+        msg <- duckdb_message()
+        if (!is.null(msg) && !msg$success) {
+          return(
           tags$div(
             style = "padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px;",
             tags$i(class = "fas fa-exclamation-circle", style = "margin-right: 6px; color: #dc3545;"),
             msg$message
           )
-        )
-      }
+          )
+        }
 
-      # Show current status
-      db_exists <- duckdb_exists()
-      if (db_exists) {
-        db_path <- get_duckdb_path()
-        return(
+        # Show current status
+        db_exists <- duckdb_exists()
+        if (db_exists) {
+          db_path <- get_duckdb_path()
+          return(
           tags$div(
             style = "padding: 10px; background: #d4edda; border-left: 3px solid #28a745; border-radius: 4px; font-size: 12px; display: flex; align-items: center; gap: 8px;",
             tags$i(class = "fas fa-check-circle", style = "color: #28a745;"),
@@ -672,17 +674,18 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
               style = "background: #fd7e14; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 12px; cursor: pointer;"
             )
           )
-        )
-      } else {
-        return(
-          tags$div(
-            style = "padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px;",
-            tags$i(class = "fas fa-times-circle", style = "margin-right: 6px; color: #dc3545;"),
-            "Database does not exist"
           )
-        )
-      }
-    })
+        } else {
+          return(
+            tags$div(
+              style = "padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px;",
+              tags$i(class = "fas fa-times-circle", style = "margin-right: 6px; color: #dc3545;"),
+              "Database does not exist"
+            )
+          )
+        }
+      })
+    }, ignoreInit = FALSE)
 
     # Return reactive settings
     settings <- reactive({
