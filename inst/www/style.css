@@ -1782,6 +1782,15 @@ table.dataTable thead tr td .selectize-dropdown .option {
   transform: translateY(-50%) scale(0.95) !important;
 }
 
+/* Form validation error messages
+-------------------------------------------------- */
+.input-error-message {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 5px;
+  display: none;
+}
+
 /* Application footer
 -------------------------------------------------- */
 #main_app {
