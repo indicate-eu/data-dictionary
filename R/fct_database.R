@@ -129,6 +129,25 @@ init_database <- function(con) {
     )
   }
 
+  # Create mapping_evaluations table
+  if (!DBI::dbExistsTable(con, "mapping_evaluations")) {
+    DBI::dbExecute(
+      con,
+      "CREATE TABLE mapping_evaluations (
+        evaluation_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        alignment_id INTEGER NOT NULL,
+        mapping_id TEXT NOT NULL,
+        evaluator_user_id INTEGER NOT NULL,
+        rating INTEGER,
+        is_approved INTEGER,
+        comment TEXT,
+        evaluated_at TEXT,
+        FOREIGN KEY (alignment_id) REFERENCES concept_alignments(alignment_id),
+        FOREIGN KEY (evaluator_user_id) REFERENCES users(user_id)
+      )"
+    )
+  }
+
   invisible(NULL)
 }
 

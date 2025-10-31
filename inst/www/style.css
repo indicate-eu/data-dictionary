@@ -1663,6 +1663,29 @@ table.dataTable thead tr td .selectize-dropdown .option {
   width: auto !important;
 }
 
+/* Fix checkbox styling in mapped concepts add modal */
+#dictionary_explorer-mapped_concepts_add_modal .shiny-input-container {
+  width: auto !important;
+}
+
+#dictionary_explorer-mapped_concepts_add_modal .form-group {
+  margin-bottom: 0 !important;
+  width: auto !important;
+}
+
+/* Fix spinner overflow in mapped concepts add modal */
+#dictionary_explorer-omop_table_container .shiny-spinner-placeholder {
+  height: 100% !important;
+  min-height: 0 !important;
+}
+
+#dictionary_explorer-omop_table_container > div {
+  height: 100% !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
 /* Remove margin-bottom from all form-group elements */
 .form-group {
   margin-bottom: 0;

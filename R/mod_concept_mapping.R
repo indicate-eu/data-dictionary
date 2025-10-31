@@ -1761,6 +1761,13 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         # Remove duplicate rows
         new_df <- new_df %>% dplyr::distinct()
 
+        # Add tracking columns
+        new_df$mapping_id <- sapply(1:nrow(new_df), function(i) {
+          paste0("mapping_", format(Sys.time(), "%Y%m%d_%H%M%S"), "_", sprintf("%04d", i))
+        })
+        new_df$mapped_by_user_id <- NA_integer_
+        new_df$mapping_datetime <- NA_character_
+
         # Generate unique file ID
         file_id <- paste0("alignment_", format(Sys.time(), "%Y%m%d_%H%M%S"), "_", sample(1000:9999, 1))
 
@@ -2721,10 +2728,18 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (!"target_omop_concept_id" %in% colnames(df)) {
         df$target_omop_concept_id <- NA_integer_
       }
+      if (!"mapping_datetime" %in% colnames(df)) {
+        df$mapping_datetime <- NA_character_
+      }
+      if (!"mapped_by_user_id" %in% colnames(df)) {
+        df$mapped_by_user_id <- NA_integer_
+      }
 
       # Update the selected row with mapping info
       df$target_general_concept_id[source_row] <- selected_general_concept_id()
       df$target_omop_concept_id[source_row] <- target_mapping$omop_concept_id
+      df$mapping_datetime[source_row] <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+      df$mapped_by_user_id[source_row] <- if (!is.null(current_user())) current_user()$user_id else NA_integer_
 
       # Save CSV
       write.csv(df, csv_path, row.names = FALSE)
@@ -3234,12 +3249,16 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (!"mapping_datetime" %in% colnames(df)) {
         df$mapping_datetime <- NA_character_
       }
+      if (!"mapped_by_user_id" %in% colnames(df)) {
+        df$mapped_by_user_id <- NA_integer_
+      }
 
       # Update the selected row with mapping info
       df$target_general_concept_id[source_row] <- target_general_concept_id
       df$target_omop_concept_id[source_row] <- target_omop_concept_id
       df$target_custom_concept_id[source_row] <- NA_integer_
       df$mapping_datetime[source_row] <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+      df$mapped_by_user_id[source_row] <- if (!is.null(current_user())) current_user()$user_id else NA_integer_
 
       # Save CSV
       write.csv(df, csv_path, row.names = FALSE)

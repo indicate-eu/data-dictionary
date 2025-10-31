@@ -611,13 +611,12 @@ mod_dictionary_explorer_ui <- function(id) {
                 style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
                 tags$div(
                   id = ns("omop_table_container"),
-                  style = "flex: 1; min-height: 0; position: relative;",
+                  style = "flex: 1; min-height: 0; position: relative; overflow: hidden;",
                   shinycssloaders::withSpinner(
                     DT::DTOutput(ns("mapped_concepts_add_omop_table")),
                     type = 4,
                     color = "#0f60af",
-                    size = 0.4,
-                    proxy.height = "400px"
+                    size = 0.4
                   )
                 )
               ),
