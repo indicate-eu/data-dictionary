@@ -9,3 +9,9 @@ custom_concept_id,general_concept_id,vocabulary_id,concept_code,concept_name,omo
 8,9,INDICATE,/,Intensive Care Delirium Screening Checklist (ICDSC) score,/,TRUE
 9,11,INDICATE,/,Nursing Delirium Screening Scale (NU-DESC) score,/,TRUE
 10,5,INDICATE,/,test,/,TRUE
+NA,336,INDICATE 2,/,test,NA,FALSE
+NA,336,INDICATE 2,/,test,NA,FALSE
+NA,336,test 2,/,tet,NA,FALSE
+11,336,Other one,ds23,ABCD,/,FALSE
+12,336,test,/,test2,/,FALSE
+13,336,again,/,agnian,/,FALSE

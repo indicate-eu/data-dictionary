@@ -557,67 +557,197 @@ mod_dictionary_explorer_ui <- function(id) {
         
         # Body
         tags$div(
-          style = "flex: 1; min-height: 0; padding: 20px; display: flex; flex-direction: column; gap: 15px;",
-          
-          # Search Concepts section (top half)
+          style = "flex: 1; min-height: 0; padding: 20px; display: flex; flex-direction: column;",
+
+          # Custom tabs (styled like Shiny tabs but without URL changes)
+          tags$ul(
+            class = "nav nav-tabs",
+            role = "tablist",
+            style = "margin-bottom: 0;",
+            tags$li(
+              class = "active",
+              role = "presentation",
+              tags$a(
+                href = "#",
+                onclick = sprintf("
+                  $('#%s').show();
+                  $('#%s').hide();
+                  $(this).parent().addClass('active');
+                  $(this).parent().siblings().removeClass('active');
+                  return false;
+                ", ns("omop_tab_content"), ns("custom_tab_content")),
+                "Search OMOP Concepts"
+              )
+            ),
+            tags$li(
+              role = "presentation",
+              tags$a(
+                href = "#",
+                onclick = sprintf("
+                  $('#%s').show();
+                  $('#%s').hide();
+                  $(this).parent().addClass('active');
+                  $(this).parent().siblings().removeClass('active');
+                  return false;
+                ", ns("custom_tab_content"), ns("omop_tab_content")),
+                "Add Custom Concept"
+              )
+            )
+          ),
+
+          # Tab content container
           tags$div(
+            class = "tab-content",
             style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
+
+            # OMOP Concepts Tab
             tags$div(
-              style = "flex: 1; min-height: 0; overflow: auto;",
-              shinycssloaders::withSpinner(
-                DT::DTOutput(ns("mapped_concepts_add_omop_table")),
-                type = 4,
-                color = "#0f60af"
-              )
-            )
-          ),
-          
-          # Bottom section: Concept Details (left) and Descendants (right)
-          tags$div(
-            style = "flex: 1; min-height: 0; display: flex; gap: 15px;",
-            
-            # Concept Details (left)
-            tags$div(
-              style = "flex: 1; min-height: 0; display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 4px; padding: 15px; background: white;",
-              tags$h5("Selected Concept Details", style = "margin-top: 0; margin-bottom: 10px;"),
+              id = ns("omop_tab_content"),
+              class = "tab-pane active",
+              style = "margin-top: 15px; height: calc(95vh - 200px); display: flex; flex-direction: column; gap: 15px;",
+
+              # Search Concepts section (top half)
               tags$div(
-                style = "flex: 1; min-height: 0; overflow: auto;",
-                uiOutput(ns("mapped_concepts_add_concept_details"))
-              )
-            ),
-            
-            # Descendants (right)
-            tags$div(
-              style = "flex: 1; min-height: 0; display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 4px; padding: 15px; background: white;",
-              tags$h5("Descendants", style = "margin-top: 0; margin-bottom: 10px;"),
+                style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
+                tags$div(
+                  style = "flex: 1; min-height: 0; overflow: auto; position: relative;",
+                  shinycssloaders::withSpinner(
+                    DT::DTOutput(ns("mapped_concepts_add_omop_table")),
+                    type = 4,
+                    color = "#0f60af",
+                    size = 0.4,
+                    proxy.height = "400px"
+                  )
+                )
+              ),
+
+              # Bottom section: Concept Details (left) and Descendants (right)
               tags$div(
-                style = "flex: 1; min-height: 0; overflow: hidden;",
-                DT::DTOutput(ns("mapped_concepts_add_descendants_table"))
+                style = "flex: 1; min-height: 0; display: flex; gap: 15px;",
+
+                # Concept Details (left)
+                tags$div(
+                  style = "flex: 1; min-height: 0; display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 4px; padding: 15px; background: white;",
+                  tags$h5("Selected Concept Details", style = "margin-top: 0; margin-bottom: 10px;"),
+                  tags$div(
+                    style = "flex: 1; min-height: 0; overflow: auto;",
+                    uiOutput(ns("mapped_concepts_add_concept_details"))
+                  )
+                ),
+
+                # Descendants (right)
+                tags$div(
+                  style = "flex: 1; min-height: 0; display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 4px; padding: 15px; background: white;",
+                  tags$h5("Descendants", style = "margin-top: 0; margin-bottom: 10px;"),
+                  tags$div(
+                    style = "flex: 1; min-height: 0; overflow: hidden;",
+                    DT::DTOutput(ns("mapped_concepts_add_descendants_table"))
+                  )
+                )
+              ),
+
+              # Bottom buttons for OMOP mode
+              tags$div(
+                style = "display: flex; justify-content: flex-end; align-items: center; gap: 10px; flex-shrink: 0;",
+                tags$div(
+                  style = "width: auto;",
+                  checkboxInput(
+                    ns("mapped_concepts_add_include_descendants"),
+                    "Include descendants",
+                    value = FALSE,
+                    width = NULL
+                  )
+                ),
+                tags$button(
+                  class = "btn btn-default",
+                  onclick = sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")),
+                  "Cancel"
+                ),
+                actionButton(
+                  ns("mapped_concepts_add_selected"),
+                  "Add Concept",
+                  class = "btn btn-success"
+                )
               )
-            )
-          ),
-          
-          # Bottom buttons
-          tags$div(
-            style = "display: flex; justify-content: flex-end; align-items: center; gap: 15px; flex-shrink: 0;",
+            ),
+
+            # Custom Concept Tab
             tags$div(
-              style = "margin-bottom: 0;",
-              shiny::checkboxInput(
-                ns("mapped_concepts_add_include_descendants"),
-                "Include descendants",
-                value = FALSE,
-                width = NULL
+              id = ns("custom_tab_content"),
+              class = "tab-pane",
+              style = "display: none; margin-top: 15px; height: calc(95vh - 200px); flex-direction: column; gap: 15px;",
+
+              # Custom concept form
+              tags$div(
+                style = "flex: 1; min-height: 0; overflow: auto; padding: 40px; border: 1px solid #ddd; border-radius: 4px; background: white;",
+
+                tags$div(
+                  style = "margin-bottom: 20px;",
+                  tags$label(
+                    "Vocabulary ID ",
+                    tags$span("*", style = "color: #dc3545;")
+                  ),
+                  textInput(
+                    ns("custom_vocabulary_id"),
+                    label = NULL,
+                    placeholder = "e.g., Custom, Local, Institution-specific",
+                    width = "300px"
+                  ),
+                  shinyjs::hidden(
+                    tags$span(
+                      id = ns("custom_vocabulary_id_error"),
+                      style = "color: #dc3545; font-size: 12px;",
+                      "Vocabulary ID is required"
+                    )
+                  )
+                ),
+
+                tags$div(
+                  style = "margin-bottom: 20px;",
+                  textInput(
+                    ns("custom_concept_code"),
+                    "Concept Code",
+                    placeholder = "Optional",
+                    width = "300px"
+                  )
+                ),
+
+                tags$div(
+                  style = "margin-bottom: 20px;",
+                  tags$label(
+                    "Concept Name ",
+                    tags$span("*", style = "color: #dc3545;")
+                  ),
+                  textInput(
+                    ns("custom_concept_name"),
+                    label = NULL,
+                    placeholder = "Enter concept name",
+                    width = "300px"
+                  ),
+                  shinyjs::hidden(
+                    tags$span(
+                      id = ns("custom_concept_name_error"),
+                      style = "color: #dc3545; font-size: 12px;",
+                      "Concept name is required"
+                    )
+                  )
+                )
+              ),
+
+              # Bottom buttons for custom mode
+              tags$div(
+                style = "display: flex; justify-content: flex-end; gap: 10px; flex-shrink: 0;",
+                tags$button(
+                  class = "btn btn-default",
+                  onclick = sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")),
+                  "Cancel"
+                ),
+                actionButton(
+                  ns("add_custom_concept"),
+                  "Add Custom Concept",
+                  class = "btn btn-success"
+                )
               )
-            ),
-            tags$button(
-              class = "btn btn-default",
-              onclick = sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")),
-              "Cancel"
-            ),
-            shiny::actionButton(
-              ns("mapped_concepts_add_selected"),
-              "Add Concept",
-              class = "btn btn-success"
             )
           )
         )
@@ -2654,7 +2784,100 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     #   shiny::updateTextInput(session, "custom_concept_name", value = "")
     #   shiny::updateTextInput(session, "custom_concept_code", value = "/")
     # })
-    # 
+
+    # Add custom concept
+    observe_event(input$add_custom_concept, {
+      if (!general_concept_detail_edit_mode()) return()
+
+      # Reset all error messages
+      shinyjs::hide("custom_vocabulary_id_error")
+      shinyjs::hide("custom_concept_name_error")
+
+      # Validate vocabulary ID
+      vocabulary_id <- trimws(input$custom_vocabulary_id)
+      vocab_valid <- !is.null(vocabulary_id) && vocabulary_id != ""
+
+      # Validate concept name
+      concept_name <- trimws(input$custom_concept_name)
+      name_valid <- !is.null(concept_name) && concept_name != ""
+
+      # Show errors if validation fails
+      if (!vocab_valid) {
+        shinyjs::show("custom_vocabulary_id_error")
+      }
+      if (!name_valid) {
+        shinyjs::show("custom_concept_name_error")
+      }
+
+      # Return if any validation failed
+      if (!vocab_valid || !name_valid) {
+        return()
+      }
+
+      # Get current general concept
+      concept_id <- selected_concept_id()
+      if (is.null(concept_id)) return()
+
+      # Create custom concept code
+      concept_code <- trimws(input$custom_concept_code)
+      if (concept_code == "" || concept_code == "/") {
+        concept_code <- "/"
+      }
+
+      # Load or create custom_concepts
+      custom_concepts_path <- app_sys("extdata", "csv", "custom_concepts.csv")
+      if (file.exists(custom_concepts_path)) {
+        custom_concepts <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)
+      } else {
+        custom_concepts <- data.frame(
+          custom_concept_id = integer(),
+          general_concept_id = integer(),
+          vocabulary_id = character(),
+          concept_code = character(),
+          concept_name = character(),
+          omop_unit_concept_id = character(),
+          recommended = logical(),
+          stringsAsFactors = FALSE
+        )
+      }
+
+      # Generate new custom_concept_id
+      if (nrow(custom_concepts) > 0 && "custom_concept_id" %in% names(custom_concepts)) {
+        max_id <- max(custom_concepts$custom_concept_id, na.rm = TRUE)
+        new_id <- if (is.finite(max_id)) max_id + 1 else 1
+      } else {
+        new_id <- 1
+      }
+
+      # Add new custom concept
+      new_custom_concept <- data.frame(
+        custom_concept_id = new_id,
+        general_concept_id = concept_id,
+        vocabulary_id = vocabulary_id,
+        concept_code = concept_code,
+        concept_name = concept_name,
+        omop_unit_concept_id = "/",
+        recommended = FALSE,
+        stringsAsFactors = FALSE
+      )
+
+      custom_concepts <- dplyr::bind_rows(custom_concepts, new_custom_concept)
+
+      # Save custom_concepts
+      readr::write_csv(custom_concepts, custom_concepts_path)
+
+      # Trigger re-render
+      concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
+
+      # Close modal and reset form
+      shinyjs::runjs(sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")))
+      updateTextInput(session, "custom_vocabulary_id", value = "")
+      updateTextInput(session, "custom_concept_code", value = "")
+      updateTextInput(session, "custom_concept_name", value = "")
+      shinyjs::hide("custom_vocabulary_id_error")
+      shinyjs::hide("custom_concept_name_error")
+    }, ignoreInit = TRUE)
+    #
     # # Reset mapped concepts - re-enrich from recommended concepts
     # observe_event(input$reset_mapped_concepts, {
     #   if (!general_concept_detail_edit_mode()) return()

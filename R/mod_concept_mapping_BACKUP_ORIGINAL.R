@@ -1,78 +1,3 @@
-# MODULE STRUCTURE OVERVIEW ====
-#
-# This module manages concept mapping - aligning user-provided concepts
-# (custom concepts from CSV files) with standardized INDICATE dictionary concepts.
-#
-# UI STRUCTURE:
-#   ## UI - Main Layout
-#      ### Breadcrumb Navigation
-#      ### Dynamic Content Area (switches between views)
-#   ## UI - Modals
-#      ### Modal - Alignment Editor (2-page form: name/description → file upload/mapping)
-#      ### Modal - Concept Details Viewer
-#      ### Modal - ETL Comments Display
-#      ### Modal - Delete Confirmation Dialog
-#
-# SERVER STRUCTURE:
-#   ## 1) Server - Reactive Values & State
-#      ### Navigation State (current_view, mapping_view)
-#      ### Selection State (selected_alignment_id, selected_general_concept_id)
-#      ### Modal State (modal_page, modal_mode)
-#      ### Data Management (alignments_data, uploaded_alignment_data)
-#      ### Triggers (mappings_refresh_trigger)
-#
-#   ## 2) Server - Outputs & Rendering
-#      ### a) Navigation & Headers
-#         #### Breadcrumb Rendering
-#         #### Content Area Rendering (alignments list / mapping interface)
-#         #### General Concepts Header
-#      ### b) Table Outputs
-#         #### Alignments Table (main list view)
-#         #### Use Case Alignment Table
-#         #### Source Concepts Table
-#         #### General Concepts Table
-#         #### Realized Mappings Table
-#         #### Concept Mappings Table (bottom panel)
-#         #### Mapped Concepts Table
-#      ### c) Modal Renderings
-#         #### Concept Detail Modal Body
-#         #### ETL Comments Modal Body
-#         #### File Preview Table
-#         #### Column Mapping UI
-#
-#   ## 3) Server - Navigation & Events
-#      ### Tab Switching (summary/edit_mappings/evaluate_mappings)
-#      ### View Transitions (back buttons, navigation clicks)
-#      ### Row Selection Handlers (table clicks)
-#
-#   ## 4) Server - Alignment Management
-#      ### a) Add/Edit Alignment Modal
-#         #### Open Modal (add vs edit mode)
-#         #### Modal Page Navigation (next/back buttons)
-#         #### Form Validation
-#         #### Save Alignment
-#         #### Cancel/Close Modal
-#      ### b) Delete Alignment
-#         #### Delete Button Handler
-#         #### Confirmation Modal
-#         #### Execute Deletion
-#      ### c) File Upload & Processing
-#         #### File Upload Handler
-#         #### CSV Parsing & Preview
-#         #### Column Mapping Controls
-#         #### Data Validation
-#
-#   ## 5) Server - Concept Mapping Interface
-#      ### Source Concepts Display
-#      ### General Concepts Search & Selection
-#      ### Mapping Creation (add/remove mappings)
-#      ### Alignment Export
-#
-#   ## 6) Server - Helper Functions
-#      ### render_mapping_view() - Main mapping interface renderer
-#      ### render_mapped_concepts_view() - Mapped concepts display
-#      ### Utility functions for data processing
-
 #' Concept Mapping Module - UI
 #'
 #' @description UI function for the concept mapping module
@@ -145,7 +70,7 @@ mod_concept_mapping_ui <- function(id) {
             tags$div(
               style = "margin-bottom: 20px;",
               tags$label("Description", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
-              textAreaInput(
+              shiny::textAreaInput(
                 ns("alignment_description"),
                 label = NULL,
                 placeholder = "Enter description",
@@ -353,8 +278,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    ## 1) Server - Reactive Values & State ----
-    ### View & Selection State ----
     # Track current view and navigation state
     current_view <- reactiveVal("alignments")  # "alignments" or "mapping"
     selected_alignment_id <- reactiveVal(NULL)  # Track selected alignment for mapping
@@ -366,7 +289,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     concept_mappings_view <- reactiveVal("table")  # "table" or "comments" - for right panel when general concept is selected
     file_preview_data <- reactiveVal(NULL)  # Store file preview data
 
-    ### Data Management ----
     # Load existing alignments from database
     initial_alignments <- get_all_alignments()
 
@@ -376,15 +298,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     # Store uploaded file data for current alignment
     uploaded_alignment_data <- reactiveVal(NULL)
 
-    ### Triggers ----
     # Trigger to force refresh of completed mappings table
     mappings_refresh_trigger <- reactiveVal(0)
 
     # Track active mapping tab
     mapping_tab <- reactiveVal("summary")  # "summary", "edit_mappings", or "evaluate_mappings"
 
-    ## 2) Server - Navigation & Events ----
-    ### Tab Switching ----
     # Handle tab switching
     observe_event(input$switch_mapping_tab, {
       mapping_tab(input$switch_mapping_tab)
@@ -411,13 +330,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
     })
 
-    ## 3) Server - Outputs & Rendering ----
-    ### Breadcrumb Rendering ----
+    # Render breadcrumb navigation
     output$breadcrumb <- renderUI({
       if (current_view() == "alignments") {
         NULL
       } else if (current_view() == "mapping") {
-        if (is.null(selected_alignment_id())) return()
+        req(selected_alignment_id())
         alignment_name <- alignments_data() %>%
           dplyr::filter(alignment_id == selected_alignment_id()) %>%
           dplyr::pull(name)
@@ -457,7 +375,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
     })
 
-    ### Content Area Rendering ----
+    # Render main content area
     output$content_area <- renderUI({
       if (current_view() == "alignments") {
         render_alignments_view()
@@ -470,7 +388,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
     })
 
-    ### General Concepts Header Rendering ----
+    # Render General Concepts header with breadcrumb
     output$general_concepts_header <- renderUI({
       # Only show in mapping view with general view
       if (current_view() != "mapping" || mapping_view() != "general") return(NULL)
@@ -491,7 +409,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         )
       } else {
         # Selection: show breadcrumb
-        if (is.null(data())) return()
+        req(data())
 
         # Get the general concept name
         general_concepts <- data()$general_concepts
@@ -536,7 +454,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
     })
 
-    ### Helper Functions - View Renderers ----
+
     # View 1: Alignments management
     render_alignments_view <- function() {
       tags$div(
@@ -792,11 +710,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       )
     }
 
-    ### Tab Content Outputs ----
     # Render summary content
     output$summary_content <- renderUI({
-      if (is.null(selected_alignment_id())) return()
-      if (is.null(data())) return()
+      req(selected_alignment_id())
+      req(data())
 
       alignments <- alignments_data()
       alignment <- alignments %>%
@@ -922,9 +839,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Render use case alignment table
     output$use_case_alignment_table <- DT::renderDT({
-    ### Table Outputs ----
-      if (is.null(selected_alignment_id())) return()
-      if (is.null(data())) return()
+      req(selected_alignment_id())
+      req(data())
 
       alignments <- alignments_data()
       alignment <- alignments %>%
@@ -1057,8 +973,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     }, server = FALSE)
 
     # Handle navigation: back to alignments list
-
-    ## 4) Server - Navigation Handlers ----
     observe_event(input$back_to_alignments, {
       current_view("alignments")
       selected_alignment_id(NULL)
@@ -1130,8 +1044,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     })
 
     # Hide error message when user starts typing
-
-    ## 5) Server - Alignment Management ----
     observe_event(input$alignment_name, {
       if (!is.null(input$alignment_name) && input$alignment_name != "") {
         shinyjs::runjs(sprintf("$('#%s').hide();", ns("alignment_name_error")))
@@ -1141,7 +1053,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Handle add alignment button
     observe_event(input$add_alignment, {
-    ### Add/Edit Alignment Modal ----
 
       modal_mode("add")
       modal_page(1)
@@ -1186,7 +1097,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     # Handle delete alignment button
     observe_event(input$delete_alignment, {
       alignment_id <- input$delete_alignment
-    ### Delete Alignment ----
       alignment_to_delete(alignment_id)
 
       # Get alignment name for display
@@ -1205,7 +1115,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Handle confirmed deletion
     observe_event(input$confirm_delete_alignment, {
-      if (is.null(alignment_to_delete())) return()
+      req(alignment_to_delete())
 
       # Get alignment info before deletion to get file_id
       alignments <- alignments_data()
@@ -1244,7 +1154,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Render CSV options only for CSV files
     output$csv_options <- renderUI({
-      if (is.null(input$alignment_file)) return()
+      req(input$alignment_file)
       file_ext <- tools::file_ext(input$alignment_file$name)
 
       if (file_ext != "csv") {
@@ -1298,7 +1208,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Render column mapping wrapper (only shows when file is uploaded)
     output$column_mapping_wrapper <- renderUI({
-      if (is.null(input$alignment_file)) return()
+      req(input$alignment_file)
 
       tags$div(
         style = "background-color: #f8f9fa; border-radius: 4px;",
@@ -1312,7 +1222,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Render column mapping title only when file is uploaded
     output$column_mapping_title <- renderUI({
-      if (is.null(input$alignment_file)) return()
+      req(input$alignment_file)
       tags$div(
         style = "background-color: #fd7e14; color: white; padding: 10px 15px; font-weight: 600; font-size: 14px; border-radius: 4px 4px 0 0;",
         "Column Mapping"
@@ -1321,7 +1231,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Render column mapping controls based on uploaded file
     output$column_mapping_controls <- renderUI({
-      if (is.null(input$alignment_file)) return()
+      req(input$alignment_file)
 
       # Read file to get column names
       file_path <- input$alignment_file$datapath
@@ -1813,15 +1723,15 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Source Concepts table - load from CSV
     output$source_concepts_table <- DT::renderDT({
-      if (is.null(selected_alignment_id())) return()
-      if (mapping_view() != "general") return()  # Only load in general view
+      req(selected_alignment_id())
+      req(mapping_view() == "general")  # Only load in general view
 
       # Get the alignment data
       alignments <- alignments_data()
       alignment <- alignments %>%
         dplyr::filter(alignment_id == selected_alignment_id())
 
-      if (nrow(alignment) != 1) return()
+      req(nrow(alignment) == 1)
 
       file_id <- alignment$file_id[1]
 
@@ -1919,10 +1829,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     }, server = TRUE)
 
     output$general_concepts_table <- DT::renderDT({
-      if (is.null(data())) return()
+      req(data())
 
       # Only show when in general view
-      if (mapping_view() != "general") return()
+      req(mapping_view() == "general")
 
       general_concepts <- data()$general_concepts
 
@@ -1959,7 +1869,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     }, server = FALSE)
 
     output$realized_mappings_table <- DT::renderDT({
-      if (is.null(selected_alignment_id())) return()
+      req(selected_alignment_id())
 
       # Get alignment info
       alignments <- alignments_data()
@@ -2032,7 +1942,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
 
       # Enrich with general concept information
-      if (is.null(data())) return()
+      req(data())
       general_concepts <- data()$general_concepts
 
       # Join with general concepts to get names
@@ -2173,8 +2083,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Concept mappings table for general view (when a general concept is selected)
     output$concept_mappings_table <- DT::renderDT({
-      if (is.null(selected_general_concept_id())) return()
-      if (is.null(data())) return()
+      req(selected_general_concept_id())
+      req(data())
 
       # Check if OHDSI vocabularies are loaded
       vocab_data <- vocabularies()
@@ -2331,8 +2241,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Comments display for general concept
     output$comments_display <- renderUI({
-      if (is.null(selected_general_concept_id())) return()
-      if (is.null(data())) return()
+      req(selected_general_concept_id())
+      req(data())
 
       concept_id <- selected_general_concept_id()
       concept_info <- data()$general_concepts %>%
@@ -2365,9 +2275,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     })
 
     output$mapped_concepts_table <- DT::renderDT({
-      if (is.null(selected_general_concept_id())) return()
-      if (is.null(data())) return()
-      if (is.null(vocabularies())) return()
+      req(selected_general_concept_id())
+      req(data())
+      req(vocabularies())
 
       # Get mapped concepts for the selected general concept
       concept_mappings <- data()$concept_mappings %>%
@@ -2406,14 +2316,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Source concepts table for mapped view (copy of original)
     output$source_concepts_table_mapped <- DT::renderDT({
-      if (is.null(selected_alignment_id())) return()
+      req(selected_alignment_id())
 
       # Get the alignment data
       alignments <- alignments_data()
       alignment <- alignments %>%
         dplyr::filter(alignment_id == selected_alignment_id())
 
-      if (nrow(alignment) != 1) return()
+      req(nrow(alignment) == 1)
 
       file_id <- alignment$file_id[1]
 
@@ -2461,7 +2371,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Completed mappings table for mapped view (copy of original)
     output$realized_mappings_table_mapped <- DT::renderDT({
-      if (is.null(selected_alignment_id())) return()
+      req(selected_alignment_id())
 
       # Get alignment info
       alignments <- alignments_data()
@@ -2616,7 +2526,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           dplyr::select(Source, Target, Actions)
       } else {
         # Fallback: old CSV format
-        if (is.null(vocabularies())) return()
+        req(vocabularies())
         vocabs <- vocabularies()
 
         display_df <- mapped_rows %>%
@@ -2659,11 +2569,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
 
       # Get alignment info
-      if (is.null(selected_alignment_id())) return()
+      req(selected_alignment_id())
       alignments <- alignments_data()
       alignment <- alignments %>%
         dplyr::filter(alignment_id == selected_alignment_id())
-      if (nrow(alignment) != 1) return()
+      req(nrow(alignment) == 1)
 
       file_id <- alignment$file_id[1]
 
@@ -2685,8 +2595,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
 
       # Get mapped concept info
-      if (is.null(selected_general_concept_id())) return()
-      if (is.null(data())) return()
+      req(selected_general_concept_id())
+      req(data())
       concept_mappings <- data()$concept_mappings %>%
         dplyr::filter(general_concept_id == selected_general_concept_id())
 
@@ -2723,11 +2633,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       row_num <- input$remove_mapping
 
       # Get alignment info
-      if (is.null(selected_alignment_id())) return()
+      req(selected_alignment_id())
       alignments <- alignments_data()
       alignment <- alignments %>%
         dplyr::filter(alignment_id == selected_alignment_id())
-      if (nrow(alignment) != 1) return()
+      req(nrow(alignment) == 1)
 
       file_id <- alignment$file_id[1]
 
@@ -2913,7 +2823,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Skip initial trigger
       if (mappings_refresh_trigger() == 0) return()
 
-      if (is.null(selected_alignment_id())) return()
+      req(selected_alignment_id())
 
       # Reload Source Concepts table if in general view
       if (mapping_view() == "general") {
@@ -3160,14 +3070,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
 
       # Get alignment info
-      if (is.null(selected_alignment_id())) return()
+      req(selected_alignment_id())
 
       alignments <- alignments_data()
 
       alignment <- alignments %>%
         dplyr::filter(alignment_id == selected_alignment_id())
 
-      if (nrow(alignment) != 1) return()
+      req(nrow(alignment) == 1)
 
       file_id <- alignment$file_id[1]
 
@@ -3189,8 +3099,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
 
       # Get mapped concept info (need to reconstruct the same combined dataframe as in the renderDT)
-      if (is.null(selected_general_concept_id())) return()
-      if (is.null(data())) return()
+      req(selected_general_concept_id())
+      req(data())
 
       # Get OMOP concept mappings
       concept_mappings <- data()$concept_mappings %>%

@@ -1,3 +1,33 @@
+# MODULE STRUCTURE OVERVIEW ====
+#
+# This module provides development and debugging tools for the application
+#
+# UI STRUCTURE:
+#   ## UI - Main Layout
+#      ### Data Quality Tab
+#         #### Summary Cards (Missing Comments, Recommended Non-Standard)
+#         #### Detailed Tables (Switchable Tabs)
+#      ### R Console Tab
+#         #### Code Editor (ACE Editor with keyboard shortcuts)
+#         #### Results Panel
+#
+# SERVER STRUCTURE:
+#   ## 1) Server - Reactive Values & State
+#      ### Data Quality Tab State
+#      ### Code Execution State
+#
+#   ## 2) Server - Data Quality
+#      ### a) Data Quality Overview
+#         #### Summary Cards Rendering
+#         #### Tab Navigation
+#      ### b) Data Quality Tables
+#         #### Missing Comments Table
+#         #### Recommended Non-Standard Table
+#
+#   ## 3) Server - R Console
+#      ### Code Execution
+#      ### Results Display
+
 #' Development Tools Module - UI
 #'
 #' @description UI function for the development tools module
