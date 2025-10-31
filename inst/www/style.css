@@ -1000,7 +1000,7 @@ table.dataTable thead tr td .selectize-dropdown .option {
 
 .btn-toggle {
   padding: 6px 12px !important;
-  background: #28a745 !important;
+  background: #0f60af !important;
   color: white !important;
   border: none !important;
   border-radius: 4px !important;
@@ -1010,7 +1010,7 @@ table.dataTable thead tr td .selectize-dropdown .option {
 }
 
 .btn-toggle:hover {
-  background: #218838 !important;
+  background: #0d4f8f !important;
 }
 
 .btn-toggle.active {
