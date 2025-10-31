@@ -362,44 +362,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     mapping_tab <- reactiveVal("summary")  # "summary", "edit_mappings", or "evaluate_mappings"
 
     ## 2) Server - Navigation & Events ----
-    ### Tab Switching ----
-    # Observer 1: Update reactive value when input changes
-    observe_event(input$switch_mapping_tab, {
-      mapping_tab(input$switch_mapping_tab)
-    })
-
-    # Observer 2: Update UI when mapping_tab reactive value changes
-    observe_event(mapping_tab(), {
-      active_tab <- mapping_tab()
-
-      # Update tab button styling using shinyjs functions
-      shinyjs::removeCssClass(id = "tab_summary", class = "tab-btn-active")
-      shinyjs::removeCssClass(id = "tab_edit_mappings", class = "tab-btn-active")
-      shinyjs::removeCssClass(id = "tab_evaluate_mappings", class = "tab-btn-active")
-
-      if (active_tab == "summary") {
-        shinyjs::addCssClass(id = "tab_summary", class = "tab-btn-active")
-      } else if (active_tab == "edit_mappings") {
-        shinyjs::addCssClass(id = "tab_edit_mappings", class = "tab-btn-active")
-      } else if (active_tab == "evaluate_mappings") {
-        shinyjs::addCssClass(id = "tab_evaluate_mappings", class = "tab-btn-active")
-      }
-
-      # Show/hide tab content
-      if (active_tab == "summary") {
-        shinyjs::show("summary_tab_content")
-        shinyjs::hide("edit_mappings_tab_content")
-        shinyjs::hide("evaluate_mappings_tab_content")
-      } else if (active_tab == "edit_mappings") {
-        shinyjs::hide("summary_tab_content")
-        shinyjs::show("edit_mappings_tab_content")
-        shinyjs::hide("evaluate_mappings_tab_content")
-      } else if (active_tab == "evaluate_mappings") {
-        shinyjs::hide("summary_tab_content")
-        shinyjs::hide("edit_mappings_tab_content")
-        shinyjs::show("evaluate_mappings_tab_content")
-      }
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
     ## 3) Server - Outputs & Rendering ----
     ### Breadcrumb Rendering ----
@@ -562,52 +524,30 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     render_mapping_view <- function() {
       tags$div(
         class = "panel-container-full",
+        style = "display: flex; flex-direction: column; height: 100%;",
 
-        # Tabs header
-        tags$div(
-          class = "section-header section-header-with-tabs",
-          style = "margin-bottom: 15px;",
-          tags$div(
-            class = "section-tabs",
-            tags$button(
-              class = "tab-btn tab-btn-active",
-              id = ns("tab_summary"),
-              onclick = sprintf("Shiny.setInputValue('%s', 'summary', {priority: 'event'})", ns("switch_mapping_tab")),
-              "Summary"
-            ),
-            tags$button(
-              class = "tab-btn",
-              id = ns("tab_edit_mappings"),
-              onclick = sprintf("Shiny.setInputValue('%s', 'edit_mappings', {priority: 'event'})", ns("switch_mapping_tab")),
-              "Edit Mappings"
-            ),
-            tags$button(
-              class = "tab-btn",
-              id = ns("tab_evaluate_mappings"),
-              onclick = sprintf("Shiny.setInputValue('%s', 'evaluate_mappings', {priority: 'event'})", ns("switch_mapping_tab")),
-              "Evaluate Mappings"
+        tabsetPanel(
+          id = ns("mapping_tabs"),
+
+          # Summary tab
+          tabPanel(
+            "Summary",
+            value = "summary",
+            tags$div(
+              style = "margin-top: 20px;",
+              uiOutput(ns("summary_content"))
             )
-          )
-        ),
-
-        # Tab content
-        tags$div(
-          style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
-
-          # Summary tab content
-          tags$div(
-            id = ns("summary_tab_content"),
-            style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
-            uiOutput(ns("summary_content"))
           ),
 
-          # Edit mappings tab content
-          tags$div(
-            id = ns("edit_mappings_tab_content"),
-            style = "flex: 1; min-height: 0; display: none; flex-direction: column;",
+          # Edit mappings tab
+          tabPanel(
+            "Edit Mappings",
+            value = "edit_mappings",
+            tags$div(
+              style = "margin-top: 20px; height: calc(100vh - 185px); display: flex; flex-direction: column;",
             # Top section: Source concepts (left) and target concepts (right)
             tags$div(
-              style = "flex: 1; display: flex; gap: 15px; min-height: 0;",
+              style = "height: 70%; display: flex; gap: 15px; min-height: 0;",
               # Left: Source concepts to map
               tags$div(
                 class = "card-container card-container-flex",
@@ -668,7 +608,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             ),
             # Bottom section: Completed mappings
             tags$div(
-              class = "card-container panel-container-top",
+              class = "card-container",
+              style = "height: 30%; display: flex; flex-direction: column; margin-top: 15px;",
               tags$div(
                 class = "section-header",
 
@@ -686,17 +627,21 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 DT::DTOutput(ns("realized_mappings_table"))
               )
             )
+            )
           ),
 
-          # Evaluate mappings tab content
-          tags$div(
-            id = ns("evaluate_mappings_tab_content"),
-            style = "flex: 1; min-height: 0; display: none;",
+          # Evaluate mappings tab
+          tabPanel(
+            "Evaluate Mappings",
+            value = "evaluate_mappings",
             tags$div(
-              style = "padding: 40px; text-align: center; color: #999;",
-              tags$p(
-                style = "font-size: 18px;",
-                "Evaluate Mappings functionality coming soon..."
+              style = "margin-top: 20px;",
+              tags$div(
+                style = "padding: 40px; text-align: center; color: #999;",
+                tags$p(
+                  style = "font-size: 18px;",
+                  "Evaluate Mappings functionality coming soon..."
+                )
               )
             )
           )
@@ -708,9 +653,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     render_mapped_concepts_view <- function() {
       tags$div(
         class = "panel-container-full",
+        style = "display: flex; flex-direction: column; height: 100%;",
         # Top section: Source concepts (left) and mapped concepts (right)
         tags$div(
-          style = "flex: 1; display: flex; gap: 15px; min-height: 0;",
+          style = "height: 70%; display: flex; gap: 15px; min-height: 0;",
           # Left: Source concepts to map
           tags$div(
             class = "card-container card-container-flex",
@@ -761,7 +707,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         ),
         # Bottom section: Completed mappings
         tags$div(
-          class = "card-container panel-container-top",
+          class = "card-container",
+          style = "height: 30%; display: flex; flex-direction: column; margin-top: 15px;",
           tags$div(
             class = "section-header",
             
@@ -1889,7 +1836,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Select and reorder columns, excluding target columns
       standard_cols <- c("vocabulary_id", "concept_code", "concept_name", "statistical_summary")
       available_standard <- standard_cols[standard_cols %in% colnames(df)]
-      target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime")
+      target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime", "mapped_by_user_id", "mapping_id")
       other_cols <- setdiff(colnames(df), c(standard_cols, target_cols, "Mapped"))
       df_display <- df[, c(available_standard, other_cols, "Mapped"), drop = FALSE]
 
@@ -2469,7 +2416,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Reorder columns to show standard ones first
       standard_cols <- c("vocabulary_id", "concept_code", "concept_name", "statistical_summary")
       available_standard <- standard_cols[standard_cols %in% colnames(df)]
-      excluded_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime")
+      excluded_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime", "mapped_by_user_id", "mapping_id")
       other_cols <- setdiff(colnames(df), c(standard_cols, excluded_cols))
       df <- df[, c(available_standard, other_cols), drop = FALSE]
 
@@ -2989,7 +2936,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             # Select columns for display
             standard_cols <- c("vocabulary_id", "concept_code", "concept_name", "statistical_summary")
             available_standard <- standard_cols[standard_cols %in% colnames(df)]
-            target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime")
+            target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime", "mapped_by_user_id", "mapping_id")
             other_cols <- setdiff(colnames(df), c(standard_cols, target_cols, "Mapped"))
             df_display <- df[, c(available_standard, other_cols, "Mapped"), drop = FALSE]
 

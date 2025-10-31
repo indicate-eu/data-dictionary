@@ -6,11 +6,13 @@
 #   ## UI - Main Layout
 #      ### OHDSI Vocabularies Location - Browse and select vocabulary folder
 #      ### DuckDB Database Status - Display database status and controls
+#      ### OHDSI Relationships Mappings - Load/Reload mappings from vocabulary relationships
 #
 # SERVER STRUCTURE:
 #   ## 1) Server - Reactive Values & State
 #      ### Folder Browser State - Track current path, selection, sort order
 #      ### DuckDB Status - Processing status and messages
+#      ### OHDSI Mappings Status - Processing status and last sync time
 #
 #   ## 2) Server - Folder Browser
 #      ### Folder Path Display - Show selected folder path
@@ -22,6 +24,11 @@
 #      ### Database Creation - Create DuckDB from CSV files
 #      ### Database Recreation - Recreate existing database
 #      ### Status Display - Show database status and controls
+#
+#   ## 4) Server - OHDSI Relationships Mappings
+#      ### Load Mappings - Initial load from vocabulary relationships
+#      ### Reload Mappings - Reload while preserving recommended status
+#      ### Status Display - Show last sync time and controls
 
 # UI SECTION ====
 
@@ -105,6 +112,24 @@ mod_general_settings_ui <- function(id) {
                      )
                    ),
                    uiOutput(ns("duckdb_status"))
+                 ),
+
+                 # OHDSI Relationships Mappings
+                 tags$div(
+                   style = "margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #dee2e6;",
+                   tags$div(
+                     style = "margin-bottom: 10px;",
+                     tags$div(
+                       style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 5px;",
+                       tags$i(class = "fas fa-project-diagram", style = "margin-right: 8px; color: #0f60af;"),
+                       "OHDSI Relationships Mappings"
+                     ),
+                     tags$p(
+                       style = "margin: 0; font-size: 12px; color: #666;",
+                       "Load additional concept mappings from OHDSI vocabulary relationships. This enriches the dictionary with related concepts from standard vocabularies."
+                     )
+                   ),
+                   uiOutput(ns("ohdsi_mappings_status"))
                  )
              )
           )
@@ -146,6 +171,11 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     ### DuckDB Status ----
     duckdb_processing <- reactiveVal(FALSE)
     duckdb_message <- reactiveVal(NULL)
+
+    ### OHDSI Mappings Status ----
+    ohdsi_mappings_processing <- reactiveVal(FALSE)
+    ohdsi_mappings_message <- reactiveVal(NULL)
+    ohdsi_mappings_last_sync <- reactiveVal(NULL)
 
     # Load saved vocab folder from database on initialization
     observe({

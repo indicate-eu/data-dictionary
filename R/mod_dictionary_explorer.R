@@ -2382,7 +2382,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
     }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
-    #### Add Mapping to Selected Concept (OMOP Search Modal) ----
+    #### Add Mapping to Selected Concept ----
 
     # Observer to handle modal opening and force DataTable render
     observe_event(input$modal_opened, {
