@@ -31,6 +31,17 @@ app_server <- function(input, output, session) {
   # Track if data has been loaded
   data_loaded <- reactiveVal(FALSE)
 
+  # Track which modules have been initialized
+  modules_initialized <- reactiveValues(
+    dictionary_explorer = FALSE,
+    concept_mapping = FALSE,
+    use_cases = FALSE,
+    improvements = FALSE,
+    dev_tools = FALSE,
+    general_settings = FALSE,
+    users = FALSE
+  )
+
   # Show main app when user is authenticated and load data
   observe({
     user <- current_user()
@@ -65,9 +76,107 @@ app_server <- function(input, output, session) {
 
         data_loaded(TRUE)
       }
+
+      # Initialize dictionary_explorer module immediately after login (default page)
+      if (!modules_initialized$dictionary_explorer) {
+        mod_dictionary_explorer_server(
+          "dictionary_explorer",
+          data = data,
+          config = config,
+          vocabularies = reactive({ vocabularies() }),
+          vocab_loading_status = reactive({ vocab_loading_status() }),
+          current_user = current_user,
+          log_level = log_level
+        )
+        modules_initialized$dictionary_explorer <- TRUE
+      }
     } else {
       shinyjs::show("login_page")
       shinyjs::hide("main_app")
+    }
+  })
+
+  # Observe route changes and initialize modules on demand
+  observe({
+    # Get current route from shiny.router
+    current_route <- session$clientData$url_hash
+
+    # Skip if user not authenticated
+    if (is.null(current_user())) return()
+
+    # Initialize modules based on route
+    if (!is.null(current_route)) {
+      if (grepl("mapping", current_route) && !modules_initialized$concept_mapping) {
+        mod_concept_mapping_server(
+          "concept_mapping",
+          data = data,
+          config = config,
+          vocabularies = reactive({ vocabularies() }),
+          current_user = current_user,
+          log_level = log_level
+        )
+        modules_initialized$concept_mapping <- TRUE
+      }
+
+      if (grepl("use-cases", current_route) && !modules_initialized$use_cases) {
+        mod_use_cases_server(
+          "use_cases",
+          data = data,
+          vocabularies = reactive({ vocabularies() }),
+          current_user = current_user,
+          log_level = log_level
+        )
+        modules_initialized$use_cases <- TRUE
+      }
+
+      if (grepl("improvements", current_route) && !modules_initialized$improvements) {
+        mod_improvements_server(
+          "improvements",
+          data = data,
+          config = config,
+          current_user = current_user,
+          log_level = log_level
+        )
+        modules_initialized$improvements <- TRUE
+      }
+
+      if (grepl("dev-tools", current_route) && !modules_initialized$dev_tools) {
+        mod_dev_tools_server(
+          "dev_tools",
+          data = data,
+          vocabularies = reactive({ vocabularies() }),
+          log_level = log_level
+        )
+        modules_initialized$dev_tools <- TRUE
+      }
+
+      if (grepl("general-settings", current_route) && !modules_initialized$general_settings) {
+        mod_general_settings_server(
+          "general_settings",
+          config = config,
+          vocabularies = reactive({ vocabularies() }),
+          reset_vocabularies = function() {
+            vocabularies(NULL)
+            vocab_loading_status("not_loaded")
+          },
+          set_vocabularies = function(vocab_data) {
+            vocabularies(vocab_data)
+            vocab_loading_status("loaded")
+          },
+          current_user = current_user,
+          log_level = log_level
+        )
+        modules_initialized$general_settings <- TRUE
+      }
+
+      if (grepl("users", current_route) && !modules_initialized$users) {
+        mod_users_server(
+          "users",
+          current_user = current_user,
+          log_level = log_level
+        )
+        modules_initialized$users <- TRUE
+      }
     }
   })
 
@@ -129,7 +238,8 @@ app_server <- function(input, output, session) {
   observeEvent(input$load_vocab_data, {
     vocab_folder <- get_vocab_folder()
 
-    if (is.null(vocab_folder) || vocab_folder == "" || !dir.exists(vocab_folder)) {
+    if (is.null(vocab_folder) || vocab_folder == "" ||
+        !dir.exists(vocab_folder)) {
       vocab_loading_status("error")
       return()
     }
@@ -146,69 +256,4 @@ app_server <- function(input, output, session) {
       vocab_loading_status("error")
     }
   })
-
-  # Call module servers
-  mod_dictionary_explorer_server(
-    "dictionary_explorer",
-    data = data,
-    config = config,
-    vocabularies = reactive({ vocabularies() }),
-    vocab_loading_status = reactive({ vocab_loading_status() }),
-    current_user = current_user,
-    log_level = log_level
-  )
-
-  mod_concept_mapping_server(
-    "concept_mapping",
-    data = data,
-    config = config,
-    vocabularies = reactive({ vocabularies() }),
-    current_user = current_user,
-    log_level = log_level
-  )
-
-  mod_use_cases_server(
-    "use_cases",
-    data = data,
-    vocabularies = reactive({ vocabularies() }),
-    current_user = current_user,
-    log_level = log_level
-  )
-
-  mod_improvements_server(
-    "improvements",
-    data = data,
-    config = config,
-    current_user = current_user,
-    log_level = log_level
-  )
-
-  mod_dev_tools_server(
-    "dev_tools",
-    data = data,
-    vocabularies = reactive({ vocabularies() }),
-    log_level = log_level
-  )
-
-  mod_general_settings_server(
-    "general_settings",
-    config = config,
-    vocabularies = reactive({ vocabularies() }),
-    reset_vocabularies = function() {
-      vocabularies(NULL)
-      vocab_loading_status("not_loaded")
-    },
-    set_vocabularies = function(vocab_data) {
-      vocabularies(vocab_data)
-      vocab_loading_status("loaded")
-    },
-    current_user = current_user,
-    log_level = log_level
-  )
-
-  mod_users_server(
-    "users",
-    current_user = current_user,
-    log_level = log_level
-  )
 }
