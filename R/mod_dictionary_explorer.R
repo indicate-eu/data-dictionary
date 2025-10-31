@@ -1,3 +1,55 @@
+# MODULE STRUCTURE OVERVIEW ====
+#
+# This module provides the Dictionary Explorer interface with two main views:
+# - General Concepts Page: Browse and manage general concepts
+# - Mapped Concepts Page: View and edit concept mappings
+#
+# UI STRUCTURE:
+#   ## UI - Main Layout
+#      ### Breadcrumb & Action Buttons Container - Navigation breadcrumbs and action buttons
+#      ### Content Area (Tables & Containers) - Main content panels for both views
+#   ## UI - Modals
+#      ### Modal - Add New General Concept - Form to create new general concepts
+#      ### Modal - Add Mapping to General Concept - Search and add concepts
+#      ### Modal - Concept Details Viewer - Display detailed concept information
+#      ### Modal - Hierarchy Graph Fullscreen - Fullscreen hierarchy visualization
+#
+# SERVER STRUCTURE:
+#   ## 1) Server - Reactive Values & State
+#      ### View & Selection State - Track current view and selected concepts
+#      ### Edit Mode State - Manage edit/view mode and edited data
+#      ### Data Management - Local data and configuration
+#      ### Cascade Triggers - Reactive triggers for cascade pattern
+#
+#   ## 2) Server - Navigation & Events
+#      ### Trigger Updates - Cascade observers that propagate state changes
+#      ### Buttons visibility - Dynamic button visibility based on user/view/mode
+#      ### Vocabulary Loading Status - Track OHDSI vocabulary loading
+#      ### Breadcrumb Rendering - Dynamic breadcrumb navigation
+#      ### Category Filtering - Filter general concepts by category badges
+#      ### View Switching (List/Detail/History) - Handle navigation between views
+#
+#   ## 3) Server - General Concepts Page
+#      ### General Concepts Table Rendering - Display general concepts table
+#      ### List Edit Mode - Edit general concepts (recommended, comments, etc.)
+#      ### Delete Concept - Remove general concepts
+#      ### Add New Concept - Create new general concepts
+#
+#   ## 4) Server - General Concept Detail Page
+#      #### Save Updates - Save changes to mappings and concept details
+#      ### a) Mapped Concepts (Top-Left Panel)
+#         #### Mapped Concepts Table Rendering - Display concept mappings
+#         #### Add Mapping to Selected Concept - Add new mappings
+#      ### b) Selected Mapping Details (Top-Right Panel)
+#         #### Selected Mapping Display - Show selected mapping details
+#      ### c) ETL Guidance & Comments (Bottom-Left Panel)
+#         #### Comments & Statistical Summary Display - Display/edit comments and stats
+#      ### d) Concept Relationships & Hierarchy (Bottom-Right Panel)
+#         #### Tab Switching - Switch between Related/Hierarchy/Synonyms tabs
+#         #### Relationship Tab Outputs - Render relationship tables and graphs
+#         #### Hierarchy Graph Fullscreen Modal - Fullscreen hierarchy modal
+#         #### Concept Details Modal (Double-click on Related/Hierarchy) - Quick concept details
+
 # UI SECTION ====
 
 #' Dictionary Explorer Module - UI
@@ -27,41 +79,41 @@ mod_dictionary_explorer_ui <- function(id) {
               # Action buttons
               tags$div(
                 style = "display: flex; gap: 10px;",
-                # List view normal buttons
+                # General Concepts Page normal buttons
                 shinyjs::hidden(
                   tags$div(
-                    id = ns("list_normal_buttons"),
+                    id = ns("general_concepts_normal_buttons"),
                     style = "display: flex; gap: 10px;",
-                    actionButton(ns("show_add_concept_modal"), "Add concept", class = "btn-success-custom"),
-                    actionButton(ns("show_list_history"), "History", class = "btn-secondary-custom"),
-                    actionButton(ns("list_edit_page"), "Edit page", class = "btn-primary-custom")
+                    actionButton(ns("show_general_concepts_add_modal"), "Add concept", class = "btn-success-custom"),
+                    actionButton(ns("general_concepts_show_history"), "History", class = "btn-secondary-custom"),
+                    actionButton(ns("general_concepts_edit_page"), "Edit page", class = "btn-primary-custom")
                   )
                 ),
-                # List view edit buttons
+                # General Concepts Page edit buttons
                 shinyjs::hidden(
                   tags$div(
-                    id = ns("list_edit_buttons"),
+                    id = ns("general_concepts_edit_buttons"),
                     style = "display: flex; gap: 10px;",
-                    actionButton(ns("list_cancel"), "Cancel", class = "btn-secondary-custom"),
-                    actionButton(ns("list_save_updates"), "Save updates", class = "btn-success-custom")
+                    actionButton(ns("general_concepts_cancel_edit"), "Cancel", class = "btn-secondary-custom"),
+                    actionButton(ns("general_concepts_save_updates"), "Save updates", class = "btn-success-custom")
                   )
                 ),
-                # Detail view normal buttons
+                # General Concept Detail Page normal buttons
                 shinyjs::hidden(
                   tags$div(
-                    id = ns("detail_action_buttons"),
+                    id = ns("general_concept_detail_action_buttons"),
                     style = "display: flex; gap: 10px;",
-                    actionButton(ns("show_history"), "History", class = "btn-secondary-custom"),
-                    actionButton(ns("edit_page"), "Edit page", class = "btn-toggle")
+                    actionButton(ns("general_concept_detail_show_history"), "History", class = "btn-secondary-custom"),
+                    actionButton(ns("general_concept_detail_edit_page"), "Edit page", class = "btn-toggle")
                   )
                 ),
-                # Detail view edit buttons
+                # General Concept Detail Page edit buttons
                 shinyjs::hidden(
                   tags$div(
-                    id = ns("detail_edit_buttons"),
+                    id = ns("general_concept_detail_edit_buttons"),
                     style = "display: flex; gap: 10px;",
-                    actionButton(ns("cancel_edit"), "Cancel", class = "btn-cancel"),
-                    actionButton(ns("save_updates"), "Save updates", class = "btn-toggle")
+                    actionButton(ns("general_concept_detail_cancel_edit"), "Cancel", class = "btn-cancel"),
+                    actionButton(ns("general_concept_detail_save_updates"), "Save updates", class = "btn-toggle")
                   )
                 ),
                 # Back buttons (history views)
@@ -78,7 +130,7 @@ mod_dictionary_explorer_ui <- function(id) {
 
             ### Content Area (Tables & Containers) ----
             tagList(
-              # General Concepts table container
+              #### General Concepts container ----
               tags$div(
                 id = ns("general_concepts_container"),
                 class = "table-container",
@@ -139,10 +191,10 @@ mod_dictionary_explorer_ui <- function(id) {
                 DT::DTOutput(ns("general_concepts_table"))
               ),
 
-              # Concept details container
+              #### General Concept Detail Page Container ----
               shinyjs::hidden(
                 tags$div(
-                  id = ns("concept_details_container"),
+                  id = ns("general_concept_detail_container"),
                   tags$div(
                     class = "quadrant-layout",
                     # Top section: Mapped Concepts and Selected Concept Details
@@ -196,7 +248,7 @@ mod_dictionary_explorer_ui <- function(id) {
                         tags$div(
                           class = "quadrant-content",
                           shinycssloaders::withSpinner(
-                            uiOutput(ns("concept_details_display")),
+                            uiOutput(ns("selected_mapping_details")),
                             type = 4,
                             color = "#0f60af",
                             size = 0.5
@@ -296,19 +348,19 @@ mod_dictionary_explorer_ui <- function(id) {
                 )
               ),
 
-              # History container for individual concept
+              # History container for General Concept Detail Page
               shinyjs::hidden(
                 tags$div(
-                  id = ns("history_container"),
-                  uiOutput(ns("history_ui"))
+                  id = ns("general_concept_detail_history_container"),
+                  uiOutput(ns("general_concept_detail_history_ui"))
                 )
               ),
 
-              # List history container for all concepts
+              # History container for General Concepts Page
               shinyjs::hidden(
                 tags$div(
-                  id = ns("list_history_container"),
-                  uiOutput(ns("list_history_ui"))
+                  id = ns("general_concepts_history_container"),
+                  uiOutput(ns("general_concepts_history_ui"))
                 )
               )
             )
@@ -316,6 +368,262 @@ mod_dictionary_explorer_ui <- function(id) {
     ),
 
     ## UI - Modals ----
+    
+    ### Modal - Add New General Concept ----
+    tags$div(
+      id = ns("general_concepts_add_modal"),
+      class = "modal-overlay",
+      style = "display: none;",
+      onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("general_concepts_add_modal")),
+      tags$div(
+        class = "modal-content",
+        style = "max-width: 600px;",
+        tags$div(
+          class = "modal-header",
+          tags$h3("Add New Concept"),
+          tags$button(
+            class = "modal-close",
+            onclick = sprintf("$('#%s').hide();", ns("general_concepts_add_modal")),
+            "×"
+          )
+        ),
+        tags$div(
+          class = "modal-body",
+          style = "padding: 20px;",
+          tags$div(
+            id = ns("general_concepts_new_name_group"),
+            style = "margin-bottom: 20px;",
+            tags$label(
+              "General Concept Name",
+              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+            ),
+            shiny::textInput(
+              ns("general_concepts_new_name"),
+              label = NULL,
+              placeholder = "Enter concept name",
+              width = "100%"
+            )
+          ),
+          tags$div(
+            id = ns("general_concepts_new_category_group"),
+            style = "margin-bottom: 20px;",
+            tags$label(
+              "Category",
+              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+            ),
+            tags$div(
+              style = "display: flex; gap: 10px; align-items: flex-start;",
+              tags$div(
+                id = ns("category_select_container"),
+                style = "flex: 1;",
+                selectizeInput(
+                  ns("general_concepts_new_category"),
+                  label = NULL,
+                  choices = character(0),
+                  selected = character(0),
+                  options = list(
+                    placeholder = "Select category..."
+                  ),
+                  width = "100%"
+                )
+              ),
+              tags$div(
+                id = ns("category_text_container"),
+                style = "flex: 1; display: none;",
+                shiny::textInput(
+                  ns("general_concepts_new_category_text"),
+                  label = NULL,
+                  placeholder = "Enter new category",
+                  width = "100%"
+                )
+              ),
+              tags$button(
+                id = ns("general_concepts_toggle_category_mode"),
+                class = "btn-toggle",
+                onclick = sprintf("
+                  var selectContainer = document.getElementById('%s');
+                  var textContainer = document.getElementById('%s');
+                  var btn = document.getElementById('%s');
+                  if (selectContainer.style.display === 'none') {
+                    selectContainer.style.display = 'block';
+                    textContainer.style.display = 'none';
+                    btn.innerHTML = '+';
+                    btn.classList.remove('active');
+                  } else {
+                    selectContainer.style.display = 'none';
+                    textContainer.style.display = 'block';
+                    btn.innerHTML = '×';
+                    btn.classList.add('active');
+                  }
+                ", ns("category_select_container"), ns("category_text_container"), ns("general_concepts_toggle_category_mode")),
+                "+"
+              )
+            )
+          ),
+          tags$div(
+            id = ns("general_concepts_new_subcategory_group"),
+            style = "margin-bottom: 20px;",
+            tags$label(
+              "Subcategory",
+              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+            ),
+            tags$div(
+              style = "display: flex; gap: 10px; align-items: flex-start;",
+              tags$div(
+                id = ns("subcategory_select_container"),
+                style = "flex: 1;",
+                selectizeInput(
+                  ns("general_concepts_new_subcategory"),
+                  label = NULL,
+                  choices = character(0),
+                  selected = character(0),
+                  options = list(
+                    placeholder = "First select a category..."
+                  ),
+                  width = "100%"
+                )
+              ),
+              tags$div(
+                id = ns("subcategory_text_container"),
+                style = "flex: 1; display: none;",
+                shiny::textInput(
+                  ns("general_concepts_new_subcategory_text"),
+                  label = NULL,
+                  placeholder = "Enter new subcategory",
+                  width = "100%"
+                )
+              ),
+              tags$button(
+                id = ns("general_concepts_toggle_subcategory_mode"),
+                class = "btn-toggle",
+                onclick = sprintf("
+                  var selectContainer = document.getElementById('%s');
+                  var textContainer = document.getElementById('%s');
+                  var btn = document.getElementById('%s');
+                  if (selectContainer.style.display === 'none') {
+                    selectContainer.style.display = 'block';
+                    textContainer.style.display = 'none';
+                    btn.innerHTML = '+';
+                    btn.classList.remove('active');
+                  } else {
+                    selectContainer.style.display = 'none';
+                    textContainer.style.display = 'block';
+                    btn.innerHTML = '×';
+                    btn.classList.add('active');
+                  }
+                ", ns("subcategory_select_container"), ns("subcategory_text_container"), ns("general_concepts_toggle_subcategory_mode")),
+                "+"
+              )
+            )
+          ),
+          tags$div(
+            style = "display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #dee2e6;",
+            tags$button(
+              class = "btn btn-secondary btn-secondary-custom",
+              onclick = sprintf("$('#%s').hide();", ns("general_concepts_add_modal")),
+              "Cancel"
+            ),
+            actionButton(
+              ns("general_concepts_add_new"),
+              "Add Concept",
+              class = "btn-primary-custom"
+            )
+          )
+        )
+      )
+    ),
+    
+    
+    
+    ### Modal - Add Mapping to General Concept ----
+    tags$div(
+      id = ns("mapped_concepts_add_modal"),
+      style = "display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.5); z-index: 9999;",
+      onclick = sprintf("if (event.target === this) { $('#%s').css('display', 'none'); }", ns("mapped_concepts_add_modal")),
+      tags$div(
+        style = "position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95vw; height: 95vh; background: white; border-radius: 8px; display: flex; flex-direction: column;",
+        onclick = "event.stopPropagation();",
+        
+        # Header
+        tags$div(
+          style = "padding: 20px; border-bottom: 1px solid #ddd; flex-shrink: 0; background: #f8f9fa;",
+          tags$h3("Add Concept to Mapping", style = "margin: 0; display: inline-block;"),
+          tags$button(
+            style = "float: right; background: none; border: none; font-size: 28px; cursor: pointer;",
+            onclick = sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")),
+            "×"
+          )
+        ),
+        
+        # Body
+        tags$div(
+          style = "flex: 1; min-height: 0; padding: 20px; display: flex; flex-direction: column; gap: 15px;",
+          
+          # Search Concepts section (top half)
+          tags$div(
+            style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
+            tags$div(
+              style = "flex: 1; min-height: 0; overflow: auto;",
+              shinycssloaders::withSpinner(
+                DT::DTOutput(ns("mapped_concepts_add_omop_table")),
+                type = 4,
+                color = "#0f60af"
+              )
+            )
+          ),
+          
+          # Bottom section: Concept Details (left) and Descendants (right)
+          tags$div(
+            style = "flex: 1; min-height: 0; display: flex; gap: 15px;",
+            
+            # Concept Details (left)
+            tags$div(
+              style = "flex: 1; min-height: 0; display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 4px; padding: 15px; background: white;",
+              tags$h5("Selected Concept Details", style = "margin-top: 0; margin-bottom: 10px;"),
+              tags$div(
+                style = "flex: 1; min-height: 0; overflow: auto;",
+                uiOutput(ns("mapped_concepts_add_concept_details"))
+              )
+            ),
+            
+            # Descendants (right)
+            tags$div(
+              style = "flex: 1; min-height: 0; display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 4px; padding: 15px; background: white;",
+              tags$h5("Descendants", style = "margin-top: 0; margin-bottom: 10px;"),
+              tags$div(
+                style = "flex: 1; min-height: 0; overflow: hidden;",
+                DT::DTOutput(ns("mapped_concepts_add_descendants_table"))
+              )
+            )
+          ),
+          
+          # Bottom buttons
+          tags$div(
+            style = "display: flex; justify-content: flex-end; align-items: center; gap: 15px; flex-shrink: 0;",
+            tags$div(
+              style = "margin-bottom: 0;",
+              shiny::checkboxInput(
+                ns("mapped_concepts_add_include_descendants"),
+                "Include descendants",
+                value = FALSE,
+                width = NULL
+              )
+            ),
+            tags$button(
+              class = "btn btn-default",
+              onclick = sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")),
+              "Cancel"
+            ),
+            shiny::actionButton(
+              ns("mapped_concepts_add_selected"),
+              "Add Concept",
+              class = "btn btn-success"
+            )
+          )
+        )
+      )
+    ),
+    
     ### Modal - Concept Details Viewer ----
     tags$div(
       id = ns("concept_modal"),
@@ -336,170 +644,6 @@ mod_dictionary_explorer_ui <- function(id) {
         tags$div(
           class = "modal-body",
           uiOutput(ns("concept_modal_body"))
-        )
-      )
-    ),
-
-    ### Modal - Add New Concept ----
-    tags$div(
-      id = ns("add_concept_modal"),
-      class = "modal-overlay",
-      style = "display: none;",
-      onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("add_concept_modal")),
-      tags$div(
-        class = "modal-content",
-        style = "max-width: 600px;",
-        tags$div(
-          class = "modal-header",
-          tags$h3("Add New Concept"),
-          tags$button(
-            class = "modal-close",
-            onclick = sprintf("$('#%s').hide();", ns("add_concept_modal")),
-            "×"
-          )
-        ),
-        tags$div(
-          class = "modal-body",
-          style = "padding: 20px;",
-          tags$div(
-            id = ns("new_concept_name_group"),
-            style = "margin-bottom: 20px;",
-            tags$label(
-              "General Concept Name",
-              style = "display: block; font-weight: 600; margin-bottom: 8px;"
-            ),
-            shiny::textInput(
-              ns("new_concept_name"),
-              label = NULL,
-              placeholder = "Enter concept name",
-              width = "100%"
-            )
-          ),
-          tags$div(
-            id = ns("new_concept_category_group"),
-            style = "margin-bottom: 20px;",
-            tags$label(
-              "Category",
-              style = "display: block; font-weight: 600; margin-bottom: 8px;"
-            ),
-            tags$div(
-              style = "display: flex; gap: 10px; align-items: flex-start;",
-              tags$div(
-                id = ns("category_select_container"),
-                style = "flex: 1;",
-                selectizeInput(
-                  ns("new_concept_category"),
-                  label = NULL,
-                  choices = character(0),
-                  selected = character(0),
-                  options = list(
-                    placeholder = "Select category..."
-                  ),
-                  width = "100%"
-                )
-              ),
-              tags$div(
-                id = ns("category_text_container"),
-                style = "flex: 1; display: none;",
-                shiny::textInput(
-                  ns("new_concept_category_text"),
-                  label = NULL,
-                  placeholder = "Enter new category",
-                  width = "100%"
-                )
-              ),
-              tags$button(
-                id = ns("toggle_category_mode"),
-                class = "btn-toggle",
-                onclick = sprintf("
-                  var selectContainer = document.getElementById('%s');
-                  var textContainer = document.getElementById('%s');
-                  var btn = document.getElementById('%s');
-                  if (selectContainer.style.display === 'none') {
-                    selectContainer.style.display = 'block';
-                    textContainer.style.display = 'none';
-                    btn.innerHTML = '+';
-                    btn.classList.remove('active');
-                  } else {
-                    selectContainer.style.display = 'none';
-                    textContainer.style.display = 'block';
-                    btn.innerHTML = '×';
-                    btn.classList.add('active');
-                  }
-                ", ns("category_select_container"), ns("category_text_container"), ns("toggle_category_mode")),
-                "+"
-              )
-            )
-          ),
-          tags$div(
-            id = ns("new_concept_subcategory_group"),
-            style = "margin-bottom: 20px;",
-            tags$label(
-              "Subcategory",
-              style = "display: block; font-weight: 600; margin-bottom: 8px;"
-            ),
-            tags$div(
-              style = "display: flex; gap: 10px; align-items: flex-start;",
-              tags$div(
-                id = ns("subcategory_select_container"),
-                style = "flex: 1;",
-                selectizeInput(
-                  ns("new_concept_subcategory"),
-                  label = NULL,
-                  choices = character(0),
-                  selected = character(0),
-                  options = list(
-                    placeholder = "First select a category..."
-                  ),
-                  width = "100%"
-                )
-              ),
-              tags$div(
-                id = ns("subcategory_text_container"),
-                style = "flex: 1; display: none;",
-                shiny::textInput(
-                  ns("new_concept_subcategory_text"),
-                  label = NULL,
-                  placeholder = "Enter new subcategory",
-                  width = "100%"
-                )
-              ),
-              tags$button(
-                id = ns("toggle_subcategory_mode"),
-                class = "btn-toggle",
-                onclick = sprintf("
-                  var selectContainer = document.getElementById('%s');
-                  var textContainer = document.getElementById('%s');
-                  var btn = document.getElementById('%s');
-                  if (selectContainer.style.display === 'none') {
-                    selectContainer.style.display = 'block';
-                    textContainer.style.display = 'none';
-                    btn.innerHTML = '+';
-                    btn.classList.remove('active');
-                  } else {
-                    selectContainer.style.display = 'none';
-                    textContainer.style.display = 'block';
-                    btn.innerHTML = '×';
-                    btn.classList.add('active');
-                  }
-                ", ns("subcategory_select_container"), ns("subcategory_text_container"), ns("toggle_subcategory_mode")),
-                "+"
-              )
-            )
-          ),
-          tags$div(
-            style = "display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #dee2e6;",
-            tags$button(
-              class = "btn btn-secondary btn-secondary-custom",
-              onclick = sprintf("$('#%s').hide();", ns("add_concept_modal")),
-              "Cancel"
-            ),
-            actionButton(
-              ns("add_new_concept"),
-              "Add Concept",
-              class = "btn-primary-custom"
-            )
-          )
         )
       )
     ),
@@ -530,95 +674,6 @@ mod_dictionary_explorer_ui <- function(id) {
         tags$div(
           style = "flex: 1; overflow: hidden; padding: 20px;",
           visNetwork::visNetworkOutput(ns("hierarchy_graph_modal_content"), height = "100%", width = "100%")
-        )
-      )
-    ),
-
-    ### Modal - Add Concept to Mapping (OMOP Search) ----
-    tags$div(
-      id = ns("add_concept_to_mapping_modal"),
-      style = "display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.5); z-index: 9999;",
-      onclick = sprintf("if (event.target === this) { $('#%s').css('display', 'none'); }", ns("add_concept_to_mapping_modal")),
-      tags$div(
-        style = "position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95vw; height: 95vh; background: white; border-radius: 8px; display: flex; flex-direction: column;",
-        onclick = "event.stopPropagation();",
-
-        # Header
-        tags$div(
-          style = "padding: 20px; border-bottom: 1px solid #ddd; flex-shrink: 0; background: #f8f9fa;",
-          tags$h3("Add Concept to Mapping", style = "margin: 0; display: inline-block;"),
-          tags$button(
-            style = "float: right; background: none; border: none; font-size: 28px; cursor: pointer;",
-            onclick = sprintf("$('#%s').css('display', 'none');", ns("add_concept_to_mapping_modal")),
-            "×"
-          )
-        ),
-
-        # Body
-        tags$div(
-          style = "flex: 1; min-height: 0; padding: 20px; display: flex; flex-direction: column; gap: 15px;",
-
-          # Search OMOP Concepts section (top half)
-          tags$div(
-            style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
-            tags$div(
-              style = "flex: 1; min-height: 0; overflow: auto;",
-              shinycssloaders::withSpinner(
-                DT::DTOutput(ns("omop_concepts_table")),
-                type = 4,
-                color = "#0f60af"
-              )
-            )
-          ),
-
-          # Bottom section: Concept Details (left) and Descendants (right)
-          tags$div(
-            style = "flex: 1; min-height: 0; display: flex; gap: 15px;",
-
-            # Concept Details (left)
-            tags$div(
-              style = "flex: 1; min-height: 0; display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 4px; padding: 15px; background: white;",
-              tags$h5("Selected Concept Details", style = "margin-top: 0; margin-bottom: 10px;"),
-              tags$div(
-                style = "flex: 1; min-height: 0; overflow: auto;",
-                uiOutput(ns("add_modal_concept_details"))
-              )
-            ),
-
-            # Descendants (right)
-            tags$div(
-              style = "flex: 1; min-height: 0; display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 4px; padding: 15px; background: white;",
-              tags$h5("Descendants", style = "margin-top: 0; margin-bottom: 10px;"),
-              tags$div(
-                style = "flex: 1; min-height: 0; overflow: hidden;",
-                DT::DTOutput(ns("add_modal_descendants_table"))
-              )
-            )
-          ),
-
-          # Bottom buttons
-          tags$div(
-            style = "display: flex; justify-content: flex-end; align-items: center; gap: 15px; flex-shrink: 0;",
-            tags$div(
-              style = "margin-bottom: 0;",
-              shiny::checkboxInput(
-                ns("add_modal_include_descendants"),
-                "Include descendants",
-                value = FALSE,
-                width = NULL
-              )
-            ),
-            tags$button(
-              class = "btn btn-default",
-              onclick = sprintf("$('#%s').css('display', 'none');", ns("add_concept_to_mapping_modal")),
-              "Cancel"
-            ),
-            shiny::actionButton(
-              ns("add_selected_concept"),
-              "Add Concept",
-              class = "btn btn-success"
-            )
-          )
         )
       )
     )
@@ -665,9 +720,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     selected_categories <- reactiveVal(character(0))  # Track selected category filters
 
     ### Edit Mode State ----
-    edit_mode <- reactiveVal(FALSE)  # Track edit mode state for detail view
+    general_concept_detail_edit_mode <- reactiveVal(FALSE)  # Track edit mode for General Concept Detail Page
     saved_table_page <- reactiveVal(0)  # Track datatable page for edit mode restoration
-    list_edit_mode <- reactiveVal(FALSE)  # Track edit mode state for list view
+    general_concepts_edit_mode <- reactiveVal(FALSE)  # Track edit mode for General Concepts Page
     saved_table_search <- reactiveVal(NULL)  # Track datatable search state for edit mode
     edited_recommended <- reactiveVal(list())  # Store recommended changes by omop_concept_id
     deleted_concepts <- reactiveVal(list())  # Store deleted concept IDs by general_concept_id
@@ -685,8 +740,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     # Primary state triggers
     view_trigger <- reactiveVal(0)
     concept_trigger <- reactiveVal(0)
-    edit_mode_trigger <- reactiveVal(0)
-    list_edit_mode_trigger <- reactiveVal(0)
+    general_concept_detail_edit_mode_trigger <- reactiveVal(0)
+    general_concepts_edit_mode_trigger <- reactiveVal(0)
     comments_tab_trigger <- reactiveVal(0)
     local_data_trigger <- reactiveVal(0)
     mapped_concept_trigger <- reactiveVal(0)
@@ -700,7 +755,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     general_concepts_table_trigger <- reactiveVal(0)
     comments_display_trigger <- reactiveVal(0)
     concept_mappings_table_trigger <- reactiveVal(0)
-    concept_details_display_trigger <- reactiveVal(0)
+    selected_mapping_details_trigger <- reactiveVal(0)
     mapped_concepts_header_trigger <- reactiveVal(0)
     relationship_tab_outputs_trigger <- reactiveVal(0)
 
@@ -745,26 +800,26 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       history_ui_trigger(history_ui_trigger() + 1)
     }, ignoreInit = TRUE)
 
-    # When edit_mode_trigger fires, update breadcrumb, comments_display, concept_mappings_table, and mapped_concepts_header
-    observe_event(edit_mode_trigger(), {
+    # When general_concept_detail_edit_mode_trigger fires, update breadcrumb, comments_display, concept_mappings_table, and mapped_concepts_header
+    observe_event(general_concept_detail_edit_mode_trigger(), {
       breadcrumb_trigger(breadcrumb_trigger() + 1)
       comments_display_trigger(comments_display_trigger() + 1)
       concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
       mapped_concepts_header_trigger(mapped_concepts_header_trigger() + 1)
     }, ignoreInit = TRUE)
 
-    # When list_edit_mode_trigger fires, update breadcrumb and general_concepts_table
-    observe_event(list_edit_mode_trigger(), {
+    # When general_concepts_edit_mode_trigger fires, update breadcrumb and general_concepts_table
+    observe_event(general_concepts_edit_mode_trigger(), {
       breadcrumb_trigger(breadcrumb_trigger() + 1)
       general_concepts_table_trigger(general_concepts_table_trigger() + 1)
     }, ignoreInit = TRUE)
 
-    # When concept_trigger fires, update history_ui, comments_display, concept_mappings_table, and concept_details_display
+    # When concept_trigger fires, update history_ui, comments_display, concept_mappings_table, and selected_mapping_details
     observe_event(concept_trigger(), {
       history_ui_trigger(history_ui_trigger() + 1)
       comments_display_trigger(comments_display_trigger() + 1)
       concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
-      concept_details_display_trigger(concept_details_display_trigger() + 1)
+      selected_mapping_details_trigger(selected_mapping_details_trigger() + 1)
     }, ignoreInit = TRUE)
 
     # When local_data_trigger fires, update comments_display and general_concepts_table
@@ -806,9 +861,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
     }, ignoreInit = TRUE)
 
-    # When mapped_concept_trigger fires, update concept_details_display and relationship_tab_outputs
+    # When mapped_concept_trigger fires, update selected_mapping_details and relationship_tab_outputs
     observe_event(mapped_concept_trigger(), {
-      concept_details_display_trigger(concept_details_display_trigger() + 1)
+      selected_mapping_details_trigger(selected_mapping_details_trigger() + 1)
       relationship_tab_outputs_trigger(relationship_tab_outputs_trigger() + 1)
     }, ignoreInit = TRUE)
     
@@ -820,10 +875,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Use shinyjs::delay to ensure DOM is ready
       shinyjs::delay(100, {
         # First hide all buttons
-        shinyjs::hide("list_normal_buttons")
-        shinyjs::hide("list_edit_buttons")
-        shinyjs::hide("detail_action_buttons")
-        shinyjs::hide("detail_edit_buttons")
+        shinyjs::hide("general_concepts_normal_buttons")
+        shinyjs::hide("general_concepts_edit_buttons")
+        shinyjs::hide("general_concept_detail_action_buttons")
+        shinyjs::hide("general_concept_detail_edit_buttons")
         shinyjs::hide("back_buttons")
         
         # Then show only the relevant buttons based on user AND view
@@ -831,10 +886,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           
           if (view == "list") {
             # Show list normal buttons (not edit buttons - those are shown when clicking Edit page)
-            if (!list_edit_mode()) {
-              shinyjs::show("list_normal_buttons")
+            if (!general_concepts_edit_mode()) {
+              shinyjs::show("general_concepts_normal_buttons")
             } else {
-              shinyjs::show("list_edit_buttons")
+              shinyjs::show("general_concepts_edit_buttons")
             }
           } else if (view == "list_history") {
             # Show back button (first button in back_buttons)
@@ -843,10 +898,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             shinyjs::show("back_buttons")
           } else if (view == "detail") {
             # Show detail normal buttons (not edit buttons - those are shown when clicking Edit page)
-            if (!edit_mode()) {
-              shinyjs::show("detail_action_buttons")
+            if (!general_concept_detail_edit_mode()) {
+              shinyjs::show("general_concept_detail_action_buttons")
             } else {
-              shinyjs::show("detail_edit_buttons")
+              shinyjs::show("general_concept_detail_edit_buttons")
             }
           } else if (view == "detail_history") {
             # Show back to detail button (second button in back_buttons)
@@ -976,12 +1031,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     # Render header buttons for mapped concepts when mapped_concepts_header trigger fires (cascade observer)
     observe_event(mapped_concepts_header_trigger(), {
       output$mapped_concepts_header_buttons <- renderUI({
-        if (edit_mode()) {
+        if (general_concept_detail_edit_mode()) {
           tags$div(
             style = "margin-left: auto; display: flex; gap: 5px;",
             tags$button(
               class = "btn btn-success btn-sm",
-              onclick = sprintf("$('#%s').css('display', 'flex'); setTimeout(function() { $(window).trigger('resize'); }, 100);", ns("add_concept_to_mapping_modal")),
+              onclick = sprintf("$('#%s').css('display', 'flex'); setTimeout(function() { $(window).trigger('resize'); }, 100);", ns("mapped_concepts_add_modal")),
               tags$i(class = "fa fa-plus"),
               " Add Concept"
             ),
@@ -1037,21 +1092,21 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
     })
 
-    ### View Switching (List/Detail/History) ----
+    ### View Switching ----
     
     # Define all containers
-    all_containers <- c("general_concepts_container", "concept_details_container", "history_container", "list_history_container")
-    
+    all_containers <- c("general_concepts_container", "general_concept_detail_container", "general_concept_detail_history_container", "general_concepts_history_container")
+
     # Map views to their visible containers
     view_containers <- list(
       list = "general_concepts_container",
-      detail = "concept_details_container",
-      detail_history = "history_container",
-      list_history = "list_history_container"
+      detail = "general_concept_detail_container",
+      detail_history = "general_concept_detail_history_container",
+      list_history = "general_concepts_history_container"
     )
     
     # Handle list history button
-    observe_event(input$show_list_history, {
+    observe_event(input$general_concepts_show_history, {
       current_view("list_history")
     })
     
@@ -1082,14 +1137,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       concept_trigger(concept_trigger() + 1)
     }, ignoreNULL = FALSE)
 
-    # Handle edit mode changes, then trigger cascade
-    observe_event(edit_mode(), {
-      edit_mode_trigger(edit_mode_trigger() + 1)
+    # Handle General Concept Detail Page edit mode changes, then trigger cascade
+    observe_event(general_concept_detail_edit_mode(), {
+      general_concept_detail_edit_mode_trigger(general_concept_detail_edit_mode_trigger() + 1)
     }, ignoreNULL = FALSE)
 
-    # Handle list edit mode changes, then trigger cascade
-    observe_event(list_edit_mode(), {
-      list_edit_mode_trigger(list_edit_mode_trigger() + 1)
+    # Handle General Concepts Page edit mode changes, then trigger cascade
+    observe_event(general_concepts_edit_mode(), {
+      general_concepts_edit_mode_trigger(general_concepts_edit_mode_trigger() + 1)
     }, ignoreNULL = FALSE)
 
     # Handle comments tab changes, then trigger cascade
@@ -1129,7 +1184,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       
       # Render list history UI
       if (view == "list_history") {
-        output$list_history_ui <- renderUI({
+        output$general_concepts_history_ui <- renderUI({
           tags$div(
             style = "height: calc(100vh - 175px); overflow: auto; padding: 20px;",
             tags$div(
@@ -1142,7 +1197,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       
       # Render detail history UI
       if (view == "detail_history" && !is.null(concept_id)) {
-        output$history_ui <- renderUI({
+        output$general_concept_detail_history_ui <- renderUI({
           tags$div(
             style = "height: calc(100vh - 175px); overflow: auto; padding: 20px;",
             tags$div(
@@ -1155,33 +1210,33 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     }, ignoreInit = TRUE)
     
     # Handle edit page button
-    observe_event(input$edit_page, {
-      edit_mode(TRUE)
+    observe_event(input$general_concept_detail_edit_page, {
+      general_concept_detail_edit_mode(TRUE)
       update_button_visibility()
     })
-    
+
     # Handle show history button
-    observe_event(input$show_history, {
+    observe_event(input$general_concept_detail_show_history, {
       current_view("detail_history")
     })
-    
+
     # Handle back to detail button (from history view)
     observe_event(input$back_to_detail, {
       current_view("detail")
     })
-    
+
     # Handle cancel edit button
-    observe_event(input$cancel_edit, {
+    observe_event(input$general_concept_detail_cancel_edit, {
       # Reset all unsaved changes
       edited_recommended(list())
       deleted_concepts(list())
       # edited_comment(NULL)
-      edit_mode(FALSE)
+      general_concept_detail_edit_mode(FALSE)
       # Reset tab to comments
       comments_tab("comments")
       # Hide edit buttons and show normal action buttons
-      shinyjs::hide("detail_edit_buttons")
-      shinyjs::show("detail_action_buttons")
+      shinyjs::hide("general_concept_detail_edit_buttons")
+      shinyjs::show("general_concept_detail_action_buttons")
     })
     
     # Observe tab switching for relationships
@@ -1208,7 +1263,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           # Always keep as factor to preserve dropdown filters
           category = factor(category),
           subcategory = factor(subcategory),
-          actions = if (list_edit_mode()) {
+          actions = if (general_concepts_edit_mode()) {
             sprintf(
               '<button class="delete-concept-btn" data-id="%s" style="padding: 4px 12px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Delete</button>',
               general_concept_id
@@ -1222,7 +1277,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         )
 
       # Select columns based on edit mode
-      if (list_edit_mode()) {
+      if (general_concepts_edit_mode()) {
         table_data <- table_data %>%
           dplyr::select(general_concept_id, category, subcategory, general_concept_name, actions)
         col_names <- c("ID", "Category", "Subcategory", "General Concept Name", "Actions")
@@ -1273,7 +1328,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         ),
         doubleclick_input_id = ns("view_concept_details"),
         doubleclick_column = 0,
-        doubleclick_condition = sprintf("!%s", tolower(as.character(list_edit_mode())))
+        doubleclick_condition = sprintf("!%s", tolower(as.character(general_concepts_edit_mode())))
       )
 
         dt
@@ -1297,14 +1352,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       selected_mapped_concept_id(NULL)
       current_mappings(NULL)
       relationships_tab("related")
-      edit_mode(FALSE)  # Exit edit mode when going back to list
-      list_edit_mode(FALSE)  # Exit list edit mode when going back to list
+      general_concept_detail_edit_mode(FALSE)  # Exit edit mode when going back to list
+      general_concepts_edit_mode(FALSE)  # Exit list edit mode when going back to list
     })
     
     ### List Edit Mode ----
 
     # Handle list edit page button
-    observe_event(input$list_edit_page, {
+    observe_event(input$general_concepts_edit_page, {
       # Save current state for cancel functionality
       original_general_concepts(current_data()$general_concepts)
 
@@ -1319,14 +1374,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         saved_table_search(input$general_concepts_table_search_columns)
       }
 
-      list_edit_mode(TRUE)
+      general_concepts_edit_mode(TRUE)
 
-      # Update button visibility will be triggered automatically by list_edit_mode() change
+      # Update button visibility will be triggered automatically by general_concepts_edit_mode() change
       update_button_visibility()
 
       # Wait for datatable to re-render, then restore state
       shiny::observe({
-        if (!list_edit_mode()) return()
+        if (!general_concepts_edit_mode()) return()
 
         proxy <- DT::dataTableProxy("general_concepts_table", session = session)
 
@@ -1348,7 +1403,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     # Handle list cancel button
-    observe_event(input$list_cancel, {
+    observe_event(input$general_concepts_cancel_edit, {
       # Save current filters and page before exiting edit mode
       if (!is.null(input$general_concepts_table_search_columns)) {
         saved_table_search(input$general_concepts_table_search_columns)
@@ -1365,14 +1420,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         local_data(data)
         original_general_concepts(NULL)
       }
-      list_edit_mode(FALSE)
+      general_concepts_edit_mode(FALSE)
 
       # Update button visibility
       update_button_visibility()
 
       # Wait for datatable to re-render, then restore state
       shiny::observe({
-        if (list_edit_mode()) return()
+        if (general_concepts_edit_mode()) return()
 
         proxy <- DT::dataTableProxy("general_concepts_table", session = session)
 
@@ -1393,8 +1448,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }) %>% shiny::bindEvent(input$general_concepts_table_state, once = TRUE)
     })
     
-    observe_event(input$list_save_updates, {
-      if (!list_edit_mode()) return()
+    observe_event(input$general_concepts_save_updates, {
+      if (!general_concepts_edit_mode()) return()
 
       # Save current filters and page before exiting edit mode
       if (!is.null(input$general_concepts_table_search_columns)) {
@@ -1420,7 +1475,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         readr::write_csv(general_concepts, csv_path)
       }
 
-      list_edit_mode(FALSE)
+      general_concepts_edit_mode(FALSE)
       original_general_concepts(NULL)
 
       # Update button visibility
@@ -1428,7 +1483,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       # Wait for datatable to re-render, then restore state
       shiny::observe({
-        if (list_edit_mode()) return()
+        if (general_concepts_edit_mode()) return()
 
         proxy <- DT::dataTableProxy("general_concepts_table", session = session)
 
@@ -1451,7 +1506,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
     # Handle cell edits in general concepts table
     observe_event(input$general_concepts_table_cell_edit, {
-      if (!list_edit_mode()) return()
+      if (!general_concepts_edit_mode()) return()
 
       info <- input$general_concepts_table_cell_edit
 
@@ -1485,7 +1540,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     ### Delete Concept ----
     # Handle delete general concept button
     observe_event(input$delete_general_concept, {
-      if (!list_edit_mode()) return()
+      if (!general_concepts_edit_mode()) return()
 
       # Save current page number and search filters before deletion
       if (!is.null(input$general_concepts_table_state)) {
@@ -1545,26 +1600,26 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
     ### Add New Concept  ----
     # Handle show add concept modal button
-    observe_event(input$show_add_concept_modal, {
+    observe_event(input$show_general_concepts_add_modal, {
       # Update category choices
       general_concepts <- current_data()$general_concepts
       categories <- sort(unique(general_concepts$category))
 
-      updateSelectizeInput(session, "new_concept_category", choices = categories, selected = character(0))
-      updateSelectizeInput(session, "new_concept_subcategory", choices = character(0), selected = character(0))
+      updateSelectizeInput(session, "general_concepts_new_category", choices = categories, selected = character(0))
+      updateSelectizeInput(session, "general_concepts_new_subcategory", choices = character(0), selected = character(0))
 
       # Show the custom modal
-      shinyjs::show("add_concept_modal")
+      shinyjs::show("general_concepts_add_modal")
     })
 
     # Update subcategories when category changes in add concept modal
-    observe_event(input$new_concept_category, {
-      if (is.null(input$new_concept_category) || identical(input$new_concept_category, "")) {
+    observe_event(input$general_concepts_new_category, {
+      if (is.null(input$general_concepts_new_category) || identical(input$general_concepts_new_category, "")) {
         return()
       }
 
       general_concepts <- current_data()$general_concepts
-      selected_category <- input$new_concept_category
+      selected_category <- input$general_concepts_new_category
 
       # Get subcategories for the selected category
       subcategories_for_category <- general_concepts %>%
@@ -1576,28 +1631,28 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Update subcategory choices
       updateSelectizeInput(
         session,
-        "new_concept_subcategory",
+        "general_concepts_new_subcategory",
         choices = subcategories_for_category,
         server = TRUE
       )
     }, ignoreInit = TRUE)
 
     # Handle add new concept
-    observe_event(input$add_new_concept, {
+    observe_event(input$general_concepts_add_new, {
       # Determine which category/subcategory field is active
-      category <- if (!is.null(input$new_concept_category_text) && nchar(trimws(input$new_concept_category_text)) > 0) {
-        input$new_concept_category_text
+      category <- if (!is.null(input$general_concepts_new_category_text) && nchar(trimws(input$general_concepts_new_category_text)) > 0) {
+        input$general_concepts_new_category_text
       } else {
-        input$new_concept_category
+        input$general_concepts_new_category
       }
 
-      subcategory <- if (!is.null(input$new_concept_subcategory_text) && nchar(trimws(input$new_concept_subcategory_text)) > 0) {
-        input$new_concept_subcategory_text
+      subcategory <- if (!is.null(input$general_concepts_new_subcategory_text) && nchar(trimws(input$general_concepts_new_subcategory_text)) > 0) {
+        input$general_concepts_new_subcategory_text
       } else {
-        input$new_concept_subcategory
+        input$general_concepts_new_subcategory
       }
 
-      concept_name <- input$new_concept_name
+      concept_name <- input$general_concepts_new_name
 
       # Validation with visual feedback
       has_error <- FALSE
@@ -1609,12 +1664,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         document.getElementById('%s').style.border = '';
         $('#%s').parent().find('.selectize-control .selectize-input').css('border', '');
         document.getElementById('%s').style.border = '';
-      ", ns("new_concept_name"), ns("new_concept_category"), ns("new_concept_category_text"), ns("new_concept_subcategory"), ns("new_concept_subcategory_text")))
+      ", ns("general_concepts_new_name"), ns("general_concepts_new_category"), ns("general_concepts_new_category_text"), ns("general_concepts_new_subcategory"), ns("general_concepts_new_subcategory_text")))
 
       # Validate concept name
       if (is.null(concept_name) || nchar(trimws(concept_name)) == 0) {
         has_error <- TRUE
-        shinyjs::runjs(sprintf("document.getElementById('%s').style.border = '2px solid #dc3545'", ns("new_concept_name")))
+        shinyjs::runjs(sprintf("document.getElementById('%s').style.border = '2px solid #dc3545'", ns("general_concepts_new_name")))
       }
 
       # Validate category - only highlight the visible field
@@ -1628,7 +1683,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           } else {
             document.getElementById('%s').style.border = '2px solid #dc3545';
           }
-        ", ns("category_select_container"), ns("category_text_container"), ns("new_concept_category"), ns("new_concept_category_text")))
+        ", ns("category_select_container"), ns("category_text_container"), ns("general_concepts_new_category"), ns("general_concepts_new_category_text")))
       }
 
       # Validate subcategory - only highlight the visible field
@@ -1642,7 +1697,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           } else {
             document.getElementById('%s').style.border = '2px solid #dc3545';
           }
-        ", ns("subcategory_select_container"), ns("subcategory_text_container"), ns("new_concept_subcategory"), ns("new_concept_subcategory_text")))
+        ", ns("subcategory_select_container"), ns("subcategory_text_container"), ns("general_concepts_new_subcategory"), ns("general_concepts_new_subcategory_text")))
       }
 
       if (has_error) {
@@ -1693,14 +1748,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         local_data(data)
 
         # Close modal and reset fields
-        shinyjs::runjs(sprintf("$('#%s').hide();", ns("add_concept_modal")))
+        shinyjs::runjs(sprintf("$('#%s').hide();", ns("general_concepts_add_modal")))
 
         # Reset input fields
-        shiny::updateTextInput(session, "new_concept_name", value = "")
-        shiny::updateTextInput(session, "new_concept_category_text", value = "")
-        shiny::updateTextInput(session, "new_concept_subcategory_text", value = "")
-        updateSelectizeInput(session, "new_concept_category", selected = character(0))
-        updateSelectizeInput(session, "new_concept_subcategory", selected = character(0))
+        shiny::updateTextInput(session, "general_concepts_new_name", value = "")
+        shiny::updateTextInput(session, "general_concepts_new_category_text", value = "")
+        shiny::updateTextInput(session, "general_concepts_new_subcategory_text", value = "")
+        updateSelectizeInput(session, "general_concepts_new_category", selected = character(0))
+        updateSelectizeInput(session, "general_concepts_new_subcategory", selected = character(0))
 
         # Calculate which page the new concept is on (1-indexed for DT::selectPage)
         page_length <- 25  # Default page length from datatable
@@ -1716,12 +1771,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
     })
 
-    ## 4) Server - Mapped Concepts Page ----
+    ## 4) Server - General Concept Detail Page ----
     
     #### Save Updates ----
-    # Handle save updates button
-    observe_event(input$save_updates, {
-      if (!edit_mode()) return()
+    # Handle detail save updates button
+    observe_event(input$general_concept_detail_save_updates, {
+      if (!general_concept_detail_edit_mode()) return()
       
       concept_id <- selected_concept_id()
       if (is.null(concept_id)) return()
@@ -1851,12 +1906,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       edited_recommended(list())
       deleted_concepts(list())
       # edited_comment(NULL)
-      edit_mode(FALSE)
+      general_concept_detail_edit_mode(FALSE)
       # Reset tab to comments
       comments_tab("comments")
       # Hide edit buttons and show normal action buttons
-      shinyjs::hide("detail_edit_buttons")
-      shinyjs::show("detail_action_buttons")
+      shinyjs::hide("general_concept_detail_edit_buttons")
+      shinyjs::show("general_concept_detail_action_buttons")
     })
     
     ### a) Mapped Concepts (Top-Left Panel) ----
@@ -1879,7 +1934,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
 
       # Force re-render when edit_mode changes
-      is_editing <- edit_mode()
+      is_editing <- general_concept_detail_edit_mode()
 
       # Read directly from concept_mappings.csv
       csv_mappings <- current_data()$concept_mappings %>%
@@ -1914,7 +1969,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Enrich OMOP concepts with vocabulary data
       vocab_data_for_enrichment <- vocabularies()
       if (!is.null(vocab_data_for_enrichment) && nrow(csv_mappings) > 0) {
-        # Get concept details from OMOP
+        # Get concept details
         concept_ids <- csv_mappings$omop_concept_id
         omop_concepts <- vocab_data_for_enrichment$concept %>%
           dplyr::filter(concept_id %in% concept_ids) %>%
@@ -2228,7 +2283,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     #   })
     #   
     #   # Render OMOP concepts table for adding to mapping (server-side)
-    #   output$omop_concepts_table <- DT::renderDT({
+    #   output$mapped_concepts_add_omop_table <- DT::renderDT({
     #     concepts <- modal_concepts_all()
     #     req(concepts)
     #     
@@ -2260,8 +2315,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     # })
     # 
     # # Track selected concept in add modal
-    # observe_event(input$omop_concepts_table_rows_selected, {
-    #   selected_row <- input$omop_concepts_table_rows_selected
+    # observe_event(input$mapped_concepts_add_omop_table_rows_selected, {
+    #   selected_row <- input$mapped_concepts_add_omop_table_rows_selected
     #   
     #   if (length(selected_row) > 0) {
     #     all_concepts <- modal_concepts_all()
@@ -2276,7 +2331,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     # }, ignoreInit = TRUE)
     
     # Render concept details in add modal
-    # output$add_modal_concept_details <- renderUI({
+    # output$mapped_concepts_add_concept_details <- renderUI({
     #   concept <- add_modal_selected_concept()
     #   
     #   if (is.null(concept)) {
@@ -2308,7 +2363,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     # })
     
     # Render descendants table in add modal
-    # output$add_modal_descendants_table <- DT::renderDT({
+    # output$mapped_concepts_add_descendants_table <- DT::renderDT({
     #   concept <- add_modal_selected_concept()
     #   
     #   if (is.null(concept)) {
@@ -2364,11 +2419,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     # })
     
     # Add selected concept from OMOP search modal
-    # observe_event(input$add_selected_concept, {
-    #   if (!edit_mode()) return()
+    # observe_event(input$mapped_concepts_add_selected, {
+    #   if (!general_concept_detail_edit_mode()) return()
     #   
-    #   # Get selected row from omop_concepts_table
-    #   selected_row <- input$omop_concepts_table_rows_selected
+    #   # Get selected row from mapped_concepts_add_omop_table
+    #   selected_row <- input$mapped_concepts_add_omop_table_rows_selected
     #   req(selected_row)
     #   
     #   # Use cached concepts
@@ -2385,7 +2440,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     #   # Get concepts to add (including descendants if checked)
     #   concepts_to_add <- selected_concept$concept_id
     #   
-    #   if (isTRUE(input$add_modal_include_descendants)) {
+    #   if (isTRUE(input$mapped_concepts_add_include_descendants)) {
     #     vocab_data <- vocabularies()
     #     req(vocab_data)
     #     
@@ -2450,7 +2505,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     #   local_data(current_data)
     #   
     #   # Close modal
-    #   shinyjs::runjs(sprintf("$('#%s').css('display', 'none');", ns("add_concept_to_mapping_modal")))
+    #   shinyjs::runjs(sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")))
     # }, ignoreInit = TRUE)
     # 
     # # Confirm add OMOP concept
@@ -2525,7 +2580,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     #     updated_data$concept_mappings <- concept_mappings
     #     local_data(updated_data)
     #     
-    #     shinyjs::hide(ns("add_concept_to_mapping_modal"))
+    #     shinyjs::hide(ns("mapped_concepts_add_modal"))
     #     modal_selected_concept(NULL)
     #   }
     # })
@@ -2593,7 +2648,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     #   readr::write_csv(custom_concepts, custom_concepts_path)
     #   
     #   # Close modal and reset
-    #   shinyjs::hide(ns("add_concept_to_mapping_modal"))
+    #   shinyjs::hide(ns("mapped_concepts_add_modal"))
     #   
     #   # Reset inputs
     #   shiny::updateTextInput(session, "custom_concept_name", value = "")
@@ -2602,7 +2657,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     # 
     # # Reset mapped concepts - re-enrich from recommended concepts
     # observe_event(input$reset_mapped_concepts, {
-    #   if (!edit_mode()) return()
+    #   if (!general_concept_detail_edit_mode()) return()
     #   
     #   concept_id <- selected_concept_id()
     #   if (is.null(concept_id)) return()
@@ -2743,24 +2798,24 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     # 
     # # Cancel buttons
     # observe_event(input$cancel_add_concept_mapping, {
-    #   shinyjs::hide(ns("add_concept_to_mapping_modal"))
+    #   shinyjs::hide(ns("mapped_concepts_add_modal"))
     #   modal_selected_concept(NULL)
     # })
     # 
     # observe_event(input$cancel_add_custom_concept_mapping, {
-    #   shinyjs::hide(ns("add_concept_to_mapping_modal"))
+    #   shinyjs::hide(ns("mapped_concepts_add_modal"))
     #   shiny::updateTextInput(session, "custom_concept_name", value = "")
     #   shiny::updateTextInput(session, "custom_concept_code", value = "/")
     # })
     
-    ### b) Selected Concept Details (Top-Right Panel) ----
-    #### Concept Details Display ----
-    # Render concept details when concept_details_display trigger fires (cascade observer)
-    observe_event(concept_details_display_trigger(), {
+    ### b) Selected Mapping Details (Top-Right Panel) ----
+    #### Selected Mapping Display ----
+    # Render selected mapping details when selected_mapping_details trigger fires (cascade observer)
+    observe_event(selected_mapping_details_trigger(), {
       omop_concept_id <- selected_mapped_concept_id()
       concept_id <- selected_concept_id()
 
-      output$concept_details_display <- renderUI({
+      output$selected_mapping_details <- renderUI({
         if (is.null(omop_concept_id)) {
           return(tags$div(
             style = "padding: 20px; background: #f8f9fa; border-radius: 6px; text-align: center;",
@@ -2948,7 +3003,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
 
       # Get edit mode status
-      is_editing <- edit_mode()
+      is_editing <- general_concept_detail_edit_mode()
 
       # Determine validity and standard from vocab_data
       is_valid <- if (!is.null(validity_info)) {
@@ -3064,7 +3119,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       concept_id <- selected_concept_id()
       if (!is.null(concept_id)) {
         output$comments_display <- renderUI({
-          is_editing <- edit_mode()
+          is_editing <- general_concept_detail_edit_mode()
           active_tab <- comments_tab()
 
           concept_info <- current_data()$general_concepts %>%
@@ -3262,7 +3317,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     
     # Handle toggle recommended for mappings in detail edit mode
     observe_event(input$toggle_recommended, {
-      if (!edit_mode()) return()
+      if (!general_concept_detail_edit_mode()) return()
       
       toggle_data <- input$toggle_recommended
       omop_id <- as.integer(toggle_data$omop_id)
@@ -3276,7 +3331,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     
     # Handle delete mapping in detail edit mode
     observe_event(input$delete_concept, {
-      if (!edit_mode()) return()
+      if (!general_concept_detail_edit_mode()) return()
       
       concept_id <- selected_concept_id()
       if (is.null(concept_id)) return()
