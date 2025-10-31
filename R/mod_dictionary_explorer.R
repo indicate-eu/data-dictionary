@@ -1174,13 +1174,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               ", ns("mapped_concepts_add_modal"), ns("modal_opened")),
               tags$i(class = "fa fa-plus"),
               " Add Concept"
-            ),
-            shiny::actionButton(
-              ns("reset_mapped_concepts"),
-              label = NULL,
-              icon = icon("refresh"),
-              class = "btn btn-warning btn-sm",
-              title = "Reset mapped concepts for this general concept"
             )
           )
         }

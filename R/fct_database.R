@@ -643,3 +643,50 @@ delete_user <- function(user_id) {
 
   TRUE
 }
+
+#' Get OHDSI mappings last sync time
+#'
+#' @description Retrieve the last synchronization time for OHDSI relationships mappings
+#'
+#' @return POSIXct timestamp or NULL if never synced
+#' @noRd
+get_ohdsi_mappings_sync <- function() {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  result <- DBI::dbGetQuery(
+    con,
+    "SELECT value FROM config WHERE key = 'ohdsi_mappings_last_sync'"
+  )
+
+  if (nrow(result) == 0 || is.na(result$value[1])) {
+    return(NULL)
+  }
+
+  # Convert string to POSIXct
+  as.POSIXct(result$value[1], tz = "UTC")
+}
+
+#' Set OHDSI mappings last sync time
+#'
+#' @description Save the last synchronization time for OHDSI relationships mappings
+#'
+#' @param timestamp POSIXct timestamp (defaults to current time)
+#'
+#' @return TRUE if successful
+#' @noRd
+set_ohdsi_mappings_sync <- function(timestamp = Sys.time()) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  # Convert timestamp to string
+  timestamp_str <- format(timestamp, "%Y-%m-%d %H:%M:%S", tz = "UTC")
+
+  DBI::dbExecute(
+    con,
+    "INSERT OR REPLACE INTO config (key, value, updated_at) VALUES ('ohdsi_mappings_last_sync', ?, ?)",
+    params = list(timestamp_str, format(Sys.time(), "%Y-%m-%d %H:%M:%S"))
+  )
+
+  TRUE
+}

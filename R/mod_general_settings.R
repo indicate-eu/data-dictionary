@@ -178,13 +178,14 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     ohdsi_mappings_last_sync <- reactiveVal(NULL)
 
     # Load saved vocab folder from database on initialization
-    observe({
-      saved_path <- get_vocab_folder()
+    saved_path <- get_vocab_folder()
+    if (!is.null(saved_path) && nchar(saved_path) > 0) {
+      selected_folder(saved_path)
+    }
 
-      if (!is.null(saved_path) && nchar(saved_path) > 0) {
-        selected_folder(saved_path)
-      }
-    })
+    # Load OHDSI mappings last sync time on initialization
+    sync_time <- get_ohdsi_mappings_sync()
+    ohdsi_mappings_last_sync(sync_time)
 
     ## 2) Server - Folder Browser ----
 
@@ -710,6 +711,143 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
               style = "padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px;",
               tags$i(class = "fas fa-times-circle", style = "margin-right: 6px; color: #dc3545;"),
               "Database does not exist"
+            )
+          )
+        }
+      })
+    }, ignoreInit = FALSE)
+
+    ## 4) Server - OHDSI Relationships Mappings ----
+
+    ### Load/Reload Mappings ----
+
+    observe_event(input$load_ohdsi_mappings, {
+      # Check if vocabularies are loaded
+      vocab_data <- vocabularies()
+      if (is.null(vocab_data)) {
+        ohdsi_mappings_message(list(success = FALSE, message = "Please load OHDSI vocabularies first."))
+        return()
+      }
+
+      # Set processing status
+      ohdsi_mappings_processing(TRUE)
+      ohdsi_mappings_message(NULL)
+
+      # Delay to update UI
+      shinyjs::delay(100, {
+        # Read current concept_mappings
+        concept_mappings_path <- app_sys("extdata", "csv", "concept_mappings.csv")
+        concept_mappings <- readr::read_csv(concept_mappings_path, show_col_types = FALSE)
+
+        # Check if this is a reload (preserve recommended status)
+        is_reload <- !is.null(ohdsi_mappings_last_sync())
+
+        # Load OHDSI relationships
+        tryCatch({
+          concept_mappings <- load_ohdsi_relationships(
+            vocab_data,
+            concept_mappings,
+            preserve_recommended = is_reload
+          )
+
+          # Save to CSV
+          readr::write_csv(concept_mappings, concept_mappings_path)
+
+          # Update last sync time
+          sync_time <- Sys.time()
+          set_ohdsi_mappings_sync(sync_time)
+          ohdsi_mappings_last_sync(sync_time)
+
+          ohdsi_mappings_processing(FALSE)
+          ohdsi_mappings_message(list(success = TRUE, message = "OHDSI mappings loaded successfully."))
+        }, error = function(e) {
+          ohdsi_mappings_processing(FALSE)
+          ohdsi_mappings_message(list(success = FALSE, message = paste("Error:", e$message)))
+        })
+      })
+    }, ignoreInit = FALSE)
+
+    ### Status Display ----
+
+    ohdsi_mappings_status_trigger <- reactiveVal(0)
+
+    observe_event(list(ohdsi_mappings_processing(), ohdsi_mappings_message(), ohdsi_mappings_last_sync()), {
+      ohdsi_mappings_status_trigger(ohdsi_mappings_status_trigger() + 1)
+    }, ignoreInit = FALSE)
+
+    observe_event(ohdsi_mappings_status_trigger(), {
+      output$ohdsi_mappings_status <- renderUI({
+        # Show processing message
+        if (ohdsi_mappings_processing()) {
+          return(
+            tags$div(
+              style = "padding: 10px; background: #fff3cd; border-left: 3px solid #ffc107; border-radius: 4px; font-size: 12px;",
+              tags$i(class = "fas fa-spinner fa-spin", style = "margin-right: 6px;"),
+              "Loading OHDSI relationships mappings... This may take a few minutes."
+            )
+          )
+        }
+
+        # Show error message if there was one
+        msg <- ohdsi_mappings_message()
+        if (!is.null(msg) && !msg$success) {
+          return(
+            tags$div(
+              style = "padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px;",
+              tags$i(class = "fas fa-exclamation-circle", style = "margin-right: 6px; color: #dc3545;"),
+              msg$message
+            )
+          )
+        }
+
+        # Show success message
+        if (!is.null(msg) && msg$success) {
+          return(
+            tags$div(
+              style = "padding: 10px; background: #d4edda; border-left: 3px solid #28a745; border-radius: 4px; font-size: 12px;",
+              tags$i(class = "fas fa-check-circle", style = "margin-right: 6px; color: #28a745;"),
+              msg$message
+            )
+          )
+        }
+
+        # Show current status
+        last_sync <- ohdsi_mappings_last_sync()
+        if (!is.null(last_sync)) {
+          formatted_time <- format(last_sync, "%Y-%m-%d %H:%M:%S", tz = Sys.timezone())
+          return(
+            tags$div(
+              style = "padding: 10px; background: #d4edda; border-left: 3px solid #28a745; border-radius: 4px; font-size: 12px; display: flex; align-items: center; gap: 8px;",
+              tags$i(class = "fas fa-check-circle", style = "color: #28a745;"),
+              tags$span("Last synchronized: "),
+              tags$code(formatted_time),
+              actionButton(
+                ns("load_ohdsi_mappings"),
+                label = tagList(
+                  tags$i(class = "fas fa-sync-alt", style = "margin-right: 6px;"),
+                  "Reload"
+                ),
+                class = "btn-sm",
+                style = "background: #fd7e14; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 12px; cursor: pointer;"
+              )
+            )
+          )
+        } else {
+          # Never synced - show Load button
+          return(
+            tags$div(
+              style = "padding: 10px; background: #e7f3ff; border-left: 3px solid #0f60af; border-radius: 4px; font-size: 12px; display: flex; align-items: center; gap: 8px;",
+              tags$i(class = "fas fa-info-circle", style = "color: #0f60af;"),
+              tags$span("OHDSI relationships mappings not loaded."),
+              actionButton(
+                ns("load_ohdsi_mappings"),
+                label = tagList(
+                  tags$i(class = "fas fa-download", style = "margin-right: 6px;"),
+                  "Load"
+                ),
+                class = "btn-sm",
+                style = "background: #0f60af; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 12px; cursor: pointer;"
+              )
             )
           )
         }
