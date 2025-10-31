@@ -348,6 +348,11 @@ h3, h4 {
 
 /* Main layout
 -------------------------------------------------- */
+/* Router page wrapper - ensures full height for all pages */
+#router-page-wrapper {
+  height: 100%;
+}
+
 .main-panel {
   background-color: #f8f9fa;
   padding: 5px 30px;
