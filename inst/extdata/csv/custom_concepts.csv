@@ -11,8 +11,7 @@ custom_concept_id,general_concept_id,vocabulary_id,concept_code,concept_name,omo
 10,5,INDICATE,/,test,/,TRUE
 11,336,Other one,ds23,ABCD,/,FALSE
 12,336,test,/,test2,/,FALSE
-13,336,again,/,agnian,/,FALSE
 14,336,test voc,/,test name,/,FALSE
-,,,,,,
-,,,,,,
-,,,,,,
+NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,NA,NA
+NA,NA,NA,NA,NA,NA,NA

@@ -1920,7 +1920,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Get current data
       general_concepts <- current_data()$general_concepts
       concept_mappings <- current_data()$concept_mappings
-      
+      custom_concepts <- current_data()$custom_concepts
+
       # Update comments in general_concepts
       new_comment <- input$comments_input
       if (!is.null(new_comment)) {
@@ -1933,7 +1934,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             )
           )
       }
-      
+
       # Update statistical_summary in general_concepts
       new_statistical_summary <- input$statistical_summary_editor
       if (!is.null(new_statistical_summary)) {
@@ -1947,74 +1948,118 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             )
           )
       }
-      
+
       # Apply concept deletions
       concept_deletions <- deleted_concepts()
       concept_key <- as.character(concept_id)
-      
+
       if (!is.null(concept_deletions[[concept_key]])) {
         deleted_ids <- concept_deletions[[concept_key]]
-        concept_mappings <- concept_mappings %>%
-          dplyr::filter(!(general_concept_id == concept_id & omop_concept_id %in% deleted_ids))
+
+        # Parse deleted IDs to separate OMOP and custom concepts
+        omop_ids_to_delete <- integer()
+        custom_ids_to_delete <- integer()
+
+        for (id_str in deleted_ids) {
+          if (grepl("^omop-", id_str)) {
+            omop_id <- as.integer(sub("^omop-", "", id_str))
+            omop_ids_to_delete <- c(omop_ids_to_delete, omop_id)
+          } else if (grepl("^custom-", id_str)) {
+            custom_id <- as.integer(sub("^custom-", "", id_str))
+            custom_ids_to_delete <- c(custom_ids_to_delete, custom_id)
+          }
+        }
+
+        # Delete OMOP concepts from concept_mappings
+        if (length(omop_ids_to_delete) > 0) {
+          concept_mappings <- concept_mappings %>%
+            dplyr::filter(!(general_concept_id == concept_id & omop_concept_id %in% omop_ids_to_delete))
+        }
+
+        # Delete custom concepts from custom_concepts
+        if (length(custom_ids_to_delete) > 0 && !is.null(custom_concepts)) {
+          custom_concepts <- custom_concepts %>%
+            dplyr::filter(!(general_concept_id == concept_id & custom_concept_id %in% custom_ids_to_delete))
+        }
       }
       
-      # Update recommended values in concept_mappings
+      # Update recommended values for both OMOP and custom concepts
       recommended_edits <- edited_recommended()
-      
+
       if (length(recommended_edits) > 0) {
-        for (omop_id in names(recommended_edits)) {
-          new_rec_value <- recommended_edits[[omop_id]]
-          
-          # Check if this concept already exists in concept_mappings
-          existing_row <- concept_mappings %>%
-            dplyr::filter(
-              general_concept_id == concept_id &
-                omop_concept_id == as.integer(omop_id)
-            )
-          
-          if (nrow(existing_row) > 0) {
-            # Update existing row
-            concept_mappings <- concept_mappings %>%
-              dplyr::mutate(
-                recommended = ifelse(
-                  general_concept_id == concept_id & omop_concept_id == as.integer(omop_id),
-                  new_rec_value,
-                  recommended
-                )
+        for (concept_unique_id in names(recommended_edits)) {
+          new_rec_value <- recommended_edits[[concept_unique_id]]
+
+          # Determine if this is an OMOP or custom concept
+          if (grepl("^omop-", concept_unique_id)) {
+            # OMOP concept
+            omop_id <- as.integer(sub("^omop-", "", concept_unique_id))
+
+            # Check if this concept already exists in concept_mappings
+            existing_row <- concept_mappings %>%
+              dplyr::filter(
+                general_concept_id == concept_id &
+                  omop_concept_id == omop_id
               )
-          } else if (isTRUE(new_rec_value)) {
-            # Add new row only if recommended = TRUE
-            # Get concept info from vocabularies or current data
-            vocab_data <- vocabularies()
-            
-            if (!is.null(vocab_data) && !is.null(vocab_data$concept)) {
-              # Filter and collect from DuckDB
-              new_concept <- vocab_data$concept %>%
-                dplyr::filter(concept_id == as.integer(omop_id)) %>%
-                dplyr::collect()  # Materialize the data from DuckDB
-              
-              if (nrow(new_concept) > 0) {
-                # Create new row with minimal structure (new schema)
-                if (nrow(concept_mappings) > 0) {
-                  # Take first row as template and modify it
-                  new_row <- concept_mappings[1, ]
-                  new_row$general_concept_id <- as.integer(concept_id)
-                  new_row$omop_concept_id <- as.integer(omop_id)
-                  new_row$omop_unit_concept_id <- as.character("/")
-                  new_row$recommended <- TRUE
-                } else {
-                  # Fallback if concept_mappings is empty
-                  new_row <- data.frame(
-                    general_concept_id = as.integer(concept_id),
-                    omop_concept_id = as.integer(omop_id),
-                    omop_unit_concept_id = "/",
-                    recommended = TRUE,
-                    stringsAsFactors = FALSE
+
+            if (nrow(existing_row) > 0) {
+              # Update existing row
+              concept_mappings <- concept_mappings %>%
+                dplyr::mutate(
+                  recommended = ifelse(
+                    general_concept_id == concept_id & omop_concept_id == omop_id,
+                    new_rec_value,
+                    recommended
                   )
+                )
+            } else if (isTRUE(new_rec_value)) {
+              # Add new row only if recommended = TRUE
+              # Get concept info from vocabularies or current data
+              vocab_data <- vocabularies()
+
+              if (!is.null(vocab_data) && !is.null(vocab_data$concept)) {
+                # Filter and collect from DuckDB
+                new_concept <- vocab_data$concept %>%
+                  dplyr::filter(concept_id == omop_id) %>%
+                  dplyr::collect()
+
+                if (nrow(new_concept) > 0) {
+                  # Create new row with minimal structure (new schema)
+                  if (nrow(concept_mappings) > 0) {
+                    # Take first row as template and modify it
+                    new_row <- concept_mappings[1, ]
+                    new_row$general_concept_id <- as.integer(concept_id)
+                    new_row$omop_concept_id <- omop_id
+                    new_row$omop_unit_concept_id <- as.character("/")
+                    new_row$recommended <- TRUE
+                  } else {
+                    # Fallback if concept_mappings is empty
+                    new_row <- data.frame(
+                      general_concept_id = as.integer(concept_id),
+                      omop_concept_id = omop_id,
+                      omop_unit_concept_id = "/",
+                      recommended = TRUE,
+                      stringsAsFactors = FALSE
+                    )
+                  }
+
+                  concept_mappings <- dplyr::bind_rows(concept_mappings, new_row)
                 }
-                
-                concept_mappings <- dplyr::bind_rows(concept_mappings, new_row)
               }
+            }
+          } else if (grepl("^custom-", concept_unique_id)) {
+            # Custom concept
+            custom_id <- as.integer(sub("^custom-", "", concept_unique_id))
+
+            if (!is.null(custom_concepts)) {
+              custom_concepts <- custom_concepts %>%
+                dplyr::mutate(
+                  recommended = ifelse(
+                    general_concept_id == concept_id & custom_concept_id == custom_id,
+                    new_rec_value,
+                    recommended
+                  )
+                )
             }
           }
         }
@@ -2025,16 +2070,25 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         general_concepts,
         app_sys("extdata", "csv", "general_concepts.csv")
       )
-      
+
       readr::write_csv(
         concept_mappings,
         app_sys("extdata", "csv", "concept_mappings.csv")
       )
-      
+
+      # Write custom_concepts.csv if modified
+      if (!is.null(custom_concepts)) {
+        readr::write_csv(
+          custom_concepts,
+          app_sys("extdata", "csv", "custom_concepts.csv")
+        )
+      }
+
       # Update local data
       updated_data <- list(
         general_concepts = general_concepts,
-        concept_mappings = concept_mappings
+        concept_mappings = concept_mappings,
+        custom_concepts = custom_concepts
       )
       local_data(updated_data)
       
@@ -2700,6 +2754,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       # Save custom_concepts
       readr::write_csv(custom_concepts, custom_concepts_path)
+
+      # Update local data
+      data_updated <- local_data()
+      data_updated$custom_concepts <- custom_concepts
+      local_data(data_updated)
 
       # Trigger re-render
       concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
