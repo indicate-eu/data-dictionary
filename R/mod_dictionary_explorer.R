@@ -610,7 +610,8 @@ mod_dictionary_explorer_ui <- function(id) {
               tags$div(
                 style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
                 tags$div(
-                  style = "flex: 1; min-height: 0; overflow: hidden; position: relative;",
+                  id = ns("omop_table_container"),
+                  style = "flex: 1; min-height: 0; position: relative;",
                   shinycssloaders::withSpinner(
                     DT::DTOutput(ns("mapped_concepts_add_omop_table")),
                     type = 4,
@@ -618,7 +619,11 @@ mod_dictionary_explorer_ui <- function(id) {
                     size = 0.4,
                     proxy.height = "400px"
                   )
-                )
+                ),
+                tags$style(HTML(sprintf("
+                  #%s { overflow: auto; }
+                  #%s > .shiny-spinner-output-container.shiny-spinner-hideui { overflow: hidden !important; }
+                ", ns("omop_table_container"), ns("omop_table_container"))))
               ),
 
               # Bottom section: Concept Details (left) and Descendants (right)
@@ -651,17 +656,16 @@ mod_dictionary_explorer_ui <- function(id) {
                 style = "display: flex; justify-content: flex-end; align-items: center; gap: 10px; flex-shrink: 0;",
                 tags$div(
                   style = "width: auto !important;",
-                  tags$div(
-                    class = "form-group shiny-input-container",
-                    style = "width: auto !important; margin-bottom: 0;",
-                    checkboxInput(
-                      ns("mapped_concepts_add_include_descendants"),
-                      "Include descendants",
-                      value = FALSE,
-                      width = NULL
-                    )
+                  checkboxInput(
+                    ns("mapped_concepts_add_include_descendants"),
+                    "Include descendants",
+                    value = FALSE,
+                    width = NULL
                   )
                 ),
+                tags$style(HTML(sprintf("
+                  #%s { width: auto !important; }
+                ", ns("mapped_concepts_add_include_descendants")))),
                 tags$button(
                   class = "btn btn-default",
                   onclick = sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")),
@@ -1170,7 +1174,15 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             style = "margin-left: auto; display: flex; gap: 5px;",
             tags$button(
               class = "btn btn-success btn-sm",
-              onclick = sprintf("$('#%s').css('display', 'flex'); setTimeout(function() { $(window).trigger('resize'); }, 100);", ns("mapped_concepts_add_modal")),
+              onclick = sprintf("
+                $('#%s').css('display', 'flex');
+                Shiny.setInputValue('%s', Math.random(), {priority: 'event'});
+                setTimeout(function() {
+                  $(window).trigger('resize');
+                  Shiny.unbindAll();
+                  Shiny.bindAll();
+                }, 100);
+              ", ns("mapped_concepts_add_modal"), ns("modal_opened")),
               tags$i(class = "fa fa-plus"),
               " Add Concept"
             ),
@@ -2296,19 +2308,18 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
     #### Add Mapping to Selected Concept (OMOP Search Modal) ----
 
+    # Observer to handle modal opening and force DataTable render
+    observe_event(input$modal_opened, {
+      outputOptions(output, "mapped_concepts_add_omop_table", suspendWhenHidden = FALSE)
+    }, ignoreInit = TRUE)
+
     # Load all OMOP concepts for modal search
     modal_concepts_all <- reactive({
       vocab_data <- vocabularies()
-
-      # Debug: log vocabulary status
-      if (log_level == "debug") {
-        cat("[DEBUG modal_concepts_all] vocabularies() is NULL:", is.null(vocab_data), "\n")
-      }
-
       if (is.null(vocab_data)) return(NULL)
 
       # Get ALL OMOP concepts from allowed vocabularies
-      result <- vocab_data$concept %>%
+      vocab_data$concept %>%
         dplyr::filter(
           vocabulary_id %in% c("RxNorm", "RxNorm Extension", "LOINC", "SNOMED", "ICD10"),
           is.na(invalid_reason)
@@ -2324,13 +2335,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         ) %>%
         dplyr::arrange(concept_name) %>%
         dplyr::collect()
-
-      # Debug: log result
-      if (log_level == "debug") {
-        cat("[DEBUG modal_concepts_all] Loaded", nrow(result), "concepts\n")
-      }
-
-      result
     })
 
     # Track row selection in OMOP concepts table
@@ -2448,19 +2452,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     output$mapped_concepts_add_omop_table <- DT::renderDT({
       concepts <- modal_concepts_all()
 
-      # Debug: log render trigger
-      if (log_level == "debug") {
-        cat("[DEBUG renderDT] concepts is NULL:", is.null(concepts), "\n")
-        if (!is.null(concepts)) {
-          cat("[DEBUG renderDT] concepts has", nrow(concepts), "rows\n")
-        }
-      }
-
       # Show loading message if vocabularies not loaded
       if (is.null(concepts)) {
-        if (log_level == "debug") {
-          cat("[DEBUG renderDT] Returning loading message\n")
-        }
         return(DT::datatable(
           data.frame(Message = "Loading OMOP vocabularies..."),
           options = list(dom = 't', ordering = FALSE),
@@ -2496,12 +2489,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         selection = 'single',
         filter = 'top',
         options = list(
-          pageLength = 25,
-          dom = 'ftp',
+          pageLength = 8,
+          dom = 'tp',
           ordering = TRUE,
           autoWidth = FALSE,
-          scrollY = "400px",
-          scrollCollapse = TRUE,
+          scrollX = FALSE,
           paging = TRUE
         ),
         colnames = c("Concept ID", "Concept Name", "Vocabulary", "Domain", "Concept Class")
@@ -2560,7 +2552,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           general_concept_id = integer(),
           omop_concept_id = integer(),
           omop_unit_concept_id = character(),
-          is_recommended = logical(),
+          recommended = logical(),
           stringsAsFactors = FALSE
         )
       }
@@ -2570,7 +2562,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         general_concept_id = rep(concept_id, length(concepts_to_add)),
         omop_concept_id = concepts_to_add,
         omop_unit_concept_id = "/",
-        is_recommended = FALSE,
+        recommended = FALSE,
         stringsAsFactors = FALSE
       )
 

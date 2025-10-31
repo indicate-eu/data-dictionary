@@ -365,14 +365,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     ### Tab Switching ----
     # Observer 1: Update reactive value when input changes
     observe_event(input$switch_mapping_tab, {
-      cat("\n[TAB DEBUG 1] Input:", input$switch_mapping_tab, "| Current:", mapping_tab(), "\n")
       mapping_tab(input$switch_mapping_tab)
     })
 
     # Observer 2: Update UI when mapping_tab reactive value changes
     observe_event(mapping_tab(), {
       active_tab <- mapping_tab()
-      cat("[TAB DEBUG 2] Updating UI for tab:", active_tab, "\n")
 
       # Update tab button styling using shinyjs functions
       shinyjs::removeCssClass(id = "tab_summary", class = "tab-btn-active")
@@ -3173,22 +3171,17 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Handle Add Mapping from general view
     observe_event(input$add_mapping_from_general, {
-
       # Get selected rows
       source_row <- input$source_concepts_table_rows_selected
       general_row <- input$general_concepts_table_rows_selected
 
       # Validate selections
-      if (is.null(source_row) || is.null(general_row)) {
-        return()
-      }
-
+      if (is.null(source_row) || is.null(general_row)) return()
 
       # Get alignment info
       if (is.null(selected_alignment_id())) return()
 
       alignments <- alignments_data()
-
       alignment <- alignments %>%
         dplyr::filter(alignment_id == selected_alignment_id())
 
@@ -3207,99 +3200,26 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
 
       # Read CSV
-      if (!file.exists(csv_path)) {
-        return()
-      }
+      if (!file.exists(csv_path)) return()
 
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
 
-      # Get mapped concept info (need to reconstruct the same combined dataframe as in the renderDT)
-      if (is.null(selected_general_concept_id())) return()
+      # Get general_concept_id from selected row in general_concepts_table
       if (is.null(data())) return()
 
-      # Get OMOP concept mappings
+      general_concepts <- data()$general_concepts
+      target_general_concept_id <- general_concepts$general_concept_id[general_row]
+
+      if (is.na(target_general_concept_id)) return()
+
+      # Get first recommended OMOP concept mapping for this general concept (if available)
       concept_mappings <- data()$concept_mappings %>%
-        dplyr::filter(general_concept_id == selected_general_concept_id())
+        dplyr::filter(general_concept_id == target_general_concept_id, recommended == TRUE)
 
-      # Enrich OMOP concepts with vocabulary data
-      vocab_data <- vocabularies()
-      if (!is.null(vocab_data) && nrow(concept_mappings) > 0) {
-        # Get concept details from OMOP
-        concept_ids <- concept_mappings$omop_concept_id
-        omop_concepts <- vocab_data$concept %>%
-          dplyr::filter(concept_id %in% concept_ids) %>%
-          dplyr::select(concept_id, concept_name, vocabulary_id, concept_code) %>%
-          dplyr::collect()
-
-        # Join with concept_mappings
-        concept_mappings <- concept_mappings %>%
-          dplyr::left_join(
-            omop_concepts,
-            by = c("omop_concept_id" = "concept_id")
-          ) %>%
-          dplyr::mutate(is_custom = FALSE)
-      } else if (nrow(concept_mappings) > 0) {
-        # If no vocabulary data but we have mappings, add placeholder columns
-        concept_mappings <- concept_mappings %>%
-          dplyr::mutate(
-            concept_name = NA_character_,
-            vocabulary_id = NA_character_,
-            concept_code = NA_character_,
-            is_custom = FALSE
-          )
-      } else {
-        # No OMOP concept mappings, create empty dataframe with correct structure
-        concept_mappings <- data.frame(
-          concept_name = character(),
-          vocabulary_id = character(),
-          concept_code = character(),
-          omop_concept_id = integer(),
-          recommended = logical(),
-          is_custom = logical()
-        )
-      }
-
-      # Read custom concepts
-      custom_concepts_path <- app_sys("extdata", "csv", "custom_concepts.csv")
-      if (file.exists(custom_concepts_path)) {
-        custom_concepts <- readr::read_csv(custom_concepts_path, show_col_types = FALSE) %>%
-          dplyr::filter(general_concept_id == selected_general_concept_id()) %>%
-          dplyr::select(
-            custom_concept_id,
-            concept_name,
-            vocabulary_id,
-            concept_code,
-            recommended
-          ) %>%
-          dplyr::mutate(
-            omop_concept_id = NA_integer_,
-            is_custom = TRUE
-          )
-      } else {
-        custom_concepts <- data.frame(
-          custom_concept_id = integer(),
-          concept_name = character(),
-          vocabulary_id = character(),
-          concept_code = character(),
-          recommended = logical(),
-          omop_concept_id = integer(),
-          is_custom = logical()
-        )
-      }
-
-      # Combine OMOP and custom concepts
+      target_omop_concept_id <- NA_integer_
       if (nrow(concept_mappings) > 0) {
-        omop_for_bind <- concept_mappings %>%
-          dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended, is_custom)
-      } else {
-        omop_for_bind <- concept_mappings
+        target_omop_concept_id <- concept_mappings$omop_concept_id[1]
       }
-
-      all_concepts <- dplyr::bind_rows(omop_for_bind, custom_concepts) %>%
-        dplyr::arrange(dplyr::desc(recommended), concept_name)
-
-      # Get the selected concept from the combined list
-      target_mapping <- all_concepts[mapped_row, ]
 
       # Add mapping columns if they don't exist
       if (!"target_general_concept_id" %in% colnames(df)) {
@@ -3316,28 +3236,17 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
 
       # Update the selected row with mapping info
-      df$target_general_concept_id[source_row] <- selected_general_concept_id()
-
-      # Set either OMOP concept ID or custom concept ID depending on the type
-      if (target_mapping$is_custom) {
-        df$target_omop_concept_id[source_row] <- NA_integer_
-        df$target_custom_concept_id[source_row] <- target_mapping$custom_concept_id
-      } else {
-        df$target_omop_concept_id[source_row] <- target_mapping$omop_concept_id
-        df$target_custom_concept_id[source_row] <- NA_integer_
-      }
-
-      # Set mapping datetime
+      df$target_general_concept_id[source_row] <- target_general_concept_id
+      df$target_omop_concept_id[source_row] <- target_omop_concept_id
+      df$target_custom_concept_id[source_row] <- NA_integer_
       df$mapping_datetime[source_row] <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
 
       # Save CSV
       write.csv(df, csv_path, row.names = FALSE)
 
-      # Deselect only the source concepts table
+      # Deselect only the source concepts table (keep general concepts selection)
       proxy_source <- DT::dataTableProxy("source_concepts_table", session)
       DT::selectRows(proxy_source, NULL)
-
-      # Keep the selection in concept_mappings_table so user can add multiple mappings
 
       # Force refresh of completed mappings table and source concepts table
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
