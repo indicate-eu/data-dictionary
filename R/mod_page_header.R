@@ -98,7 +98,7 @@ mod_page_header_ui <- function(id) {
 #'
 #' @importFrom shiny moduleServer reactive observeEvent renderUI req
 #' @importFrom shiny.router get_page change_page
-mod_page_header_server <- function(id, current_user, vocab_loading_status) {
+mod_page_header_server <- function(id, current_user, vocab_loading_status, log_level = character()) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 

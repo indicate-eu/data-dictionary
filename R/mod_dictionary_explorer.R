@@ -74,8 +74,95 @@ mod_dictionary_explorer_ui <- function(id) {
               )
             ),
 
-            # Dynamic content area
-            uiOutput(ns("content_area"))
+            # Content area with static structure
+            tagList(
+              # General Concepts table container
+              tags$div(
+                id = ns("general_concepts_container"),
+                class = "table-container",
+                style = "height: calc(100vh - 175px); overflow: auto;",
+
+                # Loading message (hidden by default)
+                shinyjs::hidden(
+                  tags$div(
+                    id = ns("vocab_loading_message"),
+                    style = "display: flex; align-items: center; justify-content: center; height: 100%; flex-direction: column; gap: 20px;",
+                    tags$div(
+                      style = "text-align: center; padding: 40px; background: #e6f3ff; border: 2px solid #0f60af; border-radius: 8px; max-width: 600px;",
+                      tags$div(
+                        style = "color: #0f60af; font-size: 48px; margin-bottom: 15px;",
+                        tags$i(class = "fas fa-spinner fa-spin")
+                      ),
+                      tags$h3(
+                        style = "color: #0f60af; margin-bottom: 15px; font-size: 24px;",
+                        "Loading OHDSI Vocabularies"
+                      ),
+                      tags$p(
+                        style = "color: #0f60af; font-size: 16px; line-height: 1.5;",
+                        "Please wait while the vocabularies database is being loaded..."
+                      )
+                    )
+                  )
+                ),
+
+                # Error message (hidden by default)
+                shinyjs::hidden(
+                  tags$div(
+                    id = ns("vocab_error_message"),
+                    style = "display: flex; align-items: center; justify-content: center; height: 100%; flex-direction: column; gap: 20px;",
+                    tags$div(
+                      style = "text-align: center; padding: 40px; background: #f8d7da; border: 2px solid #dc3545; border-radius: 8px; max-width: 600px;",
+                      tags$div(
+                        style = "color: #dc3545; font-size: 48px; margin-bottom: 15px;",
+                        tags$i(class = "fas fa-exclamation-triangle")
+                      ),
+                      tags$h3(
+                        style = "color: #dc3545; margin-bottom: 15px; font-size: 24px;",
+                        "OHDSI Vocabularies Not Loaded"
+                      ),
+                      tags$p(
+                        style = "color: #721c24; font-size: 16px; margin-bottom: 20px; line-height: 1.5;",
+                        "The OHDSI Vocabularies database is required to display concept mappings and terminology details. Please configure the vocabularies folder in settings."
+                      ),
+                      tags$button(
+                        class = "btn btn-primary-custom",
+                        onclick = "$('#nav_settings').click(); $('#settings_dropdown').show(); setTimeout(function() { $('#settings_dropdown .settings-dropdown-item:first').click(); }, 100);",
+                        style = "font-size: 16px; padding: 12px 24px;",
+                        tags$i(class = "fas fa-cog", style = "margin-right: 8px;"),
+                        "Go to Settings"
+                      )
+                    )
+                  )
+                ),
+
+                # DataTable (shown by default)
+                DT::DTOutput(ns("general_concepts_table"))
+              ),
+
+              # Concept details container (hidden by default)
+              shinyjs::hidden(
+                tags$div(
+                  id = ns("concept_details_container"),
+                  uiOutput(ns("concept_details_ui"))
+                )
+              ),
+
+              # History container for individual concept (hidden by default)
+              shinyjs::hidden(
+                tags$div(
+                  id = ns("history_container"),
+                  uiOutput(ns("history_ui"))
+                )
+              ),
+
+              # List history container for all concepts (hidden by default)
+              shinyjs::hidden(
+                tags$div(
+                  id = ns("list_history_container"),
+                  uiOutput(ns("list_history_ui"))
+                )
+              )
+            )
         )
     ),
 
@@ -400,13 +487,13 @@ mod_dictionary_explorer_ui <- function(id) {
 #' @return Module server logic
 #' @noRd
 #'
-#' @importFrom shiny moduleServer reactive req renderUI observeEvent reactiveVal fluidRow column
+#' @importFrom shiny moduleServer reactive req renderUI observe_event reactiveVal fluidRow column
 #' @importFrom DT renderDT datatable formatStyle styleEqual
 #' @importFrom dplyr filter left_join arrange group_by summarise n mutate select
 #' @importFrom magrittr %>%
 #' @importFrom htmltools HTML tags tagList
 #' @importFrom htmlwidgets JS
-mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab_loading_status = reactive("not_loaded"), current_user = reactive(NULL)) {
+mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab_loading_status = reactive("not_loaded"), current_user = reactive(NULL), log_level = character()) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -434,11 +521,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     local_data <- reactiveVal(NULL)
 
     # Initialize local_data with data from parameter
-    observe({
+    observe_event(data(), {
       if (is.null(local_data())) {
         local_data(data())
       }
-    })
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
     # Create a reactive that uses local_data if available, otherwise data
     current_data <- reactive({
@@ -510,22 +597,22 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     }
 
     # Update visibility when user changes
-    observeEvent(current_user(), {
+    observe_event(current_user(), {
       update_button_visibility()
     }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
     # Update visibility when view changes (within the module)
-    observeEvent(current_view(), {
+    observe_event(current_view(), {
       update_button_visibility()
     })
 
     # Update visibility when data is loaded (module initialization)
-    observeEvent(data(), {
+    observe_event(data(), {
       update_button_visibility()
     }, once = TRUE)
 
     # Observe category selection
-    observeEvent(input$category_filter, {
+    observe_event(input$category_filter, {
       category <- input$category_filter
       current_selected <- selected_categories()
 
@@ -539,17 +626,16 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     # Render breadcrumb
-    output$breadcrumb <- renderUI({
-      # Force re-render when edit modes or view changes
-      edit_mode()
-      list_edit_mode()
+    # Render breadcrumb based on view changes
+    observe_event(c(current_view(), edit_mode(), list_edit_mode()), {
       view <- current_view()
 
-      if (current_view() == "list") {
-        categories <- categories_list()
-        selected <- selected_categories()
+      output$breadcrumb <- renderUI({
+        if (view == "list") {
+          categories <- categories_list()
+          selected <- selected_categories()
 
-        tags$div(
+          tags$div(
           class = "breadcrumb-nav",
           style = "padding: 10px 0 15px 0; display: flex; align-items: center; gap: 15px; justify-content: space-between;",
           # Left side: Title and category badges
@@ -582,148 +668,88 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               })
             )
           )
-        )
-      } else if (current_view() == "list_history") {
-        # Breadcrumb for list history view
-        tags$div(
-          class = "breadcrumb-nav",
-          style = "padding: 10px 0 15px 0; font-size: 16px; display: flex; justify-content: space-between; align-items: center;",
-          # Left side: title
-          tags$div(
-            class = "section-title",
-            "General Concepts"
           )
-        )
-      } else {
-        concept_id <- selected_concept_id()
-        req(concept_id)
-
-        concept_info <- current_data()$general_concepts %>%
-          dplyr::filter(general_concept_id == concept_id)
-
-        if (nrow(concept_info) > 0) {
+        } else if (view == "list_history") {
+          # Breadcrumb for list history view
           tags$div(
             class = "breadcrumb-nav",
             style = "padding: 10px 0 15px 0; font-size: 16px; display: flex; justify-content: space-between; align-items: center;",
-            # Left side: breadcrumb
+            # Left side: title
             tags$div(
-              tags$a(
-                href = "#",
-                onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("back_to_list")),
-                class = "breadcrumb-link",
-                style = "font-weight: 600;",
-                "General Concepts"
-              ),
-              tags$span(
-                style = "margin: 0 8px; color: #999;",
-                ">"
-              ),
-              tags$span(
-                style = "color: #333; font-weight: 600;",
-                concept_info$general_concept_name[1]
-              )
+              class = "section-title",
+              "General Concepts"
             )
           )
-        }
-      }
-    })
+        } else {
+          concept_id <- selected_concept_id()
+          if (!is.null(concept_id)) {
+            concept_info <- current_data()$general_concepts %>%
+              dplyr::filter(general_concept_id == concept_id)
 
-    # Render content area once - all containers are created and shown/hidden
-    output$content_area <- renderUI({
-      # Check vocabularies loading status
-      vocab_data <- vocabularies()
-      loading_status <- vocab_loading_status()
-
-      tagList(
-        # General Concepts table container - show loading/error/table based on status
-        tags$div(
-          id = ns("general_concepts_container"),
-          class = "table-container",
-          style = "height: calc(100vh - 175px); overflow: auto;",
-          if (loading_status == "loading") {
-            # Show loading message
-            tags$div(
-              style = "display: flex; align-items: center; justify-content: center; height: 100%; flex-direction: column; gap: 20px;",
+            if (nrow(concept_info) > 0) {
               tags$div(
-                style = "text-align: center; padding: 40px; background: #e6f3ff; border: 2px solid #0f60af; border-radius: 8px; max-width: 600px;",
+                class = "breadcrumb-nav",
+                style = "padding: 10px 0 15px 0; font-size: 16px; display: flex; justify-content: space-between; align-items: center;",
+                # Left side: breadcrumb
                 tags$div(
-                  style = "color: #0f60af; font-size: 48px; margin-bottom: 15px;",
-                  tags$i(class = "fas fa-spinner fa-spin")
-                ),
-                tags$h3(
-                  style = "color: #0f60af; margin-bottom: 15px; font-size: 24px;",
-                  "Loading OHDSI Vocabularies"
-                ),
-                tags$p(
-                  style = "color: #0f60af; font-size: 16px; line-height: 1.5;",
-                  "Please wait while the vocabularies database is being loaded..."
+                  tags$a(
+                    href = "#",
+                    onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("back_to_list")),
+                    class = "breadcrumb-link",
+                    style = "font-weight: 600;",
+                    "General Concepts"
+                  ),
+                  tags$span(
+                    style = "margin: 0 8px; color: #999;",
+                    ">"
+                  ),
+                  tags$span(
+                    style = "color: #333; font-weight: 600;",
+                    concept_info$general_concept_name[1]
+                  )
                 )
               )
-            )
-          } else if (loading_status == "not_loaded" || loading_status == "error" || is.null(vocab_data)) {
-            # Show error message
-            tags$div(
-              style = "display: flex; align-items: center; justify-content: center; height: 100%; flex-direction: column; gap: 20px;",
-              tags$div(
-                style = "text-align: center; padding: 40px; background: #f8d7da; border: 2px solid #dc3545; border-radius: 8px; max-width: 600px;",
-                tags$div(
-                  style = "color: #dc3545; font-size: 48px; margin-bottom: 15px;",
-                  tags$i(class = "fas fa-exclamation-triangle")
-                ),
-                tags$h3(
-                  style = "color: #dc3545; margin-bottom: 15px; font-size: 24px;",
-                  "OHDSI Vocabularies Not Loaded"
-                ),
-                tags$p(
-                  style = "color: #721c24; font-size: 16px; margin-bottom: 20px; line-height: 1.5;",
-                  "The OHDSI Vocabularies database is required to display concept mappings and terminology details. Please configure the vocabularies folder in settings."
-                ),
-                tags$button(
-                  class = "btn btn-primary-custom",
-                  onclick = "$('#nav_settings').click(); $('#settings_dropdown').show(); setTimeout(function() { $('#settings_dropdown .settings-dropdown-item:first').click(); }, 100);",
-                  style = "font-size: 16px; padding: 12px 24px;",
-                  tags$i(class = "fas fa-cog", style = "margin-right: 8px;"),
-                  "Go to Settings"
-                )
-              )
-            )
-          } else {
-            # Show table
-            DT::DTOutput(ns("general_concepts_table"))
+            }
           }
-        ),
-        # Concept details container
-        tags$div(
-          id = ns("concept_details_container"),
-          style = "display: none;",
-          uiOutput(ns("concept_details_ui"))
-        ),
-        # History container (for individual concept)
-        tags$div(
-          id = ns("history_container"),
-          style = "display: none;",
-          uiOutput(ns("history_ui"))
-        ),
-        # List history container (for all concepts)
-        tags$div(
-          id = ns("list_history_container"),
-          style = "display: none;",
-          uiOutput(ns("list_history_ui"))
-        )
-      )
-    })
+        }
+      })
+    }, ignoreNULL = FALSE)
+
+    # Control vocabulary loading status visibility
+    observe_event(vocab_loading_status(), {
+      loading_status <- vocab_loading_status()
+      vocab_data <- vocabularies()
+
+      if (loading_status == "loading") {
+        # Show loading message, hide table and error
+        shinyjs::show("vocab_loading_message")
+        shinyjs::hide("vocab_error_message")
+        shinyjs::hide("general_concepts_table")
+      } else if (loading_status == "not_loaded" || loading_status == "error" || is.null(vocab_data)) {
+        # Show error message, hide table and loading
+        shinyjs::hide("vocab_loading_message")
+        shinyjs::show("vocab_error_message")
+        shinyjs::hide("general_concepts_table")
+      } else {
+        # Show table, hide loading and error
+        shinyjs::hide("vocab_loading_message")
+        shinyjs::hide("vocab_error_message")
+        shinyjs::show("general_concepts_table")
+      }
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
     # Render concept details when needed
-    output$concept_details_ui <- renderUI({
-      req(current_view() == "detail")
-      req(selected_concept_id())
-      # Force re-render when edit_mode changes
-      edit_mode()
-      render_concept_details()
-    })
+    # Render concept details when view is detail and concept is selected
+    observe_event(c(current_view(), selected_concept_id(), edit_mode()), {
+      if (current_view() == "detail" && !is.null(selected_concept_id())) {
+        output$concept_details_ui <- renderUI({
+          render_concept_details()
+        })
+      }
+    }, ignoreNULL = FALSE)
 
     # Observe current_view to show/hide appropriate content
-    observeEvent(current_view(), {
+    observe_event(current_view(), {
       view <- current_view()
       if (view == "list") {
         shinyjs::show(id = "general_concepts_container")
@@ -970,12 +996,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       )
     }
 
-    # Render history page when needed
-    output$history_ui <- renderUI({
-      req(current_view() == "history")
-      req(selected_concept_id())
-      render_history()
-    })
+    # Render history page when view is history and concept is selected
+    observe_event(c(current_view(), selected_concept_id()), {
+      if (current_view() == "history" && !is.null(selected_concept_id())) {
+        output$history_ui <- renderUI({
+          render_history()
+        })
+      }
+    }, ignoreNULL = FALSE)
 
     # Function to render list history page
     render_list_history <- function() {
@@ -989,16 +1017,18 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       )
     }
 
-    # Render list history page when needed
-    output$list_history_ui <- renderUI({
-      req(current_view() == "list_history")
-      render_list_history()
-    })
+    # Render list history page when view is list_history
+    observe_event(current_view(), {
+      if (current_view() == "list_history") {
+        output$list_history_ui <- renderUI({
+          render_list_history()
+        })
+      }
+    }, ignoreNULL = FALSE)
 
-    # Render general concepts table
-    output$general_concepts_table <- DT::renderDT({
-      # Force re-render when edit mode changes
-      list_edit_mode()
+    # Render general concepts table when data or edit mode changes
+    observe_event(c(current_data(), list_edit_mode(), selected_categories()), {
+      output$general_concepts_table <- DT::renderDT({
 
       general_concepts <- current_data()$general_concepts
 
@@ -1102,11 +1132,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       ", ns("view_concept_details"), ns("delete_general_concept"),
          tolower(as.character(list_edit_mode())), ns("view_concept_details")))
 
-      dt
-    }, server = FALSE)
+        dt
+      }, server = FALSE)
+    }, ignoreNULL = FALSE)
 
     # Handle "View Details" button click
-    observeEvent(input$view_concept_details, {
+    observe_event(input$view_concept_details, {
       concept_id <- input$view_concept_details
       if (!is.null(concept_id)) {
         selected_concept_id(as.integer(concept_id))
@@ -1116,7 +1147,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     }, ignoreNULL = TRUE, ignoreInit = TRUE)
 
     # Handle back to list
-    observeEvent(input$back_to_list, {
+    observe_event(input$back_to_list, {
       current_view("list")
       selected_concept_id(NULL)
       selected_mapped_concept_id(NULL)
@@ -1127,17 +1158,17 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     # Handle list history button
-    observeEvent(input$show_list_history, {
+    observe_event(input$show_list_history, {
       current_view("list_history")
     })
 
     # Handle back to list from history button
-    observeEvent(input$back_to_list_from_history, {
+    observe_event(input$back_to_list_from_history, {
       current_view("list")
     })
 
     # Handle list edit page button
-    observeEvent(input$list_edit_page, {
+    observe_event(input$list_edit_page, {
       # Save current state for cancel functionality
       original_general_concepts(current_data()$general_concepts)
 
@@ -1159,7 +1190,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       # Wait for datatable to re-render, then restore state
       shiny::observe({
-        req(list_edit_mode())
+        if (!list_edit_mode()) return()
 
         proxy <- DT::dataTableProxy("general_concepts_table", session = session)
 
@@ -1181,7 +1212,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     # Handle list cancel button
-    observeEvent(input$list_cancel, {
+    observe_event(input$list_cancel, {
       # Save current filters and page before exiting edit mode
       if (!is.null(input$general_concepts_table_search_columns)) {
         saved_table_search(input$general_concepts_table_search_columns)
@@ -1205,7 +1236,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       # Wait for datatable to re-render, then restore state
       shiny::observe({
-        req(!list_edit_mode())
+        if (list_edit_mode()) return()
 
         proxy <- DT::dataTableProxy("general_concepts_table", session = session)
 
@@ -1227,8 +1258,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     # Handle list save updates button
-    observeEvent(input$list_save_updates, {
-      req(list_edit_mode())
+    observe_event(input$list_save_updates, {
+      if (!list_edit_mode()) return()
 
       # Save current filters and page before exiting edit mode
       if (!is.null(input$general_concepts_table_search_columns)) {
@@ -1262,7 +1293,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       # Wait for datatable to re-render, then restore state
       shiny::observe({
-        req(!list_edit_mode())
+        if (list_edit_mode()) return()
 
         proxy <- DT::dataTableProxy("general_concepts_table", session = session)
 
@@ -1284,8 +1315,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     # Handle cell edits in general concepts table
-    observeEvent(input$general_concepts_table_cell_edit, {
-      req(list_edit_mode())
+    observe_event(input$general_concepts_table_cell_edit, {
+      if (!list_edit_mode()) return()
 
       info <- input$general_concepts_table_cell_edit
 
@@ -1317,8 +1348,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     # Handle delete general concept button
-    observeEvent(input$delete_general_concept, {
-      req(list_edit_mode())
+    observe_event(input$delete_general_concept, {
+      if (!list_edit_mode()) return()
 
       # Save current page number and search filters before deletion
       if (!is.null(input$general_concepts_table_state)) {
@@ -1377,7 +1408,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     # Handle show add concept modal button
-    observeEvent(input$show_add_concept_modal, {
+    observe_event(input$show_add_concept_modal, {
       # Update category choices
       general_concepts <- current_data()$general_concepts
       categories <- sort(unique(general_concepts$category))
@@ -1390,7 +1421,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     # Update subcategories when category changes in add concept modal
-    observeEvent(input$new_concept_category, {
+    observe_event(input$new_concept_category, {
       if (is.null(input$new_concept_category) || identical(input$new_concept_category, "")) {
         return()
       }
@@ -1415,7 +1446,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     }, ignoreInit = TRUE)
 
     # Handle add new concept
-    observeEvent(input$add_new_concept, {
+    observe_event(input$add_new_concept, {
       # Determine which category/subcategory field is active
       category <- if (!is.null(input$new_concept_category_text) && nchar(trimws(input$new_concept_category_text)) > 0) {
         input$new_concept_category_text
@@ -1578,23 +1609,23 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     # Handle edit page button
-    observeEvent(input$edit_page, {
+    observe_event(input$edit_page, {
       edit_mode(TRUE)
       update_button_visibility()
     })
 
     # Handle show history button
-    observeEvent(input$show_history, {
+    observe_event(input$show_history, {
       current_view("history")
     })
 
     # Handle back to detail button (from history view)
-    observeEvent(input$back_to_detail, {
+    observe_event(input$back_to_detail, {
       current_view("detail")
     })
 
     # Handle cancel edit button
-    observeEvent(input$cancel_edit, {
+    observe_event(input$cancel_edit, {
       # Reset all unsaved changes
       edited_recommended(list())
       deleted_concepts(list())
@@ -1608,11 +1639,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     # Handle save updates button
-    observeEvent(input$save_updates, {
-      req(edit_mode())
+    observe_event(input$save_updates, {
+      if (!edit_mode()) return()
 
       concept_id <- selected_concept_id()
-      req(concept_id)
+      if (is.null(concept_id)) return()
 
       # Get current data
       general_concepts <- current_data()$general_concepts
@@ -1731,41 +1762,37 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
 
       # Write to CSV files
-      tryCatch({
-        readr::write_csv(
-          general_concepts,
-          app_sys("extdata", "csv", "general_concepts.csv")
-        )
+      readr::write_csv(
+        general_concepts,
+        app_sys("extdata", "csv", "general_concepts.csv")
+      )
 
-        readr::write_csv(
-          concept_mappings,
-          app_sys("extdata", "csv", "concept_mappings.csv")
-        )
+      readr::write_csv(
+        concept_mappings,
+        app_sys("extdata", "csv", "concept_mappings.csv")
+      )
 
-        # Update local data
-        updated_data <- list(
-          general_concepts = general_concepts,
-          concept_mappings = concept_mappings
-        )
-        local_data(updated_data)
+      # Update local data
+      updated_data <- list(
+        general_concepts = general_concepts,
+        concept_mappings = concept_mappings
+      )
+      local_data(updated_data)
 
-        # Reset edit state
-        edited_recommended(list())
-        deleted_concepts(list())
-        # edited_comment(NULL)
-        edit_mode(FALSE)
-        # Reset tab to comments
-        comments_tab("comments")
-        # Hide edit buttons and show normal action buttons
-        shinyjs::hide("detail_edit_buttons")
-        shinyjs::show("detail_action_buttons")
-      }, error = function(e) {
-        # Silent error handling
-      })
+      # Reset edit state
+      edited_recommended(list())
+      deleted_concepts(list())
+      # edited_comment(NULL)
+      edit_mode(FALSE)
+      # Reset tab to comments
+      comments_tab("comments")
+      # Hide edit buttons and show normal action buttons
+      shinyjs::hide("detail_edit_buttons")
+      shinyjs::show("detail_action_buttons")
     })
 
     # Handle reset statistical summary button
-    observeEvent(input$reset_statistical_summary, {
+    observe_event(input$reset_statistical_summary, {
       shinyAce::updateAceEditor(
         session,
         "statistical_summary_editor",
@@ -1774,8 +1801,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     # Handle toggle recommended in edit mode
-    observeEvent(input$toggle_recommended, {
-      req(edit_mode())
+    observe_event(input$toggle_recommended, {
+      if (!edit_mode()) return()
 
       toggle_data <- input$toggle_recommended
       omop_id <- as.integer(toggle_data$omop_id)
@@ -1788,11 +1815,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     }, ignoreInit = TRUE)
 
     # Handle delete concept in edit mode
-    observeEvent(input$delete_concept, {
-      req(edit_mode())
+    observe_event(input$delete_concept, {
+      if (!edit_mode()) return()
 
       concept_id <- selected_concept_id()
-      req(concept_id)
+      if (is.null(concept_id)) return()
 
       delete_data <- input$delete_concept
       omop_id <- as.integer(delete_data$omop_id)
@@ -1811,13 +1838,13 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     }, ignoreInit = TRUE)
 
     # # Track comment changes in edit mode
-    # observeEvent(input$comments_input, {
+    # observe_event(input$comments_input, {
     #   req(edit_mode())
     #   edited_comment(input$comments_input)
     # }, ignoreInit = TRUE)
 
     # Update DataTable filter when categories change
-    observeEvent(selected_categories(), {
+    observe_event(selected_categories(), {
       categories <- selected_categories()
 
       # Create proxy for the DataTable
@@ -1842,220 +1869,222 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     # Render comments or statistical summary based on active tab
-    output$comments_display <- renderUI({
+    # Render comments display when concept, edit mode or tab changes
+    observe_event(c(selected_concept_id(), edit_mode(), comments_tab(), local_data()), {
       concept_id <- selected_concept_id()
-      req(concept_id)
+      if (!is.null(concept_id)) {
+        output$comments_display <- renderUI({
+          is_editing <- edit_mode()
+          active_tab <- comments_tab()
 
-      # Force re-render when edit_mode or tab changes
-      is_editing <- edit_mode()
-      active_tab <- comments_tab()
-      local_data()  # Add dependency to trigger re-render when data updates
+          concept_info <- current_data()$general_concepts %>%
+            dplyr::filter(general_concept_id == concept_id)
 
-      concept_info <- current_data()$general_concepts %>%
-        dplyr::filter(general_concept_id == concept_id)
-
-      # Display based on active tab
-      if (active_tab == "comments") {
-        # Comments tab
-        if (is_editing) {
-          # Edit mode: show textarea
-          current_comment <- if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1])) {
-            concept_info$comments[1]
-          } else {
-            ""
-          }
-
-          tags$div(
-            style = "height: 100%;",
-            shiny::textAreaInput(
-              ns("comments_input"),
-              label = NULL,
-              value = current_comment,
-              placeholder = "Enter ETL guidance and comments here...",
-              width = "100%",
-              height = "100%"
-            )
-          )
-        } else {
-          # View mode: show formatted comment
-          if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1]) && nchar(concept_info$comments[1]) > 0) {
-            # Convert markdown-style formatting to HTML
-            comment_html <- concept_info$comments[1]
-            # Convert **text** to <strong>text</strong>
-            comment_html <- gsub("\\*\\*([^*]+)\\*\\*", "<strong>\\1</strong>", comment_html)
-            # Convert *text* to <em>text</em>
-            comment_html <- gsub("\\*([^*]+)\\*", "<em>\\1</em>", comment_html)
-            # Wrap content in paragraph tags
-            comment_html <- paste0("<p>", comment_html, "</p>")
-            # Convert line breaks to paragraph breaks
-            comment_html <- gsub("\n", "</p><p>", comment_html)
-
-            tags$div(
-              class = "comments-container",
-              style = "background: #e6f3ff; border: 1px solid #0f60af; border-radius: 6px; padding: 15px; height: 100%; overflow-y: auto; box-sizing: border-box;",
-              HTML(comment_html)
-            )
-          } else {
-            tags$div(
-              style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic; height: 100%; overflow-y: auto; box-sizing: border-box;",
-              "No comments available for this concept."
-            )
-          }
-        }
-      } else {
-        # Statistical Summary tab
-        if (is_editing) {
-          # Edit mode: show JSON editor with aceEditor
-          current_summary <- if (nrow(concept_info) > 0 && !is.na(concept_info$statistical_summary[1])) {
-            concept_info$statistical_summary[1]
-          } else {
-            get_default_statistical_summary_template()
-          }
-
-          tags$div(
-            style = "height: 100%; display: flex; flex-direction: column;",
-            tags$div(
-              style = "padding: 10px; background: #f8f9fa; border-bottom: 1px solid #dee2e6; display: flex; justify-content: space-between; align-items: center;",
-              tags$span(
-                style = "font-weight: 600; color: #495057;",
-                "JSON Editor"
-              ),
-              actionButton(
-                ns("reset_statistical_summary"),
-                "Reset to Template",
-                class = "btn btn-sm",
-                style = "background: #6c757d; color: white; border: none; padding: 4px 12px; border-radius: 4px;"
-              )
-            ),
-            tags$div(
-              style = "flex: 1; min-height: 0;",
-              shinyAce::aceEditor(
-                ns("statistical_summary_editor"),
-                value = current_summary,
-                mode = "json",
-                theme = "chrome",
-                height = "100%",
-                fontSize = 11,
-                showLineNumbers = TRUE,
-                highlightActiveLine = TRUE,
-                tabSize = 2
-              )
-            )
-          )
-        } else {
-          # View mode: show statistical summary display
-          summary_data <- NULL
-          if (nrow(concept_info) > 0 && !is.na(concept_info$statistical_summary[1]) && nchar(concept_info$statistical_summary[1]) > 0) {
-            tryCatch({
-              summary_data <- jsonlite::fromJSON(concept_info$statistical_summary[1])
-            }, error = function(e) {
-              summary_data <<- NULL
-            })
-          }
-
-          if (!is.null(summary_data)) {
-            # Helper function to create detail items
-            create_detail_item <- function(label, value) {
-              display_value <- if (is.null(value) || (is.character(value) && value == "")) {
-                "/"
+          # Display based on active tab
+          if (active_tab == "comments") {
+            # Comments tab
+            if (is_editing) {
+              # Edit mode: show textarea
+              current_comment <- if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1])) {
+                concept_info$comments[1]
               } else {
-                as.character(value)
+                ""
               }
 
               tags$div(
-                class = "detail-item",
-                tags$strong(paste0(label, ":")),
-                tags$span(display_value)
-              )
-            }
-
-            # Display statistical summary in 2-column layout
-            tags$div(
-              style = "height: 100%; overflow-y: auto; padding: 15px; background: #ffffff;",
-              tags$div(
-                style = "display: grid; grid-template-columns: 1fr 1fr; gap: 20px;",
-
-                # Left Column
-                tags$div(
-                  # Data Types Section
-                  tags$h5(style = "margin: 0 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Data Types"),
-                  if (!is.null(summary_data$data_types) && length(summary_data$data_types) > 0) {
-                    tags$div(
-                      style = "margin-bottom: 20px;",
-                      create_detail_item("Types", paste(summary_data$data_types, collapse = ", "))
-                    )
-                  } else {
-                    tags$p(style = "color: #6c757d; font-style: italic; margin-bottom: 20px;", "No data types specified")
-                  },
-
-                  # Statistical Data Section
-                  tags$h5(style = "margin: 20px 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Statistical Data"),
-                  if (!is.null(summary_data$statistical_data) && length(summary_data$statistical_data) > 0) {
-                    tagList(
-                      lapply(names(summary_data$statistical_data), function(key) {
-                        value <- summary_data$statistical_data[[key]]
-                        create_detail_item(gsub("_", " ", tools::toTitleCase(key)), if (is.null(value)) "/" else value)
-                      })
-                    )
-                  } else {
-                    tags$p(style = "color: #6c757d; font-style: italic;", "No statistical data available")
-                  }
-                ),
-
-                # Right Column
-                tags$div(
-                  # Temporal Information Section
-                  tags$h5(style = "margin: 0 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Temporal Information"),
-                  if (!is.null(summary_data$temporal_info)) {
-                    tagList(
-                      if (!is.null(summary_data$temporal_info$frequency_range)) {
-                        tagList(
-                          create_detail_item("Frequency Min", if (is.null(summary_data$temporal_info$frequency_range$min)) "/" else summary_data$temporal_info$frequency_range$min),
-                          create_detail_item("Frequency Max", if (is.null(summary_data$temporal_info$frequency_range$max)) "/" else summary_data$temporal_info$frequency_range$max)
-                        )
-                      },
-                      if (!is.null(summary_data$temporal_info$measurement_period) && length(summary_data$temporal_info$measurement_period) > 0) {
-                        create_detail_item("Measurement Period", paste(summary_data$temporal_info$measurement_period, collapse = ", "))
-                      } else {
-                        create_detail_item("Measurement Period", "/")
-                      }
-                    )
-                  } else {
-                    tags$p(style = "color: #6c757d; font-style: italic;", "No temporal information available")
-                  },
-
-                  # Possible Values Section
-                  tags$h5(style = "margin: 20px 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Possible Values"),
-                  if (!is.null(summary_data$possible_values) && length(summary_data$possible_values) > 0) {
-                    tags$div(
-                      style = "margin-top: 8px;",
-                      tags$ul(
-                        style = "margin: 0; padding-left: 20px;",
-                        lapply(summary_data$possible_values, function(val) {
-                          tags$li(style = "color: #212529; padding: 2px 0;", val)
-                        })
-                      )
-                    )
-                  } else {
-                    tags$p(style = "color: #6c757d; font-style: italic;", "No possible values specified")
-                  }
+                style = "height: 100%;",
+                shiny::textAreaInput(
+                  ns("comments_input"),
+                  label = NULL,
+                  value = current_comment,
+                  placeholder = "Enter ETL guidance and comments here...",
+                  width = "100%",
+                  height = "100%"
                 )
               )
-            )
-          } else {
-            tags$div(
-              style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic; height: 100%; overflow-y: auto; box-sizing: border-box;",
-              "No statistical summary available for this concept."
-            )
-          }
-        }
-      }
-    })
+            } else {
+              # View mode: show formatted comment
+              if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1]) && nchar(concept_info$comments[1]) > 0) {
+                # Convert markdown-style formatting to HTML
+                comment_html <- concept_info$comments[1]
+                # Convert **text** to <strong>text</strong>
+                comment_html <- gsub("\\*\\*([^*]+)\\*\\*", "<strong>\\1</strong>", comment_html)
+                # Convert *text* to <em>text</em>
+                comment_html <- gsub("\\*([^*]+)\\*", "<em>\\1</em>", comment_html)
+                # Wrap content in paragraph tags
+                comment_html <- paste0("<p>", comment_html, "</p>")
+                # Convert line breaks to paragraph breaks
+                comment_html <- gsub("\n", "</p><p>", comment_html)
 
-    # Render concept mappings table
-    output$concept_mappings_table <- DT::renderDT({
+                tags$div(
+                  class = "comments-container",
+                  style = "background: #e6f3ff; border: 1px solid #0f60af; border-radius: 6px; padding: 15px; height: 100%; overflow-y: auto; box-sizing: border-box;",
+                  HTML(comment_html)
+                )
+              } else {
+                tags$div(
+                  style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic; height: 100%; overflow-y: auto; box-sizing: border-box;",
+                  "No comments available for this concept."
+                )
+              }
+            }
+      } else {
+            # Statistical Summary tab
+            if (is_editing) {
+              # Edit mode: show JSON editor with aceEditor
+              current_summary <- if (nrow(concept_info) > 0 && !is.na(concept_info$statistical_summary[1])) {
+                concept_info$statistical_summary[1]
+              } else {
+                get_default_statistical_summary_template()
+              }
+
+              tags$div(
+                style = "height: 100%; display: flex; flex-direction: column;",
+                tags$div(
+                  style = "padding: 10px; background: #f8f9fa; border-bottom: 1px solid #dee2e6; display: flex; justify-content: space-between; align-items: center;",
+                  tags$span(
+                    style = "font-weight: 600; color: #495057;",
+                    "JSON Editor"
+                  ),
+                  actionButton(
+                    ns("reset_statistical_summary"),
+                    "Reset to Template",
+                    class = "btn btn-sm",
+                    style = "background: #6c757d; color: white; border: none; padding: 4px 12px; border-radius: 4px;"
+                  )
+                ),
+                tags$div(
+                  style = "flex: 1; min-height: 0;",
+                  shinyAce::aceEditor(
+                    ns("statistical_summary_editor"),
+                    value = current_summary,
+                    mode = "json",
+                    theme = "chrome",
+                    height = "100%",
+                    fontSize = 11,
+                    showLineNumbers = TRUE,
+                    highlightActiveLine = TRUE,
+                    tabSize = 2
+                  )
+                )
+              )
+            } else {
+              # View mode: show statistical summary display
+              summary_data <- NULL
+              if (nrow(concept_info) > 0 && !is.na(concept_info$statistical_summary[1]) && nchar(concept_info$statistical_summary[1]) > 0) {
+                tryCatch({
+                  summary_data <- jsonlite::fromJSON(concept_info$statistical_summary[1])
+                }, error = function(e) {
+                  summary_data <<- NULL
+                })
+              }
+
+              if (!is.null(summary_data)) {
+                # Helper function to create detail items
+                create_detail_item <- function(label, value) {
+                  display_value <- if (is.null(value) || (is.character(value) && value == "")) {
+                    "/"
+                  } else {
+                    as.character(value)
+                  }
+
+                  tags$div(
+                    class = "detail-item",
+                    tags$strong(paste0(label, ":")),
+                    tags$span(display_value)
+                  )
+                }
+
+                # Display statistical summary in 2-column layout
+                tags$div(
+                  style = "height: 100%; overflow-y: auto; padding: 15px; background: #ffffff;",
+                  tags$div(
+                    style = "display: grid; grid-template-columns: 1fr 1fr; gap: 20px;",
+
+                    # Left Column
+                    tags$div(
+                      # Data Types Section
+                      tags$h5(style = "margin: 0 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Data Types"),
+                      if (!is.null(summary_data$data_types) && length(summary_data$data_types) > 0) {
+                        tags$div(
+                          style = "margin-bottom: 20px;",
+                          create_detail_item("Types", paste(summary_data$data_types, collapse = ", "))
+                        )
+                      } else {
+                        tags$p(style = "color: #6c757d; font-style: italic; margin-bottom: 20px;", "No data types specified")
+                      },
+
+                      # Statistical Data Section
+                      tags$h5(style = "margin: 20px 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Statistical Data"),
+                      if (!is.null(summary_data$statistical_data) && length(summary_data$statistical_data) > 0) {
+                        tagList(
+                          lapply(names(summary_data$statistical_data), function(key) {
+                            value <- summary_data$statistical_data[[key]]
+                            create_detail_item(gsub("_", " ", tools::toTitleCase(key)), if (is.null(value)) "/" else value)
+                          })
+                        )
+                      } else {
+                        tags$p(style = "color: #6c757d; font-style: italic;", "No statistical data available")
+                      }
+                    ),
+
+                    # Right Column
+                    tags$div(
+                      # Temporal Information Section
+                      tags$h5(style = "margin: 0 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Temporal Information"),
+                      if (!is.null(summary_data$temporal_info)) {
+                        tagList(
+                          if (!is.null(summary_data$temporal_info$frequency_range)) {
+                            tagList(
+                              create_detail_item("Frequency Min", if (is.null(summary_data$temporal_info$frequency_range$min)) "/" else summary_data$temporal_info$frequency_range$min),
+                              create_detail_item("Frequency Max", if (is.null(summary_data$temporal_info$frequency_range$max)) "/" else summary_data$temporal_info$frequency_range$max)
+                            )
+                          },
+                          if (!is.null(summary_data$temporal_info$measurement_period) && length(summary_data$temporal_info$measurement_period) > 0) {
+                            create_detail_item("Measurement Period", paste(summary_data$temporal_info$measurement_period, collapse = ", "))
+                          } else {
+                            create_detail_item("Measurement Period", "/")
+                          }
+                        )
+                      } else {
+                        tags$p(style = "color: #6c757d; font-style: italic;", "No temporal information available")
+                      },
+
+                      # Possible Values Section
+                      tags$h5(style = "margin: 20px 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Possible Values"),
+                      if (!is.null(summary_data$possible_values) && length(summary_data$possible_values) > 0) {
+                        tags$div(
+                          style = "margin-top: 8px;",
+                          tags$ul(
+                            style = "margin: 0; padding-left: 20px;",
+                            lapply(summary_data$possible_values, function(val) {
+                              tags$li(style = "color: #212529; padding: 2px 0;", val)
+                            })
+                          )
+                        )
+                      } else {
+                        tags$p(style = "color: #6c757d; font-style: italic;", "No possible values specified")
+                      }
+                    )
+                  )
+                )
+              } else {
+                tags$div(
+                  style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic; height: 100%; overflow-y: auto; box-sizing: border-box;",
+                  "No statistical summary available for this concept."
+                )
+              }
+            }
+          }
+        })
+      }
+    }, ignoreNULL = FALSE)
+
+    # Render concept mappings table when concept or edit mode changes
+    observe_event(c(selected_concept_id(), edit_mode(), edited_recommended(), deleted_concepts()), {
       concept_id <- selected_concept_id()
-      req(concept_id)
+      if (!is.null(concept_id)) {
+        output$concept_mappings_table <- DT::renderDT({
 
       # Check if OHDSI vocabularies are loaded
       vocab_data <- vocabularies()
@@ -2263,16 +2292,18 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           )
       }
 
-      dt
-    }, server = FALSE)
+          dt
+        }, server = FALSE)
+      }
+    }, ignoreNULL = FALSE)
 
     # Observe tab switching for relationships
-    observeEvent(input$switch_relationships_tab, {
+    observe_event(input$switch_relationships_tab, {
       relationships_tab(input$switch_relationships_tab)
     })
 
     # Observe tab switching for comments
-    observeEvent(input$switch_comments_tab, {
+    observe_event(input$switch_comments_tab, {
       comments_tab(input$switch_comments_tab)
     })
 
@@ -2288,7 +2319,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     )
 
     # Observe selection in concept mappings table with debounce
-    observeEvent(debounced_selection(), {
+    observe_event(debounced_selection(), {
       selected_row <- debounced_selection()
 
       if (!is.null(selected_row) && length(selected_row) > 0) {
@@ -2303,23 +2334,23 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
     }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
-    # Render concept details (top-right quadrant)
-    output$concept_details_display <- renderUI({
+    # Render concept details when mapped concept is selected
+    observe_event(c(selected_mapped_concept_id(), selected_concept_id()), {
       omop_concept_id <- selected_mapped_concept_id()
-
-      if (is.null(omop_concept_id)) {
-        return(tags$div(
-          style = "padding: 20px; background: #f8f9fa; border-radius: 6px; text-align: center;",
-          tags$p(
-            style = "color: #666; font-style: italic;",
-            "Select a concept from the Mapped Concepts table to view its details."
-          )
-        ))
-      }
-
-      # Get concept details from concept_mappings
       concept_id <- selected_concept_id()
-      req(concept_id)
+
+      output$concept_details_display <- renderUI({
+        if (is.null(omop_concept_id)) {
+          return(tags$div(
+            style = "padding: 20px; background: #f8f9fa; border-radius: 6px; text-align: center;",
+            tags$p(
+              style = "color: #666; font-style: italic;",
+              "Select a concept from the Mapped Concepts table to view its details."
+            )
+          ))
+        }
+
+        if (is.null(concept_id)) return()
 
       concept_mapping <- current_data()$concept_mappings %>%
         dplyr::filter(
@@ -2700,14 +2731,16 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                             "/"
                           },
                           url = athena_unit_url)
-      )
-    })
+        )
+      })
+    }, ignoreNULL = FALSE)
 
-    # Render concept relationships (bottom-right quadrant)
-    output$concept_relationships_display <- renderUI({
-      active_tab <- relationships_tab()
+    # Render concept relationships when tab changes
+    observe_event(relationships_tab(), {
+      output$concept_relationships_display <- renderUI({
+        active_tab <- relationships_tab()
 
-      # Render DT output based on active tab
+        # Render DT output based on active tab
       if (active_tab == "related") {
         tags$div(
           uiOutput(ns("related_stats_widget")),
@@ -2718,27 +2751,19 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           uiOutput(ns("hierarchy_stats_widget")),
           DT::DTOutput(ns("hierarchy_concepts_table"))
         )
-      } else if (active_tab == "synonyms") {
-        DT::DTOutput(ns("synonyms_table"))
-      }
-    })
+        } else if (active_tab == "synonyms") {
+          DT::DTOutput(ns("synonyms_table"))
+        }
+      })
+    }, ignoreNULL = FALSE)
 
-    # Render related concepts table
-    output$related_concepts_table <- DT::renderDT({
+    # Render related concepts table when concept is selected
+    observe_event(selected_mapped_concept_id(), {
       omop_concept_id <- selected_mapped_concept_id()
-
-      # Show instruction message if no concept is selected
-      if (is.null(omop_concept_id)) {
-        return(DT::datatable(
-          data.frame(Message = "Select a concept from the Mapped Concepts table to view its details."),
-          options = list(dom = 't'),
-          rownames = FALSE,
-          selection = 'none'
-        ))
-      }
-
-      vocab_data <- vocabularies()
-      req(vocab_data)
+      if (!is.null(omop_concept_id)) {
+        output$related_concepts_table <- DT::renderDT({
+          vocab_data <- vocabularies()
+          if (is.null(vocab_data)) return()
 
       related_concepts <- get_related_concepts(omop_concept_id, vocab_data)
 
@@ -2788,15 +2813,17 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           ", ns("modal_concept_id"), ns("concept_modal")))
         )
       )
-    }, server = FALSE)
+            }, server = FALSE)
+      }
+    }, ignoreNULL = FALSE)
 
     # Render related concepts statistics widget
-    output$related_stats_widget <- renderUI({
+    observe_event(selected_mapped_concept_id(), {
       omop_concept_id <- selected_mapped_concept_id()
-      req(omop_concept_id)
-
-      vocab_data <- vocabularies()
-      req(vocab_data)
+      if (!is.null(omop_concept_id)) {
+        output$related_stats_widget <- renderUI({
+          vocab_data <- vocabularies()
+          if (is.null(vocab_data)) return()
 
       related_concepts <- get_related_concepts(omop_concept_id, vocab_data)
 
@@ -2863,17 +2890,19 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         tags$div(
           style = "display: flex; gap: 20px; flex-wrap: wrap;",
           stat_items
+          )
         )
-      )
-    })
+        })
+      }
+    }, ignoreNULL = FALSE)
 
     # Render hierarchy statistics widget
-    output$hierarchy_stats_widget <- renderUI({
+    observe_event(selected_mapped_concept_id(), {
       omop_concept_id <- selected_mapped_concept_id()
-      req(omop_concept_id)
-
-      vocab_data <- vocabularies()
-      req(vocab_data)
+      if (!is.null(omop_concept_id)) {
+        output$hierarchy_stats_widget <- renderUI({
+          vocab_data <- vocabularies()
+          if (is.null(vocab_data)) return()
 
       # Get hierarchy graph data to extract stats
       hierarchy_data <- get_concept_hierarchy_graph(omop_concept_id, vocab_data)
@@ -2925,28 +2954,28 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           "View Graph",
           class = "btn-view-graph",
           style = "padding: 8px 16px; background: #0f60af; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 500;"
+          )
         )
-      )
-    })
+        })
+      }
+    }, ignoreNULL = FALSE)
 
     # Render hierarchy concepts table
-    output$hierarchy_concepts_table <- DT::renderDT({
+    observe_event(selected_mapped_concept_id(), {
       omop_concept_id <- selected_mapped_concept_id()
+      if (!is.null(omop_concept_id)) {
+        output$hierarchy_concepts_table <- DT::renderDT({
+          vocab_data <- vocabularies()
+          if (is.null(vocab_data)) return(
 
-      # Show instruction message if no concept is selected
-      if (is.null(omop_concept_id)) {
-        return(DT::datatable(
-          data.frame(Message = "Select a concept from the Mapped Concepts table to view its details."),
-          options = list(dom = 't'),
-          rownames = FALSE,
-          selection = 'none'
-        ))
-      }
+DT::datatable(
+            data.frame(Message = "OHDSI Vocabularies not loaded."),
+            options = list(dom = 't'),
+            rownames = FALSE,
+            selection = 'none'
+          ))
 
-      vocab_data <- vocabularies()
-      req(vocab_data)
-
-      descendant_concepts <- get_descendant_concepts(omop_concept_id, vocab_data)
+          descendant_concepts <- get_descendant_concepts(omop_concept_id, vocab_data)
 
       # Remove the selected concept itself from the results
       if (nrow(descendant_concepts) > 0) {
@@ -2990,28 +3019,22 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               });
             }
           ", ns("modal_concept_id"), ns("concept_modal")))
+          )
         )
-      )
-    }, server = FALSE)
+        }, server = FALSE)
+      }
+    }, ignoreNULL = FALSE)
 
     # Render synonyms table
-    output$synonyms_table <- DT::renderDT({
+    observe_event(selected_mapped_concept_id(), {
       omop_concept_id <- selected_mapped_concept_id()
+      if (!is.null(omop_concept_id)) {
+        output$synonyms_table <- DT::renderDT({
+          vocab_data <- vocabularies()
+          if (is.null(vocab_data)) return()
 
-      # Show instruction message if no concept is selected
-      if (is.null(omop_concept_id)) {
-        return(DT::datatable(
-          data.frame(Message = "Select a concept from the Mapped Concepts table to view its details."),
-          options = list(dom = 't'),
-          rownames = FALSE,
-          selection = 'none'
-        ))
-      }
-
-      vocab_data <- vocabularies()
-      req(vocab_data)
-
-      synonyms <- get_concept_synonyms(omop_concept_id, vocab_data)
+          # Get synonyms
+          synonyms <- get_concept_synonyms(omop_concept_id, vocab_data)
 
       if (nrow(synonyms) == 0) {
         return(DT::datatable(data.frame(Message = "No synonyms found for this concept."),
@@ -3035,27 +3058,27 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           columnDefs = list(
             list(targets = 2, visible = FALSE)  # Language ID hidden
           )
+                )
         )
-      )
-    }, server = FALSE)
+        }, server = FALSE)
+      }
+    }, ignoreNULL = FALSE)
 
     # Observe modal_concept_id input and update reactiveVal
-    observeEvent(input$modal_concept_id, {
+    observe_event(input$modal_concept_id, {
       modal_concept_id(input$modal_concept_id)
     }, ignoreNULL = TRUE, ignoreInit = FALSE)
 
     # Modal concept details
-    output$concept_modal_body <- renderUI({
+    # Render concept modal body when concept is selected
+    observe_event(modal_concept_id(), {
       concept_id <- modal_concept_id()
-
-      if (is.null(concept_id)) {
-        return(tags$div("No concept selected"))
-      }
-
-      vocab_data <- vocabularies()
-      if (is.null(vocab_data)) {
-        return(tags$div("Vocabulary data not available"))
-      }
+      if (!is.null(concept_id)) {
+        output$concept_modal_body <- renderUI({
+          vocab_data <- vocabularies()
+          if (is.null(vocab_data)) {
+            return(tags$div("Vocabulary data not available"))
+          }
 
       # Get concept information from vocabularies
       concept_info <- vocab_data$concept %>%
@@ -3155,17 +3178,19 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         } else {
           tags$div(class = "detail-item", style = "visibility: hidden;")
         },
-        tags$div(class = "detail-item", style = "visibility: hidden;")
-      )
-    })
+          tags$div(class = "detail-item", style = "visibility: hidden;")
+        )
+        })
+      }
+    }, ignoreNULL = FALSE)
 
     # Render hierarchy graph breadcrumb
-    output$hierarchy_graph_breadcrumb <- renderUI({
+    observe_event(selected_mapped_concept_id(), {
       omop_concept_id <- selected_mapped_concept_id()
-      req(omop_concept_id)
-
-      vocab_data <- vocabularies()
-      req(vocab_data)
+      if (!is.null(omop_concept_id)) {
+        output$hierarchy_graph_breadcrumb <- renderUI({
+          vocab_data <- vocabularies()
+          if (is.null(vocab_data)) return()
 
       # Get concept details
       concept_info <- vocab_data$concept %>%
@@ -3189,17 +3214,19 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         tags$span(
           style = "color: #999; font-size: 14px;",
           paste0("(", concept_info$vocabulary_id, " - ", concept_info$concept_code, ")")
+          )
         )
-      )
-    })
+        })
+      }
+    }, ignoreNULL = FALSE)
 
     # Render hierarchy graph
-    output$hierarchy_graph <- visNetwork::renderVisNetwork({
+    observe_event(selected_mapped_concept_id(), {
       omop_concept_id <- selected_mapped_concept_id()
-      req(omop_concept_id)
-
-      vocab_data <- vocabularies()
-      req(vocab_data)
+      if (!is.null(omop_concept_id)) {
+        output$hierarchy_graph <- visNetwork::renderVisNetwork({
+          vocab_data <- vocabularies()
+          if (is.null(vocab_data)) return()
 
       # Get hierarchy graph data
       hierarchy_data <- get_concept_hierarchy_graph(omop_concept_id, vocab_data,
@@ -3258,12 +3285,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             algorithm = "hierarchical"
           )
         ) %>%
-        visNetwork::visPhysics(enabled = FALSE) %>%
-        visNetwork::visLayout(randomSeed = 123)
-    })
+          visNetwork::visPhysics(enabled = FALSE) %>%
+          visNetwork::visLayout(randomSeed = 123)
+        })
+      }
+    }, ignoreNULL = FALSE)
 
     # Observe view graph button click
-    observeEvent(input$view_hierarchy_graph, {
+    observe_event(input$view_hierarchy_graph, {
       # Show modal
       shinyjs::runjs(sprintf("$('#%s').show();", ns("hierarchy_graph_modal")))
 
@@ -3322,8 +3351,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     }, server = TRUE)
 
     # Observe modal table selection
-    observeEvent(input$modal_concepts_table_rows_selected, {
-      req(input$modal_concepts_table_rows_selected)
+    observe_event(input$modal_concepts_table_rows_selected, {
+      if (is.null(input$modal_concepts_table_rows_selected)) return()
 
       vocab_data <- vocabularies()
       req(vocab_data)
@@ -3510,7 +3539,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     outputOptions(output, "omop_concepts_table", suspendWhenHidden = FALSE)
 
     # Track selected concept in add modal
-    observeEvent(input$omop_concepts_table_rows_selected, {
+    observe_event(input$omop_concepts_table_rows_selected, {
       selected_row <- input$omop_concepts_table_rows_selected
 
       if (length(selected_row) > 0) {
@@ -3632,8 +3661,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     outputOptions(output, "add_modal_descendants_table", suspendWhenHidden = FALSE)
 
     # Add selected concept from new modal
-    observeEvent(input$add_selected_concept, {
-      req(edit_mode())
+    observe_event(input$add_selected_concept, {
+      if (!edit_mode()) return()
 
       # Get selected row from omop_concepts_table
       selected_row <- input$omop_concepts_table_rows_selected
@@ -3648,7 +3677,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       # Get current general concept
       concept_id <- selected_concept_id()
-      req(concept_id)
+      if (is.null(concept_id)) return()
 
       # Get concepts to add (including descendants if checked)
       concepts_to_add <- selected_concept$concept_id
@@ -3722,9 +3751,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     }, ignoreInit = TRUE)
 
     # Confirm add OMOP concept
-    observeEvent(input$confirm_add_omop_concept, {
+    observe_event(input$confirm_add_omop_concept, {
       concept <- modal_selected_concept()
-      req(concept)
+      if (is.null(concept)) return()
 
       selected_concept_row <- selected_concept_reactive()
       req(selected_concept_row)
@@ -3799,7 +3828,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     # Confirm add custom concept
-    observeEvent(input$confirm_add_custom_concept, {
+    observe_event(input$confirm_add_custom_concept, {
       # Validate concept name is not empty
       concept_name <- trimws(input$custom_concept_name)
       if (is.null(concept_name) || concept_name == "") {
@@ -3869,11 +3898,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     # Reset mapped concepts - re-enrich from recommended concepts
-    observeEvent(input$reset_mapped_concepts, {
-      req(edit_mode())
+    observe_event(input$reset_mapped_concepts, {
+      if (!edit_mode()) return()
 
       concept_id <- selected_concept_id()
-      req(concept_id)
+      if (is.null(concept_id)) return()
 
       vocab_data <- vocabularies()
       if (is.null(vocab_data)) {
@@ -3995,7 +4024,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     # Handle mode switching in Add Concept modal
-    observeEvent(input$concept_source_mode, {
+    observe_event(input$concept_source_mode, {
       if (input$concept_source_mode == "omop") {
         shinyjs::runjs(sprintf("
           $('#%s').css('display', 'flex');
@@ -4010,23 +4039,18 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     # Cancel buttons
-    observeEvent(input$cancel_add_concept_mapping, {
+    observe_event(input$cancel_add_concept_mapping, {
       shinyjs::hide(ns("add_concept_to_mapping_modal"))
       modal_selected_concept(NULL)
     })
 
-    observeEvent(input$cancel_add_custom_concept_mapping, {
+    observe_event(input$cancel_add_custom_concept_mapping, {
       shinyjs::hide(ns("add_concept_to_mapping_modal"))
       shiny::updateTextInput(session, "custom_concept_name", value = "")
       shiny::updateTextInput(session, "custom_concept_code", value = "/")
     })
 
-    # Force Shiny to render output even when hidden
-    outputOptions(output, "concept_modal_body", suspendWhenHidden = FALSE)
-    outputOptions(output, "hierarchy_graph", suspendWhenHidden = FALSE)
-    outputOptions(output, "hierarchy_graph_breadcrumb", suspendWhenHidden = FALSE)
-    outputOptions(output, "modal_concepts_table", suspendWhenHidden = FALSE)
-    outputOptions(output, "modal_concept_details", suspendWhenHidden = FALSE)
-    outputOptions(output, "modal_descendants_table", suspendWhenHidden = FALSE)
+    # Note: outputOptions moved inside observe_event blocks where outputs are created
+    # to avoid errors when outputs don't exist yet
   })
 }

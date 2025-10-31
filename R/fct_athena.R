@@ -40,72 +40,54 @@ load_ohdsi_vocabularies <- function(vocab_folder) {
       return(NULL)
     }
 
-    # Load files in parallel using future
-    message("  Loading CONCEPT, CONCEPT_RELATIONSHIP, CONCEPT_ANCESTOR, and CONCEPT_SYNONYM in parallel from CSV...")
+    # Load files sequentially from CSV
+    message("  Loading CONCEPT, CONCEPT_RELATIONSHIP, CONCEPT_ANCESTOR, and CONCEPT_SYNONYM from CSV...")
 
-    concept_future <- future::future({
-      readr::read_tsv(
-        concept_path,
-        col_types = readr::cols(
-          concept_id = readr::col_integer(),
-          concept_name = readr::col_character(),
-          domain_id = readr::col_character(),
-          vocabulary_id = readr::col_character(),
-          concept_class_id = readr::col_character(),
-          standard_concept = readr::col_character(),
-          concept_code = readr::col_character(),
-          invalid_reason = readr::col_character()
-        ),
-        show_col_types = FALSE
-      )
-    })
+    concept <- readr::read_tsv(
+      concept_path,
+      col_types = readr::cols(
+        concept_id = readr::col_integer(),
+        concept_name = readr::col_character(),
+        domain_id = readr::col_character(),
+        vocabulary_id = readr::col_character(),
+        concept_class_id = readr::col_character(),
+        standard_concept = readr::col_character(),
+        concept_code = readr::col_character(),
+        invalid_reason = readr::col_character()
+      ),
+      show_col_types = FALSE
+    )
 
-    concept_relationship_future <- future::future({
-      readr::read_tsv(
-        concept_relationship_path,
-        col_types = readr::cols(
-          concept_id_1 = readr::col_integer(),
-          concept_id_2 = readr::col_integer(),
-          relationship_id = readr::col_character()
-        ),
-        show_col_types = FALSE
-      )
-    })
+    concept_relationship <- readr::read_tsv(
+      concept_relationship_path,
+      col_types = readr::cols(
+        concept_id_1 = readr::col_integer(),
+        concept_id_2 = readr::col_integer(),
+        relationship_id = readr::col_character()
+      ),
+      show_col_types = FALSE
+    )
 
-    concept_ancestor_future <- future::future({
-      readr::read_tsv(
-        concept_ancestor_path,
-        col_types = readr::cols(
-          ancestor_concept_id = readr::col_integer(),
-          descendant_concept_id = readr::col_integer()
-        ),
-        show_col_types = FALSE
-      )
-    })
+    concept_ancestor <- readr::read_tsv(
+      concept_ancestor_path,
+      col_types = readr::cols(
+        ancestor_concept_id = readr::col_integer(),
+        descendant_concept_id = readr::col_integer()
+      ),
+      show_col_types = FALSE
+    )
 
     # Load CONCEPT_SYNONYM if file exists
-    concept_synonym_future <- if (file.exists(concept_synonym_path)) {
-      future::future({
-        readr::read_tsv(
-          concept_synonym_path,
-          col_types = readr::cols(
-            concept_id = readr::col_integer(),
-            concept_synonym_name = readr::col_character(),
-            language_concept_id = readr::col_integer()
-          ),
-          show_col_types = FALSE
-        )
-      })
-    } else {
-      NULL
-    }
-
-    # Wait for all futures to complete
-    concept <- future::value(concept_future)
-    concept_relationship <- future::value(concept_relationship_future)
-    concept_ancestor <- future::value(concept_ancestor_future)
-    concept_synonym <- if (!is.null(concept_synonym_future)) {
-      future::value(concept_synonym_future)
+    concept_synonym <- if (file.exists(concept_synonym_path)) {
+      readr::read_tsv(
+        concept_synonym_path,
+        col_types = readr::cols(
+          concept_id = readr::col_integer(),
+          concept_synonym_name = readr::col_character(),
+          language_concept_id = readr::col_integer()
+        ),
+        show_col_types = FALSE
+      )
     } else {
       NULL
     }

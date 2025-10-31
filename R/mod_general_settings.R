@@ -102,7 +102,7 @@ mod_general_settings_ui <- function(id) {
 #' @noRd
 #'
 #' @importFrom shiny moduleServer reactive observeEvent reactiveVal renderUI showModal modalDialog removeModal observe textInput
-mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_vocabularies = NULL, set_vocabularies = NULL, current_user = reactive(NULL)) {
+mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_vocabularies = NULL, set_vocabularies = NULL, current_user = reactive(NULL), log_level = character()) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 

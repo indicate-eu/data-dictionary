@@ -138,7 +138,7 @@ mod_dev_tools_ui <- function(id) {
 #' @importFrom DT renderDT datatable DTOutput
 #' @importFrom dplyr filter summarise n select
 #' @importFrom htmltools tags HTML
-mod_dev_tools_server <- function(id, data, vocabularies) {
+mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 

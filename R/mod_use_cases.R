@@ -497,7 +497,7 @@ render_use_case_config_ui <- function(ns) {
 #' @importFrom htmltools tags tagList HTML
 #' @importFrom DT renderDT datatable formatStyle styleEqual
 #' @importFrom dplyr left_join group_by summarise n filter inner_join select collect
-mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), current_user = reactive(NULL)) {
+mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), current_user = reactive(NULL), log_level = character()) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 

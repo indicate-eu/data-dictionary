@@ -274,7 +274,7 @@ mod_concept_mapping_ui <- function(id) {
 #' @importFrom DT renderDT datatable formatStyle DTOutput
 #' @importFrom dplyr filter select mutate arrange
 #' @importFrom htmltools tags tagList HTML
-mod_concept_mapping_server <- function(id, data, config, vocabularies, current_user = reactive(NULL)) {
+mod_concept_mapping_server <- function(id, data, config, vocabularies, current_user = reactive(NULL), log_level = character()) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 

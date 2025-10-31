@@ -4,6 +4,9 @@
 #'
 #' @param app_folder Path to the folder where application files will be stored.
 #'   If NULL (default), uses the user's home directory.
+#' @param debug_mode Character vector specifying debug output level.
+#'   Can include "event" to log all observer events, "error" to log errors,
+#'   or both c("event", "error"). Default is NULL (no debug output).
 #' @param ... Additional arguments passed to \code{\link[shiny]{shinyApp}}
 #' @param options A named list of options to pass to \code{\link[shiny]{shinyApp}}.
 #'   By default, the browser is launched automatically.
@@ -17,8 +20,10 @@
 #' \dontrun{
 #' run_app()
 #' run_app(app_folder = "~/Documents/my_indicate_data")
+#' run_app(debug_mode = "error")
+#' run_app(debug_mode = c("event", "error"))
 #' }
-run_app <- function(app_folder = NULL, ..., options = list()) {
+run_app <- function(app_folder = NULL, debug_mode = NULL, ..., options = list()) {
   # Set app folder for database location
   if (is.null(app_folder)) {
     app_folder <- path.expand("~")
@@ -29,8 +34,10 @@ run_app <- function(app_folder = NULL, ..., options = list()) {
   # Store app_folder in an environment variable for use by other functions
   Sys.setenv(INDICATE_APP_FOLDER = app_folder)
 
-  # Set up future plan for parallel processing
-  future::plan(future::multisession, workers = 3)
+  # Store debug_mode in an environment variable for use by server
+  if (!is.null(debug_mode)) {
+    Sys.setenv(INDICATE_DEBUG_MODE = paste(debug_mode, collapse = ","))
+  }
 
   # Add resource path for www directory
   addResourcePath("www", system.file("www", package = "indicate"))

@@ -199,7 +199,7 @@ mod_users_ui <- function(id) {
 #'
 #' @importFrom shiny moduleServer reactive observeEvent req renderUI updateTextInput updateSelectInput
 #' @importFrom DT renderDT datatable formatStyle styleEqual
-mod_users_server <- function(id, current_user) {
+mod_users_server <- function(id, current_user, log_level = character()) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 

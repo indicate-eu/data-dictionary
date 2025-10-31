@@ -16,8 +16,16 @@ app_server <- function(input, output, session) {
   # Initialize router
   shiny.router::router_server(root_page = "/")
 
+  # Set up debug mode from environment variable
+  debug_env <- Sys.getenv("INDICATE_DEBUG_MODE", "")
+  log_level <- if (debug_env != "") {
+    strsplit(debug_env, ",")[[1]]
+  } else {
+    character(0)
+  }
+
   # Initialize login module and get current user
-  login_module <- mod_login_server("login")
+  login_module <- mod_login_server("login", log_level = log_level)
   current_user <- login_module$user
 
   # Track if data has been loaded
@@ -67,7 +75,8 @@ app_server <- function(input, output, session) {
   header_module <- mod_page_header_server(
     "page_header",
     current_user = current_user,
-    vocab_loading_status = reactive({ vocab_loading_status() })
+    vocab_loading_status = reactive({ vocab_loading_status() }),
+    log_level = log_level
   )
 
   # Handle logout from header
@@ -115,7 +124,6 @@ app_server <- function(input, output, session) {
   # Reactive value to track vocabulary loading status
   vocabularies <- reactiveVal(NULL)
   vocab_loading_status <- reactiveVal("not_loaded")  # "not_loaded", "loading", "loaded", "error"
-  vocab_future <- reactiveVal(NULL)
 
   # Handle manual loading when user clicks button
   observeEvent(input$load_vocab_data, {
@@ -128,102 +136,14 @@ app_server <- function(input, output, session) {
 
     vocab_loading_status("loading")
 
-    # Start loading in background
-    future::future({
-      # Load packages in the future session
-      library(readr)
-      library(dplyr)
+    # Load vocabularies synchronously
+    result <- load_ohdsi_vocabularies(vocab_folder)
 
-      vocab_folder_local <- vocab_folder
-
-      tryCatch({
-        concept_path <- file.path(vocab_folder_local, "CONCEPT.csv")
-        concept_relationship_path <- file.path(vocab_folder_local, "CONCEPT_RELATIONSHIP.csv")
-        concept_ancestor_path <- file.path(vocab_folder_local, "CONCEPT_ANCESTOR.csv")
-
-        if (!file.exists(concept_path) || !file.exists(concept_relationship_path) || !file.exists(concept_ancestor_path)) {
-          return(NULL)
-        }
-
-        # Load all three files in parallel
-        concept_future <- future::future({
-          readr::read_tsv(
-            concept_path,
-            col_types = readr::cols(
-              concept_id = readr::col_integer(),
-              concept_name = readr::col_character(),
-              domain_id = readr::col_character(),
-              vocabulary_id = readr::col_character(),
-              concept_class_id = readr::col_character(),
-              standard_concept = readr::col_character(),
-              concept_code = readr::col_character(),
-              invalid_reason = readr::col_character()
-            ),
-            show_col_types = FALSE
-          )
-        })
-
-        concept_relationship_future <- future::future({
-          readr::read_tsv(
-            concept_relationship_path,
-            col_types = readr::cols(
-              concept_id_1 = readr::col_integer(),
-              concept_id_2 = readr::col_integer(),
-              relationship_id = readr::col_character()
-            ),
-            show_col_types = FALSE
-          )
-        })
-
-        concept_ancestor_future <- future::future({
-          readr::read_tsv(
-            concept_ancestor_path,
-            col_types = readr::cols(
-              ancestor_concept_id = readr::col_integer(),
-              descendant_concept_id = readr::col_integer()
-            ),
-            show_col_types = FALSE
-          )
-        })
-
-        # Wait for all to complete
-        concept <- future::value(concept_future)
-        concept_relationship <- future::value(concept_relationship_future)
-        concept_ancestor <- future::value(concept_ancestor_future)
-
-        list(
-          concept = concept,
-          concept_relationship = concept_relationship,
-          concept_ancestor = concept_ancestor
-        )
-      }, error = function(e) {
-        message("Error loading OHDSI vocabularies: ", e$message)
-        NULL
-      })
-    }, seed = TRUE) -> future_obj
-
-    vocab_future(future_obj)
-  })
-
-  # Poll for completion of async loading
-  observe({
-    future_obj <- vocab_future()
-
-    if (is.null(future_obj) || vocab_loading_status() != "loading") {
-      return()
-    }
-
-    invalidateLater(500)  # Check every 500ms
-
-    if (future::resolved(future_obj)) {
-      result <- future::value(future_obj)
-      if (!is.null(result)) {
-        vocabularies(result)
-        vocab_loading_status("loaded")
-      } else {
-        vocab_loading_status("error")
-      }
-      vocab_future(NULL)
+    if (!is.null(result)) {
+      vocabularies(result)
+      vocab_loading_status("loaded")
+    } else {
+      vocab_loading_status("error")
     }
   })
 
@@ -234,7 +154,8 @@ app_server <- function(input, output, session) {
     config = config,
     vocabularies = reactive({ vocabularies() }),
     vocab_loading_status = reactive({ vocab_loading_status() }),
-    current_user = current_user
+    current_user = current_user,
+    log_level = log_level
   )
 
   mod_concept_mapping_server(
@@ -242,27 +163,31 @@ app_server <- function(input, output, session) {
     data = data,
     config = config,
     vocabularies = reactive({ vocabularies() }),
-    current_user = current_user
+    current_user = current_user,
+    log_level = log_level
   )
 
   mod_use_cases_server(
     "use_cases",
     data = data,
     vocabularies = reactive({ vocabularies() }),
-    current_user = current_user
+    current_user = current_user,
+    log_level = log_level
   )
 
   mod_improvements_server(
     "improvements",
     data = data,
     config = config,
-    current_user = current_user
+    current_user = current_user,
+    log_level = log_level
   )
 
   mod_dev_tools_server(
     "dev_tools",
     data = data,
-    vocabularies = reactive({ vocabularies() })
+    vocabularies = reactive({ vocabularies() }),
+    log_level = log_level
   )
 
   mod_general_settings_server(
@@ -277,11 +202,13 @@ app_server <- function(input, output, session) {
       vocabularies(vocab_data)
       vocab_loading_status("loaded")
     },
-    current_user = current_user
+    current_user = current_user,
+    log_level = log_level
   )
 
   mod_users_server(
     "users",
-    current_user = current_user
+    current_user = current_user,
+    log_level = log_level
   )
 }

@@ -120,7 +120,7 @@ mod_login_ui <- function(id) {
 #' @noRd
 #'
 #' @importFrom shiny moduleServer reactive observeEvent req
-mod_login_server <- function(id) {
+mod_login_server <- function(id, log_level = character()) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
