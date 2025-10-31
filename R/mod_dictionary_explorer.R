@@ -84,25 +84,23 @@ mod_dictionary_explorer_ui <- function(id) {
                 class = "table-container",
                 style = "height: calc(100vh - 175px); overflow: auto;",
 
-                # Loading message
-                shinyjs::hidden(
+                # Loading message (visible by default)
+                tags$div(
+                  id = ns("vocab_loading_message"),
+                  style = "display: flex; align-items: center; justify-content: center; height: 100%; flex-direction: column; gap: 20px;",
                   tags$div(
-                    id = ns("vocab_loading_message"),
-                    style = "display: flex; align-items: center; justify-content: center; height: 100%; flex-direction: column; gap: 20px;",
+                    style = "text-align: center; padding: 40px; background: #e6f3ff; border: 2px solid #0f60af; border-radius: 8px; max-width: 600px;",
                     tags$div(
-                      style = "text-align: center; padding: 40px; background: #e6f3ff; border: 2px solid #0f60af; border-radius: 8px; max-width: 600px;",
-                      tags$div(
-                        style = "color: #0f60af; font-size: 48px; margin-bottom: 15px;",
-                        tags$i(class = "fas fa-spinner fa-spin")
-                      ),
-                      tags$h3(
-                        style = "color: #0f60af; margin-bottom: 15px; font-size: 24px;",
-                        "Loading OHDSI Vocabularies"
-                      ),
-                      tags$p(
-                        style = "color: #0f60af; font-size: 16px; line-height: 1.5;",
-                        "Please wait while the vocabularies database is being loaded..."
-                      )
+                      style = "color: #0f60af; font-size: 48px; margin-bottom: 15px;",
+                      tags$i(class = "fas fa-spinner fa-spin")
+                    ),
+                    tags$h3(
+                      style = "color: #0f60af; margin-bottom: 15px; font-size: 24px;",
+                      "Loading OHDSI Vocabularies"
+                    ),
+                    tags$p(
+                      style = "color: #0f60af; font-size: 16px; line-height: 1.5;",
+                      "Please wait while the vocabularies database is being loaded..."
                     )
                   )
                 ),
@@ -157,6 +155,7 @@ mod_dictionary_explorer_ui <- function(id) {
                           class = "section-header",
                           style = "display: flex; align-items: center; justify-content: space-between; height: 40px;",
                           tags$h4(
+                            style = "margin-right: auto;",
                             "Mapped Concepts",
                             tags$span(
                               class = "info-icon",
@@ -530,7 +529,7 @@ mod_dictionary_explorer_ui <- function(id) {
         # Graph content
         tags$div(
           style = "flex: 1; overflow: hidden; padding: 20px;",
-          visNetwork::visNetworkOutput(ns("hierarchy_graph"), height = "100%", width = "100%")
+          visNetwork::visNetworkOutput(ns("hierarchy_graph_modal_content"), height = "100%", width = "100%")
         )
       )
     ),
@@ -647,8 +646,14 @@ mod_dictionary_explorer_ui <- function(id) {
 #' @importFrom htmltools HTML tags tagList
 #' @importFrom htmlwidgets JS
 mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab_loading_status = reactive("not_loaded"), current_user = reactive(NULL), log_level = character()) {
+  # Capture module id before entering moduleServer for logging
+  module_id <- id
+
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
+
+    # Store module id for logging (used by observe_event wrapper)
+    id <- module_id
 
     ## Server - Reactive Values & State ----
     ### View & Selection State ----
@@ -672,6 +677,31 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
     ### Data Management ----
     local_data <- reactiveVal(NULL)  # Local copy of data that can be updated
+
+    ### Cascade Triggers ----
+    # These reactiveVal triggers are used to create a cascade pattern for observers
+    # Instead of having observers with multiple triggers like observe_event(c(a(), b(), c())),
+    # we have primary observers that update these triggers, and cascade observers that listen to them
+
+    # Primary state triggers
+    view_trigger <- reactiveVal(0)
+    concept_trigger <- reactiveVal(0)
+    edit_mode_trigger <- reactiveVal(0)
+    list_edit_mode_trigger <- reactiveVal(0)
+    comments_tab_trigger <- reactiveVal(0)
+    local_data_trigger <- reactiveVal(0)
+    mapped_concept_trigger <- reactiveVal(0)
+    edited_recommended_trigger <- reactiveVal(0)
+    deleted_concepts_trigger <- reactiveVal(0)
+    selected_categories_trigger <- reactiveVal(0)
+
+    # Composite triggers (for observers that need multiple conditions)
+    breadcrumb_trigger <- reactiveVal(0)
+    history_ui_trigger <- reactiveVal(0)
+    general_concepts_table_trigger <- reactiveVal(0)
+    comments_display_trigger <- reactiveVal(0)
+    concept_mappings_table_trigger <- reactiveVal(0)
+    concept_details_display_trigger <- reactiveVal(0)
 
     # Initialize local_data with data from parameter
     observe_event(data(), {
@@ -758,29 +788,36 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     observe_event(vocab_loading_status(), {
       loading_status <- vocab_loading_status()
       vocab_data <- isolate(vocabularies())
-      
+
       if (loading_status == "loading") {
         # Show loading message, hide table and error
         shinyjs::show("vocab_loading_message")
         shinyjs::hide("vocab_error_message")
         shinyjs::hide("general_concepts_table")
-      } else if (loading_status == "not_loaded" || loading_status == "error" || is.null(vocab_data)) {
-        # Show error message, hide table and loading
-        shinyjs::hide("vocab_loading_message")
-        shinyjs::show("vocab_error_message")
-        shinyjs::hide("general_concepts_table")
-      } else {
+      } else if (loading_status == "loaded" && !is.null(vocab_data)) {
         # Show table, hide loading and error
         shinyjs::hide("vocab_loading_message")
         shinyjs::hide("vocab_error_message")
         shinyjs::show("general_concepts_table")
+      } else if (loading_status == "error") {
+        # Show error message only if there was an actual error
+        shinyjs::hide("vocab_loading_message")
+        shinyjs::show("vocab_error_message")
+        shinyjs::hide("general_concepts_table")
+      } else {
+        # Keep showing loading message for 'not_loaded' status (initial state)
+        shinyjs::show("vocab_loading_message")
+        shinyjs::hide("vocab_error_message")
+        shinyjs::hide("general_concepts_table")
       }
     }, ignoreNULL = FALSE, ignoreInit = FALSE)
-    
+
+
     ### Breadcrumb Rendering ----
-    observe_event(c(current_view(), edit_mode(), list_edit_mode()), {
+    # Render breadcrumb when breadcrumb trigger fires (cascade observer)
+    observe_event(breadcrumb_trigger(), {
       view <- current_view()
-      
+
       output$breadcrumb <- renderUI({
         if (view == "list") {
           categories <- categories_list()
@@ -856,10 +893,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           }
         }
       })
-    }, ignoreNULL = FALSE)
-    
-    # Render header buttons for mapped concepts based on edit mode
-    observe_event(edit_mode(), {
+    }, ignoreInit = TRUE)
+
+    # Render header buttons for mapped concepts based on edit mode (cascade observer)
+    observe_event(edit_mode_trigger(), {
       output$mapped_concepts_header_buttons <- renderUI({
         if (edit_mode()) {
           tags$div(
@@ -880,7 +917,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           )
         }
       })
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    }, ignoreInit = TRUE)
     
     ### Category Filtering ----
     observe_event(input$category_filter, {
@@ -908,26 +945,115 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       detail_history = "history_container",
       list_history = "list_history_container"
     )
-    
-    # Handle view changes: update buttons, containers, and render history UIs
+
+    # Handle view changes: update buttons and containers, then trigger cascade
     observe_event(current_view(), {
       view <- current_view()
-      
+
       # 1. Update button visibility
       update_button_visibility()
-      
+
       # 2. Hide all containers and show the current one
       lapply(all_containers, function(id) shinyjs::hide(id = id))
       if (!is.null(view_containers[[view]])) {
         shinyjs::show(id = view_containers[[view]])
       }
-      
-      # 3. Render list history UI if needed
+
+      # 3. Trigger cascade
+      view_trigger(view_trigger() + 1)
+    }, ignoreNULL = FALSE)
+
+    # Handle concept selection changes, then trigger cascade
+    observe_event(selected_concept_id(), {
+      concept_trigger(concept_trigger() + 1)
+    }, ignoreNULL = FALSE)
+
+    # Handle edit mode changes, then trigger cascade
+    observe_event(edit_mode(), {
+      edit_mode_trigger(edit_mode_trigger() + 1)
+    }, ignoreNULL = FALSE)
+
+    # Handle list edit mode changes, then trigger cascade
+    observe_event(list_edit_mode(), {
+      list_edit_mode_trigger(list_edit_mode_trigger() + 1)
+    }, ignoreNULL = FALSE)
+
+    # Handle comments tab changes, then trigger cascade
+    observe_event(comments_tab(), {
+      comments_tab_trigger(comments_tab_trigger() + 1)
+    }, ignoreNULL = FALSE)
+
+    # Handle local data changes, then trigger cascade
+    observe_event(local_data(), {
+      local_data_trigger(local_data_trigger() + 1)
+    }, ignoreNULL = FALSE)
+
+    # Handle mapped concept selection changes, then trigger cascade
+    observe_event(selected_mapped_concept_id(), {
+      mapped_concept_trigger(mapped_concept_trigger() + 1)
+    }, ignoreNULL = FALSE)
+
+    # Handle edited_recommended changes, then trigger cascade
+    observe_event(edited_recommended(), {
+      edited_recommended_trigger(edited_recommended_trigger() + 1)
+    }, ignoreNULL = FALSE)
+
+    # Handle deleted_concepts changes, then trigger cascade
+    observe_event(deleted_concepts(), {
+      deleted_concepts_trigger(deleted_concepts_trigger() + 1)
+    }, ignoreNULL = FALSE)
+
+    # Handle selected_categories changes, then trigger cascade
+    observe_event(selected_categories(), {
+      selected_categories_trigger(selected_categories_trigger() + 1)
+    }, ignoreNULL = FALSE)
+
+    ## Server - Composite Trigger Updates ----
+    # These observers update composite triggers when multiple conditions need to be met
+
+    # Update breadcrumb trigger when view, edit_mode, or list_edit_mode changes
+    observe_event(c(view_trigger(), edit_mode_trigger(), list_edit_mode_trigger()), {
+      breadcrumb_trigger(breadcrumb_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    # Update history_ui trigger when view or concept changes
+    observe_event(c(view_trigger(), concept_trigger()), {
+      history_ui_trigger(history_ui_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    # Update general_concepts_table trigger when local_data, list_edit_mode, or selected_categories changes
+    observe_event(c(local_data_trigger(), list_edit_mode_trigger(), selected_categories_trigger()), {
+      general_concepts_table_trigger(general_concepts_table_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    # Update comments_display trigger when concept, edit_mode, comments_tab, or local_data changes
+    observe_event(c(concept_trigger(), edit_mode_trigger(), comments_tab_trigger(), local_data_trigger()), {
+      comments_display_trigger(comments_display_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    # Update concept_mappings_table trigger when concept, edit_mode, edited_recommended, or deleted_concepts changes
+    observe_event(c(concept_trigger(), edit_mode_trigger(), edited_recommended_trigger(), deleted_concepts_trigger()), {
+      concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    # Update concept_details_display trigger when mapped_concept or concept changes
+    observe_event(c(mapped_concept_trigger(), concept_trigger()), {
+      concept_details_display_trigger(concept_details_display_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    ## Server - Cascade Observers ----
+    # These observers listen to composite triggers and render outputs
+
+    # Render history UIs when history_ui trigger fires
+    observe_event(history_ui_trigger(), {
+      view <- current_view()
+      concept_id <- selected_concept_id()
+
+      # Render list history UI
       if (view == "list_history") {
         output$list_history_ui <- renderUI({
           tags$div(
             style = "height: calc(100vh - 175px); overflow: auto; padding: 20px;",
-            # Blank content for now
             tags$div(
               style = "padding: 20px; background: #f8f9fa; border-radius: 8px; text-align: center; color: #666;",
               tags$p("History view for all general concepts will be implemented here.")
@@ -935,31 +1061,25 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           )
         })
       }
-    }, ignoreNULL = FALSE)
 
-    # Render detail history page when view is detail_history and concept is selected
-    observe_event(c(current_view(), selected_concept_id()), {
-      if (current_view() == "detail_history" && !is.null(selected_concept_id())) {
-        concept_id <- selected_concept_id()
-        general_concepts <- current_data()$general_concepts
-        concept_info <- general_concepts %>% dplyr::filter(general_concept_id == concept_id)
-        
-        output$history_ui <- renderUI(
+      # Render detail history UI
+      if (view == "detail_history" && !is.null(concept_id)) {
+        output$history_ui <- renderUI({
           tags$div(
             style = "height: calc(100vh - 175px); overflow: auto; padding: 20px;",
-            # Blank content for now
             tags$div(
               style = "padding: 20px; background: #f8f9fa; border-radius: 8px; text-align: center; color: #666;",
               tags$p("History view will be implemented here.")
             )
           )
-        )
+        })
       }
-    }, ignoreNULL = FALSE)
+    }, ignoreInit = TRUE)
 
     ## Server - List View ----
     ### General Concepts Table Rendering ----
-    observe_event(c(current_data(), list_edit_mode(), selected_categories()), {
+    # Render general concepts table when general_concepts_table trigger fires (cascade observer)
+    observe_event(general_concepts_table_trigger(), {
       output$general_concepts_table <- DT::renderDT({
 
       general_concepts <- current_data()$general_concepts
@@ -1807,8 +1927,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     ## Server - Detail View ----
     ### Concept Details Rendering ----
     # Render comments or statistical summary based on active tab
-    # Render comments display when concept, edit mode or tab changes
-    observe_event(c(selected_concept_id(), edit_mode(), comments_tab(), local_data()), {
+    # Render comments display when comments_display trigger fires (cascade observer)
+    observe_event(comments_display_trigger(), {
       concept_id <- selected_concept_id()
       if (!is.null(concept_id)) {
         output$comments_display <- renderUI({
@@ -2016,12 +2136,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           }
         })
       }
-    }, ignoreNULL = FALSE)
+    }, ignoreInit = TRUE)
 
     ## Server - Concept Mappings ----
     ### Mappings Table Rendering ----
-    # Render concept mappings table when concept or edit mode changes
-    observe_event(c(selected_concept_id(), edit_mode(), edited_recommended(), deleted_concepts()), {
+    # Render concept mappings table when concept_mappings_table trigger fires (cascade observer)
+    observe_event(concept_mappings_table_trigger(), {
       concept_id <- selected_concept_id()
       if (!is.null(concept_id)) {
         output$concept_mappings_table <- DT::renderDT({
@@ -2235,7 +2355,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           dt
         }, server = FALSE)
       }
-    }, ignoreNULL = FALSE)
+    }, ignoreInit = TRUE)
 
     # Observe tab switching for relationships
     observe_event(input$switch_relationships_tab, {
@@ -2275,8 +2395,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
     }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
-    # Render concept details when mapped concept is selected
-    observe_event(c(selected_mapped_concept_id(), selected_concept_id()), {
+    # Render concept details when concept_details_display trigger fires (cascade observer)
+    observe_event(concept_details_display_trigger(), {
       omop_concept_id <- selected_mapped_concept_id()
       concept_id <- selected_concept_id()
 
@@ -2674,37 +2794,54 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                           url = athena_unit_url)
         )
       })
-    }, ignoreNULL = FALSE)
+    }, ignoreInit = TRUE)
 
     ## Server - Relationships Tab ----
     ### Tab Switching ----
-    # Render concept relationships when tab changes
+    # Render concept relationships and update button styling when tab changes
     observe_event(relationships_tab(), {
-      output$concept_relationships_display <- renderUI({
-        active_tab <- relationships_tab()
+      active_tab <- relationships_tab()
 
-        # Render DT output based on active tab
+      # 1. Update tab button styling
+      # Remove active class from all tabs
+      shinyjs::removeCssClass(id = "tab_related", class = "tab-btn-active")
+      shinyjs::removeCssClass(id = "tab_hierarchy", class = "tab-btn-active")
+      shinyjs::removeCssClass(id = "tab_synonyms", class = "tab-btn-active")
+
+      # Add active class to the current tab
       if (active_tab == "related") {
-        tags$div(
-          uiOutput(ns("related_stats_widget")),
-          DT::DTOutput(ns("related_concepts_table"))
-        )
+        shinyjs::addCssClass(id = "tab_related", class = "tab-btn-active")
       } else if (active_tab == "hierarchy") {
-        tags$div(
-          uiOutput(ns("hierarchy_stats_widget")),
-          DT::DTOutput(ns("hierarchy_concepts_table"))
-        )
+        shinyjs::addCssClass(id = "tab_hierarchy", class = "tab-btn-active")
+      } else if (active_tab == "synonyms") {
+        shinyjs::addCssClass(id = "tab_synonyms", class = "tab-btn-active")
+      }
+
+      # 2. Render content based on active tab
+      output$concept_relationships_display <- renderUI({
+        # Render DT output based on active tab
+        if (active_tab == "related") {
+          tags$div(
+            uiOutput(ns("related_stats_widget")),
+            DT::DTOutput(ns("related_concepts_table"))
+          )
+        } else if (active_tab == "hierarchy") {
+          tags$div(
+            uiOutput(ns("hierarchy_stats_widget")),
+            DT::DTOutput(ns("hierarchy_concepts_table"))
+          )
         } else if (active_tab == "synonyms") {
           DT::DTOutput(ns("synonyms_table"))
         }
       })
-    }, ignoreNULL = FALSE)
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
-    ### Related Concepts Table ----
-    # Render related concepts table when concept is selected
-    observe_event(selected_mapped_concept_id(), {
+    ### Relationship Tab Outputs ----
+    # Render all relationship tab outputs when mapped concept is selected (consolidated observer)
+    observe_event(mapped_concept_trigger(), {
       omop_concept_id <- selected_mapped_concept_id()
       if (!is.null(omop_concept_id)) {
+        # 1. Related concepts table
         output$related_concepts_table <- DT::renderDT({
           vocab_data <- vocabularies()
           if (is.null(vocab_data)) return()
@@ -2758,14 +2895,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         )
       )
             }, server = FALSE)
-      }
-    }, ignoreNULL = FALSE)
 
-    ### Statistics Widgets ----
-    # Render related concepts statistics widget
-    observe_event(selected_mapped_concept_id(), {
-      omop_concept_id <- selected_mapped_concept_id()
-      if (!is.null(omop_concept_id)) {
+        # 2. Related concepts statistics widget
         output$related_stats_widget <- renderUI({
           vocab_data <- vocabularies()
           if (is.null(vocab_data)) return()
@@ -2838,13 +2969,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           )
         )
         })
-      }
-    }, ignoreNULL = FALSE)
 
-    # Render hierarchy statistics widget
-    observe_event(selected_mapped_concept_id(), {
-      omop_concept_id <- selected_mapped_concept_id()
-      if (!is.null(omop_concept_id)) {
+        # 3. Hierarchy statistics widget
         output$hierarchy_stats_widget <- renderUI({
           vocab_data <- vocabularies()
           if (is.null(vocab_data)) return()
@@ -2902,14 +3028,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           )
         )
         })
-      }
-    }, ignoreNULL = FALSE)
 
-    ### Hierarchy Concepts Table ----
-    # Render hierarchy concepts table
-    observe_event(selected_mapped_concept_id(), {
-      omop_concept_id <- selected_mapped_concept_id()
-      if (!is.null(omop_concept_id)) {
+        # 4. Hierarchy concepts table
         output$hierarchy_concepts_table <- DT::renderDT({
           vocab_data <- vocabularies()
           if (is.null(vocab_data)) return(
@@ -2968,14 +3088,8 @@ DT::datatable(
           )
         )
         }, server = FALSE)
-      }
-    }, ignoreNULL = FALSE)
 
-    ### Synonyms Table ----
-    # Render synonyms table
-    observe_event(selected_mapped_concept_id(), {
-      omop_concept_id <- selected_mapped_concept_id()
-      if (!is.null(omop_concept_id)) {
+        # 5. Synonyms table
         output$synonyms_table <- DT::renderDT({
           vocab_data <- vocabularies()
           if (is.null(vocab_data)) return()
@@ -3008,8 +3122,105 @@ DT::datatable(
                 )
         )
         }, server = FALSE)
+
+        # 6. Hierarchy graph breadcrumb
+        output$hierarchy_graph_breadcrumb <- renderUI({
+          vocab_data <- vocabularies()
+          if (is.null(vocab_data)) return()
+
+      # Get concept details
+      concept_info <- vocab_data$concept %>%
+        dplyr::filter(concept_id == omop_concept_id) %>%
+        dplyr::collect()
+
+      if (nrow(concept_info) == 0) {
+        return(NULL)
       }
-    }, ignoreNULL = FALSE)
+
+      tags$div(
+        style = "display: flex; align-items: center; gap: 10px;",
+        tags$span(
+          style = "font-weight: 600; color: #333; font-size: 16px;",
+          "Concept Hierarchy:"
+        ),
+        tags$span(
+          style = "color: #0f60af; font-size: 16px; font-weight: 500;",
+          concept_info$concept_name
+        ),
+        tags$span(
+          style = "color: #999; font-size: 14px;",
+          paste0("(", concept_info$vocabulary_id, " - ", concept_info$concept_code, ")")
+          )
+        )
+        })
+
+        # 7. Hierarchy graph
+        output$hierarchy_graph <- visNetwork::renderVisNetwork({
+          vocab_data <- vocabularies()
+          if (is.null(vocab_data)) return()
+
+      # Get hierarchy graph data
+      hierarchy_data <- get_concept_hierarchy_graph(omop_concept_id, vocab_data,
+                                                     max_levels_up = 5,
+                                                     max_levels_down = 5)
+
+      if (nrow(hierarchy_data$nodes) == 0) {
+        return(NULL)
+      }
+
+      # Create visNetwork graph
+      visNetwork::visNetwork(
+        hierarchy_data$nodes,
+        hierarchy_data$edges,
+        height = "100%",
+        width = "100%"
+      ) %>%
+        visNetwork::visHierarchicalLayout(
+          direction = "UD",
+          sortMethod = "directed",
+          levelSeparation = 150,
+          nodeSpacing = 200,
+          treeSpacing = 250,
+          blockShifting = TRUE,
+          edgeMinimization = TRUE,
+          parentCentralization = TRUE
+        ) %>%
+        visNetwork::visNodes(
+          shadow = list(enabled = TRUE, size = 5),
+          borderWidth = 2,
+          margin = 10,
+          widthConstraint = list(maximum = 250)
+        ) %>%
+        visNetwork::visEdges(
+          smooth = list(type = "cubicBezier", roundness = 0.5),
+          color = list(
+            color = "#999",
+            highlight = "#0f60af",
+            hover = "#0f60af"
+          )
+        ) %>%
+        visNetwork::visInteraction(
+          navigationButtons = TRUE,
+          hover = TRUE,
+          zoomView = TRUE,
+          dragView = TRUE,
+          tooltipDelay = 100,
+          hideEdgesOnDrag = FALSE,
+          hideEdgesOnZoom = FALSE
+        ) %>%
+        visNetwork::visOptions(
+          highlightNearest = list(
+            enabled = TRUE,
+            degree = 1,
+            hover = TRUE,
+            algorithm = "hierarchical"
+          )
+        ) %>%
+          visNetwork::visPhysics(enabled = FALSE) %>%
+          visNetwork::visLayout(randomSeed = 123)
+        })
+      }
+    }, ignoreInit = TRUE)
 
     ## Server - Modals Management ----
     ### Concept Details Modal ----
@@ -3133,123 +3344,89 @@ DT::datatable(
       }
     }, ignoreNULL = FALSE)
 
-    ### Hierarchy Graph ----
-    # Render hierarchy graph breadcrumb
-    observe_event(selected_mapped_concept_id(), {
-      omop_concept_id <- selected_mapped_concept_id()
-      if (!is.null(omop_concept_id)) {
-        output$hierarchy_graph_breadcrumb <- renderUI({
-          vocab_data <- vocabularies()
-          if (is.null(vocab_data)) return()
-
-      # Get concept details
-      concept_info <- vocab_data$concept %>%
-        dplyr::filter(concept_id == omop_concept_id) %>%
-        dplyr::collect()
-
-      if (nrow(concept_info) == 0) {
-        return(NULL)
-      }
-
-      tags$div(
-        style = "display: flex; align-items: center; gap: 10px;",
-        tags$span(
-          style = "font-weight: 600; color: #333; font-size: 16px;",
-          "Concept Hierarchy:"
-        ),
-        tags$span(
-          style = "color: #0f60af; font-size: 16px; font-weight: 500;",
-          concept_info$concept_name
-        ),
-        tags$span(
-          style = "color: #999; font-size: 14px;",
-          paste0("(", concept_info$vocabulary_id, " - ", concept_info$concept_code, ")")
-          )
-        )
-        })
-      }
-    }, ignoreNULL = FALSE)
-
-    # Render hierarchy graph
-    observe_event(selected_mapped_concept_id(), {
-      omop_concept_id <- selected_mapped_concept_id()
-      if (!is.null(omop_concept_id)) {
-        output$hierarchy_graph <- visNetwork::renderVisNetwork({
-          vocab_data <- vocabularies()
-          if (is.null(vocab_data)) return()
-
-      # Get hierarchy graph data
-      hierarchy_data <- get_concept_hierarchy_graph(omop_concept_id, vocab_data,
-                                                     max_levels_up = 5,
-                                                     max_levels_down = 5)
-
-      if (nrow(hierarchy_data$nodes) == 0) {
-        return(NULL)
-      }
-
-      # Create visNetwork graph
-      visNetwork::visNetwork(
-        hierarchy_data$nodes,
-        hierarchy_data$edges,
-        height = "100%",
-        width = "100%"
-      ) %>%
-        visNetwork::visHierarchicalLayout(
-          direction = "UD",
-          sortMethod = "directed",
-          levelSeparation = 150,
-          nodeSpacing = 200,
-          treeSpacing = 250,
-          blockShifting = TRUE,
-          edgeMinimization = TRUE,
-          parentCentralization = TRUE
-        ) %>%
-        visNetwork::visNodes(
-          shadow = list(enabled = TRUE, size = 5),
-          borderWidth = 2,
-          margin = 10,
-          widthConstraint = list(maximum = 250)
-        ) %>%
-        visNetwork::visEdges(
-          smooth = list(type = "cubicBezier", roundness = 0.5),
-          color = list(
-            color = "#999",
-            highlight = "#0f60af",
-            hover = "#0f60af"
-          )
-        ) %>%
-        visNetwork::visInteraction(
-          navigationButtons = TRUE,
-          hover = TRUE,
-          zoomView = TRUE,
-          dragView = TRUE,
-          tooltipDelay = 100,
-          hideEdgesOnDrag = FALSE,
-          hideEdgesOnZoom = FALSE
-        ) %>%
-        visNetwork::visOptions(
-          highlightNearest = list(
-            enabled = TRUE,
-            degree = 1,
-            hover = TRUE,
-            algorithm = "hierarchical"
-          )
-        ) %>%
-          visNetwork::visPhysics(enabled = FALSE) %>%
-          visNetwork::visLayout(randomSeed = 123)
-        })
-      }
-    }, ignoreNULL = FALSE)
-
     ### Hierarchy Graph Modal ----
     # Observe view graph button click
     observe_event(input$view_hierarchy_graph, {
+      omop_concept_id <- selected_mapped_concept_id()
+      req(omop_concept_id)
+
       # Show modal
       shinyjs::runjs(sprintf("$('#%s').show();", ns("hierarchy_graph_modal")))
 
-      # Fit the graph immediately
-      visNetwork::visNetworkProxy(ns("hierarchy_graph")) %>%
-        visNetwork::visFit(animation = list(duration = 500))
+      # Re-render the graph for the modal with explicit dimensions
+      output$hierarchy_graph_modal_content <- visNetwork::renderVisNetwork({
+        vocab_data <- vocabularies()
+        if (is.null(vocab_data)) return()
+
+        # Get hierarchy graph data
+        hierarchy_data <- get_concept_hierarchy_graph(omop_concept_id, vocab_data,
+                                                       max_levels_up = 5,
+                                                       max_levels_down = 5)
+
+        if (nrow(hierarchy_data$nodes) == 0) {
+          return(NULL)
+        }
+
+        # Create visNetwork graph with explicit dimensions for modal
+        visNetwork::visNetwork(
+          hierarchy_data$nodes,
+          hierarchy_data$edges,
+          height = "calc(100vh - 100px)",
+          width = "100%"
+        ) %>%
+          visNetwork::visHierarchicalLayout(
+            direction = "UD",
+            sortMethod = "directed",
+            levelSeparation = 150,
+            nodeSpacing = 200,
+            treeSpacing = 250,
+            blockShifting = TRUE,
+            edgeMinimization = TRUE,
+            parentCentralization = TRUE
+          ) %>%
+          visNetwork::visNodes(
+            shadow = list(enabled = TRUE, size = 5),
+            borderWidth = 2,
+            margin = 10,
+            widthConstraint = list(maximum = 250)
+          ) %>%
+          visNetwork::visEdges(
+            smooth = list(type = "cubicBezier", roundness = 0.5),
+            color = list(
+              color = "#999",
+              highlight = "#0f60af",
+              hover = "#0f60af"
+            )
+          ) %>%
+          visNetwork::visInteraction(
+            navigationButtons = TRUE,
+            hover = TRUE,
+            zoomView = TRUE,
+            dragView = TRUE,
+            tooltipDelay = 100,
+            hideEdgesOnDrag = FALSE,
+            hideEdgesOnZoom = FALSE
+          ) %>%
+          visNetwork::visOptions(
+            highlightNearest = list(
+              enabled = TRUE,
+              degree = 1,
+              hover = TRUE,
+              algorithm = "hierarchical"
+            )
+          ) %>%
+          visNetwork::visPhysics(enabled = FALSE) %>%
+          visNetwork::visLayout(randomSeed = 123)
+      })
+
+      # Force Shiny to render this output even when hidden
+      outputOptions(output, "hierarchy_graph_modal_content", suspendWhenHidden = FALSE)
+
+      # Fit the graph after a short delay to allow modal to render
+      shinyjs::delay(300, {
+        visNetwork::visNetworkProxy(ns("hierarchy_graph_modal_content")) %>%
+          visNetwork::visFit(animation = list(duration = 500))
+      })
     })
 
     ### Add Concept Modal (OMOP Search) ----

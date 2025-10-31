@@ -24,7 +24,7 @@ observe_event <- function(eventExpr, handlerExpr, log = TRUE, ...) {
   # Capture expressions and environment
   event_expr <- substitute(eventExpr)
   handler_expr <- substitute(handlerExpr)
-  trigger_name <- deparse(event_expr)
+  trigger_name <- paste(deparse(event_expr), collapse = " ")
 
   # Build the call manually
   call_args <- list(
