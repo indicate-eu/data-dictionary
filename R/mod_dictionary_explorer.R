@@ -619,11 +619,7 @@ mod_dictionary_explorer_ui <- function(id) {
                     size = 0.4,
                     proxy.height = "400px"
                   )
-                ),
-                tags$style(HTML(sprintf("
-                  #%s { overflow: auto; }
-                  #%s > .shiny-spinner-output-container.shiny-spinner-hideui { overflow: hidden !important; }
-                ", ns("omop_table_container"), ns("omop_table_container"))))
+                )
               ),
 
               # Bottom section: Concept Details (left) and Descendants (right)
@@ -654,18 +650,12 @@ mod_dictionary_explorer_ui <- function(id) {
               # Bottom buttons for OMOP mode
               tags$div(
                 style = "display: flex; justify-content: flex-end; align-items: center; gap: 10px; flex-shrink: 0;",
-                tags$div(
-                  style = "width: auto !important;",
-                  checkboxInput(
-                    ns("mapped_concepts_add_include_descendants"),
-                    "Include descendants",
-                    value = FALSE,
-                    width = NULL
-                  )
+                checkboxInput(
+                  ns("mapped_concepts_add_include_descendants"),
+                  "Include descendants",
+                  value = FALSE,
+                  width = NULL
                 ),
-                tags$style(HTML(sprintf("
-                  #%s { width: auto !important; }
-                ", ns("mapped_concepts_add_include_descendants")))),
                 tags$button(
                   class = "btn btn-default",
                   onclick = sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")),

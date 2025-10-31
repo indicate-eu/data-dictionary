@@ -1815,3 +1815,20 @@ table.dataTable thead tr td .selectize-dropdown .option {
   height: 40px;
   line-height: 20px;
 }
+
+/* OMOP Search Modal Fixes
+-------------------------------------------------- */
+/* Hide scroll during vocabulary loading */
+#dictionary_explorer-omop_table_container > .shiny-spinner-output-container.shiny-spinner-hideui {
+  overflow: hidden !important;
+}
+
+/* Enable scroll when datatable is loaded */
+#dictionary_explorer-omop_table_container {
+  overflow: auto !important;
+}
+
+/* Force checkbox width to auto */
+#dictionary_explorer-mapped_concepts_add_include_descendants {
+  width: auto !important;
+}
