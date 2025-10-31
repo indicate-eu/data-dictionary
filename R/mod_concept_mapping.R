@@ -307,6 +307,32 @@ mod_concept_mapping_ui <- function(id) {
           )
         )
       )
+    ),
+
+    # Modal for viewing all mappings
+    tags$div(
+      id = ns("all_mappings_modal"),
+      class = "modal-overlay",
+      style = "display: none;",
+      onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("all_mappings_modal")),
+      tags$div(
+        class = "modal-content",
+        style = "max-width: 90%; width: 1200px; max-height: 90vh; display: flex; flex-direction: column;",
+        tags$div(
+          class = "modal-header",
+          tags$h3("All Completed Mappings"),
+          tags$button(
+            class = "modal-close",
+            onclick = sprintf("$('#%s').hide();", ns("all_mappings_modal")),
+            "×"
+          )
+        ),
+        tags$div(
+          class = "modal-body",
+          style = "flex: 1; overflow: auto; padding: 20px;",
+          DT::DTOutput(ns("all_mappings_table"))
+        )
+      )
     )
   )
 }
@@ -612,13 +638,25 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               style = "height: 30%; display: flex; flex-direction: column; margin-top: 15px;",
               tags$div(
                 class = "section-header",
-
-                tags$h4(
-                  "Completed Mappings",
-                  tags$span(
-                    class = "info-icon",
-                    `data-tooltip` = "Mappings between your source concepts and INDICATE concepts that you have created",
-                    "ⓘ"
+                tags$div(
+                  style = "display: flex; justify-content: space-between; align-items: center; flex: 1;",
+                  tags$div(
+                    style = "display: flex; align-items: center; gap: 8px;",
+                    tags$h4(
+                      style = "margin: 0;",
+                      "Completed Mappings (Last 5)"
+                    ),
+                    tags$span(
+                      class = "info-icon",
+                      `data-tooltip` = "Most recent mappings between your source concepts and INDICATE concepts",
+                      "ⓘ"
+                    )
+                  ),
+                  actionButton(
+                    ns("view_all_mappings"),
+                    "View All",
+                    class = "btn-secondary-custom",
+                    style = "height: 32px; padding: 5px 15px; font-size: 14px;"
                   )
                 )
               ),
@@ -2130,10 +2168,15 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         ) %>%
         dplyr::select(Source, Target, Actions)
 
+      # Take only last 5 mappings
+      if (nrow(display_df) > 5) {
+        display_df <- tail(display_df, 5)
+      }
+
       datatable(
         display_df,
         escape = FALSE,
-        options = list(pageLength = 6, dom = 'tp'),
+        options = list(dom = 't', paging = FALSE),
         rownames = FALSE,
         selection = 'none',
         colnames = c("Source Concept", "Target Concept", "Actions")
@@ -3219,7 +3262,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     })
 
     # Show/hide Add Mapping button based on selections (for mapped view)
-    observe({
+    observe_event(c(input$source_concepts_table_mapped_rows_selected, input$mapped_concepts_table_mapped_rows_selected), {
       source_selected <- !is.null(input$source_concepts_table_mapped_rows_selected)
       mapped_selected <- !is.null(input$mapped_concepts_table_rows_selected)
 
@@ -3228,6 +3271,295 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       } else {
         shinyjs::hide("add_mapping_specific")
       }
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+
+    ## View All Mappings Modal ----
+
+    ### Open Modal ----
+    observe_event(input$view_all_mappings, {
+      shinyjs::show("all_mappings_modal")
+    })
+
+    ### All Mappings Table ----
+    output$all_mappings_table <- DT::renderDT({
+      if (is.null(selected_alignment_id())) return()
+
+      # Get alignment info (same logic as realized_mappings_table)
+      alignments <- alignments_data()
+      alignment <- alignments %>%
+        dplyr::filter(alignment_id == selected_alignment_id())
+
+      if (nrow(alignment) != 1) {
+        return(datatable(
+          data.frame(Message = "No alignment selected"),
+          options = list(dom = 't'),
+          rownames = FALSE,
+          selection = 'none'
+        ))
+      }
+
+      file_id <- alignment$file_id[1]
+
+      # Get app folder and construct path
+      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
+      if (is.na(app_folder) || app_folder == "") {
+        mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
+      } else {
+        mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
+      }
+
+      csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
+
+      # Check if file exists
+      if (!file.exists(csv_path)) {
+        return(datatable(
+          data.frame(Message = "CSV file not found"),
+          options = list(dom = 't'),
+          rownames = FALSE,
+          selection = 'none'
+        ))
+      }
+
+      # Read CSV
+      df <- read.csv(csv_path, stringsAsFactors = FALSE)
+
+      # Filter only rows with mappings
+      if (!"target_general_concept_id" %in% colnames(df)) {
+        return(datatable(
+          data.frame(Message = "No mappings created yet."),
+          options = list(dom = 't'),
+          rownames = FALSE,
+          selection = 'none'
+        ))
+      }
+
+      # Rename source columns to avoid conflicts with joined data
+      df <- df %>%
+        dplyr::rename(
+          concept_name_source = concept_name,
+          vocabulary_id_source = vocabulary_id,
+          concept_code_source = concept_code
+        )
+
+      mapped_rows <- df %>%
+        dplyr::filter(!is.na(target_general_concept_id))
+
+      if (nrow(mapped_rows) == 0) {
+        return(datatable(
+          data.frame(Message = "No mappings created yet."),
+          options = list(dom = 't'),
+          rownames = FALSE,
+          selection = 'none'
+        ))
+      }
+
+      # Enrich with general concept information
+      if (is.null(data())) return()
+      general_concepts <- data()$general_concepts
+
+      # Join with general concepts to get names
+      enriched_rows <- mapped_rows %>%
+        dplyr::left_join(
+          general_concepts %>%
+            dplyr::select(general_concept_id, general_concept_name, category, subcategory),
+          by = c("target_general_concept_id" = "general_concept_id")
+        )
+
+      # Enrich with target concept info (OMOP or custom) - reuse same logic
+      if ("target_custom_concept_id" %in% colnames(enriched_rows)) {
+        # Enrich OMOP concepts
+        vocab_data <- vocabularies()
+        if (!is.null(vocab_data)) {
+          omop_rows <- enriched_rows %>% dplyr::filter(!is.na(target_omop_concept_id))
+          if (nrow(omop_rows) > 0) {
+            concept_ids <- omop_rows$target_omop_concept_id
+            omop_concepts <- vocab_data$concept %>%
+              dplyr::filter(concept_id %in% concept_ids) %>%
+              dplyr::select(
+                concept_id,
+                concept_name_target = concept_name,
+                vocabulary_id_target = vocabulary_id,
+                concept_code_target = concept_code
+              ) %>%
+              dplyr::collect()
+
+            enriched_rows <- enriched_rows %>%
+              dplyr::left_join(
+                omop_concepts,
+                by = c("target_omop_concept_id" = "concept_id")
+              )
+          } else {
+            enriched_rows <- enriched_rows %>%
+              dplyr::mutate(
+                concept_name_target = NA_character_,
+                vocabulary_id_target = NA_character_,
+                concept_code_target = NA_character_
+              )
+          }
+        } else {
+          enriched_rows <- enriched_rows %>%
+            dplyr::mutate(
+              concept_name_target = NA_character_,
+              vocabulary_id_target = NA_character_,
+              concept_code_target = NA_character_
+            )
+        }
+
+        # Enrich custom concepts
+        custom_concepts_path <- app_sys("extdata", "csv", "custom_concepts.csv")
+        if (file.exists(custom_concepts_path)) {
+          custom_rows <- enriched_rows %>% dplyr::filter(!is.na(target_custom_concept_id))
+          if (nrow(custom_rows) > 0) {
+            custom_concepts_all <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)
+            custom_concept_ids <- custom_rows$target_custom_concept_id
+
+            custom_concepts_info <- custom_concepts_all %>%
+              dplyr::filter(custom_concept_id %in% custom_concept_ids) %>%
+              dplyr::select(
+                custom_concept_id,
+                concept_name_custom = concept_name,
+                vocabulary_id_custom = vocabulary_id,
+                concept_code_custom = concept_code
+              )
+
+            # For custom concepts, fill in the target columns
+            enriched_rows <- enriched_rows %>%
+              dplyr::left_join(
+                custom_concepts_info,
+                by = c("target_custom_concept_id" = "custom_concept_id")
+              ) %>%
+              dplyr::mutate(
+                concept_name_target = ifelse(is.na(concept_name_target), concept_name_custom, concept_name_target),
+                vocabulary_id_target = ifelse(is.na(vocabulary_id_target), vocabulary_id_custom, vocabulary_id_target),
+                concept_code_target = ifelse(is.na(concept_code_target), concept_code_custom, concept_code_target)
+              ) %>%
+              dplyr::select(-concept_name_custom, -vocabulary_id_custom, -concept_code_custom)
+          }
+        }
+      } else {
+        # Fallback: old CSV format
+        vocab_data <- vocabularies()
+        if (!is.null(vocab_data) && nrow(enriched_rows) > 0) {
+          concept_ids <- enriched_rows$target_omop_concept_id
+          omop_concepts <- vocab_data$concept %>%
+            dplyr::filter(concept_id %in% concept_ids) %>%
+            dplyr::select(
+              concept_id,
+              concept_name_target = concept_name,
+              vocabulary_id_target = vocabulary_id,
+              concept_code_target = concept_code
+            ) %>%
+            dplyr::collect()
+
+          enriched_rows <- enriched_rows %>%
+            dplyr::left_join(
+              omop_concepts,
+              by = c("target_omop_concept_id" = "concept_id")
+            )
+        } else {
+          enriched_rows <- enriched_rows %>%
+            dplyr::mutate(
+              concept_name_target = NA_character_,
+              vocabulary_id_target = NA_character_,
+              concept_code_target = NA_character_
+            )
+        }
+      }
+
+      # Build display dataframe
+      display_df <- enriched_rows %>%
+        dplyr::mutate(
+          Source = paste0(concept_name_source, " (", vocabulary_id_source, ": ", concept_code_source, ")"),
+          Target = paste0(
+            general_concept_name, " > ",
+            concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"
+          ),
+          Actions = sprintf(
+            '<button class="btn btn-sm btn-danger delete-mapping-btn" data-id="%d" style="padding: 2px 8px; font-size: 11px;">Delete</button>',
+            dplyr::row_number()
+          )
+        ) %>%
+        dplyr::select(Source, Target, Actions)
+
+      dt <- datatable(
+        display_df,
+        escape = FALSE,
+        filter = 'top',
+        options = list(
+          pageLength = 25,
+          lengthMenu = c(10, 25, 50, 100, 200),
+          dom = 'ltp',  # Remove 'f' for global search
+          columnDefs = list(
+            list(targets = 2, searchable = FALSE)  # Actions column not searchable
+          )
+        ),
+        rownames = FALSE,
+        selection = 'none',
+        colnames = c("Source Concept", "Target Concept", "Actions")
+      )
+
+      # Add button handlers
+      dt <- add_button_handlers(
+        dt,
+        handlers = list(
+          list(selector = ".delete-mapping-btn", input_id = ns("delete_mapping_all"))
+        )
+      )
+
+      dt
+    }, server = TRUE)
+
+    ### Delete Mapping from All Mappings Modal ----
+    observe_event(input$delete_mapping_all, {
+      if (is.null(input$delete_mapping_all)) return()
+      if (is.null(selected_alignment_id())) return()
+
+      # Same delete logic as remove_mapping
+      alignments <- alignments_data()
+      alignment <- alignments %>%
+        dplyr::filter(alignment_id == selected_alignment_id())
+
+      if (nrow(alignment) != 1) return()
+
+      file_id <- alignment$file_id[1]
+
+      # Get app folder and construct path
+      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
+      if (is.na(app_folder) || app_folder == "") {
+        mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
+      } else {
+        mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
+      }
+
+      csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
+
+      if (!file.exists(csv_path)) return()
+
+      df <- read.csv(csv_path, stringsAsFactors = FALSE)
+
+      # Get mapped rows only
+      if (!"target_general_concept_id" %in% colnames(df)) return()
+
+      df_with_mapping <- df %>% dplyr::filter(!is.na(target_general_concept_id))
+      mapped_rows_indices <- which(!is.na(df$target_general_concept_id))
+
+      if (length(mapped_rows_indices) == 0) return()
+
+      row_num <- input$delete_mapping_all
+
+      if (row_num < 1 || row_num > length(mapped_rows_indices)) return()
+
+      actual_row <- mapped_rows_indices[row_num]
+
+      # Remove the mapping by setting target columns to NA
+      df$target_general_concept_id[actual_row] <- NA_integer_
+      df$target_omop_concept_id[actual_row] <- NA_integer_
+
+      # Save CSV
+      write.csv(df, csv_path, row.names = FALSE)
+
+      # Refresh both tables
+      mappings_refresh_trigger(mappings_refresh_trigger() + 1)
     })
   })
 }
