@@ -662,7 +662,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     selected_mapped_concept_id <- reactiveVal(NULL)  # Track selected concept in mappings table
     relationships_tab <- reactiveVal("related")  # Track active tab: "related", "hierarchy", "synonyms"
     comments_tab <- reactiveVal("comments")  # Track active tab: "comments", "statistical_summary"
-    modal_concept_id <- reactiveVal(NULL)  # Track concept ID for modal display
     selected_categories <- reactiveVal(character(0))  # Track selected category filters
 
     ### Edit Mode State ----
@@ -702,6 +701,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     comments_display_trigger <- reactiveVal(0)
     concept_mappings_table_trigger <- reactiveVal(0)
     concept_details_display_trigger <- reactiveVal(0)
+    mapped_concepts_header_trigger <- reactiveVal(0)
+    relationship_tab_outputs_trigger <- reactiveVal(0)
 
     # Initialize local_data with data from parameter
     observe_event(data(), {
@@ -733,6 +734,70 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     ## Server - Navigation & Events ----
+    
+    ### Trigger Updates ----
+    # These observers update composite triggers in true cascade style
+    # Each primary trigger has its own observer that updates relevant composite triggers
+
+    # When view_trigger fires, update breadcrumb and history_ui
+    observe_event(view_trigger(), {
+      breadcrumb_trigger(breadcrumb_trigger() + 1)
+      history_ui_trigger(history_ui_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    # When edit_mode_trigger fires, update breadcrumb, comments_display, concept_mappings_table, and mapped_concepts_header
+    observe_event(edit_mode_trigger(), {
+      breadcrumb_trigger(breadcrumb_trigger() + 1)
+      comments_display_trigger(comments_display_trigger() + 1)
+      concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
+      mapped_concepts_header_trigger(mapped_concepts_header_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    # When list_edit_mode_trigger fires, update breadcrumb and general_concepts_table
+    observe_event(list_edit_mode_trigger(), {
+      breadcrumb_trigger(breadcrumb_trigger() + 1)
+      general_concepts_table_trigger(general_concepts_table_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    # When concept_trigger fires, update history_ui, comments_display, concept_mappings_table, and concept_details_display
+    observe_event(concept_trigger(), {
+      history_ui_trigger(history_ui_trigger() + 1)
+      comments_display_trigger(comments_display_trigger() + 1)
+      concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
+      concept_details_display_trigger(concept_details_display_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    # When local_data_trigger fires, update comments_display and general_concepts_table
+    observe_event(local_data_trigger(), {
+      comments_display_trigger(comments_display_trigger() + 1)
+      general_concepts_table_trigger(general_concepts_table_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    # When selected_categories_trigger fires, update general_concepts_table
+    observe_event(selected_categories_trigger(), {
+      general_concepts_table_trigger(general_concepts_table_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    # When comments_tab_trigger fires, update comments_display
+    observe_event(comments_tab_trigger(), {
+      comments_display_trigger(comments_display_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    # When edited_recommended_trigger fires, update concept_mappings_table
+    observe_event(edited_recommended_trigger(), {
+      concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    # When deleted_concepts_trigger fires, update concept_mappings_table
+    observe_event(deleted_concepts_trigger(), {
+      concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    # When mapped_concept_trigger fires, update concept_details_display and relationship_tab_outputs
+    observe_event(mapped_concept_trigger(), {
+      concept_details_display_trigger(concept_details_display_trigger() + 1)
+      relationship_tab_outputs_trigger(relationship_tab_outputs_trigger() + 1)
+    }, ignoreInit = TRUE)
     
     ### Buttons visibility ----
     update_button_visibility <- function() {
@@ -895,8 +960,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       })
     }, ignoreInit = TRUE)
 
-    # Render header buttons for mapped concepts based on edit mode (cascade observer)
-    observe_event(edit_mode_trigger(), {
+    # Render header buttons for mapped concepts when mapped_concepts_header trigger fires (cascade observer)
+    observe_event(mapped_concepts_header_trigger(), {
       output$mapped_concepts_header_buttons <- renderUI({
         if (edit_mode()) {
           tags$div(
@@ -920,6 +985,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     }, ignoreInit = TRUE)
     
     ### Category Filtering ----
+    # Handle category badge clicks
     observe_event(input$category_filter, {
       category <- input$category_filter
       current_selected <- selected_categories()
@@ -932,7 +998,32 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         selected_categories(c(current_selected, category))
       }
     })
-    
+
+    # Update DataTable filter when categories change
+    observe_event(selected_categories(), {
+      categories <- selected_categories()
+
+      # Create proxy for the DataTable
+      proxy <- DT::dataTableProxy("general_concepts_table", session = session)
+
+      if (length(categories) > 0) {
+        # Format as JSON array for multi-select filter: ["Category1", "Category2"]
+        search_string <- jsonlite::toJSON(categories, auto_unbox = FALSE)
+
+        # Update the search for the Category column (column index 1, 0-based)
+        DT::updateSearch(proxy, keywords = list(
+          global = NULL,
+          columns = list(NULL, as.character(search_string))  # NULL for ID column, JSON array for Category column
+        ))
+      } else {
+        # Clear the filter
+        DT::updateSearch(proxy, keywords = list(
+          global = NULL,
+          columns = list(NULL, NULL)
+        ))
+      }
+    })
+
     ### View Switching (List/Detail/History) ----
     
     # Define all containers
@@ -945,6 +1036,16 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       detail_history = "history_container",
       list_history = "list_history_container"
     )
+    
+    # Handle list history button
+    observe_event(input$show_list_history, {
+      current_view("list_history")
+    })
+    
+    # Handle back to list from history button
+    observe_event(input$back_to_list_from_history, {
+      current_view("list")
+    })
 
     # Handle view changes: update buttons and containers, then trigger cascade
     observe_event(current_view(), {
@@ -1007,48 +1108,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     observe_event(selected_categories(), {
       selected_categories_trigger(selected_categories_trigger() + 1)
     }, ignoreNULL = FALSE)
-
-    ## Server - Composite Trigger Updates ----
-    # These observers update composite triggers when multiple conditions need to be met
-
-    # Update breadcrumb trigger when view, edit_mode, or list_edit_mode changes
-    observe_event(c(view_trigger(), edit_mode_trigger(), list_edit_mode_trigger()), {
-      breadcrumb_trigger(breadcrumb_trigger() + 1)
-    }, ignoreInit = TRUE)
-
-    # Update history_ui trigger when view or concept changes
-    observe_event(c(view_trigger(), concept_trigger()), {
-      history_ui_trigger(history_ui_trigger() + 1)
-    }, ignoreInit = TRUE)
-
-    # Update general_concepts_table trigger when local_data, list_edit_mode, or selected_categories changes
-    observe_event(c(local_data_trigger(), list_edit_mode_trigger(), selected_categories_trigger()), {
-      general_concepts_table_trigger(general_concepts_table_trigger() + 1)
-    }, ignoreInit = TRUE)
-
-    # Update comments_display trigger when concept, edit_mode, comments_tab, or local_data changes
-    observe_event(c(concept_trigger(), edit_mode_trigger(), comments_tab_trigger(), local_data_trigger()), {
-      comments_display_trigger(comments_display_trigger() + 1)
-    }, ignoreInit = TRUE)
-
-    # Update concept_mappings_table trigger when concept, edit_mode, edited_recommended, or deleted_concepts changes
-    observe_event(c(concept_trigger(), edit_mode_trigger(), edited_recommended_trigger(), deleted_concepts_trigger()), {
-      concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
-    }, ignoreInit = TRUE)
-
-    # Update concept_details_display trigger when mapped_concept or concept changes
-    observe_event(c(mapped_concept_trigger(), concept_trigger()), {
-      concept_details_display_trigger(concept_details_display_trigger() + 1)
-    }, ignoreInit = TRUE)
-
-    ## Server - Cascade Observers ----
-    # These observers listen to composite triggers and render outputs
-
+    
     # Render history UIs when history_ui trigger fires
     observe_event(history_ui_trigger(), {
       view <- current_view()
       concept_id <- selected_concept_id()
-
+      
       # Render list history UI
       if (view == "list_history") {
         output$list_history_ui <- renderUI({
@@ -1061,7 +1126,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           )
         })
       }
-
+      
       # Render detail history UI
       if (view == "detail_history" && !is.null(concept_id)) {
         output$history_ui <- renderUI({
@@ -1075,7 +1140,47 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         })
       }
     }, ignoreInit = TRUE)
-
+    
+    # Handle edit page button
+    observe_event(input$edit_page, {
+      edit_mode(TRUE)
+      update_button_visibility()
+    })
+    
+    # Handle show history button
+    observe_event(input$show_history, {
+      current_view("detail_history")
+    })
+    
+    # Handle back to detail button (from history view)
+    observe_event(input$back_to_detail, {
+      current_view("detail")
+    })
+    
+    # Handle cancel edit button
+    observe_event(input$cancel_edit, {
+      # Reset all unsaved changes
+      edited_recommended(list())
+      deleted_concepts(list())
+      # edited_comment(NULL)
+      edit_mode(FALSE)
+      # Reset tab to comments
+      comments_tab("comments")
+      # Hide edit buttons and show normal action buttons
+      shinyjs::hide("detail_edit_buttons")
+      shinyjs::show("detail_action_buttons")
+    })
+    
+    # Observe tab switching for relationships
+    observe_event(input$switch_relationships_tab, {
+      relationships_tab(input$switch_relationships_tab)
+    })
+    
+    # Observe tab switching for comments
+    observe_event(input$switch_comments_tab, {
+      comments_tab(input$switch_comments_tab)
+    })
+    
     ## Server - List View ----
     ### General Concepts Table Rendering ----
     # Render general concepts table when general_concepts_table trigger fires (cascade observer)
@@ -1147,42 +1252,16 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       )
 
       # Add callback to handle button clicks and double-click on rows
-      dt$x$options$drawCallback <- htmlwidgets::JS(sprintf("
-        function(settings) {
-          var table = this.api();
-
-          // Remove existing handlers to avoid duplicates
-          $(table.table().node()).off('click', '.view-details-btn');
-          $(table.table().node()).off('click', '.delete-concept-btn');
-          $(table.table().node()).off('dblclick', 'tbody tr');
-
-          // Add click handler for View Details button
-          $(table.table().node()).on('click', '.view-details-btn', function(e) {
-            e.stopPropagation();
-            var conceptId = $(this).data('id');
-            Shiny.setInputValue('%s', conceptId, {priority: 'event'});
-          });
-
-          // Add click handler for Delete button
-          $(table.table().node()).on('click', '.delete-concept-btn', function(e) {
-            e.stopPropagation();
-            var conceptId = $(this).data('id');
-            Shiny.setInputValue('%s', conceptId, {priority: 'event'});
-          });
-
-          // Add double-click handler for table rows (only when not in edit mode)
-          if (!%s) {
-            $(table.table().node()).on('dblclick', 'tbody tr', function() {
-              var rowData = table.row(this).data();
-              if (rowData && rowData[0]) {
-                var conceptId = rowData[0];
-                Shiny.setInputValue('%s', conceptId, {priority: 'event'});
-              }
-            });
-          }
-        }
-      ", ns("view_concept_details"), ns("delete_general_concept"),
-         tolower(as.character(list_edit_mode())), ns("view_concept_details")))
+      dt <- add_combined_handlers(
+        dt,
+        button_handlers = list(
+          list(selector = ".view-details-btn", input_id = ns("view_concept_details")),
+          list(selector = ".delete-concept-btn", input_id = ns("delete_general_concept"))
+        ),
+        doubleclick_input_id = ns("view_concept_details"),
+        doubleclick_column = 0,
+        doubleclick_condition = sprintf("!%s", tolower(as.character(list_edit_mode())))
+      )
 
         dt
       }, server = FALSE)
@@ -1208,16 +1287,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       edit_mode(FALSE)  # Exit edit mode when going back to list
       list_edit_mode(FALSE)  # Exit list edit mode when going back to list
     })
-
-    # Handle list history button
-    observe_event(input$show_list_history, {
-      current_view("list_history")
-    })
-
-    # Handle back to list from history button
-    observe_event(input$back_to_list_from_history, {
-      current_view("list")
-    })
+    
+    ### List Edit Mode ----
 
     # Handle list edit page button
     observe_event(input$list_edit_page, {
@@ -1308,8 +1379,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         }
       }) %>% shiny::bindEvent(input$general_concepts_table_state, once = TRUE)
     })
-
-    ### List Edit Mode ----
+    
     observe_event(input$list_save_updates, {
       if (!list_edit_mode()) return()
 
@@ -1460,7 +1530,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
     })
 
-    ### Add New Concept Modal ----
+    ### Add New Concept  ----
     # Handle show add concept modal button
     observe_event(input$show_add_concept_modal, {
       # Update category choices
@@ -1471,7 +1541,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       updateSelectizeInput(session, "new_concept_subcategory", choices = character(0), selected = character(0))
 
       # Show the custom modal
-      shinyjs::runjs(sprintf("$('#%s').show();", ns("add_concept_modal")))
+      shinyjs::show("add_concept_modal")
     })
 
     # Update subcategories when category changes in add concept modal
@@ -1630,304 +1700,13 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           proxy <- DT::dataTableProxy("general_concepts_table", session = session)
           DT::selectPage(proxy, target_page)
         })
-
-        # Highlight the row with green fade effect
-        # Row index in DataTable is 0-indexed
-        dt_row_index <- new_concept_row_index - 1
-
-        shinyjs::runjs(sprintf("
-          setTimeout(function() {
-            try {
-              var tableElement = $('#%s');
-              if (tableElement.length && $.fn.DataTable.isDataTable(tableElement)) {
-                var table = tableElement.DataTable();
-                var row = table.row(%d).node();
-                if (row) {
-                  $(row).css({
-                    'background-color': '#28a745',
-                    'transition': 'background-color 2s ease-out'
-                  });
-
-                  // Fade back to normal
-                  setTimeout(function() {
-                    $(row).css('background-color', '');
-                  }, 100);
-                }
-              }
-            } catch(e) {
-              console.error('Row highlight error:', e);
-            }
-          }, 200);
-        ", ns("general_concepts_table"), dt_row_index))
-      }
-    })
-
-    # Handle edit page button
-    observe_event(input$edit_page, {
-      edit_mode(TRUE)
-      update_button_visibility()
-    })
-
-    # Handle show history button
-    observe_event(input$show_history, {
-      current_view("detail_history")
-    })
-
-    # Handle back to detail button (from history view)
-    observe_event(input$back_to_detail, {
-      current_view("detail")
-    })
-
-    # Handle cancel edit button
-    observe_event(input$cancel_edit, {
-      # Reset all unsaved changes
-      edited_recommended(list())
-      deleted_concepts(list())
-      # edited_comment(NULL)
-      edit_mode(FALSE)
-      # Reset tab to comments
-      comments_tab("comments")
-      # Hide edit buttons and show normal action buttons
-      shinyjs::hide("detail_edit_buttons")
-      shinyjs::show("detail_action_buttons")
-    })
-
-    ### Save Detail Updates ----
-    # Handle save updates button
-    observe_event(input$save_updates, {
-      if (!edit_mode()) return()
-
-      concept_id <- selected_concept_id()
-      if (is.null(concept_id)) return()
-
-      # Get current data
-      general_concepts <- current_data()$general_concepts
-      concept_mappings <- current_data()$concept_mappings
-
-      # Update comments in general_concepts
-      new_comment <- input$comments_input
-      if (!is.null(new_comment)) {
-        general_concepts <- general_concepts %>%
-          dplyr::mutate(
-            comments = ifelse(
-              general_concept_id == concept_id,
-              new_comment,
-              comments
-            )
-          )
-      }
-
-      # Update statistical_summary in general_concepts
-      new_statistical_summary <- input$statistical_summary_editor
-      if (!is.null(new_statistical_summary)) {
-        # Validate JSON before saving
-        is_valid_json <- tryCatch({
-          jsonlite::fromJSON(new_statistical_summary)
-          TRUE
-        }, error = function(e) {
-          FALSE
-        })
-
-        if (is_valid_json) {
-          general_concepts <- general_concepts %>%
-            dplyr::mutate(
-              statistical_summary = ifelse(
-                general_concept_id == concept_id,
-                new_statistical_summary,
-                statistical_summary
-              )
-            )
-        }
-      }
-
-      # Apply concept deletions
-      concept_deletions <- deleted_concepts()
-      concept_key <- as.character(concept_id)
-
-      if (!is.null(concept_deletions[[concept_key]])) {
-        deleted_ids <- concept_deletions[[concept_key]]
-        concept_mappings <- concept_mappings %>%
-          dplyr::filter(!(general_concept_id == concept_id & omop_concept_id %in% deleted_ids))
-      }
-
-      # Update recommended values in concept_mappings
-      recommended_edits <- edited_recommended()
-
-      if (length(recommended_edits) > 0) {
-        for (omop_id in names(recommended_edits)) {
-          new_rec_value <- recommended_edits[[omop_id]]
-
-          # Check if this concept already exists in concept_mappings
-          existing_row <- concept_mappings %>%
-            dplyr::filter(
-              general_concept_id == concept_id &
-              omop_concept_id == as.integer(omop_id)
-            )
-
-          if (nrow(existing_row) > 0) {
-            # Update existing row
-            concept_mappings <- concept_mappings %>%
-              dplyr::mutate(
-                recommended = ifelse(
-                  general_concept_id == concept_id & omop_concept_id == as.integer(omop_id),
-                  new_rec_value,
-                  recommended
-                )
-              )
-          } else if (isTRUE(new_rec_value)) {
-            # Add new row only if recommended = TRUE
-            # Get concept info from vocabularies or current data
-            vocab_data <- vocabularies()
-
-            if (!is.null(vocab_data) && !is.null(vocab_data$concept)) {
-              tryCatch({
-                # Filter and collect from DuckDB
-                new_concept <- vocab_data$concept %>%
-                  dplyr::filter(concept_id == as.integer(omop_id)) %>%
-                  dplyr::collect()  # Materialize the data from DuckDB
-              }, error = function(e) {
-                new_concept <- data.frame()
-              })
-
-              if (nrow(new_concept) > 0) {
-                # Create new row with minimal structure (new schema)
-                if (nrow(concept_mappings) > 0) {
-                  # Take first row as template and modify it
-                  new_row <- concept_mappings[1, ]
-                  new_row$general_concept_id <- as.integer(concept_id)
-                  new_row$omop_concept_id <- as.integer(omop_id)
-                  new_row$omop_unit_concept_id <- as.character("/")
-                  new_row$recommended <- TRUE
-                } else {
-                  # Fallback if concept_mappings is empty
-                  new_row <- data.frame(
-                    general_concept_id = as.integer(concept_id),
-                    omop_concept_id = as.integer(omop_id),
-                    omop_unit_concept_id = "/",
-                    recommended = TRUE,
-                    stringsAsFactors = FALSE
-                  )
-                }
-
-                concept_mappings <- dplyr::bind_rows(concept_mappings, new_row)
-              }
-            }
-          }
-        }
-      }
-
-      # Write to CSV files
-      readr::write_csv(
-        general_concepts,
-        app_sys("extdata", "csv", "general_concepts.csv")
-      )
-
-      readr::write_csv(
-        concept_mappings,
-        app_sys("extdata", "csv", "concept_mappings.csv")
-      )
-
-      # Update local data
-      updated_data <- list(
-        general_concepts = general_concepts,
-        concept_mappings = concept_mappings
-      )
-      local_data(updated_data)
-
-      # Reset edit state
-      edited_recommended(list())
-      deleted_concepts(list())
-      # edited_comment(NULL)
-      edit_mode(FALSE)
-      # Reset tab to comments
-      comments_tab("comments")
-      # Hide edit buttons and show normal action buttons
-      shinyjs::hide("detail_edit_buttons")
-      shinyjs::show("detail_action_buttons")
-    })
-
-    # Handle reset statistical summary button
-    observe_event(input$reset_statistical_summary, {
-      shinyAce::updateAceEditor(
-        session,
-        "statistical_summary_editor",
-        value = get_default_statistical_summary_template()
-      )
-    })
-
-    ### Detail Edit Mode ----
-    # Handle toggle recommended in edit mode
-    observe_event(input$toggle_recommended, {
-      if (!edit_mode()) return()
-
-      toggle_data <- input$toggle_recommended
-      omop_id <- as.integer(toggle_data$omop_id)
-      new_value <- toggle_data$new_value
-
-      # Store the change in edited_recommended
-      current_edits <- edited_recommended()
-      current_edits[[as.character(omop_id)]] <- (new_value == "Yes")
-      edited_recommended(current_edits)
-    }, ignoreInit = TRUE)
-
-    # Handle delete concept in edit mode
-    observe_event(input$delete_concept, {
-      if (!edit_mode()) return()
-
-      concept_id <- selected_concept_id()
-      if (is.null(concept_id)) return()
-
-      delete_data <- input$delete_concept
-      omop_id <- as.integer(delete_data$omop_id)
-
-      # Track the deletion for this general_concept_id
-      current_deletions <- deleted_concepts()
-      concept_key <- as.character(concept_id)
-
-      if (is.null(current_deletions[[concept_key]])) {
-        current_deletions[[concept_key]] <- c(omop_id)
-      } else {
-        current_deletions[[concept_key]] <- unique(c(current_deletions[[concept_key]], omop_id))
-      }
-
-      deleted_concepts(current_deletions)
-    }, ignoreInit = TRUE)
-
-    # # Track comment changes in edit mode
-    # observe_event(input$comments_input, {
-    #   req(edit_mode())
-    #   edited_comment(input$comments_input)
-    # }, ignoreInit = TRUE)
-
-    # Update DataTable filter when categories change
-    observe_event(selected_categories(), {
-      categories <- selected_categories()
-
-      # Create proxy for the DataTable
-      proxy <- DT::dataTableProxy("general_concepts_table", session = session)
-
-      if (length(categories) > 0) {
-        # Format as JSON array for multi-select filter: ["Category1", "Category2"]
-        search_string <- jsonlite::toJSON(categories, auto_unbox = FALSE)
-
-        # Update the search for the Category column (column index 1, 0-based)
-        DT::updateSearch(proxy, keywords = list(
-          global = NULL,
-          columns = list(NULL, as.character(search_string))  # NULL for ID column, JSON array for Category column
-        ))
-      } else {
-        # Clear the filter
-        DT::updateSearch(proxy, keywords = list(
-          global = NULL,
-          columns = list(NULL, NULL)
-        ))
       }
     })
 
     ## Server - Detail View ----
+    
     ### Concept Details Rendering ----
     # Render comments or statistical summary based on active tab
-    # Render comments display when comments_display trigger fires (cascade observer)
     observe_event(comments_display_trigger(), {
       concept_id <- selected_concept_id()
       if (!is.null(concept_id)) {
@@ -2030,29 +1809,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               # View mode: show statistical summary display
               summary_data <- NULL
               if (nrow(concept_info) > 0 && !is.na(concept_info$statistical_summary[1]) && nchar(concept_info$statistical_summary[1]) > 0) {
-                tryCatch({
-                  summary_data <- jsonlite::fromJSON(concept_info$statistical_summary[1])
-                }, error = function(e) {
-                  summary_data <<- NULL
-                })
+                summary_data <- jsonlite::fromJSON(concept_info$statistical_summary[1])
               }
 
               if (!is.null(summary_data)) {
-                # Helper function to create detail items
-                create_detail_item <- function(label, value) {
-                  display_value <- if (is.null(value) || (is.character(value) && value == "")) {
-                    "/"
-                  } else {
-                    as.character(value)
-                  }
-
-                  tags$div(
-                    class = "detail-item",
-                    tags$strong(paste0(label, ":")),
-                    tags$span(display_value)
-                  )
-                }
-
                 # Display statistical summary in 2-column layout
                 tags$div(
                   style = "height: 100%; overflow-y: auto; padding: 15px; background: #ffffff;",
@@ -2137,9 +1897,195 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         })
       }
     }, ignoreInit = TRUE)
-
-    ## Server - Concept Mappings ----
-    ### Mappings Table Rendering ----
+    
+    # Handle reset statistical summary button
+    observe_event(input$reset_statistical_summary, {
+      shinyAce::updateAceEditor(
+        session,
+        "statistical_summary_editor",
+        value = get_default_statistical_summary_template()
+      )
+    })
+    
+    ### Detail Edit Mode ----
+    # Handle save updates button
+    observe_event(input$save_updates, {
+      if (!edit_mode()) return()
+      
+      concept_id <- selected_concept_id()
+      if (is.null(concept_id)) return()
+      
+      # Get current data
+      general_concepts <- current_data()$general_concepts
+      concept_mappings <- current_data()$concept_mappings
+      
+      # Update comments in general_concepts
+      new_comment <- input$comments_input
+      if (!is.null(new_comment)) {
+        general_concepts <- general_concepts %>%
+          dplyr::mutate(
+            comments = ifelse(
+              general_concept_id == concept_id,
+              new_comment,
+              comments
+            )
+          )
+      }
+      
+      # Update statistical_summary in general_concepts
+      new_statistical_summary <- input$statistical_summary_editor
+      if (!is.null(new_statistical_summary)) {
+        # Save JSON (assuming it's valid)
+        general_concepts <- general_concepts %>%
+          dplyr::mutate(
+            statistical_summary = ifelse(
+              general_concept_id == concept_id,
+              new_statistical_summary,
+              statistical_summary
+            )
+          )
+      }
+      
+      # Apply concept deletions
+      concept_deletions <- deleted_concepts()
+      concept_key <- as.character(concept_id)
+      
+      if (!is.null(concept_deletions[[concept_key]])) {
+        deleted_ids <- concept_deletions[[concept_key]]
+        concept_mappings <- concept_mappings %>%
+          dplyr::filter(!(general_concept_id == concept_id & omop_concept_id %in% deleted_ids))
+      }
+      
+      # Update recommended values in concept_mappings
+      recommended_edits <- edited_recommended()
+      
+      if (length(recommended_edits) > 0) {
+        for (omop_id in names(recommended_edits)) {
+          new_rec_value <- recommended_edits[[omop_id]]
+          
+          # Check if this concept already exists in concept_mappings
+          existing_row <- concept_mappings %>%
+            dplyr::filter(
+              general_concept_id == concept_id &
+                omop_concept_id == as.integer(omop_id)
+            )
+          
+          if (nrow(existing_row) > 0) {
+            # Update existing row
+            concept_mappings <- concept_mappings %>%
+              dplyr::mutate(
+                recommended = ifelse(
+                  general_concept_id == concept_id & omop_concept_id == as.integer(omop_id),
+                  new_rec_value,
+                  recommended
+                )
+              )
+          } else if (isTRUE(new_rec_value)) {
+            # Add new row only if recommended = TRUE
+            # Get concept info from vocabularies or current data
+            vocab_data <- vocabularies()
+            
+            if (!is.null(vocab_data) && !is.null(vocab_data$concept)) {
+              # Filter and collect from DuckDB
+              new_concept <- vocab_data$concept %>%
+                dplyr::filter(concept_id == as.integer(omop_id)) %>%
+                dplyr::collect()  # Materialize the data from DuckDB
+              
+              if (nrow(new_concept) > 0) {
+                # Create new row with minimal structure (new schema)
+                if (nrow(concept_mappings) > 0) {
+                  # Take first row as template and modify it
+                  new_row <- concept_mappings[1, ]
+                  new_row$general_concept_id <- as.integer(concept_id)
+                  new_row$omop_concept_id <- as.integer(omop_id)
+                  new_row$omop_unit_concept_id <- as.character("/")
+                  new_row$recommended <- TRUE
+                } else {
+                  # Fallback if concept_mappings is empty
+                  new_row <- data.frame(
+                    general_concept_id = as.integer(concept_id),
+                    omop_concept_id = as.integer(omop_id),
+                    omop_unit_concept_id = "/",
+                    recommended = TRUE,
+                    stringsAsFactors = FALSE
+                  )
+                }
+                
+                concept_mappings <- dplyr::bind_rows(concept_mappings, new_row)
+              }
+            }
+          }
+        }
+      }
+      
+      # Write to CSV files
+      readr::write_csv(
+        general_concepts,
+        app_sys("extdata", "csv", "general_concepts.csv")
+      )
+      
+      readr::write_csv(
+        concept_mappings,
+        app_sys("extdata", "csv", "concept_mappings.csv")
+      )
+      
+      # Update local data
+      updated_data <- list(
+        general_concepts = general_concepts,
+        concept_mappings = concept_mappings
+      )
+      local_data(updated_data)
+      
+      # Reset edit state
+      edited_recommended(list())
+      deleted_concepts(list())
+      # edited_comment(NULL)
+      edit_mode(FALSE)
+      # Reset tab to comments
+      comments_tab("comments")
+      # Hide edit buttons and show normal action buttons
+      shinyjs::hide("detail_edit_buttons")
+      shinyjs::show("detail_action_buttons")
+    })
+    
+    # Handle toggle recommended for mappings in detail edit mode
+    observe_event(input$toggle_recommended, {
+      if (!edit_mode()) return()
+      
+      toggle_data <- input$toggle_recommended
+      omop_id <- as.integer(toggle_data$omop_id)
+      new_value <- toggle_data$new_value
+      
+      # Store the change in edited_recommended
+      current_edits <- edited_recommended()
+      current_edits[[as.character(omop_id)]] <- (new_value == "Yes")
+      edited_recommended(current_edits)
+    }, ignoreInit = TRUE)
+    
+    # Handle delete mapping in detail edit mode
+    observe_event(input$delete_concept, {
+      if (!edit_mode()) return()
+      
+      concept_id <- selected_concept_id()
+      if (is.null(concept_id)) return()
+      
+      delete_data <- input$delete_concept
+      omop_id <- as.integer(delete_data$omop_id)
+      
+      # Track the deletion for this general_concept_id
+      current_deletions <- deleted_concepts()
+      concept_key <- as.character(concept_id)
+      
+      if (is.null(current_deletions[[concept_key]])) {
+        current_deletions[[concept_key]] <- c(omop_id)
+      } else {
+        current_deletions[[concept_key]] <- unique(c(current_deletions[[concept_key]], omop_id))
+      }
+      
+      deleted_concepts(current_deletions)
+    }, ignoreInit = TRUE)
+    
+    ### Mappings Table ----
     # Render concept mappings table when concept_mappings_table trigger fires (cascade observer)
     observe_event(concept_mappings_table_trigger(), {
       concept_id <- selected_concept_id()
@@ -2357,16 +2303,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
     }, ignoreInit = TRUE)
 
-    # Observe tab switching for relationships
-    observe_event(input$switch_relationships_tab, {
-      relationships_tab(input$switch_relationships_tab)
-    })
-
-    # Observe tab switching for comments
-    observe_event(input$switch_comments_tab, {
-      comments_tab(input$switch_comments_tab)
-    })
-
     # Cache for current mappings to avoid recalculation
     current_mappings <- reactiveVal(NULL)
 
@@ -2377,8 +2313,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }),
       300  # Wait 300ms after user stops navigating
     )
-
-    ### Mappings Selection & Details ----
+    
     # Observe selection in concept mappings table with debounce
     observe_event(debounced_selection(), {
       selected_row <- debounced_selection()
@@ -2462,59 +2397,30 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         standard_color <- if (is_standard) "#28a745" else "#dc3545"
         standard_text <- if (is_standard) "Standard" else "Non-standard"
 
-        # Helper function to create detail items
-        create_detail_item_ohdsi <- function(label, value, url = NULL, color = NULL) {
-          display_value <- if (is.na(value) || is.null(value) || value == "") {
-            "/"
-          } else {
-            as.character(value)
-          }
-
-          # Create link if URL provided
-          if (!is.null(url) && display_value != "/") {
-            display_value <- tags$a(
-              href = url,
-              target = "_blank",
-              style = "color: #0f60af; text-decoration: underline;",
-              display_value
-            )
-          } else if (!is.null(color) && display_value != "/") {
-            # Apply color if specified
-            display_value <- tags$span(
-              style = paste0("color: ", color, "; font-weight: 600;"),
-              display_value
-            )
-          }
-
-          tags$div(
-            class = "detail-item",
-            tags$strong(label),
-            tags$span(display_value)
-          )
-        }
-
         # Display full info for OHDSI-only concepts (with "/" for missing EHDEN/LOINC data)
         return(tags$div(
           class = "concept-details-container",
           style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(8, auto); grid-auto-flow: column; gap: 4px 15px;",
           # Column 1
-          create_detail_item_ohdsi("Concept Name", info$concept_name),
-          create_detail_item_ohdsi("Category",
-                                   ifelse(nrow(general_concept_info) > 0,
-                                         general_concept_info$category[1], NA)),
-          create_detail_item_ohdsi("Sub-category",
-                                   ifelse(nrow(general_concept_info) > 0,
-                                         general_concept_info$subcategory[1], NA)),
-          create_detail_item_ohdsi("EHDEN Data Sources", "/"),
-          create_detail_item_ohdsi("EHDEN Rows Count", "/"),
-          create_detail_item_ohdsi("LOINC Rank", "/"),
-          create_detail_item_ohdsi("Validity", validity_text, color = validity_color),
-          create_detail_item_ohdsi("Standard", standard_text, color = standard_color),
+          create_detail_item("Concept Name", info$concept_name, include_colon = FALSE),
+          create_detail_item("Category",
+                            ifelse(nrow(general_concept_info) > 0,
+                                  general_concept_info$category[1], NA),
+                            include_colon = FALSE),
+          create_detail_item("Sub-category",
+                            ifelse(nrow(general_concept_info) > 0,
+                                  general_concept_info$subcategory[1], NA),
+                            include_colon = FALSE),
+          create_detail_item("EHDEN Data Sources", "/", include_colon = FALSE),
+          create_detail_item("EHDEN Rows Count", "/", include_colon = FALSE),
+          create_detail_item("LOINC Rank", "/", include_colon = FALSE),
+          create_detail_item("Validity", validity_text, color = validity_color, include_colon = FALSE),
+          create_detail_item("Standard", standard_text, color = standard_color, include_colon = FALSE),
           # Column 2 (must have exactly 8 items)
-          create_detail_item_ohdsi("Vocabulary ID", info$vocabulary_id),
-          create_detail_item_ohdsi("Domain ID", if (!is.na(info$domain_id)) info$domain_id else "/"),
-          create_detail_item_ohdsi("Concept Code", info$concept_code),
-          create_detail_item_ohdsi("OMOP Concept ID", info$concept_id, url = athena_url),
+          create_detail_item("Vocabulary ID", info$vocabulary_id, include_colon = FALSE),
+          create_detail_item("Domain ID", if (!is.na(info$domain_id)) info$domain_id else "/", include_colon = FALSE),
+          create_detail_item("Concept Code", info$concept_code, include_colon = FALSE),
+          create_detail_item("OMOP Concept ID", info$concept_id, url = athena_url, include_colon = FALSE),
           if (!is.null(fhir_url)) {
             if (fhir_url == "no_link") {
               tags$div(
@@ -2540,8 +2446,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           } else {
             tags$div(class = "detail-item", style = "visibility: hidden;")
           },
-          create_detail_item_ohdsi("Unit Concept Name", "/"),
-          create_detail_item_ohdsi("OMOP Unit Concept ID", "/"),
+          create_detail_item("Unit Concept Name", "/", include_colon = FALSE),
+          create_detail_item("OMOP Unit Concept ID", "/", include_colon = FALSE),
           tags$div(class = "detail-item", style = "visibility: hidden;")
         ))
       }
@@ -2619,79 +2525,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Get edit mode status
       is_editing <- edit_mode()
 
-      # Create detail items with proper formatting
-      create_detail_item <- function(label, value, format_number = FALSE, url = NULL, color = NULL, editable = FALSE, input_id = NULL, step = 1) {
-        # If editable and in edit mode, show numeric input
-        if (editable && is_editing && !is.null(input_id)) {
-          input_value <- if (is.null(value)) {
-            NA
-          } else if (length(value) == 0) {
-            NA
-          } else if (length(value) == 1 && is.na(value)) {
-            NA
-          } else if (identical(value, "")) {
-            NA
-          } else if (is.character(value)) {
-            suppressWarnings(as.numeric(value))
-          } else {
-            as.numeric(value)
-          }
-
-          return(tags$div(
-            class = "detail-item",
-            tags$strong(label),
-            tags$span(
-              shiny::numericInput(
-                ns(input_id),
-                label = NULL,
-                value = input_value,
-                width = "100px",
-                step = step
-              )
-            )
-          ))
-        }
-
-        # Otherwise, display as read-only
-        display_value <- if (is.null(value)) {
-          "/"
-        } else if (length(value) == 0) {
-          "/"
-        } else if (length(value) == 1 && is.na(value)) {
-          "/"
-        } else if (identical(value, "")) {
-          "/"
-        } else if (is.logical(value)) {
-          if (isTRUE(value)) "Yes" else if (isFALSE(value)) "No" else "/"
-        } else if (format_number && is.numeric(value)) {
-          format(value, big.mark = ",", scientific = FALSE)
-        } else {
-          as.character(value)
-        }
-
-        # Create link if URL provided
-        if (!is.null(url) && display_value != "/") {
-          display_value <- tags$a(
-            href = url,
-            target = "_blank",
-            style = "color: #0f60af; text-decoration: underline;",
-            display_value
-          )
-        } else if (!is.null(color) && display_value != "/") {
-          # Apply color if specified
-          display_value <- tags$span(
-            style = paste0("color: ", color, "; font-weight: 600;"),
-            display_value
-          )
-        }
-
-        tags$div(
-          class = "detail-item",
-          tags$strong(label),
-          tags$span(display_value)
-        )
-      }
-
       # Determine validity and standard from vocab_data
       is_valid <- if (!is.null(validity_info)) {
         is.na(validity_info$invalid_reason) || validity_info$invalid_reason == ""
@@ -2737,23 +2570,25 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         class = "concept-details-container",
         style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(8, auto); grid-auto-flow: column; gap: 4px 15px;",
         # Column 1
-        create_detail_item("Concept Name", info$concept_name),
+        create_detail_item("Concept Name", info$concept_name, include_colon = FALSE, is_editing = is_editing, ns = ns),
         create_detail_item("Category",
                           ifelse(nrow(general_concept_info) > 0,
-                                general_concept_info$category[1], NA)),
+                                general_concept_info$category[1], NA),
+                          include_colon = FALSE, is_editing = is_editing, ns = ns),
         create_detail_item("Sub-category",
                           ifelse(nrow(general_concept_info) > 0,
-                                general_concept_info$subcategory[1], NA)),
-        create_detail_item("EHDEN Data Sources", info$ehden_num_data_sources, format_number = TRUE, editable = TRUE, input_id = "ehden_num_data_sources_input", step = 1),
-        create_detail_item("EHDEN Rows Count", info$ehden_rows_count, format_number = TRUE, editable = TRUE, input_id = "ehden_rows_count_input", step = 1000),
-        create_detail_item("LOINC Rank", info$loinc_rank, editable = TRUE, input_id = "loinc_rank_input", step = 1),
-        create_detail_item("Validity", validity_text, color = validity_color),
-        create_detail_item("Standard", standard_text, color = standard_color),
+                                general_concept_info$subcategory[1], NA),
+                          include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item("EHDEN Data Sources", info$ehden_num_data_sources, format_number = TRUE, editable = TRUE, input_id = "ehden_num_data_sources_input", step = 1, include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item("EHDEN Rows Count", info$ehden_rows_count, format_number = TRUE, editable = TRUE, input_id = "ehden_rows_count_input", step = 1000, include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item("LOINC Rank", info$loinc_rank, editable = TRUE, input_id = "loinc_rank_input", step = 1, include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item("Validity", validity_text, color = validity_color, include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item("Standard", standard_text, color = standard_color, include_colon = FALSE, is_editing = is_editing, ns = ns),
         # Column 2 (must have exactly 8 items)
-        create_detail_item("Vocabulary ID", info$vocabulary_id),
-        create_detail_item("Domain ID", if (!is.null(validity_info) && !is.na(validity_info$domain_id)) validity_info$domain_id else "/"),
-        create_detail_item("Concept Code", info$concept_code),
-        create_detail_item("OMOP Concept ID", info$omop_concept_id, url = athena_url),
+        create_detail_item("Vocabulary ID", info$vocabulary_id, include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item("Domain ID", if (!is.null(validity_info) && !is.na(validity_info$domain_id)) validity_info$domain_id else "/", include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item("Concept Code", info$concept_code, include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item("OMOP Concept ID", info$omop_concept_id, url = athena_url, include_colon = FALSE, is_editing = is_editing, ns = ns),
         if (!is.null(fhir_url)) {
           if (fhir_url == "no_link") {
             tags$div(
@@ -2784,14 +2619,15 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                             unit_concept_code
                           } else {
                             "/"
-                          }),
+                          },
+                          include_colon = FALSE, is_editing = is_editing, ns = ns),
         create_detail_item("OMOP Unit Concept ID",
                           if (!is.null(info$omop_unit_concept_id) && !is.na(info$omop_unit_concept_id) && info$omop_unit_concept_id != "" && info$omop_unit_concept_id != "/") {
                             info$omop_unit_concept_id
                           } else {
                             "/"
                           },
-                          url = athena_unit_url)
+                          url = athena_unit_url, include_colon = FALSE, is_editing = is_editing, ns = ns)
         )
       })
     }, ignoreInit = TRUE)
@@ -2837,8 +2673,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
     ### Relationship Tab Outputs ----
-    # Render all relationship tab outputs when mapped concept is selected (consolidated observer)
-    observe_event(mapped_concept_trigger(), {
+    # Render all relationship tab outputs when relationship_tab_outputs trigger fires (cascade observer)
+    observe_event(relationship_tab_outputs_trigger(), {
       omop_concept_id <- selected_mapped_concept_id()
       if (!is.null(omop_concept_id)) {
         # 1. Related concepts table
@@ -3034,7 +2870,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           vocab_data <- vocabularies()
           if (is.null(vocab_data)) return(
 
-DT::datatable(
+          DT::datatable(
             data.frame(Message = "OHDSI Vocabularies not loaded."),
             options = list(dom = 't'),
             rownames = FALSE,
@@ -3222,151 +3058,29 @@ DT::datatable(
       }
     }, ignoreInit = TRUE)
 
-    ## Server - Modals Management ----
-    ### Concept Details Modal ----
-    # Observe modal_concept_id input and update reactiveVal
-    observe_event(input$modal_concept_id, {
-      modal_concept_id(input$modal_concept_id)
-    }, ignoreNULL = TRUE, ignoreInit = FALSE)
-
-    # Modal concept details
-    # Render concept modal body when concept is selected
-    observe_event(modal_concept_id(), {
-      concept_id <- modal_concept_id()
-      if (!is.null(concept_id)) {
-        output$concept_modal_body <- renderUI({
-          vocab_data <- vocabularies()
-          if (is.null(vocab_data)) {
-            return(tags$div("Vocabulary data not available"))
-          }
-
-      # Get concept information from vocabularies
-      concept_info <- vocab_data$concept %>%
-        dplyr::filter(concept_id == !!concept_id) %>%
-        dplyr::collect()
-
-      if (nrow(concept_info) == 0) {
-        return(tags$p("Concept not found.", style = "color: #666; font-style: italic;"))
-      }
-
-      info <- concept_info[1, ]
-
-      # Build ATHENA URL
-      athena_url <- build_athena_url(info$concept_id, config)
-
-      # Build FHIR URL
-      fhir_url <- build_fhir_url(info$vocabulary_id, info$concept_code, config)
-
-      # Helper function to create detail items
-      create_detail_item <- function(label, value, url = NULL, color = NULL) {
-        display_value <- if (is.na(value) || is.null(value) || value == "") {
-          "/"
-        } else {
-          as.character(value)
-        }
-
-        # Create link if URL provided
-        if (!is.null(url) && display_value != "/") {
-          display_value <- tags$a(
-            href = url,
-            target = "_blank",
-            style = "color: #0f60af; text-decoration: underline;",
-            display_value
-          )
-        } else if (!is.null(color)) {
-          # Apply color if specified
-          display_value <- tags$span(
-            style = paste0("color: ", color, "; font-weight: 600;"),
-            display_value
-          )
-        }
-
-        tags$div(
-          class = "detail-item",
-          tags$strong(label),
-          tags$span(display_value)
-        )
-      }
-
-      # Determine if concept is valid
-      is_valid <- is.na(info$invalid_reason) || info$invalid_reason == ""
-      validity_color <- if (is_valid) "#28a745" else "#dc3545"
-      validity_text <- if (is_valid) "Valid" else paste0("Invalid (", info$invalid_reason, ")")
-
-      # Determine if concept is standard
-      is_standard <- !is.na(info$standard_concept) && info$standard_concept == "S"
-      standard_color <- if (is_standard) "#28a745" else "#dc3545"
-      standard_text <- if (is_standard) "Standard" else "Non-standard"
-
-      tags$div(
-        class = "concept-details-container",
-        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(6, auto); grid-auto-flow: column; gap: 4px 15px;",
-        # Column 1
-        create_detail_item("Concept Name", info$concept_name),
-        create_detail_item("Category", info$domain_id),
-        create_detail_item("Sub-category", info$concept_class_id),
-        create_detail_item("Validity", validity_text, color = validity_color),
-        create_detail_item("Standard", standard_text, color = standard_color),
-        tags$div(class = "detail-item", style = "visibility: hidden;"),
-        # Column 2
-        create_detail_item("Vocabulary ID", info$vocabulary_id),
-        create_detail_item("Domain ID", info$domain_id),
-        create_detail_item("Concept Code", info$concept_code),
-        create_detail_item("OMOP Concept ID", info$concept_id, url = athena_url),
-        if (!is.null(fhir_url)) {
-          if (fhir_url == "no_link") {
-            tags$div(
-              class = "detail-item",
-              tags$strong("FHIR Resource"),
-              tags$span(
-                style = "color: #999; font-style: italic;",
-                "No link available"
-              )
-            )
-          } else {
-            tags$div(
-              class = "detail-item",
-              tags$strong("FHIR Resource"),
-              tags$a(
-                href = fhir_url,
-                target = "_blank",
-                style = "color: #0f60af; text-decoration: underline;",
-                "View"
-              )
-            )
-          }
-        } else {
-          tags$div(class = "detail-item", style = "visibility: hidden;")
-        },
-          tags$div(class = "detail-item", style = "visibility: hidden;")
-        )
-        })
-      }
-    }, ignoreNULL = FALSE)
-
     ### Hierarchy Graph Modal ----
     # Observe view graph button click
     observe_event(input$view_hierarchy_graph, {
       omop_concept_id <- selected_mapped_concept_id()
       req(omop_concept_id)
-
+      
       # Show modal
       shinyjs::runjs(sprintf("$('#%s').show();", ns("hierarchy_graph_modal")))
-
+      
       # Re-render the graph for the modal with explicit dimensions
       output$hierarchy_graph_modal_content <- visNetwork::renderVisNetwork({
         vocab_data <- vocabularies()
         if (is.null(vocab_data)) return()
-
+        
         # Get hierarchy graph data
         hierarchy_data <- get_concept_hierarchy_graph(omop_concept_id, vocab_data,
-                                                       max_levels_up = 5,
-                                                       max_levels_down = 5)
-
+                                                      max_levels_up = 5,
+                                                      max_levels_down = 5)
+        
         if (nrow(hierarchy_data$nodes) == 0) {
           return(NULL)
         }
-
+        
         # Create visNetwork graph with explicit dimensions for modal
         visNetwork::visNetwork(
           hierarchy_data$nodes,
@@ -3418,91 +3132,112 @@ DT::datatable(
           visNetwork::visPhysics(enabled = FALSE) %>%
           visNetwork::visLayout(randomSeed = 123)
       })
-
+      
       # Force Shiny to render this output even when hidden
       outputOptions(output, "hierarchy_graph_modal_content", suspendWhenHidden = FALSE)
-
+      
       # Fit the graph after a short delay to allow modal to render
       shinyjs::delay(300, {
         visNetwork::visNetworkProxy(ns("hierarchy_graph_modal_content")) %>%
           visNetwork::visFit(animation = list(duration = 500))
       })
     })
+    
+    ## Server - Modals Management ----
+    ### Concept Details Modal ----
+    # Render concept modal body when concept is selected
+    observe_event(input$modal_concept_id, {
+      concept_id <- input$modal_concept_id
+      cat("[DEBUG modal_concept_id observer] concept_id =", concept_id, "\n")
+      req(concept_id)
+        output$concept_modal_body <- renderUI({
+          cat("[DEBUG renderUI] Rendering concept modal body for concept_id =", concept_id, "\n")
+          vocab_data <- vocabularies()
+          if (is.null(vocab_data)) {
+            cat("[DEBUG renderUI] vocab_data is NULL\n")
+            return(tags$div("Vocabulary data not available"))
+          }
+          cat("[DEBUG renderUI] vocab_data is available\n")
+
+      # Get concept information from vocabularies
+      concept_info <- vocab_data$concept %>%
+        dplyr::filter(concept_id == !!concept_id) %>%
+        dplyr::collect()
+
+      cat("[DEBUG renderUI] concept_info rows =", nrow(concept_info), "\n")
+
+      if (nrow(concept_info) == 0) {
+        return(tags$p("Concept not found.", style = "color: #666; font-style: italic;"))
+      }
+
+      info <- concept_info[1, ]
+
+      # Build ATHENA URL
+      athena_url <- build_athena_url(info$concept_id, config)
+
+      # Build FHIR URL
+      fhir_url <- build_fhir_url(info$vocabulary_id, info$concept_code, config)
+
+      # Determine if concept is valid
+      is_valid <- is.na(info$invalid_reason) || info$invalid_reason == ""
+      validity_color <- if (is_valid) "#28a745" else "#dc3545"
+      validity_text <- if (is_valid) "Valid" else paste0("Invalid (", info$invalid_reason, ")")
+
+      # Determine if concept is standard
+      is_standard <- !is.na(info$standard_concept) && info$standard_concept == "S"
+      standard_color <- if (is_standard) "#28a745" else "#dc3545"
+      standard_text <- if (is_standard) "Standard" else "Non-standard"
+
+      tags$div(
+        class = "concept-details-container",
+        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(6, auto); grid-auto-flow: column; gap: 4px 15px;",
+        # Column 1
+        create_detail_item("Concept Name", info$concept_name, include_colon = FALSE),
+        create_detail_item("Category", info$domain_id, include_colon = FALSE),
+        create_detail_item("Sub-category", info$concept_class_id, include_colon = FALSE),
+        create_detail_item("Validity", validity_text, color = validity_color, include_colon = FALSE),
+        create_detail_item("Standard", standard_text, color = standard_color, include_colon = FALSE),
+        tags$div(class = "detail-item", style = "visibility: hidden;"),
+        # Column 2
+        create_detail_item("Vocabulary ID", info$vocabulary_id, include_colon = FALSE),
+        create_detail_item("Domain ID", info$domain_id, include_colon = FALSE),
+        create_detail_item("Concept Code", info$concept_code, include_colon = FALSE),
+        create_detail_item("OMOP Concept ID", info$concept_id, url = athena_url, include_colon = FALSE),
+        if (!is.null(fhir_url)) {
+          if (fhir_url == "no_link") {
+            tags$div(
+              class = "detail-item",
+              tags$strong("FHIR Resource"),
+              tags$span(
+                style = "color: #999; font-style: italic;",
+                "No link available"
+              )
+            )
+          } else {
+            tags$div(
+              class = "detail-item",
+              tags$strong("FHIR Resource"),
+              tags$a(
+                href = fhir_url,
+                target = "_blank",
+                style = "color: #0f60af; text-decoration: underline;",
+                "View"
+              )
+            )
+          }
+        } else {
+          tags$div(class = "detail-item", style = "visibility: hidden;")
+        },
+          tags$div(class = "detail-item", style = "visibility: hidden;")
+        )
+        })
+    }, ignoreNULL = FALSE)
 
     ### Add Concept Modal (OMOP Search) ----
     # Reactive value to store selected concept from modal
     modal_selected_concept <- reactiveVal(NULL)
 
-    # Server-side DataTable for OMOP concepts
-    output$modal_concepts_table <- DT::renderDT({
-      vocab_data <- vocabularies()
-      req(vocab_data)
-
-      # Collect data from DuckDB first
-      concept_data <- vocab_data$concept %>%
-        dplyr::filter(
-          vocabulary_id %in% c("RxNorm", "RxNorm Extension", "LOINC", "SNOMED", "ICD10"),
-          is.na(invalid_reason)
-        ) %>%
-        dplyr::select(concept_id, concept_name, vocabulary_id, domain_id, concept_class_id) %>%
-        dplyr::collect() %>%
-        dplyr::mutate(
-          vocabulary_id = factor(vocabulary_id),
-          domain_id = factor(domain_id),
-          concept_class_id = factor(concept_class_id)
-        )
-
-      # Create server-side processing
-      DT::datatable(
-        concept_data,
-        selection = 'single',
-        filter = 'top',
-        rownames = FALSE,
-        colnames = c("ID", "Concept Name", "Vocabulary", "Domain", "Class"),
-        options = list(
-          pageLength = 10,
-          processing = TRUE,
-          server = TRUE,
-          dom = 'tp',  # Only table and pagination (no global search)
-          ordering = TRUE,
-          autoWidth = FALSE,
-          columnDefs = list(
-            list(width = '80px', targets = 0),
-            list(width = '300px', targets = 1),
-            list(width = '120px', targets = 2),
-            list(width = '100px', targets = 3),
-            list(width = '150px', targets = 4)
-          )
-        )
-      )
-    }, server = TRUE)
-
-    # Observe modal table selection
-    observe_event(input$modal_concepts_table_rows_selected, {
-      if (is.null(input$modal_concepts_table_rows_selected)) return()
-
-      vocab_data <- vocabularies()
-      req(vocab_data)
-
-      # Get selected row
-      selected_row <- input$modal_concepts_table_rows_selected
-
-      # Get concept details
-      concept_data <- vocab_data$concept %>%
-        dplyr::filter(
-          vocabulary_id %in% c("RxNorm", "RxNorm Extension", "LOINC", "SNOMED", "ICD10"),
-          is.na(invalid_reason)
-        ) %>%
-        dplyr::select(concept_id, concept_name, vocabulary_id, domain_id, concept_class_id, concept_code, standard_concept) %>%
-        dplyr::collect()
-
-      if (selected_row <= nrow(concept_data)) {
-        selected_concept <- concept_data[selected_row, ]
-        modal_selected_concept(selected_concept)
-      }
-    })
-
-    # Render modal concept details (using same format as Selected Concept Details)
+    # Render add modal concept details (using same format as Selected Concept Details)
     output$modal_concept_details <- renderUI({
       concept <- modal_selected_concept()
 
@@ -3516,34 +3251,19 @@ DT::datatable(
         ))
       }
 
-      # Helper function to create detail items (same as concept_details_display)
-      create_detail_item <- function(label, value) {
-        display_value <- if (is.na(value) || is.null(value) || value == "") {
-          "/"
-        } else {
-          as.character(value)
-        }
-
-        tags$div(
-          class = "detail-item",
-          tags$strong(label),
-          tags$span(display_value)
-        )
-      }
-
       # Use grid layout like Selected Concept Details
       tags$div(
         class = "concept-details-container",
         style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); grid-auto-flow: column; gap: 4px 15px;",
         # Column 1
-        create_detail_item("Concept Name", concept$concept_name),
-        create_detail_item("Vocabulary ID", concept$vocabulary_id),
-        create_detail_item("Domain ID", concept$domain_id),
-        create_detail_item("Concept Class", concept$concept_class_id),
+        create_detail_item("Concept Name", concept$concept_name, include_colon = FALSE),
+        create_detail_item("Vocabulary ID", concept$vocabulary_id, include_colon = FALSE),
+        create_detail_item("Domain ID", concept$domain_id, include_colon = FALSE),
+        create_detail_item("Concept Class", concept$concept_class_id, include_colon = FALSE),
         # Column 2
-        create_detail_item("OMOP Concept ID", concept$concept_id),
-        create_detail_item("Concept Code", concept$concept_code),
-        create_detail_item("Standard", ifelse(is.na(concept$standard_concept), "No", concept$standard_concept)),
+        create_detail_item("OMOP Concept ID", concept$concept_id, include_colon = FALSE),
+        create_detail_item("Concept Code", concept$concept_code, include_colon = FALSE),
+        create_detail_item("Standard", ifelse(is.na(concept$standard_concept), "No", concept$standard_concept), include_colon = FALSE),
         tags$div()  # Empty slot to balance grid
       )
     })
@@ -3696,32 +3416,18 @@ DT::datatable(
       }
 
       # Helper function to create detail items (same as modal_concept_details)
-      create_detail_item <- function(label, value) {
-        display_value <- if (is.na(value) || is.null(value) || value == "") {
-          "/"
-        } else {
-          as.character(value)
-        }
-
-        tags$div(
-          class = "detail-item",
-          tags$strong(label),
-          tags$span(display_value)
-        )
-      }
-
       # Use grid layout like Selected Concept Details
       tags$div(
         class = "concept-details-container",
         style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); grid-auto-flow: column; gap: 4px 15px;",
         # Column 1
-        create_detail_item("Concept Name", concept$concept_name),
-        create_detail_item("Vocabulary ID", concept$vocabulary_id),
-        create_detail_item("Domain ID", concept$domain_id),
-        create_detail_item("Concept Class", concept$concept_class_id),
+        create_detail_item("Concept Name", concept$concept_name, include_colon = FALSE),
+        create_detail_item("Vocabulary ID", concept$vocabulary_id, include_colon = FALSE),
+        create_detail_item("Domain ID", concept$domain_id, include_colon = FALSE),
+        create_detail_item("Concept Class", concept$concept_class_id, include_colon = FALSE),
         # Column 2
-        create_detail_item("OMOP Concept ID", concept$concept_id),
-        create_detail_item("Concept Code", concept$concept_code),
+        create_detail_item("OMOP Concept ID", concept$concept_id, include_colon = FALSE),
+        create_detail_item("Concept Code", concept$concept_code, include_colon = FALSE),
         tags$div(),  # Empty slot
         tags$div()   # Empty slot to balance grid
       )

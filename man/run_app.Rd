@@ -4,7 +4,12 @@
 \alias{run_app}
 \title{Run the INDICATE Shiny Application}
 \usage{
-run_app(app_folder = NULL, debug_mode = NULL, ..., options = list())
+run_app(
+  app_folder = NULL,
+  debug_mode = c("event", "error"),
+  ...,
+  options = list()
+)
 }
 \arguments{
 \item{app_folder}{Path to the folder where application files will be stored.

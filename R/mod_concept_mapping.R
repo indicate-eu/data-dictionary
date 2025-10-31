@@ -967,19 +967,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       )
 
       # Add JavaScript callback for double-click
-      dt$x$options$drawCallback <- htmlwidgets::JS(sprintf("
-        function(settings) {
-          var table = settings.oInstance.api();
-          $(table.table().node()).off('dblclick', 'tbody tr');
-          $(table.table().node()).on('dblclick', 'tbody tr', function() {
-            var rowData = table.row(this).data();
-            if (rowData && rowData[0]) {
-              var alignmentId = rowData[0];
-              Shiny.setInputValue('%s', alignmentId, {priority: 'event'});
-            }
-          });
-        }
-      ", ns("open_alignment")))
+      dt <- add_doubleclick_handler(dt, ns("open_alignment"))
 
       dt
     }, server = FALSE)
@@ -1875,19 +1863,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       )
 
       # Add JavaScript callback for double-click
-      dt$x$options$drawCallback <- htmlwidgets::JS(sprintf("
-        function(settings) {
-          var table = settings.oInstance.api();
-          $(table.table().node()).off('dblclick', 'tbody tr');
-          $(table.table().node()).on('dblclick', 'tbody tr', function() {
-            var rowData = table.row(this).data();
-            if (rowData && rowData[0]) {
-              var conceptId = rowData[0];
-              Shiny.setInputValue('%s', conceptId, {priority: 'event'});
-            }
-          });
-        }
-      ", ns("view_mapped_concepts")))
+      dt <- add_doubleclick_handler(dt, ns("view_mapped_concepts"))
 
       dt
     }, server = FALSE)
