@@ -1,3 +1,32 @@
+# MODULE STRUCTURE OVERVIEW ====
+#
+# This module manages user accounts and permissions in the application
+#
+# UI STRUCTURE:
+#   ## UI - Main Layout
+#      ### Header with Add User Button
+#      ### Users Table
+#   ## UI - Modals
+#      ### Modal - Add/Edit User Form
+#
+# SERVER STRUCTURE:
+#   ## 1) Server - Reactive Values & State
+#      ### Editing State
+#      ### Data Management
+#
+#   ## 2) Server - Data Loading & Rendering
+#      ### Load Users Data
+#      ### Render Users Table
+#
+#   ## 3) Server - User Actions
+#      ### Add User Modal
+#      ### Edit User Modal
+#      ### Delete User
+#      ### Save User
+#      ### Cancel/Close Modal
+
+# UI - Main Layout ====
+
 #' Users Management Module
 #'
 #' @description Module for managing users
@@ -17,7 +46,7 @@ mod_users_ui <- function(id) {
     class = "users-container",
     style = "padding: 20px; height: 100%; overflow-y: auto;",
 
-    # Header with Add User button only
+    ## Header with Add User Button ----
     div(
       style = "display: flex; justify-content: flex-end; align-items: center; margin-bottom: 20px;",
       actionButton(
@@ -28,13 +57,13 @@ mod_users_ui <- function(id) {
       )
     ),
 
-    # Users table
+    ## Users Table ----
     div(
       style = "background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
       DTOutput(ns("users_table"))
     ),
 
-    # Add/Edit User Modal (hidden by default)
+    ## Modal - Add/Edit User Form ----
     div(
       id = ns("user_modal"),
       class = "modal-overlay",
@@ -187,6 +216,8 @@ mod_users_ui <- function(id) {
   )
 }
 
+# Server Logic ====
+
 #' Users Management Module Server
 #'
 #' @description Server logic for user management
@@ -203,76 +234,84 @@ mod_users_server <- function(id, current_user, log_level = character()) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    # Track editing state
+    ## 1) Server - Reactive Values & State ====
+
+    ### Editing State ----
     editing_user_id <- reactiveVal(NULL)
 
-    # Reactive to load users
+    ### Data Management ----
     users_data <- reactiveVal(NULL)
 
-    # Load users on start
-    observe({
+    ## 2) Server - Data Loading & Rendering ====
+
+    ### Load Users Data ----
+    observe_event(TRUE, {
       users <- get_all_users()
       users_data(users)
-    })
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
-    # Render users table
-    output$users_table <- renderDT({
-      req(users_data())
+    ### Render Users Table ----
+    observe_event(users_data(), {
+      if (is.null(users_data())) return()
 
-      users <- users_data()
+      output$users_table <- renderDT({
+        users <- users_data()
 
-      # Add action buttons with correct namespacing
-      users$Actions <- sprintf(
-        '<button class="btn-edit" data-user-id="%d"><i class="fas fa-edit"></i></button>
-         <button class="btn-delete" data-user-id="%d"><i class="fas fa-trash"></i></button>',
-        users$user_id,
-        users$user_id
-      )
-
-      # Format active status
-      users$Status <- ifelse(users$is_active == 1, "Active", "Inactive")
-
-      # Select display columns
-      display_data <- users[, c("login", "first_name", "last_name", "role", "affiliation", "Status", "Actions")]
-      colnames(display_data) <- c("Login", "First Name", "Last Name", "Role", "Affiliation", "Status", "Actions")
-
-      datatable(
-        display_data,
-        selection = "none",
-        rownames = FALSE,
-        escape = FALSE,
-        filter = "top",
-        class = "cell-border stripe hover",
-        options = list(
-          pageLength = 25,
-          dom = "tp",
-          ordering = TRUE,
-          autoWidth = FALSE,
-          columnDefs = list(
-            list(width = "120px", targets = 6),
-            list(searchable = FALSE, targets = 6)
-          )
+        # Add action buttons
+        users$Actions <- sprintf(
+          '<button class="btn-edit" data-user-id="%d"><i class="fas fa-edit"></i></button>
+           <button class="btn-delete" data-user-id="%d"><i class="fas fa-trash"></i></button>',
+          users$user_id,
+          users$user_id
         )
-      ) %>%
-        formatStyle(
-          "Status",
-          backgroundColor = styleEqual(
-            c("Active", "Inactive"),
-            c("#d4edda", "#f8d7da")
-          ),
-          color = styleEqual(
-            c("Active", "Inactive"),
-            c("#155724", "#721c24")
-          )
-        )
-    })
 
-    # Show add user modal
-    observeEvent(input$add_user_btn, {
+        # Format active status
+        users$Status <- ifelse(users$is_active == 1, "Active", "Inactive")
+
+        # Select display columns
+        display_data <- users[, c("login", "first_name", "last_name", "role", "affiliation", "Status", "Actions")]
+        colnames(display_data) <- c("Login", "First Name", "Last Name", "Role", "Affiliation", "Status", "Actions")
+
+        datatable(
+          display_data,
+          selection = "none",
+          rownames = FALSE,
+          escape = FALSE,
+          filter = "top",
+          class = "cell-border stripe hover",
+          options = list(
+            pageLength = 25,
+            dom = "tp",
+            ordering = TRUE,
+            autoWidth = FALSE,
+            columnDefs = list(
+              list(width = "120px", targets = 6),
+              list(searchable = FALSE, targets = 6)
+            )
+          )
+        ) %>%
+          formatStyle(
+            "Status",
+            backgroundColor = styleEqual(
+              c("Active", "Inactive"),
+              c("#d4edda", "#f8d7da")
+            ),
+            color = styleEqual(
+              c("Active", "Inactive"),
+              c("#155724", "#721c24")
+            )
+          )
+      })
+    }, ignoreInit = FALSE)
+
+    ## 3) Server - User Actions ====
+
+    ### Add User Modal ----
+    observe_event(input$add_user_btn, {
       # Check permissions
-      req(current_user())
-      user <- current_user()
+      if (is.null(current_user())) return()
 
+      user <- current_user()
       if (user$role == "Anonymous") {
         shinyjs::html("user_error", "You must be logged in to add users.")
         shinyjs::show("user_error")
@@ -295,14 +334,15 @@ mod_users_server <- function(id, current_user, log_level = character()) {
       shinyjs::show("user_modal")
     })
 
-    # Show edit user modal
-    observeEvent(input$edit_user, {
-      req(input$edit_user, users_data())
+    ### Edit User Modal ----
+    observe_event(input$edit_user, {
+      if (is.null(input$edit_user)) return()
+      if (is.null(users_data())) return()
 
       # Check permissions
-      req(current_user())
-      user <- current_user()
+      if (is.null(current_user())) return()
 
+      user <- current_user()
       if (user$role == "Anonymous") {
         shinyjs::html("user_error", "You must be logged in to edit users.")
         shinyjs::show("user_error")
@@ -313,9 +353,7 @@ mod_users_server <- function(id, current_user, log_level = character()) {
       users <- users_data()
       edit_user <- users[users$user_id == input$edit_user, ]
 
-      if (nrow(edit_user) == 0) {
-        return()
-      }
+      if (nrow(edit_user) == 0) return()
 
       edit_user <- edit_user[1, ]
 
@@ -337,24 +375,20 @@ mod_users_server <- function(id, current_user, log_level = character()) {
       shinyjs::show("user_modal")
     })
 
-    # Delete user
-    observeEvent(input$delete_user, {
-      req(input$delete_user)
+    ### Delete User ----
+    observe_event(input$delete_user, {
+      if (is.null(input$delete_user)) return()
 
       # Check permissions
-      req(current_user())
-      user <- current_user()
+      if (is.null(current_user())) return()
 
-      if (user$role == "Anonymous") {
-        return()
-      }
+      user <- current_user()
+      if (user$role == "Anonymous") return()
 
       # Prevent deleting own account
-      if (user$user_id == input$delete_user) {
-        return()
-      }
+      if (user$user_id == input$delete_user) return()
 
-      # Show confirmation and delete
+      # Delete user
       if (input$delete_user > 0) {
         delete_user(input$delete_user)
 
@@ -364,9 +398,9 @@ mod_users_server <- function(id, current_user, log_level = character()) {
       }
     })
 
-    # Save user
-    observeEvent(input$save_user, {
-      # Validate
+    ### Save User ----
+    observe_event(input$save_user, {
+      # Validate login
       if (is.null(input$user_login) || nchar(input$user_login) == 0) {
         shinyjs::html("user_error", "Login is required.")
         shinyjs::show("user_error")
@@ -432,13 +466,12 @@ mod_users_server <- function(id, current_user, log_level = character()) {
       shinyjs::delay(1500, shinyjs::hide("user_modal"))
     })
 
-    # Cancel user modal
-    observeEvent(input$cancel_user, {
+    ### Cancel/Close Modal ----
+    observe_event(input$cancel_user, {
       shinyjs::hide("user_modal")
     })
 
-    # Close modal button
-    observeEvent(input$close_modal, {
+    observe_event(input$close_modal, {
       shinyjs::hide("user_modal")
     })
   })
