@@ -1242,6 +1242,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       alignment_to_delete(NULL)
     })
 
+    ### File Upload & Processing ----
     # Render CSV options only for CSV files
     output$csv_options <- renderUI({
       if (is.null(input$alignment_file)) return()
@@ -1811,7 +1812,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       shinyjs::runjs(sprintf("$('#%s').hide();", ns("alignment_modal_save")))
     })
 
+
+    ## 6) Server - Concept Mapping Interface ----
     # Source Concepts table - load from CSV
+    ### Source Concepts Display ----
     output$source_concepts_table <- DT::renderDT({
       if (is.null(selected_alignment_id())) return()
       if (mapping_view() != "general") return()  # Only load in general view
@@ -1918,6 +1922,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       dt
     }, server = TRUE)
 
+    ### General Concepts Table ----
     output$general_concepts_table <- DT::renderDT({
       if (is.null(data())) return()
 
@@ -1959,6 +1964,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     }, server = FALSE)
 
     output$realized_mappings_table <- DT::renderDT({
+    ### Realized Mappings Table ----
       if (is.null(selected_alignment_id())) return()
 
       # Get alignment info
@@ -2173,6 +2179,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Concept mappings table for general view (when a general concept is selected)
     output$concept_mappings_table <- DT::renderDT({
+    ### Concept Mappings Table (Detailed View) ----
       if (is.null(selected_general_concept_id())) return()
       if (is.null(data())) return()
 
@@ -2330,6 +2337,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     }, server = TRUE)
 
     # Comments display for general concept
+    ### Comments Display ----
     output$comments_display <- renderUI({
       if (is.null(selected_general_concept_id())) return()
       if (is.null(data())) return()
@@ -2382,6 +2390,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         ))
       }
 
+    ### Modal Renderings ----
       # Join with vocabularies to get concept details
       vocabs <- vocabularies()
       mapped_with_details <- concept_mappings %>%
@@ -2406,6 +2415,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Source concepts table for mapped view (copy of original)
     output$source_concepts_table_mapped <- DT::renderDT({
+    ### Mapped View Tables ----
       if (is.null(selected_alignment_id())) return()
 
       # Get the alignment data
@@ -2648,6 +2658,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     }, server = TRUE)
 
     # Handle Add Mapping button for specific OMOP concept
+
+    ## 7) Server - Table Interaction Handlers ----
+    ### Mapping Creation & Deletion ----
     observe_event(input$add_mapping_specific, {
       # Get selected rows from source and mapped concepts tables
       source_row <- input$source_concepts_table_mapped_rows_selected
@@ -2774,6 +2787,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     })
 
     # Handle Export Alignment (SOURCE_TO_CONCEPT_MAP format)
+    ### Export Functionality ----
     observe_event(input$export_alignment, {
       # Get alignment info
       alignment_id <- input$export_alignment
