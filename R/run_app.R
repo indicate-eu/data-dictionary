@@ -23,7 +23,7 @@
 #' run_app(debug_mode = "error")
 #' run_app(debug_mode = c("event", "error"))
 #' }
-run_app <- function(app_folder = NULL, debug_mode = NULL, ..., options = list()) {
+run_app <- function(app_folder = NULL, debug_mode = c("event", "error"), ..., options = list()) {
   # Set app folder for database location
   if (is.null(app_folder)) {
     app_folder <- path.expand("~")

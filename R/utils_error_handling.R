@@ -80,14 +80,16 @@ try_catch <- function(trigger = character(), code, log = TRUE){
     }
   }
 
-  # Create log messages
+  # Create log messages with formatted timestamp (without milliseconds)
+  timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+
   if (exists("id")){
-    event_message <- paste0("\n[", Sys.time(), "] [EVENT] [module_id = ", id, "] event triggered by ", trigger)
-    error_message <- paste0("\n[", Sys.time(), "] [ERROR] [module_id = ", id, "] error with trigger ", trigger, " - error = ")
+    event_message <- paste0("\n[", timestamp, "] [EVENT] [module_id = ", id, "] event triggered by ", trigger)
+    error_message <- paste0("\n[", timestamp, "] [ERROR] [module_id = ", id, "] error with trigger ", trigger, " - error = ")
   }
   else {
-    event_message <- paste0("\n[", Sys.time(), "] [EVENT] event triggered by ", trigger)
-    error_message <- paste0("\n[", Sys.time(), "] [ERROR] error with trigger ", trigger, " - error = ")
+    event_message <- paste0("\n[", timestamp, "] [EVENT] event triggered by ", trigger)
+    error_message <- paste0("\n[", timestamp, "] [ERROR] error with trigger ", trigger, " - error = ")
   }
 
   tryCatch({
