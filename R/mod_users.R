@@ -67,34 +67,35 @@ mod_users_ui <- function(id) {
     div(
       id = ns("user_modal"),
       class = "modal-overlay",
-      style = "display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center;",
+      style = "display: none;",
+      onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("user_modal")),
       div(
         class = "modal-content",
-        style = "background: white; padding: 30px; border-radius: 8px; width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto;",
+        style = "max-width: 500px;",
 
         # Modal header
         div(
-          style = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;",
+          class = "modal-header",
           tags$h3(
             id = ns("modal_title"),
-            "Add User",
-            style = "margin: 0; color: #2c3e50;"
+            "Add User"
           ),
           tags$button(
-            id = ns("close_modal"),
-            class = "close-button",
-            style = "background: none; border: none; font-size: 24px; cursor: pointer; color: #7f8c8d;",
+            class = "modal-close",
+            onclick = sprintf("$('#%s').hide();", ns("user_modal")),
             "×"
           )
         ),
 
-        # Form fields
+        # Modal body
         div(
-          style = "margin-bottom: 15px;",
-          tags$label(
-            "Login *",
-            style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
-          ),
+          class = "modal-body",
+          div(
+            style = "margin-bottom: 15px;",
+            tags$label(
+              "Login *",
+              style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
+            ),
           textInput(
             ns("user_login"),
             label = NULL,
@@ -208,20 +209,21 @@ mod_users_ui <- function(id) {
             placeholder = "Enter institution or organization",
             style = "width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 14px; resize: vertical; min-height: 60px;"
           )
+        )
         ),
 
         # Modal footer
         div(
-          style = "display: flex; gap: 10px; justify-content: flex-end;",
-          actionButton(
-            ns("cancel_user"),
-            "Cancel",
-            style = "background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;"
+          class = "modal-footer",
+          tags$button(
+            class = "btn btn-secondary btn-secondary-custom",
+            onclick = sprintf("$('#%s').hide();", ns("user_modal")),
+            "Cancel"
           ),
           actionButton(
             ns("save_user"),
             "Save",
-            style = "background: #0f60af; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;"
+            class = "btn-primary-custom"
           )
         )
       )
@@ -575,15 +577,6 @@ mod_users_server <- function(id, current_user, log_level = character()) {
       users_data(users)
 
       # Close modal immediately
-      shinyjs::hide("user_modal")
-    })
-
-    ### Cancel/Close Modal ----
-    observe_event(input$cancel_user, {
-      shinyjs::hide("user_modal")
-    })
-
-    observe_event(input$close_modal, {
       shinyjs::hide("user_modal")
     })
 

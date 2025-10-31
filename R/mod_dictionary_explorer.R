@@ -2076,10 +2076,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       csv_mappings <- current_data()$concept_mappings %>%
         dplyr::filter(general_concept_id == concept_id)
 
-      # Read custom concepts
-      custom_concepts_path <- app_sys("extdata", "csv", "custom_concepts.csv")
-      if (file.exists(custom_concepts_path)) {
-        custom_concepts <- readr::read_csv(custom_concepts_path, show_col_types = FALSE) %>%
+      # Read custom concepts from current_data()
+      if (!is.null(current_data()$custom_concepts) && nrow(current_data()$custom_concepts) > 0) {
+        custom_concepts <- current_data()$custom_concepts %>%
           dplyr::filter(general_concept_id == concept_id) %>%
           dplyr::select(
             custom_concept_id,
@@ -2162,7 +2161,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         concept_key <- as.character(concept_id)
         if (!is.null(current_deletions[[concept_key]])) {
           deleted_ids <- current_deletions[[concept_key]]
-          cat("[FILTER] Deleted IDs for concept", concept_key, ":", paste(deleted_ids, collapse=", "), "\n")
           # Create unique_id for filtering (before adding HTML columns)
           mappings <- mappings %>%
             dplyr::mutate(
@@ -2173,14 +2171,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               )
             )
 
-          cat("[FILTER] First 3 unique_id_filter values:", paste(head(mappings$unique_id_filter, 3), collapse=", "), "\n")
-          cat("[FILTER] Rows before filter:", nrow(mappings), "\n")
-
           mappings <- mappings %>%
             dplyr::filter(!unique_id_filter %in% deleted_ids) %>%
             dplyr::select(-unique_id_filter)
-
-          cat("[FILTER] Rows after filter:", nrow(mappings), "\n")
         }
       }
 
@@ -2188,16 +2181,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       if (nrow(mappings) > 0) {
         # Create toggle HTML for edit mode, or simple Yes/No for view mode
         if (is_editing) {
-          cat("[MAPPINGS] Before creating unique_id, checking columns:\n")
-          cat("  - custom_concept_id present:", "custom_concept_id" %in% names(mappings), "\n")
-          cat("  - omop_concept_id present:", "omop_concept_id" %in% names(mappings), "\n")
-          cat("  - is_custom present:", "is_custom" %in% names(mappings), "\n")
-          if (nrow(mappings) > 0) {
-            cat("  - First row custom_concept_id:", mappings$custom_concept_id[1], "\n")
-            cat("  - First row omop_concept_id:", mappings$omop_concept_id[1], "\n")
-            cat("  - First row is_custom:", mappings$is_custom[1], "\n")
-          }
-
           mappings <- mappings %>%
             dplyr::mutate(
               # Create unique ID: "omop-{id}" for OMOP concepts, "custom-{id}" for custom concepts
