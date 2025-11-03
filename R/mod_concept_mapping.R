@@ -546,7 +546,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             value = "all_mappings",
             tags$div(
               class = "card-container",
-              style = "margin-top: 20px; height: calc(100vh - 230px); overflow: auto;",
+              style = "margin: 10px; height: calc(100vh - 230px); overflow: auto;",
               DT::DTOutput(ns("all_mappings_table_main"))
             )
           ),
@@ -627,7 +627,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             value = "evaluate_mappings",
             tags$div(
               class = "card-container",
-              style = "margin-top: 20px; height: calc(100vh - 230px); overflow: auto;",
+              style = "margin: 10px; height: calc(100vh - 230px); overflow: auto;",
               DT::DTOutput(ns("evaluate_mappings_table")),
               # Modal for editing comments
               shinyjs::hidden(
@@ -767,6 +767,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         )
       )
     }
+
+    ### Evaluate Mappings State ----
+    saved_eval_table_page <- reactiveVal(0)  # Track datatable page for restoration
+    saved_eval_table_search <- reactiveVal(NULL)  # Track datatable search state
+    saved_eval_table_length <- reactiveVal(20)  # Track datatable page length
 
     ### Tab Content Outputs ----
     # Summary tab reactive trigger
@@ -3709,12 +3714,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           escape = FALSE,
           filter = "top",
           options = list(
-            pageLength = 20,
+            pageLength = saved_eval_table_length(),
             lengthMenu = c(10, 20, 50, 100, 200),
             dom = "ltp",
             ordering = TRUE,
             autoWidth = FALSE,
-            stateSave = TRUE,
             columnDefs = list(
               list(targets = 0, visible = FALSE),
               list(targets = 1, width = "35%"),
@@ -3750,8 +3754,31 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           )
 
         dt
-      })
+      }, server = FALSE)
     }, ignoreInit = FALSE)
+
+    ### Restore Evaluate Mappings Table State After Refresh ----
+    observe_event(mappings_refresh_trigger(), {
+      # Wait for table to be rendered before restoring state
+      shinyjs::delay(100, {
+        proxy <- DT::dataTableProxy("evaluate_mappings_table", session)
+
+        # Restore column filters
+        search_columns <- saved_eval_table_search()
+        if (!is.null(search_columns)) {
+          DT::updateSearch(proxy, keywords = list(
+            global = NULL,
+            columns = search_columns
+          ))
+        }
+
+        # Restore page position
+        page_num <- saved_eval_table_page()
+        if (!is.null(page_num) && page_num > 0) {
+          DT::selectPage(proxy, page_num)
+        }
+      })
+    }, ignoreInit = TRUE, priority = -1)
 
     ### Handle Evaluation Actions ----
     observe_event(input$eval_action, {
@@ -3835,6 +3862,18 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             params = list(selected_alignment_id(), mapping_id, user_id, is_approved, timestamp)
           )
         }
+      }
+
+      # Save current table state before refresh
+      if (!is.null(input$evaluate_mappings_table_state)) {
+        current_page <- input$evaluate_mappings_table_state$start / input$evaluate_mappings_table_state$length + 1
+        saved_eval_table_page(current_page)
+        saved_eval_table_length(input$evaluate_mappings_table_state$length)
+      }
+
+      # Save column search filters
+      if (!is.null(input$evaluate_mappings_table_search_columns)) {
+        saved_eval_table_search(input$evaluate_mappings_table_search_columns)
       }
 
       # Trigger refresh to update the table

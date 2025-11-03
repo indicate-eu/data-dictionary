@@ -134,7 +134,7 @@ mod_dictionary_explorer_ui <- function(id) {
               tags$div(
                 id = ns("general_concepts_container"),
                 class = "card-container card-container-flex",
-                style = "height: calc(100vh - 175px); overflow: auto;",
+                style = "height: calc(100vh - 175px); overflow: auto; margin: 10px;",
 
                 # Loading message (visible by default)
                 tags$div(
@@ -1330,7 +1330,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       if (view == "list_history") {
         output$general_concepts_history_ui <- renderUI({
           tags$div(
-            style = "height: calc(100vh - 175px); overflow: auto; padding: 20px;",
+            style = "height: calc(100vh - 175px); overflow: auto; padding: 20px; margin: 10px;",
             tags$div(
               style = "padding: 20px; background: #f8f9fa; border-radius: 8px; text-align: center; color: #666;",
               tags$p("History view for all general concepts will be implemented here.")
@@ -1343,7 +1343,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       if (view == "detail_history" && !is.null(concept_id)) {
         output$general_concept_detail_history_ui <- renderUI({
           tags$div(
-            style = "height: calc(100vh - 175px); overflow: auto; padding: 20px;",
+            style = "height: calc(100vh - 175px); overflow: auto; padding: 20px; margin: 10px;",
             tags$div(
               style = "padding: 20px; background: #f8f9fa; border-radius: 8px; text-align: center; color: #666;",
               tags$p("History view will be implemented here.")

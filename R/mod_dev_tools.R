@@ -334,6 +334,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
               "background: white; border-radius: 6px; padding: 10px; ",
               "position: relative;"
             ),
+            class = "card-container",
             # Missing Comments Table
             tags$div(
               id = ns("missing_comments_container"),

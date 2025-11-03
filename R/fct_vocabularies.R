@@ -679,7 +679,7 @@ load_ohdsi_vocabularies <- function(vocab_folder) {
     
     if (use_duckdb && db_exists) {
       message("  Loading from DuckDB database...")
-      result <- load_vocabularies_from_duckdb(vocab_folder)
+      result <- load_vocabularies_from_duckdb()
       message("  OHDSI vocabularies loaded successfully from DuckDB!")
       return(result)
     }
