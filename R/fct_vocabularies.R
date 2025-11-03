@@ -254,7 +254,6 @@ get_concept_hierarchy_graph <- function(concept_id, vocabularies,
     ))
     
   }, error = function(e) {
-    message("Error building hierarchy graph: ", e$message)
     return(list(nodes = data.frame(), edges = data.frame()))
   })
 }
@@ -308,7 +307,6 @@ get_concept_synonyms <- function(concept_id, vocabularies) {
     return(result)
     
   }, error = function(e) {
-    message("Error querying concept synonyms: ", e$message)
     return(data.frame())
   })
 }
@@ -478,7 +476,6 @@ get_descendant_concepts <- function(concept_id, vocabularies) {
     return(all_concepts)
     
   }, error = function(e) {
-    message("Error querying hierarchy concepts: ", e$message)
     return(data.frame())
   })
 }
@@ -563,9 +560,8 @@ get_related_concepts <- function(concept_id, vocabularies) {
       dplyr::mutate(relationship_id = as.character(relationship_id))
     
     return(related_data)
-    
+
   }, error = function(e) {
-    message("Error querying related concepts: ", e$message)
     return(data.frame())
   })
 }
@@ -643,7 +639,6 @@ get_related_concepts_filtered <- function(concept_id, vocabularies) {
     return(related_data)
 
   }, error = function(e) {
-    message("Error querying related concepts: ", e$message)
     return(data.frame())
   })
 }
@@ -666,21 +661,16 @@ get_related_concepts_filtered <- function(concept_id, vocabularies) {
 #' @noRd
 load_ohdsi_vocabularies <- function(vocab_folder) {
   if (is.null(vocab_folder) || vocab_folder == "" || !dir.exists(vocab_folder)) {
-    message("OHDSI Vocabularies folder not configured or doesn't exist")
     return(NULL)
   }
   
   tryCatch({
-    message("Loading OHDSI vocabularies from: ", vocab_folder)
-    
     # Check if DuckDB option is enabled and database exists
     use_duckdb <- get_use_duckdb()
     db_exists <- duckdb_exists(vocab_folder)
-    
+
     if (use_duckdb && db_exists) {
-      message("  Loading from DuckDB database...")
       result <- load_vocabularies_from_duckdb()
-      message("  OHDSI vocabularies loaded successfully from DuckDB!")
       return(result)
     }
     
@@ -689,15 +679,12 @@ load_ohdsi_vocabularies <- function(vocab_folder) {
     concept_relationship_path <- file.path(vocab_folder, "CONCEPT_RELATIONSHIP.csv")
     concept_ancestor_path <- file.path(vocab_folder, "CONCEPT_ANCESTOR.csv")
     concept_synonym_path <- file.path(vocab_folder, "CONCEPT_SYNONYM.csv")
-    
+
     if (!file.exists(concept_path) || !file.exists(concept_relationship_path) || !file.exists(concept_ancestor_path)) {
-      message("Required vocabulary files not found in: ", vocab_folder)
       return(NULL)
     }
     
     # Load files sequentially from CSV
-    message("  Loading CONCEPT, CONCEPT_RELATIONSHIP, CONCEPT_ANCESTOR, and CONCEPT_SYNONYM from CSV...")
-    
     concept <- readr::read_tsv(
       concept_path,
       col_types = readr::cols(
@@ -746,9 +733,7 @@ load_ohdsi_vocabularies <- function(vocab_folder) {
     } else {
       NULL
     }
-    
-    message("  OHDSI vocabularies loaded successfully from CSV!")
-    
+
     return(list(
       concept = concept,
       concept_relationship = concept_relationship,
@@ -757,7 +742,6 @@ load_ohdsi_vocabularies <- function(vocab_folder) {
     ))
     
   }, error = function(e) {
-    message("Error loading OHDSI vocabularies: ", e$message)
     return(NULL)
   })
 }

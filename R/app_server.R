@@ -192,31 +192,8 @@ app_server <- function(input, output, session) {
   observe_event(header_module$logout(), {
     if (is.null(header_module$logout())) return()
 
-    # Call logout function from login module
+    # Call logout function which will refresh the page
     login_module$logout()
-
-    # Reset data loaded flag
-    data_loaded(FALSE)
-
-    # Close DuckDB connection if exists
-    if (!is.null(vocabularies())) {
-      vocab_data <- vocabularies()
-      if (!is.null(vocab_data$connection)) {
-        tryCatch({
-          DBI::dbDisconnect(vocab_data$connection, shutdown = TRUE)
-        }, error = function(e) {
-          message("Error closing DuckDB connection: ", e$message)
-        })
-      }
-    }
-
-    # Reset vocabularies
-    vocabularies(NULL)
-    vocab_loading_status("not_loaded")
-
-    # Show login page, hide main app
-    shinyjs::show("login_page")
-    shinyjs::hide("main_app")
   }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
   # Load configuration

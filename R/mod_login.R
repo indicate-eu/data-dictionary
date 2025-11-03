@@ -42,17 +42,14 @@ mod_login_ui <- function(id) {
       # Login form
       div(
         style = "margin-bottom: 20px;",
-        tags$label(
-          "Login",
-          style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
-        ),
-        tags$input(
-          id = ns("login"),
-          type = "text",
-          class = "form-control shiny-input-text",
+        textInput(
+          ns("login"),
+          label = tags$label(
+            "Login",
+            style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
+          ),
           placeholder = "Enter your login",
-          autofocus = "autofocus",
-          style = "width: 100%;"
+          width = "100%"
         )
       ),
 
@@ -224,16 +221,8 @@ mod_login_server <- function(id, log_level = character()) {
       user = reactive({ current_user() }),
       logout = function() {
         current_user(NULL)
-        # Clear input fields
-        shinyjs::reset("login")
-        shinyjs::reset("password")
-        # Hide error message
-        shinyjs::hide("login_error")
-        # Re-enable all login UI elements
-        shinyjs::enable("login")
-        shinyjs::enable("password")
-        shinyjs::enable("login_btn")
-        shinyjs::enable("anonymous_btn")
+        # Refresh the page to reset everything
+        shinyjs::runjs("location.reload();")
       }
     ))
   })
