@@ -1524,7 +1524,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       update_button_visibility()
 
       # Wait for datatable to re-render, then restore state
-      shiny::observe({
+      shinyjs::delay(100, {
         if (!general_concepts_edit_mode()) return()
 
         proxy <- DT::dataTableProxy("general_concepts_table", session = session)
@@ -1543,7 +1543,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         if (!is.null(page_num) && page_num > 0) {
           DT::selectPage(proxy, page_num)
         }
-      }) %>% shiny::bindEvent(input$general_concepts_table_state, once = TRUE)
+      })
     })
 
     # Handle list cancel button
@@ -1570,7 +1570,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       update_button_visibility()
 
       # Wait for datatable to re-render, then restore state
-      shiny::observe({
+      shinyjs::delay(100, {
         if (general_concepts_edit_mode()) return()
 
         proxy <- DT::dataTableProxy("general_concepts_table", session = session)
@@ -1589,7 +1589,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         if (!is.null(page_num) && page_num > 0) {
           DT::selectPage(proxy, page_num)
         }
-      }) %>% shiny::bindEvent(input$general_concepts_table_state, once = TRUE)
+      })
     })
     
     observe_event(input$general_concepts_save_updates, {
@@ -1626,7 +1626,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       update_button_visibility()
 
       # Wait for datatable to re-render, then restore state
-      shiny::observe({
+      shinyjs::delay(100, {
         if (general_concepts_edit_mode()) return()
 
         proxy <- DT::dataTableProxy("general_concepts_table", session = session)
@@ -1645,7 +1645,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         if (!is.null(page_num) && page_num > 0) {
           DT::selectPage(proxy, page_num)
         }
-      }) %>% shiny::bindEvent(input$general_concepts_table_state, once = TRUE)
+      })
     })
 
     # Handle cell edits in general concepts table
@@ -1714,7 +1714,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         local_data(data)
 
         # Wait for datatable to re-render, then restore state
-        shiny::observe({
+        shinyjs::delay(100, {
           proxy <- DT::dataTableProxy("general_concepts_table", session = session)
 
           # Restore column filters
@@ -1731,14 +1731,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           if (!is.null(page_num) && page_num > 0) {
             # Check if page still exists after deletion
             total_rows <- nrow(general_concepts)
-            page_length <- input$general_concepts_table_state$length
+            page_length <- 25  # Default page length
             max_page <- ceiling(total_rows / page_length)
 
             # If current page no longer exists, go to last page
             target_page <- min(page_num, max_page)
             DT::selectPage(proxy, target_page)
           }
-        }) %>% shiny::bindEvent(input$general_concepts_table_state, once = TRUE)
+        })
       }
     })
 
@@ -1907,8 +1907,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
         # Use DT proxy to navigate to the correct page after a delay
         # This allows the table to re-render first
-        shiny::observe({
-          shiny::invalidateLater(100)
+        shinyjs::delay(100, {
           proxy <- DT::dataTableProxy("general_concepts_table", session = session)
           DT::selectPage(proxy, target_page)
         })

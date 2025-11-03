@@ -2139,12 +2139,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         ))
       }
 
-    ### Modal Renderings ----
       # Join with vocabularies to get concept details
       vocabs <- vocabularies()
       mapped_with_details <- concept_mappings %>%
         dplyr::left_join(
-          vocabs %>% dplyr::select(concept_id, concept_name, concept_code, vocabulary_id, standard_concept),
+          vocabs$concept %>% dplyr::select(concept_id, concept_name, concept_code, vocabulary_id, standard_concept) %>% dplyr::collect(),
           by = c("omop_concept_id" = "concept_id")
         ) %>%
         dplyr::select(omop_concept_id, concept_name, concept_code, vocabulary_id, standard_concept, recommended)
@@ -2735,37 +2734,58 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
     # Show/hide Add Mapping button based on selections
-    observe({
+    observe_event(c(mapping_view(), selected_general_concept_id(), input$source_concepts_table_rows_selected, input$concept_mappings_table_rows_selected), {
       # Only show in general view (not when viewing mapped concepts)
       if (mapping_view() != "general") {
         shinyjs::hide("add_mapping_from_general")
         return()
       }
 
-      source_selected <- !is.null(input$source_concepts_table_rows_selected)
-      general_selected <- !is.null(input$general_concepts_table_rows_selected)
+      # Only show in detailed view (when a general concept is selected)
+      if (is.null(selected_general_concept_id())) {
+        shinyjs::hide("add_mapping_from_general")
+        return()
+      }
 
-      # Show button when both a source concept and a general concept are selected
-      if (source_selected && general_selected) {
+      source_selected <- !is.null(input$source_concepts_table_rows_selected)
+      mapping_selected <- !is.null(input$concept_mappings_table_rows_selected)
+
+      # Show button when source + detailed concept (mapping) are selected
+      if (source_selected && mapping_selected) {
         shinyjs::show("add_mapping_from_general")
       } else {
         shinyjs::hide("add_mapping_from_general")
       }
-    })
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
     # Handle Add Mapping from general view
     observe_event(input$add_mapping_from_general, {
-      message("[DEBUG] Add Mapping button clicked")
-
+      message("[DEBUG] Add Mapping clicked")
       # Get selected rows
       source_row <- input$source_concepts_table_rows_selected
-      general_row <- input$general_concepts_table_rows_selected
-      message("[DEBUG] Source row: ", source_row, ", General row: ", general_row)
+      message("[DEBUG] source_row: ", source_row)
 
-      # Validate selections
-      if (is.null(source_row) || is.null(general_row)) {
-        message("[DEBUG] Validation failed - source or general row is NULL")
-        return()
+      # Check if we're in detailed view (general concept already selected)
+      if (!is.null(selected_general_concept_id())) {
+        message("[DEBUG] In detailed view, selected_general_concept_id: ", selected_general_concept_id())
+        mapping_row <- input$concept_mappings_table_rows_selected
+        message("[DEBUG] mapping_row: ", mapping_row)
+
+        # Validate selections
+        if (is.null(source_row) || is.null(mapping_row)) {
+          message("[DEBUG] Missing selection: source_row or mapping_row is NULL")
+          return()
+        }
+      } else {
+        message("[DEBUG] In general view")
+        general_row <- input$general_concepts_table_rows_selected
+        message("[DEBUG] general_row: ", general_row)
+
+        # Validate selections
+        if (is.null(source_row) || is.null(general_row)) {
+          message("[DEBUG] Missing selection: source_row or general_row is NULL")
+          return()
+        }
       }
 
       # Get alignment info
@@ -2773,19 +2793,18 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         message("[DEBUG] No alignment selected")
         return()
       }
-      message("[DEBUG] Selected alignment ID: ", selected_alignment_id())
 
       alignments <- alignments_data()
       alignment <- alignments %>%
         dplyr::filter(alignment_id == selected_alignment_id())
 
       if (nrow(alignment) != 1) {
-        message("[DEBUG] Alignment not found or multiple alignments found")
+        message("[DEBUG] Alignment not found")
         return()
       }
 
       file_id <- alignment$file_id[1]
-      message("[DEBUG] File ID: ", file_id)
+      message("[DEBUG] file_id: ", file_id)
 
       # Get app folder and construct path
       app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
@@ -2796,45 +2815,66 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
 
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
-      message("[DEBUG] CSV path: ", csv_path)
+      message("[DEBUG] csv_path: ", csv_path)
 
       # Read CSV
       if (!file.exists(csv_path)) {
-        message("[DEBUG] CSV file does not exist!")
+        message("[DEBUG] CSV file does not exist")
         return()
       }
 
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
-      message("[DEBUG] CSV loaded, rows: ", nrow(df), ", columns: ", paste(colnames(df), collapse = ", "))
+      message("[DEBUG] CSV loaded, rows: ", nrow(df))
 
-      # Get general_concept_id from selected row in general_concepts_table
+      # Get general_concept_id and target_omop_concept_id
       if (is.null(data())) {
         message("[DEBUG] data() is NULL")
         return()
       }
 
-      general_concepts <- data()$general_concepts
-      target_general_concept_id <- general_concepts$general_concept_id[general_row]
-      message("[DEBUG] Target general concept ID: ", target_general_concept_id)
+      # Determine target based on view
+      if (!is.null(selected_general_concept_id())) {
+        # Detailed view: use selected general concept and selected mapping
+        target_general_concept_id <- selected_general_concept_id()
+        message("[DEBUG] Using selected_general_concept_id: ", target_general_concept_id)
 
-      if (is.na(target_general_concept_id)) {
-        message("[DEBUG] Target general concept ID is NA")
-        return()
+        # Get the specific mapping selected in concept_mappings_table
+        concept_mappings_dict <- data()$concept_mappings %>%
+          dplyr::filter(general_concept_id == target_general_concept_id)
+
+        if (nrow(concept_mappings_dict) < mapping_row) {
+          message("[DEBUG] mapping_row out of bounds")
+          return()
+        }
+
+        target_omop_concept_id <- concept_mappings_dict$omop_concept_id[mapping_row]
+        message("[DEBUG] Selected mapping omop_concept_id: ", target_omop_concept_id)
+      } else {
+        # General view: use selected row from general_concepts_table
+        general_concepts <- data()$general_concepts
+        target_general_concept_id <- general_concepts$general_concept_id[general_row]
+        message("[DEBUG] Using general_row to get general_concept_id: ", target_general_concept_id)
+
+        if (is.na(target_general_concept_id)) {
+          message("[DEBUG] target_general_concept_id is NA")
+          return()
+        }
+
+        # Get first recommended OMOP concept mapping for this general concept (if available)
+        concept_mappings_dict <- data()$concept_mappings %>%
+          dplyr::filter(general_concept_id == target_general_concept_id, recommended == TRUE)
+
+        target_omop_concept_id <- NA_integer_
+        if (nrow(concept_mappings_dict) > 0) {
+          target_omop_concept_id <- concept_mappings_dict$omop_concept_id[1]
+          message("[DEBUG] First recommended omop_concept_id: ", target_omop_concept_id)
+        } else {
+          message("[DEBUG] No recommended mapping found")
+        }
       }
-
-      # Get first recommended OMOP concept mapping for this general concept (if available)
-      concept_mappings_dict <- data()$concept_mappings %>%
-        dplyr::filter(general_concept_id == target_general_concept_id, recommended == TRUE)
-
-      target_omop_concept_id <- NA_integer_
-      if (nrow(concept_mappings_dict) > 0) {
-        target_omop_concept_id <- concept_mappings_dict$omop_concept_id[1]
-      }
-      message("[DEBUG] Target OMOP concept ID: ", target_omop_concept_id)
 
       # Get csv_mapping_id from CSV for this row
       csv_mapping_id <- df$mapping_id[source_row]
-      message("[DEBUG] CSV mapping ID: ", csv_mapping_id)
 
       # Save mapping to database
       con <- get_db_connection()
@@ -2846,16 +2886,13 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         "SELECT mapping_id FROM concept_mappings WHERE csv_file_path = ? AND csv_mapping_id = ?",
         params = list(csv_path, csv_mapping_id)
       )
-      message("[DEBUG] Existing mappings found: ", nrow(existing))
 
       mapping_datetime <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
       user_id <- if (!is.null(current_user())) current_user()$user_id else NA_integer_
-      message("[DEBUG] User ID: ", user_id, ", Mapping datetime: ", mapping_datetime)
 
       if (nrow(existing) > 0) {
-        message("[DEBUG] Updating existing mapping")
         # Update existing mapping
-        result <- DBI::dbExecute(
+        DBI::dbExecute(
           con,
           "UPDATE concept_mappings SET
             target_general_concept_id = ?,
@@ -2874,11 +2911,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             csv_mapping_id
           )
         )
-        message("[DEBUG] Update result: ", result, " rows affected")
       } else {
-        message("[DEBUG] Inserting new mapping")
         # Insert new mapping
-        result <- DBI::dbExecute(
+        DBI::dbExecute(
           con,
           "INSERT INTO concept_mappings (
             alignment_id,
@@ -2903,18 +2938,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             mapping_datetime
           )
         )
-        message("[DEBUG] Insert result: ", result, " rows affected")
-      }
-
-      # Verify the mapping was saved
-      verify <- DBI::dbGetQuery(
-        con,
-        "SELECT * FROM concept_mappings WHERE csv_file_path = ? AND csv_mapping_id = ?",
-        params = list(csv_path, csv_mapping_id)
-      )
-      message("[DEBUG] Verification - mapping exists in DB: ", nrow(verify) > 0)
-      if (nrow(verify) > 0) {
-        message("[DEBUG] Mapping details: ", paste(names(verify), "=", verify[1,], collapse = ", "))
       }
 
       # Update the CSV file with the new mapping
@@ -2932,16 +2955,13 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       df$mapped_by_user_id[source_row] <- user_id
       df$mapping_datetime[source_row] <- mapping_datetime
       write.csv(df, csv_path, row.names = FALSE)
-      message("[DEBUG] CSV file updated")
 
       # Deselect only the source concepts table (keep general concepts selection)
       proxy_source <- DT::dataTableProxy("source_concepts_table", session)
       DT::selectRows(proxy_source, NULL)
 
       # Force refresh of completed mappings table and source concepts table
-      old_trigger <- mappings_refresh_trigger()
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
-      message("[DEBUG] Trigger incremented from ", old_trigger, " to ", mappings_refresh_trigger())
     })
 
     # Show/hide Add Mapping button based on selections (for mapped view)
@@ -2960,14 +2980,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     ### All Mappings Main Table ----
     observe_event(mappings_refresh_trigger(), {
-      message("[DEBUG] All Mappings Table - observe_event triggered, trigger value: ", mappings_refresh_trigger())
       output$all_mappings_table_main <- DT::renderDT({
-        message("[DEBUG] All Mappings Table - renderDT executing")
-        if (is.null(selected_alignment_id())) {
-          message("[DEBUG] All Mappings Table - No alignment selected")
-          return()
-        }
-        message("[DEBUG] All Mappings Table - Alignment ID: ", selected_alignment_id())
+        if (is.null(selected_alignment_id())) return()
 
       # Get alignment info
       alignments <- alignments_data()

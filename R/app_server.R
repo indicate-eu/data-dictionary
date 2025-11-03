@@ -43,7 +43,7 @@ app_server <- function(input, output, session) {
   )
 
   # Show main app when user is authenticated and load data
-  observe({
+  observe_event(current_user(), {
     user <- current_user()
 
     if (!is.null(user)) {
@@ -94,10 +94,10 @@ app_server <- function(input, output, session) {
       shinyjs::show("login_page")
       shinyjs::hide("main_app")
     }
-  })
+  }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
   # Observe route changes and initialize modules on demand
-  observe({
+  observe_event(session$clientData$url_hash, {
     # Get current route from shiny.router
     current_route <- session$clientData$url_hash
 
@@ -178,7 +178,7 @@ app_server <- function(input, output, session) {
         modules_initialized$users <- TRUE
       }
     }
-  })
+  }, ignoreNULL = TRUE, ignoreInit = TRUE)
 
   # Initialize page header module
   header_module <- mod_page_header_server(
@@ -189,8 +189,8 @@ app_server <- function(input, output, session) {
   )
 
   # Handle logout from header
-  observeEvent(header_module$logout(), {
-    req(header_module$logout())
+  observe_event(header_module$logout(), {
+    if (is.null(header_module$logout())) return()
 
     # Call logout function from login module
     login_module$logout()
@@ -217,7 +217,7 @@ app_server <- function(input, output, session) {
     # Show login page, hide main app
     shinyjs::show("login_page")
     shinyjs::hide("main_app")
-  })
+  }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
   # Load configuration
   config <- get_config()
@@ -235,7 +235,7 @@ app_server <- function(input, output, session) {
   vocab_loading_status <- reactiveVal("not_loaded")  # "not_loaded", "loading", "loaded", "error"
 
   # Handle manual loading when user clicks button
-  observeEvent(input$load_vocab_data, {
+  observe_event(input$load_vocab_data, {
     vocab_folder <- get_vocab_folder()
 
     if (is.null(vocab_folder) || vocab_folder == "" ||
@@ -255,5 +255,5 @@ app_server <- function(input, output, session) {
     } else {
       vocab_loading_status("error")
     }
-  })
+  }, ignoreNULL = FALSE, ignoreInit = FALSE)
 }

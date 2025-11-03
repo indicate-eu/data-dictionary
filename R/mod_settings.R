@@ -139,7 +139,7 @@ mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabular
     filter_text <- reactiveVal("")
 
     # Load saved vocab folder from database on initialization
-    observe({
+    observe_event(TRUE, {
       tryCatch({
         saved_path <- get_vocab_folder()
 
@@ -149,7 +149,7 @@ mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabular
       }, error = function(e) {
         message("Error loading vocab folder: ", e$message)
       })
-    })
+    }, once = TRUE, ignoreNULL = FALSE, ignoreInit = FALSE)
 
 
     # Render folder path display
@@ -176,7 +176,7 @@ mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabular
     })
 
     # Show folder browser modal
-    observeEvent(input$browse_folder, {
+    observe_event(input$browse_folder, {
       # Start at selected folder if it exists, otherwise home
       start_path <- selected_folder()
       if (is.null(start_path) || !dir.exists(start_path)) {
@@ -187,19 +187,19 @@ mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabular
       sort_order("asc")
       filter_text("")
       show_browser_modal()
-    })
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
     # Toggle sort order
-    observeEvent(input$toggle_sort, {
+    observe_event(input$toggle_sort, {
       if (sort_order() == "asc") {
         sort_order("desc")
       } else {
         sort_order("asc")
       }
-    })
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
     # Update filter text
-    observeEvent(input$filter_input, {
+    observe_event(input$filter_input, {
       filter_text(input$filter_input)
     })
 
@@ -280,7 +280,7 @@ mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabular
     })
 
     # Go to home directory
-    observeEvent(input$go_home, {
+    observe_event(input$go_home, {
       current_path(path.expand("~"))
     })
 
@@ -398,7 +398,7 @@ mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabular
     })
 
     # Handle navigation to folder
-    observeEvent(input$navigate_to, {
+    observe_event(input$navigate_to, {
       new_path <- input$navigate_to
       if (dir.exists(new_path)) {
         current_path(new_path)
@@ -406,7 +406,7 @@ mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabular
     })
 
     # Handle folder selection
-    observeEvent(input$select_folder_path, {
+    observe_event(input$select_folder_path, {
       folder_path <- input$select_folder_path
       if (dir.exists(folder_path)) {
         # Update reactive value (this will trigger renderUI to update)
@@ -466,7 +466,7 @@ mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabular
     })
 
     # Observer to actually create DuckDB database (triggered after UI update)
-    observeEvent(input$trigger_duckdb_creation, {
+    observe_event(input$trigger_duckdb_creation, {
       vocab_folder <- selected_folder()
 
       if (is.null(vocab_folder) || nchar(vocab_folder) == 0) {
@@ -543,7 +543,7 @@ mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabular
     })
 
     # Handle cancel
-    observeEvent(input$cancel_browse, {
+    observe_event(input$cancel_browse, {
       removeModal()
     })
 
@@ -552,7 +552,7 @@ mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabular
     duckdb_message <- reactiveVal(NULL)
 
     # Handle DuckDB recreation button
-    observeEvent(input$recreate_duckdb, {
+    observe_event(input$recreate_duckdb, {
       vocab_folder <- selected_folder()
 
       if (is.null(vocab_folder) || nchar(vocab_folder) == 0) {
@@ -573,7 +573,7 @@ mod_settings_server <- function(id, config, vocabularies = NULL, reset_vocabular
     })
 
     # Observer to actually recreate DuckDB database (triggered after UI update)
-    observeEvent(input$trigger_duckdb_recreation, {
+    observe_event(input$trigger_duckdb_recreation, {
       vocab_folder <- selected_folder()
 
       if (is.null(vocab_folder) || nchar(vocab_folder) == 0) {

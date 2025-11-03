@@ -174,41 +174,41 @@ mod_page_header_server <- function(id, current_user, vocab_loading_status, log_l
     })
 
     # Logo click handler
-    observeEvent(input$logo_home, {
+    observe_event(input$logo_home, {
       shiny.router::change_page("/", session = session)
     })
 
     # Navigation handlers - use change_page from shiny.router
-    observeEvent(input$nav_explorer, {
+    observe_event(input$nav_explorer, {
       shiny.router::change_page("", session = session)
     })
 
-    observeEvent(input$nav_use_cases, {
+    observe_event(input$nav_use_cases, {
       shiny.router::change_page("use-cases", session = session)
     })
 
-    observeEvent(input$nav_mapping, {
+    observe_event(input$nav_mapping, {
       shiny.router::change_page("mapping", session = session)
     })
 
-    observeEvent(input$nav_improvements, {
+    observe_event(input$nav_improvements, {
       shiny.router::change_page("improvements", session = session)
     })
 
-    observeEvent(input$nav_dev_tools, {
+    observe_event(input$nav_dev_tools, {
       shiny.router::change_page("dev-tools", session = session)
     })
 
-    observeEvent(input$nav_general_settings, {
+    observe_event(input$nav_general_settings, {
       shiny.router::change_page("general-settings", session = session)
     })
 
-    observeEvent(input$nav_users, {
+    observe_event(input$nav_users, {
       shiny.router::change_page("users", session = session)
     })
 
     # Hide/show menu items based on user role
-    observeEvent(current_user(), {
+    observe_event(current_user(), {
       user <- current_user()
 
       if (!is.null(user) && user$role == "Anonymous") {

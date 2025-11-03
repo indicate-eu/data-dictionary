@@ -128,7 +128,7 @@ mod_login_server <- function(id, log_level = character()) {
     current_user <- reactiveVal(NULL)
 
     # Handle login button
-    observeEvent(input$login_btn, {
+    observe_event(input$login_btn, {
       # Immediately block UI to prevent multiple clicks
       shinyjs::disable("login")
       shinyjs::disable("password")
@@ -194,7 +194,7 @@ mod_login_server <- function(id, log_level = character()) {
     }, ignoreNULL = FALSE, ignoreInit = TRUE)
 
     # Handle anonymous login
-    observeEvent(input$anonymous_btn, {
+    observe_event(input$anonymous_btn, {
       # Immediately block UI to prevent multiple clicks
       shinyjs::disable("login")
       shinyjs::disable("password")
