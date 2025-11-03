@@ -129,6 +129,28 @@ init_database <- function(con) {
     )
   }
 
+  # Create concept_mappings table
+  if (!DBI::dbExistsTable(con, "concept_mappings")) {
+    DBI::dbExecute(
+      con,
+      "CREATE TABLE concept_mappings (
+        mapping_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        alignment_id INTEGER NOT NULL,
+        csv_file_path TEXT NOT NULL,
+        csv_mapping_id INTEGER NOT NULL,
+        source_concept_index INTEGER NOT NULL,
+        target_general_concept_id INTEGER,
+        target_omop_concept_id INTEGER,
+        target_custom_concept_id INTEGER,
+        mapped_by_user_id INTEGER,
+        mapping_datetime TEXT,
+        FOREIGN KEY (alignment_id) REFERENCES concept_alignments(alignment_id),
+        FOREIGN KEY (mapped_by_user_id) REFERENCES users(user_id),
+        UNIQUE(csv_file_path, csv_mapping_id)
+      )"
+    )
+  }
+
   # Create mapping_evaluations table
   if (!DBI::dbExistsTable(con, "mapping_evaluations")) {
     DBI::dbExecute(
@@ -136,14 +158,15 @@ init_database <- function(con) {
       "CREATE TABLE mapping_evaluations (
         evaluation_id INTEGER PRIMARY KEY AUTOINCREMENT,
         alignment_id INTEGER NOT NULL,
-        mapping_id TEXT NOT NULL,
+        mapping_id INTEGER NOT NULL,
         evaluator_user_id INTEGER NOT NULL,
         rating INTEGER,
         is_approved INTEGER,
         comment TEXT,
         evaluated_at TEXT,
         FOREIGN KEY (alignment_id) REFERENCES concept_alignments(alignment_id),
-        FOREIGN KEY (evaluator_user_id) REFERENCES users(user_id)
+        FOREIGN KEY (evaluator_user_id) REFERENCES users(user_id),
+        FOREIGN KEY (mapping_id) REFERENCES concept_mappings(mapping_id)
       )"
     )
   }
@@ -686,6 +709,46 @@ set_ohdsi_mappings_sync <- function(timestamp = Sys.time()) {
     con,
     "INSERT OR REPLACE INTO config (key, value, updated_at) VALUES ('ohdsi_mappings_last_sync', ?, ?)",
     params = list(timestamp_str, format(Sys.time(), "%Y-%m-%d %H:%M:%S"))
+  )
+
+  TRUE
+}
+
+#' Get concept mappings for an alignment
+#'
+#' @description Retrieve all mappings for a specific alignment from the database
+#'
+#' @param alignment_id Alignment ID
+#'
+#' @return Data frame with mapping information
+#' @noRd
+get_alignment_mappings <- function(alignment_id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbGetQuery(
+    con,
+    "SELECT * FROM concept_mappings WHERE alignment_id = ?",
+    params = list(alignment_id)
+  )
+}
+
+#' Delete concept mapping
+#'
+#' @description Delete a mapping from the database
+#'
+#' @param mapping_id Mapping ID to delete
+#'
+#' @return TRUE if successful
+#' @noRd
+delete_concept_mapping <- function(mapping_id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbExecute(
+    con,
+    "DELETE FROM concept_mappings WHERE mapping_id = ?",
+    params = list(mapping_id)
   )
 
   TRUE

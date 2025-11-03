@@ -309,31 +309,6 @@ mod_concept_mapping_ui <- function(id) {
       )
     ),
 
-    # Modal for viewing all mappings
-    tags$div(
-      id = ns("all_mappings_modal"),
-      class = "modal-overlay",
-      style = "display: none;",
-      onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("all_mappings_modal")),
-      tags$div(
-        class = "modal-content",
-        style = "max-width: 90%; width: 1200px; max-height: 90vh; display: flex; flex-direction: column;",
-        tags$div(
-          class = "modal-header",
-          tags$h3("All Completed Mappings"),
-          tags$button(
-            class = "modal-close",
-            onclick = sprintf("$('#%s').hide();", ns("all_mappings_modal")),
-            "×"
-          )
-        ),
-        tags$div(
-          class = "modal-body",
-          style = "flex: 1; overflow: auto; padding: 20px;",
-          DT::DTOutput(ns("all_mappings_table"))
-        )
-      )
-    )
   )
 }
 
@@ -565,6 +540,31 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             )
           ),
 
+          # All Mappings tab
+          tabPanel(
+            "All Mappings",
+            value = "all_mappings",
+            tags$div(
+              class = "card-container",
+              style = "margin-top: 20px; height: calc(100vh - 185px); display: flex; flex-direction: column;",
+              tags$div(
+                class = "section-header",
+                tags$h4(
+                  "All Completed Mappings",
+                  tags$span(
+                    class = "info-icon",
+                    `data-tooltip` = "All mappings between your source concepts and INDICATE concepts. Search by column to find specific mappings.",
+                    "ⓘ"
+                  )
+                )
+              ),
+              tags$div(
+                style = "flex: 1; min-height: 0; overflow: auto;",
+                DT::DTOutput(ns("all_mappings_table_main"))
+              )
+            )
+          ),
+
           # Edit mappings tab
           tabPanel(
             "Edit Mappings",
@@ -573,7 +573,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               style = "margin-top: 20px; height: calc(100vh - 185px); display: flex; flex-direction: column;",
             # Top section: Source concepts (left) and target concepts (right)
             tags$div(
-              style = "height: 70%; display: flex; gap: 15px; min-height: 0;",
+              style = "height: 100%; display: flex; gap: 15px; min-height: 0;",
               # Left: Source concepts to map
               tags$div(
                 class = "card-container card-container-flex",
@@ -630,35 +630,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                     uiOutput(ns("comments_display"))
                   )
                 )
-              )
-            ),
-            # Bottom section: Completed mappings
-            tags$div(
-              class = "card-container",
-              style = "height: 30%; display: flex; flex-direction: column; margin-top: 15px;",
-              tags$div(
-                class = "section-header-with-tabs",
-                tags$h4(
-                  "Completed Mappings (Last 5)",
-                  tags$span(
-                    class = "info-icon",
-                    `data-tooltip` = "Most recent mappings between your source concepts and INDICATE concepts",
-                    "ⓘ"
-                  )
-                ),
-                tags$div(
-                  style = "position: absolute; right: 15px; top: 50%; transform: translateY(-50%);",
-                  actionButton(
-                    ns("view_all_mappings"),
-                    "View All",
-                    class = "btn-secondary-custom",
-                    style = "height: 32px; padding: 5px 15px; font-size: 14px;"
-                  )
-                )
-              ),
-              tags$div(
-                style = "flex: 1; min-height: 0; overflow: auto;",
-                DT::DTOutput(ns("realized_mappings_table"))
               )
             )
             )
@@ -1742,12 +1713,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         # Remove duplicate rows
         new_df <- new_df %>% dplyr::distinct()
 
-        # Add tracking columns
-        new_df$mapping_id <- sapply(1:nrow(new_df), function(i) {
-          paste0("mapping_", format(Sys.time(), "%Y%m%d_%H%M%S"), "_", sprintf("%04d", i))
-        })
-        new_df$mapped_by_user_id <- NA_integer_
-        new_df$mapping_datetime <- NA_character_
+        # Add mapping_id column at the beginning (simple incremental IDs)
+        new_df <- cbind(mapping_id = seq_len(nrow(new_df)), new_df, stringsAsFactors = FALSE)
 
         # Generate unique file ID
         file_id <- paste0("alignment_", format(Sys.time(), "%Y%m%d_%H%M%S"), "_", sample(1000:9999, 1))
@@ -1960,228 +1927,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       dt
     }, server = FALSE)
 
-    output$realized_mappings_table <- DT::renderDT({
-    ### Realized Mappings Table ----
-      if (is.null(selected_alignment_id())) return()
-
-      # Get alignment info
-      alignments <- alignments_data()
-      alignment <- alignments %>%
-        dplyr::filter(alignment_id == selected_alignment_id())
-
-      if (nrow(alignment) != 1) {
-        return(datatable(
-          data.frame(Message = "No alignment selected"),
-          options = list(dom = 't'),
-          rownames = FALSE,
-          selection = 'none'
-        ))
-      }
-
-      file_id <- alignment$file_id[1]
-
-      # Get app folder and construct path
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-      if (is.na(app_folder) || app_folder == "") {
-        mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
-      } else {
-        mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
-      }
-
-      csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
-
-      # Check if file exists
-      if (!file.exists(csv_path)) {
-        return(datatable(
-          data.frame(Message = "CSV file not found"),
-          options = list(dom = 't'),
-          rownames = FALSE,
-          selection = 'none'
-        ))
-      }
-
-      # Read CSV
-      df <- read.csv(csv_path, stringsAsFactors = FALSE)
-
-      # Filter only rows with mappings
-      if (!"target_general_concept_id" %in% colnames(df)) {
-        # No mappings yet
-        return(datatable(
-          data.frame(Message = "No mappings created yet. Select a source and target concept, then click 'Add Mapping'."),
-          options = list(dom = 't'),
-          rownames = FALSE,
-          selection = 'none'
-        ))
-      }
-
-      # Rename source columns to avoid conflicts with joined data
-      df <- df %>%
-        dplyr::rename(
-          concept_name_source = concept_name,
-          vocabulary_id_source = vocabulary_id,
-          concept_code_source = concept_code
-        )
-
-      mapped_rows <- df %>%
-        dplyr::filter(!is.na(target_general_concept_id))
-
-      if (nrow(mapped_rows) == 0) {
-        return(datatable(
-          data.frame(Message = "No mappings created yet. Select a source and target concept, then click 'Add Mapping'."),
-          options = list(dom = 't'),
-          rownames = FALSE,
-          selection = 'none'
-        ))
-      }
-
-      # Enrich with general concept information
-      if (is.null(data())) return()
-      general_concepts <- data()$general_concepts
-
-      # Join with general concepts to get names
-      enriched_rows <- mapped_rows %>%
-        dplyr::left_join(
-          general_concepts %>%
-            dplyr::select(general_concept_id, general_concept_name, category, subcategory),
-          by = c("target_general_concept_id" = "general_concept_id")
-        )
-
-      # Enrich with target concept info (OMOP or custom)
-      if ("target_custom_concept_id" %in% colnames(enriched_rows)) {
-        # New approach: use target_custom_concept_id or target_omop_concept_id
-
-        # Enrich OMOP concepts
-        vocab_data <- vocabularies()
-        if (!is.null(vocab_data)) {
-          omop_rows <- enriched_rows %>% dplyr::filter(!is.na(target_omop_concept_id))
-          if (nrow(omop_rows) > 0) {
-            concept_ids <- omop_rows$target_omop_concept_id
-            omop_concepts <- vocab_data$concept %>%
-              dplyr::filter(concept_id %in% concept_ids) %>%
-              dplyr::select(
-                concept_id,
-                concept_name_target = concept_name,
-                vocabulary_id_target = vocabulary_id,
-                concept_code_target = concept_code
-              ) %>%
-              dplyr::collect()
-
-            enriched_rows <- enriched_rows %>%
-              dplyr::left_join(
-                omop_concepts,
-                by = c("target_omop_concept_id" = "concept_id")
-              )
-          } else {
-            enriched_rows <- enriched_rows %>%
-              dplyr::mutate(
-                concept_name_target = NA_character_,
-                vocabulary_id_target = NA_character_,
-                concept_code_target = NA_character_
-              )
-          }
-        } else {
-          enriched_rows <- enriched_rows %>%
-            dplyr::mutate(
-              concept_name_target = NA_character_,
-              vocabulary_id_target = NA_character_,
-              concept_code_target = NA_character_
-            )
-        }
-
-        # Enrich custom concepts
-        custom_concepts_path <- app_sys("extdata", "csv", "custom_concepts.csv")
-        if (file.exists(custom_concepts_path)) {
-          custom_rows <- enriched_rows %>% dplyr::filter(!is.na(target_custom_concept_id))
-          if (nrow(custom_rows) > 0) {
-            custom_concepts_all <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)
-            custom_concept_ids <- custom_rows$target_custom_concept_id
-
-            custom_concepts_info <- custom_concepts_all %>%
-              dplyr::filter(custom_concept_id %in% custom_concept_ids) %>%
-              dplyr::select(
-                custom_concept_id,
-                concept_name_custom = concept_name,
-                vocabulary_id_custom = vocabulary_id,
-                concept_code_custom = concept_code
-              )
-
-            # For custom concepts, fill in the target columns
-            enriched_rows <- enriched_rows %>%
-              dplyr::left_join(
-                custom_concepts_info,
-                by = c("target_custom_concept_id" = "custom_concept_id")
-              ) %>%
-              dplyr::mutate(
-                concept_name_target = ifelse(is.na(concept_name_target), concept_name_custom, concept_name_target),
-                vocabulary_id_target = ifelse(is.na(vocabulary_id_target), vocabulary_id_custom, vocabulary_id_target),
-                concept_code_target = ifelse(is.na(concept_code_target), concept_code_custom, concept_code_target)
-              ) %>%
-              dplyr::select(-concept_name_custom, -vocabulary_id_custom, -concept_code_custom)
-          }
-        }
-      } else {
-        # Fallback: old CSV format without target_custom_concept_id
-        vocab_data <- vocabularies()
-        if (!is.null(vocab_data) && nrow(enriched_rows) > 0) {
-          concept_ids <- enriched_rows$target_omop_concept_id
-          omop_concepts <- vocab_data$concept %>%
-            dplyr::filter(concept_id %in% concept_ids) %>%
-            dplyr::select(
-              concept_id,
-              concept_name_target = concept_name,
-              vocabulary_id_target = vocabulary_id,
-              concept_code_target = concept_code
-            ) %>%
-            dplyr::collect()
-
-          enriched_rows <- enriched_rows %>%
-            dplyr::left_join(
-              omop_concepts,
-              by = c("target_omop_concept_id" = "concept_id")
-            )
-        } else {
-          enriched_rows <- enriched_rows %>%
-            dplyr::mutate(
-              concept_name_target = NA_character_,
-              vocabulary_id_target = NA_character_,
-              concept_code_target = NA_character_
-            )
-        }
-      }
-
-      # Build display dataframe
-      display_df <- enriched_rows %>%
-        dplyr::mutate(
-          Source = paste0(concept_name_source, " (", vocabulary_id_source, ": ", concept_code_source, ")"),
-          Target = paste0(
-            general_concept_name, " > ",
-            concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"
-          ),
-          Actions = sprintf(
-            '<button class="btn btn-sm btn-danger" style="padding: 2px 8px; font-size: 11px; line-height: 1.2;" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Remove</button>',
-            ns("remove_mapping"), dplyr::row_number()
-          )
-        ) %>%
-        dplyr::select(Source, Target, Actions)
-
-      # Take only last 5 mappings
-      if (nrow(display_df) > 5) {
-        display_df <- tail(display_df, 5)
-      }
-
-      datatable(
-        display_df,
-        escape = FALSE,
-        options = list(dom = 't', paging = FALSE),
-        rownames = FALSE,
-        selection = 'none',
-        colnames = c("Source Concept", "Target Concept", "Actions")
-      )
-    }, server = TRUE)
-
-    # Concept mappings table for general view (when a general concept is selected)
-    output$concept_mappings_table <- DT::renderDT({
     ### Concept Mappings Table (Detailed View) ----
+    output$concept_mappings_table <- DT::renderDT({
       if (is.null(selected_general_concept_id())) return()
       if (is.null(data())) return()
 
@@ -2985,171 +2732,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           }
         }
       }
-
-      # Always reload Completed Mappings table
-      alignments <- alignments_data()
-      alignment <- alignments %>%
-        dplyr::filter(alignment_id == selected_alignment_id())
-
-      if (nrow(alignment) == 1) {
-        file_id <- alignment$file_id[1]
-        app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-        if (is.na(app_folder) || app_folder == "") {
-          mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
-        } else {
-          mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
-        }
-
-        csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
-
-        if (file.exists(csv_path)) {
-          df <- read.csv(csv_path, stringsAsFactors = FALSE)
-
-          if ("target_general_concept_id" %in% colnames(df)) {
-            # Rename source columns
-            df <- df %>%
-              dplyr::rename(
-                concept_name_source = concept_name,
-                vocabulary_id_source = vocabulary_id,
-                concept_code_source = concept_code
-              )
-
-            mapped_rows <- df %>%
-              dplyr::filter(!is.na(target_general_concept_id))
-
-            if (nrow(mapped_rows) > 0) {
-              # Enrich with general concept info
-              general_concepts <- data()$general_concepts
-              enriched_rows <- mapped_rows %>%
-                dplyr::left_join(
-                  general_concepts %>%
-                    dplyr::select(general_concept_id, general_concept_name, category, subcategory),
-                  by = c("target_general_concept_id" = "general_concept_id")
-                )
-
-              # Enrich with target concept info (OMOP or custom)
-              if ("target_custom_concept_id" %in% colnames(enriched_rows)) {
-                # Enrich OMOP concepts
-                vocab_data <- vocabularies()
-                if (!is.null(vocab_data)) {
-                  omop_rows <- enriched_rows %>% dplyr::filter(!is.na(target_omop_concept_id))
-                  if (nrow(omop_rows) > 0) {
-                    concept_ids <- omop_rows$target_omop_concept_id
-                    omop_concepts <- vocab_data$concept %>%
-                      dplyr::filter(concept_id %in% concept_ids) %>%
-                      dplyr::select(
-                        concept_id,
-                        concept_name_target = concept_name,
-                        vocabulary_id_target = vocabulary_id,
-                        concept_code_target = concept_code
-                      ) %>%
-                      dplyr::collect()
-
-                    enriched_rows <- enriched_rows %>%
-                      dplyr::left_join(
-                        omop_concepts,
-                        by = c("target_omop_concept_id" = "concept_id")
-                      )
-                  } else {
-                    enriched_rows <- enriched_rows %>%
-                      dplyr::mutate(
-                        concept_name_target = NA_character_,
-                        vocabulary_id_target = NA_character_,
-                        concept_code_target = NA_character_
-                      )
-                  }
-                } else {
-                  enriched_rows <- enriched_rows %>%
-                    dplyr::mutate(
-                      concept_name_target = NA_character_,
-                      vocabulary_id_target = NA_character_,
-                      concept_code_target = NA_character_
-                    )
-                }
-
-                # Enrich custom concepts
-                custom_concepts_path <- app_sys("extdata", "csv", "custom_concepts.csv")
-                if (file.exists(custom_concepts_path)) {
-                  custom_rows <- enriched_rows %>% dplyr::filter(!is.na(target_custom_concept_id))
-                  if (nrow(custom_rows) > 0) {
-                    custom_concepts_all <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)
-                    custom_concept_ids <- custom_rows$target_custom_concept_id
-
-                    custom_concepts_info <- custom_concepts_all %>%
-                      dplyr::filter(custom_concept_id %in% custom_concept_ids) %>%
-                      dplyr::select(
-                        custom_concept_id,
-                        concept_name_custom = concept_name,
-                        vocabulary_id_custom = vocabulary_id,
-                        concept_code_custom = concept_code
-                      )
-
-                    enriched_rows <- enriched_rows %>%
-                      dplyr::left_join(
-                        custom_concepts_info,
-                        by = c("target_custom_concept_id" = "custom_concept_id")
-                      ) %>%
-                      dplyr::mutate(
-                        concept_name_target = ifelse(is.na(concept_name_target), concept_name_custom, concept_name_target),
-                        vocabulary_id_target = ifelse(is.na(vocabulary_id_target), vocabulary_id_custom, vocabulary_id_target),
-                        concept_code_target = ifelse(is.na(concept_code_target), concept_code_custom, concept_code_target)
-                      ) %>%
-                      dplyr::select(-concept_name_custom, -vocabulary_id_custom, -concept_code_custom)
-                  }
-                }
-              } else {
-                # Fallback: old CSV format
-                vocab_data <- vocabularies()
-                if (!is.null(vocab_data) && nrow(enriched_rows) > 0) {
-                  concept_ids <- enriched_rows$target_omop_concept_id
-                  omop_concepts <- vocab_data$concept %>%
-                    dplyr::filter(concept_id %in% concept_ids) %>%
-                    dplyr::select(
-                      concept_id,
-                      concept_name_target = concept_name,
-                      vocabulary_id_target = vocabulary_id,
-                      concept_code_target = concept_code
-                    ) %>%
-                    dplyr::collect()
-
-                  enriched_rows <- enriched_rows %>%
-                    dplyr::left_join(
-                      omop_concepts,
-                      by = c("target_omop_concept_id" = "concept_id")
-                    )
-                } else {
-                  enriched_rows <- enriched_rows %>%
-                    dplyr::mutate(
-                      concept_name_target = NA_character_,
-                      vocabulary_id_target = NA_character_,
-                      concept_code_target = NA_character_
-                    )
-                }
-              }
-
-              # Build display dataframe
-              display_df <- enriched_rows %>%
-                dplyr::mutate(
-                  Source = paste0(concept_name_source, " (", vocabulary_id_source, ": ", concept_code_source, ")"),
-                  Target = paste0(
-                    general_concept_name, " > ",
-                    concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"
-                  ),
-                  Actions = sprintf(
-                    '<button class="btn btn-sm btn-danger" style="padding: 2px 8px; font-size: 11px; line-height: 1.2;" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Remove</button>',
-                    ns("remove_mapping"), dplyr::row_number()
-                  )
-                ) %>%
-                dplyr::select(Source, Target, Actions)
-
-              # Update data via proxy
-              proxy_realized <- DT::dataTableProxy("realized_mappings_table", session)
-              DT::replaceData(proxy_realized, display_df, resetPaging = FALSE, rownames = FALSE)
-            }
-          }
-        }
-      }
-    })
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
     # Show/hide Add Mapping button based on selections
     observe({
@@ -3172,23 +2755,37 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Handle Add Mapping from general view
     observe_event(input$add_mapping_from_general, {
+      message("[DEBUG] Add Mapping button clicked")
+
       # Get selected rows
       source_row <- input$source_concepts_table_rows_selected
       general_row <- input$general_concepts_table_rows_selected
+      message("[DEBUG] Source row: ", source_row, ", General row: ", general_row)
 
       # Validate selections
-      if (is.null(source_row) || is.null(general_row)) return()
+      if (is.null(source_row) || is.null(general_row)) {
+        message("[DEBUG] Validation failed - source or general row is NULL")
+        return()
+      }
 
       # Get alignment info
-      if (is.null(selected_alignment_id())) return()
+      if (is.null(selected_alignment_id())) {
+        message("[DEBUG] No alignment selected")
+        return()
+      }
+      message("[DEBUG] Selected alignment ID: ", selected_alignment_id())
 
       alignments <- alignments_data()
       alignment <- alignments %>%
         dplyr::filter(alignment_id == selected_alignment_id())
 
-      if (nrow(alignment) != 1) return()
+      if (nrow(alignment) != 1) {
+        message("[DEBUG] Alignment not found or multiple alignments found")
+        return()
+      }
 
       file_id <- alignment$file_id[1]
+      message("[DEBUG] File ID: ", file_id)
 
       # Get app folder and construct path
       app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
@@ -3199,62 +2796,152 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
 
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
+      message("[DEBUG] CSV path: ", csv_path)
 
       # Read CSV
-      if (!file.exists(csv_path)) return()
+      if (!file.exists(csv_path)) {
+        message("[DEBUG] CSV file does not exist!")
+        return()
+      }
 
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
+      message("[DEBUG] CSV loaded, rows: ", nrow(df), ", columns: ", paste(colnames(df), collapse = ", "))
 
       # Get general_concept_id from selected row in general_concepts_table
-      if (is.null(data())) return()
+      if (is.null(data())) {
+        message("[DEBUG] data() is NULL")
+        return()
+      }
 
       general_concepts <- data()$general_concepts
       target_general_concept_id <- general_concepts$general_concept_id[general_row]
+      message("[DEBUG] Target general concept ID: ", target_general_concept_id)
 
-      if (is.na(target_general_concept_id)) return()
+      if (is.na(target_general_concept_id)) {
+        message("[DEBUG] Target general concept ID is NA")
+        return()
+      }
 
       # Get first recommended OMOP concept mapping for this general concept (if available)
-      concept_mappings <- data()$concept_mappings %>%
+      concept_mappings_dict <- data()$concept_mappings %>%
         dplyr::filter(general_concept_id == target_general_concept_id, recommended == TRUE)
 
       target_omop_concept_id <- NA_integer_
-      if (nrow(concept_mappings) > 0) {
-        target_omop_concept_id <- concept_mappings$omop_concept_id[1]
+      if (nrow(concept_mappings_dict) > 0) {
+        target_omop_concept_id <- concept_mappings_dict$omop_concept_id[1]
+      }
+      message("[DEBUG] Target OMOP concept ID: ", target_omop_concept_id)
+
+      # Get csv_mapping_id from CSV for this row
+      csv_mapping_id <- df$mapping_id[source_row]
+      message("[DEBUG] CSV mapping ID: ", csv_mapping_id)
+
+      # Save mapping to database
+      con <- get_db_connection()
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+      # Check if mapping already exists
+      existing <- DBI::dbGetQuery(
+        con,
+        "SELECT mapping_id FROM concept_mappings WHERE csv_file_path = ? AND csv_mapping_id = ?",
+        params = list(csv_path, csv_mapping_id)
+      )
+      message("[DEBUG] Existing mappings found: ", nrow(existing))
+
+      mapping_datetime <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+      user_id <- if (!is.null(current_user())) current_user()$user_id else NA_integer_
+      message("[DEBUG] User ID: ", user_id, ", Mapping datetime: ", mapping_datetime)
+
+      if (nrow(existing) > 0) {
+        message("[DEBUG] Updating existing mapping")
+        # Update existing mapping
+        result <- DBI::dbExecute(
+          con,
+          "UPDATE concept_mappings SET
+            target_general_concept_id = ?,
+            target_omop_concept_id = ?,
+            target_custom_concept_id = ?,
+            mapped_by_user_id = ?,
+            mapping_datetime = ?
+          WHERE csv_file_path = ? AND csv_mapping_id = ?",
+          params = list(
+            target_general_concept_id,
+            target_omop_concept_id,
+            NA_integer_,
+            user_id,
+            mapping_datetime,
+            csv_path,
+            csv_mapping_id
+          )
+        )
+        message("[DEBUG] Update result: ", result, " rows affected")
+      } else {
+        message("[DEBUG] Inserting new mapping")
+        # Insert new mapping
+        result <- DBI::dbExecute(
+          con,
+          "INSERT INTO concept_mappings (
+            alignment_id,
+            csv_file_path,
+            csv_mapping_id,
+            source_concept_index,
+            target_general_concept_id,
+            target_omop_concept_id,
+            target_custom_concept_id,
+            mapped_by_user_id,
+            mapping_datetime
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          params = list(
+            selected_alignment_id(),
+            csv_path,
+            csv_mapping_id,
+            source_row,
+            target_general_concept_id,
+            target_omop_concept_id,
+            NA_integer_,
+            user_id,
+            mapping_datetime
+          )
+        )
+        message("[DEBUG] Insert result: ", result, " rows affected")
       }
 
-      # Add mapping columns if they don't exist
-      if (!"target_general_concept_id" %in% colnames(df)) {
-        df$target_general_concept_id <- NA_integer_
-      }
-      if (!"target_omop_concept_id" %in% colnames(df)) {
-        df$target_omop_concept_id <- NA_integer_
-      }
-      if (!"target_custom_concept_id" %in% colnames(df)) {
-        df$target_custom_concept_id <- NA_integer_
-      }
-      if (!"mapping_datetime" %in% colnames(df)) {
-        df$mapping_datetime <- NA_character_
-      }
-      if (!"mapped_by_user_id" %in% colnames(df)) {
-        df$mapped_by_user_id <- NA_integer_
+      # Verify the mapping was saved
+      verify <- DBI::dbGetQuery(
+        con,
+        "SELECT * FROM concept_mappings WHERE csv_file_path = ? AND csv_mapping_id = ?",
+        params = list(csv_path, csv_mapping_id)
+      )
+      message("[DEBUG] Verification - mapping exists in DB: ", nrow(verify) > 0)
+      if (nrow(verify) > 0) {
+        message("[DEBUG] Mapping details: ", paste(names(verify), "=", verify[1,], collapse = ", "))
       }
 
-      # Update the selected row with mapping info
+      # Update the CSV file with the new mapping
+      # Add columns if they don't exist
+      if (!"target_general_concept_id" %in% colnames(df)) df$target_general_concept_id <- NA_integer_
+      if (!"target_omop_concept_id" %in% colnames(df)) df$target_omop_concept_id <- NA_integer_
+      if (!"target_custom_concept_id" %in% colnames(df)) df$target_custom_concept_id <- NA_integer_
+      if (!"mapped_by_user_id" %in% colnames(df)) df$mapped_by_user_id <- NA_integer_
+      if (!"mapping_datetime" %in% colnames(df)) df$mapping_datetime <- NA_character_
+
+      # Update the row
       df$target_general_concept_id[source_row] <- target_general_concept_id
       df$target_omop_concept_id[source_row] <- target_omop_concept_id
       df$target_custom_concept_id[source_row] <- NA_integer_
-      df$mapping_datetime[source_row] <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
-      df$mapped_by_user_id[source_row] <- if (!is.null(current_user())) current_user()$user_id else NA_integer_
-
-      # Save CSV
+      df$mapped_by_user_id[source_row] <- user_id
+      df$mapping_datetime[source_row] <- mapping_datetime
       write.csv(df, csv_path, row.names = FALSE)
+      message("[DEBUG] CSV file updated")
 
       # Deselect only the source concepts table (keep general concepts selection)
       proxy_source <- DT::dataTableProxy("source_concepts_table", session)
       DT::selectRows(proxy_source, NULL)
 
       # Force refresh of completed mappings table and source concepts table
+      old_trigger <- mappings_refresh_trigger()
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
+      message("[DEBUG] Trigger incremented from ", old_trigger, " to ", mappings_refresh_trigger())
     })
 
     # Show/hide Add Mapping button based on selections (for mapped view)
@@ -3269,18 +2956,20 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
     }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
-    ## View All Mappings Modal ----
+    ## All Mappings Tab ----
 
-    ### Open Modal ----
-    observe_event(input$view_all_mappings, {
-      shinyjs::show("all_mappings_modal")
-    })
+    ### All Mappings Main Table ----
+    observe_event(mappings_refresh_trigger(), {
+      message("[DEBUG] All Mappings Table - observe_event triggered, trigger value: ", mappings_refresh_trigger())
+      output$all_mappings_table_main <- DT::renderDT({
+        message("[DEBUG] All Mappings Table - renderDT executing")
+        if (is.null(selected_alignment_id())) {
+          message("[DEBUG] All Mappings Table - No alignment selected")
+          return()
+        }
+        message("[DEBUG] All Mappings Table - Alignment ID: ", selected_alignment_id())
 
-    ### All Mappings Table ----
-    output$all_mappings_table <- DT::renderDT({
-      if (is.null(selected_alignment_id())) return()
-
-      # Get alignment info (same logic as realized_mappings_table)
+      # Get alignment info
       alignments <- alignments_data()
       alignment <- alignments %>%
         dplyr::filter(alignment_id == selected_alignment_id())
@@ -3361,7 +3050,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           by = c("target_general_concept_id" = "general_concept_id")
         )
 
-      # Enrich with target concept info (OMOP or custom) - reuse same logic
+      # Enrich with target concept info (OMOP or custom)
       if ("target_custom_concept_id" %in% colnames(enriched_rows)) {
         # Enrich OMOP concepts
         vocab_data <- vocabularies()
@@ -3484,9 +3173,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         options = list(
           pageLength = 25,
           lengthMenu = c(10, 25, 50, 100, 200),
-          dom = 'ltp',  # Remove 'f' for global search
+          dom = 'ltp',
           columnDefs = list(
-            list(targets = 2, searchable = FALSE)  # Actions column not searchable
+            list(targets = 2, searchable = FALSE)
           )
         ),
         rownames = FALSE,
@@ -3498,64 +3187,60 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       dt <- add_button_handlers(
         dt,
         handlers = list(
-          list(selector = ".delete-mapping-btn", input_id = ns("delete_mapping_all"))
+          list(selector = ".delete-mapping-btn", input_id = ns("delete_mapping_main"))
         )
       )
 
       dt
-    }, server = TRUE)
+  }, server = TRUE)
+}, ignoreNULL = FALSE, ignoreInit = FALSE)
 
-    ### Delete Mapping from All Mappings Modal ----
-    observe_event(input$delete_mapping_all, {
-      if (is.null(input$delete_mapping_all)) return()
+    ### Delete Mapping from All Mappings Tab ----
+    observe_event(input$delete_mapping_main, {
+      if (is.null(input$delete_mapping_main)) return()
       if (is.null(selected_alignment_id())) return()
 
-      # Same delete logic as remove_mapping
-      alignments <- alignments_data()
-      alignment <- alignments %>%
-        dplyr::filter(alignment_id == selected_alignment_id())
+      # Get all mappings from database
+      mappings_db <- get_alignment_mappings(selected_alignment_id())
 
-      if (nrow(alignment) != 1) return()
+      if (nrow(mappings_db) == 0) return()
 
-      file_id <- alignment$file_id[1]
+      # Get the row index from button click
+      row_index <- as.integer(input$delete_mapping_main)
 
-      # Get app folder and construct path
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-      if (is.na(app_folder) || app_folder == "") {
-        mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
-      } else {
-        mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
+      if (is.na(row_index) || row_index < 1 || row_index > nrow(mappings_db)) return()
+
+      # Get mapping details to delete (need csv_file_path and csv_mapping_id)
+      mapping_to_delete <- mappings_db[row_index, ]
+      mapping_id_to_delete <- mapping_to_delete$mapping_id
+
+      # Delete from database
+      delete_concept_mapping(mapping_id_to_delete)
+
+      # Update CSV file to remove the mapping
+      csv_path <- mapping_to_delete$csv_file_path
+      csv_mapping_id <- mapping_to_delete$csv_mapping_id
+
+      if (!is.na(csv_path) && !is.na(csv_mapping_id) && file.exists(csv_path)) {
+        df <- read.csv(csv_path, stringsAsFactors = FALSE)
+
+        # Find the row with this mapping_id
+        row_to_clear <- which(df$mapping_id == csv_mapping_id)
+
+        if (length(row_to_clear) > 0) {
+          # Clear mapping columns
+          if ("target_general_concept_id" %in% colnames(df)) df$target_general_concept_id[row_to_clear] <- NA_integer_
+          if ("target_omop_concept_id" %in% colnames(df)) df$target_omop_concept_id[row_to_clear] <- NA_integer_
+          if ("target_custom_concept_id" %in% colnames(df)) df$target_custom_concept_id[row_to_clear] <- NA_integer_
+          if ("mapped_by_user_id" %in% colnames(df)) df$mapped_by_user_id[row_to_clear] <- NA_integer_
+          if ("mapping_datetime" %in% colnames(df)) df$mapping_datetime[row_to_clear] <- NA_character_
+
+          write.csv(df, csv_path, row.names = FALSE)
+        }
       }
 
-      csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
-
-      if (!file.exists(csv_path)) return()
-
-      df <- read.csv(csv_path, stringsAsFactors = FALSE)
-
-      # Get mapped rows only
-      if (!"target_general_concept_id" %in% colnames(df)) return()
-
-      df_with_mapping <- df %>% dplyr::filter(!is.na(target_general_concept_id))
-      mapped_rows_indices <- which(!is.na(df$target_general_concept_id))
-
-      if (length(mapped_rows_indices) == 0) return()
-
-      row_num <- input$delete_mapping_all
-
-      if (row_num < 1 || row_num > length(mapped_rows_indices)) return()
-
-      actual_row <- mapped_rows_indices[row_num]
-
-      # Remove the mapping by setting target columns to NA
-      df$target_general_concept_id[actual_row] <- NA_integer_
-      df$target_omop_concept_id[actual_row] <- NA_integer_
-
-      # Save CSV
-      write.csv(df, csv_path, row.names = FALSE)
-
-      # Refresh both tables
+      # Trigger refresh
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
-    })
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
   })
 }
