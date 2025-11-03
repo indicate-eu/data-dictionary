@@ -4,7 +4,7 @@
 #
 # UI STRUCTURE:
 #   ## UI - Main Layout
-#      ### OHDSI Vocabularies Location - Browse and select vocabulary folder
+#      ### OHDSI Vocabularies - Browse and select vocabulary folder
 #      ### DuckDB Database Status - Display database status and controls
 #      ### OHDSI Relationships Mappings - Load/Reload mappings from vocabulary relationships
 #
@@ -56,7 +56,7 @@ mod_general_settings_ui <- function(id) {
                  style = "background: #fff; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
                  h4(
                    tags$i(class = "fas fa-folder-open", style = "margin-right: 8px;"),
-                   "OHDSI Vocabularies Location"
+                   "OHDSI Vocabularies"
                  ),
                  p(
                    style = "color: #666; margin-bottom: 15px;",
@@ -517,55 +517,68 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     ### Database Creation ----
 
     observe_event(input$trigger_duckdb_creation, {
-      vocab_folder <- selected_folder()
+      tryCatch({
+        vocab_folder <- selected_folder()
 
-      if (is.null(vocab_folder) || nchar(vocab_folder) == 0) {
+        if (is.null(vocab_folder) || nchar(vocab_folder) == 0) {
+          duckdb_processing(FALSE)
+          return()
+        }
+
+        # Close DuckDB connection if it exists
+        if (!is.null(vocabularies)) {
+          vocab_data <- vocabularies()
+          if (!is.null(vocab_data) && !is.null(vocab_data$connection)) {
+            try(DBI::dbDisconnect(vocab_data$connection, shutdown = TRUE), silent = TRUE)
+          }
+        }
+
+        # Reset vocabularies to NULL
+        if (!is.null(reset_vocabularies)) {
+          reset_vocabularies()
+        }
+
+        # Try to close all DuckDB connections globally
+        tryCatch({
+          all_cons <- DBI::dbListConnections(duckdb::duckdb())
+          for (con in all_cons) {
+            try(DBI::dbDisconnect(con, shutdown = TRUE), silent = TRUE)
+          }
+        }, error = function(e) {
+          # Ignore errors from dbListConnections
+        })
+
+        # Force garbage collection and wait
+        gc()
+        gc()
+        Sys.sleep(1.5)
+
+        # Create DuckDB database
+        result <- create_duckdb_database(vocab_folder)
+
         duckdb_processing(FALSE)
-        return()
-      }
 
-      # Close DuckDB connection if it exists
-      if (!is.null(vocabularies)) {
-        vocab_data <- vocabularies()
-        if (!is.null(vocab_data) && !is.null(vocab_data$connection)) {
-          DBI::dbDisconnect(vocab_data$connection, shutdown = TRUE)
+        # Save setting and load vocabularies if successful
+        if (result$success) {
+          set_use_duckdb(TRUE)
+          duckdb_message(NULL)
+
+          # Load vocabularies immediately after creation
+          vocab_data <- load_vocabularies_from_duckdb()
+          if (!is.null(set_vocabularies)) {
+            set_vocabularies(vocab_data)
+          }
+        } else {
+          duckdb_message(result)
         }
-      }
-
-      # Reset vocabularies to NULL
-      if (!is.null(reset_vocabularies)) {
-        reset_vocabularies()
-      }
-
-      # Try to close all DuckDB connections globally
-      all_cons <- DBI::dbListConnections(duckdb::duckdb())
-      for (con in all_cons) {
-        try(DBI::dbDisconnect(con, shutdown = TRUE), silent = TRUE)
-      }
-
-      # Force garbage collection and wait
-      gc()
-      gc()
-      Sys.sleep(1.5)
-
-      # Create DuckDB database
-      result <- create_duckdb_database(vocab_folder)
-
-      duckdb_processing(FALSE)
-
-      # Save setting and load vocabularies if successful
-      if (result$success) {
-        set_use_duckdb(TRUE)
-        duckdb_message(NULL)
-
-        # Load vocabularies immediately after creation
-        vocab_data <- load_vocabularies_from_duckdb()
-        if (!is.null(set_vocabularies)) {
-          set_vocabularies(vocab_data)
-        }
-      } else {
-        duckdb_message(result)
-      }
+      }, error = function(e) {
+        # Capture any error and display it to the user
+        duckdb_processing(FALSE)
+        duckdb_message(list(
+          success = FALSE,
+          message = paste("Error creating DuckDB database:", e$message)
+        ))
+      })
     }, ignoreInit = FALSE)
 
     observe_event(input$cancel_browse, {
@@ -595,55 +608,68 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     }, ignoreInit = FALSE)
 
     observe_event(input$trigger_duckdb_recreation, {
-      vocab_folder <- selected_folder()
+      tryCatch({
+        vocab_folder <- selected_folder()
 
-      if (is.null(vocab_folder) || nchar(vocab_folder) == 0) {
+        if (is.null(vocab_folder) || nchar(vocab_folder) == 0) {
+          duckdb_processing(FALSE)
+          return()
+        }
+
+        # Close DuckDB connection if it exists
+        if (!is.null(vocabularies)) {
+          vocab_data <- vocabularies()
+          if (!is.null(vocab_data) && !is.null(vocab_data$connection)) {
+            try(DBI::dbDisconnect(vocab_data$connection, shutdown = TRUE), silent = TRUE)
+          }
+        }
+
+        # Reset vocabularies to NULL
+        if (!is.null(reset_vocabularies)) {
+          reset_vocabularies()
+        }
+
+        # Try to close all DuckDB connections globally
+        tryCatch({
+          all_cons <- DBI::dbListConnections(duckdb::duckdb())
+          for (con in all_cons) {
+            try(DBI::dbDisconnect(con, shutdown = TRUE), silent = TRUE)
+          }
+        }, error = function(e) {
+          # Ignore errors from dbListConnections
+        })
+
+        # Force garbage collection and wait
+        gc()
+        gc()
+        Sys.sleep(1.5)
+
+        # Recreate DuckDB database
+        result <- create_duckdb_database(vocab_folder)
+
         duckdb_processing(FALSE)
-        return()
-      }
 
-      # Close DuckDB connection if it exists
-      if (!is.null(vocabularies)) {
-        vocab_data <- vocabularies()
-        if (!is.null(vocab_data) && !is.null(vocab_data$connection)) {
-          DBI::dbDisconnect(vocab_data$connection, shutdown = TRUE)
+        # Save setting and load vocabularies if successful
+        if (result$success) {
+          set_use_duckdb(TRUE)
+          duckdb_message(NULL)
+
+          # Load vocabularies immediately after recreation
+          vocab_data <- load_vocabularies_from_duckdb()
+          if (!is.null(set_vocabularies)) {
+            set_vocabularies(vocab_data)
+          }
+        } else {
+          duckdb_message(result)
         }
-      }
-
-      # Reset vocabularies to NULL
-      if (!is.null(reset_vocabularies)) {
-        reset_vocabularies()
-      }
-
-      # Try to close all DuckDB connections globally
-      all_cons <- DBI::dbListConnections(duckdb::duckdb())
-      for (con in all_cons) {
-        try(DBI::dbDisconnect(con, shutdown = TRUE), silent = TRUE)
-      }
-
-      # Force garbage collection and wait
-      gc()
-      gc()
-      Sys.sleep(1.5)
-
-      # Recreate DuckDB database
-      result <- create_duckdb_database(vocab_folder)
-
-      duckdb_processing(FALSE)
-
-      # Save setting and load vocabularies if successful
-      if (result$success) {
-        set_use_duckdb(TRUE)
-        duckdb_message(NULL)
-
-        # Load vocabularies immediately after recreation
-        vocab_data <- load_vocabularies_from_duckdb()
-        if (!is.null(set_vocabularies)) {
-          set_vocabularies(vocab_data)
-        }
-      } else {
-        duckdb_message(result)
-      }
+      }, error = function(e) {
+        # Capture any error and display it to the user
+        duckdb_processing(FALSE)
+        duckdb_message(list(
+          success = FALSE,
+          message = paste("Error recreating DuckDB database:", e$message)
+        ))
+      })
     }, ignoreInit = FALSE)
 
     ### Status Display ----
@@ -708,9 +734,18 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
         } else {
           return(
             tags$div(
-              style = "padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px;",
-              tags$i(class = "fas fa-times-circle", style = "margin-right: 6px; color: #dc3545;"),
-              "Database does not exist"
+              style = "padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px; display: flex; align-items: center; gap: 8px;",
+              tags$i(class = "fas fa-times-circle", style = "color: #dc3545;"),
+              tags$span("Database does not exist"),
+              actionButton(
+                ns("recreate_duckdb"),
+                label = tagList(
+                  tags$i(class = "fas fa-plus", style = "margin-right: 6px;"),
+                  "Create"
+                ),
+                class = "btn-sm",
+                style = "background: #28a745; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 12px; cursor: pointer;"
+              )
             )
           )
         }

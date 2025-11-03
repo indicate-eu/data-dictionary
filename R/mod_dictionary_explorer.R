@@ -178,7 +178,7 @@ mod_dictionary_explorer_ui <- function(id) {
                       ),
                       tags$button(
                         class = "btn btn-primary-custom",
-                        onclick = "$('#nav_settings').click(); $('#settings_dropdown').show(); setTimeout(function() { $('#settings_dropdown .settings-dropdown-item:first').click(); }, 100);",
+                        onclick = "window.location.hash = '#!/general-settings';",
                         style = "font-size: 16px; padding: 12px 24px;",
                         tags$i(class = "fas fa-cog", style = "margin-right: 8px;"),
                         "Go to Settings"
@@ -1060,15 +1060,31 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         shinyjs::hide("vocab_error_message")
         shinyjs::show("general_concepts_table")
       } else if (loading_status == "error") {
-        # Show error message only if there was an actual error
+        # Show error message
         shinyjs::hide("vocab_loading_message")
         shinyjs::show("vocab_error_message")
         shinyjs::hide("general_concepts_table")
       } else {
-        # Keep showing loading message for 'not_loaded' status (initial state)
-        shinyjs::show("vocab_loading_message")
-        shinyjs::hide("vocab_error_message")
-        shinyjs::hide("general_concepts_table")
+        # For 'not_loaded' status, check if vocab folder is configured
+        vocab_folder <- get_config_value("vocab_folder_path", default = "")
+        duckdb_path <- get_duckdb_path()
+
+        if (vocab_folder == "" || !dir.exists(vocab_folder)) {
+          # No folder configured, show error message
+          shinyjs::hide("vocab_loading_message")
+          shinyjs::show("vocab_error_message")
+          shinyjs::hide("general_concepts_table")
+        } else if (!file.exists(duckdb_path)) {
+          # Folder exists but DuckDB file doesn't exist, show error
+          shinyjs::hide("vocab_loading_message")
+          shinyjs::show("vocab_error_message")
+          shinyjs::hide("general_concepts_table")
+        } else {
+          # Both folder and DuckDB file exist, show loading message
+          shinyjs::show("vocab_loading_message")
+          shinyjs::hide("vocab_error_message")
+          shinyjs::hide("general_concepts_table")
+        }
       }
     }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
