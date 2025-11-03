@@ -771,7 +771,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     ### Evaluate Mappings State ----
     saved_eval_table_page <- reactiveVal(0)  # Track datatable page for restoration
     saved_eval_table_search <- reactiveVal(NULL)  # Track datatable search state
-    saved_eval_table_length <- reactiveVal(20)  # Track datatable page length
+    saved_eval_table_length <- reactiveVal(15)  # Track datatable page length
 
     ### Tab Content Outputs ----
     # Summary tab reactive trigger
@@ -885,7 +885,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           tags$div(
             style = paste0(
               "display: flex; flex-wrap: wrap; ",
-              "gap: 20px; align-content: flex-start;"
+              "gap: 20px; align-content: flex-start; ",
+              "margin: 0 10px;"
             ),
 
             # Card 1: Mapped concepts in alignment
@@ -962,9 +963,143 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 paste0(pct_evaluated, "%")
               )
             )
+          ),
+
+          # Use Cases Compatibility Section
+          tags$div(
+            tags$div(
+              class = "card-container",
+              style = "margin: 20px 10px 10px 10px; height: calc(100vh - 400px); overflow: auto;",
+              tags$div(
+                class = "section-header",
+                style = "background: none; border-bottom: none; padding: 0 0 0 5px;",
+                tags$span(
+                  class = "section-title",
+                  "Use Cases Compatibility"
+                )
+              ),
+              DT::DTOutput(ns("use_cases_compatibility_table"))
+            )
           )
         )
       })
+    }, ignoreInit = FALSE)
+
+    ### Use Cases Compatibility Table ----
+    observe_event(summary_trigger(), {
+      if (is.null(selected_alignment_id())) return()
+      if (is.null(data())) return()
+
+      output$use_cases_compatibility_table <- DT::renderDT({
+        # Get use cases and concept assignments
+        use_cases <- data()$use_cases
+        general_concept_use_cases <- data()$general_concept_use_cases
+
+        if (is.null(use_cases) || nrow(use_cases) == 0) {
+          return(datatable(
+            data.frame(Message = "No use cases defined"),
+            options = list(dom = 't'),
+            rownames = FALSE,
+            selection = 'none'
+          ))
+        }
+
+        # Get alignment mappings
+        alignments <- alignments_data()
+        alignment <- alignments %>%
+          dplyr::filter(alignment_id == selected_alignment_id())
+
+        if (nrow(alignment) != 1) return()
+
+        file_id <- alignment$file_id[1]
+
+        # Get CSV path
+        app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
+        if (is.na(app_folder) || app_folder == "") {
+          mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
+        } else {
+          mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
+        }
+
+        csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
+
+        if (!file.exists(csv_path)) {
+          return(datatable(
+            data.frame(Message = "CSV file not found"),
+            options = list(dom = 't'),
+            rownames = FALSE,
+            selection = 'none'
+          ))
+        }
+
+        # Read CSV to get mapped general concepts
+        df <- read.csv(csv_path, stringsAsFactors = FALSE)
+        mapped_general_concept_ids <- unique(df$target_general_concept_id[!is.na(df$target_general_concept_id)])
+
+        # Build use case compatibility table
+        uc_compat <- use_cases %>%
+          dplyr::rowwise() %>%
+          dplyr::mutate(
+            total_concepts = {
+              if (is.null(general_concept_use_cases)) {
+                0L
+              } else {
+                current_uc_id <- use_case_id
+                nrow(general_concept_use_cases %>%
+                  dplyr::filter(use_case_id == current_uc_id))
+              }
+            },
+            mapped_concepts = {
+              if (is.null(general_concept_use_cases)) {
+                0L
+              } else {
+                current_uc_id <- use_case_id
+                required_gc_ids <- general_concept_use_cases %>%
+                  dplyr::filter(use_case_id == current_uc_id) %>%
+                  dplyr::pull(general_concept_id)
+                sum(required_gc_ids %in% mapped_general_concept_ids)
+              }
+            },
+            covered = ifelse(total_concepts > 0 && mapped_concepts == total_concepts, "Yes", "No")
+          ) %>%
+          dplyr::ungroup() %>%
+          dplyr::select(use_case_name, short_description, total_concepts, mapped_concepts, covered)
+
+        # Create datatable
+        dt <- datatable(
+          uc_compat,
+          rownames = FALSE,
+          selection = 'none',
+          filter = 'top',
+          options = list(
+            pageLength = 10,
+            lengthMenu = c(5, 10, 15, 20, 50),
+            dom = 'ltp',
+            ordering = TRUE,
+            autoWidth = FALSE,
+            columnDefs = list(
+              list(targets = 2, width = "100px", className = "dt-center"),
+              list(targets = 3, width = "100px", className = "dt-center"),
+              list(targets = 4, width = "80px", className = "dt-center")
+            )
+          ),
+          colnames = c("Name", "Description", "Total Concepts", "Mapped Concepts", "Covered")
+        ) %>%
+          DT::formatStyle(
+            "covered",
+            backgroundColor = DT::styleEqual(
+              c("Yes", "No"),
+              c("#d4edda", "#f8d7da")
+            ),
+            color = DT::styleEqual(
+              c("Yes", "No"),
+              c("#155724", "#721c24")
+            ),
+            fontWeight = "bold"
+          )
+
+        dt
+      }, server = FALSE)
     }, ignoreInit = FALSE)
 
     # Old summary content - commented out
@@ -3247,9 +3382,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           concept_code_source = concept_code
         )
 
-      # Remove mapping_id column if it exists (will be replaced by db mapping_id)
+      # Rename mapping_id to csv_mapping_id to avoid conflict with db mapping_id
       if ("mapping_id" %in% colnames(df)) {
-        df <- df %>% dplyr::select(-mapping_id)
+        df <- df %>% dplyr::rename(csv_mapping_id = mapping_id)
       }
 
       mapped_rows <- df %>%
@@ -3391,30 +3526,27 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         on.exit(DBI::dbDisconnect(con), add = TRUE)
 
         # First get mapping_id from database by matching csv_file_path and csv_mapping_id
-        # csv_mapping_id corresponds to row index in CSV
-        enriched_rows <- enriched_rows %>%
-          dplyr::mutate(csv_row_index = dplyr::row_number())
-
+        # csv_mapping_id corresponds to mapping_id column in CSV
         mapping_ids_query <- "
           SELECT
-            cm.mapping_id,
+            cm.mapping_id as db_mapping_id,
             cm.csv_mapping_id
           FROM concept_mappings cm
           WHERE cm.alignment_id = ? AND cm.csv_file_path = ?
         "
         db_mappings <- DBI::dbGetQuery(con, mapping_ids_query, params = list(selected_alignment_id(), csv_path))
 
-        # Join to get the database mapping_id
+        # Join to get the database mapping_id using the csv_mapping_id column from CSV
         enriched_rows <- enriched_rows %>%
-          dplyr::left_join(db_mappings, by = c("csv_row_index" = "csv_mapping_id"))
+          dplyr::left_join(db_mappings, by = "csv_mapping_id")
 
         # Get vote counts for each mapping
         vote_query <- "
           SELECT
             cm.mapping_id,
-            SUM(CASE WHEN me.is_approved = 1 THEN 1 ELSE 0 END) as upvotes,
-            SUM(CASE WHEN me.is_approved = 0 THEN 1 ELSE 0 END) as downvotes,
-            SUM(CASE WHEN me.is_approved = -1 THEN 1 ELSE 0 END) as uncertain_votes
+            COUNT(CASE WHEN me.is_approved = 1 THEN 1 END) as upvotes,
+            COUNT(CASE WHEN me.is_approved = 0 THEN 1 END) as downvotes,
+            COUNT(CASE WHEN me.is_approved = -1 THEN 1 END) as uncertain_votes
           FROM concept_mappings cm
           LEFT JOIN mapping_evaluations me ON cm.mapping_id = me.mapping_id
           WHERE cm.alignment_id = ?
@@ -3424,7 +3556,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
         # Join vote stats with enriched_rows using the db mapping_id
         enriched_rows <- enriched_rows %>%
-          dplyr::left_join(vote_stats, by = "mapping_id")
+          dplyr::left_join(vote_stats, by = c("db_mapping_id" = "mapping_id"))
       } else {
         # No database, set vote columns to 0
         enriched_rows <- enriched_rows %>%
@@ -3458,8 +3590,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         escape = FALSE,
         filter = 'top',
         options = list(
-          pageLength = 20,
-          lengthMenu = c(10, 20, 50, 100, 200),
+          pageLength = 15,
+          lengthMenu = c(10, 15, 20, 50, 100, 200),
           dom = 'ltp',
           columnDefs = list(
             list(targets = 2, width = "60px", className = "dt-center"),
@@ -3631,17 +3763,27 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               }
             },
             target_concept_name = {
+              result <- NA_character_
               if (!is.na(target_omop_concept_id)) {
                 cm <- concept_mappings %>%
                   dplyr::filter(omop_concept_id == target_omop_concept_id)
-                if (nrow(cm) > 0) cm$concept_name[1] else NA_character_
-              } else if (!is.na(target_custom_concept_id) && nrow(custom_concepts) > 0) {
+                if (!is.null(cm) && nrow(cm) > 0) {
+                  val <- cm$concept_name[1]
+                  if (!is.null(val) && length(val) > 0 && !is.na(val)) {
+                    result <- as.character(val)
+                  }
+                }
+              } else if (!is.na(target_custom_concept_id) && !is.null(custom_concepts) && nrow(custom_concepts) > 0) {
                 cc <- custom_concepts %>%
                   dplyr::filter(custom_concept_id == target_custom_concept_id)
-                if (nrow(cc) > 0) cc$concept_name[1] else NA_character_
-              } else {
-                NA_character_
+                if (!is.null(cc) && nrow(cc) > 0) {
+                  val <- cc$concept_name[1]
+                  if (!is.null(val) && length(val) > 0 && !is.na(val)) {
+                    result <- as.character(val)
+                  }
+                }
               }
+              result
             },
             status = {
               if (is.na(is_approved)) {
@@ -3715,7 +3857,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           filter = "top",
           options = list(
             pageLength = saved_eval_table_length(),
-            lengthMenu = c(10, 20, 50, 100, 200),
+            lengthMenu = c(10, 15, 20, 50, 100, 200),
             dom = "ltp",
             ordering = TRUE,
             autoWidth = FALSE,
