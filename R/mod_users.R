@@ -187,12 +187,9 @@ mod_users_ui <- function(id) {
             ns("user_role"),
             label = NULL,
             choices = c(
-              "Administrator" = "Administrator",
-              "Data Scientist" = "Data Scientist",
-              "Clinical Data Manager" = "Clinical Data Manager",
-              "Health Data Engineer" = "Health Data Engineer",
-              "Researcher" = "Researcher",
-              "Clinician" = "Clinician"
+              "Clinician" = "Clinician",
+              "Data scientist" = "Data scientist",
+              "Engineer" = "Engineer"
             ),
             width = "100%"
           )
@@ -375,7 +372,7 @@ mod_users_server <- function(id, current_user, log_level = character()) {
       updateTextInput(session, "user_password", value = "")
       updateTextInput(session, "user_first_name", value = "")
       updateTextInput(session, "user_last_name", value = "")
-      updateSelectInput(session, "user_role", selected = "Data Scientist")
+      updateSelectInput(session, "user_role", selected = "Data scientist")
 
       # Clear textarea using JavaScript
       shinyjs::runjs(sprintf("$('#%s').val('');", ns("user_affiliation")))

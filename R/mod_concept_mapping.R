@@ -795,8 +795,22 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       mapped_general_concept_ids <- unique(df$target_general_concept_id[!is.na(df$target_general_concept_id)])
       total_general_concepts <- length(mapped_general_concept_ids)
 
-      # Get database connection
-      db_path <- get_database_path()
+      # Calculate percentage of dictionary coverage
+      total_dictionary_concepts <- nrow(data()$general_concepts)
+      pct_general_concepts <- if (total_dictionary_concepts > 0) {
+        round((total_general_concepts / total_dictionary_concepts) * 100, 1)
+      } else {
+        0
+      }
+
+      # Get database path
+      if (is.na(app_folder) || app_folder == "") {
+        db_dir <- rappdirs::user_config_dir("indicate")
+      } else {
+        db_dir <- file.path(app_folder, "indicate_files")
+      }
+      db_path <- file.path(db_dir, "indicate.db")
+
       if (!file.exists(db_path)) {
         output$summary_content <- renderUI({
           tags$div("Database not found")
@@ -826,19 +840,19 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Render UI
       output$summary_content <- renderUI({
         tags$div(
-          style = "display: flex; gap: 20px; height: calc(100vh - 185px);",
+          style = "height: calc(100vh - 185px);",
 
           # Summary cards
           tags$div(
             style = paste0(
-              "flex: 0 0 50%; display: flex; flex-wrap: wrap; ",
+              "display: flex; flex-wrap: wrap; ",
               "gap: 20px; align-content: flex-start;"
             ),
 
             # Card 1: Mapped concepts in alignment
             tags$div(
               style = paste0(
-                "flex: 0 0 calc(50% - 10px); background: white; ",
+                "flex: 1 1 300px; background: white; ",
                 "border-radius: 8px; padding: 20px; ",
                 "box-shadow: 0 2px 8px rgba(0,0,0,0.1); ",
                 "border-left: 4px solid #28a745;"
@@ -860,35 +874,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               )
             ),
 
-            # Card 2: Evaluated concepts
+            # Card 2: General concepts mapped
             tags$div(
               style = paste0(
-                "flex: 0 0 calc(50% - 10px); background: white; ",
-                "border-radius: 8px; padding: 20px; ",
-                "box-shadow: 0 2px 8px rgba(0,0,0,0.1); ",
-                "border-left: 4px solid #ffc107;"
-              ),
-              tags$div(
-                style = "font-size: 14px; color: #666; margin-bottom: 8px;",
-                "Evaluated Concepts"
-              ),
-              tags$div(
-                style = paste0(
-                  "font-size: 32px; font-weight: 700; color: #ffc107; ",
-                  "margin-bottom: 5px;"
-                ),
-                paste0(evaluated_count, " / ", mapped_source_concepts)
-              ),
-              tags$div(
-                style = "font-size: 18px; color: #999;",
-                paste0(pct_evaluated, "%")
-              )
-            ),
-
-            # Card 3: General concepts mapped
-            tags$div(
-              style = paste0(
-                "flex: 0 0 calc(50% - 10px); background: white; ",
+                "flex: 1 1 300px; background: white; ",
                 "border-radius: 8px; padding: 20px; ",
                 "box-shadow: 0 2px 8px rgba(0,0,0,0.1); ",
                 "border-left: 4px solid #17a2b8;"
@@ -902,11 +891,36 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                   "font-size: 32px; font-weight: 700; color: #17a2b8; ",
                   "margin-bottom: 5px;"
                 ),
-                as.character(total_general_concepts)
+                paste0(total_general_concepts, " / ", total_dictionary_concepts)
               ),
               tags$div(
-                style = "font-size: 14px; color: #999; font-style: italic;",
-                "Unique general concepts used"
+                style = "font-size: 18px; color: #999;",
+                paste0(pct_general_concepts, "%")
+              )
+            ),
+
+            # Card 3: Evaluated mappings
+            tags$div(
+              style = paste0(
+                "flex: 1 1 300px; background: white; ",
+                "border-radius: 8px; padding: 20px; ",
+                "box-shadow: 0 2px 8px rgba(0,0,0,0.1); ",
+                "border-left: 4px solid #ffc107;"
+              ),
+              tags$div(
+                style = "font-size: 14px; color: #666; margin-bottom: 8px;",
+                "Evaluated Mappings"
+              ),
+              tags$div(
+                style = paste0(
+                  "font-size: 32px; font-weight: 700; color: #ffc107; ",
+                  "margin-bottom: 5px;"
+                ),
+                paste0(evaluated_count, " / ", mapped_source_concepts)
+              ),
+              tags$div(
+                style = "font-size: 18px; color: #999;",
+                paste0(pct_evaluated, "%")
               )
             )
           )

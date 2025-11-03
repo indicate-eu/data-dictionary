@@ -9,24 +9,6 @@
 #' @importFrom readr read_tsv cols col_integer col_character col_date
 #' @importFrom dplyr tbl
 
-#' Get DuckDB database path
-#'
-#' @description Get the path where DuckDB database should be stored in app_folder/indicate_files
-#'
-#' @return Path to DuckDB database file
-#' @noRd
-get_duckdb_path <- function() {
-  app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = path.expand("~"))
-  indicate_files_folder <- file.path(app_folder, "indicate_files")
-
-  # Create indicate_files folder if it doesn't exist
-  if (!dir.exists(indicate_files_folder)) {
-    dir.create(indicate_files_folder, recursive = TRUE)
-  }
-
-  file.path(indicate_files_folder, "vocabularies.duckdb")
-}
-
 #' Create DuckDB database from CSV files
 #'
 #' @description Create a DuckDB database from OHDSI vocabulary CSV files
@@ -42,7 +24,7 @@ create_duckdb_database <- function(vocab_folder) {
       message = "Invalid vocabularies folder path"
     ))
   }
-
+  
   # Define required files
   required_files <- c(
     "CONCEPT.csv",
@@ -51,7 +33,7 @@ create_duckdb_database <- function(vocab_folder) {
     "CONCEPT_SYNONYM.csv",
     "RELATIONSHIP.csv"
   )
-
+  
   # Check if all required files exist
   missing_files <- c()
   for (file in required_files) {
@@ -59,16 +41,16 @@ create_duckdb_database <- function(vocab_folder) {
       missing_files <- c(missing_files, file)
     }
   }
-
+  
   if (length(missing_files) > 0) {
     return(list(
       success = FALSE,
       message = paste("Missing required files:", paste(missing_files, collapse = ", "))
     ))
   }
-
+  
   db_path <- get_duckdb_path()
-
+  
   # Force close all DuckDB connections before removing the file
   if (file.exists(db_path)) {
     # Try to disconnect all DuckDB connections
@@ -81,15 +63,15 @@ create_duckdb_database <- function(vocab_folder) {
     }, error = function(e) {
       # Ignore errors during cleanup
     })
-
+    
     # Force garbage collection multiple times
     gc()
     gc()
     Sys.sleep(0.5)
-
+    
     # Try to remove the file
     unlink(db_path)
-
+    
     # If file still exists, it's locked - return error
     if (file.exists(db_path)) {
       return(list(
@@ -98,12 +80,12 @@ create_duckdb_database <- function(vocab_folder) {
       ))
     }
   }
-
+  
   tryCatch({
     # Create DuckDB connection
     drv <- duckdb::duckdb(dbdir = db_path, read_only = FALSE)
     con <- DBI::dbConnect(drv)
-
+    
     # Load CONCEPT table
     concept <- readr::read_tsv(
       file.path(vocab_folder, "CONCEPT.csv"),
@@ -122,7 +104,7 @@ create_duckdb_database <- function(vocab_folder) {
       show_col_types = FALSE
     )
     DBI::dbWriteTable(con, "concept", concept, overwrite = TRUE)
-
+    
     # Load CONCEPT_RELATIONSHIP table
     concept_relationship <- readr::read_tsv(
       file.path(vocab_folder, "CONCEPT_RELATIONSHIP.csv"),
@@ -137,7 +119,7 @@ create_duckdb_database <- function(vocab_folder) {
       show_col_types = FALSE
     )
     DBI::dbWriteTable(con, "concept_relationship", concept_relationship, overwrite = TRUE)
-
+    
     # Load CONCEPT_ANCESTOR table
     concept_ancestor <- readr::read_tsv(
       file.path(vocab_folder, "CONCEPT_ANCESTOR.csv"),
@@ -150,7 +132,7 @@ create_duckdb_database <- function(vocab_folder) {
       show_col_types = FALSE
     )
     DBI::dbWriteTable(con, "concept_ancestor", concept_ancestor, overwrite = TRUE)
-
+    
     # Load CONCEPT_SYNONYM table
     concept_synonym <- readr::read_tsv(
       file.path(vocab_folder, "CONCEPT_SYNONYM.csv"),
@@ -162,7 +144,7 @@ create_duckdb_database <- function(vocab_folder) {
       show_col_types = FALSE
     )
     DBI::dbWriteTable(con, "concept_synonym", concept_synonym, overwrite = TRUE)
-
+    
     # Load RELATIONSHIP table
     relationship <- readr::read_tsv(
       file.path(vocab_folder, "RELATIONSHIP.csv"),
@@ -177,7 +159,7 @@ create_duckdb_database <- function(vocab_folder) {
       show_col_types = FALSE
     )
     DBI::dbWriteTable(con, "relationship", relationship, overwrite = TRUE)
-
+    
     # Create indexes for better performance
     DBI::dbExecute(con, "CREATE INDEX idx_concept_id ON concept(concept_id)")
     DBI::dbExecute(con, "CREATE INDEX idx_concept_code ON concept(concept_code)")
@@ -191,16 +173,16 @@ create_duckdb_database <- function(vocab_folder) {
     DBI::dbExecute(con, "CREATE INDEX idx_synonym_concept ON concept_synonym(concept_id)")
     DBI::dbExecute(con, "CREATE INDEX idx_relationship_id ON relationship(relationship_id)")
     DBI::dbExecute(con, "CREATE INDEX idx_defines_ancestry ON relationship(defines_ancestry)")
-
+    
     # Close connection
     DBI::dbDisconnect(con, shutdown = TRUE)
-
+    
     return(list(
       success = TRUE,
       message = "DuckDB database created successfully",
       db_path = db_path
     ))
-
+    
   }, error = function(e) {
     # Clean up on error
     if (exists("con")) {
@@ -209,7 +191,7 @@ create_duckdb_database <- function(vocab_folder) {
     if (file.exists(db_path)) {
       unlink(db_path)
     }
-
+    
     return(list(
       success = FALSE,
       message = paste("Error creating DuckDB database:", e$message)
@@ -225,23 +207,23 @@ create_duckdb_database <- function(vocab_folder) {
 #' @export
 delete_duckdb_database <- function() {
   db_path <- get_duckdb_path()
-
+  
   if (!file.exists(db_path)) {
     return(list(
       success = TRUE,
       message = "DuckDB database does not exist"
     ))
   }
-
+  
   tryCatch({
     # Force garbage collection to close any lingering connections
     gc()
-
+    
     # Small delay to ensure connections are fully closed
     Sys.sleep(0.5)
-
+    
     unlink(db_path)
-
+    
     return(list(
       success = TRUE,
       message = "DuckDB database deleted successfully"
@@ -263,6 +245,24 @@ delete_duckdb_database <- function() {
 duckdb_exists <- function() {
   db_path <- get_duckdb_path()
   return(file.exists(db_path))
+}
+
+#' Get DuckDB database path
+#'
+#' @description Get the path where DuckDB database should be stored in app_folder/indicate_files
+#'
+#' @return Path to DuckDB database file
+#' @noRd
+get_duckdb_path <- function() {
+  app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = path.expand("~"))
+  indicate_files_folder <- file.path(app_folder, "indicate_files")
+
+  # Create indicate_files folder if it doesn't exist
+  if (!dir.exists(indicate_files_folder)) {
+    dir.create(indicate_files_folder, recursive = TRUE)
+  }
+
+  file.path(indicate_files_folder, "vocabularies.duckdb")
 }
 
 #' Load vocabularies from DuckDB
