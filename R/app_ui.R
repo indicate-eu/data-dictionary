@@ -43,7 +43,8 @@ app_ui <- function() {
       tags$script(src = "www/prevent_doubleclick_selection.js"),
       tags$script(src = "www/recommended_toggle.js"),
       tags$script(src = "www/login_handler.js"),
-      tags$script(src = "www/users_table.js")
+      tags$script(src = "www/users_table.js"),
+      tags$script(src = "www/evaluate_mappings.js")
     ),
 
     # Login page (shown first)

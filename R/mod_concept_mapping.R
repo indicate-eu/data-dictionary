@@ -546,22 +546,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             value = "all_mappings",
             tags$div(
               class = "card-container",
-              style = "margin-top: 20px; height: calc(100vh - 185px); display: flex; flex-direction: column;",
-              tags$div(
-                class = "section-header",
-                tags$h4(
-                  "All Completed Mappings",
-                  tags$span(
-                    class = "info-icon",
-                    `data-tooltip` = "All mappings between your source concepts and INDICATE concepts. Search by column to find specific mappings.",
-                    "ⓘ"
-                  )
-                )
-              ),
-              tags$div(
-                style = "flex: 1; min-height: 0; overflow: auto;",
-                DT::DTOutput(ns("all_mappings_table_main"))
-              )
+              style = "margin-top: 20px; height: calc(100vh - 230px); overflow: auto;",
+              DT::DTOutput(ns("all_mappings_table_main"))
             )
           ),
 
@@ -570,7 +556,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             "Edit Mappings",
             value = "edit_mappings",
             tags$div(
-              style = "margin-top: 20px; height: calc(100vh - 185px); display: flex; flex-direction: column;",
+              style = "margin-top: 20px; height: calc(100vh - 230px); display: flex; flex-direction: column;",
             # Top section: Source concepts (left) and target concepts (right)
             tags$div(
               style = "height: 100%; display: flex; gap: 15px; min-height: 0;",
@@ -640,12 +626,60 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             "Evaluate Mappings",
             value = "evaluate_mappings",
             tags$div(
-              style = "margin-top: 20px;",
-              tags$div(
-                style = "padding: 40px; text-align: center; color: #999;",
-                tags$p(
-                  style = "font-size: 18px;",
-                  "Evaluate Mappings functionality coming soon..."
+              class = "card-container",
+              style = "margin-top: 20px; height: calc(100vh - 230px); overflow: auto;",
+              DT::DTOutput(ns("evaluate_mappings_table")),
+              # Modal for editing comments
+              shinyjs::hidden(
+                tags$div(
+                  id = ns("eval_comment_modal"),
+                  class = "modal-overlay",
+                  tags$div(
+                    class = "modal-content",
+                    style = "width: 600px;",
+                    tags$div(
+                      class = "modal-header",
+                      tags$h3("Edit Evaluation Comment"),
+                      tags$button(
+                        class = "modal-close",
+                        onclick = sprintf("$('#%s').hide();", ns("eval_comment_modal")),
+                        "×"
+                      )
+                    ),
+                    tags$div(
+                      class = "modal-body",
+                      tags$div(
+                        style = "margin-bottom: 15px;",
+                        tags$strong("Mapping:"),
+                        tags$div(
+                          id = ns("eval_comment_mapping_info"),
+                          style = "margin-top: 5px; padding: 10px; background: #f8f9fa; border-radius: 4px;"
+                        )
+                      ),
+                      tags$div(
+                        style = "margin-bottom: 15px;",
+                        tags$label("Comment:", style = "display: block; margin-bottom: 5px;"),
+                        tags$textarea(
+                          id = ns("eval_comment_text"),
+                          style = "width: 100%; min-height: 100px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;",
+                          placeholder = "Enter your comment here..."
+                        )
+                      ),
+                      tags$div(
+                        style = "display: flex; gap: 10px; justify-content: flex-end;",
+                        tags$button(
+                          class = "btn-cancel",
+                          onclick = sprintf("$('#%s').hide();", ns("eval_comment_modal")),
+                          "Cancel"
+                        ),
+                        actionButton(
+                          ns("save_eval_comment"),
+                          "Save Comment",
+                          class = "btn-primary-custom"
+                        )
+                      )
+                    )
+                  )
                 )
               )
             )
@@ -705,7 +739,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               )
             ),
             tags$div(
-              style = "flex: 1; min-height: 0; overflow: hidden;",
+              style = "flex: 1; min-height: 0; overflow: auto;",
               DT::DTOutput(ns("mapped_concepts_table"))
             )
           )
@@ -840,7 +874,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Render UI
       output$summary_content <- renderUI({
         tags$div(
-          style = "height: calc(100vh - 185px);",
+          style = "height: calc(100vh - 230px);",
 
           # Summary cards
           tags$div(
@@ -2034,8 +2068,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         df_display,
         filter = 'top',
         options = list(
-          pageLength = 8,
-          lengthMenu = list(c(5, 8, 10, 15, 20, 50, 100), c('5', '8', '10', '15', '20', '50', '100')),
+          pageLength = 15,
+          lengthMenu = list(c(5, 10, 15, 20, 50, 100), c('5', '10', '15', '20', '50', '100')),
           dom = 'ltp',
           columnDefs = list(
             list(targets = which(colnames(df_display) == "Mapped") - 1, width = "80px", className = 'dt-center')
@@ -2090,8 +2124,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         general_concepts_display,
         filter = 'top',
         options = list(
-          pageLength = 8,
-          lengthMenu = list(c(5, 8, 10, 15, 20, 50, 100), c('5', '8', '10', '15', '20', '50', '100')),
+          pageLength = 15,
+          lengthMenu = list(c(5, 10, 15, 20, 50, 100), c('5', '10', '15', '20', '50', '100')),
           dom = 'ltp',
           columnDefs = list(
             list(targets = 0, visible = FALSE),  # Hide general_concept_id column
@@ -2233,8 +2267,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       dt <- datatable(
         mappings,
         options = list(
-          pageLength = 6,
-          dom = 'tp',
+          pageLength = 15,
+          lengthMenu = list(c(5, 10, 15, 20, 50, 100), c('5', '10', '15', '20', '50', '100')),
+          dom = 'ltp',
           columnDefs = list(
             list(targets = 4, width = "100px", className = 'dt-center'),  # Recommended column
             list(targets = 5, visible = FALSE)  # is_custom column hidden
@@ -3207,6 +3242,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           concept_code_source = concept_code
         )
 
+      # Remove mapping_id column if it exists (will be replaced by db mapping_id)
+      if ("mapping_id" %in% colnames(df)) {
+        df <- df %>% dplyr::select(-mapping_id)
+      }
+
       mapped_rows <- df %>%
         dplyr::filter(!is.na(target_general_concept_id))
 
@@ -3332,6 +3372,64 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         }
       }
 
+      # Get vote statistics from database
+      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
+      if (is.na(app_folder) || app_folder == "") {
+        db_dir <- rappdirs::user_config_dir("indicate")
+      } else {
+        db_dir <- file.path(app_folder, "indicate_files")
+      }
+      db_path <- file.path(db_dir, "indicate.db")
+
+      if (file.exists(db_path)) {
+        con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+        on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+        # First get mapping_id from database by matching csv_file_path and csv_mapping_id
+        # csv_mapping_id corresponds to row index in CSV
+        enriched_rows <- enriched_rows %>%
+          dplyr::mutate(csv_row_index = dplyr::row_number())
+
+        mapping_ids_query <- "
+          SELECT
+            cm.mapping_id,
+            cm.csv_mapping_id
+          FROM concept_mappings cm
+          WHERE cm.alignment_id = ? AND cm.csv_file_path = ?
+        "
+        db_mappings <- DBI::dbGetQuery(con, mapping_ids_query, params = list(selected_alignment_id(), csv_path))
+
+        # Join to get the database mapping_id
+        enriched_rows <- enriched_rows %>%
+          dplyr::left_join(db_mappings, by = c("csv_row_index" = "csv_mapping_id"))
+
+        # Get vote counts for each mapping
+        vote_query <- "
+          SELECT
+            cm.mapping_id,
+            SUM(CASE WHEN me.is_approved = 1 THEN 1 ELSE 0 END) as upvotes,
+            SUM(CASE WHEN me.is_approved = 0 THEN 1 ELSE 0 END) as downvotes,
+            SUM(CASE WHEN me.is_approved = -1 THEN 1 ELSE 0 END) as uncertain_votes
+          FROM concept_mappings cm
+          LEFT JOIN mapping_evaluations me ON cm.mapping_id = me.mapping_id
+          WHERE cm.alignment_id = ?
+          GROUP BY cm.mapping_id
+        "
+        vote_stats <- DBI::dbGetQuery(con, vote_query, params = list(selected_alignment_id()))
+
+        # Join vote stats with enriched_rows using the db mapping_id
+        enriched_rows <- enriched_rows %>%
+          dplyr::left_join(vote_stats, by = "mapping_id")
+      } else {
+        # No database, set vote columns to 0
+        enriched_rows <- enriched_rows %>%
+          dplyr::mutate(
+            upvotes = 0L,
+            downvotes = 0L,
+            uncertain_votes = 0L
+          )
+      }
+
       # Build display dataframe
       display_df <- enriched_rows %>%
         dplyr::mutate(
@@ -3340,28 +3438,34 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             general_concept_name, " > ",
             concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"
           ),
+          Upvotes = ifelse(is.na(upvotes), 0L, as.integer(upvotes)),
+          Downvotes = ifelse(is.na(downvotes), 0L, as.integer(downvotes)),
+          Uncertain = ifelse(is.na(uncertain_votes), 0L, as.integer(uncertain_votes)),
           Actions = sprintf(
             '<button class="btn btn-sm btn-danger delete-mapping-btn" data-id="%d" style="padding: 2px 8px; font-size: 11px;">Delete</button>',
             dplyr::row_number()
           )
         ) %>%
-        dplyr::select(Source, Target, Actions)
+        dplyr::select(Source, Target, Upvotes, Downvotes, Uncertain, Actions)
 
       dt <- datatable(
         display_df,
         escape = FALSE,
         filter = 'top',
         options = list(
-          pageLength = 25,
-          lengthMenu = c(10, 25, 50, 100, 200),
+          pageLength = 20,
+          lengthMenu = c(10, 20, 50, 100, 200),
           dom = 'ltp',
           columnDefs = list(
-            list(targets = 2, searchable = FALSE)
+            list(targets = 2, width = "60px", className = "dt-center"),
+            list(targets = 3, width = "60px", className = "dt-center"),
+            list(targets = 4, width = "60px", className = "dt-center"),
+            list(targets = 5, searchable = FALSE, orderable = FALSE)
           )
         ),
         rownames = FALSE,
         selection = 'none',
-        colnames = c("Source Concept", "Target Concept", "Actions")
+        colnames = c("Source Concept", "Target Concept", "Upvotes", "Downvotes", "Uncertain", "Actions")
       )
 
       # Add button handlers
@@ -3419,6 +3523,429 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           write.csv(df, csv_path, row.names = FALSE)
         }
       }
+
+      # Trigger refresh
+      mappings_refresh_trigger(mappings_refresh_trigger() + 1)
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+
+    ## Evaluate Mappings Tab ----
+
+    ### Evaluate Mappings Table ----
+    observe_event(mappings_refresh_trigger(), {
+      output$evaluate_mappings_table <- DT::renderDT({
+        if (is.null(selected_alignment_id())) return()
+        if (is.null(current_user())) return()
+
+        # Get database connection
+        app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
+        if (is.na(app_folder) || app_folder == "") {
+          db_dir <- rappdirs::user_config_dir("indicate")
+        } else {
+          db_dir <- file.path(app_folder, "indicate_files")
+        }
+        db_path <- file.path(db_dir, "indicate.db")
+
+        if (!file.exists(db_path)) return()
+
+        con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+        on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+        # Get all mappings with evaluation status for current user
+        query <- "
+          SELECT
+            cm.mapping_id,
+            cm.source_concept_index,
+            cm.target_general_concept_id,
+            cm.target_omop_concept_id,
+            cm.target_custom_concept_id,
+            cm.csv_file_path,
+            cm.csv_mapping_id,
+            me.is_approved,
+            me.comment
+          FROM concept_mappings cm
+          LEFT JOIN mapping_evaluations me
+            ON cm.mapping_id = me.mapping_id
+            AND me.evaluator_user_id = ?
+          WHERE cm.alignment_id = ?
+        "
+
+        mappings_db <- DBI::dbGetQuery(
+          con,
+          query,
+          params = list(current_user()$user_id, selected_alignment_id())
+        )
+
+        if (nrow(mappings_db) == 0) return()
+
+        # Read CSV to get source concept names
+        csv_path <- mappings_db$csv_file_path[1]
+        if (!file.exists(csv_path)) return()
+
+        df <- read.csv(csv_path, stringsAsFactors = FALSE)
+
+        # Enrich with source concept information
+        enriched_data <- mappings_db %>%
+          dplyr::rowwise() %>%
+          dplyr::mutate(
+            source_concept_name = {
+              if (csv_mapping_id <= nrow(df)) {
+                df$concept_name[csv_mapping_id]
+              } else {
+                NA_character_
+              }
+            },
+            source_concept_code = {
+              if (csv_mapping_id <= nrow(df)) {
+                df$concept_code[csv_mapping_id]
+              } else {
+                NA_character_
+              }
+            }
+          ) %>%
+          dplyr::ungroup()
+
+        # Enrich with target concept information
+        general_concepts <- data()$general_concepts
+        concept_mappings <- data()$concept_mappings
+        custom_concepts_path <- app_sys("extdata", "csv", "custom_concepts.csv")
+        custom_concepts <- data.frame()
+        if (file.exists(custom_concepts_path)) {
+          custom_concepts <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)
+        }
+
+        enriched_data <- enriched_data %>%
+          dplyr::rowwise() %>%
+          dplyr::mutate(
+            target_general_concept_name = {
+              if (!is.na(target_general_concept_id)) {
+                gc <- general_concepts %>%
+                  dplyr::filter(general_concept_id == target_general_concept_id)
+                if (nrow(gc) > 0) gc$general_concept_name[1] else NA_character_
+              } else {
+                NA_character_
+              }
+            },
+            target_concept_name = {
+              if (!is.na(target_omop_concept_id)) {
+                cm <- concept_mappings %>%
+                  dplyr::filter(omop_concept_id == target_omop_concept_id)
+                if (nrow(cm) > 0) cm$concept_name[1] else NA_character_
+              } else if (!is.na(target_custom_concept_id) && nrow(custom_concepts) > 0) {
+                cc <- custom_concepts %>%
+                  dplyr::filter(custom_concept_id == target_custom_concept_id)
+                if (nrow(cc) > 0) cc$concept_name[1] else NA_character_
+              } else {
+                NA_character_
+              }
+            },
+            status = {
+              if (is.na(is_approved)) {
+                "Not Evaluated"
+              } else if (is_approved == 1) {
+                "Approved"
+              } else if (is_approved == 0) {
+                "Rejected"
+              } else if (is_approved == -1) {
+                "Uncertain"
+              } else {
+                "Not Evaluated"
+              }
+            }
+          ) %>%
+          dplyr::ungroup()
+
+        # Add row index for actions
+        enriched_data <- enriched_data %>%
+          dplyr::mutate(row_index = dplyr::row_number())
+
+        # Create action buttons HTML
+        enriched_data <- enriched_data %>%
+          dplyr::mutate(
+            Actions = sprintf(
+              '<div style="display: flex; gap: 5px; justify-content: center;">
+                <button class="btn-eval-action" data-action="approve" data-row="%d" data-mapping-id="%d" title="Approve" style="background: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 18px; line-height: 1;">
+                  ✓
+                </button>
+                <button class="btn-eval-action" data-action="reject" data-row="%d" data-mapping-id="%d" title="Reject" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 18px; line-height: 1;">
+                  ✗
+                </button>
+                <button class="btn-eval-action" data-action="uncertain" data-row="%d" data-mapping-id="%d" title="Uncertain" style="background: #ffc107; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 18px; line-height: 1;">
+                  ?
+                </button>
+                <button class="btn-eval-action" data-action="clear" data-row="%d" data-mapping-id="%d" title="Clear Evaluation" style="background: #6c757d; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 18px; line-height: 1;">
+                  ↺
+                </button>
+              </div>',
+              row_index, mapping_id,
+              row_index, mapping_id,
+              row_index, mapping_id,
+              row_index, mapping_id
+            )
+          )
+
+        # Build display columns like in All Completed Mappings
+        display_data <- enriched_data %>%
+          dplyr::mutate(
+            Source = paste0(source_concept_name, " (", source_concept_code, ")"),
+            Target = paste0(
+              target_general_concept_name, " > ",
+              ifelse(is.na(target_concept_name), "", target_concept_name)
+            ),
+            status = factor(status, levels = c("Not Evaluated", "Approved", "Rejected", "Uncertain"))
+          ) %>%
+          dplyr::select(
+            mapping_id,
+            Source,
+            Target,
+            status,
+            Actions
+          )
+
+        # Create datatable with callback to ensure event handlers work
+        dt <- DT::datatable(
+          display_data,
+          rownames = FALSE,
+          selection = "none",
+          escape = FALSE,
+          filter = "top",
+          options = list(
+            pageLength = 20,
+            lengthMenu = c(10, 20, 50, 100, 200),
+            dom = "ltp",
+            ordering = TRUE,
+            autoWidth = FALSE,
+            stateSave = TRUE,
+            columnDefs = list(
+              list(targets = 0, visible = FALSE),
+              list(targets = 1, width = "35%"),
+              list(targets = 2, width = "35%"),
+              list(targets = 3, width = "12%"),
+              list(targets = 4, width = "18%", orderable = FALSE, searchable = FALSE)
+            ),
+            drawCallback = DT::JS("
+              function(settings) {
+                console.log('DataTable drawn, buttons should be visible');
+              }
+            ")
+          ),
+          colnames = c(
+            "ID",
+            "Source Concept",
+            "Target Concept",
+            "Status",
+            "Actions"
+          )
+        ) %>%
+          DT::formatStyle(
+            "status",
+            backgroundColor = DT::styleEqual(
+              c("Approved", "Rejected", "Uncertain", "Not Evaluated"),
+              c("#d4edda", "#f8d7da", "#fff3cd", "#e7e7e7")
+            ),
+            color = DT::styleEqual(
+              c("Approved", "Rejected", "Uncertain", "Not Evaluated"),
+              c("#155724", "#721c24", "#856404", "#666666")
+            ),
+            fontWeight = "bold"
+          )
+
+        dt
+      })
+    }, ignoreInit = FALSE)
+
+    ### Handle Evaluation Actions ----
+    observe_event(input$eval_action, {
+      if (is.null(input$eval_action)) return()
+      if (is.null(current_user())) return()
+
+      action_data <- input$eval_action
+      action <- action_data$action
+      row_index <- as.integer(action_data$row)
+
+      # Get database connection
+      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
+      if (is.na(app_folder) || app_folder == "") {
+        db_dir <- rappdirs::user_config_dir("indicate")
+      } else {
+        db_dir <- file.path(app_folder, "indicate_files")
+      }
+      db_path <- file.path(db_dir, "indicate.db")
+
+      if (!file.exists(db_path)) return()
+
+      con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+      # Get all mappings for this alignment
+      query <- "
+        SELECT mapping_id
+        FROM concept_mappings
+        WHERE alignment_id = ?
+      "
+      mappings_db <- DBI::dbGetQuery(con, query, params = list(selected_alignment_id()))
+
+      if (row_index < 1 || row_index > nrow(mappings_db)) return()
+
+      mapping_id <- mappings_db$mapping_id[row_index]
+      user_id <- current_user()$user_id
+      timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+
+      # Determine is_approved value based on action
+      is_approved <- switch(
+        action,
+        "approve" = 1L,
+        "reject" = 0L,
+        "uncertain" = -1L,
+        "clear" = NA_integer_
+      )
+
+      if (action == "clear") {
+        # Delete evaluation
+        DBI::dbExecute(
+          con,
+          "DELETE FROM mapping_evaluations
+           WHERE mapping_id = ? AND evaluator_user_id = ?",
+          params = list(mapping_id, user_id)
+        )
+      } else {
+        # Check if evaluation exists
+        existing <- DBI::dbGetQuery(
+          con,
+          "SELECT evaluation_id FROM mapping_evaluations
+           WHERE mapping_id = ? AND evaluator_user_id = ?",
+          params = list(mapping_id, user_id)
+        )
+
+        if (nrow(existing) > 0) {
+          # Update existing evaluation
+          DBI::dbExecute(
+            con,
+            "UPDATE mapping_evaluations
+             SET is_approved = ?, evaluated_at = ?
+             WHERE mapping_id = ? AND evaluator_user_id = ?",
+            params = list(is_approved, timestamp, mapping_id, user_id)
+          )
+        } else {
+          # Insert new evaluation
+          DBI::dbExecute(
+            con,
+            "INSERT INTO mapping_evaluations
+             (alignment_id, mapping_id, evaluator_user_id, is_approved, evaluated_at)
+             VALUES (?, ?, ?, ?, ?)",
+            params = list(selected_alignment_id(), mapping_id, user_id, is_approved, timestamp)
+          )
+        }
+      }
+
+      # Trigger refresh to update the table
+      mappings_refresh_trigger(mappings_refresh_trigger() + 1)
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+
+    ### Handle Double-Click for Comment Editing ----
+    selected_eval_mapping_id <- reactiveVal(NULL)
+
+    observe_event(input$eval_table_dblclick, {
+      if (is.null(input$eval_table_dblclick)) return()
+
+      mapping_id <- input$eval_table_dblclick$mapping_id
+      source_text <- input$eval_table_dblclick$source
+      target_text <- input$eval_table_dblclick$target
+
+      selected_eval_mapping_id(mapping_id)
+
+      # Update modal info
+      shinyjs::html("eval_comment_mapping_info", sprintf(
+        "<strong>Source:</strong> %s<br><strong>Target:</strong> %s",
+        source_text, target_text
+      ))
+
+      # Get current comment from database
+      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
+      if (is.na(app_folder) || app_folder == "") {
+        db_dir <- rappdirs::user_config_dir("indicate")
+      } else {
+        db_dir <- file.path(app_folder, "indicate_files")
+      }
+      db_path <- file.path(db_dir, "indicate.db")
+
+      if (file.exists(db_path)) {
+        con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+        on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+        existing_comment <- DBI::dbGetQuery(
+          con,
+          "SELECT comment FROM mapping_evaluations
+           WHERE mapping_id = ? AND evaluator_user_id = ?",
+          params = list(mapping_id, current_user()$user_id)
+        )
+
+        comment_value <- if (nrow(existing_comment) > 0 && !is.na(existing_comment$comment[1])) {
+          existing_comment$comment[1]
+        } else {
+          ""
+        }
+
+        updateTextAreaInput(session, "eval_comment_text", value = comment_value)
+      }
+
+      # Show modal
+      shinyjs::show("eval_comment_modal")
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+
+    ### Save Comment ----
+    observe_event(input$save_eval_comment, {
+      if (is.null(selected_eval_mapping_id())) return()
+      if (is.null(current_user())) return()
+
+      mapping_id <- selected_eval_mapping_id()
+      user_id <- current_user()$user_id
+      comment_text <- input$eval_comment_text
+      timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+
+      # Get database connection
+      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
+      if (is.na(app_folder) || app_folder == "") {
+        db_dir <- rappdirs::user_config_dir("indicate")
+      } else {
+        db_dir <- file.path(app_folder, "indicate_files")
+      }
+      db_path <- file.path(db_dir, "indicate.db")
+
+      if (!file.exists(db_path)) return()
+
+      con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+      # Check if evaluation exists
+      existing <- DBI::dbGetQuery(
+        con,
+        "SELECT evaluation_id FROM mapping_evaluations
+         WHERE mapping_id = ? AND evaluator_user_id = ?",
+        params = list(mapping_id, user_id)
+      )
+
+      if (nrow(existing) > 0) {
+        # Update existing evaluation
+        DBI::dbExecute(
+          con,
+          "UPDATE mapping_evaluations
+           SET comment = ?, evaluated_at = ?
+           WHERE mapping_id = ? AND evaluator_user_id = ?",
+          params = list(comment_text, timestamp, mapping_id, user_id)
+        )
+      } else {
+        # Insert new evaluation with comment only
+        DBI::dbExecute(
+          con,
+          "INSERT INTO mapping_evaluations
+           (alignment_id, mapping_id, evaluator_user_id, comment, evaluated_at)
+           VALUES (?, ?, ?, ?, ?)",
+          params = list(selected_alignment_id(), mapping_id, user_id, comment_text, timestamp)
+        )
+      }
+
+      # Hide modal
+      shinyjs::hide("eval_comment_modal")
 
       # Trigger refresh
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)

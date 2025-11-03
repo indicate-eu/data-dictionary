@@ -13,30 +13,22 @@ mod_improvements_ui <- function(id) {
   ns <- NS(id)
 
   tagList(
-    div(class = "main-panel",
-        div(class = "main-content",
-            fluidRow(
-              column(12,
-                     div(class = "improvements-placeholder",
-                         style = "padding: 40px; text-align: center; background: #f8f9fa; border-radius: 8px; margin-top: 20px;",
-                         tags$i(class = "fas fa-lightbulb", style = "font-size: 64px; color: #0f60af; margin-bottom: 20px;"),
-                         tags$h3("Dictionary Improvements", style = "color: #0f60af;"),
-                         tags$p("Contribute to the INDICATE Data Dictionary by proposing new concepts, relationships, and improvements."),
-                         tags$p(style = "color: #666;", "Features coming soon:"),
-                         tags$ul(
-                           style = "list-style: none; padding: 0; color: #666;",
-                           tags$li(tags$i(class = "fas fa-check", style = "color: #28a745; margin-right: 8px;"), "Propose new concepts with detailed metadata"),
-                           tags$li(tags$i(class = "fas fa-check", style = "color: #28a745; margin-right: 8px;"), "Create and visualize concept relationships"),
-                           tags$li(tags$i(class = "fas fa-check", style = "color: #28a745; margin-right: 8px;"), "Define concept hierarchies (ancestors/descendants)"),
-                           tags$li(tags$i(class = "fas fa-check", style = "color: #28a745; margin-right: 8px;"), "Suggest changes to recommended concepts"),
-                           tags$li(tags$i(class = "fas fa-check", style = "color: #28a745; margin-right: 8px;"), "Propose new general concepts for categories"),
-                           tags$li(tags$i(class = "fas fa-check", style = "color: #28a745; margin-right: 8px;"), "Submit free-text improvement suggestions"),
-                           tags$li(tags$i(class = "fas fa-check", style = "color: #28a745; margin-right: 8px;"), "Track submissions with user profiles")
-                         )
-                     )
-              )
-            )
+    div(
+      class = "main-panel",
+      style = "display: flex; align-items: center; justify-content: center; min-height: 80vh;",
+      div(
+        style = "text-align: center; max-width: 600px;",
+        tags$i(class = "fas fa-lightbulb", style = "font-size: 64px; color: #0f60af; margin-bottom: 20px;"),
+        tags$h2("Dictionary Improvements", style = "color: #0f60af; margin-bottom: 20px;"),
+        tags$p(
+          style = "font-size: 16px; color: #666; line-height: 1.6;",
+          "Contribute to the INDICATE Data Dictionary by proposing new concepts, relationships, and improvements."
+        ),
+        tags$p(
+          style = "font-size: 18px; color: #0f60af; font-weight: 600; margin-top: 30px;",
+          "Coming Soon"
         )
+      )
     )
   )
 }

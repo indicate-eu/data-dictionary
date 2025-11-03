@@ -133,7 +133,7 @@ mod_dictionary_explorer_ui <- function(id) {
               #### General Concepts container ----
               tags$div(
                 id = ns("general_concepts_container"),
-                class = "table-container",
+                class = "card-container card-container-flex",
                 style = "height: calc(100vh - 175px); overflow: auto;",
 
                 # Loading message (visible by default)
