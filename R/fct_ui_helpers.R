@@ -1,6 +1,7 @@
-#' Dictionary Explorer Helper Functions
+#' UI Helper Functions
 #'
-#' @description Utility functions for the dictionary explorer module
+#' @description Reusable UI utility functions for building interface elements
+#' across modules
 #' @noRd
 
 #' Create a detail item for displaying concept information

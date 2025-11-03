@@ -1,3 +1,13 @@
+#' OHDSI Vocabularies Functions
+#'
+#' @description Functions to load and query OHDSI vocabulary data from CSV
+#' or DuckDB
+#'
+#' @noRd
+#'
+#' @importFrom readr read_tsv cols col_integer col_character
+#' @importFrom dplyr filter select left_join bind_rows distinct arrange mutate
+
 #' Load OHDSI Vocabularies
 #'
 #' @description
@@ -7,8 +17,6 @@
 #'
 #' @return List with concept, concept_relationship, and concept_ancestor data frames
 #' @noRd
-#'
-#' @importFrom readr read_tsv cols col_integer col_character
 load_ohdsi_vocabularies <- function(vocab_folder) {
   if (is.null(vocab_folder) || vocab_folder == "" || !dir.exists(vocab_folder)) {
     message("OHDSI Vocabularies folder not configured or doesn't exist")

@@ -735,16 +735,184 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     }
 
     ### Tab Content Outputs ----
-    output$summary_content <- renderUI({
-      tags$div(
-        style = "display: flex; align-items: center; justify-content: center; height: 300px;",
+    # Summary tab reactive trigger
+    summary_trigger <- reactiveVal(0)
+
+    observe_event(c(selected_alignment_id(), data(), mappings_refresh_trigger()), {
+      if (is.null(selected_alignment_id())) return()
+      if (is.null(data())) return()
+      summary_trigger(summary_trigger() + 1)
+    }, ignoreInit = FALSE)
+
+    observe_event(summary_trigger(), {
+      if (is.null(selected_alignment_id())) return()
+      if (is.null(data())) return()
+
+      alignments <- alignments_data()
+      alignment <- alignments %>%
+        dplyr::filter(alignment_id == selected_alignment_id())
+
+      if (nrow(alignment) != 1) {
+        output$summary_content <- renderUI({
+          tags$div("No alignment selected")
+        })
+        return()
+      }
+
+      file_id <- alignment$file_id[1]
+
+      # Get app folder and construct path
+      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
+      if (is.na(app_folder) || app_folder == "") {
+        mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
+      } else {
+        mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
+      }
+
+      csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
+
+      # Check if file exists
+      if (!file.exists(csv_path)) {
+        output$summary_content <- renderUI({
+          tags$div("CSV file not found")
+        })
+        return()
+      }
+
+      # Read CSV
+      df <- read.csv(csv_path, stringsAsFactors = FALSE)
+
+      # Calculate statistics
+      total_source_concepts <- nrow(df)
+      mapped_source_concepts <- sum(!is.na(df$target_general_concept_id))
+      pct_mapped_source <- if (total_source_concepts > 0) {
+        round((mapped_source_concepts / total_source_concepts) * 100, 1)
+      } else {
+        0
+      }
+
+      # Get all general concepts mapped
+      mapped_general_concept_ids <- unique(df$target_general_concept_id[!is.na(df$target_general_concept_id)])
+      total_general_concepts <- length(mapped_general_concept_ids)
+
+      # Get database connection
+      db_path <- get_database_path()
+      if (!file.exists(db_path)) {
+        output$summary_content <- renderUI({
+          tags$div("Database not found")
+        })
+        return()
+      }
+
+      con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+      # Count evaluated concepts (concepts with at least one evaluation)
+      evaluated_query <- "
+        SELECT COUNT(DISTINCT cm.mapping_id) as evaluated_count
+        FROM concept_mappings cm
+        INNER JOIN mapping_evaluations me ON cm.mapping_id = me.mapping_id
+        WHERE cm.alignment_id = ?
+      "
+      evaluated_result <- DBI::dbGetQuery(con, evaluated_query, params = list(selected_alignment_id()))
+      evaluated_count <- evaluated_result$evaluated_count[1]
+
+      pct_evaluated <- if (mapped_source_concepts > 0) {
+        round((evaluated_count / mapped_source_concepts) * 100, 1)
+      } else {
+        0
+      }
+
+      # Render UI
+      output$summary_content <- renderUI({
         tags$div(
-          style = "text-align: center; color: #6c757d;",
-          tags$h3("Summary Tab"),
-          tags$p("This feature is coming soon...")
+          style = "display: flex; gap: 20px; height: calc(100vh - 185px);",
+
+          # Summary cards
+          tags$div(
+            style = paste0(
+              "flex: 0 0 50%; display: flex; flex-wrap: wrap; ",
+              "gap: 20px; align-content: flex-start;"
+            ),
+
+            # Card 1: Mapped concepts in alignment
+            tags$div(
+              style = paste0(
+                "flex: 0 0 calc(50% - 10px); background: white; ",
+                "border-radius: 8px; padding: 20px; ",
+                "box-shadow: 0 2px 8px rgba(0,0,0,0.1); ",
+                "border-left: 4px solid #28a745;"
+              ),
+              tags$div(
+                style = "font-size: 14px; color: #666; margin-bottom: 8px;",
+                "Mapped Concepts"
+              ),
+              tags$div(
+                style = paste0(
+                  "font-size: 32px; font-weight: 700; color: #28a745; ",
+                  "margin-bottom: 5px;"
+                ),
+                paste0(mapped_source_concepts, " / ", total_source_concepts)
+              ),
+              tags$div(
+                style = "font-size: 18px; color: #999;",
+                paste0(pct_mapped_source, "%")
+              )
+            ),
+
+            # Card 2: Evaluated concepts
+            tags$div(
+              style = paste0(
+                "flex: 0 0 calc(50% - 10px); background: white; ",
+                "border-radius: 8px; padding: 20px; ",
+                "box-shadow: 0 2px 8px rgba(0,0,0,0.1); ",
+                "border-left: 4px solid #ffc107;"
+              ),
+              tags$div(
+                style = "font-size: 14px; color: #666; margin-bottom: 8px;",
+                "Evaluated Concepts"
+              ),
+              tags$div(
+                style = paste0(
+                  "font-size: 32px; font-weight: 700; color: #ffc107; ",
+                  "margin-bottom: 5px;"
+                ),
+                paste0(evaluated_count, " / ", mapped_source_concepts)
+              ),
+              tags$div(
+                style = "font-size: 18px; color: #999;",
+                paste0(pct_evaluated, "%")
+              )
+            ),
+
+            # Card 3: General concepts mapped
+            tags$div(
+              style = paste0(
+                "flex: 0 0 calc(50% - 10px); background: white; ",
+                "border-radius: 8px; padding: 20px; ",
+                "box-shadow: 0 2px 8px rgba(0,0,0,0.1); ",
+                "border-left: 4px solid #17a2b8;"
+              ),
+              tags$div(
+                style = "font-size: 14px; color: #666; margin-bottom: 8px;",
+                "General Concepts Mapped"
+              ),
+              tags$div(
+                style = paste0(
+                  "font-size: 32px; font-weight: 700; color: #17a2b8; ",
+                  "margin-bottom: 5px;"
+                ),
+                as.character(total_general_concepts)
+              ),
+              tags$div(
+                style = "font-size: 14px; color: #999; font-style: italic;",
+                "Unique general concepts used"
+              )
+            )
+          )
         )
-      )
-    })
+      })
+    }, ignoreInit = FALSE)
 
     # Old summary content - commented out
     output$summary_content_OLD <- renderUI({
