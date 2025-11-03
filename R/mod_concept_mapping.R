@@ -2838,12 +2838,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       timestamp <- format(Sys.time(), "%Y-%m-%d_%H-%M-%S")
       filename <- paste0(safe_name, "_source_to_concept_map_", timestamp, ".csv")
 
-      # Convert to CSV string
-      csv_lines <- c(
-        paste(colnames(export_data), collapse = ","),
-        apply(export_data, 1, function(row) paste(row, collapse = ","))
-      )
-      csv_content <- paste(csv_lines, collapse = "\n")
+      # Convert to CSV string using write.csv to properly handle commas and quotes
+      temp_csv <- tempfile(fileext = ".csv")
+      write.csv(export_data, temp_csv, row.names = FALSE, quote = TRUE, na = "")
+      csv_content <- paste(readLines(temp_csv, warn = FALSE), collapse = "\n")
+      unlink(temp_csv)
 
       # Create data URI for download
       csv_encoded <- base64enc::base64encode(charToRaw(csv_content))
