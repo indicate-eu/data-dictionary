@@ -2760,51 +2760,32 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Handle Add Mapping from general view
     observe_event(input$add_mapping_from_general, {
-      message("[DEBUG] Add Mapping clicked")
       # Get selected rows
       source_row <- input$source_concepts_table_rows_selected
-      message("[DEBUG] source_row: ", source_row)
 
       # Check if we're in detailed view (general concept already selected)
       if (!is.null(selected_general_concept_id())) {
-        message("[DEBUG] In detailed view, selected_general_concept_id: ", selected_general_concept_id())
         mapping_row <- input$concept_mappings_table_rows_selected
-        message("[DEBUG] mapping_row: ", mapping_row)
 
         # Validate selections
-        if (is.null(source_row) || is.null(mapping_row)) {
-          message("[DEBUG] Missing selection: source_row or mapping_row is NULL")
-          return()
-        }
+        if (is.null(source_row) || is.null(mapping_row)) return()
       } else {
-        message("[DEBUG] In general view")
         general_row <- input$general_concepts_table_rows_selected
-        message("[DEBUG] general_row: ", general_row)
 
         # Validate selections
-        if (is.null(source_row) || is.null(general_row)) {
-          message("[DEBUG] Missing selection: source_row or general_row is NULL")
-          return()
-        }
+        if (is.null(source_row) || is.null(general_row)) return()
       }
 
       # Get alignment info
-      if (is.null(selected_alignment_id())) {
-        message("[DEBUG] No alignment selected")
-        return()
-      }
+      if (is.null(selected_alignment_id())) return()
 
       alignments <- alignments_data()
       alignment <- alignments %>%
         dplyr::filter(alignment_id == selected_alignment_id())
 
-      if (nrow(alignment) != 1) {
-        message("[DEBUG] Alignment not found")
-        return()
-      }
+      if (nrow(alignment) != 1) return()
 
       file_id <- alignment$file_id[1]
-      message("[DEBUG] file_id: ", file_id)
 
       # Get app folder and construct path
       app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
@@ -2815,61 +2796,66 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
 
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
-      message("[DEBUG] csv_path: ", csv_path)
 
       # Read CSV
-      if (!file.exists(csv_path)) {
-        message("[DEBUG] CSV file does not exist")
-        return()
-      }
+      if (!file.exists(csv_path)) return()
 
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
-      message("[DEBUG] CSV loaded, rows: ", nrow(df))
 
       # Get general_concept_id and target_omop_concept_id
-      if (is.null(data())) {
-        message("[DEBUG] data() is NULL")
-        return()
-      }
+      if (is.null(data())) return()
 
       # Determine target based on view
       if (!is.null(selected_general_concept_id())) {
         # Detailed view: use selected general concept and selected mapping
         target_general_concept_id <- selected_general_concept_id()
-        message("[DEBUG] Using selected_general_concept_id: ", target_general_concept_id)
 
-        # Get the specific mapping selected in concept_mappings_table
-        concept_mappings_dict <- data()$concept_mappings %>%
+        # Get OMOP concepts for this general concept
+        concept_mappings_omop <- data()$concept_mappings %>%
           dplyr::filter(general_concept_id == target_general_concept_id)
 
-        if (nrow(concept_mappings_dict) < mapping_row) {
-          message("[DEBUG] mapping_row out of bounds")
-          return()
+        # Get custom concepts for this general concept
+        custom_concepts_path <- app_sys("extdata", "csv", "custom_concepts.csv")
+        custom_concepts_filtered <- data.frame()
+        if (file.exists(custom_concepts_path)) {
+          custom_concepts_all <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)
+          custom_concepts_filtered <- custom_concepts_all %>%
+            dplyr::filter(general_concept_id == target_general_concept_id)
         }
 
-        target_omop_concept_id <- concept_mappings_dict$omop_concept_id[mapping_row]
-        message("[DEBUG] Selected mapping omop_concept_id: ", target_omop_concept_id)
+        # Combine both (OMOP first, then custom)
+        total_omop <- nrow(concept_mappings_omop)
+        total_custom <- nrow(custom_concepts_filtered)
+        total_concepts <- total_omop + total_custom
+
+        if (mapping_row > total_concepts) return()
+
+        # Determine if selected row is OMOP or custom
+        if (mapping_row <= total_omop) {
+          # OMOP concept
+          target_omop_concept_id <- concept_mappings_omop$omop_concept_id[mapping_row]
+          target_custom_concept_id <- NA_integer_
+        } else {
+          # Custom concept
+          custom_row <- mapping_row - total_omop
+          target_omop_concept_id <- NA_integer_
+          target_custom_concept_id <- custom_concepts_filtered$custom_concept_id[custom_row]
+        }
       } else {
         # General view: use selected row from general_concepts_table
         general_concepts <- data()$general_concepts
         target_general_concept_id <- general_concepts$general_concept_id[general_row]
-        message("[DEBUG] Using general_row to get general_concept_id: ", target_general_concept_id)
 
-        if (is.na(target_general_concept_id)) {
-          message("[DEBUG] target_general_concept_id is NA")
-          return()
-        }
+        if (is.na(target_general_concept_id)) return()
 
         # Get first recommended OMOP concept mapping for this general concept (if available)
         concept_mappings_dict <- data()$concept_mappings %>%
           dplyr::filter(general_concept_id == target_general_concept_id, recommended == TRUE)
 
         target_omop_concept_id <- NA_integer_
+        target_custom_concept_id <- NA_integer_
         if (nrow(concept_mappings_dict) > 0) {
           target_omop_concept_id <- concept_mappings_dict$omop_concept_id[1]
-          message("[DEBUG] First recommended omop_concept_id: ", target_omop_concept_id)
-        } else {
-          message("[DEBUG] No recommended mapping found")
         }
       }
 
@@ -2904,7 +2890,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           params = list(
             target_general_concept_id,
             target_omop_concept_id,
-            NA_integer_,
+            target_custom_concept_id,
             user_id,
             mapping_datetime,
             csv_path,
@@ -2933,7 +2919,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             source_row,
             target_general_concept_id,
             target_omop_concept_id,
-            NA_integer_,
+            target_custom_concept_id,
             user_id,
             mapping_datetime
           )
@@ -2951,7 +2937,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Update the row
       df$target_general_concept_id[source_row] <- target_general_concept_id
       df$target_omop_concept_id[source_row] <- target_omop_concept_id
-      df$target_custom_concept_id[source_row] <- NA_integer_
+      df$target_custom_concept_id[source_row] <- target_custom_concept_id
       df$mapped_by_user_id[source_row] <- user_id
       df$mapping_datetime[source_row] <- mapping_datetime
       write.csv(df, csv_path, row.names = FALSE)
