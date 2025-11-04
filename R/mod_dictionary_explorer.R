@@ -134,7 +134,7 @@ mod_dictionary_explorer_ui <- function(id) {
               tags$div(
                 id = ns("general_concepts_container"),
                 class = "card-container card-container-flex",
-                style = "height: calc(100vh - 175px); overflow: auto; margin: 10px;",
+                style = "height: calc(100vh - 175px); overflow: auto; margin: 0 10px 10px 5px;",
 
                 # Loading message (visible by default)
                 tags$div(
@@ -390,6 +390,13 @@ mod_dictionary_explorer_ui <- function(id) {
         tags$div(
           class = "modal-body",
           style = "padding: 20px;",
+          tags$div(
+            id = ns("duplicate_concept_error"),
+            style = "display: none; background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 4px; margin-bottom: 20px; text-align: center; border: 1px solid #f5c6cb;",
+            tags$strong("Duplicate Concept"),
+            tags$br(),
+            tags$span(id = ns("duplicate_concept_error_text"), "")
+          ),
           tags$div(
             id = ns("general_concepts_new_name_group"),
             style = "margin-bottom: 20px;",
@@ -1420,26 +1427,30 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
           # Join with general concepts to get concept names
           history_display <- history %>%
-            left_join(
-              current_data()$general_concepts %>% select(general_concept_id, general_concept_name),
+            dplyr::left_join(
+              current_data()$general_concepts %>% dplyr::select(general_concept_id, general_concept_name),
               by = "general_concept_id"
             ) %>%
-            mutate(
-              general_concept_name = ifelse(is.na(general_concept_name), paste0("ID: ", general_concept_id), general_concept_name)
+            dplyr::mutate(
+              # Extract concept name from comment if not found in general_concepts table
+              general_concept_name = dplyr::case_when(
+                # If concept exists in table, use its name
+                !is.na(general_concept_name) ~ general_concept_name,
+                # For insert/delete, extract name from comment (format: "Created concept 'name'" or "Deleted concept 'name'")
+                action_type %in% c("insert", "delete") & grepl("concept '([^']+)'", comment) ~
+                  sub(".*concept '([^']+)'.*", "\\1", comment),
+                # Fallback to ID
+                TRUE ~ paste0("ID: ", general_concept_id)
+              )
             )
 
           # Prepare display data
           table_data <- history_display %>%
-            select(timestamp, username, action_type, general_concept_name, field_changed, old_value, new_value, comment) %>%
-            mutate(
+            dplyr::select(timestamp, username, action_type, general_concept_name, comment) %>%
+            dplyr::mutate(
               action_type = paste0(toupper(substr(action_type, 1, 1)), substr(action_type, 2, nchar(action_type))),
               username = factor(username),
               action_type = factor(action_type),
-              old_value = ifelse(is.na(old_value) | old_value == "NA", "/",
-                                 ifelse(nchar(old_value) > 50, paste0(substr(old_value, 1, 50), "..."), old_value)),
-              new_value = ifelse(is.na(new_value) | new_value == "NA", "/",
-                                 ifelse(nchar(new_value) > 50, paste0(substr(new_value, 1, 50), "..."), new_value)),
-              field_changed = ifelse(is.na(field_changed) | field_changed == "NA", "/", field_changed),
               comment = ifelse(is.na(comment) | comment == "NA", "/", comment)
             )
 
@@ -1448,7 +1459,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             selection = 'none',
             rownames = FALSE,
             filter = 'top',
-            colnames = c("Timestamp", "User", "Action", "Concept", "Field", "Old Value", "New Value", "Comment"),
+            colnames = c("Timestamp", "User", "Action", "Concept", "Comment"),
             options = list(
               pageLength = 20,
               lengthMenu = list(c(10, 20, 50, 100, -1), c('10', '20', '50', '100', 'All')),
@@ -1458,11 +1469,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 list(targets = 0, width = "140px"),
                 list(targets = 1, width = "120px"),
                 list(targets = 2, width = "80px"),
-                list(targets = 3, width = "200px"),
-                list(targets = 4, width = "100px"),
-                list(targets = 5, width = "150px"),
-                list(targets = 6, width = "150px"),
-                list(targets = 7, width = "150px")
+                list(targets = 3, width = "250px"),
+                list(targets = 4, width = "400px")
               )
             ),
             class = 'cell-border stripe hover'
@@ -1693,6 +1701,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       # Get current data
       general_concepts <- current_data()$general_concepts
+      original_data <- original_general_concepts()
 
       # Save general_concepts to CSV
       csv_path <- system.file("extdata", "csv", "general_concepts.csv", package = "indicate")
@@ -1704,6 +1713,51 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       if (file.exists(csv_path)) {
         readr::write_csv(general_concepts, csv_path)
+
+        # Log changes made during edit session
+        if (!is.null(original_data)) {
+          user <- current_user()
+          if (!is.null(user) && !is.null(user$first_name) && !is.null(user$last_name)) {
+            username <- paste(user$first_name, user$last_name)
+
+            # Compare original and current data to find changes
+            for (i in 1:nrow(general_concepts)) {
+              concept_id <- general_concepts$general_concept_id[i]
+              original_row <- original_data[original_data$general_concept_id == concept_id, ]
+
+              if (nrow(original_row) > 0) {
+                # Check each field for changes
+                if (!identical(general_concepts$category[i], original_row$category[1])) {
+                  log_general_concept_change(
+                    username = username,
+                    action_type = "update",
+                    general_concept_id = concept_id,
+                    comment = sprintf("Updated category from '%s' to '%s'",
+                                    original_row$category[1], general_concepts$category[i])
+                  )
+                }
+                if (!identical(general_concepts$subcategory[i], original_row$subcategory[1])) {
+                  log_general_concept_change(
+                    username = username,
+                    action_type = "update",
+                    general_concept_id = concept_id,
+                    comment = sprintf("Updated subcategory from '%s' to '%s'",
+                                    original_row$subcategory[1], general_concepts$subcategory[i])
+                  )
+                }
+                if (!identical(general_concepts$general_concept_name[i], original_row$general_concept_name[1])) {
+                  log_general_concept_change(
+                    username = username,
+                    action_type = "update",
+                    general_concept_id = concept_id,
+                    comment = sprintf("Updated general_concept_name from '%s' to '%s'",
+                                    original_row$general_concept_name[1], general_concepts$general_concept_name[i])
+                  )
+                }
+              }
+            }
+          }
+        }
       }
 
       general_concepts_edit_mode(FALSE)
@@ -1739,6 +1793,15 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     observe_event(input$general_concepts_table_cell_edit, {
       if (!general_concepts_edit_mode()) return()
 
+      # Save current table state before any changes
+      if (!is.null(input$general_concepts_table_state)) {
+        current_page <- input$general_concepts_table_state$start / input$general_concepts_table_state$length + 1
+        saved_table_page(current_page)
+      }
+      if (!is.null(input$general_concepts_table_search_columns)) {
+        saved_table_search(input$general_concepts_table_search_columns)
+      }
+
       info <- input$general_concepts_table_cell_edit
 
       # Get current data
@@ -1749,7 +1812,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       col_num <- info$col + 1  # DT uses 0-based indexing for columns, add 1 for R
       new_value <- info$value
 
-      # Map column number to actual column name
+      # Get concept ID for reference
+      concept_id <- general_concepts[row_num, "general_concept_id"]
+
+      # Map column number to actual column name and update value
       # Columns: general_concept_id (1), category (2), subcategory (3), general_concept_name (4)
       if (col_num == 2) {
         # Category column
@@ -1759,13 +1825,84 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         general_concepts[row_num, "subcategory"] <- new_value
       } else if (col_num == 4) {
         # General concept name column
+        # Check for duplicates
+        category <- general_concepts[row_num, "category"]
+        subcategory <- general_concepts[row_num, "subcategory"]
+
+        duplicate_exists <- general_concepts %>%
+          dplyr::filter(
+            general_concept_id != concept_id,  # Exclude current row
+            category == !!category,
+            subcategory == !!subcategory,
+            general_concept_name == trimws(new_value)
+          ) %>%
+          nrow() > 0
+
+        if (duplicate_exists) {
+          # Show error message - concept already exists
+          showNotification(
+            sprintf("A concept named '%s' already exists in category '%s' > '%s'.",
+                   trimws(new_value), category, subcategory),
+            type = "error",
+            duration = 5
+          )
+
+          # Don't update the value - keep general_concepts as is (from current_data)
+          # Update local_data to trigger table re-render without the change
+          data <- local_data()
+          data$general_concepts <- general_concepts  # This still has the old value
+          local_data(data)
+
+          # Wait for datatable to re-render, then restore state
+          shinyjs::delay(100, {
+            proxy <- DT::dataTableProxy("general_concepts_table", session = session)
+
+            # Restore column filters
+            search_columns <- saved_table_search()
+            if (!is.null(search_columns)) {
+              DT::updateSearch(proxy, keywords = list(
+                global = NULL,
+                columns = search_columns
+              ))
+            }
+
+            # Restore page position
+            page_num <- saved_table_page()
+            if (!is.null(page_num) && page_num > 0) {
+              DT::selectPage(proxy, page_num)
+            }
+          })
+
+          return()
+        }
+
         general_concepts[row_num, "general_concept_name"] <- new_value
       }
 
-      # Update local data
+      # Update local data (logging will happen on save)
       data <- local_data()
       data$general_concepts <- general_concepts
       local_data(data)
+
+      # Wait for datatable to re-render, then restore state
+      shinyjs::delay(100, {
+        proxy <- DT::dataTableProxy("general_concepts_table", session = session)
+
+        # Restore column filters
+        search_columns <- saved_table_search()
+        if (!is.null(search_columns)) {
+          DT::updateSearch(proxy, keywords = list(
+            global = NULL,
+            columns = search_columns
+          ))
+        }
+
+        # Restore page position
+        page_num <- saved_table_page()
+        if (!is.null(page_num) && page_num > 0) {
+          DT::selectPage(proxy, page_num)
+        }
+      })
     })
 
     ### Delete Concept ----
@@ -1786,6 +1923,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       concept_id <- input$delete_general_concept
       if (!is.null(concept_id)) {
+        # Get concept info before deletion for logging
+        concept_info <- current_data()$general_concepts %>%
+          dplyr::filter(general_concept_id == as.integer(concept_id))
+
         # Remove from general_concepts
         general_concepts <- current_data()$general_concepts %>%
           dplyr::filter(general_concept_id != as.integer(concept_id))
@@ -1793,6 +1934,23 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         # Also remove associated mappings
         concept_mappings <- current_data()$concept_mappings %>%
           dplyr::filter(general_concept_id != as.integer(concept_id))
+
+        # Log the deletion
+        if (nrow(concept_info) > 0) {
+          user <- current_user()
+          if (!is.null(user) && !is.null(user$first_name) && !is.null(user$last_name)) {
+            username <- paste(user$first_name, user$last_name)
+            log_general_concept_change(
+              username = username,
+              action_type = "delete",
+              general_concept_id = as.integer(concept_id),
+              comment = sprintf("Deleted concept '%s' from category '%s' > '%s'",
+                              concept_info$general_concept_name[1],
+                              concept_info$category[1],
+                              concept_info$subcategory[1])
+            )
+          }
+        }
 
         # Update local data
         data <- local_data()
@@ -1838,6 +1996,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       updateSelectizeInput(session, "general_concepts_new_category", choices = categories, selected = character(0))
       updateSelectizeInput(session, "general_concepts_new_subcategory", choices = character(0), selected = character(0))
+
+      # Hide error message
+      shinyjs::hide("duplicate_concept_error")
 
       # Show the custom modal
       shinyjs::show("general_concepts_add_modal")
@@ -1938,6 +2099,27 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Get current data
       general_concepts <- current_data()$general_concepts
 
+      # Check if concept already exists (same category, subcategory, and name)
+      duplicate_exists <- general_concepts %>%
+        dplyr::filter(
+          category == trimws(category),
+          subcategory == trimws(subcategory),
+          general_concept_name == trimws(concept_name)
+        ) %>%
+        nrow() > 0
+
+      if (duplicate_exists) {
+        # Show error message in modal
+        error_text <- sprintf("A concept named '%s' already exists in category '%s' > '%s'. Please choose a different name or category.",
+                             trimws(concept_name), trimws(category), trimws(subcategory))
+        shinyjs::html("duplicate_concept_error_text", error_text)
+        shinyjs::show("duplicate_concept_error")
+        return()
+      }
+
+      # Hide error message if validation passes
+      shinyjs::hide("duplicate_concept_error")
+
       # Generate new ID (max + 1)
       new_id <- max(general_concepts$general_concept_id, na.rm = TRUE) + 1
 
@@ -1972,6 +2154,19 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       if (file.exists(csv_path)) {
         readr::write_csv(general_concepts, csv_path)
+
+        # Log the insertion
+        user <- current_user()
+        if (!is.null(user) && !is.null(user$first_name) && !is.null(user$last_name)) {
+          username <- paste(user$first_name, user$last_name)
+          log_general_concept_change(
+            username = username,
+            action_type = "insert",
+            general_concept_id = new_id,
+            comment = sprintf("Created concept '%s' in category '%s' > '%s'",
+                            trimws(concept_name), trimws(category), trimws(subcategory))
+          )
+        }
 
         # Update local data
         data <- local_data()

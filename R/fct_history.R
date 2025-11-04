@@ -11,10 +11,7 @@
 #' @param username String with user's first and last name (e.g., "Boris Delange")
 #' @param action_type Character: "insert", "update", or "delete"
 #' @param general_concept_id Integer: ID of the general concept
-#' @param field_changed Character: Name of the changed field (NA for insert/delete)
-#' @param old_value Character: Previous value (NA for insert)
-#' @param new_value Character: New value (NA for delete)
-#' @param comment Character: Optional comment describing the change
+#' @param comment Character: Description of the change
 #'
 #' @return Invisible TRUE on success
 #'
@@ -24,9 +21,6 @@ log_general_concept_change <- function(
   username,
   action_type,
   general_concept_id,
-  field_changed = NA_character_,
-  old_value = NA_character_,
-  new_value = NA_character_,
   comment = NA_character_
 ) {
   history_file <- system.file("extdata/csv/general_concepts_history.csv", package = "indicatedatadictionary")
@@ -46,9 +40,6 @@ log_general_concept_change <- function(
         username = col_character(),
         action_type = col_character(),
         general_concept_id = col_integer(),
-        field_changed = col_character(),
-        old_value = col_character(),
-        new_value = col_character(),
         comment = col_character()
       ),
       show_col_types = FALSE
@@ -60,9 +51,6 @@ log_general_concept_change <- function(
       username = character(),
       action_type = character(),
       general_concept_id = integer(),
-      field_changed = character(),
-      old_value = character(),
-      new_value = character(),
       comment = character(),
       stringsAsFactors = FALSE
     )
@@ -78,9 +66,6 @@ log_general_concept_change <- function(
     username = as.character(username),
     action_type = as.character(action_type),
     general_concept_id = as.integer(general_concept_id),
-    field_changed = as.character(field_changed),
-    old_value = as.character(old_value),
-    new_value = as.character(new_value),
     comment = as.character(comment),
     stringsAsFactors = FALSE
   )
@@ -99,10 +84,7 @@ log_general_concept_change <- function(
 #' @param username String with user's first and last name (e.g., "Boris Delange")
 #' @param action_type Character: "insert", "update", or "delete"
 #' @param mapping_id Integer: ID of the concept mapping
-#' @param field_changed Character: Name of the changed field (NA for insert/delete)
-#' @param old_value Character: Previous value (NA for insert)
-#' @param new_value Character: New value (NA for delete)
-#' @param comment Character: Optional comment describing the change
+#' @param comment Character: Description of the change
 #'
 #' @return Invisible TRUE on success
 #'
@@ -112,9 +94,6 @@ log_concept_mapping_change <- function(
   username,
   action_type,
   mapping_id,
-  field_changed = NA_character_,
-  old_value = NA_character_,
-  new_value = NA_character_,
   comment = NA_character_
 ) {
   history_file <- system.file("extdata/csv/concept_mappings_history.csv", package = "indicatedatadictionary")
@@ -134,9 +113,6 @@ log_concept_mapping_change <- function(
         username = col_character(),
         action_type = col_character(),
         mapping_id = col_integer(),
-        field_changed = col_character(),
-        old_value = col_character(),
-        new_value = col_character(),
         comment = col_character()
       ),
       show_col_types = FALSE
@@ -148,9 +124,6 @@ log_concept_mapping_change <- function(
       username = character(),
       action_type = character(),
       mapping_id = integer(),
-      field_changed = character(),
-      old_value = character(),
-      new_value = character(),
       comment = character(),
       stringsAsFactors = FALSE
     )
@@ -166,9 +139,6 @@ log_concept_mapping_change <- function(
     username = as.character(username),
     action_type = as.character(action_type),
     mapping_id = as.integer(mapping_id),
-    field_changed = as.character(field_changed),
-    old_value = as.character(old_value),
-    new_value = as.character(new_value),
     comment = as.character(comment),
     stringsAsFactors = FALSE
   )
@@ -205,9 +175,6 @@ get_general_concept_history <- function(general_concept_id = NULL) {
       username = character(),
       action_type = character(),
       general_concept_id = integer(),
-      field_changed = character(),
-      old_value = character(),
-      new_value = character(),
       comment = character(),
       stringsAsFactors = FALSE
     ))
@@ -221,9 +188,6 @@ get_general_concept_history <- function(general_concept_id = NULL) {
       username = col_character(),
       action_type = col_character(),
       general_concept_id = col_integer(),
-      field_changed = col_character(),
-      old_value = col_character(),
-      new_value = col_character(),
       comment = col_character()
     ),
     show_col_types = FALSE
@@ -265,9 +229,6 @@ get_concept_mapping_history <- function(mapping_id = NULL) {
       username = character(),
       action_type = character(),
       mapping_id = integer(),
-      field_changed = character(),
-      old_value = character(),
-      new_value = character(),
       comment = character(),
       stringsAsFactors = FALSE
     ))
@@ -281,9 +242,6 @@ get_concept_mapping_history <- function(mapping_id = NULL) {
       username = col_character(),
       action_type = col_character(),
       mapping_id = col_integer(),
-      field_changed = col_character(),
-      old_value = col_character(),
-      new_value = col_character(),
       comment = col_character()
     ),
     show_col_types = FALSE
