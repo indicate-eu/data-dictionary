@@ -72,7 +72,7 @@ mod_dictionary_explorer_ui <- function(id) {
     div(class = "main-panel",
         div(class = "main-content",
             tags$div(
-              style = "display: flex; justify-content: space-between; align-items: center; padding: 10px 0 15px 0;",
+              style = "display: flex; justify-content: space-between; align-items: center; margin: 0 10px;",
               # Breadcrumb navigation
               uiOutput(ns("breadcrumb")),
 
@@ -1330,10 +1330,18 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       if (view == "list_history") {
         output$general_concepts_history_ui <- renderUI({
           tags$div(
-            style = "height: calc(100vh - 175px); overflow: auto; padding: 20px; margin: 10px;",
+            class = "card-container card-container-flex",
+            style = "height: calc(100vh - 180px); overflow: auto; padding: 20px; margin: 10px;",
+
             tags$div(
-              style = "padding: 20px; background: #f8f9fa; border-radius: 8px; text-align: center; color: #666;",
-              tags$p("History view for all general concepts will be implemented here.")
+              class = "table-container",
+              style = "height: calc(100vh - 220px);",
+              shinycssloaders::withSpinner(
+                DT::DTOutput(ns("general_concepts_history_table")),
+                type = 4,
+                color = "#0f60af",
+                size = 0.5
+              )
             )
           )
         })
@@ -1392,6 +1400,85 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     observe_event(input$switch_comments_tab, {
       comments_tab(input$switch_comments_tab)
     })
+
+    ### History Tables Rendering ----
+    # Render general concepts history table (all concepts)
+    observe_event(current_view(), {
+      if (current_view() == "list_history") {
+        output$general_concepts_history_table <- DT::renderDT({
+
+          # Load history data
+          history <- get_general_concept_history()
+
+          if (nrow(history) == 0) {
+            return(DT::datatable(
+              data.frame(Message = "No history available"),
+              options = list(dom = 't'),
+              rownames = FALSE
+            ))
+          }
+
+          # Join with general concepts to get concept names
+          history_display <- history %>%
+            left_join(
+              current_data()$general_concepts %>% select(general_concept_id, general_concept_name),
+              by = "general_concept_id"
+            ) %>%
+            mutate(
+              general_concept_name = ifelse(is.na(general_concept_name), paste0("ID: ", general_concept_id), general_concept_name)
+            )
+
+          # Prepare display data
+          table_data <- history_display %>%
+            select(timestamp, username, action_type, general_concept_name, field_changed, old_value, new_value, comment) %>%
+            mutate(
+              action_type = paste0(toupper(substr(action_type, 1, 1)), substr(action_type, 2, nchar(action_type))),
+              username = factor(username),
+              action_type = factor(action_type),
+              old_value = ifelse(is.na(old_value) | old_value == "NA", "/",
+                                 ifelse(nchar(old_value) > 50, paste0(substr(old_value, 1, 50), "..."), old_value)),
+              new_value = ifelse(is.na(new_value) | new_value == "NA", "/",
+                                 ifelse(nchar(new_value) > 50, paste0(substr(new_value, 1, 50), "..."), new_value)),
+              field_changed = ifelse(is.na(field_changed) | field_changed == "NA", "/", field_changed),
+              comment = ifelse(is.na(comment) | comment == "NA", "/", comment)
+            )
+
+          DT::datatable(
+            table_data,
+            selection = 'none',
+            rownames = FALSE,
+            filter = 'top',
+            colnames = c("Timestamp", "User", "Action", "Concept", "Field", "Old Value", "New Value", "Comment"),
+            options = list(
+              pageLength = 20,
+              lengthMenu = list(c(10, 20, 50, 100, -1), c('10', '20', '50', '100', 'All')),
+              dom = 'ltip',
+              order = list(list(0, 'desc')),
+              columnDefs = list(
+                list(targets = 0, width = "140px"),
+                list(targets = 1, width = "120px"),
+                list(targets = 2, width = "80px"),
+                list(targets = 3, width = "200px"),
+                list(targets = 4, width = "100px"),
+                list(targets = 5, width = "150px"),
+                list(targets = 6, width = "150px"),
+                list(targets = 7, width = "150px")
+              )
+            ),
+            class = 'cell-border stripe hover'
+          ) %>%
+            DT::formatStyle(
+              'action_type',
+              backgroundColor = DT::styleEqual(
+                c('Insert', 'Update', 'Delete'),
+                c('#d4edda', '#fff3cd', '#f8d7da')
+              ),
+              fontWeight = 'bold'
+            )
+        })
+      }
+    }, ignoreInit = FALSE)
+
 
     ## 3) Server - General Concepts Page ----
     ### General Concepts Table Rendering ----
