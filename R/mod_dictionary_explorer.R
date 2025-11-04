@@ -1602,57 +1602,24 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Save current state for cancel functionality
       original_general_concepts(current_data()$general_concepts)
 
-      # Save current page number
-      if (!is.null(input$general_concepts_table_state)) {
-        current_page <- input$general_concepts_table_state$start / input$general_concepts_table_state$length + 1
-        saved_table_page(current_page)
-      }
-
-      # Save column search filters
-      if (!is.null(input$general_concepts_table_search_columns)) {
-        saved_table_search(input$general_concepts_table_search_columns)
-      }
+      # Save datatable state
+      save_datatable_state(input, "general_concepts_table", saved_table_page, saved_table_search)
 
       general_concepts_edit_mode(TRUE)
 
       # Update button visibility will be triggered automatically by general_concepts_edit_mode() change
       update_button_visibility()
 
-      # Wait for datatable to re-render, then restore state
-      shinyjs::delay(100, {
-        if (!general_concepts_edit_mode()) return()
-
-        proxy <- DT::dataTableProxy("general_concepts_table", session = session)
-
-        # Restore column filters
-        search_columns <- saved_table_search()
-        if (!is.null(search_columns)) {
-          DT::updateSearch(proxy, keywords = list(
-            global = NULL,
-            columns = search_columns
-          ))
-        }
-
-        # Restore page position
-        page_num <- saved_table_page()
-        if (!is.null(page_num) && page_num > 0) {
-          DT::selectPage(proxy, page_num)
-        }
-      })
+      # Restore datatable state after re-render
+      restore_datatable_state("general_concepts_table", saved_table_page, saved_table_search, session)
     })
 
     # Handle list cancel button
     observe_event(input$general_concepts_cancel_edit, {
-      # Save current filters and page before exiting edit mode
-      if (!is.null(input$general_concepts_table_search_columns)) {
-        saved_table_search(input$general_concepts_table_search_columns)
-      }
-      if (!is.null(input$general_concepts_table_state)) {
-        current_page <- input$general_concepts_table_state$start / input$general_concepts_table_state$length + 1
-        saved_table_page(current_page)
-      }
+      # Save datatable state before exiting edit mode
+      save_datatable_state(input, "general_concepts_table", saved_table_page, saved_table_search)
 
-      # Restore original state
+      # Restore original data
       if (!is.null(original_general_concepts())) {
         data <- local_data()
         data$general_concepts <- original_general_concepts()
@@ -1664,40 +1631,15 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Update button visibility
       update_button_visibility()
 
-      # Wait for datatable to re-render, then restore state
-      shinyjs::delay(100, {
-        if (general_concepts_edit_mode()) return()
-
-        proxy <- DT::dataTableProxy("general_concepts_table", session = session)
-
-        # Restore column filters
-        search_columns <- saved_table_search()
-        if (!is.null(search_columns)) {
-          DT::updateSearch(proxy, keywords = list(
-            global = NULL,
-            columns = search_columns
-          ))
-        }
-
-        # Restore page position
-        page_num <- saved_table_page()
-        if (!is.null(page_num) && page_num > 0) {
-          DT::selectPage(proxy, page_num)
-        }
-      })
+      # Restore datatable state after re-render
+      restore_datatable_state("general_concepts_table", saved_table_page, saved_table_search, session)
     })
     
     observe_event(input$general_concepts_save_updates, {
       if (!general_concepts_edit_mode()) return()
 
-      # Save current filters and page before exiting edit mode
-      if (!is.null(input$general_concepts_table_search_columns)) {
-        saved_table_search(input$general_concepts_table_search_columns)
-      }
-      if (!is.null(input$general_concepts_table_state)) {
-        current_page <- input$general_concepts_table_state$start / input$general_concepts_table_state$length + 1
-        saved_table_page(current_page)
-      }
+      # Save datatable state before exiting edit mode
+      save_datatable_state(input, "general_concepts_table", saved_table_page, saved_table_search)
 
       # Get current data
       general_concepts <- current_data()$general_concepts
@@ -1766,41 +1708,16 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Update button visibility
       update_button_visibility()
 
-      # Wait for datatable to re-render, then restore state
-      shinyjs::delay(100, {
-        if (general_concepts_edit_mode()) return()
-
-        proxy <- DT::dataTableProxy("general_concepts_table", session = session)
-
-        # Restore column filters
-        search_columns <- saved_table_search()
-        if (!is.null(search_columns)) {
-          DT::updateSearch(proxy, keywords = list(
-            global = NULL,
-            columns = search_columns
-          ))
-        }
-
-        # Restore page position
-        page_num <- saved_table_page()
-        if (!is.null(page_num) && page_num > 0) {
-          DT::selectPage(proxy, page_num)
-        }
-      })
+      # Restore datatable state after re-render
+      restore_datatable_state("general_concepts_table", saved_table_page, saved_table_search, session)
     })
 
     # Handle cell edits in general concepts table
     observe_event(input$general_concepts_table_cell_edit, {
       if (!general_concepts_edit_mode()) return()
 
-      # Save current table state before any changes
-      if (!is.null(input$general_concepts_table_state)) {
-        current_page <- input$general_concepts_table_state$start / input$general_concepts_table_state$length + 1
-        saved_table_page(current_page)
-      }
-      if (!is.null(input$general_concepts_table_search_columns)) {
-        saved_table_search(input$general_concepts_table_search_columns)
-      }
+      # Save datatable state before any changes
+      save_datatable_state(input, "general_concepts_table", saved_table_page, saved_table_search)
 
       info <- input$general_concepts_table_cell_edit
 
@@ -1853,25 +1770,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           data$general_concepts <- general_concepts  # This still has the old value
           local_data(data)
 
-          # Wait for datatable to re-render, then restore state
-          shinyjs::delay(100, {
-            proxy <- DT::dataTableProxy("general_concepts_table", session = session)
-
-            # Restore column filters
-            search_columns <- saved_table_search()
-            if (!is.null(search_columns)) {
-              DT::updateSearch(proxy, keywords = list(
-                global = NULL,
-                columns = search_columns
-              ))
-            }
-
-            # Restore page position
-            page_num <- saved_table_page()
-            if (!is.null(page_num) && page_num > 0) {
-              DT::selectPage(proxy, page_num)
-            }
-          })
+          # Restore datatable state after re-render
+          restore_datatable_state("general_concepts_table", saved_table_page, saved_table_search, session)
 
           return()
         }
@@ -1884,25 +1784,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       data$general_concepts <- general_concepts
       local_data(data)
 
-      # Wait for datatable to re-render, then restore state
-      shinyjs::delay(100, {
-        proxy <- DT::dataTableProxy("general_concepts_table", session = session)
-
-        # Restore column filters
-        search_columns <- saved_table_search()
-        if (!is.null(search_columns)) {
-          DT::updateSearch(proxy, keywords = list(
-            global = NULL,
-            columns = search_columns
-          ))
-        }
-
-        # Restore page position
-        page_num <- saved_table_page()
-        if (!is.null(page_num) && page_num > 0) {
-          DT::selectPage(proxy, page_num)
-        }
-      })
+      # Restore datatable state after re-render
+      restore_datatable_state("general_concepts_table", saved_table_page, saved_table_search, session)
     })
 
     ### Delete Concept ----
@@ -1910,16 +1793,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     observe_event(input$delete_general_concept, {
       if (!general_concepts_edit_mode()) return()
 
-      # Save current page number and search filters before deletion
-      if (!is.null(input$general_concepts_table_state)) {
-        current_page <- input$general_concepts_table_state$start / input$general_concepts_table_state$length + 1
-        saved_table_page(current_page)
-      }
-
-      # Save column search filters
-      if (!is.null(input$general_concepts_table_search_columns)) {
-        saved_table_search(input$general_concepts_table_search_columns)
-      }
+      # Save datatable state before deletion
+      save_datatable_state(input, "general_concepts_table", saved_table_page, saved_table_search)
 
       concept_id <- input$delete_general_concept
       if (!is.null(concept_id)) {
@@ -1958,32 +1833,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         data$concept_mappings <- concept_mappings
         local_data(data)
 
-        # Wait for datatable to re-render, then restore state
-        shinyjs::delay(100, {
-          proxy <- DT::dataTableProxy("general_concepts_table", session = session)
-
-          # Restore column filters
-          search_columns <- saved_table_search()
-          if (!is.null(search_columns)) {
-            DT::updateSearch(proxy, keywords = list(
-              global = NULL,
-              columns = search_columns
-            ))
-          }
-
-          # Restore page position
-          page_num <- saved_table_page()
-          if (!is.null(page_num) && page_num > 0) {
-            # Check if page still exists after deletion
-            total_rows <- nrow(general_concepts)
-            page_length <- 25  # Default page length
-            max_page <- ceiling(total_rows / page_length)
-
-            # If current page no longer exists, go to last page
-            target_page <- min(page_num, max_page)
-            DT::selectPage(proxy, target_page)
-          }
-        })
+        # Restore datatable state after re-render
+        restore_datatable_state("general_concepts_table", saved_table_page, saved_table_search, session)
       }
     })
 
