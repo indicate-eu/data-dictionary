@@ -2245,7 +2245,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
     
     ### a) Mapped Concepts (Top-Left Panel) ----
-    #### Mapped Concepts Table Rendering ----
+    ##### Mapped Concepts Table Rendering ----
     # Render concept mappings table when concept_mappings_table trigger fires (cascade observer)
     observe_event(concept_mappings_table_trigger(), {
       concept_id <- selected_concept_id()
@@ -2523,7 +2523,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
     }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
-    #### Add Mapping to Selected Concept ----
+    ##### Add Mapping to Selected Concept ----
 
     # Observer to handle modal opening and force DataTable render
     observe_event(input$modal_opened, {
@@ -2913,7 +2913,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     }, ignoreInit = TRUE)
     
     ### b) Selected Mapping Details (Top-Right Panel) ----
-    #### Selected Mapping Display ----
+    ##### Selected Mapping Display ----
     # Render selected mapping details when selected_mapping_details trigger fires (cascade observer)
     observe_event(selected_mapping_details_trigger(), {
       omop_concept_id <- selected_mapped_concept_id()
@@ -3217,7 +3217,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     }, ignoreInit = TRUE)
     
     ### c) ETL Guidance & Comments (Bottom-Left Panel) ----
-    #### Comments & Statistical Summary Display ----
+    ##### Comments & Statistical Summary Display ----
     # Render comments or statistical summary based on active tab
     observe_event(comments_display_trigger(), {
       concept_id <- selected_concept_id()
@@ -3467,7 +3467,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     }, ignoreInit = TRUE)
 
     ### d) Concept Relationships & Hierarchy (Bottom-Right Panel) ----
-    #### Tab Switching ----
+    ##### Tab Switching ----
     # Render concept relationships and update button styling when tab changes
     observe_event(relationships_tab(), {
       active_tab <- relationships_tab()
@@ -3506,7 +3506,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       })
     }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
-    #### Relationship Tab Outputs ----
+    ##### Relationship Tab Outputs ----
     # Render all relationship tab outputs when relationship_tab_outputs trigger fires (cascade observer)
     observe_event(relationship_tab_outputs_trigger(), {
       omop_concept_id <- selected_mapped_concept_id()
@@ -3892,7 +3892,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
     }, ignoreInit = TRUE)
 
-    #### Hierarchy Graph Fullscreen Modal ----
+    ##### Hierarchy Graph Fullscreen Modal ----
     # Observe view graph button click
     observe_event(input$view_hierarchy_graph, {
       omop_concept_id <- selected_mapped_concept_id()
@@ -3977,7 +3977,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       })
     })
     
-    #### Concept Details Modal (Double-click on Related/Hierarchy) ----
+    ##### Concept Details Modal (Double-click on Related/Hierarchy) ----
     # Render concept modal body when concept is selected
     observe_event(input$modal_concept_id, {
       concept_id <- input$modal_concept_id
