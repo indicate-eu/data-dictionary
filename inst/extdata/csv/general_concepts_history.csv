@@ -330,3 +330,5 @@ history_id,timestamp,username,action_type,general_concept_id,comment
 329,2025-11-03 14:00:00,Boris Delange,insert,331,Initial creation
 330,2025-11-03 14:00:00,Boris Delange,insert,332,Initial creation
 331,2025-11-03 14:00:00,Boris Delange,insert,333,Initial creation
+332,2025-11-05 16:30:36,Admin User,insert,336,Created concept 'test' in category 'Condition' > 'APACHE IV - Chronic health conditions'
+333,2025-11-05 16:30:45,Admin User,delete,336,Deleted concept 'test' from category 'Condition' > 'APACHE IV - Chronic health conditions'
