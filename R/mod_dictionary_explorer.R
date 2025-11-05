@@ -862,6 +862,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     deleted_concepts <- reactiveVal(list())  # Store deleted concept IDs by general_concept_id
     original_general_concepts <- reactiveVal(NULL)  # Store original state for cancel in list edit mode
     add_modal_selected_concept <- reactiveVal(NULL)  # Store selected concept in add modal
+    newly_added_concept_id <- reactiveVal(NULL)  # Track newly added concept ID for navigation
 
     ### Data Management ----
     local_data <- reactiveVal(NULL)  # Local copy of data that can be updated
@@ -1806,9 +1807,13 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         general_concepts <- current_data()$general_concepts %>%
           dplyr::filter(general_concept_id != as.integer(concept_id))
 
-        # Also remove associated mappings
+        # Remove associated mappings (cascade delete)
         concept_mappings <- current_data()$concept_mappings %>%
           dplyr::filter(general_concept_id != as.integer(concept_id))
+
+        # Remove associated custom concepts (cascade delete)
+        custom_concepts <- current_data()$custom_concepts %>%
+          dplyr::filter(is.na(general_concept_id) | general_concept_id != as.integer(concept_id))
 
         # Log the deletion
         if (nrow(concept_info) > 0) {
@@ -1827,10 +1832,37 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           }
         }
 
+        # Save updated data to CSV files
+        csv_path_concepts <- system.file("extdata", "csv", "general_concepts.csv", package = "indicate")
+        if (!file.exists(csv_path_concepts) || csv_path_concepts == "") {
+          csv_path_concepts <- file.path("inst", "extdata", "csv", "general_concepts.csv")
+        }
+        if (file.exists(csv_path_concepts)) {
+          general_concepts_sorted <- general_concepts %>% dplyr::arrange(general_concept_id)
+          readr::write_csv(general_concepts_sorted, csv_path_concepts)
+        }
+
+        csv_path_mappings <- system.file("extdata", "csv", "concept_mappings.csv", package = "indicate")
+        if (!file.exists(csv_path_mappings) || csv_path_mappings == "") {
+          csv_path_mappings <- file.path("inst", "extdata", "csv", "concept_mappings.csv")
+        }
+        if (file.exists(csv_path_mappings)) {
+          readr::write_csv(concept_mappings, csv_path_mappings)
+        }
+
+        csv_path_custom <- system.file("extdata", "csv", "custom_concepts.csv", package = "indicate")
+        if (!file.exists(csv_path_custom) || csv_path_custom == "") {
+          csv_path_custom <- file.path("inst", "extdata", "csv", "custom_concepts.csv")
+        }
+        if (file.exists(csv_path_custom)) {
+          readr::write_csv(custom_concepts, csv_path_custom)
+        }
+
         # Update local data
         data <- local_data()
         data$general_concepts <- general_concepts
         data$concept_mappings <- concept_mappings
+        data$custom_concepts <- custom_concepts
         local_data(data)
 
         # Restore datatable state after re-render
@@ -1882,6 +1914,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
     # Handle add new concept
     observe_event(input$general_concepts_add_new, {
+      # Save datatable state before adding concept
+      save_datatable_state(input, "general_concepts_table", saved_table_page, saved_table_search)
+
       # Determine which category/subcategory field is active
       category <- if (!is.null(input$general_concepts_new_category_text) && nchar(trimws(input$general_concepts_new_category_text)) > 0) {
         input$general_concepts_new_category_text
@@ -1985,26 +2020,28 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         stringsAsFactors = FALSE
       )
 
-      # Add to general_concepts and sort alphabetically
-      general_concepts <- rbind(general_concepts, new_row) %>%
+      # Add to general_concepts and sort alphabetically for display
+      general_concepts_display <- rbind(general_concepts, new_row) %>%
         dplyr::arrange(category, subcategory, general_concept_name)
 
       # Find the row index of the newly added concept after sorting
       new_concept_row_index <- which(
-        general_concepts$general_concept_id == new_id &
-        general_concepts$category == trimws(category) &
-        general_concepts$subcategory == trimws(subcategory) &
-        general_concepts$general_concept_name == trimws(concept_name)
+        general_concepts_display$general_concept_id == new_id &
+        general_concepts_display$category == trimws(category) &
+        general_concepts_display$subcategory == trimws(subcategory) &
+        general_concepts_display$general_concept_name == trimws(concept_name)
       )[1]
 
-      # Save to CSV
+      # Save to CSV sorted by ID (for easier version control)
       csv_path <- system.file("extdata", "csv", "general_concepts.csv", package = "indicate")
       if (!file.exists(csv_path) || csv_path == "") {
         csv_path <- file.path("inst", "extdata", "csv", "general_concepts.csv")
       }
 
       if (file.exists(csv_path)) {
-        readr::write_csv(general_concepts, csv_path)
+        general_concepts_to_save <- general_concepts_display %>%
+          dplyr::arrange(general_concept_id)
+        readr::write_csv(general_concepts_to_save, csv_path)
 
         # Log the insertion
         user <- current_user()
@@ -2019,9 +2056,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           )
         }
 
-        # Update local data
+        # Update local data (this triggers table re-render via local_data_trigger)
         data <- local_data()
-        data$general_concepts <- general_concepts
+        data$general_concepts <- general_concepts_display
         local_data(data)
 
         # Close modal and reset fields
@@ -2034,16 +2071,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         updateSelectizeInput(session, "general_concepts_new_category", selected = character(0))
         updateSelectizeInput(session, "general_concepts_new_subcategory", selected = character(0))
 
-        # Calculate which page the new concept is on (1-indexed for DT::selectPage)
-        page_length <- 25  # Default page length from datatable
-        target_page <- ceiling(new_concept_row_index / page_length)
-
-        # Use DT proxy to navigate to the correct page after a delay
-        # This allows the table to re-render first
-        shinyjs::delay(100, {
-          proxy <- DT::dataTableProxy("general_concepts_table", session = session)
-          DT::selectPage(proxy, target_page)
-        })
+        # Restore datatable state after re-render
+        restore_datatable_state("general_concepts_table", saved_table_page, saved_table_search, session)
       }
     })
 
