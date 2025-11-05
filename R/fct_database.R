@@ -14,22 +14,8 @@
 #' @return DBI connection object
 #' @noRd
 get_db_connection <- function() {
-  # Get app folder from environment variable (set by run_app)
-  app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-
-  # Fallback to user config directory if not set
-  if (is.na(app_folder) || app_folder == "") {
-    db_dir <- rappdirs::user_config_dir("indicate")
-  } else {
-    # Use app_folder/indicate_files/
-    db_dir <- file.path(app_folder, "indicate_files")
-  }
-
-  # Create directory if it doesn't exist
-  if (!dir.exists(db_dir)) {
-    dir.create(db_dir, recursive = TRUE, showWarnings = FALSE)
-  }
-
+  # Get database directory using centralized path resolution
+  db_dir <- get_app_dir()
   db_path <- file.path(db_dir, "indicate.db")
 
   # Connect to database

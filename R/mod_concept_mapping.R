@@ -533,12 +533,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       alignments <- alignments_data()
 
       if (nrow(alignments) == 0) {
-        return(datatable(
-          data.frame(Message = "No alignments yet. Click 'Add Alignment' to create one."),
-          options = list(dom = 't', ordering = FALSE),
-          rownames = FALSE,
-          selection = 'none'
-        ))
+        return(create_empty_datatable("No alignments yet. Click 'Add Alignment' to create one."))
       }
 
       alignments_display <- alignments %>%
@@ -1085,12 +1080,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
         file_id <- paste0("alignment_", format(Sys.time(), "%Y%m%d_%H%M%S"), "_", sample(1000:9999, 1))
 
-        app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-        if (is.na(app_folder) || app_folder == "") {
-          mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
-        } else {
-          mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
-        }
+        mapping_dir <- get_app_dir("concept_mapping")
 
         if (!dir.exists(mapping_dir)) {
           dir.create(mapping_dir, recursive = TRUE, showWarnings = FALSE)
@@ -1157,12 +1147,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (nrow(alignment) == 1) {
         file_id <- alignment$file_id[1]
 
-        app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-        if (is.na(app_folder) || app_folder == "") {
-          mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
-        } else {
-          mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
-        }
+        mapping_dir <- get_app_dir("concept_mapping")
 
         csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
         if (file.exists(csv_path)) {
@@ -1190,12 +1175,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       file_id <- alignment$file_id[1]
       alignment_name <- alignment$name[1]
       
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-      if (is.na(app_folder) || app_folder == "") {
-        mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
-      } else {
-        mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
-      }
+      mapping_dir <- get_app_dir("concept_mapping")
       
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
       
@@ -1646,12 +1626,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       file_id <- alignment$file_id[1]
 
       # Get app folder and construct path
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-      if (is.na(app_folder) || app_folder == "") {
-        mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
-      } else {
-        mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
-      }
+      mapping_dir <- get_app_dir("concept_mapping")
 
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
 
@@ -1688,11 +1663,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
 
       # Get database path
-      if (is.na(app_folder) || app_folder == "") {
-        db_dir <- rappdirs::user_config_dir("indicate")
-      } else {
-        db_dir <- file.path(app_folder, "indicate_files")
-      }
+      db_dir <- get_app_dir()
       db_path <- file.path(db_dir, "indicate.db")
 
       if (!file.exists(db_path)) {
@@ -1841,12 +1812,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         general_concept_use_cases <- data()$general_concept_use_cases
 
         if (is.null(use_cases) || nrow(use_cases) == 0) {
-          return(datatable(
-            data.frame(Message = "No use cases defined"),
-            options = list(dom = 't'),
-            rownames = FALSE,
-            selection = 'none'
-          ))
+          return(create_empty_datatable("No use cases defined"))
         }
 
         # Get alignment mappings
@@ -1859,22 +1825,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         file_id <- alignment$file_id[1]
 
         # Get CSV path
-        app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-        if (is.na(app_folder) || app_folder == "") {
-          mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
-        } else {
-          mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
-        }
+        mapping_dir <- get_app_dir("concept_mapping")
 
         csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
 
         if (!file.exists(csv_path)) {
-          return(datatable(
-            data.frame(Message = "CSV file not found"),
-            options = list(dom = 't'),
-            rownames = FALSE,
-            selection = 'none'
-          ))
+          return(create_empty_datatable("CSV file not found"))
         }
 
         # Read CSV to get mapped general concepts
@@ -1962,37 +1918,21 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       if (nrow(alignment) != 1) {
         output$all_mappings_table_main <- DT::renderDT({
-          datatable(
-            data.frame(Message = "No alignment selected"),
-            options = list(dom = 't'),
-            rownames = FALSE,
-            selection = 'none'
-          )
+          create_empty_datatable("No alignment selected")
         }, server = TRUE)
         return()
       }
 
       file_id <- alignment$file_id[1]
 
-      # Get app folder and construct path
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-      if (is.na(app_folder) || app_folder == "") {
-        mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
-      } else {
-        mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
-      }
-
+      # Get CSV path
+      mapping_dir <- get_app_dir("concept_mapping")
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
 
       # Check if file exists
       if (!file.exists(csv_path)) {
         output$all_mappings_table_main <- DT::renderDT({
-          datatable(
-            data.frame(Message = "CSV file not found"),
-            options = list(dom = 't'),
-            rownames = FALSE,
-            selection = 'none'
-          )
+          create_empty_datatable("CSV file not found")
         }, server = TRUE)
         return()
       }
@@ -2003,12 +1943,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Filter only rows with mappings
       if (!"target_general_concept_id" %in% colnames(df)) {
         output$all_mappings_table_main <- DT::renderDT({
-          datatable(
-            data.frame(Message = "No mappings created yet."),
-            options = list(dom = 't'),
-            rownames = FALSE,
-            selection = 'none'
-          )
+          create_empty_datatable("No mappings created yet.")
         }, server = TRUE)
         return()
       }
@@ -2031,12 +1966,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       if (nrow(mapped_rows) == 0) {
         output$all_mappings_table_main <- DT::renderDT({
-          datatable(
-            data.frame(Message = "No mappings created yet."),
-            options = list(dom = 't'),
-            rownames = FALSE,
-            selection = 'none'
-          )
+          create_empty_datatable("No mappings created yet.")
         }, server = TRUE)
         return()
       }
@@ -2154,11 +2084,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
 
       # Get vote statistics from database
-      db_dir <- if (is.na(app_folder) || app_folder == "") {
-        rappdirs::user_config_dir("indicate")
-      } else {
-        file.path(app_folder, "indicate_files")
-      }
+      db_dir <- get_app_dir()
       db_path <- file.path(db_dir, "indicate.db")
 
       if (file.exists(db_path)) {
@@ -2275,12 +2201,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       file_id <- alignment$file_id[1]
 
       # Get app folder and construct path
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-      if (is.na(app_folder) || app_folder == "") {
-        mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
-      } else {
-        mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
-      }
+      mapping_dir <- get_app_dir("concept_mapping")
 
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
 
@@ -2422,11 +2343,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
 
       # Get vote statistics from database
-      db_dir <- if (is.na(app_folder) || app_folder == "") {
-        rappdirs::user_config_dir("indicate")
-      } else {
-        file.path(app_folder, "indicate_files")
-      }
+      db_dir <- get_app_dir()
       db_path <- file.path(db_dir, "indicate.db")
 
       if (file.exists(db_path)) {
@@ -2510,12 +2427,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (is.na(mapping_id_to_delete)) return()
 
       # Get mapping details from database
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-      if (is.na(app_folder) || app_folder == "") {
-        db_dir <- rappdirs::user_config_dir("indicate")
-      } else {
-        db_dir <- file.path(app_folder, "indicate_files")
-      }
+      db_dir <- get_app_dir()
       db_path <- file.path(db_dir, "indicate.db")
 
       if (!file.exists(db_path)) return()
@@ -2577,12 +2489,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       file_id <- alignment$file_id[1]
 
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-      if (is.na(app_folder) || app_folder == "") {
-        mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
-      } else {
-        mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
-      }
+      mapping_dir <- get_app_dir("concept_mapping")
 
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
 
@@ -2634,12 +2541,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       if (nrow(concept_mappings) == 0) {
         output$mapped_concepts_table <- DT::renderDT({
-          datatable(
-            data.frame(Message = "No mapped concepts found for this general concept."),
-            options = list(dom = 't'),
-            rownames = FALSE,
-            selection = 'none'
-          )
+          create_empty_datatable("No mapped concepts found for this general concept.")
         }, server = TRUE)
         return()
       }
@@ -2679,34 +2581,19 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         dplyr::filter(alignment_id == selected_alignment_id())
 
       if (nrow(alignment) != 1) {
-        return(datatable(
-          data.frame(Message = "No alignment selected"),
-          options = list(dom = 't'),
-          rownames = FALSE,
-          selection = 'none'
-        ))
+        return(create_empty_datatable("No alignment selected"))
       }
 
       file_id <- alignment$file_id[1]
 
       # Get app folder and construct path
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-      if (is.na(app_folder) || app_folder == "") {
-        mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
-      } else {
-        mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
-      }
+      mapping_dir <- get_app_dir("concept_mapping")
 
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
 
       # Check if file exists
       if (!file.exists(csv_path)) {
-        return(datatable(
-          data.frame(Message = "CSV file not found"),
-          options = list(dom = 't'),
-          rownames = FALSE,
-          selection = 'none'
-        ))
+        return(create_empty_datatable("CSV file not found"))
       }
 
       # Read CSV
@@ -2715,12 +2602,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Filter only rows with mappings
       if (!"target_omop_concept_id" %in% colnames(df)) {
         # No mappings yet
-        return(datatable(
-          data.frame(Message = "No mappings created yet. Select a source concept and a mapped concept, then click 'Add Mapping'."),
-          options = list(dom = 't'),
-          rownames = FALSE,
-          selection = 'none'
-        ))
+        return(create_empty_datatable("No mappings created yet. Select a source concept and a mapped concept, then click 'Add Mapping'."))
       }
 
       # Rename source columns to avoid conflicts
@@ -2735,12 +2617,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         dplyr::filter(!is.na(target_general_concept_id))
 
       if (nrow(mapped_rows) == 0) {
-        return(datatable(
-          data.frame(Message = "No mappings created yet. Select a source concept and a mapped concept, then click 'Add Mapping'."),
-          options = list(dom = 't'),
-          rownames = FALSE,
-          selection = 'none'
-        ))
+        return(create_empty_datatable("No mappings created yet. Select a source concept and a mapped concept, then click 'Add Mapping'."))
       }
 
       # Enrich with target concept info (OMOP or custom)
@@ -2878,12 +2755,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       
       file_id <- alignment$file_id[1]
       
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-      if (is.na(app_folder) || app_folder == "") {
-        mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
-      } else {
-        mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
-      }
+      mapping_dir <- get_app_dir("concept_mapping")
       
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
       
@@ -2988,12 +2860,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       
       file_id <- alignment$file_id[1]
       
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-      if (is.na(app_folder) || app_folder == "") {
-        mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
-      } else {
-        mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
-      }
+      mapping_dir <- get_app_dir("concept_mapping")
       
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
       
@@ -3084,12 +2951,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       vocab_data <- vocabularies()
       if (is.null(vocab_data)) {
         output$concept_mappings_table <- DT::renderDT({
-          datatable(
-            data.frame(Message = "OHDSI vocabularies not loaded. Please configure the ATHENA folder in Settings."),
-            options = list(dom = "t"),
-            rownames = FALSE,
-            selection = "none"
-          )
+          create_empty_datatable("OHDSI vocabularies not loaded. Please configure the ATHENA folder in Settings.")
         }, server = TRUE)
         return()
       }
@@ -3167,12 +3029,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       
       if (nrow(all_concepts) == 0) {
         output$concept_mappings_table <- DT::renderDT({
-          datatable(
-            data.frame(Message = "No mapped concepts found for this general concept."),
-            options = list(dom = "t"),
-            rownames = FALSE,
-            selection = "none"
-          )
+          create_empty_datatable("No mapped concepts found for this general concept.")
         }, server = TRUE)
         return()
       }
@@ -3308,12 +3165,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       
       file_id <- alignment$file_id[1]
       
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-      if (is.na(app_folder) || app_folder == "") {
-        mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
-      } else {
-        mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
-      }
+      mapping_dir <- get_app_dir("concept_mapping")
       
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
       
@@ -3457,12 +3309,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       
       file_id <- alignment$file_id[1]
       
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-      if (is.na(app_folder) || app_folder == "") {
-        mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
-      } else {
-        mapping_dir <- file.path(app_folder, "indicate_files", "concept_mapping")
-      }
+      mapping_dir <- get_app_dir("concept_mapping")
       
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
       
@@ -3502,12 +3349,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (is.null(current_user())) return()
 
       # Prepare data outside renderDT
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-        if (is.na(app_folder) || app_folder == "") {
-          db_dir <- rappdirs::user_config_dir("indicate")
-        } else {
-          db_dir <- file.path(app_folder, "indicate_files")
-        }
+      db_dir <- get_app_dir()
         db_path <- file.path(db_dir, "indicate.db")
 
         if (!file.exists(db_path)) return()
@@ -3736,12 +3578,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (is.null(current_user())) return()
 
       # Prepare updated data (same logic as initial render)
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-      if (is.na(app_folder) || app_folder == "") {
-        db_dir <- rappdirs::user_config_dir("indicate")
-      } else {
-        db_dir <- file.path(app_folder, "indicate_files")
-      }
+      db_dir <- get_app_dir()
       db_path <- file.path(db_dir, "indicate.db")
 
       if (!file.exists(db_path)) return()
@@ -3928,12 +3765,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       row_index <- as.integer(action_data$row)
 
       # Get database connection
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-      if (is.na(app_folder) || app_folder == "") {
-        db_dir <- rappdirs::user_config_dir("indicate")
-      } else {
-        db_dir <- file.path(app_folder, "indicate_files")
-      }
+      db_dir <- get_app_dir()
       db_path <- file.path(db_dir, "indicate.db")
 
       if (!file.exists(db_path)) return()
@@ -4023,12 +3855,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       ))
 
       # Get current comment from database
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-      if (is.na(app_folder) || app_folder == "") {
-        db_dir <- rappdirs::user_config_dir("indicate")
-      } else {
-        db_dir <- file.path(app_folder, "indicate_files")
-      }
+      db_dir <- get_app_dir()
       db_path <- file.path(db_dir, "indicate.db")
 
       if (file.exists(db_path)) {
@@ -4066,12 +3893,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
 
       # Get database connection
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-      if (is.na(app_folder) || app_folder == "") {
-        db_dir <- rappdirs::user_config_dir("indicate")
-      } else {
-        db_dir <- file.path(app_folder, "indicate_files")
-      }
+      db_dir <- get_app_dir()
       db_path <- file.path(db_dir, "indicate.db")
 
       if (!file.exists(db_path)) return()

@@ -3525,10 +3525,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
 
       if (nrow(related_concepts) == 0) {
-        return(DT::datatable(data.frame(Message = "No related concepts found."),
-                             options = list(dom = 't'),
-                             rownames = FALSE,
-                             selection = 'none'))
+        return(create_empty_datatable("No related concepts found."))
       }
 
       # Reorder columns: relationship_id, concept_name, vocabulary_id, concept_code, omop_concept_id (hidden)
@@ -3720,10 +3717,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
 
       if (nrow(descendant_concepts) == 0) {
-        return(DT::datatable(data.frame(Message = "No descendant concepts found in hierarchy."),
-                             options = list(dom = 't'),
-                             rownames = FALSE,
-                             selection = 'none'))
+        return(create_empty_datatable("No descendant concepts found in hierarchy."))
       }
 
       # Reorder columns: relationship_id, concept_name, vocabulary_id, concept_code, omop_concept_id (hidden)
@@ -3768,10 +3762,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           synonyms <- get_concept_synonyms(omop_concept_id, vocab_data)
 
       if (nrow(synonyms) == 0) {
-        return(DT::datatable(data.frame(Message = "No synonyms found for this concept."),
-                             options = list(dom = 't'),
-                             rownames = FALSE,
-                             selection = 'none'))
+        return(create_empty_datatable("No synonyms found for this concept."))
       }
 
       # Select only synonym and language columns (hide language_concept_id)
