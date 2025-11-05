@@ -403,6 +403,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       summary_trigger(summary_trigger() + 1)
     }, ignoreInit = FALSE)
 
+    # Source concepts table reactive trigger (for Edit Mappings tab)
+    source_concepts_table_trigger <- reactiveVal(0)
+
     ### Breadcrumb Rendering ----
     output$breadcrumb <- renderUI({
       if (current_view() == "alignments") {
@@ -1946,10 +1949,13 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     ### b) Edit Mappings Tab ----
     #### Source Concepts Table Rendering ----
-    output$source_concepts_table <- DT::renderDT({
+    observe_event(c(selected_alignment_id(), source_concepts_table_trigger()), {
+      # Check visibility first
       if (is.null(selected_alignment_id())) return()
       if (mapping_view() != "general") return()
+      if (!is.null(input$mapping_tabs) && input$mapping_tabs != "edit_mappings") return()
 
+      # Prepare all data outside renderDT
       alignments <- alignments_data()
       alignment <- alignments %>%
         dplyr::filter(alignment_id == selected_alignment_id())
@@ -1968,12 +1974,15 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
 
       if (!file.exists(csv_path)) {
-        return(datatable(
-          data.frame(Error = "CSV file not found"),
-          options = list(dom = "t"),
-          rownames = FALSE,
-          selection = "none"
-        ))
+        output$source_concepts_table <- DT::renderDT({
+          datatable(
+            data.frame(Error = "CSV file not found"),
+            options = list(dom = "t"),
+            rownames = FALSE,
+            selection = "none"
+          )
+        }, server = FALSE)
+        return()
       }
 
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
@@ -2006,49 +2015,56 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       nice_names[nice_names == "concept_name"] <- "Name"
       nice_names[nice_names == "statistical_summary"] <- "Summary"
 
-      dt <- datatable(
-        df_display,
-        filter = "top",
-        options = list(
-          pageLength = 15,
-          lengthMenu = list(c(5, 10, 15, 20, 50, 100), c("5", "10", "15", "20", "50", "100")),
-          dom = "ltp",
-          columnDefs = list(
-            list(targets = which(colnames(df_display) == "Mapped") - 1, width = "80px", className = "dt-center")
-          )
-        ),
-        colnames = nice_names,
-        rownames = FALSE,
-        selection = "single"
-      )
+      mapped_col_index <- which(colnames(df_display) == "Mapped") - 1
 
-      dt <- dt %>%
-        DT::formatStyle(
-          "Mapped",
-          target = "cell",
-          backgroundColor = DT::styleEqual(
-            c("Yes", "No"),
-            c("#d4edda", "#f8f9fa")
+      # Render table with prepared data only
+      output$source_concepts_table <- DT::renderDT({
+        dt <- datatable(
+          df_display,
+          filter = "top",
+          options = list(
+            pageLength = 15,
+            lengthMenu = list(c(5, 10, 15, 20, 50, 100), c("5", "10", "15", "20", "50", "100")),
+            dom = "ltp",
+            columnDefs = list(
+              list(targets = mapped_col_index, width = "80px", className = "dt-center")
+            )
           ),
-          fontWeight = DT::styleEqual(
-            c("Yes", "No"),
-            c("bold", "normal")
-          ),
-          color = DT::styleEqual(
-            c("Yes", "No"),
-            c("#155724", "#666")
-          )
+          colnames = nice_names,
+          rownames = FALSE,
+          selection = "single"
         )
 
-      dt
-    }, server = FALSE)
+        dt <- dt %>%
+          DT::formatStyle(
+            "Mapped",
+            target = "cell",
+            backgroundColor = DT::styleEqual(
+              c("Yes", "No"),
+              c("#d4edda", "#f8f9fa")
+            ),
+            fontWeight = DT::styleEqual(
+              c("Yes", "No"),
+              c("bold", "normal")
+            ),
+            color = DT::styleEqual(
+              c("Yes", "No"),
+              c("#155724", "#666")
+            )
+          )
+
+        dt
+      }, server = FALSE)
+    }, ignoreInit = FALSE)
 
     #### General Concepts Table Rendering ----
-    output$general_concepts_table <- DT::renderDT({
+    observe_event(data(), {
+      # Check visibility first
       if (is.null(data())) return()
-
       if (mapping_view() != "general") return()
+      if (!is.null(input$mapping_tabs) && input$mapping_tabs != "edit_mappings") return()
 
+      # Prepare data outside renderDT
       general_concepts <- data()$general_concepts
 
       general_concepts_display <- data.frame(
@@ -2059,41 +2075,50 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         stringsAsFactors = FALSE
       )
 
-      dt <- datatable(
-        general_concepts_display,
-        filter = "top",
-        options = list(
-          pageLength = 15,
-          lengthMenu = list(c(5, 10, 15, 20, 50, 100), c("5", "10", "15", "20", "50", "100")),
-          dom = "ltp",
-          columnDefs = list(
-            list(targets = 0, visible = FALSE),
-            list(targets = 1, width = "200px")
-          )
-        ),
-        rownames = FALSE,
-        selection = "single",
-        colnames = c("ID", "Category", "Subcategory", "General Concept")
-      )
+      # Render table with prepared data
+      output$general_concepts_table <- DT::renderDT({
+        dt <- datatable(
+          general_concepts_display,
+          filter = "top",
+          options = list(
+            pageLength = 15,
+            lengthMenu = list(c(5, 10, 15, 20, 50, 100), c("5", "10", "15", "20", "50", "100")),
+            dom = "ltp",
+            columnDefs = list(
+              list(targets = 0, visible = FALSE),
+              list(targets = 1, width = "200px")
+            )
+          ),
+          rownames = FALSE,
+          selection = "single",
+          colnames = c("ID", "Category", "Subcategory", "General Concept")
+        )
 
-      dt <- add_doubleclick_handler(dt, ns("view_mapped_concepts"))
+        dt <- add_doubleclick_handler(dt, ns("view_mapped_concepts"))
 
-      dt
-    }, server = TRUE)
+        dt
+      }, server = TRUE)
+    }, ignoreInit = FALSE)
 
     #### Concept Mappings Table Rendering ----
-    output$concept_mappings_table <- DT::renderDT({
+    observe_event(selected_general_concept_id(), {
+      # Check visibility first
       if (is.null(selected_general_concept_id())) return()
       if (is.null(data())) return()
+      if (!is.null(input$mapping_tabs) && input$mapping_tabs != "edit_mappings") return()
 
+      # Prepare data outside renderDT
       vocab_data <- vocabularies()
       if (is.null(vocab_data)) {
-        return(datatable(
-          data.frame(Message = "OHDSI vocabularies not loaded. Please configure the ATHENA folder in Settings."),
-          options = list(dom = "t"),
-          rownames = FALSE,
-          selection = "none"
-        ))
+        output$concept_mappings_table <- DT::renderDT({
+          datatable(
+            data.frame(Message = "OHDSI vocabularies not loaded. Please configure the ATHENA folder in Settings."),
+            options = list(dom = "t"),
+            rownames = FALSE,
+            selection = "none"
+          )
+        }, server = TRUE)
+        return()
       }
 
       concept_mappings <- data()$concept_mappings %>%
@@ -2168,12 +2193,15 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       all_concepts <- dplyr::bind_rows(omop_for_bind, custom_concepts)
 
       if (nrow(all_concepts) == 0) {
-        return(datatable(
-          data.frame(Message = "No mapped concepts found for this general concept."),
-          options = list(dom = "t"),
-          rownames = FALSE,
-          selection = "none"
-        ))
+        output$concept_mappings_table <- DT::renderDT({
+          datatable(
+            data.frame(Message = "No mapped concepts found for this general concept."),
+            options = list(dom = "t"),
+            rownames = FALSE,
+            selection = "none"
+          )
+        }, server = TRUE)
+        return()
       }
 
       mappings <- all_concepts %>%
@@ -2191,7 +2219,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           recommended = ifelse(recommended, "Yes", "No")
         )
 
-      dt <- datatable(
+      # Render table with prepared data
+      output$concept_mappings_table <- DT::renderDT({
+        dt <- datatable(
         mappings,
         options = list(
           pageLength = 15,
@@ -2225,8 +2255,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           )
         )
 
-      dt
-    }, server = TRUE)
+        dt
+      }, server = TRUE)
+    }, ignoreInit = FALSE)
 
     #### Comments Display ----
     output$comments_display <- renderUI({
@@ -2441,6 +2472,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       proxy_source <- DT::dataTableProxy("source_concepts_table", session)
       DT::selectRows(proxy_source, NULL)
 
+      source_concepts_table_trigger(source_concepts_table_trigger() + 1)
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
     })
 
@@ -2487,6 +2519,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       write.csv(df, csv_path, row.names = FALSE)
 
+      source_concepts_table_trigger(source_concepts_table_trigger() + 1)
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
     })
 
@@ -2542,21 +2575,25 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     ### b) All Mappings Tab ----
     #### All Mappings Table Rendering ----
     observe_event(mappings_refresh_trigger(), {
-      output$all_mappings_table_main <- DT::renderDT({
-        if (is.null(selected_alignment_id())) return()
+      # Check visibility and prerequisites first
+      if (is.null(selected_alignment_id())) return()
+      if (is.null(data())) return()
 
-      # Get alignment info
+      # Prepare all data outside renderDT
       alignments <- alignments_data()
       alignment <- alignments %>%
         dplyr::filter(alignment_id == selected_alignment_id())
 
       if (nrow(alignment) != 1) {
-        return(datatable(
-          data.frame(Message = "No alignment selected"),
-          options = list(dom = 't'),
-          rownames = FALSE,
-          selection = 'none'
-        ))
+        output$all_mappings_table_main <- DT::renderDT({
+          datatable(
+            data.frame(Message = "No alignment selected"),
+            options = list(dom = 't'),
+            rownames = FALSE,
+            selection = 'none'
+          )
+        }, server = TRUE)
+        return()
       }
 
       file_id <- alignment$file_id[1]
@@ -2573,12 +2610,15 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       # Check if file exists
       if (!file.exists(csv_path)) {
-        return(datatable(
-          data.frame(Message = "CSV file not found"),
-          options = list(dom = 't'),
-          rownames = FALSE,
-          selection = 'none'
-        ))
+        output$all_mappings_table_main <- DT::renderDT({
+          datatable(
+            data.frame(Message = "CSV file not found"),
+            options = list(dom = 't'),
+            rownames = FALSE,
+            selection = 'none'
+          )
+        }, server = TRUE)
+        return()
       }
 
       # Read CSV
@@ -2586,12 +2626,15 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       # Filter only rows with mappings
       if (!"target_general_concept_id" %in% colnames(df)) {
-        return(datatable(
-          data.frame(Message = "No mappings created yet."),
-          options = list(dom = 't'),
-          rownames = FALSE,
-          selection = 'none'
-        ))
+        output$all_mappings_table_main <- DT::renderDT({
+          datatable(
+            data.frame(Message = "No mappings created yet."),
+            options = list(dom = 't'),
+            rownames = FALSE,
+            selection = 'none'
+          )
+        }, server = TRUE)
+        return()
       }
 
       # Rename source columns to avoid conflicts with joined data
@@ -2611,16 +2654,18 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         dplyr::filter(!is.na(target_general_concept_id))
 
       if (nrow(mapped_rows) == 0) {
-        return(datatable(
-          data.frame(Message = "No mappings created yet."),
-          options = list(dom = 't'),
-          rownames = FALSE,
-          selection = 'none'
-        ))
+        output$all_mappings_table_main <- DT::renderDT({
+          datatable(
+            data.frame(Message = "No mappings created yet."),
+            options = list(dom = 't'),
+            rownames = FALSE,
+            selection = 'none'
+          )
+        }, server = TRUE)
+        return()
       }
 
       # Enrich with general concept information
-      if (is.null(data())) return()
       general_concepts <- data()$general_concepts
 
       # Join with general concepts to get names
@@ -2733,11 +2778,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
 
       # Get vote statistics from database
-      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
-      if (is.na(app_folder) || app_folder == "") {
-        db_dir <- rappdirs::user_config_dir("indicate")
+      db_dir <- if (is.na(app_folder) || app_folder == "") {
+        rappdirs::user_config_dir("indicate")
       } else {
-        db_dir <- file.path(app_folder, "indicate_files")
+        file.path(app_folder, "indicate_files")
       }
       db_path <- file.path(db_dir, "indicate.db")
 
@@ -2746,7 +2790,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         on.exit(DBI::dbDisconnect(con), add = TRUE)
 
         # First get mapping_id from database by matching csv_file_path and csv_mapping_id
-        # csv_mapping_id corresponds to mapping_id column in CSV
         mapping_ids_query <- "
           SELECT
             cm.mapping_id as db_mapping_id,
@@ -2800,68 +2843,84 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           Uncertain = ifelse(is.na(uncertain_votes), 0L, as.integer(uncertain_votes)),
           Actions = sprintf(
             '<button class="btn btn-sm btn-danger delete-mapping-btn" data-id="%d" style="padding: 2px 8px; font-size: 11px;">Delete</button>',
-            dplyr::row_number()
+            db_mapping_id
           )
         ) %>%
         dplyr::select(Source, Target, Upvotes, Downvotes, Uncertain, Actions)
 
-      dt <- datatable(
-        display_df,
-        escape = FALSE,
-        filter = 'top',
-        options = list(
-          pageLength = 15,
-          lengthMenu = c(10, 15, 20, 50, 100, 200),
-          dom = 'ltp',
-          columnDefs = list(
-            list(targets = 2, width = "60px", className = "dt-center"),
-            list(targets = 3, width = "60px", className = "dt-center"),
-            list(targets = 4, width = "60px", className = "dt-center"),
-            list(targets = 5, searchable = FALSE, orderable = FALSE)
-          )
-        ),
-        rownames = FALSE,
-        selection = 'none',
-        colnames = c("Source Concept", "Target Concept", "Upvotes", "Downvotes", "Uncertain", "Actions")
-      )
-
-      # Add button handlers
-      dt <- add_button_handlers(
-        dt,
-        handlers = list(
-          list(selector = ".delete-mapping-btn", input_id = ns("delete_mapping_main"))
+      # Render table with prepared data
+      output$all_mappings_table_main <- DT::renderDT({
+        dt <- datatable(
+          display_df,
+          escape = FALSE,
+          filter = 'top',
+          options = list(
+            pageLength = 15,
+            lengthMenu = c(10, 15, 20, 50, 100, 200),
+            dom = 'ltp',
+            columnDefs = list(
+              list(targets = 2, width = "60px", className = "dt-center"),
+              list(targets = 3, width = "60px", className = "dt-center"),
+              list(targets = 4, width = "60px", className = "dt-center"),
+              list(targets = 5, searchable = FALSE, orderable = FALSE)
+            )
+          ),
+          rownames = FALSE,
+          selection = 'none',
+          colnames = c("Source Concept", "Target Concept", "Upvotes", "Downvotes", "Uncertain", "Actions")
         )
-      )
 
-      dt
-  }, server = TRUE)
-}, ignoreNULL = FALSE, ignoreInit = FALSE)
+        # Add button handlers
+        dt <- add_button_handlers(
+          dt,
+          handlers = list(
+            list(selector = ".delete-mapping-btn", input_id = ns("delete_mapping_main"))
+          )
+        )
+
+        dt
+      }, server = TRUE)
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
     #### Delete Mapping Actions ----
     observe_event(input$delete_mapping_main, {
       if (is.null(input$delete_mapping_main)) return()
       if (is.null(selected_alignment_id())) return()
 
-      # Get all mappings from database
-      mappings_db <- get_alignment_mappings(selected_alignment_id())
+      # Get the mapping_id directly from button click (data-id attribute)
+      mapping_id_to_delete <- as.integer(input$delete_mapping_main)
 
-      if (nrow(mappings_db) == 0) return()
+      if (is.na(mapping_id_to_delete)) return()
 
-      # Get the row index from button click
-      row_index <- as.integer(input$delete_mapping_main)
+      # Get mapping details from database
+      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
+      if (is.na(app_folder) || app_folder == "") {
+        db_dir <- rappdirs::user_config_dir("indicate")
+      } else {
+        db_dir <- file.path(app_folder, "indicate_files")
+      }
+      db_path <- file.path(db_dir, "indicate.db")
 
-      if (is.na(row_index) || row_index < 1 || row_index > nrow(mappings_db)) return()
+      if (!file.exists(db_path)) return()
 
-      # Get mapping details to delete (need csv_file_path and csv_mapping_id)
-      mapping_to_delete <- mappings_db[row_index, ]
-      mapping_id_to_delete <- mapping_to_delete$mapping_id
+      con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+      # Get mapping details
+      mapping_to_delete <- DBI::dbGetQuery(
+        con,
+        "SELECT csv_file_path, csv_mapping_id FROM concept_mappings WHERE mapping_id = ?",
+        params = list(mapping_id_to_delete)
+      )
+
+      if (nrow(mapping_to_delete) == 0) return()
 
       # Delete from database
       delete_concept_mapping(mapping_id_to_delete)
 
       # Update CSV file to remove the mapping
-      csv_path <- mapping_to_delete$csv_file_path
-      csv_mapping_id <- mapping_to_delete$csv_mapping_id
+      csv_path <- mapping_to_delete$csv_file_path[1]
+      csv_mapping_id <- mapping_to_delete$csv_mapping_id[1]
 
       if (!is.na(csv_path) && !is.na(csv_mapping_id) && file.exists(csv_path)) {
         df <- read.csv(csv_path, stringsAsFactors = FALSE)
@@ -2882,14 +2941,17 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
 
       # Trigger refresh
+      source_concepts_table_trigger(source_concepts_table_trigger() + 1)
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
     }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
     #### Mapped View Tables ----
-    output$source_concepts_table_mapped <- DT::renderDT({
+    observe_event(selected_alignment_id(), {
+      # Check visibility first
       if (is.null(selected_alignment_id())) return()
+      if (mapping_view() != "mapped") return()
 
-      # Get the alignment data
+      # Prepare all data outside renderDT
       alignments <- alignments_data()
       alignment <- alignments %>%
         dplyr::filter(alignment_id == selected_alignment_id())
@@ -2898,7 +2960,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       file_id <- alignment$file_id[1]
 
-      # Get app folder and construct path
       app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
       if (is.na(app_folder) || app_folder == "") {
         mapping_dir <- file.path(rappdirs::user_config_dir("indicate"), "concept_mapping")
@@ -2908,57 +2969,64 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
 
-      # Check if file exists
       if (!file.exists(csv_path)) {
-        return(datatable(
-          data.frame(Error = "CSV file not found"),
-          options = list(dom = 't'),
-          rownames = FALSE,
-          selection = 'none'
-        ))
+        output$source_concepts_table_mapped <- DT::renderDT({
+          datatable(
+            data.frame(Error = "CSV file not found"),
+            options = list(dom = 't'),
+            rownames = FALSE,
+            selection = 'none'
+          )
+        }, server = TRUE)
+        return()
       }
 
-      # Read CSV
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
 
-      # Reorder columns to show standard ones first
       standard_cols <- c("vocabulary_id", "concept_code", "concept_name", "statistical_summary")
       available_standard <- standard_cols[standard_cols %in% colnames(df)]
       excluded_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime", "mapped_by_user_id", "mapping_id")
       other_cols <- setdiff(colnames(df), c(standard_cols, excluded_cols))
-      df <- df[, c(available_standard, other_cols), drop = FALSE]
+      df_final <- df[, c(available_standard, other_cols), drop = FALSE]
 
-      datatable(
-        df,
-        options = list(
-          pageLength = 8,
-          lengthMenu = list(c(5, 8, 10, 15, 20, 50, 100), c('5', '8', '10', '15', '20', '50', '100')),
-          dom = 'ltp'
-        ),
-        rownames = FALSE,
-        selection = 'single'
-      )
-    }, server = TRUE)
+      # Render table with prepared data only
+      output$source_concepts_table_mapped <- DT::renderDT({
+        datatable(
+          df_final,
+          options = list(
+            pageLength = 8,
+            lengthMenu = list(c(5, 8, 10, 15, 20, 50, 100), c('5', '8', '10', '15', '20', '50', '100')),
+            dom = 'ltp'
+          ),
+          rownames = FALSE,
+          selection = 'single'
+        )
+      }, server = TRUE)
+    }, ignoreInit = FALSE)
 
-    output$mapped_concepts_table <- DT::renderDT({
+    observe_event(selected_general_concept_id(), {
+      # Check visibility first
       if (is.null(selected_general_concept_id())) return()
       if (is.null(data())) return()
       if (is.null(vocabularies())) return()
+      if (mapping_view() != "mapped") return()
 
-      # Get mapped concepts for the selected general concept
+      # Prepare all data outside renderDT
       concept_mappings <- data()$concept_mappings %>%
         dplyr::filter(general_concept_id == selected_general_concept_id())
 
       if (nrow(concept_mappings) == 0) {
-        return(datatable(
-          data.frame(Message = "No mapped concepts found for this general concept."),
-          options = list(dom = 't'),
-          rownames = FALSE,
-          selection = 'none'
-        ))
+        output$mapped_concepts_table <- DT::renderDT({
+          datatable(
+            data.frame(Message = "No mapped concepts found for this general concept."),
+            options = list(dom = 't'),
+            rownames = FALSE,
+            selection = 'none'
+          )
+        }, server = TRUE)
+        return()
       }
 
-      # Join with vocabularies to get concept details
       vocabs <- vocabularies()
       mapped_with_details <- concept_mappings %>%
         dplyr::left_join(
@@ -2967,23 +3035,28 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         ) %>%
         dplyr::select(omop_concept_id, concept_name, concept_code, vocabulary_id, standard_concept, recommended)
 
-      datatable(
-        mapped_with_details,
-        options = list(
-          pageLength = 10,
-          lengthMenu = list(c(5, 8, 10, 15, 20, 50, 100), c('5', '8', '10', '15', '20', '50', '100')),
-          dom = 'ltp'
-        ),
-        rownames = FALSE,
-        selection = 'single',
-        colnames = c("OMOP Concept ID", "Concept Name", "Concept Code", "Vocabulary", "Standard", "Recommended")
-      )
-    }, server = TRUE)
+      # Render table with prepared data only
+      output$mapped_concepts_table <- DT::renderDT({
+        datatable(
+          mapped_with_details,
+          options = list(
+            pageLength = 10,
+            lengthMenu = list(c(5, 8, 10, 15, 20, 50, 100), c('5', '8', '10', '15', '20', '50', '100')),
+            dom = 'ltp'
+          ),
+          rownames = FALSE,
+          selection = 'single',
+          colnames = c("OMOP Concept ID", "Concept Name", "Concept Code", "Vocabulary", "Standard", "Recommended")
+        )
+      }, server = TRUE)
+    }, ignoreInit = FALSE)
 
-    output$realized_mappings_table_mapped <- DT::renderDT({
+    observe_event(mappings_refresh_trigger(), {
+      # Check visibility first
       if (is.null(selected_alignment_id())) return()
+      if (mapping_view() != "mapped") return()
 
-      # Get alignment info
+      # Prepare data outside renderDT
       alignments <- alignments_data()
       alignment <- alignments %>%
         dplyr::filter(alignment_id == selected_alignment_id())
@@ -3157,25 +3230,28 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           dplyr::select(Source, Target, Actions)
       }
 
-      datatable(
-        display_df,
-        escape = FALSE,
-        options = list(pageLength = 6, dom = 'tp'),
-        rownames = FALSE,
-        selection = 'none',
-        colnames = c("Source Concept", "Target Concept", "Actions")
-      )
-    }, server = TRUE)
+      # Render table with prepared data
+      output$realized_mappings_table_mapped <- DT::renderDT({
+        datatable(
+          display_df,
+          escape = FALSE,
+          options = list(pageLength = 6, dom = 'tp'),
+          rownames = FALSE,
+          selection = 'none',
+          colnames = c("Source Concept", "Target Concept", "Actions")
+        )
+      }, server = TRUE)
+    }, ignoreInit = FALSE)
 
     ### c) Evaluate Mappings Tab ----
     #### Evaluate Mappings Table Rendering ----
-    observe_event(mappings_refresh_trigger(), {
-      output$evaluate_mappings_table <- DT::renderDT({
-        if (is.null(selected_alignment_id())) return()
-        if (is.null(current_user())) return()
+    observe_event(c(selected_alignment_id(), mappings_refresh_trigger()), {
+      # Check prerequisites first
+      if (is.null(selected_alignment_id())) return()
+      if (is.null(current_user())) return()
 
-        # Get database connection
-        app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
+      # Prepare data outside renderDT
+      app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = NA)
         if (is.na(app_folder) || app_folder == "") {
           db_dir <- rappdirs::user_config_dir("indicate")
         } else {
@@ -3349,7 +3425,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             Actions
           )
 
-        # Create datatable with callback to ensure event handlers work
+      # Render table with prepared data
+      output$evaluate_mappings_table <- DT::renderDT({
         dt <- DT::datatable(
           display_data,
           rownames = FALSE,
