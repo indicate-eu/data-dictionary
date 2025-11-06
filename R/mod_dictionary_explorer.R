@@ -881,6 +881,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     saved_table_search <- reactiveVal(NULL)  # Track datatable search state for edit mode
     edited_recommended <- reactiveVal(list())  # Store recommended changes by omop_concept_id
     deleted_concepts <- reactiveVal(list())  # Store deleted concept IDs by general_concept_id
+    deleted_general_concepts <- reactiveVal(list())  # Store deleted general concept IDs to be removed on save
     original_general_concepts <- reactiveVal(NULL)  # Store original state for cancel in list edit mode
     add_modal_selected_concept <- reactiveVal(NULL)  # Store selected concept in add modal
     newly_added_concept_id <- reactiveVal(NULL)  # Track newly added concept ID for navigation
@@ -1624,6 +1625,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Save current state for cancel functionality
       original_general_concepts(current_data()$general_concepts)
 
+      # Clear any previous deletion list
+      deleted_general_concepts(list())
+
       # Save datatable state
       save_datatable_state(input, "general_concepts_table", saved_table_page, saved_table_search)
 
@@ -1648,6 +1652,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         local_data(data)
         original_general_concepts(NULL)
       }
+
+      # Clear deletion list (cancel all pending deletions)
+      deleted_general_concepts(list())
+
       general_concepts_edit_mode(FALSE)
 
       # Update button visibility
@@ -1666,6 +1674,72 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Get current data
       general_concepts <- current_data()$general_concepts
       original_data <- original_general_concepts()
+
+      # Apply general concept deletions
+      deleted_list <- deleted_general_concepts()
+      if (length(deleted_list) > 0) {
+        concept_mappings <- current_data()$concept_mappings
+        custom_concepts <- current_data()$custom_concepts
+
+        for (deleted_id_str in names(deleted_list)) {
+          deleted_id <- as.integer(deleted_id_str)
+
+          # Get concept info for logging
+          concept_info <- original_data %>%
+            dplyr::filter(general_concept_id == deleted_id)
+
+          # Log the deletion
+          if (nrow(concept_info) > 0) {
+            user <- current_user()
+            if (!is.null(user) && !is.null(user$first_name) && !is.null(user$last_name)) {
+              username <- paste(user$first_name, user$last_name)
+              log_general_concept_change(
+                username = username,
+                action_type = "delete",
+                general_concept_id = deleted_id,
+                comment = sprintf("Deleted concept '%s' from category '%s' > '%s'",
+                                concept_info$general_concept_name[1],
+                                concept_info$category[1],
+                                concept_info$subcategory[1])
+              )
+            }
+          }
+
+          # Remove associated mappings (cascade delete)
+          concept_mappings <- concept_mappings %>%
+            dplyr::filter(general_concept_id != deleted_id)
+
+          # Remove associated custom concepts (cascade delete)
+          custom_concepts <- custom_concepts %>%
+            dplyr::filter(is.na(general_concept_id) | general_concept_id != deleted_id)
+        }
+
+        # Save updated mappings and custom concepts to CSV
+        csv_path_mappings <- system.file("extdata", "csv", "concept_mappings.csv", package = "indicate")
+        if (!file.exists(csv_path_mappings) || csv_path_mappings == "") {
+          csv_path_mappings <- file.path("inst", "extdata", "csv", "concept_mappings.csv")
+        }
+        if (file.exists(csv_path_mappings)) {
+          readr::write_csv(concept_mappings, csv_path_mappings)
+        }
+
+        csv_path_custom <- system.file("extdata", "csv", "custom_concepts.csv", package = "indicate")
+        if (!file.exists(csv_path_custom) || csv_path_custom == "") {
+          csv_path_custom <- file.path("inst", "extdata", "csv", "custom_concepts.csv")
+        }
+        if (file.exists(csv_path_custom)) {
+          readr::write_csv(custom_concepts, csv_path_custom)
+        }
+
+        # Update local data with deleted associations
+        data <- local_data()
+        data$concept_mappings <- concept_mappings
+        data$custom_concepts <- custom_concepts
+        local_data(data)
+
+        # Clear deletion list
+        deleted_general_concepts(list())
+      }
 
       # Save general_concepts to CSV
       csv_path <- system.file("extdata", "csv", "general_concepts.csv", package = "indicate")
@@ -1820,70 +1894,18 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       concept_id <- input$delete_general_concept
       if (!is.null(concept_id)) {
-        # Get concept info before deletion for logging
-        concept_info <- current_data()$general_concepts %>%
-          dplyr::filter(general_concept_id == as.integer(concept_id))
+        # Mark concept for deletion (will be applied on Save updates)
+        current_deleted <- deleted_general_concepts()
+        current_deleted[[as.character(concept_id)]] <- TRUE
+        deleted_general_concepts(current_deleted)
 
-        # Remove from general_concepts
+        # Remove from local display immediately (but not from CSV yet)
         general_concepts <- current_data()$general_concepts %>%
           dplyr::filter(general_concept_id != as.integer(concept_id))
 
-        # Remove associated mappings (cascade delete)
-        concept_mappings <- current_data()$concept_mappings %>%
-          dplyr::filter(general_concept_id != as.integer(concept_id))
-
-        # Remove associated custom concepts (cascade delete)
-        custom_concepts <- current_data()$custom_concepts %>%
-          dplyr::filter(is.na(general_concept_id) | general_concept_id != as.integer(concept_id))
-
-        # Log the deletion
-        if (nrow(concept_info) > 0) {
-          user <- current_user()
-          if (!is.null(user) && !is.null(user$first_name) && !is.null(user$last_name)) {
-            username <- paste(user$first_name, user$last_name)
-            log_general_concept_change(
-              username = username,
-              action_type = "delete",
-              general_concept_id = as.integer(concept_id),
-              comment = sprintf("Deleted concept '%s' from category '%s' > '%s'",
-                              concept_info$general_concept_name[1],
-                              concept_info$category[1],
-                              concept_info$subcategory[1])
-            )
-          }
-        }
-
-        # Save updated data to CSV files
-        csv_path_concepts <- system.file("extdata", "csv", "general_concepts.csv", package = "indicate")
-        if (!file.exists(csv_path_concepts) || csv_path_concepts == "") {
-          csv_path_concepts <- file.path("inst", "extdata", "csv", "general_concepts.csv")
-        }
-        if (file.exists(csv_path_concepts)) {
-          general_concepts_sorted <- general_concepts %>% dplyr::arrange(general_concept_id)
-          readr::write_csv(general_concepts_sorted, csv_path_concepts)
-        }
-
-        csv_path_mappings <- system.file("extdata", "csv", "concept_mappings.csv", package = "indicate")
-        if (!file.exists(csv_path_mappings) || csv_path_mappings == "") {
-          csv_path_mappings <- file.path("inst", "extdata", "csv", "concept_mappings.csv")
-        }
-        if (file.exists(csv_path_mappings)) {
-          readr::write_csv(concept_mappings, csv_path_mappings)
-        }
-
-        csv_path_custom <- system.file("extdata", "csv", "custom_concepts.csv", package = "indicate")
-        if (!file.exists(csv_path_custom) || csv_path_custom == "") {
-          csv_path_custom <- file.path("inst", "extdata", "csv", "custom_concepts.csv")
-        }
-        if (file.exists(csv_path_custom)) {
-          readr::write_csv(custom_concepts, csv_path_custom)
-        }
-
-        # Update local data
+        # Update local data for display
         data <- local_data()
         data$general_concepts <- general_concepts
-        data$concept_mappings <- concept_mappings
-        data$custom_concepts <- custom_concepts
         local_data(data)
 
         # Restore datatable state after re-render
