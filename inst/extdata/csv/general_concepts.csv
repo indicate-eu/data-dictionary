@@ -1,6 +1,6 @@
 general_concept_id,category,subcategory,general_concept_name,comments,statistical_summary
 1,Clinical observation,Neurological assessment,3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM) score,NA,NA
-2,Clinical observation,Neurological assessment,4 A's Test for Delirium Screening score,,NA
+2,Clinical observation,Neurological assessment,4 A's Test for Delirium Screening score,NA,NA
 3,Clinical observation,Neurological assessment,Behavior pain scale,NA,NA
 4,Clinical observation,Neurological assessment,Confusion Assessment Method for the Intensive Care Unit (CAM-ICU) score,NA,NA
 5,Clinical observation,Neurological assessment,Delirium Detection Score (DDS) score,NA,NA
@@ -14,7 +14,7 @@ general_concept_id,category,subcategory,general_concept_name,comments,statistica
 13,Clinical observation,Neurological assessment,Ramsay sedation scale,NA,NA
 14,Clinical observation,Neurological assessment,Richmond agitation-sedation scale,NA,NA
 15,Clinical observation,Neurological assessment,Visual analog pain scale,NA,NA
-16,Condition,APACHE IV - Chronic health conditions,AIDS,NA,NA
+16,Condition,APACHE IV - Chronic health conditions,AIDS,,NA
 17,Condition,APACHE IV - Chronic health conditions,Alcoholic liver disease,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis.",NA
 18,Condition,APACHE IV - Chronic health conditions,Chronic kidney disease,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis.",NA
 19,Condition,APACHE IV - Chronic health conditions,Cirrhosis of liver,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis.",NA

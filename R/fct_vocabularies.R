@@ -648,6 +648,16 @@ get_related_concepts_filtered <- function(concept_id, vocabularies) {
 #' @description Load additional concept mappings from OHDSI vocabulary relationships
 #' for all recommended concepts. This enriches the dictionary with related concepts.
 #'
+#' For general concepts:
+#' - Uses "Maps to", "Mapped from" relationships and concept_ancestor hierarchy
+#' - Filters to same vocabulary and valid concepts
+#'
+#' For Drug category concepts (RxNorm):
+#' - Finds Ingredient by exact name match (case-insensitive)
+#' - Follows "RxNorm has ing" to find Clinical Drug Comp
+#' - Follows "Constitutes" to find Clinical Drug
+#' - Only includes final Clinical Drug concepts
+#'
 #' @param vocab_data Vocabularies data (DuckDB connection with concept, concept_relationship, concept_ancestor tables)
 #' @param concept_mappings Current concept_mappings dataframe
 #' @param preserve_recommended Logical. If TRUE, preserve the recommended status of existing ohdsi_relationships mappings
@@ -761,22 +771,142 @@ load_ohdsi_relationships <- function(vocab_data, concept_mappings, preserve_reco
   # Step 5: Combine all new mappings
   if (length(new_mappings_list) > 0) {
     new_mappings <- dplyr::bind_rows(new_mappings_list)
-    
+
     # Filter out duplicates (mappings that already exist)
     existing_keys <- concept_mappings %>%
       dplyr::mutate(key = paste(general_concept_id, omop_concept_id, sep = "_")) %>%
       dplyr::pull(key)
-    
+
     new_mappings <- new_mappings %>%
       dplyr::mutate(key = paste(general_concept_id, omop_concept_id, sep = "_")) %>%
       dplyr::filter(!key %in% existing_keys) %>%
       dplyr::select(-key)
-    
+
     if (nrow(new_mappings) > 0) {
       concept_mappings <- dplyr::bind_rows(concept_mappings, new_mappings)
     }
   }
-  
+
+  # Step 6: RxNorm Drug enrichment for general concepts with category = "Drug"
+  # Load general concepts to identify Drug category concepts
+  general_concepts_path <- get_package_dir("extdata", "csv", "general_concepts.csv")
+  general_concepts <- readr::read_csv(general_concepts_path, show_col_types = FALSE)
+
+  # Filter to Drug category
+  drug_concepts <- general_concepts %>%
+    dplyr::filter(category == "Drug") %>%
+    dplyr::select(general_concept_id, general_concept_name)
+
+  if (nrow(drug_concepts) > 0) {
+    drug_mappings_list <- list()
+
+    for (i in seq_len(nrow(drug_concepts))) {
+      drug <- drug_concepts[i, ]
+      general_concept_id <- drug$general_concept_id
+      general_concept_name <- drug$general_concept_name
+
+      # Find Ingredient in RxNorm/RxNorm Extension (case-insensitive)
+      ingredients <- vocab_data$concept %>%
+        dplyr::filter(
+          vocabulary_id %in% c("RxNorm", "RxNorm Extension"),
+          concept_class_id == "Ingredient",
+          is.na(invalid_reason)
+        ) %>%
+        dplyr::collect() %>%
+        dplyr::mutate(concept_name_lower = tolower(concept_name)) %>%
+        dplyr::filter(concept_name_lower == tolower(general_concept_name)) %>%
+        dplyr::select(-concept_name_lower)
+
+      if (nrow(ingredients) == 0) next
+
+      ingredient_ids <- ingredients$concept_id
+
+      # Find Clinical Drug Comp via "RxNorm has ing" relationship
+      # Relationship: Clinical Drug Comp (concept_id_1) -> "has ing" -> Ingredient (concept_id_2)
+      clinical_drug_comp_ids <- vocab_data$concept_relationship %>%
+        dplyr::filter(
+          concept_id_2 %in% ingredient_ids,
+          relationship_id == "RxNorm has ing"
+        ) %>%
+        dplyr::select(concept_id_1) %>%
+        dplyr::collect() %>%
+        dplyr::pull(concept_id_1)
+
+      if (length(clinical_drug_comp_ids) == 0) next
+
+      # Filter to only Clinical Drug Comp
+      clinical_drug_comps <- vocab_data$concept %>%
+        dplyr::filter(
+          concept_id %in% clinical_drug_comp_ids,
+          concept_class_id == "Clinical Drug Comp",
+          is.na(invalid_reason)
+        ) %>%
+        dplyr::collect()
+
+      if (nrow(clinical_drug_comps) == 0) next
+
+      clinical_drug_comp_ids <- clinical_drug_comps$concept_id
+
+      # Find Clinical Drugs via "Constitutes" relationship
+      # Clinical Drug Comp (concept_id_1) -> "Constitutes" -> Clinical Drug (concept_id_2)
+      final_clinical_drug_ids <- vocab_data$concept_relationship %>%
+        dplyr::filter(
+          concept_id_1 %in% clinical_drug_comp_ids,
+          relationship_id == "Constitutes"
+        ) %>%
+        dplyr::select(concept_id_2) %>%
+        dplyr::collect() %>%
+        dplyr::pull(concept_id_2)
+
+      if (length(final_clinical_drug_ids) == 0) next
+
+      # Filter to only Clinical Drug class
+      clinical_drugs <- vocab_data$concept %>%
+        dplyr::filter(
+          concept_id %in% final_clinical_drug_ids,
+          concept_class_id == "Clinical Drug",
+          is.na(invalid_reason)
+        ) %>%
+        dplyr::collect()
+
+      if (nrow(clinical_drugs) == 0) next
+
+      # All Clinical Drugs are always marked as recommended
+      is_recommended <- rep(TRUE, nrow(clinical_drugs))
+
+      # Create new mappings
+      new_drug_rows <- data.frame(
+        general_concept_id = general_concept_id,
+        omop_concept_id = clinical_drugs$concept_id,
+        omop_unit_concept_id = NA_character_,
+        recommended = is_recommended,
+        source = "ohdsi_relationships",
+        stringsAsFactors = FALSE
+      )
+
+      drug_mappings_list[[length(drug_mappings_list) + 1]] <- new_drug_rows
+    }
+
+    # Combine drug mappings
+    if (length(drug_mappings_list) > 0) {
+      drug_mappings <- dplyr::bind_rows(drug_mappings_list)
+
+      # Get Clinical Drug concept IDs to replace
+      clinical_drug_ids <- drug_mappings$omop_concept_id
+
+      # Remove any existing Clinical Drug mappings that we're about to replace
+      # This ensures Clinical Drugs are always recommended = TRUE
+      concept_mappings <- concept_mappings %>%
+        dplyr::filter(
+          !(source == "ohdsi_relationships" &
+            omop_concept_id %in% clinical_drug_ids)
+        )
+
+      # Add Clinical Drug mappings (all with recommended = TRUE)
+      concept_mappings <- dplyr::bind_rows(concept_mappings, drug_mappings)
+    }
+  }
+
   return(concept_mappings)
 }
 
