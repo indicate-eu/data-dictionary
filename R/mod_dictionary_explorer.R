@@ -1314,6 +1314,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
     # Handle concept selection changes, then trigger cascade
     observe_event(selected_concept_id(), {
+      # Reset page position when changing concepts
+      concept_mappings_current_page(0)
       concept_trigger(concept_trigger() + 1)
     })
 
@@ -2646,6 +2648,22 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               )
             )
 
+          # Apply edited recommended values before creating HTML
+          current_edits <- edited_recommended()
+          if (length(current_edits) > 0) {
+            for (uid in names(current_edits)) {
+              mappings <- mappings %>%
+                dplyr::mutate(
+                  recommended = ifelse(unique_id == uid, current_edits[[uid]], recommended)
+                )
+            }
+          }
+
+          # Cache mappings BEFORE converting to HTML (for selection handling)
+          mappings_for_cache <- mappings %>%
+            dplyr::select(concept_name, vocabulary_id, concept_code, recommended, omop_concept_id)
+          current_mappings(mappings_for_cache)
+
           # Create HTML with both data attributes (one will be empty)
           mappings <- mappings %>%
             dplyr::mutate(
@@ -2664,6 +2682,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         } else {
           mappings <- mappings %>%
             dplyr::mutate(recommended = ifelse(recommended, "Yes", "No"))
+
+          # Cache mappings for selection handling (convert to boolean)
+          mappings_for_cache <- mappings %>%
+            dplyr::mutate(recommended = recommended == "Yes")
+          current_mappings(mappings_for_cache)
         }
       } else {
         # If no concepts, show empty table
@@ -2684,14 +2707,23 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           dplyr::select(concept_name, vocabulary_id, concept_code, recommended, omop_concept_id)
       }
 
-      # Cache mappings for selection handling (before converting recommended to Yes/No)
-      mappings_for_cache <- mappings %>%
-        dplyr::mutate(recommended = recommended == "Yes")
-      current_mappings(mappings_for_cache)
+      # Reset selection tracker when table is re-rendered
+      last_processed_selection(NULL)
 
       # Load JavaScript callbacks
-      callback <- JS(paste(readLines(get_package_dir("www", "dt_callback.js")), collapse = "\n"))
+      base_callback <- paste(readLines(get_package_dir("www", "dt_callback.js")), collapse = "\n")
       keyboard_nav <- paste(readLines(get_package_dir("www", "keyboard_nav.js")), collapse = "\n")
+
+      # Add callback to track page changes
+      page_tracking_code <- sprintf("
+        table.on('page.dt', function() {
+          var info = table.page.info();
+          Shiny.setInputValue('%s', info.start, {priority: 'event'});
+        });
+      ", session$ns("concept_mappings_page_start"))
+
+      # Combine callbacks
+      callback <- JS(paste(base_callback, page_tracking_code, sep = "\n"))
 
       # Build initComplete callback that includes keyboard nav
       init_complete_js <- create_keyboard_nav(keyboard_nav, TRUE, FALSE)
@@ -2714,6 +2746,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         )
       }
 
+      # Get current page to restore after refresh
+      current_page_start <- concept_mappings_current_page()
+
       dt <- DT::datatable(
         mappings,
         selection = 'none',
@@ -2726,6 +2761,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           dom = 'tip',
           select = list(style = 'single', info = FALSE),
           columnDefs = col_defs,
+          displayStart = current_page_start,
           initComplete = init_complete_js
         ),
         callback = callback
@@ -2744,7 +2780,18 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
     # Cache for current mappings to avoid recalculation
     current_mappings <- reactiveVal(NULL)
-    
+
+    # Track last processed selection to avoid reprocessing same selection
+    last_processed_selection <- reactiveVal(NULL)
+
+    # Track current page of concept mappings table to restore after refresh
+    concept_mappings_current_page <- reactiveVal(0)
+
+    # Observer to save page position when user changes pages
+    observe_event(input$concept_mappings_page_start, {
+      concept_mappings_current_page(input$concept_mappings_page_start)
+    }, ignoreInit = TRUE)
+
     # Debounce the table selection to avoid excessive updates when navigating with arrow keys
     debounced_selection <- debounce(
       reactive({
@@ -2758,6 +2805,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       selected_row <- debounced_selection()
 
       if (!is.null(selected_row) && length(selected_row) > 0) {
+        # Check if this is the same selection we already processed
+        if (identical(selected_row, last_processed_selection())) {
+          return()
+        }
+
+        # Update last processed selection
+        last_processed_selection(selected_row)
+
         # Use cached mappings if available
         mappings <- current_mappings()
 
