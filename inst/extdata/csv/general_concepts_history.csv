@@ -1,369 +1,333 @@
-history_id,timestamp,username,action_type,general_concept_id,comment
-1,2025-11-03 14:00:00,Boris Delange,insert,1,Initial creation
-2,2025-11-03 14:00:00,Boris Delange,insert,2,Initial creation
-3,2025-11-03 14:00:00,Boris Delange,insert,3,Initial creation
-4,2025-11-03 14:00:00,Boris Delange,insert,4,Initial creation
-5,2025-11-03 14:00:00,Boris Delange,insert,5,Initial creation
-6,2025-11-03 14:00:00,Boris Delange,insert,6,Initial creation
-7,2025-11-03 14:00:00,Boris Delange,insert,7,Initial creation
-8,2025-11-03 14:00:00,Boris Delange,insert,8,Initial creation
-9,2025-11-03 14:00:00,Boris Delange,insert,9,Initial creation
-10,2025-11-03 14:00:00,Boris Delange,insert,10,Initial creation
-11,2025-11-03 14:00:00,Boris Delange,insert,11,Initial creation
-12,2025-11-03 14:00:00,Boris Delange,insert,12,Initial creation
-13,2025-11-03 14:00:00,Boris Delange,insert,13,Initial creation
-14,2025-11-03 14:00:00,Boris Delange,insert,14,Initial creation
-15,2025-11-03 14:00:00,Boris Delange,insert,15,Initial creation
-16,2025-11-03 14:00:00,Boris Delange,insert,16,Initial creation
-17,2025-11-03 14:00:00,Boris Delange,insert,17,Initial creation
-18,2025-11-03 14:00:00,Boris Delange,insert,18,Initial creation
-19,2025-11-03 14:00:00,Boris Delange,insert,19,Initial creation
-20,2025-11-03 14:00:00,Boris Delange,insert,20,Initial creation
-21,2025-11-03 14:00:00,Boris Delange,insert,21,Initial creation
-22,2025-11-03 14:00:00,Boris Delange,insert,22,Initial creation
-23,2025-11-03 14:00:00,Boris Delange,insert,23,Initial creation
-24,2025-11-03 14:00:00,Boris Delange,insert,24,Initial creation
-25,2025-11-03 14:00:00,Boris Delange,insert,25,Initial creation
-26,2025-11-03 14:00:00,Boris Delange,insert,337,Initial creation
-27,2025-11-03 14:00:00,Boris Delange,insert,26,Initial creation
-28,2025-11-03 14:00:00,Boris Delange,insert,27,Initial creation
-29,2025-11-03 14:00:00,Boris Delange,insert,28,Initial creation
-30,2025-11-03 14:00:00,Boris Delange,insert,29,Initial creation
-31,2025-11-03 14:00:00,Boris Delange,insert,30,Initial creation
-32,2025-11-03 14:00:00,Boris Delange,insert,31,Initial creation
-33,2025-11-03 14:00:00,Boris Delange,insert,32,Initial creation
-34,2025-11-03 14:00:00,Boris Delange,insert,33,Initial creation
-35,2025-11-03 14:00:00,Boris Delange,insert,34,Initial creation
-36,2025-11-03 14:00:00,Boris Delange,insert,35,Initial creation
-37,2025-11-03 14:00:00,Boris Delange,insert,36,Initial creation
-38,2025-11-03 14:00:00,Boris Delange,insert,37,Initial creation
-39,2025-11-03 14:00:00,Boris Delange,insert,38,Initial creation
-40,2025-11-03 14:00:00,Boris Delange,insert,39,Initial creation
-41,2025-11-03 14:00:00,Boris Delange,insert,40,Initial creation
-42,2025-11-03 14:00:00,Boris Delange,insert,41,Initial creation
-43,2025-11-03 14:00:00,Boris Delange,insert,42,Initial creation
-44,2025-11-03 14:00:00,Boris Delange,insert,43,Initial creation
-45,2025-11-03 14:00:00,Boris Delange,insert,44,Initial creation
-46,2025-11-03 14:00:00,Boris Delange,insert,45,Initial creation
-47,2025-11-03 14:00:00,Boris Delange,insert,46,Initial creation
-48,2025-11-03 14:00:00,Boris Delange,insert,47,Initial creation
-49,2025-11-03 14:00:00,Boris Delange,insert,48,Initial creation
-50,2025-11-03 14:00:00,Boris Delange,insert,49,Initial creation
-51,2025-11-03 14:00:00,Boris Delange,insert,50,Initial creation
-52,2025-11-03 14:00:00,Boris Delange,insert,51,Initial creation
-53,2025-11-03 14:00:00,Boris Delange,insert,52,Initial creation
-54,2025-11-03 14:00:00,Boris Delange,insert,53,Initial creation
-55,2025-11-03 14:00:00,Boris Delange,insert,54,Initial creation
-56,2025-11-03 14:00:00,Boris Delange,insert,55,Initial creation
-57,2025-11-03 14:00:00,Boris Delange,insert,56,Initial creation
-58,2025-11-03 14:00:00,Boris Delange,insert,57,Initial creation
-59,2025-11-03 14:00:00,Boris Delange,insert,58,Initial creation
-60,2025-11-03 14:00:00,Boris Delange,insert,59,Initial creation
-61,2025-11-03 14:00:00,Boris Delange,insert,60,Initial creation
-62,2025-11-03 14:00:00,Boris Delange,insert,61,Initial creation
-63,2025-11-03 14:00:00,Boris Delange,insert,62,Initial creation
-64,2025-11-03 14:00:00,Boris Delange,insert,63,Initial creation
-65,2025-11-03 14:00:00,Boris Delange,insert,64,Initial creation
-66,2025-11-03 14:00:00,Boris Delange,insert,66,Initial creation
-67,2025-11-03 14:00:00,Boris Delange,insert,67,Initial creation
-68,2025-11-03 14:00:00,Boris Delange,insert,69,Initial creation
-69,2025-11-03 14:00:00,Boris Delange,insert,70,Initial creation
-70,2025-11-03 14:00:00,Boris Delange,insert,71,Initial creation
-71,2025-11-03 14:00:00,Boris Delange,insert,72,Initial creation
-72,2025-11-03 14:00:00,Boris Delange,insert,73,Initial creation
-73,2025-11-03 14:00:00,Boris Delange,insert,74,Initial creation
-74,2025-11-03 14:00:00,Boris Delange,insert,75,Initial creation
-75,2025-11-03 14:00:00,Boris Delange,insert,76,Initial creation
-76,2025-11-03 14:00:00,Boris Delange,insert,77,Initial creation
-77,2025-11-03 14:00:00,Boris Delange,insert,78,Initial creation
-78,2025-11-03 14:00:00,Boris Delange,insert,79,Initial creation
-79,2025-11-03 14:00:00,Boris Delange,insert,80,Initial creation
-80,2025-11-03 14:00:00,Boris Delange,insert,81,Initial creation
-81,2025-11-03 14:00:00,Boris Delange,insert,82,Initial creation
-82,2025-11-03 14:00:00,Boris Delange,insert,83,Initial creation
-83,2025-11-03 14:00:00,Boris Delange,insert,84,Initial creation
-84,2025-11-03 14:00:00,Boris Delange,insert,85,Initial creation
-85,2025-11-03 14:00:00,Boris Delange,insert,86,Initial creation
-86,2025-11-03 14:00:00,Boris Delange,insert,87,Initial creation
-87,2025-11-03 14:00:00,Boris Delange,insert,88,Initial creation
-88,2025-11-03 14:00:00,Boris Delange,insert,89,Initial creation
-89,2025-11-03 14:00:00,Boris Delange,insert,90,Initial creation
-90,2025-11-03 14:00:00,Boris Delange,insert,91,Initial creation
-91,2025-11-03 14:00:00,Boris Delange,insert,92,Initial creation
-92,2025-11-03 14:00:00,Boris Delange,insert,93,Initial creation
-93,2025-11-03 14:00:00,Boris Delange,insert,94,Initial creation
-94,2025-11-03 14:00:00,Boris Delange,insert,95,Initial creation
-95,2025-11-03 14:00:00,Boris Delange,insert,96,Initial creation
-96,2025-11-03 14:00:00,Boris Delange,insert,97,Initial creation
-97,2025-11-03 14:00:00,Boris Delange,insert,98,Initial creation
-98,2025-11-03 14:00:00,Boris Delange,insert,99,Initial creation
-99,2025-11-03 14:00:00,Boris Delange,insert,101,Initial creation
-100,2025-11-03 14:00:00,Boris Delange,insert,102,Initial creation
-101,2025-11-03 14:00:00,Boris Delange,insert,335,Initial creation
-102,2025-11-03 14:00:00,Boris Delange,insert,103,Initial creation
-103,2025-11-03 14:00:00,Boris Delange,insert,105,Initial creation
-104,2025-11-03 14:00:00,Boris Delange,insert,106,Initial creation
-105,2025-11-03 14:00:00,Boris Delange,insert,107,Initial creation
-106,2025-11-03 14:00:00,Boris Delange,insert,108,Initial creation
-107,2025-11-03 14:00:00,Boris Delange,insert,109,Initial creation
-108,2025-11-03 14:00:00,Boris Delange,insert,110,Initial creation
-109,2025-11-03 14:00:00,Boris Delange,insert,111,Initial creation
-110,2025-11-03 14:00:00,Boris Delange,insert,112,Initial creation
-111,2025-11-03 14:00:00,Boris Delange,insert,113,Initial creation
-112,2025-11-03 14:00:00,Boris Delange,insert,114,Initial creation
-113,2025-11-03 14:00:00,Boris Delange,insert,115,Initial creation
-114,2025-11-03 14:00:00,Boris Delange,insert,116,Initial creation
-115,2025-11-03 14:00:00,Boris Delange,insert,117,Initial creation
-116,2025-11-03 14:00:00,Boris Delange,insert,118,Initial creation
-117,2025-11-03 14:00:00,Boris Delange,insert,119,Initial creation
-118,2025-11-03 14:00:00,Boris Delange,insert,120,Initial creation
-119,2025-11-03 14:00:00,Boris Delange,insert,121,Initial creation
-120,2025-11-03 14:00:00,Boris Delange,insert,122,Initial creation
-121,2025-11-03 14:00:00,Boris Delange,insert,123,Initial creation
-122,2025-11-03 14:00:00,Boris Delange,insert,124,Initial creation
-123,2025-11-03 14:00:00,Boris Delange,insert,125,Initial creation
-124,2025-11-03 14:00:00,Boris Delange,insert,126,Initial creation
-125,2025-11-03 14:00:00,Boris Delange,insert,127,Initial creation
-126,2025-11-03 14:00:00,Boris Delange,insert,128,Initial creation
-127,2025-11-03 14:00:00,Boris Delange,insert,129,Initial creation
-128,2025-11-03 14:00:00,Boris Delange,insert,130,Initial creation
-129,2025-11-03 14:00:00,Boris Delange,insert,131,Initial creation
-130,2025-11-03 14:00:00,Boris Delange,insert,132,Initial creation
-131,2025-11-03 14:00:00,Boris Delange,insert,133,Initial creation
-132,2025-11-03 14:00:00,Boris Delange,insert,134,Initial creation
-133,2025-11-03 14:00:00,Boris Delange,insert,135,Initial creation
-134,2025-11-03 14:00:00,Boris Delange,insert,136,Initial creation
-135,2025-11-03 14:00:00,Boris Delange,insert,137,Initial creation
-136,2025-11-03 14:00:00,Boris Delange,insert,138,Initial creation
-137,2025-11-03 14:00:00,Boris Delange,insert,139,Initial creation
-138,2025-11-03 14:00:00,Boris Delange,insert,140,Initial creation
-139,2025-11-03 14:00:00,Boris Delange,insert,141,Initial creation
-140,2025-11-03 14:00:00,Boris Delange,insert,142,Initial creation
-141,2025-11-03 14:00:00,Boris Delange,insert,143,Initial creation
-142,2025-11-03 14:00:00,Boris Delange,insert,144,Initial creation
-143,2025-11-03 14:00:00,Boris Delange,insert,145,Initial creation
-144,2025-11-03 14:00:00,Boris Delange,insert,146,Initial creation
-145,2025-11-03 14:00:00,Boris Delange,insert,147,Initial creation
-146,2025-11-03 14:00:00,Boris Delange,insert,148,Initial creation
-147,2025-11-03 14:00:00,Boris Delange,insert,149,Initial creation
-148,2025-11-03 14:00:00,Boris Delange,insert,150,Initial creation
-149,2025-11-03 14:00:00,Boris Delange,insert,151,Initial creation
-150,2025-11-03 14:00:00,Boris Delange,insert,152,Initial creation
-151,2025-11-03 14:00:00,Boris Delange,insert,153,Initial creation
-152,2025-11-03 14:00:00,Boris Delange,insert,154,Initial creation
-153,2025-11-03 14:00:00,Boris Delange,insert,155,Initial creation
-154,2025-11-03 14:00:00,Boris Delange,insert,156,Initial creation
-155,2025-11-03 14:00:00,Boris Delange,insert,157,Initial creation
-156,2025-11-03 14:00:00,Boris Delange,insert,158,Initial creation
-157,2025-11-03 14:00:00,Boris Delange,insert,159,Initial creation
-158,2025-11-03 14:00:00,Boris Delange,insert,160,Initial creation
-159,2025-11-03 14:00:00,Boris Delange,insert,161,Initial creation
-160,2025-11-03 14:00:00,Boris Delange,insert,162,Initial creation
-161,2025-11-03 14:00:00,Boris Delange,insert,163,Initial creation
-162,2025-11-03 14:00:00,Boris Delange,insert,164,Initial creation
-163,2025-11-03 14:00:00,Boris Delange,insert,165,Initial creation
-164,2025-11-03 14:00:00,Boris Delange,insert,166,Initial creation
-165,2025-11-03 14:00:00,Boris Delange,insert,167,Initial creation
-166,2025-11-03 14:00:00,Boris Delange,insert,168,Initial creation
-167,2025-11-03 14:00:00,Boris Delange,insert,169,Initial creation
-168,2025-11-03 14:00:00,Boris Delange,insert,170,Initial creation
-169,2025-11-03 14:00:00,Boris Delange,insert,171,Initial creation
-170,2025-11-03 14:00:00,Boris Delange,insert,172,Initial creation
-171,2025-11-03 14:00:00,Boris Delange,insert,173,Initial creation
-172,2025-11-03 14:00:00,Boris Delange,insert,174,Initial creation
-173,2025-11-03 14:00:00,Boris Delange,insert,175,Initial creation
-174,2025-11-03 14:00:00,Boris Delange,insert,176,Initial creation
-175,2025-11-03 14:00:00,Boris Delange,insert,177,Initial creation
-176,2025-11-03 14:00:00,Boris Delange,insert,178,Initial creation
-177,2025-11-03 14:00:00,Boris Delange,insert,179,Initial creation
-178,2025-11-03 14:00:00,Boris Delange,insert,180,Initial creation
-179,2025-11-03 14:00:00,Boris Delange,insert,181,Initial creation
-180,2025-11-03 14:00:00,Boris Delange,insert,182,Initial creation
-181,2025-11-03 14:00:00,Boris Delange,insert,183,Initial creation
-182,2025-11-03 14:00:00,Boris Delange,insert,184,Initial creation
-183,2025-11-03 14:00:00,Boris Delange,insert,185,Initial creation
-184,2025-11-03 14:00:00,Boris Delange,insert,186,Initial creation
-185,2025-11-03 14:00:00,Boris Delange,insert,187,Initial creation
-186,2025-11-03 14:00:00,Boris Delange,insert,188,Initial creation
-187,2025-11-03 14:00:00,Boris Delange,insert,189,Initial creation
-188,2025-11-03 14:00:00,Boris Delange,insert,190,Initial creation
-189,2025-11-03 14:00:00,Boris Delange,insert,191,Initial creation
-190,2025-11-03 14:00:00,Boris Delange,insert,192,Initial creation
-191,2025-11-03 14:00:00,Boris Delange,insert,193,Initial creation
-192,2025-11-03 14:00:00,Boris Delange,insert,194,Initial creation
-193,2025-11-03 14:00:00,Boris Delange,insert,195,Initial creation
-194,2025-11-03 14:00:00,Boris Delange,insert,196,Initial creation
-195,2025-11-03 14:00:00,Boris Delange,insert,197,Initial creation
-196,2025-11-03 14:00:00,Boris Delange,insert,198,Initial creation
-197,2025-11-03 14:00:00,Boris Delange,insert,199,Initial creation
-198,2025-11-03 14:00:00,Boris Delange,insert,200,Initial creation
-199,2025-11-03 14:00:00,Boris Delange,insert,201,Initial creation
-200,2025-11-03 14:00:00,Boris Delange,insert,202,Initial creation
-201,2025-11-03 14:00:00,Boris Delange,insert,203,Initial creation
-202,2025-11-03 14:00:00,Boris Delange,insert,204,Initial creation
-203,2025-11-03 14:00:00,Boris Delange,insert,205,Initial creation
-204,2025-11-03 14:00:00,Boris Delange,insert,206,Initial creation
-205,2025-11-03 14:00:00,Boris Delange,insert,207,Initial creation
-206,2025-11-03 14:00:00,Boris Delange,insert,208,Initial creation
-207,2025-11-03 14:00:00,Boris Delange,insert,209,Initial creation
-208,2025-11-03 14:00:00,Boris Delange,insert,210,Initial creation
-209,2025-11-03 14:00:00,Boris Delange,insert,211,Initial creation
-210,2025-11-03 14:00:00,Boris Delange,insert,212,Initial creation
-211,2025-11-03 14:00:00,Boris Delange,insert,213,Initial creation
-212,2025-11-03 14:00:00,Boris Delange,insert,214,Initial creation
-213,2025-11-03 14:00:00,Boris Delange,insert,215,Initial creation
-214,2025-11-03 14:00:00,Boris Delange,insert,216,Initial creation
-215,2025-11-03 14:00:00,Boris Delange,insert,217,Initial creation
-216,2025-11-03 14:00:00,Boris Delange,insert,218,Initial creation
-217,2025-11-03 14:00:00,Boris Delange,insert,219,Initial creation
-218,2025-11-03 14:00:00,Boris Delange,insert,220,Initial creation
-219,2025-11-03 14:00:00,Boris Delange,insert,221,Initial creation
-220,2025-11-03 14:00:00,Boris Delange,insert,222,Initial creation
-221,2025-11-03 14:00:00,Boris Delange,insert,223,Initial creation
-222,2025-11-03 14:00:00,Boris Delange,insert,224,Initial creation
-223,2025-11-03 14:00:00,Boris Delange,insert,225,Initial creation
-224,2025-11-03 14:00:00,Boris Delange,insert,226,Initial creation
-225,2025-11-03 14:00:00,Boris Delange,insert,227,Initial creation
-226,2025-11-03 14:00:00,Boris Delange,insert,228,Initial creation
-227,2025-11-03 14:00:00,Boris Delange,insert,229,Initial creation
-228,2025-11-03 14:00:00,Boris Delange,insert,230,Initial creation
-229,2025-11-03 14:00:00,Boris Delange,insert,231,Initial creation
-230,2025-11-03 14:00:00,Boris Delange,insert,232,Initial creation
-231,2025-11-03 14:00:00,Boris Delange,insert,233,Initial creation
-232,2025-11-03 14:00:00,Boris Delange,insert,234,Initial creation
-233,2025-11-03 14:00:00,Boris Delange,insert,235,Initial creation
-234,2025-11-03 14:00:00,Boris Delange,insert,236,Initial creation
-235,2025-11-03 14:00:00,Boris Delange,insert,237,Initial creation
-236,2025-11-03 14:00:00,Boris Delange,insert,238,Initial creation
-237,2025-11-03 14:00:00,Boris Delange,insert,239,Initial creation
-238,2025-11-03 14:00:00,Boris Delange,insert,240,Initial creation
-239,2025-11-03 14:00:00,Boris Delange,insert,241,Initial creation
-240,2025-11-03 14:00:00,Boris Delange,insert,242,Initial creation
-241,2025-11-03 14:00:00,Boris Delange,insert,243,Initial creation
-242,2025-11-03 14:00:00,Boris Delange,insert,244,Initial creation
-243,2025-11-03 14:00:00,Boris Delange,insert,245,Initial creation
-244,2025-11-03 14:00:00,Boris Delange,insert,246,Initial creation
-245,2025-11-03 14:00:00,Boris Delange,insert,247,Initial creation
-246,2025-11-03 14:00:00,Boris Delange,insert,248,Initial creation
-247,2025-11-03 14:00:00,Boris Delange,insert,249,Initial creation
-248,2025-11-03 14:00:00,Boris Delange,insert,250,Initial creation
-249,2025-11-03 14:00:00,Boris Delange,insert,251,Initial creation
-250,2025-11-03 14:00:00,Boris Delange,insert,252,Initial creation
-251,2025-11-03 14:00:00,Boris Delange,insert,253,Initial creation
-252,2025-11-03 14:00:00,Boris Delange,insert,254,Initial creation
-253,2025-11-03 14:00:00,Boris Delange,insert,255,Initial creation
-254,2025-11-03 14:00:00,Boris Delange,insert,256,Initial creation
-255,2025-11-03 14:00:00,Boris Delange,insert,257,Initial creation
-256,2025-11-03 14:00:00,Boris Delange,insert,258,Initial creation
-257,2025-11-03 14:00:00,Boris Delange,insert,259,Initial creation
-258,2025-11-03 14:00:00,Boris Delange,insert,260,Initial creation
-259,2025-11-03 14:00:00,Boris Delange,insert,261,Initial creation
-260,2025-11-03 14:00:00,Boris Delange,insert,262,Initial creation
-261,2025-11-03 14:00:00,Boris Delange,insert,263,Initial creation
-262,2025-11-03 14:00:00,Boris Delange,insert,264,Initial creation
-263,2025-11-03 14:00:00,Boris Delange,insert,265,Initial creation
-264,2025-11-03 14:00:00,Boris Delange,insert,266,Initial creation
-265,2025-11-03 14:00:00,Boris Delange,insert,267,Initial creation
-266,2025-11-03 14:00:00,Boris Delange,insert,268,Initial creation
-267,2025-11-03 14:00:00,Boris Delange,insert,269,Initial creation
-268,2025-11-03 14:00:00,Boris Delange,insert,270,Initial creation
-269,2025-11-03 14:00:00,Boris Delange,insert,271,Initial creation
-270,2025-11-03 14:00:00,Boris Delange,insert,272,Initial creation
-271,2025-11-03 14:00:00,Boris Delange,insert,273,Initial creation
-272,2025-11-03 14:00:00,Boris Delange,insert,274,Initial creation
-273,2025-11-03 14:00:00,Boris Delange,insert,275,Initial creation
-274,2025-11-03 14:00:00,Boris Delange,insert,276,Initial creation
-275,2025-11-03 14:00:00,Boris Delange,insert,277,Initial creation
-276,2025-11-03 14:00:00,Boris Delange,insert,278,Initial creation
-277,2025-11-03 14:00:00,Boris Delange,insert,279,Initial creation
-278,2025-11-03 14:00:00,Boris Delange,insert,280,Initial creation
-279,2025-11-03 14:00:00,Boris Delange,insert,281,Initial creation
-280,2025-11-03 14:00:00,Boris Delange,insert,282,Initial creation
-281,2025-11-03 14:00:00,Boris Delange,insert,283,Initial creation
-282,2025-11-03 14:00:00,Boris Delange,insert,284,Initial creation
-283,2025-11-03 14:00:00,Boris Delange,insert,285,Initial creation
-284,2025-11-03 14:00:00,Boris Delange,insert,286,Initial creation
-285,2025-11-03 14:00:00,Boris Delange,insert,287,Initial creation
-286,2025-11-03 14:00:00,Boris Delange,insert,288,Initial creation
-287,2025-11-03 14:00:00,Boris Delange,insert,289,Initial creation
-288,2025-11-03 14:00:00,Boris Delange,insert,290,Initial creation
-289,2025-11-03 14:00:00,Boris Delange,insert,291,Initial creation
-290,2025-11-03 14:00:00,Boris Delange,insert,292,Initial creation
-291,2025-11-03 14:00:00,Boris Delange,insert,293,Initial creation
-292,2025-11-03 14:00:00,Boris Delange,insert,294,Initial creation
-293,2025-11-03 14:00:00,Boris Delange,insert,295,Initial creation
-294,2025-11-03 14:00:00,Boris Delange,insert,296,Initial creation
-295,2025-11-03 14:00:00,Boris Delange,insert,297,Initial creation
-296,2025-11-03 14:00:00,Boris Delange,insert,298,Initial creation
-297,2025-11-03 14:00:00,Boris Delange,insert,299,Initial creation
-298,2025-11-03 14:00:00,Boris Delange,insert,300,Initial creation
-299,2025-11-03 14:00:00,Boris Delange,insert,301,Initial creation
-300,2025-11-03 14:00:00,Boris Delange,insert,302,Initial creation
-301,2025-11-03 14:00:00,Boris Delange,insert,303,Initial creation
-302,2025-11-03 14:00:00,Boris Delange,insert,304,Initial creation
-303,2025-11-03 14:00:00,Boris Delange,insert,305,Initial creation
-304,2025-11-03 14:00:00,Boris Delange,insert,306,Initial creation
-305,2025-11-03 14:00:00,Boris Delange,insert,307,Initial creation
-306,2025-11-03 14:00:00,Boris Delange,insert,308,Initial creation
-307,2025-11-03 14:00:00,Boris Delange,insert,309,Initial creation
-308,2025-11-03 14:00:00,Boris Delange,insert,310,Initial creation
-309,2025-11-03 14:00:00,Boris Delange,insert,311,Initial creation
-310,2025-11-03 14:00:00,Boris Delange,insert,312,Initial creation
-311,2025-11-03 14:00:00,Boris Delange,insert,313,Initial creation
-312,2025-11-03 14:00:00,Boris Delange,insert,314,Initial creation
-313,2025-11-03 14:00:00,Boris Delange,insert,315,Initial creation
-314,2025-11-03 14:00:00,Boris Delange,insert,316,Initial creation
-315,2025-11-03 14:00:00,Boris Delange,insert,317,Initial creation
-316,2025-11-03 14:00:00,Boris Delange,insert,318,Initial creation
-317,2025-11-03 14:00:00,Boris Delange,insert,319,Initial creation
-318,2025-11-03 14:00:00,Boris Delange,insert,320,Initial creation
-319,2025-11-03 14:00:00,Boris Delange,insert,321,Initial creation
-320,2025-11-03 14:00:00,Boris Delange,insert,322,Initial creation
-321,2025-11-03 14:00:00,Boris Delange,insert,323,Initial creation
-322,2025-11-03 14:00:00,Boris Delange,insert,324,Initial creation
-323,2025-11-03 14:00:00,Boris Delange,insert,325,Initial creation
-324,2025-11-03 14:00:00,Boris Delange,insert,326,Initial creation
-325,2025-11-03 14:00:00,Boris Delange,insert,327,Initial creation
-326,2025-11-03 14:00:00,Boris Delange,insert,328,Initial creation
-327,2025-11-03 14:00:00,Boris Delange,insert,329,Initial creation
-328,2025-11-03 14:00:00,Boris Delange,insert,330,Initial creation
-329,2025-11-03 14:00:00,Boris Delange,insert,331,Initial creation
-330,2025-11-03 14:00:00,Boris Delange,insert,332,Initial creation
-331,2025-11-03 14:00:00,Boris Delange,insert,333,Initial creation
-332,2025-11-05 16:30:36,Admin User,insert,336,Created concept 'test' in category 'Condition' > 'APACHE IV - Chronic health conditions'
-333,2025-11-05 16:30:45,Admin User,delete,336,Deleted concept 'test' from category 'Condition' > 'APACHE IV - Chronic health conditions'
-334,2025-11-05 20:26:39,Admin User,insert,340,Created concept 'new one' in category 'Drug' > 'Anticoagulants'
-335,2025-11-05 20:28:35,Admin User,delete,336,Deleted concept 'test' from category 'Microbiology' > 'Microorganism'
-336,2025-11-05 22:17:42,Admin User,delete,339,Deleted concept 'test add 2' from category 'Condition' > 'APACHE IV - Chronic health conditions'
-337,2025-11-05 22:17:49,Admin User,delete,337,Deleted concept 'test2' from category 'Condition' > 'APACHE IV - Chronic health conditions'
-338,2025-11-05 22:17:57,Admin User,insert,341,Created concept 'test4' in category 'Other' > 'Demographic data'
-339,2025-11-05 22:19:01,Admin User,delete,341,Deleted concept 'test4' from category 'Other' > 'Demographic data'
-340,2025-11-05 22:19:57,Admin User,insert,341,Created concept 'test5' in category 'Condition' > 'APACHE IV - Chronic health conditions'
-341,2025-11-05 22:20:09,Admin User,insert,342,Created concept 'test6' in category 'Drug' > 'Anticoagulants'
-342,2025-11-05 22:20:33,Admin User,insert,343,Created concept 'test7' in category 'Drug' > 'Anticoagulants'
-343,2025-11-05 22:22:20,Admin User,insert,344,Created concept 'test8' in category 'Microbiology' > 'Microorganism'
-344,2025-11-05 22:22:38,Admin User,insert,345,Created concept 'abcd' in category 'Condition' > 'APACHE IV - Chronic health conditions'
-345,2025-11-06 09:03:15,Admin User,insert,346,Created concept 'abcde' in category 'Drug' > 'Anticoagulants'
-346,2025-11-06 09:07:04,Admin User,insert,347,Created concept 'abcdef' in category 'Drug' > 'Anticoagulants'
-347,2025-11-06 09:07:22,Admin User,delete,346,Deleted concept 'abcde' from category 'Drug' > 'Anticoagulants'
-348,2025-11-06 09:07:25,Admin User,delete,347,Deleted concept 'abcdef' from category 'Drug' > 'Anticoagulants'
-349,2025-11-06 09:07:27,Admin User,delete,345,Deleted concept 'abcd' from category 'Condition' > 'APACHE IV - Chronic health conditions'
-350,2025-11-06 09:14:04,Admin User,insert,345,Created concept 'abcd' in category 'Condition' > 'APACHE IV - Chronic health conditions'
-351,2025-11-06 09:14:18,Admin User,insert,346,Created concept 'abcd' in category 'Drug' > 'Anticoagulants'
-352,2025-11-06 09:14:30,Admin User,insert,347,Created concept 'abcde' in category 'Drug' > 'Anticoagulants'
-353,2025-11-06 09:14:33,Admin User,delete,345,Deleted concept 'abcd' from category 'Condition' > 'APACHE IV - Chronic health conditions'
-354,2025-11-06 09:14:37,Admin User,delete,346,Deleted concept 'abcd' from category 'Drug' > 'Anticoagulants'
-355,2025-11-06 09:14:39,Admin User,delete,347,Deleted concept 'abcde' from category 'Drug' > 'Anticoagulants'
-356,2025-11-06 09:19:09,Admin User,insert,345,Created concept 'abc' in category 'Drug' > 'Anticoagulants'
-357,2025-11-06 09:19:24,Admin User,insert,346,Created concept 'abcd' in category 'Drug' > 'Anticoagulants'
-358,2025-11-06 09:19:47,Admin User,delete,346,Deleted concept 'abcd' from category 'Drug' > 'Anticoagulants'
-359,2025-11-06 09:19:52,Admin User,delete,345,Deleted concept 'abc' from category 'Drug' > 'Anticoagulants'
-360,2025-11-06 09:20:41,Admin User,insert,345,Created concept 'efg' in category 'Drug' > 'Anticoagulants'
-361,2025-11-06 09:20:46,Admin User,delete,345,Deleted concept 'efg' from category 'Drug' > 'Anticoagulants'
-362,2025-11-06 09:21:18,Admin User,delete,345,Deleted concept 'efg' from category 'Drug' > 'Anticoagulants'
-363,2025-11-06 09:30:57,Admin User,delete,344,Deleted concept 'test8' from category 'Microbiology' > 'Microorganism'
-364,2025-11-06 09:36:55,Admin User,insert,344,Created concept 'efg' in category 'Drug' > 'Anticoagulants'
-365,2025-11-06 09:37:15,Admin User,delete,344,Deleted concept 'efg' from category 'Drug' > 'Anticoagulants'
-366,2025-11-06 11:30:46,Admin User,insert,344,Created concept 'test' in category 'Labs' > 'Arterial blood gases'
-367,2025-11-06 11:31:00,Admin User,insert,345,Created concept 'efg' in category 'Drug' > 'Anticoagulants'
-368,2025-11-06 11:31:09,Admin User,delete,345,Deleted concept 'efg' from category 'Drug' > 'Anticoagulants'
+history_id,timestamp,username,action_type,category,subcategory,general_concept_name,comment
+1,2025-11-03 14:00:00,Boris Delange,insert,Clinical observation,Neurological assessment,3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM) score,Initial creation
+2,2025-11-03 14:00:00,Boris Delange,insert,Clinical observation,Neurological assessment,4 A<U+2019>s Test for Delirium Screening score,Initial creation
+3,2025-11-03 14:00:00,Boris Delange,insert,Clinical observation,Neurological assessment,Behavior pain scale,Initial creation
+4,2025-11-03 14:00:00,Boris Delange,insert,Clinical observation,Neurological assessment,Confusion Assessment Method for the Intensive Care Unit (CAM-ICU) score,Initial creation
+5,2025-11-03 14:00:00,Boris Delange,insert,Clinical observation,Neurological assessment,Delirium Detection Score (DDS) score,Initial creation
+6,2025-11-03 14:00:00,Boris Delange,insert,Clinical observation,Neurological assessment,Delirium Observation Scale (DOS) score,Initial creation
+7,2025-11-03 14:00:00,Boris Delange,insert,Clinical observation,Neurological assessment,Delirium Rating Scale (DRS) score,Initial creation
+8,2025-11-03 14:00:00,Boris Delange,insert,Clinical observation,Neurological assessment,Glasgow coma scale,Initial creation
+9,2025-11-03 14:00:00,Boris Delange,insert,Clinical observation,Neurological assessment,Intensive Care Delirium Screening Checklist (ICDSC) score,Initial creation
+10,2025-11-03 14:00:00,Boris Delange,insert,Clinical observation,Neurological assessment,Numeric Pain Rating Scale,Initial creation
+11,2025-11-03 14:00:00,Boris Delange,insert,Clinical observation,Neurological assessment,Nursing Delirium Screening Scale (NU-DESC) score,Initial creation
+12,2025-11-03 14:00:00,Boris Delange,insert,Clinical observation,Neurological assessment,Pupillary response,Initial creation
+13,2025-11-03 14:00:00,Boris Delange,insert,Clinical observation,Neurological assessment,Ramsay sedation scale,Initial creation
+14,2025-11-03 14:00:00,Boris Delange,insert,Clinical observation,Neurological assessment,Richmond agitation-sedation scale,Initial creation
+15,2025-11-03 14:00:00,Boris Delange,insert,Clinical observation,Neurological assessment,Visual analog pain scale,Initial creation
+16,2025-11-03 14:00:00,Boris Delange,insert,Condition,APACHE IV - Chronic health conditions,AIDS,Initial creation
+17,2025-11-03 14:00:00,Boris Delange,insert,Condition,APACHE IV - Chronic health conditions,Alcoholic liver disease,Initial creation
+18,2025-11-03 14:00:00,Boris Delange,insert,Condition,APACHE IV - Chronic health conditions,Chronic kidney disease,Initial creation
+19,2025-11-03 14:00:00,Boris Delange,insert,Condition,APACHE IV - Chronic health conditions,Cirrhosis of liver,Initial creation
+20,2025-11-03 14:00:00,Boris Delange,insert,Condition,APACHE IV - Chronic health conditions,"Hepatic failure, not elsewhere classified",Initial creation
+21,2025-11-03 14:00:00,Boris Delange,insert,Condition,APACHE IV - Chronic health conditions,Immunosuppression,Initial creation
+22,2025-11-03 14:00:00,Boris Delange,insert,Condition,APACHE IV - Chronic health conditions,Leukemia,Initial creation
+23,2025-11-03 14:00:00,Boris Delange,insert,Condition,APACHE IV - Chronic health conditions,Lymphoma,Initial creation
+24,2025-11-03 14:00:00,Boris Delange,insert,Condition,APACHE IV - Chronic health conditions,Metastatic carcinoma,Initial creation
+25,2025-11-03 14:00:00,Boris Delange,insert,Condition,APACHE IV - Chronic health conditions,Multiple myeloma,Initial creation
+26,2025-11-03 14:00:00,Boris Delange,insert,NA,NA,NA,Initial creation
+27,2025-11-03 14:00:00,Boris Delange,insert,Condition,General conditions,ARDS,Initial creation
+28,2025-11-03 14:00:00,Boris Delange,insert,Condition,General conditions,COPD,Initial creation
+29,2025-11-03 14:00:00,Boris Delange,insert,Condition,General conditions,Chronic heart failure,Initial creation
+30,2025-11-03 14:00:00,Boris Delange,insert,Condition,General conditions,Dependence on home ventilator,Initial creation
+31,2025-11-03 14:00:00,Boris Delange,insert,Condition,General conditions,Diabetes mellitus,Initial creation
+32,2025-11-03 14:00:00,Boris Delange,insert,Condition,Hospitalization complications,Catheter infection,Initial creation
+33,2025-11-03 14:00:00,Boris Delange,insert,Condition,Hospitalization complications,Ventilator-associated pneumonia,Initial creation
+34,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Acenocoumarol,Initial creation
+35,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Apixaban,Initial creation
+36,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Argatroban,Initial creation
+37,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Bemiparin,Initial creation
+38,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Betrixaban,Initial creation
+39,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Bivalirudin,Initial creation
+40,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Clorindione,Initial creation
+41,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Dabigatran Etexilate,Initial creation
+42,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Dalteparin,Initial creation
+43,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Danaparoid,Initial creation
+44,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Desirudin,Initial creation
+45,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Dicumarol,Initial creation
+46,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Edoxaban,Initial creation
+47,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Enoxaparin,Initial creation
+48,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Fluindione,Initial creation
+49,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Fondaparinux,Initial creation
+50,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Heparin,Initial creation
+51,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Lepirudin,Initial creation
+52,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Melagatran,Initial creation
+53,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Nadroparin,Initial creation
+54,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Parnaparin,Initial creation
+55,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Phenindione,Initial creation
+56,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Phenprocoumon,Initial creation
+57,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Reviparin,Initial creation
+58,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Rivaroxaban,Initial creation
+59,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Sulodexide,Initial creation
+60,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Tinzaparin,Initial creation
+61,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Tioclomarol,Initial creation
+62,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Warfarin,Initial creation
+63,2025-11-03 14:00:00,Boris Delange,insert,Drug,Anticoagulants,Ximelagatran,Initial creation
+64,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Amikacin,Initial creation
+65,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Amoxicillin,Initial creation
+66,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Amphotericin B,Initial creation
+67,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Ampicillin,Initial creation
+68,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Aztreonam,Initial creation
+69,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Caspofungin,Initial creation
+70,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Cefazolin,Initial creation
+71,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Cefiderocol,Initial creation
+72,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Cefotaxime,Initial creation
+73,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Cefoxitin,Initial creation
+74,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Ceftazidime,Initial creation
+75,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Ceftriaxone,Initial creation
+76,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Cefuroxime,Initial creation
+77,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Clarithromycin,Initial creation
+78,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Clavulanate,Initial creation
+79,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Clindamycin,Initial creation
+80,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Colistin,Initial creation
+81,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Daptomycin,Initial creation
+82,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Doxycycline,Initial creation
+83,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Eryhromycin,Initial creation
+84,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Floxacillin,Initial creation
+85,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Fluconazole,Initial creation
+86,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Fosfomycin,Initial creation
+87,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Gentamicin,Initial creation
+88,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Imipenem,Initial creation
+89,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Itraconazole,Initial creation
+90,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Ketoconazole,Initial creation
+91,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Levofloxacin,Initial creation
+92,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Linezolid,Initial creation
+93,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Meropenem,Initial creation
+94,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Metronidazole,Initial creation
+95,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Mupirocin,Initial creation
+96,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Norfloxacin,Initial creation
+97,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Penicillin,Initial creation
+98,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Piperacillin,Initial creation
+99,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Posaconazole,Initial creation
+100,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Rifampicin,Initial creation
+101,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Sulbactam,Initial creation
+102,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Sulfamethoxazole,Initial creation
+103,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Tazobactam,Initial creation
+104,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Teicoplanin,Initial creation
+105,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Tetracycline,Initial creation
+106,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Tigecycline,Initial creation
+107,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Tobramycin,Initial creation
+108,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Trimethoprim,Initial creation
+109,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Vancomycin,Initial creation
+110,2025-11-03 14:00:00,Boris Delange,insert,Drug,Antimicrobials,Voriconazole,Initial creation
+111,2025-11-03 14:00:00,Boris Delange,insert,Drug,Corticosteroids,Betamethasone,Initial creation
+112,2025-11-03 14:00:00,Boris Delange,insert,Drug,Corticosteroids,Clobetasol,Initial creation
+113,2025-11-03 14:00:00,Boris Delange,insert,Drug,Corticosteroids,Cortisone,Initial creation
+114,2025-11-03 14:00:00,Boris Delange,insert,Drug,Corticosteroids,Dexamethasone,Initial creation
+115,2025-11-03 14:00:00,Boris Delange,insert,Drug,Corticosteroids,Fludrocortisone,Initial creation
+116,2025-11-03 14:00:00,Boris Delange,insert,Drug,Corticosteroids,Hydrocortisone,Initial creation
+117,2025-11-03 14:00:00,Boris Delange,insert,Drug,Corticosteroids,Methylprednisolone,Initial creation
+118,2025-11-03 14:00:00,Boris Delange,insert,Drug,Corticosteroids,Prednisolone,Initial creation
+119,2025-11-03 14:00:00,Boris Delange,insert,Drug,Corticosteroids,Prednisone,Initial creation
+120,2025-11-03 14:00:00,Boris Delange,insert,Drug,Other drugs,Insulin Aspart,Initial creation
+121,2025-11-03 14:00:00,Boris Delange,insert,Drug,Other drugs,"Insulin Aspart, Human",Initial creation
+122,2025-11-03 14:00:00,Boris Delange,insert,Drug,Other drugs,Insulin Degludec,Initial creation
+123,2025-11-03 14:00:00,Boris Delange,insert,Drug,Other drugs,Insulin Detemir,Initial creation
+124,2025-11-03 14:00:00,Boris Delange,insert,Drug,Other drugs,Insulin Glargine,Initial creation
+125,2025-11-03 14:00:00,Boris Delange,insert,Drug,Other drugs,"Insulin Glulisine, Human",Initial creation
+126,2025-11-03 14:00:00,Boris Delange,insert,Drug,Sedative drugs,Alfentanil,Initial creation
+127,2025-11-03 14:00:00,Boris Delange,insert,Drug,Sedative drugs,Clonidine,Initial creation
+128,2025-11-03 14:00:00,Boris Delange,insert,Drug,Sedative drugs,Dexmedetomidine,Initial creation
+129,2025-11-03 14:00:00,Boris Delange,insert,Drug,Sedative drugs,Etomidate,Initial creation
+130,2025-11-03 14:00:00,Boris Delange,insert,Drug,Sedative drugs,Fentanyl,Initial creation
+131,2025-11-03 14:00:00,Boris Delange,insert,Drug,Sedative drugs,Ketamine,Initial creation
+132,2025-11-03 14:00:00,Boris Delange,insert,Drug,Sedative drugs,Midazolam,Initial creation
+133,2025-11-03 14:00:00,Boris Delange,insert,Drug,Sedative drugs,Morphine,Initial creation
+134,2025-11-03 14:00:00,Boris Delange,insert,Drug,Sedative drugs,Propofol,Initial creation
+135,2025-11-03 14:00:00,Boris Delange,insert,Drug,Sedative drugs,Remifentanil,Initial creation
+136,2025-11-03 14:00:00,Boris Delange,insert,Drug,Sedative drugs,Sufentanil,Initial creation
+137,2025-11-03 14:00:00,Boris Delange,insert,Drug,Sedative drugs,Thiopenthal,Initial creation
+138,2025-11-03 14:00:00,Boris Delange,insert,Drug,Vasoactive drugs,Dobutamine,Initial creation
+139,2025-11-03 14:00:00,Boris Delange,insert,Drug,Vasoactive drugs,Dopamine,Initial creation
+140,2025-11-03 14:00:00,Boris Delange,insert,Drug,Vasoactive drugs,Epinephrine,Initial creation
+141,2025-11-03 14:00:00,Boris Delange,insert,Drug,Vasoactive drugs,Levosimendan,Initial creation
+142,2025-11-03 14:00:00,Boris Delange,insert,Drug,Vasoactive drugs,Milrinone,Initial creation
+143,2025-11-03 14:00:00,Boris Delange,insert,Drug,Vasoactive drugs,Norepinephrine,Initial creation
+144,2025-11-03 14:00:00,Boris Delange,insert,Drug,Vasoactive drugs,Phenylephrine,Initial creation
+145,2025-11-03 14:00:00,Boris Delange,insert,Drug,Vasoactive drugs,Vasopressin,Initial creation
+146,2025-11-03 14:00:00,Boris Delange,insert,Labs,Arterial blood gases,ABG Ammonia,Initial creation
+147,2025-11-03 14:00:00,Boris Delange,insert,Labs,Arterial blood gases,ABG Base excess,Initial creation
+148,2025-11-03 14:00:00,Boris Delange,insert,Labs,Arterial blood gases,ABG Hematocrit,Initial creation
+149,2025-11-03 14:00:00,Boris Delange,insert,Labs,Arterial blood gases,ABG PaCO2,Initial creation
+150,2025-11-03 14:00:00,Boris Delange,insert,Labs,Arterial blood gases,ABG PaO2,Initial creation
+151,2025-11-03 14:00:00,Boris Delange,insert,Labs,Arterial blood gases,ABG SaO2,Initial creation
+152,2025-11-03 14:00:00,Boris Delange,insert,Labs,Arterial blood gases,ABG bicarbonate,Initial creation
+153,2025-11-03 14:00:00,Boris Delange,insert,Labs,Arterial blood gases,ABG calcium ionized,Initial creation
+154,2025-11-03 14:00:00,Boris Delange,insert,Labs,Arterial blood gases,ABG chloride,Initial creation
+155,2025-11-03 14:00:00,Boris Delange,insert,Labs,Arterial blood gases,ABG glucose,Initial creation
+156,2025-11-03 14:00:00,Boris Delange,insert,Labs,Arterial blood gases,ABG hemoglobin,Initial creation
+157,2025-11-03 14:00:00,Boris Delange,insert,Labs,Arterial blood gases,ABG lactate,Initial creation
+158,2025-11-03 14:00:00,Boris Delange,insert,Labs,Arterial blood gases,ABG pH,Initial creation
+159,2025-11-03 14:00:00,Boris Delange,insert,Labs,Arterial blood gases,ABG potassium,Initial creation
+160,2025-11-03 14:00:00,Boris Delange,insert,Labs,Arterial blood gases,ABG sodium,Initial creation
+161,2025-11-03 14:00:00,Boris Delange,insert,Labs,Blood specimen type,Arterial blood specimen,Initial creation
+162,2025-11-03 14:00:00,Boris Delange,insert,Labs,Blood specimen type,Peripheral blood specimen,Initial creation
+163,2025-11-03 14:00:00,Boris Delange,insert,Labs,Blood specimen type,Venous blood specimen,Initial creation
+164,2025-11-03 14:00:00,Boris Delange,insert,Labs,Blood specimen type,Whole blood specimen,Initial creation
+165,2025-11-03 14:00:00,Boris Delange,insert,Labs,Hemostasis,Coagulation factor V,Initial creation
+166,2025-11-03 14:00:00,Boris Delange,insert,Labs,Hemostasis,Fibrin D-dimer,Initial creation
+167,2025-11-03 14:00:00,Boris Delange,insert,Labs,Hemostasis,Fibrinogen,Initial creation
+168,2025-11-03 14:00:00,Boris Delange,insert,Labs,Hemostasis,INR,Initial creation
+169,2025-11-03 14:00:00,Boris Delange,insert,Labs,Hemostasis,Prothrombin time,Initial creation
+170,2025-11-03 14:00:00,Boris Delange,insert,Labs,Hemostasis,aPTT,Initial creation
+171,2025-11-03 14:00:00,Boris Delange,insert,Labs,Liver test,ALP,Initial creation
+172,2025-11-03 14:00:00,Boris Delange,insert,Labs,Liver test,ALT,Initial creation
+173,2025-11-03 14:00:00,Boris Delange,insert,Labs,Liver test,AST,Initial creation
+174,2025-11-03 14:00:00,Boris Delange,insert,Labs,Liver test,Ammonia,Initial creation
+175,2025-11-03 14:00:00,Boris Delange,insert,Labs,Liver test,Conjugated bilirubin,Initial creation
+176,2025-11-03 14:00:00,Boris Delange,insert,Labs,Liver test,GGT,Initial creation
+177,2025-11-03 14:00:00,Boris Delange,insert,Labs,Liver test,Indirect bilirubin,Initial creation
+178,2025-11-03 14:00:00,Boris Delange,insert,Labs,Liver test,Total bilirubin,Initial creation
+179,2025-11-03 14:00:00,Boris Delange,insert,Labs,Other labs,"1,3 beta glucan",Initial creation
+180,2025-11-03 14:00:00,Boris Delange,insert,Labs,Other labs,BNP,Initial creation
+181,2025-11-03 14:00:00,Boris Delange,insert,Labs,Other labs,CRP,Initial creation
+182,2025-11-03 14:00:00,Boris Delange,insert,Labs,Other labs,HbA1c,Initial creation
+183,2025-11-03 14:00:00,Boris Delange,insert,Labs,Other labs,Interleukin 6,Initial creation
+184,2025-11-03 14:00:00,Boris Delange,insert,Labs,Other labs,Lipase,Initial creation
+185,2025-11-03 14:00:00,Boris Delange,insert,Labs,Other labs,NT-proBNP,Initial creation
+186,2025-11-03 14:00:00,Boris Delange,insert,Labs,Other labs,PCT,Initial creation
+187,2025-11-03 14:00:00,Boris Delange,insert,Labs,Other labs,Troponin T,Initial creation
+188,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma blood count,Hematocrit,Initial creation
+189,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma blood count,Plasma basophils,Initial creation
+190,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma blood count,Plasma eosinophils,Initial creation
+191,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma blood count,Plasma erythrocytes,Initial creation
+192,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma blood count,Plasma hemoglobin,Initial creation
+193,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma blood count,Plasma leukocytes,Initial creation
+194,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma blood count,Plasma lymphocytes,Initial creation
+195,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma blood count,Plasma monocytes,Initial creation
+196,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma blood count,Plasma neutrophils,Initial creation
+197,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma blood count,Plasma platelets,Initial creation
+198,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma blood count,Plasma reticulocytes,Initial creation
+199,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma ionogram,Plasma LDH,Initial creation
+200,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma ionogram,Plasma albumin,Initial creation
+201,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma ionogram,Plasma bicarbonate,Initial creation
+202,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma ionogram,Plasma calcium,Initial creation
+203,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma ionogram,Plasma chloride,Initial creation
+204,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma ionogram,Plasma creatinine,Initial creation
+205,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma ionogram,Plasma glucose,Initial creation
+206,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma ionogram,Plasma lactate,Initial creation
+207,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma ionogram,Plasma magnesium,Initial creation
+208,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma ionogram,Plasma phosphate,Initial creation
+209,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma ionogram,Plasma potassium,Initial creation
+210,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma ionogram,Plasma sodium,Initial creation
+211,2025-11-03 14:00:00,Boris Delange,insert,Labs,Plasma ionogram,Plasma urea,Initial creation
+212,2025-11-03 14:00:00,Boris Delange,insert,Labs,Urinary ionogram,Urinary bicarbonate,Initial creation
+213,2025-11-03 14:00:00,Boris Delange,insert,Labs,Urinary ionogram,Urinary calcium,Initial creation
+214,2025-11-03 14:00:00,Boris Delange,insert,Labs,Urinary ionogram,Urinary chloride,Initial creation
+215,2025-11-03 14:00:00,Boris Delange,insert,Labs,Urinary ionogram,Urinary creatinine,Initial creation
+216,2025-11-03 14:00:00,Boris Delange,insert,Labs,Urinary ionogram,Urinary glucose,Initial creation
+217,2025-11-03 14:00:00,Boris Delange,insert,Labs,Urinary ionogram,Urinary phosphate,Initial creation
+218,2025-11-03 14:00:00,Boris Delange,insert,Labs,Urinary ionogram,Urinary potassium,Initial creation
+219,2025-11-03 14:00:00,Boris Delange,insert,Labs,Urinary ionogram,Urinary sodium,Initial creation
+220,2025-11-03 14:00:00,Boris Delange,insert,Labs,Urinary ionogram,Urinary urea,Initial creation
+221,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Actinomyces neuii subspecies neuii,Initial creation
+222,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Bacillus cereus group,Initial creation
+223,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Bacillus mycoides,Initial creation
+224,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Citrobacter freundii complex,Initial creation
+225,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Citrobacter koseri,Initial creation
+226,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Corynebacterium amycolatum,Initial creation
+227,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Corynebacterium species,Initial creation
+228,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Corynebacterium striatum,Initial creation
+229,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Dermabacter hominis,Initial creation
+230,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Enterobacter aerogenes,Initial creation
+231,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Enterobacter cloacae,Initial creation
+232,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Enterobacter cloacae complex,Initial creation
+233,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Enterococcus faecalis,Initial creation
+234,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Enterococcus faecium,Initial creation
+235,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Escherichia coli,Initial creation
+236,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Gram-negative bacteria,Initial creation
+237,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Gram-positive bacteria,Initial creation
+238,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Gram-positive cocci in clusters,Initial creation
+239,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Granulicatella adiacens,Initial creation
+240,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Klebsiella oxytoca,Initial creation
+241,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Klebsiella pneumoniae,Initial creation
+242,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Klebsiella variicola,Initial creation
+243,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Lysinibacillus,Initial creation
+244,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Micrococcus luteus,Initial creation
+245,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Paenibacillus pabuli,Initial creation
+246,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Pantoea agglomerans,Initial creation
+247,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Pantoea septica,Initial creation
+248,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Pseudomonas aeruginosa,Initial creation
+249,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Raoultella ornithinolytica,Initial creation
+250,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Rothia dentocariosa,Initial creation
+251,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Rothia mucilaginosa,Initial creation
+252,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Serratia,Initial creation
+253,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Serratia liquefaciens,Initial creation
+254,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Serratia marcescens,Initial creation
+255,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Staphylococcus aureus,Initial creation
+256,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Staphylococcus capitis,Initial creation
+257,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Staphylococcus epidermidis,Initial creation
+258,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Staphylococcus haemolyticus,Initial creation
+259,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Staphylococcus hominis,Initial creation
+260,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Staphylococcus warneri,Initial creation
+261,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Streptococcus agalactiae (Group B streptococcus),Initial creation
+262,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Streptococcus anginosus,Initial creation
+263,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Streptococcus dysgalactiae,Initial creation
+264,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Streptococcus mitis (Streptococcus mitis group),Initial creation
+265,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Streptococcus mitis group,Initial creation
+266,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,Streptococcus vestibularis,Initial creation
+267,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Microorganism,"Streptococcus, viridans group",Initial creation
+268,2025-11-03 14:00:00,Boris Delange,insert,Microbiology,Specimen,Blood culture,Initial creation
+269,2025-11-03 14:00:00,Boris Delange,insert,Other,Demographic data,Birth datetime,Initial creation
+270,2025-11-03 14:00:00,Boris Delange,insert,Other,Demographic data,Birth height,Initial creation
+271,2025-11-03 14:00:00,Boris Delange,insert,Other,Demographic data,Birth weight,Initial creation
+272,2025-11-03 14:00:00,Boris Delange,insert,Other,Demographic data,Body height,Initial creation
+273,2025-11-03 14:00:00,Boris Delange,insert,Other,Demographic data,Body weight,Initial creation
+274,2025-11-03 14:00:00,Boris Delange,insert,Other,Demographic data,Death datetime,Initial creation
+275,2025-11-03 14:00:00,Boris Delange,insert,Other,Demographic data,Gender,Initial creation
+276,2025-11-03 14:00:00,Boris Delange,insert,Other,Demographic data,Gestational age,Initial creation
+277,2025-11-03 14:00:00,Boris Delange,insert,Other,Demographic data,Gestational age at birth,Initial creation
+278,2025-11-03 14:00:00,Boris Delange,insert,Other,Demographic data,Hospital admission datetime,Initial creation
+279,2025-11-03 14:00:00,Boris Delange,insert,Other,Demographic data,Hospital discharge datetime,Initial creation
+280,2025-11-03 14:00:00,Boris Delange,insert,Other,Demographic data,ICU admission datetime,Initial creation
+281,2025-11-03 14:00:00,Boris Delange,insert,Other,Demographic data,ICU discharge datetime,Initial creation
+282,2025-11-03 14:00:00,Boris Delange,insert,Other,Demographic data,Ideal body weight,Initial creation
+283,2025-11-03 14:00:00,Boris Delange,insert,Other,Nutrition,Contraindication to enteral feeding,Initial creation
+284,2025-11-03 14:00:00,Boris Delange,insert,Other,Nutrition,Energy intake,Initial creation
+285,2025-11-03 14:00:00,Boris Delange,insert,Other,Nutrition,Energy requirement,Initial creation
+286,2025-11-03 14:00:00,Boris Delange,insert,Other,Other,Advance care plan agreed,Initial creation
+287,2025-11-03 14:00:00,Boris Delange,insert,Other,Other,Consultation with patient,Initial creation
+288,2025-11-03 14:00:00,Boris Delange,insert,Other,Other,Surrogate decision maker documented,Initial creation
+289,2025-11-03 14:00:00,Boris Delange,insert,Procedure,Catheter,Central venous catheter,Initial creation
+290,2025-11-03 14:00:00,Boris Delange,insert,Procedure,ECMO,ECMO,Initial creation
+291,2025-11-03 14:00:00,Boris Delange,insert,Procedure,Nutrition,Enteral feeding,Initial creation
+292,2025-11-03 14:00:00,Boris Delange,insert,Procedure,Patient position,Mobilization,Initial creation
+293,2025-11-03 14:00:00,Boris Delange,insert,Procedure,Patient position,Order to not mobilize,Initial creation
+294,2025-11-03 14:00:00,Boris Delange,insert,Procedure,Patient position,Prone positioning,Initial creation
+295,2025-11-03 14:00:00,Boris Delange,insert,Procedure,Plasmapheresis,Plasmapheresis,Initial creation
+296,2025-11-03 14:00:00,Boris Delange,insert,Procedure,Renal replacement therapy,Renal replacement therapy,Initial creation
+297,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Airway device,Endotracheal tube,Initial creation
+298,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Airway device,Tracheostomy tube,Initial creation
+299,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Oxygenation,FiO2,Initial creation
+300,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Oxygenation,Oxygen flow rate,Initial creation
+301,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation device,Extubation,Initial creation
+302,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation device,Humidification Therapy,Initial creation
+303,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation device,Intubation,Initial creation
+304,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation device,Invasive mechanical ventilation,Initial creation
+305,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation device,Non-invasive ventilation,Initial creation
+306,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation device,Oxygen device,Initial creation
+307,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation device,Trial of spontaneous breathing,Initial creation
+308,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation parameters,Breath cycle timing,Initial creation
+309,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation parameters,Carbon dioxide production,Initial creation
+310,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation parameters,End tidal carbone dioxyde concentration,Initial creation
+311,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation parameters,Horowitz index,Initial creation
+312,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation parameters,Inspiratory pressure setting,Initial creation
+313,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation parameters,Lung compliance,Initial creation
+314,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation parameters,Mean airway pressure,Initial creation
+315,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation parameters,Minute volume,Initial creation
+316,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation parameters,PEEP,Initial creation
+317,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation parameters,Peak inspiration pressure,Initial creation
+318,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation parameters,Plateau pressure,Initial creation
+319,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation parameters,Respiratory rate,Initial creation
+320,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation parameters,Tidal volume,Initial creation
+321,2025-11-03 14:00:00,Boris Delange,insert,Ventilation,Ventilation parameters,Ventilation mode,Initial creation
+322,2025-11-03 14:00:00,Boris Delange,insert,Vitals,Haemodynamics,Cardiac output,Initial creation
+323,2025-11-03 14:00:00,Boris Delange,insert,Vitals,Haemodynamics,Central venous pressure,Initial creation
+324,2025-11-03 14:00:00,Boris Delange,insert,Vitals,Haemodynamics,Diastolic blood pressure,Initial creation
+325,2025-11-03 14:00:00,Boris Delange,insert,Vitals,Haemodynamics,Heart rate,Initial creation
+326,2025-11-03 14:00:00,Boris Delange,insert,Vitals,Haemodynamics,Mean blood pressure,Initial creation
+327,2025-11-03 14:00:00,Boris Delange,insert,Vitals,Haemodynamics,Systolic blood pressure,Initial creation
+328,2025-11-03 14:00:00,Boris Delange,insert,Vitals,Other vitals,Temperature,Initial creation
+329,2025-11-03 14:00:00,Boris Delange,insert,Vitals,Other vitals,Urine output,Initial creation
+330,2025-11-03 14:00:00,Boris Delange,insert,Vitals,Ventilatory,Respiratory rate,Initial creation
+331,2025-11-03 14:00:00,Boris Delange,insert,Vitals,Ventilatory,SpO2,Initial creation
+332,2025-11-06 17:31:11,Admin User,insert,Labs,Arterial blood gases,test4,Created concept 'test4' in category 'Labs' > 'Arterial blood gases'

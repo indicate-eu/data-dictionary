@@ -1,19 +1,10 @@
-custom_concept_id,general_concept_id,vocabulary_id,concept_code,concept_name,omop_unit_concept_id,recommended,entity_id,entity_id.1
-1,1,INDICATE,/,3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM) score,/,TRUE,NA,NA
-2,2,INDICATE,/,5 A's Test for Delirium Screening score,/,TRUE,NA,NA
-3,3,INDICATE,/,Behavior pain scale,/,TRUE,NA,NA
-4,4,INDICATE,/,Confusion Assessment Method for the Intensive Care Unit (CAM-ICU) score,/,TRUE,NA,NA
-5,5,INDICATE,/,Delirium Detection Score (DDS) score,/,TRUE,NA,NA
-6,6,INDICATE,/,Delirium Observation Scale (DOS) score,/,TRUE,NA,NA
-7,7,INDICATE,/,Delirium Rating Scale (DRS) score,/,TRUE,NA,NA
-8,9,INDICATE,/,Intensive Care Delirium Screening Checklist (ICDSC) score,/,TRUE,NA,NA
-9,11,INDICATE,/,Nursing Delirium Screening Scale (NU-DESC) score,/,TRUE,NA,NA
-10,5,INDICATE,/,test,/,TRUE,NA,NA
-11,336,Other one,ds23,ABCD,/,FALSE,NA,NA
-12,336,test,/,test2,/,FALSE,NA,NA
-14,336,test voc,/,test name,/,FALSE,NA,NA
-NA,NA,NA,NA,NA,NA,NA,NA,NA
-NA,NA,NA,NA,NA,NA,NA,NA,NA
-NA,NA,NA,NA,NA,NA,NA,NA,NA
-15,336,IND,/,fds,/,FALSE,NA,NA
-NA,NA,bcd,dsfd,efg,/,FALSE,16,4
+custom_concept_id,general_concept_id,vocabulary_id,concept_code,concept_name,omop_unit_concept_id,recommended
+1,1,INDICATE,/,3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM) score,/,TRUE
+2,2,INDICATE,/,5 A's Test for Delirium Screening score,/,TRUE
+3,3,INDICATE,/,Behavior pain scale,/,TRUE
+4,4,INDICATE,/,Confusion Assessment Method for the Intensive Care Unit (CAM-ICU) score,/,TRUE
+5,5,INDICATE,/,Delirium Detection Score (DDS) score,/,TRUE
+6,6,INDICATE,/,Delirium Observation Scale (DOS) score,/,TRUE
+7,7,INDICATE,/,Delirium Rating Scale (DRS) score,/,TRUE
+8,9,INDICATE,/,Intensive Care Delirium Screening Checklist (ICDSC) score,/,TRUE
+9,11,INDICATE,/,Nursing Delirium Screening Scale (NU-DESC) score,/,TRUE

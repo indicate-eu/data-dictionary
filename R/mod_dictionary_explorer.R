@@ -1530,39 +1530,28 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         concept_id <- selected_concept_id()
         if (!is.null(concept_id)) {
           output$general_concept_detail_history_table <- DT::renderDT({
-            # Get mapped concepts history for this general concept
-            history <- get_history("mapped_concept", concept_id)
+            # Get all mapped concepts history and filter by general_concept_id
+            history <- get_history("mapped_concept") %>%
+              dplyr::filter(general_concept_id == concept_id)
 
             if (nrow(history) == 0) {
               return(DT::datatable(
-                data.frame(Message = "No history available"),
+                data.frame(Message = "No history available for this concept"),
                 options = list(dom = 't'),
                 rownames = FALSE
               ))
             }
 
-            # Prepare display data with concept names
-            history_display <- history %>%
-              dplyr::mutate(
-                concept_type = dplyr::case_when(
-                  !is.na(omop_concept_id) ~ "OMOP",
-                  !is.na(custom_concept_id) ~ "Custom",
-                  TRUE ~ "Unknown"
-                ),
-                concept_id_display = dplyr::case_when(
-                  !is.na(omop_concept_id) ~ as.character(omop_concept_id),
-                  !is.na(custom_concept_id) ~ as.character(custom_concept_id),
-                  TRUE ~ "/"
-                )
-              )
-
-            # Format columns
-            table_data <- history_display %>%
-              dplyr::select(timestamp, username, action_type, concept_type, concept_id_display, comment) %>%
+            # Format columns (excluding general_concept_id since we're already filtered on it)
+            table_data <- history %>%
+              dplyr::select(timestamp, username, action_type, vocabulary_id, concept_code, concept_name, comment) %>%
               dplyr::mutate(
                 action_type = paste0(toupper(substr(action_type, 1, 1)), substr(action_type, 2, nchar(action_type))),
                 username = factor(username),
                 action_type = factor(action_type),
+                vocabulary_id = ifelse(is.na(vocabulary_id) | vocabulary_id == "NA", "/", vocabulary_id),
+                concept_code = ifelse(is.na(concept_code) | concept_code == "NA", "/", concept_code),
+                concept_name = ifelse(is.na(concept_name) | concept_name == "NA", "/", concept_name),
                 comment = ifelse(is.na(comment) | comment == "NA", "/", comment)
               )
 
@@ -1571,6 +1560,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               selection = 'none',
               rownames = FALSE,
               class = 'cell-border stripe hover',
+              filter = 'top',
               options = list(
                 pageLength = 20,
                 lengthMenu = list(c(10, 20, 50, 100, -1), c('10', '20', '50', '100', 'All')),
@@ -1579,18 +1569,19 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 columnDefs = list(
                   list(targets = 0, width = "140px"),  # timestamp
                   list(targets = 1, width = "120px"),  # username
-                  list(targets = 2, width = "80px"),   # action_type
-                  list(targets = 3, width = "80px"),   # concept_type
-                  list(targets = 4, width = "100px"),  # concept_id
-                  list(targets = 5, width = "400px")   # comment
+                  list(targets = 2, width = "100px"),  # action_type
+                  list(targets = 3, width = "100px"),  # vocabulary_id
+                  list(targets = 4, width = "100px"),  # concept_code
+                  list(targets = 5, width = "250px"),  # concept_name
+                  list(targets = 6, width = "300px")   # comment
                 )
               )
             ) %>%
               DT::formatStyle(
                 'action_type',
                 backgroundColor = DT::styleEqual(
-                  c('Insert', 'Update', 'Delete'),
-                  c('#d4edda', '#fff3cd', '#f8d7da')
+                  c('Insert', 'Update', 'Delete', 'Recommend', 'Unrecommend'),
+                  c('#d4edda', '#fff3cd', '#f8d7da', '#cfe2ff', '#f8f9fa')
                 ),
                 fontWeight = 'bold'
               )
@@ -1782,10 +1773,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             user <- current_user()
             if (!is.null(user) && !is.null(user$first_name) && !is.null(user$last_name)) {
               username <- paste(user$first_name, user$last_name)
-              log_history_change("general_concept", 
+              log_history_change("general_concept",
                 username = username,
                 action_type = "delete",
-                entity_id = deleted_id,
+                category = concept_info$category[1],
+                subcategory = concept_info$subcategory[1],
+                general_concept_name = concept_info$general_concept_name[1],
                 comment = sprintf("Deleted concept '%s' from category '%s' > '%s'",
                                 concept_info$general_concept_name[1],
                                 concept_info$category[1],
@@ -1844,28 +1837,34 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               if (nrow(original_row) > 0) {
                 # Check each field for changes
                 if (!identical(general_concepts$category[i], original_row$category[1])) {
-                  log_history_change("general_concept", 
+                  log_history_change("general_concept",
                     username = username,
                     action_type = "update",
-                    entity_id = concept_id,
+                    category = general_concepts$category[i],
+                    subcategory = general_concepts$subcategory[i],
+                    general_concept_name = general_concepts$general_concept_name[i],
                     comment = sprintf("Updated category from '%s' to '%s'",
                                     original_row$category[1], general_concepts$category[i])
                   )
                 }
                 if (!identical(general_concepts$subcategory[i], original_row$subcategory[1])) {
-                  log_history_change("general_concept", 
+                  log_history_change("general_concept",
                     username = username,
                     action_type = "update",
-                    entity_id = concept_id,
+                    category = general_concepts$category[i],
+                    subcategory = general_concepts$subcategory[i],
+                    general_concept_name = general_concepts$general_concept_name[i],
                     comment = sprintf("Updated subcategory from '%s' to '%s'",
                                     original_row$subcategory[1], general_concepts$subcategory[i])
                   )
                 }
                 if (!identical(general_concepts$general_concept_name[i], original_row$general_concept_name[1])) {
-                  log_history_change("general_concept", 
+                  log_history_change("general_concept",
                     username = username,
                     action_type = "update",
-                    entity_id = concept_id,
+                    category = general_concepts$category[i],
+                    subcategory = general_concepts$subcategory[i],
+                    general_concept_name = general_concepts$general_concept_name[i],
                     comment = sprintf("Updated general_concept_name from '%s' to '%s'",
                                     original_row$general_concept_name[1], general_concepts$general_concept_name[i])
                   )
@@ -2117,7 +2116,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       # Create new row
       new_row <- data.frame(
-        entity_id = new_id,
+        general_concept_id = new_id,
         category = category_trimmed,
         subcategory = subcategory_trimmed,
         general_concept_name = concept_name_trimmed,
@@ -2150,10 +2149,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         user <- current_user()
         if (!is.null(user) && !is.null(user$first_name) && !is.null(user$last_name)) {
           username <- paste(user$first_name, user$last_name)
-          log_history_change("general_concept", 
+          log_history_change("general_concept",
             username = username,
             action_type = "insert",
-            entity_id = new_id,
+            category = category_trimmed,
+            subcategory = subcategory_trimmed,
+            general_concept_name = concept_name_trimmed,
             comment = sprintf("Created concept '%s' in category '%s' > '%s'",
                             concept_name_trimmed, category_trimmed, subcategory_trimmed)
           )
@@ -2246,48 +2247,70 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
         # Delete OMOP concepts from concept_mappings
         if (length(omop_ids_to_delete) > 0) {
-          concept_mappings <- concept_mappings %>%
-            dplyr::filter(!(general_concept_id == concept_id & omop_concept_id %in% omop_ids_to_delete))
-
-          # Log history for each deleted OMOP concept
+          # Get concept info before deletion for logging
           user <- current_user()
           if (!is.null(user) && !is.null(user$first_name) && !is.null(user$last_name)) {
             username <- paste(user$first_name, user$last_name)
+            vocab_data <- vocabularies()
+
             for (omop_id in omop_ids_to_delete) {
-              log_history_change(
-                entity_type = "mapped_concept",
-                general_concept_id = concept_id,
-                username = username,
-                action_type = "delete",
-                omop_concept_id = omop_id,
-                custom_concept_id = NA_integer_,
-                comment = "Deleted OMOP concept mapping"
-              )
+              # Get concept info from vocabulary
+              if (!is.null(vocab_data) && !is.null(vocab_data$concept)) {
+                concept_info <- vocab_data$concept %>%
+                  dplyr::filter(concept_id == !!omop_id) %>%
+                  dplyr::collect() %>%
+                  dplyr::slice(1)
+
+                if (nrow(concept_info) > 0) {
+                  log_history_change(
+                    entity_type = "mapped_concept",
+                    username = username,
+                    action_type = "delete",
+                    general_concept_id = concept_id,
+                    vocabulary_id = as.character(concept_info$vocabulary_id[1]),
+                    concept_code = as.character(concept_info$concept_code[1]),
+                    concept_name = as.character(concept_info$concept_name[1]),
+                    comment = "Deleted OMOP concept mapping"
+                  )
+                }
+              }
             }
           }
+
+          # Now delete from concept_mappings
+          concept_mappings <- concept_mappings %>%
+            dplyr::filter(!(general_concept_id == concept_id & omop_concept_id %in% omop_ids_to_delete))
         }
 
         # Delete custom concepts from custom_concepts
         if (length(custom_ids_to_delete) > 0 && !is.null(custom_concepts)) {
-          custom_concepts <- custom_concepts %>%
-            dplyr::filter(!(general_concept_id == concept_id & custom_concept_id %in% custom_ids_to_delete))
-
-          # Log history for each deleted custom concept
+          # Get concept info before deletion for logging
           user <- current_user()
           if (!is.null(user) && !is.null(user$first_name) && !is.null(user$last_name)) {
             username <- paste(user$first_name, user$last_name)
             for (custom_id in custom_ids_to_delete) {
-              log_history_change(
-                entity_type = "mapped_concept",
-                general_concept_id = concept_id,
-                username = username,
-                action_type = "delete",
-                omop_concept_id = NA_integer_,
-                custom_concept_id = custom_id,
-                comment = "Deleted custom concept mapping"
-              )
+              concept_info <- custom_concepts %>%
+                dplyr::filter(general_concept_id == concept_id & custom_concept_id == custom_id) %>%
+                dplyr::slice(1)
+
+              if (nrow(concept_info) > 0) {
+                log_history_change(
+                  entity_type = "mapped_concept",
+                  username = username,
+                  action_type = "delete",
+                  general_concept_id = concept_id,
+                  vocabulary_id = as.character(concept_info$vocabulary_id[1]),
+                  concept_code = as.character(concept_info$concept_code[1]),
+                  concept_name = as.character(concept_info$concept_name[1]),
+                  comment = "Deleted custom concept mapping"
+                )
+              }
             }
           }
+
+          # Now delete from custom_concepts
+          custom_concepts <- custom_concepts %>%
+            dplyr::filter(!(general_concept_id == concept_id & custom_concept_id %in% custom_ids_to_delete))
         }
       }
       
@@ -2311,6 +2334,37 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               )
 
             if (nrow(existing_row) > 0) {
+              # Log the change if recommended status changed
+              old_rec_value <- existing_row$recommended[1]
+              if (!identical(old_rec_value, new_rec_value)) {
+                user <- current_user()
+                if (!is.null(user) && !is.null(user$first_name) && !is.null(user$last_name)) {
+                  username <- paste(user$first_name, user$last_name)
+                  vocab_data <- vocabularies()
+
+                  if (!is.null(vocab_data) && !is.null(vocab_data$concept)) {
+                    concept_info <- vocab_data$concept %>%
+                      dplyr::filter(concept_id == !!omop_id) %>%
+                      dplyr::collect() %>%
+                      dplyr::slice(1)
+
+                    if (nrow(concept_info) > 0) {
+                      action <- if (isTRUE(new_rec_value)) "recommend" else "unrecommend"
+                      log_history_change(
+                        entity_type = "mapped_concept",
+                        username = username,
+                        action_type = action,
+                        general_concept_id = concept_id,
+                        vocabulary_id = as.character(concept_info$vocabulary_id[1]),
+                        concept_code = as.character(concept_info$concept_code[1]),
+                        concept_name = as.character(concept_info$concept_name[1]),
+                        comment = if (isTRUE(new_rec_value)) "Marked as recommended" else "Unmarked as recommended"
+                      )
+                    }
+                  }
+                }
+              }
+
               # Update existing row
               concept_mappings <- concept_mappings %>%
                 dplyr::mutate(
@@ -2343,7 +2397,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                   } else {
                     # Fallback if concept_mappings is empty
                     new_row <- data.frame(
-                      entity_id = as.integer(concept_id),
+                      general_concept_id = as.integer(concept_id),
                       omop_concept_id = omop_id,
                       omop_unit_concept_id = "/",
                       recommended = TRUE,
@@ -2360,6 +2414,32 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             custom_id <- as.integer(sub("^custom-", "", concept_unique_id))
 
             if (!is.null(custom_concepts)) {
+              # Get existing row to check old value
+              existing_row <- custom_concepts %>%
+                dplyr::filter(general_concept_id == concept_id & custom_concept_id == custom_id)
+
+              if (nrow(existing_row) > 0) {
+                old_rec_value <- existing_row$recommended[1]
+                if (!identical(old_rec_value, new_rec_value)) {
+                  user <- current_user()
+                  if (!is.null(user) && !is.null(user$first_name) && !is.null(user$last_name)) {
+                    username <- paste(user$first_name, user$last_name)
+
+                    action <- if (isTRUE(new_rec_value)) "recommend" else "unrecommend"
+                    log_history_change(
+                      entity_type = "mapped_concept",
+                      username = username,
+                      action_type = action,
+                      general_concept_id = concept_id,
+                      vocabulary_id = as.character(existing_row$vocabulary_id[1]),
+                      concept_code = as.character(existing_row$concept_code[1]),
+                      concept_name = as.character(existing_row$concept_name[1]),
+                      comment = if (isTRUE(new_rec_value)) "Marked as recommended" else "Unmarked as recommended"
+                    )
+                  }
+                }
+              }
+
               custom_concepts <- custom_concepts %>%
                 dplyr::mutate(
                   recommended = ifelse(
@@ -2455,7 +2535,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           )
       } else {
         custom_concepts <- data.frame(
-          entity_id = integer(),
+          custom_concept_id = integer(),
           concept_name = character(),
           vocabulary_id = character(),
           concept_code = character(),
@@ -2483,7 +2563,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           ) %>%
           dplyr::mutate(
             is_custom = FALSE,
-            entity_id = NA_integer_
+            custom_concept_id = NA_integer_
           )
       } else {
         # If no vocabulary data, add placeholder columns
@@ -2493,7 +2573,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             vocabulary_id = NA_character_,
             concept_code = NA_character_,
             is_custom = FALSE,
-            entity_id = NA_integer_
+            custom_concept_id = NA_integer_
           )
       }
 
@@ -2963,16 +3043,31 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         user <- current_user()
         if (!is.null(user) && !is.null(user$first_name) && !is.null(user$last_name)) {
           username <- paste(user$first_name, user$last_name)
+          vocab_data <- vocabularies()
+
           for (i in 1:nrow(new_mappings)) {
-            log_history_change(
-              entity_type = "mapped_concept",
-              general_concept_id = new_mappings$general_concept_id[i],
-              username = username,
-              action_type = "insert",
-              omop_concept_id = new_mappings$omop_concept_id[i],
-              custom_concept_id = NA_integer_,
-              comment = "Added OMOP concept mapping"
-            )
+            # Get concept info from vocabulary
+            if (!is.null(vocab_data) && !is.null(vocab_data$concept)) {
+              omop_id <- as.integer(new_mappings$omop_concept_id[i])
+
+              concept_info <- vocab_data$concept %>%
+                dplyr::filter(concept_id == !!omop_id) %>%
+                dplyr::collect() %>%
+                dplyr::slice(1)
+
+              if (nrow(concept_info) > 0) {
+                log_history_change(
+                  entity_type = "mapped_concept",
+                  username = username,
+                  action_type = "insert",
+                  general_concept_id = concept_id,
+                  vocabulary_id = as.character(concept_info$vocabulary_id[1]),
+                  concept_code = as.character(concept_info$concept_code[1]),
+                  concept_name = as.character(concept_info$concept_name[1]),
+                  comment = "Added OMOP concept mapping"
+                )
+              }
+            }
           }
         }
 
@@ -3024,8 +3119,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         custom_concepts <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)
       } else {
         custom_concepts <- data.frame(
-          entity_id = integer(),
-          entity_id = integer(),
+          custom_concept_id = integer(),
+          general_concept_id = integer(),
           vocabulary_id = character(),
           concept_code = character(),
           concept_name = character(),
@@ -3045,8 +3140,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       # Add new custom concept
       new_custom_concept <- data.frame(
-        entity_id = new_id,
-        entity_id = concept_id,
+        custom_concept_id = new_id,
+        general_concept_id = concept_id,
         vocabulary_id = vocabulary_id,
         concept_code = concept_code,
         concept_name = concept_name,
@@ -3066,11 +3161,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         username <- paste(user$first_name, user$last_name)
         log_history_change(
           entity_type = "mapped_concept",
-          general_concept_id = concept_id,
           username = username,
           action_type = "insert",
-          omop_concept_id = NA_integer_,
-          custom_concept_id = new_id,
+          general_concept_id = concept_id,
+          vocabulary_id = as.character(new_custom_concept$vocabulary_id[1]),
+          concept_code = as.character(new_custom_concept$concept_code[1]),
+          concept_name = as.character(new_custom_concept$concept_name[1]),
           comment = "Added custom concept mapping"
         )
       }
