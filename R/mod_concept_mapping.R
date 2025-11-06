@@ -1673,7 +1673,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               ns("back_to_mappings"),
               "Back to Mapped Concepts",
               class = "btn-secondary-custom",
-              style = "height: 32px; padding: 5px 15px; font-size: 14px;"
+              style = "height: 32px; padding: 5px 15px; font-size: 14px;",
+              icon = icon("arrow-left")
             )
           }
         )
@@ -2295,7 +2296,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       mapped_rows <- df %>%
         dplyr::filter(!is.na(target_general_concept_id))
 
-      if (nrow(mapped_rows) == 0) return()
+      if (nrow(mapped_rows) == 0) {
+        # Force full re-render when table becomes empty
+        all_mappings_table_trigger(all_mappings_table_trigger() + 1)
+        return()
+      }
 
       # Enrich with general concept information
       general_concepts <- data()$general_concepts
@@ -2538,6 +2543,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       # Trigger refresh
       source_concepts_table_trigger(source_concepts_table_trigger() + 1)
+      source_concepts_table_general_trigger(source_concepts_table_general_trigger() + 1)
+      evaluate_mappings_table_trigger(evaluate_mappings_table_trigger() + 1)
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
     }, ignoreInit = TRUE)
 
@@ -2906,8 +2913,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     observe_event(source_concepts_table_trigger(), {
       if (source_concepts_table_trigger() == 0) return()
       if (is.null(selected_alignment_id())) return()
-      if (mapping_view() != "general") return()
-      if (!is.null(input$mapping_tabs) && input$mapping_tabs != "edit_mappings") return()
       
       # Prepare updated data (same logic as initial render)
       alignments <- alignments_data()
@@ -3336,8 +3341,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       df$mapped_by_user_id[source_row] <- user_id
       df$mapping_datetime[source_row] <- mapping_datetime
       write.csv(df, csv_path, row.names = FALSE)
-      
+
       source_concepts_table_trigger(source_concepts_table_trigger() + 1)
+      all_mappings_table_trigger(all_mappings_table_trigger() + 1)
+      evaluate_mappings_table_trigger(evaluate_mappings_table_trigger() + 1)
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
     })
     
@@ -3378,8 +3385,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       df$target_omop_concept_id[actual_row] <- NA_integer_
       
       write.csv(df, csv_path, row.names = FALSE)
-      
+
       source_concepts_table_trigger(source_concepts_table_trigger() + 1)
+      all_mappings_table_trigger(all_mappings_table_trigger() + 1)
+      evaluate_mappings_table_trigger(evaluate_mappings_table_trigger() + 1)
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
     })
     
@@ -3425,7 +3434,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           params = list(current_user()$user_id, selected_alignment_id())
         )
 
-        if (nrow(mappings_db) == 0) return()
+        if (nrow(mappings_db) == 0) {
+          output$evaluate_mappings_table <- DT::renderDT({
+            create_empty_datatable("No mappings created yet.")
+          }, server = TRUE)
+          return()
+        }
 
         # Read CSV to get source concept names
         csv_path <- mappings_db$csv_file_path[1]
