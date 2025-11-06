@@ -3537,17 +3537,17 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           dplyr::mutate(
             Actions = sprintf(
               '<div style="display: flex; gap: 5px; justify-content: center;">
-                <button class="btn-eval-action" data-action="approve" data-row="%d" data-mapping-id="%d" title="Approve" style="background: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 18px; line-height: 1;">
-                  ✓
+                <button class="btn-eval-action" data-action="approve" data-row="%d" data-mapping-id="%d" title="Approve">
+                  <i class="fas fa-check"></i>
                 </button>
-                <button class="btn-eval-action" data-action="reject" data-row="%d" data-mapping-id="%d" title="Reject" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 18px; line-height: 1;">
-                  ✗
+                <button class="btn-eval-action" data-action="reject" data-row="%d" data-mapping-id="%d" title="Reject">
+                  <i class="fas fa-times"></i>
                 </button>
-                <button class="btn-eval-action" data-action="uncertain" data-row="%d" data-mapping-id="%d" title="Uncertain" style="background: #ffc107; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 18px; line-height: 1;">
-                  ?
+                <button class="btn-eval-action" data-action="uncertain" data-row="%d" data-mapping-id="%d" title="Uncertain">
+                  <i class="fas fa-question"></i>
                 </button>
-                <button class="btn-eval-action" data-action="clear" data-row="%d" data-mapping-id="%d" title="Clear Evaluation" style="background: #6c757d; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 18px; line-height: 1;">
-                  ↺
+                <button class="btn-eval-action" data-action="clear" data-row="%d" data-mapping-id="%d" title="Clear Evaluation">
+                  <i class="fas fa-redo"></i>
                 </button>
               </div>',
               row_index, mapping_id,
@@ -3766,17 +3766,17 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         dplyr::mutate(
           Actions = sprintf(
             '<div style="display: flex; gap: 5px; justify-content: center;">
-              <button class="btn-eval-action" data-action="approve" data-row="%d" data-mapping-id="%d" title="Approve" style="background: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 18px; line-height: 1;">
-                ✓
+              <button class="btn-eval-action" data-action="approve" data-row="%d" data-mapping-id="%d" title="Approve">
+                <i class="fas fa-check"></i>
               </button>
-              <button class="btn-eval-action" data-action="reject" data-row="%d" data-mapping-id="%d" title="Reject" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 18px; line-height: 1;">
-                ✗
+              <button class="btn-eval-action" data-action="reject" data-row="%d" data-mapping-id="%d" title="Reject">
+                <i class="fas fa-times"></i>
               </button>
-              <button class="btn-eval-action" data-action="uncertain" data-row="%d" data-mapping-id="%d" title="Uncertain" style="background: #ffc107; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 18px; line-height: 1;">
-                ?
+              <button class="btn-eval-action" data-action="uncertain" data-row="%d" data-mapping-id="%d" title="Uncertain">
+                <i class="fas fa-question"></i>
               </button>
-              <button class="btn-eval-action" data-action="clear" data-row="%d" data-mapping-id="%d" title="Clear Evaluation" style="background: #6c757d; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 18px; line-height: 1;">
-                ↺
+              <button class="btn-eval-action" data-action="clear" data-row="%d" data-mapping-id="%d" title="Clear Evaluation">
+                <i class="fas fa-redo"></i>
               </button>
             </div>',
             row_index, mapping_id,

@@ -989,6 +989,54 @@ table.dataTable thead tr td .selectize-dropdown .option {
   background: #c82333 !important;
 }
 
+/* Evaluation action buttons - small square buttons with FontAwesome icons */
+.btn-eval-action {
+  color: white !important;
+  border: none !important;
+  padding: 0 !important;
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.btn-eval-action[data-action="approve"] {
+  background: #28a745 !important;
+}
+
+.btn-eval-action[data-action="approve"]:hover {
+  background: #218838 !important;
+}
+
+.btn-eval-action[data-action="reject"] {
+  background: #dc3545 !important;
+}
+
+.btn-eval-action[data-action="reject"]:hover {
+  background: #c82333 !important;
+}
+
+.btn-eval-action[data-action="uncertain"] {
+  background: #ffc107 !important;
+}
+
+.btn-eval-action[data-action="uncertain"]:hover {
+  background: #e0a800 !important;
+}
+
+.btn-eval-action[data-action="clear"] {
+  background: #6c757d !important;
+}
+
+.btn-eval-action[data-action="clear"]:hover {
+  background: #5a6268 !important;
+}
+
 /* Reusable button classes
 -------------------------------------------------- */
 .btn-primary-custom {
