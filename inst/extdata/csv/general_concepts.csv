@@ -24,6 +24,7 @@ general_concept_id,category,subcategory,general_concept_name,comments,statistica
 23,Condition,APACHE IV - Chronic health conditions,Lymphoma,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis.",NA
 24,Condition,APACHE IV - Chronic health conditions,Metastatic carcinoma,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis.",NA
 25,Condition,APACHE IV - Chronic health conditions,Multiple myeloma,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis.",NA
+341,Condition,APACHE IV - Chronic health conditions,test5,NA,NA
 26,Condition,General conditions,ARDS,NA,NA
 27,Condition,General conditions,COPD,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis.",NA
 28,Condition,General conditions,Chronic heart failure,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis.",NA
@@ -61,6 +62,10 @@ general_concept_id,category,subcategory,general_concept_name,comments,statistica
 60,Drug,Anticoagulants,Tioclomarol,NA,NA
 61,Drug,Anticoagulants,Warfarin,NA,NA
 62,Drug,Anticoagulants,Ximelagatran,NA,NA
+340,Drug,Anticoagulants,new one,NA,NA
+338,Drug,Anticoagulants,teest3,NA,NA
+342,Drug,Anticoagulants,test6,NA,NA
+343,Drug,Anticoagulants,test7,NA,NA
 63,Drug,Antimicrobials,Amikacin,NA,NA
 64,Drug,Antimicrobials,Amoxicillin,NA,NA
 66,Drug,Antimicrobials,Amphotericin B,NA,NA
@@ -158,6 +163,7 @@ general_concept_id,category,subcategory,general_concept_name,comments,statistica
 160,Labs,Arterial blood gases,ABG pH,NA,NA
 161,Labs,Arterial blood gases,ABG potassium,NA,NA
 162,Labs,Arterial blood gases,ABG sodium,NA,NA
+344,Labs,Arterial blood gases,test,NA,NA
 163,Labs,Blood specimen type,Arterial blood specimen,NA,NA
 164,Labs,Blood specimen type,Peripheral blood specimen,NA,NA
 165,Labs,Blood specimen type,Venous blood specimen,NA,NA

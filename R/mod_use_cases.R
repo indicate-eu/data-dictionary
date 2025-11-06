@@ -607,30 +607,30 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
       use_cases_reactive(data()$use_cases)
       general_concept_use_cases_reactive(data()$general_concept_use_cases)
       data_loaded_trigger(data_loaded_trigger() + 1)
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    })
 
     ## 2) Server - Navigation & State Changes ====
     ### Primary State Observers ----
 
     observe_event(current_user(), {
       user_changed_trigger(user_changed_trigger() + 1)
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    })
 
     observe_event(current_view(), {
       view_changed_trigger(view_changed_trigger() + 1)
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    })
 
     observe_event(use_cases_reactive(), {
       use_cases_data_changed_trigger(use_cases_data_changed_trigger() + 1)
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    })
 
     observe_event(general_concept_use_cases_reactive(), {
       gc_use_cases_changed_trigger(gc_use_cases_changed_trigger() + 1)
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    })
 
     observe_event(selected_use_case_row(), {
       use_case_details_trigger(use_case_details_trigger() + 1)
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    })
 
     ### Cascade Observers ----
 
@@ -851,7 +851,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
     # Update button visibility
     observe_event(button_visibility_trigger(), {
       update_button_visibility()
-    }, ignoreInit = FALSE)
+    })
 
     ### Breadcrumb Rendering ----
     observe_event(breadcrumb_trigger(), {
@@ -902,7 +902,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
           )
         }
       })
-    }, ignoreInit = FALSE)
+    })
 
     ### Content Area Rendering ----
     observe_event(content_area_trigger(), {
@@ -915,7 +915,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
           render_use_case_config_ui(ns)
         }
       })
-    }, ignoreInit = FALSE)
+    })
 
     ### Use Cases Table Rendering ----
     observe_event(use_cases_table_trigger(), {
@@ -991,7 +991,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
           )
         )
       }, server = FALSE)
-    }, ignoreInit = FALSE)
+    })
 
     ### Use Case Action Buttons Handlers ----
     # Store the use case for deletion and editing
@@ -1044,7 +1044,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
 
       # Show modal
       shinyjs::runjs(sprintf("$('#%s').show();", ns("edit_use_case_modal")))
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
 
     # Handler for Configure button in datatable
     observe_event(input$use_case_configure_clicked, {
@@ -1064,7 +1064,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
         long_description = selected_uc$long_description
       ))
       current_view("config")
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
 
     # Handler for Delete button in datatable
     observe_event(input$use_case_delete_clicked, {
@@ -1076,7 +1076,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
 
       # Show confirmation modal
       shinyjs::runjs(sprintf("$('#%s').show();", ns("delete_confirmation_modal")))
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
 
     ### Use Case Details Rendering ----
     observe_event(use_case_details_trigger(), {
@@ -1138,7 +1138,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
           )
         )
       })
-    }, ignoreInit = FALSE)
+    })
 
     ### Available Concepts Table Rendering ----
     observe_event(available_concepts_table_trigger(), {
@@ -1183,7 +1183,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
           )
         )
       }, server = FALSE)
-    }, ignoreInit = FALSE)
+    })
 
     ### Selected Concepts Table Rendering ----
     observe_event(selected_concepts_table_trigger(), {
@@ -1242,19 +1242,19 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
           )
         )
       }, server = FALSE)
-    }, ignoreInit = FALSE)
+    })
 
     ## 4) Server - User Actions ====
     ### Breadcrumb Navigation ----
     observe_event(input$back_to_list, {
       current_view("list")
       selected_use_case(NULL)
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
 
     ### Use Case Management - Add ----
     observe_event(input$add_use_case_btn, {
       shinyjs::runjs(sprintf("$('#%s').show();", ns("add_use_case_modal")))
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
 
     # Save new use case
     observe_event(input$save_use_case, {
@@ -1304,7 +1304,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
       updateTextInput(session, "new_use_case_name", value = "")
       updateTextAreaInput(session, "new_use_case_short_description", value = "")
       updateTextAreaInput(session, "new_use_case_long_description", value = "")
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
 
     ### Use Case Management - Edit ----
     # Now handled by use_case_edit_clicked observer
@@ -1356,7 +1356,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
 
       # Close modal
       shinyjs::runjs(sprintf("$('#%s').hide();", ns("edit_use_case_modal")))
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
 
     ### Use Case Management - Delete Confirmation ----
     # Confirm delete use case
@@ -1389,7 +1389,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
 
       # Hide modal
       shinyjs::runjs(sprintf("$('#%s').hide();", ns("delete_confirmation_modal")))
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
 
     observe_event(input$dblclick_use_case_id, {
       use_case_id <- input$dblclick_use_case_id
@@ -1408,7 +1408,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
         ))
         current_view("config")
       }
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
 
     # Configure use case - now handled by use_case_configure_clicked observer
 
@@ -1420,7 +1420,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
       } else {
         selected_use_case_row(NULL)
       }
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    })
 
     ### Concept Assignment - Add Concepts ----
     observe_event(input$add_general_concepts_btn, {
@@ -1465,7 +1465,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
 
         DT::selectRows(DT::dataTableProxy("available_general_concepts_table", session = session), NULL)
       }
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
 
     ### Concept Assignment - Remove Concepts ----
     observe_event(input$remove_general_concepts_btn, {
@@ -1489,7 +1489,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
 
       save_general_concept_use_cases_csv(gc_uc_data)
       general_concept_use_cases_reactive(gc_uc_data)
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
 
     ### Table Row Selection - Available Concepts ----
     observe_event(input$select_all_available, {
@@ -1500,7 +1500,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
           1:nrow(df)
         )
       }
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
 
     # Unselect all rows in available general concepts table
     observe_event(input$unselect_all_available, {
@@ -1508,7 +1508,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
         DT::dataTableProxy("available_general_concepts_table", session = session),
         NULL
       )
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
 
     ### Table Row Selection - Selected Concepts ----
     observe_event(input$select_all_selected, {
@@ -1519,7 +1519,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
           1:nrow(df)
         )
       }
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
 
     # Unselect all rows in selected general concepts table
     observe_event(input$unselect_all_selected, {
@@ -1527,6 +1527,6 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
         DT::dataTableProxy("selected_general_concepts_table", session = session),
         NULL
       )
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
   })
 }

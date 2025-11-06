@@ -927,7 +927,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       if (is.null(local_data())) {
         local_data(data())
       }
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    })
 
     # Create a reactive that uses local_data if available, otherwise data
     current_data <- reactive({
@@ -1078,7 +1078,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     
     observe_event(current_user(), {
       update_button_visibility()
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    })
 
     ### Vocabulary Loading Status ----
     observe_event(vocab_loading_status(), {
@@ -1122,7 +1122,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           shinyjs::hide("general_concepts_table")
         }
       }
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    })
 
 
     ### Breadcrumb Rendering ----
@@ -1310,52 +1310,52 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       # 3. Trigger cascade
       view_trigger(view_trigger() + 1)
-    }, ignoreNULL = FALSE)
+    })
 
     # Handle concept selection changes, then trigger cascade
     observe_event(selected_concept_id(), {
       concept_trigger(concept_trigger() + 1)
-    }, ignoreNULL = FALSE)
+    })
 
     # Handle General Concept Detail Page edit mode changes, then trigger cascade
     observe_event(general_concept_detail_edit_mode(), {
       general_concept_detail_edit_mode_trigger(general_concept_detail_edit_mode_trigger() + 1)
-    }, ignoreNULL = FALSE)
+    })
 
     # Handle General Concepts Page edit mode changes, then trigger cascade
     observe_event(general_concepts_edit_mode(), {
       general_concepts_edit_mode_trigger(general_concepts_edit_mode_trigger() + 1)
-    }, ignoreNULL = FALSE)
+    })
 
     # Handle comments tab changes, then trigger cascade
     observe_event(comments_tab(), {
       comments_tab_trigger(comments_tab_trigger() + 1)
-    }, ignoreNULL = FALSE)
+    })
 
     # Handle local data changes, then trigger cascade
     observe_event(local_data(), {
       local_data_trigger(local_data_trigger() + 1)
-    }, ignoreNULL = FALSE)
+    })
 
     # Handle mapped concept selection changes, then trigger cascade
     observe_event(selected_mapped_concept_id(), {
       mapped_concept_trigger(mapped_concept_trigger() + 1)
-    }, ignoreNULL = FALSE)
+    })
 
     # Handle edited_recommended changes, then trigger cascade
     observe_event(edited_recommended(), {
       edited_recommended_trigger(edited_recommended_trigger() + 1)
-    }, ignoreNULL = FALSE)
+    })
 
     # Handle deleted_concepts changes, then trigger cascade
     observe_event(deleted_concepts(), {
       deleted_concepts_trigger(deleted_concepts_trigger() + 1)
-    }, ignoreNULL = FALSE)
+    })
 
     # Handle selected_categories changes, then trigger cascade
     observe_event(selected_categories(), {
       selected_categories_trigger(selected_categories_trigger() + 1)
-    }, ignoreNULL = FALSE)
+    })
     
     # Render history UIs when history_ui trigger fires
     observe_event(history_ui_trigger(), {
@@ -1514,7 +1514,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             )
         })
       }
-    }, ignoreInit = FALSE)
+    })
 
 
     ## 3) Server - General Concepts Page ----
@@ -1601,7 +1601,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
         dt
       }, server = FALSE)
-    }, ignoreNULL = FALSE)
+    })
 
     # Handle "View Details" button click
     observe_event(input$view_concept_details, {
@@ -1611,7 +1611,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         current_view("detail")
         current_mappings(NULL)  # Reset cache when changing concept
       }
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
 
     # Handle back to list
     observe_event(input$back_to_list, {
@@ -2557,7 +2557,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           selected_mapped_concept_id(selected_omop_id)
         }
       }
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    })
 
     ##### Add Mapping to Selected Concept ----
 
@@ -2699,7 +2699,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           colnames = c("Concept ID", "Name", "Vocabulary")
         )
       })
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    })
 
     # Render OMOP concepts table for adding to mapping (server-side processing)
     output$mapped_concepts_add_omop_table <- DT::renderDT({
@@ -3529,7 +3529,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           DT::DTOutput(ns("synonyms_table"))
         }
       })
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    })
 
     ##### Relationship Tab Outputs ----
     # Render all relationship tab outputs when relationship_tab_outputs trigger fires (cascade observer)
@@ -4074,6 +4074,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           tags$div(class = "detail-item", style = "visibility: hidden;")
         )
         })
-    }, ignoreNULL = FALSE)
+    })
   })
 }

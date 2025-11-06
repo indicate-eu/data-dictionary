@@ -195,7 +195,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
 
     observe_event(selected_folder(), {
       folder_path_trigger(folder_path_trigger() + 1)
-    }, ignoreInit = FALSE)
+    })
 
     observe_event(folder_path_trigger(), {
       folder_path <- selected_folder()
@@ -229,7 +229,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
           )
         }
       })
-    }, ignoreInit = FALSE)
+    })
 
     ### Browser Modal ----
 
@@ -244,7 +244,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
       sort_order("asc")
       filter_text("")
       show_browser_modal()
-    }, ignoreInit = FALSE)
+    })
 
     observe_event(input$toggle_sort, {
       if (sort_order() == "asc") {
@@ -252,12 +252,12 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
       } else {
         sort_order("asc")
       }
-    }, ignoreInit = FALSE)
+    })
 
     observe_event(input$filter_input, {
       if (is.null(input$filter_input)) return()
       filter_text(input$filter_input)
-    }, ignoreInit = FALSE)
+    })
 
     # Function to show browser modal
     show_browser_modal <- function() {
@@ -330,19 +330,19 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
 
     observe_event(current_path(), {
       current_path_trigger(current_path_trigger() + 1)
-    }, ignoreInit = FALSE)
+    })
 
     observe_event(current_path_trigger(), {
       output$current_path <- renderUI({
         tags$span(current_path())
       })
-    }, ignoreInit = FALSE)
+    })
 
     sort_order_trigger <- reactiveVal(0)
 
     observe_event(sort_order(), {
       sort_order_trigger(sort_order_trigger() + 1)
-    }, ignoreInit = FALSE)
+    })
 
     observe_event(sort_order_trigger(), {
       output$sort_icon <- renderUI({
@@ -352,17 +352,17 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
           tags$i(class = "fas fa-sort-alpha-up", title = "Sort Z-A")
         }
       })
-    }, ignoreInit = FALSE)
+    })
 
     observe_event(input$go_home, {
       current_path(path.expand("~"))
-    }, ignoreInit = FALSE)
+    })
 
     file_browser_trigger <- reactiveVal(0)
 
     observe_event(list(current_path(), filter_text(), sort_order()), {
       file_browser_trigger(file_browser_trigger() + 1)
-    }, ignoreInit = FALSE)
+    })
 
     observe_event(file_browser_trigger(), {
       path <- current_path()
@@ -465,7 +465,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
 
         tagList(items_ui)
       })
-    }, ignoreInit = FALSE)
+    })
 
     ### Navigation Handlers ----
 
@@ -474,7 +474,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
       if (dir.exists(new_path)) {
         current_path(new_path)
       }
-    }, ignoreInit = FALSE)
+    })
 
     observe_event(input$select_folder_path, {
       folder_path <- input$select_folder_path
@@ -510,7 +510,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
           }
         }
       }
-    }, ignoreInit = FALSE)
+    })
 
     ## 3) Server - DuckDB Management ----
 
@@ -579,11 +579,11 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
           message = paste("Error creating DuckDB database:", e$message)
         ))
       })
-    }, ignoreInit = FALSE)
+    })
 
     observe_event(input$cancel_browse, {
       removeModal()
-    }, ignoreInit = FALSE)
+    })
 
     ### Database Recreation ----
 
@@ -605,7 +605,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
           session$ns("trigger_duckdb_recreation")
         ))
       })
-    }, ignoreInit = FALSE)
+    })
 
     observe_event(input$trigger_duckdb_recreation, {
       tryCatch({
@@ -670,7 +670,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
           message = paste("Error recreating DuckDB database:", e$message)
         ))
       })
-    }, ignoreInit = FALSE)
+    })
 
     ### Status Display ----
 
@@ -678,7 +678,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
 
     observe_event(list(selected_folder(), duckdb_processing(), duckdb_message()), {
       duckdb_status_trigger(duckdb_status_trigger() + 1)
-    }, ignoreInit = FALSE)
+    })
 
     observe_event(duckdb_status_trigger(), {
       vocab_folder <- selected_folder()
@@ -750,7 +750,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
           )
         }
       })
-    }, ignoreInit = FALSE)
+    })
 
     ## 4) Server - OHDSI Relationships Mappings ----
 
@@ -800,7 +800,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
           ohdsi_mappings_message(list(success = FALSE, message = paste("Error:", e$message)))
         })
       })
-    }, ignoreInit = FALSE)
+    })
 
     ### Status Display ----
 
@@ -808,7 +808,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
 
     observe_event(list(ohdsi_mappings_processing(), ohdsi_mappings_message(), ohdsi_mappings_last_sync()), {
       ohdsi_mappings_status_trigger(ohdsi_mappings_status_trigger() + 1)
-    }, ignoreInit = FALSE)
+    })
 
     observe_event(ohdsi_mappings_status_trigger(), {
       output$ohdsi_mappings_status <- renderUI({
@@ -887,7 +887,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
           )
         }
       })
-    }, ignoreInit = FALSE)
+    })
 
     # Return reactive settings
     settings <- reactive({

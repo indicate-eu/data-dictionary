@@ -398,6 +398,25 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     # Note: Table state (page, search, length) is now managed by stateSave option in DataTables
     selected_eval_mapping_id <- reactiveVal(NULL)  # Track selected evaluation mapping for comment editing
 
+    # Cascade triggers for selected_alignment_id() changes
+    selected_alignment_id_trigger <- reactiveVal(0)  # Primary trigger when alignment selection changes
+    all_mappings_table_trigger <- reactiveVal(0)  # Trigger for Summary tab table
+    source_concepts_table_mapped_trigger <- reactiveVal(0)  # Trigger for Mapped view table
+    source_concepts_table_general_trigger <- reactiveVal(0)  # Trigger for General view Edit Mappings table (alignment changes only)
+    evaluate_mappings_table_trigger <- reactiveVal(0)  # Trigger for Evaluate Mappings tab table
+
+    # Separate trigger for source concepts table updates (used by mapping operations)
+    source_concepts_table_trigger <- reactiveVal(0)  # Trigger for Edit Mappings table (mapping changes)
+
+    # Cascade triggers for selected_general_concept_id() changes
+    selected_general_concept_id_trigger <- reactiveVal(0)  # Primary trigger when general concept selection changes
+    mapped_concepts_table_trigger <- reactiveVal(0)  # Trigger for Mapped view table
+    concept_mappings_table_trigger <- reactiveVal(0)  # Trigger for Edit Mappings concept mappings table
+
+    # Cascade triggers for summary_trigger() changes
+    summary_content_trigger <- reactiveVal(0)  # Trigger for summary content rendering
+    use_cases_compatibility_table_trigger <- reactiveVal(0)  # Trigger for use cases compatibility table
+
     ## 2) Server - Navigation & Events ----
     ### Trigger Updates ----
     # Summary tab reactive trigger
@@ -407,10 +426,40 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (is.null(selected_alignment_id())) return()
       if (is.null(data())) return()
       summary_trigger(summary_trigger() + 1)
-    }, ignoreInit = FALSE)
+    }, ignoreInit = TRUE)
 
-    # Source concepts table reactive trigger (for Edit Mappings tab)
-    source_concepts_table_trigger <- reactiveVal(0)
+    ### Cascade Observer for summary_trigger() ----
+    # Cascade observer: Fires all summary-specific triggers
+    observe_event(summary_trigger(), {
+      summary_content_trigger(summary_content_trigger() + 1)
+      use_cases_compatibility_table_trigger(use_cases_compatibility_table_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    ### Cascade Observers for selected_alignment_id() ----
+    # Primary observer: Fires main trigger when alignment selection changes
+    observe_event(selected_alignment_id(), {
+      selected_alignment_id_trigger(selected_alignment_id_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    # Cascade observer: Fires all table-specific triggers
+    observe_event(selected_alignment_id_trigger(), {
+      all_mappings_table_trigger(all_mappings_table_trigger() + 1)
+      source_concepts_table_mapped_trigger(source_concepts_table_mapped_trigger() + 1)
+      source_concepts_table_general_trigger(source_concepts_table_general_trigger() + 1)
+      evaluate_mappings_table_trigger(evaluate_mappings_table_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    ### Cascade Observers for selected_general_concept_id() ----
+    # Primary observer: Fires main trigger when general concept selection changes
+    observe_event(selected_general_concept_id(), {
+      selected_general_concept_id_trigger(selected_general_concept_id_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    # Cascade observer: Fires all table-specific triggers
+    observe_event(selected_general_concept_id_trigger(), {
+      mapped_concepts_table_trigger(mapped_concepts_table_trigger() + 1)
+      concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
+    }, ignoreInit = TRUE)
 
     ### Breadcrumb Rendering ----
     output$breadcrumb <- renderUI({
@@ -521,12 +570,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       shinyjs::hide("add_mapping_from_general")
     })
 
-    observe_event(selected_general_concept_id(), {
-      if (!is.null(selected_general_concept_id())) {
-        shinyjs::hide("add_mapping_from_general")
-      }
-    })
-
     observe_event(input$open_alignment, {
       selected_alignment_id(input$open_alignment)
       current_view("mapping")
@@ -620,7 +663,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         shinyjs::hide("alignment_name_error")
         shinyjs::runjs(sprintf("$('#%s input').css('border-color', '');", ns("alignment_name")))
       }
-    })
+    }, ignoreInit = TRUE)
 
     ### Edit Alignment ----
     observe_event(input$edit_alignment, {
@@ -1639,7 +1682,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     ### a) Summary Tab ----
     #### Summary Content Rendering ----
-    observe_event(summary_trigger(), {
+    observe_event(summary_content_trigger(), {
       if (is.null(selected_alignment_id())) {
         output$summary_content <- renderUI({
           tags$div("No alignment selected")
@@ -1834,10 +1877,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           )
         )
       })
-    }, ignoreInit = FALSE)
+    })
 
     #### Use Cases Compatibility Table ----
-    observe_event(summary_trigger(), {
+    observe_event(use_cases_compatibility_table_trigger(), {
       if (is.null(selected_alignment_id())) return()
       if (is.null(data())) return()
 
@@ -1925,12 +1968,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
         dt
       }, server = TRUE)
-    }, ignoreInit = FALSE)
+    })
 
     ### b) All Mappings Tab ----
     #### All Mappings Table Rendering ----
-    # Initial render only when alignment changes
-    observe_event(selected_alignment_id(), {
+    # Render table when trigger fires
+    observe_event(all_mappings_table_trigger(), {
       # Check visibility and prerequisites first
       if (is.null(selected_alignment_id())) return()
       if (is.null(data())) return()
@@ -2206,7 +2249,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
         dt
       }, server = TRUE)
-    }, ignoreNULL = FALSE)
+    })
 
     #### Update All Mappings Table Data Using Proxy ----
     # Update data without re-rendering when mappings change
@@ -2438,7 +2481,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         proxy <- DT::dataTableProxy("all_mappings_table_main", session = session)
         DT::replaceData(proxy, display_df, resetPaging = FALSE, rownames = FALSE)
       })
-    }, ignoreNULL = FALSE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
 
     #### Delete Mapping Actions ----
     observe_event(input$delete_mapping_main, {
@@ -2496,10 +2539,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Trigger refresh
       source_concepts_table_trigger(source_concepts_table_trigger() + 1)
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    }, ignoreInit = TRUE)
 
     #### Mapped View Tables ----
-    observe_event(selected_alignment_id(), {
+    observe_event(source_concepts_table_mapped_trigger(), {
       # Check visibility first
       if (is.null(selected_alignment_id())) return()
       if (mapping_view() != "mapped") return()
@@ -2550,9 +2593,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           selection = 'single'
         )
       }, server = TRUE)
-    }, ignoreInit = FALSE)
+    })
 
-    observe_event(selected_general_concept_id(), {
+    observe_event(mapped_concepts_table_trigger(), {
       # Check visibility first
       if (is.null(selected_general_concept_id())) return()
       if (is.null(data())) return()
@@ -2592,7 +2635,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           colnames = c("OMOP Concept ID", "Concept Name", "Concept Code", "Vocabulary", "Standard", "Recommended")
         )
       }, server = TRUE)
-    }, ignoreInit = FALSE)
+    })
 
     observe_event(mappings_refresh_trigger(), {
       # Check visibility first
@@ -2765,12 +2808,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           colnames = c("Source Concept", "Target Concept", "Actions")
         )
       }, server = TRUE)
-    }, ignoreInit = FALSE)
+    })
 
     ### c) Edit Mappings Tab ----
     #### Source Concepts Table Rendering ----
-    # Initial render only when alignment changes
-    observe_event(selected_alignment_id(), {
+    # Render table when trigger fires (alignment changes)
+    observe_event(source_concepts_table_general_trigger(), {
       # Check visibility first
       if (is.null(selected_alignment_id())) return()
       if (mapping_view() != "general") return()
@@ -2856,8 +2899,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
         dt
       }, server = TRUE)
-    }, ignoreNULL = FALSE)
-    
+    })
+
     #### Update Source Concepts Table Data Using Proxy ----
     # Update data without re-rendering when mappings change
     observe_event(source_concepts_table_trigger(), {
@@ -2910,7 +2953,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         proxy <- DT::dataTableProxy("source_concepts_table", session = session)
         DT::replaceData(proxy, df_display, resetPaging = FALSE, rownames = FALSE)
       })
-    }, ignoreNULL = FALSE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
     
     #### General Concepts Table Rendering ----
     observe_event(data(), {
@@ -2953,10 +2996,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         
         dt
       }, server = TRUE)
-    }, ignoreInit = FALSE)
+    })
     
     #### Concept Mappings Table Rendering ----
-    observe_event(selected_general_concept_id(), {
+    observe_event(concept_mappings_table_trigger(), {
       # Check visibility first
       if (is.null(selected_general_concept_id())) return()
       if (is.null(data())) return()
@@ -3087,8 +3130,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
         dt
       }, server = TRUE)
-    }, ignoreInit = FALSE)
-    
+    })
+
     #### Comments Display ----
     output$comments_display <- renderUI({
       if (is.null(selected_general_concept_id())) return()
@@ -3140,7 +3183,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       } else {
         shinyjs::hide("add_mapping_from_general")
       }
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    })
     
     observe_event(input$add_mapping_from_general, {
       source_row <- input$source_concepts_table_rows_selected
@@ -3342,8 +3385,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     
     ### d) Evaluate Mappings Tab ----
     #### Evaluate Mappings Table Rendering ----
-    # Initial render only when alignment changes
-    observe_event(selected_alignment_id(), {
+    # Render table when trigger fires
+    observe_event(evaluate_mappings_table_trigger(), {
       # Check prerequisites first
       if (is.null(selected_alignment_id())) return()
       if (is.null(current_user())) return()
@@ -3568,7 +3611,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
         dt
       }, server = TRUE)
-    }, ignoreNULL = FALSE)
+    })
 
     #### Update Table Data Using Proxy ----
     # Update data without re-rendering when mappings change
@@ -3753,7 +3796,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         proxy <- DT::dataTableProxy("evaluate_mappings_table", session = session)
         DT::replaceData(proxy, display_data, resetPaging = FALSE, rownames = FALSE)
       })
-    }, ignoreNULL = FALSE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
 
     #### Handle Evaluation Actions ----
     observe_event(input$eval_action, {
@@ -3836,7 +3879,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       # Trigger refresh to update the table
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    }, ignoreInit = TRUE)
 
     #### Handle Comment Editing ----
     observe_event(input$eval_table_dblclick, {
@@ -3880,7 +3923,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       # Show modal
       shinyjs::show("eval_comment_modal")
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    }, ignoreInit = TRUE)
 
     #### Save Comment ----
     observe_event(input$save_eval_comment, {
@@ -3934,6 +3977,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       # Trigger refresh
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    }, ignoreInit = TRUE)
   })
 }

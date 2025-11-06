@@ -14,6 +14,13 @@ mod_login_ui <- function(id) {
 
   tagList(
     shinyjs::useShinyjs(),
+    tags$script(HTML(sprintf("
+      $(document).ready(function() {
+        setTimeout(function() {
+          $('#%s').focus();
+        }, 100);
+      });
+    ", ns("login")))),
     div(
       class = "login-container",
       style = "display: flex; align-items: center; justify-content: center; min-height: 100vh;",
@@ -190,7 +197,7 @@ mod_login_server <- function(id, log_level = character()) {
           shinyjs::enable("anonymous_btn")
         }
       })
-    }, ignoreNULL = FALSE, ignoreInit = TRUE)
+    }, ignoreInit = TRUE)
 
     # Handle anonymous login
     observe_event(input$anonymous_btn, {

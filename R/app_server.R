@@ -94,7 +94,7 @@ app_server <- function(input, output, session) {
       shinyjs::show("login_page")
       shinyjs::hide("main_app")
     }
-  }, ignoreNULL = FALSE, ignoreInit = FALSE)
+  })
 
   # Observe route changes and initialize modules on demand
   observe_event(session$clientData$url_hash, {
@@ -178,7 +178,7 @@ app_server <- function(input, output, session) {
         modules_initialized$users <- TRUE
       }
     }
-  }, ignoreNULL = TRUE, ignoreInit = TRUE)
+  }, ignoreInit = TRUE)
 
   # Initialize page header module
   header_module <- mod_page_header_server(
@@ -194,7 +194,7 @@ app_server <- function(input, output, session) {
 
     # Call logout function which will refresh the page
     login_module$logout()
-  }, ignoreNULL = FALSE, ignoreInit = FALSE)
+  })
 
   # Load configuration
   config <- get_config()
@@ -232,5 +232,5 @@ app_server <- function(input, output, session) {
     } else {
       vocab_loading_status("error")
     }
-  }, ignoreNULL = FALSE, ignoreInit = FALSE)
+  })
 }

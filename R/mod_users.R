@@ -305,7 +305,7 @@ mod_users_server <- function(id, current_user, log_level = character()) {
     observe_event(TRUE, {
       users <- get_all_users()
       users_data(users)
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    })
 
     ### Render Users Table ----
     observe_event(users_data(), {
@@ -369,7 +369,7 @@ mod_users_server <- function(id, current_user, log_level = character()) {
 
         dt
       })
-    }, ignoreInit = FALSE)
+    })
 
     ## 3) Server - User Actions ====
 

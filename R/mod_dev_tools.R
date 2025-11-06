@@ -175,7 +175,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
     observe_event(data(), {
       if (is.null(data())) return()
       data_quality_trigger(data_quality_trigger() + 1)
-    }, ignoreInit = FALSE)
+    })
 
     # Data Quality output
     observe_event(data_quality_trigger(), {
@@ -353,14 +353,14 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
         )
       )
       })
-    }, ignoreInit = FALSE)
+    })
 
     ### Data Quality Tab Switching ----
 
     observe_event(input$switch_data_quality_tab, {
       if (is.null(input$switch_data_quality_tab)) return()
       data_quality_tab(input$switch_data_quality_tab)
-    }, ignoreInit = FALSE)
+    })
 
     observe_event(data_quality_tab(), {
       active_tab <- data_quality_tab()
@@ -377,7 +377,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
         shinyjs::hide("missing_comments_container")
         shinyjs::show("recommended_non_standard_container")
       }
-    }, ignoreInit = FALSE)
+    })
 
     ### Data Quality Tables ----
 
@@ -412,7 +412,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
           colnames = c("Category", "Subcategory", "General Concept Name")
         )
       }, server = FALSE)
-    }, ignoreInit = FALSE, once = TRUE)
+    }, once = TRUE)
 
     # Load recommended non-standard table once
     observe_event(list(data(), vocabularies()), {
@@ -494,7 +494,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
           )
         )
       }, server = FALSE)
-    }, ignoreInit = FALSE, once = TRUE)
+    }, once = TRUE)
 
     ## 3) Server - R Console ----
 
@@ -504,7 +504,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
 
     observe_event(code_status(), {
       code_results_trigger(code_results_trigger() + 1)
-    }, ignoreInit = FALSE)
+    })
 
     observe_event(code_results_trigger(), {
       output$code_results <- renderPrint({
@@ -524,7 +524,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
           print(result)
         }
       })
-    }, ignoreInit = FALSE)
+    })
 
     ### Code Execution ----
 
@@ -570,20 +570,20 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
       if (is.null(input$r_editor)) return()
       code <- input$r_editor
       execute_code(code)
-    }, ignoreInit = FALSE)
+    })
 
     # Run all code (Ctrl/Cmd + Shift + Enter hotkey)
     observe_event(input$r_editor_runAllKey, {
       if (is.null(input$r_editor)) return()
       code <- input$r_editor
       execute_code(code)
-    }, ignoreInit = FALSE)
+    })
 
     # Run selection or current line (Ctrl/Cmd + Enter hotkey)
     observe_event(input$r_editor_runSelectionKey, {
       if (is.null(input$r_editor_runSelectionKey)) return()
       code <- input$r_editor_runSelectionKey
       execute_code(code)
-    }, ignoreInit = FALSE)
+    })
   })
 }

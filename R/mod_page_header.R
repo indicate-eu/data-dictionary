@@ -218,7 +218,7 @@ mod_page_header_server <- function(id, current_user, vocab_loading_status, log_l
         shinyjs::show("settings_item_general")
         shinyjs::show("settings_item_users")
       }
-    }, ignoreNULL = FALSE, ignoreInit = FALSE)
+    })
 
     # Display current user in header
     output$current_user_display <- renderUI({
