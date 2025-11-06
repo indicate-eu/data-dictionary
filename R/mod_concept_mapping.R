@@ -476,7 +476,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           style = "padding: 10px 0 15px 0; display: flex; align-items: center; gap: 10px;",
           tags$a(
             class = "breadcrumb-link",
-            style = "font-size: 16px; cursor: pointer;",
             onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("back_to_alignments")),
             "Concept Mappings"
           ),
@@ -491,7 +490,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             tagList(
               tags$a(
                 class = "breadcrumb-link",
-                style = "font-size: 16px; cursor: pointer; color: #333;",
                 onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("back_to_general")),
                 alignment_name
               ),
@@ -1352,6 +1350,83 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     ## 4) Server - Alignment Detail View ----
     ### Helper Functions - View Renderers ----
+    
+    
+    # Function to enrich data with target concept information (OMOP and custom)
+    enrich_target_concepts <- function(enriched_data, vocabularies_data, data_obj) {
+      # Enrich OMOP concepts
+      vocab_data <- vocabularies_data
+      if (!is.null(vocab_data)) {
+        omop_rows <- enriched_data %>% dplyr::filter(!is.na(target_omop_concept_id))
+        if (nrow(omop_rows) > 0) {
+          concept_ids <- omop_rows$target_omop_concept_id
+          omop_concepts <- vocab_data$concept %>%
+            dplyr::filter(concept_id %in% concept_ids) %>%
+            dplyr::select(
+              concept_id,
+              concept_name_target = concept_name,
+              vocabulary_id_target = vocabulary_id,
+              concept_code_target = concept_code
+            ) %>%
+            dplyr::collect()
+          
+          enriched_data <- enriched_data %>%
+            dplyr::left_join(
+              omop_concepts,
+              by = c("target_omop_concept_id" = "concept_id")
+            )
+        } else {
+          enriched_data <- enriched_data %>%
+            dplyr::mutate(
+              concept_name_target = NA_character_,
+              vocabulary_id_target = NA_character_,
+              concept_code_target = NA_character_
+            )
+        }
+      } else {
+        enriched_data <- enriched_data %>%
+          dplyr::mutate(
+            concept_name_target = NA_character_,
+            vocabulary_id_target = NA_character_,
+            concept_code_target = NA_character_
+          )
+      }
+      
+      # Enrich custom concepts
+      custom_concepts_path <- get_package_dir("extdata", "csv", "custom_concepts.csv")
+      if (file.exists(custom_concepts_path)) {
+        custom_rows <- enriched_data %>% dplyr::filter(!is.na(target_custom_concept_id))
+        if (nrow(custom_rows) > 0) {
+          custom_concepts_all <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)
+          custom_concept_ids <- custom_rows$target_custom_concept_id
+          
+          custom_concepts_info <- custom_concepts_all %>%
+            dplyr::filter(custom_concept_id %in% custom_concept_ids) %>%
+            dplyr::select(
+              custom_concept_id,
+              concept_name_custom = concept_name,
+              vocabulary_id_custom = vocabulary_id,
+              concept_code_custom = concept_code
+            )
+          
+          # For custom concepts, fill in the target columns
+          enriched_data <- enriched_data %>%
+            dplyr::left_join(
+              custom_concepts_info,
+              by = c("target_custom_concept_id" = "custom_concept_id")
+            ) %>%
+            dplyr::mutate(
+              concept_name_target = ifelse(is.na(concept_name_target), concept_name_custom, concept_name_target),
+              vocabulary_id_target = ifelse(is.na(vocabulary_id_target), vocabulary_id_custom, vocabulary_id_target),
+              concept_code_target = ifelse(is.na(concept_code_target), concept_code_custom, concept_code_target)
+            ) %>%
+            dplyr::select(-concept_name_custom, -vocabulary_id_custom, -concept_code_custom)
+        }
+      }
+      
+      return(enriched_data)
+    }
+    
     render_alignments_view <- function() {
       tags$div(
         tags$div(
@@ -1612,6 +1687,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         )
       )
     }
+    
+    
 
     ### General Concepts Header Rendering ----
     output$general_concepts_header <- renderUI({
@@ -2052,75 +2129,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       # Enrich with target concept info (OMOP or custom)
       if ("target_custom_concept_id" %in% colnames(enriched_rows)) {
-        # Enrich OMOP concepts
-        vocab_data <- vocabularies()
-        if (!is.null(vocab_data)) {
-          omop_rows <- enriched_rows %>% dplyr::filter(!is.na(target_omop_concept_id))
-          if (nrow(omop_rows) > 0) {
-            concept_ids <- omop_rows$target_omop_concept_id
-            omop_concepts <- vocab_data$concept %>%
-              dplyr::filter(concept_id %in% concept_ids) %>%
-              dplyr::select(
-                concept_id,
-                concept_name_target = concept_name,
-                vocabulary_id_target = vocabulary_id,
-                concept_code_target = concept_code
-              ) %>%
-              dplyr::collect()
-
-            enriched_rows <- enriched_rows %>%
-              dplyr::left_join(
-                omop_concepts,
-                by = c("target_omop_concept_id" = "concept_id")
-              )
-          } else {
-            enriched_rows <- enriched_rows %>%
-              dplyr::mutate(
-                concept_name_target = NA_character_,
-                vocabulary_id_target = NA_character_,
-                concept_code_target = NA_character_
-              )
-          }
-        } else {
-          enriched_rows <- enriched_rows %>%
-            dplyr::mutate(
-              concept_name_target = NA_character_,
-              vocabulary_id_target = NA_character_,
-              concept_code_target = NA_character_
-            )
-        }
-
-        # Enrich custom concepts
-        custom_concepts_path <- get_package_dir("extdata", "csv", "custom_concepts.csv")
-        if (file.exists(custom_concepts_path)) {
-          custom_rows <- enriched_rows %>% dplyr::filter(!is.na(target_custom_concept_id))
-          if (nrow(custom_rows) > 0) {
-            custom_concepts_all <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)
-            custom_concept_ids <- custom_rows$target_custom_concept_id
-
-            custom_concepts_info <- custom_concepts_all %>%
-              dplyr::filter(custom_concept_id %in% custom_concept_ids) %>%
-              dplyr::select(
-                custom_concept_id,
-                concept_name_custom = concept_name,
-                vocabulary_id_custom = vocabulary_id,
-                concept_code_custom = concept_code
-              )
-
-            # For custom concepts, fill in the target columns
-            enriched_rows <- enriched_rows %>%
-              dplyr::left_join(
-                custom_concepts_info,
-                by = c("target_custom_concept_id" = "custom_concept_id")
-              ) %>%
-              dplyr::mutate(
-                concept_name_target = ifelse(is.na(concept_name_target), concept_name_custom, concept_name_target),
-                vocabulary_id_target = ifelse(is.na(vocabulary_id_target), vocabulary_id_custom, vocabulary_id_target),
-                concept_code_target = ifelse(is.na(concept_code_target), concept_code_custom, concept_code_target)
-              ) %>%
-              dplyr::select(-concept_name_custom, -vocabulary_id_custom, -concept_code_custom)
-          }
-        }
+        enriched_rows <- enrich_target_concepts(enriched_rows, vocabularies(), data())
       } else {
         # Fallback: old CSV format
         vocab_data <- vocabularies()
@@ -2315,75 +2324,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       # Enrich with target concept info (OMOP or custom)
       if ("target_custom_concept_id" %in% colnames(enriched_rows)) {
-        # Enrich OMOP concepts
-        vocab_data <- vocabularies()
-        if (!is.null(vocab_data)) {
-          omop_rows <- enriched_rows %>% dplyr::filter(!is.na(target_omop_concept_id))
-          if (nrow(omop_rows) > 0) {
-            concept_ids <- omop_rows$target_omop_concept_id
-            omop_concepts <- vocab_data$concept %>%
-              dplyr::filter(concept_id %in% concept_ids) %>%
-              dplyr::select(
-                concept_id,
-                concept_name_target = concept_name,
-                vocabulary_id_target = vocabulary_id,
-                concept_code_target = concept_code
-              ) %>%
-              dplyr::collect()
-
-            enriched_rows <- enriched_rows %>%
-              dplyr::left_join(
-                omop_concepts,
-                by = c("target_omop_concept_id" = "concept_id")
-              )
-          } else {
-            enriched_rows <- enriched_rows %>%
-              dplyr::mutate(
-                concept_name_target = NA_character_,
-                vocabulary_id_target = NA_character_,
-                concept_code_target = NA_character_
-              )
-          }
-        } else {
-          enriched_rows <- enriched_rows %>%
-            dplyr::mutate(
-              concept_name_target = NA_character_,
-              vocabulary_id_target = NA_character_,
-              concept_code_target = NA_character_
-            )
-        }
-
-        # Enrich custom concepts
-        custom_concepts_path <- get_package_dir("extdata", "csv", "custom_concepts.csv")
-        if (file.exists(custom_concepts_path)) {
-          custom_rows <- enriched_rows %>% dplyr::filter(!is.na(target_custom_concept_id))
-          if (nrow(custom_rows) > 0) {
-            custom_concepts_all <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)
-            custom_concept_ids <- custom_rows$target_custom_concept_id
-
-            custom_concepts_info <- custom_concepts_all %>%
-              dplyr::filter(custom_concept_id %in% custom_concept_ids) %>%
-              dplyr::select(
-                custom_concept_id,
-                concept_name_custom = concept_name,
-                vocabulary_id_custom = vocabulary_id,
-                concept_code_custom = concept_code
-              )
-
-            # For custom concepts, fill in the target columns
-            enriched_rows <- enriched_rows %>%
-              dplyr::left_join(
-                custom_concepts_info,
-                by = c("target_custom_concept_id" = "custom_concept_id")
-              ) %>%
-              dplyr::mutate(
-                concept_name_target = ifelse(is.na(concept_name_target), concept_name_custom, concept_name_target),
-                vocabulary_id_target = ifelse(is.na(vocabulary_id_target), vocabulary_id_custom, vocabulary_id_target),
-                concept_code_target = ifelse(is.na(concept_code_target), concept_code_custom, concept_code_target)
-              ) %>%
-              dplyr::select(-concept_name_custom, -vocabulary_id_custom, -concept_code_custom)
-          }
-        }
+        enriched_rows <- enrich_target_concepts(enriched_rows, vocabularies(), data())
       } else {
         # Fallback: old CSV format
         vocab_data <- vocabularies()
@@ -3468,65 +3409,29 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           ) %>%
           dplyr::ungroup()
 
-        # Enrich with target concept information
+        # Enrich with target general concept information
         general_concepts <- data()$general_concepts
-        concept_mappings <- data()$concept_mappings
-        custom_concepts_path <- get_package_dir("extdata", "csv", "custom_concepts.csv")
-        custom_concepts <- data.frame()
-        if (file.exists(custom_concepts_path)) {
-          custom_concepts <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)
-        }
-
         enriched_data <- enriched_data %>%
-          dplyr::rowwise() %>%
+          dplyr::left_join(
+            general_concepts %>%
+              dplyr::select(general_concept_id, target_general_concept_name = general_concept_name),
+            by = c("target_general_concept_id" = "general_concept_id")
+          )
+
+        # Enrich with target concept info (OMOP or custom)
+        enriched_data <- enrich_target_concepts(enriched_data, vocabularies(), data())
+
+        # Add status column
+        enriched_data <- enriched_data %>%
           dplyr::mutate(
-            target_general_concept_name = {
-              if (!is.na(target_general_concept_id)) {
-                gc <- general_concepts %>%
-                  dplyr::filter(general_concept_id == target_general_concept_id)
-                if (nrow(gc) > 0) gc$general_concept_name[1] else NA_character_
-              } else {
-                NA_character_
-              }
-            },
-            target_concept_name = {
-              result <- NA_character_
-              if (!is.na(target_omop_concept_id)) {
-                cm <- concept_mappings %>%
-                  dplyr::filter(omop_concept_id == target_omop_concept_id)
-                if (!is.null(cm) && nrow(cm) > 0) {
-                  val <- cm$concept_name[1]
-                  if (!is.null(val) && length(val) > 0 && !is.na(val)) {
-                    result <- as.character(val)
-                  }
-                }
-              } else if (!is.na(target_custom_concept_id) && !is.null(custom_concepts) && nrow(custom_concepts) > 0) {
-                cc <- custom_concepts %>%
-                  dplyr::filter(custom_concept_id == target_custom_concept_id)
-                if (!is.null(cc) && nrow(cc) > 0) {
-                  val <- cc$concept_name[1]
-                  if (!is.null(val) && length(val) > 0 && !is.na(val)) {
-                    result <- as.character(val)
-                  }
-                }
-              }
-              result
-            },
-            status = {
-              if (is.na(is_approved)) {
-                "Not Evaluated"
-              } else if (is_approved == 1) {
-                "Approved"
-              } else if (is_approved == 0) {
-                "Rejected"
-              } else if (is_approved == -1) {
-                "Uncertain"
-              } else {
-                "Not Evaluated"
-              }
-            }
-          ) %>%
-          dplyr::ungroup()
+            status = dplyr::case_when(
+              is.na(is_approved) ~ "Not Evaluated",
+              is_approved == 1 ~ "Approved",
+              is_approved == 0 ~ "Rejected",
+              is_approved == -1 ~ "Uncertain",
+              TRUE ~ "Not Evaluated"
+            )
+          )
 
         # Add row index for actions
         enriched_data <- enriched_data %>%
@@ -3563,7 +3468,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             Source = paste0(source_concept_name, " (", source_concept_code, ")"),
             Target = paste0(
               target_general_concept_name, " > ",
-              ifelse(is.na(target_concept_name), "", target_concept_name)
+              concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"
             ),
             status = factor(status, levels = c("Not Evaluated", "Approved", "Rejected", "Uncertain"))
           ) %>%
@@ -3697,65 +3602,29 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         ) %>%
         dplyr::ungroup()
 
-      # Enrich with target concept information
+      # Enrich with target general concept information
       general_concepts <- data()$general_concepts
-      concept_mappings <- data()$concept_mappings
-      custom_concepts_path <- get_package_dir("extdata", "csv", "custom_concepts.csv")
-      custom_concepts <- data.frame()
-      if (file.exists(custom_concepts_path)) {
-        custom_concepts <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)
-      }
-
       enriched_data <- enriched_data %>%
-        dplyr::rowwise() %>%
+        dplyr::left_join(
+          general_concepts %>%
+            dplyr::select(general_concept_id, target_general_concept_name = general_concept_name),
+          by = c("target_general_concept_id" = "general_concept_id")
+        )
+
+      # Enrich with target concept info (OMOP or custom)
+      enriched_data <- enrich_target_concepts(enriched_data, vocabularies(), data())
+
+      # Add status column
+      enriched_data <- enriched_data %>%
         dplyr::mutate(
-          target_general_concept_name = {
-            if (!is.na(target_general_concept_id)) {
-              gc <- general_concepts %>%
-                dplyr::filter(general_concept_id == target_general_concept_id)
-              if (nrow(gc) > 0) gc$general_concept_name[1] else NA_character_
-            } else {
-              NA_character_
-            }
-          },
-          target_concept_name = {
-            result <- NA_character_
-            if (!is.na(target_omop_concept_id)) {
-              cm <- concept_mappings %>%
-                dplyr::filter(omop_concept_id == target_omop_concept_id)
-              if (!is.null(cm) && nrow(cm) > 0) {
-                val <- cm$concept_name[1]
-                if (!is.null(val) && length(val) > 0 && !is.na(val)) {
-                  result <- as.character(val)
-                }
-              }
-            } else if (!is.na(target_custom_concept_id) && !is.null(custom_concepts) && nrow(custom_concepts) > 0) {
-              cc <- custom_concepts %>%
-                dplyr::filter(custom_concept_id == target_custom_concept_id)
-              if (!is.null(cc) && nrow(cc) > 0) {
-                val <- cc$concept_name[1]
-                if (!is.null(val) && length(val) > 0 && !is.na(val)) {
-                  result <- as.character(val)
-                }
-              }
-            }
-            result
-          },
-          status = {
-            if (is.na(is_approved)) {
-              "Not Evaluated"
-            } else if (is_approved == 1) {
-              "Approved"
-            } else if (is_approved == 0) {
-              "Rejected"
-            } else if (is_approved == -1) {
-              "Uncertain"
-            } else {
-              "Not Evaluated"
-            }
-          }
-        ) %>%
-        dplyr::ungroup()
+          status = dplyr::case_when(
+            is.na(is_approved) ~ "Not Evaluated",
+            is_approved == 1 ~ "Approved",
+            is_approved == 0 ~ "Rejected",
+            is_approved == -1 ~ "Uncertain",
+            TRUE ~ "Not Evaluated"
+          )
+        )
 
       # Add row index for actions
       enriched_data <- enriched_data %>%
@@ -3792,7 +3661,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           Source = paste0(source_concept_name, " (", source_concept_code, ")"),
           Target = paste0(
             target_general_concept_name, " > ",
-            ifelse(is.na(target_concept_name), "", target_concept_name)
+            concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"
           ),
           status = factor(status, levels = c("Not Evaluated", "Approved", "Rejected", "Uncertain"))
         ) %>%

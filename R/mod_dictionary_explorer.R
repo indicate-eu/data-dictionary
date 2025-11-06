@@ -1188,7 +1188,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                     href = "#",
                     onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("back_to_list")),
                     class = "breadcrumb-link",
-                    style = "font-weight: 600;",
                     "General Concepts"
                   ),
                   tags$span(

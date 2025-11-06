@@ -361,7 +361,7 @@ render_use_cases_list_ui <- function(ns) {
     # Action buttons bar
     tags$div(
       style = paste0(
-        "margin: 5px 0 15px 0; display: flex; ",
+        "margin: 5px 0 15px 10px; display: flex; ",
         "justify-content: space-between; align-items: center;"
       ),
       # Title (matching dictionary explorer style)
@@ -886,7 +886,6 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
                     ns("back_to_list")
                   ),
                   class = "breadcrumb-link",
-                  style = "font-weight: 600;",
                   "Use Cases"
                 ),
                 tags$span(
