@@ -2062,7 +2062,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         local_data(data)
 
         # Close modal and reset fields
-        shinyjs::runjs(sprintf("$('#%s').hide();", ns("general_concepts_add_modal")))
+        shinyjs::hide(ns("general_concepts_add_modal"))
 
         # Reset input fields
         shiny::updateTextInput(session, "general_concepts_new_name", value = "")
@@ -2502,22 +2502,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Apply formatStyle only in view mode (not edit mode with toggles)
       if (!is_editing) {
         dt <- dt %>%
-          DT::formatStyle(
-            'recommended',
-            target = 'cell',
-            backgroundColor = DT::styleEqual(
-              c("Yes", "No"),
-              c('#d4edda', '#f8f9fa')
-            ),
-            fontWeight = DT::styleEqual(
-              c("Yes", "No"),
-              c('bold', 'normal')
-            ),
-            color = DT::styleEqual(
-              c("Yes", "No"),
-              c('#155724', '#666')
-            )
-          )
+          style_yes_no_column('recommended')
       }
 
           dt
@@ -2839,7 +2824,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
 
       # Close modal and reset selection
-      shinyjs::runjs(sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")))
+      shinyjs::hide(ns("mapped_concepts_add_modal"))
       add_modal_selected_concept(NULL)
     }, ignoreInit = TRUE)
 
@@ -2933,7 +2918,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
 
       # Close modal and reset form
-      shinyjs::runjs(sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")))
+      shinyjs::hide(ns("mapped_concepts_add_modal"))
       updateTextInput(session, "custom_vocabulary_id", value = "")
       updateTextInput(session, "custom_concept_code", value = "")
       updateTextInput(session, "custom_concept_name", value = "")
@@ -3917,9 +3902,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     observe_event(input$view_hierarchy_graph, {
       omop_concept_id <- selected_mapped_concept_id()
       req(omop_concept_id)
-      
+
       # Show modal
-      shinyjs::runjs(sprintf("$('#%s').show();", ns("hierarchy_graph_modal")))
+      shinyjs::show(ns("hierarchy_graph_modal"))
       
       # Re-render the graph for the modal with explicit dimensions
       output$hierarchy_graph_modal_content <- visNetwork::renderVisNetwork({
