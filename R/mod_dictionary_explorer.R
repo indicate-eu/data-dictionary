@@ -409,6 +409,13 @@ mod_dictionary_explorer_ui <- function(id) {
               label = NULL,
               placeholder = "Enter concept name",
               width = "100%"
+            ),
+            shinyjs::hidden(
+              tags$span(
+                id = ns("general_concepts_new_name_error"),
+                class = "input-error-message",
+                "Concept name is required"
+              )
             )
           ),
           tags$div(
@@ -465,6 +472,13 @@ mod_dictionary_explorer_ui <- function(id) {
                 ", ns("category_select_container"), ns("category_text_container"), ns("general_concepts_toggle_category_mode")),
                 "+"
               )
+            ),
+            shinyjs::hidden(
+              tags$span(
+                id = ns("general_concepts_new_category_error"),
+                class = "input-error-message",
+                "Category is required"
+              )
             )
           ),
           tags$div(
@@ -520,6 +534,13 @@ mod_dictionary_explorer_ui <- function(id) {
                   }
                 ", ns("subcategory_select_container"), ns("subcategory_text_container"), ns("general_concepts_toggle_subcategory_mode")),
                 "+"
+              )
+            ),
+            shinyjs::hidden(
+              tags$span(
+                id = ns("general_concepts_new_subcategory_error"),
+                class = "input-error-message",
+                "Subcategory is required"
               )
             )
           ),
@@ -1880,8 +1901,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       updateSelectizeInput(session, "general_concepts_new_category", choices = categories, selected = character(0))
       updateSelectizeInput(session, "general_concepts_new_subcategory", choices = character(0), selected = character(0))
 
-      # Hide error message
+      # Hide all error messages
       shinyjs::hide("duplicate_concept_error")
+      shinyjs::hide("general_concepts_new_name_error")
+      shinyjs::hide("general_concepts_new_category_error")
+      shinyjs::hide("general_concepts_new_subcategory_error")
 
       # Show the custom modal
       shinyjs::show("general_concepts_add_modal")
@@ -1917,6 +1941,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Save datatable state before adding concept
       save_datatable_state(input, "general_concepts_table", saved_table_page, saved_table_search)
 
+      # Hide all error messages first
+      shinyjs::hide("general_concepts_new_name_error")
+      shinyjs::hide("general_concepts_new_category_error")
+      shinyjs::hide("general_concepts_new_subcategory_error")
+
       # Determine which category/subcategory field is active
       category <- if (!is.null(input$general_concepts_new_category_text) && nchar(trimws(input$general_concepts_new_category_text)) > 0) {
         input$general_concepts_new_category_text
@@ -1932,50 +1961,22 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       concept_name <- input$general_concepts_new_name
 
-      # Validation with visual feedback
+      # Validate all required fields
       has_error <- FALSE
 
-      # Reset all borders first
-      shinyjs::runjs(sprintf("
-        document.getElementById('%s').style.border = '';
-        $('#%s').parent().find('.selectize-control .selectize-input').css('border', '');
-        document.getElementById('%s').style.border = '';
-        $('#%s').parent().find('.selectize-control .selectize-input').css('border', '');
-        document.getElementById('%s').style.border = '';
-      ", ns("general_concepts_new_name"), ns("general_concepts_new_category"), ns("general_concepts_new_category_text"), ns("general_concepts_new_subcategory"), ns("general_concepts_new_subcategory_text")))
-
-      # Validate concept name
       if (is.null(concept_name) || nchar(trimws(concept_name)) == 0) {
+        shinyjs::show("general_concepts_new_name_error")
         has_error <- TRUE
-        shinyjs::runjs(sprintf("document.getElementById('%s').style.border = '2px solid #dc3545'", ns("general_concepts_new_name")))
       }
 
-      # Validate category - only highlight the visible field
       if (is.null(category) || nchar(trimws(category)) == 0) {
+        shinyjs::show("general_concepts_new_category_error")
         has_error <- TRUE
-        shinyjs::runjs(sprintf("
-          var categorySelectContainer = document.getElementById('%s');
-          var categoryTextContainer = document.getElementById('%s');
-          if (categorySelectContainer.style.display !== 'none') {
-            $('#%s').parent().find('.selectize-control .selectize-input').css('border', '2px solid #dc3545');
-          } else {
-            document.getElementById('%s').style.border = '2px solid #dc3545';
-          }
-        ", ns("category_select_container"), ns("category_text_container"), ns("general_concepts_new_category"), ns("general_concepts_new_category_text")))
       }
 
-      # Validate subcategory - only highlight the visible field
       if (is.null(subcategory) || nchar(trimws(subcategory)) == 0) {
+        shinyjs::show("general_concepts_new_subcategory_error")
         has_error <- TRUE
-        shinyjs::runjs(sprintf("
-          var subcategorySelectContainer = document.getElementById('%s');
-          var subcategoryTextContainer = document.getElementById('%s');
-          if (subcategorySelectContainer.style.display !== 'none') {
-            $('#%s').parent().find('.selectize-control .selectize-input').css('border', '2px solid #dc3545');
-          } else {
-            document.getElementById('%s').style.border = '2px solid #dc3545';
-          }
-        ", ns("subcategory_select_container"), ns("subcategory_text_container"), ns("general_concepts_new_subcategory"), ns("general_concepts_new_subcategory_text")))
       }
 
       if (has_error) {
@@ -1985,19 +1986,24 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Get current data
       general_concepts <- current_data()$general_concepts
 
+      # Store trimmed values for comparison
+      category_trimmed <- trimws(category)
+      subcategory_trimmed <- trimws(subcategory)
+      concept_name_trimmed <- trimws(concept_name)
+
       # Check if concept already exists (same category, subcategory, and name)
       duplicate_exists <- general_concepts %>%
         dplyr::filter(
-          category == trimws(category),
-          subcategory == trimws(subcategory),
-          general_concept_name == trimws(concept_name)
+          .data$category == category_trimmed,
+          .data$subcategory == subcategory_trimmed,
+          .data$general_concept_name == concept_name_trimmed
         ) %>%
         nrow() > 0
 
       if (duplicate_exists) {
         # Show error message in modal
         error_text <- sprintf("A concept named '%s' already exists in category '%s' > '%s'. Please choose a different name or category.",
-                             trimws(concept_name), trimws(category), trimws(subcategory))
+                             concept_name_trimmed, category_trimmed, subcategory_trimmed)
         shinyjs::html("duplicate_concept_error_text", error_text)
         shinyjs::show("duplicate_concept_error")
         return()
@@ -2012,9 +2018,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Create new row
       new_row <- data.frame(
         general_concept_id = new_id,
-        category = trimws(category),
-        subcategory = trimws(subcategory),
-        general_concept_name = trimws(concept_name),
+        category = category_trimmed,
+        subcategory = subcategory_trimmed,
+        general_concept_name = concept_name_trimmed,
         comments = NA_character_,
         statistical_summary = NA_character_,
         stringsAsFactors = FALSE
@@ -2027,9 +2033,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Find the row index of the newly added concept after sorting
       new_concept_row_index <- which(
         general_concepts_display$general_concept_id == new_id &
-        general_concepts_display$category == trimws(category) &
-        general_concepts_display$subcategory == trimws(subcategory) &
-        general_concepts_display$general_concept_name == trimws(concept_name)
+        general_concepts_display$category == category_trimmed &
+        general_concepts_display$subcategory == subcategory_trimmed &
+        general_concepts_display$general_concept_name == concept_name_trimmed
       )[1]
 
       # Save to CSV sorted by ID (for easier version control)
@@ -2052,17 +2058,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             action_type = "insert",
             general_concept_id = new_id,
             comment = sprintf("Created concept '%s' in category '%s' > '%s'",
-                            trimws(concept_name), trimws(category), trimws(subcategory))
+                            concept_name_trimmed, category_trimmed, subcategory_trimmed)
           )
         }
 
-        # Update local data (this triggers table re-render via local_data_trigger)
-        data <- local_data()
-        data$general_concepts <- general_concepts_display
-        local_data(data)
-
-        # Close modal and reset fields
-        shinyjs::hide(ns("general_concepts_add_modal"))
+        # Close modal and reset fields first
+        shinyjs::hide("general_concepts_add_modal")
 
         # Reset input fields
         shiny::updateTextInput(session, "general_concepts_new_name", value = "")
@@ -2071,8 +2072,15 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         updateSelectizeInput(session, "general_concepts_new_category", selected = character(0))
         updateSelectizeInput(session, "general_concepts_new_subcategory", selected = character(0))
 
-        # Restore datatable state after re-render
-        restore_datatable_state("general_concepts_table", saved_table_page, saved_table_search, session)
+        # Update local data (this triggers table re-render via local_data_trigger)
+        data <- local_data()
+        data$general_concepts <- general_concepts_display
+        local_data(data)
+
+        # Restore datatable state after re-render (with delay to ensure table is ready)
+        shinyjs::delay(300, {
+          restore_datatable_state("general_concepts_table", saved_table_page, saved_table_search, session)
+        })
       }
     })
 
@@ -2824,7 +2832,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
 
       # Close modal and reset selection
-      shinyjs::hide(ns("mapped_concepts_add_modal"))
+      shinyjs::hide("mapped_concepts_add_modal")
       add_modal_selected_concept(NULL)
     }, ignoreInit = TRUE)
 
@@ -2832,30 +2840,19 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     observe_event(input$add_custom_concept, {
       if (!general_concept_detail_edit_mode()) return()
 
-      # Reset all error messages
-      shinyjs::hide("custom_vocabulary_id_error")
-      shinyjs::hide("custom_concept_name_error")
+      # Validate required inputs
+      is_valid <- validate_required_inputs(
+        input,
+        fields = list(
+          custom_vocabulary_id = "custom_vocabulary_id_error",
+          custom_concept_name = "custom_concept_name_error"
+        )
+      )
+      if (!is_valid) return()
 
-      # Validate vocabulary ID
+      # Get validated values
       vocabulary_id <- trimws(input$custom_vocabulary_id)
-      vocab_valid <- !is.null(vocabulary_id) && vocabulary_id != ""
-
-      # Validate concept name
       concept_name <- trimws(input$custom_concept_name)
-      name_valid <- !is.null(concept_name) && concept_name != ""
-
-      # Show errors if validation fails
-      if (!vocab_valid) {
-        shinyjs::show("custom_vocabulary_id_error")
-      }
-      if (!name_valid) {
-        shinyjs::show("custom_concept_name_error")
-      }
-
-      # Return if any validation failed
-      if (!vocab_valid || !name_valid) {
-        return()
-      }
 
       # Get current general concept
       concept_id <- selected_concept_id()
@@ -2918,7 +2915,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
 
       # Close modal and reset form
-      shinyjs::hide(ns("mapped_concepts_add_modal"))
+      shinyjs::hide("mapped_concepts_add_modal")
       updateTextInput(session, "custom_vocabulary_id", value = "")
       updateTextInput(session, "custom_concept_code", value = "")
       updateTextInput(session, "custom_concept_name", value = "")
@@ -3904,7 +3901,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       req(omop_concept_id)
 
       # Show modal
-      shinyjs::show(ns("hierarchy_graph_modal"))
+      shinyjs::show("hierarchy_graph_modal")
       
       # Re-render the graph for the modal with explicit dimensions
       output$hierarchy_graph_modal_content <- visNetwork::renderVisNetwork({

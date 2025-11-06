@@ -581,17 +581,17 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       updateTextInput(session, "alignment_name", value = "")
       updateTextInput(session, "alignment_description", value = "")
 
-      shinyjs::hide(ns("alignment_name_error"))
+      shinyjs::hide("alignment_name_error")
       shinyjs::runjs(sprintf("$('#%s input').css('border-color', '');", ns("alignment_name")))
 
       shinyjs::runjs(sprintf("$('#%s').text('Add Alignment');", ns("alignment_modal_title")))
 
-      shinyjs::show(ns("alignment_modal"))
+      shinyjs::show("alignment_modal")
     })
 
     observe_event(input$alignment_name, {
       if (!is.null(input$alignment_name) && input$alignment_name != "") {
-        shinyjs::hide(ns("alignment_name_error"))
+        shinyjs::hide("alignment_name_error")
         shinyjs::runjs(sprintf("$('#%s input').css('border-color', '');", ns("alignment_name")))
       }
     })
@@ -611,10 +611,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
         shinyjs::runjs(sprintf("$('#%s').text('Edit Alignment');", ns("alignment_modal_title")))
 
-        shinyjs::hide(ns("alignment_modal_next"))
-        shinyjs::show(ns("alignment_modal_save"))
+        shinyjs::hide("alignment_modal_next")
+        shinyjs::show("alignment_modal_save")
 
-        shinyjs::show(ns("alignment_modal"))
+        shinyjs::show("alignment_modal")
       }
     })
 
@@ -876,13 +876,17 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     #### Modal Navigation & Save Handling ----
     observe_event(input$alignment_modal_next, {
       if (modal_page() == 1) {
-        if (is.null(input$alignment_name) || input$alignment_name == "") {
-          shinyjs::show(ns("alignment_name_error"))
+        # Validate alignment name before proceeding to page 2
+        is_valid <- validate_required_inputs(
+          input,
+          fields = list(alignment_name = "alignment_name_error")
+        )
+
+        if (!is_valid) {
           shinyjs::runjs(sprintf("$('#%s input').css('border-color', '#dc3545');", ns("alignment_name")))
           return()
         }
 
-        shinyjs::hide(ns("alignment_name_error"))
         shinyjs::runjs(sprintf("$('#%s input').css('border-color', '');", ns("alignment_name")))
 
         modal_page(2)
@@ -893,9 +897,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         shinyjs::runjs(sprintf("$('#%s').css({'max-width': '90vw', 'height': '80vh', 'max-height': '80vh'});", ns("alignment_modal_dialog")))
 
         shinyjs::runjs(sprintf("$('#%s').text('Page 2 of 2');", ns("modal_page_indicator")))
-        shinyjs::show(ns("alignment_modal_back"))
-        shinyjs::hide(ns("alignment_modal_next"))
-        shinyjs::show(ns("alignment_modal_save"))
+        shinyjs::show("alignment_modal_back")
+        shinyjs::hide("alignment_modal_next")
+        shinyjs::show("alignment_modal_save")
       }
     })
 
@@ -909,14 +913,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         shinyjs::runjs(sprintf("$('#%s').css({'max-width': '600px', 'height': 'auto', 'max-height': '90vh'});", ns("alignment_modal_dialog")))
 
         shinyjs::runjs(sprintf("$('#%s').text('Page 1 of 2');", ns("modal_page_indicator")))
-        shinyjs::hide(ns("alignment_modal_back"))
-        shinyjs::show(ns("alignment_modal_next"))
-        shinyjs::hide(ns("alignment_modal_save"))
+        shinyjs::hide("alignment_modal_back")
+        shinyjs::show("alignment_modal_next")
+        shinyjs::hide("alignment_modal_save")
       }
     })
 
     observe_event(input$alignment_modal_cancel, {
-      shinyjs::hide(ns("alignment_modal"))
+      shinyjs::hide("alignment_modal")
 
       updateTextInput(session, "alignment_name", value = "")
       updateTextAreaInput(session, "alignment_description", value = "")
@@ -936,11 +940,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       shinyjs::runjs(sprintf("$('#%s').html('');", ns("csv_options")))
       shinyjs::runjs(sprintf("$('#%s').html('');", ns("column_mapping_wrapper")))
 
-      shinyjs::hide(ns("alignment_name_error"))
-      shinyjs::hide(ns("alignment_file_error"))
-      shinyjs::hide(ns("col_vocabulary_id_error"))
-      shinyjs::hide(ns("col_concept_code_error"))
-      shinyjs::hide(ns("col_concept_name_error"))
+      shinyjs::hide("alignment_name_error")
+      shinyjs::hide("alignment_file_error")
+      shinyjs::hide("col_vocabulary_id_error")
+      shinyjs::hide("col_concept_code_error")
+      shinyjs::hide("col_concept_name_error")
 
       modal_page(1)
 
@@ -949,69 +953,69 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       shinyjs::runjs(sprintf("$('#%s').css({'max-width': '600px', 'height': 'auto', 'max-height': '90vh'});", ns("alignment_modal_dialog")))
 
       shinyjs::runjs(sprintf("$('#%s').text('Page 1 of 2');", ns("modal_page_indicator")))
-      shinyjs::hide(ns("alignment_modal_back"))
-      shinyjs::show(ns("alignment_modal_next"))
-      shinyjs::hide(ns("alignment_modal_save"))
+      shinyjs::hide("alignment_modal_back")
+      shinyjs::show("alignment_modal_next")
+      shinyjs::hide("alignment_modal_save")
     })
 
     observe_event(input$alignment_file, {
       if (!is.null(input$alignment_file)) {
-        shinyjs::hide(ns("alignment_file_error"))
+        shinyjs::hide("alignment_file_error")
       }
     })
 
     observe_event(input$col_vocabulary_id, {
       if (!is.null(input$col_vocabulary_id) && input$col_vocabulary_id != "") {
-        shinyjs::hide(ns("col_vocabulary_id_error"))
+        shinyjs::hide("col_vocabulary_id_error")
       }
     })
 
     observe_event(input$col_concept_code, {
       if (!is.null(input$col_concept_code) && input$col_concept_code != "") {
-        shinyjs::hide(ns("col_concept_code_error"))
+        shinyjs::hide("col_concept_code_error")
       }
     })
 
     observe_event(input$col_concept_name, {
       if (!is.null(input$col_concept_name) && input$col_concept_name != "") {
-        shinyjs::hide(ns("col_concept_name_error"))
+        shinyjs::hide("col_concept_name_error")
       }
     })
 
     #### Save Alignment ----
     observe_event(input$alignment_modal_save, {
-      has_errors <- FALSE
+      # Validate alignment name (required for both add and edit modes)
+      is_valid <- validate_required_inputs(
+        input,
+        fields = list(alignment_name = "alignment_name_error")
+      )
 
-      if (is.null(input$alignment_name) || input$alignment_name == "") {
-        shinyjs::show(ns("alignment_name_error"))
+      if (!is_valid) {
         shinyjs::runjs(sprintf("$('#%s input').css('border-color', '#dc3545');", ns("alignment_name")))
-        has_errors <- TRUE
-      }
-
-      if (modal_mode() == "add") {
-        if (is.null(input$alignment_file)) {
-          shinyjs::show(ns("alignment_file_error"))
-          has_errors <- TRUE
-        }
-
-        if (is.null(input$col_vocabulary_id) || input$col_vocabulary_id == "") {
-          shinyjs::show(ns("col_vocabulary_id_error"))
-          has_errors <- TRUE
-        }
-
-        if (is.null(input$col_concept_code) || input$col_concept_code == "") {
-          shinyjs::show(ns("col_concept_code_error"))
-          has_errors <- TRUE
-        }
-
-        if (is.null(input$col_concept_name) || input$col_concept_name == "") {
-          shinyjs::show(ns("col_concept_name_error"))
-          has_errors <- TRUE
-        }
-      }
-
-      if (has_errors) {
         return()
+      } else {
+        shinyjs::runjs(sprintf("$('#%s input').css('border-color', '');", ns("alignment_name")))
+      }
+
+      # Validate file upload and column mappings (only for add mode)
+      if (modal_mode() == "add") {
+        # Check file upload separately (not a text input)
+        if (is.null(input$alignment_file)) {
+          shinyjs::show("alignment_file_error")
+          return()
+        }
+
+        # Validate required column mappings
+        is_valid <- validate_required_inputs(
+          input,
+          fields = list(
+            col_vocabulary_id = "col_vocabulary_id_error",
+            col_concept_code = "col_concept_code_error",
+            col_concept_name = "col_concept_name_error"
+          )
+        )
+
+        if (!is_valid) return()
       }
 
       if (modal_mode() == "add") {
@@ -1107,7 +1111,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         alignments_data(get_all_alignments())
       }
 
-      shinyjs::hide(ns("alignment_modal"))
+      shinyjs::hide("alignment_modal")
       modal_page(1)
 
       shinyjs::show(id = "modal_page_1")
@@ -1115,9 +1119,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       shinyjs::runjs(sprintf("$('#%s').css({'max-width': '600px', 'height': 'auto', 'max-height': '90vh'});", ns("alignment_modal_dialog")))
 
       shinyjs::runjs(sprintf("$('#%s').text('Page 1 of 2');", ns("modal_page_indicator")))
-      shinyjs::hide(ns("alignment_modal_back"))
-      shinyjs::show(ns("alignment_modal_next"))
-      shinyjs::hide(ns("alignment_modal_save"))
+      shinyjs::hide("alignment_modal_back")
+      shinyjs::show("alignment_modal_next")
+      shinyjs::hide("alignment_modal_save")
     })
 
     ### Delete Alignment ----
@@ -1134,7 +1138,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         shinyjs::html("delete_alignment_name_display", alignment_name)
       }
 
-      shinyjs::show(ns("delete_confirmation_modal"))
+      shinyjs::show("delete_confirmation_modal")
     })
 
     observe_event(input$confirm_delete_alignment, {
@@ -1158,7 +1162,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       delete_alignment(alignment_to_delete())
       alignments_data(get_all_alignments())
 
-      shinyjs::hide(ns("delete_confirmation_modal"))
+      shinyjs::hide("delete_confirmation_modal")
       alignment_to_delete(NULL)
     })
     
