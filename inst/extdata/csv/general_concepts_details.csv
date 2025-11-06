@@ -13861,3 +13861,5 @@ general_concept_id,omop_concept_id,omop_unit_concept_id,recommended,source
 332,45770405,8541,FALSE,ohdsi_relationships
 332,4108446,8541,FALSE,ohdsi_relationships
 332,4154772,8541,FALSE,ohdsi_relationships
+7,1990591,/,FALSE,NA
+6,4035522,/,FALSE,NA

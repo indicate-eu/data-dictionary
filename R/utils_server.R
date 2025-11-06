@@ -165,10 +165,10 @@ try_catch <- function(trigger = character(), code, log = TRUE){
   }
   
   tryCatch({
-    
+
     # Log event if enabled
     if (log && exists("log_level") && "event" %in% log_level) cat(event_message)
-    
+
     # Execute code
     code
   }, error = function(e){
@@ -176,6 +176,13 @@ try_catch <- function(trigger = character(), code, log = TRUE){
     if (exists("log_level") && "error" %in% log_level){
       cat(paste0(error_message, toString(e)))
     }
+
+    # Show notification to user
+    showNotification(
+      ui = paste0("An error occurred: ", e$message),
+      type = "error",
+      duration = 10
+    )
   })
 }
 

@@ -74,13 +74,13 @@ load_csv_data <- function() {
   )
 
   general_concept_use_cases <- read.csv(
-    file.path(csv_dir, "general_concept_use_cases.csv"),
+    file.path(csv_dir, "general_concepts_use_cases.csv"),
     stringsAsFactors = FALSE,
     na.strings = c("", "NA")
   )
 
   concept_mappings <- read.csv(
-    file.path(csv_dir, "concept_mappings.csv"),
+    file.path(csv_dir, "general_concepts_details.csv"),
     stringsAsFactors = FALSE,
     na.strings = c("", "NA")
   )
@@ -91,7 +91,7 @@ load_csv_data <- function() {
   }
 
   concept_statistics <- read.csv(
-    file.path(csv_dir, "concept_statistics.csv"),
+    file.path(csv_dir, "general_concepts_details_statistics.csv"),
     stringsAsFactors = FALSE,
     na.strings = c("", "NA")
   )
@@ -134,7 +134,7 @@ save_general_concept_use_cases_csv <- function(general_concept_use_cases_data) {
   }
   write.csv(
     general_concept_use_cases_data,
-    file.path(csv_dir, "general_concept_use_cases.csv"),
+    file.path(csv_dir, "general_concepts_use_cases.csv"),
     row.names = FALSE,
     quote = TRUE
   )

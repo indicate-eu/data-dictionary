@@ -185,6 +185,13 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
 
     # Load OHDSI mappings last sync time on initialization
     sync_time <- get_ohdsi_mappings_sync()
+
+    # If no sync time exists, set it to now (first initialization)
+    if (is.null(sync_time)) {
+      sync_time <- Sys.time()
+      set_ohdsi_mappings_sync(sync_time)
+    }
+
     ohdsi_mappings_last_sync(sync_time)
 
     ## 2) Server - Folder Browser ----
@@ -770,8 +777,8 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
 
       # Delay to update UI
       shinyjs::delay(100, {
-        # Read current concept_mappings
-        concept_mappings_path <- get_package_dir("extdata", "csv", "concept_mappings.csv")
+        # Read current general_concepts_details
+        concept_mappings_path <- get_package_dir("extdata", "csv", "general_concepts_details.csv")
         concept_mappings <- readr::read_csv(concept_mappings_path, show_col_types = FALSE)
 
         # Check if this is a reload (preserve recommended status)

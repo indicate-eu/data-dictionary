@@ -1,0 +1,4 @@
+history_id,timestamp,username,action_type,general_concept_id,custom_concept_id,omop_concept_id,comment
+1,2025-11-06 16:23:33,Admin User,insert,4,NA,1990460,Added OMOP concept mapping
+2,2025-11-06 16:23:51,Admin User,delete,4,NA,1990460,Deleted OMOP concept mapping
+3,2025-11-06 16:24:16,Admin User,insert,4,16,NA,Added custom concept mapping
