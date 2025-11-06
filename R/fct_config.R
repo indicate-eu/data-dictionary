@@ -1,10 +1,10 @@
 #' Configuration Functions
 #'
 #' @description Functions to manage application configuration settings
-#' stored in the database
+#' stored in the database and static application configuration
 #'
 #' @noRd
-#' 
+
 #' Delete configuration value
 #'
 #' @description Remove a configuration value from the database
@@ -46,6 +46,40 @@ get_all_config <- function() {
   config_list <- as.list(setNames(result$value, result$key))
   
   return(config_list)
+}
+
+#' Get Application Configuration
+#'
+#' @description Returns the configuration settings for the INDICATE application
+#'
+#' @return A list containing configuration parameters
+#' @noRd
+get_config <- function() {
+  list(
+    # FHIR configuration - Base URLs for terminology services
+    fhir_base_url = list(
+      SNOMED = "https://tx.fhir.org/r4",
+      LOINC = "https://tx.fhir.org/r4",
+      ICD10 = "https://tx.fhir.org/r4",
+      UCUM = "https://tx.fhir.org/r4",
+      RxNorm = "https://tx.fhir.org/r4"
+    ),
+    
+    # FHIR system identifiers for each vocabulary
+    fhir_systems = list(
+      SNOMED = "http://snomed.info/sct",
+      LOINC = "http://loinc.org",
+      ICD10 = "http://hl7.org/fhir/sid/icd-10",
+      UCUM = "http://unitsofmeasure.org",
+      RxNorm = "http://www.nlm.nih.gov/research/umls/rxnorm"
+    ),
+    
+    # Vocabularies that should show "No link available" for FHIR
+    fhir_no_link_vocabularies = c("RxNorm Extension"),
+    
+    # External links
+    athena_base_url = "https://athena.ohdsi.org/search-terms/terms"
+  )
 }
 
 #' Get configuration value

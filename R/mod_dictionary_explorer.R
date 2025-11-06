@@ -1715,18 +1715,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         }
 
         # Save updated mappings and custom concepts to CSV
-        csv_path_mappings <- system.file("extdata", "csv", "concept_mappings.csv", package = "indicate")
-        if (!file.exists(csv_path_mappings) || csv_path_mappings == "") {
-          csv_path_mappings <- file.path("inst", "extdata", "csv", "concept_mappings.csv")
-        }
+        csv_path_mappings <- get_csv_path("concept_mappings.csv")
         if (file.exists(csv_path_mappings)) {
           readr::write_csv(concept_mappings, csv_path_mappings)
         }
 
-        csv_path_custom <- system.file("extdata", "csv", "custom_concepts.csv", package = "indicate")
-        if (!file.exists(csv_path_custom) || csv_path_custom == "") {
-          csv_path_custom <- file.path("inst", "extdata", "csv", "custom_concepts.csv")
-        }
+        csv_path_custom <- get_csv_path("custom_concepts.csv")
         if (file.exists(csv_path_custom)) {
           readr::write_csv(custom_concepts, csv_path_custom)
         }
@@ -1742,12 +1736,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
 
       # Save general_concepts to CSV
-      csv_path <- system.file("extdata", "csv", "general_concepts.csv", package = "indicate")
-
-      # If package path doesn't exist, try local development path
-      if (!file.exists(csv_path) || csv_path == "") {
-        csv_path <- file.path("inst", "extdata", "csv", "general_concepts.csv")
-      }
+      csv_path <- get_csv_path("general_concepts.csv")
 
       if (file.exists(csv_path)) {
         readr::write_csv(general_concepts, csv_path)
@@ -2061,10 +2050,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       )[1]
 
       # Save to CSV sorted by ID (for easier version control)
-      csv_path <- system.file("extdata", "csv", "general_concepts.csv", package = "indicate")
-      if (!file.exists(csv_path) || csv_path == "") {
-        csv_path <- file.path("inst", "extdata", "csv", "general_concepts.csv")
-      }
+      csv_path <- get_csv_path("general_concepts.csv")
 
       if (file.exists(csv_path)) {
         general_concepts_to_save <- general_concepts_display %>%
@@ -2267,19 +2253,19 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Write to CSV files
       readr::write_csv(
         general_concepts,
-        app_sys("extdata", "csv", "general_concepts.csv")
+        get_package_dir("extdata", "csv", "general_concepts.csv")
       )
 
       readr::write_csv(
         concept_mappings,
-        app_sys("extdata", "csv", "concept_mappings.csv")
+        get_package_dir("extdata", "csv", "concept_mappings.csv")
       )
 
       # Write custom_concepts.csv if modified
       if (!is.null(custom_concepts)) {
         readr::write_csv(
           custom_concepts,
-          app_sys("extdata", "csv", "custom_concepts.csv")
+          get_package_dir("extdata", "csv", "custom_concepts.csv")
         )
       }
 
@@ -2488,8 +2474,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       current_mappings(mappings_for_cache)
 
       # Load JavaScript callbacks
-      callback <- JS(paste(readLines(app_sys("www", "dt_callback.js")), collapse = "\n"))
-      keyboard_nav <- paste(readLines(app_sys("www", "keyboard_nav.js")), collapse = "\n")
+      callback <- JS(paste(readLines(get_package_dir("www", "dt_callback.js")), collapse = "\n"))
+      keyboard_nav <- paste(readLines(get_package_dir("www", "keyboard_nav.js")), collapse = "\n")
 
       # Build initComplete callback that includes keyboard nav
       init_complete_js <- create_keyboard_nav(keyboard_nav, TRUE, FALSE)
@@ -2805,7 +2791,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
 
       # Load current concept_mappings
-      concept_mappings_path <- app_sys("extdata", "csv", "concept_mappings.csv")
+      concept_mappings_path <- get_package_dir("extdata", "csv", "concept_mappings.csv")
       if (file.exists(concept_mappings_path)) {
         concept_mappings <- readr::read_csv(concept_mappings_path, show_col_types = FALSE)
       } else {
@@ -2887,7 +2873,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
 
       # Load or create custom_concepts
-      custom_concepts_path <- app_sys("extdata", "csv", "custom_concepts.csv")
+      custom_concepts_path <- get_package_dir("extdata", "csv", "custom_concepts.csv")
       if (file.exists(custom_concepts_path)) {
         custom_concepts <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)
       } else {

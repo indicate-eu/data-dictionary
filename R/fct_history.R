@@ -23,12 +23,7 @@ log_general_concept_change <- function(
   general_concept_id,
   comment = NA_character_
 ) {
-  history_file <- system.file("extdata/csv/general_concepts_history.csv", package = "indicatedatadictionary")
-
-  # For development mode, use inst/ path
-  if (history_file == "" || !file.exists(history_file)) {
-    history_file <- "inst/extdata/csv/general_concepts_history.csv"
-  }
+  history_file <- get_csv_path("general_concepts_history.csv")
 
   # Load existing history
   if (file.exists(history_file) && file.size(history_file) > 0) {
@@ -96,12 +91,7 @@ log_concept_mapping_change <- function(
   mapping_id,
   comment = NA_character_
 ) {
-  history_file <- system.file("extdata/csv/concept_mappings_history.csv", package = "indicatedatadictionary")
-
-  # For development mode, use inst/ path
-  if (history_file == "" || !file.exists(history_file)) {
-    history_file <- "inst/extdata/csv/concept_mappings_history.csv"
-  }
+  history_file <- get_csv_path("concept_mappings_history.csv")
 
   # Load existing history
   if (file.exists(history_file) && file.size(history_file) > 0) {
@@ -161,12 +151,7 @@ log_concept_mapping_change <- function(
 #' @importFrom readr read_csv cols col_integer col_character
 #' @importFrom dplyr filter arrange desc
 get_general_concept_history <- function(general_concept_id = NULL) {
-  history_file <- system.file("extdata/csv/general_concepts_history.csv", package = "indicatedatadictionary")
-
-  # For development mode, use inst/ path
-  if (history_file == "" || !file.exists(history_file)) {
-    history_file <- "inst/extdata/csv/general_concepts_history.csv"
-  }
+  history_file <- get_csv_path("general_concepts_history.csv")
 
   if (!file.exists(history_file) || file.size(history_file) == 0) {
     return(data.frame(
@@ -215,12 +200,7 @@ get_general_concept_history <- function(general_concept_id = NULL) {
 #' @importFrom readr read_csv cols col_integer col_character
 #' @importFrom dplyr filter arrange desc
 get_concept_mapping_history <- function(mapping_id = NULL) {
-  history_file <- system.file("extdata/csv/concept_mappings_history.csv", package = "indicatedatadictionary")
-
-  # For development mode, use inst/ path
-  if (history_file == "" || !file.exists(history_file)) {
-    history_file <- "inst/extdata/csv/concept_mappings_history.csv"
-  }
+  history_file <- get_csv_path("concept_mappings_history.csv")
 
   if (!file.exists(history_file) || file.size(history_file) == 0) {
     return(data.frame(

@@ -4,43 +4,6 @@
 #' consistent event handling patterns across the application.
 #' @noRd
 
-#' Add double-click handler to DataTable
-#'
-#' @description Creates a JavaScript drawCallback that handles double-click
-#' events on DataTable rows, extracting the ID from the first column and
-#' triggering a Shiny input event.
-#'
-#' @param dt DT datatable object to modify
-#' @param input_id Namespaced Shiny input ID to trigger on double-click
-#' @param column_index Column index (0-based) containing the ID value (default: 0)
-#'
-#' @return Modified datatable object with drawCallback configured
-#'
-#' @examples
-#' \dontrun{
-#' dt <- datatable(data)
-#' dt <- add_doubleclick_handler(dt, ns("select_row"))
-#' }
-#'
-#' @noRd
-add_doubleclick_handler <- function(dt, input_id, column_index = 0) {
-  dt$x$options$drawCallback <- htmlwidgets::JS(sprintf("
-    function(settings) {
-      var table = settings.oInstance.api();
-      $(table.table().node()).off('dblclick', 'tbody tr');
-      $(table.table().node()).on('dblclick', 'tbody tr', function() {
-        var rowData = table.row(this).data();
-        if (rowData && rowData[%d]) {
-          var id = rowData[%d];
-          Shiny.setInputValue('%s', id, {priority: 'event'});
-        }
-      });
-    }
-  ", column_index, column_index, input_id))
-
-  return(dt)
-}
-
 #' Add button click handlers to DataTable
 #'
 #' @description Creates a JavaScript drawCallback that handles click events
@@ -196,4 +159,65 @@ add_combined_handlers <- function(dt, button_handlers = list(),
   dt$x$options$drawCallback <- htmlwidgets::JS(js_code)
 
   return(dt)
+}
+
+#' Add double-click handler to DataTable
+#'
+#' @description Creates a JavaScript drawCallback that handles double-click
+#' events on DataTable rows, extracting the ID from the first column and
+#' triggering a Shiny input event.
+#'
+#' @param dt DT datatable object to modify
+#' @param input_id Namespaced Shiny input ID to trigger on double-click
+#' @param column_index Column index (0-based) containing the ID value (default: 0)
+#'
+#' @return Modified datatable object with drawCallback configured
+#'
+#' @examples
+#' \dontrun{
+#' dt <- datatable(data)
+#' dt <- add_doubleclick_handler(dt, ns("select_row"))
+#' }
+#'
+#' @noRd
+add_doubleclick_handler <- function(dt, input_id, column_index = 0) {
+  dt$x$options$drawCallback <- htmlwidgets::JS(sprintf("
+    function(settings) {
+      var table = settings.oInstance.api();
+      $(table.table().node()).off('dblclick', 'tbody tr');
+      $(table.table().node()).on('dblclick', 'tbody tr', function() {
+        var rowData = table.row(this).data();
+        if (rowData && rowData[%d]) {
+          var id = rowData[%d];
+          Shiny.setInputValue('%s', id, {priority: 'event'});
+        }
+      });
+    }
+  ", column_index, column_index, input_id))
+  
+  return(dt)
+}
+
+#' Create Keyboard Navigation JavaScript Options
+#'
+#' @description Create keyboard navigation options for DataTables
+#'
+#' @param keyboard_nav JavaScript code for keyboard navigation
+#' @param auto_select_first_row Whether to auto-select first row
+#' @param auto_focus Whether to auto-focus the table
+#'
+#' @return JavaScript callback function
+#' @noRd
+#'
+#' @importFrom htmlwidgets JS
+create_keyboard_nav <- function(keyboard_nav, auto_select_first_row = TRUE, auto_focus = TRUE) {
+  JS(sprintf("function(settings, json) {
+    json = json || {};
+    json.autoSelectFirstRow = %s;
+    json.autoFocus = %s;
+    return (%s)(settings, json);
+  }",
+             tolower(auto_select_first_row),
+             tolower(auto_focus),
+             keyboard_nav))
 }

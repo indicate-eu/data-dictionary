@@ -1,8 +1,11 @@
-#' Concept Alignments Functions
+#' Concept CRUD Functions
 #'
-#' @description Functions to manage concept alignment CRUD operations
+#' @description Functions to manage concept alignments and mappings
+#' CRUD operations (Create, Read, Update, Delete)
 #'
 #' @noRd
+
+# CONCEPT ALIGNMENTS ====
 
 #' Add new concept alignment
 #'
@@ -18,20 +21,20 @@
 add_alignment <- function(name, description = "", file_id, original_filename = "") {
   con <- get_db_connection()
   on.exit(DBI::dbDisconnect(con))
-  
+
   timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
   created_date <- format(Sys.Date(), "%Y-%m-%d")
-  
+
   DBI::dbExecute(
     con,
     "INSERT INTO concept_alignments (name, description, file_id, original_filename, created_date, updated_at)
      VALUES (?, ?, ?, ?, ?, ?)",
     params = list(name, description, file_id, original_filename, created_date, timestamp)
   )
-  
+
   # Get the ID of the newly inserted alignment
   result <- DBI::dbGetQuery(con, "SELECT last_insert_rowid() as id")
-  
+
   return(result$id[1])
 }
 
@@ -46,13 +49,13 @@ add_alignment <- function(name, description = "", file_id, original_filename = "
 delete_alignment <- function(alignment_id) {
   con <- get_db_connection()
   on.exit(DBI::dbDisconnect(con))
-  
+
   DBI::dbExecute(
     con,
     "DELETE FROM concept_alignments WHERE alignment_id = ?",
     params = list(alignment_id)
   )
-  
+
   return(TRUE)
 }
 
@@ -101,4 +104,46 @@ update_alignment <- function(alignment_id, name, description = "") {
   )
 
   return(TRUE)
+}
+
+# CONCEPT MAPPINGS ====
+
+#' Delete concept mapping
+#'
+#' @description Delete a mapping from the database
+#'
+#' @param mapping_id Mapping ID to delete
+#'
+#' @return TRUE if successful
+#' @noRd
+delete_concept_mapping <- function(mapping_id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbExecute(
+    con,
+    "DELETE FROM concept_mappings WHERE mapping_id = ?",
+    params = list(mapping_id)
+  )
+
+  TRUE
+}
+
+#' Get concept mappings for an alignment
+#'
+#' @description Retrieve all mappings for a specific alignment from the database
+#'
+#' @param alignment_id Alignment ID
+#'
+#' @return Data frame with mapping information
+#' @noRd
+get_alignment_mappings <- function(alignment_id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbGetQuery(
+    con,
+    "SELECT * FROM concept_mappings WHERE alignment_id = ?",
+    params = list(alignment_id)
+  )
 }
