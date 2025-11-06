@@ -940,6 +940,53 @@ table.dataTable thead tr td .selectize-dropdown .option {
   color: white !important;
   cursor: pointer !important;
   transition: background-color 0.2s ease !important;
+  font-size: 12px !important;
+}
+
+/* Datatable action buttons - uniform styling for all action buttons in datatables */
+.dt-action-btn {
+  background: #0f60af !important;
+  border: none !important;
+  padding: 3px 12px !important;
+  border-radius: 4px !important;
+  color: white !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease !important;
+  font-size: 12px !important;
+  margin-right: 5px !important;
+  display: inline-block !important;
+}
+
+.dt-action-btn:last-child {
+  margin-right: 0 !important;
+}
+
+.dt-action-btn:hover {
+  background: #3a8ad6 !important;
+}
+
+.dt-action-btn-warning {
+  background: #ff9800 !important;
+}
+
+.dt-action-btn-warning:hover {
+  background: #fb8c00 !important;
+}
+
+.dt-action-btn-success {
+  background: #28a745 !important;
+}
+
+.dt-action-btn-success:hover {
+  background: #218838 !important;
+}
+
+.dt-action-btn-danger {
+  background: #dc3545 !important;
+}
+
+.dt-action-btn-danger:hover {
+  background: #c82333 !important;
 }
 
 /* Reusable button classes
@@ -1736,35 +1783,6 @@ table.dataTable thead tr td .selectize-dropdown .option {
 
 .login-box button:active {
   transform: translateY(0);
-}
-
-/* User Management Styles
--------------------------------------------------- */
-.users-container .btn-edit,
-.users-container .btn-delete {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 5px 10px;
-  margin: 0 3px;
-  border-radius: 3px;
-  transition: background-color 0.2s;
-}
-
-.users-container .btn-edit {
-  color: #0f60af;
-}
-
-.users-container .btn-edit:hover {
-  background: #e6f3ff;
-}
-
-.users-container .btn-delete {
-  color: #dc3545;
-}
-
-.users-container .btn-delete:hover {
-  background: #fee;
 }
 
 /* Modal overlay for user management */

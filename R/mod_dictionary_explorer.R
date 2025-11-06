@@ -84,9 +84,9 @@ mod_dictionary_explorer_ui <- function(id) {
                   tags$div(
                     id = ns("general_concepts_normal_buttons"),
                     style = "display: flex; gap: 10px;",
-                    actionButton(ns("show_general_concepts_add_modal"), "Add concept", class = "btn-success-custom"),
-                    actionButton(ns("general_concepts_show_history"), "History", class = "btn-secondary-custom"),
-                    actionButton(ns("general_concepts_edit_page"), "Edit page", class = "btn-primary-custom")
+                    actionButton(ns("show_general_concepts_add_modal"), "Add concept", class = "btn-success-custom", icon = icon("plus")),
+                    actionButton(ns("general_concepts_show_history"), "History", class = "btn-secondary-custom", icon = icon("history")),
+                    actionButton(ns("general_concepts_edit_page"), "Edit page", class = "btn-primary-custom", icon = icon("edit"))
                   )
                 ),
                 # General Concepts Page edit buttons
@@ -94,8 +94,8 @@ mod_dictionary_explorer_ui <- function(id) {
                   tags$div(
                     id = ns("general_concepts_edit_buttons"),
                     style = "display: flex; gap: 10px;",
-                    actionButton(ns("general_concepts_cancel_edit"), "Cancel", class = "btn-secondary-custom"),
-                    actionButton(ns("general_concepts_save_updates"), "Save updates", class = "btn-success-custom")
+                    actionButton(ns("general_concepts_cancel_edit"), "Cancel", class = "btn-secondary-custom", icon = icon("times")),
+                    actionButton(ns("general_concepts_save_updates"), "Save updates", class = "btn-success-custom", icon = icon("save"))
                   )
                 ),
                 # General Concept Detail Page normal buttons
@@ -112,8 +112,8 @@ mod_dictionary_explorer_ui <- function(id) {
                   tags$div(
                     id = ns("general_concept_detail_edit_buttons"),
                     style = "display: flex; gap: 10px;",
-                    actionButton(ns("general_concept_detail_cancel_edit"), "Cancel", class = "btn-cancel"),
-                    actionButton(ns("general_concept_detail_save_updates"), "Save updates", class = "btn-toggle")
+                    actionButton(ns("general_concept_detail_cancel_edit"), "Cancel", class = "btn-secondary-custom", icon = icon("times")),
+                    actionButton(ns("general_concept_detail_save_updates"), "Save updates", class = "btn-toggle", icon = icon("save"))
                   )
                 ),
                 # Back buttons (history views)
@@ -121,8 +121,8 @@ mod_dictionary_explorer_ui <- function(id) {
                   tags$div(
                     id = ns("back_buttons"),
                     style = "display: flex; gap: 10px;",
-                    actionButton(ns("back_to_list_from_history"), "Back to List", class = "btn-primary-custom"),
-                    actionButton(ns("back_to_detail"), "Back to Details", class = "btn-primary-custom")
+                    actionButton(ns("back_to_list_from_history"), "Back to List", class = "btn-primary-custom", icon = icon("arrow-left")),
+                    actionButton(ns("back_to_detail"), "Back to Details", class = "btn-primary-custom", icon = icon("arrow-left"))
                   )
                 )
               )
@@ -549,12 +549,14 @@ mod_dictionary_explorer_ui <- function(id) {
             tags$button(
               class = "btn btn-secondary btn-secondary-custom",
               onclick = sprintf("$('#%s').hide();", ns("general_concepts_add_modal")),
-              "Cancel"
+              tags$i(class = "fas fa-times"),
+              " Cancel"
             ),
             actionButton(
               ns("general_concepts_add_new"),
               "Add Concept",
-              class = "btn-primary-custom"
+              class = "btn-primary-custom",
+              icon = icon("plus")
             )
           )
         )
@@ -684,14 +686,16 @@ mod_dictionary_explorer_ui <- function(id) {
                   width = NULL
                 ),
                 tags$button(
-                  class = "btn btn-default",
+                  class = "btn-secondary-custom",
                   onclick = sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")),
-                  "Cancel"
+                  tags$i(class = "fas fa-times"),
+                  " Cancel"
                 ),
                 actionButton(
                   ns("mapped_concepts_add_selected"),
                   "Add Concept",
-                  class = "btn btn-success"
+                  class = "btn-success-custom",
+                  icon = icon("plus")
                 )
               )
             ),
@@ -765,12 +769,14 @@ mod_dictionary_explorer_ui <- function(id) {
                 tags$button(
                   class = "btn btn-default",
                   onclick = sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")),
-                  "Cancel"
+                  tags$i(class = "fas fa-times"),
+                  " Cancel"
                 ),
                 actionButton(
                   ns("add_custom_concept"),
                   "Add Custom Concept",
-                  class = "btn btn-success"
+                  class = "btn btn-success",
+                  icon = icon("plus")
                 )
               )
             )

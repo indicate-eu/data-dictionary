@@ -317,7 +317,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
           ),
 
           footer = tagList(
-            actionButton(ns("cancel_browse"), "Cancel"),
+            actionButton(ns("cancel_browse"), "Cancel", class = "btn-secondary-custom", icon = icon("times")),
             tags$span(style = "margin-left: 10px;")
           )
         )

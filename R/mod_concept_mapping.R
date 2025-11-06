@@ -212,23 +212,27 @@ mod_concept_mapping_ui <- function(id) {
             actionButton(
               ns("alignment_modal_cancel"),
               "Cancel",
-              class = "btn btn-secondary btn-secondary-custom"
+              class = "btn btn-secondary btn-secondary-custom",
+              icon = icon("times")
             ),
             actionButton(
               ns("alignment_modal_back"),
               "Back",
               class = "btn btn-secondary btn-secondary-custom",
+              icon = icon("arrow-left"),
               style = "display: none;"
             ),
             actionButton(
               ns("alignment_modal_next"),
               "Next",
-              class = "btn-primary-custom"
+              class = "btn-primary-custom",
+              icon = icon("arrow-right")
             ),
             actionButton(
               ns("alignment_modal_save"),
               "Save",
               class = "btn-success-custom",
+              icon = icon("save"),
               style = "display: none;"
             )
           )
@@ -319,12 +323,14 @@ mod_concept_mapping_ui <- function(id) {
           tags$button(
             class = "btn btn-secondary",
             onclick = sprintf("$('#%s').hide();", ns("delete_confirmation_modal")),
-            "Cancel"
+            tags$i(class = "fas fa-times"),
+            " Cancel"
           ),
           actionButton(
             ns("confirm_delete_alignment"),
             "Delete",
-            class = "btn btn-danger"
+            class = "btn btn-danger",
+            icon = icon("trash")
           )
         )
       )
@@ -538,19 +544,39 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       alignments_display <- alignments %>%
         dplyr::mutate(
-          created_formatted = format(as.POSIXct(created_date), "%Y-%m-%d %H:%M"),
-          Actions = sprintf(
-            '<button class="btn btn-sm btn-primary" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Open</button>
-             <button class="btn btn-sm btn-warning" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Edit</button>
-             <button class="btn btn-sm btn-success" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Export</button>
-             <button class="btn btn-sm btn-danger" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">Delete</button>',
-            ns("open_alignment"), alignment_id,
-            ns("edit_alignment"), alignment_id,
-            ns("export_alignment"), alignment_id,
-            ns("delete_alignment"), alignment_id
-          )
+          created_formatted = format(as.POSIXct(created_date), "%Y-%m-%d %H:%M")
         ) %>%
-        dplyr::select(alignment_id, name, description, created_formatted, Actions)
+        dplyr::select(alignment_id, name, description, created_formatted)
+
+      # Add action buttons (generate for each row)
+      alignments_display$Actions <- sapply(alignments_display$alignment_id, function(id) {
+        create_datatable_actions(list(
+          list(
+            label = "Open",
+            icon = "folder-open",
+            type = "primary",
+            onclick = sprintf("Shiny.setInputValue('%s', %d, {priority: 'event'})", ns("open_alignment"), id)
+          ),
+          list(
+            label = "Edit",
+            icon = "edit",
+            type = "warning",
+            onclick = sprintf("Shiny.setInputValue('%s', %d, {priority: 'event'})", ns("edit_alignment"), id)
+          ),
+          list(
+            label = "Export",
+            icon = "download",
+            type = "success",
+            onclick = sprintf("Shiny.setInputValue('%s', %d, {priority: 'event'})", ns("export_alignment"), id)
+          ),
+          list(
+            label = "Delete",
+            icon = "trash",
+            type = "danger",
+            onclick = sprintf("Shiny.setInputValue('%s', %d, {priority: 'event'})", ns("delete_alignment"), id)
+          )
+        ))
+      })
 
       dt <- datatable(
         alignments_display,
@@ -562,7 +588,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           dom = 'tp',
           columnDefs = list(
             list(targets = 0, visible = FALSE),
-            list(targets = 4, orderable = FALSE, width = "300px", searchable = FALSE)
+            list(targets = 4, orderable = FALSE, width = "300px", searchable = FALSE, className = "dt-center")
           )
         ),
         colnames = c("ID", "Name", "Description", "Created", "Actions")
@@ -1365,6 +1391,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                     ns("add_mapping_from_general"),
                     "Add Mapping",
                     class = "btn-success-custom",
+                    icon = icon("plus"),
                     style = "height: 32px; padding: 5px 15px; font-size: 14px; display: none;"
                   )
                 ),
@@ -1445,14 +1472,16 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                       tags$div(
                         style = "display: flex; gap: 10px; justify-content: flex-end;",
                         tags$button(
-                          class = "btn-cancel",
+                          class = "btn-secondary-custom",
                           onclick = sprintf("$('#%s').hide();", ns("eval_comment_modal")),
-                          "Cancel"
+                          tags$i(class = "fas fa-times"),
+                          " Cancel"
                         ),
                         actionButton(
                           ns("save_eval_comment"),
                           "Save Comment",
-                          class = "btn-primary-custom"
+                          class = "btn-primary-custom",
+                          icon = icon("save")
                         )
                       )
                     )
@@ -1508,6 +1537,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 ns("add_mapping_specific"),
                 "Add Mapping",
                 class = "btn-success-custom",
+                icon = icon("plus"),
                 style = "height: 32px; padding: 5px 15px; font-size: 14px; display: none;"
               )
             ),
@@ -1592,6 +1622,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               ns("show_comments"),
               "Comments",
               class = "btn-secondary-custom",
+              icon = icon("comment"),
               style = "height: 32px; padding: 5px 15px; font-size: 14px;"
             )
           } else {
@@ -2137,7 +2168,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           Downvotes = ifelse(is.na(downvotes), 0L, as.integer(downvotes)),
           Uncertain = ifelse(is.na(uncertain_votes), 0L, as.integer(uncertain_votes)),
           Actions = sprintf(
-            '<button class="btn btn-sm btn-danger delete-mapping-btn" data-id="%d" style="padding: 2px 8px; font-size: 11px;">Delete</button>',
+            '<button class="dt-action-btn dt-action-btn-danger delete-mapping-btn" data-id="%d">Delete</button>',
             db_mapping_id
           )
         ) %>%
@@ -2157,7 +2188,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               list(targets = 2, width = "60px", className = "dt-center"),
               list(targets = 3, width = "60px", className = "dt-center"),
               list(targets = 4, width = "60px", className = "dt-center"),
-              list(targets = 5, searchable = FALSE, orderable = FALSE)
+              list(targets = 5, searchable = FALSE, orderable = FALSE, className = "dt-center")
             )
           ),
           rownames = FALSE,
@@ -2396,7 +2427,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           Downvotes = ifelse(is.na(downvotes), 0L, as.integer(downvotes)),
           Uncertain = ifelse(is.na(uncertain_votes), 0L, as.integer(uncertain_votes)),
           Actions = sprintf(
-            '<button class="btn btn-sm btn-danger delete-mapping-btn" data-id="%d" style="padding: 2px 8px; font-size: 11px;">Delete</button>',
+            '<button class="dt-action-btn dt-action-btn-danger delete-mapping-btn" data-id="%d">Delete</button>',
             db_mapping_id
           )
         ) %>%
@@ -2722,7 +2753,13 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         datatable(
           display_df,
           escape = FALSE,
-          options = list(pageLength = 6, dom = 'tp'),
+          options = list(
+            pageLength = 6,
+            dom = 'tp',
+            columnDefs = list(
+              list(targets = 2, className = "dt-center")
+            )
+          ),
           rownames = FALSE,
           selection = 'none',
           colnames = c("Source Concept", "Target Concept", "Actions")
@@ -3500,7 +3537,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               list(targets = 1, width = "35%"),
               list(targets = 2, width = "35%"),
               list(targets = 3, width = "12%"),
-              list(targets = 4, width = "18%", orderable = FALSE, searchable = FALSE)
+              list(targets = 4, width = "18%", orderable = FALSE, searchable = FALSE, className = "dt-center")
             ),
             drawCallback = DT::JS("
               function(settings) {

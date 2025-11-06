@@ -51,9 +51,9 @@ mod_users_ui <- function(id) {
       style = "display: flex; justify-content: flex-end; align-items: center; margin-bottom: 20px;",
       actionButton(
         ns("add_user_btn"),
-        label = tagList(tags$i(class = "fas fa-plus"), " Add User"),
-        class = "btn-primary",
-        style = "background: #0f60af; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-size: 14px; cursor: pointer;"
+        "Add User",
+        class = "btn-success-custom",
+        icon = icon("plus")
       )
     ),
 
@@ -215,12 +215,14 @@ mod_users_ui <- function(id) {
           tags$button(
             class = "btn btn-secondary btn-secondary-custom",
             onclick = sprintf("$('#%s').hide();", ns("user_modal")),
-            "Cancel"
+            tags$i(class = "fas fa-times"),
+            " Cancel"
           ),
           actionButton(
             ns("save_user"),
             "Save",
-            class = "btn-primary-custom"
+            class = "btn-primary-custom",
+            icon = icon("save")
           )
         )
       )
@@ -258,12 +260,14 @@ mod_users_ui <- function(id) {
           actionButton(
             ns("cancel_delete"),
             "Cancel",
-            class = "btn-secondary-custom"
+            class = "btn-secondary-custom",
+            icon = icon("times")
           ),
           actionButton(
             ns("confirm_delete"),
             "Delete",
-            class = "btn-danger-custom"
+            class = "btn-danger-custom",
+            icon = icon("trash")
           )
         )
       )
@@ -310,13 +314,25 @@ mod_users_server <- function(id, current_user, log_level = character()) {
       output$users_table <- renderDT({
         users <- users_data()
 
-        # Add action buttons
-        users$Actions <- sprintf(
-          '<button class="btn-edit" data-id="%d"><i class="fas fa-edit"></i></button>
-           <button class="btn-delete" data-id="%d"><i class="fas fa-trash"></i></button>',
-          users$user_id,
-          users$user_id
-        )
+        # Add action buttons (generate for each row)
+        users$Actions <- sapply(users$user_id, function(id) {
+          create_datatable_actions(list(
+            list(
+              label = "Edit",
+              icon = "edit",
+              type = "warning",
+              class = "btn-edit",
+              data_attr = list(id = id)
+            ),
+            list(
+              label = "Delete",
+              icon = "trash",
+              type = "danger",
+              class = "btn-delete",
+              data_attr = list(id = id)
+            )
+          ))
+        })
 
         # Select display columns
         display_data <- users[, c("login", "first_name", "last_name", "role", "affiliation", "Actions")]
@@ -335,8 +351,9 @@ mod_users_server <- function(id, current_user, log_level = character()) {
             ordering = TRUE,
             autoWidth = FALSE,
             columnDefs = list(
-              list(width = "120px", targets = 5),
-              list(searchable = FALSE, targets = 5)
+              list(width = "200px", targets = 5),
+              list(searchable = FALSE, targets = 5),
+              list(className = "dt-center", targets = 5)
             )
           )
         )

@@ -166,12 +166,14 @@ mod_use_cases_ui <- function(id) {
                 "$('#%s').hide();",
                 ns("add_use_case_modal")
               ),
-              "Cancel"
+              tags$i(class = "fas fa-times"),
+              " Cancel"
             ),
             actionButton(
               ns("save_use_case"),
               "Add Use Case",
-              class = "btn btn-primary"
+              class = "btn btn-primary",
+              icon = icon("plus")
             )
           )
         )
@@ -222,12 +224,14 @@ mod_use_cases_ui <- function(id) {
                 "$('#%s').hide();",
                 ns("delete_confirmation_modal")
               ),
-              "Cancel"
+              tags$i(class = "fas fa-times"),
+              " Cancel"
             ),
             actionButton(
               ns("confirm_delete_use_case"),
               "Delete",
-              class = "btn btn-danger"
+              class = "btn btn-danger",
+              icon = icon("trash")
             )
           )
         )
@@ -326,7 +330,8 @@ mod_use_cases_ui <- function(id) {
                 "$('#%s').hide();",
                 ns("edit_use_case_modal")
               ),
-              "Cancel"
+              tags$i(class = "fas fa-times"),
+              " Cancel"
             ),
             actionButton(
               ns("update_use_case"),
@@ -370,32 +375,8 @@ render_use_cases_list_ui <- function(ns) {
           actionButton(
             ns("add_use_case_btn"),
             "Add Use Case",
-            class = "btn btn-primary",
+            class = "btn-success-custom",
             icon = icon("plus")
-          )
-        ),
-        shinyjs::hidden(
-          actionButton(
-            ns("edit_name_description_btn"),
-            "Edit",
-            class = "btn btn-secondary",
-            icon = icon("edit")
-          )
-        ),
-        shinyjs::hidden(
-          actionButton(
-            ns("configure_use_case_btn"),
-            "Configure",
-            class = "btn btn-secondary",
-            icon = icon("cog")
-          )
-        ),
-        shinyjs::hidden(
-          actionButton(
-            ns("delete_selected_btn"),
-            "Delete",
-            class = "btn btn-danger",
-            icon = icon("trash")
           )
         )
       )
@@ -685,16 +666,10 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
       shinyjs::delay(100, {
         if (!is.null(user) && user$role != "Anonymous") {
           shinyjs::show("add_use_case_btn")
-          shinyjs::show("edit_name_description_btn")
-          shinyjs::show("configure_use_case_btn")
-          shinyjs::show("delete_selected_btn")
           shinyjs::show("available_action_buttons")
           shinyjs::show("selected_action_buttons")
         } else {
           shinyjs::hide("add_use_case_btn")
-          shinyjs::hide("edit_name_description_btn")
-          shinyjs::hide("configure_use_case_btn")
-          shinyjs::hide("delete_selected_btn")
           shinyjs::hide("available_action_buttons")
           shinyjs::hide("selected_action_buttons")
         }
@@ -741,6 +716,33 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
         stringsAsFactors = FALSE,
         check.names = FALSE
       )
+
+      # Add action buttons column (generate for each row)
+      display_df$Actions <- sapply(display_df$use_case_id, function(id) {
+        create_datatable_actions(list(
+          list(
+            label = "Edit",
+            icon = "edit",
+            type = "warning",
+            class = "use-case-edit-btn",
+            data_attr = list(`use-case-id` = id)
+          ),
+          list(
+            label = "Configure",
+            icon = "cog",
+            type = "primary",
+            class = "use-case-configure-btn",
+            data_attr = list(`use-case-id` = id)
+          ),
+          list(
+            label = "Delete",
+            icon = "trash",
+            type = "danger",
+            class = "use-case-delete-btn",
+            data_attr = list(`use-case-id` = id)
+          )
+        ))
+      })
 
       return(display_df)
     })
@@ -919,28 +921,51 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
     observe_event(use_cases_table_trigger(), {
       df <- get_use_cases_with_counts()
 
-      # Create double-click callback
-      double_click_js <- JS(sprintf("
+      # Create callback for action buttons and double-click
+      callback_js <- JS(sprintf("
         function(settings) {
           var table = this.api();
 
-          // Remove any existing handler to avoid duplicates
+          // Remove any existing handlers to avoid duplicates
           $(table.table().node()).off('dblclick', 'tbody tr');
+          $(table.table().node()).off('click', '.use-case-edit-btn');
+          $(table.table().node()).off('click', '.use-case-configure-btn');
+          $(table.table().node()).off('click', '.use-case-delete-btn');
 
           // Add double-click handler for table rows
           $(table.table().node()).on('dblclick', 'tbody tr', function() {
             var rowData = table.row(this).data();
-
             if (rowData && rowData[0]) {
-              // Get the use case ID from the first column (hidden)
               var useCaseId = rowData[0];
-
-              // Send the use case ID directly to Shiny
               Shiny.setInputValue('%s', useCaseId, {priority: 'event'});
             }
           });
+
+          // Add click handlers for action buttons
+          $(table.table().node()).on('click', '.use-case-edit-btn', function(e) {
+            e.stopPropagation();
+            var useCaseId = $(this).data('use-case-id');
+            Shiny.setInputValue('%s', useCaseId, {priority: 'event'});
+          });
+
+          $(table.table().node()).on('click', '.use-case-configure-btn', function(e) {
+            e.stopPropagation();
+            var useCaseId = $(this).data('use-case-id');
+            Shiny.setInputValue('%s', useCaseId, {priority: 'event'});
+          });
+
+          $(table.table().node()).on('click', '.use-case-delete-btn', function(e) {
+            e.stopPropagation();
+            var useCaseId = $(this).data('use-case-id');
+            Shiny.setInputValue('%s', useCaseId, {priority: 'event'});
+          });
         }
-      ", session$ns("dblclick_use_case_id")))
+      ",
+      session$ns("dblclick_use_case_id"),
+      session$ns("use_case_edit_clicked"),
+      session$ns("use_case_configure_clicked"),
+      session$ns("use_case_delete_clicked")
+      ))
 
       output$use_cases_table <- DT::renderDT({
         datatable(
@@ -948,6 +973,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
           filter = "top",
           selection = "single",
           rownames = FALSE,
+          escape = FALSE,
           class = "cell-border stripe hover",
           options = list(
             pageLength = 25,
@@ -955,16 +981,102 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
             ordering = TRUE,
             autoWidth = FALSE,
             columnDefs = list(
-              list(targets = 0, visible = FALSE)  # Hide use_case_id column
+              list(targets = 0, visible = FALSE),  # Hide use_case_id column
+              list(targets = 4, orderable = FALSE, width = "280px", searchable = FALSE, className = "dt-center")  # Actions column
             ),
             language = list(
               emptyTable = "No use cases found. Click 'Add Use Case' to create one."
             ),
-            drawCallback = double_click_js
+            drawCallback = callback_js
           )
         )
       }, server = FALSE)
     }, ignoreInit = FALSE)
+
+    ### Use Case Action Buttons Handlers ----
+    # Store the use case for deletion and editing
+    selected_use_case_for_delete <- reactiveVal(NULL)
+    selected_use_case_for_edit <- reactiveVal(NULL)
+
+    # Handler for Edit button in datatable
+    observe_event(input$use_case_edit_clicked, {
+      use_case_id <- input$use_case_edit_clicked
+      if (is.null(use_case_id)) return()
+
+      # Get use case data
+      use_cases_data <- use_cases_reactive()
+      selected_uc <- use_cases_data[use_cases_data$use_case_id == use_case_id, ]
+
+      if (nrow(selected_uc) == 0) return()
+
+      # Populate edit modal
+      updateTextInput(
+        session,
+        "edit_use_case_name",
+        value = selected_uc$use_case_name
+      )
+      updateTextAreaInput(
+        session,
+        "edit_use_case_short_description",
+        value = ifelse(
+          is.na(selected_uc$short_description),
+          "",
+          selected_uc$short_description
+        )
+      )
+      updateTextAreaInput(
+        session,
+        "edit_use_case_long_description",
+        value = ifelse(
+          is.na(selected_uc$long_description),
+          "",
+          selected_uc$long_description
+        )
+      )
+
+      # Store the ID for update (do NOT use selected_use_case as it triggers view change)
+      selected_use_case_for_edit(list(
+        id = selected_uc$use_case_id,
+        name = selected_uc$use_case_name,
+        short_description = selected_uc$short_description,
+        long_description = selected_uc$long_description
+      ))
+
+      # Show modal
+      shinyjs::runjs(sprintf("$('#%s').show();", ns("edit_use_case_modal")))
+    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+
+    # Handler for Configure button in datatable
+    observe_event(input$use_case_configure_clicked, {
+      use_case_id <- input$use_case_configure_clicked
+      if (is.null(use_case_id)) return()
+
+      # Get use case data
+      use_cases_data <- use_cases_reactive()
+      selected_uc <- use_cases_data[use_cases_data$use_case_id == use_case_id, ]
+
+      if (nrow(selected_uc) == 0) return()
+
+      selected_use_case(list(
+        id = selected_uc$use_case_id,
+        name = selected_uc$use_case_name,
+        short_description = selected_uc$short_description,
+        long_description = selected_uc$long_description
+      ))
+      current_view("config")
+    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+
+    # Handler for Delete button in datatable
+    observe_event(input$use_case_delete_clicked, {
+      use_case_id <- input$use_case_delete_clicked
+      if (is.null(use_case_id)) return()
+
+      # Store the use case ID for deletion
+      selected_use_case_for_delete(use_case_id)
+
+      # Show confirmation modal
+      shinyjs::runjs(sprintf("$('#%s').show();", ns("delete_confirmation_modal")))
+    }, ignoreNULL = TRUE, ignoreInit = TRUE)
 
     ### Use Case Details Rendering ----
     observe_event(use_case_details_trigger(), {
@@ -1195,52 +1307,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
     }, ignoreNULL = TRUE, ignoreInit = TRUE)
 
     ### Use Case Management - Edit ----
-    observe_event(input$edit_name_description_btn, {
-      selected_rows <- input$use_cases_table_rows_selected
-
-      if (is.null(selected_rows) || length(selected_rows) == 0) return()
-      if (length(selected_rows) > 1) return()
-
-      # Get selected use case data
-      use_cases_data <- use_cases_reactive()
-      selected_uc <- use_cases_data[selected_rows, ]
-
-      # Populate edit modal
-      updateTextInput(
-        session,
-        "edit_use_case_name",
-        value = selected_uc$use_case_name
-      )
-      updateTextAreaInput(
-        session,
-        "edit_use_case_short_description",
-        value = ifelse(
-          is.na(selected_uc$short_description),
-          "",
-          selected_uc$short_description
-        )
-      )
-      updateTextAreaInput(
-        session,
-        "edit_use_case_long_description",
-        value = ifelse(
-          is.na(selected_uc$long_description),
-          "",
-          selected_uc$long_description
-        )
-      )
-
-      # Store the ID for update
-      selected_use_case(list(
-        id = selected_uc$use_case_id,
-        name = selected_uc$use_case_name,
-        short_description = selected_uc$short_description,
-        long_description = selected_uc$long_description
-      ))
-
-      # Show modal
-      shinyjs::runjs(sprintf("$('#%s').show();", ns("edit_use_case_modal")))
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+    # Now handled by use_case_edit_clicked observer
 
     # Update use case button (from edit modal)
     observe_event(input$update_use_case, {
@@ -1265,8 +1332,8 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
 
       if (has_error) return()
 
-      # Get current use case
-      use_case <- selected_use_case()
+      # Get current use case from edit reactive
+      use_case <- selected_use_case_for_edit()
       if (is.null(use_case)) return()
 
       # Get use cases data
@@ -1291,43 +1358,34 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
       shinyjs::runjs(sprintf("$('#%s').hide();", ns("edit_use_case_modal")))
     }, ignoreNULL = TRUE, ignoreInit = TRUE)
 
-    ### Use Case Management - Configure & Delete ----
-
-    # Show delete confirmation modal
-    observe_event(input$delete_selected_btn, {
-      selected_rows <- input$use_cases_table_rows_selected
-
-      if (is.null(selected_rows) || length(selected_rows) == 0) return()
-
-      # Show confirmation modal
-      shinyjs::runjs(sprintf("$('#%s').show();", ns("delete_confirmation_modal")))
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
-
+    ### Use Case Management - Delete Confirmation ----
     # Confirm delete use case
     observe_event(input$confirm_delete_use_case, {
-      selected_rows <- input$use_cases_table_rows_selected
+      use_case_id <- selected_use_case_for_delete()
 
-      if (is.null(selected_rows) || length(selected_rows) == 0) return()
+      if (is.null(use_case_id)) return()
 
-      # Get IDs to delete
+      # Get use cases data
       use_cases_data <- use_cases_reactive()
-      ids_to_delete <- use_cases_data$use_case_id[selected_rows]
 
       # Remove from use cases
       use_cases_data <- use_cases_data[
-        !use_cases_data$use_case_id %in% ids_to_delete,
+        use_cases_data$use_case_id != use_case_id,
       ]
 
       # Remove from general_concept_use_cases
       gc_uc_data <- general_concept_use_cases_reactive()
       gc_uc_data <- gc_uc_data[
-        !gc_uc_data$use_case_id %in% ids_to_delete,
+        gc_uc_data$use_case_id != use_case_id,
       ]
 
       save_use_cases_csv(use_cases_data)
       save_general_concept_use_cases_csv(gc_uc_data)
       use_cases_reactive(use_cases_data)
       general_concept_use_cases_reactive(gc_uc_data)
+
+      # Clear stored ID
+      selected_use_case_for_delete(NULL)
 
       # Hide modal
       shinyjs::runjs(sprintf("$('#%s').hide();", ns("delete_confirmation_modal")))
@@ -1352,25 +1410,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
       }
     }, ignoreNULL = TRUE, ignoreInit = TRUE)
 
-    # Configure use case button
-    observe_event(input$configure_use_case_btn, {
-      selected_rows <- input$use_cases_table_rows_selected
-
-      if (is.null(selected_rows) || length(selected_rows) == 0) return()
-      if (length(selected_rows) > 1) return()
-
-      # Get selected use case data
-      use_cases_data <- use_cases_reactive()
-      selected_uc <- use_cases_data[selected_rows, ]
-
-      selected_use_case(list(
-        id = selected_uc$use_case_id,
-        name = selected_uc$use_case_name,
-        short_description = selected_uc$short_description,
-        long_description = selected_uc$long_description
-      ))
-      current_view("config")
-    }, ignoreNULL = TRUE, ignoreInit = TRUE)
+    # Configure use case - now handled by use_case_configure_clicked observer
 
     ### Use Case Details Selection ----
     observe_event(input$use_cases_table_rows_selected, {

@@ -112,7 +112,7 @@ mod_dev_tools_ui <- function(id) {
                       ),
                       tags$div(
                         style = "margin-top: 10px;",
-                        actionButton(ns("run_code"), "Run Code", class = "btn-primary")
+                        actionButton(ns("run_code"), "Run Code", class = "btn-primary", icon = icon("play"))
                       )
                     ),
                     # Right: Results

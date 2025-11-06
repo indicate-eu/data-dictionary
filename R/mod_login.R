@@ -84,12 +84,14 @@ mod_login_ui <- function(id) {
           ns("login_btn"),
           "Log In",
           class = "btn-primary",
+          icon = icon("sign-in-alt"),
           style = "flex: 1; background: #0f60af; color: white; border: none; padding: 12px; border-radius: 4px; font-size: 16px; font-weight: 600; cursor: pointer;"
         ),
         actionButton(
           ns("anonymous_btn"),
           "Anonymous",
           class = "btn-secondary",
+          icon = icon("user-slash"),
           style = "flex: 1; background: #6c757d; color: white; border: none; padding: 12px; border-radius: 4px; font-size: 16px; font-weight: 600; cursor: pointer;"
         )
       ),
