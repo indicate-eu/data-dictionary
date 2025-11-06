@@ -1,6 +1,6 @@
 general_concept_id,category,subcategory,general_concept_name,comments,statistical_summary
 1,Clinical observation,Neurological assessment,3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM) score,NA,NA
-2,Clinical observation,Neurological assessment,4 A<U+2019>s Test for Delirium Screening score,NA,NA
+2,Clinical observation,Neurological assessment,4 A's Test for Delirium Screening score,,NA
 3,Clinical observation,Neurological assessment,Behavior pain scale,NA,NA
 4,Clinical observation,Neurological assessment,Confusion Assessment Method for the Intensive Care Unit (CAM-ICU) score,NA,NA
 5,Clinical observation,Neurological assessment,Delirium Detection Score (DDS) score,NA,NA
@@ -61,6 +61,8 @@ general_concept_id,category,subcategory,general_concept_name,comments,statistica
 60,Drug,Anticoagulants,Tioclomarol,NA,NA
 61,Drug,Anticoagulants,Warfarin,NA,NA
 62,Drug,Anticoagulants,Ximelagatran,NA,NA
+340,Drug,Anticoagulants,new one,NA,NA
+338,Drug,Anticoagulants,teest3,NA,NA
 63,Drug,Antimicrobials,Amikacin,NA,NA
 64,Drug,Antimicrobials,Amoxicillin,NA,NA
 66,Drug,Antimicrobials,Amphotericin B,NA,NA
@@ -98,6 +100,7 @@ general_concept_id,category,subcategory,general_concept_name,comments,statistica
 99,Drug,Antimicrobials,Piperacillin,NA,NA
 101,Drug,Antimicrobials,Posaconazole,NA,NA
 102,Drug,Antimicrobials,Rifampicin,NA,NA
+335,Drug,Antimicrobials,Sulbactam,NA,NA
 103,Drug,Antimicrobials,Sulfamethoxazole,NA,NA
 105,Drug,Antimicrobials,Tazobactam,NA,NA
 106,Drug,Antimicrobials,Teicoplanin,NA,NA
@@ -279,6 +282,7 @@ general_concept_id,category,subcategory,general_concept_name,comments,statistica
 282,Other,Demographic data,ICU admission datetime,NA,NA
 283,Other,Demographic data,ICU discharge datetime,NA,NA
 284,Other,Demographic data,Ideal body weight,NA,NA
+345,Other,Demographic data,renamed,NA,NA
 285,Other,Nutrition,Contraindication to enteral feeding,NA,NA
 286,Other,Nutrition,Energy intake,NA,NA
 287,Other,Nutrition,Energy requirement,NA,NA
@@ -366,12 +370,3 @@ When the specific measurement method is unknown or not documented, default to th
 331,Vitals,Other vitals,Urine output,NA,NA
 332,Vitals,Ventilatory,Respiratory rate,NA,NA
 333,Vitals,Ventilatory,SpO2,NA,NA
-335,Drug,Antimicrobials,Sulbactam,NA,NA
-338,Drug,Anticoagulants,teest3,NA,NA
-340,Drug,Anticoagulants,new one,NA,NA
-341,Condition,APACHE IV - Chronic health conditions,test5,NA,NA
-342,Drug,Anticoagulants,test6,NA,NA
-343,Drug,Anticoagulants,test7,,NA
-344,Labs,Arterial blood gases,test,NA,NA
-345,Other,Demographic data,renamed,NA,NA
-346,Labs,Arterial blood gases,test4,NA,NA

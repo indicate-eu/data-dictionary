@@ -13865,3 +13865,6 @@ history_id,timestamp,username,action_type,general_concept_id,vocabulary_id,conce
 13864,2025-11-06 18:10:34,Boris Delange,insert,6,SNOMED,130826005,(1-hydroxycyclohexan-1-yl)acetyl-CoA lyase,Initial creation
 13865,2025-11-06 18:10:34,Boris Delange,insert,346,LOINC,LA32774-4,"$150,000 or more",Initial creation
 13866,2025-11-06 18:10:34,Boris Delange,insert,343,LOINC,LA32771-0,"$50,000-$74,999",Initial creation
+13867,2025-11-06 18:28:07,Admin User,insert,2,INDICATE,/,4 A's Test for Delirium Screening score,Added custom concept mapping
+13868,2025-11-06 18:28:13,Admin User,delete,2,INDICATE,/,5 A's Test for Delirium Screening score,Deleted custom concept mapping
+13869,2025-11-06 18:28:13,Admin User,recommend,2,INDICATE,/,4 A's Test for Delirium Screening score,Marked as recommended

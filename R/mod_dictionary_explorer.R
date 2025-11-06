@@ -2175,6 +2175,13 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         data$general_concepts <- general_concepts_display
         local_data(data)
 
+        # Show success notification
+        showNotification(
+          sprintf("Concept '%s' added successfully", concept_name_trimmed),
+          type = "message",
+          duration = 3
+        )
+
         # Restore datatable state after re-render (with delay to ensure table is ready)
         shinyjs::delay(300, {
           restore_datatable_state("general_concepts_table", saved_table_page, saved_table_search, session)
