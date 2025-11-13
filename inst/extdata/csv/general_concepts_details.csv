@@ -13735,7 +13735,7 @@ general_concept_id,omop_concept_id,omop_unit_concept_id,recommended,source
 321,4108446,8541,FALSE,ohdsi_relationships
 321,4154772,8541,FALSE,ohdsi_relationships
 322,4353946,8587,FALSE,ohdsi_relationships
-324,4039895,8698,FALSE,ohdsi_relationships
+324,4039895,8698,TRUE,ohdsi_relationships
 325,4182861,8876,FALSE,ohdsi_relationships
 328,4161464,8876,FALSE,ohdsi_relationships
 330,37164002,586323,FALSE,ohdsi_relationships

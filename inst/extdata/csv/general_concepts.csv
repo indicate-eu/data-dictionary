@@ -329,17 +329,7 @@ When **all this information is available**, we recommend using the concept ""**M
 If the measured tidal volume is documented but the source (inspiratory or expiratory) is not specified, we suggest using ""**Spontaneous tidal volume**"".
 Finally, if no detail is available about whether the tidal volume is set or measured, the generic concept ""**Tidal volume**"" should be used.",NA
 323,Ventilation,Ventilation parameters,Ventilation mode,NA,NA
-324,Vitals,Haemodynamics,Cardiac output,"Heart rate can be captured through various clinical measurement methods, each with different levels of precision and clinical context.
-
-When heart rate data is available without specification of the measurement method, use the generic concept **""Heart rate""** (LOINC 8867-4), which is the least granular option.
-
-For more specific measurement methods, use the following:
-
-- **""Heart rate by Pulse oximetry""** (LOINC 8889-8) should be used when heart rate is derived from photoplethysmography, typically captured via a pulse oximeter sensor placed on a patient's finger or other peripheral site.
-- **""Heart rate Intra arterial line by Invasive""** (LOINC 60978-4) should be used when heart rate is measured via an intra-arterial catheter, commonly placed in intensive care or critical care settings for continuous hemodynamic monitoring.
-- **""Heart rate.beat-to-beat by EKG""** (LOINC 76282-3) should be used when heart rate is captured via electrocardiography, either during a formal 12-lead ECG recording or through continuous cardiac monitoring (e.g., when a patient has telemetry patches placed on the chest for ongoing rhythm surveillance, typically in intensive care or critical care units).
-
-When the specific measurement method is unknown or not documented, default to the generic **""Heart rate""** concept.","{
+324,Vitals,Haemodynamics,Cardiac output,NA,"{
   ""data_types"": [""numeric""],
   ""statistical_data"": {
     ""min"": 1,
