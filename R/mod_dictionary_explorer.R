@@ -206,9 +206,12 @@ mod_dictionary_explorer_ui <- function(id) {
                         tags$div(
                           class = "section-header",
                           style = "display: flex; align-items: center; justify-content: space-between; height: 40px;",
-                          tags$h4(
-                            style = "margin-right: auto;",
-                            "Mapped Concepts",
+                          tags$div(
+                            style = "display: flex; align-items: center; flex: 1;",
+                            tags$h4(
+                              style = "margin: 0;",
+                              "Mapped Concepts"
+                            ),
                             tags$span(
                               class = "info-icon",
                               `data-tooltip` = paste0(
@@ -218,8 +221,19 @@ mod_dictionary_explorer_ui <- function(id) {
                               "ⓘ"
                             )
                           ),
-                          # Dynamic buttons for edit mode
-                          uiOutput(ns("mapped_concepts_header_buttons"))
+                          tags$div(
+                            style = "display: flex; align-items: center; gap: 8px;",
+                            actionButton(
+                              ns("copy_general_concept_json"),
+                              label = NULL,
+                              icon = icon("copy"),
+                              class = "btn-icon-only",
+                              style = "background: transparent; border: none; color: #666; padding: 0; cursor: pointer; flex-shrink: 0;",
+                              `data-tooltip` = "Copy general concept with all mapped concepts as JSON"
+                            ),
+                            # Dynamic buttons for edit mode
+                            uiOutput(ns("mapped_concepts_header_buttons"))
+                          )
                         ),
                         tags$div(
                           class = "quadrant-content",
@@ -236,13 +250,26 @@ mod_dictionary_explorer_ui <- function(id) {
                         class = "quadrant quadrant-top-right",
                         tags$div(
                           class = "section-header",
-                          tags$h4(
-                            "Selected Concept Details",
+                          style = "display: flex; justify-content: space-between; align-items: center;",
+                          tags$div(
+                            style = "display: flex; align-items: center; flex: 1;",
+                            tags$h4(
+                              style = "margin: 0;",
+                              "Selected Concept Details"
+                            ),
                             tags$span(
                               class = "info-icon",
                               `data-tooltip` = "Detailed information about the selected concept from Mapped Concepts, including vocabulary, codes, links to ATHENA and FHIR resources",
                               "ⓘ"
                             )
+                          ),
+                          actionButton(
+                            ns("copy_concept_json"),
+                            label = NULL,
+                            icon = icon("copy"),
+                            class = "btn-icon-only",
+                            style = "background: transparent; border: none; color: #666; padding: 0; cursor: pointer; flex-shrink: 0;",
+                            `data-tooltip` = "Copy concept details as JSON"
                           )
                         ),
                         tags$div(
@@ -3606,7 +3633,157 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         )
       })
     }, ignoreInit = TRUE)
-    
+
+    # Handle copy concept JSON button
+    observe_event(input$copy_concept_json, {
+      omop_concept_id <- selected_mapped_concept_id()
+      concept_id <- selected_concept_id()
+
+      if (is.null(omop_concept_id) || is.null(concept_id)) return()
+
+      # Get concept mapping
+      concept_mapping <- current_data()$concept_mappings %>%
+        dplyr::filter(
+          general_concept_id == concept_id,
+          omop_concept_id == !!omop_concept_id
+        )
+
+      # Get general concept info
+      general_concept_info <- data()$general_concepts %>%
+        dplyr::filter(general_concept_id == concept_id)
+
+      # Get concept details from vocabularies
+      vocab_data <- vocabularies()
+      concept_details <- NULL
+      if (!is.null(vocab_data)) {
+        concept_details <- vocab_data$concept %>%
+          dplyr::filter(concept_id == omop_concept_id) %>%
+          dplyr::collect()
+        if (nrow(concept_details) > 0) {
+          concept_details <- concept_details[1, ]
+        } else {
+          concept_details <- NULL
+        }
+      }
+
+      # Get statistics
+      concept_stats_data <- current_data()$concept_statistics
+      concept_stats <- NULL
+      if (!is.null(concept_stats_data)) {
+        concept_stats <- concept_stats_data %>%
+          dplyr::filter(omop_concept_id == !!omop_concept_id)
+        if (nrow(concept_stats) > 0) {
+          concept_stats <- concept_stats[1, ]
+        } else {
+          concept_stats <- NULL
+        }
+      }
+
+      # Build JSON object using helper function
+      json_data <- build_concept_details_json(
+        concept_mapping = if (nrow(concept_mapping) > 0) concept_mapping else NULL,
+        general_concept_info = general_concept_info,
+        concept_details = concept_details,
+        concept_stats = concept_stats
+      )
+
+      if (length(json_data) == 0) return()
+
+      # Convert to JSON
+      json_string <- jsonlite::toJSON(json_data, pretty = TRUE, auto_unbox = TRUE, na = "null")
+
+      # Copy to clipboard using JavaScript
+      session$sendCustomMessage("copyToClipboard", list(
+        text = as.character(json_string),
+        buttonId = session$ns("copy_concept_json")
+      ))
+    })
+
+    # Handle copy general concept with all mappings JSON button
+    observe_event(input$copy_general_concept_json, {
+      concept_id <- selected_concept_id()
+
+      if (is.null(concept_id)) return()
+
+      # Get general concept info
+      general_concept_info <- data()$general_concepts %>%
+        dplyr::filter(general_concept_id == concept_id)
+
+      if (nrow(general_concept_info) == 0) return()
+
+      # Get all concept mappings for this general concept
+      all_mappings <- current_data()$concept_mappings %>%
+        dplyr::filter(general_concept_id == concept_id)
+
+      # Get vocabularies and statistics
+      vocab_data <- vocabularies()
+      concept_stats_data <- current_data()$concept_statistics
+
+      # Build array of mapped concepts
+      mapped_concepts <- list()
+
+      if (nrow(all_mappings) > 0) {
+        for (i in 1:nrow(all_mappings)) {
+          mapping <- all_mappings[i, ]
+
+          # Get concept details from vocabularies
+          concept_details <- NULL
+          if (!is.null(vocab_data)) {
+            concept_details <- vocab_data$concept %>%
+              dplyr::filter(concept_id == mapping$omop_concept_id) %>%
+              dplyr::collect()
+            if (nrow(concept_details) > 0) {
+              concept_details <- concept_details[1, ]
+            } else {
+              concept_details <- NULL
+            }
+          }
+
+          # Get statistics
+          concept_stats <- NULL
+          if (!is.null(concept_stats_data)) {
+            concept_stats <- concept_stats_data %>%
+              dplyr::filter(omop_concept_id == mapping$omop_concept_id)
+            if (nrow(concept_stats) > 0) {
+              concept_stats <- concept_stats[1, ]
+            } else {
+              concept_stats <- NULL
+            }
+          }
+
+          # Build JSON for this concept using helper function
+          concept_json <- build_concept_details_json(
+            concept_mapping = mapping,
+            general_concept_info = general_concept_info,
+            concept_details = concept_details,
+            concept_stats = concept_stats
+          )
+
+          if (length(concept_json) > 0) {
+            mapped_concepts[[length(mapped_concepts) + 1]] <- concept_json
+          }
+        }
+      }
+
+      # Build final JSON structure
+      json_data <- list(
+        general_concept_id = general_concept_info$general_concept_id[1],
+        general_concept_name = general_concept_info$general_concept_name[1],
+        category = general_concept_info$category[1],
+        subcategory = general_concept_info$subcategory[1],
+        mapped_concepts = mapped_concepts
+      )
+
+      # Convert to JSON
+      json_string <- jsonlite::toJSON(json_data, pretty = TRUE, auto_unbox = TRUE, na = "null")
+
+      # Copy to clipboard using JavaScript
+      session$sendCustomMessage("copyToClipboard", list(
+        text = as.character(json_string),
+        buttonId = session$ns("copy_general_concept_json")
+      ))
+    })
+
     ### c) ETL Guidance & Comments (Bottom-Left Panel) ----
     ##### Comments & Statistical Summary Display ----
     # Render comments or statistical summary based on active tab

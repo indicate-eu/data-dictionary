@@ -1586,6 +1586,83 @@ table.dataTable thead tr td .selectize-dropdown .option {
   opacity: 1;
 }
 
+/* Copy button icon
+-------------------------------------------------- */
+.btn-icon-only {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  position: relative;
+  font-weight: normal;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #e9ecef;
+  transition: all 0.2s;
+}
+
+.btn-icon-only:hover {
+  background: #0f60af;
+  color: white;
+}
+
+.btn-icon-only::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 125%;
+  transform: translateX(0);
+  background: #333;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: normal;
+  white-space: nowrap;
+  z-index: 10000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  line-height: 1.4;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-icon-only::before {
+  content: '';
+  position: absolute;
+  right: 5px;
+  top: 115%;
+  transform: translateX(0);
+  border: 6px solid transparent;
+  border-bottom-color: #333;
+  z-index: 10000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-icon-only.copied {
+  background: #28a745;
+  color: white;
+}
+
+.btn-icon-only.copied::after {
+  content: 'Copied' !important;
+  background: #333 !important;
+  opacity: 1 !important;
+  transition: opacity 0.3s ease !important;
+}
+
+.btn-icon-only.copied::before {
+  border-bottom-color: #333 !important;
+  opacity: 1 !important;
+  transition: opacity 0.3s ease !important;
+}
+
 /* Tooltip for elements without style change on hover
 -------------------------------------------------- */
 .has-tooltip {

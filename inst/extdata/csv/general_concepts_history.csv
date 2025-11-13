@@ -330,4 +330,3 @@ history_id,timestamp,username,action_type,category,subcategory,general_concept_n
 329,2025-11-03 14:00:00,Boris Delange,insert,Vitals,Other vitals,Urine output,Initial creation
 330,2025-11-03 14:00:00,Boris Delange,insert,Vitals,Ventilatory,Respiratory rate,Initial creation
 331,2025-11-03 14:00:00,Boris Delange,insert,Vitals,Ventilatory,SpO2,Initial creation
-332,2025-11-06 17:31:11,Admin User,insert,Labs,Arterial blood gases,test4,Created concept 'test4' in category 'Labs' > 'Arterial blood gases'

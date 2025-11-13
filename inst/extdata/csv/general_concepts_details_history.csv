@@ -13868,5 +13868,3 @@ history_id,timestamp,username,action_type,general_concept_id,vocabulary_id,conce
 13867,2025-11-06 18:28:07,Admin User,insert,2,INDICATE,/,4 A's Test for Delirium Screening score,Added custom concept mapping
 13868,2025-11-06 18:28:13,Admin User,delete,2,INDICATE,/,5 A's Test for Delirium Screening score,Deleted custom concept mapping
 13869,2025-11-06 18:28:13,Admin User,recommend,2,INDICATE,/,4 A's Test for Delirium Screening score,Marked as recommended
-13870,2025-11-06 19:39:50,Admin User,recommend,16,SNOMED,1260096003,AIDS (acquired immunodeficiency syndrome) wasting syndrome,Marked as recommended
-13871,2025-11-06 19:41:32,Admin User,unrecommend,16,SNOMED,1260096003,AIDS (acquired immunodeficiency syndrome) wasting syndrome,Unmarked as recommended

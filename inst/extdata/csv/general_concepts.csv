@@ -14,7 +14,7 @@ general_concept_id,category,subcategory,general_concept_name,comments,statistica
 13,Clinical observation,Neurological assessment,Ramsay sedation scale,NA,NA
 14,Clinical observation,Neurological assessment,Richmond agitation-sedation scale,NA,NA
 15,Clinical observation,Neurological assessment,Visual analog pain scale,NA,NA
-16,Condition,APACHE IV - Chronic health conditions,AIDS,,NA
+16,Condition,APACHE IV - Chronic health conditions,AIDS,NA,NA
 17,Condition,APACHE IV - Chronic health conditions,Alcoholic liver disease,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis.",NA
 18,Condition,APACHE IV - Chronic health conditions,Chronic kidney disease,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis.",NA
 19,Condition,APACHE IV - Chronic health conditions,Cirrhosis of liver,"As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis.",NA
@@ -329,7 +329,38 @@ When **all this information is available**, we recommend using the concept ""**M
 If the measured tidal volume is documented but the source (inspiratory or expiratory) is not specified, we suggest using ""**Spontaneous tidal volume**"".
 Finally, if no detail is available about whether the tidal volume is set or measured, the generic concept ""**Tidal volume**"" should be used.",NA
 323,Ventilation,Ventilation parameters,Ventilation mode,NA,NA
-324,Vitals,Haemodynamics,Cardiac output,NA,NA
+324,Vitals,Haemodynamics,Cardiac output,"Heart rate can be captured through various clinical measurement methods, each with different levels of precision and clinical context.
+
+When heart rate data is available without specification of the measurement method, use the generic concept **""Heart rate""** (LOINC 8867-4), which is the least granular option.
+
+For more specific measurement methods, use the following:
+
+- **""Heart rate by Pulse oximetry""** (LOINC 8889-8) should be used when heart rate is derived from photoplethysmography, typically captured via a pulse oximeter sensor placed on a patient's finger or other peripheral site.
+- **""Heart rate Intra arterial line by Invasive""** (LOINC 60978-4) should be used when heart rate is measured via an intra-arterial catheter, commonly placed in intensive care or critical care settings for continuous hemodynamic monitoring.
+- **""Heart rate.beat-to-beat by EKG""** (LOINC 76282-3) should be used when heart rate is captured via electrocardiography, either during a formal 12-lead ECG recording or through continuous cardiac monitoring (e.g., when a patient has telemetry patches placed on the chest for ongoing rhythm surveillance, typically in intensive care or critical care units).
+
+When the specific measurement method is unknown or not documented, default to the generic **""Heart rate""** concept.","{
+  ""data_types"": [""numeric""],
+  ""statistical_data"": {
+    ""min"": 1,
+    ""max"": null,
+    ""median"": null,
+    ""mean"": null,
+    ""p5"": null,
+    ""p25"": null,
+    ""p75"": null,
+    ""p95"": null,
+    ""outliers_count"": null
+  },
+  ""temporal_info"": {
+    ""frequency_range"": {
+      ""min"": null,
+      ""max"": null
+    },
+    ""measurement_period"": []
+  },
+  ""possible_values"": []
+}"
 325,Vitals,Haemodynamics,Central venous pressure,NA,NA
 326,Vitals,Haemodynamics,Diastolic blood pressure,NA,NA
 327,Vitals,Haemodynamics,Heart rate,"Heart rate can be captured through various clinical measurement methods, each with different levels of precision and clinical context.
