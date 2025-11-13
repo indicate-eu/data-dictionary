@@ -292,6 +292,7 @@ mod_dictionary_explorer_ui <- function(id) {
                         tags$div(
                           class = "section-header section-header-with-tabs",
                           tags$h4(
+                            style = "margin: 0;",
                             "ETL Guidance & Comments",
                             tags$span(
                               class = "info-icon",
@@ -863,6 +864,34 @@ mod_dictionary_explorer_ui <- function(id) {
         tags$div(
           style = "flex: 1; overflow: hidden; padding: 20px;",
           visNetwork::visNetworkOutput(ns("hierarchy_graph_modal_content"), height = "100%", width = "100%")
+        )
+      )
+    ),
+
+    ### Modal - Comments Fullscreen ----
+    tags$div(
+      id = ns("comments_fullscreen_modal"),
+      class = "modal-overlay modal-fullscreen",
+      style = "display: none;",
+      tags$div(
+        class = "modal-fullscreen-content",
+        style = "height: 100vh; display: flex; flex-direction: column;",
+        tags$div(
+          style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
+          tags$h3(
+            style = "margin: 0; color: #0f60af;",
+            "ETL Guidance & Comments"
+          ),
+          tags$button(
+            class = "modal-close",
+            onclick = sprintf("$('#%s').hide();", ns("comments_fullscreen_modal")),
+            style = "font-size: 28px; font-weight: 300; color: #666; border: none; background: none; cursor: pointer; padding: 0; width: 30px; height: 30px; line-height: 1;",
+            "×"
+          )
+        ),
+        tags$div(
+          style = "flex: 1; overflow-y: auto; padding: 30px;",
+          uiOutput(ns("comments_fullscreen_content"))
         )
       )
     )
@@ -4066,23 +4095,27 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 )
               )
             } else {
-              # View mode: show formatted comment
+              # View mode: show formatted comment using markdown
               if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1]) && nchar(concept_info$comments[1]) > 0) {
-                # Convert markdown-style formatting to HTML
-                comment_html <- concept_info$comments[1]
-                # Convert **text** to <strong>text</strong>
-                comment_html <- gsub("\\*\\*([^*]+)\\*\\*", "<strong>\\1</strong>", comment_html)
-                # Convert *text* to <em>text</em>
-                comment_html <- gsub("\\*([^*]+)\\*", "<em>\\1</em>", comment_html)
-                # Wrap content in paragraph tags
-                comment_html <- paste0("<p>", comment_html, "</p>")
-                # Convert line breaks to paragraph breaks
-                comment_html <- gsub("\n", "</p><p>", comment_html)
-
                 tags$div(
                   class = "comments-container",
-                  style = "background: #e6f3ff; border: 1px solid #0f60af; border-radius: 6px; padding: 15px; height: 100%; overflow-y: auto; box-sizing: border-box;",
-                  HTML(comment_html)
+                  style = "background: #e6f3ff; border: 1px solid #0f60af; border-radius: 6px; height: 100%; overflow-y: auto; box-sizing: border-box; position: relative;",
+                  tags$div(
+                    style = "position: sticky; top: -1px; left: -1px; z-index: 100; height: 0;",
+                    actionButton(
+                      session$ns("expand_comments"),
+                      label = NULL,
+                      icon = icon("expand"),
+                      class = "btn-icon-only comments-expand-btn",
+                      style = "background: rgba(255, 255, 255, 0.95); border: none; border-right: 1px solid #0f60af; border-bottom: 1px solid #0f60af; color: #0f60af; padding: 4px 7px; cursor: pointer; border-radius: 5px 0 0 0; font-size: 12px;",
+                      `data-tooltip` = "View in fullscreen"
+                    )
+                  ),
+                  tags$div(
+                    class = "markdown-content",
+                    style = "padding-left: 30px;",
+                    shiny::markdown(concept_info$comments[1])
+                  )
                 )
               } else {
                 tags$div(
@@ -4232,7 +4265,122 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         value = get_default_statistical_summary_template()
       )
     })
-    
+
+    # Handle expand comments button to show fullscreen modal
+    observe_event(input$expand_comments, {
+      concept_id <- selected_concept_id()
+      if (is.null(concept_id)) return()
+
+      shinyjs::show("comments_fullscreen_modal")
+    }, ignoreInit = TRUE)
+
+    # Render fullscreen comments content
+    observe_event(input$expand_comments, {
+      concept_id <- selected_concept_id()
+      if (is.null(concept_id)) return()
+
+      output$comments_fullscreen_content <- renderUI({
+        active_tab <- comments_tab()
+        concept_info <- current_data()$general_concepts %>%
+          dplyr::filter(general_concept_id == concept_id)
+
+        if (active_tab == "comments") {
+          if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1]) && nchar(concept_info$comments[1]) > 0) {
+            tags$div(
+              class = "markdown-content",
+              style = "max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
+              shiny::markdown(concept_info$comments[1])
+            )
+          } else {
+            tags$div(
+              style = "padding: 30px; background: #f8f9fa; border-radius: 8px; color: #999; font-style: italic; text-align: center;",
+              "No comments available for this concept."
+            )
+          }
+        } else {
+          # Statistical Summary tab
+          summary_data <- NULL
+          if (nrow(concept_info) > 0 && !is.na(concept_info$statistical_summary[1]) && nchar(concept_info$statistical_summary[1]) > 0) {
+            summary_data <- jsonlite::fromJSON(concept_info$statistical_summary[1])
+          }
+
+          if (!is.null(summary_data)) {
+            tags$div(
+              style = "max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
+              tags$div(
+                style = "display: grid; grid-template-columns: 1fr 1fr; gap: 30px;",
+
+                tags$div(
+                  tags$h5(style = "margin: 0 0 15px 0; color: #0f60af; font-size: 16px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 8px;", "Data Types"),
+                  if (!is.null(summary_data$data_types) && length(summary_data$data_types) > 0) {
+                    tags$div(
+                      style = "margin-bottom: 25px;",
+                      create_detail_item("Types", paste(summary_data$data_types, collapse = ", "))
+                    )
+                  } else {
+                    tags$p(style = "color: #6c757d; font-style: italic; margin-bottom: 25px;", "No data types specified")
+                  },
+
+                  tags$h5(style = "margin: 25px 0 15px 0; color: #0f60af; font-size: 16px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 8px;", "Statistical Data"),
+                  if (!is.null(summary_data$statistical_data) && length(summary_data$statistical_data) > 0) {
+                    tagList(
+                      lapply(names(summary_data$statistical_data), function(key) {
+                        value <- summary_data$statistical_data[[key]]
+                        create_detail_item(gsub("_", " ", tools::toTitleCase(key)), if (is.null(value)) "/" else value)
+                      })
+                    )
+                  } else {
+                    tags$p(style = "color: #6c757d; font-style: italic;", "No statistical data available")
+                  }
+                ),
+
+                tags$div(
+                  tags$h5(style = "margin: 0 0 15px 0; color: #0f60af; font-size: 16px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 8px;", "Temporal Information"),
+                  if (!is.null(summary_data$temporal_info)) {
+                    tagList(
+                      if (!is.null(summary_data$temporal_info$frequency_range)) {
+                        tagList(
+                          create_detail_item("Frequency Min", if (is.null(summary_data$temporal_info$frequency_range$min)) "/" else summary_data$temporal_info$frequency_range$min),
+                          create_detail_item("Frequency Max", if (is.null(summary_data$temporal_info$frequency_range$max)) "/" else summary_data$temporal_info$frequency_range$max)
+                        )
+                      },
+                      if (!is.null(summary_data$temporal_info$measurement_period) && length(summary_data$temporal_info$measurement_period) > 0) {
+                        create_detail_item("Measurement Period", paste(summary_data$temporal_info$measurement_period, collapse = ", "))
+                      } else {
+                        create_detail_item("Measurement Period", "/")
+                      }
+                    )
+                  } else {
+                    tags$p(style = "color: #6c757d; font-style: italic;", "No temporal information available")
+                  },
+
+                  tags$h5(style = "margin: 25px 0 15px 0; color: #0f60af; font-size: 16px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 8px;", "Possible Values"),
+                  if (!is.null(summary_data$possible_values) && length(summary_data$possible_values) > 0) {
+                    tags$div(
+                      style = "margin-top: 12px;",
+                      tags$ul(
+                        style = "margin: 0; padding-left: 25px;",
+                        lapply(summary_data$possible_values, function(val) {
+                          tags$li(style = "color: #212529; padding: 4px 0;", val)
+                        })
+                      )
+                    )
+                  } else {
+                    tags$p(style = "color: #6c757d; font-style: italic;", "No possible values specified")
+                  }
+                )
+              )
+            )
+          } else {
+            tags$div(
+              style = "padding: 30px; background: #f8f9fa; border-radius: 8px; color: #999; font-style: italic; text-align: center;",
+              "No statistical summary available for this concept."
+            )
+          }
+        }
+      })
+    }, ignoreInit = TRUE)
+
     # Handle toggle recommended for mappings in detail edit mode
     observe_event(input$toggle_recommended, {
       if (!general_concept_detail_edit_mode()) return()

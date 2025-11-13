@@ -3082,22 +3082,20 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     output$comments_display <- renderUI({
       if (is.null(selected_general_concept_id())) return()
       if (is.null(data())) return()
-      
+
       concept_id <- selected_general_concept_id()
       concept_info <- data()$general_concepts %>%
         dplyr::filter(general_concept_id == concept_id)
-      
+
       if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1]) && nchar(concept_info$comments[1]) > 0) {
-        comment_html <- concept_info$comments[1]
-        comment_html <- gsub("\\*\\*([^*]+)\\*\\*", "<strong>\\1</strong>", comment_html)
-        comment_html <- gsub("\\*([^*]+)\\*", "<em>\\1</em>", comment_html)
-        comment_html <- paste0("<p>", comment_html, "</p>")
-        comment_html <- gsub("\n", "</p><p>", comment_html)
-        
         tags$div(
           class = "comments-container",
-          style = "background: #e6f3ff; border: 1px solid #0f60af; border-radius: 6px; padding: 15px; height: 100%; overflow-y: auto; box-sizing: border-box;",
-          HTML(comment_html)
+          style = "background: #e6f3ff; border: 1px solid #0f60af; border-radius: 6px; height: 100%; overflow-y: auto; box-sizing: border-box;",
+          tags$div(
+            class = "markdown-content",
+            style = "padding: 0 15px 15px 15px;",
+            shiny::markdown(concept_info$comments[1])
+          )
         )
       } else {
         tags$div(

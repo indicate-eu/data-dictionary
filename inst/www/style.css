@@ -588,8 +588,6 @@ hr {
   background-color: #e6f3ff;
   border: 1px solid #0f60af;
   border-radius: 6px;
-  padding: 15px;
-  padding-left: 30px;
   margin-top: 10px;
   position: relative;
   font-size: 14px;
@@ -1592,14 +1590,13 @@ table.dataTable thead tr td .selectize-dropdown .option {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-left: 8px;
   font-size: 14px;
   color: #666;
   cursor: pointer;
   position: relative;
   font-weight: normal;
-  width: 18px;
-  height: 18px;
+  width: 23px;
+  height: 23px;
   border-radius: 50%;
   background: #e9ecef;
   transition: all 0.2s;
@@ -2024,4 +2021,100 @@ table.dataTable thead tr td .selectize-dropdown .option {
 /* Force checkbox width to auto */
 #dictionary_explorer-mapped_concepts_add_include_descendants {
   width: auto !important;
+}
+
+/* Markdown content styling
+-------------------------------------------------- */
+.markdown-content h1 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #dc3545;
+  margin: 16px 0 12px 0;
+  line-height: 1.4;
+}
+
+.markdown-content h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fd7e14;
+  margin: 14px 0 10px 0;
+  line-height: 1.4;
+}
+
+.markdown-content h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #28a745;
+  margin: 12px 0 8px 0;
+  line-height: 1.4;
+}
+
+.markdown-content h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f60af;
+  margin: 10px 0 6px 0;
+  line-height: 1.4;
+}
+
+.markdown-content h5 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6f42c1;
+  margin: 8px 0 6px 0;
+  line-height: 1.4;
+}
+
+.markdown-content h6 {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6c757d;
+  margin: 8px 0 6px 0;
+  line-height: 1.4;
+}
+
+.markdown-content p {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  margin: 8px 0;
+  padding-left: 24px;
+}
+
+.markdown-content li {
+  margin: 4px 0;
+  line-height: 1.6;
+}
+
+.markdown-content code {
+  background: #f4f4f4;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+}
+
+.markdown-content pre {
+  background: #f4f4f4;
+  padding: 12px;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 12px 0;
+}
+
+.markdown-content pre code {
+  background: none;
+  padding: 0;
+}
+
+/* Comments expand button hover effect
+-------------------------------------------------- */
+.comments-expand-btn:hover {
+  background: #0f60af !important;
+  color: white !important;
+  border-right: 1px solid #0f60af !important;
+  border-bottom: 1px solid #0f60af !important;
 }

@@ -6,7 +6,7 @@
 #'   If NULL (default), uses the user's home directory.
 #' @param debug_mode Character vector specifying debug output level.
 #'   Can include "event" to log all observer events, "error" to log errors,
-#'   or both c("event", "error"). Default is NULL (no debug output).
+#'   or both c("event", "error"). Default is "error" (only log errors).
 #' @param ... Additional arguments passed to \code{\link[shiny]{shinyApp}}
 #' @param options A named list of options to pass to \code{\link[shiny]{shinyApp}}.
 #'   By default, the browser is launched automatically.
@@ -23,7 +23,7 @@
 #' run_app(debug_mode = "error")
 #' run_app(debug_mode = c("event", "error"))
 #' }
-run_app <- function(app_folder = NULL, debug_mode = c("event", "error"), ..., options = list()) {
+run_app <- function(app_folder = NULL, debug_mode = "error", ..., options = list()) {
   # Set app folder for database location
   if (is.null(app_folder)) {
     app_folder <- path.expand("~")
