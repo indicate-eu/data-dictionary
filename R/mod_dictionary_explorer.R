@@ -1463,27 +1463,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             ))
           }
 
-          # Join with general concepts to get concept names
-          history_display <- history %>%
-            dplyr::left_join(
-              current_data()$general_concepts %>% dplyr::select(general_concept_id, general_concept_name),
-              by = "general_concept_id"
-            ) %>%
-            dplyr::mutate(
-              # Extract concept name from comment if not found in general_concepts table
-              general_concept_name = dplyr::case_when(
-                # If concept exists in table, use its name
-                !is.na(general_concept_name) ~ general_concept_name,
-                # For insert/delete, extract name from comment (format: "Created concept 'name'" or "Deleted concept 'name'")
-                action_type %in% c("insert", "delete") & grepl("concept '([^']+)'", comment) ~
-                  sub(".*concept '([^']+)'.*", "\\1", comment),
-                # Fallback to ID
-                TRUE ~ paste0("ID: ", general_concept_id)
-              )
-            )
-
           # Prepare display data
-          table_data <- history_display %>%
+          table_data <- history %>%
             dplyr::select(timestamp, username, action_type, general_concept_name, comment) %>%
             dplyr::mutate(
               action_type = paste0(toupper(substr(action_type, 1, 1)), substr(action_type, 2, nchar(action_type))),
@@ -1553,13 +1534,22 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 vocabulary_id = ifelse(is.na(vocabulary_id) | vocabulary_id == "NA", "/", vocabulary_id),
                 concept_code = ifelse(is.na(concept_code) | concept_code == "NA", "/", concept_code),
                 concept_name = ifelse(is.na(concept_name) | concept_name == "NA", "/", concept_name),
-                comment = ifelse(is.na(comment) | comment == "NA", "/", comment)
+                comment = ifelse(
+                  is.na(comment) | comment == "NA",
+                  "/",
+                  sprintf('<div title="%s" style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">%s</div>',
+                    gsub('"', '&quot;', comment),
+                    ifelse(nchar(comment) > 100, paste0(substr(comment, 1, 100), "..."), comment)
+                  )
+                )
               )
 
             DT::datatable(
               table_data,
               selection = 'none',
               rownames = FALSE,
+              colnames = c("Timestamp", "User", "Action", "Vocabulary", "Code", "Concept", "Comment"),
+              escape = FALSE,
               class = 'cell-border stripe hover',
               filter = 'top',
               options = list(
@@ -2196,40 +2186,104 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     # Handle detail save updates button
     observe_event(input$general_concept_detail_save_updates, {
       if (!general_concept_detail_edit_mode()) return()
-      
+
       concept_id <- selected_concept_id()
       if (is.null(concept_id)) return()
-      
+
       # Get current data
       general_concepts <- current_data()$general_concepts
       concept_mappings <- current_data()$concept_mappings
       custom_concepts <- current_data()$custom_concepts
 
-      # Update comments in general_concepts
-      new_comment <- input$comments_input
-      if (!is.null(new_comment)) {
-        general_concepts <- general_concepts %>%
-          dplyr::mutate(
-            comments = ifelse(
-              general_concept_id == concept_id,
-              new_comment,
-              comments
-            )
-          )
+      # Get current concept info for comparison
+      current_concept <- general_concepts %>%
+        dplyr::filter(general_concept_id == concept_id) %>%
+        dplyr::slice(1)
+
+      # Get user info for history logging
+      user <- current_user()
+      username <- if (!is.null(user) && !is.null(user$first_name) && !is.null(user$last_name)) {
+        paste(user$first_name, user$last_name)
+      } else {
+        "Unknown User"
       }
 
-      # Update statistical_summary in general_concepts
-      new_statistical_summary <- input$statistical_summary_editor
-      if (!is.null(new_statistical_summary)) {
-        # Save JSON (assuming it's valid)
-        general_concepts <- general_concepts %>%
-          dplyr::mutate(
-            statistical_summary = ifelse(
-              general_concept_id == concept_id,
-              new_statistical_summary,
-              statistical_summary
+      # Update comments in general_concepts and log changes
+      new_comment <- input$comments_input
+      if (!is.null(new_comment) && nrow(current_concept) > 0) {
+        old_comment <- if (!is.na(current_concept$comments[1])) current_concept$comments[1] else ""
+
+        # Check if comment has changed
+        if (old_comment != new_comment) {
+          general_concepts <- general_concepts %>%
+            dplyr::mutate(
+              comments = ifelse(
+                general_concept_id == concept_id,
+                new_comment,
+                comments
+              )
             )
+
+          # Get concept name for history
+          concept_name <- if (!is.na(current_concept$general_concept_name[1])) {
+            current_concept$general_concept_name[1]
+          } else {
+            paste0("ID: ", concept_id)
+          }
+
+          # Log the change
+          log_history_change(
+            entity_type = "mapped_concept",
+            username = username,
+            action_type = "update",
+            general_concept_id = concept_id,
+            vocabulary_id = NA,
+            concept_code = NA,
+            concept_name = concept_name,
+            comment = paste0("Updated ETL guidance comment: ", new_comment)
           )
+        }
+      }
+
+      # Update statistical_summary in general_concepts and log changes
+      new_statistical_summary <- input$statistical_summary_editor
+      if (!is.null(new_statistical_summary) && nrow(current_concept) > 0) {
+        old_statistical_summary <- if (!is.na(current_concept$statistical_summary[1])) {
+          current_concept$statistical_summary[1]
+        } else {
+          ""
+        }
+
+        # Check if statistical summary has changed
+        if (old_statistical_summary != new_statistical_summary) {
+          general_concepts <- general_concepts %>%
+            dplyr::mutate(
+              statistical_summary = ifelse(
+                general_concept_id == concept_id,
+                new_statistical_summary,
+                statistical_summary
+              )
+            )
+
+          # Get concept name for history
+          concept_name <- if (!is.na(current_concept$general_concept_name[1])) {
+            current_concept$general_concept_name[1]
+          } else {
+            paste0("ID: ", concept_id)
+          }
+
+          # Log the change
+          log_history_change(
+            entity_type = "mapped_concept",
+            username = username,
+            action_type = "update",
+            general_concept_id = concept_id,
+            vocabulary_id = NA,
+            concept_code = NA,
+            concept_name = concept_name,
+            comment = paste0("Updated statistical summary JSON: ", new_statistical_summary)
+          )
+        }
       }
 
       # Apply concept deletions
