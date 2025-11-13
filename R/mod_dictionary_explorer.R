@@ -604,7 +604,7 @@ mod_dictionary_explorer_ui <- function(id) {
         # Header
         tags$div(
           style = "padding: 20px; border-bottom: 1px solid #ddd; flex-shrink: 0; background: #f8f9fa;",
-          tags$h3("Add Concept to Mapping", style = "margin: 0; display: inline-block;"),
+          tags$h3("Add Concepts to Mapping", style = "margin: 0; display: inline-block;"),
           tags$button(
             style = "float: right; background: none; border: none; font-size: 28px; cursor: pointer;",
             onclick = sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")),
@@ -680,6 +680,7 @@ mod_dictionary_explorer_ui <- function(id) {
 
               # Bottom section: Concept Details (left) and Descendants (right)
               tags$div(
+                id = ns("omop_details_section"),
                 style = "flex: 1; min-height: 0; display: flex; gap: 15px;",
 
                 # Concept Details (left)
@@ -707,20 +708,20 @@ mod_dictionary_explorer_ui <- function(id) {
               tags$div(
                 style = "display: flex; justify-content: flex-end; align-items: center; gap: 10px; flex-shrink: 0;",
                 checkboxInput(
+                  ns("mapped_concepts_add_multiple_select"),
+                  "Multiple selection",
+                  value = FALSE,
+                  width = NULL
+                ),
+                checkboxInput(
                   ns("mapped_concepts_add_include_descendants"),
                   "Include descendants",
                   value = FALSE,
                   width = NULL
                 ),
-                tags$button(
-                  class = "btn-secondary-custom",
-                  onclick = sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")),
-                  tags$i(class = "fas fa-times"),
-                  " Close"
-                ),
                 actionButton(
                   ns("mapped_concepts_add_selected"),
-                  "Add Concept",
+                  "Add Concept(s)",
                   class = "btn-success-custom",
                   icon = icon("plus")
                 )
@@ -1256,7 +1257,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 }, 100);
               ", ns("mapped_concepts_add_modal")),
               tags$i(class = "fa fa-plus"),
-              " Add Concept"
+              " Add Concept(s)"
             )
           )
         }
@@ -3021,21 +3022,40 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         dplyr::collect()
     })
 
-    # Track row selection in OMOP concepts table
-    observe_event(input$mapped_concepts_add_omop_table_rows_selected, {
-      selected_row <- input$mapped_concepts_add_omop_table_rows_selected
+    # Debounce the OMOP table selection to avoid excessive updates when navigating with arrow keys
+    debounced_omop_selection <- debounce(
+      reactive({
+        input$mapped_concepts_add_omop_table_rows_selected
+      }),
+      300  # Wait 300ms after user stops navigating
+    )
 
-      if (length(selected_row) > 0) {
+    # Show/hide details section based on multiple selection checkbox
+    observe_event(input$mapped_concepts_add_multiple_select, {
+      if (isTRUE(input$mapped_concepts_add_multiple_select)) {
+        shinyjs::hide("omop_details_section")
+      } else {
+        shinyjs::show("omop_details_section")
+      }
+    }, ignoreInit = TRUE)
+
+    # Track row selection in OMOP concepts table with debounce
+    observe_event(debounced_omop_selection(), {
+      selected_rows <- debounced_omop_selection()
+      is_multiple <- isTRUE(input$mapped_concepts_add_multiple_select)
+
+      # Only show details in single selection mode
+      if (!is_multiple && length(selected_rows) == 1) {
         all_concepts <- modal_concepts_all()
         if (is.null(all_concepts)) return()
 
         # Get selected concept
-        selected_concept <- all_concepts[selected_row, ]
+        selected_concept <- all_concepts[selected_rows[1], ]
         add_modal_selected_concept(selected_concept)
       } else {
         add_modal_selected_concept(NULL)
       }
-    }, ignoreInit = TRUE)
+    })
 
     # Render OMOP concepts table in add modal
     observe_event(list(add_modal_selected_concept(), add_modal_concept_details_trigger()), {
@@ -3057,12 +3077,23 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         concept_id <- selected_concept_id()
         is_already_added <- FALSE
         if (!is.null(concept_id)) {
+          # Check in saved mappings
           existing_mappings <- current_data()$concept_mappings
           if (!is.null(existing_mappings)) {
             is_already_added <- any(
               existing_mappings$general_concept_id == concept_id &
               existing_mappings$omop_concept_id == concept$concept_id
             )
+          }
+
+          # Also check in pending mappings (edit mode - concepts added but not saved yet)
+          if (!is_already_added) {
+            pending_adds <- added_concepts()
+            if (!is.null(pending_adds) && length(pending_adds) > 0) {
+              # Create key for current concept
+              key <- paste(concept_id, concept$concept_id, sep = "_")
+              is_already_added <- key %in% names(pending_adds)
+            }
           }
         }
 
@@ -3154,7 +3185,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     # Render OMOP concepts table for adding to mapping (server-side processing)
-    observe_event(add_modal_omop_table_trigger(), {
+    observe_event(list(add_modal_omop_table_trigger(), input$mapped_concepts_add_multiple_select), {
       output$mapped_concepts_add_omop_table <- DT::renderDT({
         concepts <- modal_concepts_all()
 
@@ -3198,16 +3229,21 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             )
           )
 
+        # Check if multiple selection is enabled
+        is_multiple <- isTRUE(input$mapped_concepts_add_multiple_select)
+        selection_mode <- if (is_multiple) 'multiple' else 'single'
+        page_length <- if (is_multiple) 20 else 5
+
         # Render DataTable with server-side processing
         DT::datatable(
           display_concepts,
           rownames = FALSE,
-          selection = 'single',
+          selection = selection_mode,
           filter = 'top',
           escape = FALSE,
           options = list(
-            pageLength = 5,
-            lengthMenu = list(c(5, 10, 15, 20, 50), c('5', '10', '15', '20', '50')),
+            pageLength = page_length,
+            lengthMenu = list(c(5, 10, 15, 20, 50, 100, 200, 500), c('5', '10', '15', '20', '50', '100', '200', '500')),
             dom = 'ltip',  # l=length, t=table, i=info, p=pagination
             ordering = TRUE,
             autoWidth = FALSE,
@@ -3221,45 +3257,50 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }, server = TRUE)
     }, ignoreInit = FALSE)
 
-    # Add selected OMOP concept with optional descendants
+    # Add selected OMOP concept(s) with optional descendants
     observe_event(input$mapped_concepts_add_selected, {
       if (!general_concept_detail_edit_mode()) return()
 
-      # Get selected concept
-      selected_row <- input$mapped_concepts_add_omop_table_rows_selected
-      if (is.null(selected_row) || length(selected_row) == 0) return()
+      # Get selected row(s)
+      selected_rows <- input$mapped_concepts_add_omop_table_rows_selected
+      if (is.null(selected_rows) || length(selected_rows) == 0) return()
 
       all_concepts <- modal_concepts_all()
       if (is.null(all_concepts)) return()
-
-      selected_concept <- all_concepts[selected_row, ]
 
       # Get current general concept
       concept_id <- selected_concept_id()
       if (is.null(concept_id)) return()
 
-      # Start with the selected concept
-      concepts_to_add <- selected_concept$concept_id
+      # Collect all concepts to add from all selected rows
+      concepts_to_add <- c()
 
-      # Add descendants if checkbox is checked
-      if (isTRUE(input$mapped_concepts_add_include_descendants)) {
-        vocab_data <- vocabularies()
-        if (!is.null(vocab_data)) {
-          descendants <- vocab_data$concept_ancestor %>%
-            dplyr::filter(ancestor_concept_id == selected_concept$concept_id) %>%
-            dplyr::select(descendant_concept_id) %>%
-            dplyr::collect()
+      for (row_idx in selected_rows) {
+        selected_concept <- all_concepts[row_idx, ]
 
-          if (nrow(descendants) > 0) {
-            # Filter to keep only valid concepts
-            valid_descendants <- vocab_data$concept %>%
-              dplyr::filter(
-                concept_id %in% descendants$descendant_concept_id,
-                is.na(invalid_reason)
-              ) %>%
-              dplyr::pull(concept_id)
+        # Start with the selected concept
+        concepts_to_add <- c(concepts_to_add, selected_concept$concept_id)
 
-            concepts_to_add <- c(concepts_to_add, valid_descendants)
+        # Add descendants if checkbox is checked
+        if (isTRUE(input$mapped_concepts_add_include_descendants)) {
+          vocab_data <- vocabularies()
+          if (!is.null(vocab_data)) {
+            descendants <- vocab_data$concept_ancestor %>%
+              dplyr::filter(ancestor_concept_id == selected_concept$concept_id) %>%
+              dplyr::select(descendant_concept_id) %>%
+              dplyr::collect()
+
+            if (nrow(descendants) > 0) {
+              # Filter to keep only valid concepts
+              valid_descendants <- vocab_data$concept %>%
+                dplyr::filter(
+                  concept_id %in% descendants$descendant_concept_id,
+                  is.na(invalid_reason)
+                ) %>%
+                dplyr::pull(concept_id)
+
+              concepts_to_add <- c(concepts_to_add, valid_descendants)
+            }
           }
         }
       }
@@ -3312,7 +3353,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
         # Update local data to show new concepts immediately in the table
         data_updated <- local_data()
-        data_updated$concept_mappings <- dplyr::bind_rows(concept_mappings, new_mappings)
+        # Append to existing concept_mappings (which already includes previous additions)
+        data_updated$concept_mappings <- dplyr::bind_rows(data_updated$concept_mappings, new_mappings)
         local_data(data_updated)
 
         # Trigger table re-render
@@ -3321,6 +3363,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       # Update concept details to show "Already Added" indicator if needed
       add_modal_concept_details_trigger(add_modal_concept_details_trigger() + 1)
+
+      # Reset datatable selection
+      proxy <- DT::dataTableProxy("mapped_concepts_add_omop_table", session = session)
+      DT::selectRows(proxy, NULL)
     }, ignoreInit = TRUE)
 
     # Add custom concept
