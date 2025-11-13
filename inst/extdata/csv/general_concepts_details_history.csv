@@ -13868,3 +13868,91 @@ history_id,timestamp,username,action_type,general_concept_id,vocabulary_id,conce
 13867,2025-11-06 18:28:07,Admin User,insert,2,INDICATE,/,4 A's Test for Delirium Screening score,Added custom concept mapping
 13868,2025-11-06 18:28:13,Admin User,delete,2,INDICATE,/,5 A's Test for Delirium Screening score,Deleted custom concept mapping
 13869,2025-11-06 18:28:13,Admin User,recommend,2,INDICATE,/,4 A's Test for Delirium Screening score,Marked as recommended
+13870,2025-11-13 16:44:52,Boris Delange,insert,324,LOINC,8741-1,Left ventricular Cardiac output,Added OMOP concept mapping
+13871,2025-11-13 16:44:52,Boris Delange,insert,324,LOINC,8732-0,Left ventricular Cardiac output by Angiography biplane,Added OMOP concept mapping
+13872,2025-11-13 16:44:52,Boris Delange,insert,324,LOINC,8733-8,Left ventricular Cardiac output by Angiography single plane,Added OMOP concept mapping
+13873,2025-11-13 16:44:52,Boris Delange,insert,324,LOINC,76519-8,Left ventricular Cardiac output by Continuous,Added OMOP concept mapping
+13874,2025-11-13 16:44:52,Boris Delange,insert,324,LOINC,8736-1,Left ventricular Cardiac output by Fick method,Added OMOP concept mapping
+13875,2025-11-13 16:44:52,Boris Delange,insert,324,LOINC,8737-9,Left ventricular Cardiac output by Indicator dilution,Added OMOP concept mapping
+13876,2025-11-13 16:44:53,Boris Delange,insert,324,LOINC,61014-7,Left ventricular Cardiac output by Intermitent measure,Added OMOP concept mapping
+13877,2025-11-13 16:44:53,Boris Delange,insert,324,LOINC,8738-7,Left ventricular Cardiac output by MR,Added OMOP concept mapping
+13878,2025-11-13 16:44:53,Boris Delange,insert,324,LOINC,8739-5,Left ventricular Cardiac output by Nuclear blood pool,Added OMOP concept mapping
+13879,2025-11-13 16:44:53,Boris Delange,insert,324,LOINC,8734-6,Left ventricular Cardiac output by Spiral CT,Added OMOP concept mapping
+13880,2025-11-13 16:44:53,Boris Delange,insert,324,LOINC,24526-6,Left ventricular Cardiac output by US,Added OMOP concept mapping
+13881,2025-11-13 16:44:53,Boris Delange,insert,324,LOINC,20207-7,Left ventricular Cardiac output by US 2D left ventricular outflow tract calculated,Added OMOP concept mapping
+13882,2025-11-13 16:44:53,Boris Delange,insert,324,LOINC,20208-5,Left ventricular Cardiac output by US 2D modified biplane calculated,Added OMOP concept mapping
+13883,2025-11-13 16:44:53,Boris Delange,insert,324,LOINC,81390-7,Left ventricular Cardiac output by US 3D,Added OMOP concept mapping
+13884,2025-11-13 16:44:53,Boris Delange,insert,324,LOINC,20213-5,Left ventricular Cardiac output by US+Calculated by Teichholz method,Added OMOP concept mapping
+13885,2025-11-13 16:44:53,Boris Delange,insert,324,LOINC,76565-1,Left ventricular Cardiac output by US.2D+Calculated,Added OMOP concept mapping
+13886,2025-11-13 16:44:53,Boris Delange,insert,324,LOINC,76571-9,Left ventricular Cardiac output by US.2D+Calculated by Gibson method,Added OMOP concept mapping
+13887,2025-11-13 16:44:53,Boris Delange,insert,324,LOINC,76569-3,Left ventricular Cardiac output by US.2D+Calculated by Teichholz method,Added OMOP concept mapping
+13888,2025-11-13 16:44:53,Boris Delange,insert,324,LOINC,93649-2,Left ventricular Cardiac output by US.2D+Calculated by biplane area-length method,Added OMOP concept mapping
+13889,2025-11-13 16:44:53,Boris Delange,insert,324,LOINC,20204-4,Left ventricular Cardiac output by US.2D+Calculated by biplane ellipse method,Added OMOP concept mapping
+13890,2025-11-13 16:44:53,Boris Delange,insert,324,LOINC,20205-1,Left ventricular Cardiac output by US.2D+Calculated by bullet method,Added OMOP concept mapping
+13891,2025-11-13 16:44:53,Boris Delange,insert,324,LOINC,76567-7,Left ventricular Cardiac output by US.2D+Calculated by cube method,Added OMOP concept mapping
+13892,2025-11-13 16:44:53,Boris Delange,insert,324,LOINC,20212-7,Left ventricular Cardiac output by US.2D+Calculated by single-plane ellipse method,Added OMOP concept mapping
+13893,2025-11-13 16:44:53,Boris Delange,insert,324,LOINC,93647-6,Left ventricular Cardiac output by US.2D.A2C+Calc by single plane area-length method,Added OMOP concept mapping
+13894,2025-11-13 16:44:54,Boris Delange,insert,324,LOINC,93650-0,Left ventricular Cardiac output by US.2D.A2C+Calculated by single plane method of disks,Added OMOP concept mapping
+13895,2025-11-13 16:44:54,Boris Delange,insert,324,LOINC,93648-4,Left ventricular Cardiac output by US.2D.A4C+Calc by single plane area-length method,Added OMOP concept mapping
+13896,2025-11-13 16:44:54,Boris Delange,insert,324,LOINC,93651-8,Left ventricular Cardiac output by US.2D.A4C+Calculated by single plane method of disks,Added OMOP concept mapping
+13897,2025-11-13 16:44:54,Boris Delange,insert,324,LOINC,76564-4,Left ventricular Cardiac output by US.M-mode+Calculated,Added OMOP concept mapping
+13898,2025-11-13 16:44:54,Boris Delange,insert,324,LOINC,76570-1,Left ventricular Cardiac output by US.M-mode+Calculated by Gibson method,Added OMOP concept mapping
+13899,2025-11-13 16:44:54,Boris Delange,insert,324,LOINC,76568-5,Left ventricular Cardiac output by US.M-mode+Calculated by Teichholz method,Added OMOP concept mapping
+13900,2025-11-13 16:44:54,Boris Delange,insert,324,LOINC,76566-9,Left ventricular Cardiac output by US.M-mode+Calculated by cube method,Added OMOP concept mapping
+13901,2025-11-13 16:44:54,Boris Delange,insert,324,LOINC,20206-9,Left ventricular Cardiac output by US.cubed.calculated,Added OMOP concept mapping
+13902,2025-11-13 16:44:54,Boris Delange,insert,324,LOINC,8735-3,Left ventricular Cardiac output by US.doppler,Added OMOP concept mapping
+13903,2025-11-13 16:44:54,Boris Delange,insert,324,LOINC,20210-1,Left ventricular Cardiac output.2 chamber by US 2D modified single-plane calculated,Added OMOP concept mapping
+13904,2025-11-13 16:44:54,Boris Delange,insert,324,LOINC,20211-9,Left ventricular Cardiac output.4 chamber by US 2D modified single-plane calculated,Added OMOP concept mapping
+13905,2025-11-13 16:44:54,Boris Delange,insert,324,LOINC,20332-3,Left ventricular Cardiac output/Heart rate 4 chamber by US 2D modified single-plane calculated,Added OMOP concept mapping
+13906,2025-11-13 16:44:54,Boris Delange,insert,324,LOINC,17992-9,Aorta root Cardiac output by US.doppler,Added OMOP concept mapping
+13907,2025-11-13 16:50:02,Boris Delange,insert,324,LOINC,101150-1,Right ventricular Cardiac output by Fick method,Added OMOP concept mapping
+13908,2025-11-13 16:50:02,Boris Delange,insert,324,LOINC,101151-9,Right ventricular Cardiac output by Indicator dilution,Added OMOP concept mapping
+13909,2025-11-13 16:50:02,Boris Delange,insert,324,LOINC,20214-3,Right ventricular Cardiac output by US 2D tricuspid valve,Added OMOP concept mapping
+13910,2025-11-13 16:50:02,Boris Delange,insert,324,SNOMED,428628004,Right ventricular cardiac output,Added OMOP concept mapping
+13911,2025-11-13 16:50:02,Boris Delange,insert,324,LOINC,8731-2,Ventricular Cardiac output by 2D echo,Added OMOP concept mapping
+13912,2025-11-13 16:50:02,Boris Delange,insert,324,LOINC,17994-5,Pulmonary artery Cardiac output by US,Added OMOP concept mapping
+13913,2025-11-13 16:50:02,Boris Delange,insert,324,LOINC,20209-3,Ventricular Cardiac output by US.2D+Calculated by modified Simpson method,Added OMOP concept mapping
+13914,2025-11-13 16:51:50,Boris Delange,delete,324,SNOMED,117610000,Measurement of cardiac output,Deleted OMOP concept mapping
+13915,2025-11-13 16:51:50,Boris Delange,unrecommend,324,SNOMED,82799009,Cardiac output,Unmarked as recommended
+13916,2025-11-13 16:51:50,Boris Delange,recommend,324,LOINC,8741-1,Left ventricular Cardiac output,Marked as recommended
+13917,2025-11-13 16:51:50,Boris Delange,recommend,324,LOINC,8732-0,Left ventricular Cardiac output by Angiography biplane,Marked as recommended
+13918,2025-11-13 16:51:50,Boris Delange,recommend,324,LOINC,8733-8,Left ventricular Cardiac output by Angiography single plane,Marked as recommended
+13919,2025-11-13 16:51:50,Boris Delange,recommend,324,LOINC,76519-8,Left ventricular Cardiac output by Continuous,Marked as recommended
+13920,2025-11-13 16:51:50,Boris Delange,recommend,324,LOINC,8736-1,Left ventricular Cardiac output by Fick method,Marked as recommended
+13921,2025-11-13 16:51:50,Boris Delange,recommend,324,LOINC,8737-9,Left ventricular Cardiac output by Indicator dilution,Marked as recommended
+13922,2025-11-13 16:51:50,Boris Delange,recommend,324,LOINC,61014-7,Left ventricular Cardiac output by Intermitent measure,Marked as recommended
+13923,2025-11-13 16:51:50,Boris Delange,recommend,324,LOINC,8738-7,Left ventricular Cardiac output by MR,Marked as recommended
+13924,2025-11-13 16:51:50,Boris Delange,recommend,324,LOINC,8739-5,Left ventricular Cardiac output by Nuclear blood pool,Marked as recommended
+13925,2025-11-13 16:51:50,Boris Delange,recommend,324,LOINC,8734-6,Left ventricular Cardiac output by Spiral CT,Marked as recommended
+13926,2025-11-13 16:51:50,Boris Delange,recommend,324,LOINC,24526-6,Left ventricular Cardiac output by US,Marked as recommended
+13927,2025-11-13 16:51:50,Boris Delange,recommend,324,LOINC,20207-7,Left ventricular Cardiac output by US 2D left ventricular outflow tract calculated,Marked as recommended
+13928,2025-11-13 16:51:50,Boris Delange,recommend,324,LOINC,20208-5,Left ventricular Cardiac output by US 2D modified biplane calculated,Marked as recommended
+13929,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,81390-7,Left ventricular Cardiac output by US 3D,Marked as recommended
+13930,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,20213-5,Left ventricular Cardiac output by US+Calculated by Teichholz method,Marked as recommended
+13931,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,76565-1,Left ventricular Cardiac output by US.2D+Calculated,Marked as recommended
+13932,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,76571-9,Left ventricular Cardiac output by US.2D+Calculated by Gibson method,Marked as recommended
+13933,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,76569-3,Left ventricular Cardiac output by US.2D+Calculated by Teichholz method,Marked as recommended
+13934,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,93649-2,Left ventricular Cardiac output by US.2D+Calculated by biplane area-length method,Marked as recommended
+13935,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,20204-4,Left ventricular Cardiac output by US.2D+Calculated by biplane ellipse method,Marked as recommended
+13936,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,20205-1,Left ventricular Cardiac output by US.2D+Calculated by bullet method,Marked as recommended
+13937,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,76567-7,Left ventricular Cardiac output by US.2D+Calculated by cube method,Marked as recommended
+13938,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,20212-7,Left ventricular Cardiac output by US.2D+Calculated by single-plane ellipse method,Marked as recommended
+13939,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,93647-6,Left ventricular Cardiac output by US.2D.A2C+Calc by single plane area-length method,Marked as recommended
+13940,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,93650-0,Left ventricular Cardiac output by US.2D.A2C+Calculated by single plane method of disks,Marked as recommended
+13941,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,93648-4,Left ventricular Cardiac output by US.2D.A4C+Calc by single plane area-length method,Marked as recommended
+13942,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,93651-8,Left ventricular Cardiac output by US.2D.A4C+Calculated by single plane method of disks,Marked as recommended
+13943,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,76564-4,Left ventricular Cardiac output by US.M-mode+Calculated,Marked as recommended
+13944,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,76570-1,Left ventricular Cardiac output by US.M-mode+Calculated by Gibson method,Marked as recommended
+13945,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,76568-5,Left ventricular Cardiac output by US.M-mode+Calculated by Teichholz method,Marked as recommended
+13946,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,76566-9,Left ventricular Cardiac output by US.M-mode+Calculated by cube method,Marked as recommended
+13947,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,20206-9,Left ventricular Cardiac output by US.cubed.calculated,Marked as recommended
+13948,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,8735-3,Left ventricular Cardiac output by US.doppler,Marked as recommended
+13949,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,20210-1,Left ventricular Cardiac output.2 chamber by US 2D modified single-plane calculated,Marked as recommended
+13950,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,20211-9,Left ventricular Cardiac output.4 chamber by US 2D modified single-plane calculated,Marked as recommended
+13951,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,20332-3,Left ventricular Cardiac output/Heart rate 4 chamber by US 2D modified single-plane calculated,Marked as recommended
+13952,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,17994-5,Pulmonary artery Cardiac output by US,Marked as recommended
+13953,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,101150-1,Right ventricular Cardiac output by Fick method,Marked as recommended
+13954,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,101151-9,Right ventricular Cardiac output by Indicator dilution,Marked as recommended
+13955,2025-11-13 16:51:51,Boris Delange,recommend,324,LOINC,20214-3,Right ventricular Cardiac output by US 2D tricuspid valve,Marked as recommended
+13956,2025-11-13 16:51:51,Boris Delange,recommend,324,SNOMED,428628004,Right ventricular cardiac output,Marked as recommended
+13959,2025-11-13 16:52:48,Boris Delange,recommend,324,LOINC,17992-9,Aorta root Cardiac output by US.doppler,Marked as recommended

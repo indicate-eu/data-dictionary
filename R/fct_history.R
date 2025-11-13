@@ -225,3 +225,71 @@ get_history <- function(entity_type) {
 
   return(history)
 }
+
+#' Delete History Entry
+#'
+#' @description Delete a history entry by history_id
+#'
+#' @param entity_type Character: "general_concept" or "mapped_concept"
+#' @param history_id Integer: The history_id to delete
+#'
+#' @return Invisible TRUE on success, FALSE if entry not found
+#'
+#' @importFrom readr read_csv write_csv cols col_integer col_character
+#' @importFrom dplyr filter
+#' @noRd
+delete_history_entry <- function(entity_type, history_id) {
+  # Determine history file based on entity type
+  history_file <- switch(
+    entity_type,
+    "general_concept" = get_csv_path("general_concepts_history.csv"),
+    "mapped_concept" = get_csv_path("general_concepts_details_history.csv"),
+    stop("Invalid entity_type. Must be 'general_concept' or 'mapped_concept'")
+  )
+
+  # Return FALSE if file doesn't exist
+  if (!file.exists(history_file) || file.size(history_file) == 0) {
+    return(invisible(FALSE))
+  }
+
+  # Read history file
+  if (entity_type == "general_concept") {
+    col_spec <- cols(
+      history_id = col_integer(),
+      timestamp = col_character(),
+      username = col_character(),
+      action_type = col_character(),
+      category = col_character(),
+      subcategory = col_character(),
+      general_concept_name = col_character(),
+      comment = col_character()
+    )
+  } else {
+    col_spec <- cols(
+      history_id = col_integer(),
+      timestamp = col_character(),
+      username = col_character(),
+      action_type = col_character(),
+      general_concept_id = col_integer(),
+      vocabulary_id = col_character(),
+      concept_code = col_character(),
+      concept_name = col_character(),
+      comment = col_character()
+    )
+  }
+
+  history <- read_csv(history_file, col_types = col_spec, show_col_types = FALSE)
+
+  # Check if entry exists
+  if (!history_id %in% history$history_id) {
+    return(invisible(FALSE))
+  }
+
+  # Remove entry with matching history_id
+  history <- history %>% filter(history_id != !!history_id)
+
+  # Save updated history
+  write_csv(history, history_file)
+
+  return(invisible(TRUE))
+}

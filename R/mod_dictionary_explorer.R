@@ -721,7 +721,7 @@ mod_dictionary_explorer_ui <- function(id) {
                 ),
                 actionButton(
                   ns("mapped_concepts_add_selected"),
-                  "Add Concept(s)",
+                  "Add Concepts",
                   class = "btn-success-custom",
                   icon = icon("plus")
                 )
@@ -913,6 +913,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     saved_table_page <- reactiveVal(0)  # Track datatable page for edit mode restoration
     general_concepts_edit_mode <- reactiveVal(FALSE)  # Track edit mode for General Concepts Page
     saved_table_search <- reactiveVal(NULL)  # Track datatable search state for edit mode
+    saved_general_history_page <- reactiveVal(0)  # Track page for general concepts history table
+    saved_general_history_search <- reactiveVal(NULL)  # Track search for general concepts history table
+    saved_detail_history_page <- reactiveVal(0)  # Track page for detail history table
+    saved_detail_history_search <- reactiveVal(NULL)  # Track search for detail history table
     edited_recommended <- reactiveVal(list())  # Store recommended changes by omop_concept_id
     deleted_concepts <- reactiveVal(list())  # Store deleted concept IDs by general_concept_id
     deleted_general_concepts <- reactiveVal(list())  # Store deleted general concept IDs to be removed on save
@@ -952,6 +956,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     selected_mapping_details_trigger <- reactiveVal(0)
     mapped_concepts_header_trigger <- reactiveVal(0)
     relationship_tab_outputs_trigger <- reactiveVal(0)
+    history_tables_trigger <- reactiveVal(0)
 
     # Initialize local_data with data from parameter
     observe_event(data(), {
@@ -1257,7 +1262,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 }, 100);
               ", ns("mapped_concepts_add_modal")),
               tags$i(class = "fa fa-plus"),
-              " Add Concept(s)"
+              " Add Concepts"
             )
           )
         }
@@ -1507,7 +1512,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
     ### History Tables Rendering ----
     # Render general concepts history table (all concepts)
-    observe_event(current_view(), {
+    observe_event(list(current_view(), history_tables_trigger()), {
       if (current_view() == "list_history") {
         output$general_concepts_history_table <- DT::renderDT({
 
@@ -1524,7 +1529,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
           # Prepare display data
           table_data <- history %>%
-            dplyr::select(timestamp, username, action_type, general_concept_name, comment) %>%
+            dplyr::select(history_id, timestamp, username, action_type, general_concept_name, comment) %>%
             dplyr::mutate(
               action_type = paste0(toupper(substr(action_type, 1, 1)), substr(action_type, 2, nchar(action_type))),
               username = factor(username),
@@ -1532,12 +1537,29 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               comment = ifelse(is.na(comment) | comment == "NA", "/", comment)
             )
 
-          DT::datatable(
+          # Add Delete button column
+          table_data$Actions <- sapply(table_data$history_id, function(id) {
+            create_datatable_actions(list(
+              list(
+                label = "Delete",
+                icon = "trash",
+                type = "danger",
+                class = "btn-delete-history",
+                data_attr = list(id = id)
+              )
+            ))
+          })
+
+          # Remove history_id from display
+          table_data <- table_data %>% dplyr::select(-history_id)
+
+          dt <- DT::datatable(
             table_data,
             selection = 'none',
             rownames = FALSE,
             filter = 'top',
-            colnames = c("Timestamp", "User", "Action", "Concept", "Comment"),
+            escape = FALSE,
+            colnames = c("Timestamp", "User", "Action", "Concept", "Comment", "Actions"),
             options = list(
               pageLength = 20,
               lengthMenu = list(c(10, 20, 50, 100, -1), c('10', '20', '50', '100', 'All')),
@@ -1548,7 +1570,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 list(targets = 1, width = "120px"),
                 list(targets = 2, width = "80px"),
                 list(targets = 3, width = "250px"),
-                list(targets = 4, width = "400px")
+                list(targets = 4, width = "350px"),
+                list(targets = 5, width = "100px", searchable = FALSE, className = "dt-center")
               )
             ),
             class = 'cell-border stripe hover'
@@ -1561,12 +1584,22 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               ),
               fontWeight = 'bold'
             )
+
+          # Add button handlers
+          dt <- add_button_handlers(
+            dt,
+            handlers = list(
+              list(selector = ".btn-delete-history", input_id = ns("delete_general_history"))
+            )
+          )
+
+          dt
         })
       }
     })
 
     # Render general concept detail history table (mapped concepts history for this general concept)
-    observe_event(current_view(), {
+    observe_event(list(current_view(), history_tables_trigger()), {
       if (current_view() == "detail_history") {
         concept_id <- selected_concept_id()
         if (!is.null(concept_id)) {
@@ -1585,7 +1618,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
             # Format columns (excluding general_concept_id since we're already filtered on it)
             table_data <- history %>%
-              dplyr::select(timestamp, username, action_type, vocabulary_id, concept_code, concept_name, comment) %>%
+              dplyr::select(history_id, timestamp, username, action_type, vocabulary_id, concept_code, concept_name, comment) %>%
               dplyr::mutate(
                 action_type = paste0(toupper(substr(action_type, 1, 1)), substr(action_type, 2, nchar(action_type))),
                 username = factor(username),
@@ -1603,11 +1636,27 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 )
               )
 
-            DT::datatable(
+            # Add Delete button column
+            table_data$Actions <- sapply(table_data$history_id, function(id) {
+              create_datatable_actions(list(
+                list(
+                  label = "Delete",
+                  icon = "trash",
+                  type = "danger",
+                  class = "btn-delete-detail-history",
+                  data_attr = list(id = id)
+                )
+              ))
+            })
+
+            # Remove history_id from display
+            table_data <- table_data %>% dplyr::select(-history_id)
+
+            dt <- DT::datatable(
               table_data,
               selection = 'none',
               rownames = FALSE,
-              colnames = c("Timestamp", "User", "Action", "Vocabulary", "Code", "Concept", "Comment"),
+              colnames = c("Timestamp", "User", "Action", "Vocabulary", "Code", "Concept", "Comment", "Actions"),
               escape = FALSE,
               class = 'cell-border stripe hover',
               filter = 'top',
@@ -1622,8 +1671,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                   list(targets = 2, width = "100px"),  # action_type
                   list(targets = 3, width = "100px"),  # vocabulary_id
                   list(targets = 4, width = "100px"),  # concept_code
-                  list(targets = 5, width = "250px"),  # concept_name
-                  list(targets = 6, width = "300px")   # comment
+                  list(targets = 5, width = "200px"),  # concept_name
+                  list(targets = 6, width = "250px"),  # comment
+                  list(targets = 7, width = "100px", searchable = FALSE, className = "dt-center")  # Actions
                 )
               )
             ) %>%
@@ -1635,10 +1685,60 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 ),
                 fontWeight = 'bold'
               )
+
+            # Add button handlers
+            dt <- add_button_handlers(
+              dt,
+              handlers = list(
+                list(selector = ".btn-delete-detail-history", input_id = ns("delete_detail_history"))
+              )
+            )
+
+            dt
           })
         }
       }
     })
+
+    # Delete general concepts history entry
+    observe_event(input$delete_general_history, {
+      history_id <- input$delete_general_history
+      if (is.null(history_id)) return()
+
+      # Save datatable state before deletion
+      save_datatable_state(input, "general_concepts_history_table", saved_general_history_page, saved_general_history_search)
+
+      # Delete the history entry
+      success <- delete_history_entry("general_concept", history_id)
+
+      if (success) {
+        # Trigger history tables re-render
+        history_tables_trigger(history_tables_trigger() + 1)
+
+        # Restore datatable state after re-render
+        restore_datatable_state("general_concepts_history_table", saved_general_history_page, saved_general_history_search, session)
+      }
+    }, ignoreInit = TRUE)
+
+    # Delete detail history entry
+    observe_event(input$delete_detail_history, {
+      history_id <- input$delete_detail_history
+      if (is.null(history_id)) return()
+
+      # Save datatable state before deletion
+      save_datatable_state(input, "general_concept_detail_history_table", saved_detail_history_page, saved_detail_history_search)
+
+      # Delete the history entry
+      success <- delete_history_entry("mapped_concept", history_id)
+
+      if (success) {
+        # Trigger history tables re-render
+        history_tables_trigger(history_tables_trigger() + 1)
+
+        # Restore datatable state after re-render
+        restore_datatable_state("general_concept_detail_history_table", saved_detail_history_page, saved_detail_history_search, session)
+      }
+    }, ignoreInit = TRUE)
 
 
     ## 3) Server - General Concepts Page ----
@@ -2773,6 +2873,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           recommended,
           is_custom
         ) %>%
+        dplyr::mutate(
+          vocabulary_id = factor(vocabulary_id)
+        ) %>%
         dplyr::arrange(dplyr::desc(recommended), concept_name)
 
       # Filter out deleted concepts in edit mode
@@ -2925,6 +3028,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         escape = escape_cols,
         extensions = c('Select'),
         colnames = col_names,
+        filter = 'top',
         options = list(
           pageLength = 8,
           dom = 'tip',
