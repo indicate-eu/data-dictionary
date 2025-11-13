@@ -23016,10 +23016,8 @@ general_concept_id,omop_concept_id,omop_unit_concept_id,recommended,source
 324,3005555,/,TRUE,manual
 324,3022862,/,TRUE,manual
 324,3019293,/,TRUE,manual
-324,21492228,/,TRUE,manual
 324,3003487,/,TRUE,manual
 324,3002309,/,TRUE,manual
-324,21490694,/,TRUE,manual
 324,3002046,/,TRUE,manual
 324,3020967,/,TRUE,manual
 324,3019520,/,TRUE,manual
@@ -23057,3 +23055,5 @@ general_concept_id,omop_concept_id,omop_unit_concept_id,recommended,source
 324,3013457,/,FALSE,manual
 324,3016873,/,TRUE,manual
 324,3028063,/,FALSE,manual
+324,21492228,/,FALSE,manual
+324,21490694,/,FALSE,manual
