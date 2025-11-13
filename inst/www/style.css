@@ -1962,6 +1962,33 @@ table.dataTable thead tr td .selectize-dropdown .option {
   display: none;
 }
 
+/* Badge classes for datatables
+-------------------------------------------------- */
+.badge-status {
+  padding: 2px 15px;
+  min-width: 50px;
+  border-radius: 4px;
+  font-weight: bold;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.badge-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.badge-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.badge-secondary {
+  background-color: #e2e3e5;
+  color: #383d41;
+}
+
 /* Application footer
 -------------------------------------------------- */
 #main_app {
@@ -1984,9 +2011,9 @@ table.dataTable thead tr td .selectize-dropdown .option {
 
 /* OMOP Search Modal Fixes
 -------------------------------------------------- */
-/* Hide scroll during vocabulary loading */
+/* Enable scroll in modal datatable container */
 #dictionary_explorer-omop_table_container > .shiny-spinner-output-container.shiny-spinner-hideui {
-  overflow: hidden !important;
+  overflow: auto !important;
 }
 
 /* Enable scroll when datatable is loaded */

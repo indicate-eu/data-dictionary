@@ -661,14 +661,14 @@ mod_dictionary_explorer_ui <- function(id) {
             tags$div(
               id = ns("omop_tab_content"),
               class = "tab-pane active",
-              style = "margin-top: 15px; height: calc(95vh - 200px); display: flex; flex-direction: column; gap: 15px;",
+              style = "margin-top: 15px; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 15px;",
 
               # Search Concepts section (top half)
               tags$div(
                 style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
                 tags$div(
                   id = ns("omop_table_container"),
-                  style = "flex: 1; min-height: 0; position: relative; overflow: hidden;",
+                  style = "flex: 1; min-height: 0; position: relative; overflow: auto;",
                   shinycssloaders::withSpinner(
                     DT::DTOutput(ns("mapped_concepts_add_omop_table")),
                     type = 4,
@@ -2843,11 +2843,17 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             )
         } else {
           mappings <- mappings %>%
-            dplyr::mutate(recommended = ifelse(recommended, "Yes", "No"))
+            dplyr::mutate(
+              recommended = ifelse(
+                recommended,
+                '<span class="badge-status badge-success">Yes</span>',
+                '<span class="badge-status badge-danger">No</span>'
+              )
+            )
 
           # Cache mappings for selection handling (convert to boolean)
           mappings_for_cache <- mappings %>%
-            dplyr::mutate(recommended = recommended == "Yes")
+            dplyr::mutate(recommended = grepl("Yes", recommended))
           current_mappings(mappings_for_cache)
         }
       } else {
@@ -2900,7 +2906,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           list(targets = 5, visible = FALSE)  # OMOP ID column hidden
         )
       } else {
-        escape_cols <- TRUE
+        escape_cols <- c(TRUE, TRUE, TRUE, FALSE, TRUE)  # Don't escape HTML in recommended column
         col_names <- c("Concept Name", "Vocabulary", "Code", "Recommended", "OMOP ID")
         col_defs <- list(
           list(targets = 3, width = "100px", className = 'dt-center'),  # Recommended column
@@ -3174,7 +3180,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
         # Select only display columns
         display_concepts <- concepts %>%
-          dplyr::select(concept_id, concept_name, vocabulary_id, domain_id, concept_class_id)
+          dplyr::select(concept_id, concept_name, vocabulary_id, domain_id, concept_class_id, standard_concept)
 
         # Convert for better filtering
         display_concepts$concept_id <- as.character(display_concepts$concept_id)
@@ -3182,21 +3188,35 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         display_concepts$domain_id <- as.factor(display_concepts$domain_id)
         display_concepts$concept_class_id <- as.factor(display_concepts$concept_class_id)
 
-        # Render DataTable with server-side processing and internal scrolling
+        # Convert standard_concept to readable labels with HTML styling
+        display_concepts <- display_concepts %>%
+          dplyr::mutate(
+            standard_concept = dplyr::case_when(
+              standard_concept == "S" ~ '<span class="badge-status badge-success">Standard</span>',
+              standard_concept == "C" ~ '<span class="badge-status badge-secondary">Classification</span>',
+              TRUE ~ '<span class="badge-status badge-danger">Non-standard</span>'
+            )
+          )
+
+        # Render DataTable with server-side processing
         DT::datatable(
           display_concepts,
           rownames = FALSE,
           selection = 'single',
           filter = 'top',
+          escape = FALSE,
           options = list(
-            pageLength = 8,
-            dom = 'tp',
+            pageLength = 5,
+            lengthMenu = list(c(5, 10, 15, 20, 50), c('5', '10', '15', '20', '50')),
+            dom = 'ltip',  # l=length, t=table, i=info, p=pagination
             ordering = TRUE,
             autoWidth = FALSE,
-            scrollX = FALSE,
-            paging = TRUE
+            paging = TRUE,
+            columnDefs = list(
+              list(targets = 5, width = '100px', className = 'dt-center')  # Standard column (index 5)
+            )
           ),
-          colnames = c("Concept ID", "Concept Name", "Vocabulary", "Domain", "Concept Class")
+          colnames = c("Concept ID", "Concept Name", "Vocabulary", "Domain", "Concept Class", "Standard")
         )
       }, server = TRUE)
     }, ignoreInit = FALSE)
