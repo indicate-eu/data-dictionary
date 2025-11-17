@@ -193,7 +193,7 @@ The Dictionary Explorer provides a four-panel layout for browsing the INDICATE M
 The Concept Mapping module allows you to align your custom concepts with the INDICATE dictionary.
 
 **Managing Alignments**:
-1. Navigate to the **Concept Mapping** tab
+1. Navigate to the **Concepts Mapping** tab
 2. View the list of all alignments in the data table
 3. Each alignment represents a project or institution's set of concepts (e.g., "CHU Rennes alignment")
 4. Browse and search through your existing alignments
