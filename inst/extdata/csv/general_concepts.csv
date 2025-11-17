@@ -329,13 +329,15 @@ When **all this information is available**, we recommend using the concept ""**M
 If the measured tidal volume is documented but the source (inspiratory or expiratory) is not specified, we suggest using ""**Spontaneous tidal volume**"".
 Finally, if no detail is available about whether the tidal volume is set or measured, the generic concept ""**Tidal volume**"" should be used.",NA
 323,Ventilation,Ventilation parameters,Ventilation mode,NA,NA
-324,Vitals,Haemodynamics,Cardiac output,"**Cardiac output** represents the volume of blood pumped by the heart per unit of time, typically expressed in liters per minute (L/min). It is a critical hemodynamic parameter used primarily in intensive care and critical care settings for assessing cardiac function and guiding therapeutic interventions.
+324,Vitals,Haemodynamics,Cardiac output,"# General Principles
+
+**Cardiac output** represents the volume of blood pumped by the heart per unit of time, typically expressed in liters per minute (L/min). It is a critical hemodynamic parameter used primarily in intensive care and critical care settings for assessing cardiac function and guiding therapeutic interventions.
 
 When mapping cardiac output measurements from your source data, **prioritize the most granular concept available** that matches your measurement method. The generic **""Cardiac output""** concept (SNOMED 82799009) should only be used as a last resort when the specific measurement method or anatomical location cannot be determined.
 
-## Recommended Mapping Strategy
+# Recommended Mapping Strategy
 
-### 1. **Left Ventricular Cardiac Output (LVCO)**
+## 1. **Left Ventricular Cardiac Output (LVCO)**
 Left ventricular cardiac output measures blood flow from the left ventricle into the systemic circulation (aorta). This is the most commonly measured cardiac output in clinical practice.
 
 **Primary measurement methods:**
@@ -367,7 +369,7 @@ Left ventricular cardiac output measures blood flow from the left ventricle into
 - **""Left ventricular Cardiac output by Continuous""** (LOINC 76519-8): for continuous monitoring systems (e.g., PiCCO, FloTrac)
 - **""Left ventricular Cardiac output by Intermittent measure""** (LOINC 61014-7): for intermittent/bolus measurements
 
-### 2. **Right Ventricular Cardiac Output (RVCO)**
+## 2. **Right Ventricular Cardiac Output (RVCO)**
 Right ventricular cardiac output measures blood flow from the right ventricle into the pulmonary circulation. This is less commonly measured but critical in specific clinical contexts (e.g., pulmonary hypertension, right heart failure, intracardiac shunts).
 
 **Key concepts:**
@@ -378,14 +380,14 @@ Right ventricular cardiac output measures blood flow from the right ventricle in
 
 **Important clinical note:** The Swan-Ganz catheter (pulmonary artery catheter) technically measures **right ventricular cardiac output** via thermodilution in the pulmonary artery, even though it is often clinically referred to as simply ""cardiac output."" In physiological conditions without shunts, LVCO equals RVCO.
 
-### 3. **Pulmonary Artery Measurements**
+## 3. **Pulmonary Artery Measurements**
 - **""Pulmonary artery Cardiac output by US""** (LOINC 17994-5): ultrasound measurement of blood flow through the pulmonary artery, representing right ventricular output
 
-### 4. **Generic Ventricular Measurements**
+## 4. **Generic Ventricular Measurements**
 - **""Ventricular Cardiac output by 2D echo""** (LOINC 8731-2): when laterality (left vs right) is not specified
 - **""Ventricular Cardiac output by US.2D+Calculated by modified Simpson method""** (LOINC 20209-3): generic ventricular measurement using Simpson's method
 
-## Clinical Context and Method Selection Guide
+# Clinical Context and Method Selection Guide
 
 **For intensive care/critical care monitoring:**
 - Thermodilution methods (Swan-Ganz, PiCCO) → Use ""Indicator dilution"" concepts
@@ -399,7 +401,11 @@ Right ventricular cardiac output measures blood flow from the right ventricle in
 - Cardiac MRI → Use ""by MR"" concept
 
 **For research/specialized centers:**
-- Advanced imaging (CT, nuclear medicine) → Use modality-specific concepts","{
+- Advanced imaging (CT, nuclear medicine) → Use modality-specific concepts
+
+# Default Mapping Rule
+
+**If the measurement method and anatomical location are completely unknown or undocumented**, use the generic **""Cardiac output""** concept (SNOMED 82799009). However, this should be avoided whenever possible as it loses important clinical context about how the measurement was obtained.","{
   ""data_types"": [""numeric""],
   ""statistical_data"": {
     ""min"": 1,

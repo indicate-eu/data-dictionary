@@ -14031,3 +14031,171 @@ Right ventricular cardiac output measures blood flow from the right ventricle in
 
 **For research/specialized centers:**
 - Advanced imaging (CT, nuclear medicine) → Use modality-specific concepts"
+13965,2025-11-13 17:53:27,Boris Delange,update,324,NA,NA,Cardiac output,"Updated ETL guidance comment: # General Principles
+
+**Cardiac output** represents the volume of blood pumped by the heart per unit of time, typically expressed in liters per minute (L/min). It is a critical hemodynamic parameter used primarily in intensive care and critical care settings for assessing cardiac function and guiding therapeutic interventions.
+
+When mapping cardiac output measurements from your source data, **prioritize the most granular concept available** that matches your measurement method. The generic **""Cardiac output""** concept (SNOMED 82799009) should only be used as a last resort when the specific measurement method or anatomical location cannot be determined.
+
+# Recommended Mapping Strategy
+
+## 1. **Left Ventricular Cardiac Output (LVCO)**
+Left ventricular cardiac output measures blood flow from the left ventricle into the systemic circulation (aorta). This is the most commonly measured cardiac output in clinical practice.
+
+**Primary measurement methods:**
+
+**Echocardiography (Ultrasound-based methods):**
+- **Doppler methods** measure blood flow velocity through the left ventricular outflow tract (LVOT) or aortic valve. Use concepts like:
+  - **""Left ventricular Cardiac output by US.doppler""** (LOINC 8735-3) for general Doppler measurements
+  - **""Aorta root Cardiac output by US.doppler""** (LOINC 17992-9) when specifically measured at the aortic root
+  - **""Left ventricular Cardiac output by US""** (LOINC 24526-6) for general ultrasound-based measurements
+
+- **2D/3D echocardiography with calculated methods** estimate cardiac output from ventricular volumes using various geometric formulas:
+  - **Simpson method** (modified biplane): most commonly used, sums multiple discs to estimate ventricular volume
+  - **Teichholz method**: assumes ellipsoid geometry from M-mode measurements
+  - **Cube method**: simplified geometric assumption
+  - **Bullet method, Area-length method**: alternative geometric approaches
+  - Select the most specific concept matching your calculation method (e.g., LOINC 20209-3 for modified Simpson method)
+
+**Invasive/catheter-based methods:**
+- **""Left ventricular Cardiac output by Fick method""** (LOINC 8736-1): gold standard method using oxygen consumption and arteriovenous oxygen difference
+- **""Left ventricular Cardiac output by Indicator dilution""** (LOINC 8737-9): includes thermodilution and other indicator-based techniques
+- **""Left ventricular Cardiac output by Angiography""** (LOINC 8732-0 for biplane, 8733-8 for single plane): radiographic contrast-based measurement
+
+**Imaging-based methods:**
+- **""Left ventricular Cardiac output by MR""** (LOINC 8738-7): magnetic resonance imaging
+- **""Left ventricular Cardiac output by Spiral CT""** (LOINC 8734-6): computed tomography
+- **""Left ventricular Cardiac output by Nuclear blood pool""** (LOINC 8739-5): nuclear medicine techniques
+
+**Continuous vs intermittent monitoring:**
+- **""Left ventricular Cardiac output by Continuous""** (LOINC 76519-8): for continuous monitoring systems (e.g., PiCCO, FloTrac)
+- **""Left ventricular Cardiac output by Intermittent measure""** (LOINC 61014-7): for intermittent/bolus measurements
+
+## 2. **Right Ventricular Cardiac Output (RVCO)**
+Right ventricular cardiac output measures blood flow from the right ventricle into the pulmonary circulation. This is less commonly measured but critical in specific clinical contexts (e.g., pulmonary hypertension, right heart failure, intracardiac shunts).
+
+**Key concepts:**
+- **""Right ventricular cardiac output""** (SNOMED 428628004): generic right ventricular measurement
+- **""Right ventricular Cardiac output by Fick method""** (LOINC 101150-1): oxygen-based calculation
+- **""Right ventricular Cardiac output by Indicator dilution""** (LOINC 101151-9): includes pulmonary artery thermodilution (Swan-Ganz catheter)
+- **""Right ventricular Cardiac output by US 2D tricuspid valve""** (LOINC 20214-3): echocardiographic measurement through the tricuspid valve
+
+**Important clinical note:** The Swan-Ganz catheter (pulmonary artery catheter) technically measures **right ventricular cardiac output** via thermodilution in the pulmonary artery, even though it is often clinically referred to as simply ""cardiac output."" In physiological conditions without shunts, LVCO equals RVCO.
+
+## 3. **Pulmonary Artery Measurements**
+- **""Pulmonary artery Cardiac output by US""** (LOINC 17994-5): ultrasound measurement of blood flow through the pulmonary artery, representing right ventricular output
+
+## 4. **Generic Ventricular Measurements**
+- **""Ventricular Cardiac output by 2D echo""** (LOINC 8731-2): when laterality (left vs right) is not specified
+- **""Ventricular Cardiac output by US.2D+Calculated by modified Simpson method""** (LOINC 20209-3): generic ventricular measurement using Simpson's method
+
+# Clinical Context and Method Selection Guide
+
+**For intensive care/critical care monitoring:**
+- Thermodilution methods (Swan-Ganz, PiCCO) → Use ""Indicator dilution"" concepts
+- Pulse contour analysis (FloTrac, LiDCO, PiCCO) → Use ""Continuous"" measurement concepts
+- Point-of-care ultrasound → Use specific Doppler or 2D ultrasound concepts
+
+**For cardiology assessments:**
+- Transthoracic echocardiography (TTE) → Use LVOT Doppler or 2D calculated methods
+- Transesophageal echocardiography (TEE) → Use appropriate ultrasound-based concepts
+- Cardiac catheterization → Use Fick method or indicator dilution concepts
+- Cardiac MRI → Use ""by MR"" concept
+
+**For research/specialized centers:**
+- Advanced imaging (CT, nuclear medicine) → Use modality-specific concepts
+
+# Important Distinctions
+
+**Measurement vs Procedure:**
+- The concept **""Measurement of cardiac output""** (SNOMED 117610000) is a Procedure concept (non-standard) and should **not** be used for storing actual cardiac output values
+- Always use Standard Measurement concepts for numerical results
+
+**Anatomical specificity:**
+- Prefer left vs right ventricular distinction when known
+- Use aortic root measurements when specifically performed at that location
+- Reserve generic ""Cardiac output"" for cases where neither method nor anatomy can be determined
+
+**Method documentation:**
+When the specific measurement technique is documented in your source data, always map to the most specific concept available. This preserves valuable clinical information about measurement reliability and comparability across different monitoring methods.
+
+# Default Mapping Rule
+
+**If the measurement method and anatomical location are completely unknown or undocumented**, use the generic **""Cardiac output""** concept (SNOMED 82799009). However, this should be avoided whenever possible as it loses important clinical context about how the measurement was obtained."
+13966,2025-11-13 17:53:54,Boris Delange,update,324,NA,NA,Cardiac output,"Updated ETL guidance comment: # General Principles
+
+**Cardiac output** represents the volume of blood pumped by the heart per unit of time, typically expressed in liters per minute (L/min). It is a critical hemodynamic parameter used primarily in intensive care and critical care settings for assessing cardiac function and guiding therapeutic interventions.
+
+When mapping cardiac output measurements from your source data, **prioritize the most granular concept available** that matches your measurement method. The generic **""Cardiac output""** concept (SNOMED 82799009) should only be used as a last resort when the specific measurement method or anatomical location cannot be determined.
+
+# Recommended Mapping Strategy
+
+## 1. **Left Ventricular Cardiac Output (LVCO)**
+Left ventricular cardiac output measures blood flow from the left ventricle into the systemic circulation (aorta). This is the most commonly measured cardiac output in clinical practice.
+
+**Primary measurement methods:**
+
+**Echocardiography (Ultrasound-based methods):**
+- **Doppler methods** measure blood flow velocity through the left ventricular outflow tract (LVOT) or aortic valve. Use concepts like:
+  - **""Left ventricular Cardiac output by US.doppler""** (LOINC 8735-3) for general Doppler measurements
+  - **""Aorta root Cardiac output by US.doppler""** (LOINC 17992-9) when specifically measured at the aortic root
+  - **""Left ventricular Cardiac output by US""** (LOINC 24526-6) for general ultrasound-based measurements
+
+- **2D/3D echocardiography with calculated methods** estimate cardiac output from ventricular volumes using various geometric formulas:
+  - **Simpson method** (modified biplane): most commonly used, sums multiple discs to estimate ventricular volume
+  - **Teichholz method**: assumes ellipsoid geometry from M-mode measurements
+  - **Cube method**: simplified geometric assumption
+  - **Bullet method, Area-length method**: alternative geometric approaches
+  - Select the most specific concept matching your calculation method (e.g., LOINC 20209-3 for modified Simpson method)
+
+**Invasive/catheter-based methods:**
+- **""Left ventricular Cardiac output by Fick method""** (LOINC 8736-1): gold standard method using oxygen consumption and arteriovenous oxygen difference
+- **""Left ventricular Cardiac output by Indicator dilution""** (LOINC 8737-9): includes thermodilution and other indicator-based techniques
+- **""Left ventricular Cardiac output by Angiography""** (LOINC 8732-0 for biplane, 8733-8 for single plane): radiographic contrast-based measurement
+
+**Imaging-based methods:**
+- **""Left ventricular Cardiac output by MR""** (LOINC 8738-7): magnetic resonance imaging
+- **""Left ventricular Cardiac output by Spiral CT""** (LOINC 8734-6): computed tomography
+- **""Left ventricular Cardiac output by Nuclear blood pool""** (LOINC 8739-5): nuclear medicine techniques
+
+**Continuous vs intermittent monitoring:**
+- **""Left ventricular Cardiac output by Continuous""** (LOINC 76519-8): for continuous monitoring systems (e.g., PiCCO, FloTrac)
+- **""Left ventricular Cardiac output by Intermittent measure""** (LOINC 61014-7): for intermittent/bolus measurements
+
+## 2. **Right Ventricular Cardiac Output (RVCO)**
+Right ventricular cardiac output measures blood flow from the right ventricle into the pulmonary circulation. This is less commonly measured but critical in specific clinical contexts (e.g., pulmonary hypertension, right heart failure, intracardiac shunts).
+
+**Key concepts:**
+- **""Right ventricular cardiac output""** (SNOMED 428628004): generic right ventricular measurement
+- **""Right ventricular Cardiac output by Fick method""** (LOINC 101150-1): oxygen-based calculation
+- **""Right ventricular Cardiac output by Indicator dilution""** (LOINC 101151-9): includes pulmonary artery thermodilution (Swan-Ganz catheter)
+- **""Right ventricular Cardiac output by US 2D tricuspid valve""** (LOINC 20214-3): echocardiographic measurement through the tricuspid valve
+
+**Important clinical note:** The Swan-Ganz catheter (pulmonary artery catheter) technically measures **right ventricular cardiac output** via thermodilution in the pulmonary artery, even though it is often clinically referred to as simply ""cardiac output."" In physiological conditions without shunts, LVCO equals RVCO.
+
+## 3. **Pulmonary Artery Measurements**
+- **""Pulmonary artery Cardiac output by US""** (LOINC 17994-5): ultrasound measurement of blood flow through the pulmonary artery, representing right ventricular output
+
+## 4. **Generic Ventricular Measurements**
+- **""Ventricular Cardiac output by 2D echo""** (LOINC 8731-2): when laterality (left vs right) is not specified
+- **""Ventricular Cardiac output by US.2D+Calculated by modified Simpson method""** (LOINC 20209-3): generic ventricular measurement using Simpson's method
+
+# Clinical Context and Method Selection Guide
+
+**For intensive care/critical care monitoring:**
+- Thermodilution methods (Swan-Ganz, PiCCO) → Use ""Indicator dilution"" concepts
+- Pulse contour analysis (FloTrac, LiDCO, PiCCO) → Use ""Continuous"" measurement concepts
+- Point-of-care ultrasound → Use specific Doppler or 2D ultrasound concepts
+
+**For cardiology assessments:**
+- Transthoracic echocardiography (TTE) → Use LVOT Doppler or 2D calculated methods
+- Transesophageal echocardiography (TEE) → Use appropriate ultrasound-based concepts
+- Cardiac catheterization → Use Fick method or indicator dilution concepts
+- Cardiac MRI → Use ""by MR"" concept
+
+**For research/specialized centers:**
+- Advanced imaging (CT, nuclear medicine) → Use modality-specific concepts
+
+# Default Mapping Rule
+
+**If the measurement method and anatomical location are completely unknown or undocumented**, use the generic **""Cardiac output""** concept (SNOMED 82799009). However, this should be avoided whenever possible as it loses important clinical context about how the measurement was obtained."
