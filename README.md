@@ -147,7 +147,9 @@ The application will open in your default web browser.
 
 When you first launch the application, you will see the login screen.
 
-![Login Screen](man/figures/first_login.png)
+<p align="center">
+  <img src="man/figures/first_login.png" alt="Login Screen" width="300"/>
+</p>
 
 **Default credentials**:
 - **Username**: `admin`
@@ -221,7 +223,9 @@ The Dictionary Explorer provides a four-panel layout for browsing the INDICATE M
 3. The "Recommended" column (✓) indicates the preferred mapping
 4. Click on a mapping to see full details in the right panels
 
-![Concept Relationships](man/figures/concept_relationships.png)
+<p align="center">
+  <img src="man/figures/concept_relationships.png" alt="Concept Relationships" width="750"/>
+</p>
 
 **Exploring Concept Relationships**:
 - View the hierarchical structure of concepts with the relationships tree
