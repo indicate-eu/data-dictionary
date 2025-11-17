@@ -141,9 +141,70 @@ indicate::run_app()
 
 The application will open in your default web browser.
 
+### First Connection
+
+#### Login
+
+When you first launch the application, you will see the login screen.
+
+![Login Screen](man/figures/first_login.png)
+
+**Default credentials**:
+- **Username**: `admin`
+- **Password**: `admin`
+
+**Important**: For security reasons, you should change the default password immediately after your first login:
+1. Click the **Settings icon** (cog) in the top-right corner
+2. Navigate to **Users**
+3. Update the admin password
+
+**Anonymous access**:
+- You can also log in as **Anonymous** for read-only access
+- Anonymous users can browse the dictionary but cannot make modifications
+- No editing, creating, or deleting of concepts is allowed in anonymous mode
+
+#### Setting up ATHENA vocabularies
+
+After logging in, you need to import ATHENA vocabulary data to enable full functionality.
+
+**Step 1: Download vocabularies from ATHENA**
+
+![ATHENA Download](man/figures/athena_download.png)
+
+1. Go to [https://athena.ohdsi.org](https://athena.ohdsi.org)
+2. Select the following vocabularies:
+   - **LOINC**
+   - **SNOMED**
+   - **RxNorm**
+   - **RxNorm Extension**
+   - **ATC**
+   - **ICD10**
+3. Click **Download Vocabularies**
+4. Extract the downloaded ZIP file to a folder on your computer
+
+**Step 2: Import vocabularies into the application**
+
+![ATHENA Import Settings](man/figures/athena_import.png)
+
+1. Click the **Settings icon** (cog) in the top-right corner
+2. Navigate to **General Settings**
+3. In the **OHDSI Vocabularies** section, click **Browse**
+4. Select the folder containing the extracted CSV files from ATHENA
+5. The application will create a DuckDB database from the CSV files
+   - This database will be saved in the `app_folder` directory (specified with the `app_folder` argument of `run_app()`, or your home directory by default)
+   - Future connections will load concepts faster from this database
+6. Wait for the import to complete
+   - The application will process all CSV files
+   - A progress indicator shows the import status
+   - Once complete, all features will be available
+
 ### Usage Guide
 
 #### 1. Dictionary Explorer
+
+The Dictionary Explorer provides a four-panel layout for browsing the INDICATE Minimal Data Dictionary.
+
+![Dictionary Explorer Interface](man/figures/dictionary_explorer.png)
 
 **Exploring General Concepts**:
 1. Navigate to the **Dictionary Explorer** tab
@@ -152,30 +213,37 @@ The application will open in your default web browser.
 4. The use case columns (UC1-UC6) show which use cases require each concept
 5. Click any row to load detailed information
 
-**Viewing Concept Mappings**:
+![Concept Details View](man/figures/concept_details.png)
+
+**Viewing General Concept Details**:
 1. After selecting a general concept, the bottom-left panel shows all terminology mappings
 2. Each row represents a specific code in a standard vocabulary (SNOMED, LOINC, RxNorm, ICD-10)
 3. The "Recommended" column (✓) indicates the preferred mapping
 4. Click on a mapping to see full details in the right panels
+
+![Concept Relationships](man/figures/concept_relationships.png)
+
+**Exploring Concept Relationships**:
+- View the hierarchical structure of concepts with the relationships tree
+- See parent and child concepts in the hierarchy
+- Understand relationship types (Is a, Has ingredient, Subsumes, etc.)
 
 **Using External Links**:
 - **OMOP Concept ID**: Click to open ATHENA vocabulary browser
 - **FHIR Resource**: Click to open FHIR Terminology Server
 - These facilitate ETL processes and data transformation
 
-**Keyboard Navigation**:
-- **Arrow keys**: Navigate between table rows
-- **Page Up/Down**: Move between pages
-- **Home/End**: Jump to first/last row
-- **Tab**: Move between panels
-
 #### 2. Concept Mapping
 
-**Creating Custom Concepts**:
-1. Navigate to the **Concept Mapping** tab
-2. Click **Add Concept** to create a new custom concept
-3. Enter a name and description
-4. Organize concepts in folders for better structure
+The Concept Mapping module allows you to align your custom concepts with the INDICATE dictionary.
+
+![Concept Mapping Overview](man/figures/concept_mapping.png)
+
+![Add Alignment Interface](man/figures/add_alignment_interface.png)
+
+**Aligning to Dictionary**:
+
+![Alignment Wizard](man/figures/alignment_wizard.png)
 
 **Aligning to Dictionary**:
 1. Select a custom concept from your list
@@ -185,12 +253,11 @@ The application will open in your default web browser.
    - Use "Add descendants" to include child concepts automatically
 5. Save the alignment
 
-**Searching ATHENA**:
-- In the alignment wizard, use the ATHENA search to find concepts
-- Filter by vocabulary (SNOMED, LOINC, RxNorm, ICD-10)
-- Select concepts and add them to your mapping
-
 #### 3. Use Case Management
+
+Define and manage clinical use cases with assigned concepts.
+
+![Use Cases Overview](man/figures/use_cases.png)
 
 **Defining Use Cases**:
 1. Navigate to the **Use Cases** tab
@@ -213,6 +280,8 @@ The application will open in your default web browser.
 4. Import previously saved configurations
 
 #### 5. Development Tools
+
+![Development Tools](man/figures/dev_tools.png)
 
 **Inspecting the Database** (development mode only):
 1. Navigate to the **Dev Tools** tab
@@ -258,69 +327,3 @@ Visit: [INDICATE Project Website](https://indicate-europe.eu/)
 ## Contributing
 
 Contributions to improve the package are welcome. Please contact the author for collaboration opportunities.
-
-## Technical Architecture
-
-### Data Storage
-
-The application uses a **dual data architecture**:
-
-1. **CSV Files** (`inst/extdata/csv/`): Normalized data tables for efficient loading
-2. **DuckDB** (runtime): In-memory SQL database for fast queries and joins
-
-### Key Technologies
-
-- **R (≥ 4.0.0)**: Core application language
-- **Shiny (≥ 1.7.0)**: Web application framework
-- **DuckDB**: In-memory analytical database
-- **DT**: Interactive DataTables
-- **dplyr**: Data manipulation
-- **jQuery/jQuery UI**: Client-side interactions
-- **Custom CSS/JS**: Quadrant layout, keyboard navigation, modal dialogs
-
-### Module Architecture
-
-The application follows the **Shiny module pattern** for maintainability:
-- `mod_dictionary_explorer.R`: Dictionary browsing
-- `mod_concept_mapping.R`: Custom concept alignment
-- `mod_use_cases.R`: Use case management
-- `mod_settings.R`: Application configuration
-- `mod_dev_tools.R`: Database inspection
-
-Each module is self-contained with its own UI and server logic.
-
-## Data Dictionary Structure
-
-The dictionary comprises **11,924 clinical concepts** organized across:
-
-- **General Concepts** (`general_concepts.csv`): High-level clinical concepts
-- **Concept Mappings** (`concept_mappings.csv`): Links to standard terminologies
-- **Use Case Assignments** (`general_concept_use_cases.csv`): Concept-to-use-case relationships
-- **Custom Concepts** (`custom_concepts.csv`): User-defined concepts
-- **Unit Conversions** (`unit_conversions.csv`): Measurement unit mappings
-
-## Advanced Features
-
-### ATHENA Integration
-
-The application integrates with the **ATHENA OHDSI** vocabulary:
-- Search for concepts by name or code
-- Retrieve concept hierarchies (ancestors/descendants)
-- Direct links to concept details
-- Support for multiple vocabularies
-
-### FHIR Terminology Server
-
-Integration with the **FHIR Terminology Server**:
-- CodeSystem lookups
-- ValueSet expansions
-- FHIR-compliant concept representations
-- Support for SNOMED CT, LOINC, RxNorm, ICD-10, UCUM
-
-### Export/Import
-
-Export your custom concepts and mappings:
-- CSV format for spreadsheet analysis
-- JSON format for programmatic use
-- Full database dumps for backup
-- Import previously exported data
