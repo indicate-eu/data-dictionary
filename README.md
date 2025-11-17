@@ -2,6 +2,33 @@
 
 ![Application Interface](man/figures/web_interface.png)
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Context](#context)
+  - [The INDICATE Project](#the-indicate-project)
+  - [The Minimal Data Dictionary](#the-minimal-data-dictionary)
+  - [Standard Terminologies](#standard-terminologies)
+  - [Clinical Use Cases](#clinical-use-cases)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Running the Application](#running-the-application)
+  - [First Connection](#first-connection)
+    - [Login](#login)
+    - [Setting up ATHENA vocabularies](#setting-up-athena-vocabularies)
+  - [Usage Guide](#usage-guide)
+    - [1. Dictionary Explorer](#1-dictionary-explorer)
+    - [2. Concept Mapping](#2-concept-mapping)
+    - [3. Use Case Management](#3-use-case-management)
+    - [4. Settings](#4-settings)
+    - [5. Development Tools](#5-development-tools)
+- [Governance and Versioning](#governance-and-versioning)
+- [Alignment with European Health Data Space (EHDS)](#alignment-with-european-health-data-space-ehds)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+- [Contact](#contact)
+- [Contributing](#contributing)
+
 ## Overview
 
 The `indicate` R package provides an interactive Shiny application to explore the **INDICATE Minimal Data Dictionary**, a consensus-based collection of standardized clinical concepts designed to harmonize intensive care unit (ICU) data across Europe. The dictionary addresses semantic interoperability challenges in federated healthcare data infrastructures by providing explicit recommendations for terminology selection across diverse European ICU settings.
@@ -46,81 +73,6 @@ The dictionary was developed to support six clinical use cases:
 4. **Neonatal and Pediatric Sepsis Prediction**
 5. **Quality Benchmarking Dashboards**
 6. **Grand Rounds Workspace**
-
-## Features
-
-The INDICATE Data Dictionary application provides a comprehensive suite of tools for working with standardized clinical concepts:
-
-### 1. Dictionary Explorer
-
-Browse and explore the INDICATE Minimal Data Dictionary:
-
-- **Four-Panel Quadrant Layout**: Simultaneous view of general concepts, mappings, and detailed information
-- **General Concepts Overview**: Browse 11,924 clinical concepts organized by category and subcategory
-- **Use Case Mapping**: See which of the 6 use cases require each concept
-- **Detailed Concept Information**: View complete details for each standardized terminology code:
-  - Vocabulary ID (SNOMED CT, LOINC, RxNorm, ICD-10)
-  - Concept codes and OMOP Concept IDs
-  - Preferred units with UCUM codes
-  - Usage statistics from EHDEN network
-  - Expert recommendations
-- **External Integration**: Direct links to:
-  - **ATHENA OHDSI** vocabulary browser for OMOP mapping
-  - **FHIR Terminology Server** for FHIR-based transformations
-- **Expert Comments**: Collaborative guidance from clinicians and data scientists
-- **Interactive Filtering**: Search and filter concepts by category, subcategory, or use case
-- **Keyboard Navigation**: Efficient browsing with arrow keys and keyboard shortcuts
-- **Resizable Panels**: Customize your workspace with draggable panel splitters
-
-### 2. Concept Mapping
-
-Align your own clinical concepts with the INDICATE dictionary:
-
-- **Custom Concept Management**: Create and organize your own clinical concepts
-- **Folder-Based Organization**: Hierarchical structure for organizing concepts by project or domain
-- **Semantic Alignment**: Map custom concepts to INDICATE dictionary concepts
-- **ATHENA Integration**: Search ATHENA vocabulary for concept suggestions
-- **Concept Descendants**: Automatically find child concepts (e.g., all types of a medication)
-- **Alignment History**: Track when and how concepts were mapped
-- **Multi-Step Wizards**: Guided forms for creating alignments with validation
-
-### 3. Use Case Management
-
-Define and manage clinical use cases:
-
-- **Use Case Definitions**: Create and edit use case metadata (name, description, objectives)
-- **Concept Assignment**: Assign INDICATE concepts to specific use cases
-- **Requirement Tracking**: Mark which concepts are required vs. optional
-- **Coverage Analysis**: View which concepts are covered by each use case
-- **Breadcrumb Navigation**: Intuitive hierarchical navigation
-
-### 4. Settings
-
-Configure the application to your needs:
-
-- **Database Settings**: Configure data storage and connection parameters
-- **UI Preferences**: Customize interface behavior and appearance
-- **Data Export/Import**: Export your custom concepts and mappings for sharing
-- **Development Mode**: Enable advanced features for debugging
-
-### 5. Development Tools
-
-Database inspection and debugging (development mode):
-
-- **Table Browser**: View all database tables and their schemas
-- **SQL Console**: Execute custom SQL queries
-- **Data Inspector**: Examine table contents and relationships
-- **Query Performance**: Analyze query execution
-
-### Future Enhancements
-
-Planned improvements include:
-- **Dictionary Improvement Module**: Interface to propose additions and modifications to the INDICATE dictionary
-- **Extended Data Dictionary**: Additional clinical concepts beyond the current scope
-- **Enhanced Visualization**: Concept relationship mapping and dependency graphs
-- **Integration with National Catalogues**: Connect to European health data catalogues
-- **Support for Additional Terminologies**: Beyond SNOMED CT, LOINC, RxNorm, and ICD-10
-- **Collaborative Features**: Multi-user editing and concept review workflows
 
 ## Installation
 
@@ -171,8 +123,6 @@ After logging in, you need to import ATHENA vocabulary data to enable full funct
 
 **Step 1: Download vocabularies from ATHENA**
 
-![ATHENA Download](man/figures/athena_download.png)
-
 1. Go to [https://athena.ohdsi.org](https://athena.ohdsi.org)
 2. Select the following vocabularies:
    - **LOINC**
@@ -184,9 +134,9 @@ After logging in, you need to import ATHENA vocabulary data to enable full funct
 3. Click **Download Vocabularies**
 4. Extract the downloaded ZIP file to a folder on your computer
 
-**Step 2: Import vocabularies into the application**
+![ATHENA Download](man/figures/athena_download.png)
 
-![ATHENA Import Settings](man/figures/athena_import.png)
+**Step 2: Import vocabularies into the application**
 
 1. Click the **Settings icon** (cog) in the top-right corner
 2. Navigate to **General Settings**
@@ -200,6 +150,8 @@ After logging in, you need to import ATHENA vocabulary data to enable full funct
    - A progress indicator shows the import status
    - Once complete, all features will be available
 
+![ATHENA Import Settings](man/figures/athena_import.png)
+
 ### Usage Guide
 
 #### 1. Dictionary Explorer
@@ -212,25 +164,24 @@ The Dictionary Explorer provides a four-panel layout for browsing the INDICATE M
 1. Navigate to the **Dictionary Explorer** tab
 2. The top-left panel shows general concepts grouped by category and subcategory
 3. Use column filters to search for specific concepts (e.g., "lactate", "sepsis")
-4. The use case columns (UC1-UC6) show which use cases require each concept
-5. Click any row to load detailed information
+4. Click any row to load detailed information
 
 ![Concept Details View](man/figures/concept_details.png)
 
 **Viewing General Concept Details**:
 1. After selecting a general concept, the bottom-left panel shows all terminology mappings
 2. Each row represents a specific code in a standard vocabulary (SNOMED, LOINC, RxNorm, ICD-10)
-3. The "Recommended" column (✓) indicates the preferred mapping
-4. Click on a mapping to see full details in the right panels
-
-<p align="center">
-  <img src="man/figures/concept_relationships.png" alt="Concept Relationships" width="750"/>
-</p>
+3. The "Recommended" column indicates the preferred concepts
+4. Click on a concept to see full details in the right panels
 
 **Exploring Concept Relationships**:
 - View the hierarchical structure of concepts with the relationships tree
 - See parent and child concepts in the hierarchy
 - Understand relationship types (Is a, Has ingredient, Subsumes, etc.)
+
+<p align="center">
+  <img src="man/figures/concept_relationships.png" alt="Concept Relationships" width="750"/>
+</p>
 
 **Using External Links**:
 - **OMOP Concept ID**: Click to open ATHENA vocabulary browser
@@ -241,21 +192,33 @@ The Dictionary Explorer provides a four-panel layout for browsing the INDICATE M
 
 The Concept Mapping module allows you to align your custom concepts with the INDICATE dictionary.
 
+**Managing Alignments**:
+1. Navigate to the **Concept Mapping** tab
+2. View the list of all alignments in the data table
+3. Each alignment represents a project or institution's set of concepts (e.g., "CHU Rennes alignment")
+4. Browse and search through your existing alignments
+
 ![Concept Mapping Overview](man/figures/concept_mapping.png)
+
+**Creating a New Alignment**:
+1. Click the **Add Alignment** button to create a new alignment project
+2. Import a CSV file containing the list of concepts you want to align to the INDICATE Data Dictionary
+3. The CSV should include your custom concept names and any relevant metadata
+4. This creates an alignment containing all concepts from your institution or project
 
 ![Add Alignment Interface](man/figures/add_alignment_interface.png)
 
-**Aligning to Dictionary**:
+**Mapping Individual Concepts**:
+
+Once your alignment is created, you can map each concept individually:
+
+1. **Left panel**: Select the general concept from the INDICATE dictionary that matches your custom concept
+2. **Right panel**: Choose specific OMOP mappings for this concept (you can select multiple)
+   - Use "Add descendants" to automatically include child concepts
+   - Search ATHENA vocabulary for additional concepts
+3. Review and save the mapping for this concept
 
 ![Alignment Wizard](man/figures/alignment_wizard.png)
-
-**Aligning to Dictionary**:
-1. Select a custom concept from your list
-2. Click **Add Alignment** to map it to the INDICATE dictionary
-3. **Page 1**: Select the general concept from the dictionary
-4. **Page 2**: Choose specific mappings (you can select multiple)
-   - Use "Add descendants" to include child concepts automatically
-5. Save the alignment
 
 #### 3. Use Case Management
 
@@ -286,12 +249,6 @@ Define and manage clinical use cases with assigned concepts.
 #### 5. Development Tools
 
 ![Development Tools](man/figures/dev_tools.png)
-
-**Inspecting the Database** (development mode only):
-1. Navigate to the **Dev Tools** tab
-2. Browse tables and view schemas
-3. Execute SQL queries to inspect data
-4. Debug data issues
 
 ## Governance and Versioning
 
