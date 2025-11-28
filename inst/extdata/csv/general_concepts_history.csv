@@ -330,6 +330,6 @@ history_id,timestamp,username,action_type,category,subcategory,general_concept_n
 329,2025-11-03 14:00:00,Boris Delange,insert,Vitals,Other vitals,Urine output,Initial creation
 330,2025-11-03 14:00:00,Boris Delange,insert,Vitals,Ventilatory,Respiratory rate,Initial creation
 331,2025-11-03 14:00:00,Boris Delange,insert,Vitals,Ventilatory,SpO2,Initial creation
-332,2025-11-18 11:12:27,Boris Delange,delete,Other,Demographic data,renamed,Deleted concept 'renamed' from category 'Other' > 'Demographic data'
-333,2025-11-18 11:12:27,Boris Delange,delete,Drug,Anticoagulants,teest3,Deleted concept 'teest3' from category 'Drug' > 'Anticoagulants'
-334,2025-11-18 11:12:27,Boris Delange,delete,Drug,Anticoagulants,new one,Deleted concept 'new one' from category 'Drug' > 'Anticoagulants'
+335,2025-11-28 15:32:29,Boris Delange,update,Vitals,Haemodynamics,Diastolic arterial pressure,Updated general_concept_name from 'Diastolic blood pressure' to 'Diastolic arterial pressure'
+336,2025-11-28 15:32:29,Boris Delange,update,Vitals,Haemodynamics,Mean arterial pressure,Updated general_concept_name from 'Mean blood pressure' to 'Mean arterial pressure'
+337,2025-11-28 15:32:29,Boris Delange,update,Vitals,Haemodynamics,Systolic arterial pressure,Updated general_concept_name from 'Systolic blood pressure' to 'Systolic arterial pressure'

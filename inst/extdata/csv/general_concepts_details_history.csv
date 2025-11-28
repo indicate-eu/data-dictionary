@@ -13960,245 +13960,6 @@ history_id,timestamp,username,action_type,general_concept_id,vocabulary_id,conce
 13961,2025-11-13 17:08:24,Boris Delange,delete,324,LOINC,61014-7,Left ventricular Cardiac output by Intermitent measure,Deleted OMOP concept mapping
 13962,2025-11-13 17:11:15,Boris Delange,insert,324,LOINC,76519-8,Left ventricular Cardiac output by Continuous,Added OMOP concept mapping
 13963,2025-11-13 17:11:15,Boris Delange,insert,324,LOINC,61014-7,Left ventricular Cardiac output by Intermitent measure,Added OMOP concept mapping
-13964,2025-11-13 17:13:45,Boris Delange,update,324,NA,NA,Cardiac output,"Updated ETL guidance comment: **Cardiac output** represents the volume of blood pumped by the heart per unit of time, typically expressed in liters per minute (L/min). It is a critical hemodynamic parameter used primarily in intensive care and critical care settings for assessing cardiac function and guiding therapeutic interventions.
-
-When mapping cardiac output measurements from your source data, **prioritize the most granular concept available** that matches your measurement method. The generic **""Cardiac output""** concept (SNOMED 82799009) should only be used as a last resort when the specific measurement method or anatomical location cannot be determined.
-
-## Recommended Mapping Strategy
-
-### 1. **Left Ventricular Cardiac Output (LVCO)**
-Left ventricular cardiac output measures blood flow from the left ventricle into the systemic circulation (aorta). This is the most commonly measured cardiac output in clinical practice.
-
-**Primary measurement methods:**
-
-**Echocardiography (Ultrasound-based methods):**
-- **Doppler methods** measure blood flow velocity through the left ventricular outflow tract (LVOT) or aortic valve. Use concepts like:
-  - **""Left ventricular Cardiac output by US.doppler""** (LOINC 8735-3) for general Doppler measurements
-  - **""Aorta root Cardiac output by US.doppler""** (LOINC 17992-9) when specifically measured at the aortic root
-  - **""Left ventricular Cardiac output by US""** (LOINC 24526-6) for general ultrasound-based measurements
-
-- **2D/3D echocardiography with calculated methods** estimate cardiac output from ventricular volumes using various geometric formulas:
-  - **Simpson method** (modified biplane): most commonly used, sums multiple discs to estimate ventricular volume
-  - **Teichholz method**: assumes ellipsoid geometry from M-mode measurements
-  - **Cube method**: simplified geometric assumption
-  - **Bullet method, Area-length method**: alternative geometric approaches
-  - Select the most specific concept matching your calculation method (e.g., LOINC 20209-3 for modified Simpson method)
-
-**Invasive/catheter-based methods:**
-- **""Left ventricular Cardiac output by Fick method""** (LOINC 8736-1): gold standard method using oxygen consumption and arteriovenous oxygen difference
-- **""Left ventricular Cardiac output by Indicator dilution""** (LOINC 8737-9): includes thermodilution and other indicator-based techniques
-- **""Left ventricular Cardiac output by Angiography""** (LOINC 8732-0 for biplane, 8733-8 for single plane): radiographic contrast-based measurement
-
-**Imaging-based methods:**
-- **""Left ventricular Cardiac output by MR""** (LOINC 8738-7): magnetic resonance imaging
-- **""Left ventricular Cardiac output by Spiral CT""** (LOINC 8734-6): computed tomography
-- **""Left ventricular Cardiac output by Nuclear blood pool""** (LOINC 8739-5): nuclear medicine techniques
-
-**Continuous vs intermittent monitoring:**
-- **""Left ventricular Cardiac output by Continuous""** (LOINC 76519-8): for continuous monitoring systems (e.g., PiCCO, FloTrac)
-- **""Left ventricular Cardiac output by Intermittent measure""** (LOINC 61014-7): for intermittent/bolus measurements
-
-### 2. **Right Ventricular Cardiac Output (RVCO)**
-Right ventricular cardiac output measures blood flow from the right ventricle into the pulmonary circulation. This is less commonly measured but critical in specific clinical contexts (e.g., pulmonary hypertension, right heart failure, intracardiac shunts).
-
-**Key concepts:**
-- **""Right ventricular cardiac output""** (SNOMED 428628004): generic right ventricular measurement
-- **""Right ventricular Cardiac output by Fick method""** (LOINC 101150-1): oxygen-based calculation
-- **""Right ventricular Cardiac output by Indicator dilution""** (LOINC 101151-9): includes pulmonary artery thermodilution (Swan-Ganz catheter)
-- **""Right ventricular Cardiac output by US 2D tricuspid valve""** (LOINC 20214-3): echocardiographic measurement through the tricuspid valve
-
-**Important clinical note:** The Swan-Ganz catheter (pulmonary artery catheter) technically measures **right ventricular cardiac output** via thermodilution in the pulmonary artery, even though it is often clinically referred to as simply ""cardiac output."" In physiological conditions without shunts, LVCO equals RVCO.
-
-### 3. **Pulmonary Artery Measurements**
-- **""Pulmonary artery Cardiac output by US""** (LOINC 17994-5): ultrasound measurement of blood flow through the pulmonary artery, representing right ventricular output
-
-### 4. **Generic Ventricular Measurements**
-- **""Ventricular Cardiac output by 2D echo""** (LOINC 8731-2): when laterality (left vs right) is not specified
-- **""Ventricular Cardiac output by US.2D+Calculated by modified Simpson method""** (LOINC 20209-3): generic ventricular measurement using Simpson's method
-
-## Clinical Context and Method Selection Guide
-
-**For intensive care/critical care monitoring:**
-- Thermodilution methods (Swan-Ganz, PiCCO) → Use ""Indicator dilution"" concepts
-- Pulse contour analysis (FloTrac, LiDCO, PiCCO) → Use ""Continuous"" measurement concepts
-- Point-of-care ultrasound → Use specific Doppler or 2D ultrasound concepts
-
-**For cardiology assessments:**
-- Transthoracic echocardiography (TTE) → Use LVOT Doppler or 2D calculated methods
-- Transesophageal echocardiography (TEE) → Use appropriate ultrasound-based concepts
-- Cardiac catheterization → Use Fick method or indicator dilution concepts
-- Cardiac MRI → Use ""by MR"" concept
-
-**For research/specialized centers:**
-- Advanced imaging (CT, nuclear medicine) → Use modality-specific concepts"
-13965,2025-11-13 17:53:27,Boris Delange,update,324,NA,NA,Cardiac output,"Updated ETL guidance comment: # General Principles
-
-**Cardiac output** represents the volume of blood pumped by the heart per unit of time, typically expressed in liters per minute (L/min). It is a critical hemodynamic parameter used primarily in intensive care and critical care settings for assessing cardiac function and guiding therapeutic interventions.
-
-When mapping cardiac output measurements from your source data, **prioritize the most granular concept available** that matches your measurement method. The generic **""Cardiac output""** concept (SNOMED 82799009) should only be used as a last resort when the specific measurement method or anatomical location cannot be determined.
-
-# Recommended Mapping Strategy
-
-## 1. **Left Ventricular Cardiac Output (LVCO)**
-Left ventricular cardiac output measures blood flow from the left ventricle into the systemic circulation (aorta). This is the most commonly measured cardiac output in clinical practice.
-
-**Primary measurement methods:**
-
-**Echocardiography (Ultrasound-based methods):**
-- **Doppler methods** measure blood flow velocity through the left ventricular outflow tract (LVOT) or aortic valve. Use concepts like:
-  - **""Left ventricular Cardiac output by US.doppler""** (LOINC 8735-3) for general Doppler measurements
-  - **""Aorta root Cardiac output by US.doppler""** (LOINC 17992-9) when specifically measured at the aortic root
-  - **""Left ventricular Cardiac output by US""** (LOINC 24526-6) for general ultrasound-based measurements
-
-- **2D/3D echocardiography with calculated methods** estimate cardiac output from ventricular volumes using various geometric formulas:
-  - **Simpson method** (modified biplane): most commonly used, sums multiple discs to estimate ventricular volume
-  - **Teichholz method**: assumes ellipsoid geometry from M-mode measurements
-  - **Cube method**: simplified geometric assumption
-  - **Bullet method, Area-length method**: alternative geometric approaches
-  - Select the most specific concept matching your calculation method (e.g., LOINC 20209-3 for modified Simpson method)
-
-**Invasive/catheter-based methods:**
-- **""Left ventricular Cardiac output by Fick method""** (LOINC 8736-1): gold standard method using oxygen consumption and arteriovenous oxygen difference
-- **""Left ventricular Cardiac output by Indicator dilution""** (LOINC 8737-9): includes thermodilution and other indicator-based techniques
-- **""Left ventricular Cardiac output by Angiography""** (LOINC 8732-0 for biplane, 8733-8 for single plane): radiographic contrast-based measurement
-
-**Imaging-based methods:**
-- **""Left ventricular Cardiac output by MR""** (LOINC 8738-7): magnetic resonance imaging
-- **""Left ventricular Cardiac output by Spiral CT""** (LOINC 8734-6): computed tomography
-- **""Left ventricular Cardiac output by Nuclear blood pool""** (LOINC 8739-5): nuclear medicine techniques
-
-**Continuous vs intermittent monitoring:**
-- **""Left ventricular Cardiac output by Continuous""** (LOINC 76519-8): for continuous monitoring systems (e.g., PiCCO, FloTrac)
-- **""Left ventricular Cardiac output by Intermittent measure""** (LOINC 61014-7): for intermittent/bolus measurements
-
-## 2. **Right Ventricular Cardiac Output (RVCO)**
-Right ventricular cardiac output measures blood flow from the right ventricle into the pulmonary circulation. This is less commonly measured but critical in specific clinical contexts (e.g., pulmonary hypertension, right heart failure, intracardiac shunts).
-
-**Key concepts:**
-- **""Right ventricular cardiac output""** (SNOMED 428628004): generic right ventricular measurement
-- **""Right ventricular Cardiac output by Fick method""** (LOINC 101150-1): oxygen-based calculation
-- **""Right ventricular Cardiac output by Indicator dilution""** (LOINC 101151-9): includes pulmonary artery thermodilution (Swan-Ganz catheter)
-- **""Right ventricular Cardiac output by US 2D tricuspid valve""** (LOINC 20214-3): echocardiographic measurement through the tricuspid valve
-
-**Important clinical note:** The Swan-Ganz catheter (pulmonary artery catheter) technically measures **right ventricular cardiac output** via thermodilution in the pulmonary artery, even though it is often clinically referred to as simply ""cardiac output."" In physiological conditions without shunts, LVCO equals RVCO.
-
-## 3. **Pulmonary Artery Measurements**
-- **""Pulmonary artery Cardiac output by US""** (LOINC 17994-5): ultrasound measurement of blood flow through the pulmonary artery, representing right ventricular output
-
-## 4. **Generic Ventricular Measurements**
-- **""Ventricular Cardiac output by 2D echo""** (LOINC 8731-2): when laterality (left vs right) is not specified
-- **""Ventricular Cardiac output by US.2D+Calculated by modified Simpson method""** (LOINC 20209-3): generic ventricular measurement using Simpson's method
-
-# Clinical Context and Method Selection Guide
-
-**For intensive care/critical care monitoring:**
-- Thermodilution methods (Swan-Ganz, PiCCO) → Use ""Indicator dilution"" concepts
-- Pulse contour analysis (FloTrac, LiDCO, PiCCO) → Use ""Continuous"" measurement concepts
-- Point-of-care ultrasound → Use specific Doppler or 2D ultrasound concepts
-
-**For cardiology assessments:**
-- Transthoracic echocardiography (TTE) → Use LVOT Doppler or 2D calculated methods
-- Transesophageal echocardiography (TEE) → Use appropriate ultrasound-based concepts
-- Cardiac catheterization → Use Fick method or indicator dilution concepts
-- Cardiac MRI → Use ""by MR"" concept
-
-**For research/specialized centers:**
-- Advanced imaging (CT, nuclear medicine) → Use modality-specific concepts
-
-# Important Distinctions
-
-**Measurement vs Procedure:**
-- The concept **""Measurement of cardiac output""** (SNOMED 117610000) is a Procedure concept (non-standard) and should **not** be used for storing actual cardiac output values
-- Always use Standard Measurement concepts for numerical results
-
-**Anatomical specificity:**
-- Prefer left vs right ventricular distinction when known
-- Use aortic root measurements when specifically performed at that location
-- Reserve generic ""Cardiac output"" for cases where neither method nor anatomy can be determined
-
-**Method documentation:**
-When the specific measurement technique is documented in your source data, always map to the most specific concept available. This preserves valuable clinical information about measurement reliability and comparability across different monitoring methods.
-
-# Default Mapping Rule
-
-**If the measurement method and anatomical location are completely unknown or undocumented**, use the generic **""Cardiac output""** concept (SNOMED 82799009). However, this should be avoided whenever possible as it loses important clinical context about how the measurement was obtained."
-13966,2025-11-13 17:53:54,Boris Delange,update,324,NA,NA,Cardiac output,"Updated ETL guidance comment: # General Principles
-
-**Cardiac output** represents the volume of blood pumped by the heart per unit of time, typically expressed in liters per minute (L/min). It is a critical hemodynamic parameter used primarily in intensive care and critical care settings for assessing cardiac function and guiding therapeutic interventions.
-
-When mapping cardiac output measurements from your source data, **prioritize the most granular concept available** that matches your measurement method. The generic **""Cardiac output""** concept (SNOMED 82799009) should only be used as a last resort when the specific measurement method or anatomical location cannot be determined.
-
-# Recommended Mapping Strategy
-
-## 1. **Left Ventricular Cardiac Output (LVCO)**
-Left ventricular cardiac output measures blood flow from the left ventricle into the systemic circulation (aorta). This is the most commonly measured cardiac output in clinical practice.
-
-**Primary measurement methods:**
-
-**Echocardiography (Ultrasound-based methods):**
-- **Doppler methods** measure blood flow velocity through the left ventricular outflow tract (LVOT) or aortic valve. Use concepts like:
-  - **""Left ventricular Cardiac output by US.doppler""** (LOINC 8735-3) for general Doppler measurements
-  - **""Aorta root Cardiac output by US.doppler""** (LOINC 17992-9) when specifically measured at the aortic root
-  - **""Left ventricular Cardiac output by US""** (LOINC 24526-6) for general ultrasound-based measurements
-
-- **2D/3D echocardiography with calculated methods** estimate cardiac output from ventricular volumes using various geometric formulas:
-  - **Simpson method** (modified biplane): most commonly used, sums multiple discs to estimate ventricular volume
-  - **Teichholz method**: assumes ellipsoid geometry from M-mode measurements
-  - **Cube method**: simplified geometric assumption
-  - **Bullet method, Area-length method**: alternative geometric approaches
-  - Select the most specific concept matching your calculation method (e.g., LOINC 20209-3 for modified Simpson method)
-
-**Invasive/catheter-based methods:**
-- **""Left ventricular Cardiac output by Fick method""** (LOINC 8736-1): gold standard method using oxygen consumption and arteriovenous oxygen difference
-- **""Left ventricular Cardiac output by Indicator dilution""** (LOINC 8737-9): includes thermodilution and other indicator-based techniques
-- **""Left ventricular Cardiac output by Angiography""** (LOINC 8732-0 for biplane, 8733-8 for single plane): radiographic contrast-based measurement
-
-**Imaging-based methods:**
-- **""Left ventricular Cardiac output by MR""** (LOINC 8738-7): magnetic resonance imaging
-- **""Left ventricular Cardiac output by Spiral CT""** (LOINC 8734-6): computed tomography
-- **""Left ventricular Cardiac output by Nuclear blood pool""** (LOINC 8739-5): nuclear medicine techniques
-
-**Continuous vs intermittent monitoring:**
-- **""Left ventricular Cardiac output by Continuous""** (LOINC 76519-8): for continuous monitoring systems (e.g., PiCCO, FloTrac)
-- **""Left ventricular Cardiac output by Intermittent measure""** (LOINC 61014-7): for intermittent/bolus measurements
-
-## 2. **Right Ventricular Cardiac Output (RVCO)**
-Right ventricular cardiac output measures blood flow from the right ventricle into the pulmonary circulation. This is less commonly measured but critical in specific clinical contexts (e.g., pulmonary hypertension, right heart failure, intracardiac shunts).
-
-**Key concepts:**
-- **""Right ventricular cardiac output""** (SNOMED 428628004): generic right ventricular measurement
-- **""Right ventricular Cardiac output by Fick method""** (LOINC 101150-1): oxygen-based calculation
-- **""Right ventricular Cardiac output by Indicator dilution""** (LOINC 101151-9): includes pulmonary artery thermodilution (Swan-Ganz catheter)
-- **""Right ventricular Cardiac output by US 2D tricuspid valve""** (LOINC 20214-3): echocardiographic measurement through the tricuspid valve
-
-**Important clinical note:** The Swan-Ganz catheter (pulmonary artery catheter) technically measures **right ventricular cardiac output** via thermodilution in the pulmonary artery, even though it is often clinically referred to as simply ""cardiac output."" In physiological conditions without shunts, LVCO equals RVCO.
-
-## 3. **Pulmonary Artery Measurements**
-- **""Pulmonary artery Cardiac output by US""** (LOINC 17994-5): ultrasound measurement of blood flow through the pulmonary artery, representing right ventricular output
-
-## 4. **Generic Ventricular Measurements**
-- **""Ventricular Cardiac output by 2D echo""** (LOINC 8731-2): when laterality (left vs right) is not specified
-- **""Ventricular Cardiac output by US.2D+Calculated by modified Simpson method""** (LOINC 20209-3): generic ventricular measurement using Simpson's method
-
-# Clinical Context and Method Selection Guide
-
-**For intensive care/critical care monitoring:**
-- Thermodilution methods (Swan-Ganz, PiCCO) → Use ""Indicator dilution"" concepts
-- Pulse contour analysis (FloTrac, LiDCO, PiCCO) → Use ""Continuous"" measurement concepts
-- Point-of-care ultrasound → Use specific Doppler or 2D ultrasound concepts
-
-**For cardiology assessments:**
-- Transthoracic echocardiography (TTE) → Use LVOT Doppler or 2D calculated methods
-- Transesophageal echocardiography (TEE) → Use appropriate ultrasound-based concepts
-- Cardiac catheterization → Use Fick method or indicator dilution concepts
-- Cardiac MRI → Use ""by MR"" concept
-
-**For research/specialized centers:**
-- Advanced imaging (CT, nuclear medicine) → Use modality-specific concepts
-
-# Default Mapping Rule
-
-**If the measurement method and anatomical location are completely unknown or undocumented**, use the generic **""Cardiac output""** concept (SNOMED 82799009). However, this should be avoided whenever possible as it loses important clinical context about how the measurement was obtained."
 13967,2025-11-26 14:59:39,Boris Delange,insert,327,LOINC,68999-2,Heart rate --supine,Added OMOP concept mapping
 13968,2025-11-26 14:59:39,Boris Delange,insert,327,LOINC,69000-8,Heart rate --sitting,Added OMOP concept mapping
 13969,2025-11-26 14:59:39,Boris Delange,insert,327,LOINC,69001-6,Heart rate --standing,Added OMOP concept mapping
@@ -14518,3 +14279,1066 @@ For most use cases, we recommend capturing patient position or clinical context 
 13994,2025-11-26 17:06:19,Boris Delange,recommend,327,LOINC,8893-0,Heart rate Peripheral artery by palpation,Marked as recommended
 13995,2025-11-26 17:06:19,Boris Delange,recommend,327,LOINC,76477-9,Heart rate by Noninvasive,Marked as recommended
 13996,2025-11-26 17:06:19,Boris Delange,recommend,327,LOINC,76476-1,Heart rate by Transthoracic impedance,Marked as recommended
+13997,2025-11-28 09:56:50,Boris Delange,insert,328,LOINC,8458-2,Mean blood pressure--supine,Added OMOP concept mapping
+13998,2025-11-28 09:56:50,Boris Delange,insert,328,LOINC,8478-0,Mean blood pressure,Added OMOP concept mapping
+13999,2025-11-28 09:56:51,Boris Delange,insert,328,SNOMED,6797001,Mean blood pressure,Added OMOP concept mapping
+14000,2025-11-28 09:56:51,Boris Delange,insert,328,LOINC,75996-9,Mean blood pressure by Continuous non-invasive monitoring,Added OMOP concept mapping
+14001,2025-11-28 09:56:51,Boris Delange,insert,328,LOINC,76536-2,Mean blood pressure by Noninvasive,Added OMOP concept mapping
+14002,2025-11-28 09:56:51,Boris Delange,insert,328,LOINC,95821-5,Mean blood pressure by Noninvasive--during anesthesia,Added OMOP concept mapping
+14003,2025-11-28 09:56:51,Boris Delange,insert,328,LOINC,95822-3,Mean blood pressure--during anesthesia,Added OMOP concept mapping
+14004,2025-11-28 09:56:51,Boris Delange,insert,328,LOINC,8448-3,Mean blood pressure--expiration,Added OMOP concept mapping
+14005,2025-11-28 09:56:51,Boris Delange,insert,328,LOINC,8449-1,Mean blood pressure--inspiration,Added OMOP concept mapping
+14006,2025-11-28 09:56:51,Boris Delange,insert,328,LOINC,8456-6,Mean blood pressure--sitting,Added OMOP concept mapping
+14007,2025-11-28 09:56:51,Boris Delange,insert,328,LOINC,8457-4,Mean blood pressure--standing,Added OMOP concept mapping
+14008,2025-11-28 09:56:51,Boris Delange,insert,328,LOINC,76214-6,Invasive Mean blood pressure,Added OMOP concept mapping
+14009,2025-11-28 09:56:51,Boris Delange,insert,328,LOINC,8418-6,Renal artery - right Mean blood pressure,Added OMOP concept mapping
+14010,2025-11-28 09:56:51,Boris Delange,insert,328,LOINC,8542-3,Radial artery - left Mean blood pressure,Added OMOP concept mapping
+14011,2025-11-28 09:56:51,Boris Delange,insert,328,LOINC,8543-1,Radial artery - right Mean blood pressure,Added OMOP concept mapping
+14012,2025-11-28 09:56:51,Boris Delange,insert,328,LOINC,8506-8,Radial artery Mean blood pressure,Added OMOP concept mapping
+14013,2025-11-28 09:56:51,Boris Delange,insert,328,LOINC,8417-8,Renal artery - left Mean blood pressure,Added OMOP concept mapping
+14014,2025-11-28 09:56:51,Boris Delange,insert,328,LOINC,8534-0,Femoral artery - left Mean blood pressure,Added OMOP concept mapping
+14015,2025-11-28 09:56:51,Boris Delange,insert,328,LOINC,8535-7,Femoral artery - right Mean blood pressure,Added OMOP concept mapping
+14016,2025-11-28 09:56:51,Boris Delange,insert,328,LOINC,8504-3,Femoral artery Mean blood pressure,Added OMOP concept mapping
+14017,2025-11-28 13:48:29,Boris Delange,delete,328,SNOMED,371830008,Pulmonary vein mean wedge pressure,Deleted OMOP concept mapping
+14018,2025-11-28 13:48:29,Boris Delange,recommend,328,LOINC,8534-0,Femoral artery - left Mean blood pressure,Marked as recommended
+14019,2025-11-28 13:48:29,Boris Delange,recommend,328,LOINC,8535-7,Femoral artery - right Mean blood pressure,Marked as recommended
+14020,2025-11-28 13:48:29,Boris Delange,recommend,328,LOINC,8504-3,Femoral artery Mean blood pressure,Marked as recommended
+14021,2025-11-28 13:48:29,Boris Delange,recommend,328,LOINC,76214-6,Invasive Mean blood pressure,Marked as recommended
+14022,2025-11-28 13:48:29,Boris Delange,recommend,328,LOINC,8478-0,Mean blood pressure,Marked as recommended
+14023,2025-11-28 13:48:29,Boris Delange,recommend,328,SNOMED,6797001,Mean blood pressure,Marked as recommended
+14024,2025-11-28 13:48:29,Boris Delange,recommend,328,LOINC,75996-9,Mean blood pressure by Continuous non-invasive monitoring,Marked as recommended
+14025,2025-11-28 13:48:29,Boris Delange,recommend,328,LOINC,76536-2,Mean blood pressure by Noninvasive,Marked as recommended
+14026,2025-11-28 13:48:29,Boris Delange,recommend,328,LOINC,8542-3,Radial artery - left Mean blood pressure,Marked as recommended
+14027,2025-11-28 13:48:30,Boris Delange,recommend,328,LOINC,8543-1,Radial artery - right Mean blood pressure,Marked as recommended
+14028,2025-11-28 13:48:31,Boris Delange,recommend,328,LOINC,8506-8,Radial artery Mean blood pressure,Marked as recommended
+14029,2025-11-28 13:48:31,Boris Delange,recommend,328,LOINC,8417-8,Renal artery - left Mean blood pressure,Marked as recommended
+14030,2025-11-28 13:48:31,Boris Delange,recommend,328,LOINC,8418-6,Renal artery - right Mean blood pressure,Marked as recommended
+14031,2025-11-28 15:14:18,Boris Delange,update,328,NA,NA,Mean blood pressure,"Updated ETL guidance comment: # Definition
+
+Mean arterial pressure (MAP) represents the average arterial pressure throughout the cardiac cycle, expressed in **millimeters of mercury (mmHg)**. Normal MAP in adults typically ranges from approximately 70-100 mmHg. It is a critical hemodynamic parameter used to assess tissue perfusion, particularly in intensive care and critical care settings.
+
+# Mapping Strategy
+
+LOINC uses **post-coordinated concepts** that combine multiple dimensions (measurement method + position + anatomical location) into single codes. This can create redundancy when only one dimension (e.g., invasive vs non-invasive method) is documented. For most ICU use cases, we recommend capturing the measurement method and linking position or anatomical location separately via OMOP FACT_RELATIONSHIP table.
+
+Prioritize the **measurement method** (invasive vs non-invasive) over position or anatomical location modifiers.
+
+## Recommended concepts
+
+**Default concepts:**
+
+- **Mean blood pressure** (SNOMED 6797001): Use when measurement method is unspecified
+- **Mean blood pressure** (LOINC 8478-0): Alternative generic concept when method is unspecified
+- **Mean arterial pressure** (SNOMED 1285244000): Alternative generic concept
+
+**Measurement method concepts:**
+
+- **Invasive mean arterial pressure** (SNOMED 4108290): Invasive measurement via arterial catheter (most accurate for intensive care unit monitoring)
+- **Invasive Mean blood pressure** (LOINC 76214-6): Alternative LOINC code for invasive arterial line measurement
+- **Non-invasive mean arterial pressure** (SNOMED 4108289): Non-invasive measurement via automated blood pressure cuff
+- **Mean blood pressure by Noninvasive** (LOINC 76536-2): Generic non-invasive measurement
+- **Mean blood pressure by Continuous non-invasive monitoring** (LOINC 75996-9): Continuous non-invasive monitoring systems
+
+## Not recommended for routine use
+
+Use these concepts **only when position, anatomical location, or clinical context is the primary clinical focus** (e.g., orthostatic vital sign assessment, specific arterial pressure monitoring for research).
+
+For most use cases, we recommend capturing patient position or specific arterial location separately using OMOP FACT_RELATIONSHIP table linked to SNOMED position concepts (e.g., ""Supine body position"" SNOMED 4221822, ""Sitting position"" SNOMED 4142787) or anatomical site concepts rather than using post-coordinated LOINC concepts.
+
+**Specific concepts by patient position:**
+
+- **Mean blood pressure--supine** (LOINC 8458-2): Measured while patient is lying flat
+- **Mean blood pressure--sitting** (LOINC 8456-6): Measured while patient is seated
+- **Mean blood pressure--standing** (LOINC 8457-4): Measured while patient is upright/standing
+
+**Specific concepts by clinical context:**
+
+- **Mean blood pressure--during anesthesia** (LOINC 95822-3): Measured intraoperatively under anesthesia
+- **Mean blood pressure by Noninvasive--during anesthesia** (LOINC 95821-5): Non-invasive measurement during anesthesia
+- **Mean blood pressure--expiration** (LOINC 8448-3): Measured during expiratory phase of respiration
+- **Mean blood pressure--inspiration** (LOINC 8449-1): Measured during inspiratory phase of respiration
+
+**Specific concepts by anatomical location (arterial catheter site):**
+
+- **Radial artery Mean blood pressure** (LOINC 8506-8): Invasive measurement from radial artery catheter
+- **Radial artery - left Mean blood pressure** (LOINC 8542-3): Left radial artery
+- **Radial artery - right Mean blood pressure** (LOINC 8543-1): Right radial artery
+- **Femoral artery Mean blood pressure** (LOINC 8504-3): Invasive measurement from femoral artery catheter
+- **Femoral artery - left Mean blood pressure** (LOINC 8534-0): Left femoral artery
+- **Femoral artery - right Mean blood pressure** (LOINC 8535-7): Right femoral artery
+- **Renal artery - left Mean blood pressure** (LOINC 8417-8): Left renal artery (specialized use)
+- **Renal artery - right Mean blood pressure** (LOINC 8418-6): Right renal artery (specialized use)
+
+# Important Notes
+
+- **Prioritize measurement method over position/location**: Use ""Invasive mean arterial pressure"" or ""Non-invasive mean arterial pressure"" rather than position-specific or anatomical site-specific concepts unless the specific site is clinically critical
+- **For combined information**: If both measurement method and position/anatomical site are documented and clinically important, use FACT_RELATIONSHIP to link the measurement method concept to a SNOMED position or anatomical site concept
+- **MAP calculation**: MAP can be measured directly (invasive arterial line) or calculated from systolic and diastolic pressures (MAP ≈ DBP + 1/3(SBP - DBP))"
+14032,2025-11-28 15:30:53,Boris Delange,update,328,NA,NA,Mean blood pressure,"Updated ETL guidance comment: # Definition
+
+Mean arterial pressure (MAP) represents the average arterial pressure throughout the cardiac cycle, expressed in **millimeters of mercury (mmHg)**. Normal MAP in adults typically ranges from approximately 70-100 mmHg. It is a critical hemodynamic parameter used to assess tissue perfusion, particularly in intensive care and critical care settings.
+
+# Mapping Strategy
+
+LOINC uses **post-coordinated concepts** that combine multiple dimensions (measurement method + position + anatomical location) into single codes. This can create redundancy when only one dimension (e.g., invasive vs non-invasive method) is documented. For most ICU use cases, we recommend capturing the measurement method and linking position or anatomical location separately via OMOP FACT_RELATIONSHIP table.
+
+Prioritize the **measurement method** (invasive vs non-invasive) over position or anatomical location modifiers.
+
+## Recommended concepts
+
+**Default concepts:**
+
+- **Mean blood pressure** (SNOMED 6797001): Use when measurement method is unspecified
+- **Mean blood pressure** (LOINC 8478-0): Alternative generic concept when method is unspecified
+- **Mean arterial pressure** (SNOMED 1285244000): Alternative generic concept
+
+**Measurement method concepts:**
+
+- **Invasive mean arterial pressure** (SNOMED 4108290): Invasive measurement via arterial catheter (most accurate for intensive care unit monitoring)
+- **Invasive Mean blood pressure** (LOINC 76214-6): Alternative LOINC code for invasive arterial line measurement
+- **Non-invasive mean arterial pressure** (SNOMED 4108289): Non-invasive measurement via automated blood pressure cuff
+- **Mean blood pressure by Noninvasive** (LOINC 76536-2): Generic non-invasive measurement
+- **Mean blood pressure by Continuous non-invasive monitoring** (LOINC 75996-9): Continuous non-invasive monitoring systems
+
+## Not recommended for routine use
+
+Use these concepts **only when position, anatomical location, or clinical context is the primary clinical focus** (e.g., orthostatic vital sign assessment, specific arterial pressure monitoring for research).
+
+For most use cases, we recommend capturing patient position or specific arterial location separately using OMOP FACT_RELATIONSHIP table linked to SNOMED position concepts (e.g., ""Supine body position"" SNOMED 4221822, ""Sitting position"" SNOMED 4142787) or anatomical site concepts rather than using post-coordinated LOINC concepts.
+
+For measurements taken from arterial catheters at specific anatomical locations, you can link the measurement to the patient's arterial catheter device (domain_id Device) via FACT_RELATIONSHIP. See the general concept ""Arterial catheter"" for device mapping guidance.
+
+**Specific concepts by patient position:**
+
+- **Mean blood pressure--supine** (LOINC 8458-2): Measured while patient is lying flat
+- **Mean blood pressure--sitting** (LOINC 8456-6): Measured while patient is seated
+- **Mean blood pressure--standing** (LOINC 8457-4): Measured while patient is upright/standing
+
+**Specific concepts by clinical context:**
+
+- **Mean blood pressure--during anesthesia** (LOINC 95822-3): Measured intraoperatively under anesthesia
+- **Mean blood pressure by Noninvasive--during anesthesia** (LOINC 95821-5): Non-invasive measurement during anesthesia
+- **Mean blood pressure--expiration** (LOINC 8448-3): Measured during expiratory phase of respiration
+- **Mean blood pressure--inspiration** (LOINC 8449-1): Measured during inspiratory phase of respiration
+
+**Specific concepts by anatomical location (arterial catheter site):**
+
+- **Radial artery Mean blood pressure** (LOINC 8506-8): Invasive measurement from radial artery catheter
+- **Radial artery - left Mean blood pressure** (LOINC 8542-3): Left radial artery
+- **Radial artery - right Mean blood pressure** (LOINC 8543-1): Right radial artery
+- **Femoral artery Mean blood pressure** (LOINC 8504-3): Invasive measurement from femoral artery catheter
+- **Femoral artery - left Mean blood pressure** (LOINC 8534-0): Left femoral artery
+- **Femoral artery - right Mean blood pressure** (LOINC 8535-7): Right femoral artery
+- **Renal artery - left Mean blood pressure** (LOINC 8417-8): Left renal artery (specialized use)
+- **Renal artery - right Mean blood pressure** (LOINC 8418-6): Right renal artery (specialized use)
+
+# Important Notes
+
+- **Prioritize measurement method over position/location**: Use ""Invasive mean arterial pressure"" or ""Non-invasive mean arterial pressure"" rather than position-specific or anatomical site-specific concepts unless the specific site is clinically critical
+- **For combined information**: If both measurement method and position/anatomical site are documented and clinically important, use FACT_RELATIONSHIP to link the measurement method concept to a SNOMED position or anatomical site concept
+- **MAP calculation**: MAP can be measured directly or calculated from systolic and diastolic pressures (MAP ≈ DBP + 1/3(SBP - DBP))"
+14033,2025-11-28 15:40:02,Boris Delange,unrecommend,328,SNOMED,6797001,Mean blood pressure,Unmarked as recommended
+14034,2025-11-28 15:40:03,Boris Delange,unrecommend,328,LOINC,8478-0,Mean blood pressure,Unmarked as recommended
+14035,2025-11-28 15:40:03,Boris Delange,unrecommend,328,LOINC,76214-6,Invasive Mean blood pressure,Unmarked as recommended
+14036,2025-11-28 15:40:03,Boris Delange,unrecommend,328,LOINC,8504-3,Femoral artery Mean blood pressure,Unmarked as recommended
+14037,2025-11-28 15:40:03,Boris Delange,unrecommend,328,LOINC,8535-7,Femoral artery - right Mean blood pressure,Unmarked as recommended
+14038,2025-11-28 15:40:03,Boris Delange,unrecommend,328,LOINC,8534-0,Femoral artery - left Mean blood pressure,Unmarked as recommended
+14039,2025-11-28 15:40:03,Boris Delange,unrecommend,328,LOINC,76536-2,Mean blood pressure by Noninvasive,Unmarked as recommended
+14040,2025-11-28 15:40:03,Boris Delange,unrecommend,328,LOINC,75996-9,Mean blood pressure by Continuous non-invasive monitoring,Unmarked as recommended
+14041,2025-11-28 15:40:03,Boris Delange,unrecommend,328,LOINC,8542-3,Radial artery - left Mean blood pressure,Unmarked as recommended
+14042,2025-11-28 15:40:03,Boris Delange,unrecommend,328,LOINC,8543-1,Radial artery - right Mean blood pressure,Unmarked as recommended
+14043,2025-11-28 15:40:03,Boris Delange,unrecommend,328,LOINC,8506-8,Radial artery Mean blood pressure,Unmarked as recommended
+14044,2025-11-28 15:40:03,Boris Delange,unrecommend,328,LOINC,8417-8,Renal artery - left Mean blood pressure,Unmarked as recommended
+14045,2025-11-28 15:40:03,Boris Delange,unrecommend,328,LOINC,8418-6,Renal artery - right Mean blood pressure,Unmarked as recommended
+14046,2025-11-28 15:40:16,Boris Delange,update,328,NA,NA,Mean arterial pressure,"Updated ETL guidance comment: # Definition
+
+Mean arterial pressure (MAP) represents the average arterial pressure throughout the cardiac cycle, expressed in **millimeters of mercury (mmHg)**. Normal MAP in adults typically ranges from approximately 70-100 mmHg. It is a critical hemodynamic parameter used to assess tissue perfusion, particularly in intensive care and critical care settings.
+
+# Mapping Strategy
+
+LOINC uses **post-coordinated concepts** that combine multiple dimensions (measurement method + position + anatomical location) into single codes. This can create redundancy when only one dimension (e.g., invasive vs non-invasive method) is documented. For most ICU use cases, we recommend capturing the measurement method and linking position or anatomical location separately via OMOP FACT_RELATIONSHIP table.
+
+Prioritize the **measurement method** (invasive vs non-invasive) over position or anatomical location modifiers.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Mean arterial pressure** (SNOMED 1285244000): Use when measurement method is unspecified
+
+**Note on ""Mean blood pressure"" concepts:**
+- **Mean blood pressure** (SNOMED 6797001) is not recommended as the default concept because in SNOMED it is the parent concept for various pressure measurements including both arterial and venous pressures (e.g., ""Venous mean pressure"", ""Mean right atrial pressure"", ""Mean arterial pressure""). This can create ambiguity.
+- **Mean blood pressure** (LOINC 8478-0) refers specifically to arterial pressure, but we prefer the more explicit SNOMED ""Mean arterial pressure"" concept to avoid confusion.
+
+**Measurement method concepts:**
+
+- **Invasive mean arterial pressure** (SNOMED 4108290): Invasive measurement via arterial catheter (most accurate for intensive care unit monitoring)
+- **Invasive Mean blood pressure** (LOINC 76214-6): Alternative LOINC code for invasive arterial line measurement
+- **Non-invasive mean arterial pressure** (SNOMED 4108289): Non-invasive measurement via automated blood pressure cuff
+- **Mean blood pressure by Noninvasive** (LOINC 76536-2): Generic non-invasive measurement
+- **Mean blood pressure by Continuous non-invasive monitoring** (LOINC 75996-9): Continuous non-invasive monitoring systems
+
+## Not recommended for routine use
+
+Use these concepts **only when position, anatomical location, or clinical context is the primary clinical focus** (e.g., orthostatic vital sign assessment, specific arterial pressure monitoring for research).
+
+For most use cases, we recommend capturing patient position or specific arterial location separately using OMOP FACT_RELATIONSHIP table linked to SNOMED position concepts (e.g., ""Supine body position"" SNOMED 4221822, ""Sitting position"" SNOMED 4142787) or anatomical site concepts rather than using post-coordinated LOINC concepts.
+
+For measurements taken from arterial catheters at specific anatomical locations, you can link the measurement to the patient's arterial catheter device (domain_id Device) via FACT_RELATIONSHIP. See the general concept ""Arterial catheter"" for device mapping guidance.
+
+**Specific concepts by patient position:**
+
+- **Mean blood pressure--supine** (LOINC 8458-2): Measured while patient is lying flat
+- **Mean blood pressure--sitting** (LOINC 8456-6): Measured while patient is seated
+- **Mean blood pressure--standing** (LOINC 8457-4): Measured while patient is upright/standing
+
+**Specific concepts by clinical context:**
+
+- **Mean blood pressure--during anesthesia** (LOINC 95822-3): Measured intraoperatively under anesthesia
+- **Mean blood pressure by Noninvasive--during anesthesia** (LOINC 95821-5): Non-invasive measurement during anesthesia
+- **Mean blood pressure--expiration** (LOINC 8448-3): Measured during expiratory phase of respiration
+- **Mean blood pressure--inspiration** (LOINC 8449-1): Measured during inspiratory phase of respiration
+
+**Specific concepts by anatomical location (arterial catheter site):**
+
+- **Radial artery Mean blood pressure** (LOINC 8506-8): Invasive measurement from radial artery catheter
+- **Radial artery - left Mean blood pressure** (LOINC 8542-3): Left radial artery
+- **Radial artery - right Mean blood pressure** (LOINC 8543-1): Right radial artery
+- **Femoral artery Mean blood pressure** (LOINC 8504-3): Invasive measurement from femoral artery catheter
+- **Femoral artery - left Mean blood pressure** (LOINC 8534-0): Left femoral artery
+- **Femoral artery - right Mean blood pressure** (LOINC 8535-7): Right femoral artery
+- **Renal artery - left Mean blood pressure** (LOINC 8417-8): Left renal artery (specialized use)
+- **Renal artery - right Mean blood pressure** (LOINC 8418-6): Right renal artery (specialized use)
+
+# Important Notes
+
+- **Prioritize measurement method over position/location**: Use ""Invasive mean arterial pressure"" or ""Non-invasive mean arterial pressure"" rather than position-specific or anatomical site-specific concepts unless the specific site is clinically critical
+- **For combined information**: If both measurement method and position/anatomical site are documented and clinically important, use FACT_RELATIONSHIP to link the measurement method concept to a SNOMED position or anatomical site concept
+- **MAP calculation**: MAP can be measured directly or calculated from systolic and diastolic pressures (MAP ≈ DBP + 1/3(SBP - DBP))
+- **Prefer explicit ""arterial"" terminology**: Use SNOMED concepts with ""arterial"" explicitly in the name to avoid confusion with venous pressure measurements"
+14047,2025-11-28 15:42:01,Boris Delange,update,328,NA,NA,Mean arterial pressure,"Updated ETL guidance comment: # Definition
+
+Mean arterial pressure (MAP) represents the average arterial pressure throughout the cardiac cycle, expressed in **millimeters of mercury (mmHg)**. Normal MAP in adults typically ranges from approximately 70-100 mmHg. It is a critical hemodynamic parameter used to assess tissue perfusion, particularly in intensive care and critical care settings.
+
+# Mapping Strategy
+
+LOINC uses **post-coordinated concepts** that combine multiple dimensions (measurement method + position + anatomical location) into single codes. This can create redundancy when only one dimension (e.g., invasive vs non-invasive method) is documented. For most ICU use cases, we recommend capturing the measurement method and linking position or anatomical location separately via OMOP FACT_RELATIONSHIP table.
+
+Prioritize the **measurement method** (invasive vs non-invasive) over position or anatomical location modifiers.
+
+**Note on ""Mean blood pressure"" concepts:**
+- **Mean blood pressure** (SNOMED 6797001) is not recommended as the default concept because in SNOMED it is the parent concept for various pressure measurements including both arterial and venous pressures (e.g., ""Venous mean pressure"", ""Mean right atrial pressure"", ""Mean arterial pressure""). This can create ambiguity.
+- **Mean blood pressure** (LOINC 8478-0) refers specifically to arterial pressure, but we prefer the more explicit SNOMED ""Mean arterial pressure"" concept to avoid confusion.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Mean arterial pressure** (SNOMED 1285244000): Use when measurement method is unspecified
+
+**Measurement method concepts:**
+
+- **Invasive mean arterial pressure** (SNOMED 4108290): Invasive measurement via arterial catheter (most accurate for intensive care unit monitoring)
+- **Non-invasive mean arterial pressure** (SNOMED 4108289): Non-invasive measurement via automated blood pressure cuff
+
+## Not recommended for routine use
+
+Use these concepts **only when position, anatomical location, or clinical context is the primary clinical focus** (e.g., orthostatic vital sign assessment, specific arterial pressure monitoring for research).
+
+For most use cases, we recommend capturing patient position or specific arterial location separately using OMOP FACT_RELATIONSHIP table linked to SNOMED position concepts (e.g., ""Supine body position"" SNOMED 4221822, ""Sitting position"" SNOMED 4142787) or anatomical site concepts rather than using post-coordinated LOINC concepts.
+
+For measurements taken from arterial catheters at specific anatomical locations, you can link the measurement to the patient's arterial catheter device (domain_id Device) via FACT_RELATIONSHIP. See the general concept ""Arterial catheter"" for device mapping guidance.
+
+**Generic ""Mean blood pressure"" concepts (use explicit ""arterial"" concepts instead):**
+
+- **Mean blood pressure** (SNOMED 6797001): Ambiguous - includes both arterial and venous pressures
+- **Mean blood pressure** (LOINC 8478-0): Refers to arterial pressure but lacks explicit terminology
+- **Invasive Mean blood pressure** (LOINC 76214-6): Use ""Invasive mean arterial pressure"" (SNOMED 4108290) instead
+- **Mean blood pressure by Noninvasive** (LOINC 76536-2): Use ""Non-invasive mean arterial pressure"" (SNOMED 4108289) instead
+- **Mean blood pressure by Continuous non-invasive monitoring** (LOINC 75996-9): Use ""Non-invasive mean arterial pressure"" (SNOMED 4108289) instead
+
+**Specific concepts by patient position:**
+
+- **Mean blood pressure--supine** (LOINC 8458-2): Measured while patient is lying flat
+- **Mean blood pressure--sitting** (LOINC 8456-6): Measured while patient is seated
+- **Mean blood pressure--standing** (LOINC 8457-4): Measured while patient is upright/standing
+
+**Specific concepts by clinical context:**
+
+- **Mean blood pressure--during anesthesia** (LOINC 95822-3): Measured intraoperatively under anesthesia
+- **Mean blood pressure by Noninvasive--during anesthesia** (LOINC 95821-5): Non-invasive measurement during anesthesia
+- **Mean blood pressure--expiration** (LOINC 8448-3): Measured during expiratory phase of respiration
+- **Mean blood pressure--inspiration** (LOINC 8449-1): Measured during inspiratory phase of respiration
+
+**Specific concepts by anatomical location (arterial catheter site):**
+
+- **Radial artery Mean blood pressure** (LOINC 8506-8): Invasive measurement from radial artery catheter
+- **Radial artery - left Mean blood pressure** (LOINC 8542-3): Left radial artery
+- **Radial artery - right Mean blood pressure** (LOINC 8543-1): Right radial artery
+- **Femoral artery Mean blood pressure** (LOINC 8504-3): Invasive measurement from femoral artery catheter
+- **Femoral artery - left Mean blood pressure** (LOINC 8534-0): Left femoral artery
+- **Femoral artery - right Mean blood pressure** (LOINC 8535-7): Right femoral artery
+- **Renal artery - left Mean blood pressure** (LOINC 8417-8): Left renal artery (specialized use)
+- **Renal artery - right Mean blood pressure** (LOINC 8418-6): Right renal artery (specialized use)
+
+# Important Notes
+
+- **Prioritize measurement method over position/location**: Use ""Invasive mean arterial pressure"" or ""Non-invasive mean arterial pressure"" rather than position-specific or anatomical site-specific concepts unless the specific site is clinically critical
+- **For combined information**: If both measurement method and position/anatomical site are documented and clinically important, use FACT_RELATIONSHIP to link the measurement method concept to a SNOMED position or anatomical site concept
+- **MAP calculation**: MAP can be measured directly or calculated from systolic and diastolic pressures (MAP ≈ DBP + 1/3(SBP - DBP))
+- **Prefer explicit ""arterial"" terminology**: Use SNOMED concepts with ""arterial"" explicitly in the name to avoid confusion with venous pressure measurements"
+14048,2025-11-28 15:50:23,Boris Delange,insert,329,LOINC,8553-0,Femoral artery - left Systolic blood pressure,Added OMOP concept mapping
+14049,2025-11-28 15:50:23,Boris Delange,insert,329,LOINC,8554-8,Femoral artery - right Systolic blood pressure,Added OMOP concept mapping
+14050,2025-11-28 15:50:23,Boris Delange,insert,329,LOINC,8510-0,Femoral artery Systolic blood pressure,Added OMOP concept mapping
+14051,2025-11-28 15:50:23,Boris Delange,insert,329,LOINC,76215-3,Invasive Systolic blood pressure,Added OMOP concept mapping
+14052,2025-11-28 15:50:23,Boris Delange,insert,329,SNOMED,1036551000000101,Non-invasive central systolic blood pressure,Added OMOP concept mapping
+14053,2025-11-28 15:50:23,Boris Delange,insert,329,LOINC,8567-0,Radial artery - left Systolic blood pressure,Added OMOP concept mapping
+14054,2025-11-28 15:50:23,Boris Delange,insert,329,LOINC,8568-8,Radial artery - right Systolic blood pressure,Added OMOP concept mapping
+14055,2025-11-28 15:50:23,Boris Delange,insert,329,LOINC,8512-6,Radial artery Systolic blood pressure,Added OMOP concept mapping
+14056,2025-11-28 15:50:23,Boris Delange,insert,329,LOINC,8480-6,Systolic blood pressure,Added OMOP concept mapping
+14057,2025-11-28 15:50:23,Boris Delange,insert,329,SNOMED,271649006,Systolic blood pressure,Added OMOP concept mapping
+14058,2025-11-28 15:50:23,Boris Delange,insert,329,LOINC,76534-7,Systolic blood pressure by Noninvasive,Added OMOP concept mapping
+14059,2025-11-28 15:50:23,Boris Delange,insert,329,LOINC,75997-7,Systolic blood pressure by Continuous non-invasive monitoring,Added OMOP concept mapping
+14060,2025-11-28 15:50:23,Boris Delange,insert,329,LOINC,8479-8,Systolic blood pressure by palpation,Added OMOP concept mapping
+14061,2025-11-28 15:50:23,Boris Delange,insert,329,LOINC,8450-9,Systolic blood pressure--expiration,Added OMOP concept mapping
+14062,2025-11-28 15:50:23,Boris Delange,insert,329,LOINC,8451-7,Systolic blood pressure--inspiration,Added OMOP concept mapping
+14063,2025-11-28 15:50:24,Boris Delange,insert,329,LOINC,89268-7,Systolic blood pressure--lying in L-lateral position,Added OMOP concept mapping
+14064,2025-11-28 15:50:24,Boris Delange,insert,329,LOINC,87741-5,Systolic blood pressure--post exercise,Added OMOP concept mapping
+14065,2025-11-28 15:50:24,Boris Delange,insert,329,LOINC,8459-0,Systolic blood pressure--sitting,Added OMOP concept mapping
+14066,2025-11-28 15:50:24,Boris Delange,insert,329,LOINC,8460-8,Systolic blood pressure--standing,Added OMOP concept mapping
+14067,2025-11-28 15:50:24,Boris Delange,insert,329,LOINC,8461-6,Systolic blood pressure--supine,Added OMOP concept mapping
+14068,2025-11-28 15:50:24,Boris Delange,insert,329,LOINC,87739-9,Systolic blood pressure--W exercise,Added OMOP concept mapping
+14069,2025-11-28 15:50:24,Boris Delange,insert,329,LOINC,89280-2,Systolic blood pressure--during anesthesia,Added OMOP concept mapping
+14070,2025-11-28 15:57:19,Boris Delange,update,329,NA,NA,Systolic arterial pressure,"Updated ETL guidance comment: # Definition
+
+Systolic arterial pressure represents the peak arterial pressure during ventricular systole (heart contraction), expressed in **millimeters of mercury (mmHg)**. Normal systolic blood pressure in adults typically ranges from approximately 90-140 mmHg. It is a fundamental hemodynamic parameter used to assess cardiovascular function and tissue perfusion, particularly in intensive care and critical care settings.
+
+# Mapping Strategy
+
+LOINC uses **post-coordinated concepts** that combine multiple dimensions (measurement method + position + anatomical location) into single codes. This can create redundancy when only one dimension (e.g., invasive vs non-invasive method) is documented. For most ICU use cases, we recommend capturing the measurement method and linking position or anatomical location separately via OMOP FACT_RELATIONSHIP table.
+
+Prioritize the **measurement method** (invasive vs non-invasive) over position or anatomical location modifiers.
+
+**Note on ""Systolic blood pressure"" concepts:**
+- **Systolic blood pressure** (SNOMED 271649006) is not recommended as the default concept because in SNOMED it is the parent concept for various systolic pressure measurements including both arterial and venous pressures (analogous to ""Mean blood pressure""). This can create ambiguity.
+- **Systolic blood pressure** (LOINC 8480-6) refers specifically to arterial pressure, but we prefer the more explicit SNOMED ""Systolic arterial pressure"" concept to avoid confusion.
+
+**For combined information**: If both measurement method and position/anatomical site are documented and clinically important, use FACT_RELATIONSHIP to link the measurement method concept to a SNOMED position or anatomical site concept.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Systolic arterial pressure** (SNOMED 72313002): Use when measurement method is unspecified
+
+**Measurement method concepts:**
+
+- **Invasive systolic arterial pressure** (SNOMED 251071003): Invasive measurement via arterial catheter (most accurate for intensive care unit monitoring)
+- **Non-invasive systolic arterial pressure** (SNOMED 251070002): Non-invasive measurement via automated blood pressure cuff or manual auscultation
+
+## Not recommended for routine use
+
+Use these concepts **only when position, anatomical location, or clinical context is the primary clinical focus** (e.g., orthostatic vital sign assessment, exercise stress testing, specific arterial pressure monitoring for research).
+
+For most use cases, we recommend capturing patient position or specific arterial location separately using OMOP FACT_RELATIONSHIP table linked to SNOMED position concepts (e.g., ""Supine body position"" SNOMED 4221822, ""Sitting position"" SNOMED 4142787) or anatomical site concepts rather than using post-coordinated LOINC concepts.
+
+For measurements taken from arterial catheters at specific anatomical locations, you can link the measurement to the patient's arterial catheter device (domain_id Device) via FACT_RELATIONSHIP. See the general concept ""Arterial catheter"" for device mapping guidance.
+
+**Generic ""Systolic blood pressure"" concepts (use explicit ""arterial"" concepts instead):**
+
+- **Systolic blood pressure** (SNOMED 271649006): Ambiguous - includes both arterial and venous systolic pressures
+- **Systolic blood pressure** (LOINC 8480-6): Refers to arterial pressure but lacks explicit terminology
+- **Invasive Systolic blood pressure** (LOINC 76215-3): Use ""Invasive systolic arterial pressure"" (SNOMED 251071003) instead
+- **Systolic blood pressure by Noninvasive** (LOINC 76534-7): Use ""Non-invasive systolic arterial pressure"" (SNOMED 251070002) instead
+- **Systolic blood pressure by Continuous non-invasive monitoring** (LOINC 75997-7): Use ""Non-invasive systolic arterial pressure"" (SNOMED 251070002) instead
+- **Systolic blood pressure by palpation** (LOINC 8479-8): Use ""Non-invasive systolic arterial pressure"" (SNOMED 251070002) instead
+
+**Specific concepts by patient position:**
+
+- **Systolic blood pressure--supine** (LOINC 8461-6): Measured while patient is lying flat
+- **Systolic blood pressure--sitting** (LOINC 8459-0): Measured while patient is seated
+- **Systolic blood pressure--standing** (LOINC 8460-8): Measured while patient is upright/standing
+- **Systolic blood pressure--lying in L-lateral position** (LOINC 89268-7): Measured while patient is lying on left side
+
+**Specific concepts by clinical context:**
+
+- **Systolic blood pressure--during anesthesia** (LOINC 89280-2): Measured intraoperatively under anesthesia
+- **Systolic blood pressure--expiration** (LOINC 8450-9): Measured during expiratory phase of respiration
+- **Systolic blood pressure--inspiration** (LOINC 8451-7): Measured during inspiratory phase of respiration
+- **Systolic blood pressure--W exercise** (LOINC 87739-9): Measured during exercise
+- **Systolic blood pressure--post exercise** (LOINC 87741-5): Measured after exercise completion
+
+**Specific concepts by anatomical location (arterial catheter site):**
+
+- **Radial artery Systolic blood pressure** (LOINC 8512-6): Invasive measurement from radial artery catheter
+- **Radial artery - left Systolic blood pressure** (LOINC 8567-0): Left radial artery
+- **Radial artery - right Systolic blood pressure** (LOINC 8568-8): Right radial artery
+- **Femoral artery Systolic blood pressure** (LOINC 8510-0): Invasive measurement from femoral artery catheter
+- **Femoral artery - left Systolic blood pressure** (LOINC 8553-0): Left femoral artery
+- **Femoral artery - right Systolic blood pressure** (LOINC 8554-8): Right femoral artery
+
+**Specialized concepts:**
+
+- **Non-invasive central systolic blood pressure** (SNOMED 1036551000000101): Central aortic systolic pressure estimated non-invasively (specialized use for vascular assessment)
+
+# Important Notes
+
+- **Prioritize measurement method over position/location**: Use ""Invasive systolic arterial pressure"" or ""Non-invasive systolic arterial pressure"" rather than position-specific or anatomical site-specific concepts unless the specific site is clinically critical
+- **Prefer explicit ""arterial"" terminology**: Use SNOMED concepts with ""arterial"" explicitly in the name to avoid confusion with venous pressure measurements
+- **Pulsus paradoxus**: The difference between inspiratory and expiratory systolic pressure can be clinically significant in conditions like cardiac tamponade or severe asthma (typically >10 mmHg)"
+14071,2025-11-28 15:58:24,Boris Delange,update,329,NA,NA,Systolic arterial pressure,"Updated ETL guidance comment: # Definition
+
+Systolic arterial pressure represents the peak arterial pressure during ventricular systole (heart contraction), expressed in **millimeters of mercury (mmHg)**. Normal systolic blood pressure in adults typically ranges from approximately 90-140 mmHg. It is a fundamental hemodynamic parameter used to assess cardiovascular function and tissue perfusion, particularly in intensive care and critical care settings.
+
+# Mapping Strategy
+
+LOINC uses **post-coordinated concepts** that combine multiple dimensions (measurement method + position + anatomical location) into single codes. This can create redundancy when only one dimension (e.g., invasive vs non-invasive method) is documented. For most ICU use cases, we recommend capturing the measurement method and linking position or anatomical location separately via OMOP FACT_RELATIONSHIP table.
+
+Prioritize the **measurement method** (invasive vs non-invasive) over position or anatomical location modifiers.
+
+**Note on ""Systolic blood pressure"" concepts:**
+- **Systolic blood pressure** (SNOMED 271649006) is not recommended as the default concept because in SNOMED it is the parent concept for various systolic pressure measurements including both arterial and venous pressures. This can create ambiguity.
+- **Systolic blood pressure** (LOINC 8480-6) refers specifically to arterial pressure, but we prefer the more explicit SNOMED ""Systolic arterial pressure"" concept to avoid confusion.
+
+**For combined information**: If both measurement method and position/anatomical site are documented and clinically important, use FACT_RELATIONSHIP to link the measurement method concept to a SNOMED position or anatomical site concept.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Systolic arterial pressure** (SNOMED 72313002): Use when measurement method is unspecified
+
+**Measurement method concepts:**
+
+- **Invasive systolic arterial pressure** (SNOMED 251071003): Invasive measurement via arterial catheter (most accurate for intensive care unit monitoring)
+- **Non-invasive systolic arterial pressure** (SNOMED 251070002): Non-invasive measurement via automated blood pressure cuff or manual auscultation
+
+## Not recommended for routine use
+
+Use these concepts **only when position, anatomical location, or clinical context is the primary clinical focus** (e.g., orthostatic vital sign assessment, exercise stress testing, specific arterial pressure monitoring for research).
+
+For most use cases, we recommend capturing patient position or specific arterial location separately using OMOP FACT_RELATIONSHIP table linked to SNOMED position concepts (e.g., ""Supine body position"" SNOMED 4221822, ""Sitting position"" SNOMED 4142787) or anatomical site concepts rather than using post-coordinated LOINC concepts.
+
+For measurements taken from arterial catheters at specific anatomical locations, you can link the measurement to the patient's arterial catheter device (domain_id Device) via FACT_RELATIONSHIP. See the general concept ""Arterial catheter"" for device mapping guidance.
+
+**Generic ""Systolic blood pressure"" concepts (use explicit ""arterial"" concepts instead):**
+
+- **Systolic blood pressure** (SNOMED 271649006): Ambiguous - includes both arterial and venous systolic pressures
+- **Systolic blood pressure** (LOINC 8480-6): Refers to arterial pressure but lacks explicit terminology
+- **Invasive Systolic blood pressure** (LOINC 76215-3): Use ""Invasive systolic arterial pressure"" (SNOMED 251071003) instead
+- **Systolic blood pressure by Noninvasive** (LOINC 76534-7): Use ""Non-invasive systolic arterial pressure"" (SNOMED 251070002) instead
+- **Systolic blood pressure by Continuous non-invasive monitoring** (LOINC 75997-7): Use ""Non-invasive systolic arterial pressure"" (SNOMED 251070002) instead
+- **Systolic blood pressure by palpation** (LOINC 8479-8): Use ""Non-invasive systolic arterial pressure"" (SNOMED 251070002) instead
+
+**Specific concepts by patient position:**
+
+- **Systolic blood pressure--supine** (LOINC 8461-6): Measured while patient is lying flat
+- **Systolic blood pressure--sitting** (LOINC 8459-0): Measured while patient is seated
+- **Systolic blood pressure--standing** (LOINC 8460-8): Measured while patient is upright/standing
+- **Systolic blood pressure--lying in L-lateral position** (LOINC 89268-7): Measured while patient is lying on left side
+
+**Specific concepts by clinical context:**
+
+- **Systolic blood pressure--during anesthesia** (LOINC 89280-2): Measured intraoperatively under anesthesia
+- **Systolic blood pressure--expiration** (LOINC 8450-9): Measured during expiratory phase of respiration
+- **Systolic blood pressure--inspiration** (LOINC 8451-7): Measured during inspiratory phase of respiration
+- **Systolic blood pressure--W exercise** (LOINC 87739-9): Measured during exercise
+- **Systolic blood pressure--post exercise** (LOINC 87741-5): Measured after exercise completion
+
+**Specific concepts by anatomical location (arterial catheter site):**
+
+- **Radial artery Systolic blood pressure** (LOINC 8512-6): Invasive measurement from radial artery catheter
+- **Radial artery - left Systolic blood pressure** (LOINC 8567-0): Left radial artery
+- **Radial artery - right Systolic blood pressure** (LOINC 8568-8): Right radial artery
+- **Femoral artery Systolic blood pressure** (LOINC 8510-0): Invasive measurement from femoral artery catheter
+- **Femoral artery - left Systolic blood pressure** (LOINC 8553-0): Left femoral artery
+- **Femoral artery - right Systolic blood pressure** (LOINC 8554-8): Right femoral artery
+
+**Specialized concepts:**
+
+- **Non-invasive central systolic blood pressure** (SNOMED 1036551000000101): Central aortic systolic pressure estimated non-invasively (specialized use for vascular assessment)
+
+# Important Notes
+
+- **Prioritize measurement method over position/location**: Use ""Invasive systolic arterial pressure"" or ""Non-invasive systolic arterial pressure"" rather than position-specific or anatomical site-specific concepts unless the specific site is clinically critical
+- **Prefer explicit ""arterial"" terminology**: Use SNOMED concepts with ""arterial"" explicitly in the name to avoid confusion with venous pressure measurements
+- **Pulsus paradoxus**: The difference between inspiratory and expiratory systolic pressure can be clinically significant in conditions like cardiac tamponade or severe asthma (typically >10 mmHg)"
+14072,2025-11-28 16:52:42,Boris Delange,insert,326,SNOMED,271650006,Diastolic blood pressure,Added OMOP concept mapping
+14073,2025-11-28 16:52:42,Boris Delange,insert,326,LOINC,8462-4,Diastolic blood pressure,Added OMOP concept mapping
+14074,2025-11-28 16:52:42,Boris Delange,insert,326,LOINC,75995-1,Diastolic blood pressure by Continuous non-invasive monitoring,Added OMOP concept mapping
+14075,2025-11-28 16:52:42,Boris Delange,insert,326,LOINC,76535-4,Diastolic blood pressure by Noninvasive,Added OMOP concept mapping
+14076,2025-11-28 16:52:42,Boris Delange,insert,326,LOINC,87740-7,Diastolic blood pressure--W exercise,Added OMOP concept mapping
+14077,2025-11-28 16:52:42,Boris Delange,insert,326,LOINC,89281-0,Diastolic blood pressure--during anesthesia,Added OMOP concept mapping
+14078,2025-11-28 16:52:42,Boris Delange,insert,326,LOINC,8446-7,Diastolic blood pressure--expiration,Added OMOP concept mapping
+14079,2025-11-28 16:52:42,Boris Delange,insert,326,LOINC,8447-5,Diastolic blood pressure--inspiration,Added OMOP concept mapping
+14080,2025-11-28 16:52:42,Boris Delange,insert,326,LOINC,89267-9,Diastolic blood pressure--lying in L-lateral position,Added OMOP concept mapping
+14081,2025-11-28 16:52:42,Boris Delange,insert,326,LOINC,87736-5,Diastolic blood pressure--post exercise,Added OMOP concept mapping
+14082,2025-11-28 16:52:42,Boris Delange,insert,326,LOINC,8453-3,Diastolic blood pressure--sitting,Added OMOP concept mapping
+14083,2025-11-28 16:52:42,Boris Delange,insert,326,LOINC,8454-1,Diastolic blood pressure--standing,Added OMOP concept mapping
+14084,2025-11-28 16:52:42,Boris Delange,insert,326,LOINC,8455-8,Diastolic blood pressure--supine,Added OMOP concept mapping
+14085,2025-11-28 16:52:42,Boris Delange,insert,326,LOINC,76213-8,Invasive Diastolic blood pressure,Added OMOP concept mapping
+14086,2025-11-28 16:52:43,Boris Delange,insert,326,SNOMED,407557002,Lying diastolic blood pressure,Added OMOP concept mapping
+14087,2025-11-28 16:52:43,Boris Delange,insert,326,LOINC,8518-3,Femoral artery - left Diastolic blood pressure,Added OMOP concept mapping
+14088,2025-11-28 16:52:43,Boris Delange,insert,326,LOINC,8519-1,Femoral artery - right Diastolic blood pressure,Added OMOP concept mapping
+14089,2025-11-28 16:52:43,Boris Delange,insert,326,LOINC,8498-8,Femoral artery Diastolic blood pressure,Added OMOP concept mapping
+14090,2025-11-28 16:52:43,Boris Delange,insert,326,SNOMED,1036571000000105,Non-invasive central diastolic blood pressure,Added OMOP concept mapping
+14091,2025-11-28 16:52:43,Boris Delange,insert,326,LOINC,8526-6,Radial artery - left Diastolic blood pressure,Added OMOP concept mapping
+14092,2025-11-28 16:52:43,Boris Delange,insert,326,LOINC,8527-4,Radial artery - right Diastolic blood pressure,Added OMOP concept mapping
+14093,2025-11-28 16:52:43,Boris Delange,insert,326,LOINC,8500-1,Radial artery Diastolic blood pressure,Added OMOP concept mapping
+14094,2025-11-28 16:55:37,Boris Delange,update,326,NA,NA,Diastolic arterial pressure,"Updated ETL guidance comment: # Definition
+
+Diastolic arterial pressure represents the minimum arterial pressure during ventricular diastole (heart relaxation), expressed in **millimeters of mercury (mmHg)**. Normal diastolic blood pressure in adults typically ranges from approximately 60-90 mmHg. It is a fundamental hemodynamic parameter used to assess cardiovascular function and peripheral vascular resistance, particularly in intensive care and critical care settings.
+
+# Mapping Strategy
+
+LOINC uses **post-coordinated concepts** that combine multiple dimensions (measurement method + position + anatomical location) into single codes. This can create redundancy when only one dimension (e.g., invasive vs non-invasive method) is documented. For most ICU use cases, we recommend capturing the measurement method and linking position or anatomical location separately via OMOP FACT_RELATIONSHIP table.
+
+Prioritize the **measurement method** (invasive vs non-invasive) over position or anatomical location modifiers.
+
+**Note on ""Diastolic blood pressure"" concepts:**
+- **Diastolic blood pressure** (SNOMED 271650006) is not recommended as the default concept because in SNOMED it is the parent concept for various diastolic pressure measurements including both arterial and venous pressures (analogous to ""Mean blood pressure"" and ""Systolic blood pressure""). This can create ambiguity.
+- **Diastolic blood pressure** (LOINC 8462-4) refers specifically to arterial pressure, but we prefer the more explicit SNOMED ""Diastolic arterial pressure"" concept to avoid confusion.
+
+**For combined information**: If both measurement method and position/anatomical site are documented and clinically important, use FACT_RELATIONSHIP to link the measurement method concept to a SNOMED position or anatomical site concept.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Diastolic arterial pressure** (SNOMED 1091811000000102): Use when measurement method is unspecified
+
+**Measurement method concepts:**
+
+- **Invasive diastolic arterial pressure** (SNOMED 251073000): Invasive measurement via arterial catheter (most accurate for intensive care unit monitoring)
+- **Non-invasive diastolic arterial pressure** (SNOMED 174255007): Non-invasive measurement via automated blood pressure cuff or manual auscultation
+
+## Not recommended for routine use
+
+Use these concepts **only when position, anatomical location, or clinical context is the primary clinical focus** (e.g., orthostatic vital sign assessment, exercise stress testing, specific arterial pressure monitoring for research).
+
+For most use cases, we recommend capturing patient position or specific arterial location separately using OMOP FACT_RELATIONSHIP table linked to SNOMED position concepts (e.g., ""Supine body position"" SNOMED 4221822, ""Sitting position"" SNOMED 4142787) or anatomical site concepts rather than using post-coordinated LOINC concepts.
+
+For measurements taken from arterial catheters at specific anatomical locations, you can link the measurement to the patient's arterial catheter device (domain_id Device) via FACT_RELATIONSHIP. See the general concept ""Arterial catheter"" for device mapping guidance.
+
+**Generic ""Diastolic blood pressure"" concepts (use explicit ""arterial"" concepts instead):**
+
+- **Diastolic blood pressure** (SNOMED 271650006): Ambiguous - includes both arterial and venous diastolic pressures
+- **Diastolic blood pressure** (LOINC 8462-4): Refers to arterial pressure but lacks explicit terminology
+- **Invasive Diastolic blood pressure** (LOINC 76213-8): Use ""Invasive diastolic arterial pressure"" (SNOMED 251073000) instead
+- **Diastolic blood pressure by Noninvasive** (LOINC 76535-4): Use ""Non-invasive diastolic arterial pressure"" (SNOMED 174255007) instead
+- **Diastolic blood pressure by Continuous non-invasive monitoring** (LOINC 75995-1): Use ""Non-invasive diastolic arterial pressure"" (SNOMED 174255007) instead
+
+**Specific concepts by patient position:**
+
+- **Diastolic blood pressure--supine** (LOINC 8455-8): Measured while patient is lying flat
+- **Lying diastolic blood pressure** (SNOMED 407557002): Measured while patient is lying (generic lying position)
+- **Diastolic blood pressure--sitting** (LOINC 8453-3): Measured while patient is seated
+- **Diastolic blood pressure--standing** (LOINC 8454-1): Measured while patient is upright/standing
+- **Diastolic blood pressure--lying in L-lateral position** (LOINC 89267-9): Measured while patient is lying on left side
+
+**Specific concepts by clinical context:**
+
+- **Diastolic blood pressure--during anesthesia** (LOINC 89281-0): Measured intraoperatively under anesthesia
+- **Diastolic blood pressure--expiration** (LOINC 8446-7): Measured during expiratory phase of respiration
+- **Diastolic blood pressure--inspiration** (LOINC 8447-5): Measured during inspiratory phase of respiration
+- **Diastolic blood pressure--W exercise** (LOINC 87740-7): Measured during exercise
+- **Diastolic blood pressure--post exercise** (LOINC 87736-5): Measured after exercise completion
+
+**Specific concepts by anatomical location (arterial catheter site):**
+
+- **Radial artery Diastolic blood pressure** (LOINC 8500-1): Invasive measurement from radial artery catheter
+- **Radial artery - left Diastolic blood pressure** (LOINC 8526-6): Left radial artery
+- **Radial artery - right Diastolic blood pressure** (LOINC 8527-4): Right radial artery
+- **Femoral artery Diastolic blood pressure** (LOINC 8498-8): Invasive measurement from femoral artery catheter
+- **Femoral artery - left Diastolic blood pressure** (LOINC 8518-3): Left femoral artery
+- **Femoral artery - right Diastolic blood pressure** (LOINC 8519-1): Right femoral artery
+
+**Specialized concepts:**
+
+- **Non-invasive central diastolic blood pressure** (SNOMED 1036571000000105): Central aortic diastolic pressure estimated non-invasively (specialized use for vascular assessment)
+
+# Important Notes
+
+- **Prioritize measurement method over position/location**: Use ""Invasive diastolic arterial pressure"" or ""Non-invasive diastolic arterial pressure"" rather than position-specific or anatomical site-specific concepts unless the specific site is clinically critical
+- **Prefer explicit ""arterial"" terminology**: Use SNOMED concepts with ""arterial"" explicitly in the name to avoid confusion with venous pressure measurements
+- **Pulse pressure**: The difference between systolic and diastolic pressure (normally 30-50 mmHg) provides additional hemodynamic information about arterial compliance and stroke volume"
+14095,2025-11-28 16:56:22,Boris Delange,update,326,NA,NA,Diastolic arterial pressure,"Updated ETL guidance comment: # Definition
+
+Diastolic arterial pressure represents the minimum arterial pressure during ventricular diastole (heart relaxation), expressed in **millimeters of mercury (mmHg)**. Normal diastolic blood pressure in adults typically ranges from approximately 60-90 mmHg. It is a fundamental hemodynamic parameter used to assess cardiovascular function and peripheral vascular resistance.
+
+# Mapping Strategy
+
+LOINC uses **post-coordinated concepts** that combine multiple dimensions (measurement method + position + anatomical location) into single codes. This can create redundancy when only one dimension (e.g., invasive vs non-invasive method) is documented. For most ICU use cases, we recommend capturing the measurement method and linking position or anatomical location separately via OMOP FACT_RELATIONSHIP table.
+
+Prioritize the **measurement method** (invasive vs non-invasive) over position or anatomical location modifiers.
+
+**Note on ""Diastolic blood pressure"" concepts:**
+- **Diastolic blood pressure** (SNOMED 271650006) is not recommended as the default concept because in SNOMED it is the parent concept for various diastolic pressure measurements including both arterial and venous pressures (analogous to ""Mean blood pressure"" and ""Systolic blood pressure""). This can create ambiguity.
+- **Diastolic blood pressure** (LOINC 8462-4) refers specifically to arterial pressure, but we prefer the more explicit SNOMED ""Diastolic arterial pressure"" concept to avoid confusion.
+
+**For combined information**: If both measurement method and position/anatomical site are documented and clinically important, use FACT_RELATIONSHIP to link the measurement method concept to a SNOMED position or anatomical site concept.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Diastolic arterial pressure** (SNOMED 1091811000000102): Use when measurement method is unspecified
+
+**Measurement method concepts:**
+
+- **Invasive diastolic arterial pressure** (SNOMED 251073000): Invasive measurement via arterial catheter (most accurate for intensive care unit monitoring)
+- **Non-invasive diastolic arterial pressure** (SNOMED 174255007): Non-invasive measurement via automated blood pressure cuff or manual auscultation
+
+## Not recommended for routine use
+
+Use these concepts **only when position, anatomical location, or clinical context is the primary clinical focus** (e.g., orthostatic vital sign assessment, exercise stress testing, specific arterial pressure monitoring for research).
+
+For most use cases, we recommend capturing patient position or specific arterial location separately using OMOP FACT_RELATIONSHIP table linked to SNOMED position concepts (e.g., ""Supine body position"" SNOMED 4221822, ""Sitting position"" SNOMED 4142787) or anatomical site concepts rather than using post-coordinated LOINC concepts.
+
+For measurements taken from arterial catheters at specific anatomical locations, you can link the measurement to the patient's arterial catheter device (domain_id Device) via FACT_RELATIONSHIP. See the general concept ""Arterial catheter"" for device mapping guidance.
+
+**Generic ""Diastolic blood pressure"" concepts (use explicit ""arterial"" concepts instead):**
+
+- **Diastolic blood pressure** (SNOMED 271650006): Ambiguous - includes both arterial and venous diastolic pressures
+- **Diastolic blood pressure** (LOINC 8462-4): Refers to arterial pressure but lacks explicit terminology
+- **Invasive Diastolic blood pressure** (LOINC 76213-8): Use ""Invasive diastolic arterial pressure"" (SNOMED 251073000) instead
+- **Diastolic blood pressure by Noninvasive** (LOINC 76535-4): Use ""Non-invasive diastolic arterial pressure"" (SNOMED 174255007) instead
+- **Diastolic blood pressure by Continuous non-invasive monitoring** (LOINC 75995-1): Use ""Non-invasive diastolic arterial pressure"" (SNOMED 174255007) instead
+
+**Specific concepts by patient position:**
+
+- **Diastolic blood pressure--supine** (LOINC 8455-8): Measured while patient is lying flat
+- **Lying diastolic blood pressure** (SNOMED 407557002): Measured while patient is lying (generic lying position)
+- **Diastolic blood pressure--sitting** (LOINC 8453-3): Measured while patient is seated
+- **Diastolic blood pressure--standing** (LOINC 8454-1): Measured while patient is upright/standing
+- **Diastolic blood pressure--lying in L-lateral position** (LOINC 89267-9): Measured while patient is lying on left side
+
+**Specific concepts by clinical context:**
+
+- **Diastolic blood pressure--during anesthesia** (LOINC 89281-0): Measured intraoperatively under anesthesia
+- **Diastolic blood pressure--expiration** (LOINC 8446-7): Measured during expiratory phase of respiration
+- **Diastolic blood pressure--inspiration** (LOINC 8447-5): Measured during inspiratory phase of respiration
+- **Diastolic blood pressure--W exercise** (LOINC 87740-7): Measured during exercise
+- **Diastolic blood pressure--post exercise** (LOINC 87736-5): Measured after exercise completion
+
+**Specific concepts by anatomical location (arterial catheter site):**
+
+- **Radial artery Diastolic blood pressure** (LOINC 8500-1): Invasive measurement from radial artery catheter
+- **Radial artery - left Diastolic blood pressure** (LOINC 8526-6): Left radial artery
+- **Radial artery - right Diastolic blood pressure** (LOINC 8527-4): Right radial artery
+- **Femoral artery Diastolic blood pressure** (LOINC 8498-8): Invasive measurement from femoral artery catheter
+- **Femoral artery - left Diastolic blood pressure** (LOINC 8518-3): Left femoral artery
+- **Femoral artery - right Diastolic blood pressure** (LOINC 8519-1): Right femoral artery
+
+**Specialized concepts:**
+
+- **Non-invasive central diastolic blood pressure** (SNOMED 1036571000000105): Central aortic diastolic pressure estimated non-invasively (specialized use for vascular assessment)
+
+# Important Notes
+
+- **Prioritize measurement method over position/location**: Use ""Invasive diastolic arterial pressure"" or ""Non-invasive diastolic arterial pressure"" rather than position-specific or anatomical site-specific concepts unless the specific site is clinically critical
+- **Prefer explicit ""arterial"" terminology**: Use SNOMED concepts with ""arterial"" explicitly in the name to avoid confusion with venous pressure measurements
+- **Pulse pressure**: The difference between systolic and diastolic pressure (normally 30-50 mmHg) provides additional hemodynamic information about arterial compliance and stroke volume"
+14096,2025-11-28 16:57:16,Boris Delange,update,326,NA,NA,Diastolic arterial pressure,"Updated ETL guidance comment: # Definition
+
+Diastolic arterial pressure represents the minimum arterial pressure during ventricular diastole (heart relaxation), expressed in **millimeters of mercury (mmHg)**. Normal diastolic blood pressure in adults typically ranges from approximately 60-90 mmHg. It is a fundamental hemodynamic parameter used to assess cardiovascular function and peripheral vascular resistance.
+
+# Mapping Strategy
+
+LOINC uses **post-coordinated concepts** that combine multiple dimensions (measurement method + position + anatomical location) into single codes. This can create redundancy when only one dimension (e.g., invasive vs non-invasive method) is documented. For most ICU use cases, we recommend capturing the measurement method and linking position or anatomical location separately via OMOP FACT_RELATIONSHIP table.
+
+Prioritize the **measurement method** (invasive vs non-invasive) over position or anatomical location modifiers.
+
+**Note on ""Diastolic blood pressure"" concepts:**
+- **Diastolic blood pressure** (SNOMED 271650006) is not recommended as the default concept because in SNOMED it is the parent concept for various diastolic pressure measurements including both arterial and venous pressures (analogous to ""Mean blood pressure"" and ""Systolic blood pressure""). This can create ambiguity.
+- **Diastolic blood pressure** (LOINC 8462-4) refers specifically to arterial pressure, but we prefer the more explicit SNOMED ""Diastolic arterial pressure"" concept to avoid confusion.
+
+**For combined information**: If both measurement method and position/anatomical site are documented and clinically important, use FACT_RELATIONSHIP to link the measurement method concept to a SNOMED position or anatomical site concept.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Diastolic arterial pressure** (SNOMED 1091811000000102): Use when measurement method is unspecified
+
+**Measurement method concepts:**
+
+- **Invasive diastolic arterial pressure** (SNOMED 251073000): Invasive measurement via arterial catheter (most accurate for intensive care unit monitoring)
+- **Non-invasive diastolic arterial pressure** (SNOMED 174255007): Non-invasive measurement via automated blood pressure cuff or manual auscultation
+
+## Not recommended for routine use
+
+Use these concepts **only when position, anatomical location, or clinical context is the primary clinical focus** (e.g., orthostatic vital sign assessment, exercise stress testing, specific arterial pressure monitoring for research).
+
+For most use cases, we recommend capturing patient position or specific arterial location separately using OMOP FACT_RELATIONSHIP table linked to SNOMED position concepts (e.g., ""Supine body position"" SNOMED 4221822, ""Sitting position"" SNOMED 4142787) or anatomical site concepts rather than using post-coordinated LOINC concepts.
+
+For measurements taken from arterial catheters at specific anatomical locations, you can link the measurement to the patient's arterial catheter device (domain_id Device) via FACT_RELATIONSHIP. See the general concept ""Arterial catheter"" for device mapping guidance.
+
+**Generic ""Diastolic blood pressure"" concepts (use explicit ""arterial"" concepts instead):**
+
+- **Diastolic blood pressure** (SNOMED 271650006): Ambiguous - includes both arterial and venous diastolic pressures
+- **Diastolic blood pressure** (LOINC 8462-4): Refers to arterial pressure but lacks explicit terminology
+- **Invasive Diastolic blood pressure** (LOINC 76213-8): Use ""Invasive diastolic arterial pressure"" (SNOMED 251073000) instead
+- **Diastolic blood pressure by Noninvasive** (LOINC 76535-4): Use ""Non-invasive diastolic arterial pressure"" (SNOMED 174255007) instead
+- **Diastolic blood pressure by Continuous non-invasive monitoring** (LOINC 75995-1): Use ""Non-invasive diastolic arterial pressure"" (SNOMED 174255007) instead
+
+**Specific concepts by patient position:**
+
+- **Diastolic blood pressure--supine** (LOINC 8455-8): Measured while patient is lying flat
+- **Lying diastolic blood pressure** (SNOMED 407557002): Measured while patient is lying (generic lying position)
+- **Diastolic blood pressure--sitting** (LOINC 8453-3): Measured while patient is seated
+- **Diastolic blood pressure--standing** (LOINC 8454-1): Measured while patient is upright/standing
+- **Diastolic blood pressure--lying in L-lateral position** (LOINC 89267-9): Measured while patient is lying on left side
+
+**Specific concepts by clinical context:**
+
+- **Diastolic blood pressure--during anesthesia** (LOINC 89281-0): Measured intraoperatively under anesthesia
+- **Diastolic blood pressure--expiration** (LOINC 8446-7): Measured during expiratory phase of respiration
+- **Diastolic blood pressure--inspiration** (LOINC 8447-5): Measured during inspiratory phase of respiration
+- **Diastolic blood pressure--W exercise** (LOINC 87740-7): Measured during exercise
+- **Diastolic blood pressure--post exercise** (LOINC 87736-5): Measured after exercise completion
+
+**Specific concepts by anatomical location (arterial catheter site):**
+
+- **Radial artery Diastolic blood pressure** (LOINC 8500-1): Invasive measurement from radial artery catheter
+- **Radial artery - left Diastolic blood pressure** (LOINC 8526-6): Left radial artery
+- **Radial artery - right Diastolic blood pressure** (LOINC 8527-4): Right radial artery
+- **Femoral artery Diastolic blood pressure** (LOINC 8498-8): Invasive measurement from femoral artery catheter
+- **Femoral artery - left Diastolic blood pressure** (LOINC 8518-3): Left femoral artery
+- **Femoral artery - right Diastolic blood pressure** (LOINC 8519-1): Right femoral artery
+
+**Specialized concepts:**
+
+- **Non-invasive central diastolic blood pressure** (SNOMED 1036571000000105): Central aortic diastolic pressure estimated non-invasively (specialized use for vascular assessment)
+
+# Important Notes
+
+- **Prioritize measurement method over position/location**: Use ""Invasive diastolic arterial pressure"" or ""Non-invasive diastolic arterial pressure"" rather than position-specific or anatomical site-specific concepts unless the specific site is clinically critical
+- **Prefer explicit ""arterial"" terminology**: Use SNOMED concepts with ""arterial"" explicitly in the name to avoid confusion with venous pressure measurements"
+14097,2025-11-28 17:00:54,Boris Delange,update,326,NA,NA,Diastolic arterial pressure,"Updated ETL guidance comment: # Definition
+
+Diastolic arterial pressure represents the minimum arterial pressure during ventricular diastole (heart relaxation), expressed in **millimeters of mercury (mmHg)**. Normal diastolic blood pressure in adults typically ranges from approximately 60-90 mmHg. It is a fundamental hemodynamic parameter used to assess cardiovascular function and peripheral vascular resistance.
+
+# Mapping Strategy
+
+LOINC uses **post-coordinated concepts** that combine multiple dimensions (measurement method + position + anatomical location) into single codes. This can create redundancy when only one dimension (e.g., invasive vs non-invasive method) is documented. For most ICU use cases, we recommend capturing the measurement method and linking position or anatomical location separately via OMOP FACT_RELATIONSHIP table.
+
+Prioritize the **measurement method** (invasive vs non-invasive) over position or anatomical location modifiers.
+
+**Note on ""Diastolic blood pressure"" concepts:**
+- **Diastolic blood pressure** (SNOMED 271650006) and **Diastolic blood pressure** (LOINC 8462-4) both refer to arterial pressure, but we prefer the more explicit SNOMED ""Diastolic arterial pressure"" concept with ""arterial"" explicitly stated to avoid any ambiguity.
+
+**For combined information**: If both measurement method and position/anatomical site are documented and clinically important, use FACT_RELATIONSHIP to link the measurement method concept to a SNOMED position or anatomical site concept.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Diastolic arterial pressure** (SNOMED 1091811000000102): Use when measurement method is unspecified
+
+**Measurement method concepts:**
+
+- **Invasive diastolic arterial pressure** (SNOMED 251073000): Invasive measurement via arterial catheter (most accurate for intensive care unit monitoring)
+- **Non-invasive diastolic arterial pressure** (SNOMED 174255007): Non-invasive measurement via automated blood pressure cuff or manual auscultation
+
+## Not recommended for routine use
+
+Use these concepts **only when position, anatomical location, or clinical context is the primary clinical focus** (e.g., orthostatic vital sign assessment, exercise stress testing, specific arterial pressure monitoring for research).
+
+For most use cases, we recommend capturing patient position or specific arterial location separately using OMOP FACT_RELATIONSHIP table linked to SNOMED position concepts (e.g., ""Supine body position"" SNOMED 4221822, ""Sitting position"" SNOMED 4142787) or anatomical site concepts rather than using post-coordinated LOINC concepts.
+
+For measurements taken from arterial catheters at specific anatomical locations, you can link the measurement to the patient's arterial catheter device (domain_id Device) via FACT_RELATIONSHIP. See the general concept ""Arterial catheter"" for device mapping guidance.
+
+**Generic ""Diastolic blood pressure"" concepts (use explicit ""arterial"" concepts instead):**
+
+- **Diastolic blood pressure** (SNOMED 271650006): Ambiguous - includes both arterial and venous diastolic pressures
+- **Diastolic blood pressure** (LOINC 8462-4): Refers to arterial pressure but lacks explicit terminology
+- **Invasive Diastolic blood pressure** (LOINC 76213-8): Use ""Invasive diastolic arterial pressure"" (SNOMED 251073000) instead
+- **Diastolic blood pressure by Noninvasive** (LOINC 76535-4): Use ""Non-invasive diastolic arterial pressure"" (SNOMED 174255007) instead
+- **Diastolic blood pressure by Continuous non-invasive monitoring** (LOINC 75995-1): Use ""Non-invasive diastolic arterial pressure"" (SNOMED 174255007) instead
+
+**Specific concepts by patient position:**
+
+- **Diastolic blood pressure--supine** (LOINC 8455-8): Measured while patient is lying flat
+- **Lying diastolic blood pressure** (SNOMED 407557002): Measured while patient is lying (generic lying position)
+- **Diastolic blood pressure--sitting** (LOINC 8453-3): Measured while patient is seated
+- **Diastolic blood pressure--standing** (LOINC 8454-1): Measured while patient is upright/standing
+- **Diastolic blood pressure--lying in L-lateral position** (LOINC 89267-9): Measured while patient is lying on left side
+
+**Specific concepts by clinical context:**
+
+- **Diastolic blood pressure--during anesthesia** (LOINC 89281-0): Measured intraoperatively under anesthesia
+- **Diastolic blood pressure--expiration** (LOINC 8446-7): Measured during expiratory phase of respiration
+- **Diastolic blood pressure--inspiration** (LOINC 8447-5): Measured during inspiratory phase of respiration
+- **Diastolic blood pressure--W exercise** (LOINC 87740-7): Measured during exercise
+- **Diastolic blood pressure--post exercise** (LOINC 87736-5): Measured after exercise completion
+
+**Specific concepts by anatomical location (arterial catheter site):**
+
+- **Radial artery Diastolic blood pressure** (LOINC 8500-1): Invasive measurement from radial artery catheter
+- **Radial artery - left Diastolic blood pressure** (LOINC 8526-6): Left radial artery
+- **Radial artery - right Diastolic blood pressure** (LOINC 8527-4): Right radial artery
+- **Femoral artery Diastolic blood pressure** (LOINC 8498-8): Invasive measurement from femoral artery catheter
+- **Femoral artery - left Diastolic blood pressure** (LOINC 8518-3): Left femoral artery
+- **Femoral artery - right Diastolic blood pressure** (LOINC 8519-1): Right femoral artery
+
+**Specialized concepts:**
+
+- **Non-invasive central diastolic blood pressure** (SNOMED 1036571000000105): Central aortic diastolic pressure estimated non-invasively (specialized use for vascular assessment)
+
+# Important Notes
+
+- **Prioritize measurement method over position/location**: Use ""Invasive diastolic arterial pressure"" or ""Non-invasive diastolic arterial pressure"" rather than position-specific or anatomical site-specific concepts unless the specific site is clinically critical
+- **Prefer explicit ""arterial"" terminology**: Use SNOMED concepts with ""arterial"" explicitly in the name to avoid confusion with venous pressure measurements"
+14098,2025-11-28 17:01:08,Boris Delange,update,326,NA,NA,Diastolic arterial pressure,"Updated ETL guidance comment: # Definition
+
+Diastolic arterial pressure represents the minimum arterial pressure during ventricular diastole (heart relaxation), expressed in **millimeters of mercury (mmHg)**. Normal diastolic blood pressure in adults typically ranges from approximately 60-90 mmHg. It is a fundamental hemodynamic parameter used to assess cardiovascular function and peripheral vascular resistance.
+
+# Mapping Strategy
+
+LOINC uses **post-coordinated concepts** that combine multiple dimensions (measurement method + position + anatomical location) into single codes. This can create redundancy when only one dimension (e.g., invasive vs non-invasive method) is documented. For most ICU use cases, we recommend capturing the measurement method and linking position or anatomical location separately via OMOP FACT_RELATIONSHIP table.
+
+Prioritize the **measurement method** (invasive vs non-invasive) over position or anatomical location modifiers.
+
+**Note on ""Diastolic blood pressure"" concepts:**
+- **Diastolic blood pressure** (SNOMED 271650006) and **Diastolic blood pressure** (LOINC 8462-4) both refer to arterial pressure, but we prefer the more explicit SNOMED ""Diastolic arterial pressure"" concept with ""arterial"" explicitly stated to avoid any ambiguity.
+
+**For combined information**: If both measurement method and position/anatomical site are documented and clinically important, use FACT_RELATIONSHIP to link the measurement method concept to a SNOMED position or anatomical site concept.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Diastolic arterial pressure** (SNOMED 1091811000000102): Use when measurement method is unspecified
+
+**Measurement method concepts:**
+
+- **Invasive diastolic arterial pressure** (SNOMED 251073000): Invasive measurement via arterial catheter (most accurate for intensive care unit monitoring)
+- **Non-invasive diastolic arterial pressure** (SNOMED 174255007): Non-invasive measurement via automated blood pressure cuff or manual auscultation
+
+## Not recommended for routine use
+
+Use these concepts **only when position, anatomical location, or clinical context is the primary clinical focus** (e.g., orthostatic vital sign assessment, exercise stress testing, specific arterial pressure monitoring for research).
+
+For most use cases, we recommend capturing patient position or specific arterial location separately using OMOP FACT_RELATIONSHIP table linked to SNOMED position concepts (e.g., ""Supine body position"" SNOMED 4221822, ""Sitting position"" SNOMED 4142787) or anatomical site concepts rather than using post-coordinated LOINC concepts.
+
+For measurements taken from arterial catheters at specific anatomical locations, you can link the measurement to the patient's arterial catheter device (domain_id Device) via FACT_RELATIONSHIP. See the general concept ""Arterial catheter"" for device mapping guidance.
+
+**Generic ""Diastolic blood pressure"" concepts (use explicit ""arterial"" concepts instead):**
+
+- **Diastolic blood pressure** (SNOMED 271650006): Ambiguous - includes both arterial and venous diastolic pressures
+- **Diastolic blood pressure** (LOINC 8462-4): Refers to arterial pressure but lacks explicit terminology
+- **Invasive Diastolic blood pressure** (LOINC 76213-8): Use ""Invasive diastolic arterial pressure"" (SNOMED 251073000) instead
+- **Diastolic blood pressure by Noninvasive** (LOINC 76535-4): Use ""Non-invasive diastolic arterial pressure"" (SNOMED 174255007) instead
+- **Diastolic blood pressure by Continuous non-invasive monitoring** (LOINC 75995-1): Use ""Non-invasive diastolic arterial pressure"" (SNOMED 174255007) instead
+
+**Specific concepts by patient position:**
+
+- **Diastolic blood pressure--supine** (LOINC 8455-8): Measured while patient is lying flat
+- **Lying diastolic blood pressure** (SNOMED 407557002): Measured while patient is lying (generic lying position)
+- **Diastolic blood pressure--sitting** (LOINC 8453-3): Measured while patient is seated
+- **Diastolic blood pressure--standing** (LOINC 8454-1): Measured while patient is upright/standing
+- **Diastolic blood pressure--lying in L-lateral position** (LOINC 89267-9): Measured while patient is lying on left side
+
+**Specific concepts by clinical context:**
+
+- **Diastolic blood pressure--during anesthesia** (LOINC 89281-0): Measured intraoperatively under anesthesia
+- **Diastolic blood pressure--expiration** (LOINC 8446-7): Measured during expiratory phase of respiration
+- **Diastolic blood pressure--inspiration** (LOINC 8447-5): Measured during inspiratory phase of respiration
+- **Diastolic blood pressure--W exercise** (LOINC 87740-7): Measured during exercise
+- **Diastolic blood pressure--post exercise** (LOINC 87736-5): Measured after exercise completion
+
+**Specific concepts by anatomical location (arterial catheter site):**
+
+- **Radial artery Diastolic blood pressure** (LOINC 8500-1): Invasive measurement from radial artery catheter
+- **Radial artery - left Diastolic blood pressure** (LOINC 8526-6): Left radial artery
+- **Radial artery - right Diastolic blood pressure** (LOINC 8527-4): Right radial artery
+- **Femoral artery Diastolic blood pressure** (LOINC 8498-8): Invasive measurement from femoral artery catheter
+- **Femoral artery - left Diastolic blood pressure** (LOINC 8518-3): Left femoral artery
+- **Femoral artery - right Diastolic blood pressure** (LOINC 8519-1): Right femoral artery
+
+**Specialized concepts:**
+
+- **Non-invasive central diastolic blood pressure** (SNOMED 1036571000000105): Central aortic diastolic pressure estimated non-invasively (specialized use for vascular assessment)
+
+# Important Notes
+
+- **Prioritize measurement method over position/location**: Use ""Invasive diastolic arterial pressure"" or ""Non-invasive diastolic arterial pressure"" rather than position-specific or anatomical site-specific concepts unless the specific site is clinically critical
+- **Prefer explicit ""arterial"" terminology**: Use SNOMED concepts with ""arterial"" explicitly in the name to avoid confusion"
+14099,2025-11-28 17:03:11,Boris Delange,update,329,NA,NA,Systolic arterial pressure,"Updated ETL guidance comment: # Definition
+
+Systolic arterial pressure represents the peak arterial pressure during ventricular systole (heart contraction), expressed in **millimeters of mercury (mmHg)**. Normal systolic blood pressure in adults typically ranges from approximately 90-140 mmHg. It is a fundamental hemodynamic parameter used to assess cardiovascular function and tissue perfusion, particularly in intensive care and critical care settings.
+
+# Mapping Strategy
+
+LOINC uses **post-coordinated concepts** that combine multiple dimensions (measurement method + position + anatomical location) into single codes. This can create redundancy when only one dimension (e.g., invasive vs non-invasive method) is documented. For most ICU use cases, we recommend capturing the measurement method and linking position or anatomical location separately via OMOP FACT_RELATIONSHIP table.
+
+Prioritize the **measurement method** (invasive vs non-invasive) over position or anatomical location modifiers.
+
+**Note on ""Systolic blood pressure"" concepts:**
+- **Systolic blood pressure** (SNOMED 271649006) and **Systolic blood pressure** (LOINC 8480-6) both refer to arterial pressure, but we prefer the more explicit SNOMED ""Systolic arterial pressure"" concept with ""arterial"" explicitly stated to avoid any ambiguity.
+
+**For combined information**: If both measurement method and position/anatomical site are documented and clinically important, use FACT_RELATIONSHIP to link the measurement method concept to a SNOMED position or anatomical site concept.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Systolic arterial pressure** (SNOMED 72313002): Use when measurement method is unspecified
+
+**Measurement method concepts:**
+
+- **Invasive systolic arterial pressure** (SNOMED 251071003): Invasive measurement via arterial catheter (most accurate for intensive care unit monitoring)
+- **Non-invasive systolic arterial pressure** (SNOMED 251070002): Non-invasive measurement via automated blood pressure cuff or manual auscultation
+
+## Not recommended for routine use
+
+Use these concepts **only when position, anatomical location, or clinical context is the primary clinical focus** (e.g., orthostatic vital sign assessment, exercise stress testing, specific arterial pressure monitoring for research).
+
+For most use cases, we recommend capturing patient position or specific arterial location separately using OMOP FACT_RELATIONSHIP table linked to SNOMED position concepts (e.g., ""Supine body position"" SNOMED 4221822, ""Sitting position"" SNOMED 4142787) or anatomical site concepts rather than using post-coordinated LOINC concepts.
+
+For measurements taken from arterial catheters at specific anatomical locations, you can link the measurement to the patient's arterial catheter device (domain_id Device) via FACT_RELATIONSHIP. See the general concept ""Arterial catheter"" for device mapping guidance.
+
+**Generic ""Systolic blood pressure"" concepts (use explicit ""arterial"" concepts instead):**
+
+- **Systolic blood pressure** (SNOMED 271649006): Ambiguous - includes both arterial and venous systolic pressures
+- **Systolic blood pressure** (LOINC 8480-6): Refers to arterial pressure but lacks explicit terminology
+- **Invasive Systolic blood pressure** (LOINC 76215-3): Use ""Invasive systolic arterial pressure"" (SNOMED 251071003) instead
+- **Systolic blood pressure by Noninvasive** (LOINC 76534-7): Use ""Non-invasive systolic arterial pressure"" (SNOMED 251070002) instead
+- **Systolic blood pressure by Continuous non-invasive monitoring** (LOINC 75997-7): Use ""Non-invasive systolic arterial pressure"" (SNOMED 251070002) instead
+- **Systolic blood pressure by palpation** (LOINC 8479-8): Use ""Non-invasive systolic arterial pressure"" (SNOMED 251070002) instead
+
+**Specific concepts by patient position:**
+
+- **Systolic blood pressure--supine** (LOINC 8461-6): Measured while patient is lying flat
+- **Systolic blood pressure--sitting** (LOINC 8459-0): Measured while patient is seated
+- **Systolic blood pressure--standing** (LOINC 8460-8): Measured while patient is upright/standing
+- **Systolic blood pressure--lying in L-lateral position** (LOINC 89268-7): Measured while patient is lying on left side
+
+**Specific concepts by clinical context:**
+
+- **Systolic blood pressure--during anesthesia** (LOINC 89280-2): Measured intraoperatively under anesthesia
+- **Systolic blood pressure--expiration** (LOINC 8450-9): Measured during expiratory phase of respiration
+- **Systolic blood pressure--inspiration** (LOINC 8451-7): Measured during inspiratory phase of respiration
+- **Systolic blood pressure--W exercise** (LOINC 87739-9): Measured during exercise
+- **Systolic blood pressure--post exercise** (LOINC 87741-5): Measured after exercise completion
+
+**Specific concepts by anatomical location (arterial catheter site):**
+
+- **Radial artery Systolic blood pressure** (LOINC 8512-6): Invasive measurement from radial artery catheter
+- **Radial artery - left Systolic blood pressure** (LOINC 8567-0): Left radial artery
+- **Radial artery - right Systolic blood pressure** (LOINC 8568-8): Right radial artery
+- **Femoral artery Systolic blood pressure** (LOINC 8510-0): Invasive measurement from femoral artery catheter
+- **Femoral artery - left Systolic blood pressure** (LOINC 8553-0): Left femoral artery
+- **Femoral artery - right Systolic blood pressure** (LOINC 8554-8): Right femoral artery
+
+**Specialized concepts:**
+
+- **Non-invasive central systolic blood pressure** (SNOMED 1036551000000101): Central aortic systolic pressure estimated non-invasively (specialized use for vascular assessment)
+
+# Important Notes
+
+- **Prioritize measurement method over position/location**: Use ""Invasive systolic arterial pressure"" or ""Non-invasive systolic arterial pressure"" rather than position-specific or anatomical site-specific concepts unless the specific site is clinically critical
+- **Prefer explicit ""arterial"" terminology**: Use SNOMED concepts with ""arterial"" explicitly in the name to avoid confusion
+- **Pulsus paradoxus**: The difference between inspiratory and expiratory systolic pressure can be clinically significant in conditions like cardiac tamponade or severe asthma (typically >10 mmHg)"
+14103,2025-11-28 17:13:33,Boris Delange,update,324,NA,NA,Cardiac output,"Updated ETL guidance comment: # Definition
+
+Cardiac output (CO) represents the volume of blood pumped by the heart per unit of time, expressed in **liters per minute (L/min)**. Normal cardiac output in adults at rest ranges from approximately 4-8 L/min, varying with body size, age, and metabolic demand. It is a critical hemodynamic parameter used to assess cardiovascular function and tissue perfusion in intensive care and critical care settings.
+
+# Mapping Strategy
+
+Prioritize the most granular concept available that matches your measurement method and anatomical location (left vs right ventricle). Use the generic ""Cardiac output"" concept only when the specific measurement method or ventricular location cannot be determined.
+
+**For combined information**: If both measurement method and clinical context are documented and clinically important, use FACT_RELATIONSHIP to link the measurement concept to relevant contextual information.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Cardiac output** (SNOMED 82799009): Use when measurement method and ventricular location are unknown
+
+**Left ventricular concepts:**
+
+- **Left ventricular Cardiac output** (LOINC 8741-1): Generic left ventricular cardiac output when specific method is unknown
+
+**Invasive monitoring methods:**
+
+- **Left ventricular Cardiac output by Indicator dilution** (LOINC 8737-9): Thermodilution or dye dilution techniques (e.g., Swan-Ganz catheter, PiCCO, LiDCO with bolus injection)
+- **Left ventricular Cardiac output by Continuous** (LOINC 76519-8): Continuous monitoring systems using pulse contour analysis (e.g., PiCCO continuous, FloTrac, LiDCO continuous)
+- **Left ventricular Cardiac output by Intermitent measure** (LOINC 61014-7): Intermittent measurement systems
+- **Left ventricular Cardiac output by Fick method** (LOINC 8736-1): Calculated using oxygen consumption and arteriovenous oxygen difference (cardiac catheterization)
+
+**Ultrasound/echocardiography methods:**
+
+- **Left ventricular Cardiac output by US.doppler** (LOINC 8735-3): Doppler ultrasound measurement through left ventricular outflow tract (LVOT) or aortic valve (most common point-of-care method)
+- **Left ventricular Cardiac output by US** (LOINC 24526-6): Generic ultrasound measurement when specific technique is unknown
+- **Left ventricular Cardiac output by US.2D+Calculated** (LOINC 76565-1): Generic 2D ultrasound with volumetric calculation
+- **Left ventricular Cardiac output by US.M-mode+Calculated** (LOINC 76564-4): Generic M-mode ultrasound with calculation
+- **Left ventricular Cardiac output by US 3D** (LOINC 81390-7): 3D echocardiography
+- **Ventricular Cardiac output by 2D echo** (LOINC 8731-2): Generic 2D echocardiography without specifying ventricle or calculation method
+- **Aorta root Cardiac output by US.doppler** (LOINC 17992-9): Doppler measurement at aortic root
+
+**Ultrasound 2D calculation formulas:**
+
+- **Left ventricular Cardiac output by US.2D+Calculated by Teichholz method** (LOINC 76569-3): Linear dimension-based calculation (M-mode or 2D derived)
+- **Left ventricular Cardiac output by US.2D+Calculated by Gibson method** (LOINC 76571-9): Alternative linear dimension formula
+- **Left ventricular Cardiac output by US.2D+Calculated by cube method** (LOINC 76567-7): Cubic formula for left ventricular volume
+- **Left ventricular Cardiac output by US.2D+Calculated by biplane area-length method** (LOINC 93649-2): Biplane volumetric calculation
+- **Left ventricular Cardiac output by US.2D+Calculated by biplane ellipse method** (LOINC 20204-4): Biplane ellipsoid model
+- **Left ventricular Cardiac output by US.2D+Calculated by bullet method** (LOINC 20205-1): Bullet-shaped ventricular model
+- **Left ventricular Cardiac output by US.2D+Calculated by single-plane ellipse method** (LOINC 20212-7): Single-plane ellipsoid model
+- **Left ventricular Cardiac output by US 2D left ventricular outflow tract calculated** (LOINC 20207-7): LVOT diameter and VTI-based calculation
+- **Left ventricular Cardiac output by US 2D modified biplane calculated** (LOINC 20208-5): Modified biplane Simpson's method
+
+**Ultrasound M-mode calculation formulas:**
+
+- **Left ventricular Cardiac output by US.M-mode+Calculated by Teichholz method** (LOINC 76568-5): M-mode linear dimensions with Teichholz formula
+- **Left ventricular Cardiac output by US.M-mode+Calculated by Gibson method** (LOINC 76570-1): M-mode linear dimensions with Gibson formula
+- **Left ventricular Cardiac output by US.M-mode+Calculated by cube method** (LOINC 76566-9): M-mode linear dimensions with cubic formula
+
+**Ultrasound view-specific and formula-specific methods:**
+
+- **Left ventricular Cardiac output by US.2D.A2C+Calc by single plane area-length method** (LOINC 93647-6): Apical 2-chamber view with area-length formula
+- **Left ventricular Cardiac output by US.2D.A2C+Calculated by single plane method of disks** (LOINC 93650-0): Apical 2-chamber view with Simpson's method
+- **Left ventricular Cardiac output by US.2D.A4C+Calc by single plane area-length method** (LOINC 93648-4): Apical 4-chamber view with area-length formula
+- **Left ventricular Cardiac output by US.2D.A4C+Calculated by single plane method of disks** (LOINC 93651-8): Apical 4-chamber view with Simpson's method
+- **Left ventricular Cardiac output by US+Calculated by Teichholz method** (LOINC 20213-5): Generic ultrasound with Teichholz calculation
+- **Left ventricular Cardiac output by US.cubed.calculated** (LOINC 20206-9): Cubic formula calculation
+- **Left ventricular Cardiac output.2 chamber by US 2D modified single-plane calculated** (LOINC 20210-1): 2-chamber view with modified single-plane method
+- **Left ventricular Cardiac output.4 chamber by US 2D modified single-plane calculated** (LOINC 20211-9): 4-chamber view with modified single-plane method
+- **Ventricular Cardiac output by US.2D+Calculated by modified Simpson method** (LOINC 20209-3): Modified Simpson's rule (method of disks)
+- **Left ventricular Cardiac output/Heart rate 4 chamber by US 2D modified single-plane calculated** (LOINC 20332-3): Cardiac output divided by heart rate from 4-chamber view (provides stroke volume)
+
+**Imaging methods (non-ultrasound):**
+
+- **Left ventricular Cardiac output by MR** (LOINC 8738-7): Cardiac magnetic resonance imaging
+- **Left ventricular Cardiac output by Angiography biplane** (LOINC 8732-0): Biplane angiography
+- **Left ventricular Cardiac output by Angiography single plane** (LOINC 8733-8): Single-plane angiography
+- **Left ventricular Cardiac output by Spiral CT** (LOINC 8734-6): Computed tomography
+- **Left ventricular Cardiac output by Nuclear blood pool** (LOINC 8739-5): Nuclear medicine blood pool imaging
+
+**Right ventricular concepts:**
+
+- **Right ventricular cardiac output** (SNOMED 428628004): Generic right ventricular measurement
+- **Right ventricular Cardiac output by Indicator dilution** (LOINC 101151-9): Pulmonary artery thermodilution (Swan-Ganz catheter)
+- **Right ventricular Cardiac output by Fick method** (LOINC 101150-1): Calculated using oxygen consumption
+- **Right ventricular Cardiac output by US 2D tricuspid valve** (LOINC 20214-3): Echocardiography via tricuspid valve
+- **Pulmonary artery Cardiac output by US** (LOINC 17994-5): Ultrasound measurement at pulmonary artery
+
+# Clinical Context
+
+**For intensive care/critical care monitoring:**
+- Thermodilution methods (Swan-Ganz, PiCCO) → Use ""Indicator dilution"" concepts
+- Pulse contour analysis (FloTrac, LiDCO continuous) → Use ""Continuous"" measurement concepts
+- Point-of-care ultrasound → Use Doppler or 2D ultrasound concepts with appropriate calculation method if documented
+
+**For cardiology assessments:**
+- Transthoracic echocardiography → Use LVOT Doppler, 2D calculation methods, or view-specific concepts based on documentation
+- Cardiac catheterization → Use Fick method or indicator dilution concepts
+- Cardiac MRI → Use ""by MR"" concept
+- Advanced imaging → Use appropriate angiography, CT, or nuclear imaging concepts
+
+**For echocardiography:**
+- When the specific calculation formula is documented (Teichholz, Simpson, Gibson, etc.), use the formula-specific concept
+- When only the general method is known (2D, M-mode, Doppler), use the generic ultrasound concepts
+- Apical views (A2C, A4C) with specific calculations should use view-specific concepts"
