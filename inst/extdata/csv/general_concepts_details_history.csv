@@ -14199,3 +14199,322 @@ Right ventricular cardiac output measures blood flow from the right ventricle in
 # Default Mapping Rule
 
 **If the measurement method and anatomical location are completely unknown or undocumented**, use the generic **""Cardiac output""** concept (SNOMED 82799009). However, this should be avoided whenever possible as it loses important clinical context about how the measurement was obtained."
+13967,2025-11-26 14:59:39,Boris Delange,insert,327,LOINC,68999-2,Heart rate --supine,Added OMOP concept mapping
+13968,2025-11-26 14:59:39,Boris Delange,insert,327,LOINC,69000-8,Heart rate --sitting,Added OMOP concept mapping
+13969,2025-11-26 14:59:39,Boris Delange,insert,327,LOINC,69001-6,Heart rate --standing,Added OMOP concept mapping
+13970,2025-11-26 14:59:39,Boris Delange,insert,327,LOINC,40443-4,Heart rate --resting,Added OMOP concept mapping
+13971,2025-11-26 14:59:40,Boris Delange,insert,327,LOINC,89273-7,Heart rate --W exercise,Added OMOP concept mapping
+13972,2025-11-26 14:59:40,Boris Delange,insert,327,LOINC,89278-6,Heart rate --during anesthesia,Added OMOP concept mapping
+13973,2025-11-26 14:59:40,Boris Delange,insert,327,LOINC,89282-8,Heart rate --post bronchodilation,Added OMOP concept mapping
+13974,2025-11-26 14:59:40,Boris Delange,insert,327,LOINC,40442-6,Heart rate --post exercise,Added OMOP concept mapping
+13975,2025-11-26 14:59:40,Boris Delange,insert,327,LOINC,32407-9,1 minute Apgar Heart rate,Added OMOP concept mapping
+13976,2025-11-26 14:59:40,Boris Delange,insert,327,LOINC,32402-0,10 minute Apgar Heart rate,Added OMOP concept mapping
+13977,2025-11-26 14:59:40,Boris Delange,insert,327,LOINC,32412-9,5 minute Apgar Heart rate,Added OMOP concept mapping
+13978,2025-11-26 14:59:40,Boris Delange,insert,327,LOINC,55283-6,Fetal Heart rate,Added OMOP concept mapping
+13979,2025-11-26 14:59:40,Boris Delange,insert,327,LOINC,76477-9,Heart rate by Noninvasive,Added OMOP concept mapping
+13980,2025-11-26 14:59:40,Boris Delange,insert,327,LOINC,76476-1,Heart rate by Transthoracic impedance,Added OMOP concept mapping
+13981,2025-11-26 14:59:40,Boris Delange,insert,327,LOINC,8892-2,Heart rate Peripheral artery by US.doppler,Added OMOP concept mapping
+13982,2025-11-26 14:59:40,Boris Delange,insert,327,LOINC,8893-0,Heart rate Peripheral artery by palpation,Added OMOP concept mapping
+13983,2025-11-26 14:59:40,Boris Delange,insert,327,LOINC,67129-7,Heart rate Peripheral artery by palpation --resting,Added OMOP concept mapping
+13984,2025-11-26 16:42:47,Boris Delange,update,327,NA,NA,Heart rate,"Updated ETL guidance comment: # Definition
+
+Heart rate represents the number of heartbeats per unit of time, expressed in **beats per minute (bpm)**. Normal resting heart rate in adults ranges from 60-100 bpm. It is a fundamental vital sign measured across all clinical settings.
+
+# Mapping Strategy
+
+Use the most specific concept matching your measurement method and clinical context. When the measurement method is unknown or not documented, use the generic ""Heart rate"" concept.
+
+**Default concept:** Heart rate (LOINC 8867-4) - Use when measurement method and clinical context are unspecified
+
+**Specific concepts by measurement method:**
+
+- **Heart rate by Pulse oximetry** (LOINC 8889-8): Heart rate derived from photoplethysmography via pulse oximeter sensor (finger, earlobe, forehead probe)
+- **Heart rate.beat-to-beat by EKG** (LOINC 76282-3): Heart rate captured via electrocardiography (12-lead ECG or continuous cardiac monitoring/telemetry)
+- **Heart rate Intra arterial line by Invasive** (LOINC 60978-4): Heart rate measured via intra-arterial catheter (ICU, OR, critical care settings)
+- **Heart rate Peripheral artery by palpation** (LOINC 8893-0): Manual pulse palpation at peripheral artery (radial, carotid, femoral)
+- **Heart rate Peripheral artery by US.doppler** (LOINC 8892-2): Doppler ultrasound measurement at peripheral artery
+- **Heart rate by Noninvasive** (LOINC 76477-9): Generic non-invasive measurement when specific method is unknown
+- **Heart rate by Transthoracic impedance** (LOINC 76476-1): Impedance cardiography measurement
+
+**Specific concepts by patient position/activity:**
+
+- **Heart rate --resting** (LOINC 40443-4): Measured at rest (position not specified)
+- **Heart rate --supine** (LOINC 68999-2): Measured while patient is lying flat
+- **Heart rate --sitting** (LOINC 69000-8): Measured while patient is seated
+- **Heart rate --standing** (LOINC 69001-6): Measured while patient is upright/standing
+- **Heart rate --W exercise** (LOINC 89273-7): Measured during exercise
+- **Heart rate --post exercise** (LOINC 40442-6): Measured immediately after exercise cessation
+
+**Specific concepts by clinical context:**
+
+- **Heart rate --during anesthesia** (LOINC 89278-6): Measured intraoperatively under anesthesia
+- **Heart rate --post bronchodilation** (LOINC 89282-8): Measured after bronchodilator administration (pulmonary function testing)
+- **Heart rate Peripheral artery by palpation --resting** (LOINC 67129-7): Manual pulse at rest
+
+**Neonatal/pediatric concepts:**
+
+- **1 minute Apgar Heart rate** (LOINC 32407-9): Apgar score heart rate component at 1 minute after birth (0-2 scale)
+- **5 minute Apgar Heart rate** (LOINC 32412-9): Apgar score heart rate component at 5 minutes after birth (0-2 scale)
+- **10 minute Apgar Heart rate** (LOINC 32402-0): Apgar score heart rate component at 10 minutes after birth (0-2 scale)
+- **Fetal Heart rate** (LOINC 55283-6): Heart rate measured in utero via fetal monitoring (Doppler or cardiotocography)
+
+# Clinical Context
+
+**For ICU/critical care monitoring:**
+- Use ""Heart rate by Pulse oximetry"" for standard bedside monitoring (most common)
+- Use ""Heart rate Intra arterial line by Invasive"" when arterial line is present
+- Use ""Heart rate.beat-to-beat by EKG"" when continuous cardiac monitoring is primary source
+
+**For routine clinical assessments:**
+- Use ""Heart rate Peripheral artery by palpation"" for manual vital signs checks
+- Use ""Heart rate --resting"" when documented as a resting measurement without specified position
+
+**For specialized assessments:**
+- Use position-specific concepts (supine/sitting/standing) for orthostatic vital sign assessments
+- Use ""Heart rate --W exercise"" or ""--post exercise"" for exercise tolerance testing or cardiac rehabilitation
+- Use Apgar concepts only for newborn assessments (not for routine pediatric vital signs)
+
+**For obstetric care:**
+- Use ""Fetal Heart rate"" for antepartum or intrapartum fetal monitoring
+
+# Important Notes
+
+- Heart rate from pulse oximetry may differ from ECG-derived heart rate in cases of arrhythmias (e.g., atrial fibrillation) or poor peripheral perfusion
+- ECG provides the most accurate heart rate measurement and is the gold standard for detecting arrhythmias
+- Apgar heart rate is scored 0-2 (0 = absent, 1 = <100 bpm, 2 = ≥100 bpm), not an actual bpm value
+- For orthostatic assessments, document each position separately (supine, sitting, standing) rather than using generic heart rate
+- Peripheral palpation may underestimate heart rate in rapid arrhythmias due to pulse deficit"
+13985,2025-11-26 16:56:47,Boris Delange,update,327,NA,NA,Heart rate,"Updated ETL guidance comment: # Definition
+
+Heart rate represents the number of heartbeats per unit of time, expressed in **beats per minute (bpm)**. Normal resting heart rate in adults ranges from 60-100 bpm. It is a fundamental vital sign measured across all clinical settings.
+
+# Mapping Strategy
+
+Prioritize the **measurement method** over position or context modifiers. Use position-specific or context-specific concepts only when clinically relevant (e.g., orthostatic assessments, exercise testing). When the measurement method is unknown, use the generic ""Heart rate"" concept.
+
+**Default concept:** Heart rate (LOINC 8867-4) - Use when measurement method is unspecified
+
+## Recommended concepts
+
+**Specific concepts by measurement method:**
+
+- **Heart rate by Pulse oximetry** (LOINC 8889-8): Heart rate derived from photoplethysmography via pulse oximeter sensor (finger, earlobe, forehead probe)
+- **Heart rate.beat-to-beat by EKG** (LOINC 76282-3): Heart rate captured via electrocardiography (12-lead ECG or continuous cardiac monitoring/telemetry)
+- **Heart rate Intra arterial line by Invasive** (LOINC 60978-4): Heart rate measured via intra-arterial catheter in intensive care unit, operating room, or critical care settings
+- **Heart rate Peripheral artery by palpation** (LOINC 8893-0): Manual pulse palpation at peripheral artery (radial, carotid, femoral)
+- **Heart rate by Transthoracic impedance** (LOINC 76476-1): Impedance cardiography measurement
+- **Heart rate Peripheral artery by US.doppler** (LOINC 8892-2): Doppler ultrasound measurement at peripheral artery
+- **Heart rate by Noninvasive** (LOINC 76477-9): Generic non-invasive measurement when specific method is unknown
+
+## Not recommended for routine use
+
+Use these concepts **only when position, activity, or clinical context is the primary clinical focus** (e.g., orthostatic vital sign assessment, exercise stress testing, or specialized neonatal/obstetric monitoring).
+
+For most use cases, we recommend capturing patient position or clinical context separately using OMOP FACT_RELATIONSHIP table linked to SNOMED position concepts (e.g., ""Supine body position"" SNOMED 40199007, ""Sitting position"" SNOMED 33586001) rather than using pre-coordinated LOINC concepts.
+
+**Specific concepts by patient position/activity:**
+
+- **Heart rate --resting** (LOINC 40443-4): Measured at rest (position not specified)
+- **Heart rate --supine** (LOINC 68999-2): Measured while patient is lying flat
+- **Heart rate --sitting** (LOINC 69000-8): Measured while patient is seated
+- **Heart rate --standing** (LOINC 69001-6): Measured while patient is upright/standing
+- **Heart rate --W exercise** (LOINC 89273-7): Measured during exercise
+- **Heart rate --post exercise** (LOINC 40442-6): Measured immediately after exercise cessation
+
+**Specific concepts by clinical context:**
+
+- **Heart rate --during anesthesia** (LOINC 89278-6): Measured intraoperatively under anesthesia
+- **Heart rate --post bronchodilation** (LOINC 89282-8): Measured after bronchodilator administration (pulmonary function testing)
+- **Heart rate Peripheral artery by palpation --resting** (LOINC 67129-7): Manual pulse at rest
+
+**Neonatal/obstetric concepts:**
+
+- **1 minute Apgar Heart rate** (LOINC 32407-9): Apgar score heart rate component at 1 minute after birth (0-2 scale, not bpm)
+- **5 minute Apgar Heart rate** (LOINC 32412-9): Apgar score heart rate component at 5 minutes after birth (0-2 scale, not bpm)
+- **10 minute Apgar Heart rate** (LOINC 32402-0): Apgar score heart rate component at 10 minutes after birth (0-2 scale, not bpm)
+- **Fetal Heart rate** (LOINC 55283-6): Heart rate measured in utero via fetal monitoring (Doppler or cardiotocography)
+
+# Important Notes
+
+- **Prioritize measurement method over position/context**: Use ""Heart rate by Pulse oximetry"" rather than ""Heart rate --supine"" unless position is the primary clinical focus
+- **For combined information**: If both measurement method and position are documented and clinically important, either (1) check if a combined LOINC concept exists (e.g., ""Heart rate Peripheral artery by palpation --resting""), or (2) preferably use FACT_RELATIONSHIP to link the measurement method concept to a SNOMED position concept
+- Heart rate from pulse oximetry may differ from ECG-derived heart rate in cases of arrhythmias (e.g., atrial fibrillation) or poor peripheral perfusion
+- ECG provides the most accurate heart rate measurement and is the gold standard for detecting arrhythmias
+- Apgar heart rate is a scored component (0 = absent, 1 = <100 bpm, 2 = ≥100 bpm), not an actual bpm measurement
+- Peripheral palpation may underestimate heart rate in rapid arrhythmias due to pulse deficit"
+13986,2025-11-26 16:57:01,Boris Delange,update,327,NA,NA,Heart rate,"Updated ETL guidance comment: # Definition
+
+Heart rate represents the number of heartbeats per unit of time, expressed in **beats per minute (bpm)**. Normal resting heart rate in adults typically ranges from approximately 60-100 bpm. It is a fundamental vital sign measured across all clinical settings.
+
+# Mapping Strategy
+
+Prioritize the **measurement method** over position or context modifiers. Use position-specific or context-specific concepts only when clinically relevant (e.g., orthostatic assessments, exercise testing). When the measurement method is unknown, use the generic ""Heart rate"" concept.
+
+**Default concept:** Heart rate (LOINC 8867-4) - Use when measurement method is unspecified
+
+## Recommended concepts
+
+**Specific concepts by measurement method:**
+
+- **Heart rate by Pulse oximetry** (LOINC 8889-8): Heart rate derived from photoplethysmography via pulse oximeter sensor (finger, earlobe, forehead probe)
+- **Heart rate.beat-to-beat by EKG** (LOINC 76282-3): Heart rate captured via electrocardiography (12-lead ECG or continuous cardiac monitoring/telemetry)
+- **Heart rate Intra arterial line by Invasive** (LOINC 60978-4): Heart rate measured via intra-arterial catheter in intensive care unit, operating room, or critical care settings
+- **Heart rate Peripheral artery by palpation** (LOINC 8893-0): Manual pulse palpation at peripheral artery (radial, carotid, femoral)
+- **Heart rate by Transthoracic impedance** (LOINC 76476-1): Impedance cardiography measurement
+- **Heart rate Peripheral artery by US.doppler** (LOINC 8892-2): Doppler ultrasound measurement at peripheral artery
+- **Heart rate by Noninvasive** (LOINC 76477-9): Generic non-invasive measurement when specific method is unknown
+
+## Not recommended for routine use
+
+Use these concepts **only when position, activity, or clinical context is the primary clinical focus** (e.g., orthostatic vital sign assessment, exercise stress testing, or specialized neonatal/obstetric monitoring).
+
+For most use cases, we recommend capturing patient position or clinical context separately using OMOP FACT_RELATIONSHIP table linked to SNOMED position concepts (e.g., ""Supine body position"" SNOMED 40199007, ""Sitting position"" SNOMED 33586001) rather than using pre-coordinated LOINC concepts.
+
+**Specific concepts by patient position/activity:**
+
+- **Heart rate --resting** (LOINC 40443-4): Measured at rest (position not specified)
+- **Heart rate --supine** (LOINC 68999-2): Measured while patient is lying flat
+- **Heart rate --sitting** (LOINC 69000-8): Measured while patient is seated
+- **Heart rate --standing** (LOINC 69001-6): Measured while patient is upright/standing
+- **Heart rate --W exercise** (LOINC 89273-7): Measured during exercise
+- **Heart rate --post exercise** (LOINC 40442-6): Measured immediately after exercise cessation
+
+**Specific concepts by clinical context:**
+
+- **Heart rate --during anesthesia** (LOINC 89278-6): Measured intraoperatively under anesthesia
+- **Heart rate --post bronchodilation** (LOINC 89282-8): Measured after bronchodilator administration (pulmonary function testing)
+- **Heart rate Peripheral artery by palpation --resting** (LOINC 67129-7): Manual pulse at rest
+
+**Neonatal/obstetric concepts:**
+
+- **1 minute Apgar Heart rate** (LOINC 32407-9): Apgar score heart rate component at 1 minute after birth (0-2 scale, not bpm)
+- **5 minute Apgar Heart rate** (LOINC 32412-9): Apgar score heart rate component at 5 minutes after birth (0-2 scale, not bpm)
+- **10 minute Apgar Heart rate** (LOINC 32402-0): Apgar score heart rate component at 10 minutes after birth (0-2 scale, not bpm)
+- **Fetal Heart rate** (LOINC 55283-6): Heart rate measured in utero via fetal monitoring (Doppler or cardiotocography)
+
+# Important Notes
+
+- **Prioritize measurement method over position/context**: Use ""Heart rate by Pulse oximetry"" rather than ""Heart rate --supine"" unless position is the primary clinical focus
+- **For combined information**: If both measurement method and position are documented and clinically important, either (1) check if a combined LOINC concept exists (e.g., ""Heart rate Peripheral artery by palpation --resting""), or (2) preferably use FACT_RELATIONSHIP to link the measurement method concept to a SNOMED position concept
+- Heart rate from pulse oximetry may differ from ECG-derived heart rate in cases of arrhythmias (e.g., atrial fibrillation) or poor peripheral perfusion
+- ECG provides the most accurate heart rate measurement and is the gold standard for detecting arrhythmias
+- Apgar heart rate is a scored component (0 = absent, 1 = <100 bpm, 2 = ≥100 bpm), not an actual bpm measurement
+- Peripheral palpation may underestimate heart rate in rapid arrhythmias due to pulse deficit"
+13987,2025-11-26 17:02:35,Boris Delange,update,327,NA,NA,Heart rate,"Updated ETL guidance comment: # Definition
+
+Heart rate represents the number of heartbeats per unit of time, expressed in **beats per minute (bpm)**. Normal resting heart rate in adults typically ranges from approximately 60-100 bpm. It is a fundamental vital sign measured across all clinical settings.
+
+# Mapping Strategy
+
+Prioritize the **measurement method** over position or context modifiers. Use position-specific or context-specific concepts only when clinically relevant (e.g., orthostatic assessments, exercise testing).
+
+LOINC uses **pre-coordinated concepts** that combine multiple dimensions (measurement method + position + context) into single codes. This can create redundancy when only one dimension (e.g., method) is documented. For most ICU use cases, we recommend capturing the measurement method and linking position or clinical context separately via OMOP FACT_RELATIONSHIP table.
+
+## Recommended concepts
+
+**Default and measurement method concepts:**
+
+- **Heart rate** (LOINC 8867-4): Use when measurement method is unspecified
+- **Heart rate by Pulse oximetry** (LOINC 8889-8): Heart rate derived from photoplethysmography via pulse oximeter sensor (finger, earlobe, forehead probe)
+- **Heart rate.beat-to-beat by EKG** (LOINC 76282-3): Heart rate captured via electrocardiography (12-lead ECG or continuous cardiac monitoring/telemetry)
+- **Heart rate Intra arterial line by Invasive** (LOINC 60978-4): Heart rate measured via intra-arterial catheter in intensive care unit, operating room, or critical care settings
+- **Heart rate Peripheral artery by palpation** (LOINC 8893-0): Manual pulse palpation at peripheral artery (radial, carotid, femoral)
+- **Heart rate by Transthoracic impedance** (LOINC 76476-1): Impedance cardiography measurement
+- **Heart rate Peripheral artery by US.doppler** (LOINC 8892-2): Doppler ultrasound measurement at peripheral artery
+- **Heart rate by Noninvasive** (LOINC 76477-9): Generic non-invasive measurement when specific method is unknown
+
+**Neonatal/obstetric concepts:**
+
+- **1 minute Apgar Heart rate** (LOINC 32407-9): Apgar score heart rate component at 1 minute after birth (0-2 scale, not bpm)
+- **5 minute Apgar Heart rate** (LOINC 32412-9): Apgar score heart rate component at 5 minutes after birth (0-2 scale, not bpm)
+- **10 minute Apgar Heart rate** (LOINC 32402-0): Apgar score heart rate component at 10 minutes after birth (0-2 scale, not bpm)
+- **Fetal Heart rate** (LOINC 55283-6): Heart rate measured in utero via fetal monitoring (Doppler or cardiotocography)
+
+## Not recommended for routine use
+
+Use these concepts **only when position, activity, or clinical context is the primary clinical focus** (e.g., orthostatic vital sign assessment, exercise stress testing).
+
+For most use cases, we recommend capturing patient position or clinical context separately using OMOP FACT_RELATIONSHIP table linked to SNOMED position concepts (e.g., ""Supine body position"" SNOMED 4221822, ""Sitting position"" SNOMED 4142787) rather than using pre-coordinated LOINC concepts.
+
+**Specific concepts by patient position/activity:**
+
+- **Heart rate --resting** (LOINC 40443-4): Measured at rest (position not specified)
+- **Heart rate --supine** (LOINC 68999-2): Measured while patient is lying flat
+- **Heart rate --sitting** (LOINC 69000-8): Measured while patient is seated
+- **Heart rate --standing** (LOINC 69001-6): Measured while patient is upright/standing
+- **Heart rate --W exercise** (LOINC 89273-7): Measured during exercise
+- **Heart rate --post exercise** (LOINC 40442-6): Measured immediately after exercise cessation
+
+**Specific concepts by clinical context:**
+
+- **Heart rate --during anesthesia** (LOINC 89278-6): Measured intraoperatively under anesthesia
+- **Heart rate --post bronchodilation** (LOINC 89282-8): Measured after bronchodilator administration (pulmonary function testing)
+- **Heart rate Peripheral artery by palpation --resting** (LOINC 67129-7): Manual pulse at rest
+
+# Important Notes
+
+- **Prioritize measurement method over position/context**: Use ""Heart rate by Pulse oximetry"" rather than ""Heart rate --supine"" unless position is the primary clinical focus
+- **For combined information**: If both measurement method and position are documented and clinically important, use FACT_RELATIONSHIP to link the measurement method concept to a SNOMED position concept"
+13988,2025-11-26 17:03:25,Boris Delange,update,327,NA,NA,Heart rate,"Updated ETL guidance comment: # Definition
+
+Heart rate represents the number of heartbeats per unit of time, expressed in **beats per minute (bpm)**. Normal resting heart rate in adults typically ranges from approximately 60-100 bpm. It is a fundamental vital sign measured across all clinical settings.
+
+# Mapping Strategy
+
+LOINC uses **pre-coordinated concepts** that combine multiple dimensions (measurement method + position + context) into single codes. This can create redundancy when only one dimension (e.g., method) is documented. For most ICU use cases, we recommend capturing the measurement method and linking position or clinical context separately via OMOP FACT_RELATIONSHIP table.
+
+Prioritize the **measurement method** over position or context modifiers.
+
+## Recommended concepts
+
+**Default and measurement method concepts:**
+
+- **Heart rate** (LOINC 8867-4): Use when measurement method is unspecified
+- **Heart rate by Pulse oximetry** (LOINC 8889-8): Heart rate derived from photoplethysmography via pulse oximeter sensor (finger, earlobe, forehead probe)
+- **Heart rate.beat-to-beat by EKG** (LOINC 76282-3): Heart rate captured via electrocardiography (12-lead ECG or continuous cardiac monitoring/telemetry)
+- **Heart rate Intra arterial line by Invasive** (LOINC 60978-4): Heart rate measured via intra-arterial catheter in intensive care unit, operating room, or critical care settings
+- **Heart rate Peripheral artery by palpation** (LOINC 8893-0): Manual pulse palpation at peripheral artery (radial, carotid, femoral)
+- **Heart rate by Transthoracic impedance** (LOINC 76476-1): Impedance cardiography measurement
+- **Heart rate Peripheral artery by US.doppler** (LOINC 8892-2): Doppler ultrasound measurement at peripheral artery
+- **Heart rate by Noninvasive** (LOINC 76477-9): Generic non-invasive measurement when specific method is unknown
+
+**Neonatal/obstetric concepts:**
+
+- **1 minute Apgar Heart rate** (LOINC 32407-9): Apgar score heart rate component at 1 minute after birth (0-2 scale, not bpm)
+- **5 minute Apgar Heart rate** (LOINC 32412-9): Apgar score heart rate component at 5 minutes after birth (0-2 scale, not bpm)
+- **10 minute Apgar Heart rate** (LOINC 32402-0): Apgar score heart rate component at 10 minutes after birth (0-2 scale, not bpm)
+- **Fetal Heart rate** (LOINC 55283-6): Heart rate measured in utero via fetal monitoring (Doppler or cardiotocography)
+
+## Not recommended for routine use
+
+Use these concepts **only when position, activity, or clinical context is the primary clinical focus** (e.g., orthostatic vital sign assessment, exercise stress testing).
+
+For most use cases, we recommend capturing patient position or clinical context separately using OMOP FACT_RELATIONSHIP table linked to SNOMED position concepts (e.g., ""Supine body position"" SNOMED 4221822, ""Sitting position"" SNOMED 4142787) rather than using pre-coordinated LOINC concepts.
+
+**Specific concepts by patient position/activity:**
+
+- **Heart rate --resting** (LOINC 40443-4): Measured at rest (position not specified)
+- **Heart rate --supine** (LOINC 68999-2): Measured while patient is lying flat
+- **Heart rate --sitting** (LOINC 69000-8): Measured while patient is seated
+- **Heart rate --standing** (LOINC 69001-6): Measured while patient is upright/standing
+- **Heart rate --W exercise** (LOINC 89273-7): Measured during exercise
+- **Heart rate --post exercise** (LOINC 40442-6): Measured immediately after exercise cessation
+
+**Specific concepts by clinical context:**
+
+- **Heart rate --during anesthesia** (LOINC 89278-6): Measured intraoperatively under anesthesia
+- **Heart rate --post bronchodilation** (LOINC 89282-8): Measured after bronchodilator administration (pulmonary function testing)
+- **Heart rate Peripheral artery by palpation --resting** (LOINC 67129-7): Manual pulse at rest
+
+# Important Notes
+
+- **Prioritize measurement method over position/context**: Use ""Heart rate by Pulse oximetry"" rather than ""Heart rate --supine"" unless position is the primary clinical focus
+- **For combined information**: If both measurement method and position are documented and clinically important, use FACT_RELATIONSHIP to link the measurement method concept to a SNOMED position concept"
+13989,2025-11-26 17:06:18,Boris Delange,recommend,327,LOINC,32407-9,1 minute Apgar Heart rate,Marked as recommended
+13990,2025-11-26 17:06:18,Boris Delange,recommend,327,LOINC,32402-0,10 minute Apgar Heart rate,Marked as recommended
+13991,2025-11-26 17:06:18,Boris Delange,recommend,327,LOINC,32412-9,5 minute Apgar Heart rate,Marked as recommended
+13992,2025-11-26 17:06:19,Boris Delange,recommend,327,LOINC,55283-6,Fetal Heart rate,Marked as recommended
+13993,2025-11-26 17:06:19,Boris Delange,recommend,327,LOINC,8892-2,Heart rate Peripheral artery by US.doppler,Marked as recommended
+13994,2025-11-26 17:06:19,Boris Delange,recommend,327,LOINC,8893-0,Heart rate Peripheral artery by palpation,Marked as recommended
+13995,2025-11-26 17:06:19,Boris Delange,recommend,327,LOINC,76477-9,Heart rate by Noninvasive,Marked as recommended
+13996,2025-11-26 17:06:19,Boris Delange,recommend,327,LOINC,76476-1,Heart rate by Transthoracic impedance,Marked as recommended
