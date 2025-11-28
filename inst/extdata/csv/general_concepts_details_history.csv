@@ -15371,3 +15371,426 @@ Prioritize the most granular concept available that matches your measurement met
 14130,2025-11-28 17:23:34,Boris Delange,recommend,325,LOINC,60986-7,Central venous pressure (CVP) Diastolic,Marked as recommended
 14131,2025-11-28 17:23:34,Boris Delange,recommend,325,LOINC,8591-0,Central venous pressure (CVP) Mean,Marked as recommended
 14132,2025-11-28 17:23:34,Boris Delange,recommend,325,LOINC,60987-5,Central venous pressure (CVP) Systolic,Marked as recommended
+14133,2025-11-28 17:58:59,Boris Delange,update,325,NA,NA,Central venous pressure,"Updated ETL guidance comment: # Definition
+
+Central venous pressure (CVP) represents the blood pressure in the central venous system (venae cavae or right atrium), expressed in **mmHg** or **cmH2O**. Normal CVP ranges from 2-8 mmHg (3-11 cmH2O) in adults. CVP reflects right ventricular preload and is commonly used in ICU settings to assess volume status and right heart function.
+
+# Mapping Strategy
+
+LOINC distinguishes CVP measurements by **timing phase** (mean, systolic, diastolic) and **system location** (central venous catheter vs blood in central veins). For most ICU use cases, we recommend using the generic concepts unless your monitoring system explicitly reports systolic/diastolic components separately.
+
+Prioritize the **generic CVP measurement** (SNOMED or LOINC generic) unless timing-specific values are explicitly documented.
+
+## Recommended concepts
+
+**Default and primary concepts:**
+
+- **Central venous pressure** (SNOMED 71420008): Use when measurement timing is unspecified or when reporting single CVP value (most common ICU use case)
+- **Central venous pressure (CVP)** (LOINC 60985-9): Generic LOINC concept measuring intravascular pressure via central venous catheter, use when timing is unspecified
+- **Central venous pressure (CVP) Mean** (LOINC 8591-0): Use when explicitly measuring mean CVP across cardiac cycle (most clinically relevant when components are separately reported)
+
+## Not recommended for routine use
+
+Use these concepts **only when your monitoring system explicitly reports systolic and diastolic CVP components** (uncommon in standard ICU practice).
+
+For most use cases, CVP is reported as a single value (mean or end-expiratory value). If systolic/diastolic phases are clinically relevant for specific research purposes, use these concepts. Otherwise, use the generic concepts above.
+
+**Timing-specific concepts:**
+
+- **Central venous pressure (CVP) Systolic** (LOINC 60987-5): Peak intravascular pressure during ventricular systole measured via central venous catheter
+- **Central venous pressure (CVP) Diastolic** (LOINC 60986-7): Nadir intravascular pressure during ventricular diastole measured via central venous catheter
+- **Measurement of central venous pressure** (SNOMED 54654001): Non-standard SNOMED procedure concept; prefer the observable entity concept (SNOMED 71420008) for actual pressure measurements
+
+# Important Notes
+
+- CVP is measured via a central venous catheter (subclavian, internal jugular, or femoral vein) with the transducer zeroed at the level of the right atrium (phlebostatic axis)
+- CVP values are influenced by intrathoracic pressure, particularly in mechanically ventilated patients with PEEP; interpret in clinical context
+- Most ICU monitoring systems report a single CVP value (mean or end-expiratory value), not separate systolic/diastolic components
+- Normal CVP ranges assume the patient is supine; values may differ with position changes"
+14134,2025-11-28 17:59:59,Boris Delange,update,325,NA,NA,Central venous pressure,"Updated ETL guidance comment: # Definition
+
+Central venous pressure (CVP) represents the blood pressure in the central venous system (venae cavae or right atrium), expressed in **mmHg** or **cmH2O**. Normal CVP ranges approximately from 2-8 mmHg (3-11 cmH2O) in adults. CVP reflects right ventricular preload and is commonly used in ICU settings to assess volume status and right heart function.
+
+# Mapping Strategy
+
+LOINC distinguishes CVP measurements by **timing phase** (mean, systolic, diastolic) and **system location** (central venous catheter vs blood in central veins). For most ICU use cases, we recommend using the generic concepts unless your monitoring system explicitly reports systolic/diastolic components separately.
+
+Prioritize the **generic CVP measurement** (SNOMED or LOINC generic) unless timing-specific values are explicitly documented.
+
+## Recommended concepts
+
+**Default and primary concepts:**
+
+- **Central venous pressure** (SNOMED 71420008): Use when measurement timing is unspecified or when reporting single CVP value (most common ICU use case)
+- **Central venous pressure (CVP)** (LOINC 60985-9): Generic LOINC concept measuring intravascular pressure via central venous catheter, use when timing is unspecified
+- **Central venous pressure (CVP) Mean** (LOINC 8591-0): Use when explicitly measuring mean CVP across cardiac cycle (most clinically relevant when components are separately reported)
+
+## Not recommended for routine use
+
+Use these concepts **only when your monitoring system explicitly reports systolic and diastolic CVP components** (uncommon in standard ICU practice).
+
+For most use cases, CVP is reported as a single value (mean or end-expiratory value). If systolic/diastolic phases are clinically relevant for specific research purposes, use these concepts. Otherwise, use the generic concepts above.
+
+**Timing-specific concepts:**
+
+- **Central venous pressure (CVP) Systolic** (LOINC 60987-5): Peak intravascular pressure during ventricular systole measured via central venous catheter
+- **Central venous pressure (CVP) Diastolic** (LOINC 60986-7): Nadir intravascular pressure during ventricular diastole measured via central venous catheter
+- **Measurement of central venous pressure** (SNOMED 54654001): Non-standard SNOMED procedure concept; prefer the observable entity concept (SNOMED 71420008) for actual pressure measurements
+
+# Important Notes
+
+- CVP is measured via a central venous catheter (subclavian, internal jugular, or femoral vein) with the transducer zeroed at the level of the right atrium (phlebostatic axis)
+- CVP values are influenced by intrathoracic pressure, particularly in mechanically ventilated patients with PEEP; interpret in clinical context
+- Most ICU monitoring systems report a single CVP value (mean or end-expiratory value), not separate systolic/diastolic components
+- Normal CVP ranges assume the patient is supine; values may differ with position changes"
+14135,2025-11-28 18:00:29,Boris Delange,update,325,NA,NA,Central venous pressure,"Updated ETL guidance comment: # Definition
+
+Central venous pressure (CVP) represents the blood pressure in the central venous system (venae cavae or right atrium), expressed in **mmHg** or **cmH2O**. Normal CVP ranges approximately from 2-8 mmHg (3-11 cmH2O) in adults.
+
+# Mapping Strategy
+
+LOINC distinguishes CVP measurements by **timing phase** (mean, systolic, diastolic) and **system location** (central venous catheter vs blood in central veins). For most ICU use cases, we recommend using the generic concepts unless your monitoring system explicitly reports systolic/diastolic components separately.
+
+Prioritize the **generic CVP measurement** (SNOMED or LOINC generic) unless timing-specific values are explicitly documented.
+
+## Recommended concepts
+
+**Default and primary concepts:**
+
+- **Central venous pressure** (SNOMED 71420008): Use when measurement timing is unspecified or when reporting single CVP value (most common ICU use case)
+- **Central venous pressure (CVP)** (LOINC 60985-9): Generic LOINC concept measuring intravascular pressure via central venous catheter, use when timing is unspecified
+- **Central venous pressure (CVP) Mean** (LOINC 8591-0): Use when explicitly measuring mean CVP across cardiac cycle (most clinically relevant when components are separately reported)
+
+## Not recommended for routine use
+
+Use these concepts **only when your monitoring system explicitly reports systolic and diastolic CVP components** (uncommon in standard ICU practice).
+
+For most use cases, CVP is reported as a single value (mean or end-expiratory value). If systolic/diastolic phases are clinically relevant for specific research purposes, use these concepts. Otherwise, use the generic concepts above.
+
+**Timing-specific concepts:**
+
+- **Central venous pressure (CVP) Systolic** (LOINC 60987-5): Peak intravascular pressure during ventricular systole measured via central venous catheter
+- **Central venous pressure (CVP) Diastolic** (LOINC 60986-7): Nadir intravascular pressure during ventricular diastole measured via central venous catheter
+- **Measurement of central venous pressure** (SNOMED 54654001): Non-standard SNOMED procedure concept; prefer the observable entity concept (SNOMED 71420008) for actual pressure measurements
+
+# Important Notes
+
+- CVP is measured via a central venous catheter (subclavian, internal jugular, or femoral vein) with the transducer zeroed at the level of the right atrium (phlebostatic axis)
+- CVP values are influenced by intrathoracic pressure, particularly in mechanically ventilated patients with PEEP; interpret in clinical context
+- Most ICU monitoring systems report a single CVP value (mean or end-expiratory value), not separate systolic/diastolic components
+- Normal CVP ranges assume the patient is supine; values may differ with position changes"
+14136,2025-11-28 18:06:05,Boris Delange,update,325,NA,NA,Central venous pressure,"Updated ETL guidance comment: # Definition
+
+Central venous pressure (CVP) represents the blood pressure in the central venous system (venae cavae or right atrium), expressed in **mmHg** or **cmH2O**. Normal CVP ranges approximately from 2-8 mmHg (3-11 cmH2O) in adults.
+
+# Mapping Strategy
+
+LOINC distinguishes CVP measurements by **timing phase** (mean, systolic, diastolic) and **system location** (central venous catheter vs blood in central veins). The presence of systolic/diastolic variations depends on the measurement location within the central venous system.
+
+Prioritize the **generic CVP measurement** (SNOMED or LOINC generic) when timing is unspecified, and use timing-specific concepts when your monitoring system explicitly reports mean, systolic, or diastolic components.
+
+## Recommended concepts
+
+**Default and primary concepts:**
+
+- **Central venous pressure** (SNOMED 71420008): Use when measurement timing is unspecified or when reporting single CVP value (most common ICU use case)
+- **Central venous pressure (CVP)** (LOINC 60985-9): Generic LOINC concept measuring intravascular pressure via central venous catheter, use when timing is unspecified
+
+**Timing-specific concepts:**
+
+- **Central venous pressure (CVP) Mean** (LOINC 8591-0): Mean CVP across cardiac cycle (measured in blood in central veins)
+- **Central venous pressure (CVP) Systolic** (LOINC 60987-5): Peak intravascular pressure during ventricular systole measured via central venous catheter
+- **Central venous pressure (CVP) Diastolic** (LOINC 60986-7): Nadir intravascular pressure during ventricular diastole measured via central venous catheter
+
+## Not recommended for routine use
+
+**Non-standard procedure concept:**
+
+- **Measurement of central venous pressure** (SNOMED 54654001): Non-standard SNOMED procedure concept; prefer the observable entity concept (SNOMED 71420008) for actual pressure measurements
+
+# Important Notes
+
+- CVP is measured via a central venous catheter (subclavian, internal jugular, or femoral vein) with the transducer zeroed at the level of the right atrium (phlebostatic axis)
+- **Measurement location matters**: When the catheter tip is positioned in the vena cava, there is typically no systolic/diastolic variation (constant pressure). Systolic/diastolic CVP components (mean, systolic, diastolic) are only relevant when the catheter tip is positioned in the right atrium, where cardiac pulsations create pressure variations across the cardiac cycle
+- Use the generic CVP concept (SNOMED 71420008 or LOINC 60985-9) for vena cava measurements; use timing-specific concepts (mean, systolic, diastolic) only for right atrial measurements"
+14137,2025-11-28 18:12:52,Boris Delange,delete,333,SNOMED,927981000000106,Baseline SpO2 (oxygen saturation at periphery),Deleted OMOP concept mapping
+14138,2025-11-28 18:12:52,Boris Delange,delete,333,SNOMED,852651000000100,Maximum peripheral oxygen saturation,Deleted OMOP concept mapping
+14139,2025-11-28 18:12:52,Boris Delange,delete,333,SNOMED,852661000000102,Minimum peripheral oxygen saturation,Deleted OMOP concept mapping
+14140,2025-11-28 18:12:52,Boris Delange,delete,333,SNOMED,852641000000103,Target peripheral oxygen saturation,Deleted OMOP concept mapping
+14141,2025-11-28 18:36:50,Boris Delange,insert,333,LOINC,LA32770-2,"$25,000-$49,999",Added OMOP concept mapping
+14142,2025-11-28 18:36:50,Boris Delange,insert,333,SNOMED,442440005,Capillary oxygen saturation,Added OMOP concept mapping
+14143,2025-11-28 18:36:50,Boris Delange,insert,333,SNOMED,250553009,Capillary oxygen saturation measurement,Added OMOP concept mapping
+14144,2025-11-28 18:36:50,Boris Delange,insert,333,LOINC,59408-5,Oxygen saturation in Arterial blood by Pulse oximetry,Added OMOP concept mapping
+14145,2025-11-28 18:36:50,Boris Delange,insert,333,LOINC,89276-0,Oxygen saturation in Arterial blood by Pulse oximetry --W exercise,Added OMOP concept mapping
+14146,2025-11-28 18:36:50,Boris Delange,insert,333,LOINC,89277-8,Oxygen saturation in Arterial blood by Pulse oximetry --during anesthesia,Added OMOP concept mapping
+14147,2025-11-28 18:36:50,Boris Delange,insert,333,LOINC,59409-3,Oxygen saturation in Arterial blood by Pulse oximetry --during treatment,Added OMOP concept mapping
+14148,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,59410-1,Oxygen saturation in Arterial blood by Pulse oximetry --on room air,Added OMOP concept mapping
+14149,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,59411-9,Oxygen saturation in Arterial blood by Pulse oximetry --post bronchodilation,Added OMOP concept mapping
+14150,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,59412-7,Oxygen saturation in Arterial blood by Pulse oximetry --post exercise,Added OMOP concept mapping
+14151,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,59413-5,Oxygen saturation in Arterial blood by Pulse oximetry --post treatment,Added OMOP concept mapping
+14152,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,59414-3,Oxygen saturation in Arterial blood by Pulse oximetry --pre bronchodilation,Added OMOP concept mapping
+14153,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,59415-0,Oxygen saturation in Arterial blood by Pulse oximetry --pre physiotherapy,Added OMOP concept mapping
+14154,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,2708-6,Oxygen saturation in Arterial blood,Added OMOP concept mapping
+14155,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,71847-8,Oxygen saturation [Pure mass fraction] in Venous cord blood,Added OMOP concept mapping
+14156,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,71843-7,Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Arterial blood,Added OMOP concept mapping
+14157,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,71844-5,Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Blood,Added OMOP concept mapping
+14158,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,71842-9,Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Capillary blood,Added OMOP concept mapping
+14159,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,71841-1,Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Venous blood,Added OMOP concept mapping
+14160,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,71852-8,Oxygen saturation [Pure mass fraction] in Arterial blood,Added OMOP concept mapping
+14161,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,71848-6,Oxygen saturation [Pure mass fraction] in Arterial cord blood,Added OMOP concept mapping
+14162,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,71853-6,Oxygen saturation [Pure mass fraction] in Blood,Added OMOP concept mapping
+14163,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,71851-0,Oxygen saturation [Pure mass fraction] in Capillary blood,Added OMOP concept mapping
+14164,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,71849-4,Oxygen saturation [Pure mass fraction] in Cord blood,Added OMOP concept mapping
+14165,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,71846-0,Oxygen saturation [Pure mass fraction] in Mixed venous blood,Added OMOP concept mapping
+14166,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,71845-2,Oxygen saturation [Pure mass fraction] in Venous blood,Added OMOP concept mapping
+14167,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,51731-8,Oxygen saturation Calculated from oxygen partial pressure in Venous blood,Added OMOP concept mapping
+14168,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,51733-4,Oxygen saturation Calculated from oxygen partial pressure in Arterial blood,Added OMOP concept mapping
+14169,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,2713-6,Oxygen saturation Calculated from oxygen partial pressure in Blood,Added OMOP concept mapping
+14170,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,51732-6,Oxygen saturation Calculated from oxygen partial pressure in Capillary blood,Added OMOP concept mapping
+14171,2025-11-28 18:36:51,Boris Delange,insert,333,LOINC,74105-8,Oxygen saturation Calculated from oxygen partial pressure in Mixed venous blood,Added OMOP concept mapping
+14172,2025-11-28 18:36:52,Boris Delange,insert,333,LOINC,59416-8,Oxygen saturation in Arterial blood by Pulse oximetry --pre treatment,Added OMOP concept mapping
+14173,2025-11-28 18:36:52,Boris Delange,insert,333,LOINC,59417-6,Oxygen saturation in Arterial blood by Pulse oximetry --resting,Added OMOP concept mapping
+14174,2025-11-28 18:36:52,Boris Delange,insert,333,LOINC,28642-7,Oxygen saturation in Arterial cord blood,Added OMOP concept mapping
+14175,2025-11-28 18:36:52,Boris Delange,insert,333,LOINC,20564-1,Oxygen saturation in Blood,Added OMOP concept mapping
+14176,2025-11-28 18:36:52,Boris Delange,insert,333,LOINC,59418-4,Oxygen saturation in Blood Postductal by Pulse oximetry,Added OMOP concept mapping
+14177,2025-11-28 18:36:52,Boris Delange,insert,333,LOINC,59407-7,Oxygen saturation in Blood Preductal by Pulse oximetry,Added OMOP concept mapping
+14178,2025-11-28 18:36:52,Boris Delange,insert,333,LOINC,2709-4,Oxygen saturation in Capillary blood,Added OMOP concept mapping
+14179,2025-11-28 18:36:52,Boris Delange,insert,333,LOINC,97549-0,Oxygen saturation in Central venous blood,Added OMOP concept mapping
+14180,2025-11-28 18:36:52,Boris Delange,insert,333,LOINC,68363-1,Oxygen saturation in Cord blood,Added OMOP concept mapping
+14181,2025-11-28 18:36:52,Boris Delange,insert,333,LOINC,19224-5,Oxygen saturation in Mixed venous blood,Added OMOP concept mapping
+14182,2025-11-28 18:36:52,Boris Delange,insert,333,LOINC,2711-0,Oxygen saturation in Venous blood,Added OMOP concept mapping
+14183,2025-11-28 18:36:52,Boris Delange,insert,333,LOINC,28643-5,Oxygen saturation in Venous cord blood,Added OMOP concept mapping
+14184,2025-11-28 18:36:52,Boris Delange,insert,333,SNOMED,1321881000000103,Peripheral oxygen saturation level on supplemental oxygen on exertion unchanged,Added OMOP concept mapping
+14185,2025-11-28 18:36:52,Boris Delange,insert,333,SNOMED,1321841000000106,Peripheral oxygen saturation level on room air on exertion decreased,Added OMOP concept mapping
+14186,2025-11-28 18:36:52,Boris Delange,insert,333,SNOMED,1321871000000100,Peripheral oxygen saturation level on room air on exertion unchanged,Added OMOP concept mapping
+14187,2025-11-28 18:36:52,Boris Delange,insert,333,SNOMED,1321861000000107,Peripheral oxygen saturation level on supplemental oxygen on exertion decreased,Added OMOP concept mapping
+14188,2025-11-28 18:36:52,Boris Delange,insert,333,SNOMED,2841000237106,SvO2 (mixed venous oxygen saturation) percent in venous blood,Added OMOP concept mapping
+14189,2025-11-28 18:36:52,Boris Delange,insert,333,SNOMED,442349007,Venous oxygen saturation,Added OMOP concept mapping
+14190,2025-11-28 18:37:00,Boris Delange,delete,333,LOINC,LA32770-2,"$25,000-$49,999",Deleted OMOP concept mapping
+14191,2025-11-28 18:38:48,Boris Delange,recommend,333,LOINC,51733-4,Oxygen saturation Calculated from oxygen partial pressure in Arterial blood,Marked as recommended
+14192,2025-11-28 18:38:48,Boris Delange,recommend,333,LOINC,2713-6,Oxygen saturation Calculated from oxygen partial pressure in Blood,Marked as recommended
+14193,2025-11-28 18:38:48,Boris Delange,recommend,333,LOINC,51732-6,Oxygen saturation Calculated from oxygen partial pressure in Capillary blood,Marked as recommended
+14194,2025-11-28 18:38:48,Boris Delange,recommend,333,LOINC,74105-8,Oxygen saturation Calculated from oxygen partial pressure in Mixed venous blood,Marked as recommended
+14195,2025-11-28 18:38:48,Boris Delange,recommend,333,LOINC,51731-8,Oxygen saturation Calculated from oxygen partial pressure in Venous blood,Marked as recommended
+14196,2025-11-28 18:38:48,Boris Delange,recommend,333,LOINC,71843-7,Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Arterial blood,Marked as recommended
+14197,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,71844-5,Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Blood,Marked as recommended
+14198,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,71842-9,Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Capillary blood,Marked as recommended
+14199,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,71841-1,Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Venous blood,Marked as recommended
+14200,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,71852-8,Oxygen saturation [Pure mass fraction] in Arterial blood,Marked as recommended
+14201,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,71848-6,Oxygen saturation [Pure mass fraction] in Arterial cord blood,Marked as recommended
+14202,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,71853-6,Oxygen saturation [Pure mass fraction] in Blood,Marked as recommended
+14203,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,71851-0,Oxygen saturation [Pure mass fraction] in Capillary blood,Marked as recommended
+14204,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,71849-4,Oxygen saturation [Pure mass fraction] in Cord blood,Marked as recommended
+14205,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,71846-0,Oxygen saturation [Pure mass fraction] in Mixed venous blood,Marked as recommended
+14206,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,71845-2,Oxygen saturation [Pure mass fraction] in Venous blood,Marked as recommended
+14207,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,71847-8,Oxygen saturation [Pure mass fraction] in Venous cord blood,Marked as recommended
+14208,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,2708-6,Oxygen saturation in Arterial blood,Marked as recommended
+14209,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,59408-5,Oxygen saturation in Arterial blood by Pulse oximetry,Marked as recommended
+14210,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,28642-7,Oxygen saturation in Arterial cord blood,Marked as recommended
+14211,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,20564-1,Oxygen saturation in Blood,Marked as recommended
+14212,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,59418-4,Oxygen saturation in Blood Postductal by Pulse oximetry,Marked as recommended
+14213,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,59407-7,Oxygen saturation in Blood Preductal by Pulse oximetry,Marked as recommended
+14214,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,2709-4,Oxygen saturation in Capillary blood,Marked as recommended
+14215,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,97549-0,Oxygen saturation in Central venous blood,Marked as recommended
+14216,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,68363-1,Oxygen saturation in Cord blood,Marked as recommended
+14217,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,19224-5,Oxygen saturation in Mixed venous blood,Marked as recommended
+14218,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,2711-0,Oxygen saturation in Venous blood,Marked as recommended
+14219,2025-11-28 18:38:49,Boris Delange,recommend,333,LOINC,28643-5,Oxygen saturation in Venous cord blood,Marked as recommended
+14220,2025-11-28 18:38:49,Boris Delange,recommend,333,SNOMED,2841000237106,SvO2 (mixed venous oxygen saturation) percent in venous blood,Marked as recommended
+14221,2025-11-28 18:38:50,Boris Delange,recommend,333,SNOMED,442349007,Venous oxygen saturation,Marked as recommended
+14222,2025-11-28 18:43:53,Boris Delange,update,333,NA,NA,SpO2,"Updated ETL guidance comment: # Definition
+
+Peripheral oxygen saturation (SpO2) represents the percentage of hemoglobin saturated with oxygen in arterial blood, expressed as a **percentage (%)** or **fraction (0-1)**. Normal SpO2 values range from 95-100% in healthy adults breathing room air.
+
+**Important distinction**: This concept encompasses both **non-invasive measurements** (pulse oximetry using peripheral sensors) and **invasive measurements** (blood gas analysis from arterial, venous, or capillary blood samples). These are fundamentally different measurement techniques that should be distinguished when mapping data.
+
+# Mapping Strategy
+
+LOINC uses **pre-coordinated concepts** that combine multiple dimensions (measurement method + blood specimen type + clinical context) into single codes. This can create redundancy when only one or two dimensions are documented. For most ICU use cases, we recommend capturing the measurement method and blood specimen type, and linking clinical context (rest, exercise, oxygen therapy status) separately via OMOP FACT_RELATIONSHIP table.
+
+Prioritize the **most granular concept** that matches your measurement method (pulse oximetry vs blood gas analysis) and specimen type (arterial, venous, capillary, mixed venous).
+
+## Recommended concepts
+
+**Non-invasive pulse oximetry measurements:**
+
+- **Peripheral oxygen saturation** (SNOMED 431314004): Use for pulse oximetry measurements when clinical context is unspecified (most common ICU monitoring)
+- **Oxygen saturation in Arterial blood by Pulse oximetry** (LOINC 59408-5): Use for pulse oximetry measurements (non-invasive peripheral sensor measuring arterial pulsatile flow)
+- **Capillary oxygen saturation** (SNOMED 442440005): Alternative term for pulse oximetry in peripheral capillaries
+
+**Invasive blood gas measurements - Arterial:**
+
+- **Oxygen saturation in Arterial blood** (LOINC 2708-6): Measured from arterial blood gas sample (invasive, gold standard for accuracy)
+- **Oxygen saturation [Pure mass fraction] in Arterial blood** (LOINC 71852-8): Same as above, expressed as fraction instead of percentage
+- **Oxygen saturation Calculated from oxygen partial pressure in Arterial blood** (LOINC 51733-4): SaO2 calculated from PaO2 using oxygen-hemoglobin dissociation curve
+
+**Invasive blood gas measurements - Venous:**
+
+- **Oxygen saturation in Venous blood** (LOINC 2711-0): Generic venous blood saturation (peripheral venous sample)
+- **Oxygen saturation in Central venous blood** (LOINC 97549-0): ScvO2 measured from central venous catheter (superior vena cava)
+- **Oxygen saturation in Mixed venous blood** (LOINC 19224-5): SvO2 measured from pulmonary artery catheter (true mixed venous blood)
+- **SvO2 (mixed venous oxygen saturation) percent in venous blood** (SNOMED 37170618): SNOMED equivalent for mixed venous saturation
+- **Venous oxygen saturation** (SNOMED 442349007): Generic SNOMED concept for venous saturation
+- **Oxygen saturation Calculated from oxygen partial pressure in Venous blood** (LOINC 51731-8): SvO2 calculated from PvO2 using oxygen-hemoglobin dissociation curve
+
+**Invasive blood gas measurements - Capillary:**
+
+- **Oxygen saturation in Capillary blood** (LOINC 2709-4): Measured from capillary blood gas sample (fingerstick or heel stick)
+- **Oxygen saturation Calculated from oxygen partial pressure in Capillary blood** (LOINC 51732-6): Calculated from capillary PO2
+
+**Invasive blood gas measurements - Other specimens:**
+
+- **Oxygen saturation in Blood** (LOINC 20564-1): Generic concept when specimen type is unspecified
+- **Oxygen saturation in Cord blood** (LOINC 68363-1): Measured from umbilical cord blood (obstetric use)
+- **Oxygen saturation in Arterial cord blood** (LOINC 28642-7): Umbilical artery blood
+- **Oxygen saturation in Venous cord blood** (LOINC 28643-5): Umbilical vein blood
+
+**Neonatal-specific concepts:**
+
+- **Oxygen saturation in Blood Preductal by Pulse oximetry** (LOINC 59407-7): Right hand/arm pulse oximetry (pre-ductal circulation in neonates)
+- **Oxygen saturation in Blood Postductal by Pulse oximetry** (LOINC 59418-4): Lower extremity pulse oximetry (post-ductal circulation in neonates)
+
+## Not recommended for routine use
+
+Use these concepts **only when patient activity, oxygen therapy status, or clinical timing is the primary clinical focus** (e.g., exercise desaturation testing, pulmonary rehabilitation assessments).
+
+For most ICU use cases, we recommend capturing SpO2 measurements using the granular concepts above and linking clinical context separately using OMOP FACT_RELATIONSHIP table with SNOMED context concepts (e.g., ""On room air"" SNOMED, ""Supplemental oxygen therapy"" SNOMED, ""At rest"" SNOMED, ""During exercise"" SNOMED).
+
+**SNOMED pre-coordinated context concepts:**
+
+- **Peripheral blood oxygen saturation on room air at rest** (SNOMED 866661000000106): SpO2 measured while breathing room air at rest
+- **Peripheral blood oxygen saturation on room air on exertion** (SNOMED 866681000000102): SpO2 during exercise without supplemental oxygen
+- **Peripheral blood oxygen saturation on supplemental oxygen at rest** (SNOMED 866701000000100): SpO2 at rest with oxygen therapy
+- **Peripheral blood oxygen saturation on supplemental oxygen on exertion** (SNOMED 866721000000109): SpO2 during exercise with oxygen therapy
+
+**LOINC pre-coordinated context concepts:**
+
+- **Oxygen saturation in Arterial blood by Pulse oximetry --on room air** (LOINC 59410-1)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --resting** (LOINC 59417-6)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --W exercise** (LOINC 89276-0)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --post exercise** (LOINC 59412-7)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --during anesthesia** (LOINC 89277-8)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --during treatment** (LOINC 59409-3)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --post treatment** (LOINC 59413-5)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --pre treatment** (LOINC 59416-8)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --pre bronchodilation** (LOINC 59414-3)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --post bronchodilation** (LOINC 59411-9)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --pre physiotherapy** (LOINC 59415-0)
+
+**SNOMED qualitative change concepts (not recommended):**
+
+- **Peripheral oxygen saturation level on room air on exertion decreased** (SNOMED 1321841000000106)
+- **Peripheral oxygen saturation level on room air on exertion unchanged** (SNOMED 1321871000000100)
+- **Peripheral oxygen saturation level on supplemental oxygen on exertion decreased** (SNOMED 1321861000000107)
+- **Peripheral oxygen saturation level on supplemental oxygen on exertion unchanged** (SNOMED 1321881000000103)
+
+**Non-standard procedure concepts:**
+
+- **Capillary oxygen saturation measurement** (SNOMED 250553009): Non-standard SNOMED procedure concept; prefer observable entity concepts for actual measurements
+
+# Important Notes
+
+- **Pulse oximetry (SpO2)** measures oxygen saturation non-invasively via peripheral sensor and is the standard for continuous ICU monitoring; it may be less accurate in hypoperfusion, severe anemia, or motion artifact
+- **Arterial blood gas saturation (SaO2)** measured invasively from arterial blood sample is the gold standard for accuracy
+- **Mixed venous saturation (SvO2)** from pulmonary artery reflects global oxygen delivery-consumption balance; normal range 60-80%
+- **Central venous saturation (ScvO2)** from superior vena cava approximates SvO2 but may differ by 5-7%; easier to obtain than true SvO2
+- SpO2 and SaO2 are not interchangeable terms: SpO2 = pulse oximetry (non-invasive), SaO2 = arterial blood gas (invasive)
+- In critically ill patients, pulse oximetry may overestimate or underestimate true arterial saturation; confirm with arterial blood gas when accuracy is critical
+- Calculated saturation from PO2 may differ from directly measured saturation by co-oximetry, especially in dyshemoglobinemias (carboxyhemoglobin, methemoglobin)"
+14223,2025-11-28 18:48:15,Boris Delange,update,333,NA,NA,SpO2,"Updated ETL guidance comment: # Definition
+
+Peripheral oxygen saturation (SpO2) represents the percentage of hemoglobin saturated with oxygen in arterial blood, expressed as a **percentage (%)** or **fraction (0-1)**. Normal SpO2 values range from 95-100% in healthy adults breathing room air.
+
+**Important distinction**: This concept encompasses both **non-invasive measurements** (pulse oximetry using peripheral sensors) and **invasive measurements** (blood gas analysis from arterial, venous, or capillary blood samples). These are fundamentally different measurement techniques that should be distinguished when mapping data.
+
+# Mapping Strategy
+
+LOINC uses **pre-coordinated concepts** that combine multiple dimensions (measurement method + blood specimen type + clinical context) into single codes. This can create redundancy when only one or two dimensions are documented. For most ICU use cases, we recommend capturing the measurement method and blood specimen type, and linking clinical context (rest, exercise, oxygen therapy status) separately via OMOP FACT_RELATIONSHIP table.
+
+Prioritize the **most granular concept** that matches your measurement method (pulse oximetry vs blood gas analysis) and specimen type (arterial, venous, capillary, mixed venous).
+
+## Recommended concepts
+
+**Non-invasive pulse oximetry measurements:**
+
+- **Peripheral oxygen saturation** (SNOMED 431314004): Use for pulse oximetry measurements when clinical context is unspecified (most common ICU monitoring)
+- **Oxygen saturation in Arterial blood by Pulse oximetry** (LOINC 59408-5): Use for pulse oximetry measurements (non-invasive peripheral sensor measuring arterial pulsatile flow)
+- **Capillary oxygen saturation** (SNOMED 442440005): Alternative term for pulse oximetry in peripheral capillaries
+
+**Invasive blood gas measurements - Arterial:**
+
+- **Oxygen saturation in Arterial blood** (LOINC 2708-6): Measured from arterial blood gas sample (invasive, gold standard for accuracy)
+- **Oxygen saturation [Pure mass fraction] in Arterial blood** (LOINC 71852-8): Same as above, expressed as fraction instead of percentage
+- **Oxygen saturation Calculated from oxygen partial pressure in Arterial blood** (LOINC 51733-4): SaO2 calculated from PaO2 using oxygen-hemoglobin dissociation curve
+
+**Invasive blood gas measurements - Venous:**
+
+- **Oxygen saturation in Venous blood** (LOINC 2711-0): Generic venous blood saturation (peripheral venous sample)
+- **Oxygen saturation in Central venous blood** (LOINC 97549-0): ScvO2 measured from central venous catheter (superior vena cava)
+- **Oxygen saturation in Mixed venous blood** (LOINC 19224-5): SvO2 measured from pulmonary artery catheter (true mixed venous blood)
+- **SvO2 (mixed venous oxygen saturation) percent in venous blood** (SNOMED 37170618): SNOMED equivalent for mixed venous saturation
+- **Venous oxygen saturation** (SNOMED 442349007): Generic SNOMED concept for venous saturation
+- **Oxygen saturation Calculated from oxygen partial pressure in Venous blood** (LOINC 51731-8): SvO2 calculated from PvO2 using oxygen-hemoglobin dissociation curve
+
+**Invasive blood gas measurements - Capillary:**
+
+- **Oxygen saturation in Capillary blood** (LOINC 2709-4): Measured from capillary blood gas sample (fingerstick or heel stick)
+- **Oxygen saturation Calculated from oxygen partial pressure in Capillary blood** (LOINC 51732-6): Calculated from capillary PO2
+
+**Invasive blood gas measurements - Other specimens:**
+
+- **Oxygen saturation in Blood** (LOINC 20564-1): Generic concept when specimen type is unspecified
+- **Oxygen saturation in Cord blood** (LOINC 68363-1): Measured from umbilical cord blood (obstetric use)
+- **Oxygen saturation in Arterial cord blood** (LOINC 28642-7): Umbilical artery blood
+- **Oxygen saturation in Venous cord blood** (LOINC 28643-5): Umbilical vein blood
+
+**Neonatal-specific concepts:**
+
+- **Oxygen saturation in Blood Preductal by Pulse oximetry** (LOINC 59407-7): Right hand/arm pulse oximetry (pre-ductal circulation in neonates)
+- **Oxygen saturation in Blood Postductal by Pulse oximetry** (LOINC 59418-4): Lower extremity pulse oximetry (post-ductal circulation in neonates)
+
+## Not recommended for routine use
+
+Use these concepts **only when patient activity, oxygen therapy status, or clinical timing is the primary clinical focus** (e.g., exercise desaturation testing, pulmonary rehabilitation assessments).
+
+For most ICU use cases, we recommend capturing SpO2 measurements using the granular concepts above and linking clinical context separately using OMOP FACT_RELATIONSHIP table with SNOMED context concepts (e.g., ""On room air"" SNOMED, ""Supplemental oxygen therapy"" SNOMED, ""At rest"" SNOMED, ""During exercise"" SNOMED).
+
+**SNOMED pre-coordinated context concepts:**
+
+- **Peripheral blood oxygen saturation on room air at rest** (SNOMED 866661000000106): SpO2 measured while breathing room air at rest
+- **Peripheral blood oxygen saturation on room air on exertion** (SNOMED 866681000000102): SpO2 during exercise without supplemental oxygen
+- **Peripheral blood oxygen saturation on supplemental oxygen at rest** (SNOMED 866701000000100): SpO2 at rest with oxygen therapy
+- **Peripheral blood oxygen saturation on supplemental oxygen on exertion** (SNOMED 866721000000109): SpO2 during exercise with oxygen therapy
+
+**LOINC pre-coordinated context concepts:**
+
+- **Oxygen saturation in Arterial blood by Pulse oximetry --on room air** (LOINC 59410-1)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --resting** (LOINC 59417-6)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --W exercise** (LOINC 89276-0)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --post exercise** (LOINC 59412-7)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --during anesthesia** (LOINC 89277-8)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --during treatment** (LOINC 59409-3)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --post treatment** (LOINC 59413-5)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --pre treatment** (LOINC 59416-8)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --pre bronchodilation** (LOINC 59414-3)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --post bronchodilation** (LOINC 59411-9)
+- **Oxygen saturation in Arterial blood by Pulse oximetry --pre physiotherapy** (LOINC 59415-0)
+
+**SNOMED qualitative change concepts (not recommended):**
+
+- **Peripheral oxygen saturation level on room air on exertion decreased** (SNOMED 1321841000000106)
+- **Peripheral oxygen saturation level on room air on exertion unchanged** (SNOMED 1321871000000100)
+- **Peripheral oxygen saturation level on supplemental oxygen on exertion decreased** (SNOMED 1321861000000107)
+- **Peripheral oxygen saturation level on supplemental oxygen on exertion unchanged** (SNOMED 1321881000000103)
+
+**Non-standard procedure concepts:**
+
+- **Capillary oxygen saturation measurement** (SNOMED 250553009): Non-standard SNOMED procedure concept; prefer observable entity concepts for actual measurements
+
+# Important Notes
+
+- **Pulse oximetry (SpO2)** measures oxygen saturation non-invasively via peripheral sensor and is the standard for continuous ICU monitoring; it may be less accurate in hypoperfusion, severe anemia, or motion artifact
+- **Arterial blood gas saturation (SaO2)** measured invasively from arterial blood sample is the gold standard for accuracy
+- **Mixed venous saturation (SvO2)** from pulmonary artery reflects global oxygen delivery-consumption balance; normal range 60-80%
+- **Central venous saturation (ScvO2)** from superior vena cava approximates SvO2 but may differ by 5-7%; easier to obtain than true SvO2
+- SpO2 and SaO2 are not interchangeable terms: SpO2 = pulse oximetry (non-invasive), SaO2 = arterial blood gas (invasive)"
