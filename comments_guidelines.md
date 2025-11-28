@@ -18,6 +18,132 @@ Expert comments serve to:
 
 ---
 
+## Vocabulary Source Data Access
+
+When writing expert comments, you can access official descriptions from LOINC and SNOMED CT source files to supplement your documentation. The INDICATE Data Dictionary package provides a unified function `get_concept_info()` to retrieve concept descriptions.
+
+### Environment Variable Setup
+
+Before using the source data functions, set the following environment variables:
+
+**For LOINC:**
+```r
+Sys.setenv(LOINC_CSV_PATH = "/Users/borisdelange/Documents/Vocabularies/LOINC source/Loinc_2.81/LoincTable/Loinc.csv")
+```
+
+**For SNOMED CT:**
+```r
+Sys.setenv(SNOMED_RF2_PATH = "/tmp/SnomedCT_InternationalRF2_PRODUCTION_20251101T120000Z/Snapshot/Terminology")
+```
+
+**To persist these settings across R sessions**, add them to your `.Renviron` file:
+
+```bash
+# Open .Renviron in your home directory
+file.edit("~/.Renviron")
+
+# Add these lines:
+LOINC_CSV_PATH="/Users/borisdelange/Documents/Vocabularies/LOINC source/Loinc_2.81/LoincTable/Loinc.csv"
+SNOMED_RF2_PATH="/tmp/SnomedCT_InternationalRF2_PRODUCTION_20251101T120000Z/Snapshot/Terminology"
+
+# Save and restart R
+```
+
+### Using get_concept_info()
+
+The `get_concept_info()` function provides a unified interface to retrieve concept descriptions from both LOINC and SNOMED CT source files.
+
+**Function signature:**
+```r
+get_concept_info(vocabulary = c("LOINC", "SNOMED"), code)
+```
+
+**Examples:**
+
+```r
+# Load the function from the package
+source("R/fct_vocabularies.R")
+
+# Get LOINC concept information
+get_concept_info("LOINC", "8867-4")
+# Output:
+# LOINC Code: 8867-4
+# Component: Heart rate
+# System: XXX
+# Method: (empty)
+# Long Name: Heart rate
+# Definition: (not available)
+
+# Get SNOMED concept information
+get_concept_info("SNOMED", "364075005")
+# Output:
+# SNOMED Concept ID: 364075005
+# FSN: Heart rate (observable entity)
+# Synonyms: HR | Cardiac frequency | Heart frequency | Pulse rate | ...
+# Definition: (not available)
+```
+
+**Return values:**
+- **For LOINC**: Returns a data frame with columns `LOINC_NUM`, `COMPONENT`, `SYSTEM`, `METHOD_TYP`, `LONG_COMMON_NAME`, `DefinitionDescription`
+- **For SNOMED**: Returns a list with `ConceptID`, `FSN` (Fully Specified Name), `Synonyms` (character vector), `Definition`
+
+### LOINC Source Data Structure
+
+The `Loinc.csv` file contains these relevant columns:
+
+- **`LOINC_NUM`**: LOINC code (e.g., "8867-4")
+- **`COMPONENT`**: What is measured (e.g., "Heart rate")
+- **`PROPERTY`**: Type of property (e.g., "NRat" = Numeric Rate)
+- **`SYSTEM`**: Anatomical location or specimen type (e.g., "XXX" = unspecified, "Arterial system", "Intra arterial line")
+- **`METHOD_TYP`**: Measurement method (e.g., "Pulse oximetry", "EKG", "Invasive")
+- **`LONG_COMMON_NAME`**: Full human-readable name
+- **`SHORTNAME`**: Abbreviated name
+- **`DefinitionDescription`**: Official LOINC definition text (when available)
+
+**Note**: The `DefinitionDescription` field is often empty for many LOINC concepts. Use `LONG_COMMON_NAME`, `COMPONENT`, `SYSTEM`, and `METHOD_TYP` to construct descriptions when official definitions are not available.
+
+### SNOMED CT Source Data Structure
+
+SNOMED CT uses RF2 (Release Format 2) files with two key data sources:
+
+**Description File** (`sct2_Description_Snapshot-en_INT_*.txt`):
+- **Fully Specified Name (FSN)**: Unique, unambiguous concept name with semantic tag (typeId: 900000000000003001)
+- **Synonyms**: Alternative terms for the concept (typeId: 900000000000013009)
+
+**Text Definition File** (`sct2_TextDefinition_Snapshot-en_INT_*.txt`):
+- **Definition**: Formal text definition (rarely populated - only ~12% of concepts)
+
+**Important Notes:**
+- SNOMED FSN always includes a semantic tag in parentheses (e.g., "Heart rate (observable entity)")
+- Synonyms provide common clinical terms used in practice
+- Text definitions are sparse; rely on FSN and synonyms for most concepts
+
+### Workflow for Writing Expert Comments
+
+1. **Set environment variables** (one-time setup in `.Renviron`)
+2. **Retrieve source descriptions** using `get_concept_info()`
+3. **Review official terminology** for accuracy
+4. **Write clinical definitions** in plain language for data scientists
+5. **Add mapping guidance** based on LOINC/SNOMED structure
+6. **Include units and normal values** not found in source files
+
+**Example workflow:**
+
+```r
+# 1. Get LOINC description
+get_concept_info("LOINC", "76214-6")
+# Invasive Mean blood pressure
+
+# 2. Get SNOMED description
+get_concept_info("SNOMED", "6797001")
+# Mean blood pressure (observable entity)
+
+# 3. Write expert comment incorporating source data + clinical guidance
+# (See examples in subsequent sections)
+```
+
+---
+
 ## Standard Markdown Structure
 
 All expert comments should follow this **modular structure**:

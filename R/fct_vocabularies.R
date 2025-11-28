@@ -1070,3 +1070,160 @@ get_clinical_drugs_from_ingredient <- function(
 
   return(as.data.frame(clinical_drugs))
 }
+
+#' Get Concept Information from LOINC or SNOMED Source Files
+#'
+#' @description Retrieve concept descriptions from LOINC or SNOMED CT source
+#' files. For LOINC, returns component, system, method, long name, and definition.
+#' For SNOMED, returns Fully Specified Name (FSN), synonyms, and text definition.
+#'
+#' @param vocabulary Character. Either "LOINC" or "SNOMED"
+#' @param code Character. The LOINC code (e.g., "8867-4") or SNOMED concept ID
+#'   (e.g., "364075005")
+#'
+#' @return For LOINC: data frame with columns LOINC_NUM, COMPONENT, SYSTEM,
+#'   METHOD_TYP, LONG_COMMON_NAME, DefinitionDescription. For SNOMED: list with
+#'   ConceptID, FSN, Synonyms (vector), Definition. Returns NULL if not found.
+#'
+#' @details
+#' Requires environment variables:
+#' - LOINC_CSV_PATH: Path to Loinc.csv file
+#' - SNOMED_RF2_PATH: Path to SNOMED RF2 Snapshot/Terminology directory
+#'
+#' @examples
+#' \dontrun{
+#' # Set environment variables first
+#' Sys.setenv(LOINC_CSV_PATH = "/path/to/Loinc.csv")
+#' Sys.setenv(SNOMED_RF2_PATH = "/path/to/SNOMED/Snapshot/Terminology")
+#'
+#' # Get LOINC concept info
+#' get_concept_info("LOINC", "8867-4")
+#'
+#' # Get SNOMED concept info
+#' get_concept_info("SNOMED", "364075005")
+#' }
+#'
+#' @noRd
+#' @importFrom readr read_csv read_tsv cols col_character col_integer
+#' @importFrom dplyr filter pull
+get_concept_info <- function(vocabulary = c("LOINC", "SNOMED"), code) {
+  vocabulary <- match.arg(vocabulary)
+
+  if (vocabulary == "LOINC") {
+    loinc_path <- Sys.getenv("LOINC_CSV_PATH")
+
+    if (loinc_path == "" || !file.exists(loinc_path)) {
+      message("LOINC_CSV_PATH environment variable not set or file does not exist")
+      message("Set it with: Sys.setenv(LOINC_CSV_PATH = '/path/to/Loinc.csv')")
+      return(invisible(NULL))
+    }
+
+    # Load LOINC table
+    loinc <- readr::read_csv(loinc_path, show_col_types = FALSE)
+
+    # Get concept info
+    result <- loinc %>%
+      dplyr::filter(LOINC_NUM == code) %>%
+      dplyr::select(LOINC_NUM, COMPONENT, SYSTEM, METHOD_TYP, LONG_COMMON_NAME, DefinitionDescription)
+
+    if (nrow(result) == 0) {
+      message("LOINC code '", code, "' not found")
+      return(invisible(NULL))
+    }
+
+    cat("LOINC Code:", result$LOINC_NUM, "\n")
+    cat("Component:", result$COMPONENT, "\n")
+    cat("System:", result$SYSTEM, "\n")
+    cat("Method:", result$METHOD_TYP, "\n")
+    cat("Long Name:", result$LONG_COMMON_NAME, "\n")
+    cat("Definition:", ifelse(is.na(result$DefinitionDescription), "(not available)", result$DefinitionDescription), "\n")
+
+    return(invisible(result))
+
+  } else if (vocabulary == "SNOMED") {
+    snomed_path <- Sys.getenv("SNOMED_RF2_PATH")
+
+    if (snomed_path == "" || !dir.exists(snomed_path)) {
+      message("SNOMED_RF2_PATH environment variable not set or directory does not exist")
+      message("Set it with: Sys.setenv(SNOMED_RF2_PATH = '/path/to/SNOMED/Snapshot/Terminology')")
+      return(invisible(NULL))
+    }
+
+    # Construct file paths
+    desc_file <- list.files(snomed_path, pattern = "^sct2_Description_Snapshot.*\\.txt$", full.names = TRUE)[1]
+    def_file <- list.files(snomed_path, pattern = "^sct2_TextDefinition_Snapshot.*\\.txt$", full.names = TRUE)[1]
+
+    if (is.na(desc_file) || is.na(def_file)) {
+      message("SNOMED RF2 files not found in: ", snomed_path)
+      return(invisible(NULL))
+    }
+
+    # Load SNOMED description file
+    snomed_descriptions <- readr::read_tsv(
+      desc_file,
+      show_col_types = FALSE,
+      col_types = readr::cols(
+        id = readr::col_character(),
+        effectiveTime = readr::col_character(),
+        active = readr::col_integer(),
+        moduleId = readr::col_character(),
+        conceptId = readr::col_character(),
+        languageCode = readr::col_character(),
+        typeId = readr::col_character(),
+        term = readr::col_character(),
+        caseSignificanceId = readr::col_character()
+      )
+    )
+
+    # Load SNOMED text definitions
+    snomed_definitions <- readr::read_tsv(
+      def_file,
+      show_col_types = FALSE,
+      col_types = readr::cols(
+        id = readr::col_character(),
+        effectiveTime = readr::col_character(),
+        active = readr::col_integer(),
+        moduleId = readr::col_character(),
+        conceptId = readr::col_character(),
+        languageCode = readr::col_character(),
+        typeId = readr::col_character(),
+        term = readr::col_character(),
+        caseSignificanceId = readr::col_character()
+      )
+    )
+
+    # Get Fully Specified Name (FSN)
+    fsn <- snomed_descriptions %>%
+      dplyr::filter(conceptId == code, active == 1, typeId == "900000000000003001") %>%
+      dplyr::pull(term)
+
+    # Get synonyms
+    synonyms <- snomed_descriptions %>%
+      dplyr::filter(conceptId == code, active == 1, typeId == "900000000000013009") %>%
+      dplyr::pull(term)
+
+    # Get text definition
+    definition <- snomed_definitions %>%
+      dplyr::filter(conceptId == code, active == 1) %>%
+      dplyr::pull(term)
+
+    if (length(fsn) == 0) {
+      message("SNOMED concept ID '", code, "' not found")
+      return(invisible(NULL))
+    }
+
+    result <- list(
+      ConceptID = code,
+      FSN = fsn,
+      Synonyms = synonyms,
+      Definition = if(length(definition) > 0) definition else NA_character_
+    )
+
+    cat("SNOMED Concept ID:", result$ConceptID, "\n")
+    cat("FSN:", result$FSN, "\n")
+    cat("Synonyms:", paste(result$Synonyms, collapse = " | "), "\n")
+    cat("Definition:", ifelse(is.na(result$Definition), "(not available)", result$Definition), "\n")
+
+    return(invisible(result))
+  }
+}

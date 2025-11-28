@@ -15342,3 +15342,32 @@ Prioritize the most granular concept available that matches your measurement met
 - When the specific calculation formula is documented (Teichholz, Simpson, Gibson, etc.), use the formula-specific concept
 - When only the general method is known (2D, M-mode, Doppler), use the generic ultrasound concepts
 - Apical views (A2C, A4C) with specific calculations should use view-specific concepts"
+14104,2025-11-28 17:15:58,Boris Delange,recommend,324,SNOMED,82799009,Cardiac output,Marked as recommended
+14105,2025-11-28 17:15:59,Boris Delange,recommend,324,LOINC,76519-8,Left ventricular Cardiac output by Continuous,Marked as recommended
+14106,2025-11-28 17:15:59,Boris Delange,recommend,324,LOINC,61014-7,Left ventricular Cardiac output by Intermitent measure,Marked as recommended
+14107,2025-11-28 17:15:59,Boris Delange,recommend,324,LOINC,8731-2,Ventricular Cardiac output by 2D echo,Marked as recommended
+14108,2025-11-28 17:15:59,Boris Delange,recommend,324,LOINC,20209-3,Ventricular Cardiac output by US.2D+Calculated by modified Simpson method,Marked as recommended
+14109,2025-11-28 17:19:49,Boris Delange,insert,325,LOINC,60985-9,Central venous pressure (CVP),Added OMOP concept mapping
+14110,2025-11-28 17:19:49,Boris Delange,insert,325,LOINC,60986-7,Central venous pressure (CVP) Diastolic,Added OMOP concept mapping
+14111,2025-11-28 17:19:49,Boris Delange,insert,325,LOINC,8591-0,Central venous pressure (CVP) Mean,Added OMOP concept mapping
+14112,2025-11-28 17:19:49,Boris Delange,insert,325,LOINC,60987-5,Central venous pressure (CVP) Systolic,Added OMOP concept mapping
+14113,2025-11-28 17:21:29,Boris Delange,delete,325,LOINC,60985-9,Central venous pressure (CVP),Deleted OMOP concept mapping
+14114,2025-11-28 17:21:30,Boris Delange,delete,325,LOINC,8591-0,Central venous pressure (CVP) Mean,Deleted OMOP concept mapping
+14115,2025-11-28 17:21:30,Boris Delange,delete,325,LOINC,60987-5,Central venous pressure (CVP) Systolic,Deleted OMOP concept mapping
+14116,2025-11-28 17:21:30,Boris Delange,delete,325,LOINC,60986-7,Central venous pressure (CVP) Diastolic,Deleted OMOP concept mapping
+14117,2025-11-28 17:22:34,Boris Delange,insert,325,LOINC,60985-9,Central venous pressure (CVP),Added OMOP concept mapping
+14118,2025-11-28 17:22:34,Boris Delange,insert,325,LOINC,60986-7,Central venous pressure (CVP) Diastolic,Added OMOP concept mapping
+14119,2025-11-28 17:22:34,Boris Delange,insert,325,LOINC,60987-5,Central venous pressure (CVP) Systolic,Added OMOP concept mapping
+14120,2025-11-28 17:22:34,Boris Delange,insert,325,LOINC,8591-0,Central venous pressure (CVP) Mean,Added OMOP concept mapping
+14121,2025-11-28 17:22:54,Boris Delange,delete,325,LOINC,60985-9,Central venous pressure (CVP),Deleted OMOP concept mapping
+14122,2025-11-28 17:22:54,Boris Delange,delete,325,LOINC,60986-7,Central venous pressure (CVP) Diastolic,Deleted OMOP concept mapping
+14123,2025-11-28 17:22:54,Boris Delange,delete,325,LOINC,8591-0,Central venous pressure (CVP) Mean,Deleted OMOP concept mapping
+14124,2025-11-28 17:22:54,Boris Delange,delete,325,LOINC,60987-5,Central venous pressure (CVP) Systolic,Deleted OMOP concept mapping
+14125,2025-11-28 17:23:24,Boris Delange,insert,325,LOINC,60985-9,Central venous pressure (CVP),Added OMOP concept mapping
+14126,2025-11-28 17:23:24,Boris Delange,insert,325,LOINC,60986-7,Central venous pressure (CVP) Diastolic,Added OMOP concept mapping
+14127,2025-11-28 17:23:24,Boris Delange,insert,325,LOINC,8591-0,Central venous pressure (CVP) Mean,Added OMOP concept mapping
+14128,2025-11-28 17:23:24,Boris Delange,insert,325,LOINC,60987-5,Central venous pressure (CVP) Systolic,Added OMOP concept mapping
+14129,2025-11-28 17:23:28,Boris Delange,recommend,325,LOINC,60985-9,Central venous pressure (CVP),Marked as recommended
+14130,2025-11-28 17:23:34,Boris Delange,recommend,325,LOINC,60986-7,Central venous pressure (CVP) Diastolic,Marked as recommended
+14131,2025-11-28 17:23:34,Boris Delange,recommend,325,LOINC,8591-0,Central venous pressure (CVP) Mean,Marked as recommended
+14132,2025-11-28 17:23:34,Boris Delange,recommend,325,LOINC,60987-5,Central venous pressure (CVP) Systolic,Marked as recommended

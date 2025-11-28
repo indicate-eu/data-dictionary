@@ -578,7 +578,7 @@ general_concept_id,omop_concept_id,omop_unit_concept_id,recommended,source
 322,44782826,8587,TRUE,manual
 322,44782827,8587,TRUE,manual
 323,3004921,/,TRUE,manual
-324,4221102,8698,FALSE,manual
+324,4221102,8698,TRUE,manual
 325,4323687,8876,TRUE,manual
 326,4068414,8876,TRUE,manual
 326,4354253,8876,TRUE,manual
@@ -23051,11 +23051,11 @@ general_concept_id,omop_concept_id,omop_unit_concept_id,recommended,source
 324,3965272,/,TRUE,manual
 324,3028413,/,TRUE,manual
 324,4326660,/,TRUE,manual
-324,3013457,/,FALSE,manual
+324,3013457,/,TRUE,manual
 324,3016873,/,TRUE,manual
-324,3028063,/,FALSE,manual
-324,21492228,/,FALSE,manual
-324,21490694,/,FALSE,manual
+324,3028063,/,TRUE,manual
+324,21492228,/,TRUE,manual
+324,21490694,/,TRUE,manual
 327,40771524,/,FALSE,manual
 327,40771525,/,FALSE,manual
 327,40771526,/,FALSE,manual
@@ -23137,3 +23137,7 @@ general_concept_id,omop_concept_id,omop_unit_concept_id,recommended,source
 326,3020255,/,FALSE,manual
 326,3014005,/,FALSE,manual
 326,3026099,/,FALSE,manual
+325,21490675,/,TRUE,manual
+325,21490676,/,TRUE,manual
+325,3000333,/,TRUE,manual
+325,21490677,/,TRUE,manual
