@@ -13743,8 +13743,6 @@ general_concept_id,omop_concept_id,omop_unit_concept_id,recommended,source
 330,44807420,586323,FALSE,ohdsi_relationships
 330,44807421,586323,FALSE,ohdsi_relationships
 330,44809207,586323,FALSE,ohdsi_relationships
-330,44809208,586323,FALSE,ohdsi_relationships
-330,44813868,586323,FALSE,ohdsi_relationships
 330,4239770,586323,FALSE,ohdsi_relationships
 330,4267945,586323,FALSE,ohdsi_relationships
 330,4265681,586323,FALSE,ohdsi_relationships
@@ -13756,11 +13754,11 @@ general_concept_id,omop_concept_id,omop_unit_concept_id,recommended,source
 330,4265696,586323,FALSE,ohdsi_relationships
 330,4270409,586323,FALSE,ohdsi_relationships
 330,4270412,586323,FALSE,ohdsi_relationships
-330,4270416,586323,FALSE,ohdsi_relationships
+330,4270416,586323,TRUE,ohdsi_relationships
 330,4265702,586323,FALSE,ohdsi_relationships
 330,4265703,586323,FALSE,ohdsi_relationships
 330,4270422,586323,FALSE,ohdsi_relationships
-330,4188706,586323,FALSE,ohdsi_relationships
+330,4188706,586323,TRUE,ohdsi_relationships
 330,4215353,586323,FALSE,ohdsi_relationships
 330,4212763,586323,FALSE,ohdsi_relationships
 330,4189949,586323,FALSE,ohdsi_relationships
@@ -13768,11 +13766,9 @@ general_concept_id,omop_concept_id,omop_unit_concept_id,recommended,source
 330,4329518,586323,FALSE,ohdsi_relationships
 330,4196446,586323,FALSE,ohdsi_relationships
 330,4161661,586323,FALSE,ohdsi_relationships
-330,4086670,586323,FALSE,ohdsi_relationships
 330,4088771,586323,FALSE,ohdsi_relationships
 330,4097461,586323,FALSE,ohdsi_relationships
 330,4174894,586323,FALSE,ohdsi_relationships
-330,4113386,586323,FALSE,ohdsi_relationships
 331,37394139,8687,FALSE,ohdsi_relationships
 333,44810014,8554,FALSE,ohdsi_relationships
 333,44810015,8554,FALSE,ohdsi_relationships

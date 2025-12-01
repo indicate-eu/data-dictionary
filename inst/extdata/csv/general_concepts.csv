@@ -779,7 +779,28 @@ For measurements taken from arterial catheters at specific anatomical locations,
 - **Prioritize measurement method over position/location**: Use ""Invasive systolic arterial pressure"" or ""Non-invasive systolic arterial pressure"" rather than position-specific or anatomical site-specific concepts unless the specific site is clinically critical
 - **Prefer explicit ""arterial"" terminology**: Use SNOMED concepts with ""arterial"" explicitly in the name to avoid confusion
 - **Pulsus paradoxus**: The difference between inspiratory and expiratory systolic pressure can be clinically significant in conditions like cardiac tamponade or severe asthma (typically >10 mmHg)",NA
-330,Vitals,Other vitals,Temperature,NA,NA
+330,Vitals,Other vitals,Temperature,NA,"{
+  ""data_types"": [""numeric""],
+  ""statistical_data"": {
+    ""min"": null,
+    ""max"": null,
+    ""median"": null,
+    ""mean"": null,
+    ""p5"": null,
+    ""p25"": null,
+    ""p75"": null,
+    ""p95"": null,
+    ""outliers_count"": null
+  },
+  ""temporal_info"": {
+    ""frequency_range"": {
+      ""min"": null,
+      ""max"": null
+    },
+    ""measurement_period"": []
+  },
+  ""possible_values"": []
+}"
 331,Vitals,Other vitals,Urine output,NA,NA
 332,Vitals,Ventilatory,Respiratory rate,"# Definition
 

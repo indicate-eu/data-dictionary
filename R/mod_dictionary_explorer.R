@@ -231,9 +231,9 @@ mod_dictionary_explorer_ui <- function(id) {
                                 ns("copy_general_concept_menu"),
                                 label = NULL,
                                 icon = icon("copy"),
-                                class = "btn-icon-only copy-menu-trigger",
+                                class = "btn-icon-only copy-menu-trigger has-tooltip",
                                 style = "background: transparent; border: none; color: #666; padding: 0; cursor: pointer; flex-shrink: 0;",
-                                `data-tooltip` = "Copy as JSON or OMOP SQL"
+                                `data-tooltip` = "Copy concept details"
                               ),
                               # Dropdown menu
                               tags$div(
@@ -621,19 +621,17 @@ mod_dictionary_explorer_ui <- function(id) {
     ### Modal - Add Mapping to General Concept ----
     tags$div(
       id = ns("mapped_concepts_add_modal"),
-      class = "modal-overlay-draggable",
+      class = "modal-overlay",
       style = "display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.5); z-index: 9999;",
       onclick = sprintf("if (event.target === this) { $('#%s').css('display', 'none'); }", ns("mapped_concepts_add_modal")),
       tags$div(
         id = ns("mapped_concepts_add_modal_dialog"),
-        class = "draggable-resizable-modal",
         style = "position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95vw; height: 95vh; background: white; border-radius: 8px; display: flex; flex-direction: column;",
         onclick = "event.stopPropagation();",
 
         # Header
         tags$div(
-          class = "modal-drag-handle",
-          style = "padding: 20px; border-bottom: 1px solid #ddd; flex-shrink: 0; background: #f8f9fa; border-radius: 8px 8px 0 0; cursor: move;",
+          style = "padding: 20px; border-bottom: 1px solid #ddd; flex-shrink: 0; background: #f8f9fa; border-radius: 8px 8px 0 0;",
           tags$h3("Add Concepts to Mapping", style = "margin: 0; display: inline-block;"),
           tags$button(
             style = "float: right; background: none; border: none; font-size: 28px; cursor: pointer;",
@@ -4230,6 +4228,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         text = as.character(json_string),
         buttonId = session$ns("copy_as_json")
       ))
+
+      # Show success notification
+      showNotification("Concept details copied as JSON", type = "message", duration = 2)
     })
 
     # Handle copy as OMOP SQL from dropdown menu
@@ -4261,11 +4262,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         return()
       }
 
-      # Group concepts by domain_id
+      # Group concepts by domain_id with recommended status
       concepts_by_domain <- list()
 
       for (i in 1:nrow(all_mappings)) {
         omop_id <- all_mappings$omop_concept_id[i]
+        is_recommended <- all_mappings$recommended[i]
 
         # Get concept details to find domain_id
         concept_details <- vocab_data$concept %>%
@@ -4283,7 +4285,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
           concepts_by_domain[[domain]][[length(concepts_by_domain[[domain]]) + 1]] <- list(
             id = omop_id,
-            name = concept_name
+            name = concept_name,
+            recommended = isTRUE(is_recommended)
           )
         }
       }
@@ -4291,15 +4294,70 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Generate SQL queries for each domain
       sql_parts <- c()
 
-      # Domain to table and column mapping
+      # Domain to table and column mapping (OMOP CDM v5.4)
+      # Source: https://ohdsi.github.io/CommonDataModel/cdm54.html
       domain_mapping <- list(
-        "Measurement" = list(table = "measurement", column = "measurement_concept_id", value_column = "value_as_number"),
-        "Procedure" = list(table = "procedure_occurrence", column = "procedure_concept_id", value_column = NULL),
-        "Drug" = list(table = "drug_exposure", column = "drug_concept_id", value_column = "quantity"),
-        "Condition" = list(table = "condition_occurrence", column = "condition_concept_id", value_column = NULL),
-        "Observation" = list(table = "observation", column = "observation_concept_id", value_column = "value_as_number"),
-        "Device" = list(table = "device_exposure", column = "device_concept_id", value_column = NULL),
-        "Specimen" = list(table = "specimen", column = "specimen_concept_id", value_column = NULL)
+        "Measurement" = list(
+          table = "measurement",
+          concept_column = "measurement_concept_id",
+          columns = c("measurement_id", "person_id", "measurement_concept_id", "measurement_date",
+                     "measurement_datetime", "measurement_time", "measurement_type_concept_id",
+                     "operator_concept_id", "value_as_number", "value_as_concept_id", "unit_concept_id",
+                     "range_low", "range_high", "provider_id", "visit_occurrence_id", "visit_detail_id",
+                     "measurement_source_value", "measurement_source_concept_id", "unit_source_value",
+                     "unit_source_concept_id", "value_source_value", "measurement_event_id", "meas_event_field_concept_id")
+        ),
+        "Procedure" = list(
+          table = "procedure_occurrence",
+          concept_column = "procedure_concept_id",
+          columns = c("procedure_occurrence_id", "person_id", "procedure_concept_id", "procedure_date",
+                     "procedure_datetime", "procedure_end_date", "procedure_end_datetime", "procedure_type_concept_id",
+                     "modifier_concept_id", "quantity", "provider_id", "visit_occurrence_id", "visit_detail_id",
+                     "procedure_source_value", "procedure_source_concept_id", "modifier_source_value")
+        ),
+        "Drug" = list(
+          table = "drug_exposure",
+          concept_column = "drug_concept_id",
+          columns = c("drug_exposure_id", "person_id", "drug_concept_id", "drug_exposure_start_date",
+                     "drug_exposure_start_datetime", "drug_exposure_end_date", "drug_exposure_end_datetime",
+                     "verbatim_end_date", "drug_type_concept_id", "stop_reason", "refills", "quantity",
+                     "days_supply", "sig", "route_concept_id", "lot_number", "provider_id", "visit_occurrence_id",
+                     "visit_detail_id", "drug_source_value", "drug_source_concept_id", "route_source_value", "dose_unit_source_value")
+        ),
+        "Condition" = list(
+          table = "condition_occurrence",
+          concept_column = "condition_concept_id",
+          columns = c("condition_occurrence_id", "person_id", "condition_concept_id", "condition_start_date",
+                     "condition_start_datetime", "condition_end_date", "condition_end_datetime", "condition_type_concept_id",
+                     "condition_status_concept_id", "stop_reason", "provider_id", "visit_occurrence_id", "visit_detail_id",
+                     "condition_source_value", "condition_source_concept_id", "condition_status_source_value")
+        ),
+        "Observation" = list(
+          table = "observation",
+          concept_column = "observation_concept_id",
+          columns = c("observation_id", "person_id", "observation_concept_id", "observation_date",
+                     "observation_datetime", "observation_type_concept_id", "value_as_number", "value_as_string",
+                     "value_as_concept_id", "qualifier_concept_id", "unit_concept_id", "provider_id",
+                     "visit_occurrence_id", "visit_detail_id", "observation_source_value", "observation_source_concept_id",
+                     "unit_source_value", "qualifier_source_value", "value_source_value", "observation_event_id", "obs_event_field_concept_id")
+        ),
+        "Device" = list(
+          table = "device_exposure",
+          concept_column = "device_concept_id",
+          columns = c("device_exposure_id", "person_id", "device_concept_id", "device_exposure_start_date",
+                     "device_exposure_start_datetime", "device_exposure_end_date", "device_exposure_end_datetime",
+                     "device_type_concept_id", "unique_device_id", "production_id", "quantity", "provider_id",
+                     "visit_occurrence_id", "visit_detail_id", "device_source_value", "device_source_concept_id",
+                     "unit_concept_id", "unit_source_value", "unit_source_concept_id")
+        ),
+        "Specimen" = list(
+          table = "specimen",
+          concept_column = "specimen_concept_id",
+          columns = c("specimen_id", "person_id", "specimen_concept_id", "specimen_type_concept_id",
+                     "specimen_date", "specimen_datetime", "quantity", "unit_concept_id", "anatomic_site_concept_id",
+                     "disease_status_concept_id", "specimen_source_id", "specimen_source_value", "unit_source_value",
+                     "anatomic_site_source_value", "disease_status_source_value")
+        )
       )
 
       for (domain in names(concepts_by_domain)) {
@@ -4308,25 +4366,46 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         mapping <- domain_mapping[[domain]]
         concepts <- concepts_by_domain[[domain]]
 
-        # Build concept list with comments
-        concept_list <- sapply(concepts, function(c) {
-          sprintf("    %s -- %s", c$id, c$name)
-        })
+        # Separate recommended and non-recommended concepts
+        recommended_concepts <- Filter(function(c) c$recommended, concepts)
+        non_recommended_concepts <- Filter(function(c) !c$recommended, concepts)
 
-        # Build SELECT clause
-        if (!is.null(mapping$value_column)) {
-          select_clause <- sprintf("SELECT\n    %s,\n    %s", mapping$column, mapping$value_column)
-        } else {
-          select_clause <- sprintf("SELECT\n    %s", mapping$column)
+        # Build concept lists with comments
+        concept_list_parts <- c()
+
+        if (length(recommended_concepts) > 0) {
+          recommended_list <- sapply(recommended_concepts, function(c) {
+            sprintf("    %s, -- %s", c$id, c$name)
+          })
+          concept_list_parts <- c(concept_list_parts, "    -- Recommended concepts", recommended_list)
         }
+
+        if (length(non_recommended_concepts) > 0) {
+          non_recommended_list <- sapply(non_recommended_concepts, function(c) {
+            sprintf("    %s, -- %s", c$id, c$name)
+          })
+          if (length(recommended_concepts) > 0) {
+            concept_list_parts <- c(concept_list_parts, "", "    -- Not recommended concepts")
+          }
+          concept_list_parts <- c(concept_list_parts, non_recommended_list)
+        }
+
+        # Remove trailing comma from last concept
+        if (length(concept_list_parts) > 0) {
+          last_idx <- length(concept_list_parts)
+          concept_list_parts[last_idx] <- sub(",$", "", concept_list_parts[last_idx])
+        }
+
+        # Build SELECT clause with all columns
+        select_clause <- sprintf("SELECT\n    %s", paste(mapping$columns, collapse = ",\n    "))
 
         # Build query
         query <- sprintf(
           "%s\nFROM %s\nWHERE %s IN (\n%s\n)",
           select_clause,
           mapping$table,
-          mapping$column,
-          paste(concept_list, collapse = ",\n")
+          mapping$concept_column,
+          paste(concept_list_parts, collapse = "\n")
         )
 
         sql_parts <- c(sql_parts, query)
@@ -4342,7 +4421,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       # Add header comment
       final_sql <- sprintf(
-        "-- OMOP SQL Query for: %s\n-- Generated: %s\n\n%s",
+        "-- OMOP SQL Query for: %s\n-- Generated: %s\n-- OMOP CDM Version: 5.4\n-- Source: https://ohdsi.github.io/CommonDataModel/cdm54.html\n\n%s",
         general_concept_info$general_concept_name[1],
         format(Sys.time(), "%Y-%m-%d %H:%M:%S"),
         final_sql
@@ -4353,6 +4432,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         text = as.character(final_sql),
         buttonId = session$ns("copy_as_omop_sql")
       ))
+
+      # Show success notification
+      showNotification("OMOP SQL query copied to clipboard", type = "message", duration = 2)
     })
 
     ### c) ETL Guidance & Comments (Bottom-Left Panel) ----
@@ -4640,19 +4722,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
               # Right half: markdown preview
               tags$div(
-                style = "flex: 1; padding: 30px; overflow-y: auto; background: #f8f9fa;",
+                style = "flex: 1; padding: 30px; display: flex; flex-direction: column;",
                 tags$h4(
                   style = "margin-top: 0; color: #0f60af; font-size: 16px; font-weight: 600; margin-bottom: 15px;",
                   "Preview"
                 ),
                 uiOutput(session$ns("fullscreen_markdown_preview"))
               )
-            ),
-            tags$style(HTML(sprintf("
-              #%s {
-                height: 100%%;
-              }
-            ", session$ns("fullscreen_markdown_preview"))))
+            )
           )
         } else {
           # View mode: show markdown only with same styling as preview
@@ -4681,13 +4758,13 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         text <- input$fullscreen_comments_input
         if (is.null(text) || nchar(text) == 0) {
           tags$div(
-            style = "color: #999; font-style: italic;",
+            style = "color: #999; font-style: italic; margin: 5px;",
             "Preview will appear here as you type..."
           )
         } else {
           tags$div(
             class = "markdown-content",
-            style = "background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1);",
+            style = "background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); margin: 5px; height: calc(100vh - 150px); overflow-y: auto;",
             shiny::markdown(text)
           )
         }

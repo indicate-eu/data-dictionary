@@ -153,15 +153,7 @@ get_default_statistical_summary_template <- function() {
     "p5": null,
     "p25": null,
     "p75": null,
-    "p95": null,
-    "outliers_count": null
-  },
-  "temporal_info": {
-    "frequency_range": {
-      "min": null,
-      "max": null
-    },
-    "measurement_period": []
+    "p95": null
   },
   "possible_values": []
 }'

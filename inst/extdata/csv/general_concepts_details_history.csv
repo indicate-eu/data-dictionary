@@ -16256,3 +16256,31 @@ For most ICU use cases, we recommend capturing SpO2 measurements using the gener
 14289,2025-12-01 08:32:29,Boris Delange,delete,333,SNOMED,2841000237106,SvO2 (mixed venous oxygen saturation) percent in venous blood,Deleted OMOP concept mapping
 14290,2025-12-01 08:32:29,Boris Delange,delete,333,SNOMED,442349007,Venous oxygen saturation,Deleted OMOP concept mapping
 14291,2025-12-01 08:32:29,Boris Delange,delete,333,SNOMED,442440005,Capillary oxygen saturation,Deleted OMOP concept mapping
+14292,2025-12-01 10:32:48,Boris Delange,update,330,NA,NA,Temperature,"Updated statistical summary JSON: {
+  ""data_types"": [""numeric""],
+  ""statistical_data"": {
+    ""min"": null,
+    ""max"": null,
+    ""median"": null,
+    ""mean"": null,
+    ""p5"": null,
+    ""p25"": null,
+    ""p75"": null,
+    ""p95"": null,
+    ""outliers_count"": null
+  },
+  ""temporal_info"": {
+    ""frequency_range"": {
+      ""min"": null,
+      ""max"": null
+    },
+    ""measurement_period"": []
+  },
+  ""possible_values"": []
+}"
+14293,2025-12-01 10:32:48,Boris Delange,delete,330,SNOMED,300076005,Basal body temperature,Deleted OMOP concept mapping
+14294,2025-12-01 10:32:49,Boris Delange,delete,330,SNOMED,248458005,Comparative temperature in limbs,Deleted OMOP concept mapping
+14295,2025-12-01 10:32:49,Boris Delange,delete,330,SNOMED,852591000000107,Maximum body temperature,Deleted OMOP concept mapping
+14296,2025-12-01 10:32:49,Boris Delange,delete,330,SNOMED,852601000000101,Minimum body temperature,Deleted OMOP concept mapping
+14297,2025-12-01 10:32:49,Boris Delange,recommend,330,SNOMED,364511004,Ankle joint temperature,Marked as recommended
+14298,2025-12-01 10:32:49,Boris Delange,recommend,330,SNOMED,415882003,Axillary temperature,Marked as recommended

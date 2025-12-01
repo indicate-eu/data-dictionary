@@ -360,6 +360,7 @@ h3, h4 {
   flex-direction: column;
   overflow-y: auto;
   height: 100%;
+  padding: 0 10px;
 }
 
 .main-content {
@@ -1201,7 +1202,7 @@ table.dataTable thead tr td .selectize-dropdown .option {
 .quadrant-layout {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 190px);
+  height: calc(100vh - 150px);
   width: 100%;
 }
 
@@ -2212,6 +2213,7 @@ table.dataTable thead tr td .selectize-dropdown .option {
 
 .copy-dropdown-menu {
   animation: fadeIn 0.15s ease-in-out;
+  z-index: 10001 !important;
 }
 
 @keyframes fadeIn {
