@@ -13580,7 +13580,7 @@ general_concept_id,omop_concept_id,omop_unit_concept_id,recommended,source
 300,1076451,/,TRUE,ohdsi_relationships
 300,1076472,/,TRUE,ohdsi_relationships
 300,1076494,/,TRUE,ohdsi_relationships
-302,44782836,8698,FALSE,ohdsi_relationships
+302,44782836,8698,TRUE,ohdsi_relationships
 303,4195943,/,FALSE,ohdsi_relationships
 303,4012607,/,FALSE,ohdsi_relationships
 303,4026054,/,FALSE,ohdsi_relationships
@@ -23199,3 +23199,5 @@ general_concept_id,omop_concept_id,omop_unit_concept_id,recommended,source
 301,3026238,/,TRUE,manual
 301,3025408,/,TRUE,manual
 301,3024882,/,TRUE,manual
+302,3005629,/,TRUE,manual
+302,3005629,/,FALSE,manual

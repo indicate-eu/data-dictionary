@@ -16909,3 +16909,101 @@ FiO2 measurements can be **set values** (prescribed oxygen concentration) or **m
 }"
 14448,2025-12-01 14:15:05,Boris Delange,insert,301,LOINC,19994-3,Oxygen/Total gas setting [Volume Fraction] Ventilator,Added OMOP concept mapping
 14449,2025-12-01 14:15:09,Boris Delange,recommend,301,LOINC,19994-3,Oxygen/Total gas setting [Volume Fraction] Ventilator,Marked as recommended
+14450,2025-12-01 14:24:53,Boris Delange,update,301,NA,NA,Fraction of inspired oxygen (FiO2),"Updated ETL guidance comment: # Definition
+
+Fraction of Inspired Oxygen (FiO2) represents the proportion of oxygen in the inhaled gas mixture, expressed as a **percentage (21-100%)** or decimal fraction (0.21-1.0). Normal room air FiO2 is 21%. In mechanically ventilated or oxygen-supplemented patients, FiO2 ranges from 21% to 100%.
+
+# Mapping Strategy
+
+FiO2 measurements can be **set values** (prescribed oxygen concentration on the ventilator) or **measured values** (actual analyzed oxygen concentration). For ICU documentation, **prioritize distinguishing between set and measured FiO2** when both are available, as they may differ due to circuit leaks or device limitations.
+
+## Recommended concepts
+
+**Default concepts** (when set/measured distinction is not available):
+
+- **Inspired oxygen concentration** (SNOMED 250774007): Use for all FiO2 measurements when set/measured distinction is unavailable or not relevant
+- **Inhaled oxygen concentration** (LOINC 3150-0): Use for all FiO2 measurements when set/measured distinction is unavailable or not relevant
+
+**Ventilator-specific concepts** (preferred when distinction is available):
+
+- **Oxygen/Total gas setting [Volume Fraction] Ventilator** (LOINC 19994-3): FiO2 **setting** (prescribed/programmed value on mechanical ventilator)
+- **Oxygen/Inspired gas Respiratory system by O2 Analyzer --on ventilator** (LOINC 19995-0): FiO2 **measured** (actual analyzed oxygen concentration via oxygen analyzer on mechanical ventilator)
+- **Oxygen/Inspired gas Respiratory system --on ventilator** (LOINC 19996-8): FiO2 on mechanical ventilator when measurement method is unspecified (neither explicitly set nor measured)
+
+# Important Notes
+
+- **Set vs measured FiO2**:
+  - **Set FiO2** (LOINC 19994-3): Prescribed oxygen concentration programmed on the ventilator control panel
+  - **Measured FiO2** (LOINC 19995-0): Actual oxygen concentration analyzed by the ventilator's oxygen sensor in the inspiratory limb
+  - Measured FiO2 may differ from set FiO2 due to circuit leaks, oxygen blender malfunction, or air entrainment
+
+- **When to use which concept**:
+  - **Mechanical ventilation**: Use ventilator-specific concepts (LOINC 19994-3 for set FiO2, LOINC 19995-0 for measured FiO2, or LOINC 19996-8 when distinction is unavailable)
+  - **High-flow nasal cannula (HFNC)** or **controlled FiO2 devices** (Venturi mask): Use generic concepts (SNOMED 250774007 or LOINC 3150-0) when FiO2 is directly set or displayed on the device
+  - **Low-flow oxygen therapy** (nasal cannula, simple face mask): Use the **""Oxygen flow rate""** general concept instead (document flow rate in L/min, not FiO2)
+
+- **Distinction from oxygen flow rate**:
+  - **FiO2** = oxygen concentration (%) - use this concept for ventilators and controlled FiO2 devices
+  - **Oxygen flow rate** = oxygen delivery rate (L/min) - see the **""Oxygen flow rate""** general concept for mapping oxygen delivery in L/min
+
+- **Units**: FiO2 should be documented as **percentage (%)** (UCUM concept ID 8554). Decimal fraction (0.21-1.0) can also be used but percentage is preferred for clinical consistency."
+14451,2025-12-01 14:29:54,Boris Delange,recommend,302,SNOMED,698833004,Delivered oxygen flow rate to non ventilated lung,Marked as recommended
+14452,2025-12-01 14:29:54,Boris Delange,insert,302,LOINC,3151-8,Inhaled oxygen flow rate,Added OMOP concept mapping
+14453,2025-12-01 14:38:59,Boris Delange,update,302,NA,NA,Oxygen flow rate,"Updated ETL guidance comment: # Definition
+
+Oxygen flow rate represents the volume of supplemental oxygen delivered to the patient per unit of time, expressed in **liters per minute (L/min)**. Typical flow rates range from 0.5 to 15 L/min for low-flow devices, and up to 60 L/min for high-flow nasal cannula systems.
+
+# Mapping Strategy
+
+Oxygen flow rate is documented for **low-flow and high-flow oxygen delivery systems** where the flow rate (not FiO2) is the primary controlled parameter. Use this concept for patients receiving oxygen therapy without mechanical ventilation.
+
+## Recommended concepts
+
+**Default concepts:**
+
+- **Delivered oxygen flow rate** (SNOMED 427081008): Use for all oxygen flow rate measurements
+- **Inhaled oxygen flow rate** (LOINC 3151-8): Use for all oxygen flow rate measurements
+
+## Not recommended for routine use
+
+- **Delivered oxygen flow rate to non ventilated lung** (SNOMED 698833004): Redundant with the generic ""Delivered oxygen flow rate"" concept (SNOMED 427081008). Use the generic concept instead for all patients receiving oxygen therapy without mechanical ventilation.
+
+# Important Notes
+
+- **Distinction from FiO2**:
+  - **Oxygen flow rate** = oxygen delivery rate (L/min) - use this concept for flow-based oxygen therapy
+  - **FiO2** = oxygen concentration (%) - see the **""FiO2""** general concept for controlled oxygen concentration devices
+  - Do not convert flow rate to FiO2; document the actual measured or set parameter
+
+- **When to use oxygen flow rate**:
+  - **Low-flow oxygen devices**: Nasal cannula (0.5-6 L/min), simple face mask (5-10 L/min), partial rebreather mask (6-15 L/min), non-rebreather mask (10-15 L/min)
+  - **High-flow nasal cannula (HFNC)**: When documenting the flow rate in L/min (typically 20-60 L/min). HFNC also displays FiO2 separately - document both parameters using respective concepts.
+  - **Anesthesia fresh gas flow**: Total flow rate of gas mixture delivered by anesthesia machine (synonym: ""Fresh gas flow rate"")
+
+- **When NOT to use oxygen flow rate**:
+  - **Mechanical ventilation**: Use **""FiO2""** concept instead (ventilators control oxygen concentration, not flow rate)
+  - **Venturi masks**: These deliver controlled FiO2 (24%, 28%, 31%, etc.) - use **""FiO2""** concept, not flow rate
+
+- **Clinical context by device**:
+  - **Nasal cannula**: 0.5-6 L/min (higher flows cause nasal drying and discomfort)
+  - **Simple face mask**: 5-10 L/min (minimum 5 L/min to prevent CO2 rebreathing)
+  - **Non-rebreather mask**: 10-15 L/min (reservoir bag should remain inflated)
+  - **High-flow nasal cannula (HFNC)**: 20-60 L/min (provides heated and humidified oxygen with adjustable FiO2)
+
+- **Units**: Oxygen flow rate should be documented in **liters per minute (L/min)** (UCUM concept ID 8698)."
+14454,2025-12-01 14:38:59,Boris Delange,update,302,NA,NA,Oxygen flow rate,"Updated statistical summary JSON: {
+  ""data_types"": [],
+  ""numeric_data"": {
+    ""min"": null,
+    ""max"": null,
+    ""mean"": null,
+    ""median"": null,
+    ""sd"": null,
+    ""cv"": null,
+    ""p5"": null,
+    ""p25"": null,
+    ""p75"": null,
+    ""p95"": null
+  },
+  ""categorical_data"": []
+}"
