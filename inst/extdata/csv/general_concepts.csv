@@ -848,7 +848,80 @@ For complex intubation scenarios, create **multiple records** and link them usin
 - **Use FACT_RELATIONSHIP liberally** to capture clinical complexity without creating overly specific pre-coordinated concepts
 - **Document intubation as a procedure**, not as a device exposure - the presence of an endotracheal tube over time should be captured separately as device exposure
 - **Reintubation** should be captured as a new procedure with ""Unplanned intubation"" observation linked via FACT_RELATIONSHIP, and linked to the preceding extubation procedure using the general concept **Extubation**",NA
-306,Ventilation,Ventilation device,Invasive mechanical ventilation,NA,NA
+306,Ventilation,Ventilation device,Invasive mechanical ventilation,"# Definition
+
+Invasive mechanical ventilation is the delivery of positive pressure ventilation to the lungs via an artificial airway (endotracheal tube or tracheostomy). This life-support intervention is used in critically ill patients who cannot maintain adequate spontaneous ventilation due to respiratory failure, impaired consciousness, or the need for airway protection during sedation.
+
+# Mapping Strategy
+
+Prioritize the **most specific ventilation mode concept** that captures the ventilator settings documented in your source data. For routine documentation of invasive mechanical ventilation without mode details, use the generic **""Invasive mechanical ventilation""** concept.
+
+**Important:** Document invasive mechanical ventilation as a **procedure** (the act of providing ventilation), not as a device exposure. The presence of a ventilator device over time should be captured separately as device exposure.
+
+For complex ventilation strategies involving mode changes or adjunct therapies, consider linking multiple concepts via **FACT_RELATIONSHIP** table.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Invasive mechanical ventilation** (SNOMED 1258985005): Generic invasive mechanical ventilation - use when ventilation mode is unspecified or unavailable
+- **Invasive mechanical ventilation by intubation or tracheostomy** (LOINC LA26607-4): LOINC measurement value indicating invasive mechanical ventilation status (use as answer value in observation records or when LOINC coding is preferred)
+
+**Assist-Control Ventilation (AC/CMV):**
+
+- **Assisted controlled mandatory ventilation** (SNOMED 243150007): Generic assist-control mode
+- **Assist control ventilation volume-control inflation-type** (SNOMED 1186745009): Volume-controlled AC (VC-AC) - set tidal volume, variable pressure
+- **Assist control ventilation pressure control inflation-type** (SNOMED 1186746005): Pressure-controlled AC (PC-AC) - set pressure, variable tidal volume
+- **Assist control ventilation volume-targeted pressure-control inflation-type** (SNOMED 1186747001): Pressure-regulated volume control (PRVC) - targets tidal volume using pressure control
+- **Assist control ventilation pressure-control inflation-type and assured constant airway pressure adjunct** (SNOMED 1186748006): PC-AC with continuous airway pressure support
+- **Assist control ventilation volume-targeted pressure-control inflation-type and assured constant airway pressure adjunct** (SNOMED 1186744008): PRVC with continuous airway pressure support
+
+**Synchronized Intermittent Mandatory Ventilation (SIMV):**
+
+- **Synchronized intermittent mandatory ventilation** (SNOMED 59427005): Generic SIMV mode
+- **Synchronized intermittent mandatory ventilation - volume control pressure-support inflation** (SNOMED 1186621003): SIMV with volume-controlled mandatory breaths + pressure support
+- **Synchronized intermittent mandatory ventilation - pressure-control pressure-support inflation** (SNOMED 1186622005): SIMV with pressure-controlled mandatory breaths + pressure support
+- **Synchronized intermittent mandatory ventilation - volume targeted pressure-control and pressure-support inflation** (SNOMED 1186679003): SIMV with PRVC mandatory breaths + pressure support
+- **Synchronized intermittent mandatory ventilation volume control inflation and an assured constant airway pressure adjunct during expiratory phase** (SNOMED 1186680000): SIMV-VC with CPAP during expiration
+- **Synchronized intermittent mandatory ventilation with pressure-control, two levels of pressure-support and an assured constant airway pressure adjunct** (SNOMED 1186681001): SIMV-PC with BiLevel pressure support + CPAP
+- **Synchronized intermittent mandatory ventilation with pressure-control, one level of pressure-support active during both phases and an assured constant airway pressure adjunct** (SNOMED 1186682008): SIMV-PC with continuous pressure support + CPAP
+- **Synchronized intermittent mandatory ventilation with pressure-control, an assured constant airway pressure adjunct and pressure-support at the higher pressure level only** (SNOMED 1186683003): SIMV-PC with CPAP + pressure support during high-pressure phase
+- **Synchronized intermittent mandatory ventilation with synchronized termination pressure-control, pressure-support and an assured constant airway pressure adjunct** (SNOMED 1186684009): SIMV-PC with synchronized termination + pressure support + CPAP
+- **Synchronized intermittent mandatory ventilation with volume targeted pressure-control, pressure-support and an assured constant airway pressure adjunct** (SNOMED 1186685005): SIMV-PRVC with pressure support + CPAP
+
+**Advanced ventilation modes:**
+
+- **Airway pressure release ventilation** (SNOMED 243143008): APRV - lung-protective ventilation using high continuous positive airway pressure with brief pressure releases
+- **Bilevel positive airway pressure titration** (SNOMED 447243000): BiPAP/BiLevel ventilation (can be invasive or non-invasive)
+- **Neurally adjusted ventilatory assist** (SNOMED 1297240007): NAVA mode - ventilation synchronized with diaphragmatic electrical activity
+- **High frequency jet ventilation** (SNOMED 243154003): High-frequency ventilation mode (specialized, often for neonatal/pediatric or airway surgery)
+
+# Clinical Context
+
+**For routine ICU mechanical ventilation:**
+- Use **""Invasive mechanical ventilation""** (SNOMED 1258985005) when ventilation mode is not documented or not clinically relevant to capture
+- Document ventilation as procedure with start and end times (duration of mechanical ventilation)
+
+**For mode-specific and specialized ventilation:**
+- Use **assist-control concepts** for fully controlled ventilation (all breaths delivered by ventilator)
+- Use **SIMV concepts** for partial ventilatory support (combination of mandatory and spontaneous breaths)
+- Choose volume vs pressure variants based on primary ventilator setting mode
+- Use **APRV** for lung-protective ventilation in severe ARDS (maintains high CPAP with brief pressure releases)
+- Use **NAVA** for neurally-adjusted ventilation (requires diaphragmatic electrode)
+- Use **high-frequency ventilation** for specialized modes (typically neonatal, pediatric, or airway surgery)
+- Use **BiLevel concepts** when BiPAP/BiLevel is delivered invasively via endotracheal tube (note: most BiPAP is non-invasive)
+
+**For ventilator weaning:**
+- Document mode changes via separate procedure records linked with FACT_RELATIONSHIP
+- Common weaning progression: AC → SIMV → Pressure Support → Spontaneous breathing trial
+- For spontaneous breathing trials, see general concept **Spontaneous breathing trial**
+
+# Important Notes
+
+- **Invasive mechanical ventilation requires an artificial airway** (endotracheal tube or tracheostomy) - distinguish from non-invasive ventilation (NIV) via face mask or nasal mask
+- **Document ventilation mode changes** as separate procedure records with temporal relationships via FACT_RELATIONSHIP
+- **Ventilation is a procedure, not a device** - the ventilator itself should be captured as device exposure in DEVICE_EXPOSURE table
+- **Always link mechanical ventilation to the airway procedure** (intubation or tracheostomy) via FACT_RELATIONSHIP to capture complete clinical context",NA
 307,Ventilation,Ventilation device,Non-invasive ventilation,NA,NA
 308,Ventilation,Ventilation device,Oxygen device,NA,NA
 309,Ventilation,Ventilation device,Trial of spontaneous breathing,NA,NA
@@ -858,15 +931,136 @@ For complex intubation scenarios, create **multiple records** and link them usin
 313,Ventilation,Ventilation parameters,Horowitz index,NA,NA
 314,Ventilation,Ventilation parameters,Inspiratory pressure setting,NA,NA
 315,Ventilation,Ventilation parameters,Lung compliance,NA,NA
-316,Ventilation,Ventilation parameters,Mean airway pressure,NA,NA
-317,Ventilation,Ventilation parameters,Minute volume,NA,NA
-318,Ventilation,Ventilation parameters,PEEP,"Positive End Expiratory Pressure (PEEP) can be both set and measured on the ventilator.
-Measured PEEP can include distinct values such as total, extrinsic, and intrinsic PEEP.
-When **all these details are available**, we recommend using the concept ""**Positive end expiratory pressure setting**"" for the value set on the ventilator, and ""**Intrinsic PEEP Respiratory system**"", ""**Extrinsic PEEP Respiratory system*"", or ""**Total PEEP Respiratory system</strong>"" for the measured values.
-Intrinsic and extrinsic PEEP values are typically obtained during an expiratory flow pause performed by the clinician. To differentiate PEEP values obtained with or without this maneuver, we suggest using ""**Total PEEP Respiratory system**"" for any measured PEEP, and specifying ""**Intrinsic PEEP Respiratory system**"" and ""**Extrinsic PEEP Respiratory system**"" only when a pause was performed to obtain them.
-Finally, if no detail is available about whether the PEEP is set or measured, the more generic concept ""**Positive end expiratory pressure**"" should be used.",NA
-319,Ventilation,Ventilation parameters,Peak inspiration pressure,NA,NA
-320,Ventilation,Ventilation parameters,Plateau pressure,NA,NA
+316,Ventilation,Ventilation parameters,Mean airway pressure,"# Definition
+
+Mean airway pressure (MAP or Pmean) is the average pressure in the airways throughout the entire respiratory cycle (inspiration and expiration), expressed in **cmH2O** or **mmHg**. Typical ICU values range approximately from 8-20 cmH2O.
+
+# Mapping Strategy
+
+Use the single SNOMED concept for mean airway pressure. This is a straightforward measurement parameter with no method variations.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Mean inspiratory airway pressure** (SNOMED 44782824): Use for all mean airway pressure measurements
+
+# Important Notes
+
+- Mean airway pressure is calculated as a time-weighted average of airway pressure over the complete respiratory cycle (both inspiratory and expiratory phases)
+- Do not confuse with peak inspiratory pressure (PIP) or plateau pressure (Pplat), which are single-point measurements during specific phases of ventilation
+- Unit conversion: 1 cmH2O ≈ 0.74 mmHg (or 1 mmHg ≈ 1.36 cmH2O)",NA
+317,Ventilation,Ventilation parameters,Minute volume,"# Definition
+
+Minute volume (also called minute ventilation) is the total volume of gas entering or leaving the lungs per minute, expressed in **L/min**. It is calculated as tidal volume × respiratory rate. Normal values range approximately from 5-10 L/min in adults at rest.
+
+# Mapping Strategy
+
+Prioritize distinguishing between set values (prescribed on ventilator), measured inspiratory vs expiratory volumes, and the type of breaths contributing to the total (spontaneous, mandatory, or both).
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Minute volume** (SNOMED 4353621): Use when no additional detail is available about measurement type or breath source
+
+**Set minute volume:**
+
+- **Minute volume setting Ventilator** (LOINC 3045410): Target minute volume set on the ventilator (used in minute ventilation modes)
+
+**Measured minute volume by breath type:**
+
+- **Total minute volume** (SNOMED 4107999): Combined volume from all breath types (spontaneous + mandatory)
+- **Spontaneous minute volume** (SNOMED 4108000): Volume from patient-initiated breaths only
+- **Mandatory minute volume** (SNOMED 4108447): Volume from ventilator-delivered mandatory breaths only
+- **Triggered minute volume** (SNOMED 4353945): Volume from patient-triggered breaths (ventilator-assisted)
+
+**Measured minute volume by phase:**
+
+- **Inspiratory minute volume** (SNOMED 4141207): Total inspired volume per minute (generic)
+- **Inspired minute Volume** (LOINC 21490754): Inspired volume measured during any ventilation
+- **Inspired minute Volume during Mechanical ventilation** (LOINC 42527121): Inspired volume specifically during mechanical ventilation
+- **Expiratory minute volume** (SNOMED 4144329): Total expired volume per minute (generic)
+- **Expired minute Volume during Mechanical ventilation** (LOINC 42527120): Expired volume specifically during mechanical ventilation
+
+# Important Notes
+
+- In assist-control or volume-control modes, mandatory minute volume equals total minute volume (no spontaneous breaths)
+- In pressure support or SIMV modes, total minute volume = mandatory minute volume + spontaneous minute volume",NA
+318,Ventilation,Ventilation parameters,Positive End-Expiratory Pressure (PEEP),"# Definition
+
+Positive End-Expiratory Pressure (PEEP) is the pressure in the lungs above atmospheric pressure at the end of expiration, expressed in **cmH2O** or **mmHg**. Typical ICU values range approximately from 5-15 cmH2O.
+
+# Mapping Strategy
+
+Prioritize distinguishing between set values (prescribed on ventilator) and measured values (actual airway pressure). For measured PEEP, specify whether intrinsic and extrinsic components were differentiated via expiratory pause maneuver.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Positive end expiratory pressure** (SNOMED 4353713): Use when set/measured distinction is unavailable
+
+**Set PEEP concepts:**
+
+- **Positive end expiratory pressure setting** (SNOMED 4216746): Value set/prescribed on the ventilator (generic)
+- **Positive end expiratory pressure setting Ventilator** (LOINC 3022875): Value set on the ventilator (LOINC equivalent)
+
+**Measured PEEP concepts:**
+
+- **Total PEEP Respiratory system** (LOINC 42527140): Measured PEEP without expiratory pause maneuver (includes intrinsic + extrinsic components)
+
+**Measured PEEP components (with expiratory pause maneuver):**
+
+- **Intrinsic PEEP Respiratory system** (LOINC 3035822): Auto-PEEP component, measured during expiratory pause
+- **Extrinsic PEEP Respiratory system** (LOINC 42528515): Applied PEEP component, measured during expiratory pause
+
+# Important Notes
+
+- Use ""Total PEEP"" for routine measured values without an expiratory pause maneuver
+- Use ""Intrinsic"" and ""Extrinsic"" PEEP only when an expiratory pause was performed to distinguish them
+- **Measurement method**: During expiratory pause maneuver, the expiratory valve closes and airflow stops (3-5 seconds), allowing alveolar pressure to equilibrate with airway pressure. The measured pressure is Total PEEP. Intrinsic PEEP (auto-PEEP) is calculated as: **Intrinsic PEEP = Total PEEP − Extrinsic PEEP (set)**
+- Intrinsic PEEP (auto-PEEP) occurs when insufficient time is allowed for complete exhalation, common in obstructive lung diseases (COPD, asthma)
+- Unit conversion: 1 cmH2O ≈ 0.74 mmHg (or 1 mmHg ≈ 1.36 cmH2O)",NA
+319,Ventilation,Ventilation parameters,Peak inspiration pressure,"# Definition
+
+Peak inspiratory pressure (PIP) is the maximum pressure measured in the airways during the inspiratory phase of mechanical ventilation, expressed in **cmH2O** or **mmHg**. PIP reflects the combined pressure from airway resistance, lung compliance, and chest wall compliance.
+
+# Mapping Strategy
+
+Use the single SNOMED concept for peak inspiratory pressure. This is a straightforward measurement parameter with no method variations.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Peak inspiratory pressure** (SNOMED 4101694): Use for all peak inspiratory pressure measurements
+
+# Important Notes
+
+- PIP includes both resistive pressure (from airway resistance) and elastic pressure (from lung and chest wall compliance), measured during active airflow
+- Do not confuse with plateau pressure (Pplat), which reflects only elastic recoil pressure and is measured during an end-inspiratory pause with no airflow
+- PIP is continuously monitored on all mechanical ventilators and does not require an inspiratory pause maneuver
+- Unit conversion: 1 cmH2O ≈ 0.74 mmHg (or 1 mmHg ≈ 1.36 cmH2O)",NA
+320,Ventilation,Ventilation parameters,Plateau pressure,"# Definition
+
+Plateau pressure (Pplat) is the pressure measured in the airways during an end-inspiratory pause on mechanical ventilation, expressed in **cmH2O** or **mbar** (1 cmH2O = 1 mbar). Plateau pressure >30 cmH2O is associated with increased risk of ventilator-induced lung injury.
+
+# Mapping Strategy
+
+Use the single SNOMED concept for plateau pressure. This is a straightforward measurement parameter with no method variations.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Airway plateau pressure** (SNOMED 698822002): Use for all plateau pressure measurements
+
+# Important Notes
+
+- Plateau pressure requires an end-inspiratory pause and is only measurable in volume-controlled or volume-targeted ventilation modes
+- Pplat reflects alveolar pressure and elastic recoil of the respiratory system, excluding airway resistance
+- Do not confuse with peak inspiratory pressure (PIP), which includes resistive pressure and is measured during active airflow",NA
 321,Ventilation,Ventilation parameters,Respiratory rate,NA,NA
 322,Ventilation,Ventilation parameters,Tidal volume,"Tidal volume can be both set and measured on the ventilator (with distinct inspiratory and expiratory values for the measured tidal volume).
 When **all this information is available**, we recommend using the concept ""**Mandatory tidal volume**"" for the value set on the ventilator, and ""**Inspiratory tidal volume**"" or ""**Expiratory tidal volume**"" for the measured values.
