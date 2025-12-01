@@ -98,7 +98,6 @@ general_concept_id,category,subcategory,general_concept_name,comments,statistica
 99,Drug,Antimicrobials,Piperacillin,NA,NA
 101,Drug,Antimicrobials,Posaconazole,NA,NA
 102,Drug,Antimicrobials,Rifampicin,NA,NA
-335,Drug,Antimicrobials,Sulbactam,NA,NA
 103,Drug,Antimicrobials,Sulfamethoxazole,NA,NA
 105,Drug,Antimicrobials,Tazobactam,NA,NA
 106,Drug,Antimicrobials,Teicoplanin,NA,NA
@@ -782,64 +781,98 @@ For measurements taken from arterial catheters at specific anatomical locations,
 - **Pulsus paradoxus**: The difference between inspiratory and expiratory systolic pressure can be clinically significant in conditions like cardiac tamponade or severe asthma (typically >10 mmHg)",NA
 330,Vitals,Other vitals,Temperature,NA,NA
 331,Vitals,Other vitals,Urine output,NA,NA
-332,Vitals,Ventilatory,Respiratory rate,NA,NA
-333,Vitals,Ventilatory,SpO2,"# Definition
+332,Vitals,Ventilatory,Respiratory rate,"# Definition
 
-Peripheral oxygen saturation (SpO2) represents the percentage of hemoglobin saturated with oxygen in arterial blood, expressed as a **percentage (%)** or **fraction (0-1)**. Normal SpO2 values range from 95-100% in healthy adults breathing room air.
+Respiratory rate represents the number of breaths per unit of time, expressed in **breaths per minute (breaths/min or /min)**. Normal respiratory rate in adults at rest ranges approximately from 12-20 breaths/min.
 
-**Important distinction**: This concept encompasses both **non-invasive measurements** (pulse oximetry using peripheral sensors) and **invasive measurements** (blood gas analysis from arterial, venous, or capillary blood samples). These are fundamentally different measurement techniques that should be distinguished when mapping data.
+**Important distinction**: This concept refers to **observed or measured respiratory rate as a vital sign** (patient monitoring). This is distinct from the ""Respiratory rate"" concept in the Ventilation category, which refers to **ventilator settings or ventilator-measured respiratory rate** (mechanical ventilation parameters set on or measured by the ventilator). Use this Vitals concept for clinical assessment of patient breathing; use the Ventilation concept for ventilator management parameters.
 
 # Mapping Strategy
 
-LOINC uses **pre-coordinated concepts** that combine multiple dimensions (measurement method + blood specimen type + clinical context) into single codes. This can create redundancy when only one or two dimensions are documented. For most ICU use cases, we recommend capturing the measurement method and blood specimen type, and linking clinical context (rest, exercise, oxygen therapy status) separately via OMOP FACT_RELATIONSHIP table.
+LOINC uses **pre-coordinated concepts** that combine multiple dimensions (measurement method + clinical context/timing) into single codes. For most ICU use cases, we recommend capturing the measurement method (if known) and linking clinical context (rest, exercise, pre/post procedure) separately via OMOP FACT_RELATIONSHIP table.
 
-Prioritize the **most granular concept** that matches your measurement method (pulse oximetry vs blood gas analysis) and specimen type (arterial, venous, capillary, mixed venous).
+Prioritize the **most granular concept** that matches your measurement method. For spontaneously breathing patients, distinguish between generic respiratory rate (all breaths) and spontaneous respiratory rate (excludes ventilator-delivered breaths in partially assisted ventilation).
 
 ## Recommended concepts
 
-**Non-invasive pulse oximetry measurements:**
+**Default and generic concepts:**
+
+- **Respiratory rate** (SNOMED 86290005): Use when measurement method is unspecified (most common vital sign documentation)
+- **Respiratory rate** (LOINC 9279-1): Generic LOINC concept for respiratory rate (all breaths counted)
+- **Total breath rate** (SNOMED 250810003): Total number of breaths per minute (includes both spontaneous and ventilator-delivered breaths in assisted ventilation)
+
+**Spontaneous breathing concepts:**
+
+- **Rate of spontaneous respiration** (SNOMED 271625008): Spontaneous breaths only (excludes mechanical ventilator breaths in assisted modes)
+- **Breath rate spontaneous** (LOINC 76528-9): LOINC equivalent for spontaneous respiratory rate
+
+**Measurement method-specific concepts:**
+
+- **Respiratory rate by Airway flow measurement** (LOINC 76171-8): Measured via airway flow sensor in non-ventilator contexts (spirometry, pulmonary function testing). For ventilator-measured respiratory rate, use the ""Respiratory rate"" general concept in the Ventilation category instead
+- **Respiratory rate by Carbon dioxide measurement** (LOINC 76172-6): Derived from capnography (end-tidal CO2 waveform)
+- **Respiratory rate by Pulse oximetry.plethysmograph** (LOINC 76174-2): Derived from pulse oximeter plethysmograph waveform
+- **Respiratory rate by Impedance.transthoracic** (LOINC 76270-8): Measured via thoracic impedance (telemetry/monitoring electrodes)
+- **Respiratory rate by Acoustic measurement** (LOINC 76170-0): Derived from acoustic sensors (breathing sounds)
+- **Respiratory rate by Non-airway pressure measurement** (LOINC 76173-4): Measured via pressure sensors not in the airway (e.g., chest movement sensors)
+
+## Not recommended for routine use
+
+Use these concepts **only when clinical context or procedure timing is the primary clinical focus** (e.g., procedural sedation monitoring, exercise testing, pulmonary rehabilitation, pulmonary function testing).
+
+For most ICU use cases, we recommend capturing respiratory rate using the granular measurement method concepts above and linking clinical context separately using OMOP FACT_RELATIONSHIP table with SNOMED context concepts (e.g., ""At rest"" SNOMED 263678003).
+
+**Context/timing-specific concepts:**
+
+- **Respiratory rate --resting** (LOINC 9303-9): Measured at rest
+- **Respiratory rate --W exercise** (LOINC 89274-5): Measured during exercise
+- **Respiratory rate --post exercise** (LOINC 40441-8): Measured after exercise
+- **Respiratory rate --during anesthesia** (LOINC 89279-4): Measured during anesthesia
+- **Respiratory rate --pre conscious sedation** (LOINC 9301-3): Before procedural sedation
+- **Respiratory rate --post conscious sedation** (LOINC 9297-3): After procedural sedation
+- **Respiratory rate --pre bronchoscopy** (LOINC 9299-9): Before bronchoscopy procedure
+- **Respiratory rate --post bronchoscopy** (LOINC 9295-7): After bronchoscopy procedure
+- **Respiratory rate --pre cardioversion** (LOINC 9300-5): Before cardioversion procedure
+- **Respiratory rate --post cardioversion** (LOINC 9296-5): After cardioversion procedure
+- **Respiratory rate --pre inhalation therapy** (LOINC 9302-1): Before nebulizer or inhaler treatment
+- **Respiratory rate --post inhalation therapy** (LOINC 9298-1): After nebulizer or inhaler treatment
+- **Respiratory rate --at maximum voluntary ventilation** (LOINC 19842-4): Respiratory rate during maximal voluntary ventilation maneuver
+- **Respiratory rate by Spirometry --at maximum voluntary ventilation** (LOINC 19841-6): Same as above, explicitly measured by spirometry
+
+# Important Notes
+
+- **Vital sign vs ventilator parameter**: This concept is for observed/measured respiratory rate as a clinical vital sign (patient assessment). For ventilator settings or ventilator-measured respiratory rate, use the ""Respiratory rate"" concept from the Ventilation category
+- **Spontaneous vs total respiratory rate**: In patients on partial ventilatory support (e.g., pressure support, SIMV), distinguish between total breath rate (all breaths) and spontaneous breath rate (patient-initiated breaths only)
+- Respiratory rate can be measured by various methods: visual observation (chest rise), capnography (CO2 waveform), pulse oximetry plethysmograph, thoracic impedance (telemetry), or ventilator flow sensors",NA
+333,Vitals,Ventilatory,Oxygen saturation,"# Definition
+
+Peripheral oxygen saturation (SpO2) represents the percentage of hemoglobin saturated with oxygen, expressed as a **percentage (%)** or **fraction (0-1)**. Normal SpO2 values range approximately from 95-100% in healthy adults breathing room air.
+
+**Important distinction - Vitals vs Labs**: This Vitals concept refers to **oxygen saturation measured as a vital sign** using non-invasive monitoring methods (pulse oximetry, continuous monitoring). For oxygen saturation measured from **laboratory blood gas analysis** (arterial, venous, or capillary blood samples analyzed by laboratory co-oximetry), use the ""Oxygen saturation"" concept in the **Labs category** instead. The key distinction is the measurement context: continuous bedside monitoring (Vitals) vs laboratory blood specimen analysis (Labs).
+
+# Mapping Strategy
+
+LOINC uses **pre-coordinated concepts** that combine multiple dimensions (measurement method + specimen type + clinical context) into single codes. For most ICU use cases, we recommend capturing the measurement method and linking clinical context (rest, exercise, oxygen therapy status) separately via OMOP FACT_RELATIONSHIP table.
+
+Prioritize **non-invasive pulse oximetry concepts** for bedside vital sign monitoring. For laboratory blood gas measurements, use the ""Oxygen saturation"" concept in the Labs category.
+
+## Recommended concepts
+
+**Non-invasive pulse oximetry measurements (bedside vital sign monitoring):**
 
 - **Peripheral oxygen saturation** (SNOMED 431314004): Use for pulse oximetry measurements when clinical context is unspecified (most common ICU monitoring)
-- **Oxygen saturation in Arterial blood by Pulse oximetry** (LOINC 59408-5): Use for pulse oximetry measurements (non-invasive peripheral sensor measuring arterial pulsatile flow)
-- **Capillary oxygen saturation** (SNOMED 442440005): Alternative term for pulse oximetry in peripheral capillaries
+- **Oxygen saturation in Arterial blood by Pulse oximetry** (LOINC 59408-5): Non-invasive peripheral sensor measuring arterial pulsatile flow via photoplethysmography
+- **Capillary oxygen saturation** (SNOMED 442440005): Alternative term for pulse oximetry measuring oxygen saturation in peripheral capillaries
 
-**Invasive blood gas measurements - Arterial:**
+**Neonatal-specific pulse oximetry concepts:**
 
-- **Oxygen saturation in Arterial blood** (LOINC 2708-6): Measured from arterial blood gas sample (invasive, gold standard for accuracy)
-- **Oxygen saturation [Pure mass fraction] in Arterial blood** (LOINC 71852-8): Same as above, expressed as fraction instead of percentage
-- **Oxygen saturation Calculated from oxygen partial pressure in Arterial blood** (LOINC 51733-4): SaO2 calculated from PaO2 using oxygen-hemoglobin dissociation curve
-
-**Invasive blood gas measurements - Venous:**
-
-- **Oxygen saturation in Venous blood** (LOINC 2711-0): Generic venous blood saturation (peripheral venous sample)
-- **Oxygen saturation in Central venous blood** (LOINC 97549-0): ScvO2 measured from central venous catheter (superior vena cava)
-- **Oxygen saturation in Mixed venous blood** (LOINC 19224-5): SvO2 measured from pulmonary artery catheter (true mixed venous blood)
-- **SvO2 (mixed venous oxygen saturation) percent in venous blood** (SNOMED 37170618): SNOMED equivalent for mixed venous saturation
-- **Venous oxygen saturation** (SNOMED 442349007): Generic SNOMED concept for venous saturation
-- **Oxygen saturation Calculated from oxygen partial pressure in Venous blood** (LOINC 51731-8): SvO2 calculated from PvO2 using oxygen-hemoglobin dissociation curve
-
-**Invasive blood gas measurements - Capillary:**
-
-- **Oxygen saturation in Capillary blood** (LOINC 2709-4): Measured from capillary blood gas sample (fingerstick or heel stick)
-- **Oxygen saturation Calculated from oxygen partial pressure in Capillary blood** (LOINC 51732-6): Calculated from capillary PO2
-
-**Invasive blood gas measurements - Other specimens:**
-
-- **Oxygen saturation in Blood** (LOINC 20564-1): Generic concept when specimen type is unspecified
-- **Oxygen saturation in Cord blood** (LOINC 68363-1): Measured from umbilical cord blood (obstetric use)
-- **Oxygen saturation in Arterial cord blood** (LOINC 28642-7): Umbilical artery blood
-- **Oxygen saturation in Venous cord blood** (LOINC 28643-5): Umbilical vein blood
-
-**Neonatal-specific concepts:**
-
-- **Oxygen saturation in Blood Preductal by Pulse oximetry** (LOINC 59407-7): Right hand/arm pulse oximetry (pre-ductal circulation in neonates)
+- **Oxygen saturation in Blood Preductal by Pulse oximetry** (LOINC 59407-7): Right hand/arm pulse oximetry (pre-ductal circulation in neonates, screening for congenital heart disease)
 - **Oxygen saturation in Blood Postductal by Pulse oximetry** (LOINC 59418-4): Lower extremity pulse oximetry (post-ductal circulation in neonates)
 
 ## Not recommended for routine use
 
-Use these concepts **only when patient activity, oxygen therapy status, or clinical timing is the primary clinical focus** (e.g., exercise desaturation testing, pulmonary rehabilitation assessments).
+Use these concepts **only when patient activity, oxygen therapy status, or clinical timing is the primary clinical focus** (e.g., exercise desaturation testing, pulmonary rehabilitation assessments, 6-minute walk tests).
 
-For most ICU use cases, we recommend capturing SpO2 measurements using the granular concepts above and linking clinical context separately using OMOP FACT_RELATIONSHIP table with SNOMED context concepts (e.g., ""On room air"" SNOMED, ""Supplemental oxygen therapy"" SNOMED, ""At rest"" SNOMED, ""During exercise"" SNOMED).
+For most ICU use cases, we recommend capturing SpO2 measurements using the generic pulse oximetry concepts above and linking clinical context separately using OMOP FACT_RELATIONSHIP table with SNOMED context concepts (e.g., ""At rest"" SNOMED 263678003, ""Supplemental oxygen therapy"" SNOMED, ""On room air"" SNOMED).
 
 **SNOMED pre-coordinated context concepts:**
 
@@ -864,19 +897,20 @@ For most ICU use cases, we recommend capturing SpO2 measurements using the granu
 
 **SNOMED qualitative change concepts (not recommended):**
 
-- **Peripheral oxygen saturation level on room air on exertion decreased** (SNOMED 1321841000000106)
-- **Peripheral oxygen saturation level on room air on exertion unchanged** (SNOMED 1321871000000100)
-- **Peripheral oxygen saturation level on supplemental oxygen on exertion decreased** (SNOMED 1321861000000107)
-- **Peripheral oxygen saturation level on supplemental oxygen on exertion unchanged** (SNOMED 1321881000000103)
+- **Peripheral oxygen saturation level on room air on exertion decreased** (SNOMED 1321841000000106): Qualitative assessment of SpO2 change during exercise
+- **Peripheral oxygen saturation level on room air on exertion unchanged** (SNOMED 1321871000000100): Qualitative assessment of stable SpO2 during exercise
+- **Peripheral oxygen saturation level on supplemental oxygen on exertion decreased** (SNOMED 1321861000000107): Qualitative assessment of SpO2 change during exercise with oxygen therapy
+- **Peripheral oxygen saturation level on supplemental oxygen on exertion unchanged** (SNOMED 1321881000000103): Qualitative assessment of stable SpO2 during exercise with oxygen therapy
 
 **Non-standard procedure concepts:**
 
-- **Capillary oxygen saturation measurement** (SNOMED 250553009): Non-standard SNOMED procedure concept; prefer observable entity concepts for actual measurements
+- **Capillary oxygen saturation measurement** (SNOMED 250553009): Non-standard SNOMED procedure concept; prefer the observable entity concept (SNOMED 431314004) for actual measurements
 
 # Important Notes
 
-- **Pulse oximetry (SpO2)** measures oxygen saturation non-invasively via peripheral sensor and is the standard for continuous ICU monitoring; it may be less accurate in hypoperfusion, severe anemia, or motion artifact
-- **Arterial blood gas saturation (SaO2)** measured invasively from arterial blood sample is the gold standard for accuracy
-- **Mixed venous saturation (SvO2)** from pulmonary artery reflects global oxygen delivery-consumption balance; normal range 60-80%
-- **Central venous saturation (ScvO2)** from superior vena cava approximates SvO2 but may differ by 5-7%; easier to obtain than true SvO2
-- SpO2 and SaO2 are not interchangeable terms: SpO2 = pulse oximetry (non-invasive), SaO2 = arterial blood gas (invasive)",NA
+- **Vitals vs Labs distinction**: Use this Vitals concept for continuous bedside pulse oximetry monitoring. For oxygen saturation from laboratory blood gas analysis (SaO2, SvO2, ScvO2 measured by co-oximetry on arterial, venous, or capillary blood samples), use the ""Oxygen saturation"" concept in the Labs category
+- **Pulse oximetry (SpO2)** measures oxygen saturation non-invasively via peripheral sensor using photoplethysmography; it is the standard for continuous ICU monitoring but may be less accurate in hypoperfusion, severe anemia, hypothermia, motion artifact, or nail polish
+- **Arterial blood gas saturation (SaO2)** measured invasively from arterial blood sample analyzed by co-oximetry is the gold standard for accuracy; use the Labs concept for these measurements
+- SpO2 and SaO2 are not interchangeable: SpO2 = pulse oximetry estimate (non-invasive bedside monitoring), SaO2 = co-oximetry measurement (invasive laboratory analysis)",NA
+335,Drug,Antimicrobials,Sulbactam,NA,NA
+336,Labs,Arterial blood gases,Oxygen saturation,NA,NA

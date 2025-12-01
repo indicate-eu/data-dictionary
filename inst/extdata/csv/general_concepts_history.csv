@@ -333,3 +333,5 @@ history_id,timestamp,username,action_type,category,subcategory,general_concept_n
 335,2025-11-28 15:32:29,Boris Delange,update,Vitals,Haemodynamics,Diastolic arterial pressure,Updated general_concept_name from 'Diastolic blood pressure' to 'Diastolic arterial pressure'
 336,2025-11-28 15:32:29,Boris Delange,update,Vitals,Haemodynamics,Mean arterial pressure,Updated general_concept_name from 'Mean blood pressure' to 'Mean arterial pressure'
 337,2025-11-28 15:32:29,Boris Delange,update,Vitals,Haemodynamics,Systolic arterial pressure,Updated general_concept_name from 'Systolic blood pressure' to 'Systolic arterial pressure'
+338,2025-12-01 08:33:53,Boris Delange,update,Vitals,Ventilatory,Oxygen saturation,Updated general_concept_name from 'SpO2' to 'Oxygen saturation'
+339,2025-12-01 08:34:35,Boris Delange,insert,Labs,Arterial blood gases,Oxygen saturation,Created concept 'Oxygen saturation' in category 'Labs' > 'Arterial blood gases'

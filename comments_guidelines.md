@@ -224,17 +224,17 @@ Include these sections **only when necessary**:
 **Best practices:**
 - Keep to 1-3 sentences maximum
 - **Bold** the units (e.g., **L/min**, **bpm**, **mmol/L**)
-- Include normal/typical ranges when clinically relevant
+- Include normal/typical ranges when clinically relevant, using "approximately" to acknowledge variability (e.g., "Normal values range approximately from X-Y")
 - Use present tense, active voice
 - Avoid jargon unless necessary (then explain it)
 
 **Examples:**
 
 ✅ **Good:**
-> Heart rate represents the number of heartbeats per unit of time, expressed in **beats per minute (bpm)**. Normal resting heart rate in adults ranges from 60-100 bpm.
+> Heart rate represents the number of heartbeats per unit of time, expressed in **beats per minute (bpm)**. Normal resting heart rate in adults ranges approximately from 60-100 bpm.
 
 ✅ **Good:**
-> Positive End-Expiratory Pressure (PEEP) is the pressure in the lungs above atmospheric pressure at the end of expiration, expressed in **cmH2O**. Typical ICU values: 5-15 cmH2O.
+> Positive End-Expiratory Pressure (PEEP) is the pressure in the lungs above atmospheric pressure at the end of expiration, expressed in **cmH2O**. Typical ICU values range approximately from 5-15 cmH2O.
 
 ❌ **Too technical:**
 > Heart rate is the frequency of cardiac contractile cycles per temporal unit quantified via electrocardiographic R-R interval analysis.
