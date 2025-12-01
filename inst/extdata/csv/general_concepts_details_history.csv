@@ -16284,3 +16284,291 @@ For most ICU use cases, we recommend capturing SpO2 measurements using the gener
 14296,2025-12-01 10:32:49,Boris Delange,delete,330,SNOMED,852601000000101,Minimum body temperature,Deleted OMOP concept mapping
 14297,2025-12-01 10:32:49,Boris Delange,recommend,330,SNOMED,364511004,Ankle joint temperature,Marked as recommended
 14298,2025-12-01 10:32:49,Boris Delange,recommend,330,SNOMED,415882003,Axillary temperature,Marked as recommended
+14299,2025-12-01 10:41:32,Boris Delange,insert,330,LOINC,8328-7,Axillary temperature,Added OMOP concept mapping
+14300,2025-12-01 10:41:32,Boris Delange,insert,330,LOINC,76278-1,Bladder temperature via Foley,Added OMOP concept mapping
+14301,2025-12-01 10:41:32,Boris Delange,insert,330,LOINC,60834-9,Blood temperature,Added OMOP concept mapping
+14302,2025-12-01 10:41:32,Boris Delange,insert,330,LOINC,8310-5,Body temperature,Added OMOP concept mapping
+14303,2025-12-01 10:41:32,Boris Delange,insert,330,LOINC,61008-9,Body surface temperature,Added OMOP concept mapping
+14304,2025-12-01 10:41:33,Boris Delange,insert,330,LOINC,91371-5,Body temperature - Brain,Added OMOP concept mapping
+14305,2025-12-01 10:41:33,Boris Delange,insert,330,LOINC,8329-5,Body temperature - Core,Added OMOP concept mapping
+14306,2025-12-01 10:41:33,Boris Delange,insert,330,LOINC,98663-8,Body temperature - Foot surface,Added OMOP concept mapping
+14307,2025-12-01 10:41:33,Boris Delange,insert,330,LOINC,104063-3,Body temperature - Groin,Added OMOP concept mapping
+14308,2025-12-01 10:41:33,Boris Delange,insert,330,LOINC,98657-0,Body temperature - Hand surface,Added OMOP concept mapping
+14309,2025-12-01 10:41:33,Boris Delange,insert,330,LOINC,8330-3,Body temperature - Intravascular,Added OMOP concept mapping
+14310,2025-12-01 10:41:33,Boris Delange,insert,330,LOINC,75539-7,Body temperature - Temporal artery,Added OMOP concept mapping
+14311,2025-12-01 10:41:33,Boris Delange,insert,330,LOINC,8334-5,Body temperature - Urinary bladder,Added OMOP concept mapping
+14312,2025-12-01 10:41:33,Boris Delange,insert,330,LOINC,50400-1,Body temperature --after transfusion reaction,Added OMOP concept mapping
+14313,2025-12-01 10:41:33,Boris Delange,insert,330,LOINC,60830-7,Finger temperature,Added OMOP concept mapping
+14314,2025-12-01 10:41:33,Boris Delange,insert,330,LOINC,60836-4,Esophageal temperature,Added OMOP concept mapping
+14315,2025-12-01 10:41:33,Boris Delange,insert,330,LOINC,76011-6,Ear temperature,Added OMOP concept mapping
+14316,2025-12-01 10:41:33,Boris Delange,insert,330,LOINC,76010-8,Nasal temperature,Added OMOP concept mapping
+14317,2025-12-01 10:41:33,Boris Delange,insert,330,LOINC,8331-1,Oral temperature,Added OMOP concept mapping
+14318,2025-12-01 10:41:33,Boris Delange,insert,330,LOINC,60838-0,Nasopharyngeal temperature,Added OMOP concept mapping
+14319,2025-12-01 10:41:33,Boris Delange,insert,330,LOINC,8332-9,Rectal temperature,Added OMOP concept mapping
+14320,2025-12-01 10:41:34,Boris Delange,insert,330,LOINC,39106-0,Temperature of Skin,Added OMOP concept mapping
+14321,2025-12-01 10:41:34,Boris Delange,insert,330,LOINC,81673-6,Temperature of Extremity,Added OMOP concept mapping
+14322,2025-12-01 10:41:34,Boris Delange,insert,330,LOINC,60833-1,Toe temperature,Added OMOP concept mapping
+14323,2025-12-01 10:51:47,Boris Delange,update,330,NA,NA,Temperature,"Updated ETL guidance comment: # Definition
+
+Body temperature represents the thermal state of the body, expressed in **degrees Celsius (°C)** or **degrees Fahrenheit (°F)**. Normal core body temperature ranges approximately from 36.5-37.5°C (97.7-99.5°F) in adults.
+
+# Mapping Strategy
+
+SNOMED and LOINC distinguish temperature measurements by **anatomical measurement site**, which determines whether the measurement reflects **core body temperature** (internal body temperature) or **peripheral temperature** (surface or extremity temperature). For most clinical use cases, prioritize the specific measurement site over generic body temperature concepts.
+
+Prioritize the **most specific anatomical site** that matches your measurement location.
+
+## Recommended concepts
+
+**Default concepts:**
+
+- **Body temperature** (SNOMED 386725007): Use when measurement site is unspecified
+- **Body temperature** (LOINC 8310-5): Generic LOINC equivalent
+
+**Core body temperature sites (most accurate for critically ill patients):**
+
+- **Core body temperature** (SNOMED 276885007): Generic core temperature when specific site is unknown
+- **Body temperature - Core** (LOINC 8329-5): LOINC generic core temperature
+- **Rectal temperature** (SNOMED 307047009): Core body temperature measured in rectum
+- **Rectal temperature** (LOINC 8332-9): LOINC equivalent for rectal measurement
+- **Temperature of esophagus** (SNOMED 431598003): Esophageal temperature probe (operating room, ICU)
+- **Esophageal temperature** (LOINC 60836-4): LOINC equivalent for esophageal measurement
+- **Core body temperature measured at urinary bladder** (SNOMED 698832009): Bladder temperature via Foley catheter with temperature sensor (ICU)
+- **Body temperature - Urinary bladder** (LOINC 8334-5): LOINC equivalent for bladder measurement
+- **Bladder temperature via Foley** (LOINC 76278-1): Bladder temperature measured via Foley catheter
+- **Core body temperature measured in blood** (SNOMED 37164002): Measured via pulmonary artery catheter or intravascular temperature probe
+- **Blood temperature** (LOINC 60834-9): LOINC equivalent for blood temperature measurement
+- **Body temperature - Intravascular** (LOINC 8330-3): Intravascular temperature measurement
+- **Tympanic temperature** (SNOMED 415974002): Core body temperature measured at tympanic membrane via infrared ear thermometer
+- **Ear temperature** (LOINC 76011-6): LOINC equivalent for tympanic measurement
+- **Nasopharyngeal temperature** (SNOMED 698831002): Nasopharyngeal temperature probe
+- **Nasopharyngeal temperature** (LOINC 60838-0): LOINC equivalent for nasopharyngeal measurement
+- **Nasal temperature** (LOINC 76010-8): Nasal temperature measurement
+- **Body temperature - Brain** (LOINC 91371-5): Brain temperature (neurosurgical monitoring)
+
+**Peripheral/estimated core temperature sites (less accurate):**
+
+- **Oral temperature** (SNOMED 415945006): Estimated core body temperature measured in sublingual space
+- **Oral temperature** (LOINC 8331-1): LOINC equivalent for oral measurement
+- **Axillary temperature** (SNOMED 415882003): Estimated core body temperature measured in axillary region
+- **Axillary temperature** (LOINC 8328-7): LOINC equivalent for axillary measurement
+- **Forehead temperature** (SNOMED 415922000): Forehead skin temperature (temporal artery thermometer or infrared scanner)
+- **Body temperature - Temporal artery** (LOINC 75539-7): Temporal artery temperature measurement
+- **Forehead skin strip temperature** (SNOMED 415921007): Liquid crystal thermometer strip applied to forehead
+- **Temperature of skin** (SNOMED 364537001): Generic skin surface temperature
+- **Temperature of Skin** (LOINC 39106-0): LOINC equivalent for skin temperature
+- **Body surface temperature** (LOINC 61008-9): Body surface temperature measurement
+- **Groin temperature** (SNOMED 415929009): Groin skin temperature
+- **Body temperature - Groin** (LOINC 104063-3): LOINC equivalent for groin measurement
+
+**Extremity and peripheral temperatures:**
+
+- **Temperature of foot** (SNOMED 364518005): Foot skin temperature (perfusion assessment)
+- **Body temperature - Foot surface** (LOINC 98663-8): Foot surface temperature
+- **Temperature of left foot** (SNOMED 787141000000100): Left foot temperature (peripheral perfusion comparison)
+- **Temperature of right foot** (SNOMED 787151000000102): Right foot temperature (peripheral perfusion comparison)
+- **Temperature of digit of hand** (SNOMED 433588001): Finger temperature
+- **Finger temperature** (LOINC 60830-7): LOINC equivalent for finger measurement
+- **Body temperature - Hand surface** (LOINC 98657-0): Hand surface temperature
+- **Temperature of toe** (SNOMED 433776001): Toe temperature
+- **Toe temperature** (LOINC 60833-1): LOINC equivalent for toe measurement
+- **Temperature of digit** (SNOMED 431197002): Generic digit (finger or toe) temperature
+- **Temperature of Extremity** (LOINC 81673-6): Generic extremity temperature
+
+**Joint temperatures (inflammation or infection assessment):**
+
+- **Joint temperature** (SNOMED 250124002): Generic joint temperature
+- **Knee joint temperature** (SNOMED 364506001): Knee joint temperature
+- **Ankle joint temperature** (SNOMED 364511004): Ankle joint temperature
+- **Shoulder joint temperature** (SNOMED 364476002): Shoulder joint temperature
+- **Elbow joint temperature** (SNOMED 364479009): Elbow joint temperature
+- **Wrist joint temperature** (SNOMED 364482004): Wrist joint temperature
+- **Finger joint temperature** (SNOMED 364495009): Finger joint temperature
+- **Toe joint temperature** (SNOMED 364525003): Toe joint temperature
+- **Foot joint temperature** (SNOMED 364521007): Foot joint temperature
+- **Thumb joint temperature** (SNOMED 364491000): Thumb joint temperature
+
+**Specialized temperature sites (rare clinical use):**
+
+- **Temperature of vagina** (SNOMED 364246006): Vaginal temperature
+- **Temperature of pinna** (SNOMED 363997004): External ear (pinna) temperature
+- **Breast temperature** (SNOMED 248835004): Breast skin temperature
+- **Cervical spine temperature** (SNOMED 364419004): Cervical spine temperature
+- **Thoracic spine temperature** (SNOMED 364424001): Thoracic spine temperature
+- **Temperature of lumbar spine** (SNOMED 364429006): Lumbar spine temperature
+
+**Other concepts:**
+
+- **Target body temperature** (SNOMED 852581000000105): Target temperature for therapeutic temperature management (e.g., targeted temperature management post-cardiac arrest)
+- **Body temperature taken with digital thermometer** (SNOMED 431807005): Generic temperature measured with digital electronic thermometer (site unspecified)
+
+## Not recommended for routine use
+
+**Context-specific concepts:**
+
+- **Body temperature --after transfusion reaction** (LOINC 50400-1): Use only for transfusion reaction monitoring; link transfusion context separately via FACT_RELATIONSHIP for routine use
+
+**Time-based concepts:**
+
+- **Temperature of neonate at birth** (SNOMED 708499008): Pre-coordinated concept combining temperature measurement and timing (at birth). Instead, use the appropriate anatomical site concept (rectal, axillary, skin, etc.) with accurate timestamp; timing relative to birth can be inferred from the measurement datetime
+
+# Important Notes
+
+- **Core vs peripheral temperature**: Core temperature (rectal, esophageal, bladder, blood) reflects true internal body temperature and is preferred for critically ill patients. Peripheral measurements (oral, axillary, forehead) may underestimate core temperature in hypothermia, shock, or severe peripheral vasoconstriction
+- **Measurement site hierarchy for accuracy**: Rectal > esophageal > bladder > pulmonary artery blood > tympanic > oral > axillary > forehead skin
+- **ICU temperature monitoring**: For critically ill patients requiring precise temperature management (sepsis, therapeutic hypothermia, fever management), use core temperature sites (esophageal, bladder, rectal) rather than peripheral estimates
+- Oral temperature may be inaccurate after recent oral intake; axillary temperature typically measures 0.3-0.6°C lower than core temperature; forehead/temporal artery thermometers are convenient but less accurate
+- Normal temperature ranges vary by measurement site: rectal is typically 0.3-0.6°C higher than oral, oral is 0.3-0.6°C higher than axillary
+- Extremity and joint temperatures are primarily used for assessing peripheral perfusion (cold extremities suggest poor perfusion) or joint inflammation (warm joints suggest arthritis or infection), not for monitoring core body temperature"
+14324,2025-12-01 10:53:16,Boris Delange,recommend,330,LOINC,8328-7,Axillary temperature,Marked as recommended
+14325,2025-12-01 10:53:16,Boris Delange,recommend,330,LOINC,76278-1,Bladder temperature via Foley,Marked as recommended
+14326,2025-12-01 10:53:16,Boris Delange,recommend,330,LOINC,60834-9,Blood temperature,Marked as recommended
+14327,2025-12-01 10:53:16,Boris Delange,recommend,330,LOINC,61008-9,Body surface temperature,Marked as recommended
+14328,2025-12-01 10:53:16,Boris Delange,recommend,330,LOINC,8310-5,Body temperature,Marked as recommended
+14329,2025-12-01 10:53:16,Boris Delange,recommend,330,LOINC,91371-5,Body temperature - Brain,Marked as recommended
+14330,2025-12-01 10:53:16,Boris Delange,recommend,330,LOINC,8329-5,Body temperature - Core,Marked as recommended
+14331,2025-12-01 10:53:16,Boris Delange,recommend,330,LOINC,98663-8,Body temperature - Foot surface,Marked as recommended
+14332,2025-12-01 10:53:16,Boris Delange,recommend,330,LOINC,104063-3,Body temperature - Groin,Marked as recommended
+14333,2025-12-01 10:53:16,Boris Delange,recommend,330,LOINC,98657-0,Body temperature - Hand surface,Marked as recommended
+14334,2025-12-01 10:53:16,Boris Delange,recommend,330,LOINC,8330-3,Body temperature - Intravascular,Marked as recommended
+14335,2025-12-01 10:53:16,Boris Delange,recommend,330,LOINC,75539-7,Body temperature - Temporal artery,Marked as recommended
+14336,2025-12-01 10:53:16,Boris Delange,recommend,330,LOINC,8334-5,Body temperature - Urinary bladder,Marked as recommended
+14337,2025-12-01 10:53:16,Boris Delange,recommend,330,SNOMED,431807005,Body temperature taken with digital thermometer,Marked as recommended
+14338,2025-12-01 10:53:16,Boris Delange,recommend,330,SNOMED,248835004,Breast temperature,Marked as recommended
+14339,2025-12-01 10:54:53,Boris Delange,delete,330,SNOMED,364479009,Elbow joint temperature,Deleted OMOP concept mapping
+14340,2025-12-01 10:54:53,Boris Delange,delete,330,SNOMED,364495009,Finger joint temperature,Deleted OMOP concept mapping
+14341,2025-12-01 10:54:53,Boris Delange,delete,330,SNOMED,364521007,Foot joint temperature,Deleted OMOP concept mapping
+14342,2025-12-01 10:54:53,Boris Delange,delete,330,SNOMED,250124002,Joint temperature,Deleted OMOP concept mapping
+14343,2025-12-01 10:54:53,Boris Delange,delete,330,SNOMED,364506001,Knee joint temperature,Deleted OMOP concept mapping
+14344,2025-12-01 10:54:53,Boris Delange,delete,330,SNOMED,364476002,Shoulder joint temperature,Deleted OMOP concept mapping
+14345,2025-12-01 10:54:53,Boris Delange,recommend,330,SNOMED,364419004,Cervical spine temperature,Marked as recommended
+14346,2025-12-01 10:54:53,Boris Delange,recommend,330,SNOMED,276885007,Core body temperature,Marked as recommended
+14347,2025-12-01 10:54:53,Boris Delange,recommend,330,SNOMED,698832009,Core body temperature measured at urinary bladder,Marked as recommended
+14348,2025-12-01 10:54:53,Boris Delange,recommend,330,SNOMED,1222808002,Core body temperature measured in blood,Marked as recommended
+14349,2025-12-01 10:54:53,Boris Delange,recommend,330,LOINC,76011-6,Ear temperature,Marked as recommended
+14350,2025-12-01 10:54:54,Boris Delange,recommend,330,LOINC,60836-4,Esophageal temperature,Marked as recommended
+14351,2025-12-01 10:54:54,Boris Delange,recommend,330,LOINC,60830-7,Finger temperature,Marked as recommended
+14352,2025-12-01 10:54:54,Boris Delange,recommend,330,SNOMED,415921007,Forehead skin strip temperature,Marked as recommended
+14353,2025-12-01 10:54:54,Boris Delange,recommend,330,SNOMED,415922000,Forehead temperature,Marked as recommended
+14354,2025-12-01 10:54:54,Boris Delange,recommend,330,SNOMED,415929009,Groin temperature,Marked as recommended
+14355,2025-12-01 10:54:54,Boris Delange,recommend,330,LOINC,76010-8,Nasal temperature,Marked as recommended
+14356,2025-12-01 10:54:54,Boris Delange,recommend,330,SNOMED,698831002,Nasopharyngeal temperature,Marked as recommended
+14357,2025-12-01 10:54:54,Boris Delange,recommend,330,LOINC,60838-0,Nasopharyngeal temperature,Marked as recommended
+14358,2025-12-01 10:54:54,Boris Delange,recommend,330,LOINC,8331-1,Oral temperature,Marked as recommended
+14359,2025-12-01 10:54:54,Boris Delange,recommend,330,LOINC,8332-9,Rectal temperature,Marked as recommended
+14360,2025-12-01 10:55:44,Boris Delange,delete,330,SNOMED,364491000,Thumb joint temperature,Deleted OMOP concept mapping
+14361,2025-12-01 10:55:44,Boris Delange,delete,330,SNOMED,364525003,Toe joint temperature,Deleted OMOP concept mapping
+14362,2025-12-01 10:55:44,Boris Delange,delete,330,SNOMED,364482004,Wrist joint temperature,Deleted OMOP concept mapping
+14363,2025-12-01 10:55:44,Boris Delange,recommend,330,SNOMED,852581000000105,Target body temperature,Marked as recommended
+14364,2025-12-01 10:55:44,Boris Delange,recommend,330,LOINC,81673-6,Temperature of Extremity,Marked as recommended
+14365,2025-12-01 10:55:45,Boris Delange,recommend,330,LOINC,39106-0,Temperature of Skin,Marked as recommended
+14366,2025-12-01 10:55:45,Boris Delange,recommend,330,SNOMED,431197002,Temperature of digit,Marked as recommended
+14367,2025-12-01 10:55:45,Boris Delange,recommend,330,SNOMED,433588001,Temperature of digit of hand,Marked as recommended
+14368,2025-12-01 10:55:45,Boris Delange,recommend,330,SNOMED,364518005,Temperature of foot,Marked as recommended
+14369,2025-12-01 10:55:45,Boris Delange,recommend,330,SNOMED,787141000000100,Temperature of left foot,Marked as recommended
+14370,2025-12-01 10:55:45,Boris Delange,recommend,330,SNOMED,364429006,Temperature of lumbar spine,Marked as recommended
+14371,2025-12-01 10:55:45,Boris Delange,recommend,330,SNOMED,363997004,Temperature of pinna,Marked as recommended
+14372,2025-12-01 10:55:45,Boris Delange,recommend,330,SNOMED,787151000000102,Temperature of right foot,Marked as recommended
+14373,2025-12-01 10:55:45,Boris Delange,recommend,330,SNOMED,433776001,Temperature of toe,Marked as recommended
+14374,2025-12-01 10:55:45,Boris Delange,recommend,330,SNOMED,364246006,Temperature of vagina,Marked as recommended
+14375,2025-12-01 10:55:45,Boris Delange,recommend,330,SNOMED,364424001,Thoracic spine temperature,Marked as recommended
+14376,2025-12-01 10:55:45,Boris Delange,recommend,330,LOINC,60833-1,Toe temperature,Marked as recommended
+14377,2025-12-01 10:57:05,Boris Delange,update,330,NA,NA,Temperature,"Updated ETL guidance comment: # Definition
+
+Body temperature represents the thermal state of the body, expressed in **degrees Celsius (°C)** or **degrees Fahrenheit (°F)**. Normal core body temperature ranges approximately from 36.5-37.5°C (97.7-99.5°F) in adults.
+
+# Mapping Strategy
+
+SNOMED and LOINC distinguish temperature measurements by **anatomical measurement site**, which determines whether the measurement reflects **core body temperature** (internal body temperature) or **peripheral temperature** (surface or extremity temperature). For most clinical use cases, prioritize the specific measurement site over generic body temperature concepts.
+
+Prioritize the **most specific anatomical site** that matches your measurement location.
+
+## Recommended concepts
+
+**Default concepts:**
+
+- **Body temperature** (SNOMED 386725007): Use when measurement site is unspecified
+- **Body temperature** (LOINC 8310-5): Generic LOINC equivalent
+
+**Core body temperature sites (most accurate for critically ill patients):**
+
+- **Core body temperature** (SNOMED 276885007): Generic core temperature when specific site is unknown
+- **Body temperature - Core** (LOINC 8329-5): LOINC generic core temperature
+- **Rectal temperature** (SNOMED 307047009): Core body temperature measured in rectum
+- **Rectal temperature** (LOINC 8332-9): LOINC equivalent for rectal measurement
+- **Temperature of esophagus** (SNOMED 431598003): Esophageal temperature probe (operating room, ICU)
+- **Esophageal temperature** (LOINC 60836-4): LOINC equivalent for esophageal measurement
+- **Core body temperature measured at urinary bladder** (SNOMED 698832009): Bladder temperature via Foley catheter with temperature sensor (ICU)
+- **Body temperature - Urinary bladder** (LOINC 8334-5): LOINC equivalent for bladder measurement
+- **Bladder temperature via Foley** (LOINC 76278-1): Bladder temperature measured via Foley catheter
+- **Core body temperature measured in blood** (SNOMED 37164002): Measured via pulmonary artery catheter or intravascular temperature probe
+- **Blood temperature** (LOINC 60834-9): LOINC equivalent for blood temperature measurement
+- **Body temperature - Intravascular** (LOINC 8330-3): Intravascular temperature measurement
+- **Tympanic temperature** (SNOMED 415974002): Core body temperature measured at tympanic membrane via infrared ear thermometer
+- **Ear temperature** (LOINC 76011-6): LOINC equivalent for tympanic measurement
+- **Nasopharyngeal temperature** (SNOMED 698831002): Nasopharyngeal temperature probe
+- **Nasopharyngeal temperature** (LOINC 60838-0): LOINC equivalent for nasopharyngeal measurement
+- **Nasal temperature** (LOINC 76010-8): Nasal temperature measurement
+- **Body temperature - Brain** (LOINC 91371-5): Brain temperature (neurosurgical monitoring)
+
+**Peripheral/estimated core temperature sites (less accurate):**
+
+- **Oral temperature** (SNOMED 415945006): Estimated core body temperature measured in sublingual space
+- **Oral temperature** (LOINC 8331-1): LOINC equivalent for oral measurement
+- **Axillary temperature** (SNOMED 415882003): Estimated core body temperature measured in axillary region
+- **Axillary temperature** (LOINC 8328-7): LOINC equivalent for axillary measurement
+- **Forehead temperature** (SNOMED 415922000): Forehead skin temperature (temporal artery thermometer or infrared scanner)
+- **Body temperature - Temporal artery** (LOINC 75539-7): Temporal artery temperature measurement
+- **Forehead skin strip temperature** (SNOMED 415921007): Liquid crystal thermometer strip applied to forehead
+- **Temperature of skin** (SNOMED 364537001): Generic skin surface temperature
+- **Temperature of Skin** (LOINC 39106-0): LOINC equivalent for skin temperature
+- **Body surface temperature** (LOINC 61008-9): Body surface temperature measurement
+- **Groin temperature** (SNOMED 415929009): Groin skin temperature
+- **Body temperature - Groin** (LOINC 104063-3): LOINC equivalent for groin measurement
+
+**Extremity and peripheral temperatures:**
+
+- **Temperature of foot** (SNOMED 364518005): Foot skin temperature (perfusion assessment)
+- **Body temperature - Foot surface** (LOINC 98663-8): Foot surface temperature
+- **Temperature of left foot** (SNOMED 787141000000100): Left foot temperature (peripheral perfusion comparison)
+- **Temperature of right foot** (SNOMED 787151000000102): Right foot temperature (peripheral perfusion comparison)
+- **Temperature of digit of hand** (SNOMED 433588001): Finger temperature
+- **Finger temperature** (LOINC 60830-7): LOINC equivalent for finger measurement
+- **Body temperature - Hand surface** (LOINC 98657-0): Hand surface temperature
+- **Temperature of toe** (SNOMED 433776001): Toe temperature
+- **Toe temperature** (LOINC 60833-1): LOINC equivalent for toe measurement
+- **Temperature of digit** (SNOMED 431197002): Generic digit (finger or toe) temperature
+- **Temperature of Extremity** (LOINC 81673-6): Generic extremity temperature
+
+**Specialized temperature sites (rare clinical use):**
+
+- **Temperature of vagina** (SNOMED 364246006): Vaginal temperature
+- **Temperature of pinna** (SNOMED 363997004): External ear (pinna) temperature
+- **Breast temperature** (SNOMED 248835004): Breast skin temperature
+- **Cervical spine temperature** (SNOMED 364419004): Cervical spine temperature
+- **Thoracic spine temperature** (SNOMED 364424001): Thoracic spine temperature
+- **Temperature of lumbar spine** (SNOMED 364429006): Lumbar spine temperature
+
+**Other concepts:**
+
+- **Target body temperature** (SNOMED 852581000000105): Target temperature for therapeutic temperature management (e.g., targeted temperature management post-cardiac arrest)
+- **Body temperature taken with digital thermometer** (SNOMED 431807005): Generic temperature measured with digital electronic thermometer (site unspecified)
+
+## Not recommended for routine use
+
+**Context-specific concepts:**
+
+- **Body temperature --after transfusion reaction** (LOINC 50400-1): Use only for transfusion reaction monitoring; link transfusion context separately via FACT_RELATIONSHIP for routine use
+
+**Time-based concepts:**
+
+- **Temperature of neonate at birth** (SNOMED 708499008): Pre-coordinated concept combining temperature measurement and timing (at birth). Instead, use the appropriate anatomical site concept (rectal, axillary, skin, etc.) with accurate timestamp; timing relative to birth can be inferred from the measurement datetime
+
+**Out of scope concepts:**
+
+Joint temperature concepts (e.g., knee joint temperature, ankle joint temperature, shoulder joint temperature) have been excluded from this vital signs temperature concept as they are primarily used for assessing local joint inflammation or infection (rheumatology, orthopedics) rather than systemic body temperature monitoring in ICU settings.
+
+# Important Notes
+
+- **Core vs peripheral temperature**: Core temperature (rectal, esophageal, bladder, blood) reflects true internal body temperature and is preferred for critically ill patients. Peripheral measurements (oral, axillary, forehead) may underestimate core temperature in hypothermia, shock, or severe peripheral vasoconstriction
+- Extremity temperatures (foot, hand, toe, finger) are primarily used for assessing peripheral perfusion (cold extremities suggest poor perfusion) rather than monitoring core body temperature"

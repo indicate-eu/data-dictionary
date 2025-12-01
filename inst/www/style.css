@@ -815,6 +815,46 @@ table.dataTable thead tr td .selectize-dropdown .option {
   font-size: 11px !important;
 }
 
+/* DataTables Buttons - Column Visibility */
+.dt-buttons {
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.dt-button.buttons-collection.buttons-colvis {
+  background-color: #ffffff !important;
+  color: #333333 !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  font-weight: 300 !important;
+  padding: 4px 8px !important;
+  height: 30px !important;
+  line-height: 20px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+}
+
+.dt-button.buttons-collection.buttons-colvis:hover {
+  border-color: #80bdff !important;
+  outline: 0 !important;
+  box-shadow: 0 0 0 0.2rem rgba(15, 96, 175, 0.25) !important;
+}
+
+.dt-button.buttons-collection.buttons-colvis:focus {
+  border-color: #80bdff !important;
+  outline: 0 !important;
+  box-shadow: 0 0 0 0.2rem rgba(15, 96, 175, 0.25) !important;
+}
+
+.dt-button-down-arrow {
+  font-size: 10px !important;
+  margin-left: 2px !important;
+}
+
 /* Utility classes
 -------------------------------------------------- */
 .bold-value {

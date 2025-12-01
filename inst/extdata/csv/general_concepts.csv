@@ -779,7 +779,105 @@ For measurements taken from arterial catheters at specific anatomical locations,
 - **Prioritize measurement method over position/location**: Use ""Invasive systolic arterial pressure"" or ""Non-invasive systolic arterial pressure"" rather than position-specific or anatomical site-specific concepts unless the specific site is clinically critical
 - **Prefer explicit ""arterial"" terminology**: Use SNOMED concepts with ""arterial"" explicitly in the name to avoid confusion
 - **Pulsus paradoxus**: The difference between inspiratory and expiratory systolic pressure can be clinically significant in conditions like cardiac tamponade or severe asthma (typically >10 mmHg)",NA
-330,Vitals,Other vitals,Temperature,NA,"{
+330,Vitals,Other vitals,Body temperature,"# Definition
+
+Body temperature represents the thermal state of the body, expressed in **degrees Celsius (°C)** or **degrees Fahrenheit (°F)**. Normal core body temperature ranges approximately from 36.5-37.5°C (97.7-99.5°F) in adults.
+
+# Mapping Strategy
+
+SNOMED and LOINC distinguish temperature measurements by **anatomical measurement site**, which determines whether the measurement reflects **core body temperature** (internal body temperature) or **peripheral temperature** (surface or extremity temperature). For most clinical use cases, prioritize the specific measurement site over generic body temperature concepts.
+
+Prioritize the **most specific anatomical site** that matches your measurement location.
+
+## Recommended concepts
+
+**Default concepts:**
+
+- **Body temperature** (SNOMED 386725007): Use when measurement site is unspecified
+- **Body temperature** (LOINC 8310-5): Generic LOINC equivalent
+
+**Core body temperature sites (most accurate for critically ill patients):**
+
+- **Core body temperature** (SNOMED 276885007): Generic core temperature when specific site is unknown
+- **Body temperature - Core** (LOINC 8329-5): LOINC generic core temperature
+- **Rectal temperature** (SNOMED 307047009): Core body temperature measured in rectum
+- **Rectal temperature** (LOINC 8332-9): LOINC equivalent for rectal measurement
+- **Temperature of esophagus** (SNOMED 431598003): Esophageal temperature probe (operating room, ICU)
+- **Esophageal temperature** (LOINC 60836-4): LOINC equivalent for esophageal measurement
+- **Core body temperature measured at urinary bladder** (SNOMED 698832009): Bladder temperature via Foley catheter with temperature sensor (ICU)
+- **Body temperature - Urinary bladder** (LOINC 8334-5): LOINC equivalent for bladder measurement
+- **Bladder temperature via Foley** (LOINC 76278-1): Bladder temperature measured via Foley catheter
+- **Core body temperature measured in blood** (SNOMED 37164002): Measured via pulmonary artery catheter or intravascular temperature probe
+- **Blood temperature** (LOINC 60834-9): LOINC equivalent for blood temperature measurement
+- **Body temperature - Intravascular** (LOINC 8330-3): Intravascular temperature measurement
+- **Tympanic temperature** (SNOMED 415974002): Core body temperature measured at tympanic membrane via infrared ear thermometer
+- **Ear temperature** (LOINC 76011-6): LOINC equivalent for tympanic measurement
+- **Nasopharyngeal temperature** (SNOMED 698831002): Nasopharyngeal temperature probe
+- **Nasopharyngeal temperature** (LOINC 60838-0): LOINC equivalent for nasopharyngeal measurement
+- **Nasal temperature** (LOINC 76010-8): Nasal temperature measurement
+- **Body temperature - Brain** (LOINC 91371-5): Brain temperature (neurosurgical monitoring)
+
+**Peripheral/estimated core temperature sites (less accurate):**
+
+- **Oral temperature** (SNOMED 415945006): Estimated core body temperature measured in sublingual space
+- **Oral temperature** (LOINC 8331-1): LOINC equivalent for oral measurement
+- **Axillary temperature** (SNOMED 415882003): Estimated core body temperature measured in axillary region
+- **Axillary temperature** (LOINC 8328-7): LOINC equivalent for axillary measurement
+- **Forehead temperature** (SNOMED 415922000): Forehead skin temperature (temporal artery thermometer or infrared scanner)
+- **Body temperature - Temporal artery** (LOINC 75539-7): Temporal artery temperature measurement
+- **Forehead skin strip temperature** (SNOMED 415921007): Liquid crystal thermometer strip applied to forehead
+- **Temperature of skin** (SNOMED 364537001): Generic skin surface temperature
+- **Temperature of Skin** (LOINC 39106-0): LOINC equivalent for skin temperature
+- **Body surface temperature** (LOINC 61008-9): Body surface temperature measurement
+- **Groin temperature** (SNOMED 415929009): Groin skin temperature
+- **Body temperature - Groin** (LOINC 104063-3): LOINC equivalent for groin measurement
+
+**Extremity and peripheral temperatures:**
+
+- **Temperature of foot** (SNOMED 364518005): Foot skin temperature (perfusion assessment)
+- **Body temperature - Foot surface** (LOINC 98663-8): Foot surface temperature
+- **Temperature of left foot** (SNOMED 787141000000100): Left foot temperature (peripheral perfusion comparison)
+- **Temperature of right foot** (SNOMED 787151000000102): Right foot temperature (peripheral perfusion comparison)
+- **Temperature of digit of hand** (SNOMED 433588001): Finger temperature
+- **Finger temperature** (LOINC 60830-7): LOINC equivalent for finger measurement
+- **Body temperature - Hand surface** (LOINC 98657-0): Hand surface temperature
+- **Temperature of toe** (SNOMED 433776001): Toe temperature
+- **Toe temperature** (LOINC 60833-1): LOINC equivalent for toe measurement
+- **Temperature of digit** (SNOMED 431197002): Generic digit (finger or toe) temperature
+- **Temperature of Extremity** (LOINC 81673-6): Generic extremity temperature
+
+**Specialized temperature sites (rare clinical use):**
+
+- **Temperature of vagina** (SNOMED 364246006): Vaginal temperature
+- **Temperature of pinna** (SNOMED 363997004): External ear (pinna) temperature
+- **Breast temperature** (SNOMED 248835004): Breast skin temperature
+- **Cervical spine temperature** (SNOMED 364419004): Cervical spine temperature
+- **Thoracic spine temperature** (SNOMED 364424001): Thoracic spine temperature
+- **Temperature of lumbar spine** (SNOMED 364429006): Lumbar spine temperature
+
+**Other concepts:**
+
+- **Target body temperature** (SNOMED 852581000000105): Target temperature for therapeutic temperature management (e.g., targeted temperature management post-cardiac arrest)
+- **Body temperature taken with digital thermometer** (SNOMED 431807005): Generic temperature measured with digital electronic thermometer (site unspecified)
+
+## Not recommended for routine use
+
+**Context-specific concepts:**
+
+- **Body temperature --after transfusion reaction** (LOINC 50400-1): Use only for transfusion reaction monitoring; link transfusion context separately via FACT_RELATIONSHIP for routine use
+
+**Time-based concepts:**
+
+- **Temperature of neonate at birth** (SNOMED 708499008): Pre-coordinated concept combining temperature measurement and timing (at birth). Instead, use the appropriate anatomical site concept (rectal, axillary, skin, etc.) with accurate timestamp; timing relative to birth can be inferred from the measurement datetime
+
+**Out of scope concepts:**
+
+Joint temperature concepts (e.g., knee joint temperature, ankle joint temperature, shoulder joint temperature) have been excluded from this vital signs temperature concept as they are primarily used for assessing local joint inflammation or infection (rheumatology, orthopedics) rather than systemic body temperature monitoring in ICU settings.
+
+# Important Notes
+
+- **Core vs peripheral temperature**: Core temperature (rectal, esophageal, bladder, blood) reflects true internal body temperature and is preferred for critically ill patients. Peripheral measurements (oral, axillary, forehead) may underestimate core temperature in hypothermia, shock, or severe peripheral vasoconstriction
+- Extremity temperatures (foot, hand, toe, finger) are primarily used for assessing peripheral perfusion (cold extremities suggest poor perfusion) rather than monitoring core body temperature","{
   ""data_types"": [""numeric""],
   ""statistical_data"": {
     ""min"": null,

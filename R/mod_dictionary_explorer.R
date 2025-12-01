@@ -1376,15 +1376,15 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       if (length(categories) > 0) {
         # Use delayed execution to ensure DataTable is fully rendered
-        shiny::invalidateLater(100)
+        shinyjs::delay(100, {
+          proxy <- DT::dataTableProxy("general_concepts_table", session = session)
+          search_string <- jsonlite::toJSON(categories, auto_unbox = FALSE)
 
-        proxy <- DT::dataTableProxy("general_concepts_table", session = session)
-        search_string <- jsonlite::toJSON(categories, auto_unbox = FALSE)
-
-        DT::updateSearch(proxy, keywords = list(
-          global = NULL,
-          columns = list(NULL, as.character(search_string))
-        ))
+          DT::updateSearch(proxy, keywords = list(
+            global = NULL,
+            columns = list(NULL, as.character(search_string))
+          ))
+        })
       }
     }, ignoreInit = TRUE)
 
@@ -4419,10 +4419,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       final_sql <- paste(sql_parts, collapse = "\n\nUNION\n\n")
 
-      # Add header comment
+      # Add header comment with category
+      concept_path <- paste(general_concept_info$category[1], general_concept_info$general_concept_name[1], sep = " > ")
       final_sql <- sprintf(
         "-- OMOP SQL Query for: %s\n-- Generated: %s\n-- OMOP CDM Version: 5.4\n-- Source: https://ohdsi.github.io/CommonDataModel/cdm54.html\n\n%s",
-        general_concept_info$general_concept_name[1],
+        concept_path,
         format(Sys.time(), "%Y-%m-%d %H:%M:%S"),
         final_sql
       )

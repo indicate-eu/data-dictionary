@@ -335,3 +335,4 @@ history_id,timestamp,username,action_type,category,subcategory,general_concept_n
 337,2025-11-28 15:32:29,Boris Delange,update,Vitals,Haemodynamics,Systolic arterial pressure,Updated general_concept_name from 'Systolic blood pressure' to 'Systolic arterial pressure'
 338,2025-12-01 08:33:53,Boris Delange,update,Vitals,Ventilatory,Oxygen saturation,Updated general_concept_name from 'SpO2' to 'Oxygen saturation'
 339,2025-12-01 08:34:35,Boris Delange,insert,Labs,Arterial blood gases,Oxygen saturation,Created concept 'Oxygen saturation' in category 'Labs' > 'Arterial blood gases'
+340,2025-12-01 11:00:31,Boris Delange,update,Vitals,Other vitals,Body temperature,Updated general_concept_name from 'Temperature' to 'Body temperature'

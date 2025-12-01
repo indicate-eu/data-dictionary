@@ -9,7 +9,7 @@
 #' @return Server logic
 #' @noRd
 #'
-#' @importFrom shiny reactive observeEvent renderUI reactiveVal tags icon observe isolate invalidateLater
+#' @importFrom shiny reactive observeEvent renderUI reactiveVal tags icon observe isolate
 #' @importFrom shiny.router router_server
 app_server <- function(input, output, session) {
 

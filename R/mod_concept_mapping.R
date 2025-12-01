@@ -2829,10 +2829,17 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         dt <- datatable(
           df_display,
           filter = "top",
+          extensions = "Buttons",
           options = list(
             pageLength = 15,
             lengthMenu = list(c(5, 10, 15, 20, 50, 100), c("5", "10", "15", "20", "50", "100")),
-            dom = "ltp",
+            dom = "Bltp",
+            buttons = list(
+              list(
+                extend = "colvis",
+                text = "Show/Hide Columns"
+              )
+            ),
             columnDefs = list(
               list(targets = mapped_col_index, width = "80px", className = "dt-center")
             )
