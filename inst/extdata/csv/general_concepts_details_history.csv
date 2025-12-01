@@ -16820,3 +16820,58 @@ For ICU documentation, this concept refers to the **presence and type of tracheo
   - **Fenestrated tubes**: Allow upper airway breathing when capped (for speech, swallowing assessment, ventilator weaning)
   - **Reinforced tubes**: Prevent tube occlusion in patients with thick necks, obese patients, or those at risk of external compression
   - **Operative tubes**: Initial tubes placed during surgical tracheostomy, often replaced after tract maturation (7-14 days)"
+14438,2025-12-01 13:57:11,Boris Delange,update,301,NA,NA,FiO2,"Updated statistical summary JSON: {
+  ""data_types"": [""numeric""],
+  ""statistical_data"": {
+    ""min"": null,
+    ""max"": null,
+    ""median"": null,
+    ""mean"": null,
+    ""p5"": null,
+    ""p25"": null,
+    ""p75"": null,
+    ""p95"": null
+  },
+  ""possible_values"": []
+}"
+14439,2025-12-01 13:57:12,Boris Delange,insert,301,LOINC,3150-0,Inhaled oxygen concentration,Added OMOP concept mapping
+14440,2025-12-01 13:57:12,Boris Delange,insert,301,LOINC,19996-8,Oxygen/Inspired gas Respiratory system --on ventilator,Added OMOP concept mapping
+14441,2025-12-01 13:57:12,Boris Delange,insert,301,LOINC,19995-0,Oxygen/Inspired gas Respiratory system by O2 Analyzer --on ventilator,Added OMOP concept mapping
+14442,2025-12-01 13:57:18,Boris Delange,recommend,301,LOINC,3150-0,Inhaled oxygen concentration,Marked as recommended
+14443,2025-12-01 13:57:18,Boris Delange,recommend,301,LOINC,19996-8,Oxygen/Inspired gas Respiratory system --on ventilator,Marked as recommended
+14444,2025-12-01 13:57:18,Boris Delange,recommend,301,LOINC,19995-0,Oxygen/Inspired gas Respiratory system by O2 Analyzer --on ventilator,Marked as recommended
+14445,2025-12-01 14:03:51,Boris Delange,update,301,NA,NA,FiO2,"Updated ETL guidance comment: # Definition
+
+Fraction of Inspired Oxygen (FiO2) represents the proportion of oxygen in the inhaled gas mixture, expressed as a **percentage (21-100%)** or decimal fraction (0.21-1.0). Normal room air FiO2 is 21%. In mechanically ventilated or oxygen-supplemented patients, FiO2 ranges from 21% to 100%.
+
+# Mapping Strategy
+
+FiO2 measurements can be **set values** (prescribed oxygen concentration) or **measured values** (analyzed oxygen concentration). For ICU documentation, use the default concept for most cases, or specify ventilator context when relevant.
+
+## Recommended concepts
+
+**Default concepts:**
+
+- **Inspired oxygen concentration** (SNOMED 250774007): Use for all FiO2 measurements regardless of delivery method or measurement technique
+- **Inhaled oxygen concentration** (LOINC 3150-0): Use for all FiO2 measurements regardless of delivery method or measurement technique
+
+**Ventilator-specific concepts:**
+
+- **Oxygen/Inspired gas Respiratory system --on ventilator** (LOINC 19996-8): FiO2 measured or set on mechanical ventilator (method unspecified)
+- **Oxygen/Inspired gas Respiratory system by O2 Analyzer --on ventilator** (LOINC 19995-0): FiO2 measured using oxygen analyzer on mechanical ventilator
+
+# Important Notes
+
+- **Units**: FiO2 should be documented as **percentage (%)** (UCUM concept ID 8554). Decimal fraction (0.21-1.0) can also be used but percentage is preferred for clinical consistency.
+
+- **Set vs measured FiO2**:
+  - **Set FiO2**: Prescribed oxygen concentration on ventilator or oxygen delivery device
+  - **Measured FiO2**: Actual analyzed oxygen concentration (via oxygen analyzer)
+  - Some ventilators display both values; measured FiO2 may differ from set FiO2 due to circuit leaks or device limitations
+
+- **FiO2 estimation for non-invasive oxygen delivery**:
+  - Nasal cannula: Approximate FiO2 = 21% + (4% × oxygen flow rate in L/min)
+  - Example: 2 L/min = ~28%, 6 L/min = ~44%
+  - Venturi masks provide more precise FiO2 control (24%, 28%, 31%, 35%, 40%, 60%)
+  - Non-rebreather mask: ~60-95% depending on flow rate and seal
+  - These are estimates; actual FiO2 varies with patient breathing pattern and device fit"

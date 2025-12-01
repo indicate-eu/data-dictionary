@@ -69,15 +69,16 @@ get_omop_table_configs <- function() {
 
 #' Compute Statistical Summaries for All Concepts in OMOP Database
 #'
-#' @description Batch process all concepts across all OMOP CDM tables
+#' @description Batch process all concepts across all OMOP CDM tables.
+#' Supports both numeric data (from numeric_column like value_as_number) and
+#' categorical data (from categorical_column like value_as_string).
 #'
 #' @param conn DBI database connection object (DuckDB, PostgreSQL, etc.)
 #' @param tables Vector of table names to process (default: all clinical event tables)
 #' @param min_rows Minimum number of rows for a concept to be included (default: 10)
-#' @param max_categorical_values Maximum distinct values to treat as categorical (default: 50)
-#' @param min_categorical_count Minimum count for categorical value (default: 10)
-#' @param max_stored_categories Maximum categories to store in JSON (default: 10)
-#' @param compute_percentiles Whether to compute percentiles (default: TRUE)
+#' @param min_categorical_count Minimum count for categorical value to be included in categorical_data (default: 10)
+#' @param max_stored_categories Maximum categories to store in categorical_data (default: 10)
+#' @param compute_percentiles Whether to compute percentiles for numeric data (default: TRUE)
 #' @param batch_size Number of concepts to process per batch (default: 100)
 #' @param progress_callback Function to call with progress updates (default: NULL)
 #' @param output_file Path to save results as CSV (default: NULL, returns data.frame)
@@ -101,7 +102,6 @@ get_omop_table_configs <- function() {
 compute_all_omop_statistics <- function(conn,
                                         tables = NULL,
                                         min_rows = 10,
-                                        max_categorical_values = 50,
                                         min_categorical_count = 10,
                                         max_stored_categories = 10,
                                         compute_percentiles = TRUE,
@@ -211,9 +211,9 @@ compute_all_omop_statistics <- function(conn,
             concept_id = concept_id,
             table_name = cfg$table,
             concept_column = cfg$concept_column,
-            value_column = cfg$value_column,
+            numeric_column = cfg$numeric_column,
+            categorical_column = cfg$categorical_column,
             date_column = cfg$date_column,
-            max_categorical_values = max_categorical_values,
             min_categorical_count = min_categorical_count,
             max_stored_categories = max_stored_categories,
             compute_percentiles = compute_percentiles
@@ -300,196 +300,163 @@ compute_all_omop_statistics <- function(conn,
 
 #' Compute Statistical Summary for Single Concept
 #'
-#' @description Compute statistics for a single concept (used internally by batch processing)
+#' @description Compute statistics for a single concept (used internally by batch processing).
+#' Supports both numeric data (from numeric_column) and categorical data (from categorical_column).
 #' @noRd
 compute_single_concept_statistics <- function(conn,
                                               concept_id,
                                               table_name,
                                               concept_column,
-                                              value_column,
+                                              numeric_column = NULL,
+                                              categorical_column = NULL,
                                               date_column,
-                                              max_categorical_values = 50,
                                               min_categorical_count = 10,
                                               max_stored_categories = 10,
                                               compute_percentiles = TRUE) {
 
-  # Get total row count and patient count for the entire table
-  total_query <- sprintf(
-    "SELECT
-      COUNT(*) as total_rows,
-      COUNT(DISTINCT person_id) as total_patients
-    FROM %s",
-    table_name
-  )
+  # Initialize data types array
+  data_types <- character(0)
 
-  total_stats <- DBI::dbGetQuery(conn, total_query)
-  total_rows <- total_stats$total_rows[1]
-  total_patients <- total_stats$total_patients[1]
+  # Initialize result lists
+  numeric_data <- NULL
+  categorical_data <- NULL
 
-  # Build base query for concept statistics
-  if (!is.null(value_column)) {
-    base_query <- sprintf(
-      "SELECT
-        %s as value,
-        person_id,
-        %s as date_value
-      FROM %s
-      WHERE %s = %d
-        AND %s IS NOT NULL",
-      value_column,
-      date_column,
+  # Process numeric data if numeric_column is provided
+  if (!is.null(numeric_column)) {
+    numeric_query <- sprintf(
+      "SELECT %s as numeric_value
+       FROM %s
+       WHERE %s = %d AND %s IS NOT NULL",
+      numeric_column,
       table_name,
       concept_column,
       concept_id,
-      value_column
+      numeric_column
     )
-  } else {
-    # For tables without value_column (e.g., condition_occurrence)
-    base_query <- sprintf(
-      "SELECT
-        person_id,
-        %s as date_value
-      FROM %s
-      WHERE %s = %d",
-      date_column,
-      table_name,
-      concept_column,
-      concept_id
-    )
-  }
 
-  # Get data
-  concept_data <- DBI::dbGetQuery(conn, base_query)
+    numeric_values_df <- DBI::dbGetQuery(conn, numeric_query)
 
-  if (nrow(concept_data) == 0) {
-    return(get_default_statistical_summary_template())
-  }
+    if (nrow(numeric_values_df) > 0) {
+      data_types <- c(data_types, "numeric")
 
-  # Basic counts
-  rows_count <- nrow(concept_data)
-  patients_count <- length(unique(concept_data$person_id))
-  rows_percent <- round((rows_count / total_rows) * 100, 2)
-  patients_percent <- round((patients_count / total_patients) * 100, 2)
-  measurement_density <- round(rows_count / patients_count, 2)
-
-  # Date range
-  date_min <- min(concept_data$date_value, na.rm = TRUE)
-  date_max <- max(concept_data$date_value, na.rm = TRUE)
-
-  # If no value column, return counts only
-  if (!is.null(value_column) && "value" %in% colnames(concept_data)) {
-    values <- concept_data$value
-    distinct_values <- unique(values)
-    n_distinct <- length(distinct_values)
-
-    # Check if categorical or numeric
-    is_categorical <- n_distinct <= max_categorical_values
-
-    if (is_categorical) {
-      # Categorical data
-      value_counts <- table(values)
-      value_counts_sorted <- sort(value_counts, decreasing = TRUE)
-
-      # Filter: only keep values with count >= min_categorical_count
-      value_counts_filtered <- value_counts_sorted[value_counts_sorted >= min_categorical_count]
-
-      # Keep only top max_stored_categories
-      value_counts_final <- head(value_counts_filtered, max_stored_categories)
-
-      possible_values <- lapply(names(value_counts_final), function(val) {
-        list(
-          value = val,
-          count = as.numeric(value_counts_final[val]),
-          percent = round((as.numeric(value_counts_final[val]) / rows_count) * 100, 2)
-        )
-      })
-
-      summary <- list(
-        data_types = list("categorical"),
-        rows_count = rows_count,
-        rows_percent = rows_percent,
-        patients_count = patients_count,
-        patients_percent = patients_percent,
-        measurement_density = measurement_density,
-        date_range = list(
-          min = as.character(date_min),
-          max = as.character(date_max)
-        ),
-        statistical_data = list(),
-        possible_values = possible_values
-      )
-
-    } else {
-      # Numeric data
-      values_numeric <- suppressWarnings(as.numeric(values))
-      values_numeric <- values_numeric[!is.na(values_numeric)]
-
-      if (length(values_numeric) == 0) {
-        return(get_default_statistical_summary_template())
-      }
+      numeric_values <- numeric_values_df$numeric_value
 
       # Compute basic statistics
-      min_val <- min(values_numeric, na.rm = TRUE)
-      max_val <- max(values_numeric, na.rm = TRUE)
-      mean_val <- mean(values_numeric, na.rm = TRUE)
-      median_val <- median(values_numeric, na.rm = TRUE)
-      sd_val <- sd(values_numeric, na.rm = TRUE)
-
-      # Compute percentiles if requested
-      if (compute_percentiles) {
-        p5 <- quantile(values_numeric, 0.05, na.rm = TRUE)
-        p25 <- quantile(values_numeric, 0.25, na.rm = TRUE)
-        p75 <- quantile(values_numeric, 0.75, na.rm = TRUE)
-        p95 <- quantile(values_numeric, 0.95, na.rm = TRUE)
-      } else {
-        p5 <- p25 <- p75 <- p95 <- NULL
-      }
+      min_val <- min(numeric_values, na.rm = TRUE)
+      max_val <- max(numeric_values, na.rm = TRUE)
+      mean_val <- mean(numeric_values, na.rm = TRUE)
+      median_val <- median(numeric_values, na.rm = TRUE)
+      sd_val <- sd(numeric_values, na.rm = TRUE)
 
       # Coefficient of variation
       cv <- if (!is.na(mean_val) && mean_val != 0) abs(sd_val / mean_val) else NULL
 
-      summary <- list(
-        data_types = list("numeric"),
-        rows_count = rows_count,
-        rows_percent = rows_percent,
-        patients_count = patients_count,
-        patients_percent = patients_percent,
-        measurement_density = measurement_density,
-        date_range = list(
-          min = as.character(date_min),
-          max = as.character(date_max)
-        ),
-        statistical_data = list(
-          min = round(min_val, 2),
-          max = round(max_val, 2),
-          mean = round(mean_val, 2),
-          median = round(median_val, 2),
-          sd = round(sd_val, 2),
-          cv = if (!is.null(cv)) round(cv, 3) else NULL,
-          p5 = if (!is.null(p5)) round(p5, 2) else NULL,
-          p25 = if (!is.null(p25)) round(p25, 2) else NULL,
-          p75 = if (!is.null(p75)) round(p75, 2) else NULL,
-          p95 = if (!is.null(p95)) round(p95, 2) else NULL
-        ),
-        possible_values = list()
+      # Compute percentiles if requested
+      if (compute_percentiles) {
+        p5 <- quantile(numeric_values, 0.05, na.rm = TRUE, names = FALSE)
+        p25 <- quantile(numeric_values, 0.25, na.rm = TRUE, names = FALSE)
+        p75 <- quantile(numeric_values, 0.75, na.rm = TRUE, names = FALSE)
+        p95 <- quantile(numeric_values, 0.95, na.rm = TRUE, names = FALSE)
+      } else {
+        p5 <- p25 <- p75 <- p95 <- NULL
+      }
+
+      numeric_data <- list(
+        min = if (!is.na(min_val)) round(min_val, 2) else NULL,
+        max = if (!is.na(max_val)) round(max_val, 2) else NULL,
+        mean = if (!is.na(mean_val)) round(mean_val, 2) else NULL,
+        median = if (!is.na(median_val)) round(median_val, 2) else NULL,
+        sd = if (!is.na(sd_val)) round(sd_val, 2) else NULL,
+        cv = if (!is.null(cv) && !is.na(cv)) round(cv, 2) else NULL,
+        p5 = if (!is.null(p5) && !is.na(p5)) round(p5, 2) else NULL,
+        p25 = if (!is.null(p25) && !is.na(p25)) round(p25, 2) else NULL,
+        p75 = if (!is.null(p75) && !is.na(p75)) round(p75, 2) else NULL,
+        p95 = if (!is.null(p95) && !is.na(p95)) round(p95, 2) else NULL
       )
     }
-  } else {
-    # No value column - just counts
-    summary <- list(
-      data_types = list("count"),
-      rows_count = rows_count,
-      rows_percent = rows_percent,
-      patients_count = patients_count,
-      patients_percent = patients_percent,
-      measurement_density = measurement_density,
-      date_range = list(
-        min = as.character(date_min),
-        max = as.character(date_max)
-      ),
-      statistical_data = list(),
-      possible_values = list()
+  }
+
+  # Process categorical data if categorical_column is provided
+  if (!is.null(categorical_column)) {
+    categorical_query <- sprintf(
+      "SELECT %s as categorical_value, COUNT(*) as count
+       FROM %s
+       WHERE %s = %d AND %s IS NOT NULL
+       GROUP BY %s
+       HAVING COUNT(*) >= %d
+       ORDER BY COUNT(*) DESC
+       LIMIT %d",
+      categorical_column,
+      table_name,
+      concept_column,
+      concept_id,
+      categorical_column,
+      categorical_column,
+      min_categorical_count,
+      max_stored_categories
     )
+
+    categorical_values_df <- DBI::dbGetQuery(conn, categorical_query)
+
+    if (nrow(categorical_values_df) > 0) {
+      data_types <- c(data_types, "categorical")
+
+      # Get total count for percentage calculation
+      total_count_query <- sprintf(
+        "SELECT COUNT(*) as total
+         FROM %s
+         WHERE %s = %d AND %s IS NOT NULL",
+        table_name,
+        concept_column,
+        concept_id,
+        categorical_column
+      )
+
+      total_count <- DBI::dbGetQuery(conn, total_count_query)$total[1]
+
+      categorical_data <- lapply(1:nrow(categorical_values_df), function(i) {
+        list(
+          value = as.character(categorical_values_df$categorical_value[i]),
+          count = as.numeric(categorical_values_df$count[i]),
+          percent = round((as.numeric(categorical_values_df$count[i]) / total_count) * 100, 2)
+        )
+      })
+    }
+  }
+
+  # If no data types were found, return default template
+  if (length(data_types) == 0) {
+    return(get_default_statistical_summary_template())
+  }
+
+  # Build summary structure
+  summary <- list(
+    data_types = as.list(data_types)
+  )
+
+  # Add numeric_data if available
+  if (!is.null(numeric_data)) {
+    summary$numeric_data <- numeric_data
+  } else {
+    summary$numeric_data <- list(
+      min = NULL,
+      max = NULL,
+      mean = NULL,
+      median = NULL,
+      sd = NULL,
+      cv = NULL,
+      p5 = NULL,
+      p25 = NULL,
+      p75 = NULL,
+      p95 = NULL
+    )
+  }
+
+  # Add categorical_data if available
+  if (!is.null(categorical_data)) {
+    summary$categorical_data <- categorical_data
+  } else {
+    summary$categorical_data <- list()
   }
 
   # Convert to JSON
@@ -553,8 +520,8 @@ compare_distributions <- function(summary1, summary2, weights = NULL) {
 
   if (type1 == "categorical") {
     # Categorical comparison
-    values1 <- sapply(summary1$possible_values, function(x) x$value)
-    values2 <- sapply(summary2$possible_values, function(x) x$value)
+    values1 <- sapply(summary1$categorical_data, function(x) x$value)
+    values2 <- sapply(summary2$categorical_data, function(x) x$value)
 
     # Jaccard similarity
     intersection <- length(intersect(values1, values2))
@@ -562,8 +529,8 @@ compare_distributions <- function(summary1, summary2, weights = NULL) {
     jaccard <- if (union > 0) intersection / union else 0
 
     # Compare frequency distributions
-    freq1 <- sapply(summary1$possible_values, function(x) x$percent)
-    freq2 <- sapply(summary2$possible_values, function(x) x$percent)
+    freq1 <- sapply(summary1$categorical_data, function(x) x$percent)
+    freq2 <- sapply(summary2$categorical_data, function(x) x$percent)
     names(freq1) <- values1
     names(freq2) <- values2
 
@@ -594,8 +561,8 @@ compare_distributions <- function(summary1, summary2, weights = NULL) {
 
   } else {
     # Numeric comparison
-    stats1 <- summary1$statistical_data
-    stats2 <- summary2$statistical_data
+    stats1 <- summary1$numeric_data
+    stats2 <- summary2$numeric_data
 
     # 1. Quantile overlap similarity
     quantile_sim <- compute_quantile_similarity(stats1, stats2)

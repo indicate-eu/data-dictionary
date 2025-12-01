@@ -23195,3 +23195,6 @@ general_concept_id,omop_concept_id,omop_unit_concept_id,recommended,source
 331,3018727,/,FALSE,manual
 331,3013533,/,FALSE,manual
 331,3014835,/,FALSE,manual
+301,3020716,/,TRUE,manual
+301,3026238,/,TRUE,manual
+301,3025408,/,TRUE,manual

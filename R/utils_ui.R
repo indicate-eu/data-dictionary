@@ -144,8 +144,8 @@ create_detail_item <- function(label, value,
 #' @noRd
 get_default_statistical_summary_template <- function() {
   '{
-  "data_types": ["numeric"],
-  "statistical_data": {
+  "data_types": [],
+  "numeric_data": {
     "min": null,
     "max": null,
     "mean": null,
@@ -157,6 +157,6 @@ get_default_statistical_summary_template <- function() {
     "p75": null,
     "p95": null
   },
-  "possible_values": []
+  "categorical_data": []
 }'
 }
