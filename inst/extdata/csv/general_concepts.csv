@@ -531,9 +531,323 @@ Oxygen flow rate is documented for **low-flow and high-flow oxygen delivery syst
   },
   ""categorical_data"": []
 }"
-303,Ventilation,Ventilation device,Extubation,NA,NA
-304,Ventilation,Ventilation device,Humidification Therapy,NA,NA
-305,Ventilation,Ventilation device,Intubation,NA,NA
+303,Ventilation,Ventilation device,Extubation,"# Definition
+
+Extubation is the procedure of removing an endotracheal tube or tracheostomy tube from a patient's airway, resulting in discontinuation of invasive airway management. This can be planned (elective extubation after weaning from mechanical ventilation) or unplanned (accidental or self-extubation). No measurement units apply (procedure documentation).
+
+# Mapping Strategy
+
+For ICU documentation, distinguish between **planned extubation** (removal of endotracheal or tracheostomy tube as part of clinical care) and **unplanned extubation** (accidental removal). Use specific concepts based on the tube type and whether the extubation was planned or unplanned.
+
+**For tube replacement or maintenance procedures** (changing endotracheal tube, changing tracheostomy tube, changing tube securing devices), refer to the dedicated general concept **""Airway device change""**.
+
+## Recommended concepts
+
+**Planned extubation:**
+
+- **Extubation of trachea** (SNOMED 309812005): Use for planned removal of endotracheal tube
+- **Removal of endotracheal tube** (SNOMED 271280005): Use for planned removal of endotracheal tube (alternative to 309812005)
+- **Removal of tracheostomy tube** (SNOMED 113153002): Use for planned removal of tracheostomy tube (decannulation)
+
+**Unplanned extubation:**
+
+- **Inadvertent tracheal extubation** (SNOMED 405639008): Use for accidental or self-extubation of endotracheal tube
+- **Unplanned extubation** (LOINC LA7296-2): Use for unplanned removal of endotracheal tube (alternative to SNOMED 405639008)
+
+## Not recommended for this concept
+
+**Tube replacement and maintenance procedures:**
+
+- **Changing endotracheal tube** (SNOMED 225719006): Not recommended - use general concept ""Airway device change"" instead
+- **Changing tracheostomy tube** (SNOMED 2267008): Not recommended - use general concept ""Airway device change"" instead
+- **Changing endotracheal tube headband** (SNOMED 225720000): Not recommended - use general concept ""Airway device change"" instead
+
+# Important Notes
+
+- **Planned vs unplanned extubation**:
+  - **Planned extubation**: Removal of endotracheal tube after successful weaning trial and clinical readiness assessment (use SNOMED 309812005 or 271280005)
+  - **Unplanned extubation**: Accidental removal including self-extubation by patient, dislodgement during care, or device failure (use SNOMED 405639008 or LOINC LA7296-2)
+  - Unplanned extubation is a quality indicator and adverse event that requires documentation and review
+
+- **Extubation vs tube change**:
+  - **Extubation**: Complete removal of the tube with discontinuation of invasive airway management - patient is no longer intubated
+  - **Tube change**: Replacement of an existing tube with a new one while maintaining the airway - patient remains intubated (see general concept ""Airway device change"")
+",NA
+304,Ventilation,Ventilation device,Humidification Therapy,"# Definition
+
+Humidification therapy refers to the process of adding moisture to inspired gases to prevent drying and damage to the respiratory mucosa in patients receiving mechanical ventilation or respiratory support. For invasive mechanical ventilation, humidification is achieved through active humidification systems (heated humidifiers) or passive systems (heat and moisture exchangers). No measurement units apply for procedures and devices (document device presence/type or humidification procedure).
+
+# Mapping Strategy
+
+For ICU documentation, distinguish between **humidification procedures** (Procedure domain - therapeutic intervention) and **humidification devices** (Device domain - equipment used). Document the procedure when recording the clinical intervention, and document the device when recording the equipment type in use. Avoid concepts that describe non-invasive therapeutic inhalations (steam, mist, menthol) which are symptomatic treatments for spontaneously breathing patients.
+
+**IMPORTANT**: Some concepts are Procedures (therapeutic interventions) while others are Devices (equipment). Choose the appropriate domain based on what you are documenting.
+
+## Recommended concepts
+
+**Humidification procedures** (Procedure domain - document the therapeutic intervention):
+
+- **Inspired gas humidification** (SNOMED 286814009, Procedure): Use to document humidification of inspired gases in mechanically ventilated patients (generic procedure concept)
+- **Ultrasonic humidification** (SNOMED 229302002, Procedure): Use when ultrasonic nebulization is specifically used for humidification
+
+**Humidification devices** (Device domain - document the equipment type):
+
+- **Heat and moisture exchanger** (SNOMED 297117007, Device): Passive humidification device (HME) - hygroscopic filter that captures and returns heat/moisture
+- **Heated respiratory humidifier** (SNOMED 700593005, Device): Active humidification device with heating element and water chamber
+- **Respiratory humidifier** (SNOMED 706180003, Device): Generic respiratory humidifier when specific type is unspecified
+
+**Specialized humidification devices** (Device domain):
+
+- **Non-heated respiratory humidifier** (SNOMED 700705005, Device): Cold humidifier without heating element (less common for mechanical ventilation)
+- **Ultrasonic respiratory humidifier** (SNOMED 700910000, Device): Ultrasonic nebulizer used for humidification
+- **High-flow heated respiratory humidifier** (SNOMED 700630004, Device): Heated humidifier for high-flow oxygen therapy (e.g., HFNC)
+- **High-flow non-heated respiratory humidifier** (SNOMED 1246607, Device): Non-heated humidifier for high-flow systems
+
+**Humidifier settings** (Measurement domain):
+
+- **Humidifier heated wire temperature differential setting Ventilator airway circuit** (LOINC 57652-0, Measurement): Temperature differential setting for heated wire circuits (prevents condensation/rainout)
+
+## Not recommended for invasive mechanical ventilation
+
+These concepts describe **non-invasive inhalation therapies** (Procedure domain) for spontaneously breathing patients, not humidification systems for mechanically ventilated patients. Do not use these concepts for ICU ventilator humidification:
+
+- **Humidification therapy** (SNOMED 243130008, Procedure): Too vague and generic; does not specify inspired gas humidification for mechanical ventilation. Use ""Inspired gas humidification"" (286814009) instead.
+- **Fog inhalation therapy** (SNOMED 80677001, Procedure): Aerosol therapy for spontaneously breathing patients (not ventilator humidification)
+- **Mist inhalation therapy** (SNOMED 229303007, Procedure): Inhalation of water vapor/mist for symptomatic relief in non-intubated patients
+- **Steam inhalations** (SNOMED 229304001, Procedure): Hot steam inhalation therapy for spontaneously breathing patients (e.g., for upper respiratory tract symptoms)
+- **Menthol inhalations** (SNOMED 229305000, Procedure): Therapeutic inhalations with menthol for symptomatic relief (not humidification)
+
+# Important Notes
+
+- **Procedure vs Device documentation**:
+  - **Procedure concepts**: Use when documenting the clinical intervention (e.g., ""patient received inspired gas humidification during mechanical ventilation"")
+  - **Device concepts**: Use when documenting the equipment (e.g., ""heat and moisture exchanger in use"" or ""heated respiratory humidifier connected to ventilator circuit"")
+  - Both can be documented for the same patient: the procedure indicates what was done, the device indicates what equipment was used
+
+- **Humidification methods for mechanical ventilation**:
+  - **Active humidification (heated humidifier)**: Water-based device (SNOMED 700593005, Device) that actively heats and humidifies inspired gas to body temperature (37°C) and full saturation (44 mg H2O/L). Provides optimal humidification but requires water chamber, heating element, and monitoring.
+  - **Passive humidification (HME)**: Heat and moisture exchanger (SNOMED 297117007, Device) - hygroscopic filter that captures heat and moisture from exhaled gas and returns it to inspired gas. Simpler and cheaper but less efficient than active humidification.
+
+- **High-flow humidification**:
+  - **High-flow nasal cannula (HFNC)**: Requires high-flow heated humidifier (SNOMED 700630004, Device) capable of delivering flows up to 60 L/min with precise FiO2 control (21-100%)
+  - Non-invasive respiratory support with heated and humidified oxygen
+  - Document both the humidifier device and flow rate/FiO2 settings separately
+
+- **Distinction from nebulization**:
+  - **Humidification**: Adds water vapor to prevent airway drying (continuous process during ventilation) - use humidification concepts
+  - **Nebulization**: Delivers aerosolized medication (bronchodilators, mucolytics) for therapeutic purposes - document separately as drug administration
+  - These are separate processes with different purposes",NA
+305,Ventilation,Ventilation device,Endotracheal intubation,"# Definition
+
+Endotracheal intubation is the placement of a flexible tube into the trachea to maintain an open airway and enable mechanical ventilation. This is one of the most critical procedures in intensive care medicine for airway management in patients requiring respiratory support or airway protection.
+
+# Mapping Strategy
+
+Prioritize the **most specific concept** that captures the **route** (oral vs nasal), **technique** (direct laryngoscopy, fiberoptic, etc.), and **clinical context** (emergency, awake, etc.).
+
+**For complex intubation scenarios**, use multiple concepts linked via **OMOP FACT_RELATIONSHIP** table to capture different dimensions:
+- Base procedure (route + technique)
+- Clinical context (emergency, difficult, unplanned)
+- Specialized equipment or approach
+
+## Recommended concepts
+
+**Default and standard intubation routes:**
+
+- **Insertion of endotracheal tube** (SNOMED 112798008): Generic endotracheal intubation - use when route/technique are unspecified
+- **Intubation of respiratory tract** (SNOMED 447996002): Generic respiratory tract intubation (use when tracheal specificity is uncertain)
+- **Orotracheal intubation** (SNOMED 232674004): Intubation via the oral route (most common in ICU)
+- **Nasotracheal intubation** (SNOMED 232679009): Intubation via the nasal route
+
+**Standard intubation techniques:**
+
+- **Insertion of endotracheal tube using laryngoscope** (SNOMED 429161001): Direct laryngoscopy-guided intubation (most common technique)
+- **Orotracheal fiberoptic intubation** (SNOMED 232678001): Fiberoptic-guided oral intubation
+- **Blind nasal intubation** (SNOMED 232681006): Nasal intubation without direct visualization
+- **Digital assisted intubation** (SNOMED 427331009): Blind digital/tactile intubation (rare emergency technique)
+- **Tracheal intubation using rigid bronchoscope** (SNOMED 232677006): Rigid bronchoscopy-assisted intubation
+
+**Clinical context modifiers:**
+
+- **Emergency laryngeal intubation** (SNOMED 182682004): Emergency airway management
+- **Endotracheal intubation, emergency procedure** (SNOMED 16883004): Urgent/emergent endotracheal intubation
+- **Awake intubation** (SNOMED 304341005): Intubation performed while patient is conscious
+- **Oral intubation awake** (SNOMED 232675003): Awake intubation via oral route
+- **Nasal intubation awake** (SNOMED 232680007): Awake intubation via nasal route
+
+**Quality indicators (observations to link via FACT_RELATIONSHIP):**
+
+- **Difficult intubation** (LOINC 95050-1): Observation that intubation was difficult (Cormack-Lehane grade 3-4, multiple attempts, rescue devices)
+- **Unplanned intubation** (LOINC 36309319): Unplanned/emergent intubation event (quality metric, e.g., reintubation within 48-72 hours)
+
+**Surgical airway procedures:**
+
+- **Cricothyroidotomy tube insertion** (SNOMED 232683009): Emergency surgical airway through cricothyroid membrane
+- **Scalpel bougie cricothyroidotomy** (SNOMED 785906002): Surgical cricothyroidotomy using scalpel-bougie technique
+- **Minitrach insertion** (SNOMED 232684003): Percutaneous cricothyroidotomy (narrow catheter)
+
+**Tracheostomy tube procedures:**
+
+- **Insertion of tracheostomy tube** (SNOMED 232685002): Placement of tube through established tracheostomy stoma
+- **Insertion of tracheal T-tube** (SNOMED 232686001): Insertion of Montgomery T-tube
+
+**Specialized tubes:**
+
+- **Insertion of double lumen tracheobronchial tube** (SNOMED 733509002): Double-lumen tube for lung isolation (thoracic surgery)
+
+# Using FACT_RELATIONSHIP to Link Concepts
+
+For complex intubation scenarios, create **multiple records** and link them using the **FACT_RELATIONSHIP** table. This approach captures clinical nuance while maintaining data structure.
+
+## Example 1: Difficult Emergency Intubation
+
+**Clinical scenario:** Patient in respiratory failure requires emergency intubation. Multiple attempts with direct laryngoscopy were needed (Cormack-Lehane grade 3).
+
+**Records to create:**
+
+**PROCEDURE_OCCURRENCE table:**
+- procedure_concept_id = 429161001 (Insertion of endotracheal tube using laryngoscope)
+- procedure_occurrence_id = 10001
+
+**PROCEDURE_OCCURRENCE table:**
+- procedure_concept_id = 16883004 (Endotracheal intubation, emergency procedure)
+- procedure_occurrence_id = 10002
+
+**OBSERVATION table:**
+- observation_concept_id = 36660691 (Difficult intubation)
+- observation_occurrence_id = 20001
+
+**FACT_RELATIONSHIP table:**
+- domain_concept_id_1 = 27 (Procedure)
+- fact_id_1 = 10001
+- domain_concept_id_2 = 27 (Procedure)
+- fact_id_2 = 10002
+- relationship_concept_id = 44818790 (Has procedure context)
+
+**FACT_RELATIONSHIP table:**
+- domain_concept_id_1 = 27 (Procedure)
+- fact_id_1 = 10001
+- domain_concept_id_2 = 27 (Observation)
+- fact_id_2 = 20001
+- relationship_concept_id = 44818791 (Has temporal context)
+
+**Interpretation:** Emergency intubation performed via direct laryngoscopy, complicated by difficult airway.
+
+## Example 2: Unplanned Reintubation After Extubation
+
+**Clinical scenario:** Patient extubated in the morning, develops respiratory distress 8 hours later and requires reintubation (quality metric: unplanned intubation).
+
+**Records to create:**
+
+**PROCEDURE_OCCURRENCE table (extubation):**
+- procedure_concept_id = [concept from general concept **Extubation**]
+- procedure_occurrence_id = 10003
+- procedure_datetime = [morning time]
+
+**PROCEDURE_OCCURRENCE table (reintubation):**
+- procedure_concept_id = 4335481 (Orotracheal intubation)
+- procedure_occurrence_id = 10004
+- procedure_datetime = [8 hours later]
+
+**OBSERVATION table:**
+- observation_concept_id = 36309319 (Unplanned intubation)
+- observation_occurrence_id = 20002
+
+**FACT_RELATIONSHIP table:**
+- domain_concept_id_1 = 27 (Procedure)
+- fact_id_1 = 10004
+- domain_concept_id_2 = 27 (Observation)
+- fact_id_2 = 20002
+- relationship_concept_id = 44818791 (Has temporal context)
+
+**FACT_RELATIONSHIP table:**
+- domain_concept_id_1 = 27 (Procedure)
+- fact_id_1 = 10003
+- domain_concept_id_2 = 27 (Procedure)
+- fact_id_2 = 10004
+- relationship_concept_id = 45905793 (Followed by)
+
+**Interpretation:** Orotracheal reintubation following extubation, documented as unplanned event for quality monitoring. The temporal relationship between extubation and reintubation is captured via FACT_RELATIONSHIP.
+
+## Example 3: Awake Fiberoptic Intubation for Anticipated Difficult Airway
+
+**Clinical scenario:** Patient with suspected difficult airway (neck mass, limited mouth opening) undergoes awake fiberoptic nasal intubation.
+
+**Records to create:**
+
+**PROCEDURE_OCCURRENCE table:**
+- procedure_concept_id = 232678001 (Orotracheal fiberoptic intubation)
+- procedure_occurrence_id = 10005
+
+**PROCEDURE_OCCURRENCE table:**
+- procedure_concept_id = 232680007 (Nasal intubation awake)
+- procedure_occurrence_id = 10006
+
+**FACT_RELATIONSHIP table:**
+- domain_concept_id_1 = 27 (Procedure)
+- fact_id_1 = 10005
+- domain_concept_id_2 = 27 (Procedure)
+- fact_id_2 = 10006
+- relationship_concept_id = 44818790 (Has procedure context)
+
+**Interpretation:** Awake nasal intubation using fiberoptic technique.
+
+## Example 4: Failed Intubation → Emergency Cricothyroidotomy
+
+**Clinical scenario:** Multiple failed intubation attempts (cannot intubate, cannot ventilate) leading to emergency surgical cricothyroidotomy.
+
+**Records to create:**
+
+**OBSERVATION table:**
+- observation_concept_id = 36660691 (Difficult intubation)
+- observation_occurrence_id = 20003
+
+**PROCEDURE_OCCURRENCE table (successful rescue airway):**
+- procedure_concept_id = 37206251 (Scalpel bougie cricothyroidotomy)
+- procedure_occurrence_id = 10007
+
+**FACT_RELATIONSHIP table:**
+- domain_concept_id_1 = 27 (Procedure)
+- fact_id_1 = 10007
+- domain_concept_id_2 = 27 (Observation)
+- fact_id_2 = 20003
+- relationship_concept_id = 44818791 (Has temporal context)
+
+**Interpretation:** Failed difficult intubation requiring emergency cricothyroidotomy. The difficult intubation observation is linked to the rescue cricothyroidotomy procedure.
+
+## Example 5: Routine ICU Intubation (Simple Case)
+
+**Clinical scenario:** Standard orotracheal intubation via direct laryngoscopy, no complications.
+
+**Records to create:**
+
+**PROCEDURE_OCCURRENCE table:**
+- procedure_concept_id = 429161001 (Insertion of endotracheal tube using laryngoscope)
+- procedure_occurrence_id = 10008
+
+**Alternative:**
+- procedure_concept_id = 4335481 (Orotracheal intubation)
+
+**Interpretation:** Single procedure record sufficient when no complications or special context.
+
+# Clinical Context
+
+**For routine ICU intubation:**
+- Use single procedure concept: **""Insertion of endotracheal tube using laryngoscope""** or **""Orotracheal intubation""**
+- No FACT_RELATIONSHIP needed unless complications occur
+
+**For complicated intubations:**
+- Use base procedure + clinical context modifiers linked via FACT_RELATIONSHIP
+- Example: Base = ""Orotracheal intubation"" + Context = ""Emergency procedure"" + Observation = ""Difficult intubation""
+
+**For emergency intubations:**
+- Link emergency context using **""Endotracheal intubation, emergency procedure""** or **""Emergency laryngeal intubation""**
+
+# Important Notes
+
+- **Use FACT_RELATIONSHIP liberally** to capture clinical complexity without creating overly specific pre-coordinated concepts
+- **Document intubation as a procedure**, not as a device exposure - the presence of an endotracheal tube over time should be captured separately as device exposure
+- **Reintubation** should be captured as a new procedure with ""Unplanned intubation"" observation linked via FACT_RELATIONSHIP, and linked to the preceding extubation procedure using the general concept **Extubation**",NA
 306,Ventilation,Ventilation device,Invasive mechanical ventilation,NA,NA
 307,Ventilation,Ventilation device,Non-invasive ventilation,NA,NA
 308,Ventilation,Ventilation device,Oxygen device,NA,NA
@@ -1311,3 +1625,29 @@ For most ICU use cases, we recommend capturing SpO2 measurements using the gener
 335,Drug,Antimicrobials,Sulbactam,NA,NA
 336,Labs,Arterial blood gases,Oxygen saturation,NA,NA
 337,Ventilation,Airway device,Endotracheal tube diameter,NA,NA
+338,Ventilation,Airway device,Airway device change,"# Definition
+
+Airway device change encompasses procedures involving replacement or maintenance of endotracheal tubes or tracheostomy tubes while maintaining invasive airway management. This includes exchanging tubes for clinical reasons (malfunction, sizing, or routine change) and maintenance of tube securing devices. The patient remains intubated or cannulated throughout the procedure. No measurement units apply (procedure documentation).
+
+# Mapping Strategy
+
+For ICU documentation, use specific concepts based on the type of airway device being changed (endotracheal tube vs tracheostomy tube) and the nature of the intervention (complete tube replacement vs securing device maintenance).
+
+**For complete removal of airway devices** (extubation or decannulation), refer to the dedicated general concept **""Extubation""**.
+
+## Recommended concepts
+
+**Endotracheal tube changes:**
+
+- **Changing endotracheal tube** (SNOMED 225719006): Use for replacement of endotracheal tube (patient remains intubated)
+- **Changing endotracheal tube headband** (SNOMED 225720000): Use for replacement or adjustment of tube securing device (tape, ties, or commercial holder)
+
+**Tracheostomy tube changes:**
+
+- **Changing tracheostomy tube** (SNOMED 2267008): Use for replacement of tracheostomy tube (patient remains cannulated)
+
+# Important Notes
+
+- **Tube change vs extubation**:
+  - **Tube change**: Replacement of an existing tube with a new one while maintaining invasive airway management - patient remains intubated/cannulated
+  - **Extubation**: Complete removal of the tube with discontinuation of invasive airway management - patient is no longer intubated (see general concept ""Extubation"")",NA

@@ -16662,20 +16662,6 @@ Pre-aggregated time interval concepts are less precise because:
   },
   ""possible_values"": []
 }"
-14406,2025-12-01 13:13:38,Boris Delange,update,299,NA,NA,Endotracheal tube,"Updated statistical summary JSON: {
-  ""data_types"": [""numeric""],
-  ""statistical_data"": {
-    ""min"": null,
-    ""max"": null,
-    ""median"": null,
-    ""mean"": null,
-    ""p5"": null,
-    ""p25"": null,
-    ""p75"": null,
-    ""p95"": null
-  },
-  ""possible_values"": []
-}"
 14407,2025-12-01 13:13:38,Boris Delange,delete,299,LOINC,79562-5,Endotracheal tube Diameter,Deleted OMOP concept mapping
 14408,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,463327000,Antimicrobial endotracheal tube,Marked as recommended
 14409,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,309801005,Armored endotracheal tube,Marked as recommended
@@ -17007,3 +16993,839 @@ Oxygen flow rate is documented for **low-flow and high-flow oxygen delivery syst
   },
   ""categorical_data"": []
 }"
+14455,2025-12-01 15:05:54,Boris Delange,insert,303,LOINC,LA7296-2,Unplanned extubation,Added OMOP concept mapping
+14456,2025-12-01 15:06:57,Boris Delange,delete,303,SNOMED,225719006,Changing endotracheal tube,Deleted OMOP concept mapping
+14457,2025-12-01 15:06:57,Boris Delange,delete,303,SNOMED,225720000,Changing endotracheal tube headband,Deleted OMOP concept mapping
+14458,2025-12-01 15:06:57,Boris Delange,delete,303,SNOMED,2267008,Changing tracheostomy tube,Deleted OMOP concept mapping
+14459,2025-12-01 15:06:57,Boris Delange,delete,303,SNOMED,44482009,Ventilating tube removal by another physician,Deleted OMOP concept mapping
+14460,2025-12-01 15:06:58,Boris Delange,recommend,303,SNOMED,271280005,Removal of endotracheal tube,Marked as recommended
+14461,2025-12-01 15:06:58,Boris Delange,recommend,303,SNOMED,113153002,Removal of tracheostomy tube,Marked as recommended
+14462,2025-12-01 15:06:58,Boris Delange,recommend,303,LOINC,LA7296-2,Unplanned extubation,Marked as recommended
+14463,2025-12-01 15:10:57,Boris Delange,update,303,NA,NA,Extubation,"Updated ETL guidance comment: # Definition
+
+Extubation is the procedure of removing an endotracheal tube or tracheostomy tube from a patient's airway. This can be planned (elective extubation after weaning from mechanical ventilation) or unplanned (accidental/self-extubation). No measurement units apply (procedure documentation).
+
+# Mapping Strategy
+
+For ICU documentation, distinguish between **planned extubation** (removal of endotracheal or tracheostomy tube as part of clinical care), **unplanned extubation** (accidental removal), and **tube changes** (replacement without full extubation). Use specific concepts based on the tube type and clinical context.
+
+## Recommended concepts
+
+**Default concepts:**
+
+- **Extubation of trachea** (SNOMED 309812005): Use for planned removal of endotracheal tube
+- **Removal of endotracheal tube** (SNOMED 271280005): Use for removal of endotracheal tube (planned extubation)
+- **Removal of tracheostomy tube** (SNOMED 113153002): Use for removal of tracheostomy tube (decannulation)
+
+**Unplanned extubation:**
+
+- **Inadvertent tracheal extubation** (SNOMED 405639008): Use for accidental or self-extubation of endotracheal tube
+- **Unplanned extubation** (LOINC LA7296-2): Use for unplanned removal of endotracheal tube
+
+**Tube maintenance procedures:**
+
+- **Changing endotracheal tube** (SNOMED 225719006): Use when endotracheal tube is replaced (tube exchange)
+- **Changing endotracheal tube headband** (SNOMED 225720000): Use when securing device (headband/tape) is changed without removing the tube
+
+## Not recommended for routine use
+
+The ""Changing endotracheal tube headband"" concept is too granular for most ICU documentation. Document this procedure only when the headband change is clinically significant (e.g., skin breakdown prevention, tube stability assessment).
+
+# Important Notes
+
+- **Planned vs unplanned extubation**:
+  - **Planned extubation**: Removal of ETT after successful weaning trial and clinical readiness assessment
+  - **Unplanned extubation**: Accidental removal (self-extubation by patient, dislodgement during care, device failure)
+  - Unplanned extubation is a quality indicator and adverse event that requires documentation and review
+
+- **Extubation vs decannulation**:
+  - **Extubation**: Removal of endotracheal tube (inserted through mouth/nose)
+  - **Decannulation**: Removal of tracheostomy tube (inserted through surgical stoma)
+  - Use specific concepts for each procedure
+
+- **Tube exchange vs extubation**:
+  - **Tube exchange** (SNOMED 225719006): Replacement of endotracheal tube without removing mechanical ventilation support (e.g., for tube obstruction, size adjustment, or cuff leak)
+  - **Extubation**: Complete removal of airway device with cessation of mechanical ventilation
+  - Do not confuse tube exchange with extubation/re-intubation
+
+- **Clinical context**:
+  - **Planned extubation criteria**: Adequate oxygenation, successful weaning trial, adequate respiratory muscle strength, ability to protect airway
+  - **Unplanned extubation risk factors**: Agitation, inadequate sedation, patient-ventilator asynchrony, inadequate tube fixation
+  - **Extubation failure**: Re-intubation within 48-72 hours (document as separate intubation event)
+
+- **Documentation timing**:
+  - Record extubation date and time
+  - Document pre-extubation assessment (e.g., spontaneous breathing trial results)
+  - Record post-extubation oxygen therapy and respiratory status
+  - For unplanned extubation: document circumstances, immediate management, and outcome
+
+- **OMOP CDM implementation**:
+  - **Domain**: Procedure (for planned extubation, tube exchange)
+  - **Domain**: Observation (for unplanned extubation - adverse event)
+  - **Standard vocabulary**: SNOMED (primary), LOINC (for specific unplanned extubation coding)
+  - **Linking context**: Use FACT_RELATIONSHIP to link to mechanical ventilation end date, post-extubation oxygen therapy, and any subsequent re-intubation events"
+14464,2025-12-01 15:10:57,Boris Delange,delete,303,SNOMED,225720000,Changing endotracheal tube headband,Deleted OMOP concept mapping
+14465,2025-12-01 15:10:57,Boris Delange,delete,303,SNOMED,225719006,Changing endotracheal tube,Deleted OMOP concept mapping
+14466,2025-12-01 15:12:49,Boris Delange,update,303,NA,NA,Extubation,"Updated ETL guidance comment: # Definition
+
+Extubation is the procedure of removing an endotracheal tube or tracheostomy tube from a patient's airway. This can be planned (elective extubation after weaning from mechanical ventilation) or unplanned (accidental/self-extubation). No measurement units apply (procedure documentation).
+
+# Mapping Strategy
+
+For ICU documentation, distinguish between **planned extubation** (removal of endotracheal or tracheostomy tube as part of clinical care) and **unplanned extubation** (accidental removal). Use specific concepts based on the tube type and whether the extubation was planned or unplanned.
+
+## Recommended concepts
+
+**Planned extubation:**
+
+- **Extubation of trachea** (SNOMED 309812005): Use for planned removal of endotracheal tube
+- **Removal of endotracheal tube** (SNOMED 271280005): Use for planned removal of endotracheal tube (alternative to 309812005)
+- **Removal of tracheostomy tube** (SNOMED 113153002): Use for planned removal of tracheostomy tube (decannulation)
+
+**Unplanned extubation:**
+
+- **Inadvertent tracheal extubation** (SNOMED 405639008): Use for accidental or self-extubation of endotracheal tube
+- **Unplanned extubation** (LOINC LA7296-2): Use for unplanned removal of endotracheal tube (alternative to SNOMED 405639008)
+
+# Important Notes
+
+- **Planned vs unplanned extubation**:
+  - **Planned extubation**: Removal of endotracheal tube after successful weaning trial and clinical readiness assessment (use SNOMED 309812005 or 271280005)
+  - **Unplanned extubation**: Accidental removal including self-extubation by patient, dislodgement during care, or device failure (use SNOMED 405639008 or LOINC LA7296-2)
+  - Unplanned extubation is a quality indicator and adverse event that requires documentation and review"
+14467,2025-12-01 15:14:00,Boris Delange,insert,338,LOINC,LA32773-6,"$100,000-$149,000",Added OMOP concept mapping
+14468,2025-12-01 15:14:00,Boris Delange,insert,338,LOINC,LA32774-4,"$150,000 or more",Added OMOP concept mapping
+14469,2025-12-01 15:19:20,Boris Delange,recommend,304,SNOMED,286814009,Inspired gas humidification,Marked as recommended
+14470,2025-12-01 15:27:05,Boris Delange,insert,304,SNOMED,297117007,Heat and moisture exchanger,Added OMOP concept mapping
+14471,2025-12-01 15:27:05,Boris Delange,insert,304,SNOMED,706180003,Respiratory humidifier,Added OMOP concept mapping
+14472,2025-12-01 15:27:05,Boris Delange,insert,304,SNOMED,700705005,Non-heated respiratory humidifier,Added OMOP concept mapping
+14473,2025-12-01 15:27:05,Boris Delange,insert,304,SNOMED,700910000,Ultrasonic respiratory humidifier,Added OMOP concept mapping
+14474,2025-12-01 15:27:05,Boris Delange,insert,304,LOINC,57652-0,Humidifier heated wire temperature differential setting Ventilator airway circuit,Added OMOP concept mapping
+14475,2025-12-01 15:27:05,Boris Delange,insert,304,SNOMED,700630004,High-flow heated respiratory humidifier,Added OMOP concept mapping
+14476,2025-12-01 15:27:06,Boris Delange,insert,304,SNOMED,48621000087108,High-flow non-heated respiratory humidifier,Added OMOP concept mapping
+14477,2025-12-01 15:27:06,Boris Delange,insert,304,SNOMED,700593005,Heated respiratory humidifier,Added OMOP concept mapping
+14478,2025-12-01 15:27:55,Boris Delange,recommend,304,SNOMED,700630004,High-flow heated respiratory humidifier,Marked as recommended
+14479,2025-12-01 15:27:55,Boris Delange,recommend,304,SNOMED,700593005,Heated respiratory humidifier,Marked as recommended
+14480,2025-12-01 15:27:55,Boris Delange,recommend,304,SNOMED,297117007,Heat and moisture exchanger,Marked as recommended
+14481,2025-12-01 15:27:55,Boris Delange,recommend,304,SNOMED,706180003,Respiratory humidifier,Marked as recommended
+14482,2025-12-01 15:27:55,Boris Delange,recommend,304,SNOMED,700705005,Non-heated respiratory humidifier,Marked as recommended
+14483,2025-12-01 15:27:55,Boris Delange,recommend,304,SNOMED,48621000087108,High-flow non-heated respiratory humidifier,Marked as recommended
+14484,2025-12-01 15:27:55,Boris Delange,recommend,304,LOINC,57652-0,Humidifier heated wire temperature differential setting Ventilator airway circuit,Marked as recommended
+14485,2025-12-01 15:27:55,Boris Delange,recommend,304,SNOMED,229302002,Ultrasonic humidification,Marked as recommended
+14486,2025-12-01 15:27:55,Boris Delange,recommend,304,SNOMED,700910000,Ultrasonic respiratory humidifier,Marked as recommended
+14487,2025-12-01 15:28:43,Boris Delange,delete,338,LOINC,LA32773-6,"$100,000-$149,000",Deleted OMOP concept mapping
+14488,2025-12-01 15:28:43,Boris Delange,delete,338,LOINC,LA32774-4,"$150,000 or more",Deleted OMOP concept mapping
+14489,2025-12-01 15:29:08,Boris Delange,insert,338,LOINC,LA15634-1,"$100,000 or more",Added OMOP concept mapping
+14490,2025-12-01 15:29:08,Boris Delange,insert,338,LOINC,LA32773-6,"$100,000-$149,000",Added OMOP concept mapping
+14491,2025-12-01 15:29:08,Boris Delange,insert,338,LOINC,LA32774-4,"$150,000 or more",Added OMOP concept mapping
+14492,2025-12-01 15:31:42,Boris Delange,update,304,NA,NA,Humidification Therapy,"Updated ETL guidance comment: # Definition
+
+Humidification therapy refers to the process of adding moisture to inspired gases to prevent drying and damage to the respiratory mucosa in patients receiving mechanical ventilation or respiratory support. For invasive mechanical ventilation, humidification is achieved through active humidification systems (heated humidifiers) or passive systems (heat and moisture exchangers). No measurement units apply for procedures and devices (document device presence/type or humidification procedure).
+
+# Mapping Strategy
+
+For ICU documentation, distinguish between **humidification procedures** (Procedure domain - therapeutic intervention) and **humidification devices** (Device domain - equipment used). Document the procedure when recording the clinical intervention, and document the device when recording the equipment type in use. Avoid concepts that describe non-invasive therapeutic inhalations (steam, mist, menthol) which are symptomatic treatments for spontaneously breathing patients.
+
+**IMPORTANT**: Some concepts are Procedures (therapeutic interventions) while others are Devices (equipment). Choose the appropriate domain based on what you are documenting.
+
+## Recommended concepts
+
+**Humidification procedures** (Procedure domain - document the therapeutic intervention):
+
+- **Inspired gas humidification** (SNOMED 286814009, Procedure): Use to document humidification of inspired gases in mechanically ventilated patients (generic procedure concept)
+- **Ultrasonic humidification** (SNOMED 229302002, Procedure): Use when ultrasonic nebulization is specifically used for humidification
+
+**Humidification devices** (Device domain - document the equipment type):
+
+- **Heat and moisture exchanger** (SNOMED 297117007, Device): Passive humidification device (HME) - hygroscopic filter that captures and returns heat/moisture
+- **Heated respiratory humidifier** (SNOMED 700593005, Device): Active humidification device with heating element and water chamber
+- **Respiratory humidifier** (SNOMED 706180003, Device): Generic respiratory humidifier when specific type is unspecified
+
+**Specialized humidification devices** (Device domain):
+
+- **Non-heated respiratory humidifier** (SNOMED 700705005, Device): Cold humidifier without heating element (less common for mechanical ventilation)
+- **Ultrasonic respiratory humidifier** (SNOMED 700910000, Device): Ultrasonic nebulizer used for humidification
+- **High-flow heated respiratory humidifier** (SNOMED 700630004, Device): Heated humidifier for high-flow oxygen therapy (e.g., HFNC)
+- **High-flow non-heated respiratory humidifier** (SNOMED 1246607, Device): Non-heated humidifier for high-flow systems
+
+**Humidifier settings** (Measurement domain):
+
+- **Humidifier heated wire temperature differential setting Ventilator airway circuit** (LOINC 57652-0, Measurement): Temperature differential setting for heated wire circuits (prevents condensation/rainout)
+
+## Not recommended for invasive mechanical ventilation
+
+These concepts describe **non-invasive inhalation therapies** (Procedure domain) for spontaneously breathing patients, not humidification systems for mechanically ventilated patients. Do not use these concepts for ICU ventilator humidification:
+
+- **Humidification therapy** (SNOMED 243130008, Procedure): Too vague and generic; does not specify inspired gas humidification for mechanical ventilation. Use ""Inspired gas humidification"" (286814009) instead.
+- **Fog inhalation therapy** (SNOMED 80677001, Procedure): Aerosol therapy for spontaneously breathing patients (not ventilator humidification)
+- **Mist inhalation therapy** (SNOMED 229303007, Procedure): Inhalation of water vapor/mist for symptomatic relief in non-intubated patients
+- **Steam inhalations** (SNOMED 229304001, Procedure): Hot steam inhalation therapy for spontaneously breathing patients (e.g., for upper respiratory tract symptoms)
+- **Menthol inhalations** (SNOMED 229305000, Procedure): Therapeutic inhalations with menthol for symptomatic relief (not humidification)
+
+# Important Notes
+
+- **Procedure vs Device documentation**:
+  - **Procedure concepts**: Use when documenting the clinical intervention (e.g., ""patient received inspired gas humidification during mechanical ventilation"")
+  - **Device concepts**: Use when documenting the equipment (e.g., ""heat and moisture exchanger in use"" or ""heated respiratory humidifier connected to ventilator circuit"")
+  - Both can be documented for the same patient: the procedure indicates what was done, the device indicates what equipment was used
+
+- **Humidification methods for mechanical ventilation**:
+  - **Active humidification (heated humidifier)**: Water-based device (SNOMED 700593005, Device) that actively heats and humidifies inspired gas to body temperature (37°C) and full saturation (44 mg H2O/L). Provides optimal humidification but requires water chamber, heating element, and monitoring.
+  - **Passive humidification (HME)**: Heat and moisture exchanger (SNOMED 297117007, Device) - hygroscopic filter that captures heat and moisture from exhaled gas and returns it to inspired gas. Simpler and cheaper but less efficient than active humidification.
+
+- **High-flow humidification**:
+  - **High-flow nasal cannula (HFNC)**: Requires high-flow heated humidifier (SNOMED 700630004, Device) capable of delivering flows up to 60 L/min with precise FiO2 control (21-100%)
+  - Non-invasive respiratory support with heated and humidified oxygen
+  - Document both the humidifier device and flow rate/FiO2 settings separately
+
+- **Distinction from nebulization**:
+  - **Humidification**: Adds water vapor to prevent airway drying (continuous process during ventilation) - use humidification concepts
+  - **Nebulization**: Delivers aerosolized medication (bronchodilators, mucolytics) for therapeutic purposes - document separately as drug administration
+  - These are separate processes with different purposes"
+14493,2025-12-01 15:59:18,Boris Delange,delete,303,SNOMED,225720000,Changing endotracheal tube headband,Deleted OMOP concept mapping
+14494,2025-12-01 15:59:18,Boris Delange,insert,303,SNOMED,225719006,Changing endotracheal tube,Added OMOP concept mapping
+14495,2025-12-01 15:59:18,Boris Delange,insert,303,SNOMED,225720000,Changing endotracheal tube headband,Added OMOP concept mapping
+14496,2025-12-01 15:59:18,Boris Delange,insert,303,SNOMED,2267008,Changing tracheostomy tube,Added OMOP concept mapping
+14497,2025-12-01 16:00:41,Boris Delange,recommend,303,SNOMED,225719006,Changing endotracheal tube,Marked as recommended
+14498,2025-12-01 16:00:41,Boris Delange,recommend,303,SNOMED,225720000,Changing endotracheal tube headband,Marked as recommended
+14499,2025-12-01 16:00:41,Boris Delange,recommend,303,SNOMED,2267008,Changing tracheostomy tube,Marked as recommended
+14500,2025-12-01 16:01:35,Boris Delange,update,303,NA,NA,Extubation,"Updated ETL guidance comment: # Definition
+
+Extubation and airway device management encompasses procedures involving endotracheal tubes and tracheostomy tubes, including their removal, replacement, and maintenance. This includes planned extubation (elective removal after weaning from mechanical ventilation), unplanned extubation (accidental or self-extubation), and tube changes. No measurement units apply (procedure documentation).
+
+# Mapping Strategy
+
+For ICU documentation, distinguish between **planned extubation** (removal of endotracheal or tracheostomy tube as part of clinical care), **unplanned extubation** (accidental removal), and **tube changes** (replacement without full extubation). Use specific concepts based on the tube type and nature of the intervention.
+
+## Recommended concepts
+
+**Planned extubation:**
+
+- **Extubation of trachea** (SNOMED 309812005): Use for planned removal of endotracheal tube
+- **Removal of endotracheal tube** (SNOMED 271280005): Use for planned removal of endotracheal tube (alternative to 309812005)
+- **Removal of tracheostomy tube** (SNOMED 113153002): Use for planned removal of tracheostomy tube (decannulation)
+
+**Unplanned extubation:**
+
+- **Inadvertent tracheal extubation** (SNOMED 405639008): Use for accidental or self-extubation of endotracheal tube
+- **Unplanned extubation** (LOINC LA7296-2): Use for unplanned removal of endotracheal tube (alternative to SNOMED 405639008)
+
+**Tube changes and maintenance:**
+
+- **Changing endotracheal tube** (SNOMED 225719006): Use for replacement of endotracheal tube without full extubation
+- **Changing tracheostomy tube** (SNOMED 2267008): Use for replacement of tracheostomy tube
+- **Changing endotracheal tube headband** (SNOMED 225720000): Use for maintenance of tube securing device
+
+# Important Notes
+
+- **Planned vs unplanned extubation**:
+  - **Planned extubation**: Removal of endotracheal tube after successful weaning trial and clinical readiness assessment (use SNOMED 309812005 or 271280005)
+  - **Unplanned extubation**: Accidental removal including self-extubation by patient, dislodgement during care, or device failure (use SNOMED 405639008 or LOINC LA7296-2)
+  - Unplanned extubation is a quality indicator and adverse event that requires documentation and review
+
+- **Tube changes vs extubation**:
+  - **Tube change**: Replacement of an existing tube with a new one while maintaining the airway (patient remains intubated)
+  - **Extubation**: Complete removal of the tube with discontinuation of invasive airway management
+  - Document tube changes separately from extubation events for accurate clinical tracking
+
+- **Tracheostomy management**:
+  - Use specific tracheostomy concepts (SNOMED 113153002 for removal, 2267008 for tube changes)
+  - Tracheostomy removal (decannulation) follows different clinical protocols than endotracheal tube extubation"
+14501,2025-12-01 16:03:04,Boris Delange,unrecommend,303,SNOMED,225719006,Changing endotracheal tube,Unmarked as recommended
+14502,2025-12-01 16:03:04,Boris Delange,unrecommend,303,SNOMED,225720000,Changing endotracheal tube headband,Unmarked as recommended
+14503,2025-12-01 16:03:04,Boris Delange,unrecommend,303,SNOMED,2267008,Changing tracheostomy tube,Unmarked as recommended
+14504,2025-12-01 16:04:46,Boris Delange,update,303,NA,NA,Extubation,"Updated ETL guidance comment: # Definition
+
+Extubation is the procedure of removing an endotracheal tube or tracheostomy tube from a patient's airway, resulting in discontinuation of invasive airway management. This can be planned (elective extubation after weaning from mechanical ventilation) or unplanned (accidental or self-extubation). No measurement units apply (procedure documentation).
+
+# Mapping Strategy
+
+For ICU documentation, distinguish between **planned extubation** (removal of endotracheal or tracheostomy tube as part of clinical care) and **unplanned extubation** (accidental removal). Use specific concepts based on the tube type and whether the extubation was planned or unplanned.
+
+**For tube replacement or maintenance procedures** (changing endotracheal tube, changing tracheostomy tube, changing tube securing devices), refer to the dedicated general concept **""Airway device change""**.
+
+## Recommended concepts
+
+**Planned extubation:**
+
+- **Extubation of trachea** (SNOMED 309812005): Use for planned removal of endotracheal tube
+- **Removal of endotracheal tube** (SNOMED 271280005): Use for planned removal of endotracheal tube (alternative to 309812005)
+- **Removal of tracheostomy tube** (SNOMED 113153002): Use for planned removal of tracheostomy tube (decannulation)
+
+**Unplanned extubation:**
+
+- **Inadvertent tracheal extubation** (SNOMED 405639008): Use for accidental or self-extubation of endotracheal tube
+- **Unplanned extubation** (LOINC LA7296-2): Use for unplanned removal of endotracheal tube (alternative to SNOMED 405639008)
+
+## Not recommended for this concept
+
+**Tube replacement and maintenance procedures:**
+
+- **Changing endotracheal tube** (SNOMED 225719006): Not recommended - use general concept ""Airway device change"" instead
+- **Changing tracheostomy tube** (SNOMED 2267008): Not recommended - use general concept ""Airway device change"" instead
+- **Changing endotracheal tube headband** (SNOMED 225720000): Not recommended - use general concept ""Airway device change"" instead
+
+# Important Notes
+
+- **Planned vs unplanned extubation**:
+  - **Planned extubation**: Removal of endotracheal tube after successful weaning trial and clinical readiness assessment (use SNOMED 309812005 or 271280005)
+  - **Unplanned extubation**: Accidental removal including self-extubation by patient, dislodgement during care, or device failure (use SNOMED 405639008 or LOINC LA7296-2)
+  - Unplanned extubation is a quality indicator and adverse event that requires documentation and review
+
+- **Extubation vs tube change**:
+  - **Extubation**: Complete removal of the tube with discontinuation of invasive airway management - patient is no longer intubated
+  - **Tube change**: Replacement of an existing tube with a new one while maintaining the airway - patient remains intubated (see general concept ""Airway device change"")
+"
+14505,2025-12-01 16:05:59,Boris Delange,insert,338,SNOMED,225719006,Changing endotracheal tube,Added OMOP concept mapping
+14506,2025-12-01 16:05:59,Boris Delange,insert,338,SNOMED,225720000,Changing endotracheal tube headband,Added OMOP concept mapping
+14507,2025-12-01 16:05:59,Boris Delange,insert,338,SNOMED,2267008,Changing tracheostomy tube,Added OMOP concept mapping
+14508,2025-12-01 16:07:15,Boris Delange,update,338,NA,NA,Airway device change,"Updated ETL guidance comment: # Definition
+
+Airway device change encompasses procedures involving replacement or maintenance of endotracheal tubes or tracheostomy tubes while maintaining invasive airway management. This includes exchanging tubes for clinical reasons (malfunction, sizing, or routine change) and maintenance of tube securing devices. The patient remains intubated or cannulated throughout the procedure. No measurement units apply (procedure documentation).
+
+# Mapping Strategy
+
+For ICU documentation, use specific concepts based on the type of airway device being changed (endotracheal tube vs tracheostomy tube) and the nature of the intervention (complete tube replacement vs securing device maintenance).
+
+**For complete removal of airway devices** (extubation or decannulation), refer to the dedicated general concept **""Extubation""**.
+
+## Recommended concepts
+
+**Endotracheal tube changes:**
+
+- **Changing endotracheal tube** (SNOMED 225719006): Use for replacement of endotracheal tube (patient remains intubated)
+- **Changing endotracheal tube headband** (SNOMED 225720000): Use for replacement or adjustment of tube securing device (tape, ties, or commercial holder)
+
+**Tracheostomy tube changes:**
+
+- **Changing tracheostomy tube** (SNOMED 2267008): Use for replacement of tracheostomy tube (patient remains cannulated)
+
+# Important Notes
+
+- **Tube change vs extubation**:
+  - **Tube change**: Replacement of an existing tube with a new one while maintaining invasive airway management - patient remains intubated/cannulated
+  - **Extubation**: Complete removal of the tube with discontinuation of invasive airway management - patient is no longer intubated (see general concept ""Extubation"")"
+14509,2025-12-01 16:09:53,Boris Delange,insert,305,LOINC,95050-1,Difficult intubation,Added OMOP concept mapping
+14510,2025-12-01 16:09:53,Boris Delange,insert,305,LOINC,LP418371-3,Intubation,Added OMOP concept mapping
+14511,2025-12-01 16:09:53,Boris Delange,insert,305,LOINC,LA17490-6,Esophageal intubation-other,Added OMOP concept mapping
+14512,2025-12-01 16:09:53,Boris Delange,insert,305,LOINC,LA17489-8,Esophageal intubation-immediately,Added OMOP concept mapping
+14513,2025-12-01 16:09:53,Boris Delange,insert,305,LOINC,LA20580-9,Unplanned intubation,Added OMOP concept mapping
+14514,2025-12-01 16:14:53,Boris Delange,update,305,NA,NA,Intubation,"Updated ETL guidance comment: # Definition
+
+Intubation refers to the insertion of a tube into a body structure. In the ICU context, this most commonly refers to **endotracheal intubation** - the placement of a breathing tube into the trachea to secure the airway and enable mechanical ventilation. However, intubation can also refer to tube insertion into other body structures (gastrointestinal tract, lacrimal ducts, etc.).
+
+# Mapping Strategy
+
+**Critical: This general concept contains heterogeneous procedure types.** Most mapped concepts are **not airway/respiratory intubation**. Carefully review the full concept name and SNOMED domain to ensure correct mapping.
+
+Prioritize the **most specific SNOMED concept** that matches both the **anatomical location** and **route/method** documented in your source data.
+
+## Recommended concepts
+
+**Airway/respiratory intubation (most relevant for ICU use cases):**
+
+- **Intubation** (SNOMED 52765003): Generic intubation procedure - use only when anatomical location is unknown
+- **Insertion of endotracheal tube** (SNOMED 112798008): Placement of tube into the trachea for airway management
+- **Endotracheal intubation, emergency procedure** (SNOMED 16883004): Emergency airway intubation
+- **Orotracheal intubation** (SNOMED 232674004): Intubation via the mouth (most common route in ICU)
+- **Nasotracheal intubation** (SNOMED 232679009): Intubation via the nose
+- **Intubation of larynx** (SNOMED 66861000): Generic laryngeal intubation
+- **Insertion of tracheostomy tube** (SNOMED 232685002): Placement of tube through tracheostomy stoma
+- **Insertion of double lumen tracheobronchial tube** (SNOMED 733509002): Double-lumen tube for lung isolation (thoracic surgery)
+- **Cricothyroidotomy tube insertion** (SNOMED 232683009): Emergency surgical airway
+- **Scalpel bougie cricothyroidotomy** (SNOMED 785906002): Emergency surgical airway technique
+
+**Specialized airway intubation techniques:**
+
+- **Awake intubation** (SNOMED 304341005): Intubation performed while patient is conscious
+- **Retrograde intubation** (SNOMED 397892004): Intubation via retrograde wire technique (difficult airway)
+- **Digital assisted intubation** (SNOMED 427331009): Blind digital intubation (rare technique)
+- **Tracheal intubation using rigid bronchoscope** (SNOMED 232677006): Intubation using rigid bronchoscopy
+- **Orotracheal fiberoptic intubation** (SNOMED 232678001): Fiberoptic-guided oral intubation
+- **Nasotracheal fiberoptic intubation** (SNOMED 232682004): Fiberoptic-guided nasal intubation
+- **Tracheal intubation through a laryngeal mask airway** (SNOMED 418613003): LMA-facilitated intubation
+
+**Endobronchial intubation:**
+
+- **Endobronchial intubation** (SNOMED 232687005): Selective bronchial intubation (usually for lung isolation)
+
+## Not recommended for routine ICU airway management
+
+Use these concepts **only when the procedure specifically involves non-respiratory tube insertion**. These are not airway management procedures.
+
+For ICU patients who have both airway intubation AND gastrointestinal/feeding tubes, document these as **separate procedure records** with distinct SNOMED concepts.
+
+**Gastrointestinal intubation (feeding tubes, decompression):**
+
+- **Insertion of nasogastric tube** (SNOMED 87750000): NG tube insertion
+- **Insertion of orogastric tube** (SNOMED 235425002): Oral gastric tube insertion
+- **Intubation of gastrointestinal tract** (SNOMED 235419001): Generic GI intubation
+- **Intubation of stomach** (SNOMED 33120003): Gastric tube insertion
+- **Intubation of esophagus** (SNOMED 397804006): Esophageal tube insertion
+- **Intubation of small intestine** (SNOMED 26985008): Small bowel intubation
+- **Intubation for gastric decompression** (SNOMED 79583008): NG tube for decompression
+- **Intestinal intubation** (SNOMED 182513006): Generic intestinal tube insertion
+- **Insertion of feeding tube into duodenum** (SNOMED 698351007): Nasoduodenal feeding tube
+- **Insertion of feeding tube into small intestine** (SNOMED 698507004): Nasojejunal feeding tube
+- **Insertion of feeding tube into esophagus** (SNOMED 698508009): Esophageal feeding tube
+- **Percutaneous endoscopic gastrostomy** (SNOMED 235159007): PEG tube placement
+- **Percutaneous placement of gastrostomy tube** (SNOMED 29952004): Percutaneous gastrostomy
+- **Endoscopic placement of gastrostomy tube** (SNOMED 116017009): Endoscopic gastrostomy
+- **Open surgical placement of gastrostomy tube** (SNOMED 116016000): Surgical gastrostomy
+- **Intubation and decompression of intestine** (SNOMED 16256009): Intestinal decompression tube
+
+**Specialized GI tube procedures:**
+
+- **Insertion of Miller-Abbott tube for intestinal decompression** (SNOMED 67714000): Long intestinal tube
+- **Insertion of nasogastric tube for intestinal decompression** (SNOMED 78766008): NG tube for decompression
+- **Insertion of flatus tube into rectum** (SNOMED 787802002): Rectal decompression tube
+- **Insertion of tube into rectum** (SNOMED 79613005): Generic rectal tube insertion
+- **Intubation of colon** (SNOMED 84391005): Colonic intubation
+- **Intubation of rectum for pressure manometry** (SNOMED 174305001): Anorectal manometry
+
+**Lacrimal/ophthalmologic intubation procedures:**
+
+- **Intubation of lacrimal drainage structure** (SNOMED 417917001): Lacrimal duct tube insertion
+- **Intubation of nasolacrimal duct with irrigation** (SNOMED 79762000): Nasolacrimal duct intubation
+- **Dilation of nasolacrimal duct with insertion of tube or stent** (SNOMED 47418008): Lacrimal stent placement
+- **Lacrimal apparatus intubation for dilation** (SNOMED 55693001): Lacrimal dilation procedure
+- **Silicone intubation of nasolacrimal system** (SNOMED 420060005): Silicone lacrimal tube placement
+
+**Other tube insertion procedures (non-respiratory, non-GI):**
+
+- **Ventriculocisternal intubation** (SNOMED 68683005): Neurosurgical ventricular catheter
+- **Insertion of Holter valve** (SNOMED 87675006): Ventriculoperitoneal shunt valve
+
+# Important Notes
+
+- **Most concepts in this mapping are NOT airway intubation procedures** - carefully verify the anatomical location before mapping
+- For ICU patients, ""intubation"" typically refers to endotracheal intubation unless otherwise specified
+- Document feeding tube insertion (NG, OG, PEG) and endotracheal intubation as **separate procedure records** when both are performed
+- Use the most specific SNOMED concept available - avoid the generic ""Intubation"" (SNOMED 52765003) when anatomical location and route are documented
+- Endotracheal intubation is typically documented in the ICU flowsheet or procedure note, not in coded diagnoses
+- Lacrimal duct procedures, ventriculoperitoneal shunts, and GI tube insertions are distinct procedures that should not be confused with airway intubation"
+14515,2025-12-01 16:14:53,Boris Delange,delete,305,SNOMED,52765003,Intubation,Deleted OMOP concept mapping
+14516,2025-12-01 16:14:53,Boris Delange,delete,305,SNOMED,55586007,"Anastomosis of esophagus, antesternal or antethoracic, with insertion of rubber tube",Deleted OMOP concept mapping
+14517,2025-12-01 16:14:53,Boris Delange,delete,305,SNOMED,231631004,Dacryocystorhinostomy and insertion of tube,Deleted OMOP concept mapping
+14518,2025-12-01 16:14:53,Boris Delange,delete,305,SNOMED,235356009,Decompression of sigmoid colon using flatus tube,Deleted OMOP concept mapping
+14519,2025-12-01 16:14:53,Boris Delange,delete,305,SNOMED,446179009,Dilation and insertion of tube into esophagus,Deleted OMOP concept mapping
+14520,2025-12-01 16:16:30,Boris Delange,delete,305,SNOMED,232687005,Endobronchial intubation,Deleted OMOP concept mapping
+14521,2025-12-01 16:16:31,Boris Delange,delete,305,SNOMED,446736003,Endoscopic dilation and insertion of tube into esophagus,Deleted OMOP concept mapping
+14522,2025-12-01 16:16:31,Boris Delange,delete,305,SNOMED,290018002,Endoscopic insertion of tubal prosthesis into esophagus,Deleted OMOP concept mapping
+14523,2025-12-01 16:16:31,Boris Delange,delete,305,LOINC,LA17489-8,Esophageal intubation-immediately,Deleted OMOP concept mapping
+14524,2025-12-01 16:16:31,Boris Delange,delete,305,LOINC,LA17490-6,Esophageal intubation-other,Deleted OMOP concept mapping
+14525,2025-12-01 16:16:31,Boris Delange,delete,305,SNOMED,265352003,Fiberoptic esophagoscopy and insertion of tube prosthesis,Deleted OMOP concept mapping
+14526,2025-12-01 16:16:31,Boris Delange,delete,305,SNOMED,431722009,Fluoroscopy guided insertion of nasojejunal feeding tube,Deleted OMOP concept mapping
+14527,2025-12-01 16:16:31,Boris Delange,delete,305,SNOMED,87675006,Insertion of Holter valve,Deleted OMOP concept mapping
+14528,2025-12-01 16:16:31,Boris Delange,delete,305,SNOMED,710579009,Fluoroscopy guided intubation of small bowel,Deleted OMOP concept mapping
+14529,2025-12-01 16:16:31,Boris Delange,delete,305,SNOMED,67714000,Insertion of Miller-Abbott tube for intestinal decompression,Deleted OMOP concept mapping
+14530,2025-12-01 16:16:31,Boris Delange,delete,305,SNOMED,231632006,Insertion of Lester dacryocystorhinostomy tube,Deleted OMOP concept mapping
+14531,2025-12-01 16:16:31,Boris Delange,delete,305,SNOMED,116017009,Endoscopic placement of gastrostomy tube,Deleted OMOP concept mapping
+14532,2025-12-01 16:18:45,Boris Delange,delete,305,SNOMED,698351007,Insertion of feeding tube into duodenum,Deleted OMOP concept mapping
+14533,2025-12-01 16:18:45,Boris Delange,delete,305,SNOMED,698508009,Insertion of feeding tube into esophagus,Deleted OMOP concept mapping
+14534,2025-12-01 16:18:45,Boris Delange,delete,305,SNOMED,698507004,Insertion of feeding tube into small intestine,Deleted OMOP concept mapping
+14535,2025-12-01 16:18:45,Boris Delange,delete,305,SNOMED,787802002,Insertion of flatus tube into rectum,Deleted OMOP concept mapping
+14536,2025-12-01 16:18:45,Boris Delange,delete,305,SNOMED,235421006,Insertion of naso-esophageal tube,Deleted OMOP concept mapping
+14537,2025-12-01 16:18:45,Boris Delange,delete,305,SNOMED,87750000,Insertion of nasogastric tube,Deleted OMOP concept mapping
+14538,2025-12-01 16:18:45,Boris Delange,delete,305,SNOMED,78766008,Insertion of nasogastric tube for intestinal decompression,Deleted OMOP concept mapping
+14539,2025-12-01 16:18:45,Boris Delange,delete,305,SNOMED,235423009,Insertion of nasojejunal tube,Deleted OMOP concept mapping
+14540,2025-12-01 16:18:45,Boris Delange,delete,305,SNOMED,235425002,Insertion of orogastric tube,Deleted OMOP concept mapping
+14541,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,443030008,Insertion of percutaneous gastrojejunostomy tube using radiologic guidance,Deleted OMOP concept mapping
+14542,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,265351005,Insertion of tubal prosthesis into esophagus via stomach,Deleted OMOP concept mapping
+14543,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,450351008,Insertion of tube into duodenum,Deleted OMOP concept mapping
+14544,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,450352001,Insertion of tube into jejunum,Deleted OMOP concept mapping
+14545,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,79613005,Insertion of tube into rectum,Deleted OMOP concept mapping
+14546,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,182513006,Intestinal intubation,Deleted OMOP concept mapping
+14547,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,445839007,Insertion of nasogastric feeding tube using endoscopy for upper gastrointestinal tract guidance,Deleted OMOP concept mapping
+14548,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,431493005,Insertion of nasogastric feeding tube using fluoroscopic guidance,Deleted OMOP concept mapping
+14549,2025-12-01 16:18:46,Boris Delange,delete,305,LOINC,LP418371-3,Intubation,Deleted OMOP concept mapping
+14550,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,68966003,Intubation AND aspiration,Deleted OMOP concept mapping
+14551,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,133881004,Intubation and aspiration of small intestine,Deleted OMOP concept mapping
+14552,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,16256009,Intubation and decompression of intestine,Deleted OMOP concept mapping
+14553,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,79583008,Intubation for gastric decompression,Deleted OMOP concept mapping
+14554,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,84391005,Intubation of colon,Deleted OMOP concept mapping
+14555,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,174225000,Intubation of colon for pressure manometry,Deleted OMOP concept mapping
+14556,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,440066008,Intubation of duodenum and aspiration of duodenal contents,Deleted OMOP concept mapping
+14557,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,173883006,Intubation of duodenum for pancreatic function studies,Deleted OMOP concept mapping
+14558,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,397804006,Intubation of esophagus,Deleted OMOP concept mapping
+14559,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,173675002,Intubation of esophagus for pH manometry,Deleted OMOP concept mapping
+14560,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,173676001,Intubation of esophagus for pressure manometry,Deleted OMOP concept mapping
+14561,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,235419001,Intubation of gastrointestinal tract,Deleted OMOP concept mapping
+14562,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,235430003,Intubation of gastrointestinal tract via colostomy,Deleted OMOP concept mapping
+14563,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,235431004,Intubation of gastrointestinal tract via fistula,Deleted OMOP concept mapping
+14564,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,235429008,Intubation of gastrointestinal tract via ileostomy,Deleted OMOP concept mapping
+14565,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,235428000,Intubation of gastrointestinal tract via jejunostomy,Deleted OMOP concept mapping
+14566,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,235434007,Intubation of gastrointestinal tract via large bowel fistula,Deleted OMOP concept mapping
+14567,2025-12-01 16:18:46,Boris Delange,delete,305,SNOMED,235424003,Intubation of gastrointestinal tract via mouth,Deleted OMOP concept mapping
+14568,2025-12-01 16:18:47,Boris Delange,delete,305,SNOMED,235420007,Intubation of gastrointestinal tract via nose,Deleted OMOP concept mapping
+14569,2025-12-01 16:18:47,Boris Delange,delete,305,SNOMED,235426001,Intubation of gastrointestinal tract via rectum,Deleted OMOP concept mapping
+14570,2025-12-01 16:18:47,Boris Delange,delete,305,SNOMED,235433001,Intubation of gastrointestinal tract via small bowel fistula,Deleted OMOP concept mapping
+14571,2025-12-01 16:18:47,Boris Delange,delete,305,SNOMED,235427005,Intubation of gastrointestinal tract via stoma,Deleted OMOP concept mapping
+14572,2025-12-01 16:18:47,Boris Delange,delete,305,SNOMED,235432006,Intubation of gastrointestinal tract via tube gastrostomy,Deleted OMOP concept mapping
+14573,2025-12-01 16:18:47,Boris Delange,delete,305,SNOMED,174023004,Intubation of ileum for decompression of intestine,Deleted OMOP concept mapping
+14574,2025-12-01 16:18:47,Boris Delange,delete,305,SNOMED,448696001,Intubation of ileum for function studies,Deleted OMOP concept mapping
+14575,2025-12-01 16:20:11,Boris Delange,delete,305,SNOMED,173937004,Intubation of jejunum for decompression of intestine,Deleted OMOP concept mapping
+14576,2025-12-01 16:20:11,Boris Delange,delete,305,SNOMED,173938009,Intubation of jejunum for measurement of intestinal function,Deleted OMOP concept mapping
+14577,2025-12-01 16:20:11,Boris Delange,delete,305,SNOMED,417917001,Intubation of lacrimal drainage structure,Deleted OMOP concept mapping
+14578,2025-12-01 16:20:11,Boris Delange,delete,305,SNOMED,66861000,Intubation of larynx,Deleted OMOP concept mapping
+14579,2025-12-01 16:20:11,Boris Delange,delete,305,SNOMED,418368009,Intranasal intubation of lacrimal drainage system for tear drainage,Deleted OMOP concept mapping
+14580,2025-12-01 16:20:11,Boris Delange,delete,305,SNOMED,445775002,Intubation of nasolacrimal duct,Deleted OMOP concept mapping
+14581,2025-12-01 16:20:11,Boris Delange,delete,305,SNOMED,79762000,Intubation of nasolacrimal duct with irrigation,Deleted OMOP concept mapping
+14582,2025-12-01 16:20:11,Boris Delange,delete,305,SNOMED,174305001,Intubation of rectum for pressure manometry,Deleted OMOP concept mapping
+14583,2025-12-01 16:20:12,Boris Delange,delete,305,SNOMED,26985008,Intubation of small intestine,Deleted OMOP concept mapping
+14584,2025-12-01 16:20:12,Boris Delange,delete,305,SNOMED,33120003,Intubation of stomach,Deleted OMOP concept mapping
+14585,2025-12-01 16:20:12,Boris Delange,delete,305,SNOMED,173828000,Intubation of stomach for pH manometry,Deleted OMOP concept mapping
+14586,2025-12-01 16:20:12,Boris Delange,delete,305,SNOMED,173829008,Intubation of stomach for pressure manometry,Deleted OMOP concept mapping
+14587,2025-12-01 16:20:12,Boris Delange,delete,305,SNOMED,173831004,Intubation of stomach for study of gastric secretion,Deleted OMOP concept mapping
+14588,2025-12-01 16:20:12,Boris Delange,delete,305,SNOMED,55693001,Lacrimal apparatus intubation for dilation,Deleted OMOP concept mapping
+14589,2025-12-01 16:20:12,Boris Delange,delete,305,SNOMED,440118004,Laparoscopic insertion of gastrostomy tube,Deleted OMOP concept mapping
+14590,2025-12-01 16:20:12,Boris Delange,delete,305,SNOMED,182709001,Laryngeal intubation for inhalation,Deleted OMOP concept mapping
+14591,2025-12-01 16:20:12,Boris Delange,delete,305,SNOMED,50886001,Nasogastric intubation for enteral infusion of concentrated nutritional substances,Deleted OMOP concept mapping
+14592,2025-12-01 16:20:12,Boris Delange,delete,305,SNOMED,232682004,Nasotracheal fiberoptic intubation,Deleted OMOP concept mapping
+14593,2025-12-01 16:25:51,Boris Delange,delete,305,SNOMED,173784007,Open insertion of feeding tube into stomach,Deleted OMOP concept mapping
+14594,2025-12-01 16:25:51,Boris Delange,delete,305,SNOMED,174004006,Open intubation of ileum,Deleted OMOP concept mapping
+14595,2025-12-01 16:25:51,Boris Delange,delete,305,SNOMED,173924002,Open intubation of jejunum,Deleted OMOP concept mapping
+14596,2025-12-01 16:25:51,Boris Delange,delete,305,SNOMED,116016000,Open surgical placement of gastrostomy tube,Deleted OMOP concept mapping
+14597,2025-12-01 16:25:51,Boris Delange,delete,305,SNOMED,235159007,Percutaneous endoscopic gastrostomy,Deleted OMOP concept mapping
+14598,2025-12-01 16:25:51,Boris Delange,delete,305,SNOMED,174226004,Passage of flatus tube to reduce volvulus of sigmoid colon,Deleted OMOP concept mapping
+14599,2025-12-01 16:25:51,Boris Delange,delete,305,SNOMED,29952004,Percutaneous placement of gastrostomy tube,Deleted OMOP concept mapping
+14600,2025-12-01 16:25:52,Boris Delange,delete,305,SNOMED,312341002,Permanent percutaneous endoscopic gastrostomy,Deleted OMOP concept mapping
+14601,2025-12-01 16:25:52,Boris Delange,delete,305,SNOMED,112936004,Reinsertion of holter valve,Deleted OMOP concept mapping
+14602,2025-12-01 16:25:52,Boris Delange,delete,305,SNOMED,431327000,Peroral insertion of gastrostomy tube using fluoroscopic guidance,Deleted OMOP concept mapping
+14603,2025-12-01 16:25:52,Boris Delange,delete,305,SNOMED,397892004,Retrograde intubation,Deleted OMOP concept mapping
+14604,2025-12-01 16:25:52,Boris Delange,delete,305,SNOMED,265354002,Rigid esophagoscopy and insertion of tube prosthesis,Deleted OMOP concept mapping
+14605,2025-12-01 16:25:52,Boris Delange,delete,305,SNOMED,420060005,Silicone intubation of nasolacrimal system,Deleted OMOP concept mapping
+14606,2025-12-01 16:25:52,Boris Delange,delete,305,SNOMED,312340001,Temporary percutaneous endoscopic gastrostomy,Deleted OMOP concept mapping
+14607,2025-12-01 16:25:52,Boris Delange,delete,305,SNOMED,418613003,Tracheal intubation through a laryngeal mask airway,Deleted OMOP concept mapping
+14608,2025-12-01 16:26:10,Boris Delange,delete,305,SNOMED,68683005,Ventriculocisternal intubation,Deleted OMOP concept mapping
+14609,2025-12-01 16:33:10,Boris Delange,update,305,NA,NA,Endotracheal intubation,"Updated ETL guidance comment: # Definition
+
+Endotracheal intubation is the placement of a flexible tube into the trachea to maintain an open airway and enable mechanical ventilation. This is one of the most critical procedures in intensive care medicine for airway management in patients requiring respiratory support or airway protection.
+
+# Mapping Strategy
+
+Prioritize the **most specific concept** that captures both the **route of intubation** (oral vs nasal) and the **clinical context** (emergency vs elective, awake vs sedated, standard vs difficult airway technique).
+
+For routine ICU intubations where specific details are not documented, use the generic **""Insertion of endotracheal tube""** concept.
+
+## Recommended concepts
+
+**Default and standard intubation routes:**
+
+- **Insertion of endotracheal tube** (SNOMED 112798008): Use when route, method, or clinical context are unspecified - **recommended as default for most ICU intubations**
+- **Intubation of respiratory tract** (SNOMED 447996002): Generic respiratory tract intubation (use when tracheal specificity is uncertain)
+- **Orotracheal intubation** (SNOMED 232674004): Intubation via the oral route (most common in ICU)
+- **Nasotracheal intubation** (SNOMED 232679009): Intubation via the nasal route (less common, used for specific indications)
+
+**Emergency intubation:**
+
+- **Endotracheal intubation, emergency procedure** (SNOMED 16883004): Urgent/emergent intubation (e.g., cardiac arrest, respiratory failure, trauma)
+- **Emergency laryngeal intubation** (SNOMED 182682004): Emergency airway management via laryngeal intubation
+
+**Awake intubation techniques:**
+
+- **Awake intubation** (SNOMED 304341005): Intubation performed while patient is conscious (anticipated difficult airway)
+- **Oral intubation awake** (SNOMED 232675003): Awake intubation via oral route
+- **Nasal intubation awake** (SNOMED 232680007): Awake intubation via nasal route
+
+**Specialized intubation techniques:**
+
+- **Orotracheal fiberoptic intubation** (SNOMED 232678001): Fiberoptic-guided oral intubation (difficult airway management)
+- **Nasotracheal fiberoptic intubation** (SNOMED 232682004): Fiberoptic-guided nasal intubation
+- **Insertion of endotracheal tube using laryngoscope** (SNOMED 429161001): Direct laryngoscopy-guided intubation (standard technique)
+- **Tracheal intubation using rigid bronchoscope** (SNOMED 232677006): Rigid bronchoscopy-assisted intubation (rare, difficult airway)
+- **Blind nasal intubation** (SNOMED 232681006): Nasal intubation without direct visualization (uncommon technique)
+- **Digital assisted intubation** (SNOMED 427331009): Blind digital/tactile intubation (rare emergency technique)
+
+**Surgical airway procedures:**
+
+- **Cricothyroidotomy tube insertion** (SNOMED 232683009): Emergency surgical airway through cricothyroid membrane
+- **Scalpel bougie cricothyroidotomy** (SNOMED 785906002): Surgical cricothyroidotomy using scalpel-bougie technique (failed intubation)
+- **Minitrach insertion** (SNOMED 232684003): Percutaneous cricothyroidotomy (narrower catheter for oxygenation/suctioning)
+
+**Tracheostomy tube procedures:**
+
+- **Insertion of tracheostomy tube** (SNOMED 232685002): Placement of tube through established tracheostomy stoma (not initial tracheostomy creation)
+- **Insertion of tracheal T-tube** (SNOMED 232686001): Insertion of Montgomery T-tube (post-laryngectomy or tracheal stenosis)
+
+**Specialized tubes:**
+
+- **Insertion of double lumen tracheobronchial tube** (SNOMED 733509002): Double-lumen endobronchial tube for lung isolation (thoracic surgery, one-lung ventilation)
+
+**Intubation quality indicators (LOINC observations):**
+
+- **Difficult intubation** (LOINC 95050-1): Observation/documentation that intubation was difficult (Cormack-Lehane grade 3-4, multiple attempts, etc.)
+- **Unplanned intubation** (LOINC LA20580-9): Observation/event indicating unplanned/emergent intubation (quality metric)
+
+## Not recommended for routine ICU airway management
+
+**Non-airway tube insertions:**
+
+- **Insertion of nasoduodenal tube** (SNOMED 235422004): Feeding tube placement into duodenum - this is NOT an airway procedure
+- **Percutaneous endoscopic insertion of gastrostomy tube using fluoroscopic guidance** (SNOMED 433243001): PEG tube placement - NOT an airway procedure
+- **Dilation of nasolacrimal duct with insertion of tube or stent** (SNOMED 47418008): Ophthalmologic lacrimal duct procedure - NOT an airway procedure
+
+**Important:** These three concepts are **NOT intubation procedures** and should not be used for documenting airway management. They represent feeding tube and lacrimal procedures that were incorrectly associated with this general concept.
+
+# Clinical Context
+
+**For ICU/critical care intubation:**
+- Use **""Insertion of endotracheal tube""** (SNOMED 112798008) as the default when specific route or technique is not documented
+- Use **""Orotracheal intubation""** for oral route when documented
+- Use **""Emergency intubation""** concepts for urgent intubations (cardiac arrest, respiratory failure, shock)
+- Document difficult intubation separately using **""Difficult intubation""** (LOINC 95050-1) observation
+
+**For anticipated difficult airway:**
+- Use **""Awake intubation""** concepts when patient is conscious during the procedure
+- Use **fiberoptic intubation** concepts when flexible bronchoscopy is used for guidance
+
+**For failed intubation (cannot intubate, cannot ventilate):**
+- Use **cricothyroidotomy** concepts for emergency surgical airway
+
+**For thoracic surgery/one-lung ventilation:**
+- Use **""Insertion of double lumen tracheobronchial tube""** for lung isolation procedures
+
+# Important Notes
+
+- **Orotracheal intubation is the most common route in ICU** - nasotracheal intubation is typically avoided due to risk of sinusitis and longer duration
+- **Document intubation as a procedure**, not as a device exposure - the presence of an endotracheal tube over time should be captured as device exposure
+- **Reintubation** (extubation followed by reintubation within 48-72 hours) should be captured as a new intubation procedure with **""Unplanned intubation""** observation
+- **Cricothyroidotomy is a last-resort emergency surgical airway** for ""cannot intubate, cannot ventilate"" scenarios
+- **Tracheostomy tube insertion** refers to tube placement through an established stoma, not the surgical tracheostomy creation itself
+- The three concepts related to feeding tubes (nasoduodenal, gastrostomy) and lacrimal ducts are **mapping errors** and should be removed from this general concept"
+14610,2025-12-01 16:33:10,Boris Delange,delete,305,SNOMED,235422004,Insertion of nasoduodenal tube,Deleted OMOP concept mapping
+14611,2025-12-01 16:33:10,Boris Delange,delete,305,SNOMED,47418008,Dilation of nasolacrimal duct with insertion of tube or stent,Deleted OMOP concept mapping
+14612,2025-12-01 16:33:35,Boris Delange,delete,305,SNOMED,433243001,Percutaneous endoscopic insertion of gastrostomy tube using fluoroscopic guidance,Deleted OMOP concept mapping
+14613,2025-12-01 16:49:01,Boris Delange,update,305,NA,NA,Endotracheal intubation,"Updated ETL guidance comment: # Definition
+
+Endotracheal intubation is the placement of a flexible tube into the trachea to maintain an open airway and enable mechanical ventilation. This is one of the most critical procedures in intensive care medicine for airway management in patients requiring respiratory support or airway protection.
+
+# Mapping Strategy
+
+Prioritize the **most specific concept** that captures the **route** (oral vs nasal), **technique** (direct laryngoscopy, fiberoptic, etc.), and **clinical context** (emergency, awake, etc.).
+
+**For complex intubation scenarios**, use multiple concepts linked via **OMOP FACT_RELATIONSHIP** table to capture different dimensions:
+- Base procedure (route + technique)
+- Clinical context (emergency, difficult, unplanned)
+- Specialized equipment or approach
+
+## Recommended concepts
+
+**Default and standard intubation routes:**
+
+- **Insertion of endotracheal tube** (SNOMED 112798008): Generic endotracheal intubation - use when route/technique are unspecified
+- **Intubation of respiratory tract** (SNOMED 447996002): Generic respiratory tract intubation (use when tracheal specificity is uncertain)
+- **Orotracheal intubation** (SNOMED 232674004): Intubation via the oral route (most common in ICU)
+- **Nasotracheal intubation** (SNOMED 232679009): Intubation via the nasal route
+
+**Standard intubation techniques:**
+
+- **Insertion of endotracheal tube using laryngoscope** (SNOMED 429161001): Direct laryngoscopy-guided intubation (most common technique)
+- **Orotracheal fiberoptic intubation** (SNOMED 232678001): Fiberoptic-guided oral intubation
+- **Blind nasal intubation** (SNOMED 232681006): Nasal intubation without direct visualization
+- **Digital assisted intubation** (SNOMED 427331009): Blind digital/tactile intubation (rare emergency technique)
+- **Tracheal intubation using rigid bronchoscope** (SNOMED 232677006): Rigid bronchoscopy-assisted intubation
+
+**Clinical context modifiers:**
+
+- **Emergency laryngeal intubation** (SNOMED 182682004): Emergency airway management
+- **Endotracheal intubation, emergency procedure** (SNOMED 16883004): Urgent/emergent endotracheal intubation
+- **Awake intubation** (SNOMED 304341005): Intubation performed while patient is conscious
+- **Oral intubation awake** (SNOMED 232675003): Awake intubation via oral route
+- **Nasal intubation awake** (SNOMED 232680007): Awake intubation via nasal route
+
+**Quality indicators (observations to link via FACT_RELATIONSHIP):**
+
+- **Difficult intubation** (LOINC 95050-1): Observation that intubation was difficult (Cormack-Lehane grade 3-4, multiple attempts, rescue devices)
+- **Unplanned intubation** (LOINC 36309319): Unplanned/emergent intubation event (quality metric, e.g., reintubation within 48-72 hours)
+
+**Surgical airway procedures:**
+
+- **Cricothyroidotomy tube insertion** (SNOMED 232683009): Emergency surgical airway through cricothyroid membrane
+- **Scalpel bougie cricothyroidotomy** (SNOMED 785906002): Surgical cricothyroidotomy using scalpel-bougie technique
+- **Minitrach insertion** (SNOMED 232684003): Percutaneous cricothyroidotomy (narrow catheter)
+
+**Tracheostomy tube procedures:**
+
+- **Insertion of tracheostomy tube** (SNOMED 232685002): Placement of tube through established tracheostomy stoma
+- **Insertion of tracheal T-tube** (SNOMED 232686001): Insertion of Montgomery T-tube
+
+**Specialized tubes:**
+
+- **Insertion of double lumen tracheobronchial tube** (SNOMED 733509002): Double-lumen tube for lung isolation (thoracic surgery)
+
+# Using FACT_RELATIONSHIP to Link Concepts
+
+For complex intubation scenarios, create **multiple records** and link them using the **FACT_RELATIONSHIP** table. This approach captures clinical nuance while maintaining data structure.
+
+## Example 1: Difficult Emergency Intubation
+
+**Clinical scenario:** Patient in respiratory failure requires emergency intubation. Multiple attempts with direct laryngoscopy were needed (Cormack-Lehane grade 3).
+
+**Records to create:**
+
+**PROCEDURE_OCCURRENCE table:**
+- procedure_concept_id = 429161001 (Insertion of endotracheal tube using laryngoscope)
+- procedure_occurrence_id = 10001
+
+**PROCEDURE_OCCURRENCE table:**
+- procedure_concept_id = 16883004 (Endotracheal intubation, emergency procedure)
+- procedure_occurrence_id = 10002
+
+**OBSERVATION table:**
+- observation_concept_id = 36660691 (Difficult intubation)
+- observation_occurrence_id = 20001
+
+**FACT_RELATIONSHIP table:**
+- domain_concept_id_1 = 27 (Procedure)
+- fact_id_1 = 10001
+- domain_concept_id_2 = 27 (Procedure)
+- fact_id_2 = 10002
+- relationship_concept_id = 44818790 (Has procedure context)
+
+**FACT_RELATIONSHIP table:**
+- domain_concept_id_1 = 27 (Procedure)
+- fact_id_1 = 10001
+- domain_concept_id_2 = 27 (Observation)
+- fact_id_2 = 20001
+- relationship_concept_id = 44818791 (Has temporal context)
+
+**Interpretation:** Emergency intubation performed via direct laryngoscopy, complicated by difficult airway.
+
+## Example 2: Unplanned Reintubation After Extubation
+
+**Clinical scenario:** Patient extubated in the morning, develops respiratory distress 8 hours later and requires reintubation (quality metric: unplanned intubation).
+
+**Records to create:**
+
+**PROCEDURE_OCCURRENCE table (extubation):**
+- procedure_concept_id = [concept from general concept **Extubation**]
+- procedure_occurrence_id = 10003
+- procedure_datetime = [morning time]
+
+**PROCEDURE_OCCURRENCE table (reintubation):**
+- procedure_concept_id = 4335481 (Orotracheal intubation)
+- procedure_occurrence_id = 10004
+- procedure_datetime = [8 hours later]
+
+**OBSERVATION table:**
+- observation_concept_id = 36309319 (Unplanned intubation)
+- observation_occurrence_id = 20002
+
+**FACT_RELATIONSHIP table:**
+- domain_concept_id_1 = 27 (Procedure)
+- fact_id_1 = 10004
+- domain_concept_id_2 = 27 (Observation)
+- fact_id_2 = 20002
+- relationship_concept_id = 44818791 (Has temporal context)
+
+**FACT_RELATIONSHIP table:**
+- domain_concept_id_1 = 27 (Procedure)
+- fact_id_1 = 10003
+- domain_concept_id_2 = 27 (Procedure)
+- fact_id_2 = 10004
+- relationship_concept_id = 45905793 (Followed by)
+
+**Interpretation:** Orotracheal reintubation following extubation, documented as unplanned event for quality monitoring. The temporal relationship between extubation and reintubation is captured via FACT_RELATIONSHIP.
+
+## Example 3: Awake Fiberoptic Intubation for Anticipated Difficult Airway
+
+**Clinical scenario:** Patient with suspected difficult airway (neck mass, limited mouth opening) undergoes awake fiberoptic nasal intubation.
+
+**Records to create:**
+
+**PROCEDURE_OCCURRENCE table:**
+- procedure_concept_id = 232678001 (Orotracheal fiberoptic intubation)
+- procedure_occurrence_id = 10005
+
+**PROCEDURE_OCCURRENCE table:**
+- procedure_concept_id = 232680007 (Nasal intubation awake)
+- procedure_occurrence_id = 10006
+
+**FACT_RELATIONSHIP table:**
+- domain_concept_id_1 = 27 (Procedure)
+- fact_id_1 = 10005
+- domain_concept_id_2 = 27 (Procedure)
+- fact_id_2 = 10006
+- relationship_concept_id = 44818790 (Has procedure context)
+
+**Interpretation:** Awake nasal intubation using fiberoptic technique.
+
+## Example 4: Failed Intubation → Emergency Cricothyroidotomy
+
+**Clinical scenario:** Multiple failed intubation attempts (cannot intubate, cannot ventilate) leading to emergency surgical cricothyroidotomy.
+
+**Records to create:**
+
+**OBSERVATION table:**
+- observation_concept_id = 36660691 (Difficult intubation)
+- observation_occurrence_id = 20003
+
+**PROCEDURE_OCCURRENCE table (successful rescue airway):**
+- procedure_concept_id = 37206251 (Scalpel bougie cricothyroidotomy)
+- procedure_occurrence_id = 10007
+
+**FACT_RELATIONSHIP table:**
+- domain_concept_id_1 = 27 (Procedure)
+- fact_id_1 = 10007
+- domain_concept_id_2 = 27 (Observation)
+- fact_id_2 = 20003
+- relationship_concept_id = 44818791 (Has temporal context)
+
+**Interpretation:** Failed difficult intubation requiring emergency cricothyroidotomy. The difficult intubation observation is linked to the rescue cricothyroidotomy procedure.
+
+## Example 5: Routine ICU Intubation (Simple Case)
+
+**Clinical scenario:** Standard orotracheal intubation via direct laryngoscopy, no complications.
+
+**Records to create:**
+
+**PROCEDURE_OCCURRENCE table:**
+- procedure_concept_id = 429161001 (Insertion of endotracheal tube using laryngoscope)
+- procedure_occurrence_id = 10008
+
+**Alternative:**
+- procedure_concept_id = 4335481 (Orotracheal intubation)
+
+**Interpretation:** Single procedure record sufficient when no complications or special context.
+
+# Clinical Context
+
+**For routine ICU intubation:**
+- Use single procedure concept: **""Insertion of endotracheal tube using laryngoscope""** or **""Orotracheal intubation""**
+- No FACT_RELATIONSHIP needed unless complications occur
+
+**For complicated intubations:**
+- Use base procedure + clinical context modifiers linked via FACT_RELATIONSHIP
+- Example: Base = ""Orotracheal intubation"" + Context = ""Emergency procedure"" + Observation = ""Difficult intubation""
+
+**For emergency intubations:**
+- Link emergency context using **""Endotracheal intubation, emergency procedure""** or **""Emergency laryngeal intubation""**
+
+# Important Notes
+
+- **Use FACT_RELATIONSHIP liberally** to capture clinical complexity without creating overly specific pre-coordinated concepts
+- **Document intubation as a procedure**, not as a device exposure - the presence of an endotracheal tube over time should be captured separately as device exposure
+- **Reintubation** should be captured as a new procedure with ""Unplanned intubation"" observation linked via FACT_RELATIONSHIP, and linked to the preceding extubation procedure using the general concept **Extubation**"
+14614,2025-12-01 16:49:24,Boris Delange,recommend,305,SNOMED,304341005,Awake intubation,Marked as recommended
+14615,2025-12-01 16:49:24,Boris Delange,recommend,305,SNOMED,232681006,Blind nasal intubation,Marked as recommended
+14616,2025-12-01 16:49:24,Boris Delange,recommend,305,SNOMED,232683009,Cricothyroidotomy tube insertion,Marked as recommended
+14617,2025-12-01 16:49:24,Boris Delange,recommend,305,LOINC,95050-1,Difficult intubation,Marked as recommended
+14618,2025-12-01 16:49:24,Boris Delange,recommend,305,SNOMED,427331009,Digital assisted intubation,Marked as recommended
+14619,2025-12-01 16:49:24,Boris Delange,recommend,305,SNOMED,182682004,Emergency laryngeal intubation,Marked as recommended
+14620,2025-12-01 16:49:24,Boris Delange,recommend,305,SNOMED,16883004,"Endotracheal intubation, emergency procedure",Marked as recommended
+14621,2025-12-01 16:49:24,Boris Delange,recommend,305,SNOMED,733509002,Insertion of double lumen tracheobronchial tube,Marked as recommended
+14622,2025-12-01 16:49:24,Boris Delange,recommend,305,SNOMED,112798008,Insertion of endotracheal tube,Marked as recommended
+14623,2025-12-01 16:49:24,Boris Delange,recommend,305,SNOMED,429161001,Insertion of endotracheal tube using laryngoscope,Marked as recommended
+14624,2025-12-01 16:49:24,Boris Delange,recommend,305,SNOMED,232686001,Insertion of tracheal T-tube,Marked as recommended
+14625,2025-12-01 16:49:25,Boris Delange,recommend,305,SNOMED,232685002,Insertion of tracheostomy tube,Marked as recommended
+14626,2025-12-01 16:49:25,Boris Delange,recommend,305,SNOMED,447996002,Intubation of respiratory tract,Marked as recommended
+14627,2025-12-01 16:49:25,Boris Delange,recommend,305,SNOMED,232684003,Minitrach insertion,Marked as recommended
+14628,2025-12-01 16:49:25,Boris Delange,recommend,305,SNOMED,232680007,Nasal intubation awake,Marked as recommended
+14629,2025-12-01 16:49:25,Boris Delange,recommend,305,SNOMED,232679009,Nasotracheal intubation,Marked as recommended
+14630,2025-12-01 16:49:25,Boris Delange,recommend,305,SNOMED,232675003,Oral intubation awake,Marked as recommended
+14631,2025-12-01 16:49:25,Boris Delange,recommend,305,SNOMED,232678001,Orotracheal fiberoptic intubation,Marked as recommended
+14632,2025-12-01 16:49:25,Boris Delange,recommend,305,SNOMED,232674004,Orotracheal intubation,Marked as recommended
+14633,2025-12-01 16:49:25,Boris Delange,recommend,305,SNOMED,785906002,Scalpel bougie cricothyroidotomy,Marked as recommended
+14634,2025-12-01 16:49:25,Boris Delange,recommend,305,SNOMED,232677006,Tracheal intubation using rigid bronchoscope,Marked as recommended
+14635,2025-12-01 16:49:25,Boris Delange,recommend,305,LOINC,LA20580-9,Unplanned intubation,Marked as recommended

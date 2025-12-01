@@ -339,3 +339,7 @@ history_id,timestamp,username,action_type,category,subcategory,general_concept_n
 341,2025-12-01 13:09:06,Boris Delange,insert,Ventilation,Airway device,Endotracheal tube diameter,Created concept 'Endotracheal tube diameter' in category 'Ventilation' > 'Airway device'
 342,2025-12-01 14:23:37,Boris Delange,update,Ventilation,Oxygenation,Fraction of inspired oxygen (FiO2),Updated general_concept_name from 'FiO2' to 'Fraction of inspired oxygen (FiO2)'
 343,2025-12-01 14:25:57,Boris Delange,update,Vitals,Ventilatory,Oxygen saturation (SpO2),Updated general_concept_name from 'Oxygen saturation' to 'Oxygen saturation (SpO2)'
+344,2025-12-01 15:13:30,Boris Delange,insert,Ventilation,Airway device,test,Created concept 'test' in category 'Ventilation' > 'Airway device'
+345,2025-12-01 15:29:23,Boris Delange,delete,Ventilation,Airway device,test,Deleted concept 'test' from category 'Ventilation' > 'Airway device'
+346,2025-12-01 16:05:14,Boris Delange,insert,Ventilation,Airway device,Airway device change,Created concept 'Airway device change' in category 'Ventilation' > 'Airway device'
+347,2025-12-01 16:27:10,Boris Delange,update,Ventilation,Ventilation device,Endotracheal intubation,Updated general_concept_name from 'Intubation' to 'Endotracheal intubation'
