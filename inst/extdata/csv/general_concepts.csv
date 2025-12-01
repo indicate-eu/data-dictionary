@@ -928,9 +928,104 @@ For complex ventilation strategies involving mode changes or adjunct therapies, 
 310,Ventilation,Ventilation parameters,Breath cycle timing,NA,NA
 311,Ventilation,Ventilation parameters,Carbon dioxide production,NA,NA
 312,Ventilation,Ventilation parameters,End tidal carbone dioxyde concentration,NA,NA
-313,Ventilation,Ventilation parameters,Horowitz index,NA,NA
-314,Ventilation,Ventilation parameters,Inspiratory pressure setting,NA,NA
-315,Ventilation,Ventilation parameters,Lung compliance,NA,NA
+313,Ventilation,Ventilation parameters,Horowitz index,"# Definition
+
+The Horowitz index (also known as PaO2/FiO2 ratio or P/F ratio) is a measure of oxygenation efficiency calculated as the ratio of partial pressure of oxygen in arterial blood (PaO2) to the fraction of inspired oxygen (FiO2), expressed in **mmHg** when FiO2 is expressed as a decimal (e.g., 0.4 for 40% oxygen). Normal values range approximately from 400-500 mmHg in healthy adults at sea level.
+
+**Calculation:** Horowitz index = PaO2 (mmHg) / FiO2 (decimal)
+
+# Mapping Strategy
+
+Prioritize using the arterial blood specimen concept (most clinically relevant for ARDS assessment). Use temperature-corrected concepts only when blood gas values were temperature-corrected by the analyzer for hypothermic or hyperthermic patients.
+
+**Important:** The Horowitz index can be calculated directly from its component values (PaO2 from blood gas analysis and FiO2 from ventilator settings). **Calculating from the original component values is more accurate** than using a pre-calculated stored value, as it ensures you start from the true initial measurements.
+
+## Recommended concepts
+
+**Default and arterial blood concepts:**
+
+- **Horowitz index in Arterial blood** (LOINC 3029943): Use for arterial blood gas measurements (standard for ARDS assessment and severity scoring)
+- **Horowitz index adjusted to patients actual temperature in Arterial blood** (LOINC 3029268): Use when PaO2 was temperature-corrected for hypothermic or hyperthermic patients
+
+**Alternative specimen types (less common):**
+
+- **Horowitz index in Blood** (LOINC 3029880): Generic blood specimen (use when arterial vs venous distinction is unavailable)
+- **Horowitz index in Capillary blood** (LOINC 3030774): Capillary blood gas sample
+- **Horowitz index in Mixed venous blood** (LOINC 3029599): Mixed venous blood (from pulmonary artery catheter)
+- **Horowitz index in Venous blood** (LOINC 3029316): Venous blood gas sample
+
+**Temperature-corrected concepts (for hypothermic/hyperthermic patients):**
+
+- **Horowitz index adjusted to patients actual temperature in Blood** (LOINC 3029906): Temperature-corrected, generic blood specimen
+- **Horowitz index adjusted to patients actual temperature in Capillary blood** (LOINC 3032208): Temperature-corrected, capillary blood
+- **Horowitz index adjusted to patients actual temperature in Mixed venous blood** (LOINC 3029523): Temperature-corrected, mixed venous blood
+- **Horowitz index adjusted to patients actual temperature in Venous blood** (LOINC 3032443): Temperature-corrected, venous blood
+
+# Important Notes
+
+- **ARDS severity classification (Berlin definition)**: Mild ARDS = 200-300 mmHg; Moderate ARDS = 100-200 mmHg; Severe ARDS = <100 mmHg. Values >300 mmHg are not consistent with ARDS
+- **Calculation from components is preferred**: Rather than storing pre-calculated Horowitz index values, calculate directly from PaO2 (from blood gas analysis) and FiO2 (from ventilator settings) to ensure accuracy and traceability to source measurements
+- The P/F ratio is widely used in severity scoring systems (APACHE IV, SOFA, SAPS-II, SAPS-III) to assess respiratory function
+- **Temperature correction**: Blood gas analyzers typically warm blood to 37°C before analysis. Temperature-corrected values are primarily relevant for hypothermic or hyperthermic patients, where temperature significantly affects gas solubility
+- **Arterial blood is standard**: Use arterial blood gas measurements for ARDS assessment and clinical decision-making. Venous or capillary measurements are not equivalent and should not be used for ARDS classification
+- Example calculation: A patient on FiO2 0.6 (60%) with PaO2 of 120 mmHg has a Horowitz index of 120 / 0.6 = 200 mmHg (moderate ARDS)",NA
+314,Ventilation,Ventilation parameters,Inspiratory pressure setting,"# Definition
+
+Inspiratory pressure setting refers to the target pressure set on a mechanical ventilator to be delivered during inspiration, expressed in **cmH2O** or **mmHg**. This parameter is used in pressure-controlled ventilation modes and noninvasive ventilation (IPAP in BiPAP/NIV). Typical ICU settings range from 10-25 cmH2O above PEEP/EPAP.
+
+# Mapping Strategy
+
+Use the single SNOMED concept for inspiratory pressure setting. This represents the prescribed/set inspiratory pressure, not measured peak or plateau pressure.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Inspiratory pressure setting** (SNOMED 4215838): Use for all inspiratory pressure settings on mechanical ventilators
+
+# Important Notes
+
+- **Pressure-controlled modes**: In pressure-controlled ventilation (PCV), pressure-support ventilation (PSV), or bilevel modes, this is the target inspiratory pressure set on the ventilator. Tidal volume will vary based on patient compliance and resistance
+- **Noninvasive ventilation**: In BiPAP/NIV, this corresponds to IPAP (Inspiratory Positive Airway Pressure). The difference between IPAP and EPAP determines tidal volume
+- **Relationship to other pressures**: Inspiratory pressure setting = Pressure Support + PEEP (in pressure support modes). For example, if PEEP is 5 cmH2O and pressure support is 10 cmH2O, inspiratory pressure setting is 15 cmH2O
+- Do not confuse with peak inspiratory pressure (PIP), which is the measured maximum pressure during inspiration, or plateau pressure (Pplat), which is measured during inspiratory pause
+- Unit conversion: 1 cmH2O ≈ 0.74 mmHg (or 1 mmHg ≈ 1.36 cmH2O)",NA
+315,Ventilation,Ventilation parameters,Lung compliance,"# Definition
+
+Lung compliance is a measure of the lung's ability to stretch and expand, expressed as the change in lung volume per unit change in pressure, in **mL/cmH2O**. Normal static compliance in mechanically ventilated adults ranges approximately from 70-100 mL/cmH2O.
+
+# Mapping Strategy
+
+Prioritize distinguishing between static compliance (measured without airflow, reflects only elastic properties) and dynamic compliance (measured during active breathing, includes both elastic properties and airway resistance). Use the generic lung compliance concept only when the measurement method is unspecified.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Lung compliance** (SNOMED 4298264): Use when static vs dynamic distinction is unavailable
+- **Lung compliance** (LOINC 21490581): LOINC equivalent for generic lung compliance
+
+**Static compliance (preferred for ARDS monitoring):**
+
+- **Static lung compliance** (SNOMED 4090322): Measured during inspiratory pause with no airflow, reflects pure elastic properties
+- **Compliance.static Lung** (LOINC 21490583): LOINC equivalent for static compliance
+
+**Dynamic compliance:**
+
+- **Dynamic compliance** (SNOMED 4090654): Measured during normal breathing between points of zero flow, includes elastic properties and airway resistance
+- **Dynamic lung compliance** (LOINC 21490582): LOINC equivalent for dynamic compliance
+- **Total dynamic compliance** (SNOMED 4353624): Dynamic compliance of the entire respiratory system (lung + chest wall)
+
+**Specialized concept:**
+
+- **Specific compliance (lung)** (SNOMED 4090655): Compliance normalized by lung volume (typically Functional Residual Capacity - FRC, the volume of air remaining in lungs after normal expiration), expressed in **cmH2O⁻¹**, used to compare patients of different sizes
+
+# Important Notes
+
+- **Static vs dynamic compliance**: Static compliance (Cstat) is measured during inspiratory pause with no airflow and reflects only elastic properties: Cstat = Tidal Volume / (Plateau Pressure - PEEP). Dynamic compliance (Cdyn) is measured during active breathing and includes both elastic properties and airway resistance: Cdyn = Tidal Volume / (Peak Inspiratory Pressure - PEEP)
+- Dynamic compliance is always lower than static compliance due to airway resistance contribution
+- Normal values: Static compliance ~70-100 mL/cmH2O; Dynamic compliance ~50-80 mL/cmH2O; Specific compliance ~0.05 cmH2O⁻¹
+- Low static compliance indicates decreased lung or chest wall elasticity (pulmonary fibrosis, ARDS, pneumothorax, pleural effusion)",NA
 316,Ventilation,Ventilation parameters,Mean airway pressure,"# Definition
 
 Mean airway pressure (MAP or Pmean) is the average pressure in the airways throughout the entire respiratory cycle (inspiration and expiration), expressed in **cmH2O** or **mmHg**. Typical ICU values range approximately from 8-20 cmH2O.
