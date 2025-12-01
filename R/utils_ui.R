@@ -148,8 +148,10 @@ get_default_statistical_summary_template <- function() {
   "statistical_data": {
     "min": null,
     "max": null,
-    "median": null,
     "mean": null,
+    "median": null,
+    "sd": null,
+    "cv": null,
     "p5": null,
     "p25": null,
     "p75": null,

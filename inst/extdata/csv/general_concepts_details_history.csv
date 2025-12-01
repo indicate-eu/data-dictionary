@@ -16572,3 +16572,251 @@ Joint temperature concepts (e.g., knee joint temperature, ankle joint temperatur
 
 - **Core vs peripheral temperature**: Core temperature (rectal, esophageal, bladder, blood) reflects true internal body temperature and is preferred for critically ill patients. Peripheral measurements (oral, axillary, forehead) may underestimate core temperature in hypothermia, shock, or severe peripheral vasoconstriction
 - Extremity temperatures (foot, hand, toe, finger) are primarily used for assessing peripheral perfusion (cold extremities suggest poor perfusion) rather than monitoring core body temperature"
+14378,2025-12-01 11:16:28,Boris Delange,delete,331,LOINC,9187-6,Urine output,Deleted OMOP concept mapping
+14379,2025-12-01 11:16:28,Boris Delange,insert,331,LOINC,9187-6,Urine output,Added OMOP concept mapping
+14380,2025-12-01 11:16:28,Boris Delange,insert,331,SNOMED,364202003,Measure of urine output,Added OMOP concept mapping
+14381,2025-12-01 11:16:28,Boris Delange,insert,331,SNOMED,60309003,Diuresis,Added OMOP concept mapping
+14382,2025-12-01 11:16:28,Boris Delange,insert,331,SNOMED,167578005,Measurement of urine volume over 6 hours,Added OMOP concept mapping
+14383,2025-12-01 11:16:28,Boris Delange,insert,331,LOINC,9189-2,Urine output 8 hour,Added OMOP concept mapping
+14384,2025-12-01 11:16:28,Boris Delange,insert,331,LOINC,9192-6,Urine output 24 hour,Added OMOP concept mapping
+14385,2025-12-01 11:16:28,Boris Delange,insert,331,LOINC,9191-8,Urine output 12 hour,Added OMOP concept mapping
+14386,2025-12-01 11:16:28,Boris Delange,insert,331,LOINC,9190-0,Urine output 10 hour,Added OMOP concept mapping
+14387,2025-12-01 11:16:28,Boris Delange,insert,331,LOINC,9188-4,Urine output 1 hour,Added OMOP concept mapping
+14388,2025-12-01 11:18:07,Boris Delange,recommend,331,SNOMED,60309003,Diuresis,Marked as recommended
+14389,2025-12-01 11:18:08,Boris Delange,recommend,331,SNOMED,364202003,Measure of urine output,Marked as recommended
+14390,2025-12-01 11:18:08,Boris Delange,recommend,331,SNOMED,167578005,Measurement of urine volume over 6 hours,Marked as recommended
+14391,2025-12-01 11:18:08,Boris Delange,recommend,331,SNOMED,1027231000000106,Other urine volume,Marked as recommended
+14392,2025-12-01 11:18:08,Boris Delange,recommend,331,LOINC,9187-6,Urine output,Marked as recommended
+14393,2025-12-01 11:18:08,Boris Delange,recommend,331,LOINC,9188-4,Urine output 1 hour,Marked as recommended
+14394,2025-12-01 11:18:08,Boris Delange,recommend,331,LOINC,9190-0,Urine output 10 hour,Marked as recommended
+14395,2025-12-01 11:18:08,Boris Delange,recommend,331,LOINC,9191-8,Urine output 12 hour,Marked as recommended
+14396,2025-12-01 11:18:08,Boris Delange,recommend,331,LOINC,9192-6,Urine output 24 hour,Marked as recommended
+14397,2025-12-01 11:18:08,Boris Delange,recommend,331,LOINC,9189-2,Urine output 8 hour,Marked as recommended
+14398,2025-12-01 11:20:14,Boris Delange,unrecommend,331,LOINC,9188-4,Urine output 1 hour,Unmarked as recommended
+14399,2025-12-01 11:20:14,Boris Delange,unrecommend,331,LOINC,9190-0,Urine output 10 hour,Unmarked as recommended
+14400,2025-12-01 11:20:14,Boris Delange,unrecommend,331,LOINC,9191-8,Urine output 12 hour,Unmarked as recommended
+14401,2025-12-01 11:20:14,Boris Delange,unrecommend,331,LOINC,9192-6,Urine output 24 hour,Unmarked as recommended
+14402,2025-12-01 11:20:15,Boris Delange,unrecommend,331,LOINC,9189-2,Urine output 8 hour,Unmarked as recommended
+14403,2025-12-01 11:20:15,Boris Delange,unrecommend,331,SNOMED,395060000,24 hour urine output,Unmarked as recommended
+14404,2025-12-01 11:23:27,Boris Delange,update,331,NA,NA,Urine output,"Updated ETL guidance comment: # Definition
+
+Urine output represents the volume of urine produced and collected over a specified time period, expressed in **milliliters (mL)** or **liters (L)**. Normal urine output in adults ranges approximately from 800-2000 mL per 24 hours.
+
+# Mapping Strategy
+
+LOINC and SNOMED distinguish urine output measurements by **collection method** (urethral catheter, nephrostomy, spontaneous void) and **time interval** (point in time, hourly, 24 hours). For most ICU use cases, prioritize **point-in-time measurements** with accurate timestamps over pre-aggregated time intervals, as time-based aggregations (hourly, 8-hour, 24-hour totals) can be calculated from individual timestamped measurements.
+
+Prioritize the **collection method** over time intervals, and use point-in-time measurements rather than pre-aggregated intervals.
+
+## Recommended concepts
+
+**Default concepts (point-in-time measurements):**
+
+- **Urine output** (LOINC 9187-6): Generic urine output measurement at a point in time (collection method unspecified)
+- **Measure of urine output** (SNOMED 364202003): SNOMED equivalent for urine output measurement
+- **Diuresis** (SNOMED 60309003): Medical term for urine production/excretion
+- **Urine volume** (SNOMED 993701000000102): Total urine volume collected at a point in time
+
+**Collection method-specific concepts:**
+
+- **Urine output by in and out urethral catheter** (LOINC 9195-9): Urine collected via indwelling urinary catheter (Foley catheter, most common in ICU)
+- **Urine output measured by nephrostomy** (LOINC 79549-2): Urine collected via nephrostomy tube (percutaneous kidney drainage)
+- **Other urine volume** (SNOMED 1027231000000106): Urine volume from alternative collection methods (e.g., external catheter, bedpan, urinal)
+
+## Not recommended for routine use
+
+**Pre-aggregated time intervals:**
+
+Use these concepts **only when point-in-time measurements with accurate timestamps are unavailable**. For most ICU use cases, record each urine output measurement as a point-in-time value with timestamp; time-based aggregations (hourly, 8-hour, 24-hour totals) can be calculated from individual timestamped measurements with greater precision.
+
+Pre-aggregated time interval concepts are less precise because:
+- They lose granular timing information (cannot reconstruct exact measurement times)
+- They cannot accommodate variable collection intervals (e.g., 1.5 hours, 3 hours)
+- They complicate trending and rate calculations
+
+**Time interval concepts:**
+
+- **Urine output 1 hour** (LOINC 9188-4): Pre-aggregated hourly urine output
+- **Measurement of urine volume over 6 hours** (SNOMED 167578005): Pre-aggregated 6-hour measurement
+- **Urine output 8 hour** (LOINC 9189-2): Pre-aggregated 8-hour urine output
+- **Urine output 10 hour** (LOINC 9190-0): Pre-aggregated 10-hour urine output
+- **Urine output 12 hour** (LOINC 9191-8): Pre-aggregated 12-hour urine output
+- **Urine output 24 hour** (LOINC 9192-6): Pre-aggregated 24-hour urine output
+- **24 hour urine output** (SNOMED 395060000): SNOMED equivalent for pre-aggregated 24-hour measurement
+
+# Important Notes
+
+- **Point-in-time vs aggregated measurements**: Prefer recording each urine output measurement with accurate timestamp (point-in-time). Time-based aggregations (hourly rate, 24-hour total) can be calculated from timestamped data with greater flexibility and precision
+- **Collection method matters**: Always specify collection method when known (indwelling catheter, nephrostomy, spontaneous void). This affects interpretation: catheter output is continuous and accurate, while bedpan/urinal collections may miss small voids"
+14405,2025-12-01 13:08:12,Boris Delange,update,327,NA,NA,Heart rate,"Updated statistical summary JSON: {
+  ""data_types"": [""numeric""],
+  ""statistical_data"": {
+    ""min"": null,
+    ""max"": null,
+    ""median"": null,
+    ""mean"": null,
+    ""p5"": null,
+    ""p25"": null,
+    ""p75"": null,
+    ""p95"": null
+  },
+  ""possible_values"": []
+}"
+14406,2025-12-01 13:13:38,Boris Delange,update,299,NA,NA,Endotracheal tube,"Updated statistical summary JSON: {
+  ""data_types"": [""numeric""],
+  ""statistical_data"": {
+    ""min"": null,
+    ""max"": null,
+    ""median"": null,
+    ""mean"": null,
+    ""p5"": null,
+    ""p25"": null,
+    ""p75"": null,
+    ""p95"": null
+  },
+  ""possible_values"": []
+}"
+14407,2025-12-01 13:13:38,Boris Delange,delete,299,LOINC,79562-5,Endotracheal tube Diameter,Deleted OMOP concept mapping
+14408,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,463327000,Antimicrobial endotracheal tube,Marked as recommended
+14409,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,309801005,Armored endotracheal tube,Marked as recommended
+14410,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,467766005,Cuff-suction endotracheal tube,Marked as recommended
+14411,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,704923004,Electromyographic endotracheal tube,Marked as recommended
+14412,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,430553000,Endotracheal tube with bronchial blocker,Marked as recommended
+14413,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,449298004,Endotracheal tube with directional tip,Marked as recommended
+14414,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,700604003,High-frequency ventilation endotracheal tube,Marked as recommended
+14415,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,470227004,Laser-resistant endotracheal tube,Marked as recommended
+14416,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,420673005,Magill type endotracheal tube,Marked as recommended
+14417,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,420855005,Magill type nasal endotracheal tube,Marked as recommended
+14418,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,420344001,Magill type oral endotracheal tube,Marked as recommended
+14419,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,309805001,Nasal RAE endotracheal tube,Marked as recommended
+14420,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,309804002,Oral RAE endotracheal tube,Marked as recommended
+14421,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,309803008,Oxford endotracheal tube,Marked as recommended
+14422,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,1187321001,Oxygen insufflation endotracheal tube,Marked as recommended
+14423,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,420977008,Preformed endotracheal tube,Marked as recommended
+14424,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,309802003,RAE endotracheal tube,Marked as recommended
+14425,2025-12-01 13:14:13,Boris Delange,recommend,299,SNOMED,870581009,Video intubation endotracheal tube,Marked as recommended
+14426,2025-12-01 13:34:43,Boris Delange,update,299,NA,NA,Endotracheal tube,"Updated ETL guidance comment: # Definition
+
+An endotracheal tube (ETT) is a medical device inserted through the mouth or nose into the trachea to maintain an open airway, facilitate mechanical ventilation, and protect against aspiration. No measurement units apply (device presence/type documentation).
+
+# Mapping Strategy
+
+For ICU documentation, this concept refers to the **presence and type of endotracheal tube** as an airway device. Prioritize the **device type** when clinically relevant, or use the generic concept when the specific tube type is unspecified.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Endotracheal tube, device** (SNOMED 26412008): Use when tube type is unspecified or standard ETT without special features
+
+**Functional specializations** (for specialized clinical scenarios):
+
+- **Antimicrobial endotracheal tube** (SNOMED 463327000): Tube with antimicrobial coating to prevent ventilator-associated pneumonia (VAP)
+- **Cuff-suction endotracheal tube** (SNOMED 467766005): Tube with subglottic suction port above the cuff for secretion drainage
+- **Endotracheal tube with bronchial blocker** (SNOMED 430553000): Tube with integrated bronchial blocker for lung isolation during thoracic procedures
+- **Endotracheal tube with directional tip** (SNOMED 449298004): Tube with steerable tip for difficult intubation scenarios
+
+**Structural variations** (for specific positioning or kinking prevention):
+
+- **Armored endotracheal tube** (SNOMED 309801005): Tube reinforced with wire coil (also called flexometallic or reinforced tube) to prevent kinking during prone positioning or head/neck surgery
+- **Preformed endotracheal tube** (SNOMED 420977008): Tube pre-shaped for specific surgical positioning
+- **RAE endotracheal tube** (SNOMED 309802003): Ring, Adair, Elwyn tube with pre-formed bend to keep connections away from surgical field
+  - **Oral RAE endotracheal tube** (SNOMED 309804002): RAE tube inserted orally
+  - **Nasal RAE endotracheal tube** (SNOMED 309805001): RAE tube inserted nasally
+- **Magill type endotracheal tube** (SNOMED 420673005): Standard curved tube design
+  - **Magill type oral endotracheal tube** (SNOMED 420344001): Magill tube inserted orally
+  - **Magill type nasal endotracheal tube** (SNOMED 420855005): Magill tube inserted nasally
+- **Oxford endotracheal tube** (SNOMED 309803008): Specific tube design (less common in modern practice)
+
+**Procedure-specific tubes** (primarily for operating room use):
+
+- **Laser-resistant endotracheal tube** (SNOMED 470227004): Tube wrapped with metallic foil for laser surgery on airway structures
+- **High-frequency ventilation endotracheal tube** (SNOMED 700604003): Specialized tube for high-frequency oscillatory ventilation (HFOV)
+- **Oxygen insufflation endotracheal tube** (SNOMED 1187321001): Tube designed for apneic oxygenation during intubation or procedures
+- **Electromyographic endotracheal tube** (SNOMED 704923004): Tube with integrated electrodes for nerve monitoring during thyroid/neck surgery
+- **Video intubation endotracheal tube** (SNOMED 870581009): Tube with integrated camera for intubation guidance
+
+# Important Notes
+
+- **Tube characteristics as separate observations**: Record these as separate measurements linked via FACT_RELATIONSHIP:
+  - Tube size/diameter (typically 6.0-9.0 mm internal diameter for adults) - use separate ""Endotracheal tube diameter"" concept
+  - Tube insertion depth (cm at teeth/lips)
+  - Cuff pressure (typically maintained at 20-30 **cmH₂O**) - record as separate vital sign measurement
+  - Insertion route (oral vs nasal) - can be linked via FACT_RELATIONSHIP to SNOMED position concepts
+
+- **Distinction from tracheostomy**: Endotracheal tubes are inserted through the upper airway (mouth/nose) for short-to-medium term use (typically <14-21 days), while tracheostomy tubes are placed through a surgical stoma in the anterior trachea for longer-term airway management"
+14427,2025-12-01 13:39:04,Boris Delange,update,300,NA,NA,Tracheostomy tube,"Updated statistical summary JSON: {
+  ""data_types"": [""numeric""],
+  ""statistical_data"": {
+    ""min"": null,
+    ""max"": null,
+    ""median"": null,
+    ""mean"": null,
+    ""p5"": null,
+    ""p25"": null,
+    ""p75"": null,
+    ""p95"": null
+  },
+  ""possible_values"": []
+}"
+14428,2025-12-01 13:39:41,Boris Delange,delete,300,SNOMED,464651008,Oxygen administration transtracheal catheter,Deleted OMOP concept mapping
+14429,2025-12-01 13:39:41,Boris Delange,recommend,300,SNOMED,1343696006,Fenestrated tracheostomy tube,Marked as recommended
+14430,2025-12-01 13:39:41,Boris Delange,recommend,300,SNOMED,470610002,Laryngectomy tube,Marked as recommended
+14431,2025-12-01 13:39:41,Boris Delange,recommend,300,SNOMED,718933007,"Laryngectomy tube, non-sterile",Marked as recommended
+14432,2025-12-01 13:39:41,Boris Delange,recommend,300,SNOMED,1344664005,Non-fenestrated tracheostomy tube,Marked as recommended
+14433,2025-12-01 13:39:41,Boris Delange,recommend,300,SNOMED,463384005,Operative tracheostomy tube,Marked as recommended
+14434,2025-12-01 13:39:41,Boris Delange,recommend,300,SNOMED,465608000,Reinforced tracheostomy tube,Marked as recommended
+14435,2025-12-01 13:39:41,Boris Delange,recommend,300,SNOMED,1343640004,Tracheostomy tube inner cannula,Marked as recommended
+14436,2025-12-01 13:39:41,Boris Delange,recommend,300,SNOMED,1137710007,Tracheostomy tube cannula,Marked as recommended
+14437,2025-12-01 13:46:39,Boris Delange,update,300,NA,NA,Tracheostomy tube,"Updated ETL guidance comment: # Definition
+
+A tracheostomy tube is a medical device inserted through a surgical opening (stoma) in the anterior trachea to provide long-term airway access, facilitate mechanical ventilation, and enable secretion management. No measurement units apply (device presence/type documentation).
+
+# Mapping Strategy
+
+For ICU documentation, this concept refers to the **presence and type of tracheostomy tube** as a long-term airway device. Prioritize the **device type and features** when clinically relevant, or use the generic concept when the specific tube characteristics are unspecified.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Tracheostomy tube, device** (SNOMED 129121000): Use when tube type or features are unspecified
+
+**Tube design features:**
+
+- **Fenestrated tracheostomy tube** (SNOMED 1343696006): Tube with openings (fenestrations) in the shaft to allow airflow through the upper airway for speech and weaning
+- **Non-fenestrated tracheostomy tube** (SNOMED 1344664005): Tube without fenestrations (standard design for mechanical ventilation)
+- **Reinforced tracheostomy tube** (SNOMED 465608000): Tube with wire reinforcement to prevent kinking or compression
+
+**Tube components:**
+
+- **Tracheostomy tube cannula** (SNOMED 1137710007): Generic term for the tube shaft itself
+- **Tracheostomy tube inner cannula** (SNOMED 1343640004): Removable inner liner for easier cleaning and maintenance (not a separate device, but a component)
+
+**Specialized surgical tubes:**
+
+- **Operative tracheostomy tube** (SNOMED 463384005): Tube designed for immediate use during surgical tracheostomy procedure
+- **Laryngectomy tube** (SNOMED 470610002): Tube for patients who have undergone total laryngectomy (shorter tube, different anatomy)
+  - **Laryngectomy tube, non-sterile** (SNOMED 718933007): Non-sterile laryngectomy tube for long-term home use
+
+# Important Notes
+
+- **Distinction from endotracheal tubes**: Tracheostomy tubes are placed through a surgical stoma in the anterior trachea for longer-term airway management (typically >14-21 days), while endotracheal tubes are inserted through the upper airway (mouth/nose) for short-to-medium term use
+
+- **Fenestrated vs non-fenestrated tubes**:
+  - **Fenestrated tubes**: Used for weaning from mechanical ventilation and enabling speech when the tube is capped or cuffed with a one-way speaking valve
+  - **Non-fenestrated tubes**: Standard for continuous mechanical ventilation without upper airway access
+  - Many modern tracheostomy tubes have interchangeable inner cannulas (fenestrated and non-fenestrated) for the same outer cannula
+
+- **Tube characteristics as separate observations**: Record these as separate measurements linked via FACT_RELATIONSHIP:
+  - Tube size/diameter (typically 6.0-10.0 mm internal diameter for adults)
+  - Tube length (standard vs extended length for anatomical variations)
+  - Cuff type (cuffed vs uncuffed, high-volume low-pressure cuff)
+  - Cuff pressure (typically maintained at 20-30 **cmH₂O**) - record as separate measurement
+
+- **Inner cannula documentation**: The inner cannula is a removable component of the tracheostomy tube system, not a separate device. Use ""Tracheostomy tube inner cannula"" (SNOMED 1343640004) only when documenting inner cannula changes or cleaning procedures, not as the primary tracheostomy tube concept
+
+- **Clinical context considerations**:
+  - **Fenestrated tubes**: Allow upper airway breathing when capped (for speech, swallowing assessment, ventilator weaning)
+  - **Reinforced tubes**: Prevent tube occlusion in patients with thick necks, obese patients, or those at risk of external compression
+  - **Operative tubes**: Initial tubes placed during surgical tracheostomy, often replaced after tract maturation (7-14 days)"

@@ -293,8 +293,134 @@ general_concept_id,category,subcategory,general_concept_name,comments,statistica
 296,Procedure,Patient position,Prone positioning,NA,NA
 297,Procedure,Plasmapheresis,Plasmapheresis,NA,NA
 298,Procedure,Renal replacement therapy,Renal replacement therapy,NA,NA
-299,Ventilation,Airway device,Endotracheal tube,NA,NA
-300,Ventilation,Airway device,Tracheostomy tube,NA,NA
+299,Ventilation,Airway device,Endotracheal tube,"# Definition
+
+An endotracheal tube (ETT) is a medical device inserted through the mouth or nose into the trachea to maintain an open airway, facilitate mechanical ventilation, and protect against aspiration. No measurement units apply (device presence/type documentation).
+
+# Mapping Strategy
+
+For ICU documentation, this concept refers to the **presence and type of endotracheal tube** as an airway device. Prioritize the **device type** when clinically relevant, or use the generic concept when the specific tube type is unspecified.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Endotracheal tube, device** (SNOMED 26412008): Use when tube type is unspecified or standard ETT without special features
+
+**Functional specializations** (for specialized clinical scenarios):
+
+- **Antimicrobial endotracheal tube** (SNOMED 463327000): Tube with antimicrobial coating to prevent ventilator-associated pneumonia (VAP)
+- **Cuff-suction endotracheal tube** (SNOMED 467766005): Tube with subglottic suction port above the cuff for secretion drainage
+- **Endotracheal tube with bronchial blocker** (SNOMED 430553000): Tube with integrated bronchial blocker for lung isolation during thoracic procedures
+- **Endotracheal tube with directional tip** (SNOMED 449298004): Tube with steerable tip for difficult intubation scenarios
+
+**Structural variations** (for specific positioning or kinking prevention):
+
+- **Armored endotracheal tube** (SNOMED 309801005): Tube reinforced with wire coil (also called flexometallic or reinforced tube) to prevent kinking during prone positioning or head/neck surgery
+- **Preformed endotracheal tube** (SNOMED 420977008): Tube pre-shaped for specific surgical positioning
+- **RAE endotracheal tube** (SNOMED 309802003): Ring, Adair, Elwyn tube with pre-formed bend to keep connections away from surgical field
+  - **Oral RAE endotracheal tube** (SNOMED 309804002): RAE tube inserted orally
+  - **Nasal RAE endotracheal tube** (SNOMED 309805001): RAE tube inserted nasally
+- **Magill type endotracheal tube** (SNOMED 420673005): Standard curved tube design
+  - **Magill type oral endotracheal tube** (SNOMED 420344001): Magill tube inserted orally
+  - **Magill type nasal endotracheal tube** (SNOMED 420855005): Magill tube inserted nasally
+- **Oxford endotracheal tube** (SNOMED 309803008): Specific tube design (less common in modern practice)
+
+**Procedure-specific tubes** (primarily for operating room use):
+
+- **Laser-resistant endotracheal tube** (SNOMED 470227004): Tube wrapped with metallic foil for laser surgery on airway structures
+- **High-frequency ventilation endotracheal tube** (SNOMED 700604003): Specialized tube for high-frequency oscillatory ventilation (HFOV)
+- **Oxygen insufflation endotracheal tube** (SNOMED 1187321001): Tube designed for apneic oxygenation during intubation or procedures
+- **Electromyographic endotracheal tube** (SNOMED 704923004): Tube with integrated electrodes for nerve monitoring during thyroid/neck surgery
+- **Video intubation endotracheal tube** (SNOMED 870581009): Tube with integrated camera for intubation guidance
+
+# Important Notes
+
+- **Tube characteristics as separate observations**: Record these as separate measurements linked via FACT_RELATIONSHIP:
+  - Tube size/diameter (typically 6.0-9.0 mm internal diameter for adults) - use separate ""Endotracheal tube diameter"" concept
+  - Tube insertion depth (cm at teeth/lips)
+  - Cuff pressure (typically maintained at 20-30 **cmH₂O**) - record as separate vital sign measurement
+  - Insertion route (oral vs nasal) - can be linked via FACT_RELATIONSHIP to SNOMED position concepts
+
+- **Distinction from tracheostomy**: Endotracheal tubes are inserted through the upper airway (mouth/nose) for short-to-medium term use (typically <14-21 days), while tracheostomy tubes are placed through a surgical stoma in the anterior trachea for longer-term airway management","{
+  ""data_types"": [""numeric""],
+  ""statistical_data"": {
+    ""min"": null,
+    ""max"": null,
+    ""median"": null,
+    ""mean"": null,
+    ""p5"": null,
+    ""p25"": null,
+    ""p75"": null,
+    ""p95"": null
+  },
+  ""possible_values"": []
+}"
+300,Ventilation,Airway device,Tracheostomy tube,"# Definition
+
+A tracheostomy tube is a medical device inserted through a surgical opening (stoma) in the anterior trachea to provide long-term airway access, facilitate mechanical ventilation, and enable secretion management. No measurement units apply (device presence/type documentation).
+
+# Mapping Strategy
+
+For ICU documentation, this concept refers to the **presence and type of tracheostomy tube** as a long-term airway device. Prioritize the **device type and features** when clinically relevant, or use the generic concept when the specific tube characteristics are unspecified.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Tracheostomy tube, device** (SNOMED 129121000): Use when tube type or features are unspecified
+
+**Tube design features:**
+
+- **Fenestrated tracheostomy tube** (SNOMED 1343696006): Tube with openings (fenestrations) in the shaft to allow airflow through the upper airway for speech and weaning
+- **Non-fenestrated tracheostomy tube** (SNOMED 1344664005): Tube without fenestrations (standard design for mechanical ventilation)
+- **Reinforced tracheostomy tube** (SNOMED 465608000): Tube with wire reinforcement to prevent kinking or compression
+
+**Tube components:**
+
+- **Tracheostomy tube cannula** (SNOMED 1137710007): Generic term for the tube shaft itself
+- **Tracheostomy tube inner cannula** (SNOMED 1343640004): Removable inner liner for easier cleaning and maintenance (not a separate device, but a component)
+
+**Specialized surgical tubes:**
+
+- **Operative tracheostomy tube** (SNOMED 463384005): Tube designed for immediate use during surgical tracheostomy procedure
+- **Laryngectomy tube** (SNOMED 470610002): Tube for patients who have undergone total laryngectomy (shorter tube, different anatomy)
+  - **Laryngectomy tube, non-sterile** (SNOMED 718933007): Non-sterile laryngectomy tube for long-term home use
+
+# Important Notes
+
+- **Distinction from endotracheal tubes**: Tracheostomy tubes are placed through a surgical stoma in the anterior trachea for longer-term airway management (typically >14-21 days), while endotracheal tubes are inserted through the upper airway (mouth/nose) for short-to-medium term use
+
+- **Fenestrated vs non-fenestrated tubes**:
+  - **Fenestrated tubes**: Used for weaning from mechanical ventilation and enabling speech when the tube is capped or cuffed with a one-way speaking valve
+  - **Non-fenestrated tubes**: Standard for continuous mechanical ventilation without upper airway access
+  - Many modern tracheostomy tubes have interchangeable inner cannulas (fenestrated and non-fenestrated) for the same outer cannula
+
+- **Tube characteristics as separate observations**: Record these as separate measurements linked via FACT_RELATIONSHIP:
+  - Tube size/diameter (typically 6.0-10.0 mm internal diameter for adults)
+  - Tube length (standard vs extended length for anatomical variations)
+  - Cuff type (cuffed vs uncuffed, high-volume low-pressure cuff)
+  - Cuff pressure (typically maintained at 20-30 **cmH₂O**) - record as separate measurement
+
+- **Inner cannula documentation**: The inner cannula is a removable component of the tracheostomy tube system, not a separate device. Use ""Tracheostomy tube inner cannula"" (SNOMED 1343640004) only when documenting inner cannula changes or cleaning procedures, not as the primary tracheostomy tube concept
+
+- **Clinical context considerations**:
+  - **Fenestrated tubes**: Allow upper airway breathing when capped (for speech, swallowing assessment, ventilator weaning)
+  - **Reinforced tubes**: Prevent tube occlusion in patients with thick necks, obese patients, or those at risk of external compression
+  - **Operative tubes**: Initial tubes placed during surgical tracheostomy, often replaced after tract maturation (7-14 days)","{
+  ""data_types"": [""numeric""],
+  ""statistical_data"": {
+    ""min"": null,
+    ""max"": null,
+    ""median"": null,
+    ""mean"": null,
+    ""p5"": null,
+    ""p25"": null,
+    ""p75"": null,
+    ""p95"": null
+  },
+  ""possible_values"": []
+}"
 301,Ventilation,Oxygenation,FiO2,NA,NA
 302,Ventilation,Oxygenation,Oxygen flow rate,NA,NA
 303,Ventilation,Ventilation device,Extubation,NA,NA
@@ -613,22 +739,14 @@ For most use cases, we recommend capturing patient position or clinical context 
 - **For combined information**: If both measurement method and position are documented and clinically important, use FACT_RELATIONSHIP to link the measurement method concept to a SNOMED position concept","{
   ""data_types"": [""numeric""],
   ""statistical_data"": {
-    ""min"": 0,
-    ""max"": 400,
+    ""min"": null,
+    ""max"": null,
     ""median"": null,
     ""mean"": null,
     ""p5"": null,
     ""p25"": null,
     ""p75"": null,
-    ""p95"": null,
-    ""outliers_count"": null
-  },
-  ""temporal_info"": {
-    ""frequency_range"": {
-      ""min"": null,
-      ""max"": null
-    },
-    ""measurement_period"": []
+    ""p95"": null
   },
   ""possible_values"": []
 }"
@@ -899,7 +1017,56 @@ Joint temperature concepts (e.g., knee joint temperature, ankle joint temperatur
   },
   ""possible_values"": []
 }"
-331,Vitals,Other vitals,Urine output,NA,NA
+331,Vitals,Other vitals,Urine output,"# Definition
+
+Urine output represents the volume of urine produced and collected over a specified time period, expressed in **milliliters (mL)** or **liters (L)**. Normal urine output in adults ranges approximately from 800-2000 mL per 24 hours.
+
+# Mapping Strategy
+
+LOINC and SNOMED distinguish urine output measurements by **collection method** (urethral catheter, nephrostomy, spontaneous void) and **time interval** (point in time, hourly, 24 hours). For most ICU use cases, prioritize **point-in-time measurements** with accurate timestamps over pre-aggregated time intervals, as time-based aggregations (hourly, 8-hour, 24-hour totals) can be calculated from individual timestamped measurements.
+
+Prioritize the **collection method** over time intervals, and use point-in-time measurements rather than pre-aggregated intervals.
+
+## Recommended concepts
+
+**Default concepts (point-in-time measurements):**
+
+- **Urine output** (LOINC 9187-6): Generic urine output measurement at a point in time (collection method unspecified)
+- **Measure of urine output** (SNOMED 364202003): SNOMED equivalent for urine output measurement
+- **Diuresis** (SNOMED 60309003): Medical term for urine production/excretion
+- **Urine volume** (SNOMED 993701000000102): Total urine volume collected at a point in time
+
+**Collection method-specific concepts:**
+
+- **Urine output by in and out urethral catheter** (LOINC 9195-9): Urine collected via indwelling urinary catheter (Foley catheter, most common in ICU)
+- **Urine output measured by nephrostomy** (LOINC 79549-2): Urine collected via nephrostomy tube (percutaneous kidney drainage)
+- **Other urine volume** (SNOMED 1027231000000106): Urine volume from alternative collection methods (e.g., external catheter, bedpan, urinal)
+
+## Not recommended for routine use
+
+**Pre-aggregated time intervals:**
+
+Use these concepts **only when point-in-time measurements with accurate timestamps are unavailable**. For most ICU use cases, record each urine output measurement as a point-in-time value with timestamp; time-based aggregations (hourly, 8-hour, 24-hour totals) can be calculated from individual timestamped measurements with greater precision.
+
+Pre-aggregated time interval concepts are less precise because:
+- They lose granular timing information (cannot reconstruct exact measurement times)
+- They cannot accommodate variable collection intervals (e.g., 1.5 hours, 3 hours)
+- They complicate trending and rate calculations
+
+**Time interval concepts:**
+
+- **Urine output 1 hour** (LOINC 9188-4): Pre-aggregated hourly urine output
+- **Measurement of urine volume over 6 hours** (SNOMED 167578005): Pre-aggregated 6-hour measurement
+- **Urine output 8 hour** (LOINC 9189-2): Pre-aggregated 8-hour urine output
+- **Urine output 10 hour** (LOINC 9190-0): Pre-aggregated 10-hour urine output
+- **Urine output 12 hour** (LOINC 9191-8): Pre-aggregated 12-hour urine output
+- **Urine output 24 hour** (LOINC 9192-6): Pre-aggregated 24-hour urine output
+- **24 hour urine output** (SNOMED 395060000): SNOMED equivalent for pre-aggregated 24-hour measurement
+
+# Important Notes
+
+- **Point-in-time vs aggregated measurements**: Prefer recording each urine output measurement with accurate timestamp (point-in-time). Time-based aggregations (hourly rate, 24-hour total) can be calculated from timestamped data with greater flexibility and precision
+- **Collection method matters**: Always specify collection method when known (indwelling catheter, nephrostomy, spontaneous void). This affects interpretation: catheter output is continuous and accurate, while bedpan/urinal collections may miss small voids",NA
 332,Vitals,Ventilatory,Respiratory rate,"# Definition
 
 Respiratory rate represents the number of breaths per unit of time, expressed in **breaths per minute (breaths/min or /min)**. Normal respiratory rate in adults at rest ranges approximately from 12-20 breaths/min.
@@ -1033,3 +1200,4 @@ For most ICU use cases, we recommend capturing SpO2 measurements using the gener
 - SpO2 and SaO2 are not interchangeable: SpO2 = pulse oximetry estimate (non-invasive bedside monitoring), SaO2 = co-oximetry measurement (invasive laboratory analysis)",NA
 335,Drug,Antimicrobials,Sulbactam,NA,NA
 336,Labs,Arterial blood gases,Oxygen saturation,NA,NA
+337,Ventilation,Airway device,Endotracheal tube diameter,NA,NA

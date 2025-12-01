@@ -1345,30 +1345,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
     })
 
-    # Update DataTable filter when categories change
-    observe_event(selected_categories(), {
-      categories <- selected_categories()
-
-      # Create proxy for the DataTable
-      proxy <- DT::dataTableProxy("general_concepts_table", session = session)
-
-      if (length(categories) > 0) {
-        # Format as JSON array for multi-select filter: ["Category1", "Category2"]
-        search_string <- jsonlite::toJSON(categories, auto_unbox = FALSE)
-
-        # Update the search for the Category column (column index 1, 0-based)
-        DT::updateSearch(proxy, keywords = list(
-          global = NULL,
-          columns = list(NULL, as.character(search_string))  # NULL for ID column, JSON array for Category column
-        ))
-      } else {
-        # Clear the filter
-        DT::updateSearch(proxy, keywords = list(
-          global = NULL,
-          columns = list(NULL, NULL)
-        ))
-      }
-    })
+    # Note: Category filter updates are handled by the restore filter observer below (line 1374)
+    # which runs after table re-rendering, eliminating the need for a separate observer here
 
     # Restore category filters after table is re-rendered
     observe_event(general_concepts_table_trigger(), {
