@@ -46,7 +46,8 @@ app_ui <- function() {
       tags$script(src = "www/users_table.js"),
       tags$script(src = "www/evaluate_mappings.js"),
       tags$script(src = "www/clipboard.js"),
-      tags$script(src = "www/copy_menu.js")
+      tags$script(src = "www/copy_menu.js"),
+      tags$script(src = "www/comments_scroll_sync.js")
     ),
 
     # Login page (shown first)
