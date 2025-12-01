@@ -2,7 +2,7 @@
 #
 # This module provides the Dictionary Explorer interface with two main views:
 # - General Concepts Page: Browse and manage general concepts
-# - Mapped Concepts Page: View and edit concept mappings
+# - Associated Concepts Page: View and edit associated concepts
 #
 # UI STRUCTURE:
 #   ## UI - Main Layout
@@ -210,14 +210,15 @@ mod_dictionary_explorer_ui <- function(id) {
                             style = "display: flex; align-items: center; flex: 1;",
                             tags$h4(
                               style = "margin: 0;",
-                              "Mapped Concepts"
+                              "Associated Concepts"
                             ),
                             tags$span(
                               class = "info-icon",
                               `data-tooltip` = paste0(
-                                "Concepts presented here are:\n",
-                                "• Those selected by INDICATE, marked as 'Recommended'\n",
-                                "• Child and same-level concepts, retrieved via ATHENA mappings\n"),
+                                "All concepts identified as potentially related to this general concept.\n",
+                                "These include descendants and related concepts from OMOP hierarchies.\n\n",
+                                "• Recommended: Manually validated by INDICATE experts as strongly associated\n",
+                                "• Not recommended: Related but not the primary match (see comments for rationale)"),
                               "ⓘ"
                             )
                           ),
@@ -284,7 +285,7 @@ mod_dictionary_explorer_ui <- function(id) {
                             ),
                             tags$span(
                               class = "info-icon",
-                              `data-tooltip` = "Detailed information about the selected concept from Mapped Concepts, including vocabulary, codes, links to ATHENA and FHIR resources",
+                              `data-tooltip` = "Detailed information about the selected concept from Associated Concepts, including vocabulary, codes, links to ATHENA and FHIR resources",
                               "ⓘ"
                             )
                           ),
@@ -2655,37 +2656,45 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                   )
                 )
             } else if (isTRUE(new_rec_value)) {
-              # Add new row only if recommended = TRUE
-              # Get concept info from vocabularies or current data
-              vocab_data <- vocabularies()
+              # Check if this concept is in added_concepts (newly added, not yet saved)
+              added_list <- added_concepts()
+              concept_key <- paste(concept_id, omop_id, sep = "_")
+              is_newly_added <- !is.null(added_list) && concept_key %in% names(added_list)
 
-              if (!is.null(vocab_data) && !is.null(vocab_data$concept)) {
-                # Filter and collect from DuckDB
-                new_concept <- vocab_data$concept %>%
-                  dplyr::filter(concept_id == omop_id) %>%
-                  dplyr::collect()
+              # Only add new row if not already in added_concepts
+              # (to avoid duplicates when saving)
+              if (!is_newly_added) {
+                # Get concept info from vocabularies or current data
+                vocab_data <- vocabularies()
 
-                if (nrow(new_concept) > 0) {
-                  # Create new row with minimal structure (new schema)
-                  if (nrow(concept_mappings) > 0) {
-                    # Take first row as template and modify it
-                    new_row <- concept_mappings[1, ]
-                    new_row$general_concept_id <- as.integer(concept_id)
-                    new_row$omop_concept_id <- omop_id
-                    new_row$omop_unit_concept_id <- as.character("/")
-                    new_row$recommended <- TRUE
-                  } else {
-                    # Fallback if concept_mappings is empty
-                    new_row <- data.frame(
-                      general_concept_id = as.integer(concept_id),
-                      omop_concept_id = omop_id,
-                      omop_unit_concept_id = "/",
-                      recommended = TRUE,
-                      stringsAsFactors = FALSE
-                    )
+                if (!is.null(vocab_data) && !is.null(vocab_data$concept)) {
+                  # Filter and collect from DuckDB
+                  new_concept <- vocab_data$concept %>%
+                    dplyr::filter(concept_id == omop_id) %>%
+                    dplyr::collect()
+
+                  if (nrow(new_concept) > 0) {
+                    # Create new row with minimal structure (new schema)
+                    if (nrow(concept_mappings) > 0) {
+                      # Take first row as template and modify it
+                      new_row <- concept_mappings[1, ]
+                      new_row$general_concept_id <- as.integer(concept_id)
+                      new_row$omop_concept_id <- omop_id
+                      new_row$omop_unit_concept_id <- as.character("/")
+                      new_row$recommended <- TRUE
+                    } else {
+                      # Fallback if concept_mappings is empty
+                      new_row <- data.frame(
+                        general_concept_id = as.integer(concept_id),
+                        omop_concept_id = omop_id,
+                        omop_unit_concept_id = "/",
+                        recommended = TRUE,
+                        stringsAsFactors = FALSE
+                      )
+                    }
+
+                    concept_mappings <- dplyr::bind_rows(concept_mappings, new_row)
                   }
-
-                  concept_mappings <- dplyr::bind_rows(concept_mappings, new_row)
                 }
               }
             }
@@ -2738,6 +2747,19 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       if (length(added_list) > 0) {
         # Convert list to data frame
         new_mappings_df <- dplyr::bind_rows(added_list)
+
+        # Apply edited recommended values to newly added concepts
+        current_edits <- edited_recommended()
+        if (length(current_edits) > 0 && nrow(new_mappings_df) > 0) {
+          for (i in 1:nrow(new_mappings_df)) {
+            omop_id <- new_mappings_df$omop_concept_id[i]
+            concept_unique_id <- paste0("omop-", omop_id)
+
+            if (concept_unique_id %in% names(current_edits)) {
+              new_mappings_df$recommended[i] <- current_edits[[concept_unique_id]]
+            }
+          }
+        }
 
         # Log history for each new mapping
         user <- current_user()
