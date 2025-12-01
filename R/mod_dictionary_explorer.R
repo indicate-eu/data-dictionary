@@ -1084,8 +1084,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
     # When local_data_trigger fires, update comments_display and general_concepts_table
     observe_event(local_data_trigger(), {
+      view <- current_view()
+
       comments_display_trigger(comments_display_trigger() + 1)
-      general_concepts_table_trigger(general_concepts_table_trigger() + 1)
+      # Only reload general_concepts table if we're in list view
+      # This prevents losing category filter when saving from detail view
+      if (view == "list") {
+        general_concepts_table_trigger(general_concepts_table_trigger() + 1)
+      }
     }, ignoreInit = TRUE)
 
     # When selected_categories_trigger fires, update general_concepts_table
@@ -1354,7 +1360,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       if (length(categories) > 0) {
         # Use delayed execution to ensure DataTable is fully rendered
-        shinyjs::delay(100, {
+        # Increased delay to ensure table is ready after view changes
+        shinyjs::delay(200, {
           proxy <- DT::dataTableProxy("general_concepts_table", session = session)
           search_string <- jsonlite::toJSON(categories, auto_unbox = FALSE)
 
@@ -1402,7 +1409,13 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         shinyjs::show(id = view_containers[[view]])
       }
 
-      # 3. Trigger cascade
+      # 3. Reload general_concepts table when returning to list view
+      # The existing filter restoration system will preserve category filters
+      if (view == "list") {
+        general_concepts_table_trigger(general_concepts_table_trigger() + 1)
+      }
+
+      # 4. Trigger cascade
       view_trigger(view_trigger() + 1)
     })
 
@@ -1519,7 +1532,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
     # Handle cancel edit button
     observe_event(input$general_concept_detail_cancel_edit, {
-      # Reset all unsaved changes
+      # Reset all unsaved changes in memory
       edited_recommended(list())
       deleted_concepts(list())
       added_concepts(list())
@@ -1531,29 +1544,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       shinyjs::hide("general_concept_detail_edit_buttons")
       shinyjs::show("general_concept_detail_action_buttons")
 
-      # Reload ALL data from CSV to discard all temporary changes
-      general_concepts_path <- get_package_dir("extdata", "csv", "general_concepts.csv")
-      concept_mappings_path <- get_package_dir("extdata", "csv", "general_concepts_details.csv")
-      custom_concepts_path <- get_package_dir("extdata", "csv", "custom_concepts.csv")
-
-      if (file.exists(general_concepts_path) && file.exists(concept_mappings_path)) {
-        general_concepts <- readr::read_csv(general_concepts_path, show_col_types = FALSE)
-        concept_mappings <- readr::read_csv(concept_mappings_path, show_col_types = FALSE)
-        custom_concepts <- if (file.exists(custom_concepts_path)) {
-          readr::read_csv(custom_concepts_path, show_col_types = FALSE)
-        } else {
-          NULL
-        }
-
-        # Reset local_data completely
-        local_data(list(
-          general_concepts = general_concepts,
-          concept_mappings = concept_mappings,
-          custom_concepts = custom_concepts
-        ))
-      }
-
-      # Trigger table re-render with original data
+      # No need to reload data from CSV - temporary changes are stored in
+      # edited_recommended(), deleted_concepts(), and added_concepts() which
+      # are applied during table rendering. Resetting these lists is enough.
+      # Just trigger table re-render to show original data
       concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
     })
     
@@ -3961,6 +3955,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                           } else {
                             "/"
                           },
+                          editable = TRUE, input_id = "unit_concept_name_input", input_type = "text",
                           include_colon = FALSE, is_editing = is_editing, ns = ns),
         create_detail_item("OMOP Unit Concept ID",
                           if (!is.null(info$omop_unit_concept_id) && !is.na(info$omop_unit_concept_id) && info$omop_unit_concept_id != "" && info$omop_unit_concept_id != "/") {
@@ -3968,6 +3963,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                           } else {
                             "/"
                           },
+                          editable = TRUE, input_id = "omop_unit_concept_id_input", step = 1,
                           url = athena_unit_url, include_colon = FALSE, is_editing = is_editing, ns = ns)
         )
       })

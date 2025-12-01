@@ -15,8 +15,9 @@
 #' @param format_number Logical; if TRUE, formats numeric values with thousand separators
 #' @param url Character; if provided, wraps the value in a link with this URL
 #' @param color Character; if provided (e.g., "#28a745"), displays value in this color
-#' @param editable Logical; if TRUE and is_editing is TRUE, shows a numeric input
-#' @param input_id Character; Shiny input ID for editable numeric inputs (must be namespaced)
+#' @param editable Logical; if TRUE and is_editing is TRUE, shows an input field
+#' @param input_id Character; Shiny input ID for editable inputs (must be namespaced)
+#' @param input_type Character; type of input ("numeric" or "text", default: "numeric")
 #' @param step Numeric; step size for numeric inputs (default: 1)
 #' @param is_editing Logical; whether the UI is in edit mode (required for editable inputs)
 #' @param ns Namespace function from module (required for editable inputs)
@@ -58,41 +59,71 @@ create_detail_item <- function(label, value,
                                color = NULL,
                                editable = FALSE,
                                input_id = NULL,
+                               input_type = "numeric",
                                step = 1,
                                is_editing = FALSE,
                                ns = NULL,
                                include_colon = TRUE) {
-  # If editable and in edit mode, show numeric input
+  # If editable and in edit mode, show input field
   if (editable && is_editing && !is.null(input_id) && !is.null(ns)) {
-    input_value <- if (is.null(value)) {
-      NA
-    } else if (length(value) == 0) {
-      NA
-    } else if (length(value) == 1 && is.na(value)) {
-      NA
-    } else if (identical(value, "")) {
-      NA
-    } else if (is.character(value)) {
-      suppressWarnings(as.numeric(value))
-    } else {
-      as.numeric(value)
-    }
-
     label_text <- if (include_colon) paste0(label, ":") else label
 
-    return(tags$div(
-      class = "detail-item",
-      tags$strong(label_text),
-      tags$span(
-        shiny::numericInput(
-          ns(input_id),
-          label = NULL,
-          value = input_value,
-          width = "100px",
-          step = step
+    if (input_type == "text") {
+      # Text input
+      input_value <- if (is.null(value)) {
+        ""
+      } else if (length(value) == 0) {
+        ""
+      } else if (length(value) == 1 && is.na(value)) {
+        ""
+      } else if (identical(value, "/")) {
+        ""
+      } else {
+        as.character(value)
+      }
+
+      return(tags$div(
+        class = "detail-item",
+        tags$strong(label_text),
+        tags$span(
+          shiny::textInput(
+            ns(input_id),
+            label = NULL,
+            value = input_value,
+            width = "200px"
+          )
         )
-      )
-    ))
+      ))
+    } else {
+      # Numeric input
+      input_value <- if (is.null(value)) {
+        NA
+      } else if (length(value) == 0) {
+        NA
+      } else if (length(value) == 1 && is.na(value)) {
+        NA
+      } else if (identical(value, "")) {
+        NA
+      } else if (is.character(value)) {
+        suppressWarnings(as.numeric(value))
+      } else {
+        as.numeric(value)
+      }
+
+      return(tags$div(
+        class = "detail-item",
+        tags$strong(label_text),
+        tags$span(
+          shiny::numericInput(
+            ns(input_id),
+            label = NULL,
+            value = input_value,
+            width = "100px",
+            step = step
+          )
+        )
+      ))
+    }
   }
 
   # Otherwise, display as read-only
