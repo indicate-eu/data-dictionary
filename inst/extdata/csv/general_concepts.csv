@@ -1061,12 +1061,99 @@ Use the single SNOMED concept for plateau pressure. This is a straightforward me
 - Plateau pressure requires an end-inspiratory pause and is only measurable in volume-controlled or volume-targeted ventilation modes
 - Pplat reflects alveolar pressure and elastic recoil of the respiratory system, excluding airway resistance
 - Do not confuse with peak inspiratory pressure (PIP), which includes resistive pressure and is measured during active airflow",NA
-321,Ventilation,Ventilation parameters,Respiratory rate,NA,NA
-322,Ventilation,Ventilation parameters,Tidal volume,"Tidal volume can be both set and measured on the ventilator (with distinct inspiratory and expiratory values for the measured tidal volume).
-When **all this information is available**, we recommend using the concept ""**Mandatory tidal volume**"" for the value set on the ventilator, and ""**Inspiratory tidal volume**"" or ""**Expiratory tidal volume**"" for the measured values.
-If the measured tidal volume is documented but the source (inspiratory or expiratory) is not specified, we suggest using ""**Spontaneous tidal volume**"".
-Finally, if no detail is available about whether the tidal volume is set or measured, the generic concept ""**Tidal volume**"" should be used.",NA
-323,Ventilation,Ventilation parameters,Ventilation mode,NA,NA
+321,Ventilation,Ventilation parameters,Respiratory rate,"# Definition
+
+Respiratory rate in the context of mechanical ventilation refers to the number of breaths delivered or measured per minute during mechanical ventilatory support, expressed in **breaths per minute (breaths/min or /min)**. Typical ventilator settings range from 10-20 breaths/min for adults.
+
+**Important distinction**: This concept refers to **ventilator settings or ventilator-measured respiratory rate** (mechanical ventilation parameters). This is distinct from the ""Respiratory rate"" concept in the Vitals category, which refers to **observed or measured respiratory rate as a vital sign** (patient clinical assessment). Use this Ventilation concept for ventilator management; use the Vitals concept for clinical assessment of patient breathing.
+
+# Mapping Strategy
+
+Prioritize distinguishing between set values (prescribed on ventilator) and measured values (actual breath count), and the type of breaths contributing to the total (spontaneous, mandatory, or combined).
+
+## Recommended concepts
+
+**Set respiratory rate:**
+
+- **Breath rate setting Ventilator** (LOINC 3007469): Target respiratory rate set on the ventilator (mandatory breath rate in volume-control, pressure-control, or assist-control modes)
+
+**Measured respiratory rate on mechanical ventilation:**
+
+- **Breath rate spontaneous --on ventilator** (LOINC 3026892): Spontaneous breaths only (patient-initiated breaths in partial support modes like pressure support or SIMV)
+- **Breath rate spontaneous and mechanical --on ventilator** (LOINC 3007646): Total breath rate including both spontaneous and mandatory breaths
+
+# Important Notes
+
+- **Ventilator parameter vs vital sign**: This concept is for ventilator settings or ventilator-measured breath rate. For observed/measured respiratory rate as a clinical vital sign (patient assessment without reference to ventilator), use the ""Respiratory rate"" concept from the Vitals category
+- **Set vs measured**: The set breath rate is the mandatory rate programmed on the ventilator. The measured rate may be higher if the patient triggers additional spontaneous breaths
+- In assist-control or volume-control modes, the measured breath rate typically equals the set rate (all breaths are mandatory)
+- In pressure support or SIMV modes, the total measured breath rate = mandatory (set) breath rate + spontaneous breath rate",NA
+322,Ventilation,Ventilation parameters,Tidal volume,"# Definition
+
+Tidal volume (Vt) is the volume of air moved into or out of the lungs during a single breath, expressed in **mL** or **L**. In lung-protective ventilation for ARDS, target tidal volume is 6-8 mL/kg of predicted body weight (PBW), not actual body weight.
+
+# Mapping Strategy
+
+Prioritize distinguishing between set values (prescribed on ventilator), measured inspiratory vs expiratory volumes, and the type of breaths (spontaneous, mandatory, or combined). For weight-normalized tidal volumes, note that LOINC concepts use actual body weight, not predicted/ideal body weight.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Tidal volume** (SNOMED 4029625): Use when no additional detail is available about measurement type or breath source
+
+**Set tidal volume:**
+
+- **Tidal volume setting Ventilator** (LOINC 3012410): Target tidal volume set on the ventilator (volume-controlled modes)
+
+**Measured tidal volume by breath type:**
+
+- **Spontaneous tidal volume** (SNOMED 4108448): Volume from patient-initiated spontaneous breaths only
+- **Mandatory tidal volume** (SNOMED 4353946): Volume from ventilator-delivered mandatory breaths only
+
+**Measured tidal volume by phase:**
+
+- **Inspiratory tidal volume** (SNOMED 44782826): Volume delivered during inspiration (generic)
+- **Tidal volume.inspired** (LOINC 36303816): Inspired tidal volume (LOINC equivalent)
+- **Expiratory tidal volume** (SNOMED 44782827): Volume exhaled during expiration (generic)
+- **Tidal volume expired Respiratory system airway** (LOINC 21490752): Expired tidal volume (LOINC equivalent)
+
+**Measured tidal volume on mechanical ventilation:**
+
+- **Tidal volume Ventilator --on ventilator** (LOINC 21490854): Measured tidal volume during mechanical ventilation (generic)
+- **Tidal volume expired Respiratory system airway --on ventilator** (LOINC 21490789): Expired tidal volume during mechanical ventilation
+- **Tidal volume.spontaneous --on ventilator** (LOINC 3017594): Spontaneous breaths only during mechanical ventilation
+- **Tidal volume.spontaneous+mechanical --on ventilator** (LOINC 3004732): Combined spontaneous and mandatory breaths
+
+**Weight-normalized tidal volume:**
+
+- **Tidal volume.spontaneous/Body weight [Volume/mass] --on ventilator** (LOINC 3017054): Spontaneous tidal volume per kg body weight
+- **Tidal volume.spontaneous+mechanical/Body weight [Volume/mass] --on ventilator** (LOINC 3017878): Total tidal volume per kg body weight
+
+## Not recommended for routine use
+
+Use these concepts **only when compressible gas volume correction or sigh breaths are specifically documented** in your source data.
+
+**Compressible gas volume corrections:**
+
+- **Tidal volume expired spontaneous corrected for compressible gas volume Respiratory system airway --on ventilator** (LOINC 3011767): Accounts for gas compression in ventilator circuit
+- **Tidal volume expired spontaneous uncorrected for compressible gas volume setting Ventilator** (LOINC 3020572): Raw measurement without circuit compression correction
+- **Tidal volume expired spontaneous+mechanical corrected for compressible gas volume --on ventilator** (LOINC 3009097): Corrected for circuit compression
+- **Tidal volume inspired spontaneous+mechanical corrected for compressible gas volume --on ventilator** (LOINC 3021470): Corrected inspired volume
+- **Tidal volume.spontaneous+mechanical corrected for compressible gas volume --on ventilator** (LOINC 3007828): Generic corrected measurement
+- **Tidal volume.spontaneous+mechanical uncorrected for compressible gas volume --on ventilator** (LOINC 3017707): Generic uncorrected measurement
+- **Tidal volume.spontaneous+mechanical/Body weight [Volume/mass] corrected for compressible gas volume --on ventilator** (LOINC 3016864): Weight-normalized corrected volume
+
+**Specialized breath types:**
+
+- **Tidal volume sigh spontaneous+mechanical --on ventilator** (LOINC 3008805): Tidal volume during sigh breaths (periodic larger breaths to prevent atelectasis)
+
+# Important Notes
+
+- Expiratory tidal volume is typically more accurate than inspiratory tidal volume due to circuit leak compensation
+- **Weight normalization caveat**: LOINC concepts normalize by actual body weight, but lung-protective ventilation protocols require normalization by **predicted body weight (PBW)** based on height and sex. When documenting mL/kg values, specify whether actual or predicted body weight was used, or calculate and store PBW separately
+- Predicted body weight formulas: PBW (male) = 50 + 0.91 × (height in cm − 152.4); PBW (female) = 45.5 + 0.91 × (height in cm − 152.4)
+- Compressible gas volume correction accounts for gas compression in the ventilator circuit and is typically only relevant for research or precise calculations",NA
 324,Vitals,Haemodynamics,Cardiac output,"# Definition
 
 Cardiac output (CO) represents the volume of blood pumped by the heart per unit of time, expressed in **liters per minute (L/min)**. Normal cardiac output in adults at rest ranges from approximately 4-8 L/min, varying with body size, age, and metabolic demand. It is a critical hemodynamic parameter used to assess cardiovascular function and tissue perfusion in intensive care and critical care settings.
@@ -1818,7 +1905,24 @@ For most ICU use cases, we recommend capturing SpO2 measurements using the gener
 - SpO2 and SaO2 are not interchangeable: SpO2 = pulse oximetry estimate (non-invasive bedside monitoring), SaO2 = co-oximetry measurement (invasive laboratory analysis)",NA
 335,Drug,Antimicrobials,Sulbactam,NA,NA
 336,Labs,Arterial blood gases,Oxygen saturation,NA,NA
-337,Ventilation,Airway device,Endotracheal tube diameter,NA,NA
+337,Ventilation,Airway device,Endotracheal tube diameter,"# Definition
+
+Endotracheal tube diameter refers to the internal diameter (ID) of an endotracheal tube used for invasive airway management, expressed in **millimeters (mm)**. Typical adult sizes range from 6.0-9.0 mm ID.
+
+# Mapping Strategy
+
+Use the single LOINC concept for endotracheal tube diameter. This is a straightforward device attribute with no method variations.
+
+## Recommended concepts
+
+**Default concept:**
+
+- **Endotracheal tube Diameter** (LOINC 21491186): Use for all endotracheal tube internal diameter measurements
+
+# Important Notes
+
+- Endotracheal tube size is specified by **internal diameter (ID)**, not external diameter or French gauge
+- Document tube diameter separately from tube depth/insertion length, which should be captured as a separate measurement",NA
 338,Ventilation,Airway device,Airway device change,"# Definition
 
 Airway device change encompasses procedures involving replacement or maintenance of endotracheal tubes or tracheostomy tubes while maintaining invasive airway management. This includes exchanging tubes for clinical reasons (malfunction, sizing, or routine change) and maintenance of tube securing devices. The patient remains intubated or cannulated throughout the procedure. No measurement units apply (procedure documentation).
