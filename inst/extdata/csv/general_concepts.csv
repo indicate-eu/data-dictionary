@@ -456,18 +456,20 @@ FiO2 measurements can be **set values** (prescribed oxygen concentration) or **m
   - Venturi masks provide more precise FiO2 control (24%, 28%, 31%, 35%, 40%, 60%)
   - Non-rebreather mask: ~60-95% depending on flow rate and seal
   - These are estimates; actual FiO2 varies with patient breathing pattern and device fit","{
-  ""data_types"": [""numeric""],
-  ""statistical_data"": {
+  ""data_types"": [],
+  ""numeric_data"": {
     ""min"": null,
     ""max"": null,
-    ""median"": null,
     ""mean"": null,
+    ""median"": null,
+    ""sd"": null,
+    ""cv"": null,
     ""p5"": null,
     ""p25"": null,
     ""p75"": null,
     ""p95"": null
   },
-  ""possible_values"": []
+  ""categorical_data"": []
 }"
 302,Ventilation,Oxygenation,Oxygen flow rate,NA,NA
 303,Ventilation,Ventilation device,Extubation,NA,NA
@@ -784,18 +786,20 @@ For most use cases, we recommend capturing patient position or clinical context 
 
 - **Prioritize measurement method over position/context**: Use ""Heart rate by Pulse oximetry"" rather than ""Heart rate --supine"" unless position is the primary clinical focus
 - **For combined information**: If both measurement method and position are documented and clinically important, use FACT_RELATIONSHIP to link the measurement method concept to a SNOMED position concept","{
-  ""data_types"": [""numeric""],
-  ""statistical_data"": {
+  ""data_types"": [],
+  ""numeric_data"": {
     ""min"": null,
     ""max"": null,
-    ""median"": null,
     ""mean"": null,
+    ""median"": null,
+    ""sd"": null,
+    ""cv"": null,
     ""p5"": null,
     ""p25"": null,
     ""p75"": null,
     ""p95"": null
   },
-  ""possible_values"": []
+  ""categorical_data"": []
 }"
 328,Vitals,Haemodynamics,Mean arterial pressure,"# Definition
 

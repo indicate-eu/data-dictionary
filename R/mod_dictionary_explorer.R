@@ -4564,56 +4564,55 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                         tags$p(style = "color: #6c757d; font-style: italic; margin-bottom: 20px;", "No data types specified")
                       },
 
-                      # Statistical Data Section
-                      tags$h5(style = "margin: 20px 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Statistical Data"),
-                      if (!is.null(summary_data$statistical_data) && length(summary_data$statistical_data) > 0) {
-                        tagList(
-                          lapply(names(summary_data$statistical_data), function(key) {
-                            value <- summary_data$statistical_data[[key]]
-                            create_detail_item(gsub("_", " ", tools::toTitleCase(key)), if (is.null(value)) "/" else value)
-                          })
-                        )
+                      # Numeric Data Section
+                      tags$h5(style = "margin: 20px 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Numeric Data"),
+                      if (!is.null(summary_data$numeric_data) && length(summary_data$numeric_data) > 0) {
+                        # Check if any non-null values exist
+                        has_values <- any(sapply(summary_data$numeric_data, function(x) !is.null(x)))
+                        if (has_values) {
+                          tagList(
+                            lapply(names(summary_data$numeric_data), function(key) {
+                              value <- summary_data$numeric_data[[key]]
+                              create_detail_item(gsub("_", " ", tools::toTitleCase(key)), if (is.null(value)) "/" else value)
+                            })
+                          )
+                        } else {
+                          tags$p(style = "color: #6c757d; font-style: italic;", "No numeric data available")
+                        }
                       } else {
-                        tags$p(style = "color: #6c757d; font-style: italic;", "No statistical data available")
+                        tags$p(style = "color: #6c757d; font-style: italic;", "No numeric data available")
                       }
                     ),
 
                     # Right Column
                     tags$div(
-                      # Temporal Information Section
-                      tags$h5(style = "margin: 0 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Temporal Information"),
-                      if (!is.null(summary_data$temporal_info)) {
-                        tagList(
-                          if (!is.null(summary_data$temporal_info$frequency_range)) {
-                            tagList(
-                              create_detail_item("Frequency Min", if (is.null(summary_data$temporal_info$frequency_range$min)) "/" else summary_data$temporal_info$frequency_range$min),
-                              create_detail_item("Frequency Max", if (is.null(summary_data$temporal_info$frequency_range$max)) "/" else summary_data$temporal_info$frequency_range$max)
-                            )
-                          },
-                          if (!is.null(summary_data$temporal_info$measurement_period) && length(summary_data$temporal_info$measurement_period) > 0) {
-                            create_detail_item("Measurement Period", paste(summary_data$temporal_info$measurement_period, collapse = ", "))
-                          } else {
-                            create_detail_item("Measurement Period", "/")
-                          }
-                        )
-                      } else {
-                        tags$p(style = "color: #6c757d; font-style: italic;", "No temporal information available")
-                      },
-
-                      # Possible Values Section
-                      tags$h5(style = "margin: 20px 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Possible Values"),
-                      if (!is.null(summary_data$possible_values) && length(summary_data$possible_values) > 0) {
+                      # Categorical Data Section
+                      tags$h5(style = "margin: 0 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Categorical Data"),
+                      if (!is.null(summary_data$categorical_data) && length(summary_data$categorical_data) > 0) {
                         tags$div(
                           style = "margin-top: 8px;",
-                          tags$ul(
-                            style = "margin: 0; padding-left: 20px;",
-                            lapply(summary_data$possible_values, function(val) {
-                              tags$li(style = "color: #212529; padding: 2px 0;", val)
-                            })
+                          tags$table(
+                            style = "width: 100%; border-collapse: collapse;",
+                            tags$thead(
+                              tags$tr(
+                                tags$th(style = "text-align: left; padding: 6px; border-bottom: 1px solid #dee2e6; font-weight: 600; color: #495057;", "Value"),
+                                tags$th(style = "text-align: right; padding: 6px; border-bottom: 1px solid #dee2e6; font-weight: 600; color: #495057;", "Count"),
+                                tags$th(style = "text-align: right; padding: 6px; border-bottom: 1px solid #dee2e6; font-weight: 600; color: #495057;", "Percent")
+                              )
+                            ),
+                            tags$tbody(
+                              lapply(summary_data$categorical_data, function(val) {
+                                tags$tr(
+                                  tags$td(style = "padding: 6px; border-bottom: 1px solid #f0f0f0;", val$value),
+                                  tags$td(style = "padding: 6px; border-bottom: 1px solid #f0f0f0; text-align: right;", format(val$count, big.mark = ",")),
+                                  tags$td(style = "padding: 6px; border-bottom: 1px solid #f0f0f0; text-align: right;", paste0(val$percent, "%"))
+                                )
+                              })
+                            )
                           )
                         )
                       } else {
-                        tags$p(style = "color: #6c757d; font-style: italic;", "No possible values specified")
+                        tags$p(style = "color: #6c757d; font-style: italic;", "No categorical data available")
                       }
                     )
                   )

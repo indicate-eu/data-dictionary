@@ -290,8 +290,8 @@ build_concept_details_json <- function(concept_mapping = NULL,
     json_data$standard <- if (!is.null(concept_details)) {
       if (!is.na(concept_details$standard_concept) && concept_details$standard_concept == "S") "Standard" else "Non-standard"
     } else NA
-    json_data$unit_concept_name <- if (!is.null(info$unit) && !is.na(info$unit) && info$unit != "") info$unit else NA
-    json_data$omop_unit_concept_id <- if (!is.null(info$omop_unit_concept_id) && !is.na(info$omop_unit_concept_id) && info$omop_unit_concept_id != "") info$omop_unit_concept_id else NA
+    json_data$unit_concept_name <- if ("unit" %in% colnames(info) && !is.null(info$unit) && !is.na(info$unit) && info$unit != "") info$unit else NA
+    json_data$omop_unit_concept_id <- if ("omop_unit_concept_id" %in% colnames(info) && !is.null(info$omop_unit_concept_id) && !is.na(info$omop_unit_concept_id) && info$omop_unit_concept_id != "") info$omop_unit_concept_id else NA
 
   } else if (!is.null(concept_details)) {
     # OHDSI-only concept

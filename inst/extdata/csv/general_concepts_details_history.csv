@@ -16875,3 +16875,37 @@ FiO2 measurements can be **set values** (prescribed oxygen concentration) or **m
   - Venturi masks provide more precise FiO2 control (24%, 28%, 31%, 35%, 40%, 60%)
   - Non-rebreather mask: ~60-95% depending on flow rate and seal
   - These are estimates; actual FiO2 varies with patient breathing pattern and device fit"
+14446,2025-12-01 14:10:46,Boris Delange,update,327,NA,NA,Heart rate,"Updated statistical summary JSON: {
+  ""data_types"": [],
+  ""numeric_data"": {
+    ""min"": null,
+    ""max"": null,
+    ""mean"": null,
+    ""median"": null,
+    ""sd"": null,
+    ""cv"": null,
+    ""p5"": null,
+    ""p25"": null,
+    ""p75"": null,
+    ""p95"": null
+  },
+  ""categorical_data"": []
+}"
+14447,2025-12-01 14:15:05,Boris Delange,update,301,NA,NA,FiO2,"Updated statistical summary JSON: {
+  ""data_types"": [],
+  ""numeric_data"": {
+    ""min"": null,
+    ""max"": null,
+    ""mean"": null,
+    ""median"": null,
+    ""sd"": null,
+    ""cv"": null,
+    ""p5"": null,
+    ""p25"": null,
+    ""p75"": null,
+    ""p95"": null
+  },
+  ""categorical_data"": []
+}"
+14448,2025-12-01 14:15:05,Boris Delange,insert,301,LOINC,19994-3,Oxygen/Total gas setting [Volume Fraction] Ventilator,Added OMOP concept mapping
+14449,2025-12-01 14:15:09,Boris Delange,recommend,301,LOINC,19994-3,Oxygen/Total gas setting [Volume Fraction] Ventilator,Marked as recommended
