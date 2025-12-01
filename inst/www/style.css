@@ -24,7 +24,7 @@ html, body {
 -------------------------------------------------- */
 #shiny-notification-panel {
   pointer-events: none !important; /* Allow clicks to pass through the panel */
-  z-index: 1000 !important; /* Lower z-index to stay behind buttons */
+  z-index: 10001 !important; /* Above modals (modal z-index is 10000) */
 }
 
 .shiny-notification {
@@ -355,7 +355,6 @@ h3, h4 {
 
 .main-panel {
   background-color: #f8f9fa;
-  padding: 5px 30px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -369,6 +368,13 @@ h3, h4 {
   flex: 1;
   min-height: 0;
   overflow: hidden;
+}
+
+/* General concept detail container should take full height */
+#dictionary_explorer-general_concept_detail_container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Settings page should take full height */
@@ -2117,4 +2123,116 @@ table.dataTable thead tr td .selectize-dropdown .option {
   color: white !important;
   border-right: 1px solid #0f60af !important;
   border-bottom: 1px solid #0f60af !important;
+}
+
+/* Draggable and Resizable Modal
+-------------------------------------------------- */
+.draggable-resizable-modal {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.modal-drag-handle {
+  user-select: none;
+}
+
+.ui-resizable-handle {
+  background: transparent;
+  z-index: 100;
+}
+
+.ui-resizable-n {
+  cursor: n-resize;
+  height: 7px;
+  width: 100%;
+  top: -5px;
+  left: 0;
+}
+
+.ui-resizable-s {
+  cursor: s-resize;
+  height: 7px;
+  width: 100%;
+  bottom: -5px;
+  left: 0;
+}
+
+.ui-resizable-e {
+  cursor: e-resize;
+  width: 7px;
+  right: -5px;
+  top: 0;
+  height: 100%;
+}
+
+.ui-resizable-w {
+  cursor: w-resize;
+  width: 7px;
+  left: -5px;
+  top: 0;
+  height: 100%;
+}
+
+.ui-resizable-ne {
+  cursor: ne-resize;
+  width: 12px;
+  height: 12px;
+  right: -5px;
+  top: -5px;
+}
+
+.ui-resizable-nw {
+  cursor: nw-resize;
+  width: 12px;
+  height: 12px;
+  left: -5px;
+  top: -5px;
+}
+
+.ui-resizable-se {
+  cursor: se-resize;
+  width: 12px;
+  height: 12px;
+  right: -5px;
+  bottom: -5px;
+}
+
+.ui-resizable-sw {
+  cursor: sw-resize;
+  width: 12px;
+  height: 12px;
+  left: -5px;
+  bottom: -5px;
+}
+
+/* Copy Dropdown Menu
+-------------------------------------------------- */
+.copy-dropdown-container {
+  position: relative;
+}
+
+.copy-dropdown-menu {
+  animation: fadeIn 0.15s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.copy-menu-item {
+  transition: background-color 0.15s ease;
+}
+
+.copy-menu-item:hover {
+  background-color: #f0f7ff;
+}
+
+.copy-menu-item:active {
+  background-color: #e6f3ff;
 }

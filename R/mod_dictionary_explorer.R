@@ -223,13 +223,38 @@ mod_dictionary_explorer_ui <- function(id) {
                           ),
                           tags$div(
                             style = "display: flex; align-items: center; gap: 8px;",
-                            actionButton(
-                              ns("copy_general_concept_json"),
-                              label = NULL,
-                              icon = icon("copy"),
-                              class = "btn-icon-only",
-                              style = "background: transparent; border: none; color: #666; padding: 0; cursor: pointer; flex-shrink: 0;",
-                              `data-tooltip` = "Copy general concept with all mapped concepts as JSON"
+                            # Copy button with dropdown menu
+                            tags$div(
+                              class = "copy-dropdown-container",
+                              style = "position: relative;",
+                              actionButton(
+                                ns("copy_general_concept_menu"),
+                                label = NULL,
+                                icon = icon("copy"),
+                                class = "btn-icon-only copy-menu-trigger",
+                                style = "background: transparent; border: none; color: #666; padding: 0; cursor: pointer; flex-shrink: 0;",
+                                `data-tooltip` = "Copy as JSON or OMOP SQL"
+                              ),
+                              # Dropdown menu
+                              tags$div(
+                                id = ns("copy_menu_dropdown"),
+                                class = "copy-dropdown-menu",
+                                style = "display: none; position: absolute; top: 100%; right: 0; background: white; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1000; min-width: 180px; margin-top: 4px;",
+                                tags$div(
+                                  class = "copy-menu-item",
+                                  id = ns("copy_as_json"),
+                                  style = "padding: 10px 15px; cursor: pointer; border-bottom: 1px solid #eee;",
+                                  tags$i(class = "fa fa-code", style = "margin-right: 8px; color: #0f60af;"),
+                                  "Copy as JSON"
+                                ),
+                                tags$div(
+                                  class = "copy-menu-item",
+                                  id = ns("copy_as_omop_sql"),
+                                  style = "padding: 10px 15px; cursor: pointer;",
+                                  tags$i(class = "fa fa-database", style = "margin-right: 8px; color: #0f60af;"),
+                                  "Copy OMOP SQL"
+                                )
+                              )
                             ),
                             # Dynamic buttons for edit mode
                             uiOutput(ns("mapped_concepts_header_buttons"))
@@ -596,15 +621,19 @@ mod_dictionary_explorer_ui <- function(id) {
     ### Modal - Add Mapping to General Concept ----
     tags$div(
       id = ns("mapped_concepts_add_modal"),
+      class = "modal-overlay-draggable",
       style = "display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.5); z-index: 9999;",
       onclick = sprintf("if (event.target === this) { $('#%s').css('display', 'none'); }", ns("mapped_concepts_add_modal")),
       tags$div(
+        id = ns("mapped_concepts_add_modal_dialog"),
+        class = "draggable-resizable-modal",
         style = "position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95vw; height: 95vh; background: white; border-radius: 8px; display: flex; flex-direction: column;",
         onclick = "event.stopPropagation();",
-        
+
         # Header
         tags$div(
-          style = "padding: 20px; border-bottom: 1px solid #ddd; flex-shrink: 0; background: #f8f9fa;",
+          class = "modal-drag-handle",
+          style = "padding: 20px; border-bottom: 1px solid #ddd; flex-shrink: 0; background: #f8f9fa; border-radius: 8px 8px 0 0; cursor: move;",
           tags$h3("Add Concepts to Mapping", style = "margin: 0; display: inline-block;"),
           tags$button(
             style = "float: right; background: none; border: none; font-size: 28px; cursor: pointer;",
@@ -882,17 +911,22 @@ mod_dictionary_explorer_ui <- function(id) {
             style = "margin: 0; color: #0f60af;",
             "ETL Guidance & Comments"
           ),
-          tags$button(
+          actionButton(
+            ns("close_fullscreen_modal"),
+            label = HTML("×"),
             class = "modal-close",
-            onclick = sprintf("$('#%s').hide();", ns("comments_fullscreen_modal")),
-            style = "font-size: 28px; font-weight: 300; color: #666; border: none; background: none; cursor: pointer; padding: 0; width: 30px; height: 30px; line-height: 1;",
-            "×"
+            style = "font-size: 28px; font-weight: 300; color: #666; border: none; background: none; cursor: pointer; padding: 0; width: 30px; height: 30px; line-height: 1;"
           )
         ),
         tags$div(
-          style = "flex: 1; overflow-y: auto; padding: 30px;",
+          style = "flex: 1; overflow: hidden; padding: 0;",
           uiOutput(ns("comments_fullscreen_content"))
-        )
+        ),
+        tags$style(HTML(sprintf("
+          #%s {
+            height: 100%% !important;
+          }
+        ", ns("comments_fullscreen_content"))))
       )
     )
   )
@@ -1337,6 +1371,24 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         ))
       }
     })
+
+    # Restore category filters after table is re-rendered
+    observe_event(general_concepts_table_trigger(), {
+      categories <- selected_categories()
+
+      if (length(categories) > 0) {
+        # Use delayed execution to ensure DataTable is fully rendered
+        shiny::invalidateLater(100)
+
+        proxy <- DT::dataTableProxy("general_concepts_table", session = session)
+        search_string <- jsonlite::toJSON(categories, auto_unbox = FALSE)
+
+        DT::updateSearch(proxy, keywords = list(
+          global = NULL,
+          columns = list(NULL, as.character(search_string))
+        ))
+      }
+    }, ignoreInit = TRUE)
 
     ### View Switching ----
     
@@ -3059,7 +3111,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         colnames = col_names,
         filter = 'top',
         options = list(
-          pageLength = 8,
+          pageLength = 6,
           dom = 'tip',
           select = list(style = 'single', info = FALSE),
           columnDefs = col_defs,
@@ -3106,23 +3158,24 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     observe_event(debounced_selection(), {
       selected_row <- debounced_selection()
 
-      if (!is.null(selected_row) && length(selected_row) > 0) {
-        # Check if this is the same selection we already processed
-        if (identical(selected_row, last_processed_selection())) {
-          return()
-        }
+      if (is.null(selected_row) || length(selected_row) == 0) return()
 
-        # Update last processed selection
-        last_processed_selection(selected_row)
+      # Check if this is the same selection we already processed
+      if (identical(selected_row, last_processed_selection())) {
+        return()
+      }
 
-        # Use cached mappings if available
-        mappings <- current_mappings()
+      # Update last processed selection
+      last_processed_selection(selected_row)
 
-        # Get the selected concept's OMOP ID
-        if (selected_row <= nrow(mappings)) {
-          selected_omop_id <- mappings$omop_concept_id[selected_row]
-          selected_mapped_concept_id(selected_omop_id)
-        }
+      # Use cached mappings if available
+      mappings <- current_mappings()
+      if (is.null(mappings) || nrow(mappings) == 0) return()
+
+      # Get the selected concept's OMOP ID
+      if (selected_row <= nrow(mappings)) {
+        selected_omop_id <- mappings$omop_concept_id[selected_row]
+        selected_mapped_concept_id(selected_omop_id)
       }
     })
 
@@ -3170,7 +3223,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       } else {
         shinyjs::show("omop_details_section")
       }
-    }, ignoreInit = TRUE)
+    }, ignoreInit = FALSE)
 
     # Track row selection in OMOP concepts table with debounce
     observe_event(debounced_omop_selection(), {
@@ -3438,6 +3491,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         }
       }
 
+      # Track counts for notification
+      total_concepts <- length(concepts_to_add)
+
       # Load current general_concepts_details
       concept_mappings_path <- get_package_dir("extdata", "csv", "general_concepts_details.csv")
       if (file.exists(concept_mappings_path)) {
@@ -3472,6 +3528,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         dplyr::filter(!key %in% existing_keys) %>%
         dplyr::select(-key)
 
+      # Calculate counts
+      num_added <- nrow(new_mappings)
+      num_already_present <- total_concepts - num_added
+
       if (nrow(new_mappings) > 0) {
         # Store new mappings temporarily (don't save to CSV yet)
         current_added <- added_concepts()
@@ -3492,6 +3552,34 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
         # Trigger table re-render
         concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
+      }
+
+      # Show notification with results
+      if (num_added > 0 && num_already_present > 0) {
+        showNotification(
+          sprintf("%d concept%s added | %d already present",
+                  num_added,
+                  if (num_added > 1) "s" else "",
+                  num_already_present),
+          type = "message",
+          duration = 4
+        )
+      } else if (num_added > 0) {
+        showNotification(
+          sprintf("%d concept%s added",
+                  num_added,
+                  if (num_added > 1) "s" else ""),
+          type = "message",
+          duration = 3
+        )
+      } else if (num_already_present > 0) {
+        showNotification(
+          sprintf("All %d concept%s already present",
+                  num_already_present,
+                  if (num_already_present > 1) "s were" else " was"),
+          type = "warning",
+          duration = 3
+        )
       }
 
       # Update concept details to show "Already Added" indicator if needed
@@ -4059,6 +4147,214 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       ))
     })
 
+    # Handle copy as JSON from dropdown menu
+    observe_event(input$copy_as_json, {
+      concept_id <- selected_concept_id()
+
+      if (is.null(concept_id)) return()
+
+      # Get general concept info
+      general_concept_info <- data()$general_concepts %>%
+        dplyr::filter(general_concept_id == concept_id)
+
+      if (nrow(general_concept_info) == 0) return()
+
+      # Get all concept mappings for this general concept
+      all_mappings <- current_data()$concept_mappings %>%
+        dplyr::filter(general_concept_id == concept_id)
+
+      # Get vocabularies and statistics
+      vocab_data <- vocabularies()
+      concept_stats_data <- current_data()$concept_statistics
+
+      # Build array of mapped concepts
+      mapped_concepts <- list()
+
+      if (nrow(all_mappings) > 0) {
+        for (i in 1:nrow(all_mappings)) {
+          mapping <- all_mappings[i, ]
+
+          # Get concept details from vocabularies
+          concept_details <- NULL
+          if (!is.null(vocab_data)) {
+            concept_details <- vocab_data$concept %>%
+              dplyr::filter(concept_id == mapping$omop_concept_id) %>%
+              dplyr::collect()
+            if (nrow(concept_details) > 0) {
+              concept_details <- concept_details[1, ]
+            } else {
+              concept_details <- NULL
+            }
+          }
+
+          # Get statistics
+          concept_stats <- NULL
+          if (!is.null(concept_stats_data)) {
+            concept_stats <- concept_stats_data %>%
+              dplyr::filter(omop_concept_id == mapping$omop_concept_id)
+            if (nrow(concept_stats) > 0) {
+              concept_stats <- concept_stats[1, ]
+            } else {
+              concept_stats <- NULL
+            }
+          }
+
+          # Build JSON for this concept using helper function
+          concept_json <- build_concept_details_json(
+            concept_mapping = mapping,
+            general_concept_info = general_concept_info,
+            concept_details = concept_details,
+            concept_stats = concept_stats
+          )
+
+          if (length(concept_json) > 0) {
+            mapped_concepts[[length(mapped_concepts) + 1]] <- concept_json
+          }
+        }
+      }
+
+      # Build final JSON structure
+      json_data <- list(
+        general_concept_id = general_concept_info$general_concept_id[1],
+        general_concept_name = general_concept_info$general_concept_name[1],
+        category = general_concept_info$category[1],
+        subcategory = general_concept_info$subcategory[1],
+        mapped_concepts = mapped_concepts
+      )
+
+      # Convert to JSON
+      json_string <- jsonlite::toJSON(json_data, pretty = TRUE, auto_unbox = TRUE, na = "null")
+
+      # Copy to clipboard using JavaScript
+      session$sendCustomMessage("copyToClipboard", list(
+        text = as.character(json_string),
+        buttonId = session$ns("copy_as_json")
+      ))
+    })
+
+    # Handle copy as OMOP SQL from dropdown menu
+    observe_event(input$copy_as_omop_sql, {
+      concept_id <- selected_concept_id()
+
+      if (is.null(concept_id)) return()
+
+      # Get general concept info
+      general_concept_info <- data()$general_concepts %>%
+        dplyr::filter(general_concept_id == concept_id)
+
+      if (nrow(general_concept_info) == 0) return()
+
+      # Get all concept mappings for this general concept
+      all_mappings <- current_data()$concept_mappings %>%
+        dplyr::filter(general_concept_id == concept_id)
+
+      if (nrow(all_mappings) == 0) {
+        showNotification("No mapped concepts found", type = "warning", duration = 3)
+        return()
+      }
+
+      # Get vocabularies to retrieve domain_id
+      vocab_data <- vocabularies()
+
+      if (is.null(vocab_data)) {
+        showNotification("OHDSI vocabularies not loaded", type = "error", duration = 3)
+        return()
+      }
+
+      # Group concepts by domain_id
+      concepts_by_domain <- list()
+
+      for (i in 1:nrow(all_mappings)) {
+        omop_id <- all_mappings$omop_concept_id[i]
+
+        # Get concept details to find domain_id
+        concept_details <- vocab_data$concept %>%
+          dplyr::filter(concept_id == omop_id) %>%
+          dplyr::select(concept_id, concept_name, domain_id) %>%
+          dplyr::collect()
+
+        if (nrow(concept_details) > 0) {
+          domain <- concept_details$domain_id[1]
+          concept_name <- concept_details$concept_name[1]
+
+          if (is.null(concepts_by_domain[[domain]])) {
+            concepts_by_domain[[domain]] <- list()
+          }
+
+          concepts_by_domain[[domain]][[length(concepts_by_domain[[domain]]) + 1]] <- list(
+            id = omop_id,
+            name = concept_name
+          )
+        }
+      }
+
+      # Generate SQL queries for each domain
+      sql_parts <- c()
+
+      # Domain to table and column mapping
+      domain_mapping <- list(
+        "Measurement" = list(table = "measurement", column = "measurement_concept_id", value_column = "value_as_number"),
+        "Procedure" = list(table = "procedure_occurrence", column = "procedure_concept_id", value_column = NULL),
+        "Drug" = list(table = "drug_exposure", column = "drug_concept_id", value_column = "quantity"),
+        "Condition" = list(table = "condition_occurrence", column = "condition_concept_id", value_column = NULL),
+        "Observation" = list(table = "observation", column = "observation_concept_id", value_column = "value_as_number"),
+        "Device" = list(table = "device_exposure", column = "device_concept_id", value_column = NULL),
+        "Specimen" = list(table = "specimen", column = "specimen_concept_id", value_column = NULL)
+      )
+
+      for (domain in names(concepts_by_domain)) {
+        if (!domain %in% names(domain_mapping)) next
+
+        mapping <- domain_mapping[[domain]]
+        concepts <- concepts_by_domain[[domain]]
+
+        # Build concept list with comments
+        concept_list <- sapply(concepts, function(c) {
+          sprintf("    %s -- %s", c$id, c$name)
+        })
+
+        # Build SELECT clause
+        if (!is.null(mapping$value_column)) {
+          select_clause <- sprintf("SELECT\n    %s,\n    %s", mapping$column, mapping$value_column)
+        } else {
+          select_clause <- sprintf("SELECT\n    %s", mapping$column)
+        }
+
+        # Build query
+        query <- sprintf(
+          "%s\nFROM %s\nWHERE %s IN (\n%s\n)",
+          select_clause,
+          mapping$table,
+          mapping$column,
+          paste(concept_list, collapse = ",\n")
+        )
+
+        sql_parts <- c(sql_parts, query)
+      }
+
+      # Combine with UNION
+      if (length(sql_parts) == 0) {
+        showNotification("No valid domains found for SQL generation", type = "warning", duration = 3)
+        return()
+      }
+
+      final_sql <- paste(sql_parts, collapse = "\n\nUNION\n\n")
+
+      # Add header comment
+      final_sql <- sprintf(
+        "-- OMOP SQL Query for: %s\n-- Generated: %s\n\n%s",
+        general_concept_info$general_concept_name[1],
+        format(Sys.time(), "%Y-%m-%d %H:%M:%S"),
+        final_sql
+      )
+
+      # Copy to clipboard using JavaScript
+      session$sendCustomMessage("copyToClipboard", list(
+        text = as.character(final_sql),
+        buttonId = session$ns("copy_as_omop_sql")
+      ))
+    })
+
     ### c) ETL Guidance & Comments (Bottom-Left Panel) ----
     ##### Comments & Statistical Summary Display ----
     # Render comments or statistical summary based on active tab
@@ -4076,7 +4372,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           if (active_tab == "comments") {
             # Comments tab
             if (is_editing) {
-              # Edit mode: show textarea
+              # Edit mode: show textarea with fullscreen button
               current_comment <- if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1])) {
                 concept_info$comments[1]
               } else {
@@ -4084,7 +4380,18 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               }
 
               tags$div(
-                style = "height: 100%;",
+                style = "height: 100%; position: relative;",
+                tags$div(
+                  style = "position: absolute; top: 0; left: 0; z-index: 100;",
+                  actionButton(
+                    session$ns("expand_comments_edit"),
+                    label = NULL,
+                    icon = icon("expand"),
+                    class = "btn-icon-only comments-expand-btn",
+                    style = "background: rgba(255, 255, 255, 0.95); border: 1px solid #ddd; color: #666; padding: 4px 7px; cursor: pointer; border-radius: 0 0 4px 0; font-size: 12px;",
+                    `data-tooltip` = "Edit in fullscreen"
+                  )
+                ),
                 shiny::textAreaInput(
                   ns("comments_input"),
                   label = NULL,
@@ -4092,7 +4399,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                   placeholder = "Enter ETL guidance and comments here...",
                   width = "100%",
                   height = "100%"
-                )
+                ),
+                tags$style(HTML(sprintf("
+                  #%s {
+                    padding-left: 30px !important;
+                  }
+                ", ns("comments_input"))))
               )
             } else {
               # View mode: show formatted comment using markdown
@@ -4274,111 +4586,123 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       shinyjs::show("comments_fullscreen_modal")
     }, ignoreInit = TRUE)
 
-    # Render fullscreen comments content
-    observe_event(input$expand_comments, {
+    # Handle expand comments edit button (from small textfield) to show fullscreen modal
+    observe_event(input$expand_comments_edit, {
+      concept_id <- selected_concept_id()
+      if (is.null(concept_id)) return()
+
+      shinyjs::show("comments_fullscreen_modal")
+    }, ignoreInit = TRUE)
+
+    # Render fullscreen comments content - split view if editing, markdown only if viewing
+    observe_event(c(input$expand_comments, input$expand_comments_edit), {
       concept_id <- selected_concept_id()
       if (is.null(concept_id)) return()
 
       output$comments_fullscreen_content <- renderUI({
-        active_tab <- comments_tab()
         concept_info <- current_data()$general_concepts %>%
           dplyr::filter(general_concept_id == concept_id)
 
-        if (active_tab == "comments") {
-          if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1]) && nchar(concept_info$comments[1]) > 0) {
-            tags$div(
-              class = "markdown-content",
-              style = "max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
-              shiny::markdown(concept_info$comments[1])
-            )
-          } else {
-            tags$div(
-              style = "padding: 30px; background: #f8f9fa; border-radius: 8px; color: #999; font-style: italic; text-align: center;",
-              "No comments available for this concept."
-            )
-          }
+        # Use value from small textfield if available, otherwise use saved value
+        current_comment <- if (!is.null(input$comments_input) && nchar(input$comments_input) > 0) {
+          input$comments_input
+        } else if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1])) {
+          concept_info$comments[1]
         } else {
-          # Statistical Summary tab
-          summary_data <- NULL
-          if (nrow(concept_info) > 0 && !is.na(concept_info$statistical_summary[1]) && nchar(concept_info$statistical_summary[1]) > 0) {
-            summary_data <- jsonlite::fromJSON(concept_info$statistical_summary[1])
-          }
+          ""
+        }
 
-          if (!is.null(summary_data)) {
+        # Check if we're in edit mode
+        is_edit_mode <- general_concept_detail_edit_mode()
+
+        if (is_edit_mode) {
+          # Edit mode: show split view with text field on left, markdown preview on right
+          tagList(
             tags$div(
-              style = "max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
+              style = "height: 100%; display: flex; gap: 0;",
+
+              # Left half: text editor
               tags$div(
-                style = "display: grid; grid-template-columns: 1fr 1fr; gap: 30px;",
-
-                tags$div(
-                  tags$h5(style = "margin: 0 0 15px 0; color: #0f60af; font-size: 16px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 8px;", "Data Types"),
-                  if (!is.null(summary_data$data_types) && length(summary_data$data_types) > 0) {
-                    tags$div(
-                      style = "margin-bottom: 25px;",
-                      create_detail_item("Types", paste(summary_data$data_types, collapse = ", "))
-                    )
-                  } else {
-                    tags$p(style = "color: #6c757d; font-style: italic; margin-bottom: 25px;", "No data types specified")
-                  },
-
-                  tags$h5(style = "margin: 25px 0 15px 0; color: #0f60af; font-size: 16px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 8px;", "Statistical Data"),
-                  if (!is.null(summary_data$statistical_data) && length(summary_data$statistical_data) > 0) {
-                    tagList(
-                      lapply(names(summary_data$statistical_data), function(key) {
-                        value <- summary_data$statistical_data[[key]]
-                        create_detail_item(gsub("_", " ", tools::toTitleCase(key)), if (is.null(value)) "/" else value)
-                      })
-                    )
-                  } else {
-                    tags$p(style = "color: #6c757d; font-style: italic;", "No statistical data available")
-                  }
+                style = "flex: 1; padding: 30px; border-right: 1px solid #ddd; overflow-y: auto;",
+                tags$h4(
+                  style = "margin-top: 0; color: #0f60af; font-size: 16px; font-weight: 600; margin-bottom: 15px;",
+                  "Edit Comment"
                 ),
-
-                tags$div(
-                  tags$h5(style = "margin: 0 0 15px 0; color: #0f60af; font-size: 16px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 8px;", "Temporal Information"),
-                  if (!is.null(summary_data$temporal_info)) {
-                    tagList(
-                      if (!is.null(summary_data$temporal_info$frequency_range)) {
-                        tagList(
-                          create_detail_item("Frequency Min", if (is.null(summary_data$temporal_info$frequency_range$min)) "/" else summary_data$temporal_info$frequency_range$min),
-                          create_detail_item("Frequency Max", if (is.null(summary_data$temporal_info$frequency_range$max)) "/" else summary_data$temporal_info$frequency_range$max)
-                        )
-                      },
-                      if (!is.null(summary_data$temporal_info$measurement_period) && length(summary_data$temporal_info$measurement_period) > 0) {
-                        create_detail_item("Measurement Period", paste(summary_data$temporal_info$measurement_period, collapse = ", "))
-                      } else {
-                        create_detail_item("Measurement Period", "/")
-                      }
-                    )
-                  } else {
-                    tags$p(style = "color: #6c757d; font-style: italic;", "No temporal information available")
-                  },
-
-                  tags$h5(style = "margin: 25px 0 15px 0; color: #0f60af; font-size: 16px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 8px;", "Possible Values"),
-                  if (!is.null(summary_data$possible_values) && length(summary_data$possible_values) > 0) {
-                    tags$div(
-                      style = "margin-top: 12px;",
-                      tags$ul(
-                        style = "margin: 0; padding-left: 25px;",
-                        lapply(summary_data$possible_values, function(val) {
-                          tags$li(style = "color: #212529; padding: 4px 0;", val)
-                        })
-                      )
-                    )
-                  } else {
-                    tags$p(style = "color: #6c757d; font-style: italic;", "No possible values specified")
-                  }
+                shiny::textAreaInput(
+                  session$ns("fullscreen_comments_input"),
+                  label = NULL,
+                  value = current_comment,
+                  placeholder = "Enter ETL guidance and comments here...",
+                  width = "100%",
+                  height = "calc(100vh - 150px)"
                 )
+              ),
+
+              # Right half: markdown preview
+              tags$div(
+                style = "flex: 1; padding: 30px; overflow-y: auto; background: #f8f9fa;",
+                tags$h4(
+                  style = "margin-top: 0; color: #0f60af; font-size: 16px; font-weight: 600; margin-bottom: 15px;",
+                  "Preview"
+                ),
+                uiOutput(session$ns("fullscreen_markdown_preview"))
               )
-            )
-          } else {
-            tags$div(
-              style = "padding: 30px; background: #f8f9fa; border-radius: 8px; color: #999; font-style: italic; text-align: center;",
-              "No statistical summary available for this concept."
-            )
-          }
+            ),
+            tags$style(HTML(sprintf("
+              #%s {
+                height: 100%%;
+              }
+            ", session$ns("fullscreen_markdown_preview"))))
+          )
+        } else {
+          # View mode: show markdown only with same styling as preview
+          tags$div(
+            style = "height: 100%; padding: 30px; overflow-y: auto; background: #f8f9fa;",
+            if (!is.null(current_comment) && nchar(current_comment) > 0) {
+              tags$div(
+                class = "markdown-content",
+                style = "background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); height: 100%; overflow-y: auto;",
+                shiny::markdown(current_comment)
+              )
+            } else {
+              tags$div(
+                style = "background: white; padding: 20px; border-radius: 8px; color: #999; font-style: italic; text-align: center; height: 100%;",
+                "No comments available for this concept."
+              )
+            }
+          )
         }
       })
+    }, ignoreInit = TRUE)
+
+    # Render markdown preview - always update as user types
+    observe_event(input$fullscreen_comments_input, {
+      output$fullscreen_markdown_preview <- renderUI({
+        text <- input$fullscreen_comments_input
+        if (is.null(text) || nchar(text) == 0) {
+          tags$div(
+            style = "color: #999; font-style: italic;",
+            "Preview will appear here as you type..."
+          )
+        } else {
+          tags$div(
+            class = "markdown-content",
+            style = "background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1);",
+            shiny::markdown(text)
+          )
+        }
+      })
+    }, ignoreInit = FALSE)
+
+    # Handle modal close - update small textfield with fullscreen value
+    observe_event(input$close_fullscreen_modal, {
+      # Update small textfield if in edit mode
+      if (general_concept_detail_edit_mode() && !is.null(input$fullscreen_comments_input)) {
+        updateTextAreaInput(session, "comments_input", value = input$fullscreen_comments_input)
+      }
+
+      # Close the modal
+      shinyjs::hide("comments_fullscreen_modal")
     }, ignoreInit = TRUE)
 
     # Handle toggle recommended for mappings in detail edit mode
