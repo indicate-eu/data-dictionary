@@ -4,6 +4,7 @@
 #
 # UI STRUCTURE:
 #   ## UI - Main Layout
+#      ### Backup & Restore - Download/upload application data backup (ZIP)
 #      ### OHDSI Vocabularies - Browse (local) or Upload (container) vocabulary files
 #      ### DuckDB Database Status - Display database status and controls
 #      ### OHDSI Relationships Mappings - Load/Reload mappings from vocabulary relationships
@@ -12,8 +13,14 @@
 #   ## 1) Server - Reactive Values & State
 #      ### Folder Browser State - Track current path, selection, sort order
 #      ### File Upload State - Track uploaded files in container mode
+#      ### Backup & Restore State - Track restore status messages
 #      ### DuckDB Status - Processing status and messages
 #      ### OHDSI Mappings Status - Processing status and last sync time
+#
+#   ## 1b) Server - Backup & Restore
+#      ### Download Backup Handler - Create ZIP of app_folder (excluding vocabularies.duckdb)
+#      ### Upload Restore Handler - Extract ZIP and restore to app_folder
+#      ### Backup Restore Status Display - Show restore status and reload button
 #
 #   ## 2) Server - Folder Browser (Local Mode)
 #      ### Folder Path Display - Show selected folder path
@@ -55,111 +62,183 @@ mod_general_settings_ui <- function(id) {
     ## UI - Main Layout ----
     div(class = "main-panel",
       div(class = "main-content",
-        fluidRow(
-          column(12,
-             div(class = "settings-section",
-                 style = "background: #fff; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
-                 h4(
-                   tags$i(class = "fas fa-folder-open", style = "margin-right: 8px;"),
-                   "OHDSI Vocabularies"
-                 ),
-                 p(
-                   style = "color: #666; margin-bottom: 15px;",
-                   if (!is_container()) {
-                     "Browse and select the folder containing your OHDSI Vocabularies files."
-                   } else {
-                     "Upload your OHDSI Vocabularies CSV files (CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, etc.)."
-                   }
-                 ),
+        tabsetPanel(
+          id = ns("settings_tabs"),
 
-                 # Browse button (local) or Upload input (container)
-                 if (!is_container()) {
-                   # Local mode: Browse folder
-                   tags$div(
-                     style = "display: flex; align-items: center; gap: 15px;",
-                     actionButton(
-                       ns("browse_folder"),
-                       label = tagList(
-                         tags$i(class = "fas fa-folder-open", style = "margin-right: 6px;"),
-                         "Browse..."
-                       ),
-                       style = "background: #0f60af; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer;"
-                     ),
-                     tags$div(
-                       style = "flex: 1;",
-                       uiOutput(ns("folder_path_display"))
-                     )
-                   )
-                 } else {
-                   # Container mode: Upload files
-                   tags$div(
-                     fileInput(
-                       ns("upload_vocab_files"),
-                       label = NULL,
-                       multiple = TRUE,
-                       accept = ".csv",
-                       buttonLabel = tagList(
-                         tags$i(class = "fas fa-upload", style = "margin-right: 6px;"),
-                         "Upload CSV files..."
-                       ),
-                       placeholder = "CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, ..."
-                     ),
-                     uiOutput(ns("upload_status_display"))
-                   )
-                 },
+          ### Backup & Restore Tab ----
+          tabPanel(
+            "Backup & Restore",
+            value = "backup_restore",
+            icon = icon("database"),
+            tags$div(
+              style = "margin-top: 20px; height: calc(100vh - 185px); overflow-y: auto;",
+              div(class = "settings-section",
+                p(
+                  style = "color: #666; margin-bottom: 15px;",
+                  "Download a backup of the application data or restore from a previous backup."
+                ),
 
-                 tags$div(
-                   style = "margin-top: 15px; padding: 12px; background: #e6f3ff; border-left: 4px solid #0f60af; border-radius: 4px;",
-                   tags$p(
-                     style = "margin: 0; font-size: 13px; color: #333;",
-                     tags$i(class = "fas fa-info-circle", style = "margin-right: 6px; color: #0f60af;"),
-                     tags$strong("Note:"), " The OHDSI Vocabularies can be downloaded from ",
-                     tags$a(
-                       href = "https://athena.ohdsi.org/",
-                       target = "_blank",
-                       "ATHENA",
-                       style = "color: #0f60af; text-decoration: underline;"
-                     ),
-                     " (registration required)."
-                   )
-                 ),
+                # Download backup
+                tags$div(
+                  style = "margin-bottom: 20px;",
+                  tags$div(
+                    style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 10px;",
+                    tags$i(class = "fas fa-download", style = "margin-right: 8px; color: #28a745;"),
+                    "Download Backup"
+                  ),
+                  downloadButton(
+                    ns("download_backup"),
+                    label = "Download backup (ZIP)",
+                    class = "btn-success-custom",
+                    icon = icon("download")
+                  ),
+                  tags$p(
+                    style = "margin-top: 8px; font-size: 12px; color: #666;",
+                    "Creates a ZIP archive containing the database and concept mappings (excludes vocabulary files)."
+                  )
+                ),
 
-                 # DuckDB status
-                 tags$div(
-                   style = "margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #dee2e6;",
-                   tags$div(
-                     style = "margin-bottom: 10px;",
-                     tags$div(
-                       style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 5px;",
-                       tags$i(class = "fas fa-database", style = "margin-right: 8px; color: #0f60af;"),
-                       "DuckDB Database Status"
-                     ),
-                     tags$p(
-                       style = "margin: 0; font-size: 12px; color: #666;",
-                       "A DuckDB database is automatically created from ATHENA CSV files for instant loading at startup."
-                     )
-                   ),
-                   uiOutput(ns("duckdb_status"))
-                 ),
+                tags$hr(style = "border-color: #dee2e6; margin: 20px 0;"),
 
-                 # OHDSI Relationships Mappings
-                 tags$div(
-                   style = "margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #dee2e6;",
-                   tags$div(
-                     style = "margin-bottom: 10px;",
-                     tags$div(
-                       style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 5px;",
-                       tags$i(class = "fas fa-project-diagram", style = "margin-right: 8px; color: #0f60af;"),
-                       "OHDSI Relationships Mappings"
-                     ),
-                     tags$p(
-                       style = "margin: 0; font-size: 12px; color: #666;",
-                       "Load additional concept mappings from OHDSI vocabulary relationships. This enriches the dictionary with related concepts from standard vocabularies."
-                     )
-                   ),
-                   uiOutput(ns("ohdsi_mappings_status"))
-                 )
-             )
+                # Upload restore
+                tags$div(
+                  tags$div(
+                    style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 10px;",
+                    tags$i(class = "fas fa-upload", style = "margin-right: 8px; color: #0f60af;"),
+                    "Restore from Backup"
+                  ),
+                  fileInput(
+                    ns("upload_backup_file"),
+                    label = NULL,
+                    accept = ".zip",
+                    width = "400px",
+                    buttonLabel = tagList(
+                      tags$i(class = "fas fa-upload", style = "margin-right: 6px;"),
+                      "Upload..."
+                    ),
+                    placeholder = "Select a backup ZIP file"
+                  ),
+                  uiOutput(ns("backup_restore_status"))
+                ),
+
+                tags$div(
+                  style = "margin-top: 15px; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;",
+                  tags$p(
+                    style = "margin: 0; font-size: 13px; color: #333;",
+                    tags$i(class = "fas fa-exclamation-triangle", style = "margin-right: 6px; color: #ffc107;"),
+                    tags$strong("Warning:"), " Restoring from a backup will replace all current data. This action cannot be undone."
+                  )
+                )
+              )
+            )
+          ),
+
+          ### OHDSI Vocabularies Tab ----
+          tabPanel(
+            "OHDSI Vocabularies",
+            value = "ohdsi_vocabularies",
+            icon = icon("book-medical"),
+            tags$div(
+              style = "margin-top: 20px; height: calc(100vh - 185px); overflow-y: auto;",
+              div(class = "settings-section",
+                p(
+                  style = "color: #666; margin-bottom: 15px;",
+                  if (!is_container()) {
+                    "Browse and select the folder containing your OHDSI Vocabularies files."
+                  } else {
+                    "Upload your OHDSI Vocabularies CSV files (CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, etc.)."
+                  }
+                ),
+
+                # Browse button (local) or Upload input (container)
+                if (!is_container()) {
+                  # Local mode: Browse folder
+                  tags$div(
+                    style = "display: flex; align-items: center; gap: 15px;",
+                    actionButton(
+                      ns("browse_folder"),
+                      label = tagList(
+                        tags$i(class = "fas fa-folder-open", style = "margin-right: 6px;"),
+                        "Browse..."
+                      ),
+                      style = "background: #0f60af; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer;"
+                    ),
+                    tags$div(
+                      style = "flex: 1;",
+                      uiOutput(ns("folder_path_display"))
+                    )
+                  )
+                } else {
+                  # Container mode: Upload files
+                  tags$div(
+                    fileInput(
+                      ns("upload_vocab_files"),
+                      label = NULL,
+                      multiple = TRUE,
+                      accept = ".csv",
+                      buttonLabel = tagList(
+                        tags$i(class = "fas fa-upload", style = "margin-right: 6px;"),
+                        "Upload CSV files..."
+                      ),
+                      placeholder = "CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, ..."
+                    ),
+                    uiOutput(ns("upload_status_display"))
+                  )
+                },
+
+                tags$div(
+                  style = "margin-top: 15px; padding: 12px; background: #e6f3ff; border-left: 4px solid #0f60af; border-radius: 4px;",
+                  tags$p(
+                    style = "margin: 0; font-size: 13px; color: #333;",
+                    tags$i(class = "fas fa-info-circle", style = "margin-right: 6px; color: #0f60af;"),
+                    tags$strong("Note:"), " The OHDSI Vocabularies can be downloaded from ",
+                    tags$a(
+                      href = "https://athena.ohdsi.org/",
+                      target = "_blank",
+                      "ATHENA",
+                      style = "color: #0f60af; text-decoration: underline;"
+                    ),
+                    " (registration required)."
+                  )
+                ),
+
+                # DuckDB status
+                tags$div(
+                  style = "margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #dee2e6;",
+                  tags$div(
+                    style = "margin-bottom: 10px;",
+                    tags$div(
+                      style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 5px;",
+                      tags$i(class = "fas fa-database", style = "margin-right: 8px; color: #0f60af;"),
+                      "DuckDB Database Status"
+                    ),
+                    tags$p(
+                      style = "margin: 0; font-size: 12px; color: #666;",
+                      "A DuckDB database is automatically created from ATHENA CSV files for instant loading at startup."
+                    )
+                  ),
+                  uiOutput(ns("duckdb_status"))
+                ),
+
+                # OHDSI Relationships Mappings
+                tags$div(
+                  style = "margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #dee2e6;",
+                  tags$div(
+                    style = "margin-bottom: 10px;",
+                    tags$div(
+                      style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 5px;",
+                      tags$i(class = "fas fa-project-diagram", style = "margin-right: 8px; color: #0f60af;"),
+                      "OHDSI Relationships Mappings"
+                    ),
+                    tags$p(
+                      style = "margin: 0; font-size: 12px; color: #666;",
+                      "Load additional concept mappings from OHDSI vocabulary relationships. This enriches the dictionary with related concepts from standard vocabularies."
+                    )
+                  ),
+                  uiOutput(ns("ohdsi_mappings_status"))
+                )
+              )
+            )
           )
         )
       )
@@ -200,6 +279,9 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     uploaded_files <- reactiveVal(list())
     upload_message <- reactiveVal(NULL)
 
+    ### Backup & Restore State ----
+    backup_restore_message <- reactiveVal(NULL)
+
     ### DuckDB Status ----
     duckdb_processing <- reactiveVal(FALSE)
     duckdb_message <- reactiveVal(NULL)
@@ -225,6 +307,151 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     }
 
     ohdsi_mappings_last_sync(sync_time)
+
+    ## 1b) Server - Backup & Restore ----
+
+    ### Download Backup Handler ----
+
+    output$download_backup <- downloadHandler(
+      filename = function() {
+        paste0("indicate_backup_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".zip")
+      },
+      content = function(file) {
+        app_dir <- get_app_dir()
+
+        # Get all files in app_dir except vocabularies.duckdb
+        all_files <- list.files(app_dir, recursive = TRUE, full.names = TRUE)
+        files_to_backup <- all_files[!grepl("vocabularies\\.duckdb$", all_files)]
+
+        # Create a temporary directory for the backup
+        temp_dir <- file.path(tempdir(), "indicate_backup")
+        if (dir.exists(temp_dir)) {
+          unlink(temp_dir, recursive = TRUE)
+        }
+        dir.create(temp_dir, recursive = TRUE)
+
+        # Copy files preserving directory structure
+        for (f in files_to_backup) {
+          rel_path <- sub(paste0("^", normalizePath(app_dir), "/?"), "", normalizePath(f))
+          dest_path <- file.path(temp_dir, rel_path)
+          dest_dir <- dirname(dest_path)
+          if (!dir.exists(dest_dir)) {
+            dir.create(dest_dir, recursive = TRUE)
+          }
+          file.copy(f, dest_path, overwrite = TRUE)
+        }
+
+        # Create ZIP file (quietly)
+        old_wd <- getwd()
+        setwd(temp_dir)
+        zip(file, files = list.files(".", recursive = TRUE), flags = "-q")
+        setwd(old_wd)
+
+        # Clean up
+        unlink(temp_dir, recursive = TRUE)
+      },
+      contentType = "application/zip"
+    )
+
+    ### Upload Restore Handler ----
+
+    observe_event(input$upload_backup_file, {
+      file <- input$upload_backup_file
+      if (is.null(file)) return()
+
+      app_dir <- get_app_dir()
+
+      tryCatch({
+        # Create a temporary directory for extraction
+        temp_extract_dir <- file.path(tempdir(), "indicate_restore")
+        if (dir.exists(temp_extract_dir)) {
+          unlink(temp_extract_dir, recursive = TRUE)
+        }
+        dir.create(temp_extract_dir, recursive = TRUE)
+
+        # Extract ZIP file
+        unzip(file$datapath, exdir = temp_extract_dir)
+
+        # Get list of extracted files
+        extracted_files <- list.files(temp_extract_dir, recursive = TRUE, full.names = TRUE)
+
+        if (length(extracted_files) == 0) {
+          backup_restore_message(list(
+            success = FALSE,
+            message = "The backup file appears to be empty or invalid."
+          ))
+          return()
+        }
+
+        # Copy extracted files to app_dir, preserving structure
+        for (f in extracted_files) {
+          rel_path <- sub(paste0("^", normalizePath(temp_extract_dir), "/?"), "", normalizePath(f))
+          dest_path <- file.path(app_dir, rel_path)
+          dest_dir <- dirname(dest_path)
+          if (!dir.exists(dest_dir)) {
+            dir.create(dest_dir, recursive = TRUE)
+          }
+          file.copy(f, dest_path, overwrite = TRUE)
+        }
+
+        # Clean up
+        unlink(temp_extract_dir, recursive = TRUE)
+
+        backup_restore_message(list(
+          success = TRUE,
+          message = "Backup restored successfully. Please reload the application to apply changes."
+        ))
+      }, error = function(e) {
+        backup_restore_message(list(
+          success = FALSE,
+          message = paste("Error restoring backup:", e$message)
+        ))
+      })
+    })
+
+    ### Backup Restore Status Display ----
+
+    backup_restore_status_trigger <- reactiveVal(0)
+
+    observe_event(backup_restore_message(), {
+      backup_restore_status_trigger(backup_restore_status_trigger() + 1)
+    })
+
+    observe_event(backup_restore_status_trigger(), {
+      output$backup_restore_status <- renderUI({
+        msg <- backup_restore_message()
+
+        if (is.null(msg)) {
+          return(NULL)
+        }
+
+        if (msg$success) {
+          tags$div(
+            tags$div(
+              style = "margin-top: 10px; padding: 10px; background: #d4edda; border-left: 3px solid #28a745; border-radius: 4px; font-size: 12px;",
+              tags$i(class = "fas fa-check-circle", style = "margin-right: 6px; color: #28a745;"),
+              msg$message
+            ),
+            tags$div(
+              style = "margin-top: 10px;",
+              actionButton(
+                ns("reload_application"),
+                "Reload application",
+                class = "btn-primary-custom",
+                icon = icon("sync-alt"),
+                onclick = "location.reload();"
+              )
+            )
+          )
+        } else {
+          tags$div(
+            style = "margin-top: 10px; padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px;",
+            tags$i(class = "fas fa-exclamation-circle", style = "margin-right: 6px; color: #dc3545;"),
+            msg$message
+          )
+        }
+      })
+    }, ignoreInit = FALSE)
 
     ## 2) Server - Folder Browser ----
 

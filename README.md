@@ -245,11 +245,16 @@ Define and manage clinical use cases with assigned concepts.
 
 #### 4. Settings
 
-**Configuring the Application**:
-1. Navigate to the **Settings** tab
-2. Adjust database and UI preferences
-3. Export your custom concepts and mappings
-4. Import previously saved configurations
+**Backup & Restore**:
+1. Navigate to the **Settings** tab > **Backup & Restore**
+2. Click **Download backup (ZIP)** to save your application data (database, concept mappings, alignments)
+3. To restore, upload a previously downloaded backup ZIP file
+4. After restore, click **Reload application** to apply changes
+
+**OHDSI Vocabularies**:
+1. Navigate to the **Settings** tab > **OHDSI Vocabularies**
+2. Browse and select your OHDSI vocabulary folder (or upload CSV files in container mode)
+3. The application will create a DuckDB database for fast concept lookups
 
 #### 5. Development Tools
 
@@ -319,3 +324,16 @@ See the [Spaces configuration reference](https://huggingface.co/docs/hub/spaces-
 - The application listens on port **7860** (Hugging Face default)
 - First build takes ~15-20 minutes (R package compilation)
 - Use Git LFS for binary files (images): `git lfs track "*.png"`
+
+### Data Persistence
+
+**Warning**: Hugging Face Spaces are ephemeral. When the Space is redeployed or restarted, all local files (database, alignments, uploaded vocabularies) are lost.
+
+**Before redeploying**:
+1. Go to **Settings** > **Backup & Restore**
+2. Click **Download backup (ZIP)** to save your data locally
+
+**After redeploying**:
+1. Go to **Settings** > **Backup & Restore**
+2. Upload your backup ZIP file to restore your data
+3. Go to **Settings** > **OHDSI Vocabularies** to re-upload vocabulary files if needed
