@@ -65,74 +65,6 @@ mod_general_settings_ui <- function(id) {
         tabsetPanel(
           id = ns("settings_tabs"),
 
-          ### Backup & Restore Tab ----
-          tabPanel(
-            "Backup & Restore",
-            value = "backup_restore",
-            icon = icon("database"),
-            tags$div(
-              style = "margin-top: 20px; height: calc(100vh - 185px); overflow-y: auto;",
-              div(class = "settings-section",
-                p(
-                  style = "color: #666; margin-bottom: 15px;",
-                  "Download a backup of the application data or restore from a previous backup."
-                ),
-
-                # Download backup
-                tags$div(
-                  style = "margin-bottom: 20px;",
-                  tags$div(
-                    style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 10px;",
-                    tags$i(class = "fas fa-download", style = "margin-right: 8px; color: #28a745;"),
-                    "Download Backup"
-                  ),
-                  downloadButton(
-                    ns("download_backup"),
-                    label = "Download backup (ZIP)",
-                    class = "btn-success-custom",
-                    icon = icon("download")
-                  ),
-                  tags$p(
-                    style = "margin-top: 8px; font-size: 12px; color: #666;",
-                    "Creates a ZIP archive containing the database and concept mappings (excludes vocabulary files)."
-                  )
-                ),
-
-                tags$hr(style = "border-color: #dee2e6; margin: 20px 0;"),
-
-                # Upload restore
-                tags$div(
-                  tags$div(
-                    style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 10px;",
-                    tags$i(class = "fas fa-upload", style = "margin-right: 8px; color: #0f60af;"),
-                    "Restore from Backup"
-                  ),
-                  fileInput(
-                    ns("upload_backup_file"),
-                    label = NULL,
-                    accept = ".zip",
-                    width = "400px",
-                    buttonLabel = tagList(
-                      tags$i(class = "fas fa-upload", style = "margin-right: 6px;"),
-                      "Upload..."
-                    ),
-                    placeholder = "Select a backup ZIP file"
-                  ),
-                  uiOutput(ns("backup_restore_status"))
-                ),
-
-                tags$div(
-                  style = "margin-top: 15px; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;",
-                  tags$p(
-                    style = "margin: 0; font-size: 13px; color: #333;",
-                    tags$i(class = "fas fa-exclamation-triangle", style = "margin-right: 6px; color: #ffc107;"),
-                    tags$strong("Warning:"), " Restoring from a backup will replace all current data. This action cannot be undone."
-                  )
-                )
-              )
-            )
-          ),
-
           ### OHDSI Vocabularies Tab ----
           tabPanel(
             "OHDSI Vocabularies",
@@ -236,6 +168,74 @@ mod_general_settings_ui <- function(id) {
                     )
                   ),
                   uiOutput(ns("ohdsi_mappings_status"))
+                )
+              )
+            )
+          ),
+
+          ### Backup & Restore Tab ----
+          tabPanel(
+            "Backup & Restore",
+            value = "backup_restore",
+            icon = icon("database"),
+            tags$div(
+              style = "margin-top: 20px; height: calc(100vh - 185px); overflow-y: auto;",
+              div(class = "settings-section",
+                p(
+                  style = "color: #666; margin-bottom: 15px;",
+                  "Download a backup of the application data or restore from a previous backup."
+                ),
+
+                # Download backup
+                tags$div(
+                  style = "margin-bottom: 20px;",
+                  tags$div(
+                    style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 10px;",
+                    tags$i(class = "fas fa-download", style = "margin-right: 8px; color: #28a745;"),
+                    "Download Backup"
+                  ),
+                  downloadButton(
+                    ns("download_backup"),
+                    label = "Download backup (ZIP)",
+                    class = "btn-success-custom",
+                    icon = icon("download")
+                  ),
+                  tags$p(
+                    style = "margin-top: 8px; font-size: 12px; color: #666;",
+                    "Creates a ZIP archive containing the database and concept mappings (excludes vocabulary files)."
+                  )
+                ),
+
+                tags$hr(style = "border-color: #dee2e6; margin: 20px 0;"),
+
+                # Upload restore
+                tags$div(
+                  tags$div(
+                    style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 10px;",
+                    tags$i(class = "fas fa-upload", style = "margin-right: 8px; color: #0f60af;"),
+                    "Restore from Backup"
+                  ),
+                  fileInput(
+                    ns("upload_backup_file"),
+                    label = NULL,
+                    accept = ".zip",
+                    width = "400px",
+                    buttonLabel = tagList(
+                      tags$i(class = "fas fa-upload", style = "margin-right: 6px;"),
+                      "Upload..."
+                    ),
+                    placeholder = "Select a backup ZIP file"
+                  ),
+                  uiOutput(ns("backup_restore_status"))
+                ),
+
+                tags$div(
+                  style = "margin-top: 15px; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;",
+                  tags$p(
+                    style = "margin: 0; font-size: 13px; color: #333;",
+                    tags$i(class = "fas fa-exclamation-triangle", style = "margin-right: 6px; color: #ffc107;"),
+                    tags$strong("Warning:"), " Restoring from a backup will replace all current data. This action cannot be undone."
+                  )
                 )
               )
             )
