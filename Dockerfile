@@ -47,15 +47,15 @@ RUN echo '#!/bin/bash\n\
 if [ -n "$HF_TOKEN" ]; then\n\
     echo "Downloading OHDSI vocabularies from Hugging Face..."\n\
     python3 -c "import os; from huggingface_hub import hf_hub_download; token=os.environ.get(\"HF_TOKEN\"); d=\"/root/indicate_files/ohdsi\"; \
-hf_hub_download(repo_id=\"BorisDel/ohdsi-vocabularies\", filename=\"CONCEPT.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
-hf_hub_download(repo_id=\"BorisDel/ohdsi-vocabularies\", filename=\"CONCEPT_ANCESTOR.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
-hf_hub_download(repo_id=\"BorisDel/ohdsi-vocabularies\", filename=\"CONCEPT_CLASS.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
-hf_hub_download(repo_id=\"BorisDel/ohdsi-vocabularies\", filename=\"CONCEPT_RELATIONSHIP.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
-hf_hub_download(repo_id=\"BorisDel/ohdsi-vocabularies\", filename=\"CONCEPT_SYNONYM.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
-hf_hub_download(repo_id=\"BorisDel/ohdsi-vocabularies\", filename=\"DOMAIN.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
-hf_hub_download(repo_id=\"BorisDel/ohdsi-vocabularies\", filename=\"DRUG_STRENGTH.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
-hf_hub_download(repo_id=\"BorisDel/ohdsi-vocabularies\", filename=\"RELATIONSHIP.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
-hf_hub_download(repo_id=\"BorisDel/ohdsi-vocabularies\", filename=\"VOCABULARY.csv\", repo_type=\"dataset\", local_dir=d, token=token)"\n\
+hf_hub_download(repo_id=\"indicate-eu/ohdsi-vocabularies\", filename=\"CONCEPT.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
+hf_hub_download(repo_id=\"indicate-eu/ohdsi-vocabularies\", filename=\"CONCEPT_ANCESTOR.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
+hf_hub_download(repo_id=\"indicate-eu/ohdsi-vocabularies\", filename=\"CONCEPT_CLASS.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
+hf_hub_download(repo_id=\"indicate-eu/ohdsi-vocabularies\", filename=\"CONCEPT_RELATIONSHIP.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
+hf_hub_download(repo_id=\"indicate-eu/ohdsi-vocabularies\", filename=\"CONCEPT_SYNONYM.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
+hf_hub_download(repo_id=\"indicate-eu/ohdsi-vocabularies\", filename=\"DOMAIN.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
+hf_hub_download(repo_id=\"indicate-eu/ohdsi-vocabularies\", filename=\"DRUG_STRENGTH.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
+hf_hub_download(repo_id=\"indicate-eu/ohdsi-vocabularies\", filename=\"RELATIONSHIP.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
+hf_hub_download(repo_id=\"indicate-eu/ohdsi-vocabularies\", filename=\"VOCABULARY.csv\", repo_type=\"dataset\", local_dir=d, token=token)"\n\
     echo "Download complete."\n\
 else\n\
     echo "HF_TOKEN not set, skipping vocabulary download."\n\
