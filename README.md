@@ -1,3 +1,8 @@
+---
+title: INDICATE Data Dictionary
+sdk: docker
+---
+
 # INDICATE Minimal Data Dictionary
 
 ![Application Interface](man/figures/web_interface.png)
@@ -288,3 +293,29 @@ Visit: [INDICATE Project Website](https://indicate-europe.eu/)
 ## Contributing
 
 Contributions to improve the package are welcome. Please contact the author for collaboration opportunities.
+
+## Deployment on Hugging Face Spaces
+
+The application can be deployed on [Hugging Face Spaces](https://huggingface.co/spaces) using Docker.
+
+### Quick Start
+
+1. Create a new Space at [huggingface.co/new-space](https://huggingface.co/new-space) with **Docker** SDK
+2. Clone the Space repository and copy all application files
+3. Ensure the README.md has the YAML header:
+   ```yaml
+   ---
+   title: INDICATE Data Dictionary
+   sdk: docker
+   ---
+   ```
+4. Push to deploy
+
+### Configuration
+
+See the [Spaces configuration reference](https://huggingface.co/docs/hub/spaces-config-reference) for README header options.
+
+**Important notes**:
+- The application listens on port **7860** (Hugging Face default)
+- First build takes ~15-20 minutes (R package compilation)
+- Use Git LFS for binary files (images): `git lfs track "*.png"`

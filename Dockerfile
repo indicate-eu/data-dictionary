@@ -10,10 +10,13 @@ RUN apt-get update && apt-get install -y \
     libsodium-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Configure Shiny to listen on all interfaces at port 3838
-RUN echo "\noptions(shiny.port=3838, shiny.host='0.0.0.0')" >> /usr/local/lib/R/etc/Rprofile.site
+# Configure Shiny to listen on all interfaces at port 7860 (Hugging Face default)
+# Use Posit Package Manager for binary packages (much faster installation)
+RUN mkdir -p /usr/local/lib/R/etc && \
+    echo "options(shiny.port=7860, shiny.host='0.0.0.0')" >> /usr/local/lib/R/etc/Rprofile.site && \
+    echo "options(repos = c(CRAN = 'https://packagemanager.posit.co/cran/__linux__/bookworm/latest'))" >> /usr/local/lib/R/etc/Rprofile.site
 
-# Install R package dependencies
+# Install R package dependencies (using binary packages from Posit Package Manager)
 RUN R -e "install.packages(c(\
   'shiny',\
   'shiny.router',\
@@ -33,8 +36,9 @@ RUN R -e "install.packages(c(\
   'shinyAce',\
   'shinyjs',\
   'bcrypt',\
+  'visNetwork',\
   'remotes'\
-))"
+), repos = 'https://packagemanager.posit.co/cran/__linux__/bookworm/latest')"
 
 # Copy the package source code
 COPY . /app/indicate
@@ -42,8 +46,11 @@ COPY . /app/indicate
 # Install the indicate package from local source
 RUN R -e "remotes::install_local('/app/indicate', dependencies = FALSE)"
 
-# Expose port 3838 for the Shiny application
-EXPOSE 3838
+# Set environment variable to indicate container deployment
+ENV INDICATE_ENV=docker
 
-# Run the application
-CMD ["R", "-e", "indicate::run_app()"]
+# Expose port 7860 for the Shiny application (Hugging Face default)
+EXPOSE 7860
+
+# Run the application with explicit host/port settings
+CMD ["R", "-e", "indicate::run_app(options = list(host = '0.0.0.0', port = 7860, launch.browser = FALSE))"]

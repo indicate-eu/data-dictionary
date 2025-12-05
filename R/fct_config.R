@@ -5,6 +5,18 @@
 #'
 #' @noRd
 
+#' Check if running in a container environment
+#'
+#' @description Detects if the application is running inside a Docker container
+#' by checking the INDICATE_ENV environment variable
+#'
+#' @return TRUE if running in container, FALSE otherwise
+#' @noRd
+is_container <- function() {
+
+  Sys.getenv("INDICATE_ENV") == "docker"
+}
+
 #' Delete configuration value
 #'
 #' @description Remove a configuration value from the database

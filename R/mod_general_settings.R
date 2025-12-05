@@ -4,21 +4,26 @@
 #
 # UI STRUCTURE:
 #   ## UI - Main Layout
-#      ### OHDSI Vocabularies - Browse and select vocabulary folder
+#      ### OHDSI Vocabularies - Browse (local) or Upload (container) vocabulary files
 #      ### DuckDB Database Status - Display database status and controls
 #      ### OHDSI Relationships Mappings - Load/Reload mappings from vocabulary relationships
 #
 # SERVER STRUCTURE:
 #   ## 1) Server - Reactive Values & State
 #      ### Folder Browser State - Track current path, selection, sort order
+#      ### File Upload State - Track uploaded files in container mode
 #      ### DuckDB Status - Processing status and messages
 #      ### OHDSI Mappings Status - Processing status and last sync time
 #
-#   ## 2) Server - Folder Browser
+#   ## 2) Server - Folder Browser (Local Mode)
 #      ### Folder Path Display - Show selected folder path
 #      ### Browser Modal - Modal dialog for folder selection
 #      ### File Browser Rendering - Display folders and files
 #      ### Navigation Handlers - Handle folder navigation and selection
+#
+#   ## 2b) Server - File Upload (Container Mode)
+#      ### File Input Handler - Process uploaded vocabulary CSV files
+#      ### Upload Status Display - Show uploaded files status
 #
 #   ## 3) Server - DuckDB Management
 #      ### Database Creation - Create DuckDB from CSV files
@@ -60,25 +65,48 @@ mod_general_settings_ui <- function(id) {
                  ),
                  p(
                    style = "color: #666; margin-bottom: 15px;",
-                   "Browse and select the folder containing your OHDSI Vocabularies files."
+                   if (!is_container()) {
+                     "Browse and select the folder containing your OHDSI Vocabularies files."
+                   } else {
+                     "Upload your OHDSI Vocabularies CSV files (CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, etc.)."
+                   }
                  ),
 
-                 # Browse button and selected folder display
-                 tags$div(
-                   style = "display: flex; align-items: center; gap: 15px;",
-                   actionButton(
-                     ns("browse_folder"),
-                     label = tagList(
-                       tags$i(class = "fas fa-folder-open", style = "margin-right: 6px;"),
-                       "Browse..."
-                     ),
-                     style = "background: #0f60af; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer;"
-                   ),
+                 # Browse button (local) or Upload input (container)
+                 if (!is_container()) {
+                   # Local mode: Browse folder
                    tags$div(
-                     style = "flex: 1;",
-                     uiOutput(ns("folder_path_display"))
+                     style = "display: flex; align-items: center; gap: 15px;",
+                     actionButton(
+                       ns("browse_folder"),
+                       label = tagList(
+                         tags$i(class = "fas fa-folder-open", style = "margin-right: 6px;"),
+                         "Browse..."
+                       ),
+                       style = "background: #0f60af; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer;"
+                     ),
+                     tags$div(
+                       style = "flex: 1;",
+                       uiOutput(ns("folder_path_display"))
+                     )
                    )
-                 ),
+                 } else {
+                   # Container mode: Upload files
+                   tags$div(
+                     fileInput(
+                       ns("upload_vocab_files"),
+                       label = NULL,
+                       multiple = TRUE,
+                       accept = ".csv",
+                       buttonLabel = tagList(
+                         tags$i(class = "fas fa-upload", style = "margin-right: 6px;"),
+                         "Upload CSV files..."
+                       ),
+                       placeholder = "CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, ..."
+                     ),
+                     uiOutput(ns("upload_status_display"))
+                   )
+                 },
 
                  tags$div(
                    style = "margin-top: 15px; padding: 12px; background: #e6f3ff; border-left: 4px solid #0f60af; border-radius: 4px;",
@@ -167,6 +195,10 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     selected_folder <- reactiveVal(NULL)
     sort_order <- reactiveVal("asc")
     filter_text <- reactiveVal("")
+
+    ### File Upload State (Container Mode) ----
+    uploaded_files <- reactiveVal(list())
+    upload_message <- reactiveVal(NULL)
 
     ### DuckDB Status ----
     duckdb_processing <- reactiveVal(FALSE)
@@ -518,6 +550,108 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
         }
       }
     })
+
+    ## 2b) Server - File Upload (Container Mode) ----
+
+    ### File Input Handler ----
+
+    observe_event(input$upload_vocab_files, {
+      files <- input$upload_vocab_files
+      if (is.null(files)) return()
+
+      # Create a temporary directory for uploaded files
+      upload_dir <- file.path(tempdir(), "ohdsi_vocabularies")
+      if (!dir.exists(upload_dir)) {
+        dir.create(upload_dir, recursive = TRUE)
+      }
+
+      # Copy uploaded files to the directory
+      uploaded_list <- list()
+      for (i in seq_len(nrow(files))) {
+        file_name <- files$name[i]
+        file_path <- files$datapath[i]
+        dest_path <- file.path(upload_dir, file_name)
+        file.copy(file_path, dest_path, overwrite = TRUE)
+        uploaded_list[[file_name]] <- dest_path
+      }
+
+      uploaded_files(uploaded_list)
+
+      # Set the selected folder to the upload directory
+      selected_folder(upload_dir)
+      set_vocab_folder(upload_dir)
+
+      # Check for required files
+      required_files <- c("CONCEPT.csv", "CONCEPT_RELATIONSHIP.csv")
+      missing_files <- required_files[!required_files %in% names(uploaded_list)]
+
+      if (length(missing_files) > 0) {
+        upload_message(list(
+          success = FALSE,
+          message = paste("Missing required files:", paste(missing_files, collapse = ", "))
+        ))
+      } else {
+        upload_message(list(
+          success = TRUE,
+          message = paste(length(uploaded_list), "files uploaded successfully")
+        ))
+
+        # Trigger DuckDB creation
+        duckdb_processing(TRUE)
+        duckdb_message(NULL)
+
+        shinyjs::delay(100, {
+          shinyjs::runjs(sprintf(
+            "Shiny.setInputValue('%s', Math.random(), {priority: 'event'})",
+            session$ns("trigger_duckdb_creation")
+          ))
+        })
+      }
+    })
+
+    ### Upload Status Display ----
+
+    upload_status_trigger <- reactiveVal(0)
+
+    observe_event(list(uploaded_files(), upload_message()), {
+      upload_status_trigger(upload_status_trigger() + 1)
+    })
+
+    observe_event(upload_status_trigger(), {
+      output$upload_status_display <- renderUI({
+        files <- uploaded_files()
+        msg <- upload_message()
+
+        if (length(files) == 0 && is.null(msg)) {
+          return(NULL)
+        }
+
+        tagList(
+          if (!is.null(msg)) {
+            if (msg$success) {
+              tags$div(
+                style = "margin-top: 10px; padding: 10px; background: #d4edda; border-left: 3px solid #28a745; border-radius: 4px; font-size: 12px;",
+                tags$i(class = "fas fa-check-circle", style = "margin-right: 6px; color: #28a745;"),
+                msg$message
+              )
+            } else {
+              tags$div(
+                style = "margin-top: 10px; padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px;",
+                tags$i(class = "fas fa-exclamation-circle", style = "margin-right: 6px; color: #dc3545;"),
+                msg$message
+              )
+            }
+          },
+          if (length(files) > 0) {
+            tags$div(
+              style = "margin-top: 10px; font-size: 12px; color: #666;",
+              tags$strong("Uploaded files: "),
+              paste(names(files), collapse = ", ")
+            )
+          }
+        )
+      })
+    }, ignoreInit = FALSE)
 
     ## 3) Server - DuckDB Management ----
 
