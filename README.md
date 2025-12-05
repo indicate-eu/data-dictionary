@@ -1,6 +1,7 @@
 ---
 title: INDICATE Data Dictionary
 sdk: docker
+storage_size: large
 ---
 
 # INDICATE Minimal Data Dictionary

@@ -5,14 +5,13 @@
 # UI STRUCTURE:
 #   ## UI - Main Layout
 #      ### Backup & Restore - Download/upload application data backup (ZIP)
-#      ### OHDSI Vocabularies - Browse (local) or Upload (container) vocabulary files
+#      ### OHDSI Vocabularies - Browse and select vocabulary files folder
 #      ### DuckDB Database Status - Display database status and controls
 #      ### OHDSI Relationships Mappings - Load/Reload mappings from vocabulary relationships
 #
 # SERVER STRUCTURE:
 #   ## 1) Server - Reactive Values & State
 #      ### Folder Browser State - Track current path, selection, sort order
-#      ### File Upload State - Track uploaded files in container mode
 #      ### Backup & Restore State - Track restore status messages
 #      ### DuckDB Status - Processing status and messages
 #      ### OHDSI Mappings Status - Processing status and last sync time
@@ -22,15 +21,11 @@
 #      ### Upload Restore Handler - Extract ZIP and restore to app_folder
 #      ### Backup Restore Status Display - Show restore status and reload button
 #
-#   ## 2) Server - Folder Browser (Local Mode)
+#   ## 2) Server - Folder Browser
 #      ### Folder Path Display - Show selected folder path
 #      ### Browser Modal - Modal dialog for folder selection
 #      ### File Browser Rendering - Display folders and files
 #      ### Navigation Handlers - Handle folder navigation and selection
-#
-#   ## 2b) Server - File Upload (Container Mode)
-#      ### File Input Handler - Process uploaded vocabulary CSV files
-#      ### Upload Status Display - Show uploaded files status
 #
 #   ## 3) Server - DuckDB Management
 #      ### Database Creation - Create DuckDB from CSV files
@@ -75,48 +70,25 @@ mod_general_settings_ui <- function(id) {
               div(class = "settings-section",
                 p(
                   style = "color: #666; margin-bottom: 15px;",
-                  if (!is_container()) {
-                    "Browse and select the folder containing your OHDSI Vocabularies files."
-                  } else {
-                    "Upload your OHDSI Vocabularies CSV files (CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, etc.)."
-                  }
+                  "Browse and select the folder containing your OHDSI Vocabularies files."
                 ),
 
-                # Browse button (local) or Upload input (container)
-                if (!is_container()) {
-                  # Local mode: Browse folder
-                  tags$div(
-                    style = "display: flex; align-items: center; gap: 15px;",
-                    actionButton(
-                      ns("browse_folder"),
-                      label = tagList(
-                        tags$i(class = "fas fa-folder-open", style = "margin-right: 6px;"),
-                        "Browse..."
-                      ),
-                      style = "background: #0f60af; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer;"
+                # Browse folder button
+                tags$div(
+                  style = "display: flex; align-items: center; gap: 15px;",
+                  actionButton(
+                    ns("browse_folder"),
+                    label = tagList(
+                      tags$i(class = "fas fa-folder-open", style = "margin-right: 6px;"),
+                      "Browse..."
                     ),
-                    tags$div(
-                      style = "flex: 1;",
-                      uiOutput(ns("folder_path_display"))
-                    )
-                  )
-                } else {
-                  # Container mode: Upload files
+                    style = "background: #0f60af; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer;"
+                  ),
                   tags$div(
-                    fileInput(
-                      ns("upload_vocab_files"),
-                      label = NULL,
-                      multiple = TRUE,
-                      accept = ".csv",
-                      buttonLabel = tagList(
-                        tags$i(class = "fas fa-upload", style = "margin-right: 6px;"),
-                        "Upload CSV files..."
-                      ),
-                      placeholder = "CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, ..."
-                    ),
-                    uiOutput(ns("upload_status_display"))
+                    style = "flex: 1;",
+                    uiOutput(ns("folder_path_display"))
                   )
-                },
+                ),
 
                 tags$div(
                   style = "margin-top: 15px; padding: 12px; background: #e6f3ff; border-left: 4px solid #0f60af; border-radius: 4px;",
