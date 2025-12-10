@@ -24,9 +24,10 @@ app_server <- function(input, output, session) {
     character(0)
   }
 
-  # Initialize login module and get current user
+  # Initialize login module and get current user and language
   login_module <- mod_login_server("login", log_level = log_level)
   current_user <- login_module$user
+  current_language <- login_module$language
 
   # Track if data has been loaded
   data_loaded <- reactiveVal(FALSE)
@@ -86,6 +87,7 @@ app_server <- function(input, output, session) {
           vocabularies = reactive({ vocabularies() }),
           vocab_loading_status = reactive({ vocab_loading_status() }),
           current_user = current_user,
+          current_language = current_language,
           log_level = log_level
         )
         modules_initialized$dictionary_explorer <- TRUE

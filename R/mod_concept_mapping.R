@@ -1393,7 +1393,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
       
       # Enrich custom concepts
-      custom_concepts_path <- get_package_dir("extdata", "csv", "custom_concepts.csv")
+      custom_concepts_path <- get_csv_path("custom_concepts.csv")
       if (file.exists(custom_concepts_path)) {
         custom_rows <- enriched_data %>% dplyr::filter(!is.na(target_custom_concept_id))
         if (nrow(custom_rows) > 0) {
@@ -2676,7 +2676,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         }
 
         # Enrich custom concepts
-        custom_concepts_path <- get_package_dir("extdata", "csv", "custom_concepts.csv")
+        custom_concepts_path <- get_csv_path("custom_concepts.csv")
         if (file.exists(custom_concepts_path)) {
           custom_rows <- mapped_rows %>% dplyr::filter(!is.na(target_custom_concept_id))
           if (nrow(custom_rows) > 0) {
@@ -3002,7 +3002,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         )
       }
       
-      custom_concepts_path <- get_package_dir("extdata", "csv", "custom_concepts.csv")
+      custom_concepts_path <- get_csv_path("custom_concepts.csv")
       if (file.exists(custom_concepts_path)) {
         custom_concepts <- readr::read_csv(custom_concepts_path, show_col_types = FALSE) %>%
           dplyr::filter(general_concept_id == selected_general_concept_id()) %>%
@@ -3175,7 +3175,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         concept_mappings_omop <- data()$concept_mappings %>%
           dplyr::filter(general_concept_id == target_general_concept_id)
         
-        custom_concepts_path <- get_package_dir("extdata", "csv", "custom_concepts.csv")
+        custom_concepts_path <- get_csv_path("custom_concepts.csv")
         custom_concepts_filtered <- data.frame()
         if (file.exists(custom_concepts_path)) {
           custom_concepts_all <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)

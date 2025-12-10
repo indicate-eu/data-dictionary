@@ -29,14 +29,73 @@ mod_login_ui <- function(id) {
       style = "background: white; padding: 40px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 100%; max-width: 400px;",
       # Logo and title
       div(
-        style = "text-align: center; margin-bottom: 30px;",
+        style = "text-align: center; margin-bottom: 20px;",
         tags$img(
           src = "www/logo.png",
           style = "height: 80px; width: auto; margin-bottom: 15px;"
         ),
         tags$h2(
           "INDICATE Data Dictionary",
-          style = "color: #2c3e50; margin: 0; font-size: 24px;"
+          style = "color: #2c3e50; margin: 0 0 15px 0; font-size: 24px;"
+        ),
+        # Language selector (custom dropdown with flags)
+        div(
+          class = "language-selector",
+          tags$div(
+            class = "language-dropdown",
+            id = ns("language_dropdown"),
+            tags$div(
+              class = "language-selected",
+              id = ns("language_selected"),
+              onclick = sprintf("$('#%s').toggleClass('open');", ns("language_dropdown")),
+              tags$span(class = "flag flag-en", id = ns("selected_flag")),
+              tags$span("English", id = ns("selected_text")),
+              tags$i(class = "fas fa-chevron-down dropdown-arrow")
+            ),
+            tags$div(
+              class = "language-options",
+              tags$div(
+                class = "language-option",
+                `data-value` = "en",
+                onclick = sprintf("
+                  $('#%s').val('en').trigger('change');
+                  $('#%s').removeClass('open');
+                  $('#%s').attr('class', 'flag flag-en');
+                  $('#%s').text('English');
+                ", ns("selected_language_hidden"), ns("language_dropdown"), ns("selected_flag"), ns("selected_text")),
+                tags$span(class = "flag flag-en"),
+                tags$span("English")
+              ),
+              tags$div(
+                class = "language-option",
+                `data-value` = "fr",
+                onclick = sprintf("
+                  $('#%s').val('fr').trigger('change');
+                  $('#%s').removeClass('open');
+                  $('#%s').attr('class', 'flag flag-fr');
+                  $('#%s').text('Fran\u00e7ais');
+                ", ns("selected_language_hidden"), ns("language_dropdown"), ns("selected_flag"), ns("selected_text")),
+                tags$span(class = "flag flag-fr"),
+                tags$span("Fran\u00e7ais")
+              )
+            )
+          ),
+          # Hidden input for Shiny binding
+          tags$select(
+            id = ns("selected_language_hidden"),
+            class = "shiny-bound-input",
+            style = "display: none;",
+            tags$option(value = "en", selected = "selected", "English"),
+            tags$option(value = "fr", "Fran\u00e7ais")
+          ),
+          # JavaScript to close dropdown when clicking outside
+          tags$script(HTML(sprintf("
+            $(document).on('click', function(e) {
+              if (!$(e.target).closest('#%s').length) {
+                $('#%s').removeClass('open');
+              }
+            });
+          ", ns("language_dropdown"), ns("language_dropdown"))))
         )
       ),
 
@@ -122,7 +181,7 @@ mod_login_ui <- function(id) {
 #'
 #' @param id Namespace id
 #'
-#' @return Reactive containing authenticated user data or NULL
+#' @return List containing user reactive, logout function, and language reactive
 #' @noRd
 #'
 #' @importFrom shiny moduleServer reactive observeEvent req
@@ -132,6 +191,9 @@ mod_login_server <- function(id, log_level = character()) {
 
     # Reactive value to store current user
     current_user <- reactiveVal(NULL)
+
+    # Reactive value to store selected language (default: English)
+    selected_language <- reactiveVal("en")
 
     # Handle login button
     observe_event(input$login_btn, {
@@ -225,9 +287,18 @@ mod_login_server <- function(id, log_level = character()) {
       })
     })
 
-    # Return current user reactive and logout function
+    # Handle language selection (from hidden select element)
+    observe_event(input$selected_language_hidden, {
+      lang <- input$selected_language_hidden
+      if (is.null(lang)) return()
+
+      selected_language(lang)
+    }, ignoreInit = TRUE)
+
+    # Return current user reactive, logout function, and language reactive
     return(list(
       user = reactive({ current_user() }),
+      language = reactive({ selected_language() }),
       logout = function() {
         current_user(NULL)
         # Refresh the page to reset everything

@@ -1111,7 +1111,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
       # Delay to update UI
       shinyjs::delay(100, {
         # Read current general_concepts_details
-        concept_mappings_path <- get_package_dir("extdata", "csv", "general_concepts_details.csv")
+        concept_mappings_path <- get_csv_path("general_concepts_details.csv")
         concept_mappings <- readr::read_csv(concept_mappings_path, show_col_types = FALSE)
 
         # Check if this is a reload (preserve recommended status)

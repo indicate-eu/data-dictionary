@@ -951,7 +951,7 @@ mod_dictionary_explorer_ui <- function(id) {
 #' @importFrom magrittr %>%
 #' @importFrom htmltools HTML tags tagList
 #' @importFrom htmlwidgets JS
-mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab_loading_status = reactive("not_loaded"), current_user = reactive(NULL), log_level = character()) {
+mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab_loading_status = reactive("not_loaded"), current_user = reactive(NULL), current_language = reactive("en"), log_level = character()) {
   # Capture module id before entering moduleServer for logging
   module_id <- id
 
@@ -2402,9 +2402,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       if (is.null(concept_id)) return()
 
       # Get current data from CSV (not from current_data() which has temporary changes)
-      general_concepts_path <- get_package_dir("extdata", "csv", "general_concepts.csv")
-      concept_mappings_path <- get_package_dir("extdata", "csv", "general_concepts_details.csv")
-      custom_concepts_path <- get_package_dir("extdata", "csv", "custom_concepts.csv")
+      general_concepts_path <- get_csv_path("general_concepts.csv")
+      concept_mappings_path <- get_csv_path("general_concepts_details.csv")
+      custom_concepts_path <- get_csv_path("custom_concepts.csv")
 
       general_concepts <- readr::read_csv(general_concepts_path, show_col_types = FALSE)
       concept_mappings <- readr::read_csv(concept_mappings_path, show_col_types = FALSE)
@@ -2428,20 +2428,32 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
 
       # Update comments in general_concepts and log changes
+      # Comments are stored in language-specific columns: comments (EN) and comments_fr (FR)
       new_comment <- input$comments_input
+      lang <- current_language()
+      comment_column <- if (lang == "fr") "comments_fr" else "comments"
+
       if (!is.null(new_comment) && nrow(current_concept) > 0) {
-        old_comment <- if (!is.na(current_concept$comments[1])) current_concept$comments[1] else ""
+        # Get old comment from the appropriate column
+        old_comment <- if (comment_column %in% names(current_concept) && !is.na(current_concept[[comment_column]][1])) {
+          current_concept[[comment_column]][1]
+        } else {
+          ""
+        }
 
         # Check if comment has changed
         if (old_comment != new_comment) {
-          general_concepts <- general_concepts %>%
-            dplyr::mutate(
-              comments = ifelse(
-                general_concept_id == concept_id,
-                new_comment,
-                comments
-              )
-            )
+          # Ensure the column exists before updating
+          if (!comment_column %in% names(general_concepts)) {
+            general_concepts[[comment_column]] <- NA_character_
+          }
+
+          # Update the appropriate language column
+          general_concepts[[comment_column]] <- ifelse(
+            general_concepts$general_concept_id == concept_id,
+            new_comment,
+            general_concepts[[comment_column]]
+          )
 
           # Get concept name for history
           concept_name <- if (!is.na(current_concept$general_concept_name[1])) {
@@ -2450,7 +2462,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             paste0("ID: ", concept_id)
           }
 
-          # Log the change
+          # Log the change with language info
+          lang_code <- toupper(lang)
           log_history_change(
             entity_type = "mapped_concept",
             username = username,
@@ -2459,7 +2472,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             vocabulary_id = NA,
             concept_code = NA,
             concept_name = concept_name,
-            comment = paste0("Updated ETL guidance comment: ", new_comment)
+            comment = paste0("Updated ETL guidance comment (", lang_code, "): ", new_comment)
           )
         }
       }
@@ -2800,19 +2813,19 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Write to CSV files
       readr::write_csv(
         general_concepts,
-        get_package_dir("extdata", "csv", "general_concepts.csv")
+        get_csv_path("general_concepts.csv")
       )
 
       readr::write_csv(
         concept_mappings,
-        get_package_dir("extdata", "csv", "general_concepts_details.csv")
+        get_csv_path("general_concepts_details.csv")
       )
 
       # Write custom_concepts.csv if modified
       if (!is.null(custom_concepts)) {
         readr::write_csv(
           custom_concepts,
-          get_package_dir("extdata", "csv", "custom_concepts.csv")
+          get_csv_path("custom_concepts.csv")
         )
       }
 
@@ -3487,7 +3500,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       total_concepts <- length(concepts_to_add)
 
       # Load current general_concepts_details
-      concept_mappings_path <- get_package_dir("extdata", "csv", "general_concepts_details.csv")
+      concept_mappings_path <- get_csv_path("general_concepts_details.csv")
       if (file.exists(concept_mappings_path)) {
         concept_mappings <- readr::read_csv(concept_mappings_path, show_col_types = FALSE)
       } else {
@@ -3611,7 +3624,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
 
       # Load or create custom_concepts
-      custom_concepts_path <- get_package_dir("extdata", "csv", "custom_concepts.csv")
+      custom_concepts_path <- get_csv_path("custom_concepts.csv")
       if (file.exists(custom_concepts_path)) {
         custom_concepts <- readr::read_csv(custom_concepts_path, show_col_types = FALSE)
       } else {
@@ -4436,6 +4449,20 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
     ### c) ETL Guidance & Comments (Bottom-Left Panel) ----
     ##### Comments & Statistical Summary Display ----
+    # Helper function to get comment based on selected language
+    get_comment_for_language <- function(concept_info, lang) {
+      if (nrow(concept_info) == 0) return("")
+
+      comment_column <- if (lang == "fr") "comments_fr" else "comments"
+
+      # Check if the column exists and has a value
+      if (comment_column %in% names(concept_info) && !is.na(concept_info[[comment_column]][1])) {
+        concept_info[[comment_column]][1]
+      } else {
+        ""
+      }
+    }
+
     # Render comments or statistical summary based on active tab
     observe_event(comments_display_trigger(), {
       concept_id <- selected_concept_id()
@@ -4443,6 +4470,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         output$comments_display <- renderUI({
           is_editing <- general_concept_detail_edit_mode()
           active_tab <- comments_tab()
+          lang <- current_language()
 
           concept_info <- current_data()$general_concepts %>%
             dplyr::filter(general_concept_id == concept_id)
@@ -4452,11 +4480,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             # Comments tab
             if (is_editing) {
               # Edit mode: show textarea with fullscreen button
-              current_comment <- if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1])) {
-                concept_info$comments[1]
-              } else {
-                ""
-              }
+              current_comment <- get_comment_for_language(concept_info, lang)
 
               tags$div(
                 style = "height: 100%; position: relative;",
@@ -4487,7 +4511,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               )
             } else {
               # View mode: show formatted comment using markdown
-              if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1]) && nchar(concept_info$comments[1]) > 0) {
+              current_comment <- get_comment_for_language(concept_info, lang)
+              if (nchar(current_comment) > 0) {
                 tags$div(
                   class = "comments-container",
                   style = "background: #e6f3ff; border: 1px solid #0f60af; border-radius: 6px; height: 100%; overflow-y: auto; box-sizing: border-box; position: relative;",
@@ -4505,7 +4530,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                   tags$div(
                     class = "markdown-content",
                     style = "padding-left: 30px;",
-                    shiny::markdown(concept_info$comments[1])
+                    shiny::markdown(current_comment)
                   )
                 )
               } else {
@@ -4681,13 +4706,13 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         concept_info <- current_data()$general_concepts %>%
           dplyr::filter(general_concept_id == concept_id)
 
+        lang <- current_language()
+
         # Use value from small textfield if available, otherwise use saved value
         current_comment <- if (!is.null(input$comments_input) && nchar(input$comments_input) > 0) {
           input$comments_input
-        } else if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1])) {
-          concept_info$comments[1]
         } else {
-          ""
+          get_comment_for_language(concept_info, lang)
         }
 
         # Check if we're in edit mode
