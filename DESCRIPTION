@@ -9,7 +9,7 @@ Description: An interactive Shiny application to explore the INDICATE Minimal
     application provides tools to explore standardized terminologies (SNOMED CT,
     LOINC, RxNorm, ICD-10), perform semantic alignment, and propose improvements
     to the dictionary.
-License: GPL (>= 3)
+License: EUPL-1.2
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2

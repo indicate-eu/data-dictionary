@@ -1,0 +1,87 @@
+# INDICATE Data Dictionary CODEOWNERS
+#
+# Define code ownership for automatic reviewer assignment.
+#
+# Format: path/to/files @github-username @github-org/team-name
+
+# ==============================================================================
+# DEFAULT OWNERS
+# ==============================================================================
+
+# Default reviewers for all files
+*                           @indicate-eu/maintainers
+
+# ==============================================================================
+# DOCUMENTATION
+# ==============================================================================
+
+*.md                        @indicate-eu/documentation
+/docs/                      @indicate-eu/documentation
+
+# ==============================================================================
+# R/SHINY CODE
+# ==============================================================================
+
+# R source code
+*.R                         @indicate-eu/r-developers
+/R/                         @indicate-eu/r-developers
+
+# Package configuration
+DESCRIPTION                 @indicate-eu/maintainers
+NAMESPACE                   @indicate-eu/maintainers
+
+# ==============================================================================
+# WEB ASSETS
+# ==============================================================================
+
+# JavaScript and CSS
+*.js                        @indicate-eu/frontend-developers
+*.css                       @indicate-eu/frontend-developers
+/inst/www/                  @indicate-eu/frontend-developers
+
+# ==============================================================================
+# DATA FILES
+# ==============================================================================
+
+# CSV data files
+*.csv                       @indicate-eu/data-stewards
+/inst/extdata/              @indicate-eu/data-stewards
+
+# ==============================================================================
+# CONFIGURATION & DEPLOYMENT
+# ==============================================================================
+
+# CI/CD workflows
+/.github/workflows/         @indicate-eu/devops
+
+# Docker configuration
+Dockerfile                  @indicate-eu/devops
+docker-compose*.yml         @indicate-eu/devops
+
+# Configuration files
+*.yml                       @indicate-eu/devops
+*.yaml                      @indicate-eu/devops
+
+# ==============================================================================
+# LICENSING
+# ==============================================================================
+
+LICENSE                     @indicate-eu/legal
+NOTICE                      @indicate-eu/legal
+
+# ==============================================================================
+# CUSTOMIZATION NOTES
+# ==============================================================================
+#
+# Teams to request in INDICATE GitHub organization:
+#   - @indicate-eu/maintainers
+#   - @indicate-eu/documentation
+#   - @indicate-eu/r-developers
+#   - @indicate-eu/frontend-developers
+#   - @indicate-eu/data-stewards
+#   - @indicate-eu/devops
+#   - @indicate-eu/legal
+#
+# You can also use individual GitHub usernames:
+#   /special/path/    @username1 @username2
+#
