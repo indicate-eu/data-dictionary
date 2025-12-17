@@ -1,0 +1,12 @@
+base,en
+app_title,INDICATE Data Dictionary
+login,Login
+password,Password
+login_placeholder,Enter your login
+password_placeholder,Enter your password
+log_in,Log In
+anonymous,Anonymous
+anonymous_access_limited,Anonymous access has limited permissions
+please_enter_login,Please enter your login.
+please_enter_password,Please enter your password.
+invalid_login_or_password,Invalid login or password. Please try again.

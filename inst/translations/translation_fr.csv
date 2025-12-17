@@ -1,0 +1,12 @@
+base,fr
+app_title,Dictionnaire de Donnees INDICATE
+login,Identifiant
+password,Mot de passe
+login_placeholder,Entrez votre identifiant
+password_placeholder,Entrez votre mot de passe
+log_in,Se connecter
+anonymous,Anonyme
+anonymous_access_limited,L'acces anonyme a des permissions limitees
+please_enter_login,Veuillez entrer votre identifiant.
+please_enter_password,Veuillez entrer votre mot de passe.
+invalid_login_or_password,Identifiant ou mot de passe invalide. Veuillez reessayer.

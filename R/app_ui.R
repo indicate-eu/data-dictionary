@@ -9,6 +9,18 @@
 #' @importFrom htmltools tagList
 #' @importFrom shiny.router router_ui route
 app_ui <- function() {
+  # Get language from environment variable (set by run_app)
+language <- Sys.getenv("INDICATE_LANGUAGE", "en")
+
+  # Initialize i18n translator
+  translations_path <- system.file("translations", package = "indicate")
+  if (translations_path == "" || !dir.exists(translations_path)) {
+    translations_path <- "inst/translations"
+  }
+
+  i18n <- shiny.i18n::Translator$new(translation_csvs_path = translations_path)
+  i18n$set_translation_language(language)
+
   fluidPage(
     # Initialize shinyjs
     shinyjs::useShinyjs(),
@@ -53,7 +65,7 @@ app_ui <- function() {
     # Login page (shown first)
     div(
       id = "login_page",
-      mod_login_ui("login")
+      mod_login_ui("login", i18n)
     ),
 
     # Main application (hidden until authenticated)

@@ -2,6 +2,7 @@
 #'
 #' @description Launch the INDICATE Minimal Data Dictionary Explorer application
 #'
+#' @param language Language to use in the app ("en" or "fr"). Default is "en".
 #' @param app_folder Path to the folder where application files will be stored.
 #'   If NULL (default), uses the user's home directory.
 #' @param debug_mode Character vector specifying debug output level.
@@ -19,11 +20,28 @@
 #' @examples
 #' \dontrun{
 #' run_app()
+#' run_app(language = "fr")
 #' run_app(app_folder = "~/Documents/my_indicate_data")
 #' run_app(debug_mode = "error")
 #' run_app(debug_mode = c("event", "error"))
 #' }
-run_app <- function(app_folder = NULL, debug_mode = "error", ..., options = list()) {
+run_app <- function(
+    language = "en",
+    app_folder = NULL,
+    debug_mode = "error",
+    ...,
+    options = list()
+) {
+
+  # Validate language
+
+if (!(language %in% c("en", "fr"))) {
+    stop("Language must be 'en' or 'fr'")
+  }
+
+  # Store language in environment variable
+  Sys.setenv(INDICATE_LANGUAGE = language)
+
   # Set app folder for database location
   if (is.null(app_folder)) {
     app_folder <- path.expand("~")

@@ -556,7 +556,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
 
           footer = tagList(
             actionButton(ns("cancel_browse"), "Cancel", class = "btn-secondary-custom", icon = icon("times")),
-            tags$span(style = "margin-left: 10px;")
+            actionButton(ns("select_current_folder"), "Select", class = "btn-primary-custom", icon = icon("check"), style = "margin-left: 10px;")
           )
         )
       )
@@ -923,6 +923,42 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
 
     observe_event(input$cancel_browse, {
       removeModal()
+    })
+
+    observe_event(input$select_current_folder, {
+      folder_path <- current_path()
+      if (dir.exists(folder_path)) {
+        # Update reactive value
+        selected_folder(folder_path)
+
+        # Save to database
+        set_vocab_folder(folder_path)
+
+        # Close modal
+        removeModal()
+
+        # Check if DuckDB database needs to be created or loaded
+        if (!duckdb_exists()) {
+          # Set processing status to update UI immediately
+          duckdb_processing(TRUE)
+          duckdb_message(NULL)
+
+          # Use shinyjs::delay to trigger creation after UI updates
+          shinyjs::delay(100, {
+            shinyjs::runjs(sprintf(
+              "Shiny.setInputValue('%s', Math.random(), {priority: 'event'})",
+              session$ns("trigger_duckdb_creation")
+            ))
+          })
+        } else {
+          # Database exists - load it immediately
+          set_use_duckdb(TRUE)
+          vocab_data <- load_vocabularies_from_duckdb()
+          if (!is.null(set_vocabularies)) {
+            set_vocabularies(vocab_data)
+          }
+        }
+      }
     })
 
     ### Database Recreation ----
