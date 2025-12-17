@@ -97,6 +97,7 @@ app_server <- function(input, output, session) {
           vocabularies = reactive({ vocabularies() }),
           vocab_loading_status = reactive({ vocab_loading_status() }),
           current_user = current_user,
+          i18n = i18n,
           log_level = log_level
         )
         modules_initialized$dictionary_explorer <- TRUE
@@ -196,6 +197,7 @@ app_server <- function(input, output, session) {
     "page_header",
     current_user = current_user,
     vocab_loading_status = reactive({ vocab_loading_status() }),
+    i18n = i18n,
     log_level = log_level
   )
 

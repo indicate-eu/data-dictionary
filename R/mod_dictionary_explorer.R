@@ -57,13 +57,14 @@
 #' @description UI function for the dictionary explorer module
 #'
 #' @param id Module ID
+#' @param i18n Translator object from shiny.i18n
 #'
 #' @return Shiny UI elements
 #' @noRd
 #'
 #' @importFrom shiny NS uiOutput
 #' @importFrom htmltools tags tagList
-mod_dictionary_explorer_ui <- function(id) {
+mod_dictionary_explorer_ui <- function(id, i18n) {
   ns <- NS(id)
 
   tagList(
@@ -84,9 +85,9 @@ mod_dictionary_explorer_ui <- function(id) {
                   tags$div(
                     id = ns("general_concepts_normal_buttons"),
                     style = "display: flex; gap: 10px;",
-                    actionButton(ns("show_general_concepts_add_modal"), "Add concept", class = "btn-success-custom", icon = icon("plus")),
-                    actionButton(ns("general_concepts_show_history"), "History", class = "btn-secondary-custom", icon = icon("history")),
-                    actionButton(ns("general_concepts_edit_page"), "Edit page", class = "btn-primary-custom", icon = icon("edit"))
+                    actionButton(ns("show_general_concepts_add_modal"), i18n$t("add_concept"), class = "btn-success-custom", icon = icon("plus")),
+                    actionButton(ns("general_concepts_show_history"), i18n$t("history"), class = "btn-secondary-custom", icon = icon("history")),
+                    actionButton(ns("general_concepts_edit_page"), i18n$t("edit_page"), class = "btn-primary-custom", icon = icon("edit"))
                   )
                 ),
                 # General Concepts Page edit buttons
@@ -94,8 +95,8 @@ mod_dictionary_explorer_ui <- function(id) {
                   tags$div(
                     id = ns("general_concepts_edit_buttons"),
                     style = "display: flex; gap: 10px;",
-                    actionButton(ns("general_concepts_cancel_edit"), "Cancel", class = "btn-secondary-custom", icon = icon("times")),
-                    actionButton(ns("general_concepts_save_updates"), "Save updates", class = "btn-success-custom", icon = icon("save"))
+                    actionButton(ns("general_concepts_cancel_edit"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
+                    actionButton(ns("general_concepts_save_updates"), i18n$t("save_updates"), class = "btn-success-custom", icon = icon("save"))
                   )
                 ),
                 # General Concept Detail Page normal buttons
@@ -103,8 +104,8 @@ mod_dictionary_explorer_ui <- function(id) {
                   tags$div(
                     id = ns("general_concept_detail_action_buttons"),
                     style = "display: flex; gap: 10px;",
-                    actionButton(ns("general_concept_detail_show_history"), "History", class = "btn-secondary-custom", icon = icon("history")),
-                    actionButton(ns("general_concept_detail_edit_page"), "Edit page", class = "btn-toggle", icon = icon("edit"))
+                    actionButton(ns("general_concept_detail_show_history"), i18n$t("history"), class = "btn-secondary-custom", icon = icon("history")),
+                    actionButton(ns("general_concept_detail_edit_page"), i18n$t("edit_page"), class = "btn-toggle", icon = icon("edit"))
                   )
                 ),
                 # General Concept Detail Page edit buttons
@@ -112,8 +113,8 @@ mod_dictionary_explorer_ui <- function(id) {
                   tags$div(
                     id = ns("general_concept_detail_edit_buttons"),
                     style = "display: flex; gap: 10px;",
-                    actionButton(ns("general_concept_detail_cancel_edit"), "Cancel", class = "btn-secondary-custom", icon = icon("times")),
-                    actionButton(ns("general_concept_detail_save_updates"), "Save updates", class = "btn-toggle", icon = icon("save"))
+                    actionButton(ns("general_concept_detail_cancel_edit"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
+                    actionButton(ns("general_concept_detail_save_updates"), i18n$t("save_updates"), class = "btn-toggle", icon = icon("save"))
                   )
                 ),
                 # Back buttons (history views)
@@ -121,8 +122,8 @@ mod_dictionary_explorer_ui <- function(id) {
                   tags$div(
                     id = ns("back_buttons"),
                     style = "display: flex; gap: 10px;",
-                    actionButton(ns("back_to_list_from_history"), "Back to List", class = "btn-primary-custom", icon = icon("arrow-left")),
-                    actionButton(ns("back_to_detail"), "Back to Details", class = "btn-primary-custom", icon = icon("arrow-left"))
+                    actionButton(ns("back_to_list_from_history"), i18n$t("back_to_list"), class = "btn-primary-custom", icon = icon("arrow-left")),
+                    actionButton(ns("back_to_detail"), i18n$t("back_to_details"), class = "btn-primary-custom", icon = icon("arrow-left"))
                   )
                 )
               )
@@ -148,11 +149,11 @@ mod_dictionary_explorer_ui <- function(id) {
                     ),
                     tags$h3(
                       style = "color: #0f60af; margin-bottom: 15px; font-size: 24px;",
-                      "Loading OHDSI Vocabularies"
+                      i18n$t("loading_ohdsi_vocabularies")
                     ),
                     tags$p(
                       style = "color: #0f60af; font-size: 16px; line-height: 1.5;",
-                      "Please wait while the vocabularies database is being loaded..."
+                      i18n$t("please_wait_vocabularies")
                     )
                   )
                 ),
@@ -170,18 +171,18 @@ mod_dictionary_explorer_ui <- function(id) {
                       ),
                       tags$h3(
                         style = "color: #dc3545; margin-bottom: 15px; font-size: 24px;",
-                        "OHDSI Vocabularies Not Loaded"
+                        i18n$t("ohdsi_vocabularies_not_loaded")
                       ),
                       tags$p(
                         style = "color: #721c24; font-size: 16px; margin-bottom: 20px; line-height: 1.5;",
-                        "The OHDSI Vocabularies database is required to display concept mappings and terminology details. Please configure the vocabularies folder in settings."
+                        i18n$t("ohdsi_vocabularies_required")
                       ),
                       tags$button(
                         class = "btn btn-primary-custom",
                         onclick = "window.location.hash = '#!/general-settings';",
                         style = "font-size: 16px; padding: 12px 24px;",
                         tags$i(class = "fas fa-cog", style = "margin-right: 8px;"),
-                        "Go to Settings"
+                        i18n$t("go_to_settings")
                       )
                     )
                   )
@@ -210,15 +211,11 @@ mod_dictionary_explorer_ui <- function(id) {
                             style = "display: flex; align-items: center; flex: 1;",
                             tags$h4(
                               style = "margin: 0;",
-                              "Associated Concepts"
+                              i18n$t("associated_concepts")
                             ),
                             tags$span(
                               class = "info-icon",
-                              `data-tooltip` = paste0(
-                                "All concepts identified as potentially related to this general concept.\n",
-                                "These include descendants and related concepts from OMOP hierarchies.\n\n",
-                                "• Recommended: Manually validated by INDICATE experts as strongly associated\n",
-                                "• Not recommended: Related but not the primary match (see comments for rationale)"),
+                              `data-tooltip` = as.character(i18n$t("associated_concepts_tooltip")),
                               "ⓘ"
                             )
                           ),
@@ -234,7 +231,7 @@ mod_dictionary_explorer_ui <- function(id) {
                                 icon = icon("copy"),
                                 class = "btn-icon-only copy-menu-trigger has-tooltip",
                                 style = "background: transparent; border: none; color: #666; padding: 0; cursor: pointer; flex-shrink: 0;",
-                                `data-tooltip` = "Copy concept details"
+                                `data-tooltip` = as.character(i18n$t("copy_concept_details"))
                               ),
                               # Dropdown menu
                               tags$div(
@@ -246,14 +243,14 @@ mod_dictionary_explorer_ui <- function(id) {
                                   id = ns("copy_as_json"),
                                   style = "padding: 10px 15px; cursor: pointer; border-bottom: 1px solid #eee;",
                                   tags$i(class = "fa fa-code", style = "margin-right: 8px; color: #0f60af;"),
-                                  "Copy as JSON"
+                                  i18n$t("copy_as_json")
                                 ),
                                 tags$div(
                                   class = "copy-menu-item",
                                   id = ns("copy_as_omop_sql"),
                                   style = "padding: 10px 15px; cursor: pointer;",
                                   tags$i(class = "fa fa-database", style = "margin-right: 8px; color: #0f60af;"),
-                                  "Copy OMOP SQL"
+                                  i18n$t("copy_omop_sql")
                                 )
                               )
                             ),
@@ -281,11 +278,11 @@ mod_dictionary_explorer_ui <- function(id) {
                             style = "display: flex; align-items: center; flex: 1;",
                             tags$h4(
                               style = "margin: 0;",
-                              "Selected Concept Details"
+                              i18n$t("selected_concept_details")
                             ),
                             tags$span(
                               class = "info-icon",
-                              `data-tooltip` = "Detailed information about the selected concept from Associated Concepts, including vocabulary, codes, links to ATHENA and FHIR resources",
+                              `data-tooltip` = as.character(i18n$t("selected_concept_details_tooltip")),
                               "ⓘ"
                             )
                           ),
@@ -295,7 +292,7 @@ mod_dictionary_explorer_ui <- function(id) {
                             icon = icon("copy"),
                             class = "btn-icon-only",
                             style = "background: transparent; border: none; color: #666; padding: 0; cursor: pointer; flex-shrink: 0;",
-                            `data-tooltip` = "Copy concept details as JSON"
+                            `data-tooltip` = as.character(i18n$t("copy_as_json"))
                           )
                         ),
                         tags$div(
@@ -319,10 +316,10 @@ mod_dictionary_explorer_ui <- function(id) {
                           class = "section-header section-header-with-tabs",
                           tags$h4(
                             style = "margin: 0;",
-                            "ETL Guidance & Comments",
+                            i18n$t("etl_guidance_comments"),
                             tags$span(
                               class = "info-icon",
-                              `data-tooltip` = "Expert guidance and comments for ETL (Extract, Transform, Load) processes related to this concept",
+                              `data-tooltip` = as.character(i18n$t("etl_guidance_comments_tooltip")),
                               "ⓘ"
                             )
                           ),
@@ -332,13 +329,13 @@ mod_dictionary_explorer_ui <- function(id) {
                               class = "tab-btn tab-btn-active",
                               id = ns("tab_comments"),
                               onclick = sprintf("Shiny.setInputValue('%s', 'comments', {priority: 'event'})", ns("switch_comments_tab")),
-                              "Comments"
+                              i18n$t("comments")
                             ),
                             tags$button(
                               class = "tab-btn",
                               id = ns("tab_statistical_summary"),
                               onclick = sprintf("Shiny.setInputValue('%s', 'statistical_summary', {priority: 'event'})", ns("switch_comments_tab")),
-                              "Statistical Summary"
+                              i18n$t("statistical_summary")
                             )
                           )
                         ),
@@ -358,10 +355,10 @@ mod_dictionary_explorer_ui <- function(id) {
                         tags$div(
                           class = "section-header section-header-with-tabs",
                           tags$h4(
-                            "Concept Relationships & Hierarchy",
+                            i18n$t("concept_relationships_hierarchy"),
                             tags$span(
                               class = "info-icon",
-                              `data-tooltip` = "All related concepts and hierarchical relationships from OHDSI vocabularies, including both standard and non-standard concepts. Double-click a row to see details.",
+                              `data-tooltip` = as.character(i18n$t("concept_relationships_tooltip")),
                               "ⓘ"
                             )
                           ),
@@ -371,19 +368,19 @@ mod_dictionary_explorer_ui <- function(id) {
                               class = "tab-btn tab-btn-active",
                               id = ns("tab_related"),
                               onclick = sprintf("Shiny.setInputValue('%s', 'related', {priority: 'event'})", ns("switch_relationships_tab")),
-                              "Related"
+                              i18n$t("related")
                             ),
                             tags$button(
                               class = "tab-btn",
                               id = ns("tab_hierarchy"),
                               onclick = sprintf("Shiny.setInputValue('%s', 'hierarchy', {priority: 'event'})", ns("switch_relationships_tab")),
-                              "Hierarchy"
+                              i18n$t("hierarchy")
                             ),
                             tags$button(
                               class = "tab-btn",
                               id = ns("tab_synonyms"),
                               onclick = sprintf("Shiny.setInputValue('%s', 'synonyms', {priority: 'event'})", ns("switch_relationships_tab")),
-                              "Synonyms"
+                              i18n$t("synonyms")
                             )
                           )
                         ),
@@ -434,7 +431,7 @@ mod_dictionary_explorer_ui <- function(id) {
         style = "max-width: 600px;",
         tags$div(
           class = "modal-header",
-          tags$h3("Add New Concept"),
+          tags$h3(i18n$t("add_new_concept")),
           tags$button(
             class = "modal-close",
             onclick = sprintf("$('#%s').hide();", ns("general_concepts_add_modal")),
@@ -447,7 +444,7 @@ mod_dictionary_explorer_ui <- function(id) {
           tags$div(
             id = ns("duplicate_concept_error"),
             style = "display: none; background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 4px; margin-bottom: 20px; text-align: center; border: 1px solid #f5c6cb;",
-            tags$strong("Duplicate Concept"),
+            tags$strong(i18n$t("duplicate_concept")),
             tags$br(),
             tags$span(id = ns("duplicate_concept_error_text"), "")
           ),
@@ -455,20 +452,20 @@ mod_dictionary_explorer_ui <- function(id) {
             id = ns("general_concepts_new_name_group"),
             style = "margin-bottom: 20px;",
             tags$label(
-              "General Concept Name",
+              i18n$t("general_concept_name"),
               style = "display: block; font-weight: 600; margin-bottom: 8px;"
             ),
             shiny::textInput(
               ns("general_concepts_new_name"),
               label = NULL,
-              placeholder = "Enter concept name",
+              placeholder = as.character(i18n$t("enter_concept_name")),
               width = "100%"
             ),
             shinyjs::hidden(
               tags$span(
                 id = ns("general_concepts_new_name_error"),
                 class = "input-error-message",
-                "Concept name is required"
+                i18n$t("concept_name_required")
               )
             )
           ),
@@ -476,7 +473,7 @@ mod_dictionary_explorer_ui <- function(id) {
             id = ns("general_concepts_new_category_group"),
             style = "margin-bottom: 20px;",
             tags$label(
-              "Category",
+              i18n$t("category"),
               style = "display: block; font-weight: 600; margin-bottom: 8px;"
             ),
             tags$div(
@@ -490,7 +487,7 @@ mod_dictionary_explorer_ui <- function(id) {
                   choices = character(0),
                   selected = character(0),
                   options = list(
-                    placeholder = "Select category..."
+                    placeholder = as.character(i18n$t("select_category"))
                   ),
                   width = "100%"
                 )
@@ -501,7 +498,7 @@ mod_dictionary_explorer_ui <- function(id) {
                 shiny::textInput(
                   ns("general_concepts_new_category_text"),
                   label = NULL,
-                  placeholder = "Enter new category",
+                  placeholder = as.character(i18n$t("enter_new_category")),
                   width = "100%"
                 )
               ),
@@ -531,7 +528,7 @@ mod_dictionary_explorer_ui <- function(id) {
               tags$span(
                 id = ns("general_concepts_new_category_error"),
                 class = "input-error-message",
-                "Category is required"
+                i18n$t("category_required")
               )
             )
           ),
@@ -539,7 +536,7 @@ mod_dictionary_explorer_ui <- function(id) {
             id = ns("general_concepts_new_subcategory_group"),
             style = "margin-bottom: 20px;",
             tags$label(
-              "Subcategory",
+              i18n$t("subcategory"),
               style = "display: block; font-weight: 600; margin-bottom: 8px;"
             ),
             tags$div(
@@ -553,7 +550,7 @@ mod_dictionary_explorer_ui <- function(id) {
                   choices = character(0),
                   selected = character(0),
                   options = list(
-                    placeholder = "First select a category..."
+                    placeholder = as.character(i18n$t("first_select_category"))
                   ),
                   width = "100%"
                 )
@@ -564,7 +561,7 @@ mod_dictionary_explorer_ui <- function(id) {
                 shiny::textInput(
                   ns("general_concepts_new_subcategory_text"),
                   label = NULL,
-                  placeholder = "Enter new subcategory",
+                  placeholder = as.character(i18n$t("enter_new_subcategory")),
                   width = "100%"
                 )
               ),
@@ -594,7 +591,7 @@ mod_dictionary_explorer_ui <- function(id) {
               tags$span(
                 id = ns("general_concepts_new_subcategory_error"),
                 class = "input-error-message",
-                "Subcategory is required"
+                i18n$t("subcategory_required")
               )
             )
           ),
@@ -604,11 +601,11 @@ mod_dictionary_explorer_ui <- function(id) {
               class = "btn btn-secondary btn-secondary-custom",
               onclick = sprintf("$('#%s').hide();", ns("general_concepts_add_modal")),
               tags$i(class = "fas fa-times"),
-              " Cancel"
+              paste0(" ", i18n$t("cancel"))
             ),
             actionButton(
               ns("general_concepts_add_new"),
-              "Add Concept",
+              i18n$t("add_concept"),
               class = "btn-primary-custom",
               icon = icon("plus")
             )
@@ -633,7 +630,7 @@ mod_dictionary_explorer_ui <- function(id) {
         # Header
         tags$div(
           style = "padding: 20px; border-bottom: 1px solid #ddd; flex-shrink: 0; background: #f8f9fa; border-radius: 8px 8px 0 0;",
-          tags$h3("Add Concepts to Mapping", style = "margin: 0; display: inline-block;"),
+          tags$h3(i18n$t("add_concepts_to_mapping"), style = "margin: 0; display: inline-block;"),
           tags$button(
             style = "float: right; background: none; border: none; font-size: 28px; cursor: pointer;",
             onclick = sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")),
@@ -662,7 +659,7 @@ mod_dictionary_explorer_ui <- function(id) {
                   $(this).parent().siblings().removeClass('active');
                   return false;
                 ", ns("omop_tab_content"), ns("custom_tab_content")),
-                "Search OMOP Concepts"
+                i18n$t("search_omop_concepts")
               )
             ),
             tags$li(
@@ -676,7 +673,7 @@ mod_dictionary_explorer_ui <- function(id) {
                   $(this).parent().siblings().removeClass('active');
                   return false;
                 ", ns("custom_tab_content"), ns("omop_tab_content")),
-                "Add Custom Concept"
+                i18n$t("add_custom_concept")
               )
             )
           ),
@@ -715,7 +712,7 @@ mod_dictionary_explorer_ui <- function(id) {
                 # Concept Details (left)
                 tags$div(
                   style = "flex: 1; min-height: 0; display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 4px; padding: 15px; background: white;",
-                  tags$h5("Selected Concept Details", style = "margin-top: 0; margin-bottom: 10px;"),
+                  tags$h5(i18n$t("selected_concept_details_modal"), style = "margin-top: 0; margin-bottom: 10px;"),
                   tags$div(
                     style = "flex: 1; min-height: 0; overflow: auto;",
                     uiOutput(ns("mapped_concepts_add_concept_details"))
@@ -725,7 +722,7 @@ mod_dictionary_explorer_ui <- function(id) {
                 # Descendants (right)
                 tags$div(
                   style = "flex: 1; min-height: 0; display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 4px; padding: 15px; background: white;",
-                  tags$h5("Descendants", style = "margin-top: 0; margin-bottom: 10px;"),
+                  tags$h5(i18n$t("descendants"), style = "margin-top: 0; margin-bottom: 10px;"),
                   tags$div(
                     style = "flex: 1; min-height: 0; overflow: hidden;",
                     DT::DTOutput(ns("mapped_concepts_add_descendants_table"))
@@ -738,19 +735,19 @@ mod_dictionary_explorer_ui <- function(id) {
                 style = "display: flex; justify-content: flex-end; align-items: center; gap: 10px; flex-shrink: 0;",
                 checkboxInput(
                   ns("mapped_concepts_add_multiple_select"),
-                  "Multiple selection",
+                  i18n$t("multiple_selection"),
                   value = FALSE,
                   width = NULL
                 ),
                 checkboxInput(
                   ns("mapped_concepts_add_include_descendants"),
-                  "Include descendants",
+                  i18n$t("include_descendants"),
                   value = FALSE,
                   width = NULL
                 ),
                 actionButton(
                   ns("mapped_concepts_add_selected"),
-                  "Add Concepts",
+                  i18n$t("add_concepts"),
                   class = "btn-success-custom",
                   icon = icon("plus")
                 )
@@ -770,7 +767,7 @@ mod_dictionary_explorer_ui <- function(id) {
                 tags$div(
                   style = "margin-bottom: 20px;",
                   tags$label(
-                    "Vocabulary ID ",
+                    i18n$t("vocabulary_id"), " ",
                     tags$span("*", style = "color: #dc3545;")
                   ),
                   textInput(
@@ -783,7 +780,7 @@ mod_dictionary_explorer_ui <- function(id) {
                     tags$span(
                       id = ns("custom_vocabulary_id_error"),
                       style = "color: #dc3545; font-size: 12px;",
-                      "Vocabulary ID is required"
+                      i18n$t("vocabulary_id_required")
                     )
                   )
                 ),
@@ -792,8 +789,8 @@ mod_dictionary_explorer_ui <- function(id) {
                   style = "margin-bottom: 20px;",
                   textInput(
                     ns("custom_concept_code"),
-                    "Concept Code",
-                    placeholder = "Optional",
+                    i18n$t("concept_code"),
+                    placeholder = as.character(i18n$t("optional")),
                     width = "300px"
                   )
                 ),
@@ -801,20 +798,20 @@ mod_dictionary_explorer_ui <- function(id) {
                 tags$div(
                   style = "margin-bottom: 20px;",
                   tags$label(
-                    "Concept Name ",
+                    i18n$t("concept_name"), " ",
                     tags$span("*", style = "color: #dc3545;")
                   ),
                   textInput(
                     ns("custom_concept_name"),
                     label = NULL,
-                    placeholder = "Enter concept name",
+                    placeholder = as.character(i18n$t("enter_concept_name")),
                     width = "300px"
                   ),
                   shinyjs::hidden(
                     tags$span(
                       id = ns("custom_concept_name_error"),
                       style = "color: #dc3545; font-size: 12px;",
-                      "Concept name is required"
+                      i18n$t("concept_name_required")
                     )
                   )
                 )
@@ -827,11 +824,11 @@ mod_dictionary_explorer_ui <- function(id) {
                   class = "btn btn-default",
                   onclick = sprintf("$('#%s').css('display', 'none');", ns("mapped_concepts_add_modal")),
                   tags$i(class = "fas fa-times"),
-                  " Cancel"
+                  paste0(" ", i18n$t("cancel"))
                 ),
                 actionButton(
                   ns("add_custom_concept"),
-                  "Add Custom Concept",
+                  i18n$t("add_custom_concept"),
                   class = "btn btn-success",
                   icon = icon("plus")
                 )
@@ -852,7 +849,7 @@ mod_dictionary_explorer_ui <- function(id) {
         class = "modal-content",
         tags$div(
           class = "modal-header",
-          tags$h3("Concept Details"),
+          tags$h3(i18n$t("concept_details")),
           tags$button(
             class = "modal-close",
             onclick = sprintf("$('#%s').hide();", ns("concept_modal")),
@@ -908,7 +905,7 @@ mod_dictionary_explorer_ui <- function(id) {
           style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
           tags$h3(
             style = "margin: 0; color: #0f60af;",
-            "ETL Guidance & Comments"
+            i18n$t("etl_guidance_comments")
           ),
           actionButton(
             ns("close_fullscreen_modal"),
@@ -941,6 +938,7 @@ mod_dictionary_explorer_ui <- function(id) {
 #' @param data Reactive containing the CSV data
 #' @param config Configuration list
 #' @param vocabularies Reactive containing preloaded OHDSI vocabularies
+#' @param i18n Translator object from shiny.i18n for server-side translations
 #'
 #' @return Module server logic
 #' @noRd
@@ -951,7 +949,7 @@ mod_dictionary_explorer_ui <- function(id) {
 #' @importFrom magrittr %>%
 #' @importFrom htmltools HTML tags tagList
 #' @importFrom htmlwidgets JS
-mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab_loading_status = reactive("not_loaded"), current_user = reactive(NULL), current_language = reactive("en"), log_level = character()) {
+mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab_loading_status = reactive("not_loaded"), current_user = reactive(NULL), i18n = NULL, log_level = character()) {
   # Capture module id before entering moduleServer for logging
   module_id <- id
 

@@ -74,14 +74,14 @@ language <- Sys.getenv("INDICATE_LANGUAGE", "en")
       style = "display: none;",
 
       # Page header module
-      mod_page_header_ui("page_header"),
+      mod_page_header_ui("page_header", i18n),
 
       # Main content wrapper with router
       tags$div(
         style = "flex: 1; overflow: hidden; display: flex; flex-direction: column;",
         # Router with all routes
         router_ui(
-          route("/", create_page_container(mod_dictionary_explorer_ui("dictionary_explorer"))),
+          route("/", create_page_container(mod_dictionary_explorer_ui("dictionary_explorer", i18n))),
           route("use-cases", create_page_container(mod_use_cases_ui("use_cases"))),
           route("mapping", create_page_container(mod_concept_mapping_ui("concept_mapping"))),
           route("improvements", create_page_container(mod_improvements_ui("improvements"))),

@@ -10,3 +10,99 @@ anonymous_access_limited,Anonymous access has limited permissions
 please_enter_login,Please enter your login.
 please_enter_password,Please enter your password.
 invalid_login_or_password,Invalid login or password. Please try again.
+add_concept,Add concept
+history,History
+edit_page,Edit page
+cancel,Cancel
+save_updates,Save updates
+back_to_list,Back to List
+back_to_details,Back to Details
+loading_ohdsi_vocabularies,Loading OHDSI Vocabularies
+please_wait_vocabularies,Please wait while the vocabularies database is being loaded...
+ohdsi_vocabularies_not_loaded,OHDSI Vocabularies Not Loaded
+ohdsi_vocabularies_required,The OHDSI Vocabularies database is required to display concept mappings and terminology details. Please configure the vocabularies folder in settings.
+go_to_settings,Go to Settings
+associated_concepts,Associated Concepts
+associated_concepts_tooltip,All concepts identified as potentially related to this general concept.\nThese include descendants and related concepts from OMOP hierarchies.\n\n• Recommended: Manually validated by INDICATE experts as strongly associated\n• Not recommended: Related but not the primary match (see comments for rationale)
+copy_concept_details,Copy concept details
+copy_as_json,Copy as JSON
+copy_omop_sql,Copy OMOP SQL
+selected_concept_details,Selected Concept Details
+selected_concept_details_tooltip,Detailed information about the selected concept from Associated Concepts including vocabulary codes links to ATHENA and FHIR resources
+etl_guidance_comments,ETL Guidance & Comments
+etl_guidance_comments_tooltip,Expert guidance and comments for ETL (Extract Transform Load) processes related to this concept
+comments,Comments
+statistical_summary,Statistical Summary
+concept_relationships_hierarchy,Concept Relationships & Hierarchy
+concept_relationships_tooltip,All related concepts and hierarchical relationships from OHDSI vocabularies including both standard and non-standard concepts. Double-click a row to see details.
+related,Related
+hierarchy,Hierarchy
+synonyms,Synonyms
+add_new_concept,Add New Concept
+duplicate_concept,Duplicate Concept
+general_concept_name,General Concept Name
+enter_concept_name,Enter concept name
+concept_name_required,Concept name is required
+category,Category
+select_category,Select category...
+category_required,Category is required
+subcategory,Subcategory
+first_select_category,First select a category...
+enter_new_category,Enter new category
+enter_new_subcategory,Enter new subcategory
+subcategory_required,Subcategory is required
+add_concepts_to_mapping,Add Concepts to Mapping
+search_omop_concepts,Search OMOP Concepts
+add_custom_concept,Add Custom Concept
+selected_concept_details_modal,Selected Concept Details
+descendants,Descendants
+multiple_selection,Multiple selection
+include_descendants,Include descendants
+add_concepts,Add Concepts
+vocabulary_id,Vocabulary ID
+vocabulary_id_required,Vocabulary ID is required
+concept_code,Concept Code
+optional,Optional
+concept_name,Concept Name
+concept_details,Concept Details
+general_concepts,General Concepts
+dictionary_explorer,Dictionary Explorer
+select_concept_to_view,Select a concept to view details
+no_concept_selected,No concept selected
+no_mapping_selected,No mapping selected
+select_mapping_to_view,Select a mapping to view details
+recommended,Recommended
+not_recommended,Not recommended
+vocabulary,Vocabulary
+domain,Domain
+concept_class,Concept Class
+standard_concept,Standard Concept
+invalid_reason,Invalid Reason
+view_in_athena,View in ATHENA
+view_in_fhir,View in FHIR
+no_comments,No comments available for this concept.
+no_statistical_data,No statistical data available for this concept.
+ehden_statistics,EHDEN Network Statistics
+data_sources,Data Sources
+total_rows,Total Rows
+no_relationships,No relationships found for this concept.
+no_hierarchy,No hierarchy data available for this concept.
+no_synonyms,No synonyms found for this concept.
+delete,Delete
+confirm_delete,Confirm Delete
+are_you_sure_delete,Are you sure you want to delete this concept?
+search,Search
+clear_filters,Clear filters
+all_categories,All categories
+edit_mode,Edit Mode
+view_mode,View Mode
+changes_saved,Changes saved successfully
+no_changes,No changes to save
+error_saving,Error saving changes
+use_cases,Use Cases
+concepts_mapping,Concepts Mapping
+improvements,Improvements
+dev_tools,Dev Tools
+general_settings,General settings
+users,Users
+logout,Logout

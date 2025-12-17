@@ -1,12 +1,108 @@
 base,fr
-app_title,Dictionnaire de Donnees INDICATE
+app_title,Dictionnaire de Données INDICATE
 login,Identifiant
 password,Mot de passe
 login_placeholder,Entrez votre identifiant
 password_placeholder,Entrez votre mot de passe
 log_in,Se connecter
 anonymous,Anonyme
-anonymous_access_limited,L'acces anonyme a des permissions limitees
+anonymous_access_limited,L'accès anonyme a des permissions limitées
 please_enter_login,Veuillez entrer votre identifiant.
 please_enter_password,Veuillez entrer votre mot de passe.
-invalid_login_or_password,Identifiant ou mot de passe invalide. Veuillez reessayer.
+invalid_login_or_password,Identifiant ou mot de passe invalide. Veuillez réessayer.
+add_concept,Ajouter un concept
+history,Historique
+edit_page,Modifier la page
+cancel,Annuler
+save_updates,Enregistrer
+back_to_list,Retour à la liste
+back_to_details,Retour aux détails
+loading_ohdsi_vocabularies,Chargement des vocabulaires OHDSI
+please_wait_vocabularies,Veuillez patienter pendant le chargement de la base de données des vocabulaires...
+ohdsi_vocabularies_not_loaded,Vocabulaires OHDSI non chargés
+ohdsi_vocabularies_required,La base de données des vocabulaires OHDSI est nécessaire pour afficher les mappings de concepts et les détails terminologiques. Veuillez configurer le dossier des vocabulaires dans les paramètres.
+go_to_settings,Aller aux paramètres
+associated_concepts,Concepts associés
+associated_concepts_tooltip,Tous les concepts identifiés comme potentiellement liés à ce concept général.\nCela inclut les descendants et les concepts liés des hiérarchies OMOP.\n\n• Recommandé : Validé manuellement par les experts INDICATE comme fortement associé\n• Non recommandé : Lié mais pas la correspondance principale (voir les commentaires pour la justification)
+copy_concept_details,Copier les détails du concept
+copy_as_json,Copier en JSON
+copy_omop_sql,Copier SQL OMOP
+selected_concept_details,Détails du concept sélectionné
+selected_concept_details_tooltip,Informations détaillées sur le concept sélectionné parmi les concepts associés y compris les codes de vocabulaire liens vers ATHENA et les ressources FHIR
+etl_guidance_comments,Guide ETL et commentaires
+etl_guidance_comments_tooltip,Guide expert et commentaires pour les processus ETL (Extract Transform Load) liés à ce concept
+comments,Commentaires
+statistical_summary,Résumé statistique
+concept_relationships_hierarchy,Relations et hiérarchie des concepts
+concept_relationships_tooltip,Tous les concepts liés et les relations hiérarchiques des vocabulaires OHDSI y compris les concepts standard et non standard. Double-cliquez sur une ligne pour voir les détails.
+related,Liés
+hierarchy,Hiérarchie
+synonyms,Synonymes
+add_new_concept,Ajouter un nouveau concept
+duplicate_concept,Concept en double
+general_concept_name,Nom du concept général
+enter_concept_name,Entrez le nom du concept
+concept_name_required,Le nom du concept est requis
+category,Catégorie
+select_category,Sélectionnez une catégorie...
+category_required,La catégorie est requise
+subcategory,Sous-catégorie
+first_select_category,Sélectionnez d'abord une catégorie...
+enter_new_category,Entrez une nouvelle catégorie
+enter_new_subcategory,Entrez une nouvelle sous-catégorie
+subcategory_required,La sous-catégorie est requise
+add_concepts_to_mapping,Ajouter des concepts au mapping
+search_omop_concepts,Rechercher des concepts OMOP
+add_custom_concept,Ajouter un concept personnalisé
+selected_concept_details_modal,Détails du concept sélectionné
+descendants,Descendants
+multiple_selection,Sélection multiple
+include_descendants,Inclure les descendants
+add_concepts,Ajouter les concepts
+vocabulary_id,ID du vocabulaire
+vocabulary_id_required,L'ID du vocabulaire est requis
+concept_code,Code du concept
+optional,Optionnel
+concept_name,Nom du concept
+concept_details,Détails du concept
+general_concepts,Concepts généraux
+dictionary_explorer,Explorateur du dictionnaire
+select_concept_to_view,Sélectionnez un concept pour voir les détails
+no_concept_selected,Aucun concept sélectionné
+no_mapping_selected,Aucun mapping sélectionné
+select_mapping_to_view,Sélectionnez un mapping pour voir les détails
+recommended,Recommandé
+not_recommended,Non recommandé
+vocabulary,Vocabulaire
+domain,Domaine
+concept_class,Classe du concept
+standard_concept,Concept standard
+invalid_reason,Raison d'invalidité
+view_in_athena,Voir dans ATHENA
+view_in_fhir,Voir dans FHIR
+no_comments,Aucun commentaire disponible pour ce concept.
+no_statistical_data,Aucune donnée statistique disponible pour ce concept.
+ehden_statistics,Statistiques du réseau EHDEN
+data_sources,Sources de données
+total_rows,Lignes totales
+no_relationships,Aucune relation trouvée pour ce concept.
+no_hierarchy,Aucune donnée hiérarchique disponible pour ce concept.
+no_synonyms,Aucun synonyme trouvé pour ce concept.
+delete,Supprimer
+confirm_delete,Confirmer la suppression
+are_you_sure_delete,Êtes-vous sûr de vouloir supprimer ce concept ?
+search,Rechercher
+clear_filters,Effacer les filtres
+all_categories,Toutes les catégories
+edit_mode,Mode édition
+view_mode,Mode visualisation
+changes_saved,Modifications enregistrées avec succès
+no_changes,Aucune modification à enregistrer
+error_saving,Erreur lors de l'enregistrement
+use_cases,Cas d'usage
+concepts_mapping,Mapping des concepts
+improvements,Améliorations
+dev_tools,Outils dev
+general_settings,Paramètres généraux
+users,Utilisateurs
+logout,Déconnexion

@@ -3,13 +3,14 @@
 #' @description Dynamic header UI that adapts to current route
 #'
 #' @param id Module ID
+#' @param i18n Translator object from shiny.i18n
 #'
 #' @return Shiny UI elements
 #' @noRd
 #'
 #' @importFrom shiny NS actionButton icon uiOutput
 #' @importFrom htmltools tags tagList
-mod_page_header_ui <- function(id) {
+mod_page_header_ui <- function(id, i18n) {
   ns <- NS(id)
 
   div(class = "header",
@@ -19,7 +20,7 @@ mod_page_header_ui <- function(id) {
             inputId = ns("logo_home"),
             label = tagList(
               tags$img(src = "www/logo.png", class = "header-logo"),
-              tags$h1("INDICATE Data Dictionary", class = "header-title")
+              tags$h1(i18n$t("app_title"), class = "header-title")
             ),
             style = "background: none; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; gap: 15px;"
           )
@@ -55,7 +56,7 @@ mod_page_header_ui <- function(id) {
                 onclick = sprintf("$('#%s').hide(); Shiny.setInputValue('%s', true, {priority: 'event'});",
                                 ns("settings_dropdown"), ns("nav_general_settings")),
                 tags$i(class = "fas fa-cog", style = "margin-right: 10px;"),
-                "General settings"
+                i18n$t("general_settings")
               ),
 
               # Users item
@@ -66,7 +67,7 @@ mod_page_header_ui <- function(id) {
                 onclick = sprintf("$('#%s').hide(); Shiny.setInputValue('%s', true, {priority: 'event'});",
                                 ns("settings_dropdown"), ns("nav_users")),
                 tags$i(class = "fas fa-users", style = "margin-right: 10px;"),
-                "Users"
+                i18n$t("users")
               ),
 
               # Logout item
@@ -77,7 +78,7 @@ mod_page_header_ui <- function(id) {
                 onclick = sprintf("$('#%s').hide(); Shiny.setInputValue('%s', true, {priority: 'event'});",
                                 ns("settings_dropdown"), ns("logout")),
                 tags$i(class = "fas fa-sign-out-alt", style = "margin-right: 10px;"),
-                "Logout"
+                i18n$t("logout")
               )
             )
           )
@@ -92,13 +93,14 @@ mod_page_header_ui <- function(id) {
 #' @param id Module ID
 #' @param current_user Reactive containing current user data
 #' @param vocab_loading_status Reactive containing vocabulary loading status
+#' @param i18n Translator object from shiny.i18n for server-side translations
 #'
 #' @return NULL
 #' @noRd
 #'
 #' @importFrom shiny moduleServer reactive observeEvent renderUI req
 #' @importFrom shiny.router get_page change_page
-mod_page_header_server <- function(id, current_user, vocab_loading_status, log_level = character()) {
+mod_page_header_server <- function(id, current_user, vocab_loading_status, i18n = NULL, log_level = character()) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -123,31 +125,31 @@ mod_page_header_server <- function(id, current_user, vocab_loading_status, log_l
         list(
           id = "nav_explorer",
           path = "",
-          label = tagList(icon("search"), "Dictionary Explorer"),
+          label = tagList(icon("search"), if (!is.null(i18n)) i18n$t("dictionary_explorer") else "Dictionary Explorer"),
           visible = TRUE
         ),
         list(
           id = "nav_use_cases",
           path = "use-cases",
-          label = tagList(icon("list-check"), "Use Cases"),
+          label = tagList(icon("list-check"), if (!is.null(i18n)) i18n$t("use_cases") else "Use Cases"),
           visible = TRUE
         ),
         list(
           id = "nav_mapping",
           path = "mapping",
-          label = tagList(icon("project-diagram"), "Concepts Mapping"),
+          label = tagList(icon("project-diagram"), if (!is.null(i18n)) i18n$t("concepts_mapping") else "Concepts Mapping"),
           visible = !is.null(user) && user$role != "Anonymous"
         ),
         list(
           id = "nav_improvements",
           path = "improvements",
-          label = tagList(icon("lightbulb"), "Improvements"),
+          label = tagList(icon("lightbulb"), if (!is.null(i18n)) i18n$t("improvements") else "Improvements"),
           visible = !is.null(user) && user$role != "Anonymous"
         ),
         list(
           id = "nav_dev_tools",
           path = "dev-tools",
-          label = tagList(icon("code"), "Dev Tools"),
+          label = tagList(icon("code"), if (!is.null(i18n)) i18n$t("dev_tools") else "Dev Tools"),
           visible = !is.null(user) && user$role != "Anonymous"
         )
       )
