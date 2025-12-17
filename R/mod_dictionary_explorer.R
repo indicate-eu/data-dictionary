@@ -959,6 +959,13 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     # Store module id for logging (used by observe_event wrapper)
     id <- module_id
 
+    # Helper function to get current language from environment variable
+    current_language <- function() {
+      lang <- Sys.getenv("INDICATE_LANGUAGE", "en")
+      if (!lang %in% c("en", "fr")) lang <- "en"
+      return(lang)
+    }
+
     ## 1) Server - Reactive Values & State ----
     ### View & Selection State ----
     current_view <- reactiveVal("list")  # "list", "detail", "detail_history", or "list_history"
@@ -2017,8 +2024,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         deleted_general_concepts(list())
       }
 
-      # Save general_concepts to CSV
-      csv_path <- get_csv_path("general_concepts.csv")
+      # Save general_concepts to CSV (language-specific file)
+      lang <- current_language()
+      general_concepts_file <- paste0("general_concepts_", lang, ".csv")
+      csv_path <- get_csv_path(general_concepts_file)
 
       if (file.exists(csv_path)) {
         readr::write_csv(general_concepts, csv_path)
@@ -2338,7 +2347,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       )[1]
 
       # Save to CSV sorted by ID (for easier version control)
-      csv_path <- get_csv_path("general_concepts.csv")
+      lang <- current_language()
+      general_concepts_file <- paste0("general_concepts_", lang, ".csv")
+      csv_path <- get_csv_path(general_concepts_file)
 
       if (file.exists(csv_path)) {
         general_concepts_to_save <- general_concepts_display %>%
@@ -2400,7 +2411,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       if (is.null(concept_id)) return()
 
       # Get current data from CSV (not from current_data() which has temporary changes)
-      general_concepts_path <- get_csv_path("general_concepts.csv")
+      lang <- current_language()
+      general_concepts_file <- paste0("general_concepts_", lang, ".csv")
+      general_concepts_path <- get_csv_path(general_concepts_file)
       concept_mappings_path <- get_csv_path("general_concepts_details.csv")
       custom_concepts_path <- get_csv_path("custom_concepts.csv")
 
@@ -2426,31 +2439,25 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
 
       # Update comments in general_concepts and log changes
-      # Comments are stored in language-specific columns: comments (EN) and comments_fr (FR)
+      # Comments are stored in the language-specific CSV file (general_concepts_en.csv or general_concepts_fr.csv)
       new_comment <- input$comments_input
       lang <- current_language()
-      comment_column <- if (lang == "fr") "comments_fr" else "comments"
 
       if (!is.null(new_comment) && nrow(current_concept) > 0) {
-        # Get old comment from the appropriate column
-        old_comment <- if (comment_column %in% names(current_concept) && !is.na(current_concept[[comment_column]][1])) {
-          current_concept[[comment_column]][1]
+        # Get old comment
+        old_comment <- if ("comments" %in% names(current_concept) && !is.na(current_concept$comments[1])) {
+          current_concept$comments[1]
         } else {
           ""
         }
 
         # Check if comment has changed
         if (old_comment != new_comment) {
-          # Ensure the column exists before updating
-          if (!comment_column %in% names(general_concepts)) {
-            general_concepts[[comment_column]] <- NA_character_
-          }
-
-          # Update the appropriate language column
-          general_concepts[[comment_column]] <- ifelse(
+          # Update the comments column
+          general_concepts$comments <- ifelse(
             general_concepts$general_concept_id == concept_id,
             new_comment,
-            general_concepts[[comment_column]]
+            general_concepts$comments
           )
 
           # Get concept name for history
@@ -2808,10 +2815,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         concept_mappings <- dplyr::bind_rows(concept_mappings, new_mappings_df)
       }
 
-      # Write to CSV files
+      # Write to CSV files (language-specific for general_concepts)
+      lang <- current_language()
+      general_concepts_file <- paste0("general_concepts_", lang, ".csv")
       readr::write_csv(
         general_concepts,
-        get_csv_path("general_concepts.csv")
+        get_csv_path(general_concepts_file)
       )
 
       readr::write_csv(

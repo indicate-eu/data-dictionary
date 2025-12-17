@@ -32,7 +32,9 @@ app_server <- function(input, output, session) {
   if (translations_path == "" || !dir.exists(translations_path)) {
     translations_path <- "inst/translations"
   }
-  i18n <- shiny.i18n::Translator$new(translation_csvs_path = translations_path)
+  i18n <- suppressWarnings(
+    shiny.i18n::Translator$new(translation_csvs_path = translations_path)
+  )
   i18n$set_translation_language(language)
 
   # Initialize login module and get current user

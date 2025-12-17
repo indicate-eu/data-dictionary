@@ -789,7 +789,8 @@ load_ohdsi_relationships <- function(vocab_data, concept_mappings, preserve_reco
 
   # Step 6: RxNorm Drug enrichment for general concepts with category = "Drug"
   # Load general concepts to identify Drug category concepts
-  general_concepts_path <- get_csv_path("general_concepts.csv")
+  # Use English file as reference (Drug category is the same in all languages)
+  general_concepts_path <- get_csv_path("general_concepts_en.csv")
   general_concepts <- readr::read_csv(general_concepts_path, show_col_types = FALSE)
 
   # Filter to Drug category

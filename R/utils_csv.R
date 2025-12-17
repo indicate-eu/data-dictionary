@@ -7,7 +7,8 @@
 
 # List of CSV files managed by the application
 CSV_FILES <- c(
-"general_concepts.csv",
+  "general_concepts_en.csv",
+  "general_concepts_fr.csv",
   "use_cases.csv",
   "general_concepts_use_cases.csv",
   "general_concepts_details.csv",
@@ -120,9 +121,23 @@ initialize_user_csv_files <- function() {
 #' @description Load dictionary data from CSV files in the user's app_folder.
 #' Initializes user CSV files from package if they don't exist.
 #'
+#' @param language Character: Language code ("en" or "fr"). Defaults to
+#'   INDICATE_LANGUAGE environment variable or "en".
+#'
 #' @return List containing all data tables
 #' @noRd
-load_csv_data <- function() {
+load_csv_data <- function(language = NULL) {
+  # Get language from parameter or environment variable
+
+  if (is.null(language)) {
+    language <- Sys.getenv("INDICATE_LANGUAGE", "en")
+  }
+
+  # Validate language code
+  if (!language %in% c("en", "fr")) {
+    language <- "en"
+  }
+
   # Ensure user CSV files exist
   initialize_user_csv_files()
 
@@ -133,24 +148,13 @@ load_csv_data <- function() {
     stop("CSV directory not found: ", csv_dir)
   }
 
-  # Load all CSV files
+  # Load language-specific general concepts file
+  general_concepts_file <- paste0("general_concepts_", language, ".csv")
   general_concepts <- read.csv(
-    file.path(csv_dir, "general_concepts.csv"),
+    file.path(csv_dir, general_concepts_file),
     stringsAsFactors = FALSE,
     na.strings = c("", "NA")
   )
-
-  # Add language columns if they don't exist (for i18n support)
-  if (!"comments_fr" %in% names(general_concepts)) {
-    general_concepts$comments_fr <- NA_character_
-    # Save updated CSV with new column
-    write.csv(
-      general_concepts,
-      file.path(csv_dir, "general_concepts.csv"),
-      row.names = FALSE,
-      quote = TRUE
-    )
-  }
 
   use_cases <- read.csv(
     file.path(csv_dir, "use_cases.csv"),
@@ -209,14 +213,27 @@ load_csv_data <- function() {
 #' @description Save general concepts data to CSV file in user's app_folder
 #'
 #' @param general_concepts_data Data frame with general concepts
+#' @param language Character: Language code ("en" or "fr"). Defaults to
+#'   INDICATE_LANGUAGE environment variable or "en".
 #'
 #' @return NULL (side effect: saves file)
 #' @noRd
-save_general_concepts_csv <- function(general_concepts_data) {
+save_general_concepts_csv <- function(general_concepts_data, language = NULL) {
+  # Get language from parameter or environment variable
+  if (is.null(language)) {
+    language <- Sys.getenv("INDICATE_LANGUAGE", "en")
+  }
+
+  # Validate language code
+  if (!language %in% c("en", "fr")) {
+    language <- "en"
+  }
+
   csv_dir <- get_user_csv_dir()
+  general_concepts_file <- paste0("general_concepts_", language, ".csv")
   write.csv(
     general_concepts_data,
-    file.path(csv_dir, "general_concepts.csv"),
+    file.path(csv_dir, general_concepts_file),
     row.names = FALSE,
     quote = TRUE
   )
