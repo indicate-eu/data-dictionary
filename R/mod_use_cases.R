@@ -52,7 +52,7 @@
 #' @importFrom shiny updateTextInput updateTextAreaInput selectizeInput icon
 #' @importFrom htmltools tags tagList
 #' @importFrom DT DTOutput
-mod_use_cases_ui <- function(id) {
+mod_use_cases_ui <- function(id, i18n) {
   ns <- NS(id)
 
   tagList(
@@ -88,7 +88,7 @@ mod_use_cases_ui <- function(id) {
         style = "max-width: 700px;",
         tags$div(
           class = "modal-header",
-          tags$h3("Add New Use Case"),
+          tags$h3(i18n$t("add_use_case")),
           tags$button(
             class = "modal-close",
             onclick = sprintf("$('#%s').hide();", ns("add_use_case_modal")),
@@ -102,46 +102,46 @@ mod_use_cases_ui <- function(id) {
             id = ns("new_use_case_name_group"),
             style = "margin-bottom: 20px;",
             tags$label(
-              tags$span("Name ", style = "font-weight: 600;"),
+              tags$span(i18n$t("use_case_name"), " ", style = "font-weight: 600;"),
               tags$span("*", style = "color: #dc3545;"),
               style = "display: block; margin-bottom: 8px;"
             ),
             textInput(
               ns("new_use_case_name"),
               label = NULL,
-              placeholder = "Enter use case name (required)",
+              placeholder = as.character(i18n$t("enter_name")),
               width = "100%"
             ),
             tags$div(
               id = ns("name_error"),
               class = "input-error-message",
-              "Use case name is required"
+              i18n$t("name_required")
             )
           ),
           tags$div(
             style = "margin-bottom: 20px;",
             tags$label(
-              tags$span("Short Description ", style = "font-weight: 600;"),
+              tags$span(i18n$t("short_description"), " ", style = "font-weight: 600;"),
               tags$span("*", style = "color: #dc3545;"),
               style = "display: block; margin-bottom: 8px;"
             ),
             textAreaInput(
               ns("new_use_case_short_description"),
               label = NULL,
-              placeholder = "Enter short description (1-2 sentences, required)",
+              placeholder = as.character(i18n$t("enter_short_description")),
               width = "100%",
               rows = 3
             ),
             tags$div(
               id = ns("short_desc_error"),
               class = "input-error-message",
-              "Short description is required"
+              i18n$t("short_description_required")
             )
           ),
           tags$div(
             style = "margin-bottom: 20px;",
             tags$label(
-              "Long Description",
+              i18n$t("long_description"),
               style = paste0(
                 "display: block; font-weight: 600; ",
                 "margin-bottom: 8px;"
@@ -150,7 +150,7 @@ mod_use_cases_ui <- function(id) {
             textAreaInput(
               ns("new_use_case_long_description"),
               label = NULL,
-              placeholder = "Enter detailed description (optional)",
+              placeholder = as.character(i18n$t("enter_long_description")),
               width = "100%",
               rows = 5
             )
@@ -167,11 +167,11 @@ mod_use_cases_ui <- function(id) {
                 ns("add_use_case_modal")
               ),
               tags$i(class = "fas fa-times"),
-              " Cancel"
+              " ", i18n$t("cancel")
             ),
             actionButton(
               ns("save_use_case"),
-              "Add Use Case",
+              i18n$t("add_use_case"),
               class = "btn btn-primary",
               icon = icon("plus")
             )
@@ -194,7 +194,7 @@ mod_use_cases_ui <- function(id) {
         style = "max-width: 500px;",
         tags$div(
           class = "modal-header",
-          tags$h3("Confirm Deletion"),
+          tags$h3(i18n$t("confirm_deletion")),
           tags$button(
             class = "modal-close",
             onclick = sprintf("$('#%s').hide();", ns("delete_confirmation_modal")),
@@ -206,12 +206,12 @@ mod_use_cases_ui <- function(id) {
           style = "padding: 20px;",
           tags$p(
             style = "font-size: 14px; margin-bottom: 20px;",
-            "Are you sure you want to delete the selected use case(s)? This action cannot be undone."
+            i18n$t("delete_use_case_confirm")
           ),
           tags$p(
             style = "font-size: 14px; color: #dc3545; margin-bottom: 20px;",
             tags$strong("Note:"),
-            " All concept assignments for this use case will also be removed."
+            " ", i18n$t("delete_use_case_note")
           ),
           tags$div(
             style = paste0(
@@ -225,11 +225,11 @@ mod_use_cases_ui <- function(id) {
                 ns("delete_confirmation_modal")
               ),
               tags$i(class = "fas fa-times"),
-              " Cancel"
+              " ", i18n$t("cancel")
             ),
             actionButton(
               ns("confirm_delete_use_case"),
-              "Delete",
+              i18n$t("delete"),
               class = "btn btn-danger",
               icon = icon("trash")
             )
@@ -252,7 +252,7 @@ mod_use_cases_ui <- function(id) {
         style = "max-width: 700px;",
         tags$div(
           class = "modal-header",
-          tags$h3("Edit Use Case"),
+          tags$h3(i18n$t("edit_use_case")),
           tags$button(
             class = "modal-close",
             onclick = sprintf("$('#%s').hide();", ns("edit_use_case_modal")),
@@ -266,46 +266,46 @@ mod_use_cases_ui <- function(id) {
             id = ns("edit_use_case_name_group"),
             style = "margin-bottom: 20px;",
             tags$label(
-              tags$span("Name ", style = "font-weight: 600;"),
+              tags$span(i18n$t("use_case_name"), " ", style = "font-weight: 600;"),
               tags$span("*", style = "color: #dc3545;"),
               style = "display: block; margin-bottom: 8px;"
             ),
             textInput(
               ns("edit_use_case_name"),
               label = NULL,
-              placeholder = "Enter use case name (required)",
+              placeholder = as.character(i18n$t("enter_name")),
               width = "100%"
             ),
             tags$div(
               id = ns("edit_name_error"),
               class = "input-error-message",
-              "Use case name is required"
+              i18n$t("name_required")
             )
           ),
           tags$div(
             style = "margin-bottom: 20px;",
             tags$label(
-              tags$span("Short Description ", style = "font-weight: 600;"),
+              tags$span(i18n$t("short_description"), " ", style = "font-weight: 600;"),
               tags$span("*", style = "color: #dc3545;"),
               style = "display: block; margin-bottom: 8px;"
             ),
             textAreaInput(
               ns("edit_use_case_short_description"),
               label = NULL,
-              placeholder = "Enter short description (1-2 sentences, required)",
+              placeholder = as.character(i18n$t("enter_short_description")),
               width = "100%",
               rows = 3
             ),
             tags$div(
               id = ns("edit_short_desc_error"),
               class = "input-error-message",
-              "Short description is required"
+              i18n$t("short_description_required")
             )
           ),
           tags$div(
             style = "margin-bottom: 20px;",
             tags$label(
-              "Long Description",
+              i18n$t("long_description"),
               style = paste0(
                 "display: block; font-weight: 600; ",
                 "margin-bottom: 8px;"
@@ -314,7 +314,7 @@ mod_use_cases_ui <- function(id) {
             textAreaInput(
               ns("edit_use_case_long_description"),
               label = NULL,
-              placeholder = "Enter detailed description (optional)",
+              placeholder = as.character(i18n$t("enter_long_description")),
               width = "100%",
               rows = 5
             )
@@ -331,11 +331,11 @@ mod_use_cases_ui <- function(id) {
                 ns("edit_use_case_modal")
               ),
               tags$i(class = "fas fa-times"),
-              " Cancel"
+              " ", i18n$t("cancel")
             ),
             actionButton(
               ns("update_use_case"),
-              "Update Use Case",
+              i18n$t("update_use_case"),
               class = "btn btn-primary",
               icon = icon("save")
             )
@@ -353,10 +353,11 @@ mod_use_cases_ui <- function(id) {
 #' @description Renders the main use cases list with split panel
 #'
 #' @param ns Namespace function
+#' @param i18n Translation object
 #'
 #' @return UI elements for use cases list view
 #' @noRd
-render_use_cases_list_ui <- function(ns) {
+render_use_cases_list_ui <- function(ns, i18n) {
   tagList(
     # Action buttons bar
     tags$div(
@@ -367,14 +368,14 @@ render_use_cases_list_ui <- function(ns) {
       # Title (matching dictionary explorer style)
       tags$div(
         class = "section-title",
-        tags$span("Use Cases")
+        tags$span(i18n$t("use_cases"))
       ),
       tags$div(
         style = "display: flex; gap: 10px;",
         shinyjs::hidden(
           actionButton(
             ns("add_use_case_btn"),
-            "Add Use Case",
+            i18n$t("add_use_case"),
             class = "btn-success-custom",
             icon = icon("plus")
           )
@@ -394,7 +395,7 @@ render_use_cases_list_ui <- function(ns) {
           "box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 20px;"
         ),
         tags$h4(
-          "Use Cases",
+          i18n$t("use_cases"),
           style = paste0(
             "margin: 0 0 15px 0; color: #0f60af; ",
             "border-bottom: 2px solid #0f60af; padding-bottom: 10px;"
@@ -414,7 +415,7 @@ render_use_cases_list_ui <- function(ns) {
           "box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 20px;"
         ),
         tags$h4(
-          "Use Case Details",
+          i18n$t("use_case_details"),
           style = paste0(
             "margin: 0 0 15px 0; color: #0f60af; ",
             "border-bottom: 2px solid #0f60af; padding-bottom: 10px;"
@@ -434,10 +435,11 @@ render_use_cases_list_ui <- function(ns) {
 #' @description Renders the use case configuration view with 3 panels
 #'
 #' @param ns Namespace function
+#' @param i18n Translation object
 #'
 #' @return UI elements for use case configuration view
 #' @noRd
-render_use_case_config_ui <- function(ns) {
+render_use_case_config_ui <- function(ns, i18n) {
   tagList(
     # Two-panel layout for concept selection
     tags$div(
@@ -452,7 +454,7 @@ render_use_case_config_ui <- function(ns) {
         ),
         # Header with title
         tags$h4(
-          "Available Concepts",
+          i18n$t("available_concepts"),
           style = paste0(
             "margin: 0 0 10px 0; color: #0f60af; ",
             "border-bottom: 2px solid #0f60af; padding-bottom: 10px;"
@@ -465,7 +467,7 @@ render_use_case_config_ui <- function(ns) {
             style = "display: flex; gap: 10px; margin-bottom: 15px;",
             actionButton(
               ns("add_general_concepts_btn"),
-              "Add Selected Concepts",
+              i18n$t("add_selected_concepts"),
               class = "btn btn-primary btn-sm",
               icon = icon("arrow-right")
             ),
@@ -504,7 +506,7 @@ render_use_case_config_ui <- function(ns) {
         ),
         # Header with title
         tags$h4(
-          "Selected Concepts for Use Case",
+          i18n$t("selected_concepts_for_use_case"),
           style = paste0(
             "margin: 0 0 10px 0; color: #28a745; ",
             "border-bottom: 2px solid #28a745; padding-bottom: 10px;"
@@ -517,7 +519,7 @@ render_use_case_config_ui <- function(ns) {
             style = "display: flex; gap: 10px; margin-bottom: 15px;",
             actionButton(
               ns("remove_general_concepts_btn"),
-              "Remove Selected Concepts",
+              i18n$t("remove_selected_concepts"),
               class = "btn btn-danger btn-sm",
               icon = icon("times")
             ),
@@ -569,7 +571,7 @@ render_use_case_config_ui <- function(ns) {
 #' @importFrom htmltools tags tagList HTML
 #' @importFrom DT renderDT datatable formatStyle styleEqual
 #' @importFrom dplyr left_join group_by summarise n filter inner_join select collect
-mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), current_user = reactive(NULL), log_level = character()) {
+mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), current_user = reactive(NULL), i18n, log_level = character()) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -909,9 +911,9 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
 
       output$content_area <- renderUI({
         if (view == "list") {
-          render_use_cases_list_ui(ns)
+          render_use_cases_list_ui(ns, i18n)
         } else if (view == "config") {
-          render_use_case_config_ui(ns)
+          render_use_case_config_ui(ns, i18n)
         }
       })
     })

@@ -23,18 +23,18 @@ ohdsi_vocabularies_not_loaded,OHDSI Vocabularies Not Loaded
 ohdsi_vocabularies_required,The OHDSI Vocabularies database is required to display concept mappings and terminology details. Please configure the vocabularies folder in settings.
 go_to_settings,Go to Settings
 associated_concepts,Associated Concepts
-associated_concepts_tooltip,All concepts identified as potentially related to this general concept.\nThese include descendants and related concepts from OMOP hierarchies.\n\n• Recommended: Manually validated by INDICATE experts as strongly associated\n• Not recommended: Related but not the primary match (see comments for rationale)
+associated_concepts_tooltip,"Concepts from standard terminologies (SNOMED CT, LOINC, RxNorm, etc.) associated with the selected general concept."
 copy_concept_details,Copy concept details
 copy_as_json,Copy as JSON
 copy_omop_sql,Copy OMOP SQL
 selected_concept_details,Selected Concept Details
-selected_concept_details_tooltip,Detailed information about the selected concept from Associated Concepts including vocabulary codes links to ATHENA and FHIR resources
-etl_guidance_comments,ETL Guidance & Comments
-etl_guidance_comments_tooltip,Expert guidance and comments for ETL (Extract Transform Load) processes related to this concept
+selected_concept_details_tooltip,"Detailed information of the concept selected in the associated concepts table: vocabulary, domain, class, and links to ATHENA and FHIR resources."
+etl_guidance_comments,Comments & ETL Guidance
+etl_guidance_comments_tooltip,Comments written by domain experts to help understand the concept and perform an appropriate mapping.
 comments,Comments
 statistical_summary,Statistical Summary
 concept_relationships_hierarchy,Concept Relationships & Hierarchy
-concept_relationships_tooltip,All related concepts and hierarchical relationships from OHDSI vocabularies including both standard and non-standard concepts. Double-click a row to see details.
+concept_relationships_tooltip,"Concepts related to the selected concept and its position in the OHDSI vocabularies hierarchy. Double-click a row to see details."
 related,Related
 hierarchy,Hierarchy
 synonyms,Synonyms
@@ -206,3 +206,5 @@ engineer,Engineer
 login_exists,Login already exists. Please choose a different login.
 confirm_delete_user,Are you sure you want to delete user
 athena_note,The OHDSI Vocabularies can be downloaded from ATHENA (registration required).
+edit_use_case,Edit Use Case
+update_use_case,Update Use Case

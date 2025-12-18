@@ -84,7 +84,7 @@ language <- Sys.getenv("INDICATE_LANGUAGE", "en")
         # Router with all routes
         router_ui(
           route("/", create_page_container(mod_dictionary_explorer_ui("dictionary_explorer", i18n))),
-          route("use-cases", create_page_container(mod_use_cases_ui("use_cases"))),
+          route("use-cases", create_page_container(mod_use_cases_ui("use_cases", i18n))),
           route("mapping", create_page_container(mod_concept_mapping_ui("concept_mapping"))),
           route("improvements", create_page_container(mod_improvements_ui("improvements"))),
           route("dev-tools", create_page_container(mod_dev_tools_ui("dev_tools"))),
