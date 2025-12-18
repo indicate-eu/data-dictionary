@@ -1,5 +1,5 @@
 base,fr
-app_title,Dictionnaire de Données INDICATE
+app_title,Dictionnaire de données INDICATE
 login,Identifiant
 password,Mot de passe
 login_placeholder,Entrez votre identifiant
@@ -88,6 +88,7 @@ total_rows,Lignes totales
 no_relationships,Aucune relation trouvée pour ce concept.
 no_hierarchy,Aucune donnée hiérarchique disponible pour ce concept.
 no_synonyms,Aucun synonyme trouvé pour ce concept.
+view_details,Voir les détails
 delete,Supprimer
 confirm_delete,Confirmer la suppression
 are_you_sure_delete,Êtes-vous sûr de vouloir supprimer ce concept ?
@@ -106,3 +107,102 @@ dev_tools,Outils dev
 general_settings,Paramètres généraux
 users,Utilisateurs
 logout,Déconnexion
+add_use_case,Ajouter un cas d'usage
+use_case_details,Détails du cas d'usage
+select_use_case,Sélectionnez un cas d'usage pour voir ses détails
+use_case_name,Nom
+short_description,Description courte
+long_description,Description détaillée
+concepts,Concepts
+name_required,Le nom est requis
+short_description_required,La description courte est requise
+enter_name,Entrez le nom
+enter_short_description,Entrez une description courte (1-2 phrases)
+enter_long_description,Entrez une description détaillée (optionnel)
+configure,Configurer
+edit,Modifier
+update,Mettre à jour
+confirm_deletion,Confirmer la suppression
+delete_use_case_confirm,Êtes-vous sûr de vouloir supprimer le(s) cas d'usage sélectionné(s) ? Cette action est irréversible.
+delete_use_case_note,Toutes les associations de concepts pour ce cas d'usage seront également supprimées.
+no_use_cases,Aucun cas d'usage trouvé. Cliquez sur 'Ajouter un cas d'usage' pour en créer un.
+available_concepts,Concepts disponibles
+selected_concepts,Concepts sélectionnés
+selected_concepts_for_use_case,Concepts sélectionnés pour le cas d'usage
+add_selected_concepts,Ajouter les concepts sélectionnés
+remove_selected_concepts,Retirer les concepts sélectionnés
+no_concepts_selected,Aucun concept général sélectionné pour ce cas d'usage. Sélectionnez des concepts généraux dans le panneau de gauche et cliquez sur 'Ajouter les concepts sélectionnés'.
+dictionary_improvements,Améliorations du dictionnaire
+dictionary_improvements_desc,Contribuez au dictionnaire de données INDICATE en proposant de nouveaux concepts, relations et améliorations.
+coming_soon,Bientôt disponible
+data_quality,Qualité des données
+r_console,Console R
+r_code,Code R
+results,Résultats
+run_code,Exécuter le code
+query_vocabularies,Interroger les vocabulaires avec dplyr
+available_objects,Objets disponibles :
+concept_table,Table concept OHDSI
+concept_relationship_table,Table concept_relationship OHDSI
+concept_ancestor_table,Table concept_ancestor OHDSI
+run_code_results,Exécutez le code pour voir les résultats ici
+enter_r_code,Veuillez entrer du code R à exécuter.
+vocabularies_not_loaded,Vocabulaires OHDSI non chargés.
+missing_comments,Commentaires manquants
+recommended_non_standard,Recommandés non standard
+missing_data_details,Détails des données manquantes
+ohdsi_vocabularies,Vocabulaires OHDSI
+backup_restore,Sauvegarde et restauration
+browse,Parcourir...
+no_folder_selected,Aucun dossier sélectionné
+select_ohdsi_folder,Sélectionner le dossier des vocabulaires OHDSI
+search_folders,Rechercher des dossiers et fichiers...
+duckdb_status,Statut de la base DuckDB
+duckdb_description,Une base de données DuckDB est automatiquement créée à partir des fichiers CSV ATHENA pour un chargement instantané au démarrage.
+creating_duckdb,Création de la base DuckDB... Cela peut prendre quelques minutes.
+database_exists,Base de données existante :
+database_not_exists,La base de données n'existe pas
+recreate,Recréer
+create,Créer
+ohdsi_relationships,Mappings des relations OHDSI
+ohdsi_relationships_desc,Charger des mappings de concepts supplémentaires à partir des relations des vocabulaires OHDSI. Cela enrichit le dictionnaire avec des concepts liés des vocabulaires standards.
+loading_ohdsi_mappings,Chargement des mappings de relations OHDSI... Cela peut prendre quelques minutes.
+load_vocabularies_first,Veuillez d'abord charger les vocabulaires OHDSI.
+ohdsi_mappings_loaded,Mappings OHDSI chargés avec succès.
+last_synchronized,Dernière synchronisation :
+reload,Recharger
+load,Charger
+ohdsi_mappings_not_loaded,Mappings des relations OHDSI non chargés.
+download_backup,Télécharger la sauvegarde
+download_backup_desc,Crée une archive ZIP contenant la base de données et les mappings de concepts (exclut les fichiers de vocabulaires).
+restore_from_backup,Restaurer depuis une sauvegarde
+select_backup_file,Sélectionnez un fichier de sauvegarde ZIP
+restore_warning,La restauration d'une sauvegarde remplacera toutes les données actuelles. Cette action est irréversible.
+backup_restored,Sauvegarde restaurée avec succès. Veuillez recharger l'application pour appliquer les modifications.
+backup_empty,Le fichier de sauvegarde semble vide ou invalide.
+reload_application,Recharger l'application
+add_user,Ajouter un utilisateur
+edit_user,Modifier l'utilisateur
+login_label,Identifiant
+password_label,Mot de passe
+first_name,Prénom
+last_name,Nom
+role,Rôle
+affiliation,Affiliation
+login_required,L'identifiant est requis.
+password_required,Le mot de passe est requis pour les nouveaux utilisateurs.
+first_name_required,Le prénom est requis.
+last_name_required,Le nom est requis.
+leave_empty_password,Laissez vide pour conserver le mot de passe actuel
+enter_login,Entrez l'identifiant
+enter_password,Entrez le mot de passe
+enter_first_name,Entrez le prénom
+enter_last_name,Entrez le nom
+enter_affiliation,Entrez l'institution ou l'organisation
+save,Enregistrer
+clinician,Clinicien
+data_scientist,Data scientist
+engineer,Ingénieur
+login_exists,Cet identifiant existe déjà. Veuillez en choisir un autre.
+confirm_delete_user,Êtes-vous sûr de vouloir supprimer l'utilisateur
+athena_note,Les vocabulaires OHDSI peuvent être téléchargés depuis ATHENA (inscription requise).

@@ -1045,12 +1045,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       req(current_data())
       unique_cats <- unique(current_data()$general_concepts$category)
       sorted_cats <- sort(unique_cats[!is.na(unique_cats)])
-      
-      # Move "Other" to the end if it exists
-      if ("Other" %in% sorted_cats) {
-        sorted_cats <- c(setdiff(sorted_cats, "Other"), "Other")
+
+      # Move "Other" or "Autres" (French) to the end if they exist
+      other_cats <- c("Other", "Autres")
+      found_other <- intersect(sorted_cats, other_cats)
+      if (length(found_other) > 0) {
+        sorted_cats <- c(setdiff(sorted_cats, found_other), found_other)
       }
-      
+
       sorted_cats
     })
 
@@ -4456,15 +4458,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
     ### c) ETL Guidance & Comments (Bottom-Left Panel) ----
     ##### Comments & Statistical Summary Display ----
-    # Helper function to get comment based on selected language
+    # Helper function to get comment for current concept
+    # Each language has its own CSV file with a 'comments' column
     get_comment_for_language <- function(concept_info, lang) {
       if (nrow(concept_info) == 0) return("")
 
-      comment_column <- if (lang == "fr") "comments_fr" else "comments"
-
-      # Check if the column exists and has a value
-      if (comment_column %in% names(concept_info) && !is.na(concept_info[[comment_column]][1])) {
-        concept_info[[comment_column]][1]
+      # Use 'comments' column - each language file has its own comments
+      if ("comments" %in% names(concept_info) && !is.na(concept_info$comments[1])) {
+        concept_info$comments[1]
       } else {
         ""
       }

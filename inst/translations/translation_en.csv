@@ -88,6 +88,7 @@ total_rows,Total Rows
 no_relationships,No relationships found for this concept.
 no_hierarchy,No hierarchy data available for this concept.
 no_synonyms,No synonyms found for this concept.
+view_details,View details
 delete,Delete
 confirm_delete,Confirm Delete
 are_you_sure_delete,Are you sure you want to delete this concept?
@@ -106,3 +107,102 @@ dev_tools,Dev Tools
 general_settings,General settings
 users,Users
 logout,Logout
+add_use_case,Add Use Case
+use_case_details,Use Case Details
+select_use_case,Select a use case to view its details
+use_case_name,Name
+short_description,Short Description
+long_description,Long Description
+concepts,Concepts
+name_required,Name is required
+short_description_required,Short description is required
+enter_name,Enter name
+enter_short_description,Enter short description (1-2 sentences)
+enter_long_description,Enter detailed description (optional)
+configure,Configure
+edit,Edit
+update,Update
+confirm_deletion,Confirm Deletion
+delete_use_case_confirm,Are you sure you want to delete the selected use case(s)? This action cannot be undone.
+delete_use_case_note,All concept assignments for this use case will also be removed.
+no_use_cases,No use cases found. Click 'Add Use Case' to create one.
+available_concepts,Available Concepts
+selected_concepts,Selected Concepts
+selected_concepts_for_use_case,Selected Concepts for Use Case
+add_selected_concepts,Add Selected Concepts
+remove_selected_concepts,Remove Selected Concepts
+no_concepts_selected,No general concepts selected for this use case. Select general concepts from the left panel and click 'Add Selected Concepts'.
+dictionary_improvements,Dictionary Improvements
+dictionary_improvements_desc,Contribute to the INDICATE Data Dictionary by proposing new concepts, relationships, and improvements.
+coming_soon,Coming Soon
+data_quality,Data Quality
+r_console,R Console
+r_code,R Code
+results,Results
+run_code,Run Code
+query_vocabularies,Query vocabularies using dplyr
+available_objects,Available objects:
+concept_table,OHDSI concept table
+concept_relationship_table,OHDSI concept_relationship table
+concept_ancestor_table,OHDSI concept_ancestor table
+run_code_results,Run code to see results here
+enter_r_code,Please enter R code to execute.
+vocabularies_not_loaded,OHDSI vocabularies not loaded.
+missing_comments,Missing Comments
+recommended_non_standard,Recommended Non-Standard
+missing_data_details,Missing Data Details
+ohdsi_vocabularies,OHDSI Vocabularies
+backup_restore,Backup & Restore
+browse,Browse...
+no_folder_selected,No folder selected
+select_ohdsi_folder,Select OHDSI Vocabularies Folder
+search_folders,Search folders and files...
+duckdb_status,DuckDB Database Status
+duckdb_description,A DuckDB database is automatically created from ATHENA CSV files for instant loading at startup.
+creating_duckdb,Creating DuckDB database... This may take a few minutes.
+database_exists,Database exists:
+database_not_exists,Database does not exist
+recreate,Recreate
+create,Create
+ohdsi_relationships,OHDSI Relationships Mappings
+ohdsi_relationships_desc,Load additional concept mappings from OHDSI vocabulary relationships. This enriches the dictionary with related concepts from standard vocabularies.
+loading_ohdsi_mappings,Loading OHDSI relationships mappings... This may take a few minutes.
+load_vocabularies_first,Please load OHDSI vocabularies first.
+ohdsi_mappings_loaded,OHDSI mappings loaded successfully.
+last_synchronized,Last synchronized:
+reload,Reload
+load,Load
+ohdsi_mappings_not_loaded,OHDSI relationships mappings not loaded.
+download_backup,Download Backup
+download_backup_desc,Creates a ZIP archive containing the database and concept mappings (excludes vocabulary files).
+restore_from_backup,Restore from Backup
+select_backup_file,Select a backup ZIP file
+restore_warning,Restoring from a backup will replace all current data. This action cannot be undone.
+backup_restored,Backup restored successfully. Please reload the application to apply changes.
+backup_empty,The backup file appears to be empty or invalid.
+reload_application,Reload application
+add_user,Add User
+edit_user,Edit User
+login_label,Login
+password_label,Password
+first_name,First Name
+last_name,Last Name
+role,Role
+affiliation,Affiliation
+login_required,Login is required.
+password_required,Password is required for new users.
+first_name_required,First name is required.
+last_name_required,Last name is required.
+leave_empty_password,Leave empty to keep current password
+enter_login,Enter login
+enter_password,Enter password
+enter_first_name,Enter first name
+enter_last_name,Enter last name
+enter_affiliation,Enter institution or organization
+save,Save
+clinician,Clinician
+data_scientist,Data scientist
+engineer,Engineer
+login_exists,Login already exists. Please choose a different login.
+confirm_delete_user,Are you sure you want to delete user
+athena_note,The OHDSI Vocabularies can be downloaded from ATHENA (registration required).
