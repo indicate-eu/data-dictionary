@@ -2407,3 +2407,10 @@ a.btn-success-custom:hover {
     #ffffff 33.33%, #ffffff 66.66%,
     #ED2939 66.66%, #ED2939 100%);
 }
+
+/* Fix selectize dropdown menus in modals being hidden by scroll
+-------------------------------------------------- */
+.selectize-dropdown.dropdown-detached {
+  position: fixed !important;
+  z-index: 100000 !important;
+}
