@@ -333,6 +333,34 @@ mod_concept_mapping_ui <- function(id) {
       )
     ),
 
+    ### Modal - Comments Fullscreen ----
+    tags$div(
+      id = ns("target_comments_fullscreen_modal"),
+      class = "modal-overlay modal-fullscreen",
+      style = "display: none;",
+      tags$div(
+        class = "modal-fullscreen-content",
+        style = "height: 100vh; display: flex; flex-direction: column;",
+        tags$div(
+          style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
+          tags$h3(
+            style = "margin: 0; color: #0f60af;",
+            "ETL Guidance & Comments"
+          ),
+          actionButton(
+            ns("close_target_comments_fullscreen"),
+            label = HTML("&times;"),
+            class = "modal-close",
+            style = "font-size: 28px; font-weight: 300; color: #666; border: none; background: none; cursor: pointer; padding: 0; width: 30px; height: 30px; line-height: 1;"
+          )
+        ),
+        tags$div(
+          style = "flex: 1; overflow: auto; padding: 0;",
+          uiOutput(ns("target_comments_fullscreen_content"))
+        )
+      )
+    )
+
   )
 }
 
@@ -596,21 +624,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       shinyjs::show("general_concepts_table_container")
       shinyjs::hide("concept_mappings_table_container")
-      shinyjs::hide("comments_display_container")
-    })
-
-    observe_event(input$show_comments, {
-      concept_mappings_view("comments")
-
-      shinyjs::hide("concept_mappings_table_container")
-      shinyjs::show("comments_display_container")
-    })
-
-    observe_event(input$back_to_mappings, {
-      concept_mappings_view("table")
-
-      shinyjs::show("concept_mappings_table_container")
-      shinyjs::hide("comments_display_container")
     })
 
     observe_event(input$view_mapped_concepts, {
@@ -619,7 +632,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       shinyjs::hide("general_concepts_table_container")
       shinyjs::show("concept_mappings_table_container")
-      shinyjs::hide("comments_display_container")
 
       shinyjs::hide("add_mapping_from_general")
     })
@@ -1578,7 +1590,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 tags$div(
                   class = "section-header",
                   style = "margin-bottom: 0;",
-                  tags$h4(style = "margin: 0;", "Concept Details")
+                  tags$h4(style = "margin: 0;", "Source Concept Details")
                 ),
                 tags$div(
                   style = "flex: 1; min-height: 0; overflow: auto; padding: 0 10px 10px 10px;",
@@ -1631,27 +1643,77 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 )
               )
             ),
-            # Right column: General Concepts / Mappings
+            # Right column: General Concepts (top) + Target Concept Details (bottom)
             tags$div(
-              class = "card-container card-container-flex",
-              style = "flex: 1; min-width: 0;",
-              uiOutput(ns("general_concepts_header")),
+              style = "flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px;",
+              # Top-right: General Concepts table
               tags$div(
-                style = "flex: 1; min-height: 0; overflow: auto;",
+                id = ns("general_concepts_panel"),
+                class = "card-container card-container-flex",
+                style = "flex: 1; min-height: 0;",
+                uiOutput(ns("general_concepts_header")),
                 tags$div(
-                  id = ns("general_concepts_table_container"),
-                  style = "height: 100%;",
-                  DT::DTOutput(ns("general_concepts_table"))
+                  style = "flex: 1; min-height: 0; overflow: auto;",
+                  tags$div(
+                    id = ns("general_concepts_table_container"),
+                    style = "height: 100%;",
+                    DT::DTOutput(ns("general_concepts_table"))
+                  ),
+                  tags$div(
+                    id = ns("concept_mappings_table_container"),
+                    style = "height: 100%; display: none;",
+                    DT::DTOutput(ns("concept_mappings_table"))
+                  )
+                )
+              ),
+              # Bottom-right: Target Concept Details with tabs
+              tags$div(
+                id = ns("target_concept_details_panel"),
+                class = "card-container card-container-flex",
+                style = "flex: 1; min-height: 0; display: none;",
+                tags$div(
+                  class = "section-header",
+                  style = "margin-bottom: 0;",
+                  tags$h4(style = "margin: 0;", "Target Concept Details")
                 ),
                 tags$div(
-                  id = ns("concept_mappings_table_container"),
-                  style = "height: 100%; display: none;",
-                  DT::DTOutput(ns("concept_mappings_table"))
-                ),
-                tags$div(
-                  id = ns("comments_display_container"),
-                  style = "display: none;",
-                  uiOutput(ns("comments_display"))
+                  style = "flex: 1; min-height: 0; overflow: auto; padding: 0 10px 10px 10px;",
+                  # Tabs for different views
+                  tags$div(
+                    style = "display: flex; gap: 5px; margin-bottom: 10px;",
+                    tags$button(
+                      id = ns("target_detail_tab_summary"),
+                      class = "tab-btn tab-btn-active",
+                      onclick = sprintf("
+                        document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                        this.classList.add('tab-btn-active');
+                        Shiny.setInputValue('%s', 'summary', {priority: 'event'});
+                      ", ns("target_concept_details_panel"), ns("target_detail_tab_selected")),
+                      "Summary"
+                    ),
+                    tags$button(
+                      id = ns("target_detail_tab_distribution"),
+                      class = "tab-btn",
+                      onclick = sprintf("
+                        document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                        this.classList.add('tab-btn-active');
+                        Shiny.setInputValue('%s', 'distribution', {priority: 'event'});
+                      ", ns("target_concept_details_panel"), ns("target_detail_tab_selected")),
+                      "Distribution"
+                    ),
+                    tags$button(
+                      id = ns("target_detail_tab_comments"),
+                      class = "tab-btn",
+                      onclick = sprintf("
+                        document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                        this.classList.add('tab-btn-active');
+                        Shiny.setInputValue('%s', 'comments', {priority: 'event'});
+                      ", ns("target_concept_details_panel"), ns("target_detail_tab_selected")),
+                      "Comments"
+                    )
+                  ),
+                  # Content area for selected tab
+                  uiOutput(ns("target_concept_details_content"))
                 )
               )
             )
@@ -1845,25 +1907,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             ),
             tags$span(style = "color: #6c757d; margin: 0 8px;", ">"),
             tags$span(concept_name)
-          ),
-          # Buttons based on view
-          if (concept_mappings_view() == "table") {
-            actionButton(
-              ns("show_comments"),
-              "Comments",
-              class = "btn-secondary-custom",
-              icon = icon("comment"),
-              style = "height: 32px; padding: 5px 15px; font-size: 14px;"
-            )
-          } else {
-            actionButton(
-              ns("back_to_mappings"),
-              "Back to Mapped Concepts",
-              class = "btn-secondary-custom",
-              style = "height: 32px; padding: 5px 15px; font-size: 14px;",
-              icon = icon("arrow-left")
-            )
-          }
+          )
         )
       }
     })
@@ -3208,33 +3252,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }, server = TRUE)
     })
 
-    #### Comments Display ----
-    output$comments_display <- renderUI({
-      if (is.null(selected_general_concept_id())) return()
-      if (is.null(data())) return()
-
-      concept_id <- selected_general_concept_id()
-      concept_info <- data()$general_concepts %>%
-        dplyr::filter(general_concept_id == concept_id)
-
-      if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1]) && nchar(concept_info$comments[1]) > 0) {
-        tags$div(
-          class = "comments-container",
-          style = "background: #e6f3ff; border: 1px solid #0f60af; border-radius: 6px; height: 100%; overflow-y: auto; box-sizing: border-box;",
-          tags$div(
-            class = "markdown-content",
-            style = "padding: 0 15px 15px 15px;",
-            shiny::markdown(concept_info$comments[1])
-          )
-        )
-      } else {
-        tags$div(
-          style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic; height: 100%; overflow-y: auto; box-sizing: border-box;",
-          "No comments available for this concept."
-        )
-      }
-    })
-
     #### Concept Details Panel ----
     # Reactive to store selected source concept JSON data
     selected_source_json <- reactiveVal(NULL)
@@ -3667,7 +3684,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           plot_height <- max(100, min(250, nrow(unit_df) * 25))
 
           p <- ggplot2::ggplot(unit_df, ggplot2::aes(x = unit_label, y = percentage)) +
-            ggplot2::geom_col(fill = "#fd7e14", width = 0.7) +
+            ggplot2::geom_col(fill = "#0f60af", width = 0.7) +
             ggplot2::coord_flip() +
             ggplot2::labs(x = NULL, y = "%") +
             ggplot2::theme_minimal(base_size = 11) +
@@ -3689,6 +3706,526 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       tags$div(
         style = "color: #999; font-style: italic;",
         "No unit distribution data available."
+      )
+    }
+
+    #### Target Concept Details Panel ----
+    # Reactive to store selected target concept data
+    selected_target_concept_id <- reactiveVal(NULL)
+    selected_target_json <- reactiveVal(NULL)
+    selected_target_mapping <- reactiveVal(NULL)
+    target_detail_tab <- reactiveVal("summary")
+
+    # Show/hide target concept details panel based on concept mapping selection (specific/detailed concept)
+    observe_event(input$concept_mappings_table_rows_selected, {
+      if (mapping_tab() != "edit_mappings") return()
+
+      row_selected <- input$concept_mappings_table_rows_selected
+
+      if (is.null(row_selected) || length(row_selected) == 0) {
+        shinyjs::hide("target_concept_details_panel")
+        selected_target_concept_id(NULL)
+        selected_target_json(NULL)
+        selected_target_mapping(NULL)
+        return()
+      }
+
+      # Get selected concept mapping to find the general concept
+      if (is.null(data())) return()
+      if (is.null(selected_general_concept_id())) return()
+
+      # Get the concept mappings for the selected general concept
+      mappings_data <- data()$concept_mappings %>%
+        dplyr::filter(general_concept_id == selected_general_concept_id())
+
+      if (is.null(mappings_data) || nrow(mappings_data) == 0) return()
+      if (row_selected > nrow(mappings_data)) return()
+
+      selected_mapping <- mappings_data[row_selected, ]
+      selected_target_mapping(selected_mapping)
+
+      # Get the general concept info for this mapping
+      gc_data <- data()$general_concepts
+      if (is.null(gc_data) || nrow(gc_data) == 0) return()
+
+      selected_gc <- gc_data %>%
+        dplyr::filter(general_concept_id == selected_general_concept_id())
+
+      if (nrow(selected_gc) == 0) return()
+
+      selected_target_concept_id(selected_gc$general_concept_id[1])
+
+      # Create JSON-like data from general concept info for visualization
+      # Only generalizable fields are kept (no unit - comes from DuckDB, no temporal/hospital distributions)
+      target_json <- list(
+        numeric_data = NULL,
+        histogram = NULL,
+        categorical_data = NULL,
+        measurement_frequency = NULL,
+        missing_rate = NULL
+      )
+
+      # If the general concept has a statistical_summary JSON, parse it
+      if ("statistical_summary" %in% names(selected_gc) && !is.null(selected_gc$statistical_summary[1]) && !is.na(selected_gc$statistical_summary[1]) && selected_gc$statistical_summary[1] != "") {
+        target_json <- tryCatch(
+          jsonlite::fromJSON(selected_gc$statistical_summary[1]),
+          error = function(e) target_json
+        )
+      }
+
+      selected_target_json(target_json)
+      shinyjs::show("target_concept_details_panel")
+    }, ignoreNULL = FALSE)
+
+    # Handle target tab selection
+    observe_event(input$target_detail_tab_selected, {
+      target_detail_tab(input$target_detail_tab_selected)
+    })
+
+    # Render target concept details content based on selected tab
+    output$target_concept_details_content <- renderUI({
+      json_data <- selected_target_json()
+      concept_id <- selected_target_concept_id()
+      tab <- target_detail_tab()
+
+      if (is.null(concept_id)) {
+        return(tags$div(
+          style = "color: #999; font-style: italic;",
+          "Select a general concept to see target details."
+        ))
+      }
+
+      if (tab == "comments") {
+        # Display comments for the selected general concept
+        render_target_comments(concept_id)
+      } else if (is.null(json_data) || (is.null(json_data$numeric_data) && is.null(json_data$categorical_data))) {
+        return(tags$div(
+          style = "color: #999; font-style: italic;",
+          "No statistical data available for this concept."
+        ))
+      } else if (tab == "summary") {
+        render_target_summary(json_data, concept_id)
+      } else if (tab == "distribution") {
+        render_target_distribution(json_data)
+      } else {
+        tags$div("Unknown tab")
+      }
+    })
+
+    # Helper function to render target comments
+    render_target_comments <- function(concept_id) {
+      if (is.null(data())) return(tags$div(style = "color: #999;", "No data available."))
+
+      concept_info <- data()$general_concepts %>%
+        dplyr::filter(general_concept_id == concept_id)
+
+      if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1]) && nchar(concept_info$comments[1]) > 0) {
+        tags$div(
+          class = "comments-container",
+          style = "background: #e6f3ff; border: 1px solid #0f60af; border-radius: 6px; height: 100%; overflow-y: auto; box-sizing: border-box; position: relative;",
+          tags$div(
+            style = "position: sticky; top: -1px; left: -1px; z-index: 100; height: 0;",
+            actionButton(
+              session$ns("expand_target_comments"),
+              label = NULL,
+              icon = icon("expand"),
+              class = "btn-icon-only comments-expand-btn",
+              style = "background: rgba(255, 255, 255, 0.95); border: none; border-right: 1px solid #0f60af; border-bottom: 1px solid #0f60af; color: #0f60af; padding: 4px 7px; cursor: pointer; border-radius: 5px 0 0 0; font-size: 12px;",
+              `data-tooltip` = "View in fullscreen"
+            )
+          ),
+          tags$div(
+            class = "markdown-content",
+            style = "padding-left: 30px;",
+            shiny::markdown(concept_info$comments[1])
+          )
+        )
+      } else {
+        tags$div(
+          style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic; height: 100%; overflow-y: auto; box-sizing: border-box;",
+          "No comments available for this concept."
+        )
+      }
+    }
+
+    # Handle expand comments button for target
+    observe_event(input$expand_target_comments, {
+      shinyjs::show("target_comments_fullscreen_modal")
+    })
+
+    # Handle close fullscreen comments modal
+    observe_event(input$close_target_comments_fullscreen, {
+      shinyjs::hide("target_comments_fullscreen_modal")
+    })
+
+    # Render fullscreen comments content
+    output$target_comments_fullscreen_content <- renderUI({
+      concept_id <- selected_target_concept_id()
+      if (is.null(concept_id)) return(NULL)
+      if (is.null(data())) return(NULL)
+
+      concept_info <- data()$general_concepts %>%
+        dplyr::filter(general_concept_id == concept_id)
+
+      if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1]) && nchar(concept_info$comments[1]) > 0) {
+        tags$div(
+          style = "height: 100%; overflow-y: auto; padding: 20px;",
+          tags$div(
+            class = "markdown-content",
+            shiny::markdown(concept_info$comments[1])
+          )
+        )
+      } else {
+        tags$div(
+          style = "padding: 20px; color: #999; font-style: italic;",
+          "No comments available for this concept."
+        )
+      }
+    })
+
+    # Target summary render (orange theme)
+    render_target_summary <- function(json_data, concept_id) {
+      left_items <- list()
+      right_items <- list()
+
+      # Get unit from selected mapping's omop_unit_concept_id via DuckDB
+      mapping_data <- selected_target_mapping()
+      source_row <- selected_source_row()
+      vocab_data <- vocabularies()
+
+      target_unit_name <- NULL
+      source_unit_name <- NULL
+
+      # Get target unit name
+      if (!is.null(mapping_data) && "omop_unit_concept_id" %in% names(mapping_data)) {
+        unit_concept_id <- mapping_data$omop_unit_concept_id
+        if (!is.null(unit_concept_id) && !is.na(unit_concept_id) && unit_concept_id != "" && unit_concept_id != "/") {
+          if (!is.null(vocab_data) && !is.null(vocab_data$concept)) {
+            unit_info <- vocab_data$concept %>%
+              dplyr::filter(concept_id == as.integer(unit_concept_id)) %>%
+              head(1) %>%
+              dplyr::collect()
+            if (nrow(unit_info) > 0 && !is.null(unit_info$concept_name)) {
+              target_unit_name <- unit_info$concept_name
+            }
+          }
+        }
+      }
+
+      # Get source unit name for comparison
+      if (!is.null(source_row) && "unit" %in% names(source_row)) {
+        source_unit <- source_row$unit
+        if (!is.null(source_unit) && !is.na(source_unit) && source_unit != "" && source_unit != "/") {
+          source_unit_name <- source_unit
+        }
+      }
+
+      # Display unit with comparison
+      if (!is.null(target_unit_name)) {
+        left_items <- c(left_items, list(
+          tags$div(
+            class = "detail-item",
+            style = "margin-bottom: 6px;",
+            tags$span(style = "font-weight: 600; color: #666;", "Unit:"),
+            tags$span(style = "color: #fd7e14; font-weight: 600;", target_unit_name),
+            if (!is.null(source_unit_name)) {
+              tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", source_unit_name, ")"))
+            }
+          )
+        ))
+      }
+
+      # Get source data for comparison
+      source_json <- selected_source_json()
+      has_source <- !is.null(source_json)
+
+      if (!is.null(json_data$missing_rate)) {
+        source_missing <- if (has_source && !is.null(source_json$missing_rate)) source_json$missing_rate else NULL
+        left_items <- c(left_items, list(
+          tags$div(
+            class = "detail-item",
+            style = "margin-bottom: 6px;",
+            tags$span(style = "font-weight: 600; color: #666;", "Missing:"),
+            tags$span(style = "color: #fd7e14; font-weight: 600;", paste0(json_data$missing_rate, "%")),
+            if (!is.null(source_missing)) {
+              tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", source_missing, "%)"))
+            }
+          )
+        ))
+      }
+
+      # Check if source has numeric data for numeric comparison
+      has_source_numeric <- has_source && !is.null(source_json$numeric_data)
+
+      if (!is.null(json_data$numeric_data)) {
+        nd <- json_data$numeric_data
+        snd <- if (has_source_numeric) source_json$numeric_data else NULL
+
+        if (!is.null(nd$mean) && !is.na(nd$mean)) {
+          # Helper to format value with source comparison
+          format_with_source <- function(target_val, source_val) {
+            target_text <- tags$span(style = "color: #fd7e14; font-weight: 600;", round(target_val, 2))
+            if (!is.null(source_val) && !is.na(source_val)) {
+              return(tagList(target_text, tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", round(source_val, 2), ")"))))
+            }
+            target_text
+          }
+
+          right_items <- c(right_items, list(
+            tags$div(
+              class = "detail-item",
+              style = "margin-bottom: 6px;",
+              tags$span(style = "font-weight: 600; color: #666;", "Mean:"),
+              format_with_source(nd$mean, if (has_source_numeric) snd$mean else NULL)
+            ),
+            tags$div(
+              class = "detail-item",
+              style = "margin-bottom: 6px;",
+              tags$span(style = "font-weight: 600; color: #666;", "Median:"),
+              format_with_source(nd$median, if (has_source_numeric) snd$median else NULL)
+            ),
+            tags$div(
+              class = "detail-item",
+              style = "margin-bottom: 6px;",
+              tags$span(style = "font-weight: 600; color: #666;", "SD:"),
+              format_with_source(nd$sd, if (has_source_numeric) snd$sd else NULL)
+            ),
+            tags$div(
+              class = "detail-item",
+              style = "margin-bottom: 6px;",
+              tags$span(style = "font-weight: 600; color: #666;", "Range:"),
+              tags$span(style = "color: #fd7e14; font-weight: 600;", paste(round(nd$min, 2), "-", round(nd$max, 2))),
+              if (has_source_numeric && !is.null(snd$min) && !is.null(snd$max)) {
+                tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", round(snd$min, 2), " - ", round(snd$max, 2), ")"))
+              }
+            )
+          ))
+        }
+      }
+
+      if (length(left_items) == 0 && length(right_items) == 0) {
+        return(tags$div(
+          style = "color: #999; font-style: italic;",
+          "No summary data available."
+        ))
+      }
+
+      tags$div(
+        style = "display: flex; gap: 30px;",
+        tags$div(style = "flex: 1;", left_items),
+        tags$div(style = "flex: 1;", right_items)
+      )
+    }
+
+    # Target distribution render (orange theme with source comparison)
+    render_target_distribution <- function(json_data) {
+      source_json <- selected_source_json()
+
+      # Check if source has valid numeric data with required fields
+      has_source <- !is.null(source_json) &&
+                    !is.null(source_json$numeric_data) &&
+                    !is.null(source_json$numeric_data$p25) &&
+                    !is.na(source_json$numeric_data$p25) &&
+                    !is.null(source_json$numeric_data$p75) &&
+                    !is.na(source_json$numeric_data$p75)
+
+      if (!is.null(json_data$numeric_data)) {
+        nd <- json_data$numeric_data
+        if (!is.null(nd$p25) && !is.na(nd$p25) && !is.null(nd$p75) && !is.na(nd$p75)) {
+          min_val <- if (!is.null(nd$min) && !is.na(nd$min)) nd$min else nd$p5
+          max_val <- if (!is.null(nd$max) && !is.na(nd$max)) nd$max else nd$p95
+          median_val <- if (!is.null(nd$median) && !is.na(nd$median)) nd$median else (nd$p25 + nd$p75) / 2
+          lower_val <- if (!is.null(nd$p5) && !is.na(nd$p5)) nd$p5 else min_val
+          upper_val <- if (!is.null(nd$p95) && !is.na(nd$p95)) nd$p95 else max_val
+
+          # Create dual boxplot if source has valid numeric data, otherwise single boxplot
+          if (has_source) {
+            snd <- source_json$numeric_data
+            s_min_val <- if (!is.null(snd$min) && !is.na(snd$min)) snd$min else if (!is.null(snd$p5) && !is.na(snd$p5)) snd$p5 else snd$p25
+            s_max_val <- if (!is.null(snd$max) && !is.na(snd$max)) snd$max else if (!is.null(snd$p95) && !is.na(snd$p95)) snd$p95 else snd$p75
+            s_median_val <- if (!is.null(snd$median) && !is.na(snd$median)) snd$median else (snd$p25 + snd$p75) / 2
+            s_lower_val <- if (!is.null(snd$p5) && !is.na(snd$p5)) snd$p5 else s_min_val
+            s_upper_val <- if (!is.null(snd$p95) && !is.na(snd$p95)) snd$p95 else s_max_val
+
+            # Dual boxplot data
+            box_data <- data.frame(
+              group = factor(c("Source", "Target"), levels = c("Source", "Target")),
+              ymin = c(s_lower_val, lower_val),
+              lower = c(snd$p25, nd$p25),
+              middle = c(s_median_val, median_val),
+              upper = c(snd$p75, nd$p75),
+              ymax = c(s_upper_val, upper_val)
+            )
+
+            p <- ggplot2::ggplot(box_data, ggplot2::aes(x = group, ymin = ymin, lower = lower, middle = middle, upper = upper, ymax = ymax, fill = group)) +
+              ggplot2::geom_boxplot(stat = "identity", color = "#333", width = 0.6, fatten = 0) +
+              ggplot2::geom_segment(ggplot2::aes(x = as.numeric(group) - 0.3, xend = as.numeric(group) + 0.3, y = middle, yend = middle), color = "white", linewidth = 1) +
+              ggplot2::scale_fill_manual(values = c("Source" = "#0f60af", "Target" = "#fd7e14")) +
+              ggplot2::coord_flip() +
+              ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
+              ggplot2::labs(x = NULL, y = NULL) +
+              ggplot2::theme_minimal(base_size = 11) +
+              ggplot2::theme(
+                panel.grid.major.y = ggplot2::element_blank(),
+                panel.grid.minor = ggplot2::element_blank(),
+                axis.text.y = ggplot2::element_text(size = 9),
+                axis.text.x = ggplot2::element_text(size = 9),
+                plot.margin = ggplot2::margin(5, 10, 5, 10),
+                legend.position = "none"
+              )
+          } else {
+            # Single boxplot (target only)
+            p <- ggplot2::ggplot() +
+              ggplot2::geom_boxplot(
+                ggplot2::aes(x = "", ymin = lower_val, lower = nd$p25, middle = median_val,
+                             upper = nd$p75, ymax = upper_val),
+                stat = "identity",
+                fill = "#fd7e14",
+                color = "#333",
+                width = 0.5,
+                fatten = 0
+              ) +
+              ggplot2::geom_segment(
+                ggplot2::aes(x = 0.75, xend = 1.25, y = median_val, yend = median_val),
+                color = "white",
+                linewidth = 1
+              ) +
+              ggplot2::coord_flip() +
+              ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
+              ggplot2::labs(x = NULL, y = NULL) +
+              ggplot2::theme_minimal(base_size = 11) +
+              ggplot2::theme(
+                panel.grid.major.y = ggplot2::element_blank(),
+                panel.grid.minor = ggplot2::element_blank(),
+                axis.text.y = ggplot2::element_blank(),
+                axis.text.x = ggplot2::element_text(size = 9),
+                plot.margin = ggplot2::margin(5, 10, 5, 10)
+              )
+          }
+
+          # Histogram comparison using step/area lines instead of overlapping bars
+          histogram_plot <- NULL
+          if (!is.null(json_data$histogram) && length(json_data$histogram) > 0) {
+            hist_df <- as.data.frame(json_data$histogram)
+            if (nrow(hist_df) > 0 && "bin_start" %in% colnames(hist_df) && "count" %in% colnames(hist_df)) {
+              hist_df$bin_mid <- (hist_df$bin_start + hist_df$bin_end) / 2
+              total_count <- sum(hist_df$count, na.rm = TRUE)
+              hist_df$percentage <- if (total_count > 0) hist_df$count / total_count * 100 else 0
+              hist_df$source <- "Target"
+
+              # If source data available, create comparison with lines
+              if (has_source && !is.null(source_json$histogram) && length(source_json$histogram) > 0) {
+                source_hist <- as.data.frame(source_json$histogram)
+                if (nrow(source_hist) > 0 && "bin_start" %in% colnames(source_hist)) {
+                  source_hist$bin_mid <- (source_hist$bin_start + source_hist$bin_end) / 2
+                  source_total <- sum(source_hist$count, na.rm = TRUE)
+                  source_hist$percentage <- if (source_total > 0) source_hist$count / source_total * 100 else 0
+                  source_hist$source <- "Source"
+
+                  # Combine both
+                  combined_hist <- rbind(hist_df, source_hist)
+
+                  # Use area + line for better visibility
+                  p_hist <- ggplot2::ggplot(combined_hist, ggplot2::aes(x = bin_mid, y = percentage, color = source, fill = source)) +
+                    ggplot2::geom_area(alpha = 0.25, position = "identity") +
+                    ggplot2::geom_line(linewidth = 1.2) +
+                    ggplot2::geom_point(size = 2) +
+                    ggplot2::scale_color_manual(values = c("Source" = "#0f60af", "Target" = "#fd7e14")) +
+                    ggplot2::scale_fill_manual(values = c("Source" = "#0f60af", "Target" = "#fd7e14")) +
+                    ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
+                    ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05)), labels = function(x) paste0(x, "%")) +
+                    ggplot2::labs(x = NULL, y = NULL) +
+                    ggplot2::theme_minimal(base_size = 10) +
+                    ggplot2::theme(
+                      panel.grid.minor = ggplot2::element_blank(),
+                      panel.grid.major.x = ggplot2::element_blank(),
+                      axis.text = ggplot2::element_text(size = 8),
+                      plot.margin = ggplot2::margin(5, 10, 5, 10),
+                      legend.position = "bottom",
+                      legend.title = ggplot2::element_blank()
+                    )
+
+                  histogram_plot <- renderPlot({ p_hist }, height = 140, width = "auto")
+                }
+              }
+
+              if (is.null(histogram_plot)) {
+                p_hist <- ggplot2::ggplot(hist_df, ggplot2::aes(x = bin_mid, y = percentage)) +
+                  ggplot2::geom_area(fill = "#fd7e14", alpha = 0.3) +
+                  ggplot2::geom_line(color = "#fd7e14", linewidth = 1.2) +
+                  ggplot2::geom_point(color = "#fd7e14", size = 2) +
+                  ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
+                  ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05)), labels = function(x) paste0(x, "%")) +
+                  ggplot2::labs(x = NULL, y = NULL) +
+                  ggplot2::theme_minimal(base_size = 10) +
+                  ggplot2::theme(
+                    panel.grid.minor = ggplot2::element_blank(),
+                    panel.grid.major.x = ggplot2::element_blank(),
+                    axis.text = ggplot2::element_text(size = 8),
+                    plot.margin = ggplot2::margin(5, 10, 5, 10)
+                  )
+
+                histogram_plot <- renderPlot({ p_hist }, height = 120, width = "auto")
+              }
+            }
+          }
+
+          boxplot_height <- if (has_source) 100 else 80
+
+          # Get source numeric data for comparison (only if source also has numeric data)
+          has_source_numeric <- has_source && !is.null(source_json$numeric_data)
+          snd <- if (has_source_numeric) source_json$numeric_data else NULL
+
+          # Helper to create a stat row with label and value(s)
+          make_stat_row <- function(label, target_val, source_val = NULL) {
+            val_content <- if (is.null(target_val) || (is.logical(target_val) && !target_val)) {
+              tags$span("-")
+            } else {
+              target_text <- tags$span(style = "color: #fd7e14; font-weight: 600;", round(target_val, 2))
+              if (!is.null(source_val) && !is.na(source_val)) {
+                tags$span(target_text, tags$span(style = "color: #0f60af; margin-left: 3px;", paste0("(", round(source_val, 2), ")")))
+              } else {
+                target_text
+              }
+            }
+            tags$div(
+              style = "display: flex; gap: 5px; margin-bottom: 2px;",
+              tags$span(style = "font-weight: 600; color: #666; min-width: 55px;", paste0(label, ":")),
+              val_content
+            )
+          }
+
+          return(tags$div(
+            tags$div(
+              style = "display: flex; gap: 20px;",
+              tags$div(
+                style = "flex: 1; font-size: 12px;",
+                make_stat_row("Min", min_val, if (has_source_numeric) s_min_val else NULL),
+                make_stat_row("P5", nd$p5, if (has_source_numeric) snd$p5 else NULL),
+                make_stat_row("P25", nd$p25, if (has_source_numeric) snd$p25 else NULL),
+                make_stat_row("Median", median_val, if (has_source_numeric) s_median_val else NULL),
+                make_stat_row("P75", nd$p75, if (has_source_numeric) snd$p75 else NULL),
+                make_stat_row("P95", nd$p95, if (has_source_numeric) snd$p95 else NULL),
+                make_stat_row("Max", max_val, if (has_source_numeric) s_max_val else NULL)
+              ),
+              tags$div(
+                style = "flex: 1.5;",
+                renderPlot({ p }, height = boxplot_height, width = "auto")
+              )
+            ),
+            if (!is.null(histogram_plot)) {
+              tags$div(
+                style = "margin-top: 15px;",
+                histogram_plot
+              )
+            }
+          ))
+        }
+      }
+
+      tags$div(
+        style = "color: #999; font-style: italic;",
+        "No distribution data available."
       )
     }
 
