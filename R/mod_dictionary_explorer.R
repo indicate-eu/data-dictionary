@@ -49,6 +49,171 @@
 #         #### Relationship Tab Outputs - Render relationship tables and graphs
 #         #### Hierarchy Graph Fullscreen Modal - Fullscreen hierarchy modal
 #         #### Concept Details Modal (Double-click on Related/Hierarchy) - Quick concept details
+#
+# REACTIVITY OVERVIEW ====
+#
+# This module uses a CASCADE PATTERN for reactivity management.
+# Instead of having observers with multiple triggers like observe_event(c(a(), b(), c())),
+# we have:
+#   1. PRIMARY STATE REACTIVES: The actual state values (current_view, selected_concept_id, etc.)
+#   2. PRIMARY TRIGGERS: Fire when state changes (view_trigger, concept_trigger, etc.)
+#   3. CASCADE OBSERVERS: Listen to primary triggers and fire COMPOSITE TRIGGERS
+#   4. COMPOSITE TRIGGERS: Aggregated triggers that UI observers listen to
+#   5. UI OBSERVERS: Render outputs when their composite trigger fires
+#
+# This creates a clear, traceable flow: State Change -> Primary Trigger -> Cascade -> Composite Trigger -> UI Update
+#
+# ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
+# │ PRIMARY STATE REACTIVES (reactiveVal)                                                           │
+# ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+# │ current_view                  - "list", "detail", "detail_history", "list_history"              │
+# │ selected_concept_id           - Currently selected general concept ID                           │
+# │ selected_mapped_concept_id    - Currently selected mapping in concept_mappings_table            │
+# │ selected_categories           - Category filter badges selection                                │
+# │ general_concept_detail_edit_mode - Edit mode for detail page (TRUE/FALSE)                       │
+# │ general_concepts_edit_mode    - Edit mode for list page (TRUE/FALSE)                            │
+# │ comments_tab                  - "comments" or "statistical_summary"                             │
+# │ relationships_tab             - "related", "hierarchy", or "synonyms"                           │
+# │ local_data                    - Local copy of CSV data                                          │
+# │ edited_recommended            - Temporary recommended changes before save                       │
+# │ deleted_concepts              - Temporary deleted mappings before save                          │
+# │ added_concepts                - Temporary added mappings before save                            │
+# └─────────────────────────────────────────────────────────────────────────────────────────────────┘
+#
+# ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
+# │ CASCADE FLOW DIAGRAM                                                                            │
+# ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+# │                                                                                                 │
+# │  PRIMARY STATE              PRIMARY TRIGGER           CASCADE OBSERVER           COMPOSITE      │
+# │  CHANGE                     (fires)                   (propagates to)            TRIGGERS       │
+# │  ─────────────────────────────────────────────────────────────────────────────────────────────  │
+# │                                                                                                 │
+# │  current_view() ──────────► view_trigger ──────────► observe_event(view_trigger)               │
+# │                                                       ├──► breadcrumb_trigger                  │
+# │                                                       └──► history_ui_trigger                  │
+# │                                                                                                 │
+# │  selected_concept_id() ───► concept_trigger ───────► observe_event(concept_trigger)            │
+# │                                                       ├──► history_ui_trigger                  │
+# │                                                       ├──► comments_display_trigger            │
+# │                                                       ├──► concept_mappings_table_trigger      │
+# │                                                       └──► selected_mapping_details_trigger    │
+# │                                                                                                 │
+# │  general_concept_detail     general_concept_detail   observe_event(...)                        │
+# │  _edit_mode() ────────────► _edit_mode_trigger ────► ├──► breadcrumb_trigger                   │
+# │                                                       ├──► comments_display_trigger            │
+# │                                                       ├──► concept_mappings_table_trigger      │
+# │                                                       └──► mapped_concepts_header_trigger      │
+# │                                                                                                 │
+# │  general_concepts           general_concepts         observe_event(...)                        │
+# │  _edit_mode() ────────────► _edit_mode_trigger ────► ├──► breadcrumb_trigger                   │
+# │                                                       └──► general_concepts_table_trigger      │
+# │                                                                                                 │
+# │  local_data() ────────────► local_data_trigger ────► observe_event(local_data_trigger)         │
+# │                                                       ├──► comments_display_trigger            │
+# │                                                       └──► general_concepts_table_trigger      │
+# │                                                            (only if view == "list")            │
+# │                                                                                                 │
+# │  selected_categories() ───► selected_categories     observe_event(...)                         │
+# │                             _trigger ──────────────► └──► general_concepts_table_trigger       │
+# │                                                                                                 │
+# │  comments_tab() ──────────► comments_tab_trigger ──► observe_event(comments_tab_trigger)       │
+# │                                                       └──► comments_display_trigger            │
+# │                                                                                                 │
+# │  selected_mapped            mapped_concept           observe_event(mapped_concept_trigger)     │
+# │  _concept_id() ───────────► _trigger ──────────────► ├──► selected_mapping_details_trigger     │
+# │                                                       └──► relationship_tab_outputs_trigger    │
+# │                                                                                                 │
+# │  edited_recommended() ────► edited_recommended      observe_event(...)                         │
+# │                             _trigger ──────────────► └──► concept_mappings_table_trigger       │
+# │                                                                                                 │
+# │  deleted_concepts() ──────► deleted_concepts        observe_event(...)                         │
+# │                             _trigger ──────────────► └──► concept_mappings_table_trigger       │
+# │                                                                                                 │
+# └─────────────────────────────────────────────────────────────────────────────────────────────────┘
+#
+# ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
+# │ COMPOSITE TRIGGERS → UI OBSERVERS                                                               │
+# ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+# │                                                                                                 │
+# │  breadcrumb_trigger ─────────────────► output$breadcrumb (renderUI)                            │
+# │                                                                                                 │
+# │  history_ui_trigger ─────────────────► output$general_concepts_history_ui (renderUI)           │
+# │                                        output$general_concept_detail_history_ui (renderUI)     │
+# │                                                                                                 │
+# │  general_concepts_table_trigger ─────► output$general_concepts_table (DT::renderDT)            │
+# │                                        + restores category filters after render                │
+# │                                                                                                 │
+# │  concept_mappings_table_trigger ─────► output$concept_mappings_table (DT::renderDT)            │
+# │                                                                                                 │
+# │  comments_display_trigger ───────────► output$comments_display (renderUI)                      │
+# │                                                                                                 │
+# │  selected_mapping_details_trigger ───► output$selected_mapping_details (renderUI)              │
+# │                                                                                                 │
+# │  mapped_concepts_header_trigger ─────► output$mapped_concepts_header_buttons (renderUI)        │
+# │                                                                                                 │
+# │  relationship_tab_outputs_trigger ───► output$concept_relationships_display (renderUI)         │
+# │                                                                                                 │
+# │  history_tables_trigger ─────────────► output$general_concepts_history_table (DT::renderDT)    │
+# │                                        output$general_concept_detail_history_table (DT::renderDT)│
+# │                                                                                                 │
+# └─────────────────────────────────────────────────────────────────────────────────────────────────┘
+#
+# ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
+# │ DIRECT OBSERVERS (Not part of cascade - direct user interactions)                               │
+# ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+# │                                                                                                 │
+# │  INPUT EVENT                           ACTION                                                   │
+# │  ─────────────────────────────────────────────────────────────────────────────────────────────  │
+# │  input$view_concept_details ─────────► Sets selected_concept_id(), current_view("detail")      │
+# │  input$back_to_list ─────────────────► Sets current_view("list"), resets edit mode             │
+# │  input$category_filter ──────────────► Toggles category in selected_categories()               │
+# │  input$general_concepts_edit_page ───► Sets general_concepts_edit_mode(TRUE)                   │
+# │  input$general_concepts_cancel_edit ─► Restores original data, edit_mode(FALSE)                │
+# │  input$general_concepts_save_updates ► Saves changes to CSV, edit_mode(FALSE)                  │
+# │  input$general_concept_detail_edit_page ► Sets general_concept_detail_edit_mode(TRUE)          │
+# │  input$general_concept_detail_cancel_edit ► Resets temp changes, edit_mode(FALSE)              │
+# │  input$general_concept_detail_save_updates ► Saves changes to CSV, edit_mode(FALSE)            │
+# │  input$switch_relationships_tab ─────► Sets relationships_tab()                                │
+# │  input$switch_comments_tab ──────────► Sets comments_tab()                                     │
+# │  input$toggle_recommended ───────────► Updates edited_recommended()                            │
+# │  input$delete_concept ───────────────► Updates deleted_concepts()                              │
+# │  input$mapped_concepts_add_selected ─► Updates added_concepts()                                │
+# │  input$general_concepts_show_history ► Sets current_view("list_history")                       │
+# │  input$general_concept_detail_show_history ► Sets current_view("detail_history")               │
+# │  input$back_to_list_from_history ────► Sets current_view("list")                               │
+# │  input$back_to_detail ───────────────► Sets current_view("detail")                             │
+# │                                                                                                 │
+# └─────────────────────────────────────────────────────────────────────────────────────────────────┘
+#
+# ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
+# │ SPECIAL OBSERVERS                                                                               │
+# ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+# │                                                                                                 │
+# │  data() ─────────────────────────────► Initializes local_data() on first load                  │
+# │  current_user() ─────────────────────► Updates button visibility (admin vs anonymous)          │
+# │  vocab_loading_status() ─────────────► Shows/hides loading, error, or table                    │
+# │  relationships_tab() ────────────────► Updates tab styling (CSS classes)                       │
+# │  current_view() ─────────────────────► Manages container visibility, triggers view_trigger     │
+# │                                                                                                 │
+# └─────────────────────────────────────────────────────────────────────────────────────────────────┘
+#
+# ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
+# │ POTENTIAL REDUNDANCIES / AREAS FOR REVIEW                                                       │
+# ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
+# │                                                                                                 │
+# │  1. history_tables_trigger: Used in observe_event(list(current_view(), history_tables_trigger))│
+# │     This uses list() syntax instead of cascade pattern. Could be refactored.                   │
+# │                                                                                                 │
+# │  2. add_modal_* triggers: add_modal_selected_concept, add_modal_concept_details_trigger,       │
+# │     add_modal_omop_table_trigger are used for modal-specific updates but not fully             │
+# │     integrated into the cascade pattern.                                                       │
+# │                                                                                                 │
+# │  3. relationships_tab() has a direct observer that updates CSS classes (line 4864)             │
+# │     This could potentially be merged with relationship_tab_outputs_trigger cascade.            │
+# │                                                                                                 │
+# │  4. Some observers call update_button_visibility() directly instead of through cascade.        │
+# │                                                                                                 │
+# └─────────────────────────────────────────────────────────────────────────────────────────────────┘
 
 # UI SECTION ====
 

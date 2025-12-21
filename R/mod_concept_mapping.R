@@ -1533,7 +1533,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         # Edit Mappings panel
         tags$div(
           id = ns("panel_edit_mappings"),
-          style = "display: none; margin-top: 10px; height: calc(100vh - 180px);",
+          style = "display: none; height: calc(100vh - 180px);",
           tags$div(
             style = "height: 100%; display: flex; gap: 15px; min-height: 0;",
             # Left column: Source Concepts (top) + Concept Details (bottom)
@@ -1577,10 +1577,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 style = "flex: 1; min-height: 0; display: none;",
                 tags$div(
                   class = "section-header",
+                  style = "margin-bottom: 0;",
                   tags$h4(style = "margin: 0;", "Concept Details")
                 ),
                 tags$div(
-                  style = "flex: 1; min-height: 0; overflow: auto; padding: 10px;",
+                  style = "flex: 1; min-height: 0; overflow: auto; padding: 0 10px 10px 10px;",
                   # Tabs for different JSON views
                   tags$div(
                     style = "display: flex; gap: 5px; margin-bottom: 10px;",
@@ -1622,7 +1623,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                         this.classList.add('tab-btn-active');
                         Shiny.setInputValue('%s', 'units', {priority: 'event'});
                       ", ns("concept_details_panel"), ns("detail_tab_selected")),
-                      "Units"
+                      "Hospital Units"
                     )
                   ),
                   # Content area for selected tab
@@ -3322,74 +3323,92 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Helper function to render summary tab
     render_json_summary <- function(json_data) {
-      items <- list()
+      left_items <- list()
+      right_items <- list()
 
-      # Numeric data summary
+      # Numeric data summary (left column)
       if (!is.null(json_data$numeric_data)) {
         nd <- json_data$numeric_data
         if (!is.null(nd$mean) && !is.na(nd$mean)) {
-          items <- c(items, list(
+          left_items <- c(left_items, list(
             tags$div(
               class = "detail-item",
-              tags$span(class = "detail-label", "Mean:"),
+              style = "margin-bottom: 6px;",
+              tags$span(style = "font-weight: 600; color: #666;", "Mean:"),
               tags$span(class = "detail-value", round(nd$mean, 2))
             ),
             tags$div(
               class = "detail-item",
-              tags$span(class = "detail-label", "Median:"),
+              style = "margin-bottom: 6px;",
+              tags$span(style = "font-weight: 600; color: #666;", "Median:"),
               tags$span(class = "detail-value", round(nd$median, 2))
             ),
             tags$div(
               class = "detail-item",
-              tags$span(class = "detail-label", "SD:"),
+              style = "margin-bottom: 6px;",
+              tags$span(style = "font-weight: 600; color: #666;", "SD:"),
               tags$span(class = "detail-value", round(nd$sd, 2))
             ),
             tags$div(
               class = "detail-item",
-              tags$span(class = "detail-label", "Range:"),
+              style = "margin-bottom: 6px;",
+              tags$span(style = "font-weight: 600; color: #666;", "Range:"),
               tags$span(class = "detail-value", paste(nd$min, "-", nd$max))
             )
           ))
         }
       }
 
-      # Unit info
+      # Unit info (right column)
       if (!is.null(json_data$unit) && !is.null(json_data$unit$name)) {
-        items <- c(items, list(
+        right_items <- c(right_items, list(
           tags$div(
             class = "detail-item",
-            tags$span(class = "detail-label", "Unit:"),
+            style = "margin-bottom: 6px;",
+            tags$span(style = "font-weight: 600; color: #666;", "Unit:"),
             tags$span(class = "detail-value", json_data$unit$name)
           )
         ))
       }
 
-      # Missing rate
+      # Missing rate (right column)
       if (!is.null(json_data$missing_rate)) {
-        items <- c(items, list(
+        right_items <- c(right_items, list(
           tags$div(
             class = "detail-item",
-            tags$span(class = "detail-label", "Missing Rate:"),
+            style = "margin-bottom: 6px;",
+            tags$span(style = "font-weight: 600; color: #666;", "Missing:"),
             tags$span(class = "detail-value", paste0(json_data$missing_rate, "%"))
           )
         ))
       }
 
-      # Measurement frequency
+      # Measurement frequency (right column)
       if (!is.null(json_data$measurement_frequency)) {
         mf <- json_data$measurement_frequency
         if (!is.null(mf$typical_interval)) {
-          items <- c(items, list(
+          right_items <- c(right_items, list(
             tags$div(
               class = "detail-item",
-              tags$span(class = "detail-label", "Typical Interval:"),
+              style = "margin-bottom: 6px;",
+              tags$span(style = "font-weight: 600; color: #666;", "Interval:"),
               tags$span(class = "detail-value", gsub("_", " ", mf$typical_interval))
+            )
+          ))
+        }
+        if (!is.null(mf$average_per_patient_per_day) && !is.na(mf$average_per_patient_per_day)) {
+          right_items <- c(right_items, list(
+            tags$div(
+              class = "detail-item",
+              style = "margin-bottom: 6px;",
+              tags$span(style = "font-weight: 600; color: #666;", "Per day:"),
+              tags$span(class = "detail-value", round(mf$average_per_patient_per_day, 1))
             )
           ))
         }
       }
 
-      if (length(items) == 0) {
+      if (length(left_items) == 0 && length(right_items) == 0) {
         return(tags$div(
           style = "color: #999; font-style: italic;",
           "No summary data available."
@@ -3397,8 +3416,15 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
 
       tags$div(
-        class = "concept-details-container",
-        items
+        style = "display: flex; gap: 30px;",
+        tags$div(
+          style = "flex: 1;",
+          left_items
+        ),
+        tags$div(
+          style = "flex: 1;",
+          right_items
+        )
       )
     }
 
@@ -3406,20 +3432,91 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     render_json_distribution <- function(json_data) {
       if (!is.null(json_data$numeric_data)) {
         nd <- json_data$numeric_data
-        if (!is.null(nd$p5) && !is.na(nd$p5)) {
-          # Create a simple text-based boxplot representation
-          return(tags$div(
-            tags$h5(style = "margin-bottom: 10px;", "Numeric Distribution"),
-            tags$div(
-              style = "display: grid; grid-template-columns: 100px 1fr; gap: 8px; font-size: 13px;",
-              tags$span(style = "font-weight: 600;", "Min:"), tags$span(nd$min),
-              tags$span(style = "font-weight: 600;", "P5:"), tags$span(nd$p5),
-              tags$span(style = "font-weight: 600;", "P25:"), tags$span(nd$p25),
-              tags$span(style = "font-weight: 600;", "Median:"), tags$span(nd$median),
-              tags$span(style = "font-weight: 600;", "P75:"), tags$span(nd$p75),
-              tags$span(style = "font-weight: 600;", "P95:"), tags$span(nd$p95),
-              tags$span(style = "font-weight: 600;", "Max:"), tags$span(nd$max)
+        if (!is.null(nd$p25) && !is.na(nd$p25) && !is.null(nd$p75) && !is.na(nd$p75)) {
+          # Create data for ggplot boxplot using quantiles
+          min_val <- if (!is.null(nd$min) && !is.na(nd$min)) nd$min else nd$p5
+          max_val <- if (!is.null(nd$max) && !is.na(nd$max)) nd$max else nd$p95
+          median_val <- if (!is.null(nd$median) && !is.na(nd$median)) nd$median else (nd$p25 + nd$p75) / 2
+          lower_val <- if (!is.null(nd$p5) && !is.na(nd$p5)) nd$p5 else min_val
+          upper_val <- if (!is.null(nd$p95) && !is.na(nd$p95)) nd$p95 else max_val
+
+          # Create horizontal boxplot with ggplot2
+          p <- ggplot2::ggplot() +
+            ggplot2::geom_boxplot(
+              ggplot2::aes(x = "", ymin = lower_val, lower = nd$p25, middle = median_val,
+                           upper = nd$p75, ymax = upper_val),
+              stat = "identity",
+              fill = "#0f60af",
+              color = "#333",
+              width = 0.5
+            ) +
+            ggplot2::coord_flip() +
+            ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
+            ggplot2::labs(x = NULL, y = NULL) +
+            ggplot2::theme_minimal(base_size = 11) +
+            ggplot2::theme(
+              panel.grid.major.y = ggplot2::element_blank(),
+              panel.grid.minor = ggplot2::element_blank(),
+              axis.text.y = ggplot2::element_blank(),
+              axis.text.x = ggplot2::element_text(size = 9),
+              plot.margin = ggplot2::margin(5, 10, 5, 10)
             )
+
+          # Check if histogram data exists
+          histogram_plot <- NULL
+          if (!is.null(json_data$histogram) && length(json_data$histogram) > 0) {
+            hist_df <- as.data.frame(json_data$histogram)
+            if (nrow(hist_df) > 0 && "bin_start" %in% colnames(hist_df) && "count" %in% colnames(hist_df)) {
+              hist_df$bin_mid <- (hist_df$bin_start + hist_df$bin_end) / 2
+              hist_df$bin_width <- hist_df$bin_end - hist_df$bin_start
+
+              p_hist <- ggplot2::ggplot(hist_df, ggplot2::aes(x = bin_mid, y = count, width = bin_width)) +
+                ggplot2::geom_col(fill = "#0f60af", color = "white", linewidth = 0.3) +
+                ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
+                ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05)), labels = scales::label_number()) +
+                ggplot2::labs(x = NULL, y = NULL) +
+                ggplot2::theme_minimal(base_size = 10) +
+                ggplot2::theme(
+                  panel.grid.minor = ggplot2::element_blank(),
+                  panel.grid.major.x = ggplot2::element_blank(),
+                  axis.text = ggplot2::element_text(size = 8),
+                  plot.margin = ggplot2::margin(5, 10, 5, 10)
+                )
+
+              histogram_plot <- renderPlot({ p_hist }, height = 120, width = "auto")
+            }
+          }
+
+          return(tags$div(
+            tags$div(
+              style = "display: flex; gap: 20px;",
+              # Left: statistics
+              tags$div(
+                style = "flex: 1;",
+                tags$div(
+                  style = "display: grid; grid-template-columns: 70px 1fr; gap: 4px; font-size: 12px;",
+                  tags$span(style = "font-weight: 600; color: #666;", "Min:"), tags$span(round(min_val, 2)),
+                  tags$span(style = "font-weight: 600; color: #666;", "P5:"), tags$span(if (!is.null(nd$p5)) round(nd$p5, 2) else "-"),
+                  tags$span(style = "font-weight: 600; color: #666;", "P25:"), tags$span(round(nd$p25, 2)),
+                  tags$span(style = "font-weight: 600; color: #0f60af;", "Median:"), tags$span(style = "font-weight: 600;", round(median_val, 2)),
+                  tags$span(style = "font-weight: 600; color: #666;", "P75:"), tags$span(round(nd$p75, 2)),
+                  tags$span(style = "font-weight: 600; color: #666;", "P95:"), tags$span(if (!is.null(nd$p95)) round(nd$p95, 2) else "-"),
+                  tags$span(style = "font-weight: 600; color: #666;", "Max:"), tags$span(round(max_val, 2))
+                )
+              ),
+              # Right: boxplot
+              tags$div(
+                style = "flex: 1.5;",
+                renderPlot({ p }, height = 80, width = "auto")
+              )
+            ),
+            # Histogram below
+            if (!is.null(histogram_plot)) {
+              tags$div(
+                style = "margin-top: 10px;",
+                histogram_plot
+              )
+            }
           ))
         }
       }
@@ -3460,35 +3557,42 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         tc <- json_data$temporal_coverage
         items <- c(items, list(
           tags$div(
-            class = "detail-item",
-            tags$span(class = "detail-label", "First Occurrence:"),
-            tags$span(class = "detail-value", tc$first_occurrence)
-          ),
-          tags$div(
-            class = "detail-item",
-            tags$span(class = "detail-label", "Last Occurrence:"),
-            tags$span(class = "detail-value", tc$last_occurrence)
+            style = "display: flex; gap: 20px; margin-bottom: 15px;",
+            tags$div(
+              class = "detail-item",
+              tags$span(class = "detail-label", "First:"),
+              tags$span(class = "detail-value", tc$first_occurrence)
+            ),
+            tags$div(
+              class = "detail-item",
+              tags$span(class = "detail-label", "Last:"),
+              tags$span(class = "detail-value", tc$last_occurrence)
+            )
           )
         ))
       }
 
-      # Distribution by year
+      # Distribution by year - ggplot bar chart
       if (!is.null(json_data$distribution_by_year) && length(json_data$distribution_by_year) > 0) {
         year_df <- as.data.frame(json_data$distribution_by_year)
         if (nrow(year_df) > 0 && "year" %in% colnames(year_df) && "percentage" %in% colnames(year_df)) {
-          year_rows <- lapply(seq_len(nrow(year_df)), function(i) {
-            tags$div(
-              style = "display: flex; align-items: center; margin-bottom: 5px;",
-              tags$span(style = "width: 60px; font-size: 13px;", year_df$year[i]),
-              tags$div(
-                style = sprintf("width: %s%%; background: #28a745; height: 18px; border-radius: 3px; margin-right: 8px; max-width: 200px;", year_df$percentage[i] * 4)
-              ),
-              tags$span(style = "font-size: 12px; color: #666;", paste0(year_df$percentage[i], "%"))
+          year_df$year <- as.factor(year_df$year)
+
+          p <- ggplot2::ggplot(year_df, ggplot2::aes(x = year, y = percentage)) +
+            ggplot2::geom_col(fill = "#0f60af", width = 0.7) +
+            ggplot2::labs(x = NULL, y = "%") +
+            ggplot2::theme_minimal(base_size = 11) +
+            ggplot2::theme(
+              panel.grid.major.x = ggplot2::element_blank(),
+              panel.grid.minor = ggplot2::element_blank(),
+              axis.text.x = ggplot2::element_text(angle = 45, hjust = 1, size = 9),
+              axis.text.y = ggplot2::element_text(size = 9),
+              axis.title.y = ggplot2::element_text(size = 10),
+              plot.margin = ggplot2::margin(5, 10, 5, 5)
             )
-          })
+
           items <- c(items, list(
-            tags$h5(style = "margin: 15px 0 10px 0;", "Distribution by Year"),
-            year_rows
+            renderPlot({ p }, height = 150, width = "auto")
           ))
         }
       }
@@ -3500,30 +3604,42 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         ))
       }
 
-      tags$div(class = "concept-details-container", items)
+      tags$div(items)
     }
 
     # Helper function to render units tab
     render_json_units <- function(json_data) {
-      items <- list()
-
-      # Distribution by unit
+      # Distribution by unit - horizontal bar chart
       if (!is.null(json_data$distribution_by_unit) && length(json_data$distribution_by_unit) > 0) {
         unit_df <- as.data.frame(json_data$distribution_by_unit)
         if (nrow(unit_df) > 0 && "unit_name" %in% colnames(unit_df) && "percentage" %in% colnames(unit_df)) {
-          unit_rows <- lapply(seq_len(nrow(unit_df)), function(i) {
-            tags$div(
-              style = "display: flex; align-items: center; margin-bottom: 5px;",
-              tags$span(style = "width: 120px; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;", unit_df$unit_name[i]),
-              tags$div(
-                style = sprintf("width: %s%%; background: #fd7e14; height: 18px; border-radius: 3px; margin-right: 8px; max-width: 200px;", unit_df$percentage[i] * 3)
-              ),
-              tags$span(style = "font-size: 12px; color: #666;", paste0(unit_df$percentage[i], "%"))
+          # Order by percentage descending
+          unit_df <- unit_df[order(-unit_df$percentage), ]
+          # Truncate names if too long
+          unit_df$unit_label <- ifelse(nchar(unit_df$unit_name) > 20,
+            paste0(substr(unit_df$unit_name, 1, 18), "..."),
+            unit_df$unit_name)
+          unit_df$unit_label <- factor(unit_df$unit_label, levels = rev(unit_df$unit_label))
+
+          # Calculate height based on number of units
+          plot_height <- max(100, min(250, nrow(unit_df) * 25))
+
+          p <- ggplot2::ggplot(unit_df, ggplot2::aes(x = unit_label, y = percentage)) +
+            ggplot2::geom_col(fill = "#fd7e14", width = 0.7) +
+            ggplot2::coord_flip() +
+            ggplot2::labs(x = NULL, y = "%") +
+            ggplot2::theme_minimal(base_size = 11) +
+            ggplot2::theme(
+              panel.grid.major.y = ggplot2::element_blank(),
+              panel.grid.minor = ggplot2::element_blank(),
+              axis.text.x = ggplot2::element_text(size = 9),
+              axis.text.y = ggplot2::element_text(size = 9),
+              axis.title.x = ggplot2::element_text(size = 10),
+              plot.margin = ggplot2::margin(5, 10, 5, 5)
             )
-          })
+
           return(tags$div(
-            tags$h5(style = "margin-bottom: 10px;", "Distribution by Hospital Unit"),
-            unit_rows
+            renderPlot({ p }, height = plot_height, width = "auto")
           ))
         }
       }
