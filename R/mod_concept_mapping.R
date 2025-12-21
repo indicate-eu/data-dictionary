@@ -3238,6 +3238,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     #### Concept Details Panel ----
     # Reactive to store selected source concept JSON data
     selected_source_json <- reactiveVal(NULL)
+    selected_source_row <- reactiveVal(NULL)  # Store full row data for rows_count, patients_count
     detail_tab <- reactiveVal("summary")
 
     # Show/hide concept details panel based on row selection
@@ -3271,6 +3272,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       if (row_selected > nrow(df)) return()
 
+      # Store the full row data
+      row_data <- df[row_selected, ]
+      selected_source_row(row_data)
+
       # Check if json column exists
       if ("json" %in% colnames(df)) {
         json_str <- df$json[row_selected]
@@ -3299,6 +3304,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     # Render concept details content based on selected tab
     output$concept_details_content <- renderUI({
       json_data <- selected_source_json()
+      row_data <- selected_source_row()
       tab <- detail_tab()
 
       if (is.null(json_data)) {
@@ -3309,7 +3315,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
 
       if (tab == "summary") {
-        render_json_summary(json_data)
+        render_json_summary(json_data, row_data)
       } else if (tab == "distribution") {
         render_json_distribution(json_data)
       } else if (tab == "temporal") {
@@ -3322,15 +3328,90 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     })
 
     # Helper function to render summary tab
-    render_json_summary <- function(json_data) {
+    render_json_summary <- function(json_data, row_data = NULL) {
       left_items <- list()
       right_items <- list()
 
-      # Numeric data summary (left column)
+      # Left column: Metadata (rows, patients, unit, missing, frequency)
+
+      # Rows count
+      if (!is.null(row_data) && !is.null(row_data$rows_count) && !is.na(row_data$rows_count)) {
+        left_items <- c(left_items, list(
+          tags$div(
+            class = "detail-item",
+            style = "margin-bottom: 6px;",
+            tags$span(style = "font-weight: 600; color: #666;", "Rows:"),
+            tags$span(class = "detail-value", format(row_data$rows_count, big.mark = " "))
+          )
+        ))
+      }
+
+      # Patients count
+      if (!is.null(row_data) && !is.null(row_data$patients_count) && !is.na(row_data$patients_count)) {
+        left_items <- c(left_items, list(
+          tags$div(
+            class = "detail-item",
+            style = "margin-bottom: 6px;",
+            tags$span(style = "font-weight: 600; color: #666;", "Patients:"),
+            tags$span(class = "detail-value", format(row_data$patients_count, big.mark = " "))
+          )
+        ))
+      }
+
+      # Unit info
+      if (!is.null(json_data$unit) && !is.null(json_data$unit$name) && !is.na(json_data$unit$name)) {
+        left_items <- c(left_items, list(
+          tags$div(
+            class = "detail-item",
+            style = "margin-bottom: 6px;",
+            tags$span(style = "font-weight: 600; color: #666;", "Unit:"),
+            tags$span(class = "detail-value", json_data$unit$name)
+          )
+        ))
+      }
+
+      # Missing rate
+      if (!is.null(json_data$missing_rate)) {
+        left_items <- c(left_items, list(
+          tags$div(
+            class = "detail-item",
+            style = "margin-bottom: 6px;",
+            tags$span(style = "font-weight: 600; color: #666;", "Missing:"),
+            tags$span(class = "detail-value", paste0(json_data$missing_rate, "%"))
+          )
+        ))
+      }
+
+      # Measurement frequency
+      if (!is.null(json_data$measurement_frequency)) {
+        mf <- json_data$measurement_frequency
+        if (!is.null(mf$typical_interval) && !is.na(mf$typical_interval)) {
+          left_items <- c(left_items, list(
+            tags$div(
+              class = "detail-item",
+              style = "margin-bottom: 6px;",
+              tags$span(style = "font-weight: 600; color: #666;", "Interval:"),
+              tags$span(class = "detail-value", gsub("_", " ", mf$typical_interval))
+            )
+          ))
+        }
+        if (!is.null(mf$average_per_patient_per_day) && !is.na(mf$average_per_patient_per_day)) {
+          left_items <- c(left_items, list(
+            tags$div(
+              class = "detail-item",
+              style = "margin-bottom: 6px;",
+              tags$span(style = "font-weight: 600; color: #666;", "Per day:"),
+              tags$span(class = "detail-value", round(mf$average_per_patient_per_day, 1))
+            )
+          ))
+        }
+      }
+
+      # Right column: Numeric data summary (mean, median, sd, range)
       if (!is.null(json_data$numeric_data)) {
         nd <- json_data$numeric_data
         if (!is.null(nd$mean) && !is.na(nd$mean)) {
-          left_items <- c(left_items, list(
+          right_items <- c(right_items, list(
             tags$div(
               class = "detail-item",
               style = "margin-bottom: 6px;",
@@ -3354,55 +3435,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               style = "margin-bottom: 6px;",
               tags$span(style = "font-weight: 600; color: #666;", "Range:"),
               tags$span(class = "detail-value", paste(nd$min, "-", nd$max))
-            )
-          ))
-        }
-      }
-
-      # Unit info (right column)
-      if (!is.null(json_data$unit) && !is.null(json_data$unit$name)) {
-        right_items <- c(right_items, list(
-          tags$div(
-            class = "detail-item",
-            style = "margin-bottom: 6px;",
-            tags$span(style = "font-weight: 600; color: #666;", "Unit:"),
-            tags$span(class = "detail-value", json_data$unit$name)
-          )
-        ))
-      }
-
-      # Missing rate (right column)
-      if (!is.null(json_data$missing_rate)) {
-        right_items <- c(right_items, list(
-          tags$div(
-            class = "detail-item",
-            style = "margin-bottom: 6px;",
-            tags$span(style = "font-weight: 600; color: #666;", "Missing:"),
-            tags$span(class = "detail-value", paste0(json_data$missing_rate, "%"))
-          )
-        ))
-      }
-
-      # Measurement frequency (right column)
-      if (!is.null(json_data$measurement_frequency)) {
-        mf <- json_data$measurement_frequency
-        if (!is.null(mf$typical_interval)) {
-          right_items <- c(right_items, list(
-            tags$div(
-              class = "detail-item",
-              style = "margin-bottom: 6px;",
-              tags$span(style = "font-weight: 600; color: #666;", "Interval:"),
-              tags$span(class = "detail-value", gsub("_", " ", mf$typical_interval))
-            )
-          ))
-        }
-        if (!is.null(mf$average_per_patient_per_day) && !is.na(mf$average_per_patient_per_day)) {
-          right_items <- c(right_items, list(
-            tags$div(
-              class = "detail-item",
-              style = "margin-bottom: 6px;",
-              tags$span(style = "font-weight: 600; color: #666;", "Per day:"),
-              tags$span(class = "detail-value", round(mf$average_per_patient_per_day, 1))
             )
           ))
         }
@@ -3448,7 +3480,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               stat = "identity",
               fill = "#0f60af",
               color = "#333",
-              width = 0.5
+              width = 0.5,
+              fatten = 0  # Hide default median line
+            ) +
+            # Add white median line
+            ggplot2::geom_segment(
+              ggplot2::aes(x = 0.75, xend = 1.25, y = median_val, yend = median_val),
+              color = "white",
+              linewidth = 1
             ) +
             ggplot2::coord_flip() +
             ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
@@ -3469,11 +3508,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             if (nrow(hist_df) > 0 && "bin_start" %in% colnames(hist_df) && "count" %in% colnames(hist_df)) {
               hist_df$bin_mid <- (hist_df$bin_start + hist_df$bin_end) / 2
               hist_df$bin_width <- hist_df$bin_end - hist_df$bin_start
+              # Calculate percentages
+              total_count <- sum(hist_df$count, na.rm = TRUE)
+              hist_df$percentage <- if (total_count > 0) hist_df$count / total_count * 100 else 0
 
-              p_hist <- ggplot2::ggplot(hist_df, ggplot2::aes(x = bin_mid, y = count, width = bin_width)) +
+              p_hist <- ggplot2::ggplot(hist_df, ggplot2::aes(x = bin_mid, y = percentage, width = bin_width)) +
                 ggplot2::geom_col(fill = "#0f60af", color = "white", linewidth = 0.3) +
                 ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
-                ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05)), labels = scales::label_number()) +
+                ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05)), labels = function(x) paste0(x, "%")) +
                 ggplot2::labs(x = NULL, y = NULL) +
                 ggplot2::theme_minimal(base_size = 10) +
                 ggplot2::theme(
