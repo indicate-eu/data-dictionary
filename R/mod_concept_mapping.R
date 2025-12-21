@@ -122,7 +122,7 @@ mod_concept_mapping_ui <- function(id) {
         ),
         tags$div(
           class = "modal-body",
-          style = "flex: 1; overflow: auto; padding: 20px;",
+          style = "flex: 1; overflow: hidden; padding: 20px; display: flex; flex-direction: column;",
           # Page 1: Name and Description
           tags$div(
             id = ns("modal_page_1"),
@@ -156,9 +156,9 @@ mod_concept_mapping_ui <- function(id) {
           # Page 2: File Upload and Preview (hidden initially)
           tags$div(
             id = ns("modal_page_2"),
-            style = "display: none;",
+            style = "display: none; height: 100%;",
             tags$div(
-              style = "display: flex; gap: 20px; overflow: hidden;",
+              style = "display: flex; gap: 20px; height: 100%;",
               # Left: Upload and column mapping
               tags$div(
                 style = "flex: 1; min-width: 50%; display: flex; flex-direction: column; overflow-y: auto; gap: 10px;",
@@ -187,11 +187,8 @@ mod_concept_mapping_ui <- function(id) {
               ),
               # Right: File preview
               tags$div(
-                style = "width: 50%; display: flex; flex-direction: column; overflow-x: auto;",
-                tags$div(
-                  style = "margin-right: 20px;",
-                  DT::DTOutput(ns("file_preview_table"))
-                )
+                style = "width: 50%; display: flex; flex-direction: column; overflow: auto;",
+                DT::DTOutput(ns("file_preview_table"))
               )
             )
           )
@@ -412,6 +409,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     selected_general_concept_id_trigger <- reactiveVal(0)  # Primary trigger when general concept selection changes
     mapped_concepts_table_trigger <- reactiveVal(0)  # Trigger for Mapped view table
     concept_mappings_table_trigger <- reactiveVal(0)  # Trigger for Edit Mappings concept mappings table
+    general_concepts_table_trigger <- reactiveVal(0)  # Trigger for General Concepts table in Edit Mappings
 
     # Cascade triggers for summary_trigger() changes
     summary_content_trigger <- reactiveVal(0)  # Trigger for summary content rendering
@@ -446,6 +444,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       all_mappings_table_trigger(all_mappings_table_trigger() + 1)
       source_concepts_table_mapped_trigger(source_concepts_table_mapped_trigger() + 1)
       source_concepts_table_general_trigger(source_concepts_table_general_trigger() + 1)
+      general_concepts_table_trigger(general_concepts_table_trigger() + 1)
       evaluate_mappings_table_trigger(evaluate_mappings_table_trigger() + 1)
     }, ignoreInit = TRUE)
 
@@ -471,37 +470,72 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           dplyr::filter(alignment_id == selected_alignment_id()) %>%
           dplyr::pull(name)
 
+        current_tab <- mapping_tab()
+
         tags$div(
           class = "breadcrumb-nav",
-          style = "padding: 10px 0 15px 0; display: flex; align-items: center; gap: 10px;",
-          tags$a(
-            class = "breadcrumb-link",
-            onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("back_to_alignments")),
-            "Concept Mappings"
-          ),
-          tags$span(style = "color: #6c757d; font-size: 16px;", ">"),
-          if (mapping_view() == "general") {
-            tags$span(
-              class = "section-title",
-              style = "color: #333;",
-              alignment_name
-            )
-          } else {
-            tagList(
-              tags$a(
-                class = "breadcrumb-link",
-                onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("back_to_general")),
-                alignment_name
-              ),
-              tags$span(style = "color: #6c757d; font-size: 16px; margin: 0 10px;", ">"),
+          style = "padding: 10px 0 15px 0; display: flex; align-items: center; justify-content: space-between;",
+          # Left side: breadcrumb path
+          tags$div(
+            style = "display: flex; align-items: center; gap: 10px;",
+            tags$a(
+              class = "breadcrumb-link",
+              onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("back_to_alignments")),
+              "Concept Mappings"
+            ),
+            tags$span(style = "color: #6c757d; font-size: 16px;", ">"),
+            if (mapping_view() == "general") {
               tags$span(
                 class = "section-title",
-                "Mapped Concepts"
+                style = "color: #333;",
+                alignment_name
               )
+            } else {
+              tagList(
+                tags$a(
+                  class = "breadcrumb-link",
+                  onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("back_to_general")),
+                  alignment_name
+                ),
+                tags$span(style = "color: #6c757d; font-size: 16px; margin: 0 10px;", ">"),
+                tags$span(
+                  class = "section-title",
+                  "Mapped Concepts"
+                )
+              )
+            }
+          ),
+          # Right side: tabs navigation
+          tags$div(
+            style = "display: flex; gap: 5px;",
+            tags$button(
+              class = paste("tab-btn", if (current_tab == "summary") "tab-btn-active" else ""),
+              onclick = sprintf("Shiny.setInputValue('%s', 'summary', {priority: 'event'})", ns("mapping_tab_click")),
+              "Summary"
+            ),
+            tags$button(
+              class = paste("tab-btn", if (current_tab == "all_mappings") "tab-btn-active" else ""),
+              onclick = sprintf("Shiny.setInputValue('%s', 'all_mappings', {priority: 'event'})", ns("mapping_tab_click")),
+              "All Mappings"
+            ),
+            tags$button(
+              class = paste("tab-btn", if (current_tab == "edit_mappings") "tab-btn-active" else ""),
+              onclick = sprintf("Shiny.setInputValue('%s', 'edit_mappings', {priority: 'event'})", ns("mapping_tab_click")),
+              "Edit Mappings"
+            ),
+            tags$button(
+              class = paste("tab-btn", if (current_tab == "evaluate_mappings") "tab-btn-active" else ""),
+              onclick = sprintf("Shiny.setInputValue('%s', 'evaluate_mappings', {priority: 'event'})", ns("mapping_tab_click")),
+              "Evaluate Mappings"
             )
-          }
+          )
         )
       }
+    })
+
+    # Handle tab clicks from breadcrumb
+    observe_event(input$mapping_tab_click, {
+      mapping_tab(input$mapping_tab_click)
     })
 
     ### Content Area Rendering ----
@@ -518,8 +552,30 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     })
 
     ### Tab Switching ----
-    # Tab switching handled implicitly through Shiny's tabsetPanel
-    # No explicit observers needed for current implementation
+    # Show/hide panels based on selected tab
+    observe_event(mapping_tab(), {
+      tab <- mapping_tab()
+
+      # Hide all panels first
+      shinyjs::hide("panel_summary")
+      shinyjs::hide("panel_all_mappings")
+      shinyjs::hide("panel_edit_mappings")
+      shinyjs::hide("panel_evaluate_mappings")
+
+      # Show the selected panel
+      if (tab == "summary") {
+        shinyjs::show("panel_summary")
+      } else if (tab == "all_mappings") {
+        shinyjs::show("panel_all_mappings")
+      } else if (tab == "edit_mappings") {
+        shinyjs::show("panel_edit_mappings")
+        # Trigger table rendering for Edit Mappings tab
+        source_concepts_table_general_trigger(source_concepts_table_general_trigger() + 1)
+        general_concepts_table_trigger(general_concepts_table_trigger() + 1)
+      } else if (tab == "evaluate_mappings") {
+        shinyjs::show("panel_evaluate_mappings")
+      }
+    }, ignoreNULL = FALSE)
 
     ### Navigation Handlers ----
     observe_event(input$back_to_alignments, {
@@ -794,22 +850,22 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       tagList(
         tags$div(
-          style = "display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;",
-          tags$div(
-            style = "flex: 1; min-width: 150px;",
-            tags$label("Vocabulary ID Column", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
-            selectInput(
-              ns("col_vocabulary_id"),
-              label = NULL,
-              choices = choices,
-              selected = ""
-            ),
-            tags$div(
-              id = ns("col_vocabulary_id_error"),
-              style = "color: #dc3545; font-size: 13px; margin-top: 5px; display: none;",
-              "Please select Vocabulary ID column"
-            )
+          style = "margin-bottom: 10px;",
+          tags$label("Vocabulary ID Column", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+          selectInput(
+            ns("col_vocabulary_id"),
+            label = NULL,
+            choices = choices,
+            selected = ""
           ),
+          tags$div(
+            id = ns("col_vocabulary_id_error"),
+            style = "color: #dc3545; font-size: 13px; margin-top: 5px; display: none;",
+            "Please select Vocabulary ID column"
+          )
+        ),
+        tags$div(
+          style = "display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;",
           tags$div(
             style = "flex: 1; min-width: 150px;",
             tags$label("Concept Code Column", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
@@ -824,10 +880,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               style = "color: #dc3545; font-size: 13px; margin-top: 5px; display: none;",
               "Please select Concept Code column"
             )
-          )
-        ),
-        tags$div(
-          style = "display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;",
+          ),
           tags$div(
             style = "flex: 1; min-width: 150px;",
             tags$label("Concept Name Column", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
@@ -842,27 +895,30 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               style = "color: #dc3545; font-size: 13px; margin-top: 5px; display: none;",
               "Please select Concept Name column"
             )
-          ),
+          )
+        ),
+        tags$div(
+          style = "display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;",
           tags$div(
             style = "flex: 1; min-width: 150px;",
-            tags$label("Statistical Summary Column", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+            tags$label("JSON Column", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
             selectInput(
-              ns("col_statistical_summary"),
+              ns("col_json"),
               label = NULL,
               choices = choices,
               selected = ""
             )
-          )
-        ),
-        tags$div(
-          style = "margin-bottom: 0px;",
-          tags$label("Additional Columns to Keep", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
-          selectizeInput(
-            ns("col_additional"),
-            label = NULL,
-            choices = col_names,
-            selected = NULL,
-            multiple = TRUE
+          ),
+          tags$div(
+            style = "flex: 1; min-width: 150px;",
+            tags$label("Additional Columns", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+            selectizeInput(
+              ns("col_additional"),
+              label = NULL,
+              choices = col_names,
+              selected = NULL,
+              multiple = TRUE
+            )
           )
         )
       )
@@ -1001,7 +1057,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       updateSelectInput(session, "col_vocabulary_id", selected = "")
       updateSelectInput(session, "col_concept_code", selected = "")
       updateSelectInput(session, "col_concept_name", selected = "")
-      updateSelectInput(session, "col_statistical_summary", selected = "")
+      updateSelectInput(session, "col_json", selected = "")
       updateSelectInput(session, "col_additional", selected = character(0))
 
       shinyjs::runjs(sprintf("$('#%s').html('');", ns("csv_options")))
@@ -1114,7 +1170,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           vocabulary_id = input$col_vocabulary_id,
           concept_code = input$col_concept_code,
           concept_name = input$col_concept_name,
-          statistical_summary = input$col_statistical_summary
+          json = input$col_json
         )
 
         additional_cols <- input$col_additional
@@ -1459,38 +1515,34 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         class = "panel-container-full",
         style = "display: flex; flex-direction: column; height: 100%;",
 
-        tabsetPanel(
-          id = ns("mapping_tabs"),
+        # Summary panel
+        tags$div(
+          id = ns("panel_summary"),
+          style = "margin-top: 10px;",
+          uiOutput(ns("summary_content"))
+        ),
 
-          tabPanel(
-            "Summary",
-            value = "summary",
-            tags$div(
-              style = "margin-top: 20px;",
-              uiOutput(ns("summary_content"))
-            )
-          ),
+        # All Mappings panel
+        tags$div(
+          id = ns("panel_all_mappings"),
+          class = "card-container",
+          style = "margin: 10px; height: calc(100vh - 180px); overflow: auto; display: none;",
+          DT::DTOutput(ns("all_mappings_table_main"))
+        ),
 
-          tabPanel(
-            "All Mappings",
-            value = "all_mappings",
+        # Edit Mappings panel
+        tags$div(
+          id = ns("panel_edit_mappings"),
+          style = "display: none; margin-top: 10px; height: calc(100vh - 180px);",
+          tags$div(
+            style = "height: 100%; display: flex; gap: 15px; min-height: 0;",
+            # Left column: Source Concepts (top) + Concept Details (bottom)
             tags$div(
-              class = "card-container",
-              style = "margin: 10px; height: calc(100vh - 230px); overflow: auto;",
-              DT::DTOutput(ns("all_mappings_table_main"))
-            )
-          ),
-
-          tabPanel(
-            "Edit Mappings",
-            value = "edit_mappings",
-            tags$div(
-              style = "margin-top: 20px; height: calc(100vh - 230px); display: flex; flex-direction: column;",
-            tags$div(
-              style = "height: 100%; display: flex; gap: 15px; min-height: 0;",
+              style = "flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 15px;",
+              # Top-left: Source Concepts table
               tags$div(
                 class = "card-container card-container-flex",
-                style = "flex: 1; min-width: 0;",
+                style = "flex: 1; min-height: 0;",
                 tags$div(
                   class = "section-header",
                   tags$div(
@@ -1518,90 +1570,147 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                   DT::DTOutput(ns("source_concepts_table"))
                 )
               ),
+              # Bottom-left: Concept Details with tabs for JSON visualization
               tags$div(
+                id = ns("concept_details_panel"),
                 class = "card-container card-container-flex",
-                style = "flex: 1; min-width: 0;",
-                uiOutput(ns("general_concepts_header")),
+                style = "flex: 1; min-height: 0; display: none;",
                 tags$div(
-                  style = "flex: 1; min-height: 0; overflow: auto;",
+                  class = "section-header",
+                  tags$h4(style = "margin: 0;", "Concept Details")
+                ),
+                tags$div(
+                  style = "flex: 1; min-height: 0; overflow: auto; padding: 10px;",
+                  # Tabs for different JSON views
                   tags$div(
-                    id = ns("general_concepts_table_container"),
-                    style = "height: 100%;",
-                    DT::DTOutput(ns("general_concepts_table"))
+                    style = "display: flex; gap: 5px; margin-bottom: 10px;",
+                    tags$button(
+                      id = ns("detail_tab_summary"),
+                      class = "tab-btn tab-btn-active",
+                      onclick = sprintf("
+                        document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                        this.classList.add('tab-btn-active');
+                        Shiny.setInputValue('%s', 'summary', {priority: 'event'});
+                      ", ns("concept_details_panel"), ns("detail_tab_selected")),
+                      "Summary"
+                    ),
+                    tags$button(
+                      id = ns("detail_tab_distribution"),
+                      class = "tab-btn",
+                      onclick = sprintf("
+                        document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                        this.classList.add('tab-btn-active');
+                        Shiny.setInputValue('%s', 'distribution', {priority: 'event'});
+                      ", ns("concept_details_panel"), ns("detail_tab_selected")),
+                      "Distribution"
+                    ),
+                    tags$button(
+                      id = ns("detail_tab_temporal"),
+                      class = "tab-btn",
+                      onclick = sprintf("
+                        document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                        this.classList.add('tab-btn-active');
+                        Shiny.setInputValue('%s', 'temporal', {priority: 'event'});
+                      ", ns("concept_details_panel"), ns("detail_tab_selected")),
+                      "Temporal"
+                    ),
+                    tags$button(
+                      id = ns("detail_tab_units"),
+                      class = "tab-btn",
+                      onclick = sprintf("
+                        document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                        this.classList.add('tab-btn-active');
+                        Shiny.setInputValue('%s', 'units', {priority: 'event'});
+                      ", ns("concept_details_panel"), ns("detail_tab_selected")),
+                      "Units"
+                    )
                   ),
-                  tags$div(
-                    id = ns("concept_mappings_table_container"),
-                    style = "height: 100%; display: none;",
-                    DT::DTOutput(ns("concept_mappings_table"))
-                  ),
-                  tags$div(
-                    id = ns("comments_display_container"),
-                    style = "display: none;",
-                    uiOutput(ns("comments_display"))
-                  )
+                  # Content area for selected tab
+                  uiOutput(ns("concept_details_content"))
+                )
+              )
+            ),
+            # Right column: General Concepts / Mappings
+            tags$div(
+              class = "card-container card-container-flex",
+              style = "flex: 1; min-width: 0;",
+              uiOutput(ns("general_concepts_header")),
+              tags$div(
+                style = "flex: 1; min-height: 0; overflow: auto;",
+                tags$div(
+                  id = ns("general_concepts_table_container"),
+                  style = "height: 100%;",
+                  DT::DTOutput(ns("general_concepts_table"))
+                ),
+                tags$div(
+                  id = ns("concept_mappings_table_container"),
+                  style = "height: 100%; display: none;",
+                  DT::DTOutput(ns("concept_mappings_table"))
+                ),
+                tags$div(
+                  id = ns("comments_display_container"),
+                  style = "display: none;",
+                  uiOutput(ns("comments_display"))
                 )
               )
             )
-            )
-          ),
+          )
+        ),
 
-          tabPanel(
-            "Evaluate Mappings",
-            value = "evaluate_mappings",
+        # Evaluate Mappings panel
+        tags$div(
+          id = ns("panel_evaluate_mappings"),
+          class = "card-container",
+          style = "margin: 10px; height: calc(100vh - 180px); overflow: auto; display: none;",
+          DT::DTOutput(ns("evaluate_mappings_table")),
+          shinyjs::hidden(
             tags$div(
-              class = "card-container",
-              style = "margin: 10px; height: calc(100vh - 230px); overflow: auto;",
-              DT::DTOutput(ns("evaluate_mappings_table")),
-              shinyjs::hidden(
+              id = ns("eval_comment_modal"),
+              class = "modal-overlay",
+              tags$div(
+                class = "modal-content",
+                style = "width: 600px;",
                 tags$div(
-                  id = ns("eval_comment_modal"),
-                  class = "modal-overlay",
+                  class = "modal-header",
+                  tags$h3("Edit Evaluation Comment"),
+                  tags$button(
+                    class = "modal-close",
+                    onclick = sprintf("$('#%s').hide();", ns("eval_comment_modal")),
+                    "×"
+                  )
+                ),
+                tags$div(
+                  class = "modal-body",
                   tags$div(
-                    class = "modal-content",
-                    style = "width: 600px;",
+                    style = "margin-bottom: 15px;",
+                    tags$strong("Mapping:"),
                     tags$div(
-                      class = "modal-header",
-                      tags$h3("Edit Evaluation Comment"),
-                      tags$button(
-                        class = "modal-close",
-                        onclick = sprintf("$('#%s').hide();", ns("eval_comment_modal")),
-                        "×"
-                      )
+                      id = ns("eval_comment_mapping_info"),
+                      style = "margin-top: 5px; padding: 10px; background: #f8f9fa; border-radius: 4px;"
+                    )
+                  ),
+                  tags$div(
+                    style = "margin-bottom: 15px;",
+                    tags$label("Comment:", style = "display: block; margin-bottom: 5px;"),
+                    tags$textarea(
+                      id = ns("eval_comment_text"),
+                      style = "width: 100%; min-height: 100px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;",
+                      placeholder = "Enter your comment here..."
+                    )
+                  ),
+                  tags$div(
+                    style = "display: flex; gap: 10px; justify-content: flex-end;",
+                    tags$button(
+                      class = "btn-secondary-custom",
+                      onclick = sprintf("$('#%s').hide();", ns("eval_comment_modal")),
+                      tags$i(class = "fas fa-times"),
+                      " Cancel"
                     ),
-                    tags$div(
-                      class = "modal-body",
-                      tags$div(
-                        style = "margin-bottom: 15px;",
-                        tags$strong("Mapping:"),
-                        tags$div(
-                          id = ns("eval_comment_mapping_info"),
-                          style = "margin-top: 5px; padding: 10px; background: #f8f9fa; border-radius: 4px;"
-                        )
-                      ),
-                      tags$div(
-                        style = "margin-bottom: 15px;",
-                        tags$label("Comment:", style = "display: block; margin-bottom: 5px;"),
-                        tags$textarea(
-                          id = ns("eval_comment_text"),
-                          style = "width: 100%; min-height: 100px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;",
-                          placeholder = "Enter your comment here..."
-                        )
-                      ),
-                      tags$div(
-                        style = "display: flex; gap: 10px; justify-content: flex-end;",
-                        tags$button(
-                          class = "btn-secondary-custom",
-                          onclick = sprintf("$('#%s').hide();", ns("eval_comment_modal")),
-                          tags$i(class = "fas fa-times"),
-                          " Cancel"
-                        ),
-                        actionButton(
-                          ns("save_eval_comment"),
-                          "Save Comment",
-                          class = "btn-primary-custom",
-                          icon = icon("save")
-                        )
-                      )
+                    actionButton(
+                      ns("save_eval_comment"),
+                      "Save Comment",
+                      class = "btn-primary-custom",
+                      icon = icon("save")
                     )
                   )
                 )
@@ -2765,7 +2874,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Check visibility first
       if (is.null(selected_alignment_id())) return()
       if (mapping_view() != "general") return()
-      if (!is.null(input$mapping_tabs) && input$mapping_tabs != "edit_mappings") return()
+      if (mapping_tab() != "edit_mappings") return()
       
       # Prepare all data outside renderDT
       alignments <- alignments_data()
@@ -2821,9 +2930,24 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       nice_names[nice_names == "concept_code"] <- "Code"
       nice_names[nice_names == "concept_name"] <- "Name"
       nice_names[nice_names == "statistical_summary"] <- "Summary"
-      
+
       mapped_col_index <- which(colnames(df_display) == "Mapped") - 1
-      
+
+      # Find JSON column index to hide by default
+      json_col_index <- which(colnames(df_display) == "json") - 1
+
+      # Build columnDefs list
+      column_defs <- list(
+        list(targets = mapped_col_index, width = "80px", className = "dt-center")
+      )
+
+      # Hide JSON column by default if it exists
+      if (length(json_col_index) > 0) {
+        column_defs <- c(column_defs, list(
+          list(targets = json_col_index, visible = FALSE)
+        ))
+      }
+
       # Render table with prepared data only
       output$source_concepts_table <- DT::renderDT({
         dt <- datatable(
@@ -2840,9 +2964,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 text = "Show/Hide Columns"
               )
             ),
-            columnDefs = list(
-              list(targets = mapped_col_index, width = "80px", className = "dt-center")
-            )
+            columnDefs = column_defs
           ),
           colnames = nice_names,
           rownames = FALSE,
@@ -2909,15 +3031,15 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     }, ignoreInit = TRUE)
     
     #### General Concepts Table Rendering ----
-    observe_event(data(), {
+    observe_event(c(data(), general_concepts_table_trigger()), {
       # Check visibility first
       if (is.null(data())) return()
       if (mapping_view() != "general") return()
-      if (!is.null(input$mapping_tabs) && input$mapping_tabs != "edit_mappings") return()
-      
+      if (mapping_tab() != "edit_mappings") return()
+
       # Prepare data outside renderDT
       general_concepts <- data()$general_concepts
-      
+
       general_concepts_display <- data.frame(
         general_concept_id = general_concepts$general_concept_id,
         category = as.factor(general_concepts$category),
@@ -2925,7 +3047,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         general_concept_name = general_concepts$general_concept_name,
         stringsAsFactors = FALSE
       )
-      
+
       # Render table with prepared data
       output$general_concepts_table <- DT::renderDT({
         dt <- datatable(
@@ -2944,19 +3066,19 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           selection = "single",
           colnames = c("ID", "Category", "Subcategory", "General Concept")
         )
-        
+
         dt <- add_doubleclick_handler(dt, ns("view_mapped_concepts"))
-        
+
         dt
       }, server = TRUE)
-    })
+    }, ignoreNULL = FALSE)
     
     #### Concept Mappings Table Rendering ----
     observe_event(concept_mappings_table_trigger(), {
       # Check visibility first
       if (is.null(selected_general_concept_id())) return()
       if (is.null(data())) return()
-      if (!is.null(input$mapping_tabs) && input$mapping_tabs != "edit_mappings") return()
+      if (mapping_tab() != "edit_mappings") return()
       
       # Prepare data outside renderDT
       vocab_data <- vocabularies()
@@ -3111,7 +3233,307 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         )
       }
     })
-    
+
+    #### Concept Details Panel ----
+    # Reactive to store selected source concept JSON data
+    selected_source_json <- reactiveVal(NULL)
+    detail_tab <- reactiveVal("summary")
+
+    # Show/hide concept details panel based on row selection
+    observe_event(input$source_concepts_table_rows_selected, {
+      if (mapping_tab() != "edit_mappings") return()
+
+      row_selected <- input$source_concepts_table_rows_selected
+
+      if (is.null(row_selected) || length(row_selected) == 0) {
+        shinyjs::hide("concept_details_panel")
+        selected_source_json(NULL)
+        return()
+      }
+
+      # Get the selected row data
+      if (is.null(selected_alignment_id())) return()
+
+      alignments <- alignments_data()
+      alignment <- alignments %>%
+        dplyr::filter(alignment_id == selected_alignment_id())
+
+      if (nrow(alignment) != 1) return()
+
+      file_id <- alignment$file_id[1]
+      mapping_dir <- get_app_dir("concept_mapping")
+      csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
+
+      if (!file.exists(csv_path)) return()
+
+      df <- read.csv(csv_path, stringsAsFactors = FALSE)
+
+      if (row_selected > nrow(df)) return()
+
+      # Check if json column exists
+      if ("json" %in% colnames(df)) {
+        json_str <- df$json[row_selected]
+        if (!is.null(json_str) && !is.na(json_str) && json_str != "") {
+          json_data <- tryCatch(
+            jsonlite::fromJSON(json_str),
+            error = function(e) NULL
+          )
+          selected_source_json(json_data)
+          shinyjs::show("concept_details_panel")
+        } else {
+          selected_source_json(NULL)
+          shinyjs::hide("concept_details_panel")
+        }
+      } else {
+        selected_source_json(NULL)
+        shinyjs::hide("concept_details_panel")
+      }
+    }, ignoreNULL = FALSE)
+
+    # Handle tab selection
+    observe_event(input$detail_tab_selected, {
+      detail_tab(input$detail_tab_selected)
+    })
+
+    # Render concept details content based on selected tab
+    output$concept_details_content <- renderUI({
+      json_data <- selected_source_json()
+      tab <- detail_tab()
+
+      if (is.null(json_data)) {
+        return(tags$div(
+          style = "color: #999; font-style: italic;",
+          "No JSON data available for this concept."
+        ))
+      }
+
+      if (tab == "summary") {
+        render_json_summary(json_data)
+      } else if (tab == "distribution") {
+        render_json_distribution(json_data)
+      } else if (tab == "temporal") {
+        render_json_temporal(json_data)
+      } else if (tab == "units") {
+        render_json_units(json_data)
+      } else {
+        tags$div("Unknown tab")
+      }
+    })
+
+    # Helper function to render summary tab
+    render_json_summary <- function(json_data) {
+      items <- list()
+
+      # Numeric data summary
+      if (!is.null(json_data$numeric_data)) {
+        nd <- json_data$numeric_data
+        if (!is.null(nd$mean) && !is.na(nd$mean)) {
+          items <- c(items, list(
+            tags$div(
+              class = "detail-item",
+              tags$span(class = "detail-label", "Mean:"),
+              tags$span(class = "detail-value", round(nd$mean, 2))
+            ),
+            tags$div(
+              class = "detail-item",
+              tags$span(class = "detail-label", "Median:"),
+              tags$span(class = "detail-value", round(nd$median, 2))
+            ),
+            tags$div(
+              class = "detail-item",
+              tags$span(class = "detail-label", "SD:"),
+              tags$span(class = "detail-value", round(nd$sd, 2))
+            ),
+            tags$div(
+              class = "detail-item",
+              tags$span(class = "detail-label", "Range:"),
+              tags$span(class = "detail-value", paste(nd$min, "-", nd$max))
+            )
+          ))
+        }
+      }
+
+      # Unit info
+      if (!is.null(json_data$unit) && !is.null(json_data$unit$name)) {
+        items <- c(items, list(
+          tags$div(
+            class = "detail-item",
+            tags$span(class = "detail-label", "Unit:"),
+            tags$span(class = "detail-value", json_data$unit$name)
+          )
+        ))
+      }
+
+      # Missing rate
+      if (!is.null(json_data$missing_rate)) {
+        items <- c(items, list(
+          tags$div(
+            class = "detail-item",
+            tags$span(class = "detail-label", "Missing Rate:"),
+            tags$span(class = "detail-value", paste0(json_data$missing_rate, "%"))
+          )
+        ))
+      }
+
+      # Measurement frequency
+      if (!is.null(json_data$measurement_frequency)) {
+        mf <- json_data$measurement_frequency
+        if (!is.null(mf$typical_interval)) {
+          items <- c(items, list(
+            tags$div(
+              class = "detail-item",
+              tags$span(class = "detail-label", "Typical Interval:"),
+              tags$span(class = "detail-value", gsub("_", " ", mf$typical_interval))
+            )
+          ))
+        }
+      }
+
+      if (length(items) == 0) {
+        return(tags$div(
+          style = "color: #999; font-style: italic;",
+          "No summary data available."
+        ))
+      }
+
+      tags$div(
+        class = "concept-details-container",
+        items
+      )
+    }
+
+    # Helper function to render distribution tab (boxplot visualization)
+    render_json_distribution <- function(json_data) {
+      if (!is.null(json_data$numeric_data)) {
+        nd <- json_data$numeric_data
+        if (!is.null(nd$p5) && !is.na(nd$p5)) {
+          # Create a simple text-based boxplot representation
+          return(tags$div(
+            tags$h5(style = "margin-bottom: 10px;", "Numeric Distribution"),
+            tags$div(
+              style = "display: grid; grid-template-columns: 100px 1fr; gap: 8px; font-size: 13px;",
+              tags$span(style = "font-weight: 600;", "Min:"), tags$span(nd$min),
+              tags$span(style = "font-weight: 600;", "P5:"), tags$span(nd$p5),
+              tags$span(style = "font-weight: 600;", "P25:"), tags$span(nd$p25),
+              tags$span(style = "font-weight: 600;", "Median:"), tags$span(nd$median),
+              tags$span(style = "font-weight: 600;", "P75:"), tags$span(nd$p75),
+              tags$span(style = "font-weight: 600;", "P95:"), tags$span(nd$p95),
+              tags$span(style = "font-weight: 600;", "Max:"), tags$span(nd$max)
+            )
+          ))
+        }
+      }
+
+      # Categorical distribution
+      if (!is.null(json_data$categorical_data) && length(json_data$categorical_data) > 0) {
+        cat_df <- as.data.frame(json_data$categorical_data)
+        if (nrow(cat_df) > 0 && "value" %in% colnames(cat_df) && "percentage" %in% colnames(cat_df)) {
+          rows <- lapply(seq_len(nrow(cat_df)), function(i) {
+            tags$div(
+              style = "display: flex; align-items: center; margin-bottom: 5px;",
+              tags$span(style = "width: 120px; font-size: 13px;", cat_df$value[i]),
+              tags$div(
+                style = sprintf("width: %s%%; background: #0f60af; height: 18px; border-radius: 3px; margin-right: 8px;", cat_df$percentage[i])
+              ),
+              tags$span(style = "font-size: 12px; color: #666;", paste0(cat_df$percentage[i], "%"))
+            )
+          })
+          return(tags$div(
+            tags$h5(style = "margin-bottom: 10px;", "Categorical Distribution"),
+            rows
+          ))
+        }
+      }
+
+      tags$div(
+        style = "color: #999; font-style: italic;",
+        "No distribution data available."
+      )
+    }
+
+    # Helper function to render temporal tab
+    render_json_temporal <- function(json_data) {
+      items <- list()
+
+      # Temporal coverage
+      if (!is.null(json_data$temporal_coverage)) {
+        tc <- json_data$temporal_coverage
+        items <- c(items, list(
+          tags$div(
+            class = "detail-item",
+            tags$span(class = "detail-label", "First Occurrence:"),
+            tags$span(class = "detail-value", tc$first_occurrence)
+          ),
+          tags$div(
+            class = "detail-item",
+            tags$span(class = "detail-label", "Last Occurrence:"),
+            tags$span(class = "detail-value", tc$last_occurrence)
+          )
+        ))
+      }
+
+      # Distribution by year
+      if (!is.null(json_data$distribution_by_year) && length(json_data$distribution_by_year) > 0) {
+        year_df <- as.data.frame(json_data$distribution_by_year)
+        if (nrow(year_df) > 0 && "year" %in% colnames(year_df) && "percentage" %in% colnames(year_df)) {
+          year_rows <- lapply(seq_len(nrow(year_df)), function(i) {
+            tags$div(
+              style = "display: flex; align-items: center; margin-bottom: 5px;",
+              tags$span(style = "width: 60px; font-size: 13px;", year_df$year[i]),
+              tags$div(
+                style = sprintf("width: %s%%; background: #28a745; height: 18px; border-radius: 3px; margin-right: 8px; max-width: 200px;", year_df$percentage[i] * 4)
+              ),
+              tags$span(style = "font-size: 12px; color: #666;", paste0(year_df$percentage[i], "%"))
+            )
+          })
+          items <- c(items, list(
+            tags$h5(style = "margin: 15px 0 10px 0;", "Distribution by Year"),
+            year_rows
+          ))
+        }
+      }
+
+      if (length(items) == 0) {
+        return(tags$div(
+          style = "color: #999; font-style: italic;",
+          "No temporal data available."
+        ))
+      }
+
+      tags$div(class = "concept-details-container", items)
+    }
+
+    # Helper function to render units tab
+    render_json_units <- function(json_data) {
+      items <- list()
+
+      # Distribution by unit
+      if (!is.null(json_data$distribution_by_unit) && length(json_data$distribution_by_unit) > 0) {
+        unit_df <- as.data.frame(json_data$distribution_by_unit)
+        if (nrow(unit_df) > 0 && "unit_name" %in% colnames(unit_df) && "percentage" %in% colnames(unit_df)) {
+          unit_rows <- lapply(seq_len(nrow(unit_df)), function(i) {
+            tags$div(
+              style = "display: flex; align-items: center; margin-bottom: 5px;",
+              tags$span(style = "width: 120px; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;", unit_df$unit_name[i]),
+              tags$div(
+                style = sprintf("width: %s%%; background: #fd7e14; height: 18px; border-radius: 3px; margin-right: 8px; max-width: 200px;", unit_df$percentage[i] * 3)
+              ),
+              tags$span(style = "font-size: 12px; color: #666;", paste0(unit_df$percentage[i], "%"))
+            )
+          })
+          return(tags$div(
+            tags$h5(style = "margin-bottom: 10px;", "Distribution by Hospital Unit"),
+            unit_rows
+          ))
+        }
+      }
+
+      tags$div(
+        style = "color: #999; font-style: italic;",
+        "No unit distribution data available."
+      )
+    }
+
     #### Modal - Concept Details ----
     #### Modal - ETL Comments ----
     #### Add/Remove Mapping Actions ----
