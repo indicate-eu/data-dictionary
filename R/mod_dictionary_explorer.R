@@ -3979,9 +3979,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                           url = unit_fhir_url, include_colon = FALSE),
         create_detail_item("OMOP Unit Concept ID",
                           if (!is.null(info$omop_unit_concept_id) && !is.na(info$omop_unit_concept_id) && info$omop_unit_concept_id != "" && info$omop_unit_concept_id != "/") {
-                            info$omop_unit_concept_id
+                            as.integer(info$omop_unit_concept_id)
                           } else {
-                            "/"
+                            NA
                           },
                           editable = TRUE, input_id = "omop_unit_concept_id_input", step = 1,
                           url = athena_unit_url, include_colon = FALSE, is_editing = is_editing, ns = ns)
