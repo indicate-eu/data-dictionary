@@ -31,7 +31,7 @@
 #
 #   ## 3) Server - General Concepts Page
 #      ### General Concepts Table Rendering - Display general concepts table
-#      ### List Edit Mode - Edit general concepts (recommended, comments, etc.)
+#      ### List Edit Mode - Edit general concepts (comments, etc.)
 #      ### Delete Concept - Remove general concepts
 #      ### Add New Concept - Create new general concepts
 #
@@ -75,7 +75,6 @@
 # │ comments_tab                  - "comments" or "statistical_summary"                             │
 # │ relationships_tab             - "related", "hierarchy", or "synonyms"                           │
 # │ local_data                    - Local copy of CSV data                                          │
-# │ edited_recommended            - Temporary recommended changes before save                       │
 # │ deleted_concepts              - Temporary deleted mappings before save                          │
 # │ added_concepts                - Temporary added mappings before save                            │
 # └─────────────────────────────────────────────────────────────────────────────────────────────────┘
@@ -122,9 +121,6 @@
 # │  selected_mapped            mapped_concept           observe_event(mapped_concept_trigger)     │
 # │  _concept_id() ───────────► _trigger ──────────────► ├──► selected_mapping_details_trigger     │
 # │                                                       └──► relationship_tab_outputs_trigger    │
-# │                                                                                                 │
-# │  edited_recommended() ────► edited_recommended      observe_event(...)                         │
-# │                             _trigger ──────────────► └──► concept_mappings_table_trigger       │
 # │                                                                                                 │
 # │  deleted_concepts() ──────► deleted_concepts        observe_event(...)                         │
 # │                             _trigger ──────────────► └──► concept_mappings_table_trigger       │
@@ -175,7 +171,6 @@
 # │  input$general_concept_detail_save_updates ► Saves changes to CSV, edit_mode(FALSE)            │
 # │  input$switch_relationships_tab ─────► Sets relationships_tab()                                │
 # │  input$switch_comments_tab ──────────► Sets comments_tab()                                     │
-# │  input$toggle_recommended ───────────► Updates edited_recommended()                            │
 # │  input$delete_concept ───────────────► Updates deleted_concepts()                              │
 # │  input$mapped_concepts_add_selected ─► Updates added_concepts()                                │
 # │  input$general_concepts_show_history ► Sets current_view("list_history")                       │
@@ -1149,7 +1144,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     saved_general_history_search <- reactiveVal(NULL)  # Track search for general concepts history table
     saved_detail_history_page <- reactiveVal(0)  # Track page for detail history table
     saved_detail_history_search <- reactiveVal(NULL)  # Track search for detail history table
-    edited_recommended <- reactiveVal(list())  # Store recommended changes by omop_concept_id
     deleted_concepts <- reactiveVal(list())  # Store deleted concept IDs by general_concept_id
     deleted_general_concepts <- reactiveVal(list())  # Store deleted general concept IDs to be removed on save
     original_general_concepts <- reactiveVal(NULL)  # Store original state for cancel in list edit mode
@@ -1175,7 +1169,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     comments_tab_trigger <- reactiveVal(0)
     local_data_trigger <- reactiveVal(0)
     mapped_concept_trigger <- reactiveVal(0)
-    edited_recommended_trigger <- reactiveVal(0)
     deleted_concepts_trigger <- reactiveVal(0)
     selected_categories_trigger <- reactiveVal(0)
 
@@ -1294,11 +1287,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     observe_event(input$stats_summary_tab_selected, {
       stats_summary_tab(input$stats_summary_tab_selected)
       comments_display_trigger(comments_display_trigger() + 1)
-    }, ignoreInit = TRUE)
-
-    # When edited_recommended_trigger fires, update concept_mappings_table
-    observe_event(edited_recommended_trigger(), {
-      concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
     }, ignoreInit = TRUE)
 
     # When deleted_concepts_trigger fires, update concept_mappings_table
@@ -1625,11 +1613,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       mapped_concept_trigger(mapped_concept_trigger() + 1)
     })
 
-    # Handle edited_recommended changes, then trigger cascade
-    observe_event(edited_recommended(), {
-      edited_recommended_trigger(edited_recommended_trigger() + 1)
-    })
-
     # Handle deleted_concepts changes, then trigger cascade
     observe_event(deleted_concepts(), {
       deleted_concepts_trigger(deleted_concepts_trigger() + 1)
@@ -1707,10 +1690,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     # Handle cancel edit button
     observe_event(input$general_concept_detail_cancel_edit, {
       # Reset all unsaved changes in memory
-      edited_recommended(list())
       deleted_concepts(list())
       added_concepts(list())
-      # edited_comment(NULL)
       general_concept_detail_edit_mode(FALSE)
       # Reset tab to comments
       comments_tab("comments")
@@ -1718,9 +1699,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       shinyjs::hide("general_concept_detail_edit_buttons")
       shinyjs::show("general_concept_detail_action_buttons")
 
-      # No need to reload data from CSV - temporary changes are stored in
-      # edited_recommended(), deleted_concepts(), and added_concepts() which
-      # are applied during table rendering. Resetting these lists is enough.
+      # Temporary changes are stored in deleted_concepts() and added_concepts()
+      # which are applied during table rendering. Resetting these lists is enough.
       # Just trigger table re-render to show original data
       concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
     })
@@ -2780,172 +2760,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             dplyr::filter(!(general_concept_id == concept_id & custom_concept_id %in% custom_ids_to_delete))
         }
       }
-      
-      # Update recommended values for both OMOP and custom concepts
-      recommended_edits <- edited_recommended()
 
-      if (length(recommended_edits) > 0) {
-        for (concept_unique_id in names(recommended_edits)) {
-          new_rec_value <- recommended_edits[[concept_unique_id]]
-
-          # Determine if this is an OMOP or custom concept
-          if (grepl("^omop-", concept_unique_id)) {
-            # OMOP concept
-            omop_id <- as.integer(sub("^omop-", "", concept_unique_id))
-
-            # Check if this concept already exists in concept_mappings
-            existing_row <- concept_mappings %>%
-              dplyr::filter(
-                general_concept_id == concept_id &
-                  omop_concept_id == omop_id
-              )
-
-            if (nrow(existing_row) > 0) {
-              # Log the change if recommended status changed
-              old_rec_value <- existing_row$recommended[1]
-              if (!identical(old_rec_value, new_rec_value)) {
-                user <- current_user()
-                if (!is.null(user) && !is.null(user$first_name) && !is.null(user$last_name)) {
-                  username <- paste(user$first_name, user$last_name)
-                  vocab_data <- vocabularies()
-
-                  if (!is.null(vocab_data) && !is.null(vocab_data$concept)) {
-                    concept_info <- vocab_data$concept %>%
-                      dplyr::filter(concept_id == !!omop_id) %>%
-                      dplyr::collect() %>%
-                      dplyr::slice(1)
-
-                    if (nrow(concept_info) > 0) {
-                      action <- if (isTRUE(new_rec_value)) "recommend" else "unrecommend"
-                      log_history_change(
-                        entity_type = "mapped_concept",
-                        username = username,
-                        action_type = action,
-                        general_concept_id = concept_id,
-                        vocabulary_id = as.character(concept_info$vocabulary_id[1]),
-                        concept_code = as.character(concept_info$concept_code[1]),
-                        concept_name = as.character(concept_info$concept_name[1]),
-                        comment = if (isTRUE(new_rec_value)) "Marked as recommended" else "Unmarked as recommended"
-                      )
-                    }
-                  }
-                }
-              }
-
-              # Update existing row
-              concept_mappings <- concept_mappings %>%
-                dplyr::mutate(
-                  recommended = ifelse(
-                    general_concept_id == concept_id & omop_concept_id == omop_id,
-                    new_rec_value,
-                    recommended
-                  )
-                )
-            } else if (isTRUE(new_rec_value)) {
-              # Check if this concept is in added_concepts (newly added, not yet saved)
-              added_list <- added_concepts()
-              concept_key <- paste(concept_id, omop_id, sep = "_")
-              is_newly_added <- !is.null(added_list) && concept_key %in% names(added_list)
-
-              # Only add new row if not already in added_concepts
-              # (to avoid duplicates when saving)
-              if (!is_newly_added) {
-                # Get concept info from vocabularies or current data
-                vocab_data <- vocabularies()
-
-                if (!is.null(vocab_data) && !is.null(vocab_data$concept)) {
-                  # Filter and collect from DuckDB
-                  new_concept <- vocab_data$concept %>%
-                    dplyr::filter(concept_id == omop_id) %>%
-                    dplyr::collect()
-
-                  if (nrow(new_concept) > 0) {
-                    # Create new row with minimal structure (new schema)
-                    if (nrow(concept_mappings) > 0) {
-                      # Take first row as template and modify it
-                      new_row <- concept_mappings[1, ]
-                      new_row$general_concept_id <- as.integer(concept_id)
-                      new_row$omop_concept_id <- omop_id
-                      new_row$omop_unit_concept_id <- as.character("/")
-                      new_row$recommended <- TRUE
-                    } else {
-                      # Fallback if concept_mappings is empty
-                      new_row <- data.frame(
-                        general_concept_id = as.integer(concept_id),
-                        omop_concept_id = omop_id,
-                        omop_unit_concept_id = "/",
-                        recommended = TRUE,
-                        stringsAsFactors = FALSE
-                      )
-                    }
-
-                    concept_mappings <- dplyr::bind_rows(concept_mappings, new_row)
-                  }
-                }
-              }
-            }
-          } else if (grepl("^custom-", concept_unique_id)) {
-            # Custom concept
-            custom_id <- as.integer(sub("^custom-", "", concept_unique_id))
-
-            if (!is.null(custom_concepts)) {
-              # Get existing row to check old value
-              existing_row <- custom_concepts %>%
-                dplyr::filter(general_concept_id == concept_id & custom_concept_id == custom_id)
-
-              if (nrow(existing_row) > 0) {
-                old_rec_value <- existing_row$recommended[1]
-                if (!identical(old_rec_value, new_rec_value)) {
-                  user <- current_user()
-                  if (!is.null(user) && !is.null(user$first_name) && !is.null(user$last_name)) {
-                    username <- paste(user$first_name, user$last_name)
-
-                    action <- if (isTRUE(new_rec_value)) "recommend" else "unrecommend"
-                    log_history_change(
-                      entity_type = "mapped_concept",
-                      username = username,
-                      action_type = action,
-                      general_concept_id = concept_id,
-                      vocabulary_id = as.character(existing_row$vocabulary_id[1]),
-                      concept_code = as.character(existing_row$concept_code[1]),
-                      concept_name = as.character(existing_row$concept_name[1]),
-                      comment = if (isTRUE(new_rec_value)) "Marked as recommended" else "Unmarked as recommended"
-                    )
-                  }
-                }
-              }
-
-              custom_concepts <- custom_concepts %>%
-                dplyr::mutate(
-                  recommended = ifelse(
-                    general_concept_id == concept_id & custom_concept_id == custom_id,
-                    new_rec_value,
-                    recommended
-                  )
-                )
-            }
-          }
-        }
-      }
-      
       # Add newly added concepts to concept_mappings before saving
       added_list <- added_concepts()
       if (length(added_list) > 0) {
         # Convert list to data frame
         new_mappings_df <- dplyr::bind_rows(added_list)
-
-        # Apply edited recommended values to newly added concepts
-        current_edits <- edited_recommended()
-        if (length(current_edits) > 0 && nrow(new_mappings_df) > 0) {
-          for (i in 1:nrow(new_mappings_df)) {
-            omop_id <- new_mappings_df$omop_concept_id[i]
-            concept_unique_id <- paste0("omop-", omop_id)
-
-            if (concept_unique_id %in% names(current_edits)) {
-              new_mappings_df$recommended[i] <- current_edits[[concept_unique_id]]
-            }
-          }
-        }
 
         # Log history for each new mapping
         user <- current_user()
@@ -3013,10 +2833,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       local_data(updated_data)
       
       # Reset edit state
-      edited_recommended(list())
       deleted_concepts(list())
       added_concepts(list())
-      # edited_comment(NULL)
       general_concept_detail_edit_mode(FALSE)
       # Reset tab to comments
       comments_tab("comments")
@@ -3059,11 +2877,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             custom_concept_id,
             concept_name,
             vocabulary_id,
-            concept_code,
-            recommended
+            concept_code
           ) %>%
           dplyr::mutate(
             omop_concept_id = NA_integer_,
+            standard_concept = NA_character_,
             is_custom = TRUE
           )
       } else {
@@ -3072,8 +2890,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           concept_name = character(),
           vocabulary_id = character(),
           concept_code = character(),
-          recommended = logical(),
           omop_concept_id = integer(),
+          standard_concept = character(),
           is_custom = logical()
         )
       }
@@ -3081,11 +2899,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Enrich OMOP concepts with vocabulary data
       vocab_data_for_enrichment <- vocabularies()
       if (!is.null(vocab_data_for_enrichment) && nrow(csv_mappings) > 0) {
-        # Get concept details
+        # Get concept details including standard_concept
         concept_ids <- csv_mappings$omop_concept_id
         omop_concepts <- vocab_data_for_enrichment$concept %>%
           dplyr::filter(concept_id %in% concept_ids) %>%
-          dplyr::select(concept_id, concept_name, vocabulary_id, concept_code) %>%
+          dplyr::select(concept_id, concept_name, vocabulary_id, concept_code, standard_concept) %>%
           dplyr::collect()
 
         # Join with csv_mappings
@@ -3105,6 +2923,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             concept_name = NA_character_,
             vocabulary_id = NA_character_,
             concept_code = NA_character_,
+            standard_concept = NA_character_,
             is_custom = FALSE,
             custom_concept_id = NA_integer_
           )
@@ -3119,11 +2938,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Combine OMOP and custom concepts
       all_concepts <- dplyr::bind_rows(
         csv_mappings %>%
-          dplyr::select(custom_concept_id, concept_name, vocabulary_id, concept_code, omop_concept_id, recommended, is_custom),
+          dplyr::select(custom_concept_id, concept_name, vocabulary_id, concept_code, omop_concept_id, standard_concept, is_custom),
         custom_concepts
       )
 
-      # Select final columns and arrange
+      # Select final columns and arrange by standard_concept (S first, then C, then NULL)
       mappings <- all_concepts %>%
         dplyr::select(
           custom_concept_id,
@@ -3131,13 +2950,20 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           vocabulary_id,
           concept_code,
           omop_concept_id,
-          recommended,
+          standard_concept,
           is_custom
         ) %>%
         dplyr::mutate(
-          vocabulary_id = factor(vocabulary_id)
+          vocabulary_id = factor(vocabulary_id),
+          # Create sort order: S=1, C=2, NULL/NA=3
+          sort_order = dplyr::case_when(
+            standard_concept == "S" ~ 1,
+            standard_concept == "C" ~ 2,
+            TRUE ~ 3
+          )
         ) %>%
-        dplyr::arrange(dplyr::desc(recommended), concept_name)
+        dplyr::arrange(sort_order, concept_name) %>%
+        dplyr::select(-sort_order)
 
       # Filter out deleted concepts in edit mode
       if (is_editing) {
@@ -3161,10 +2987,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         }
       }
 
-      # Convert recommended to Yes/No or toggle
+      # Convert standard_concept to badge display
       if (nrow(mappings) > 0) {
-        # Create toggle HTML for edit mode, or simple Yes/No for view mode
         if (is_editing) {
+          # In edit mode: add unique ID and action column (no toggle for standard_concept)
           mappings <- mappings %>%
             dplyr::mutate(
               # Create unique ID: "omop-{id}" for OMOP concepts, "custom-{id}" for custom concepts
@@ -3175,30 +3001,18 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               )
             )
 
-          # Apply edited recommended values before creating HTML
-          current_edits <- edited_recommended()
-          if (length(current_edits) > 0) {
-            for (uid in names(current_edits)) {
-              mappings <- mappings %>%
-                dplyr::mutate(
-                  recommended = ifelse(unique_id == uid, current_edits[[uid]], recommended)
-                )
-            }
-          }
-
           # Cache mappings BEFORE converting to HTML (for selection handling)
           mappings_for_cache <- mappings %>%
-            dplyr::select(concept_name, vocabulary_id, concept_code, recommended, omop_concept_id)
+            dplyr::select(concept_name, vocabulary_id, concept_code, standard_concept, omop_concept_id)
           current_mappings(mappings_for_cache)
 
-          # Create HTML with both data attributes (one will be empty)
+          # Create HTML for standard_concept badge and delete action
           mappings <- mappings %>%
             dplyr::mutate(
-              recommended = sprintf(
-                '<label class="toggle-switch" data-omop-id="%s" data-custom-id="%s"><input type="checkbox" %s><span class="toggle-slider"></span></label>',
-                ifelse(is.na(omop_concept_id), "", omop_concept_id),
-                ifelse(is.na(custom_concept_id), "", custom_concept_id),
-                ifelse(recommended, 'checked', '')
+              standard_concept = dplyr::case_when(
+                standard_concept == "S" ~ '<span class="badge-status badge-success">Standard</span>',
+                standard_concept == "C" ~ '<span class="badge-status badge-secondary">Classification</span>',
+                TRUE ~ '<span class="badge-status badge-danger">Non-standard</span>'
               ),
               action = sprintf(
                 '<i class="fa fa-trash delete-icon" data-omop-id="%s" data-custom-id="%s" style="cursor: pointer; color: #dc3545;"></i>',
@@ -3207,18 +3021,23 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               )
             )
         } else {
+          # View mode: convert standard_concept to badge
           mappings <- mappings %>%
             dplyr::mutate(
-              recommended = ifelse(
-                recommended,
-                '<span class="badge-status badge-success">Yes</span>',
-                '<span class="badge-status badge-danger">No</span>'
+              standard_concept = dplyr::case_when(
+                standard_concept == "S" ~ '<span class="badge-status badge-success">Standard</span>',
+                standard_concept == "C" ~ '<span class="badge-status badge-secondary">Classification</span>',
+                TRUE ~ '<span class="badge-status badge-danger">Non-standard</span>'
               )
             )
 
-          # Cache mappings for selection handling (convert to boolean)
+          # Cache mappings for selection handling
           mappings_for_cache <- mappings %>%
-            dplyr::mutate(recommended = grepl("Yes", recommended))
+            dplyr::mutate(standard_concept = dplyr::case_when(
+              grepl("Standard", standard_concept) & !grepl("Non-standard", standard_concept) ~ "S",
+              grepl("Classification", standard_concept) ~ "C",
+              TRUE ~ NA_character_
+            ))
           current_mappings(mappings_for_cache)
         }
       } else {
@@ -3234,10 +3053,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Reorder columns
       if (is_editing) {
         mappings <- mappings %>%
-          dplyr::select(concept_name, vocabulary_id, concept_code, recommended, action, omop_concept_id)
+          dplyr::select(concept_name, vocabulary_id, concept_code, standard_concept, action, omop_concept_id)
       } else {
         mappings <- mappings %>%
-          dplyr::select(concept_name, vocabulary_id, concept_code, recommended, omop_concept_id)
+          dplyr::select(concept_name, vocabulary_id, concept_code, standard_concept, omop_concept_id)
       }
 
       # Reset selection tracker when table is re-rendered
@@ -3263,18 +3082,18 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       # Configure DataTable columns based on edit mode
       if (is_editing) {
-        escape_cols <- c(TRUE, TRUE, TRUE, FALSE, FALSE, TRUE)  # Don't escape HTML in recommended and action columns
-        col_names <- c("Concept Name", "Vocabulary", "Code", "Recommended", "Action", "OMOP ID")
+        escape_cols <- c(TRUE, TRUE, TRUE, FALSE, FALSE, TRUE)  # Don't escape HTML in standard_concept and action columns
+        col_names <- c("Concept Name", "Vocabulary", "Code", "Standard", "Action", "OMOP ID")
         col_defs <- list(
-          list(targets = 3, width = "100px", className = 'dt-center'),  # Recommended column
+          list(targets = 3, width = "120px", className = 'dt-center'),  # Standard column
           list(targets = 4, width = "60px", className = 'dt-center'),   # Action column
           list(targets = 5, visible = FALSE)  # OMOP ID column hidden
         )
       } else {
-        escape_cols <- c(TRUE, TRUE, TRUE, FALSE, TRUE)  # Don't escape HTML in recommended column
-        col_names <- c("Concept Name", "Vocabulary", "Code", "Recommended", "OMOP ID")
+        escape_cols <- c(TRUE, TRUE, TRUE, FALSE, TRUE)  # Don't escape HTML in standard_concept column
+        col_names <- c("Concept Name", "Vocabulary", "Code", "Standard", "OMOP ID")
         col_defs <- list(
-          list(targets = 3, width = "100px", className = 'dt-center'),  # Recommended column
+          list(targets = 3, width = "120px", className = 'dt-center'),  # Standard column
           list(targets = 4, visible = FALSE)  # OMOP ID column hidden
         )
       }
@@ -3300,12 +3119,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         ),
         callback = callback
       )
-
-      # Apply formatStyle only in view mode (not edit mode with toggles)
-      if (!is_editing) {
-        dt <- dt %>%
-          style_yes_no_column('recommended')
-      }
 
           dt
         }, server = FALSE)
@@ -3683,7 +3496,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           general_concept_id = integer(),
           omop_concept_id = integer(),
           omop_unit_concept_id = character(),
-          recommended = logical(),
           stringsAsFactors = FALSE
         )
       }
@@ -3693,7 +3505,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         general_concept_id = rep(concept_id, length(concepts_to_add)),
         omop_concept_id = concepts_to_add,
         omop_unit_concept_id = "/",
-        recommended = FALSE,
         source = "manual",
         stringsAsFactors = FALSE
       )
@@ -3810,7 +3621,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           concept_code = character(),
           concept_name = character(),
           omop_unit_concept_id = character(),
-          recommended = logical(),
           stringsAsFactors = FALSE
         )
       }
@@ -3831,7 +3641,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         concept_code = concept_code,
         concept_name = concept_name,
         omop_unit_concept_id = "/",
-        recommended = FALSE,
         stringsAsFactors = FALSE
       )
 
@@ -4446,22 +4255,22 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         return()
       }
 
-      # Group concepts by domain_id with recommended status
+      # Group concepts by domain_id with standard_concept status
       concepts_by_domain <- list()
 
       for (i in 1:nrow(all_mappings)) {
         omop_id <- all_mappings$omop_concept_id[i]
-        is_recommended <- all_mappings$recommended[i]
 
-        # Get concept details to find domain_id
+        # Get concept details to find domain_id and standard_concept
         concept_details <- vocab_data$concept %>%
           dplyr::filter(concept_id == omop_id) %>%
-          dplyr::select(concept_id, concept_name, domain_id) %>%
+          dplyr::select(concept_id, concept_name, domain_id, standard_concept) %>%
           dplyr::collect()
 
         if (nrow(concept_details) > 0) {
           domain <- concept_details$domain_id[1]
           concept_name <- concept_details$concept_name[1]
+          standard_concept <- concept_details$standard_concept[1]
 
           if (is.null(concepts_by_domain[[domain]])) {
             concepts_by_domain[[domain]] <- list()
@@ -4470,7 +4279,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           concepts_by_domain[[domain]][[length(concepts_by_domain[[domain]]) + 1]] <- list(
             id = omop_id,
             name = concept_name,
-            recommended = isTRUE(is_recommended)
+            standard_concept = standard_concept
           )
         }
       }
@@ -4550,28 +4359,39 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         mapping <- domain_mapping[[domain]]
         concepts <- concepts_by_domain[[domain]]
 
-        # Separate recommended and non-recommended concepts
-        recommended_concepts <- Filter(function(c) c$recommended, concepts)
-        non_recommended_concepts <- Filter(function(c) !c$recommended, concepts)
+        # Separate concepts by standard_concept status
+        standard_concepts <- Filter(function(c) !is.na(c$standard_concept) && c$standard_concept == "S", concepts)
+        classification_concepts <- Filter(function(c) !is.na(c$standard_concept) && c$standard_concept == "C", concepts)
+        non_standard_concepts <- Filter(function(c) is.na(c$standard_concept) || !c$standard_concept %in% c("S", "C"), concepts)
 
         # Build concept lists with comments
         concept_list_parts <- c()
 
-        if (length(recommended_concepts) > 0) {
-          recommended_list <- sapply(recommended_concepts, function(c) {
+        if (length(standard_concepts) > 0) {
+          standard_list <- sapply(standard_concepts, function(c) {
             sprintf("    %s, -- %s", c$id, c$name)
           })
-          concept_list_parts <- c(concept_list_parts, "    -- Recommended concepts", recommended_list)
+          concept_list_parts <- c(concept_list_parts, "    -- Standard concepts", standard_list)
         }
 
-        if (length(non_recommended_concepts) > 0) {
-          non_recommended_list <- sapply(non_recommended_concepts, function(c) {
+        if (length(classification_concepts) > 0) {
+          classification_list <- sapply(classification_concepts, function(c) {
             sprintf("    %s, -- %s", c$id, c$name)
           })
-          if (length(recommended_concepts) > 0) {
-            concept_list_parts <- c(concept_list_parts, "", "    -- Not recommended concepts")
+          if (length(standard_concepts) > 0) {
+            concept_list_parts <- c(concept_list_parts, "")
           }
-          concept_list_parts <- c(concept_list_parts, non_recommended_list)
+          concept_list_parts <- c(concept_list_parts, "    -- Classification concepts", classification_list)
+        }
+
+        if (length(non_standard_concepts) > 0) {
+          non_standard_list <- sapply(non_standard_concepts, function(c) {
+            sprintf("    %s, -- %s", c$id, c$name)
+          })
+          if (length(standard_concepts) > 0 || length(classification_concepts) > 0) {
+            concept_list_parts <- c(concept_list_parts, "")
+          }
+          concept_list_parts <- c(concept_list_parts, "    -- Non-standard concepts", non_standard_list)
         }
 
         # Remove trailing comma from last concept
@@ -5039,25 +4859,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       shinyjs::hide("comments_fullscreen_modal")
     }, ignoreInit = TRUE)
 
-    # Handle toggle recommended for mappings in detail edit mode
-    observe_event(input$toggle_recommended, {
-      if (!general_concept_detail_edit_mode()) return()
-
-      toggle_data <- input$toggle_recommended
-      # Create unique ID based on is_custom flag
-      if (toggle_data$is_custom) {
-        concept_unique_id <- paste0("custom-", toggle_data$custom_id)
-      } else {
-        concept_unique_id <- paste0("omop-", toggle_data$omop_id)
-      }
-      new_value <- toggle_data$new_value
-
-      # Store the change in edited_recommended
-      current_edits <- edited_recommended()
-      current_edits[[concept_unique_id]] <- (new_value == "Yes")
-      edited_recommended(current_edits)
-    }, ignoreInit = TRUE)
-    
     # Handle delete mapping in detail edit mode
     observe_event(input$delete_concept, {
       if (!general_concept_detail_edit_mode()) return()

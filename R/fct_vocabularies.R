@@ -12,36 +12,36 @@
 #'
 #' @description Retrieve all related concepts by combining relationship-based
 #' and hierarchy-based (ancestor/descendant) concepts. Marks concepts as
-#' recommended if they exist in the provided existing mappings.
+#' existing if they are already in the provided existing mappings.
 #'
 #' @param concept_id OMOP concept ID
 #' @param vocabularies List containing vocabulary data (concept, concept_relationship, concept_ancestor tables)
 #' @param existing_mappings Data frame with existing mappings containing omop_concept_id column
 #'
-#' @return Data frame with combined related and descendant concepts, with recommended column
+#' @return Data frame with combined related and descendant concepts, with is_existing column
 #' @noRd
 get_all_related_concepts <- function(concept_id, vocabularies, existing_mappings) {
   # Get related concepts from relationships
   related <- get_related_concepts(concept_id, vocabularies)
-  
+
   # Get descendant concepts
   descendants <- get_descendant_concepts(concept_id, vocabularies)
-  
+
   # Combine and remove duplicates
   all_concepts <- dplyr::bind_rows(related, descendants) %>%
     dplyr::distinct(omop_concept_id, .keep_all = TRUE)
-  
+
   if (nrow(all_concepts) == 0) {
     return(data.frame())
   }
-  
-  # Mark as recommended if in existing mappings
+
+  # Mark as existing if in existing mappings
   all_concepts <- all_concepts %>%
     dplyr::mutate(
-      recommended = omop_concept_id %in% existing_mappings$omop_concept_id
+      is_existing = omop_concept_id %in% existing_mappings$omop_concept_id
     ) %>%
-    dplyr::arrange(dplyr::desc(recommended), concept_name)
-  
+    dplyr::arrange(dplyr::desc(is_existing), concept_name)
+
   return(all_concepts)
 }
 
@@ -646,7 +646,7 @@ get_related_concepts_filtered <- function(concept_id, vocabularies) {
 #' Load OHDSI relationships mappings
 #'
 #' @description Load additional concept mappings from OHDSI vocabulary relationships
-#' for all recommended concepts. This enriches the dictionary with related concepts.
+#' for all manual mappings. This enriches the dictionary with related concepts.
 #'
 #' For general concepts:
 #' - Uses "Maps to", "Mapped from" relationships and concept_ancestor hierarchy
@@ -660,42 +660,34 @@ get_related_concepts_filtered <- function(concept_id, vocabularies) {
 #'
 #' @param vocab_data Vocabularies data (DuckDB connection with concept, concept_relationship, concept_ancestor tables)
 #' @param concept_mappings Current concept_mappings dataframe
-#' @param preserve_recommended Logical. If TRUE, preserve the recommended status of existing ohdsi_relationships mappings
 #'
 #' @return Updated concept_mappings dataframe with source column
 #' @noRd
-load_ohdsi_relationships <- function(vocab_data, concept_mappings, preserve_recommended = FALSE) {
+load_ohdsi_relationships <- function(vocab_data, concept_mappings) {
   if (is.null(vocab_data)) {
     stop("OHDSI vocabularies not loaded. Please configure the ATHENA folder in Settings.")
   }
-  
+
   # Define allowed vocabularies
   ALLOWED_VOCABS <- c("RxNorm", "RxNorm Extension", "LOINC", "SNOMED", "ICD10")
-  
-  # Step 1: If preserve_recommended is TRUE, save the recommended status
-  if (preserve_recommended) {
-    recommended_omop_ids <- concept_mappings %>%
-      dplyr::filter(source == "ohdsi_relationships", recommended == TRUE) %>%
-      dplyr::pull(omop_concept_id)
-  }
-  
-  # Step 2: Remove all existing ohdsi_relationships mappings
+
+  # Step 1: Remove all existing ohdsi_relationships mappings
   concept_mappings <- concept_mappings %>%
     dplyr::filter(source != "ohdsi_relationships")
-  
-  # Step 3: Get all recommended mappings (source = "manual")
-  recommended_mappings <- concept_mappings %>%
-    dplyr::filter(source == "manual", recommended == TRUE)
-  
-  if (nrow(recommended_mappings) == 0) {
+
+  # Step 2: Get all manual mappings as the base for enrichment
+  manual_mappings <- concept_mappings %>%
+    dplyr::filter(source == "manual")
+
+  if (nrow(manual_mappings) == 0) {
     return(concept_mappings)
   }
   
-  # Step 4: For each recommended mapping, enrich with related concepts
+  # Step 3: For each manual mapping, enrich with related concepts
   new_mappings_list <- list()
-  
-  for (i in seq_len(nrow(recommended_mappings))) {
-    mapping <- recommended_mappings[i, ]
+
+  for (i in seq_len(nrow(manual_mappings))) {
+    mapping <- manual_mappings[i, ]
     general_concept_id <- mapping$general_concept_id
     source_concept_id <- mapping$omop_concept_id
     unit_concept_id <- mapping$omop_unit_concept_id
@@ -745,25 +737,17 @@ load_ohdsi_relationships <- function(vocab_data, concept_mappings, preserve_reco
     }
     
     new_concept_ids <- step1_filtered
-    
+
     # Create new mappings
     if (length(new_concept_ids) > 0) {
-      # Check if we should preserve recommended status
-      if (preserve_recommended) {
-        is_recommended <- new_concept_ids %in% recommended_omop_ids
-      } else {
-        is_recommended <- rep(FALSE, length(new_concept_ids))
-      }
-      
       new_rows <- data.frame(
         general_concept_id = general_concept_id,
         omop_concept_id = new_concept_ids,
         omop_unit_concept_id = unit_concept_id,
-        recommended = is_recommended,
         source = "ohdsi_relationships",
         stringsAsFactors = FALSE
       )
-      
+
       new_mappings_list[[length(new_mappings_list) + 1]] <- new_rows
     }
   }
@@ -872,15 +856,11 @@ load_ohdsi_relationships <- function(vocab_data, concept_mappings, preserve_reco
 
       if (nrow(clinical_drugs) == 0) next
 
-      # All Clinical Drugs are always marked as recommended
-      is_recommended <- rep(TRUE, nrow(clinical_drugs))
-
-      # Create new mappings
+      # Create new mappings for Clinical Drugs
       new_drug_rows <- data.frame(
         general_concept_id = general_concept_id,
         omop_concept_id = clinical_drugs$concept_id,
         omop_unit_concept_id = NA_character_,
-        recommended = is_recommended,
         source = "ohdsi_relationships",
         stringsAsFactors = FALSE
       )
@@ -896,14 +876,13 @@ load_ohdsi_relationships <- function(vocab_data, concept_mappings, preserve_reco
       clinical_drug_ids <- drug_mappings$omop_concept_id
 
       # Remove any existing Clinical Drug mappings that we're about to replace
-      # This ensures Clinical Drugs are always recommended = TRUE
       concept_mappings <- concept_mappings %>%
         dplyr::filter(
           !(source == "ohdsi_relationships" &
             omop_concept_id %in% clinical_drug_ids)
         )
 
-      # Add Clinical Drug mappings (all with recommended = TRUE)
+      # Add Clinical Drug mappings
       concept_mappings <- dplyr::bind_rows(concept_mappings, drug_mappings)
     }
   }

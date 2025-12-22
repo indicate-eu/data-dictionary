@@ -33,8 +33,7 @@
 #      ### Status Display - Show database status and controls
 #
 #   ## 4) Server - OHDSI Relationships Mappings
-#      ### Load Mappings - Initial load from vocabulary relationships
-#      ### Reload Mappings - Reload while preserving recommended status
+#      ### Load Mappings - Load from vocabulary relationships
 #      ### Status Display - Show last sync time and controls
 
 # UI SECTION ====
@@ -1165,15 +1164,11 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
         concept_mappings_path <- get_csv_path("general_concepts_details.csv")
         concept_mappings <- readr::read_csv(concept_mappings_path, show_col_types = FALSE)
 
-        # Check if this is a reload (preserve recommended status)
-        is_reload <- !is.null(ohdsi_mappings_last_sync())
-
         # Load OHDSI relationships
         tryCatch({
           concept_mappings <- load_ohdsi_relationships(
             vocab_data,
-            concept_mappings,
-            preserve_recommended = is_reload
+            concept_mappings
           )
 
           # Save to CSV

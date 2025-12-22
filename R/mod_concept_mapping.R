@@ -2878,7 +2878,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           vocabs$concept %>% dplyr::select(concept_id, concept_name, concept_code, vocabulary_id, standard_concept) %>% dplyr::collect(),
           by = c("omop_concept_id" = "concept_id")
         ) %>%
-        dplyr::select(omop_concept_id, concept_name, concept_code, vocabulary_id, standard_concept, recommended)
+        dplyr::select(omop_concept_id, concept_name, concept_code, vocabulary_id, standard_concept)
 
       # Render table with prepared data only
       output$mapped_concepts_table <- DT::renderDT({
@@ -2891,7 +2891,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           ),
           rownames = FALSE,
           selection = 'single',
-          colnames = c("OMOP Concept ID", "Concept Name", "Concept Code", "Vocabulary", "Standard", "Recommended")
+          colnames = c("OMOP Concept ID", "Concept Name", "Concept Code", "Vocabulary", "Standard")
         )
       }, server = TRUE)
     })
@@ -3375,11 +3375,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           vocabulary_id = character(),
           concept_code = character(),
           omop_concept_id = integer(),
-          recommended = logical(),
           is_custom = logical()
         )
       }
-      
+
       custom_concepts_path <- get_csv_path("custom_concepts.csv")
       if (file.exists(custom_concepts_path)) {
         custom_concepts <- readr::read_csv(custom_concepts_path, show_col_types = FALSE) %>%
@@ -3388,8 +3387,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             custom_concept_id,
             concept_name,
             vocabulary_id,
-            concept_code,
-            recommended
+            concept_code
           ) %>%
           dplyr::mutate(
             omop_concept_id = NA_integer_,
@@ -3401,43 +3399,40 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           concept_name = character(),
           vocabulary_id = character(),
           concept_code = character(),
-          recommended = logical(),
           omop_concept_id = integer(),
           is_custom = logical()
         )
       }
-      
+
       if (nrow(concept_mappings) > 0) {
         omop_for_bind <- concept_mappings %>%
-          dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, recommended, is_custom)
+          dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, is_custom)
       } else {
         omop_for_bind <- concept_mappings
       }
-      
+
       all_concepts <- dplyr::bind_rows(omop_for_bind, custom_concepts)
-      
+
       if (nrow(all_concepts) == 0) {
         output$concept_mappings_table <- DT::renderDT({
           create_empty_datatable("No mapped concepts found for this general concept.")
         }, server = TRUE)
         return()
       }
-      
+
       mappings <- all_concepts %>%
         dplyr::select(
           concept_name,
           vocabulary_id,
           concept_code,
           omop_concept_id,
-          recommended,
           is_custom
         ) %>%
-        dplyr::arrange(dplyr::desc(recommended), concept_name) %>%
+        dplyr::arrange(concept_name) %>%
         dplyr::mutate(
-          omop_concept_id = as.character(omop_concept_id),
-          recommended = ifelse(recommended, "Yes", "No")
+          omop_concept_id = as.character(omop_concept_id)
         )
-      
+
       # Render table with prepared data
       output$concept_mappings_table <- DT::renderDT({
         dt <- datatable(
@@ -3447,17 +3442,13 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             lengthMenu = list(c(5, 10, 15, 20, 50, 100), c("5", "10", "15", "20", "50", "100")),
             dom = "ltp",
             columnDefs = list(
-              list(targets = 4, width = "100px", className = "dt-center"),
-              list(targets = 5, visible = FALSE)
+              list(targets = 4, visible = FALSE)
             )
           ),
           rownames = FALSE,
           selection = "single",
-          colnames = c("Concept Name", "Vocabulary", "Code", "OMOP ID", "Recommended", "Custom")
+          colnames = c("Concept Name", "Vocabulary", "Code", "OMOP ID", "Custom")
         )
-        
-        dt <- dt %>%
-          style_yes_no_column("recommended")
 
         dt
       }, server = TRUE)
@@ -4534,7 +4525,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         if (is.na(target_general_concept_id)) return()
         
         concept_mappings_dict <- data()$concept_mappings %>%
-          dplyr::filter(general_concept_id == target_general_concept_id, recommended == TRUE)
+          dplyr::filter(general_concept_id == target_general_concept_id)
         
         target_omop_concept_id <- NA_integer_
         target_custom_concept_id <- NA_integer_

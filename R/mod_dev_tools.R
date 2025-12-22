@@ -189,7 +189,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
                              general_concepts$comments == "")
       pct_missing_comments <- round(missing_comments / total_concepts * 100, 1)
 
-      # Count recommended concepts that are not standard
+      # Count concepts that are not standard
       vocab_data <- vocabularies()
       concept_mappings <- data()$concept_mappings
 
@@ -200,11 +200,11 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
           dplyr::select(concept_id, standard_concept) %>%
           dplyr::collect()
 
-        # Get recommended concepts from mappings
-        recommended_mappings <- concept_mappings %>%
-          dplyr::filter(recommended == TRUE, !is.na(omop_concept_id))
+        # Get all mappings with OMOP concept IDs
+        all_mappings <- concept_mappings %>%
+          dplyr::filter(!is.na(omop_concept_id))
 
-        recommended_non_standard <- recommended_mappings %>%
+        non_standard_count <- all_mappings %>%
           dplyr::left_join(
             concept_standard,
             by = c("omop_concept_id" = "concept_id")
@@ -213,17 +213,16 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
                        standard_concept != "S") %>%
           nrow()
 
-        total_recommended <- sum(concept_mappings$recommended == TRUE,
-                                na.rm = TRUE)
-        pct_recommended_non_standard <- if (total_recommended > 0) {
-          round(recommended_non_standard / total_recommended * 100, 1)
+        total_mappings <- nrow(all_mappings)
+        pct_non_standard <- if (total_mappings > 0) {
+          round(non_standard_count / total_mappings * 100, 1)
         } else {
           0
         }
       } else {
-        recommended_non_standard <- NA
-        total_recommended <- NA
-        pct_recommended_non_standard <- NA
+        non_standard_count <- NA
+        total_mappings <- NA
+        pct_non_standard <- NA
       }
 
       output$data_quality_output <- renderUI({
@@ -262,7 +261,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
             )
           ),
 
-          # Card 3: Recommended Non-Standard
+          # Card 3: Non-Standard Concepts
           tags$div(
             style = paste0(
               "flex: 0 0 calc(50% - 10px); background: white; ",
@@ -272,20 +271,20 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
             ),
             tags$div(
               style = "font-size: 14px; color: #666; margin-bottom: 8px;",
-              "Recommended Non-Standard"
+              "Non-Standard Concepts"
             ),
-            if (!is.na(recommended_non_standard)) {
+            if (!is.na(non_standard_count)) {
               tagList(
                 tags$div(
                   style = paste0(
                     "font-size: 32px; font-weight: 700; color: #17a2b8; ",
                     "margin-bottom: 5px;"
                   ),
-                  paste0(recommended_non_standard, " / ", total_recommended)
+                  paste0(non_standard_count, " / ", total_mappings)
                 ),
                 tags$div(
                   style = "font-size: 18px; color: #999;",
-                  paste0(pct_recommended_non_standard, "%")
+                  paste0(pct_non_standard, "%")
                 )
               )
             } else {
@@ -319,12 +318,12 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
               ),
               tags$button(
                 class = "tab-btn",
-                id = ns("tab_recommended_non_standard"),
+                id = ns("tab_non_standard"),
                 onclick = sprintf(
-                  "Shiny.setInputValue('%s', 'recommended_non_standard', {priority: 'event'})",
+                  "Shiny.setInputValue('%s', 'non_standard', {priority: 'event'})",
                   ns("switch_data_quality_tab")
                 ),
-                "Recommended Non-Standard"
+                "Non-Standard"
               )
             )
           ),
@@ -341,12 +340,12 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
               style = "width: 100%; height: 100%;",
               DT::DTOutput(ns("missing_comments_table"))
             ),
-            # Recommended Non-Standard Table
+            # Non-Standard Table
             shinyjs::hidden(
               tags$div(
-                id = ns("recommended_non_standard_container"),
+                id = ns("non_standard_container"),
                 style = "width: 100%; height: 100%;",
-                DT::DTOutput(ns("recommended_non_standard_table"))
+                DT::DTOutput(ns("non_standard_table"))
               )
             )
           )
@@ -368,14 +367,14 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
       # Update visual tab states
       if (active_tab == "missing_comments") {
         shinyjs::addClass("tab_missing_comments", "tab-btn-active")
-        shinyjs::removeClass("tab_recommended_non_standard", "tab-btn-active")
+        shinyjs::removeClass("tab_non_standard", "tab-btn-active")
         shinyjs::show("missing_comments_container")
-        shinyjs::hide("recommended_non_standard_container")
-      } else if (active_tab == "recommended_non_standard") {
+        shinyjs::hide("non_standard_container")
+      } else if (active_tab == "non_standard") {
         shinyjs::removeClass("tab_missing_comments", "tab-btn-active")
-        shinyjs::addClass("tab_recommended_non_standard", "tab-btn-active")
+        shinyjs::addClass("tab_non_standard", "tab-btn-active")
         shinyjs::hide("missing_comments_container")
-        shinyjs::show("recommended_non_standard_container")
+        shinyjs::show("non_standard_container")
       }
     })
 
@@ -414,7 +413,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
       }, server = FALSE)
     }, once = TRUE)
 
-    # Load recommended non-standard table once
+    # Load non-standard table once
     observe_event(list(data(), vocabularies()), {
       if (is.null(data())) return()
       vocab_data <- vocabularies()
@@ -426,14 +425,14 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
         dplyr::select(concept_id, concept_name, standard_concept) %>%
         dplyr::collect()
 
-      # Get recommended mappings
+      # Get all concept mappings
       concept_mappings <- data()$concept_mappings
-      recommended_mappings <- concept_mappings %>%
-        dplyr::filter(recommended == TRUE, !is.na(omop_concept_id)) %>%
+      all_mappings <- concept_mappings %>%
+        dplyr::filter(!is.na(omop_concept_id)) %>%
         dplyr::select(general_concept_id, omop_concept_id)
 
       # Join with concept data to get concept_name and check standard status
-      recommended_with_standard <- recommended_mappings %>%
+      mappings_with_standard <- all_mappings %>%
         dplyr::left_join(
           concept_data,
           by = c("omop_concept_id" = "concept_id")
@@ -441,7 +440,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
         dplyr::filter(is.na(standard_concept) | standard_concept != "S")
 
       # Join with general_concepts to get category/subcategory info
-      non_standard_data <- recommended_with_standard %>%
+      non_standard_data <- mappings_with_standard %>%
         dplyr::left_join(
           data()$general_concepts %>%
             dplyr::select(
@@ -466,7 +465,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
           omop_concept_id = as.character(omop_concept_id)
         )
 
-      output$recommended_non_standard_table <- DT::renderDT({
+      output$non_standard_table <- DT::renderDT({
         DT::datatable(
           non_standard_data,
           rownames = FALSE,
