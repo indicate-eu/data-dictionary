@@ -1,0 +1,8 @@
+source_code,source_concept_id,source_code_description,source_vocabulary_id,target_concept_id,target_vocabulary_id,valid_start_date,valid_end_date,invalid_reason
+HR_001,0,Heart rate,ICU_SOFTWARE,3027018,SNOMED,2024-01-01,2099-12-31,
+TEMP_001,0,Body temperature,ICU_SOFTWARE,3020891,SNOMED,2024-01-01,2099-12-31,
+GCS_001,0,Glasgow coma scale,ICU_SOFTWARE,40493498,SNOMED,2024-01-01,2099-12-31,
+GENDER_001,0,Gender,EHR_ADMIN,4135376,SNOMED,2024-01-01,2099-12-31,
+LACTATE_001,0,Plasma lactate,LABS_SOFT,3047181,LOINC,2024-01-01,2099-12-31,
+NOREPI_001,0,Norepinephrine,PHARMACY,1321341,RxNorm,2024-01-01,2099-12-31,
+CREAT_001,0,Plasma creatinine,LABS_SOFT,3016723,LOINC,2024-01-01,2099-12-31,

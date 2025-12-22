@@ -282,6 +282,14 @@ a:hover {
   gap: 10px;
   flex: 1;
   justify-content: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.header-nav::-webkit-scrollbar {
+  display: none;
 }
 
 .header-right {
@@ -910,19 +918,34 @@ table.dataTable thead tr td .selectize-dropdown .option {
   .main-panel {
     padding: 10px 15px;
   }
-  
+
   .summary-container {
     max-height: 40vh;
     min-height: 150px;
   }
-  
+
   .lower-section {
     max-height: none;
     height: 100%;
   }
-  
+
   hr {
     margin: 10px 0;
+  }
+}
+
+/* Hide nav tab text on narrow screens, show only icons */
+@media (max-width: 1200px) {
+  .nav-tab .nav-tab-text {
+    display: none;
+  }
+
+  .nav-tab {
+    padding: 8px 12px;
+  }
+
+  .header-nav {
+    gap: 5px;
   }
 }
 

@@ -115,6 +115,24 @@ init_database <- function(con) {
     )
   }
 
+  # Create imported_mappings table for tracking CSV imports
+  if (!DBI::dbExistsTable(con, "imported_mappings")) {
+    DBI::dbExecute(
+      con,
+      "CREATE TABLE imported_mappings (
+        import_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        alignment_id INTEGER NOT NULL,
+        original_filename TEXT NOT NULL,
+        import_mode TEXT NOT NULL,
+        concepts_count INTEGER NOT NULL,
+        imported_by_user_id INTEGER,
+        imported_at TEXT NOT NULL,
+        FOREIGN KEY (alignment_id) REFERENCES concept_alignments(alignment_id),
+        FOREIGN KEY (imported_by_user_id) REFERENCES users(user_id)
+      )"
+    )
+  }
+
   # Create concept_mappings table
   if (!DBI::dbExistsTable(con, "concept_mappings")) {
     DBI::dbExecute(
@@ -130,8 +148,10 @@ init_database <- function(con) {
         target_custom_concept_id INTEGER,
         mapped_by_user_id INTEGER,
         mapping_datetime TEXT,
+        imported_mapping_id INTEGER,
         FOREIGN KEY (alignment_id) REFERENCES concept_alignments(alignment_id),
         FOREIGN KEY (mapped_by_user_id) REFERENCES users(user_id),
+        FOREIGN KEY (imported_mapping_id) REFERENCES imported_mappings(import_id),
         UNIQUE(csv_file_path, csv_mapping_id)
       )"
     )

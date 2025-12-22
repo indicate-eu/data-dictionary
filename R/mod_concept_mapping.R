@@ -59,7 +59,24 @@
 #          #### Mapped View Tables - Source concepts and mapped concepts views
 #          #### Delete Mapping Actions - Remove mappings
 #
-#      ### c) Evaluate Mappings Tab
+#      ### c) Import Mappings Tab
+#          #### File Browser Modal Function - Show modal for file selection
+#          #### File Path Display - Show selected file path
+#          #### Browse Button Handler - Open file browser modal
+#          #### Toggle Sort - Switch sort order
+#          #### Filter Input - Filter files and folders
+#          #### Current Path Display - Show current path in modal
+#          #### Sort Icon Display - Show sort direction icon
+#          #### Go Home Button - Navigate to home directory
+#          #### File Browser Rendering - Display files and folders
+#          #### Navigation Handler - Handle folder navigation
+#          #### Select File Handler - Handle file selection
+#          #### Cancel Browse - Close modal without selection
+#          #### Import History Table - Display import history
+#          #### Import CSV Handler - Process selected CSV file
+#          #### Delete Import - Remove imported mappings
+#
+#      ### d) Evaluate Mappings Tab
 #          #### Evaluate Mappings State - Track evaluation state
 #          #### Evaluate Mappings Table - Initial Render - Display evaluation table (responds to alignment changes)
 #          #### Evaluate Mappings Table - Update Data Using Proxy - Preserve state during updates
@@ -429,6 +446,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     source_concepts_table_mapped_trigger <- reactiveVal(0)  # Trigger for Mapped view table
     source_concepts_table_general_trigger <- reactiveVal(0)  # Trigger for General view Edit Mappings table (alignment changes only)
     evaluate_mappings_table_trigger <- reactiveVal(0)  # Trigger for Evaluate Mappings tab table
+    import_history_trigger <- reactiveVal(0)  # Trigger for Import Mappings history table
+
+    # Import file browser state
+    import_current_path <- reactiveVal(path.expand("~"))
+    import_selected_file <- reactiveVal(NULL)
+    import_sort_order <- reactiveVal("asc")
+    import_filter_text <- reactiveVal("")
+    import_message <- reactiveVal(NULL)
 
     # Separate trigger for source concepts table updates (used by mapping operations)
     source_concepts_table_trigger <- reactiveVal(0)  # Trigger for Edit Mappings table (mapping changes)
@@ -552,6 +577,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               "Edit Mappings"
             ),
             tags$button(
+              class = paste("tab-btn", if (current_tab == "import_mappings") "tab-btn-active" else ""),
+              onclick = sprintf("Shiny.setInputValue('%s', 'import_mappings', {priority: 'event'})", ns("mapping_tab_click")),
+              "Import Mappings"
+            ),
+            tags$button(
               class = paste("tab-btn", if (current_tab == "evaluate_mappings") "tab-btn-active" else ""),
               onclick = sprintf("Shiny.setInputValue('%s', 'evaluate_mappings', {priority: 'event'})", ns("mapping_tab_click")),
               "Evaluate Mappings"
@@ -588,6 +618,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       shinyjs::hide("panel_summary")
       shinyjs::hide("panel_all_mappings")
       shinyjs::hide("panel_edit_mappings")
+      shinyjs::hide("panel_import_mappings")
       shinyjs::hide("panel_evaluate_mappings")
 
       # Show the selected panel
@@ -600,6 +631,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         # Trigger table rendering for Edit Mappings tab
         source_concepts_table_general_trigger(source_concepts_table_general_trigger() + 1)
         general_concepts_table_trigger(general_concepts_table_trigger() + 1)
+      } else if (tab == "import_mappings") {
+        shinyjs::show("panel_import_mappings")
+        # Trigger import history table rendering
+        import_history_trigger(import_history_trigger() + 1)
       } else if (tab == "evaluate_mappings") {
         shinyjs::show("panel_evaluate_mappings")
       }
@@ -1530,7 +1565,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         # Summary panel
         tags$div(
           id = ns("panel_summary"),
-          style = "margin-top: 10px;",
           uiOutput(ns("summary_content"))
         ),
 
@@ -1538,14 +1572,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         tags$div(
           id = ns("panel_all_mappings"),
           class = "card-container",
-          style = "margin: 10px; height: calc(100vh - 180px); overflow: auto; display: none;",
+          style = "margin: 0 10px 10px 10px; height: calc(100vh - 180px); overflow: auto; display: none;",
           DT::DTOutput(ns("all_mappings_table_main"))
         ),
 
         # Edit Mappings panel
         tags$div(
           id = ns("panel_edit_mappings"),
-          style = "display: none; height: calc(100vh - 180px);",
+          style = "display: none; height: calc(100vh - 180px); margin: 0 10px 10px 10px;",
           tags$div(
             style = "height: 100%; display: flex; gap: 15px; min-height: 0;",
             # Left column: Source Concepts (top) + Concept Details (bottom)
@@ -1720,11 +1754,88 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           )
         ),
 
+        # Import Mappings panel
+        tags$div(
+          id = ns("panel_import_mappings"),
+          style = "margin: 0 10px 10px 10px; display: none;",
+
+          # Import from CSV widget
+          tags$div(
+            class = "card-container",
+            style = "margin-bottom: 15px; padding: 20px;",
+            tags$h4(style = "margin-bottom: 15px; color: #0f60af;", "Import Mappings from CSV"),
+            tags$p(
+              style = "margin-bottom: 10px; color: #666;",
+              "Import mappings from a source_to_concept_map CSV file. The file should contain the following columns:"
+            ),
+            tags$ul(
+              style = "margin-bottom: 20px; color: #666; padding-left: 20px;",
+              tags$li(tags$code("source_code"), " - Source concept code"),
+              tags$li(tags$code("source_vocabulary_id"), " - Source vocabulary identifier"),
+              tags$li(tags$code("target_concept_id"), " - Target OMOP concept ID")
+            ),
+
+            # Browse button and file path display
+            tags$div(
+              style = "margin-bottom: 15px;",
+              tags$label(style = "display: block; margin-bottom: 5px; font-weight: 500;", "Select CSV file:"),
+              tags$div(
+                style = "display: flex; align-items: center; gap: 15px;",
+                actionButton(
+                  ns("browse_import_file"),
+                  label = tagList(
+                    tags$i(class = "fas fa-folder-open", style = "margin-right: 6px;"),
+                    "Browse..."
+                  ),
+                  style = "background: #0f60af; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer;"
+                ),
+                tags$div(
+                  style = "flex: 1;",
+                  uiOutput(ns("import_file_path_display"))
+                )
+              )
+            ),
+
+            # Import mode (on separate line below)
+            tags$div(
+              style = "margin-bottom: 15px;",
+              radioButtons(
+                ns("import_mode"),
+                "Import mode:",
+                choices = c(
+                  "Merge (import only new mappings)" = "merge",
+                  "Overwrite (replace existing mappings)" = "overwrite"
+                ),
+                selected = "merge"
+              )
+            ),
+
+            # Import button
+            tags$div(
+              actionButton(
+                ns("do_import_mappings"),
+                "Import Mappings",
+                class = "btn-primary-custom",
+                icon = icon("file-import")
+              ),
+              uiOutput(ns("import_status_message"), inline = TRUE)
+            )
+          ),
+
+          # Import History widget
+          tags$div(
+            class = "card-container",
+            style = "padding: 20px; height: calc(100vh - 590px); overflow: auto;",
+            tags$h4(style = "margin-bottom: 15px; color: #0f60af;", "Import History"),
+            DT::DTOutput(ns("import_history_table"))
+          )
+        ),
+
         # Evaluate Mappings panel
         tags$div(
           id = ns("panel_evaluate_mappings"),
           class = "card-container",
-          style = "margin: 10px; height: calc(100vh - 180px); overflow: auto; display: none;",
+          style = "margin: 0 10px 10px 10px; height: calc(100vh - 180px); overflow: auto; display: none;",
           DT::DTOutput(ns("evaluate_mappings_table")),
           shinyjs::hidden(
             tags$div(
@@ -1937,40 +2048,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       # Get app folder and construct path
       mapping_dir <- get_app_dir("concept_mapping")
-
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
-
-      # Check if file exists
-      if (!file.exists(csv_path)) {
-        output$summary_content <- renderUI({
-          tags$div("CSV file not found")
-        })
-        return()
-      }
-
-      # Read CSV
-      df <- read.csv(csv_path, stringsAsFactors = FALSE)
-
-      # Calculate statistics
-      total_source_concepts <- nrow(df)
-      mapped_source_concepts <- sum(!is.na(df$target_general_concept_id))
-      pct_mapped_source <- if (total_source_concepts > 0) {
-        round((mapped_source_concepts / total_source_concepts) * 100, 1)
-      } else {
-        0
-      }
-
-      # Get all general concepts mapped
-      mapped_general_concept_ids <- unique(df$target_general_concept_id[!is.na(df$target_general_concept_id)])
-      total_general_concepts <- length(mapped_general_concept_ids)
-
-      # Calculate percentage of dictionary coverage
-      total_dictionary_concepts <- nrow(data()$general_concepts)
-      pct_general_concepts <- if (total_dictionary_concepts > 0) {
-        round((total_general_concepts / total_dictionary_concepts) * 100, 1)
-      } else {
-        0
-      }
 
       # Get database path
       db_dir <- get_app_dir()
@@ -1985,6 +2063,55 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
       on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+      # Get total source concepts from CSV (if exists)
+      total_source_concepts <- 0
+      if (file.exists(csv_path)) {
+        df <- read.csv(csv_path, stringsAsFactors = FALSE)
+        total_source_concepts <- nrow(df)
+      }
+
+      # Count unique source concepts that have mappings (includes both manual and imported)
+      mappings_query <- "
+        SELECT COUNT(DISTINCT csv_mapping_id) as unique_source_concepts
+        FROM concept_mappings
+        WHERE alignment_id = ?
+      "
+      mappings_result <- DBI::dbGetQuery(con, mappings_query, params = list(selected_alignment_id()))
+      mapped_source_concepts <- mappings_result$unique_source_concepts[1]
+
+      pct_mapped_source <- if (total_source_concepts > 0) {
+        round((mapped_source_concepts / total_source_concepts) * 100, 1)
+      } else {
+        0
+      }
+
+      # Get all general concepts mapped from database
+      # For imported mappings without target_general_concept_id, find the first general concept
+      # that has a mapping to the target_omop_concept_id
+      general_concepts_query <- "
+        SELECT DISTINCT
+          COALESCE(cm.target_general_concept_id,
+            (SELECT gc_map.target_general_concept_id
+             FROM concept_mappings gc_map
+             WHERE gc_map.target_omop_concept_id = cm.target_omop_concept_id
+               AND gc_map.target_general_concept_id IS NOT NULL
+             LIMIT 1)
+          ) as general_concept_id
+        FROM concept_mappings cm
+        WHERE cm.alignment_id = ?
+      "
+      general_concepts_result <- DBI::dbGetQuery(con, general_concepts_query, params = list(selected_alignment_id()))
+      mapped_general_concept_ids <- unique(general_concepts_result$general_concept_id[!is.na(general_concepts_result$general_concept_id)])
+      total_general_concepts <- length(mapped_general_concept_ids)
+
+      # Calculate percentage of dictionary coverage
+      total_dictionary_concepts <- nrow(data()$general_concepts)
+      pct_general_concepts <- if (total_dictionary_concepts > 0) {
+        round((total_general_concepts / total_dictionary_concepts) * 100, 1)
+      } else {
+        0
+      }
 
       # Count evaluated concepts (concepts with at least one evaluation)
       evaluated_query <- "
@@ -2095,7 +2222,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           tags$div(
             tags$div(
               class = "card-container",
-              style = "margin: 20px 10px 10px 10px; height: calc(100vh - 400px); overflow: auto;",
+              style = "margin: 0 10px 10px 10px; height: calc(100vh - 350px); overflow: auto;",
               tags$div(
                 class = "section-header",
                 style = "background: none; border-bottom: none; padding: 0 0 0 5px;",
@@ -2210,58 +2337,78 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (is.null(selected_alignment_id())) return()
       if (is.null(data())) return()
 
-      # Prepare all data outside renderDT
-      alignments <- alignments_data()
-      alignment <- alignments %>%
-        dplyr::filter(alignment_id == selected_alignment_id())
+      # Get mappings from database
+      db_dir <- get_app_dir()
+      db_path <- file.path(db_dir, "indicate.db")
 
-      if (nrow(alignment) != 1) {
+      if (!file.exists(db_path)) {
         output$all_mappings_table_main <- DT::renderDT({
-          create_empty_datatable("No alignment selected")
+          create_empty_datatable("Database not found")
         }, server = TRUE)
         return()
       }
 
-      file_id <- alignment$file_id[1]
+      con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
 
-      # Get CSV path
-      mapping_dir <- get_app_dir("concept_mapping")
-      csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
+      # Get all mappings for this alignment from database
+      mappings_db <- DBI::dbGetQuery(
+        con,
+        "SELECT
+          cm.mapping_id,
+          cm.csv_file_path,
+          cm.csv_mapping_id,
+          cm.source_concept_index,
+          cm.target_general_concept_id,
+          cm.target_omop_concept_id,
+          cm.target_custom_concept_id,
+          cm.imported_mapping_id
+        FROM concept_mappings cm
+        WHERE cm.alignment_id = ?",
+        params = list(selected_alignment_id())
+      )
 
-      # Check if file exists
-      if (!file.exists(csv_path)) {
-        output$all_mappings_table_main <- DT::renderDT({
-          create_empty_datatable("CSV file not found")
-        }, server = TRUE)
-        return()
-      }
-
-      # Read CSV
-      df <- read.csv(csv_path, stringsAsFactors = FALSE)
-
-      # Filter only rows with mappings
-      if (!"target_general_concept_id" %in% colnames(df)) {
+      if (nrow(mappings_db) == 0) {
         output$all_mappings_table_main <- DT::renderDT({
           create_empty_datatable("No mappings created yet.")
         }, server = TRUE)
         return()
       }
 
-      # Rename source columns to avoid conflicts with joined data
-      df <- df %>%
-        dplyr::rename(
-          concept_name_source = concept_name,
-          vocabulary_id_source = vocabulary_id,
-          concept_code_source = concept_code
-        )
-
-      # Rename mapping_id to csv_mapping_id to avoid conflict with db mapping_id
-      if ("mapping_id" %in% colnames(df)) {
-        df <- df %>% dplyr::rename(csv_mapping_id = mapping_id)
+      # Try to read source CSV for concept names (optional)
+      csv_path <- mappings_db$csv_file_path[1]
+      source_df <- NULL
+      if (file.exists(csv_path)) {
+        source_df <- read.csv(csv_path, stringsAsFactors = FALSE)
       }
 
-      mapped_rows <- df %>%
-        dplyr::filter(!is.na(target_general_concept_id))
+      # Enrich with source concept information from CSV or use placeholders
+      mapped_rows <- mappings_db %>%
+        dplyr::rowwise() %>%
+        dplyr::mutate(
+          concept_name_source = {
+            if (!is.null(source_df) && csv_mapping_id <= nrow(source_df) && "concept_name" %in% colnames(source_df)) {
+              source_df$concept_name[csv_mapping_id]
+            } else {
+              paste0("Source concept #", source_concept_index)
+            }
+          },
+          concept_code_source = {
+            if (!is.null(source_df) && csv_mapping_id <= nrow(source_df) && "concept_code" %in% colnames(source_df)) {
+              source_df$concept_code[csv_mapping_id]
+            } else {
+              NA_character_
+            }
+          },
+          vocabulary_id_source = {
+            if (!is.null(source_df) && csv_mapping_id <= nrow(source_df) && "vocabulary_id" %in% colnames(source_df)) {
+              source_df$vocabulary_id[csv_mapping_id]
+            } else {
+              NA_character_
+            }
+          }
+        ) %>%
+        dplyr::ungroup()
 
       if (nrow(mapped_rows) == 0) {
         output$all_mappings_table_main <- DT::renderDT({
@@ -2314,6 +2461,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         }
       }
 
+      # We already have mapping_id from the initial database query, rename it to db_mapping_id
+      enriched_rows <- enriched_rows %>%
+        dplyr::rename(db_mapping_id = mapping_id)
+
       # Get vote statistics from database
       db_dir <- get_app_dir()
       db_path <- file.path(db_dir, "indicate.db")
@@ -2321,20 +2472,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (file.exists(db_path)) {
         con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
         on.exit(DBI::dbDisconnect(con), add = TRUE)
-
-        # First get mapping_id from database by matching csv_file_path and csv_mapping_id
-        mapping_ids_query <- "
-          SELECT
-            cm.mapping_id as db_mapping_id,
-            cm.csv_mapping_id
-          FROM concept_mappings cm
-          WHERE cm.alignment_id = ? AND cm.csv_file_path = ?
-        "
-        db_mappings <- DBI::dbGetQuery(con, mapping_ids_query, params = list(selected_alignment_id(), csv_path))
-
-        # Join to get the database mapping_id using the csv_mapping_id column from CSV
-        enriched_rows <- enriched_rows %>%
-          dplyr::left_join(db_mappings, by = "csv_mapping_id")
 
         # Get vote counts for each mapping
         vote_query <- "
@@ -2367,9 +2504,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       display_df <- enriched_rows %>%
         dplyr::mutate(
           Source = paste0(concept_name_source, " (", vocabulary_id_source, ": ", concept_code_source, ")"),
-          Target = paste0(
-            general_concept_name, " > ",
-            concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"
+          Target = paste0(concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"),
+          Origin = dplyr::if_else(
+            is.na(imported_mapping_id),
+            '<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">Manual</span>',
+            '<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">Imported</span>'
           ),
           Upvotes = ifelse(is.na(upvotes), 0L, as.integer(upvotes)),
           Downvotes = ifelse(is.na(downvotes), 0L, as.integer(downvotes)),
@@ -2379,7 +2518,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             db_mapping_id
           )
         ) %>%
-        dplyr::select(Source, Target, Upvotes, Downvotes, Uncertain, Actions)
+        dplyr::select(Source, Target, Origin, Upvotes, Downvotes, Uncertain, Actions)
 
       # Render table with prepared data
       output$all_mappings_table_main <- DT::renderDT({
@@ -2392,15 +2531,16 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             lengthMenu = c(10, 15, 20, 50, 100, 200),
             dom = 'ltp',
             columnDefs = list(
-              list(targets = 2, width = "60px", className = "dt-center"),
+              list(targets = 2, width = "80px", className = "dt-center"),
               list(targets = 3, width = "60px", className = "dt-center"),
               list(targets = 4, width = "60px", className = "dt-center"),
-              list(targets = 5, searchable = FALSE, orderable = FALSE, className = "dt-center")
+              list(targets = 5, width = "60px", className = "dt-center"),
+              list(targets = 6, searchable = FALSE, orderable = FALSE, className = "dt-center")
             )
           ),
           rownames = FALSE,
           selection = 'none',
-          colnames = c("Source Concept", "Target Concept", "Upvotes", "Downvotes", "Uncertain", "Actions")
+          colnames = c("Source Concept", "Target Concept", "Origin", "Upvotes", "Downvotes", "Uncertain", "Actions")
         )
 
         # Add button handlers
@@ -2422,48 +2562,72 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (is.null(selected_alignment_id())) return()
       if (is.null(data())) return()
 
-      # Prepare updated data (same logic as initial render)
-      alignments <- alignments_data()
-      alignment <- alignments %>%
-        dplyr::filter(alignment_id == selected_alignment_id())
+      # Get mappings from database (same logic as initial render)
+      db_dir <- get_app_dir()
+      db_path <- file.path(db_dir, "indicate.db")
 
-      if (nrow(alignment) != 1) return()
+      if (!file.exists(db_path)) return()
 
-      file_id <- alignment$file_id[1]
+      con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
 
-      # Get app folder and construct path
-      mapping_dir <- get_app_dir("concept_mapping")
+      # Get all mappings for this alignment from database
+      mappings_db <- DBI::dbGetQuery(
+        con,
+        "SELECT
+          cm.mapping_id,
+          cm.csv_file_path,
+          cm.csv_mapping_id,
+          cm.source_concept_index,
+          cm.target_general_concept_id,
+          cm.target_omop_concept_id,
+          cm.target_custom_concept_id,
+          cm.imported_mapping_id
+        FROM concept_mappings cm
+        WHERE cm.alignment_id = ?",
+        params = list(selected_alignment_id())
+      )
 
-      csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
-
-      if (!file.exists(csv_path)) return()
-
-      # Read CSV
-      df <- read.csv(csv_path, stringsAsFactors = FALSE)
-
-      if (!"target_general_concept_id" %in% colnames(df)) return()
-
-      # Rename source columns to avoid conflicts with joined data
-      df <- df %>%
-        dplyr::rename(
-          concept_name_source = concept_name,
-          vocabulary_id_source = vocabulary_id,
-          concept_code_source = concept_code
-        )
-
-      # Rename mapping_id to csv_mapping_id to avoid conflict with db mapping_id
-      if ("mapping_id" %in% colnames(df)) {
-        df <- df %>% dplyr::rename(csv_mapping_id = mapping_id)
-      }
-
-      mapped_rows <- df %>%
-        dplyr::filter(!is.na(target_general_concept_id))
-
-      if (nrow(mapped_rows) == 0) {
+      if (nrow(mappings_db) == 0) {
         # Force full re-render when table becomes empty
         all_mappings_table_trigger(all_mappings_table_trigger() + 1)
         return()
       }
+
+      # Try to read source CSV for concept names (optional)
+      csv_path <- mappings_db$csv_file_path[1]
+      source_df <- NULL
+      if (file.exists(csv_path)) {
+        source_df <- read.csv(csv_path, stringsAsFactors = FALSE)
+      }
+
+      # Enrich with source concept information from CSV or use placeholders
+      mapped_rows <- mappings_db %>%
+        dplyr::rowwise() %>%
+        dplyr::mutate(
+          concept_name_source = {
+            if (!is.null(source_df) && csv_mapping_id <= nrow(source_df) && "concept_name" %in% colnames(source_df)) {
+              source_df$concept_name[csv_mapping_id]
+            } else {
+              paste0("Source concept #", source_concept_index)
+            }
+          },
+          concept_code_source = {
+            if (!is.null(source_df) && csv_mapping_id <= nrow(source_df) && "concept_code" %in% colnames(source_df)) {
+              source_df$concept_code[csv_mapping_id]
+            } else {
+              NA_character_
+            }
+          },
+          vocabulary_id_source = {
+            if (!is.null(source_df) && csv_mapping_id <= nrow(source_df) && "vocabulary_id" %in% colnames(source_df)) {
+              source_df$vocabulary_id[csv_mapping_id]
+            } else {
+              NA_character_
+            }
+          }
+        ) %>%
+        dplyr::ungroup()
 
       # Enrich with general concept information
       general_concepts <- data()$general_concepts
@@ -2509,62 +2673,37 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         }
       }
 
-      # Get vote statistics from database
-      db_dir <- get_app_dir()
-      db_path <- file.path(db_dir, "indicate.db")
+      # Rename mapping_id to db_mapping_id
+      enriched_rows <- enriched_rows %>%
+        dplyr::rename(db_mapping_id = mapping_id)
 
-      if (file.exists(db_path)) {
-        con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
-        on.exit(DBI::dbDisconnect(con), add = TRUE)
+      # Get vote counts for each mapping
+      vote_query <- "
+        SELECT
+          cm.mapping_id,
+          COUNT(CASE WHEN me.is_approved = 1 THEN 1 END) as upvotes,
+          COUNT(CASE WHEN me.is_approved = 0 THEN 1 END) as downvotes,
+          COUNT(CASE WHEN me.is_approved = -1 THEN 1 END) as uncertain_votes
+        FROM concept_mappings cm
+        LEFT JOIN mapping_evaluations me ON cm.mapping_id = me.mapping_id
+        WHERE cm.alignment_id = ?
+        GROUP BY cm.mapping_id
+      "
+      vote_stats <- DBI::dbGetQuery(con, vote_query, params = list(selected_alignment_id()))
 
-        # First get mapping_id from database by matching csv_file_path and csv_mapping_id
-        mapping_ids_query <- "
-          SELECT
-            cm.mapping_id as db_mapping_id,
-            cm.csv_mapping_id
-          FROM concept_mappings cm
-          WHERE cm.alignment_id = ? AND cm.csv_file_path = ?
-        "
-        db_mappings <- DBI::dbGetQuery(con, mapping_ids_query, params = list(selected_alignment_id(), csv_path))
-
-        # Join to get the database mapping_id using the csv_mapping_id column from CSV
-        enriched_rows <- enriched_rows %>%
-          dplyr::left_join(db_mappings, by = "csv_mapping_id")
-
-        # Get vote counts for each mapping
-        vote_query <- "
-          SELECT
-            cm.mapping_id,
-            COUNT(CASE WHEN me.is_approved = 1 THEN 1 END) as upvotes,
-            COUNT(CASE WHEN me.is_approved = 0 THEN 1 END) as downvotes,
-            COUNT(CASE WHEN me.is_approved = -1 THEN 1 END) as uncertain_votes
-          FROM concept_mappings cm
-          LEFT JOIN mapping_evaluations me ON cm.mapping_id = me.mapping_id
-          WHERE cm.alignment_id = ?
-          GROUP BY cm.mapping_id
-        "
-        vote_stats <- DBI::dbGetQuery(con, vote_query, params = list(selected_alignment_id()))
-
-        # Join vote stats with enriched_rows using the db mapping_id
-        enriched_rows <- enriched_rows %>%
-          dplyr::left_join(vote_stats, by = c("db_mapping_id" = "mapping_id"))
-      } else {
-        # No database, set vote columns to 0
-        enriched_rows <- enriched_rows %>%
-          dplyr::mutate(
-            upvotes = 0L,
-            downvotes = 0L,
-            uncertain_votes = 0L
-          )
-      }
+      # Join vote stats with enriched_rows using the db mapping_id
+      enriched_rows <- enriched_rows %>%
+        dplyr::left_join(vote_stats, by = c("db_mapping_id" = "mapping_id"))
 
       # Build display dataframe
       display_df <- enriched_rows %>%
         dplyr::mutate(
           Source = paste0(concept_name_source, " (", vocabulary_id_source, ": ", concept_code_source, ")"),
-          Target = paste0(
-            general_concept_name, " > ",
-            concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"
+          Target = paste0(concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"),
+          Origin = dplyr::if_else(
+            is.na(imported_mapping_id),
+            '<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">Manual</span>',
+            '<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">Imported</span>'
           ),
           Upvotes = ifelse(is.na(upvotes), 0L, as.integer(upvotes)),
           Downvotes = ifelse(is.na(downvotes), 0L, as.integer(downvotes)),
@@ -2574,7 +2713,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             db_mapping_id
           )
         ) %>%
-        dplyr::select(Source, Target, Upvotes, Downvotes, Uncertain, Actions)
+        dplyr::select(Source, Target, Origin, Upvotes, Downvotes, Uncertain, Actions)
 
       # Update table data using proxy (preserves state)
       shinyjs::delay(100, {
@@ -2920,7 +3059,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (is.null(selected_alignment_id())) return()
       if (mapping_view() != "general") return()
       if (mapping_tab() != "edit_mappings") return()
-      
+
       # Prepare all data outside renderDT
       alignments <- alignments_data()
       alignment <- alignments %>%
@@ -2945,31 +3084,58 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         }, server = FALSE)
         return()
       }
-      
+
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
-      
+
       if ("vocabulary_id" %in% colnames(df)) {
         df <- df %>%
           dplyr::mutate(vocabulary_id = as.factor(vocabulary_id))
       }
-      
-      has_target_cols <- "target_general_concept_id" %in% colnames(df)
-      if (has_target_cols) {
-        df <- df %>%
-          dplyr::mutate(
-            Mapped = factor(ifelse(!is.na(target_general_concept_id), "Yes", "No"), levels = c("Yes", "No"))
-          )
-      } else {
-        df <- df %>%
-          dplyr::mutate(Mapped = factor("No", levels = c("Yes", "No")))
+
+      # Add row index for matching with database mappings
+      df <- df %>%
+        dplyr::mutate(row_index = dplyr::row_number())
+
+      # Check database for mappings (includes imported mappings)
+      db_dir <- get_app_dir()
+      db_path <- file.path(db_dir, "indicate.db")
+      db_mapped_indices <- integer(0)
+
+      if (file.exists(db_path)) {
+        con_db <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+        db_mappings <- DBI::dbGetQuery(
+          con_db,
+          "SELECT DISTINCT csv_mapping_id FROM concept_mappings WHERE alignment_id = ?",
+          params = list(selected_alignment_id())
+        )
+        db_mapped_indices <- db_mappings$csv_mapping_id
+        DBI::dbDisconnect(con_db)
       }
-      
+
+      has_target_cols <- "target_general_concept_id" %in% colnames(df)
+      has_omop_cols <- "target_omop_concept_id" %in% colnames(df)
+
+      # Consider mapped if: CSV has target columns set OR concept exists in database mappings
+      df <- df %>%
+        dplyr::mutate(
+          Mapped = factor(
+            ifelse(
+              (has_target_cols & !is.na(target_general_concept_id)) |
+              (has_omop_cols & !is.na(target_omop_concept_id)) |
+              (row_index %in% db_mapped_indices),
+              "Yes", "No"
+            ),
+            levels = c("Yes", "No")
+          )
+        ) %>%
+        dplyr::select(-row_index)
+
       standard_cols <- c("vocabulary_id", "concept_code", "concept_name", "statistical_summary")
       available_standard <- standard_cols[standard_cols %in% colnames(df)]
       target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime", "mapped_by_user_id", "mapping_id")
       other_cols <- setdiff(colnames(df), c(standard_cols, target_cols, "Mapped"))
       df_display <- df[, c(available_standard, other_cols, "Mapped"), drop = FALSE]
-      
+
       nice_names <- colnames(df_display)
       nice_names[nice_names == "vocabulary_id"] <- "Vocabulary"
       nice_names[nice_names == "concept_code"] <- "Code"
@@ -3039,35 +3205,62 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       file_id <- alignment$file_id[1]
       
       mapping_dir <- get_app_dir("concept_mapping")
-      
+
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
-      
+
       if (!file.exists(csv_path)) return()
-      
+
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
-      
+
       if ("vocabulary_id" %in% colnames(df)) {
         df <- df %>%
           dplyr::mutate(vocabulary_id = as.factor(vocabulary_id))
       }
-      
-      has_target_cols <- "target_general_concept_id" %in% colnames(df)
-      if (has_target_cols) {
-        df <- df %>%
-          dplyr::mutate(
-            Mapped = factor(ifelse(!is.na(target_general_concept_id), "Yes", "No"), levels = c("Yes", "No"))
-          )
-      } else {
-        df <- df %>%
-          dplyr::mutate(Mapped = factor("No", levels = c("Yes", "No")))
+
+      # Add row index for matching with database mappings
+      df <- df %>%
+        dplyr::mutate(row_index = dplyr::row_number())
+
+      # Check database for mappings (includes imported mappings)
+      db_dir <- get_app_dir()
+      db_path <- file.path(db_dir, "indicate.db")
+      db_mapped_indices <- integer(0)
+
+      if (file.exists(db_path)) {
+        con_db <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+        db_mappings <- DBI::dbGetQuery(
+          con_db,
+          "SELECT DISTINCT csv_mapping_id FROM concept_mappings WHERE alignment_id = ?",
+          params = list(selected_alignment_id())
+        )
+        db_mapped_indices <- db_mappings$csv_mapping_id
+        DBI::dbDisconnect(con_db)
       }
-      
+
+      has_target_cols <- "target_general_concept_id" %in% colnames(df)
+      has_omop_cols <- "target_omop_concept_id" %in% colnames(df)
+
+      # Consider mapped if: CSV has target columns set OR concept exists in database mappings
+      df <- df %>%
+        dplyr::mutate(
+          Mapped = factor(
+            ifelse(
+              (has_target_cols & !is.na(target_general_concept_id)) |
+              (has_omop_cols & !is.na(target_omop_concept_id)) |
+              (row_index %in% db_mapped_indices),
+              "Yes", "No"
+            ),
+            levels = c("Yes", "No")
+          )
+        ) %>%
+        dplyr::select(-row_index)
+
       standard_cols <- c("vocabulary_id", "concept_code", "concept_name", "statistical_summary")
       available_standard <- standard_cols[standard_cols %in% colnames(df)]
       target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime", "mapped_by_user_id", "mapping_id")
       other_cols <- setdiff(colnames(df), c(standard_cols, target_cols, "Mapped"))
       df_display <- df[, c(available_standard, other_cols, "Mapped"), drop = FALSE]
-      
+
       # Update table data using proxy (preserves state)
       shinyjs::delay(100, {
         proxy <- DT::dataTableProxy("source_concepts_table", session = session)
@@ -4484,6 +4677,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             cm.target_custom_concept_id,
             cm.csv_file_path,
             cm.csv_mapping_id,
+            cm.imported_mapping_id,
             me.is_approved,
             me.comment
           FROM concept_mappings cm
@@ -4506,26 +4700,34 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           return()
         }
 
-        # Read CSV to get source concept names
+        # Read CSV to get source concept names (if file exists)
         csv_path <- mappings_db$csv_file_path[1]
-        if (!file.exists(csv_path)) return()
-
-        df <- read.csv(csv_path, stringsAsFactors = FALSE)
+        df <- NULL
+        if (file.exists(csv_path)) {
+          df <- read.csv(csv_path, stringsAsFactors = FALSE)
+        }
 
         # Enrich with source concept information
         enriched_data <- mappings_db %>%
           dplyr::rowwise() %>%
           dplyr::mutate(
             source_concept_name = {
-              if (csv_mapping_id <= nrow(df)) {
+              if (!is.null(df) && csv_mapping_id <= nrow(df) && "concept_name" %in% colnames(df)) {
                 df$concept_name[csv_mapping_id]
+              } else {
+                paste0("Source concept #", source_concept_index)
+              }
+            },
+            source_concept_code = {
+              if (!is.null(df) && csv_mapping_id <= nrow(df) && "concept_code" %in% colnames(df)) {
+                df$concept_code[csv_mapping_id]
               } else {
                 NA_character_
               }
             },
-            source_concept_code = {
-              if (csv_mapping_id <= nrow(df)) {
-                df$concept_code[csv_mapping_id]
+            source_vocabulary_id = {
+              if (!is.null(df) && csv_mapping_id <= nrow(df) && "vocabulary_id" %in% colnames(df)) {
+                df$vocabulary_id[csv_mapping_id]
               } else {
                 NA_character_
               }
@@ -4589,17 +4791,20 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         # Build display columns like in All Completed Mappings
         display_data <- enriched_data %>%
           dplyr::mutate(
-            Source = paste0(source_concept_name, " (", source_concept_code, ")"),
-            Target = paste0(
-              target_general_concept_name, " > ",
-              concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"
-            ),
-            status = factor(status, levels = c("Not Evaluated", "Approved", "Rejected", "Uncertain"))
+            Source = paste0(source_concept_name, " (", source_vocabulary_id, ": ", source_concept_code, ")"),
+            Target = paste0(concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"),
+            status = factor(status, levels = c("Not Evaluated", "Approved", "Rejected", "Uncertain")),
+            Origin = dplyr::if_else(
+              is.na(imported_mapping_id),
+              '<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">Manual</span>',
+              '<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">Imported</span>'
+            )
           ) %>%
           dplyr::select(
             mapping_id,
             Source,
             Target,
+            Origin,
             status,
             Actions
           )
@@ -4620,10 +4825,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             autoWidth = FALSE,
             columnDefs = list(
               list(targets = 0, visible = FALSE),
-              list(targets = 1, width = "35%"),
-              list(targets = 2, width = "35%"),
-              list(targets = 3, width = "12%"),
-              list(targets = 4, width = "18%", orderable = FALSE, searchable = FALSE, className = "dt-center")
+              list(targets = 1, width = "30%"),
+              list(targets = 2, width = "30%"),
+              list(targets = 3, width = "10%", className = "dt-center"),
+              list(targets = 4, width = "12%"),
+              list(targets = 5, width = "18%", orderable = FALSE, searchable = FALSE, className = "dt-center")
             ),
             drawCallback = DT::JS("
               function(settings) {
@@ -4635,6 +4841,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             "ID",
             "Source Concept",
             "Target Concept",
+            "Origin",
             "Status",
             "Actions"
           )
@@ -4682,6 +4889,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           cm.target_custom_concept_id,
           cm.csv_file_path,
           cm.csv_mapping_id,
+          cm.imported_mapping_id,
           me.is_approved,
           me.comment
         FROM concept_mappings cm
@@ -4699,26 +4907,34 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       if (nrow(mappings_db) == 0) return()
 
-      # Read CSV to get source concept names
+      # Read CSV to get source concept names (if file exists)
       csv_path <- mappings_db$csv_file_path[1]
-      if (!file.exists(csv_path)) return()
-
-      df <- read.csv(csv_path, stringsAsFactors = FALSE)
+      df <- NULL
+      if (file.exists(csv_path)) {
+        df <- read.csv(csv_path, stringsAsFactors = FALSE)
+      }
 
       # Enrich with source concept information
       enriched_data <- mappings_db %>%
         dplyr::rowwise() %>%
         dplyr::mutate(
           source_concept_name = {
-            if (csv_mapping_id <= nrow(df)) {
+            if (!is.null(df) && csv_mapping_id <= nrow(df) && "concept_name" %in% colnames(df)) {
               df$concept_name[csv_mapping_id]
+            } else {
+              paste0("Source concept #", source_concept_index)
+            }
+          },
+          source_concept_code = {
+            if (!is.null(df) && csv_mapping_id <= nrow(df) && "concept_code" %in% colnames(df)) {
+              df$concept_code[csv_mapping_id]
             } else {
               NA_character_
             }
           },
-          source_concept_code = {
-            if (csv_mapping_id <= nrow(df)) {
-              df$concept_code[csv_mapping_id]
+          source_vocabulary_id = {
+            if (!is.null(df) && csv_mapping_id <= nrow(df) && "vocabulary_id" %in% colnames(df)) {
+              df$vocabulary_id[csv_mapping_id]
             } else {
               NA_character_
             }
@@ -4782,17 +4998,20 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Build display columns
       display_data <- enriched_data %>%
         dplyr::mutate(
-          Source = paste0(source_concept_name, " (", source_concept_code, ")"),
-          Target = paste0(
-            target_general_concept_name, " > ",
-            concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"
-          ),
-          status = factor(status, levels = c("Not Evaluated", "Approved", "Rejected", "Uncertain"))
+          Source = paste0(source_concept_name, " (", source_vocabulary_id, ": ", source_concept_code, ")"),
+          Target = paste0(concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"),
+          status = factor(status, levels = c("Not Evaluated", "Approved", "Rejected", "Uncertain")),
+          Origin = dplyr::if_else(
+            is.na(imported_mapping_id),
+            '<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">Manual</span>',
+            '<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">Imported</span>'
+          )
         ) %>%
         dplyr::select(
           mapping_id,
           Source,
           Target,
+          Origin,
           status,
           Actions
         )
@@ -4984,6 +5203,641 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       # Trigger refresh
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    ### c) Import Mappings Tab ----
+
+    #### File Browser Modal Function ----
+    show_import_browser_modal <- function() {
+      showModal(
+        modalDialog(
+          title = tagList(
+            tags$i(class = "fas fa-folder-open", style = "margin-right: 8px;"),
+            "Select CSV File to Import"
+          ),
+          size = "l",
+          easyClose = FALSE,
+
+          # Current path and home button
+          tags$div(
+            style = "display: flex; align-items: center; gap: 10px; margin-bottom: 10px;",
+            tags$div(
+              style = "flex: 1; font-family: monospace; background: #f8f9fa; padding: 8px 12px; border-radius: 4px; font-size: 12px; border: 1px solid #dee2e6;",
+              uiOutput(ns("import_browser_current_path"))
+            ),
+            actionButton(
+              ns("import_go_home"),
+              label = tags$i(class = "fas fa-home"),
+              style = "padding: 8px 12px; border-radius: 4px; background: #6c757d; color: white; border: none;"
+            )
+          ),
+
+          # Search filter
+          tags$div(
+            style = "margin-bottom: 10px;",
+            textInput(
+              ns("import_filter_input"),
+              label = NULL,
+              placeholder = "Search folders and files...",
+              width = "100%"
+            )
+          ),
+
+          # File browser with table header
+          tags$div(
+            style = paste0(
+              "border: 1px solid #dee2e6; border-radius: 4px; ",
+              "background: white; height: 400px; overflow-y: auto;"
+            ),
+            # Table header
+            tags$div(
+              style = "background: #f8f9fa; border-bottom: 2px solid #dee2e6; position: sticky; top: 0; z-index: 10;",
+              tags$div(
+                class = "file-browser-header",
+                style = "padding: 10px 12px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 600; color: #333;",
+                onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("import_toggle_sort")),
+                tags$span("Name"),
+                uiOutput(ns("import_sort_icon"), inline = TRUE)
+              )
+            ),
+            # File list
+            uiOutput(ns("import_file_browser"))
+          ),
+
+          footer = tagList(
+            actionButton(ns("import_cancel_browse"), "Cancel", class = "btn-secondary-custom", icon = icon("times")),
+            actionButton(ns("import_select_file"), "Select", class = "btn-primary-custom", icon = icon("check"), style = "margin-left: 10px;")
+          )
+        )
+      )
+    }
+
+    #### File Path Display ----
+    import_file_path_trigger <- reactiveVal(0)
+
+    observe_event(import_selected_file(), {
+      import_file_path_trigger(import_file_path_trigger() + 1)
+    })
+
+    observe_event(import_file_path_trigger(), {
+      file_path <- import_selected_file()
+
+      output$import_file_path_display <- renderUI({
+        if (is.null(file_path) || nchar(file_path) == 0) {
+          tags$div(
+            style = paste0(
+              "font-family: monospace; background: #f8f9fa; ",
+              "padding: 10px; border-radius: 4px; font-size: 12px; ",
+              "min-height: 40px; display: flex; align-items: center; ",
+              "border: 1px solid #dee2e6;"
+            ),
+            tags$span(
+              style = "color: #999;",
+              "No file selected"
+            )
+          )
+        } else {
+          tags$div(
+            style = paste0(
+              "font-family: monospace; background: #e6f3ff; ",
+              "padding: 10px; border-radius: 4px; font-size: 12px; ",
+              "min-height: 40px; display: flex; align-items: center; ",
+              "border: 1px solid #0f60af;"
+            ),
+            tags$span(
+              style = "color: #333;",
+              file_path
+            )
+          )
+        }
+      })
+    }, ignoreInit = FALSE)
+
+    #### Browse Button Handler ----
+    observe_event(input$browse_import_file, {
+      # Start at home directory
+      start_path <- path.expand("~")
+      import_current_path(start_path)
+      import_sort_order("asc")
+      import_filter_text("")
+      show_import_browser_modal()
+    }, ignoreInit = TRUE)
+
+    #### Toggle Sort ----
+    observe_event(input$import_toggle_sort, {
+      if (import_sort_order() == "asc") {
+        import_sort_order("desc")
+      } else {
+        import_sort_order("asc")
+      }
+    }, ignoreInit = TRUE)
+
+    #### Filter Input ----
+    observe_event(input$import_filter_input, {
+      if (is.null(input$import_filter_input)) return()
+      import_filter_text(input$import_filter_input)
+    }, ignoreInit = TRUE)
+
+    #### Current Path Display ----
+    import_browser_path_trigger <- reactiveVal(0)
+
+    observe_event(import_current_path(), {
+      import_browser_path_trigger(import_browser_path_trigger() + 1)
+    })
+
+    observe_event(import_browser_path_trigger(), {
+      output$import_browser_current_path <- renderUI({
+        tags$span(import_current_path())
+      })
+    }, ignoreInit = FALSE)
+
+    #### Sort Icon Display ----
+    import_sort_icon_trigger <- reactiveVal(0)
+
+    observe_event(import_sort_order(), {
+      import_sort_icon_trigger(import_sort_icon_trigger() + 1)
+    })
+
+    observe_event(import_sort_icon_trigger(), {
+      output$import_sort_icon <- renderUI({
+        if (import_sort_order() == "asc") {
+          tags$i(class = "fas fa-sort-alpha-down", title = "Sort A-Z")
+        } else {
+          tags$i(class = "fas fa-sort-alpha-up", title = "Sort Z-A")
+        }
+      })
+    }, ignoreInit = FALSE)
+
+    #### Go Home Button ----
+    observe_event(input$import_go_home, {
+      import_current_path(path.expand("~"))
+    }, ignoreInit = TRUE)
+
+    #### File Browser Rendering ----
+    import_file_browser_trigger <- reactiveVal(0)
+
+    observe_event(list(import_current_path(), import_filter_text(), import_sort_order()), {
+      import_file_browser_trigger(import_file_browser_trigger() + 1)
+    })
+
+    observe_event(import_file_browser_trigger(), {
+      path <- import_current_path()
+      filter <- import_filter_text()
+      order <- import_sort_order()
+
+      output$import_file_browser <- renderUI({
+        items <- list.files(path, full.names = TRUE, include.dirs = TRUE)
+
+        if (length(items) == 0) {
+          return(
+            tags$div(
+              style = "padding: 20px; text-align: center; color: #999;",
+              tags$i(class = "fas fa-folder-open", style = "font-size: 32px; margin-bottom: 10px;"),
+              tags$p("Empty folder")
+            )
+          )
+        }
+
+        # Separate directories and files
+        is_dir <- file.info(items)$isdir
+        dirs <- items[is_dir]
+        files <- items[!is_dir]
+
+        # Filter to show only CSV files
+        files <- files[grepl("\\.csv$", files, ignore.case = TRUE)]
+
+        # Apply filter if present
+        if (!is.null(filter) && nchar(filter) > 0) {
+          dirs <- dirs[grepl(filter, basename(dirs), ignore.case = TRUE)]
+          files <- files[grepl(filter, basename(files), ignore.case = TRUE)]
+        }
+
+        # Sort based on order
+        if (order == "asc") {
+          dirs <- sort(dirs)
+          files <- sort(files)
+        } else {
+          dirs <- sort(dirs, decreasing = TRUE)
+          files <- sort(files, decreasing = TRUE)
+        }
+
+        # Check if filtered results are empty
+        if (length(dirs) == 0 && length(files) == 0) {
+          return(
+            tags$div(
+              style = "padding: 20px; text-align: center; color: #999;",
+              tags$i(class = "fas fa-search", style = "font-size: 32px; margin-bottom: 10px;"),
+              tags$p("No items match your search")
+            )
+          )
+        }
+
+        # Create list items
+        items_ui <- list()
+
+        # Add parent directory link if not at root
+        if (path != "/" && path != path.expand("~")) {
+          parent_path <- dirname(path)
+          items_ui <- append(items_ui, list(
+            tags$div(
+              class = "file-browser-item",
+              style = "padding: 8px 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f0f0f0;",
+              onclick = sprintf("Shiny.setInputValue('%s', '%s', {priority: 'event'})", ns("import_navigate_to"), parent_path),
+              tags$i(class = "fas fa-level-up-alt", style = "color: #6c757d; width: 16px;"),
+              tags$span("..", style = "font-weight: 500; color: #333;")
+            )
+          ))
+        }
+
+        # Add directories
+        for (dir in dirs) {
+          dir_name <- basename(dir)
+          items_ui <- append(items_ui, list(
+            tags$div(
+              class = "file-browser-item file-browser-folder",
+              style = "padding: 8px 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f0f0f0;",
+              onclick = sprintf("Shiny.setInputValue('%s', '%s', {priority: 'event'})", ns("import_navigate_to"), dir),
+              tags$i(class = "fas fa-folder", style = "color: #f4c430; width: 16px;"),
+              tags$span(dir_name, style = "flex: 1; color: #333;")
+            )
+          ))
+        }
+
+        # Add CSV files (clickable to select)
+        for (file in files) {
+          file_name <- basename(file)
+          items_ui <- append(items_ui, list(
+            tags$div(
+              class = "file-browser-item",
+              style = "padding: 8px 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f0f0f0;",
+              `data-path` = file,
+              tags$i(class = "fas fa-file-csv", style = "color: #28a745; width: 16px;"),
+              tags$span(file_name, style = "flex: 1; color: #333;"),
+              actionButton(
+                ns(paste0("select_file_", gsub("[^a-zA-Z0-9]", "_", file))),
+                "Select",
+                style = "padding: 4px 12px; font-size: 11px; background: #0f60af; color: white; border: none; border-radius: 4px;",
+                onclick = sprintf("event.stopPropagation(); Shiny.setInputValue('%s', '%s', {priority: 'event'})", ns("import_select_file_path"), file)
+              )
+            )
+          ))
+        }
+
+        tagList(items_ui)
+      })
+    }, ignoreInit = FALSE)
+
+    #### Navigation Handler ----
+    observe_event(input$import_navigate_to, {
+      new_path <- input$import_navigate_to
+      if (dir.exists(new_path)) {
+        import_current_path(new_path)
+      }
+    }, ignoreInit = TRUE)
+
+    #### Select File Handler ----
+    observe_event(input$import_select_file_path, {
+      file_path <- input$import_select_file_path
+      if (file.exists(file_path)) {
+        import_selected_file(file_path)
+        removeModal()
+      }
+    }, ignoreInit = TRUE)
+
+    #### Cancel Browse ----
+    observe_event(input$import_cancel_browse, {
+      removeModal()
+    }, ignoreInit = TRUE)
+
+    #### Import History Table ----
+    observe_event(import_history_trigger(), {
+      alignment_id <- selected_alignment_id()
+      if (is.null(alignment_id)) return()
+
+      # Get database connection
+      db_dir <- get_app_dir()
+      db_path <- file.path(db_dir, "indicate.db")
+
+      if (!file.exists(db_path)) {
+        output$import_history_table <- DT::renderDT({
+          DT::datatable(
+            data.frame(Message = "No import history available"),
+            options = list(dom = "t"),
+            rownames = FALSE
+          )
+        })
+        return()
+      }
+
+      con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+      # Get import history for this alignment
+      import_history <- DBI::dbGetQuery(
+        con,
+        "SELECT im.import_id, im.original_filename, im.import_mode, im.concepts_count,
+                im.imported_at, u.first_name || ' ' || u.last_name AS imported_by
+         FROM imported_mappings im
+         LEFT JOIN users u ON im.imported_by_user_id = u.user_id
+         WHERE im.alignment_id = ?
+         ORDER BY im.imported_at DESC",
+        params = list(alignment_id)
+      )
+
+      if (nrow(import_history) == 0) {
+        output$import_history_table <- DT::renderDT({
+          DT::datatable(
+            data.frame(Message = "No imports yet. Use the form above to import mappings."),
+            options = list(dom = "t"),
+            rownames = FALSE
+          )
+        })
+        return()
+      }
+
+      # Add delete button column
+      import_history <- import_history %>%
+        dplyr::mutate(
+          Actions = sprintf(
+            '<button class="btn-danger-custom btn-sm" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'})">
+              <i class="fas fa-trash"></i> Delete
+            </button>',
+            ns("delete_import"), import_id
+          )
+        ) %>%
+        dplyr::select(
+          `File` = original_filename,
+          `Mode` = import_mode,
+          `Concepts` = concepts_count,
+          `Imported At` = imported_at,
+          `Imported By` = imported_by,
+          Actions
+        )
+
+      output$import_history_table <- DT::renderDT({
+        DT::datatable(
+          import_history,
+          escape = FALSE,
+          rownames = FALSE,
+          options = list(
+            dom = "t",
+            pageLength = 10,
+            ordering = FALSE
+          )
+        )
+      })
+    }, ignoreInit = FALSE)
+
+    #### Import CSV Handler ----
+    observe_event(input$do_import_mappings, {
+      selected_file <- import_selected_file()
+      if (is.null(selected_file) || nchar(selected_file) == 0) {
+        showNotification("Please select a CSV file to import", type = "warning")
+        return()
+      }
+
+      if (!file.exists(selected_file)) {
+        showNotification("Selected file no longer exists", type = "error")
+        return()
+      }
+
+      alignment_id <- selected_alignment_id()
+      if (is.null(alignment_id)) {
+        showNotification("No alignment selected", type = "error")
+        return()
+      }
+
+      if (is.null(current_user())) {
+        showNotification("You must be logged in to import mappings", type = "error")
+        return()
+      }
+
+      # Read the CSV file
+      import_data <- tryCatch({
+        read.csv(selected_file, stringsAsFactors = FALSE)
+      }, error = function(e) {
+        showNotification(paste("Error reading CSV:", e$message), type = "error")
+        return(NULL)
+      })
+
+      if (is.null(import_data)) return()
+
+      # Validate required columns
+      required_cols <- c("source_code", "target_concept_id")
+      missing_cols <- setdiff(required_cols, colnames(import_data))
+      if (length(missing_cols) > 0) {
+        showNotification(
+          paste("Missing required columns:", paste(missing_cols, collapse = ", ")),
+          type = "error"
+        )
+        return()
+      }
+
+      # Get database connection
+      db_dir <- get_app_dir()
+      db_path <- file.path(db_dir, "indicate.db")
+
+      if (!file.exists(db_path)) {
+        showNotification("Database not found", type = "error")
+        return()
+      }
+
+      con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+      # Get the alignment's CSV file path
+      alignment_info <- DBI::dbGetQuery(
+        con,
+        "SELECT file_id FROM concept_alignments WHERE alignment_id = ?",
+        params = list(alignment_id)
+      )
+
+      if (nrow(alignment_info) == 0) {
+        showNotification("Alignment not found", type = "error")
+        return()
+      }
+
+      file_id <- alignment_info$file_id[1]
+      csv_file_path <- file.path(get_app_dir(), "uploads", paste0(file_id, ".csv"))
+
+      # Check if alignment source file exists - if not, we'll work without it
+      has_source_file <- file.exists(csv_file_path)
+      source_data <- NULL
+      if (has_source_file) {
+        source_data <- read.csv(csv_file_path, stringsAsFactors = FALSE)
+      }
+
+      # Start transaction
+      DBI::dbBegin(con)
+
+      tryCatch({
+        import_mode <- input$import_mode
+        timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+        user_id <- current_user()$user_id
+        imported_count <- 0
+
+        # Create import record
+        original_filename <- basename(selected_file)
+        DBI::dbExecute(
+          con,
+          "INSERT INTO imported_mappings (alignment_id, original_filename, import_mode, concepts_count, imported_by_user_id, imported_at)
+           VALUES (?, ?, ?, 0, ?, ?)",
+          params = list(alignment_id, original_filename, import_mode, user_id, timestamp)
+        )
+
+        import_id <- DBI::dbGetQuery(con, "SELECT last_insert_rowid() as id")$id[1]
+
+        # If overwrite mode, delete existing imported mappings for this alignment
+        if (import_mode == "overwrite") {
+          DBI::dbExecute(
+            con,
+            "DELETE FROM concept_mappings WHERE alignment_id = ? AND imported_mapping_id IS NOT NULL",
+            params = list(alignment_id)
+          )
+        }
+
+        # Process each row in the import file
+        for (i in seq_len(nrow(import_data))) {
+          row <- import_data[i, ]
+          source_code <- as.character(row$source_code)
+          target_concept_id <- as.integer(row$target_concept_id)
+
+          # Use source_code as the unique identifier for the concept
+          # Generate a hash-based index from source_code for consistency
+          source_concept_index <- i
+
+          # If we have source data, try to find matching index
+          if (!is.null(source_data)) {
+            matching_indices <- which(
+              source_data$concept_code == source_code |
+              (if ("source_code" %in% colnames(source_data)) source_data$source_code == source_code else FALSE)
+            )
+
+            if (length(matching_indices) == 0 && "source_code_description" %in% colnames(row)) {
+              source_desc <- as.character(row$source_code_description)
+              matching_indices <- which(
+                source_data$concept_name == source_desc |
+                (if ("source_code_description" %in% colnames(source_data)) source_data$source_code_description == source_desc else FALSE)
+              )
+            }
+
+            if (length(matching_indices) > 0) {
+              source_concept_index <- matching_indices[1]
+            }
+          }
+
+          # Check if mapping already exists for this source code
+          existing <- DBI::dbGetQuery(
+            con,
+            "SELECT mapping_id, source_concept_index FROM concept_mappings
+             WHERE alignment_id = ? AND csv_file_path = ? AND source_concept_index = ?",
+            params = list(alignment_id, csv_file_path, source_concept_index)
+          )
+
+          if (nrow(existing) > 0) {
+            if (import_mode == "merge") {
+              # Skip existing mappings in merge mode
+              next
+            }
+            # In overwrite mode, update existing
+            DBI::dbExecute(
+              con,
+              "UPDATE concept_mappings
+               SET target_omop_concept_id = ?, imported_mapping_id = ?, mapping_datetime = ?
+               WHERE alignment_id = ? AND csv_file_path = ? AND source_concept_index = ?",
+              params = list(target_concept_id, import_id, timestamp, alignment_id, csv_file_path, source_concept_index)
+            )
+          } else {
+            # Create unique csv_mapping_id
+            max_id <- DBI::dbGetQuery(
+              con,
+              "SELECT COALESCE(MAX(csv_mapping_id), 0) as max_id FROM concept_mappings WHERE csv_file_path = ?",
+              params = list(csv_file_path)
+            )$max_id[1]
+
+            # Insert new mapping
+            DBI::dbExecute(
+              con,
+              "INSERT INTO concept_mappings (alignment_id, csv_file_path, csv_mapping_id, source_concept_index,
+                                             target_omop_concept_id, imported_mapping_id, mapping_datetime)
+               VALUES (?, ?, ?, ?, ?, ?, ?)",
+              params = list(alignment_id, csv_file_path, max_id + 1, source_concept_index, target_concept_id, import_id, timestamp)
+            )
+          }
+
+          imported_count <- imported_count + 1
+        }
+
+        # Update import record with actual count
+        DBI::dbExecute(
+          con,
+          "UPDATE imported_mappings SET concepts_count = ? WHERE import_id = ?",
+          params = list(imported_count, import_id)
+        )
+
+        DBI::dbCommit(con)
+
+        showNotification(
+          paste("Successfully imported", imported_count, "mappings"),
+          type = "message"
+        )
+
+        # Reset selected file after successful import
+        import_selected_file(NULL)
+
+        # Trigger refresh
+        import_history_trigger(import_history_trigger() + 1)
+        mappings_refresh_trigger(mappings_refresh_trigger() + 1)
+
+      }, error = function(e) {
+        DBI::dbRollback(con)
+        showNotification(paste("Import failed:", e$message), type = "error")
+      })
+    }, ignoreInit = TRUE)
+
+    #### Delete Import ----
+    observe_event(input$delete_import, {
+      import_id <- input$delete_import
+      if (is.null(import_id)) return()
+
+      # Get database connection
+      db_dir <- get_app_dir()
+      db_path <- file.path(db_dir, "indicate.db")
+
+      if (!file.exists(db_path)) return()
+
+      con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+      DBI::dbBegin(con)
+
+      tryCatch({
+        # Delete mappings associated with this import
+        DBI::dbExecute(
+          con,
+          "DELETE FROM concept_mappings WHERE imported_mapping_id = ?",
+          params = list(import_id)
+        )
+
+        # Delete the import record
+        DBI::dbExecute(
+          con,
+          "DELETE FROM imported_mappings WHERE import_id = ?",
+          params = list(import_id)
+        )
+
+        DBI::dbCommit(con)
+
+        showNotification("Import deleted successfully", type = "message")
+
+        # Trigger refresh
+        import_history_trigger(import_history_trigger() + 1)
+        mappings_refresh_trigger(mappings_refresh_trigger() + 1)
+
+      }, error = function(e) {
+        DBI::dbRollback(con)
+        showNotification(paste("Delete failed:", e$message), type = "error")
+      })
     }, ignoreInit = TRUE)
   })
 }

@@ -125,31 +125,31 @@ mod_page_header_server <- function(id, current_user, vocab_loading_status, i18n 
         list(
           id = "nav_explorer",
           path = "",
-          label = tagList(icon("search"), if (!is.null(i18n)) i18n$t("dictionary_explorer") else "Dictionary Explorer"),
+          label = tagList(icon("search"), tags$span(class = "nav-tab-text", if (!is.null(i18n)) i18n$t("dictionary_explorer") else "Dictionary Explorer")),
           visible = TRUE
         ),
         list(
           id = "nav_use_cases",
           path = "use-cases",
-          label = tagList(icon("list-check"), if (!is.null(i18n)) i18n$t("use_cases") else "Use Cases"),
+          label = tagList(icon("list-check"), tags$span(class = "nav-tab-text", if (!is.null(i18n)) i18n$t("use_cases") else "Use Cases")),
           visible = TRUE
         ),
         list(
           id = "nav_mapping",
           path = "mapping",
-          label = tagList(icon("project-diagram"), if (!is.null(i18n)) i18n$t("concepts_mapping") else "Concepts Mapping"),
+          label = tagList(icon("project-diagram"), tags$span(class = "nav-tab-text", if (!is.null(i18n)) i18n$t("concepts_mapping") else "Concepts Mapping")),
           visible = !is.null(user) && user$role != "Anonymous"
         ),
         list(
           id = "nav_improvements",
           path = "improvements",
-          label = tagList(icon("lightbulb"), if (!is.null(i18n)) i18n$t("improvements") else "Improvements"),
+          label = tagList(icon("lightbulb"), tags$span(class = "nav-tab-text", if (!is.null(i18n)) i18n$t("improvements") else "Improvements")),
           visible = !is.null(user) && user$role != "Anonymous"
         ),
         list(
           id = "nav_dev_tools",
           path = "dev-tools",
-          label = tagList(icon("code"), if (!is.null(i18n)) i18n$t("dev_tools") else "Dev Tools"),
+          label = tagList(icon("code"), tags$span(class = "nav-tab-text", if (!is.null(i18n)) i18n$t("dev_tools") else "Dev Tools")),
           visible = !is.null(user) && user$role != "Anonymous"
         )
       )
