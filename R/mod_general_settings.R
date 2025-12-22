@@ -1060,10 +1060,6 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
       vocab_folder <- selected_folder()
 
       output$duckdb_status <- renderUI({
-        if (is.null(vocab_folder) || nchar(vocab_folder) == 0) {
-          return(NULL)
-        }
-
         if (duckdb_processing()) {
           return(
           tags$div(
@@ -1086,8 +1082,10 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
           )
         }
 
-        # Show current status
+        # Check if DuckDB database file exists (independent of vocab folder setting)
         db_exists <- duckdb_exists()
+        has_vocab_folder <- !is.null(vocab_folder) && nchar(vocab_folder) > 0
+
         if (db_exists) {
           db_path <- get_duckdb_path()
           return(
@@ -1096,34 +1094,51 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
             tags$i(class = "fas fa-check-circle", style = "color: #28a745;"),
             tags$span("Database exists: "),
             tags$code(basename(db_path)),
-            actionButton(
-              ns("recreate_duckdb"),
-              label = tagList(
-                tags$i(class = "fas fa-redo", style = "margin-right: 6px;"),
-                "Recreate"
-              ),
-              class = "btn-sm",
-              style = "background: #fd7e14; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 12px; cursor: pointer;"
-            )
-          )
-          )
-        } else {
-          return(
-            tags$div(
-              style = "padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px; display: flex; align-items: center; gap: 8px;",
-              tags$i(class = "fas fa-times-circle", style = "color: #dc3545;"),
-              tags$span("Database does not exist"),
+            if (has_vocab_folder) {
               actionButton(
                 ns("recreate_duckdb"),
                 label = tagList(
-                  tags$i(class = "fas fa-plus", style = "margin-right: 6px;"),
-                  "Create"
+                  tags$i(class = "fas fa-redo", style = "margin-right: 6px;"),
+                  "Recreate"
                 ),
                 class = "btn-sm",
-                style = "background: #28a745; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 12px; cursor: pointer;"
+                style = "background: #fd7e14; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 12px; cursor: pointer;"
+              )
+            }
+          )
+          )
+        } else {
+          # Database does not exist
+          if (has_vocab_folder) {
+            # Vocab folder is configured, show Create button
+            return(
+              tags$div(
+                style = "padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px; display: flex; align-items: center; gap: 8px;",
+                tags$i(class = "fas fa-times-circle", style = "color: #dc3545;"),
+                tags$span("Database does not exist"),
+                actionButton(
+                  ns("recreate_duckdb"),
+                  label = tagList(
+                    tags$i(class = "fas fa-plus", style = "margin-right: 6px;"),
+                    "Create"
+                  ),
+                  class = "btn-sm",
+                  style = "background: #28a745; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 12px; cursor: pointer;"
+                )
               )
             )
-          )
+          } else {
+            # No vocab folder configured, inform user
+            return(
+              tags$div(
+                style = "padding: 10px; background: #e2e3e5; border-left: 3px solid #6c757d; border-radius: 4px; font-size: 12px;",
+                tags$i(class = "fas fa-info-circle", style = "margin-right: 6px; color: #6c757d;"),
+                "No database found. Select a vocabulary folder above to create one, or place a pre-built ",
+                tags$code("vocabularies.duckdb"),
+                " file in the application folder."
+              )
+            )
+          }
         }
       })
     })

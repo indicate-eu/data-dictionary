@@ -145,11 +145,20 @@ get_ohdsi_mappings_sync <- function() {
 
 #' Get DuckDB option status
 #'
-#' @description Get whether DuckDB database should be used
+#' @description Get whether DuckDB database should be used.
+#' Returns TRUE if: (1) the use_duckdb config is set to "true", OR
+#' (2) a vocabularies.duckdb file exists (auto-detection for pre-built databases)
 #'
 #' @return TRUE or FALSE
 #' @export
 get_use_duckdb <- function() {
+  # First check if DuckDB file exists (auto-detection for pre-built databases)
+  duckdb_path <- get_duckdb_path()
+  if (file.exists(duckdb_path)) {
+    return(TRUE)
+  }
+
+  # Otherwise check the config value
   value <- get_config_value("use_duckdb", default = "false")
   return(value == "true")
 }

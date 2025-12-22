@@ -188,6 +188,11 @@ get_default_statistical_summary_template <- function() {
     "p75": null,
     "p95": null
   },
-  "categorical_data": []
+  "histogram": [],
+  "categorical_data": [],
+  "measurement_frequency": {
+    "typical_interval": null
+  },
+  "missing_rate": null
 }'
 }

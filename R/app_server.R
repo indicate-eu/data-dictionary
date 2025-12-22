@@ -65,12 +65,11 @@ app_server <- function(input, output, session) {
 
       # Load DuckDB data AFTER login (only once)
       if (!data_loaded()) {
-        # Get vocabulary folder and DuckDB setting
-        vocab_folder <- get_vocab_folder()
+        # Get DuckDB setting
         use_duckdb <- get_use_duckdb()
 
-        # If DuckDB is enabled and exists, load asynchronously after UI update
-        if (!is.null(vocab_folder) && vocab_folder != "" && use_duckdb && duckdb_exists()) {
+        # If DuckDB is enabled and database file exists, load asynchronously after UI update
+        if (use_duckdb && duckdb_exists()) {
           # Set loading status immediately
           vocab_loading_status("loading")
 

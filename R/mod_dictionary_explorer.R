@@ -1290,6 +1290,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       comments_display_trigger(comments_display_trigger() + 1)
     }, ignoreInit = TRUE)
 
+    # Handle stats summary sub-tab selection
+    observe_event(input$stats_summary_tab_selected, {
+      stats_summary_tab(input$stats_summary_tab_selected)
+      comments_display_trigger(comments_display_trigger() + 1)
+    }, ignoreInit = TRUE)
+
     # When edited_recommended_trigger fires, update concept_mappings_table
     observe_event(edited_recommended_trigger(), {
       concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
@@ -1357,9 +1363,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     })
 
     ### Vocabulary Loading Status ----
-    observe_event(vocab_loading_status(), {
+    # Listen to both vocab_loading_status AND vocabularies changes
+    observe_event(list(vocab_loading_status(), vocabularies()), {
       loading_status <- vocab_loading_status()
-      vocab_data <- isolate(vocabularies())
+      vocab_data <- vocabularies()
 
       if (loading_status == "loading") {
         # Show loading message, hide table and error
@@ -1380,28 +1387,22 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         shinyjs::show("vocab_error_message")
         shinyjs::hide("general_concepts_table")
       } else {
-        # For 'not_loaded' status, check if vocab folder is configured
-        vocab_folder <- get_config_value("vocab_folder_path", default = "")
+        # For 'not_loaded' status, check if DuckDB database file exists (independent of vocab folder)
         duckdb_path <- get_duckdb_path()
 
-        if (vocab_folder == "" || !dir.exists(vocab_folder)) {
-          # No folder configured, show error message
-          shinyjs::hide("vocab_loading_message")
-          shinyjs::show("vocab_error_message")
-          shinyjs::hide("general_concepts_table")
-        } else if (!file.exists(duckdb_path)) {
-          # Folder exists but DuckDB file doesn't exist, show error
-          shinyjs::hide("vocab_loading_message")
-          shinyjs::show("vocab_error_message")
-          shinyjs::hide("general_concepts_table")
-        } else {
-          # Both folder and DuckDB file exist, show loading message
+        if (file.exists(duckdb_path)) {
+          # DuckDB file exists, show loading message (vocabularies will be loaded)
           shinyjs::show("vocab_loading_message")
           shinyjs::hide("vocab_error_message")
           shinyjs::hide("general_concepts_table")
+        } else {
+          # DuckDB file doesn't exist, show error message
+          shinyjs::hide("vocab_loading_message")
+          shinyjs::show("vocab_error_message")
+          shinyjs::hide("general_concepts_table")
         }
       }
-    })
+    }, ignoreNULL = FALSE)
 
 
     ### Breadcrumb Rendering ----
@@ -4754,85 +4755,147 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 )
               )
             } else {
-              # View mode: show statistical summary display
+              # View mode: show statistical summary (same format as Source Concept Details in mod_concept_mapping)
               summary_data <- NULL
               if (nrow(concept_info) > 0 && !is.na(concept_info$statistical_summary[1]) && nchar(concept_info$statistical_summary[1]) > 0) {
                 summary_data <- jsonlite::fromJSON(concept_info$statistical_summary[1])
               }
 
               if (!is.null(summary_data)) {
-                # Display statistical summary in 2-column layout
-                tags$div(
-                  style = "height: 100%; overflow-y: auto; padding: 15px; background: #ffffff;",
-                  tags$div(
-                    style = "display: grid; grid-template-columns: 1fr 1fr; gap: 20px;",
+                # Check for numeric data with required percentiles
+                if (!is.null(summary_data$numeric_data)) {
+                  nd <- summary_data$numeric_data
+                  if (!is.null(nd$p25) && !is.na(nd$p25) && !is.null(nd$p75) && !is.na(nd$p75)) {
+                    # Calculate values for display
+                    min_val <- if (!is.null(nd$min) && !is.na(nd$min)) nd$min else nd$p5
+                    max_val <- if (!is.null(nd$max) && !is.na(nd$max)) nd$max else nd$p95
+                    median_val <- if (!is.null(nd$median) && !is.na(nd$median)) nd$median else (nd$p25 + nd$p75) / 2
+                    lower_val <- if (!is.null(nd$p5) && !is.na(nd$p5)) nd$p5 else min_val
+                    upper_val <- if (!is.null(nd$p95) && !is.na(nd$p95)) nd$p95 else max_val
 
-                    # Left Column
-                    tags$div(
-                      # Data Types Section
-                      tags$h5(style = "margin: 0 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Data Types"),
-                      if (!is.null(summary_data$data_types) && length(summary_data$data_types) > 0) {
-                        tags$div(
-                          style = "margin-bottom: 20px;",
-                          create_detail_item("Types", paste(summary_data$data_types, collapse = ", "))
-                        )
-                      } else {
-                        tags$p(style = "color: #6c757d; font-style: italic; margin-bottom: 20px;", "No data types specified")
-                      },
+                    # Create horizontal boxplot with ggplot2
+                    p <- ggplot2::ggplot() +
+                      ggplot2::geom_boxplot(
+                        ggplot2::aes(x = "", ymin = lower_val, lower = nd$p25, middle = median_val,
+                                     upper = nd$p75, ymax = upper_val),
+                        stat = "identity",
+                        fill = "#0f60af",
+                        color = "#333",
+                        width = 0.5,
+                        fatten = 0
+                      ) +
+                      ggplot2::geom_segment(
+                        ggplot2::aes(x = 0.75, xend = 1.25, y = median_val, yend = median_val),
+                        color = "white",
+                        linewidth = 1
+                      ) +
+                      ggplot2::coord_flip() +
+                      ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
+                      ggplot2::labs(x = NULL, y = NULL) +
+                      ggplot2::theme_minimal(base_size = 11) +
+                      ggplot2::theme(
+                        panel.grid.major.y = ggplot2::element_blank(),
+                        panel.grid.minor = ggplot2::element_blank(),
+                        axis.text.y = ggplot2::element_blank(),
+                        axis.text.x = ggplot2::element_text(size = 9),
+                        plot.margin = ggplot2::margin(5, 10, 5, 10)
+                      )
 
-                      # Numeric Data Section
-                      tags$h5(style = "margin: 20px 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Numeric Data"),
-                      if (!is.null(summary_data$numeric_data) && length(summary_data$numeric_data) > 0) {
-                        # Check if any non-null values exist
-                        has_values <- any(sapply(summary_data$numeric_data, function(x) !is.null(x)))
-                        if (has_values) {
-                          tagList(
-                            lapply(names(summary_data$numeric_data), function(key) {
-                              value <- summary_data$numeric_data[[key]]
-                              create_detail_item(gsub("_", " ", tools::toTitleCase(key)), if (is.null(value)) "/" else value)
-                            })
+                    # Check if histogram data exists - render as line plot
+                    histogram_plot <- NULL
+                    if (!is.null(summary_data$histogram) && length(summary_data$histogram) > 0) {
+                      hist_df <- as.data.frame(summary_data$histogram)
+                      if (nrow(hist_df) > 0 && "bin_start" %in% colnames(hist_df) && "count" %in% colnames(hist_df)) {
+                        hist_df$bin_mid <- (hist_df$bin_start + hist_df$bin_end) / 2
+                        total_count <- sum(hist_df$count, na.rm = TRUE)
+                        hist_df$percentage <- if (total_count > 0) hist_df$count / total_count * 100 else 0
+
+                        p_hist <- ggplot2::ggplot(hist_df, ggplot2::aes(x = bin_mid, y = percentage)) +
+                          ggplot2::geom_area(fill = "#0f60af", alpha = 0.3) +
+                          ggplot2::geom_line(color = "#0f60af", linewidth = 1.2) +
+                          ggplot2::geom_point(color = "#0f60af", size = 2) +
+                          ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
+                          ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05)), labels = function(x) paste0(x, "%")) +
+                          ggplot2::labs(x = NULL, y = NULL) +
+                          ggplot2::theme_minimal(base_size = 10) +
+                          ggplot2::theme(
+                            panel.grid.minor = ggplot2::element_blank(),
+                            panel.grid.major.x = ggplot2::element_blank(),
+                            axis.text = ggplot2::element_text(size = 8),
+                            plot.margin = ggplot2::margin(5, 10, 5, 10)
                           )
-                        } else {
-                          tags$p(style = "color: #6c757d; font-style: italic;", "No numeric data available")
-                        }
-                      } else {
-                        tags$p(style = "color: #6c757d; font-style: italic;", "No numeric data available")
+
+                        histogram_plot <- renderPlot({ p_hist }, height = 120, width = "auto")
                       }
-                    ),
+                    }
 
-                    # Right Column
                     tags$div(
-                      # Categorical Data Section
-                      tags$h5(style = "margin: 0 0 12px 0; color: #0f60af; font-size: 14px; font-weight: 600; border-bottom: 2px solid #0f60af; padding-bottom: 6px;", "Categorical Data"),
-                      if (!is.null(summary_data$categorical_data) && length(summary_data$categorical_data) > 0) {
+                      tags$div(
+                        style = "display: flex; gap: 20px;",
+                        # Left: statistics grid
                         tags$div(
-                          style = "margin-top: 8px;",
-                          tags$table(
-                            style = "width: 100%; border-collapse: collapse;",
-                            tags$thead(
-                              tags$tr(
-                                tags$th(style = "text-align: left; padding: 6px; border-bottom: 1px solid #dee2e6; font-weight: 600; color: #495057;", "Value"),
-                                tags$th(style = "text-align: right; padding: 6px; border-bottom: 1px solid #dee2e6; font-weight: 600; color: #495057;", "Count"),
-                                tags$th(style = "text-align: right; padding: 6px; border-bottom: 1px solid #dee2e6; font-weight: 600; color: #495057;", "Percent")
-                              )
-                            ),
-                            tags$tbody(
-                              lapply(summary_data$categorical_data, function(val) {
-                                tags$tr(
-                                  tags$td(style = "padding: 6px; border-bottom: 1px solid #f0f0f0;", val$value),
-                                  tags$td(style = "padding: 6px; border-bottom: 1px solid #f0f0f0; text-align: right;", format(val$count, big.mark = ",")),
-                                  tags$td(style = "padding: 6px; border-bottom: 1px solid #f0f0f0; text-align: right;", paste0(val$percent, "%"))
-                                )
-                              })
-                            )
+                          style = "flex: 1;",
+                          tags$div(
+                            style = "display: grid; grid-template-columns: 70px 1fr; gap: 4px; font-size: 12px;",
+                            tags$span(style = "font-weight: 600; color: #666;", "Min:"), tags$span(round(min_val, 2)),
+                            tags$span(style = "font-weight: 600; color: #666;", "P5:"), tags$span(if (!is.null(nd$p5)) round(nd$p5, 2) else "-"),
+                            tags$span(style = "font-weight: 600; color: #666;", "P25:"), tags$span(round(nd$p25, 2)),
+                            tags$span(style = "font-weight: 600; color: #0f60af;", "Median:"), tags$span(style = "font-weight: 600;", round(median_val, 2)),
+                            tags$span(style = "font-weight: 600; color: #666;", "P75:"), tags$span(round(nd$p75, 2)),
+                            tags$span(style = "font-weight: 600; color: #666;", "P95:"), tags$span(if (!is.null(nd$p95)) round(nd$p95, 2) else "-"),
+                            tags$span(style = "font-weight: 600; color: #666;", "Max:"), tags$span(round(max_val, 2))
                           )
+                        ),
+                        # Right: boxplot
+                        tags$div(
+                          style = "flex: 1.5;",
+                          renderPlot({ p }, height = 80, width = "auto")
                         )
-                      } else {
-                        tags$p(style = "color: #6c757d; font-style: italic;", "No categorical data available")
+                      ),
+                      # Histogram below
+                      if (!is.null(histogram_plot)) {
+                        tags$div(
+                          style = "margin-top: 10px;",
+                          histogram_plot
+                        )
                       }
                     )
+                  } else {
+                    tags$div(
+                      style = "color: #999; font-style: italic;",
+                      "Numeric data available but missing percentile information (P25, P75)."
+                    )
+                  }
+                } else if (!is.null(summary_data$categorical_data) && length(summary_data$categorical_data) > 0) {
+                  # Categorical distribution
+                  cat_df <- as.data.frame(summary_data$categorical_data)
+                  if (nrow(cat_df) > 0 && "value" %in% colnames(cat_df) && "percentage" %in% colnames(cat_df)) {
+                    rows <- lapply(seq_len(nrow(cat_df)), function(i) {
+                      tags$div(
+                        style = "display: flex; align-items: center; margin-bottom: 5px;",
+                        tags$span(style = "width: 120px; font-size: 13px;", cat_df$value[i]),
+                        tags$div(
+                          style = sprintf("width: %s%%; background: #0f60af; height: 18px; border-radius: 3px; margin-right: 8px;", cat_df$percentage[i])
+                        ),
+                        tags$span(style = "font-size: 12px; color: #666;", paste0(cat_df$percentage[i], "%"))
+                      )
+                    })
+                    tags$div(
+                      tags$h5(style = "margin-bottom: 10px;", "Categorical Distribution"),
+                      do.call(tagList, rows)
+                    )
+                  } else {
+                    tags$div(
+                      style = "color: #999; font-style: italic;",
+                      "Categorical data format not recognized."
+                    )
+                  }
+                } else {
+                  tags$div(
+                    style = "color: #999; font-style: italic;",
+                    "No statistical data available in this summary."
                   )
-                )
+                }
               } else {
                 tags$div(
                   style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic; height: 100%; overflow-y: auto; box-sizing: border-box;",

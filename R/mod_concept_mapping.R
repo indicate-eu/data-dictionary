@@ -3518,19 +3518,20 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               plot.margin = ggplot2::margin(5, 10, 5, 10)
             )
 
-          # Check if histogram data exists
+          # Check if histogram data exists - render as line plot
           histogram_plot <- NULL
           if (!is.null(json_data$histogram) && length(json_data$histogram) > 0) {
             hist_df <- as.data.frame(json_data$histogram)
             if (nrow(hist_df) > 0 && "bin_start" %in% colnames(hist_df) && "count" %in% colnames(hist_df)) {
               hist_df$bin_mid <- (hist_df$bin_start + hist_df$bin_end) / 2
-              hist_df$bin_width <- hist_df$bin_end - hist_df$bin_start
               # Calculate percentages
               total_count <- sum(hist_df$count, na.rm = TRUE)
               hist_df$percentage <- if (total_count > 0) hist_df$count / total_count * 100 else 0
 
-              p_hist <- ggplot2::ggplot(hist_df, ggplot2::aes(x = bin_mid, y = percentage, width = bin_width)) +
-                ggplot2::geom_col(fill = "#0f60af", color = "white", linewidth = 0.3) +
+              p_hist <- ggplot2::ggplot(hist_df, ggplot2::aes(x = bin_mid, y = percentage)) +
+                ggplot2::geom_area(fill = "#0f60af", alpha = 0.3) +
+                ggplot2::geom_line(color = "#0f60af", linewidth = 1.2) +
+                ggplot2::geom_point(color = "#0f60af", size = 2) +
                 ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
                 ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05)), labels = function(x) paste0(x, "%")) +
                 ggplot2::labs(x = NULL, y = NULL) +
@@ -3758,6 +3759,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Create JSON-like data from general concept info for visualization
       # Only generalizable fields are kept (no unit - comes from DuckDB, no temporal/hospital distributions)
       target_json <- list(
+        data_types = NULL,
         numeric_data = NULL,
         histogram = NULL,
         categorical_data = NULL,
