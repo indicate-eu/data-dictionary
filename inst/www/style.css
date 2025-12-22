@@ -1535,6 +1535,12 @@ a.btn-success-custom:hover {
   margin-bottom: 0 !important;
 }
 
+.detail-item input[type="number"] {
+  height: 28px !important;
+  padding: 4px 8px !important;
+  font-size: 12px !important;
+}
+
 .detail-item strong {
   flex-shrink: 0;
   color: #0f60af;
@@ -1958,6 +1964,27 @@ a.btn-success-custom:hover {
 
 #dictionary_explorer-hierarchy_graph_modal_content {
   height: 100% !important;
+}
+
+/* Comments Fullscreen Modal
+-------------------------------------------------- */
+#dictionary_explorer-comments_fullscreen_modal .modal-fullscreen-content {
+  height: 100% !important;
+}
+
+#dictionary_explorer-comments_fullscreen_content {
+  height: 100% !important;
+}
+
+/* Make textarea fill its container in fullscreen comments modal */
+#dictionary_explorer-comments_fullscreen_modal .form-group.shiny-input-container {
+  height: 100% !important;
+  margin-bottom: 0 !important;
+}
+
+#dictionary_explorer-comments_fullscreen_modal textarea {
+  height: 100% !important;
+  resize: none;
 }
 
 .modal-close-graph {

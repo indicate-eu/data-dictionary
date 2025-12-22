@@ -1027,10 +1027,10 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
     tags$div(
       id = ns("hierarchy_graph_modal"),
       class = "modal-overlay modal-fullscreen",
-      style = "display: none;",
+      style = "height: 100%; display: none;",
       tags$div(
         class = "modal-fullscreen-content",
-        style = "height: 100vh; display: flex; flex-direction: column;",
+        style = "height: 100%; display: flex; flex-direction: column;",
         # Header with breadcrumb and close button
         tags$div(
           style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
@@ -1060,7 +1060,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
       style = "display: none;",
       tags$div(
         class = "modal-fullscreen-content",
-        style = "height: 100vh; display: flex; flex-direction: column;",
+        style = "height: 100%; display: flex; flex-direction: column;",
         tags$div(
           style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
           tags$h3(
@@ -2671,6 +2671,153 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         }
       }
 
+      # Update mapping details
+      # - omop_unit_concept_id is stored in general_concepts_details.csv (concept_mappings)
+      # - loinc_rank, ehden_rows_count, ehden_num_data_sources are stored in general_concepts_details_statistics.csv (concept_statistics)
+      mapped_id <- selected_mapped_concept_id()
+      if (!is.null(mapped_id) && !is.na(mapped_id)) {
+        # Get current values from inputs
+        new_loinc_rank <- input$loinc_rank_input
+        new_ehden_rows_count <- input$ehden_rows_count_input
+        new_ehden_num_data_sources <- input$ehden_num_data_sources_input
+        new_omop_unit_concept_id <- input$omop_unit_concept_id_input
+
+        # Track changes for history logging
+        changes_made <- character(0)
+
+        # Load concept_statistics for updating statistics fields
+        concept_statistics_path <- get_csv_path("general_concepts_details_statistics.csv")
+        concept_statistics <- if (file.exists(concept_statistics_path)) {
+          df <- readr::read_csv(concept_statistics_path, show_col_types = FALSE)
+          # Ensure correct column types for binding
+          df$omop_concept_id <- as.integer(df$omop_concept_id)
+          df$loinc_rank <- as.integer(df$loinc_rank)
+          df$ehden_rows_count <- as.integer(df$ehden_rows_count)
+          df$ehden_num_data_sources <- as.integer(df$ehden_num_data_sources)
+          df
+        } else {
+          data.frame(
+            omop_concept_id = integer(),
+            loinc_rank = integer(),
+            ehden_rows_count = integer(),
+            ehden_num_data_sources = integer(),
+            stringsAsFactors = FALSE
+          )
+        }
+
+        # Find the row in concept_statistics to update (indexed by omop_concept_id only)
+        stats_row_idx <- which(concept_statistics$omop_concept_id == mapped_id)
+
+        # If no row exists for this concept, create one
+        if (length(stats_row_idx) == 0) {
+          new_stats_row <- data.frame(
+            omop_concept_id = as.integer(mapped_id),
+            loinc_rank = NA_integer_,
+            ehden_rows_count = NA_integer_,
+            ehden_num_data_sources = NA_integer_,
+            stringsAsFactors = FALSE
+          )
+          concept_statistics <- dplyr::bind_rows(concept_statistics, new_stats_row)
+          stats_row_idx <- nrow(concept_statistics)
+        } else {
+          stats_row_idx <- stats_row_idx[1]
+        }
+
+        # Get old values for comparison
+        old_loinc_rank <- concept_statistics$loinc_rank[stats_row_idx]
+        old_ehden_rows_count <- concept_statistics$ehden_rows_count[stats_row_idx]
+        old_ehden_num_data_sources <- concept_statistics$ehden_num_data_sources[stats_row_idx]
+
+        # Update loinc_rank if changed
+        if (!is.null(new_loinc_rank)) {
+          new_val <- if (is.na(new_loinc_rank)) NA_integer_ else as.integer(new_loinc_rank)
+          old_val <- if (is.na(old_loinc_rank)) NA_integer_ else as.integer(old_loinc_rank)
+          if (!identical(new_val, old_val)) {
+            concept_statistics$loinc_rank[stats_row_idx] <- new_val
+            changes_made <- c(changes_made, paste0("LOINC Rank: ", old_val, " -> ", new_val))
+          }
+        }
+
+        # Update ehden_rows_count if changed
+        if (!is.null(new_ehden_rows_count)) {
+          new_val <- if (is.na(new_ehden_rows_count)) NA_integer_ else as.integer(new_ehden_rows_count)
+          old_val <- if (is.na(old_ehden_rows_count)) NA_integer_ else as.integer(old_ehden_rows_count)
+          if (!identical(new_val, old_val)) {
+            concept_statistics$ehden_rows_count[stats_row_idx] <- new_val
+            changes_made <- c(changes_made, paste0("EHDEN Rows Count: ", old_val, " -> ", new_val))
+          }
+        }
+
+        # Update ehden_num_data_sources if changed
+        if (!is.null(new_ehden_num_data_sources)) {
+          new_val <- if (is.na(new_ehden_num_data_sources)) NA_integer_ else as.integer(new_ehden_num_data_sources)
+          old_val <- if (is.na(old_ehden_num_data_sources)) NA_integer_ else as.integer(old_ehden_num_data_sources)
+          if (!identical(new_val, old_val)) {
+            concept_statistics$ehden_num_data_sources[stats_row_idx] <- new_val
+            changes_made <- c(changes_made, paste0("EHDEN Data Sources: ", old_val, " -> ", new_val))
+          }
+        }
+
+        # Save concept_statistics if any statistics fields changed
+        stats_changed <- any(grepl("LOINC Rank|EHDEN Rows Count|EHDEN Data Sources", changes_made))
+        if (stats_changed) {
+          readr::write_csv(concept_statistics, concept_statistics_path)
+        }
+
+        # Update omop_unit_concept_id in concept_mappings (general_concepts_details.csv)
+        mapping_row_idx <- which(
+          concept_mappings$general_concept_id == concept_id &
+          concept_mappings$omop_concept_id == mapped_id
+        )
+
+        if (length(mapping_row_idx) > 0) {
+          mapping_row_idx <- mapping_row_idx[1]
+          old_omop_unit_concept_id <- concept_mappings$omop_unit_concept_id[mapping_row_idx]
+
+          if (!is.null(new_omop_unit_concept_id)) {
+            new_val <- if (is.na(new_omop_unit_concept_id)) "/" else as.character(new_omop_unit_concept_id)
+            old_val <- if (is.na(old_omop_unit_concept_id) || old_omop_unit_concept_id == "") "/" else as.character(old_omop_unit_concept_id)
+            if (new_val != old_val) {
+              concept_mappings$omop_unit_concept_id[mapping_row_idx] <- new_val
+              changes_made <- c(changes_made, paste0("OMOP Unit Concept ID: ", old_val, " -> ", new_val))
+            }
+          }
+        }
+
+        # Log changes if any were made
+        if (length(changes_made) > 0) {
+          # Get concept info from vocabulary for logging
+          vocab_data <- vocabularies()
+          concept_info <- NULL
+          if (!is.null(vocab_data) && !is.null(vocab_data$concept)) {
+            concept_info <- vocab_data$concept %>%
+              dplyr::filter(concept_id == !!mapped_id) %>%
+              dplyr::collect() %>%
+              dplyr::slice(1)
+          }
+
+          log_history_change(
+            entity_type = "mapped_concept",
+            username = username,
+            action_type = "update",
+            general_concept_id = concept_id,
+            vocabulary_id = if (!is.null(concept_info) && nrow(concept_info) > 0) as.character(concept_info$vocabulary_id[1]) else NA,
+            concept_code = if (!is.null(concept_info) && nrow(concept_info) > 0) as.character(concept_info$concept_code[1]) else NA,
+            concept_name = if (!is.null(concept_info) && nrow(concept_info) > 0) as.character(concept_info$concept_name[1]) else NA,
+            comment = paste0("Updated mapping details: ", paste(changes_made, collapse = "; "))
+          )
+        }
+
+        # Update local_data with new concept_statistics
+        if (stats_changed) {
+          updated_local <- local_data()
+          if (!is.null(updated_local)) {
+            updated_local$concept_statistics <- concept_statistics
+            local_data(updated_local)
+          }
+        }
+      }
+
       # Apply concept deletions
       concept_deletions <- deleted_concepts()
       concept_key <- as.character(concept_id)
@@ -2824,11 +2971,13 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         )
       }
 
-      # Update local data
+      # Update local data (preserve concept_statistics from earlier update or from current data)
+      current_local <- local_data()
       updated_data <- list(
         general_concepts = general_concepts,
         concept_mappings = concept_mappings,
-        custom_concepts = custom_concepts
+        custom_concepts = custom_concepts,
+        concept_statistics = if (!is.null(current_local$concept_statistics)) current_local$concept_statistics else current_data()$concept_statistics
       )
       local_data(updated_data)
       
@@ -4783,29 +4932,35 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
               # Left half: text editor
               tags$div(
-                style = "flex: 1; padding: 10px; border-right: 1px solid #ddd; overflow-y: auto;",
+                style = "flex: 1; padding: 10px; border-right: 1px solid #ddd; display: flex; flex-direction: column; overflow: hidden;",
                 tags$h4(
-                  style = "margin-top: 0; color: #0f60af; font-size: 16px; font-weight: 600; margin-bottom: 15px;",
+                  style = "margin-top: 0; color: #0f60af; font-size: 16px; font-weight: 600; margin-bottom: 15px; flex-shrink: 0;",
                   "Edit Comment"
                 ),
-                shiny::textAreaInput(
-                  session$ns("fullscreen_comments_input"),
-                  label = NULL,
-                  value = current_comment,
-                  placeholder = "Enter ETL guidance and comments here...",
-                  width = "100%",
-                  height = "calc(100vh - 150px)"
+                tags$div(
+                  style = "flex: 1; overflow: hidden;",
+                  shiny::textAreaInput(
+                    session$ns("fullscreen_comments_input"),
+                    label = NULL,
+                    value = current_comment,
+                    placeholder = "Enter ETL guidance and comments here...",
+                    width = "100%",
+                    height = "100%"
+                  )
                 )
               ),
 
               # Right half: markdown preview
               tags$div(
-                style = "flex: 1; padding: 10px; display: flex; flex-direction: column;",
+                style = "flex: 1; padding: 10px; display: flex; flex-direction: column; overflow: hidden;",
                 tags$h4(
-                  style = "margin-top: 0; color: #0f60af; font-size: 16px; font-weight: 600; margin-bottom: 15px;",
+                  style = "margin-top: 0; color: #0f60af; font-size: 16px; font-weight: 600; margin-bottom: 15px; flex-shrink: 0;",
                   "Preview"
                 ),
-                uiOutput(session$ns("fullscreen_markdown_preview"))
+                tags$div(
+                  style = "flex: 1; overflow-y: auto;",
+                  uiOutput(session$ns("fullscreen_markdown_preview"))
+                )
               )
             )
           )
@@ -4842,7 +4997,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         } else {
           tags$div(
             class = "markdown-content",
-            style = "background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); margin: 5px; height: calc(100vh - 150px); overflow-y: auto;",
+            style = "background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); margin: 5px; height: 100%; overflow-y: auto;",
             shiny::markdown(text)
           )
         }
