@@ -1760,12 +1760,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         tags$div(
           id = ns("panel_import_mappings"),
           class = "import-mappings-panel",
-          style = "margin: 0 10px 10px 10px; height: calc(100% - 10px); min-height: 0; display: none;",
+          style = "margin: 0 10px 10px 10px; height: calc(100% - 10px); min-height: 0; display: none; display: flex; flex-direction: column;",
 
           # Import from CSV widget
           tags$div(
             class = "card-container",
-            style = "margin-bottom: 15px; padding: 20px;",
+            style = "height: 50%; overflow: auto; padding: 20px;",
             tags$h4(style = "margin-bottom: 15px; color: #0f60af;", "Import Mappings from CSV"),
             tags$p(
               style = "margin-bottom: 10px; color: #666;",
@@ -1828,7 +1828,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           # Import History widget
           tags$div(
             class = "card-container",
-            style = "padding: 20px; flex: 1; min-height: 0; overflow: auto;",
+            style = "height: calc(50% - 10px); overflow: auto; padding: 20px;",
             tags$h4(style = "margin-bottom: 15px; color: #0f60af;", "Import History"),
             DT::DTOutput(ns("import_history_table"))
           )

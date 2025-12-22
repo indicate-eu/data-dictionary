@@ -1152,6 +1152,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     newly_added_concept_id <- reactiveVal(NULL)  # Track newly added concept ID for navigation
     add_modal_omop_table_trigger <- reactiveVal(0)  # Trigger to control OMOP table rendering
     added_concepts <- reactiveVal(list())  # Store newly added concept mappings temporarily until save
+    edited_mapping_details <- reactiveVal(list())  # Store temporary edits to mapping details (keyed by omop_concept_id)
 
     ### Data Management ----
     local_data <- reactiveVal(NULL)  # Local copy of data that can be updated
@@ -1692,6 +1693,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Reset all unsaved changes in memory
       deleted_concepts(list())
       added_concepts(list())
+      edited_mapping_details(list())  # Reset temporary mapping detail edits
       general_concept_detail_edit_mode(FALSE)
       # Reset tab to comments
       comments_tab("comments")
@@ -1699,10 +1701,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       shinyjs::hide("general_concept_detail_edit_buttons")
       shinyjs::show("general_concept_detail_action_buttons")
 
-      # Temporary changes are stored in deleted_concepts() and added_concepts()
+      # Temporary changes are stored in deleted_concepts(), added_concepts(), and edited_mapping_details()
       # which are applied during table rendering. Resetting these lists is enough.
       # Just trigger table re-render to show original data
       concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
+      selected_mapping_details_trigger(selected_mapping_details_trigger() + 1)
     })
     
     # Observe tab switching for relationships
@@ -2671,20 +2674,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         }
       }
 
-      # Update mapping details
+      # Update mapping details from edited_mapping_details()
       # - omop_unit_concept_id is stored in general_concepts_details.csv (concept_mappings)
       # - loinc_rank, ehden_rows_count, ehden_num_data_sources are stored in general_concepts_details_statistics.csv (concept_statistics)
-      mapped_id <- selected_mapped_concept_id()
-      if (!is.null(mapped_id) && !is.na(mapped_id)) {
-        # Get current values from inputs
-        new_loinc_rank <- input$loinc_rank_input
-        new_ehden_rows_count <- input$ehden_rows_count_input
-        new_ehden_num_data_sources <- input$ehden_num_data_sources_input
-        new_omop_unit_concept_id <- input$omop_unit_concept_id_input
-
-        # Track changes for history logging
-        changes_made <- character(0)
-
+      all_edits <- edited_mapping_details()
+      if (length(all_edits) > 0) {
         # Load concept_statistics for updating statistics fields
         concept_statistics_path <- get_csv_path("general_concepts_details_statistics.csv")
         concept_statistics <- if (file.exists(concept_statistics_path)) {
@@ -2705,107 +2699,118 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           )
         }
 
-        # Find the row in concept_statistics to update (indexed by omop_concept_id only)
-        stats_row_idx <- which(concept_statistics$omop_concept_id == mapped_id)
+        stats_changed <- FALSE
 
-        # If no row exists for this concept, create one
-        if (length(stats_row_idx) == 0) {
-          new_stats_row <- data.frame(
-            omop_concept_id = as.integer(mapped_id),
-            loinc_rank = NA_integer_,
-            ehden_rows_count = NA_integer_,
-            ehden_num_data_sources = NA_integer_,
-            stringsAsFactors = FALSE
-          )
-          concept_statistics <- dplyr::bind_rows(concept_statistics, new_stats_row)
-          stats_row_idx <- nrow(concept_statistics)
-        } else {
-          stats_row_idx <- stats_row_idx[1]
-        }
+        # Iterate over all edited mappings
+        for (mapped_id_str in names(all_edits)) {
+          mapped_id <- as.integer(mapped_id_str)
+          edits <- all_edits[[mapped_id_str]]
 
-        # Get old values for comparison
-        old_loinc_rank <- concept_statistics$loinc_rank[stats_row_idx]
-        old_ehden_rows_count <- concept_statistics$ehden_rows_count[stats_row_idx]
-        old_ehden_num_data_sources <- concept_statistics$ehden_num_data_sources[stats_row_idx]
+          # Track changes for history logging
+          changes_made <- character(0)
 
-        # Update loinc_rank if changed
-        if (!is.null(new_loinc_rank)) {
-          new_val <- if (is.na(new_loinc_rank)) NA_integer_ else as.integer(new_loinc_rank)
-          old_val <- if (is.na(old_loinc_rank)) NA_integer_ else as.integer(old_loinc_rank)
-          if (!identical(new_val, old_val)) {
-            concept_statistics$loinc_rank[stats_row_idx] <- new_val
-            changes_made <- c(changes_made, paste0("LOINC Rank: ", old_val, " -> ", new_val))
+          # Find the row in concept_statistics to update (indexed by omop_concept_id only)
+          stats_row_idx <- which(concept_statistics$omop_concept_id == mapped_id)
+
+          # If no row exists for this concept, create one
+          if (length(stats_row_idx) == 0) {
+            new_stats_row <- data.frame(
+              omop_concept_id = as.integer(mapped_id),
+              loinc_rank = NA_integer_,
+              ehden_rows_count = NA_integer_,
+              ehden_num_data_sources = NA_integer_,
+              stringsAsFactors = FALSE
+            )
+            concept_statistics <- dplyr::bind_rows(concept_statistics, new_stats_row)
+            stats_row_idx <- nrow(concept_statistics)
+          } else {
+            stats_row_idx <- stats_row_idx[1]
           }
-        }
 
-        # Update ehden_rows_count if changed
-        if (!is.null(new_ehden_rows_count)) {
-          new_val <- if (is.na(new_ehden_rows_count)) NA_integer_ else as.integer(new_ehden_rows_count)
-          old_val <- if (is.na(old_ehden_rows_count)) NA_integer_ else as.integer(old_ehden_rows_count)
-          if (!identical(new_val, old_val)) {
-            concept_statistics$ehden_rows_count[stats_row_idx] <- new_val
-            changes_made <- c(changes_made, paste0("EHDEN Rows Count: ", old_val, " -> ", new_val))
+          # Update loinc_rank if provided
+          if (!is.null(edits$loinc_rank)) {
+            old_val <- concept_statistics$loinc_rank[stats_row_idx]
+            new_val <- if (is.na(edits$loinc_rank)) NA_integer_ else as.integer(edits$loinc_rank)
+            old_val_int <- if (is.na(old_val)) NA_integer_ else as.integer(old_val)
+            if (!identical(new_val, old_val_int)) {
+              concept_statistics$loinc_rank[stats_row_idx] <- new_val
+              changes_made <- c(changes_made, paste0("LOINC Rank: ", old_val_int, " -> ", new_val))
+              stats_changed <- TRUE
+            }
           }
-        }
 
-        # Update ehden_num_data_sources if changed
-        if (!is.null(new_ehden_num_data_sources)) {
-          new_val <- if (is.na(new_ehden_num_data_sources)) NA_integer_ else as.integer(new_ehden_num_data_sources)
-          old_val <- if (is.na(old_ehden_num_data_sources)) NA_integer_ else as.integer(old_ehden_num_data_sources)
-          if (!identical(new_val, old_val)) {
-            concept_statistics$ehden_num_data_sources[stats_row_idx] <- new_val
-            changes_made <- c(changes_made, paste0("EHDEN Data Sources: ", old_val, " -> ", new_val))
+          # Update ehden_rows_count if provided
+          if (!is.null(edits$ehden_rows_count)) {
+            old_val <- concept_statistics$ehden_rows_count[stats_row_idx]
+            new_val <- if (is.na(edits$ehden_rows_count)) NA_integer_ else as.integer(edits$ehden_rows_count)
+            old_val_int <- if (is.na(old_val)) NA_integer_ else as.integer(old_val)
+            if (!identical(new_val, old_val_int)) {
+              concept_statistics$ehden_rows_count[stats_row_idx] <- new_val
+              changes_made <- c(changes_made, paste0("EHDEN Rows Count: ", old_val_int, " -> ", new_val))
+              stats_changed <- TRUE
+            }
+          }
+
+          # Update ehden_num_data_sources if provided
+          if (!is.null(edits$ehden_num_data_sources)) {
+            old_val <- concept_statistics$ehden_num_data_sources[stats_row_idx]
+            new_val <- if (is.na(edits$ehden_num_data_sources)) NA_integer_ else as.integer(edits$ehden_num_data_sources)
+            old_val_int <- if (is.na(old_val)) NA_integer_ else as.integer(old_val)
+            if (!identical(new_val, old_val_int)) {
+              concept_statistics$ehden_num_data_sources[stats_row_idx] <- new_val
+              changes_made <- c(changes_made, paste0("EHDEN Data Sources: ", old_val_int, " -> ", new_val))
+              stats_changed <- TRUE
+            }
+          }
+
+          # Update omop_unit_concept_id in concept_mappings (general_concepts_details.csv)
+          if (!is.null(edits$omop_unit_concept_id)) {
+            mapping_row_idx <- which(
+              concept_mappings$general_concept_id == concept_id &
+              concept_mappings$omop_concept_id == mapped_id
+            )
+
+            if (length(mapping_row_idx) > 0) {
+              mapping_row_idx <- mapping_row_idx[1]
+              old_omop_unit_concept_id <- concept_mappings$omop_unit_concept_id[mapping_row_idx]
+
+              new_val <- if (is.na(edits$omop_unit_concept_id)) "/" else as.character(edits$omop_unit_concept_id)
+              old_val <- if (is.na(old_omop_unit_concept_id) || old_omop_unit_concept_id == "") "/" else as.character(old_omop_unit_concept_id)
+              if (new_val != old_val) {
+                concept_mappings$omop_unit_concept_id[mapping_row_idx] <- new_val
+                changes_made <- c(changes_made, paste0("OMOP Unit Concept ID: ", old_val, " -> ", new_val))
+              }
+            }
+          }
+
+          # Log changes if any were made for this mapping
+          if (length(changes_made) > 0) {
+            # Get concept info from vocabulary for logging
+            vocab_data <- vocabularies()
+            concept_info <- NULL
+            if (!is.null(vocab_data) && !is.null(vocab_data$concept)) {
+              concept_info <- vocab_data$concept %>%
+                dplyr::filter(concept_id == !!mapped_id) %>%
+                dplyr::collect() %>%
+                dplyr::slice(1)
+            }
+
+            log_history_change(
+              entity_type = "mapped_concept",
+              username = username,
+              action_type = "update",
+              general_concept_id = concept_id,
+              vocabulary_id = if (!is.null(concept_info) && nrow(concept_info) > 0) as.character(concept_info$vocabulary_id[1]) else NA,
+              concept_code = if (!is.null(concept_info) && nrow(concept_info) > 0) as.character(concept_info$concept_code[1]) else NA,
+              concept_name = if (!is.null(concept_info) && nrow(concept_info) > 0) as.character(concept_info$concept_name[1]) else NA,
+              comment = paste0("Updated mapping details: ", paste(changes_made, collapse = "; "))
+            )
           }
         }
 
         # Save concept_statistics if any statistics fields changed
-        stats_changed <- any(grepl("LOINC Rank|EHDEN Rows Count|EHDEN Data Sources", changes_made))
         if (stats_changed) {
           readr::write_csv(concept_statistics, concept_statistics_path)
-        }
-
-        # Update omop_unit_concept_id in concept_mappings (general_concepts_details.csv)
-        mapping_row_idx <- which(
-          concept_mappings$general_concept_id == concept_id &
-          concept_mappings$omop_concept_id == mapped_id
-        )
-
-        if (length(mapping_row_idx) > 0) {
-          mapping_row_idx <- mapping_row_idx[1]
-          old_omop_unit_concept_id <- concept_mappings$omop_unit_concept_id[mapping_row_idx]
-
-          if (!is.null(new_omop_unit_concept_id)) {
-            new_val <- if (is.na(new_omop_unit_concept_id)) "/" else as.character(new_omop_unit_concept_id)
-            old_val <- if (is.na(old_omop_unit_concept_id) || old_omop_unit_concept_id == "") "/" else as.character(old_omop_unit_concept_id)
-            if (new_val != old_val) {
-              concept_mappings$omop_unit_concept_id[mapping_row_idx] <- new_val
-              changes_made <- c(changes_made, paste0("OMOP Unit Concept ID: ", old_val, " -> ", new_val))
-            }
-          }
-        }
-
-        # Log changes if any were made
-        if (length(changes_made) > 0) {
-          # Get concept info from vocabulary for logging
-          vocab_data <- vocabularies()
-          concept_info <- NULL
-          if (!is.null(vocab_data) && !is.null(vocab_data$concept)) {
-            concept_info <- vocab_data$concept %>%
-              dplyr::filter(concept_id == !!mapped_id) %>%
-              dplyr::collect() %>%
-              dplyr::slice(1)
-          }
-
-          log_history_change(
-            entity_type = "mapped_concept",
-            username = username,
-            action_type = "update",
-            general_concept_id = concept_id,
-            vocabulary_id = if (!is.null(concept_info) && nrow(concept_info) > 0) as.character(concept_info$vocabulary_id[1]) else NA,
-            concept_code = if (!is.null(concept_info) && nrow(concept_info) > 0) as.character(concept_info$concept_code[1]) else NA,
-            concept_name = if (!is.null(concept_info) && nrow(concept_info) > 0) as.character(concept_info$concept_name[1]) else NA,
-            comment = paste0("Updated mapping details: ", paste(changes_made, collapse = "; "))
-          )
         }
 
         # Update local_data with new concept_statistics
@@ -2984,6 +2989,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Reset edit state
       deleted_concepts(list())
       added_concepts(list())
+      edited_mapping_details(list())  # Reset temporary mapping detail edits
       general_concept_detail_edit_mode(FALSE)
       # Reset tab to comments
       comments_tab("comments")
@@ -3951,6 +3957,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           },
           create_detail_item("Unit Concept Name", "/", include_colon = FALSE),
           create_detail_item("OMOP Unit Concept ID", "/", include_colon = FALSE),
+          tags$div(class = "detail-item", style = "visibility: hidden;"),
           tags$div(class = "detail-item", style = "visibility: hidden;")
         ))
       }
@@ -4125,7 +4132,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                           } else {
                             "/"
                           },
-                          url = unit_fhir_url, include_colon = FALSE),
+                          include_colon = FALSE),
         create_detail_item("OMOP Unit Concept ID",
                           if (!is.null(info$omop_unit_concept_id) && !is.na(info$omop_unit_concept_id) && info$omop_unit_concept_id != "" && info$omop_unit_concept_id != "/") {
                             as.integer(info$omop_unit_concept_id)
@@ -4133,9 +4140,103 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                             NA
                           },
                           editable = TRUE, input_id = "omop_unit_concept_id_input", step = 1,
-                          url = athena_unit_url, include_colon = FALSE, is_editing = is_editing, ns = ns)
+                          url = athena_unit_url, include_colon = FALSE, is_editing = is_editing, ns = ns),
+        if (!is.null(unit_fhir_url)) {
+          tags$div(
+            class = "detail-item",
+            tags$strong("Unit FHIR Resource"),
+            tags$a(
+              href = unit_fhir_url,
+              target = "_blank",
+              style = "color: #0f60af; text-decoration: underline;",
+              "View"
+            )
+          )
+        } else {
+          tags$div(class = "detail-item", style = "visibility: hidden;")
+        }
         )
       })
+    }, ignoreInit = TRUE)
+
+    # Update inputs with temporary values when switching between mappings
+    # This runs after the UI is rendered, to restore any previously edited values
+    observe_event(selected_mapped_concept_id(), {
+      mapped_id <- selected_mapped_concept_id()
+      if (is.null(mapped_id)) return()
+      if (!general_concept_detail_edit_mode()) return()
+
+      # Check for temporary edits to this mapping
+      temp_edits <- edited_mapping_details()
+      key <- as.character(mapped_id)
+      if (!is.null(temp_edits[[key]])) {
+        edits <- temp_edits[[key]]
+        # Use delay to ensure inputs exist before updating
+        shinyjs::delay(100, {
+          if (!is.null(edits$omop_unit_concept_id)) {
+            updateNumericInput(session, "omop_unit_concept_id_input", value = edits$omop_unit_concept_id)
+          }
+          if (!is.null(edits$loinc_rank)) {
+            updateNumericInput(session, "loinc_rank_input", value = edits$loinc_rank)
+          }
+          if (!is.null(edits$ehden_rows_count)) {
+            updateNumericInput(session, "ehden_rows_count_input", value = edits$ehden_rows_count)
+          }
+          if (!is.null(edits$ehden_num_data_sources)) {
+            updateNumericInput(session, "ehden_num_data_sources_input", value = edits$ehden_num_data_sources)
+          }
+        })
+      }
+    }, ignoreInit = TRUE)
+
+    # Capture edits to mapping detail fields and store temporarily
+    # These observers store changes in edited_mapping_details() keyed by omop_concept_id
+    observe_event(input$omop_unit_concept_id_input, {
+      if (!general_concept_detail_edit_mode()) return()
+      mapped_id <- selected_mapped_concept_id()
+      if (is.null(mapped_id)) return()
+
+      current_edits <- edited_mapping_details()
+      key <- as.character(mapped_id)
+      if (is.null(current_edits[[key]])) current_edits[[key]] <- list()
+      current_edits[[key]]$omop_unit_concept_id <- input$omop_unit_concept_id_input
+      edited_mapping_details(current_edits)
+    }, ignoreInit = TRUE)
+
+    observe_event(input$loinc_rank_input, {
+      if (!general_concept_detail_edit_mode()) return()
+      mapped_id <- selected_mapped_concept_id()
+      if (is.null(mapped_id)) return()
+
+      current_edits <- edited_mapping_details()
+      key <- as.character(mapped_id)
+      if (is.null(current_edits[[key]])) current_edits[[key]] <- list()
+      current_edits[[key]]$loinc_rank <- input$loinc_rank_input
+      edited_mapping_details(current_edits)
+    }, ignoreInit = TRUE)
+
+    observe_event(input$ehden_rows_count_input, {
+      if (!general_concept_detail_edit_mode()) return()
+      mapped_id <- selected_mapped_concept_id()
+      if (is.null(mapped_id)) return()
+
+      current_edits <- edited_mapping_details()
+      key <- as.character(mapped_id)
+      if (is.null(current_edits[[key]])) current_edits[[key]] <- list()
+      current_edits[[key]]$ehden_rows_count <- input$ehden_rows_count_input
+      edited_mapping_details(current_edits)
+    }, ignoreInit = TRUE)
+
+    observe_event(input$ehden_num_data_sources_input, {
+      if (!general_concept_detail_edit_mode()) return()
+      mapped_id <- selected_mapped_concept_id()
+      if (is.null(mapped_id)) return()
+
+      current_edits <- edited_mapping_details()
+      key <- as.character(mapped_id)
+      if (is.null(current_edits[[key]])) current_edits[[key]] <- list()
+      current_edits[[key]]$ehden_num_data_sources <- input$ehden_num_data_sources_input
+      edited_mapping_details(current_edits)
     }, ignoreInit = TRUE)
 
     # Handle copy concept JSON button
