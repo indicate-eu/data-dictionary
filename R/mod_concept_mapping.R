@@ -527,7 +527,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
         tags$div(
           class = "breadcrumb-nav",
-          style = "padding: 10px 0 15px 0; display: flex; align-items: center; justify-content: space-between;",
+          style = "padding: 10px 0 15px 12px; display: flex; align-items: center; justify-content: space-between;",
           # Left side: breadcrumb path
           tags$div(
             style = "display: flex; align-items: center; gap: 10px;",
@@ -1532,9 +1532,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     
     render_alignments_view <- function() {
       tags$div(
+        style = "height: 100%; display: flex; flex-direction: column;",
         tags$div(
           class = "breadcrumb-nav",
-          style = "padding: 10px 0 15px 0; display: flex; align-items: center; gap: 15px; justify-content: space-between;",
+          style = "padding: 10px 0 15px 12px; display: flex; align-items: center; gap: 15px; justify-content: space-between;",
           tags$div(
             class = "section-title",
             "Concept Mappings"
@@ -1551,7 +1552,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         ),
         tags$div(
           class = "card-container",
-          style = "padding: 20px;",
+          style = "padding: 20px; flex: 1; min-height: 0; overflow: auto; margin: 0 10px 10px 10px;",
           DT::DTOutput(ns("alignments_table"))
         )
       )
@@ -1565,6 +1566,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         # Summary panel
         tags$div(
           id = ns("panel_summary"),
+          style = "height: 100%; display: flex; flex-direction: column;",
           uiOutput(ns("summary_content"))
         ),
 
@@ -1572,14 +1574,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         tags$div(
           id = ns("panel_all_mappings"),
           class = "card-container",
-          style = "margin: 0 10px 10px 10px; flex: 1; min-height: 0; overflow: auto; display: none;",
+          style = "margin: 0 10px 10px 10px; height: calc(100% - 10px); min-height: 0; overflow: auto; display: none;",
           DT::DTOutput(ns("all_mappings_table_main"))
         ),
 
         # Edit Mappings panel
         tags$div(
           id = ns("panel_edit_mappings"),
-          style = "display: none; flex: 1; min-height: 0; margin: 0 10px 10px 10px;",
+          style = "display: none; height: calc(100% - 10px); min-height: 0; margin: 0 10px 10px 10px;",
           tags$div(
             style = "height: 100%; display: flex; gap: 15px; min-height: 0;",
             # Left column: Source Concepts (top) + Concept Details (bottom)
@@ -1757,7 +1759,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         # Import Mappings panel
         tags$div(
           id = ns("panel_import_mappings"),
-          style = "margin: 0 10px 10px 10px; flex: 1; min-height: 0; display: none; flex-direction: column;",
+          class = "import-mappings-panel",
+          style = "margin: 0 10px 10px 10px; height: calc(100% - 10px); min-height: 0; display: none;",
 
           # Import from CSV widget
           tags$div(
@@ -1835,7 +1838,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         tags$div(
           id = ns("panel_evaluate_mappings"),
           class = "card-container",
-          style = "margin: 0 10px 10px 10px; flex: 1; min-height: 0; overflow: auto; display: none;",
+          style = "margin: 0 10px 10px 10px; height: calc(100% - 10px); min-height: 0; overflow: auto; display: none;",
           DT::DTOutput(ns("evaluate_mappings_table")),
           shinyjs::hidden(
             tags$div(
@@ -2146,7 +2149,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Render UI
       output$summary_content <- renderUI({
         tags$div(
-          style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
+          style = "height: 100%; min-height: 0; display: flex; flex-direction: column;",
 
           # Summary cards
           tags$div(
@@ -2237,7 +2240,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             style = "flex: 1; min-height: 0;",
             tags$div(
               class = "card-container",
-              style = "margin: 0 10px 10px 10px; height: 100%; overflow: auto;",
+              style = "margin: 10px 10px 10px 10px; height: calc(100% - 20px); overflow: auto;",
               tags$div(
                 class = "section-header",
                 style = "background: none; border-bottom: none; padding: 0 0 0 5px;",

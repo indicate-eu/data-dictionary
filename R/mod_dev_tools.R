@@ -50,7 +50,7 @@ mod_dev_tools_ui <- function(id) {
                 "Data Quality",
                 value = "data_quality",
                 tags$div(
-                  style = "margin-top: 20px;",
+                  style = "margin-top: 10px; height: 100%;",
                   uiOutput(ns("data_quality_output"))
                 )
               ),
@@ -60,19 +60,19 @@ mod_dev_tools_ui <- function(id) {
                 "R Console",
                 value = "r_console",
                 tags$div(
-                  style = "margin-top: 20px; height: calc(100vh - 185px); display: flex; flex-direction: column;",
+                  style = "margin-top: 10px; height: calc(100% - 10px); display: flex; flex-direction: column;",
                   tags$div(
                     style = "display: flex; gap: 15px; height: 100%;",
                     # Left: Editor
                     tags$div(
-                      style = "flex: 1; display: flex; flex-direction: column;",
+                      style = "flex: 1; height: 100%; display: flex; flex-direction: column;",
                       tags$div(
                         class = "section-header",
                         tags$h4("R Code")
                       ),
                       tags$div(
                         style = paste0(
-                          "flex: 1; border: 1px solid #dee2e6; ",
+                          "flex: 1; height: 100%; border: 1px solid #dee2e6; ",
                           "border-radius: 6px; overflow: hidden;"
                         ),
                         shinyAce::aceEditor(
@@ -117,13 +117,13 @@ mod_dev_tools_ui <- function(id) {
                     ),
                     # Right: Results
                     tags$div(
-                      style = "flex: 1; display: flex; flex-direction: column;",
+                      style = "flex: 1; height: 100%; display: flex; flex-direction: column;",
                       tags$div(
                         class = "section-header",
                         tags$h4("Results")
                       ),
                       tags$div(
-                        style = "flex: 1; overflow: auto; background: white; border: 1px solid #dee2e6; border-radius: 6px; padding: 10px; font-size: 11px;",
+                        style = "flex: 1; height: 100%; overflow: auto; background: white; border: 1px solid #dee2e6; border-radius: 6px; padding: 10px; font-size: 11px;",
                         verbatimTextOutput(ns("code_results"))
                       )
                     )
@@ -228,7 +228,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
 
       output$data_quality_output <- renderUI({
         tags$div(
-        style = "display: flex; gap: 20px; height: calc(100vh - 185px);",
+        style = "display: flex; gap: 20px; flex: 1; min-height: 0;",
 
         # Left side: Summary cards
         tags$div(
@@ -330,7 +330,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
           ),
           tags$div(
             style = paste0(
-              "flex: 1; margin-top: 10px; overflow: auto; ",
+              "flex: 1; overflow: auto; ",
               "background: white; border-radius: 6px; padding: 10px; ",
               "position: relative;"
             ),

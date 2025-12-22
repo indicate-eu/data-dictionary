@@ -66,7 +66,7 @@ mod_general_settings_ui <- function(id) {
             value = "ohdsi_vocabularies",
             icon = icon("book-medical"),
             tags$div(
-              style = "margin-top: 20px; height: calc(100vh - 185px); overflow-y: auto;",
+              style = "margin-top: 10px; height: 100%; overflow-y: auto;",
               div(class = "settings-section",
                 p(
                   style = "color: #666; margin-bottom: 15px;",
@@ -151,7 +151,7 @@ mod_general_settings_ui <- function(id) {
             value = "backup_restore",
             icon = icon("database"),
             tags$div(
-              style = "margin-top: 20px; height: calc(100vh - 185px); overflow-y: auto;",
+              style = "margin-top: 10px; height: 100%; overflow-y: auto;",
               div(class = "settings-section",
                 p(
                   style = "color: #666; margin-bottom: 15px;",

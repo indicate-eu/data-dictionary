@@ -44,7 +44,7 @@ mod_users_ui <- function(id) {
 
   div(
     class = "users-container",
-    style = "padding: 20px; height: 100%; overflow-y: auto;",
+    style = "padding: 20px; height: 100%;",
 
     ## Header with Add User Button ----
     div(
@@ -59,7 +59,7 @@ mod_users_ui <- function(id) {
 
     ## Users Table ----
     div(
-      style = "background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
+      style = "background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); height: calc(100% - 50px);",
       DTOutput(ns("users_table"))
     ),
 

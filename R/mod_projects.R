@@ -385,7 +385,7 @@ render_projects_list_ui <- function(ns, i18n) {
 
     # Split panel layout
     tags$div(
-      style = "display: flex; gap: 20px; height: calc(100vh - 175px); margin: 10px;",
+      style = "display: flex; gap: 20px; flex: 1; min-height: 0; margin: 10px;",
 
       # Left panel: projects table (70%)
       tags$div(
@@ -443,7 +443,7 @@ render_project_config_ui <- function(ns, i18n) {
   tagList(
     # Two-panel layout for concept selection
     tags$div(
-      style = "display: flex; gap: 20px; height: calc(100vh - 175px); margin: 10px;",
+      style = "display: flex; gap: 20px; flex: 1; min-height: 0; margin: 10px;",
 
       # Left panel: Available general concepts (50% width, 100% height)
       tags$div(
@@ -876,7 +876,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
             tags$div(
               class = "breadcrumb-nav",
               style = paste0(
-                "padding: 10px 0 15px 0; font-size: 16px; ",
+                "padding: 10px 0 15px 12px; font-size: 16px; ",
                 "display: flex; justify-content: space-between; align-items: center;"
               ),
               # Left side: breadcrumb

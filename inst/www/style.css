@@ -12,6 +12,18 @@ html, body {
   overflow: hidden;
 }
 
+.tabbable {
+  height: 100%;
+}
+
+.tab-content {
+  height: calc(100% - 60px);
+}
+
+.tab-pane {
+  height: 100%;
+}
+
 /* Section titles
 -------------------------------------------------- */
 .section-title {
@@ -44,6 +56,74 @@ html, body {
 -------------------------------------------------- */
 #dictionary_explorer-content_area.shiny-html-output.recalculating {
   opacity: 1 !important;
+}
+
+/* Concept mapping content area - ensure full height for flex layout */
+#concept_mapping-content_area {
+  height: 100%;
+}
+
+#concept_mapping-summary_content {
+  height: 100%;
+}
+
+/* Import mappings panel - flex layout when visible */
+.import-mappings-panel {
+  flex-direction: column;
+}
+
+.import-mappings-panel[style*="block"] {
+  display: flex !important;
+}
+
+/* Dictionary explorer general concept detail container */
+#dictionary_explorer-general_concept_detail_container {
+  height: calc(100% - 55px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Projects content area */
+#projects-content_area {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dev tools - full height for tabs */
+#page_dev_tools .main-panel {
+  height: 100%;
+}
+
+#page_dev_tools .main-content {
+  height: 100%;
+}
+
+#page_dev_tools .tabbable {
+  height: 100%;
+}
+
+#page_dev_tools .tab-content {
+  height: calc(100% - 65px);
+}
+
+#page_dev_tools .tab-pane {
+  height: 100%;
+}
+
+#page_dev_tools .tab-pane.active {
+  display: flex;
+  flex-direction: column;
+}
+
+#dev_tools-data_quality_output {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#dev_tools-recommended_non_standard_table {
+  padding-bottom: 10px;
 }
 
 /* Athena concept ID input in header - compact styling */
@@ -201,6 +281,11 @@ a {
 a:hover {
   color: #3a8ad6 !important;
   text-decoration: underline;
+}
+
+/* Breadcrumb navigation container */
+.breadcrumb-nav {
+  padding-left: 12px;
 }
 
 /* Breadcrumb link specific styling */
@@ -366,8 +451,8 @@ h3, h4 {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  height: 100%;
+  overflow: hidden;
+  min-height: 0;
   padding: 0 10px;
 }
 
@@ -378,13 +463,6 @@ h3, h4 {
   min-height: 0;
   overflow: hidden;
   margin-top: 10px;
-}
-
-/* General concept detail container should take full height */
-#dictionary_explorer-general_concept_detail_container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 /* Settings page should take full height */
@@ -401,6 +479,58 @@ h3, h4 {
 
 #page_settings .main-content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#page_settings .tabbable {
+  height: 100%;
+}
+
+#page_settings .tab-content {
+  height: calc(100% - 65px);
+}
+
+#page_settings .tab-pane {
+  height: 100%;
+}
+
+#page_settings .tab-pane.active {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Users page should take full height */
+#page_users {
+  display: flex !important;
+  flex-direction: column;
+}
+
+#page_users .main-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#page_users .main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#page_users .tabbable {
+  height: 100%;
+}
+
+#page_users .tab-content {
+  height: calc(100% - 65px);
+}
+
+#page_users .tab-pane {
+  height: 100%;
+}
+
+#page_users .tab-pane.active {
   display: flex;
   flex-direction: column;
 }
@@ -528,6 +658,8 @@ hr {
 
 .card-container-flex {
   flex: 1;
+  min-height: 0;
+  overflow: hidden;
 }
 
 /* Panel containers for split layouts */
@@ -539,7 +671,8 @@ hr {
 .panel-container-full {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 185px);
+  flex: 1;
+  min-height: 0;
   gap: 15px;
 }
 
@@ -1268,7 +1401,8 @@ a.btn-success-custom:hover {
 .quadrant-layout {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 150px);
+  flex: 1;
+  min-height: 0;
   width: 100%;
 }
 
@@ -1822,6 +1956,10 @@ a.btn-success-custom:hover {
   box-shadow: none !important;
 }
 
+#dictionary_explorer-hierarchy_graph_modal_content {
+  height: 100% !important;
+}
+
 .modal-close-graph {
   transition: color 0.2s ease, transform 0.1s ease;
 }
@@ -2312,6 +2450,7 @@ a.btn-success-custom:hover {
   border-radius: 8px;
   margin: 0 5px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  height: 100%;
 }
 
 /* Language selector (custom dropdown)

@@ -300,7 +300,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
               tags$div(
                 id = ns("general_concepts_container"),
                 class = "card-container card-container-flex",
-                style = "height: calc(100vh - 175px); overflow: auto; margin: 0 10px 10px 5px;",
+                style = "flex: 1; min-height: 0; overflow: auto; margin: 0 10px 10px 5px;",
 
                 # Loading message (visible by default)
                 tags$div(
@@ -1417,7 +1417,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           
           tags$div(
             class = "breadcrumb-nav",
-            style = "padding: 10px 0 15px 0; display: flex; align-items: center; gap: 15px; justify-content: space-between;",
+            style = "padding: 10px 0 15px 12px; display: flex; align-items: center; gap: 15px; justify-content: space-between;",
             # Left side: Title and category badges
             tags$div(
               style = "display: flex; align-items: center; gap: 15px; flex: 1;",
@@ -1445,7 +1445,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           # Breadcrumb for list history view
           tags$div(
             class = "breadcrumb-nav",
-            style = "padding: 10px 0 15px 0; font-size: 16px; display: flex; justify-content: space-between; align-items: center;",
+            style = "padding: 10px 0 15px 12px; font-size: 16px; display: flex; justify-content: space-between; align-items: center;",
             # Left side: title
             tags$div(
               class = "section-title",
@@ -1461,7 +1461,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             if (nrow(concept_info) > 0) {
               tags$div(
                 class = "breadcrumb-nav",
-                style = "padding: 10px 0 15px 0; font-size: 16px; display: flex; justify-content: space-between; align-items: center;",
+                style = "padding: 10px 0 15px 12px; font-size: 16px; display: flex; justify-content: space-between; align-items: center;",
                 # Left side: breadcrumb
                 tags$div(
                   tags$a(
@@ -1650,11 +1650,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         output$general_concepts_history_ui <- renderUI({
           tags$div(
             class = "card-container card-container-flex",
-            style = "height: calc(100vh - 180px); overflow: auto; padding: 20px; margin: 10px;",
+            style = "flex: 1; min-height: 0; overflow: auto; padding: 20px; margin: 10px;",
 
             tags$div(
               class = "table-container",
-              style = "height: calc(100vh - 220px);",
+              style = "height: 100%;",
               shinycssloaders::withSpinner(
                 DT::DTOutput(ns("general_concepts_history_table")),
                 type = 4,
@@ -1671,11 +1671,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         output$general_concept_detail_history_ui <- renderUI({
           tags$div(
             class = "card-container card-container-flex",
-            style = "height: calc(100vh - 175px); overflow: auto; padding: 20px; margin: 10px;",
+            style = "flex: 1; min-height: 0; overflow: auto; padding: 20px; margin: 10px;",
 
             tags$div(
               class = "table-container",
-              style = "height: calc(100vh - 220px);",
+              style = "height: 100%;",
               shinycssloaders::withSpinner(
                 DT::DTOutput(ns("general_concept_detail_history_table")),
                 type = 4,
@@ -4962,7 +4962,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
               # Left half: text editor
               tags$div(
-                style = "flex: 1; padding: 30px; border-right: 1px solid #ddd; overflow-y: auto;",
+                style = "flex: 1; padding: 10px; border-right: 1px solid #ddd; overflow-y: auto;",
                 tags$h4(
                   style = "margin-top: 0; color: #0f60af; font-size: 16px; font-weight: 600; margin-bottom: 15px;",
                   "Edit Comment"
@@ -4979,7 +4979,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
               # Right half: markdown preview
               tags$div(
-                style = "flex: 1; padding: 30px; display: flex; flex-direction: column;",
+                style = "flex: 1; padding: 10px; display: flex; flex-direction: column;",
                 tags$h4(
                   style = "margin-top: 0; color: #0f60af; font-size: 16px; font-weight: 600; margin-bottom: 15px;",
                   "Preview"
@@ -4991,7 +4991,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         } else {
           # View mode: show markdown only with same styling as preview
           tags$div(
-            style = "height: 100%; padding: 30px; overflow-y: auto; background: #f8f9fa;",
+            style = "height: 100%; padding: 10px; overflow-y: auto; background: #f8f9fa;",
             if (!is.null(current_comment) && nchar(current_comment) > 0) {
               tags$div(
                 class = "markdown-content",
