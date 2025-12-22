@@ -135,7 +135,7 @@ style_yes_no_column <- function(dt, column,
 
 #' Apply Yes/No Styling with Custom Colors
 #'
-#' @description Variant of style_yes_no_column for use cases like coverage status
+#' @description Variant of style_yes_no_column for projects like coverage status
 #' where "No" should be highlighted with a warning color (red) instead of neutral gray.
 #'
 #' @param dt DT datatable object to modify

@@ -100,17 +100,17 @@ view_mode,View Mode
 changes_saved,Changes saved successfully
 no_changes,No changes to save
 error_saving,Error saving changes
-use_cases,Use Cases
+projects,Projects
 concepts_mapping,Concepts Mapping
 improvements,Improvements
 dev_tools,Dev Tools
 general_settings,General settings
 users,Users
 logout,Logout
-add_use_case,Add Use Case
-use_case_details,Use Case Details
-select_use_case,Select a use case to view its details
-use_case_name,Name
+add_project,Add Project
+project_details,Project Details
+select_project,Select a project to view its details
+project_name,Name
 short_description,Short Description
 long_description,Long Description
 concepts,Concepts
@@ -123,15 +123,15 @@ configure,Configure
 edit,Edit
 update,Update
 confirm_deletion,Confirm Deletion
-delete_use_case_confirm,Are you sure you want to delete the selected use case(s)? This action cannot be undone.
-delete_use_case_note,All concept assignments for this use case will also be removed.
-no_use_cases,No use cases found. Click 'Add Use Case' to create one.
+delete_project_confirm,Are you sure you want to delete the selected project(s)? This action cannot be undone.
+delete_project_note,All concept assignments for this project will also be removed.
+no_projects,No projects found. Click 'Add Project' to create one.
 available_concepts,Available Concepts
 selected_concepts,Selected Concepts
-selected_concepts_for_use_case,Selected Concepts for Use Case
+selected_concepts_for_project,Selected Concepts for Project
 add_selected_concepts,Add Selected Concepts
 remove_selected_concepts,Remove Selected Concepts
-no_concepts_selected,No general concepts selected for this use case. Select general concepts from the left panel and click 'Add Selected Concepts'.
+no_concepts_selected,No general concepts selected for this project. Select general concepts from the left panel and click 'Add Selected Concepts'.
 dictionary_improvements,Dictionary Improvements
 dictionary_improvements_desc,Contribute to the INDICATE Data Dictionary by proposing new concepts, relationships, and improvements.
 coming_soon,Coming Soon
@@ -206,5 +206,5 @@ engineer,Engineer
 login_exists,Login already exists. Please choose a different login.
 confirm_delete_user,Are you sure you want to delete user
 athena_note,The OHDSI Vocabularies can be downloaded from ATHENA (registration required).
-edit_use_case,Edit Use Case
-update_use_case,Update Use Case
+edit_project,Edit Project
+update_project,Update Project

@@ -1,23 +1,23 @@
 # MODULE STRUCTURE OVERVIEW ====
 #
-# This module provides the Use Cases management interface with two main views:
-# - Use Cases List View: Browse and manage use cases with details panel
-# - Use Case Configuration View: Assign general concepts to use cases
+# This module provides the Projects management interface with two main views:
+# - Projects List View: Browse and manage projects with details panel
+# - Project Configuration View: Assign general concepts to projects
 #
 # UI STRUCTURE:
 #   ## UI - Main Layout
 #      ### Breadcrumb Navigation - Navigation breadcrumbs for multi-level views
 #      ### Content Area - Dynamic content based on current view (list/config)
-#         #### List View - Use cases table (70%) + details panel (30%)
+#         #### List View - projects table (70%) + details panel (30%)
 #         #### Config View - Available concepts (50%) + selected concepts (50%)
 #   ## UI - Modals
-#      ### Modal - Add New Use Case - Form to create new use cases
-#      ### Modal - Edit Use Case - Form to edit existing use cases
+#      ### Modal - Add New Project - Form to create new projects
+#      ### Modal - Edit Project - Form to edit existing projects
 #
 # SERVER STRUCTURE:
 #   ## 1) Server - Reactive Values & State
-#      ### View State - Track current view (list/config) and selected use case
-#      ### Data Management - Use cases and general concept assignments
+#      ### View State - Track current view (list/config) and selected project
+#      ### Data Management - projects and general concept assignments
 #      ### Cascade Triggers - Reactive triggers for cascade pattern
 #
 #   ## 2) Server - Navigation & State Changes
@@ -28,20 +28,20 @@
 #   ## 3) Server - UI Rendering
 #      ### Breadcrumb Rendering - Dynamic breadcrumb navigation
 #      ### Content Area Rendering - Switch between list and config views
-#      ### Use Cases Table - Display use cases with concept counts
-#      ### Use Case Details - Show details of selected use case
+#      ### Projects Table - Display projects with concept counts
+#      ### Project Details - Show details of selected project
 #      ### Concept Tables - Available and selected concepts tables
 #
 #   ## 4) Server - User Actions
-#      ### Use Case Management - Add, edit, delete, configure use cases
-#      ### Concept Assignment - Add/remove general concepts to/from use cases
+#      ### Project Management - Add, edit, delete, configure projects
+#      ### Concept Assignment - Add/remove general concepts to/from projects
 #      ### Table Row Selection - Select all, unselect all, double-click navigation
 #
 # UI SECTION ====
 
-#' Use Cases Module - UI
+#' Projects Module - UI
 #'
-#' @description UI function for the use cases management module
+#' @description UI function for the projects management module
 #'
 #' @param id Module ID
 #'
@@ -52,7 +52,7 @@
 #' @importFrom shiny updateTextInput updateTextAreaInput selectizeInput icon
 #' @importFrom htmltools tags tagList
 #' @importFrom DT DTOutput
-mod_use_cases_ui <- function(id, i18n) {
+mod_projects_ui <- function(id, i18n) {
   ns <- NS(id)
 
   tagList(
@@ -74,24 +74,24 @@ mod_use_cases_ui <- function(id, i18n) {
     ),
 
     ## UI - Modals ----
-    ### Modal - Add New Use Case ----
+    ### Modal - Add New Project ----
     tags$div(
-      id = ns("add_use_case_modal"),
+      id = ns("add_project_modal"),
       class = "modal-overlay",
       style = "display: none;",
       onclick = sprintf(
         "if (event.target === this) $('#%s').hide();",
-        ns("add_use_case_modal")
+        ns("add_project_modal")
       ),
       tags$div(
         class = "modal-content",
         style = "max-width: 700px;",
         tags$div(
           class = "modal-header",
-          tags$h3(i18n$t("add_use_case")),
+          tags$h3(i18n$t("add_project")),
           tags$button(
             class = "modal-close",
-            onclick = sprintf("$('#%s').hide();", ns("add_use_case_modal")),
+            onclick = sprintf("$('#%s').hide();", ns("add_project_modal")),
             "×"
           )
         ),
@@ -99,15 +99,15 @@ mod_use_cases_ui <- function(id, i18n) {
           class = "modal-body",
           style = "padding: 20px;",
           tags$div(
-            id = ns("new_use_case_name_group"),
+            id = ns("new_project_name_group"),
             style = "margin-bottom: 20px;",
             tags$label(
-              tags$span(i18n$t("use_case_name"), " ", style = "font-weight: 600;"),
+              tags$span(i18n$t("project_name"), " ", style = "font-weight: 600;"),
               tags$span("*", style = "color: #dc3545;"),
               style = "display: block; margin-bottom: 8px;"
             ),
             textInput(
-              ns("new_use_case_name"),
+              ns("new_project_name"),
               label = NULL,
               placeholder = as.character(i18n$t("enter_name")),
               width = "100%"
@@ -126,7 +126,7 @@ mod_use_cases_ui <- function(id, i18n) {
               style = "display: block; margin-bottom: 8px;"
             ),
             textAreaInput(
-              ns("new_use_case_short_description"),
+              ns("new_project_short_description"),
               label = NULL,
               placeholder = as.character(i18n$t("enter_short_description")),
               width = "100%",
@@ -148,7 +148,7 @@ mod_use_cases_ui <- function(id, i18n) {
               )
             ),
             textAreaInput(
-              ns("new_use_case_long_description"),
+              ns("new_project_long_description"),
               label = NULL,
               placeholder = as.character(i18n$t("enter_long_description")),
               width = "100%",
@@ -164,14 +164,14 @@ mod_use_cases_ui <- function(id, i18n) {
               class = "btn btn-secondary",
               onclick = sprintf(
                 "$('#%s').hide();",
-                ns("add_use_case_modal")
+                ns("add_project_modal")
               ),
               tags$i(class = "fas fa-times"),
               " ", i18n$t("cancel")
             ),
             actionButton(
-              ns("save_use_case"),
-              i18n$t("add_use_case"),
+              ns("save_project"),
+              i18n$t("add_project"),
               class = "btn btn-primary",
               icon = icon("plus")
             )
@@ -206,12 +206,12 @@ mod_use_cases_ui <- function(id, i18n) {
           style = "padding: 20px;",
           tags$p(
             style = "font-size: 14px; margin-bottom: 20px;",
-            i18n$t("delete_use_case_confirm")
+            i18n$t("delete_project_confirm")
           ),
           tags$p(
             style = "font-size: 14px; color: #dc3545; margin-bottom: 20px;",
             tags$strong("Note:"),
-            " ", i18n$t("delete_use_case_note")
+            " ", i18n$t("delete_project_note")
           ),
           tags$div(
             style = paste0(
@@ -228,7 +228,7 @@ mod_use_cases_ui <- function(id, i18n) {
               " ", i18n$t("cancel")
             ),
             actionButton(
-              ns("confirm_delete_use_case"),
+              ns("confirm_delete_project"),
               i18n$t("delete"),
               class = "btn btn-danger",
               icon = icon("trash")
@@ -238,24 +238,24 @@ mod_use_cases_ui <- function(id, i18n) {
       )
     ),
 
-    ### Modal - Edit Use Case ----
+    ### Modal - Edit Project ----
     tags$div(
-      id = ns("edit_use_case_modal"),
+      id = ns("edit_project_modal"),
       class = "modal-overlay",
       style = "display: none;",
       onclick = sprintf(
         "if (event.target === this) $('#%s').hide();",
-        ns("edit_use_case_modal")
+        ns("edit_project_modal")
       ),
       tags$div(
         class = "modal-content",
         style = "max-width: 700px;",
         tags$div(
           class = "modal-header",
-          tags$h3(i18n$t("edit_use_case")),
+          tags$h3(i18n$t("edit_project")),
           tags$button(
             class = "modal-close",
-            onclick = sprintf("$('#%s').hide();", ns("edit_use_case_modal")),
+            onclick = sprintf("$('#%s').hide();", ns("edit_project_modal")),
             "×"
           )
         ),
@@ -263,15 +263,15 @@ mod_use_cases_ui <- function(id, i18n) {
           class = "modal-body",
           style = "padding: 20px;",
           tags$div(
-            id = ns("edit_use_case_name_group"),
+            id = ns("edit_project_name_group"),
             style = "margin-bottom: 20px;",
             tags$label(
-              tags$span(i18n$t("use_case_name"), " ", style = "font-weight: 600;"),
+              tags$span(i18n$t("project_name"), " ", style = "font-weight: 600;"),
               tags$span("*", style = "color: #dc3545;"),
               style = "display: block; margin-bottom: 8px;"
             ),
             textInput(
-              ns("edit_use_case_name"),
+              ns("edit_project_name"),
               label = NULL,
               placeholder = as.character(i18n$t("enter_name")),
               width = "100%"
@@ -290,7 +290,7 @@ mod_use_cases_ui <- function(id, i18n) {
               style = "display: block; margin-bottom: 8px;"
             ),
             textAreaInput(
-              ns("edit_use_case_short_description"),
+              ns("edit_project_short_description"),
               label = NULL,
               placeholder = as.character(i18n$t("enter_short_description")),
               width = "100%",
@@ -312,7 +312,7 @@ mod_use_cases_ui <- function(id, i18n) {
               )
             ),
             textAreaInput(
-              ns("edit_use_case_long_description"),
+              ns("edit_project_long_description"),
               label = NULL,
               placeholder = as.character(i18n$t("enter_long_description")),
               width = "100%",
@@ -328,14 +328,14 @@ mod_use_cases_ui <- function(id, i18n) {
               class = "btn btn-secondary",
               onclick = sprintf(
                 "$('#%s').hide();",
-                ns("edit_use_case_modal")
+                ns("edit_project_modal")
               ),
               tags$i(class = "fas fa-times"),
               " ", i18n$t("cancel")
             ),
             actionButton(
-              ns("update_use_case"),
-              i18n$t("update_use_case"),
+              ns("update_project"),
+              i18n$t("update_project"),
               class = "btn btn-primary",
               icon = icon("save")
             )
@@ -348,16 +348,16 @@ mod_use_cases_ui <- function(id, i18n) {
 
 # HELPER UI FUNCTIONS ====
 
-#' Render Use Cases List View
+#' Render Projects List View
 #'
-#' @description Renders the main use cases list with split panel
+#' @description Renders the main projects list with split panel
 #'
 #' @param ns Namespace function
 #' @param i18n Translation object
 #'
-#' @return UI elements for use cases list view
+#' @return UI elements for projects list view
 #' @noRd
-render_use_cases_list_ui <- function(ns, i18n) {
+render_projects_list_ui <- function(ns, i18n) {
   tagList(
     # Action buttons bar
     tags$div(
@@ -368,14 +368,14 @@ render_use_cases_list_ui <- function(ns, i18n) {
       # Title (matching dictionary explorer style)
       tags$div(
         class = "section-title",
-        tags$span(i18n$t("use_cases"))
+        tags$span(i18n$t("projects"))
       ),
       tags$div(
         style = "display: flex; gap: 10px;",
         shinyjs::hidden(
           actionButton(
-            ns("add_use_case_btn"),
-            i18n$t("add_use_case"),
+            ns("add_project_btn"),
+            i18n$t("add_project"),
             class = "btn-success-custom",
             icon = icon("plus")
           )
@@ -387,7 +387,7 @@ render_use_cases_list_ui <- function(ns, i18n) {
     tags$div(
       style = "display: flex; gap: 20px; height: calc(100vh - 175px); margin: 10px;",
 
-      # Left panel: Use cases table (70%)
+      # Left panel: projects table (70%)
       tags$div(
         style = paste0(
           "flex: 0 0 70%; display: flex; flex-direction: column; ",
@@ -395,7 +395,7 @@ render_use_cases_list_ui <- function(ns, i18n) {
           "box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 20px;"
         ),
         tags$h4(
-          i18n$t("use_cases"),
+          i18n$t("projects"),
           style = paste0(
             "margin: 0 0 15px 0; color: #0f60af; ",
             "border-bottom: 2px solid #0f60af; padding-bottom: 10px;"
@@ -403,11 +403,11 @@ render_use_cases_list_ui <- function(ns, i18n) {
         ),
         tags$div(
           style = "flex: 1; overflow: auto;",
-          DT::DTOutput(ns("use_cases_table"))
+          DT::DTOutput(ns("projects_table"))
         )
       ),
 
-      # Right panel: Use case details (30%)
+      # Right panel: project details (30%)
       tags$div(
         style = paste0(
           "flex: 0 0 30%; display: flex; flex-direction: column; ",
@@ -415,7 +415,7 @@ render_use_cases_list_ui <- function(ns, i18n) {
           "box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 20px;"
         ),
         tags$h4(
-          i18n$t("use_case_details"),
+          i18n$t("project_details"),
           style = paste0(
             "margin: 0 0 15px 0; color: #0f60af; ",
             "border-bottom: 2px solid #0f60af; padding-bottom: 10px;"
@@ -423,23 +423,23 @@ render_use_cases_list_ui <- function(ns, i18n) {
         ),
         tags$div(
           style = "flex: 1; overflow: auto;",
-          uiOutput(ns("use_case_details"))
+          uiOutput(ns("project_details"))
         )
       )
     )
   )
 }
 
-#' Render Use Case Configuration View
+#' Render Project Configuration View
 #'
-#' @description Renders the use case configuration view with 3 panels
+#' @description Renders the project configuration view with 3 panels
 #'
 #' @param ns Namespace function
 #' @param i18n Translation object
 #'
-#' @return UI elements for use case configuration view
+#' @return UI elements for project configuration view
 #' @noRd
-render_use_case_config_ui <- function(ns, i18n) {
+render_project_config_ui <- function(ns, i18n) {
   tagList(
     # Two-panel layout for concept selection
     tags$div(
@@ -506,7 +506,7 @@ render_use_case_config_ui <- function(ns, i18n) {
         ),
         # Header with title
         tags$h4(
-          i18n$t("selected_concepts_for_use_case"),
+          i18n$t("selected_concepts_for_project"),
           style = paste0(
             "margin: 0 0 10px 0; color: #28a745; ",
             "border-bottom: 2px solid #28a745; padding-bottom: 10px;"
@@ -554,9 +554,9 @@ render_use_case_config_ui <- function(ns, i18n) {
 
 # SERVER SECTION ====
 
-#' Use Cases Module - Server
+#' Projects Module - Server
 #'
-#' @description Server function for the use cases management module
+#' @description Server function for the projects management module
 #'
 #' @param id Module ID
 #' @param data Reactive containing the application data
@@ -571,7 +571,7 @@ render_use_case_config_ui <- function(ns, i18n) {
 #' @importFrom htmltools tags tagList HTML
 #' @importFrom DT renderDT datatable formatStyle styleEqual
 #' @importFrom dplyr left_join group_by summarise n filter inner_join select collect
-mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), current_user = reactive(NULL), i18n, log_level = character()) {
+mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), current_user = reactive(NULL), i18n, log_level = character()) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -579,25 +579,25 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
     ### Reactive Values ----
 
     current_view <- reactiveVal("list")  # "list" or "config"
-    selected_use_case <- reactiveVal(NULL)
-    selected_use_case_row <- reactiveVal(NULL)  # For displaying details
-    use_cases_reactive <- reactiveVal(NULL)
-    general_concept_use_cases_reactive <- reactiveVal(NULL)
+    selected_project <- reactiveVal(NULL)
+    selected_project_row <- reactiveVal(NULL)  # For displaying details
+    projects_reactive <- reactiveVal(NULL)
+    general_concept_projects_reactive <- reactiveVal(NULL)
 
     ### Trigger Values (for cascade pattern) ----
 
     data_loaded_trigger <- reactiveVal(0)
     view_changed_trigger <- reactiveVal(0)
     user_changed_trigger <- reactiveVal(0)
-    use_cases_data_changed_trigger <- reactiveVal(0)
-    gc_use_cases_changed_trigger <- reactiveVal(0)
+    projects_data_changed_trigger <- reactiveVal(0)
+    gc_projects_changed_trigger <- reactiveVal(0)
 
     # Cascade triggers
     button_visibility_trigger <- reactiveVal(0)
     breadcrumb_trigger <- reactiveVal(0)
     content_area_trigger <- reactiveVal(0)
-    use_cases_table_trigger <- reactiveVal(0)
-    use_case_details_trigger <- reactiveVal(0)
+    projects_table_trigger <- reactiveVal(0)
+    project_details_trigger <- reactiveVal(0)
     available_concepts_table_trigger <- reactiveVal(0)
     selected_concepts_table_trigger <- reactiveVal(0)
 
@@ -606,8 +606,8 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
     observe_event(data(), {
       if (is.null(data())) return()
 
-      use_cases_reactive(data()$use_cases)
-      general_concept_use_cases_reactive(data()$general_concept_use_cases)
+      projects_reactive(data()$projects)
+      general_concept_projects_reactive(data()$general_concept_projects)
       data_loaded_trigger(data_loaded_trigger() + 1)
     })
 
@@ -622,16 +622,16 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
       view_changed_trigger(view_changed_trigger() + 1)
     })
 
-    observe_event(use_cases_reactive(), {
-      use_cases_data_changed_trigger(use_cases_data_changed_trigger() + 1)
+    observe_event(projects_reactive(), {
+      projects_data_changed_trigger(projects_data_changed_trigger() + 1)
     })
 
-    observe_event(general_concept_use_cases_reactive(), {
-      gc_use_cases_changed_trigger(gc_use_cases_changed_trigger() + 1)
+    observe_event(general_concept_projects_reactive(), {
+      gc_projects_changed_trigger(gc_projects_changed_trigger() + 1)
     })
 
-    observe_event(selected_use_case_row(), {
-      use_case_details_trigger(use_case_details_trigger() + 1)
+    observe_event(selected_project_row(), {
+      project_details_trigger(project_details_trigger() + 1)
     })
 
     ### Cascade Observers ----
@@ -641,19 +641,19 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
       button_visibility_trigger(button_visibility_trigger() + 1)
     }, ignoreInit = TRUE)
 
-    # When view or selected use case changes, update breadcrumb and content area
-    observe_event(c(view_changed_trigger(), selected_use_case()), {
+    # When view or selected project changes, update breadcrumb and content area
+    observe_event(c(view_changed_trigger(), selected_project()), {
       breadcrumb_trigger(breadcrumb_trigger() + 1)
       content_area_trigger(content_area_trigger() + 1)
     }, ignoreInit = TRUE)
 
-    # When use cases data or concept assignments change, update table
-    observe_event(c(use_cases_data_changed_trigger(), gc_use_cases_changed_trigger()), {
-      use_cases_table_trigger(use_cases_table_trigger() + 1)
+    # When projects data or concept assignments change, update table
+    observe_event(c(projects_data_changed_trigger(), gc_projects_changed_trigger()), {
+      projects_table_trigger(projects_table_trigger() + 1)
     }, ignoreInit = TRUE)
 
-    # When general concept use cases change or view changes, update concept tables
-    observe_event(c(gc_use_cases_changed_trigger(), view_changed_trigger(), selected_use_case()), {
+    # When general concept projects change or view changes, update concept tables
+    observe_event(c(gc_projects_changed_trigger(), view_changed_trigger(), selected_project()), {
       available_concepts_table_trigger(available_concepts_table_trigger() + 1)
       selected_concepts_table_trigger(selected_concepts_table_trigger() + 1)
     }, ignoreInit = TRUE)
@@ -667,23 +667,23 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
       # Use shinyjs::delay to ensure DOM is ready
       shinyjs::delay(100, {
         if (!is.null(user) && user$role != "Anonymous") {
-          shinyjs::show("add_use_case_btn")
+          shinyjs::show("add_project_btn")
           shinyjs::show("available_action_buttons")
           shinyjs::show("selected_action_buttons")
         } else {
-          shinyjs::hide("add_use_case_btn")
+          shinyjs::hide("add_project_btn")
           shinyjs::hide("available_action_buttons")
           shinyjs::hide("selected_action_buttons")
         }
       })
     }
 
-    # Helper function to get use cases with concept counts
-    get_use_cases_with_counts <- reactive({
-      use_cases_data <- use_cases_reactive()
-      gc_uc_data <- general_concept_use_cases_reactive()
+    # Helper function to get projects with concept counts
+    get_projects_with_counts <- reactive({
+      projects_data <- projects_reactive()
+      gc_uc_data <- general_concept_projects_reactive()
 
-      if (is.null(use_cases_data) || is.null(gc_uc_data)) {
+      if (is.null(projects_data) || is.null(gc_uc_data)) {
         return(data.frame(
           Name = character(0),
           `Short Description` = character(0),
@@ -693,22 +693,22 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
         ))
       }
 
-      # Count concepts per use case
+      # Count concepts per project
       concept_counts <- gc_uc_data %>%
-        group_by(use_case_id) %>%
+        group_by(project_id) %>%
         summarise(concept_count = n(), .groups = "drop")
 
-      # Join with use cases
-      result <- use_cases_data %>%
-        left_join(concept_counts, by = "use_case_id")
+      # Join with projects
+      result <- projects_data %>%
+        left_join(concept_counts, by = "project_id")
 
       # Replace NA counts with 0
       result$concept_count[is.na(result$concept_count)] <- 0
 
-      # Format for display (include use_case_id as first column, will be hidden)
+      # Format for display (include project_id as first column, will be hidden)
       display_df <- data.frame(
-        use_case_id = result$use_case_id,
-        Name = result$use_case_name,
+        project_id = result$project_id,
+        Name = result$project_name,
         `Short Description` = ifelse(
           is.na(result$short_description),
           "",
@@ -720,28 +720,28 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
       )
 
       # Add action buttons column (generate for each row)
-      display_df$Actions <- sapply(display_df$use_case_id, function(id) {
+      display_df$Actions <- sapply(display_df$project_id, function(id) {
         create_datatable_actions(list(
           list(
             label = "Edit",
             icon = "edit",
             type = "warning",
-            class = "use-case-edit-btn",
-            data_attr = list(`use-case-id` = id)
+            class = "project-edit-btn",
+            data_attr = list(`project-id` = id)
           ),
           list(
             label = "Configure",
             icon = "cog",
             type = "primary",
-            class = "use-case-configure-btn",
-            data_attr = list(`use-case-id` = id)
+            class = "project-configure-btn",
+            data_attr = list(`project-id` = id)
           ),
           list(
             label = "Delete",
             icon = "trash",
             type = "danger",
-            class = "use-case-delete-btn",
-            data_attr = list(`use-case-id` = id)
+            class = "project-delete-btn",
+            data_attr = list(`project-id` = id)
           )
         ))
       })
@@ -752,11 +752,11 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
     # Helper function to get available general concepts (excluding already selected ones)
     get_available_general_concepts <- reactive({
       if (is.null(data())) return(NULL)
-      if (is.null(selected_use_case())) return(NULL)
+      if (is.null(selected_project())) return(NULL)
 
       general_concepts <- data()$general_concepts
-      use_case <- selected_use_case()
-      gc_uc_data <- general_concept_use_cases_reactive()
+      project <- selected_project()
+      gc_uc_data <- general_concept_projects_reactive()
 
       if (is.null(general_concepts)) {
         return(data.frame(
@@ -769,11 +769,11 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
         ))
       }
 
-      # Get IDs of concepts already selected for this use case
+      # Get IDs of concepts already selected for this project
       selected_gc_ids <- c()
       if (!is.null(gc_uc_data)) {
         selected_gc_ids <- gc_uc_data %>%
-          filter(use_case_id == use_case$id) %>%
+          filter(project_id == project$id) %>%
           .$general_concept_id
       }
 
@@ -794,14 +794,14 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
       return(display_df)
     })
 
-    # Helper function to get selected general concepts for current use case
+    # Helper function to get selected general concepts for current project
     get_selected_general_concepts <- reactive({
-      if (is.null(selected_use_case())) return(NULL)
+      if (is.null(selected_project())) return(NULL)
       if (is.null(data())) return(NULL)
 
-      use_case <- selected_use_case()
+      project <- selected_project()
       general_concepts <- data()$general_concepts
-      gc_uc_data <- general_concept_use_cases_reactive()
+      gc_uc_data <- general_concept_projects_reactive()
 
       if (is.null(gc_uc_data)) {
         return(data.frame(
@@ -814,9 +814,9 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
         ))
       }
 
-      # Filter general concepts for this use case
+      # Filter general concepts for this project
       selected_gc_ids <- gc_uc_data %>%
-        filter(use_case_id == use_case$id) %>%
+        filter(project_id == project$id) %>%
         .$general_concept_id
 
       if (length(selected_gc_ids) == 0) {
@@ -865,9 +865,9 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
         }
 
         if (view == "config") {
-          use_case <- selected_use_case()
-          use_case_name <- if (!is.null(use_case)) {
-            use_case$name
+          project <- selected_project()
+          project_name <- if (!is.null(project)) {
+            project$name
           } else {
             "Unknown"
           }
@@ -888,7 +888,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
                     ns("back_to_list")
                   ),
                   class = "breadcrumb-link",
-                  "Use Cases"
+                  i18n$t("projects")
                 ),
                 tags$span(
                   style = "margin: 0 8px; color: #999;",
@@ -896,7 +896,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
                 ),
                 tags$span(
                   style = "color: #333; font-weight: 600;",
-                  use_case_name
+                  project_name
                 )
               )
             )
@@ -911,16 +911,16 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
 
       output$content_area <- renderUI({
         if (view == "list") {
-          render_use_cases_list_ui(ns, i18n)
+          render_projects_list_ui(ns, i18n)
         } else if (view == "config") {
-          render_use_case_config_ui(ns, i18n)
+          render_project_config_ui(ns, i18n)
         }
       })
     })
 
-    ### Use Cases Table Rendering ----
-    observe_event(use_cases_table_trigger(), {
-      df <- get_use_cases_with_counts()
+    ### Projects Table Rendering ----
+    observe_event(projects_table_trigger(), {
+      df <- get_projects_with_counts()
 
       # Create callback for action buttons and double-click
       callback_js <- JS(sprintf("
@@ -929,46 +929,46 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
 
           // Remove any existing handlers to avoid duplicates
           $(table.table().node()).off('dblclick', 'tbody tr');
-          $(table.table().node()).off('click', '.use-case-edit-btn');
-          $(table.table().node()).off('click', '.use-case-configure-btn');
-          $(table.table().node()).off('click', '.use-case-delete-btn');
+          $(table.table().node()).off('click', '.project-edit-btn');
+          $(table.table().node()).off('click', '.project-configure-btn');
+          $(table.table().node()).off('click', '.project-delete-btn');
 
           // Add double-click handler for table rows
           $(table.table().node()).on('dblclick', 'tbody tr', function() {
             var rowData = table.row(this).data();
             if (rowData && rowData[0]) {
-              var useCaseId = rowData[0];
-              Shiny.setInputValue('%s', useCaseId, {priority: 'event'});
+              var projectId = rowData[0];
+              Shiny.setInputValue('%s', projectId, {priority: 'event'});
             }
           });
 
           // Add click handlers for action buttons
-          $(table.table().node()).on('click', '.use-case-edit-btn', function(e) {
+          $(table.table().node()).on('click', '.project-edit-btn', function(e) {
             e.stopPropagation();
-            var useCaseId = $(this).data('use-case-id');
-            Shiny.setInputValue('%s', useCaseId, {priority: 'event'});
+            var projectId = $(this).data('project-id');
+            Shiny.setInputValue('%s', projectId, {priority: 'event'});
           });
 
-          $(table.table().node()).on('click', '.use-case-configure-btn', function(e) {
+          $(table.table().node()).on('click', '.project-configure-btn', function(e) {
             e.stopPropagation();
-            var useCaseId = $(this).data('use-case-id');
-            Shiny.setInputValue('%s', useCaseId, {priority: 'event'});
+            var projectId = $(this).data('project-id');
+            Shiny.setInputValue('%s', projectId, {priority: 'event'});
           });
 
-          $(table.table().node()).on('click', '.use-case-delete-btn', function(e) {
+          $(table.table().node()).on('click', '.project-delete-btn', function(e) {
             e.stopPropagation();
-            var useCaseId = $(this).data('use-case-id');
-            Shiny.setInputValue('%s', useCaseId, {priority: 'event'});
+            var projectId = $(this).data('project-id');
+            Shiny.setInputValue('%s', projectId, {priority: 'event'});
           });
         }
       ",
-      session$ns("dblclick_use_case_id"),
-      session$ns("use_case_edit_clicked"),
-      session$ns("use_case_configure_clicked"),
-      session$ns("use_case_delete_clicked")
+      session$ns("dblclick_project_id"),
+      session$ns("project_edit_clicked"),
+      session$ns("project_configure_clicked"),
+      session$ns("project_delete_clicked")
       ))
 
-      output$use_cases_table <- DT::renderDT({
+      output$projects_table <- DT::renderDT({
         datatable(
           df,
           filter = "top",
@@ -982,11 +982,11 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
             ordering = TRUE,
             autoWidth = FALSE,
             columnDefs = list(
-              list(targets = 0, visible = FALSE),  # Hide use_case_id column
+              list(targets = 0, visible = FALSE),  # Hide project_id column
               list(targets = 4, orderable = FALSE, width = "280px", searchable = FALSE, className = "dt-center")  # Actions column
             ),
             language = list(
-              emptyTable = "No use cases found. Click 'Add Use Case' to create one."
+              emptyTable = "No projects found. Click 'Add Project' to create one."
             ),
             drawCallback = callback_js
           )
@@ -994,31 +994,31 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
       }, server = FALSE)
     })
 
-    ### Use Case Action Buttons Handlers ----
-    # Store the use case for deletion and editing
-    selected_use_case_for_delete <- reactiveVal(NULL)
-    selected_use_case_for_edit <- reactiveVal(NULL)
+    ### Project Action Buttons Handlers ----
+    # Store the project for deletion and editing
+    selected_project_for_delete <- reactiveVal(NULL)
+    selected_project_for_edit <- reactiveVal(NULL)
 
     # Handler for Edit button in datatable
-    observe_event(input$use_case_edit_clicked, {
-      use_case_id <- input$use_case_edit_clicked
-      if (is.null(use_case_id)) return()
+    observe_event(input$project_edit_clicked, {
+      project_id <- input$project_edit_clicked
+      if (is.null(project_id)) return()
 
-      # Get use case data
-      use_cases_data <- use_cases_reactive()
-      selected_uc <- use_cases_data[use_cases_data$use_case_id == use_case_id, ]
+      # Get project data
+      projects_data <- projects_reactive()
+      selected_uc <- projects_data[projects_data$project_id == project_id, ]
 
       if (nrow(selected_uc) == 0) return()
 
       # Populate edit modal
       updateTextInput(
         session,
-        "edit_use_case_name",
-        value = selected_uc$use_case_name
+        "edit_project_name",
+        value = selected_uc$project_name
       )
       updateTextAreaInput(
         session,
-        "edit_use_case_short_description",
+        "edit_project_short_description",
         value = ifelse(
           is.na(selected_uc$short_description),
           "",
@@ -1027,7 +1027,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
       )
       updateTextAreaInput(
         session,
-        "edit_use_case_long_description",
+        "edit_project_long_description",
         value = ifelse(
           is.na(selected_uc$long_description),
           "",
@@ -1035,32 +1035,32 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
         )
       )
 
-      # Store the ID for update (do NOT use selected_use_case as it triggers view change)
-      selected_use_case_for_edit(list(
-        id = selected_uc$use_case_id,
-        name = selected_uc$use_case_name,
+      # Store the ID for update (do NOT use selected_project as it triggers view change)
+      selected_project_for_edit(list(
+        id = selected_uc$project_id,
+        name = selected_uc$project_name,
         short_description = selected_uc$short_description,
         long_description = selected_uc$long_description
       ))
 
       # Show modal
-      shinyjs::runjs(sprintf("$('#%s').show();", ns("edit_use_case_modal")))
+      shinyjs::runjs(sprintf("$('#%s').show();", ns("edit_project_modal")))
     }, ignoreInit = TRUE)
 
     # Handler for Configure button in datatable
-    observe_event(input$use_case_configure_clicked, {
-      use_case_id <- input$use_case_configure_clicked
-      if (is.null(use_case_id)) return()
+    observe_event(input$project_configure_clicked, {
+      project_id <- input$project_configure_clicked
+      if (is.null(project_id)) return()
 
-      # Get use case data
-      use_cases_data <- use_cases_reactive()
-      selected_uc <- use_cases_data[use_cases_data$use_case_id == use_case_id, ]
+      # Get project data
+      projects_data <- projects_reactive()
+      selected_uc <- projects_data[projects_data$project_id == project_id, ]
 
       if (nrow(selected_uc) == 0) return()
 
-      selected_use_case(list(
-        id = selected_uc$use_case_id,
-        name = selected_uc$use_case_name,
+      selected_project(list(
+        id = selected_uc$project_id,
+        name = selected_uc$project_name,
         short_description = selected_uc$short_description,
         long_description = selected_uc$long_description
       ))
@@ -1068,21 +1068,21 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
     }, ignoreInit = TRUE)
 
     # Handler for Delete button in datatable
-    observe_event(input$use_case_delete_clicked, {
-      use_case_id <- input$use_case_delete_clicked
-      if (is.null(use_case_id)) return()
+    observe_event(input$project_delete_clicked, {
+      project_id <- input$project_delete_clicked
+      if (is.null(project_id)) return()
 
-      # Store the use case ID for deletion
-      selected_use_case_for_delete(use_case_id)
+      # Store the project ID for deletion
+      selected_project_for_delete(project_id)
 
       # Show confirmation modal
       shinyjs::runjs(sprintf("$('#%s').show();", ns("delete_confirmation_modal")))
     }, ignoreInit = TRUE)
 
-    ### Use Case Details Rendering ----
-    observe_event(use_case_details_trigger(), {
-      output$use_case_details <- renderUI({
-        selected_row <- selected_use_case_row()
+    ### Project Details Rendering ----
+    observe_event(project_details_trigger(), {
+      output$project_details <- renderUI({
+        selected_row <- selected_project_row()
 
         if (is.null(selected_row)) {
           return(
@@ -1092,19 +1092,19 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
                 class = "fas fa-info-circle",
                 style = "font-size: 48px; margin-bottom: 15px;"
               ),
-              tags$p("Select a use case to view its details")
+              tags$p("Select a project to view its details")
             )
           )
         }
 
-        use_cases_data <- use_cases_reactive()
-        selected_uc <- use_cases_data[selected_row, ]
+        projects_data <- projects_reactive()
+        selected_uc <- projects_data[selected_row, ]
 
         tagList(
           tags$div(
             style = "margin-bottom: 20px;",
             tags$h5(
-              selected_uc$use_case_name,
+              selected_uc$project_name,
               style = "color: #0f60af; margin-bottom: 10px; font-weight: 600;"
             ),
             tags$div(
@@ -1211,7 +1211,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
               autoWidth = FALSE,
               language = list(
                 emptyTable = paste0(
-                  "No general concepts selected for this use case. ",
+                  "No general concepts selected for this project. ",
                   "Select general concepts from the left panel ",
                   "and click 'Add Selected Concepts'."
                 )
@@ -1235,7 +1235,7 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
             autoWidth = FALSE,
             language = list(
               emptyTable = paste0(
-                "No general concepts selected for this use case. ",
+                "No general concepts selected for this project. ",
                 "Select general concepts from the left panel ",
                 "and click 'Add Selected Concepts'."
               )
@@ -1249,18 +1249,18 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
     ### Breadcrumb Navigation ----
     observe_event(input$back_to_list, {
       current_view("list")
-      selected_use_case(NULL)
+      selected_project(NULL)
     }, ignoreInit = TRUE)
 
-    ### Use Case Management - Add ----
-    observe_event(input$add_use_case_btn, {
-      shinyjs::runjs(sprintf("$('#%s').show();", ns("add_use_case_modal")))
+    ### Project Management - Add ----
+    observe_event(input$add_project_btn, {
+      shinyjs::runjs(sprintf("$('#%s').show();", ns("add_project_modal")))
     }, ignoreInit = TRUE)
 
-    # Save new use case
-    observe_event(input$save_use_case, {
-      name <- trimws(input$new_use_case_name)
-      short_desc <- trimws(input$new_use_case_short_description)
+    # Save new project
+    observe_event(input$save_project, {
+      name <- trimws(input$new_project_name)
+      short_desc <- trimws(input$new_project_short_description)
 
       # Validation
       has_error <- FALSE
@@ -1280,40 +1280,40 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
 
       if (has_error) return()
 
-      # Get current use cases
-      use_cases_data <- use_cases_reactive()
-      long_desc <- trimws(input$new_use_case_long_description)
+      # Get current projects
+      projects_data <- projects_reactive()
+      long_desc <- trimws(input$new_project_long_description)
 
-      # Create new use case
-      new_id <- get_next_use_case_id(use_cases_data)
-      new_use_case <- data.frame(
-        use_case_id = new_id,
-        use_case_name = name,
+      # Create new project
+      new_id <- get_next_project_id(projects_data)
+      new_project <- data.frame(
+        project_id = new_id,
+        project_name = name,
         short_description = short_desc,
         long_description = if (long_desc == "") NA_character_ else long_desc,
         stringsAsFactors = FALSE
       )
 
-      # Add to use cases
-      use_cases_data <- rbind(use_cases_data, new_use_case)
+      # Add to projects
+      projects_data <- rbind(projects_data, new_project)
 
-      save_use_cases_csv(use_cases_data)
-      use_cases_reactive(use_cases_data)
+      save_projects_csv(projects_data)
+      projects_reactive(projects_data)
 
       # Close modal and reset
-      shinyjs::runjs(sprintf("$('#%s').hide();", ns("add_use_case_modal")))
-      updateTextInput(session, "new_use_case_name", value = "")
-      updateTextAreaInput(session, "new_use_case_short_description", value = "")
-      updateTextAreaInput(session, "new_use_case_long_description", value = "")
+      shinyjs::runjs(sprintf("$('#%s').hide();", ns("add_project_modal")))
+      updateTextInput(session, "new_project_name", value = "")
+      updateTextAreaInput(session, "new_project_short_description", value = "")
+      updateTextAreaInput(session, "new_project_long_description", value = "")
     }, ignoreInit = TRUE)
 
-    ### Use Case Management - Edit ----
-    # Now handled by use_case_edit_clicked observer
+    ### Project Management - Edit ----
+    # Now handled by project_edit_clicked observer
 
-    # Update use case button (from edit modal)
-    observe_event(input$update_use_case, {
-      name <- trimws(input$edit_use_case_name)
-      short_desc <- trimws(input$edit_use_case_short_description)
+    # Update project button (from edit modal)
+    observe_event(input$update_project, {
+      name <- trimws(input$edit_project_name)
+      short_desc <- trimws(input$edit_project_short_description)
 
       # Validation
       has_error <- FALSE
@@ -1333,77 +1333,77 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
 
       if (has_error) return()
 
-      # Get current use case from edit reactive
-      use_case <- selected_use_case_for_edit()
-      if (is.null(use_case)) return()
+      # Get current project from edit reactive
+      project <- selected_project_for_edit()
+      if (is.null(project)) return()
 
-      # Get use cases data
-      use_cases_data <- use_cases_reactive()
-      long_desc <- trimws(input$edit_use_case_long_description)
+      # Get projects data
+      projects_data <- projects_reactive()
+      long_desc <- trimws(input$edit_project_long_description)
 
-      # Update the use case
-      use_cases_data$use_case_name[
-        use_cases_data$use_case_id == use_case$id
+      # Update the project
+      projects_data$project_name[
+        projects_data$project_id == project$id
       ] <- name
-      use_cases_data$short_description[
-        use_cases_data$use_case_id == use_case$id
+      projects_data$short_description[
+        projects_data$project_id == project$id
       ] <- short_desc
-      use_cases_data$long_description[
-        use_cases_data$use_case_id == use_case$id
+      projects_data$long_description[
+        projects_data$project_id == project$id
       ] <- if (long_desc == "") NA_character_ else long_desc
 
-      save_use_cases_csv(use_cases_data)
-      use_cases_reactive(use_cases_data)
+      save_projects_csv(projects_data)
+      projects_reactive(projects_data)
 
       # Close modal
-      shinyjs::runjs(sprintf("$('#%s').hide();", ns("edit_use_case_modal")))
+      shinyjs::runjs(sprintf("$('#%s').hide();", ns("edit_project_modal")))
     }, ignoreInit = TRUE)
 
-    ### Use Case Management - Delete Confirmation ----
-    # Confirm delete use case
-    observe_event(input$confirm_delete_use_case, {
-      use_case_id <- selected_use_case_for_delete()
+    ### Project Management - Delete Confirmation ----
+    # Confirm delete project
+    observe_event(input$confirm_delete_project, {
+      project_id <- selected_project_for_delete()
 
-      if (is.null(use_case_id)) return()
+      if (is.null(project_id)) return()
 
-      # Get use cases data
-      use_cases_data <- use_cases_reactive()
+      # Get projects data
+      projects_data <- projects_reactive()
 
-      # Remove from use cases
-      use_cases_data <- use_cases_data[
-        use_cases_data$use_case_id != use_case_id,
+      # Remove from projects
+      projects_data <- projects_data[
+        projects_data$project_id != project_id,
       ]
 
-      # Remove from general_concept_use_cases
-      gc_uc_data <- general_concept_use_cases_reactive()
+      # Remove from general_concept_projects
+      gc_uc_data <- general_concept_projects_reactive()
       gc_uc_data <- gc_uc_data[
-        gc_uc_data$use_case_id != use_case_id,
+        gc_uc_data$project_id != project_id,
       ]
 
-      save_use_cases_csv(use_cases_data)
-      save_general_concept_use_cases_csv(gc_uc_data)
-      use_cases_reactive(use_cases_data)
-      general_concept_use_cases_reactive(gc_uc_data)
+      save_projects_csv(projects_data)
+      save_general_concept_projects_csv(gc_uc_data)
+      projects_reactive(projects_data)
+      general_concept_projects_reactive(gc_uc_data)
 
       # Clear stored ID
-      selected_use_case_for_delete(NULL)
+      selected_project_for_delete(NULL)
 
       # Hide modal
       shinyjs::runjs(sprintf("$('#%s').hide();", ns("delete_confirmation_modal")))
     }, ignoreInit = TRUE)
 
-    observe_event(input$dblclick_use_case_id, {
-      use_case_id <- input$dblclick_use_case_id
-      if (is.null(use_case_id)) return()
+    observe_event(input$dblclick_project_id, {
+      project_id <- input$dblclick_project_id
+      if (is.null(project_id)) return()
 
-      # Get use case data by ID
-      use_cases_data <- use_cases_reactive()
-      selected_uc <- use_cases_data[use_cases_data$use_case_id == use_case_id, ]
+      # Get project data by ID
+      projects_data <- projects_reactive()
+      selected_uc <- projects_data[projects_data$project_id == project_id, ]
 
       if (nrow(selected_uc) == 1) {
-        selected_use_case(list(
-          id = selected_uc$use_case_id,
-          name = selected_uc$use_case_name,
+        selected_project(list(
+          id = selected_uc$project_id,
+          name = selected_uc$project_name,
           short_description = selected_uc$short_description,
           long_description = selected_uc$long_description
         ))
@@ -1411,15 +1411,15 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
       }
     }, ignoreInit = TRUE)
 
-    # Configure use case - now handled by use_case_configure_clicked observer
+    # Configure project - now handled by project_configure_clicked observer
 
-    ### Use Case Details Selection ----
-    observe_event(input$use_cases_table_rows_selected, {
-      selected_rows <- input$use_cases_table_rows_selected
+    ### Project Details Selection ----
+    observe_event(input$projects_table_rows_selected, {
+      selected_rows <- input$projects_table_rows_selected
       if (!is.null(selected_rows) && length(selected_rows) == 1) {
-        selected_use_case_row(selected_rows)
+        selected_project_row(selected_rows)
       } else {
-        selected_use_case_row(NULL)
+        selected_project_row(NULL)
       }
     })
 
@@ -1429,31 +1429,31 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
 
       if (is.null(selected_rows) || length(selected_rows) == 0) return()
 
-      # Get selected use case
-      use_case <- selected_use_case()
-      if (is.null(use_case)) return()
+      # Get selected project
+      project <- selected_project()
+      if (is.null(project)) return()
 
       # Get available general concepts and selected ones
       available_df <- get_available_general_concepts()
       selected_gc_ids <- available_df$general_concept_id[selected_rows]
 
       # Get current mappings
-      gc_uc_data <- general_concept_use_cases_reactive()
+      gc_uc_data <- general_concept_projects_reactive()
 
       # Create new mappings
       new_mappings <- data.frame(
-        use_case_id = rep(use_case$id, length(selected_gc_ids)),
+        project_id = rep(project$id, length(selected_gc_ids)),
         general_concept_id = selected_gc_ids,
         stringsAsFactors = FALSE
       )
 
       # Filter out already existing mappings
       existing_pairs <- paste(
-        gc_uc_data$use_case_id,
+        gc_uc_data$project_id,
         gc_uc_data$general_concept_id
       )
       new_pairs <- paste(
-        new_mappings$use_case_id,
+        new_mappings$project_id,
         new_mappings$general_concept_id
       )
       new_mappings <- new_mappings[!new_pairs %in% existing_pairs, ]
@@ -1461,8 +1461,8 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
       if (nrow(new_mappings) > 0) {
         gc_uc_data <- rbind(gc_uc_data, new_mappings)
 
-        save_general_concept_use_cases_csv(gc_uc_data)
-        general_concept_use_cases_reactive(gc_uc_data)
+        save_general_concept_projects_csv(gc_uc_data)
+        general_concept_projects_reactive(gc_uc_data)
 
         DT::selectRows(DT::dataTableProxy("available_general_concepts_table", session = session), NULL)
       }
@@ -1474,22 +1474,22 @@ mod_use_cases_server <- function(id, data, vocabularies = reactive({ NULL }), cu
 
       if (is.null(selected_rows) || length(selected_rows) == 0) return()
 
-      # Get selected use case
-      use_case <- selected_use_case()
-      if (is.null(use_case)) return()
+      # Get selected project
+      project <- selected_project()
+      if (is.null(project)) return()
 
       # Get selected general concepts
       selected_df <- get_selected_general_concepts()
       gc_ids_to_remove <- selected_df$general_concept_id[selected_rows]
 
-      gc_uc_data <- general_concept_use_cases_reactive()
+      gc_uc_data <- general_concept_projects_reactive()
       gc_uc_data <- gc_uc_data[!(
         gc_uc_data$general_concept_id %in% gc_ids_to_remove &
-          gc_uc_data$use_case_id == use_case$id
+          gc_uc_data$project_id == project$id
       ), ]
 
-      save_general_concept_use_cases_csv(gc_uc_data)
-      general_concept_use_cases_reactive(gc_uc_data)
+      save_general_concept_projects_csv(gc_uc_data)
+      general_concept_projects_reactive(gc_uc_data)
     }, ignoreInit = TRUE)
 
     ### Table Row Selection - Available Concepts ----

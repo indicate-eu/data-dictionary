@@ -9,8 +9,8 @@
 CSV_FILES <- c(
   "general_concepts_en.csv",
   "general_concepts_fr.csv",
-  "use_cases.csv",
-  "general_concepts_use_cases.csv",
+  "projects.csv",
+  "general_concepts_projects.csv",
   "general_concepts_details.csv",
   "general_concepts_details_statistics.csv",
   "custom_concepts.csv",
@@ -156,14 +156,14 @@ load_csv_data <- function(language = NULL) {
     na.strings = c("", "NA")
   )
 
-  use_cases <- read.csv(
-    file.path(csv_dir, "use_cases.csv"),
+  projects <- read.csv(
+    file.path(csv_dir, "projects.csv"),
     stringsAsFactors = FALSE,
     na.strings = c("", "NA")
   )
 
-  general_concept_use_cases <- read.csv(
-    file.path(csv_dir, "general_concepts_use_cases.csv"),
+  general_concept_projects <- read.csv(
+    file.path(csv_dir, "general_concepts_projects.csv"),
     stringsAsFactors = FALSE,
     na.strings = c("", "NA")
   )
@@ -199,8 +199,8 @@ load_csv_data <- function(language = NULL) {
 
   return(list(
     general_concepts = general_concepts,
-    use_cases = use_cases,
-    general_concept_use_cases = general_concept_use_cases,
+    projects = projects,
+    general_concept_projects = general_concept_projects,
     concept_mappings = concept_mappings,
     concept_statistics = concept_statistics,
     custom_concepts = custom_concepts,
@@ -257,37 +257,37 @@ save_concept_mappings_csv <- function(concept_mappings_data) {
   )
 }
 
-#' Save General Concept Use Cases to CSV
+#' Save General Concept Projects to CSV
 #'
-#' @description Save general concept use cases mappings to CSV file
+#' @description Save general concept projects mappings to CSV file
 #'
-#' @param general_concept_use_cases_data Data frame with mappings
+#' @param general_concept_projects_data Data frame with mappings
 #'
 #' @return NULL (side effect: saves file)
 #' @noRd
-save_general_concept_use_cases_csv <- function(general_concept_use_cases_data) {
+save_general_concept_projects_csv <- function(general_concept_projects_data) {
   csv_dir <- get_user_csv_dir()
   write.csv(
-    general_concept_use_cases_data,
-    file.path(csv_dir, "general_concepts_use_cases.csv"),
+    general_concept_projects_data,
+    file.path(csv_dir, "general_concepts_projects.csv"),
     row.names = FALSE,
     quote = TRUE
   )
 }
 
-#' Save Use Cases to CSV
+#' Save Projects to CSV
 #'
-#' @description Save use cases data to CSV file
+#' @description Save projects data to CSV file
 #'
-#' @param use_cases_data Data frame with use cases
+#' @param projects_data Data frame with projects
 #'
 #' @return NULL (side effect: saves file)
 #' @noRd
-save_use_cases_csv <- function(use_cases_data) {
+save_projects_csv <- function(projects_data) {
   csv_dir <- get_user_csv_dir()
   write.csv(
-    use_cases_data,
-    file.path(csv_dir, "use_cases.csv"),
+    projects_data,
+    file.path(csv_dir, "projects.csv"),
     row.names = FALSE,
     quote = TRUE
   )

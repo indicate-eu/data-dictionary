@@ -48,7 +48,7 @@ app_server <- function(input, output, session) {
   modules_initialized <- reactiveValues(
     dictionary_explorer = FALSE,
     concept_mapping = FALSE,
-    use_cases = FALSE,
+    projects = FALSE,
     improvements = FALSE,
     dev_tools = FALSE,
     general_settings = FALSE,
@@ -131,16 +131,16 @@ app_server <- function(input, output, session) {
         modules_initialized$concept_mapping <- TRUE
       }
 
-      if (grepl("use-cases", current_route) && !modules_initialized$use_cases) {
-        mod_use_cases_server(
-          "use_cases",
+      if (grepl("projects", current_route) && !modules_initialized$projects) {
+        mod_projects_server(
+          "projects",
           data = data,
           vocabularies = reactive({ vocabularies() }),
           current_user = current_user,
           i18n = i18n,
           log_level = log_level
         )
-        modules_initialized$use_cases <- TRUE
+        modules_initialized$projects <- TRUE
       }
 
       if (grepl("improvements", current_route) && !modules_initialized$improvements) {

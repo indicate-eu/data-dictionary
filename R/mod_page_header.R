@@ -129,21 +129,15 @@ mod_page_header_server <- function(id, current_user, vocab_loading_status, i18n 
           visible = TRUE
         ),
         list(
-          id = "nav_use_cases",
-          path = "use-cases",
-          label = tagList(icon("list-check"), tags$span(class = "nav-tab-text", if (!is.null(i18n)) i18n$t("use_cases") else "Use Cases")),
+          id = "nav_projects",
+          path = "projects",
+          label = tagList(icon("list-check"), tags$span(class = "nav-tab-text", if (!is.null(i18n)) i18n$t("projects") else "Projects")),
           visible = TRUE
         ),
         list(
           id = "nav_mapping",
           path = "mapping",
           label = tagList(icon("project-diagram"), tags$span(class = "nav-tab-text", if (!is.null(i18n)) i18n$t("concepts_mapping") else "Concepts Mapping")),
-          visible = !is.null(user) && user$role != "Anonymous"
-        ),
-        list(
-          id = "nav_improvements",
-          path = "improvements",
-          label = tagList(icon("lightbulb"), tags$span(class = "nav-tab-text", if (!is.null(i18n)) i18n$t("improvements") else "Improvements")),
           visible = !is.null(user) && user$role != "Anonymous"
         ),
         list(
@@ -185,16 +179,12 @@ mod_page_header_server <- function(id, current_user, vocab_loading_status, i18n 
       shiny.router::change_page("", session = session)
     })
 
-    observe_event(input$nav_use_cases, {
-      shiny.router::change_page("use-cases", session = session)
+    observe_event(input$nav_projects, {
+      shiny.router::change_page("projects", session = session)
     })
 
     observe_event(input$nav_mapping, {
       shiny.router::change_page("mapping", session = session)
-    })
-
-    observe_event(input$nav_improvements, {
-      shiny.router::change_page("improvements", session = session)
     })
 
     observe_event(input$nav_dev_tools, {

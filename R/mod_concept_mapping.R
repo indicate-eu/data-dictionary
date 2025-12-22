@@ -80,7 +80,7 @@
 #          #### Evaluate Mappings State - Track evaluation state
 #          #### Evaluate Mappings Table - Initial Render - Display evaluation table (responds to alignment changes)
 #          #### Evaluate Mappings Table - Update Data Using Proxy - Preserve state during updates
-#          #### Use Cases Compatibility Table - Show use case compatibility
+#          #### Projects Compatibility Table - Show project compatibility
 #          #### Handle Evaluation Actions - Process votes
 #          #### Handle Comment Editing - Double-click to edit comments
 #          #### Save Comment - Persist comment changes
@@ -466,7 +466,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Cascade triggers for summary_trigger() changes
     summary_content_trigger <- reactiveVal(0)  # Trigger for summary content rendering
-    use_cases_compatibility_table_trigger <- reactiveVal(0)  # Trigger for use cases compatibility table
+    projects_compatibility_table_trigger <- reactiveVal(0)  # Trigger for projects compatibility table
 
     ## 2) Server - Navigation & Events ----
     ### Trigger Updates ----
@@ -483,7 +483,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     # Cascade observer: Fires all summary-specific triggers
     observe_event(summary_trigger(), {
       summary_content_trigger(summary_content_trigger() + 1)
-      use_cases_compatibility_table_trigger(use_cases_compatibility_table_trigger() + 1)
+      projects_compatibility_table_trigger(projects_compatibility_table_trigger() + 1)
     }, ignoreInit = TRUE)
 
     ### Cascade Observers for selected_alignment_id() ----
@@ -1572,14 +1572,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         tags$div(
           id = ns("panel_all_mappings"),
           class = "card-container",
-          style = "margin: 0 10px 10px 10px; height: calc(100vh - 180px); overflow: auto; display: none;",
+          style = "margin: 0 10px 10px 10px; flex: 1; min-height: 0; overflow: auto; display: none;",
           DT::DTOutput(ns("all_mappings_table_main"))
         ),
 
         # Edit Mappings panel
         tags$div(
           id = ns("panel_edit_mappings"),
-          style = "display: none; height: calc(100vh - 180px); margin: 0 10px 10px 10px;",
+          style = "display: none; flex: 1; min-height: 0; margin: 0 10px 10px 10px;",
           tags$div(
             style = "height: 100%; display: flex; gap: 15px; min-height: 0;",
             # Left column: Source Concepts (top) + Concept Details (bottom)
@@ -1757,7 +1757,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         # Import Mappings panel
         tags$div(
           id = ns("panel_import_mappings"),
-          style = "margin: 0 10px 10px 10px; display: none;",
+          style = "margin: 0 10px 10px 10px; flex: 1; min-height: 0; display: none; flex-direction: column;",
 
           # Import from CSV widget
           tags$div(
@@ -1825,7 +1825,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           # Import History widget
           tags$div(
             class = "card-container",
-            style = "padding: 20px; height: calc(100vh - 590px); overflow: auto;",
+            style = "padding: 20px; flex: 1; min-height: 0; overflow: auto;",
             tags$h4(style = "margin-bottom: 15px; color: #0f60af;", "Import History"),
             DT::DTOutput(ns("import_history_table"))
           )
@@ -1835,7 +1835,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         tags$div(
           id = ns("panel_evaluate_mappings"),
           class = "card-container",
-          style = "margin: 0 10px 10px 10px; height: calc(100vh - 180px); overflow: auto; display: none;",
+          style = "margin: 0 10px 10px 10px; flex: 1; min-height: 0; overflow: auto; display: none;",
           DT::DTOutput(ns("evaluate_mappings_table")),
           shinyjs::hidden(
             tags$div(
@@ -2087,22 +2087,36 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
 
       # Get all general concepts mapped from database
-      # For imported mappings without target_general_concept_id, find the first general concept
-      # that has a mapping to the target_omop_concept_id
-      general_concepts_query <- "
-        SELECT DISTINCT
-          COALESCE(cm.target_general_concept_id,
-            (SELECT gc_map.target_general_concept_id
-             FROM concept_mappings gc_map
-             WHERE gc_map.target_omop_concept_id = cm.target_omop_concept_id
-               AND gc_map.target_general_concept_id IS NOT NULL
-             LIMIT 1)
-          ) as general_concept_id
-        FROM concept_mappings cm
-        WHERE cm.alignment_id = ?
+      # First get all mappings with their target IDs
+      all_mappings_query <- "
+        SELECT DISTINCT target_general_concept_id, target_omop_concept_id
+        FROM concept_mappings
+        WHERE alignment_id = ?
       "
-      general_concepts_result <- DBI::dbGetQuery(con, general_concepts_query, params = list(selected_alignment_id()))
-      mapped_general_concept_ids <- unique(general_concepts_result$general_concept_id[!is.na(general_concepts_result$general_concept_id)])
+      all_mappings <- DBI::dbGetQuery(con, all_mappings_query, params = list(selected_alignment_id()))
+
+      # For mappings with target_general_concept_id, use it directly
+      direct_general_ids <- all_mappings$target_general_concept_id[!is.na(all_mappings$target_general_concept_id)]
+
+      # For imported mappings (target_general_concept_id is NULL but target_omop_concept_id is set),
+      # look up the general concept from the dictionary data
+      imported_omop_ids <- all_mappings$target_omop_concept_id[
+        is.na(all_mappings$target_general_concept_id) & !is.na(all_mappings$target_omop_concept_id)
+      ]
+
+      # Look up general concepts from dictionary for imported OMOP concept IDs
+      dictionary_mappings <- data()$concept_mappings
+      if (!is.null(dictionary_mappings) && length(imported_omop_ids) > 0) {
+        lookup_general_ids <- dictionary_mappings$general_concept_id[
+          dictionary_mappings$omop_concept_id %in% imported_omop_ids
+        ]
+        lookup_general_ids <- unique(lookup_general_ids[!is.na(lookup_general_ids)])
+      } else {
+        lookup_general_ids <- integer(0)
+      }
+
+      # Combine both sources
+      mapped_general_concept_ids <- unique(c(direct_general_ids, lookup_general_ids))
       total_general_concepts <- length(mapped_general_concept_ids)
 
       # Calculate percentage of dictionary coverage
@@ -2132,7 +2146,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Render UI
       output$summary_content <- renderUI({
         tags$div(
-          style = "height: calc(100vh - 230px);",
+          style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
 
           # Summary cards
           tags$div(
@@ -2218,38 +2232,39 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             )
           ),
 
-          # Use Cases Compatibility Section
+          # Projects Compatibility Section
           tags$div(
+            style = "flex: 1; min-height: 0;",
             tags$div(
               class = "card-container",
-              style = "margin: 0 10px 10px 10px; height: calc(100vh - 350px); overflow: auto;",
+              style = "margin: 0 10px 10px 10px; height: 100%; overflow: auto;",
               tags$div(
                 class = "section-header",
                 style = "background: none; border-bottom: none; padding: 0 0 0 5px;",
                 tags$span(
                   class = "section-title",
-                  "Use Cases Compatibility"
+                  "Projects Compatibility"
                 )
               ),
-              DT::DTOutput(ns("use_cases_compatibility_table"))
+              DT::DTOutput(ns("projects_compatibility_table"))
             )
           )
         )
       })
     })
 
-    #### Use Cases Compatibility Table ----
-    observe_event(use_cases_compatibility_table_trigger(), {
+    #### Projects Compatibility Table ----
+    observe_event(projects_compatibility_table_trigger(), {
       if (is.null(selected_alignment_id())) return()
       if (is.null(data())) return()
 
-      output$use_cases_compatibility_table <- DT::renderDT({
-        # Get use cases and concept assignments
-        use_cases <- data()$use_cases
-        general_concept_use_cases <- data()$general_concept_use_cases
+      output$projects_compatibility_table <- DT::renderDT({
+        # Get projects and concept assignments
+        projects <- data()$projects
+        general_concept_projects <- data()$general_concept_projects
 
-        if (is.null(use_cases) || nrow(use_cases) == 0) {
-          return(create_empty_datatable("No use cases defined"))
+        if (is.null(projects) || nrow(projects) == 0) {
+          return(create_empty_datatable("No projects defined"))
         }
 
         # Get alignment mappings
@@ -2274,26 +2289,26 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         df <- read.csv(csv_path, stringsAsFactors = FALSE)
         mapped_general_concept_ids <- unique(df$target_general_concept_id[!is.na(df$target_general_concept_id)])
 
-        # Build use case compatibility table
-        uc_compat <- use_cases %>%
+        # Build project compatibility table
+        uc_compat <- projects %>%
           dplyr::rowwise() %>%
           dplyr::mutate(
             total_concepts = {
-              if (is.null(general_concept_use_cases)) {
+              if (is.null(general_concept_projects)) {
                 0L
               } else {
-                current_uc_id <- use_case_id
-                nrow(general_concept_use_cases %>%
-                  dplyr::filter(use_case_id == current_uc_id))
+                current_uc_id <- project_id
+                nrow(general_concept_projects %>%
+                  dplyr::filter(project_id == current_uc_id))
               }
             },
             mapped_concepts = {
-              if (is.null(general_concept_use_cases)) {
+              if (is.null(general_concept_projects)) {
                 0L
               } else {
-                current_uc_id <- use_case_id
-                required_gc_ids <- general_concept_use_cases %>%
-                  dplyr::filter(use_case_id == current_uc_id) %>%
+                current_uc_id <- project_id
+                required_gc_ids <- general_concept_projects %>%
+                  dplyr::filter(project_id == current_uc_id) %>%
                   dplyr::pull(general_concept_id)
                 sum(required_gc_ids %in% mapped_general_concept_ids)
               }
@@ -2301,7 +2316,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             covered = ifelse(total_concepts > 0 && mapped_concepts == total_concepts, "Yes", "No")
           ) %>%
           dplyr::ungroup() %>%
-          dplyr::select(use_case_name, short_description, total_concepts, mapped_concepts, covered)
+          dplyr::select(project_name, short_description, total_concepts, mapped_concepts, covered)
 
         # Create datatable
         dt <- datatable(

@@ -100,17 +100,17 @@ view_mode,Mode visualisation
 changes_saved,Modifications enregistrées avec succès
 no_changes,Aucune modification à enregistrer
 error_saving,Erreur lors de l'enregistrement
-use_cases,Cas d'usage
+projects,Projets
 concepts_mapping,Mapping des concepts
 improvements,Améliorations
 dev_tools,Outils dev
 general_settings,Paramètres généraux
 users,Utilisateurs
 logout,Déconnexion
-add_use_case,Ajouter un cas d'usage
-use_case_details,Détails du cas d'usage
-select_use_case,Sélectionnez un cas d'usage pour voir ses détails
-use_case_name,Nom
+add_project,Ajouter un projet
+project_details,Détails du projet
+select_project,Sélectionnez un projet pour voir ses détails
+project_name,Nom
 short_description,Description courte
 long_description,Description détaillée
 concepts,Concepts
@@ -123,15 +123,15 @@ configure,Configurer
 edit,Modifier
 update,Mettre à jour
 confirm_deletion,Confirmer la suppression
-delete_use_case_confirm,Êtes-vous sûr de vouloir supprimer le(s) cas d'usage sélectionné(s) ? Cette action est irréversible.
-delete_use_case_note,Toutes les associations de concepts pour ce cas d'usage seront également supprimées.
-no_use_cases,Aucun cas d'usage trouvé. Cliquez sur 'Ajouter un cas d'usage' pour en créer un.
+delete_project_confirm,Êtes-vous sûr de vouloir supprimer le(s) projet(s) sélectionné(s) ? Cette action est irréversible.
+delete_project_note,Toutes les associations de concepts pour ce projet seront également supprimées.
+no_projects,Aucun projet trouvé. Cliquez sur 'Ajouter un projet' pour en créer un.
 available_concepts,Concepts disponibles
 selected_concepts,Concepts sélectionnés
-selected_concepts_for_use_case,Concepts sélectionnés pour le cas d'usage
+selected_concepts_for_project,Concepts sélectionnés pour le projet
 add_selected_concepts,Ajouter les concepts sélectionnés
 remove_selected_concepts,Retirer les concepts sélectionnés
-no_concepts_selected,Aucun concept général sélectionné pour ce cas d'usage. Sélectionnez des concepts généraux dans le panneau de gauche et cliquez sur 'Ajouter les concepts sélectionnés'.
+no_concepts_selected,Aucun concept général sélectionné pour ce projet. Sélectionnez des concepts généraux dans le panneau de gauche et cliquez sur 'Ajouter les concepts sélectionnés'.
 dictionary_improvements,Améliorations du dictionnaire
 dictionary_improvements_desc,Contribuez au dictionnaire de données INDICATE en proposant de nouveaux concepts, relations et améliorations.
 coming_soon,Bientôt disponible
@@ -206,5 +206,5 @@ engineer,Ingénieur
 login_exists,Cet identifiant existe déjà. Veuillez en choisir un autre.
 confirm_delete_user,Êtes-vous sûr de vouloir supprimer l'utilisateur
 athena_note,Les vocabulaires OHDSI peuvent être téléchargés depuis ATHENA (inscription requise).
-edit_use_case,Modifier le cas d'usage
-update_use_case,Mettre à jour
+edit_project,Modifier le projet
+update_project,Mettre à jour
