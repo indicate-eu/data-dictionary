@@ -3859,13 +3859,15 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         NULL
       }
 
-      # Get unit concept code from OMOP if unit concept ID exists
+      # Get unit concept name and code from OMOP if unit concept ID exists
+      unit_concept_name <- NULL
       unit_concept_code <- NULL
       if (!is.null(vocab_data) && !is.na(info$omop_unit_concept_id) && info$omop_unit_concept_id != "" && info$omop_unit_concept_id != "/") {
         unit_concept_info <- vocab_data$concept %>%
           dplyr::filter(concept_id == as.integer(info$omop_unit_concept_id)) %>%
           dplyr::collect()
         if (nrow(unit_concept_info) > 0) {
+          unit_concept_name <- unit_concept_info$concept_name[1]
           unit_concept_code <- unit_concept_info$concept_code[1]
         }
       }
@@ -3969,13 +3971,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           tags$div(class = "detail-item", style = "visibility: hidden;")
         },
         create_detail_item("Unit Concept Name",
-                          if (!is.null(unit_concept_code) && unit_concept_code != "") {
-                            unit_concept_code
+                          if (!is.null(unit_concept_name) && unit_concept_name != "") {
+                            unit_concept_name
                           } else {
                             "/"
                           },
-                          editable = TRUE, input_id = "unit_concept_name_input", input_type = "text",
-                          include_colon = FALSE, is_editing = is_editing, ns = ns),
+                          url = unit_fhir_url, include_colon = FALSE),
         create_detail_item("OMOP Unit Concept ID",
                           if (!is.null(info$omop_unit_concept_id) && !is.na(info$omop_unit_concept_id) && info$omop_unit_concept_id != "" && info$omop_unit_concept_id != "/") {
                             info$omop_unit_concept_id
