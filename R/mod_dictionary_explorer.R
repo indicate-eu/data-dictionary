@@ -4832,9 +4832,21 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 summary_data <- jsonlite::fromJSON(concept_info$statistical_summary[1])
               }
 
+              # Helper function to check if numeric_data has actual values (not just nulls)
+              has_numeric_values <- function(nd) {
+                if (is.null(nd)) return(FALSE)
+                # Check if at least one key statistic has a non-null value
+                !is.null(nd$min) && !is.na(nd$min) ||
+                !is.null(nd$max) && !is.na(nd$max) ||
+                !is.null(nd$mean) && !is.na(nd$mean) ||
+                !is.null(nd$median) && !is.na(nd$median) ||
+                !is.null(nd$p25) && !is.na(nd$p25) ||
+                !is.null(nd$p75) && !is.na(nd$p75)
+              }
+
               if (!is.null(summary_data)) {
-                # Check for numeric data with required percentiles
-                if (!is.null(summary_data$numeric_data)) {
+                # Check for numeric data with actual values and required percentiles
+                if (!is.null(summary_data$numeric_data) && has_numeric_values(summary_data$numeric_data)) {
                   nd <- summary_data$numeric_data
                   if (!is.null(nd$p25) && !is.na(nd$p25) && !is.null(nd$p75) && !is.na(nd$p75)) {
                     # Calculate values for display

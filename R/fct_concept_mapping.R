@@ -23,13 +23,12 @@ add_alignment <- function(name, description = "", file_id, original_filename = "
   on.exit(DBI::dbDisconnect(con))
 
   timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
-  created_date <- format(Sys.Date(), "%Y-%m-%d")
 
   DBI::dbExecute(
     con,
     "INSERT INTO concept_alignments (name, description, file_id, original_filename, created_date, updated_at)
      VALUES (?, ?, ?, ?, ?, ?)",
-    params = list(name, description, file_id, original_filename, created_date, timestamp)
+    params = list(name, description, file_id, original_filename, timestamp, timestamp)
   )
 
   # Get the ID of the newly inserted alignment
