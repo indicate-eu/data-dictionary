@@ -386,3 +386,403 @@ create_stat_row <- function(label, target_val, source_val = NULL, color_target =
     val_content
   )
 }
+
+
+# HISTOGRAM DATA PARSING ====
+
+#' Parse histogram data supporting both x and bin_start/bin_end formats
+#'
+#' @param histogram_list List or data.frame with histogram data
+#' @return Data frame with x, count columns or NULL
+#' @noRd
+parse_histogram_data <- function(histogram_list) {
+  if (is.null(histogram_list) || length(histogram_list) == 0) return(NULL)
+
+  hist_df <- as.data.frame(histogram_list)
+  if (nrow(hist_df) == 0) return(NULL)
+
+  # Support new format with x coordinate
+
+  if ("x" %in% colnames(hist_df) && "count" %in% colnames(hist_df)) {
+    return(hist_df[, c("x", "count")])
+  }
+
+  # Support legacy format with bin_start/bin_end
+  if ("bin_start" %in% colnames(hist_df) && "bin_end" %in% colnames(hist_df) && "count" %in% colnames(hist_df)) {
+    hist_df$x <- (hist_df$bin_start + hist_df$bin_end) / 2
+    return(hist_df[, c("x", "count")])
+  }
+
+  NULL
+}
+
+
+# SHARED PANEL RENDERERS ====
+
+#' Check if numeric_data has actual values
+#' @noRd
+has_numeric_values <- function(nd) {
+  if (is.null(nd)) return(FALSE)
+  (!is.null(nd$min) && !is.na(nd$min)) ||
+  (!is.null(nd$max) && !is.na(nd$max)) ||
+  (!is.null(nd$mean) && !is.na(nd$mean)) ||
+  (!is.null(nd$median) && !is.na(nd$median)) ||
+  (!is.null(nd$p25) && !is.na(nd$p25)) ||
+  (!is.null(nd$p75) && !is.na(nd$p75))
+}
+
+
+#' Render Summary Panel
+#'
+#' @description Renders a summary panel with statistics. Can show target data alone
+#' (orange) or with source data for comparison (blue in parentheses).
+#'
+#' @param profile_data Profile data containing numeric_data, missing_rate, measurement_frequency
+#' @param source_data Optional source data for comparison (from source concept JSON)
+#' @param row_data Optional row data containing rows_count, patients_count
+#' @param target_unit_name Optional unit name for the target concept
+#' @param source_unit_name Optional source unit name for comparison
+#' @return shiny tagList
+#' @noRd
+render_stats_summary_panel <- function(profile_data, source_data = NULL, row_data = NULL, target_unit_name = NULL, source_unit_name = NULL) {
+  items <- list()
+
+  colors <- get_stats_colors()
+  has_source <- !is.null(source_data)
+
+  # Summary shows metadata only (numeric stats are in Distribution tab)
+
+  # Rows count
+  if (!is.null(row_data) && !is.null(row_data$rows_count) && !is.na(row_data$rows_count)) {
+    items <- c(items, list(
+      shiny::tags$div(
+        class = "detail-item", style = "margin-bottom: 6px;",
+        shiny::tags$span(style = "font-weight: 600; color: #666;", "Rows:"),
+        shiny::tags$span(class = "detail-value", format(row_data$rows_count, big.mark = ","))
+      )
+    ))
+  }
+
+  # Patients count
+  if (!is.null(row_data) && !is.null(row_data$patients_count) && !is.na(row_data$patients_count)) {
+    items <- c(items, list(
+      shiny::tags$div(
+        class = "detail-item", style = "margin-bottom: 6px;",
+        shiny::tags$span(style = "font-weight: 600; color: #666;", "Patients:"),
+        shiny::tags$span(class = "detail-value", format(row_data$patients_count, big.mark = ","))
+      )
+    ))
+  }
+
+  # Unit (with optional source comparison)
+  if (!is.null(target_unit_name) && nchar(target_unit_name) > 0) {
+    items <- c(items, list(
+      shiny::tags$div(
+        class = "detail-item", style = "margin-bottom: 6px;",
+        shiny::tags$span(style = "font-weight: 600; color: #666;", "Unit:"),
+        if (!is.null(source_unit_name) && nchar(source_unit_name) > 0) {
+          shiny::tags$span(
+            shiny::tags$span(style = paste0("color: ", colors$target, "; font-weight: 600;"), target_unit_name),
+            shiny::tags$span(style = paste0("color: ", colors$source, "; margin-left: 5px;"), paste0("(", source_unit_name, ")"))
+          )
+        } else {
+          shiny::tags$span(class = "detail-value", target_unit_name)
+        }
+      )
+    ))
+  }
+
+  # Missing rate
+  if (!is.null(profile_data$missing_rate) && !is.na(profile_data$missing_rate)) {
+    source_missing <- if (has_source && !is.null(source_data$missing_rate)) source_data$missing_rate else NULL
+    items <- c(items, list(
+      shiny::tags$div(
+        class = "detail-item", style = "margin-bottom: 6px;",
+        shiny::tags$span(style = "font-weight: 600; color: #666;", "Missing:"),
+        if (has_source && !is.null(source_missing)) {
+          shiny::tags$span(
+            shiny::tags$span(style = paste0("color: ", colors$target, "; font-weight: 600;"), paste0(profile_data$missing_rate, "%")),
+            shiny::tags$span(style = paste0("color: ", colors$source, "; margin-left: 5px;"), paste0("(", source_missing, "%)"))
+          )
+        } else {
+          shiny::tags$span(class = "detail-value", paste0(profile_data$missing_rate, "%"))
+        }
+      )
+    ))
+  }
+
+  # Measurement frequency
+  if (!is.null(profile_data$measurement_frequency) && !is.null(profile_data$measurement_frequency$typical_interval)) {
+    items <- c(items, list(
+      shiny::tags$div(
+        class = "detail-item", style = "margin-bottom: 6px;",
+        shiny::tags$span(style = "font-weight: 600; color: #666;", "Interval:"),
+        shiny::tags$span(class = "detail-value", gsub("_", " ", profile_data$measurement_frequency$typical_interval))
+      )
+    ))
+  }
+
+  if (length(items) == 0) {
+    return(shiny::tags$div(style = "color: #999; font-style: italic;", "No summary data available."))
+  }
+
+  # Single column layout (all items on left)
+  shiny::tags$div(
+    style = "padding: 15px;",
+    items
+  )
+}
+
+
+#' Render Distribution Panel
+#'
+#' @description Renders a distribution panel with boxplot and/or histogram.
+#' Shows target data with optional source comparison.
+#'
+#' @param profile_data Profile data containing numeric_data, histogram, categorical_data
+#' @param source_data Optional source data for comparison overlay
+#' @param primary_color Color for primary data (default: blue for standalone, orange for comparison mode)
+#' @return shiny tagList
+#' @noRd
+render_stats_distribution_panel <- function(profile_data, source_data = NULL, primary_color = NULL) {
+  colors <- get_stats_colors()
+  has_source <- !is.null(source_data) &&
+                !is.null(source_data$numeric_data) &&
+                !is.null(source_data$numeric_data$p25) &&
+                !is.na(source_data$numeric_data$p25)
+
+  # Use blue for standalone mode, orange for comparison mode
+  main_color <- if (!is.null(primary_color)) primary_color else if (has_source) colors$target else colors$source
+
+  nd <- profile_data$numeric_data
+  snd <- if (has_source) source_data$numeric_data else NULL
+
+  # Numeric distribution (boxplot + histogram)
+  if (!is.null(nd) && has_numeric_values(nd) && !is.null(nd$p25) && !is.na(nd$p25) && !is.null(nd$p75) && !is.na(nd$p75)) {
+
+    # Create stats display next to boxplot
+    stats_items <- list()
+
+    # Mean
+    if (!is.null(nd$mean) && !is.na(nd$mean)) {
+      source_mean <- if (!is.null(snd) && !is.null(snd$mean)) snd$mean else NULL
+      stats_items <- c(stats_items, list(create_stat_row("Mean", nd$mean, source_mean, main_color, colors$source)))
+    }
+
+    # Median
+    if (!is.null(nd$median) && !is.na(nd$median)) {
+      source_median <- if (!is.null(snd) && !is.null(snd$median)) snd$median else NULL
+      stats_items <- c(stats_items, list(create_stat_row("Median", nd$median, source_median, main_color, colors$source)))
+    }
+
+    # SD
+    if (!is.null(nd$sd) && !is.na(nd$sd)) {
+      source_sd <- if (!is.null(snd) && !is.null(snd$sd)) snd$sd else NULL
+      stats_items <- c(stats_items, list(create_stat_row("SD", nd$sd, source_sd, main_color, colors$source)))
+    }
+
+    # Range (min - max)
+    if (!is.null(nd$min) && !is.na(nd$min) && !is.null(nd$max) && !is.na(nd$max)) {
+      range_text <- paste(round(nd$min, 2), "-", round(nd$max, 2))
+      source_range <- NULL
+      if (!is.null(snd) && !is.null(snd$min) && !is.null(snd$max)) {
+        source_range <- paste(round(snd$min, 2), "-", round(snd$max, 2))
+      }
+      stats_items <- c(stats_items, list(
+        shiny::tags$div(
+          style = "display: flex; gap: 5px; margin-bottom: 2px;",
+          shiny::tags$span(style = "font-weight: 600; color: #666; min-width: 55px;", "Range:"),
+          if (!is.null(source_range)) {
+            shiny::tags$span(
+              shiny::tags$span(style = paste0("color: ", main_color, "; font-weight: 600;"), range_text),
+              shiny::tags$span(style = paste0("color: ", colors$source, "; margin-left: 5px;"), paste0("(", source_range, ")"))
+            )
+          } else {
+            shiny::tags$span(style = paste0("color: ", main_color, "; font-weight: 600;"), range_text)
+          }
+        )
+      ))
+    }
+
+    # IQR (p25 - p75)
+    if (!is.null(nd$p25) && !is.na(nd$p25) && !is.null(nd$p75) && !is.na(nd$p75)) {
+      iqr_text <- paste(round(nd$p25, 2), "-", round(nd$p75, 2))
+      source_iqr <- NULL
+      if (!is.null(snd) && !is.null(snd$p25) && !is.na(snd$p25) && !is.null(snd$p75) && !is.na(snd$p75)) {
+        source_iqr <- paste(round(snd$p25, 2), "-", round(snd$p75, 2))
+      }
+      stats_items <- c(stats_items, list(
+        shiny::tags$div(
+          style = "display: flex; gap: 5px; margin-bottom: 2px;",
+          shiny::tags$span(style = "font-weight: 600; color: #666; min-width: 55px;", "IQR:"),
+          if (!is.null(source_iqr)) {
+            shiny::tags$span(
+              shiny::tags$span(style = paste0("color: ", main_color, "; font-weight: 600;"), iqr_text),
+              shiny::tags$span(style = paste0("color: ", colors$source, "; margin-left: 5px;"), paste0("(", source_iqr, ")"))
+            )
+          } else {
+            shiny::tags$span(style = paste0("color: ", main_color, "; font-weight: 600;"), iqr_text)
+          }
+        )
+      ))
+    }
+
+    # P5 - P95 range
+    if (!is.null(nd$p5) && !is.na(nd$p5) && !is.null(nd$p95) && !is.na(nd$p95)) {
+      p5_p95_text <- paste(round(nd$p5, 2), "-", round(nd$p95, 2))
+      source_p5_p95 <- NULL
+      if (!is.null(snd) && !is.null(snd$p5) && !is.na(snd$p5) && !is.null(snd$p95) && !is.na(snd$p95)) {
+        source_p5_p95 <- paste(round(snd$p5, 2), "-", round(snd$p95, 2))
+      }
+      stats_items <- c(stats_items, list(
+        shiny::tags$div(
+          style = "display: flex; gap: 5px; margin-bottom: 2px;",
+          shiny::tags$span(style = "font-weight: 600; color: #666; min-width: 55px;", "P5-P95:"),
+          if (!is.null(source_p5_p95)) {
+            shiny::tags$span(
+              shiny::tags$span(style = paste0("color: ", main_color, "; font-weight: 600;"), p5_p95_text),
+              shiny::tags$span(style = paste0("color: ", colors$source, "; margin-left: 5px;"), paste0("(", source_p5_p95, ")"))
+            )
+          } else {
+            shiny::tags$span(style = paste0("color: ", main_color, "; font-weight: 600;"), p5_p95_text)
+          }
+        )
+      ))
+    }
+
+    # Create boxplot
+    if (has_source) {
+      boxplot <- create_dual_boxplot(snd, nd)
+    } else {
+      boxplot <- create_boxplot(nd, main_color)
+    }
+
+    # Parse histogram data
+    target_hist <- parse_histogram_data(profile_data$histogram)
+    source_hist <- if (has_source) parse_histogram_data(source_data$histogram) else NULL
+
+    # Create histogram plot
+    hist_plot <- NULL
+    if (!is.null(target_hist)) {
+      # Calculate percentages
+      target_hist$percentage <- target_hist$count / sum(target_hist$count, na.rm = TRUE) * 100
+
+      if (!is.null(source_hist)) {
+        source_hist$percentage <- source_hist$count / sum(source_hist$count, na.rm = TRUE) * 100
+
+        # Combine for dual plot
+        target_hist$source <- "Target"
+        source_hist$source <- "Source"
+        combined_df <- rbind(target_hist, source_hist)
+
+        hist_plot <- ggplot2::ggplot(combined_df, ggplot2::aes(x = x, y = percentage, color = source, fill = source)) +
+          ggplot2::geom_area(alpha = 0.25, position = "identity") +
+          ggplot2::geom_line(linewidth = 1.2) +
+          ggplot2::geom_point(size = 2) +
+          ggplot2::scale_color_manual(values = c("Source" = colors$source, "Target" = colors$target)) +
+          ggplot2::scale_fill_manual(values = c("Source" = colors$source, "Target" = colors$target)) +
+          ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
+          ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05)), labels = function(x) paste0(x, "%")) +
+          ggplot2::labs(x = NULL, y = NULL) +
+          ggplot2::theme_minimal(base_size = 10) +
+          ggplot2::theme(
+            panel.grid.minor = ggplot2::element_blank(),
+            panel.grid.major.x = ggplot2::element_blank(),
+            axis.text = ggplot2::element_text(size = 8),
+            plot.margin = ggplot2::margin(5, 10, 5, 10),
+            legend.position = "bottom",
+            legend.title = ggplot2::element_blank()
+          )
+      } else {
+        hist_plot <- ggplot2::ggplot(target_hist, ggplot2::aes(x = x, y = percentage)) +
+          ggplot2::geom_area(fill = main_color, alpha = 0.3) +
+          ggplot2::geom_line(color = main_color, linewidth = 1.2) +
+          ggplot2::geom_point(color = main_color, size = 2) +
+          ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
+          ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05)), labels = function(x) paste0(x, "%")) +
+          ggplot2::labs(x = NULL, y = NULL) +
+          ggplot2::theme_minimal(base_size = 10) +
+          ggplot2::theme(
+            panel.grid.minor = ggplot2::element_blank(),
+            panel.grid.major.x = ggplot2::element_blank(),
+            axis.text = ggplot2::element_text(size = 8),
+            plot.margin = ggplot2::margin(5, 10, 5, 10)
+          )
+      }
+    }
+
+    return(shiny::tags$div(
+      # Boxplot row with stats on left
+      shiny::tags$div(
+        style = "display: flex; align-items: center; gap: 15px; margin-bottom: 15px;",
+        # Stats column
+        shiny::tags$div(
+          style = "min-width: 150px; font-size: 12px;",
+          stats_items
+        ),
+        # Boxplot column
+        shiny::tags$div(
+          style = "flex: 1;",
+          if (!is.null(boxplot)) {
+            shiny::renderPlot({ boxplot }, height = if (has_source) 80 else 50, width = "auto")
+          }
+        )
+      ),
+      # Histogram row
+      if (!is.null(hist_plot)) {
+        shiny::tags$div(
+          style = "margin-top: 10px;",
+          shiny::renderPlot({ hist_plot }, height = 120, width = "auto")
+        )
+      }
+    ))
+  }
+
+  # Categorical distribution (bar chart)
+  if (!is.null(profile_data$categorical_data) && length(profile_data$categorical_data) > 0) {
+    cat_df <- as.data.frame(profile_data$categorical_data)
+    if (nrow(cat_df) > 0 && "value" %in% colnames(cat_df) && "percentage" %in% colnames(cat_df)) {
+      rows <- lapply(seq_len(nrow(cat_df)), function(i) {
+        shiny::tags$div(
+          style = "display: flex; align-items: center; margin-bottom: 5px;",
+          shiny::tags$span(style = "width: 120px; font-size: 13px;", cat_df$value[i]),
+          shiny::tags$div(style = sprintf("width: %s%%; background: %s; height: 18px; border-radius: 3px; margin-right: 8px;", cat_df$percentage[i], main_color)),
+          shiny::tags$span(style = "font-size: 12px; color: #666;", paste0(cat_df$percentage[i], "%"))
+        )
+      })
+      return(do.call(shiny::tagList, rows))
+    }
+  }
+
+  shiny::tags$div(style = "color: #999; font-style: italic;", "No distribution data available.")
+}
+
+
+#' Render Comments Panel
+#'
+#' @description Renders the comments panel with markdown content
+#'
+#' @param comments_text Comments text (markdown format)
+#' @return shiny tagList
+#' @noRd
+render_stats_comments_panel <- function(comments_text) {
+  if (is.null(comments_text) || is.na(comments_text) || nchar(trimws(comments_text)) == 0) {
+    return(shiny::tags$div(
+      style = "color: #999; font-style: italic;",
+      "No comments available for this concept."
+    ))
+  }
+
+  shiny::tags$div(
+    class = "comments-section",
+    style = "background: #ffffff; padding: 10px; border-radius: 6px; height: 100%; overflow-y: auto;",
+    shiny::tags$div(
+      class = "markdown-content",
+      shiny::HTML(markdown::markdownToHTML(
+        text = comments_text,
+        fragment.only = TRUE,
+        options = c("fragment_only", "base64_images", "smartypants")
+      ))
+    )
+  )
+}

@@ -474,7 +474,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     eval_target_json <- reactiveVal(NULL)  # Target concept JSON data for evaluate mappings
     eval_target_mapping <- reactiveVal(NULL)  # Target mapping data for evaluate mappings
     eval_source_tab <- reactiveVal("summary")  # Selected tab for source concept details
-    eval_target_tab <- reactiveVal("summary")  # Selected tab for target concept details
+    eval_target_detail_tab <- reactiveVal("comments")  # Main tab: "comments" or "statistical_summary"
+    eval_target_stats_sub_tab <- reactiveVal("summary")  # Sub-tab: "summary" or "distribution"
+    eval_target_selected_profile <- reactiveVal(NULL)  # Selected profile name for evaluate target
 
     # Cascade triggers for selected_alignment_id() changes
     selected_alignment_id_trigger <- reactiveVal(0)  # Primary trigger when alignment selection changes
@@ -1748,53 +1750,50 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                   )
                 )
               ),
-              # Bottom-right: Target Concept Details with tabs
+              # Bottom-right: Target Concept Details with tabs in header (no gray background)
               tags$div(
                 id = ns("target_concept_details_panel"),
                 class = "card-container card-container-flex",
                 style = "flex: 1; min-height: 0; display: none;",
                 tags$div(
                   class = "section-header",
-                  style = "margin-bottom: 0;",
-                  tags$h4(style = "margin: 0;", "Target Concept Details")
-                ),
-                tags$div(
-                  style = "flex: 1; min-height: 0; overflow: auto; padding: 0 10px 10px 10px;",
-                  # Tabs for different views
+                  style = "position: relative;",
+                  tags$h4(
+                    style = "margin: 0;",
+                    "Target Concept Details",
+                    tags$span(
+                      class = "info-icon",
+                      `data-tooltip` = "Details of the selected target concept from the dictionary",
+                      "ⓘ"
+                    )
+                  ),
+                  # Main tabs: Comments + Statistical Summary (top-right)
                   tags$div(
-                    style = "display: flex; gap: 5px; margin-bottom: 10px;",
-                    tags$button(
-                      id = ns("target_detail_tab_summary"),
-                      class = "tab-btn tab-btn-active",
-                      onclick = sprintf("
-                        document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
-                        this.classList.add('tab-btn-active');
-                        Shiny.setInputValue('%s', 'summary', {priority: 'event'});
-                      ", ns("target_concept_details_panel"), ns("target_detail_tab_selected")),
-                      "Summary"
-                    ),
-                    tags$button(
-                      id = ns("target_detail_tab_distribution"),
-                      class = "tab-btn",
-                      onclick = sprintf("
-                        document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
-                        this.classList.add('tab-btn-active');
-                        Shiny.setInputValue('%s', 'distribution', {priority: 'event'});
-                      ", ns("target_concept_details_panel"), ns("target_detail_tab_selected")),
-                      "Distribution"
-                    ),
+                    class = "section-tabs",
                     tags$button(
                       id = ns("target_detail_tab_comments"),
-                      class = "tab-btn",
+                      class = "tab-btn tab-btn-active",
                       onclick = sprintf("
-                        document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                        document.querySelectorAll('#%s > .section-header > .section-tabs .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
                         this.classList.add('tab-btn-active');
                         Shiny.setInputValue('%s', 'comments', {priority: 'event'});
                       ", ns("target_concept_details_panel"), ns("target_detail_tab_selected")),
                       "Comments"
+                    ),
+                    tags$button(
+                      id = ns("target_detail_tab_statistical_summary"),
+                      class = "tab-btn",
+                      onclick = sprintf("
+                        document.querySelectorAll('#%s > .section-header > .section-tabs .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                        this.classList.add('tab-btn-active');
+                        Shiny.setInputValue('%s', 'statistical_summary', {priority: 'event'});
+                      ", ns("target_concept_details_panel"), ns("target_detail_tab_selected")),
+                      "Statistical Summary"
                     )
-                  ),
-                  # Content area for selected tab
+                  )
+                ),
+                tags$div(
+                  style = "flex: 1; min-height: 0; overflow: auto;",
                   uiOutput(ns("target_concept_details_content"))
                 )
               )
@@ -1940,53 +1939,50 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 uiOutput(ns("eval_source_concept_details_content"))
               )
             ),
-            # Right: Target Concept Details
+            # Right: Target Concept Details (matching Edit Mappings structure)
             tags$div(
               id = ns("eval_target_concept_details_panel"),
               class = "card-container card-container-flex",
               style = "flex: 1; min-width: 0;",
               tags$div(
                 class = "section-header",
-                style = "margin-bottom: 0;",
-                tags$h4(style = "margin: 0;", "Target Concept Details")
-              ),
-              tags$div(
-                style = "flex: 1; min-height: 0; overflow: auto; padding: 0 10px 10px 10px;",
-                # Tabs for different views
-                tags$div(
-                  style = "display: flex; gap: 5px; margin-bottom: 10px;",
-                  tags$button(
-                    id = ns("eval_target_tab_summary"),
-                    class = "tab-btn tab-btn-active",
-                    onclick = sprintf("
-                      document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
-                      this.classList.add('tab-btn-active');
-                      Shiny.setInputValue('%s', 'summary', {priority: 'event'});
-                    ", ns("eval_target_concept_details_panel"), ns("eval_target_tab_selected")),
-                    "Summary"
-                  ),
-                  tags$button(
-                    id = ns("eval_target_tab_distribution"),
-                    class = "tab-btn",
-                    onclick = sprintf("
-                      document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
-                      this.classList.add('tab-btn-active');
-                      Shiny.setInputValue('%s', 'distribution', {priority: 'event'});
-                    ", ns("eval_target_concept_details_panel"), ns("eval_target_tab_selected")),
-                    "Distribution"
-                  ),
-                  tags$button(
-                    id = ns("eval_target_tab_comments"),
-                    class = "tab-btn",
-                    onclick = sprintf("
-                      document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
-                      this.classList.add('tab-btn-active');
-                      Shiny.setInputValue('%s', 'comments', {priority: 'event'});
-                    ", ns("eval_target_concept_details_panel"), ns("eval_target_tab_selected")),
-                    "Comments"
+                style = "position: relative;",
+                tags$h4(
+                  style = "margin: 0;",
+                  "Target Concept Details",
+                  tags$span(
+                    class = "info-icon",
+                    `data-tooltip` = "Details of the selected target concept from the dictionary",
+                    "ⓘ"
                   )
                 ),
-                # Content area for selected tab
+                # Main tabs: Comments + Statistical Summary (top-right)
+                tags$div(
+                  class = "section-tabs",
+                  tags$button(
+                    id = ns("eval_target_detail_tab_comments"),
+                    class = "tab-btn tab-btn-active",
+                    onclick = sprintf("
+                      document.querySelectorAll('#%s > .section-header > .section-tabs .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                      this.classList.add('tab-btn-active');
+                      Shiny.setInputValue('%s', 'comments', {priority: 'event'});
+                    ", ns("eval_target_concept_details_panel"), ns("eval_target_detail_tab_selected")),
+                    "Comments"
+                  ),
+                  tags$button(
+                    id = ns("eval_target_detail_tab_statistical_summary"),
+                    class = "tab-btn",
+                    onclick = sprintf("
+                      document.querySelectorAll('#%s > .section-header > .section-tabs .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                      this.classList.add('tab-btn-active');
+                      Shiny.setInputValue('%s', 'statistical_summary', {priority: 'event'});
+                    ", ns("eval_target_concept_details_panel"), ns("eval_target_detail_tab_selected")),
+                    "Statistical Summary"
+                  )
+                )
+              ),
+              tags$div(
+                style = "flex: 1; min-height: 0; overflow: auto;",
                 uiOutput(ns("eval_target_concept_details_content"))
               )
             )
@@ -3522,6 +3518,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           vocabulary_id = character(),
           concept_code = character(),
           omop_concept_id = integer(),
+          omop_unit_concept_id = character(),
           is_custom = logical()
         )
       }
@@ -3538,6 +3535,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           ) %>%
           dplyr::mutate(
             omop_concept_id = NA_integer_,
+            omop_unit_concept_id = NA_character_,
             is_custom = TRUE
           )
       } else {
@@ -3547,13 +3545,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           vocabulary_id = character(),
           concept_code = character(),
           omop_concept_id = integer(),
+          omop_unit_concept_id = character(),
           is_custom = logical()
         )
       }
 
       if (nrow(concept_mappings) > 0) {
         omop_for_bind <- concept_mappings %>%
-          dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, is_custom)
+          dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, omop_unit_concept_id, is_custom)
       } else {
         omop_for_bind <- concept_mappings
       }
@@ -3573,6 +3572,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           vocabulary_id,
           concept_code,
           omop_concept_id,
+          omop_unit_concept_id,
           is_custom
         ) %>%
         dplyr::arrange(concept_name)
@@ -3593,13 +3593,13 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             lengthMenu = list(c(5, 10, 15, 20, 50, 100), c("5", "10", "15", "20", "50", "100")),
             dom = "ltp",
             columnDefs = list(
-              list(targets = 4, visible = FALSE)
+              list(targets = c(4, 5), visible = FALSE)  # Hide omop_unit_concept_id and is_custom
             )
           ),
           rownames = FALSE,
           selection = "single",
           filter = "top",
-          colnames = c("Concept Name", "Vocabulary", "Code", "OMOP ID", "Custom")
+          colnames = c("Concept Name", "Vocabulary", "Code", "OMOP ID", "Unit ID", "Custom")
         )
 
         dt
@@ -4084,7 +4084,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     selected_target_concept_id <- reactiveVal(NULL)
     selected_target_json <- reactiveVal(NULL)
     selected_target_mapping <- reactiveVal(NULL)
-    target_detail_tab <- reactiveVal("summary")
+    target_detail_tab <- reactiveVal("comments")  # "comments" or "statistical_summary"
+    target_stats_sub_tab <- reactiveVal("summary")  # "summary" or "distribution"
+    target_selected_profile <- reactiveVal(NULL)  # Selected profile name
 
     # Show/hide target concept details panel based on concept mapping selection (specific/detailed concept)
     observe_event(input$concept_mappings_table_rows_selected, {
@@ -4152,15 +4154,33 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       target_detail_tab(input$target_detail_tab_selected)
     })
 
+    # Handle sub-tab selection for statistical summary
+    observe_event(input$target_stats_sub_tab_click, {
+      new_tab <- input$target_stats_sub_tab_click
+      if (!is.null(new_tab) && new_tab %in% c("summary", "distribution")) {
+        target_stats_sub_tab(new_tab)
+      }
+    }, ignoreInit = TRUE)
+
+    # Handle profile selection for statistical summary
+    observe_event(input$target_profile_change, {
+      new_profile <- input$target_profile_change
+      if (!is.null(new_profile)) {
+        target_selected_profile(new_profile)
+      }
+    }, ignoreInit = TRUE)
+
     # Render target concept details content based on selected tab
     output$target_concept_details_content <- renderUI({
       json_data <- selected_target_json()
       concept_id <- selected_target_concept_id()
       tab <- target_detail_tab()
+      sub_tab <- target_stats_sub_tab()
+      current_profile <- target_selected_profile()
 
       if (is.null(concept_id)) {
         return(tags$div(
-          style = "color: #999; font-style: italic;",
+          style = "color: #999; font-style: italic; padding: 15px;",
           "Select a general concept to see target details."
         ))
       }
@@ -4168,15 +4188,75 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (tab == "comments") {
         # Display comments for the selected general concept
         render_target_comments(concept_id)
-      } else if (is.null(json_data) || (is.null(json_data$numeric_data) && is.null(json_data$categorical_data))) {
-        return(tags$div(
-          style = "color: #999; font-style: italic;",
-          "No statistical data available for this concept."
-        ))
-      } else if (tab == "summary") {
-        render_target_summary(json_data, concept_id)
-      } else if (tab == "distribution") {
-        render_target_distribution(json_data)
+      } else if (tab == "statistical_summary") {
+        # Statistical Summary tab with sub-tabs and profile dropdown
+        ns <- session$ns
+
+        # Get profile names from JSON
+        profile_names <- get_profile_names(json_data)
+
+        # Set default profile if not set
+        if (is.null(current_profile) || !current_profile %in% profile_names) {
+          current_profile <- if (!is.null(json_data$default_profile)) json_data$default_profile else profile_names[1]
+          target_selected_profile(current_profile)
+        }
+
+        # Get profile data for selected profile
+        profile_data <- get_profile_data(json_data, current_profile)
+
+        if (is.null(profile_data) || (is.null(profile_data$numeric_data) && is.null(profile_data$categorical_data))) {
+          return(tags$div(
+            style = "color: #999; font-style: italic; padding: 15px;",
+            "No statistical data available for this concept."
+          ))
+        }
+
+        tags$div(
+          style = "height: 100%; display: flex; flex-direction: column;",
+          # Header with sub-tabs (left) and profile dropdown (right)
+          tags$div(
+            style = "display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border-bottom: 1px solid #eee;",
+            # Sub-tabs (Summary / Distribution) - top-left
+            tags$div(
+              class = "section-tabs",
+              style = "position: static; transform: none; display: flex; gap: 5px;",
+              tags$button(
+                class = if (sub_tab == "summary") "tab-btn tab-btn-active" else "tab-btn",
+                onclick = sprintf("Shiny.setInputValue('%s', 'summary', {priority: 'event'})", ns("target_stats_sub_tab_click")),
+                "Summary"
+              ),
+              tags$button(
+                class = if (sub_tab == "distribution") "tab-btn tab-btn-active" else "tab-btn",
+                onclick = sprintf("Shiny.setInputValue('%s', 'distribution', {priority: 'event'})", ns("target_stats_sub_tab_click")),
+                "Distribution"
+              )
+            ),
+            # Profile dropdown (right) - only show if multiple profiles
+            if (length(profile_names) > 1) {
+              tags$div(
+                style = "display: flex; align-items: center; gap: 8px;",
+                tags$span(style = "font-size: 11px; color: #666;", "Profile:"),
+                tags$select(
+                  id = ns("target_profile_select"),
+                  style = "font-size: 11px; padding: 2px 6px; border: 1px solid #ccc; border-radius: 4px;",
+                  onchange = sprintf("Shiny.setInputValue('%s', this.value, {priority: 'event'})", ns("target_profile_change")),
+                  lapply(profile_names, function(pn) {
+                    tags$option(value = pn, selected = if (pn == current_profile) "selected" else NULL, pn)
+                  })
+                )
+              )
+            }
+          ),
+          # Content area
+          tags$div(
+            style = "flex: 1; overflow-y: auto; padding: 10px;",
+            if (sub_tab == "summary") {
+              render_target_summary(profile_data, concept_id)
+            } else {
+              render_target_distribution(profile_data)
+            }
+          )
+        )
       } else {
         tags$div("Unknown tab")
       }
@@ -4193,7 +4273,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1]) && nchar(concept_info$comments[1]) > 0) {
         tags$div(
           class = "comments-container",
-          style = "background: #e6f3ff; border: 1px solid #0f60af; border-radius: 6px; height: 100%; overflow-y: auto; box-sizing: border-box; position: relative;",
+          style = "background: #ffffff; border: 1px solid #ccc; border-radius: 6px; height: 100%; overflow-y: auto; box-sizing: border-box; position: relative;",
           tags$div(
             style = "position: sticky; top: -1px; left: -1px; z-index: 100; height: 0;",
             actionButton(
@@ -4201,7 +4281,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               label = NULL,
               icon = icon("expand"),
               class = "btn-icon-only comments-expand-btn",
-              style = "background: rgba(255, 255, 255, 0.95); border: none; border-right: 1px solid #0f60af; border-bottom: 1px solid #0f60af; color: #0f60af; padding: 4px 7px; cursor: pointer; border-radius: 5px 0 0 0; font-size: 12px;",
+              style = "background: rgba(255, 255, 255, 0.95); border: none; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; color: #0f60af; padding: 4px 7px; cursor: pointer; border-radius: 5px 0 0 0; font-size: 12px;",
               `data-tooltip` = "View in fullscreen"
             )
           ),
@@ -4294,17 +4374,18 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
     })
 
-    # Target summary render (orange theme)
-    # Factorized summary panel renderer
-    render_summary_panel <- function(json_data, concept_id, mapping_data, source_row, source_json) {
-      left_items <- list()
-      right_items <- list()
-
+    # Target summary render - uses shared render_stats_summary_panel from fct_statistics_display.R
+    # profile_data: Profile data from target (already extracted via get_profile_data)
+    # source_json: Raw source JSON (will extract profile data internally)
+    render_summary_panel <- function(profile_data, concept_id, mapping_data, source_row, source_json) {
       vocab_data <- vocabularies()
       target_unit_name <- NULL
       source_unit_name <- NULL
 
-      # Get target unit name
+      # Extract source profile data
+      source_profile <- if (!is.null(source_json)) get_profile_data(source_json) else NULL
+
+      # Get target unit name from vocabulary
       if (!is.null(mapping_data) && "omop_unit_concept_id" %in% names(mapping_data)) {
         unit_concept_id <- mapping_data$omop_unit_concept_id
         if (!is.null(unit_concept_id) && !is.na(unit_concept_id) && unit_concept_id != "" && unit_concept_id != "/") {
@@ -4328,104 +4409,19 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         }
       }
 
-      # Display unit with comparison
-      if (!is.null(target_unit_name)) {
-        left_items <- c(left_items, list(
-          tags$div(
-            class = "detail-item",
-            style = "margin-bottom: 6px;",
-            tags$span(style = "font-weight: 600; color: #666;", "Unit:"),
-            tags$span(style = "color: #fd7e14; font-weight: 600;", target_unit_name),
-            if (!is.null(source_unit_name)) {
-              tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", source_unit_name, ")"))
-            }
-          )
-        ))
-      }
-
-      has_source <- !is.null(source_json)
-
-      if (!is.null(json_data$missing_rate)) {
-        source_missing <- if (has_source && !is.null(source_json$missing_rate)) source_json$missing_rate else NULL
-        left_items <- c(left_items, list(
-          tags$div(
-            class = "detail-item",
-            style = "margin-bottom: 6px;",
-            tags$span(style = "font-weight: 600; color: #666;", "Missing:"),
-            tags$span(style = "color: #fd7e14; font-weight: 600;", paste0(json_data$missing_rate, "%")),
-            if (!is.null(source_missing)) {
-              tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", source_missing, "%)"))
-            }
-          )
-        ))
-      }
-
-      # Check if source has numeric data for numeric comparison
-      has_source_numeric <- has_source && !is.null(source_json$numeric_data)
-
-      if (!is.null(json_data$numeric_data)) {
-        nd <- json_data$numeric_data
-        snd <- if (has_source_numeric) source_json$numeric_data else NULL
-
-        if (!is.null(nd$mean) && !is.na(nd$mean)) {
-          # Helper to format value with source comparison
-          format_with_source <- function(target_val, source_val) {
-            target_text <- tags$span(style = "color: #fd7e14; font-weight: 600;", round(target_val, 2))
-            if (!is.null(source_val) && !is.na(source_val)) {
-              return(tagList(target_text, tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", round(source_val, 2), ")"))))
-            }
-            target_text
-          }
-
-          right_items <- c(right_items, list(
-            tags$div(
-              class = "detail-item",
-              style = "margin-bottom: 6px;",
-              tags$span(style = "font-weight: 600; color: #666;", "Mean:"),
-              format_with_source(nd$mean, if (has_source_numeric) snd$mean else NULL)
-            ),
-            tags$div(
-              class = "detail-item",
-              style = "margin-bottom: 6px;",
-              tags$span(style = "font-weight: 600; color: #666;", "Median:"),
-              format_with_source(nd$median, if (has_source_numeric) snd$median else NULL)
-            ),
-            tags$div(
-              class = "detail-item",
-              style = "margin-bottom: 6px;",
-              tags$span(style = "font-weight: 600; color: #666;", "SD:"),
-              format_with_source(nd$sd, if (has_source_numeric) snd$sd else NULL)
-            ),
-            tags$div(
-              class = "detail-item",
-              style = "margin-bottom: 6px;",
-              tags$span(style = "font-weight: 600; color: #666;", "Range:"),
-              tags$span(style = "color: #fd7e14; font-weight: 600;", paste(round(nd$min, 2), "-", round(nd$max, 2))),
-              if (has_source_numeric && !is.null(snd$min) && !is.null(snd$max)) {
-                tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", round(snd$min, 2), " - ", round(snd$max, 2), ")"))
-              }
-            )
-          ))
-        }
-      }
-
-      if (length(left_items) == 0 && length(right_items) == 0) {
-        return(tags$div(
-          style = "color: #999; font-style: italic;",
-          "No summary data available."
-        ))
-      }
-
-      tags$div(
-        style = "display: flex; gap: 30px;",
-        tags$div(style = "flex: 1;", left_items),
-        tags$div(style = "flex: 1;", right_items)
+      # Use the shared render function from fct_statistics_display.R
+      render_stats_summary_panel(
+        profile_data = profile_data,
+        source_data = source_profile,
+        row_data = NULL,  # Concept Mapping doesn't have row/patient counts
+        target_unit_name = target_unit_name,
+        source_unit_name = source_unit_name
       )
     }
 
     # Wrapper for Edit Mappings tab
-    render_target_summary <- function(json_data, concept_id) {
-      render_summary_panel(json_data, concept_id, selected_target_mapping(), selected_source_row(), selected_source_json())
+    render_target_summary <- function(profile_data, concept_id) {
+      render_summary_panel(profile_data, concept_id, selected_target_mapping(), selected_source_row(), selected_source_json())
     }
 
     # Factorized helper function for parsing histogram data (supports both x and bin_start/bin_end formats)
@@ -4447,215 +4443,18 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       hist_df
     }
 
-    # Factorized target distribution render (orange theme with optional source comparison)
-    # source_json parameter allows using either selected_source_json() or eval_source_json()
-    render_distribution_panel <- function(json_data, source_json = NULL) {
-      # Check if source has valid numeric data with required fields
-      has_source <- !is.null(source_json) &&
-                    !is.null(source_json$numeric_data) &&
-                    !is.null(source_json$numeric_data$p25) &&
-                    !is.na(source_json$numeric_data$p25) &&
-                    !is.null(source_json$numeric_data$p75) &&
-                    !is.na(source_json$numeric_data$p75)
-
-      if (!is.null(json_data$numeric_data)) {
-        nd <- json_data$numeric_data
-        if (!is.null(nd$p25) && !is.na(nd$p25) && !is.null(nd$p75) && !is.na(nd$p75)) {
-          min_val <- if (!is.null(nd$min) && !is.na(nd$min)) nd$min else nd$p5
-          max_val <- if (!is.null(nd$max) && !is.na(nd$max)) nd$max else nd$p95
-          median_val <- if (!is.null(nd$median) && !is.na(nd$median)) nd$median else (nd$p25 + nd$p75) / 2
-          lower_val <- if (!is.null(nd$p5) && !is.na(nd$p5)) nd$p5 else min_val
-          upper_val <- if (!is.null(nd$p95) && !is.na(nd$p95)) nd$p95 else max_val
-
-          # Create dual boxplot if source has valid numeric data, otherwise single boxplot
-          if (has_source) {
-            snd <- source_json$numeric_data
-            s_min_val <- if (!is.null(snd$min) && !is.na(snd$min)) snd$min else if (!is.null(snd$p5) && !is.na(snd$p5)) snd$p5 else snd$p25
-            s_max_val <- if (!is.null(snd$max) && !is.na(snd$max)) snd$max else if (!is.null(snd$p95) && !is.na(snd$p95)) snd$p95 else snd$p75
-            s_median_val <- if (!is.null(snd$median) && !is.na(snd$median)) snd$median else (snd$p25 + snd$p75) / 2
-            s_lower_val <- if (!is.null(snd$p5) && !is.na(snd$p5)) snd$p5 else s_min_val
-            s_upper_val <- if (!is.null(snd$p95) && !is.na(snd$p95)) snd$p95 else s_max_val
-
-            # Dual boxplot data
-            box_data <- data.frame(
-              group = factor(c("Source", "Target"), levels = c("Source", "Target")),
-              ymin = c(s_lower_val, lower_val),
-              lower = c(snd$p25, nd$p25),
-              middle = c(s_median_val, median_val),
-              upper = c(snd$p75, nd$p75),
-              ymax = c(s_upper_val, upper_val)
-            )
-
-            p <- ggplot2::ggplot(box_data, ggplot2::aes(x = group, ymin = ymin, lower = lower, middle = middle, upper = upper, ymax = ymax, fill = group)) +
-              ggplot2::geom_boxplot(stat = "identity", color = "#333", width = 0.6, fatten = 0) +
-              ggplot2::geom_segment(ggplot2::aes(x = as.numeric(group) - 0.3, xend = as.numeric(group) + 0.3, y = middle, yend = middle), color = "white", linewidth = 1) +
-              ggplot2::scale_fill_manual(values = c("Source" = "#0f60af", "Target" = "#fd7e14")) +
-              ggplot2::coord_flip() +
-              ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
-              ggplot2::labs(x = NULL, y = NULL) +
-              ggplot2::theme_minimal(base_size = 11) +
-              ggplot2::theme(
-                panel.grid.major.y = ggplot2::element_blank(),
-                panel.grid.minor = ggplot2::element_blank(),
-                axis.text.y = ggplot2::element_text(size = 9),
-                axis.text.x = ggplot2::element_text(size = 9),
-                plot.margin = ggplot2::margin(5, 10, 5, 10),
-                legend.position = "none"
-              )
-          } else {
-            # Single boxplot (target only)
-            p <- ggplot2::ggplot() +
-              ggplot2::geom_boxplot(
-                ggplot2::aes(x = "", ymin = lower_val, lower = nd$p25, middle = median_val,
-                             upper = nd$p75, ymax = upper_val),
-                stat = "identity",
-                fill = "#fd7e14",
-                color = "#333",
-                width = 0.5,
-                fatten = 0
-              ) +
-              ggplot2::geom_segment(
-                ggplot2::aes(x = 0.75, xend = 1.25, y = median_val, yend = median_val),
-                color = "white",
-                linewidth = 1
-              ) +
-              ggplot2::coord_flip() +
-              ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
-              ggplot2::labs(x = NULL, y = NULL) +
-              ggplot2::theme_minimal(base_size = 11) +
-              ggplot2::theme(
-                panel.grid.major.y = ggplot2::element_blank(),
-                panel.grid.minor = ggplot2::element_blank(),
-                axis.text.y = ggplot2::element_blank(),
-                axis.text.x = ggplot2::element_text(size = 9),
-                plot.margin = ggplot2::margin(5, 10, 5, 10)
-              )
-          }
-
-          # Histogram comparison using step/area lines instead of overlapping bars
-          histogram_plot <- NULL
-          hist_df <- parse_histogram_data(json_data$histogram)
-          if (!is.null(hist_df)) {
-              hist_df$source <- "Target"
-
-              # If source data available, create comparison with lines
-              source_hist <- if (has_source) parse_histogram_data(source_json$histogram) else NULL
-              if (!is.null(source_hist)) {
-                  source_hist$source <- "Source"
-
-                  # Combine both
-                  combined_hist <- rbind(hist_df, source_hist)
-
-                  # Use area + line for better visibility
-                  p_hist <- ggplot2::ggplot(combined_hist, ggplot2::aes(x = bin_mid, y = percentage, color = source, fill = source)) +
-                    ggplot2::geom_area(alpha = 0.25, position = "identity") +
-                    ggplot2::geom_line(linewidth = 1.2) +
-                    ggplot2::geom_point(size = 2) +
-                    ggplot2::scale_color_manual(values = c("Source" = "#0f60af", "Target" = "#fd7e14")) +
-                    ggplot2::scale_fill_manual(values = c("Source" = "#0f60af", "Target" = "#fd7e14")) +
-                    ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
-                    ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05)), labels = function(x) paste0(x, "%")) +
-                    ggplot2::labs(x = NULL, y = NULL) +
-                    ggplot2::theme_minimal(base_size = 10) +
-                    ggplot2::theme(
-                      panel.grid.minor = ggplot2::element_blank(),
-                      panel.grid.major.x = ggplot2::element_blank(),
-                      axis.text = ggplot2::element_text(size = 8),
-                      plot.margin = ggplot2::margin(5, 10, 5, 10),
-                      legend.position = "bottom",
-                      legend.title = ggplot2::element_blank()
-                    )
-
-                  histogram_plot <- renderPlot({ p_hist }, height = 140, width = "auto")
-              }
-
-              if (is.null(histogram_plot)) {
-                p_hist <- ggplot2::ggplot(hist_df, ggplot2::aes(x = bin_mid, y = percentage)) +
-                  ggplot2::geom_area(fill = "#fd7e14", alpha = 0.3) +
-                  ggplot2::geom_line(color = "#fd7e14", linewidth = 1.2) +
-                  ggplot2::geom_point(color = "#fd7e14", size = 2) +
-                  ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
-                  ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05)), labels = function(x) paste0(x, "%")) +
-                  ggplot2::labs(x = NULL, y = NULL) +
-                  ggplot2::theme_minimal(base_size = 10) +
-                  ggplot2::theme(
-                    panel.grid.minor = ggplot2::element_blank(),
-                    panel.grid.major.x = ggplot2::element_blank(),
-                    axis.text = ggplot2::element_text(size = 8),
-                    plot.margin = ggplot2::margin(5, 10, 5, 10)
-                  )
-
-                histogram_plot <- renderPlot({ p_hist }, height = 120, width = "auto")
-              }
-          }
-
-          boxplot_height <- if (has_source) 100 else 80
-
-          # Get source numeric data for comparison (only if source also has numeric data)
-          has_source_numeric <- has_source && !is.null(source_json$numeric_data)
-          snd <- if (has_source_numeric) source_json$numeric_data else NULL
-
-          # Helper to create a stat row with label and value(s)
-          make_stat_row <- function(label, target_val, source_val = NULL) {
-            val_content <- if (is.null(target_val) || (is.logical(target_val) && !target_val)) {
-              tags$span("-")
-            } else {
-              target_text <- tags$span(style = "color: #fd7e14; font-weight: 600;", round(target_val, 2))
-              if (!is.null(source_val) && !is.na(source_val)) {
-                tags$span(target_text, tags$span(style = "color: #0f60af; margin-left: 3px;", paste0("(", round(source_val, 2), ")")))
-              } else {
-                target_text
-              }
-            }
-            tags$div(
-              style = "display: flex; gap: 5px; margin-bottom: 2px;",
-              tags$span(style = "font-weight: 600; color: #666; min-width: 55px;", paste0(label, ":")),
-              val_content
-            )
-          }
-
-          return(tags$div(
-            tags$div(
-              style = "display: flex; gap: 20px;",
-              tags$div(
-                style = "flex: 1; font-size: 12px;",
-                make_stat_row("Min", min_val, if (has_source_numeric) s_min_val else NULL),
-                make_stat_row("P5", nd$p5, if (has_source_numeric) snd$p5 else NULL),
-                make_stat_row("P25", nd$p25, if (has_source_numeric) snd$p25 else NULL),
-                make_stat_row("Median", median_val, if (has_source_numeric) s_median_val else NULL),
-                make_stat_row("P75", nd$p75, if (has_source_numeric) snd$p75 else NULL),
-                make_stat_row("P95", nd$p95, if (has_source_numeric) snd$p95 else NULL),
-                make_stat_row("Max", max_val, if (has_source_numeric) s_max_val else NULL)
-              ),
-              tags$div(
-                style = "flex: 1.5;",
-                renderPlot({ p }, height = boxplot_height, width = "auto")
-              )
-            ),
-            if (!is.null(histogram_plot)) {
-              tags$div(
-                style = "margin-top: 15px;",
-                histogram_plot
-              )
-            }
-          ))
-        }
-      }
-
-      tags$div(
-        style = "color: #999; font-style: italic;",
-        "No distribution data available."
-      )
-    }
-
     # Wrapper for Edit Mappings tab (uses selected_source_json)
-    render_target_distribution <- function(json_data) {
-      render_distribution_panel(json_data, selected_source_json())
+    # Uses shared render_stats_distribution_panel from fct_statistics_display.R
+    render_target_distribution <- function(profile_data) {
+      source_profile <- if (!is.null(selected_source_json())) get_profile_data(selected_source_json()) else NULL
+      render_stats_distribution_panel(profile_data, source_profile)
     }
 
     # Wrapper for Evaluate Mappings tab (uses eval_source_json)
-    render_eval_target_distribution <- function(json_data) {
-      render_distribution_panel(json_data, eval_source_json())
+    # Uses shared render_stats_distribution_panel from fct_statistics_display.R
+    render_eval_target_distribution <- function(profile_data) {
+      source_profile <- if (!is.null(eval_source_json())) get_profile_data(eval_source_json()) else NULL
+      render_stats_distribution_panel(profile_data, source_profile)
     }
 
     #### Modal - Concept Details ----
@@ -5537,8 +5336,18 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     })
 
     #### Handle Evaluate Target Tab Selection ----
-    observe_event(input$eval_target_tab_selected, {
-      eval_target_tab(input$eval_target_tab_selected)
+    observe_event(input$eval_target_detail_tab_selected, {
+      eval_target_detail_tab(input$eval_target_detail_tab_selected)
+    })
+
+    #### Handle Evaluate Target Stats Sub-Tab Selection ----
+    observe_event(input$eval_target_stats_sub_tab_selected, {
+      eval_target_stats_sub_tab(input$eval_target_stats_sub_tab_selected)
+    })
+
+    #### Handle Evaluate Target Profile Selection ----
+    observe_event(input$eval_target_profile_selected, {
+      eval_target_selected_profile(input$eval_target_profile_selected)
     })
 
     #### Render Evaluate Source Concept Details ----
@@ -5578,34 +5387,111 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     output$eval_target_concept_details_content <- renderUI({
       json_data <- eval_target_json()
       concept_id <- eval_target_concept_id()
-      tab <- eval_target_tab()
+      main_tab <- eval_target_detail_tab()
+      sub_tab <- eval_target_stats_sub_tab()
+      selected_profile <- eval_target_selected_profile()
+
+      ns <- session$ns
 
       if (is.null(eval_selected_row_data())) {
         return(tags$div(
-          style = "color: #999; font-style: italic;",
+          style = "color: #999; font-style: italic; padding: 15px;",
           "Select a mapping to see target details."
         ))
       }
 
       if (is.null(concept_id)) {
         return(tags$div(
-          style = "color: #999; font-style: italic;",
+          style = "color: #999; font-style: italic; padding: 15px;",
           "No target concept available."
         ))
       }
 
-      if (tab == "comments") {
+      if (main_tab == "comments") {
         # Display comments for the selected general concept
         render_eval_target_comments(concept_id)
-      } else if (is.null(json_data) || (is.null(json_data$numeric_data) && is.null(json_data$categorical_data))) {
-        return(tags$div(
-          style = "color: #999; font-style: italic;",
-          "No statistical data available for this concept."
-        ))
-      } else if (tab == "summary") {
-        render_eval_target_summary(json_data, concept_id)
-      } else if (tab == "distribution") {
-        render_eval_target_distribution(json_data)
+      } else if (main_tab == "statistical_summary") {
+        # Statistical Summary tab with sub-tabs and profile dropdown
+        profile_names <- get_profile_names(json_data)
+        has_profiles <- length(profile_names) > 0
+
+        # Auto-select first profile if none selected
+        if (has_profiles && (is.null(selected_profile) || !selected_profile %in% profile_names)) {
+          selected_profile <- profile_names[1]
+          eval_target_selected_profile(selected_profile)
+        }
+
+        # Extract profile data based on selection
+        profile_data <- get_profile_data(json_data, selected_profile)
+
+        if (is.null(profile_data) || (is.null(profile_data$numeric_data) && is.null(profile_data$categorical_data))) {
+          return(tags$div(
+            style = "color: #999; font-style: italic; padding: 15px;",
+            "No statistical data available for this concept."
+          ))
+        }
+
+        # Render sub-tabs header with profile dropdown
+        tags$div(
+          style = "padding: 10px;",
+          # Sub-tabs and profile dropdown row
+          tags$div(
+            style = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;",
+            # Sub-tabs (left)
+            tags$div(
+              style = "display: flex; gap: 5px;",
+              tags$button(
+                id = ns("eval_target_stats_sub_tab_summary"),
+                class = if (sub_tab == "summary") "tab-btn tab-btn-active" else "tab-btn",
+                onclick = sprintf("
+                  document.getElementById('%s').classList.remove('tab-btn-active');
+                  document.getElementById('%s').classList.remove('tab-btn-active');
+                  this.classList.add('tab-btn-active');
+                  Shiny.setInputValue('%s', 'summary', {priority: 'event'});
+                ", ns("eval_target_stats_sub_tab_summary"), ns("eval_target_stats_sub_tab_distribution"), ns("eval_target_stats_sub_tab_selected")),
+                "Summary"
+              ),
+              tags$button(
+                id = ns("eval_target_stats_sub_tab_distribution"),
+                class = if (sub_tab == "distribution") "tab-btn tab-btn-active" else "tab-btn",
+                onclick = sprintf("
+                  document.getElementById('%s').classList.remove('tab-btn-active');
+                  document.getElementById('%s').classList.remove('tab-btn-active');
+                  this.classList.add('tab-btn-active');
+                  Shiny.setInputValue('%s', 'distribution', {priority: 'event'});
+                ", ns("eval_target_stats_sub_tab_summary"), ns("eval_target_stats_sub_tab_distribution"), ns("eval_target_stats_sub_tab_selected")),
+                "Distribution"
+              )
+            ),
+            # Profile dropdown (right) - only show if multiple profiles
+            if (has_profiles && length(profile_names) > 1) {
+              tags$div(
+                style = "display: flex; align-items: center; gap: 8px;",
+                tags$span(style = "font-size: 12px; color: #666;", "Profile:"),
+                tags$select(
+                  id = ns("eval_target_profile_select"),
+                  style = "font-size: 12px; padding: 4px 8px; border-radius: 4px; border: 1px solid #ccc;",
+                  onchange = sprintf("Shiny.setInputValue('%s', this.value, {priority: 'event'})", ns("eval_target_profile_selected")),
+                  lapply(profile_names, function(p) {
+                    if (p == selected_profile) {
+                      tags$option(value = p, selected = "selected", p)
+                    } else {
+                      tags$option(value = p, p)
+                    }
+                  })
+                )
+              )
+            }
+          ),
+          # Content based on sub-tab
+          if (sub_tab == "summary") {
+            render_eval_target_summary(profile_data, concept_id)
+          } else if (sub_tab == "distribution") {
+            render_eval_target_distribution(profile_data)
+          } else {
+            tags$div("Unknown sub-tab")
+          }
+        )
       } else {
         tags$div("Unknown tab")
       }
@@ -5618,9 +5504,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     }
 
     #### Render Evaluate Target Summary ----
-    # Wrapper for Evaluate Mappings tab
-    render_eval_target_summary <- function(json_data, concept_id) {
-      render_summary_panel(json_data, concept_id, eval_target_mapping(), eval_source_row(), eval_source_json())
+    # Wrapper for Evaluate Mappings tab (profile_data already extracted)
+    render_eval_target_summary <- function(profile_data, concept_id) {
+      render_summary_panel(profile_data, concept_id, eval_target_mapping(), eval_source_row(), eval_source_json())
     }
 
     ### c) Import Mappings Tab ----
