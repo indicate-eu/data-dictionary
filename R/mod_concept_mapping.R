@@ -438,7 +438,15 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Evaluate mappings state
     # Note: Table state (page, search, length) is now managed by stateSave option in DataTables
-    selected_eval_mapping_id <- reactiveVal(NULL)  # Track selected evaluation mapping for comment editing
+    selected_eval_mapping_id <- reactiveVal(NULL)  # Track selected evaluation mapping for row selection
+    eval_selected_row_data <- reactiveVal(NULL)  # Full row data for selected evaluation mapping
+    eval_source_json <- reactiveVal(NULL)  # Source concept JSON data for evaluate mappings
+    eval_source_row <- reactiveVal(NULL)  # Source concept row data for evaluate mappings
+    eval_target_concept_id <- reactiveVal(NULL)  # Target general concept ID for evaluate mappings
+    eval_target_json <- reactiveVal(NULL)  # Target concept JSON data for evaluate mappings
+    eval_target_mapping <- reactiveVal(NULL)  # Target mapping data for evaluate mappings
+    eval_source_tab <- reactiveVal("summary")  # Selected tab for source concept details
+    eval_target_tab <- reactiveVal("summary")  # Selected tab for target concept details
 
     # Cascade triggers for selected_alignment_id() changes
     selected_alignment_id_trigger <- reactiveVal(0)  # Primary trigger when alignment selection changes
@@ -621,6 +629,15 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       shinyjs::hide("panel_import_mappings")
       shinyjs::hide("panel_evaluate_mappings")
 
+      # Reset evaluate mappings selection state when leaving the tab
+      shinyjs::hide("eval_details_container")
+      eval_selected_row_data(NULL)
+      eval_source_json(NULL)
+      eval_source_row(NULL)
+      eval_target_concept_id(NULL)
+      eval_target_json(NULL)
+      eval_target_mapping(NULL)
+
       # Show the selected panel
       if (tab == "summary") {
         shinyjs::show("panel_summary")
@@ -637,6 +654,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         import_history_trigger(import_history_trigger() + 1)
       } else if (tab == "evaluate_mappings") {
         shinyjs::show("panel_evaluate_mappings")
+        shinyjs::runjs(sprintf("$('#%s').css('display', 'flex');", ns("panel_evaluate_mappings")))
       }
     }, ignoreNULL = FALSE)
 
@@ -1837,60 +1855,125 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         # Evaluate Mappings panel
         tags$div(
           id = ns("panel_evaluate_mappings"),
-          class = "card-container",
-          style = "margin: 0 10px 10px 10px; height: calc(100% - 10px); min-height: 0; overflow: auto; display: none;",
-          DT::DTOutput(ns("evaluate_mappings_table")),
-          shinyjs::hidden(
+          style = "margin: 0 10px 10px 10px; height: calc(100% - 10px); min-height: 0; display: none; flex-direction: column; gap: 10px;",
+          # Top: Mappings table
+          tags$div(
+            class = "card-container",
+            style = "flex: 1; min-height: 0; overflow: auto;",
+            DT::DTOutput(ns("evaluate_mappings_table"))
+          ),
+          # Bottom: Source and Target Concept Details side by side
+          tags$div(
+            id = ns("eval_details_container"),
+            style = "display: none; flex-direction: row; gap: 10px; flex: 1; min-height: 0;",
+            # Left: Source Concept Details
             tags$div(
-              id = ns("eval_comment_modal"),
-              class = "modal-overlay",
+              id = ns("eval_source_concept_details_panel"),
+              class = "card-container card-container-flex",
+              style = "flex: 1; min-width: 0;",
               tags$div(
-                class = "modal-content",
-                style = "width: 600px;",
+                class = "section-header",
+                style = "margin-bottom: 0;",
+                tags$h4(style = "margin: 0;", "Source Concept Details")
+              ),
+              tags$div(
+                style = "flex: 1; min-height: 0; overflow: auto; padding: 0 10px 10px 10px;",
+                # Tabs for different views
                 tags$div(
-                  class = "modal-header",
-                  tags$h3("Edit Evaluation Comment"),
+                  style = "display: flex; gap: 5px; margin-bottom: 10px;",
                   tags$button(
-                    class = "modal-close",
-                    onclick = sprintf("$('#%s').hide();", ns("eval_comment_modal")),
-                    "×"
+                    id = ns("eval_source_tab_summary"),
+                    class = "tab-btn tab-btn-active",
+                    onclick = sprintf("
+                      document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                      this.classList.add('tab-btn-active');
+                      Shiny.setInputValue('%s', 'summary', {priority: 'event'});
+                    ", ns("eval_source_concept_details_panel"), ns("eval_source_tab_selected")),
+                    "Summary"
+                  ),
+                  tags$button(
+                    id = ns("eval_source_tab_distribution"),
+                    class = "tab-btn",
+                    onclick = sprintf("
+                      document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                      this.classList.add('tab-btn-active');
+                      Shiny.setInputValue('%s', 'distribution', {priority: 'event'});
+                    ", ns("eval_source_concept_details_panel"), ns("eval_source_tab_selected")),
+                    "Distribution"
+                  ),
+                  tags$button(
+                    id = ns("eval_source_tab_temporal"),
+                    class = "tab-btn",
+                    onclick = sprintf("
+                      document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                      this.classList.add('tab-btn-active');
+                      Shiny.setInputValue('%s', 'temporal', {priority: 'event'});
+                    ", ns("eval_source_concept_details_panel"), ns("eval_source_tab_selected")),
+                    "Temporal"
+                  ),
+                  tags$button(
+                    id = ns("eval_source_tab_units"),
+                    class = "tab-btn",
+                    onclick = sprintf("
+                      document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                      this.classList.add('tab-btn-active');
+                      Shiny.setInputValue('%s', 'units', {priority: 'event'});
+                    ", ns("eval_source_concept_details_panel"), ns("eval_source_tab_selected")),
+                    "Hospital Units"
                   )
                 ),
+                # Content area for selected tab
+                uiOutput(ns("eval_source_concept_details_content"))
+              )
+            ),
+            # Right: Target Concept Details
+            tags$div(
+              id = ns("eval_target_concept_details_panel"),
+              class = "card-container card-container-flex",
+              style = "flex: 1; min-width: 0;",
+              tags$div(
+                class = "section-header",
+                style = "margin-bottom: 0;",
+                tags$h4(style = "margin: 0;", "Target Concept Details")
+              ),
+              tags$div(
+                style = "flex: 1; min-height: 0; overflow: auto; padding: 0 10px 10px 10px;",
+                # Tabs for different views
                 tags$div(
-                  class = "modal-body",
-                  tags$div(
-                    style = "margin-bottom: 15px;",
-                    tags$strong("Mapping:"),
-                    tags$div(
-                      id = ns("eval_comment_mapping_info"),
-                      style = "margin-top: 5px; padding: 10px; background: #f8f9fa; border-radius: 4px;"
-                    )
+                  style = "display: flex; gap: 5px; margin-bottom: 10px;",
+                  tags$button(
+                    id = ns("eval_target_tab_summary"),
+                    class = "tab-btn tab-btn-active",
+                    onclick = sprintf("
+                      document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                      this.classList.add('tab-btn-active');
+                      Shiny.setInputValue('%s', 'summary', {priority: 'event'});
+                    ", ns("eval_target_concept_details_panel"), ns("eval_target_tab_selected")),
+                    "Summary"
                   ),
-                  tags$div(
-                    style = "margin-bottom: 15px;",
-                    tags$label("Comment:", style = "display: block; margin-bottom: 5px;"),
-                    tags$textarea(
-                      id = ns("eval_comment_text"),
-                      style = "width: 100%; min-height: 100px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;",
-                      placeholder = "Enter your comment here..."
-                    )
+                  tags$button(
+                    id = ns("eval_target_tab_distribution"),
+                    class = "tab-btn",
+                    onclick = sprintf("
+                      document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                      this.classList.add('tab-btn-active');
+                      Shiny.setInputValue('%s', 'distribution', {priority: 'event'});
+                    ", ns("eval_target_concept_details_panel"), ns("eval_target_tab_selected")),
+                    "Distribution"
                   ),
-                  tags$div(
-                    style = "display: flex; gap: 10px; justify-content: flex-end;",
-                    tags$button(
-                      class = "btn-secondary-custom",
-                      onclick = sprintf("$('#%s').hide();", ns("eval_comment_modal")),
-                      tags$i(class = "fas fa-times"),
-                      " Cancel"
-                    ),
-                    actionButton(
-                      ns("save_eval_comment"),
-                      "Save Comment",
-                      class = "btn-primary-custom",
-                      icon = icon("save")
-                    )
+                  tags$button(
+                    id = ns("eval_target_tab_comments"),
+                    class = "tab-btn",
+                    onclick = sprintf("
+                      document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                      this.classList.add('tab-btn-active');
+                      Shiny.setInputValue('%s', 'comments', {priority: 'event'});
+                    ", ns("eval_target_concept_details_panel"), ns("eval_target_tab_selected")),
+                    "Comments"
                   )
-                )
+                ),
+                # Content area for selected tab
+                uiOutput(ns("eval_target_concept_details_content"))
               )
             )
           )
@@ -4535,84 +4618,85 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
       
       csv_mapping_id <- df$mapping_id[source_row]
-      
+
       con <- get_db_connection()
       on.exit(DBI::dbDisconnect(con), add = TRUE)
-      
-      existing <- DBI::dbGetQuery(
+
+      # Check if this exact mapping already exists (same source + same target)
+      existing_exact <- DBI::dbGetQuery(
         con,
-        "SELECT mapping_id FROM concept_mappings WHERE csv_file_path = ? AND csv_mapping_id = ?",
-        params = list(csv_path, csv_mapping_id)
+        "SELECT mapping_id FROM concept_mappings
+         WHERE csv_file_path = ?
+           AND csv_mapping_id = ?
+           AND target_general_concept_id = ?
+           AND (target_omop_concept_id = ? OR (target_omop_concept_id IS NULL AND ? IS NULL))
+           AND (target_custom_concept_id = ? OR (target_custom_concept_id IS NULL AND ? IS NULL))",
+        params = list(
+          csv_path,
+          csv_mapping_id,
+          target_general_concept_id,
+          target_omop_concept_id, target_omop_concept_id,
+          target_custom_concept_id, target_custom_concept_id
+        )
       )
-      
+
+      if (nrow(existing_exact) > 0) {
+        showNotification(
+          "This mapping already exists.",
+          type = "warning",
+          duration = 3
+        )
+        return()
+      }
+
       mapping_datetime <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
       user_id <- if (!is.null(current_user())) current_user()$user_id else NA_integer_
-      
-      if (nrow(existing) > 0) {
-        DBI::dbExecute(
-          con,
-          "UPDATE concept_mappings SET
-            target_general_concept_id = ?,
-            target_omop_concept_id = ?,
-            target_custom_concept_id = ?,
-            mapped_by_user_id = ?,
-            mapping_datetime = ?
-          WHERE csv_file_path = ? AND csv_mapping_id = ?",
-          params = list(
-            target_general_concept_id,
-            target_omop_concept_id,
-            target_custom_concept_id,
-            user_id,
-            mapping_datetime,
-            csv_path,
-            csv_mapping_id
-          )
-        )
-      } else {
-        DBI::dbExecute(
-          con,
-          "INSERT INTO concept_mappings (
-            alignment_id,
-            csv_file_path,
-            csv_mapping_id,
-            source_concept_index,
-            target_general_concept_id,
-            target_omop_concept_id,
-            target_custom_concept_id,
-            mapped_by_user_id,
-            mapping_datetime
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-          params = list(
-            selected_alignment_id(),
-            csv_path,
-            csv_mapping_id,
-            source_row,
-            target_general_concept_id,
-            target_omop_concept_id,
-            target_custom_concept_id,
-            user_id,
-            mapping_datetime
-          )
-        )
-      }
-      
-      if (!"target_general_concept_id" %in% colnames(df)) df$target_general_concept_id <- NA_integer_
-      if (!"target_omop_concept_id" %in% colnames(df)) df$target_omop_concept_id <- NA_integer_
-      if (!"target_custom_concept_id" %in% colnames(df)) df$target_custom_concept_id <- NA_integer_
-      if (!"mapped_by_user_id" %in% colnames(df)) df$mapped_by_user_id <- NA_integer_
-      if (!"mapping_datetime" %in% colnames(df)) df$mapping_datetime <- NA_character_
-      
-      df$target_general_concept_id[source_row] <- target_general_concept_id
-      df$target_omop_concept_id[source_row] <- target_omop_concept_id
-      df$target_custom_concept_id[source_row] <- target_custom_concept_id
-      df$mapped_by_user_id[source_row] <- user_id
-      df$mapping_datetime[source_row] <- mapping_datetime
-      write.csv(df, csv_path, row.names = FALSE)
 
+      # Always insert new mapping (multiple mappings per source concept are allowed)
+      DBI::dbExecute(
+        con,
+        "INSERT INTO concept_mappings (
+          alignment_id,
+          csv_file_path,
+          csv_mapping_id,
+          source_concept_index,
+          target_general_concept_id,
+          target_omop_concept_id,
+          target_custom_concept_id,
+          mapped_by_user_id,
+          mapping_datetime
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        params = list(
+          selected_alignment_id(),
+          csv_path,
+          csv_mapping_id,
+          source_row,
+          target_general_concept_id,
+          target_omop_concept_id,
+          target_custom_concept_id,
+          user_id,
+          mapping_datetime
+        )
+      )
+
+      # Show success notification
+      showNotification(
+        "Mapping added successfully.",
+        type = "message",
+        duration = 2
+      )
+
+      # Refresh tables
       source_concepts_table_trigger(source_concepts_table_trigger() + 1)
       all_mappings_table_trigger(all_mappings_table_trigger() + 1)
       evaluate_mappings_table_trigger(evaluate_mappings_table_trigger() + 1)
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
+
+      # Reselect the source row after data refresh
+      shinyjs::delay(200, {
+        proxy <- DT::dataTableProxy("source_concepts_table", session = session)
+        DT::selectRows(proxy, source_row)
+      })
     })
     
     observe_event(input$remove_mapping, {
@@ -4811,6 +4895,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           ) %>%
           dplyr::select(
             mapping_id,
+            source_concept_index,
+            csv_mapping_id,
+            csv_file_path,
+            target_general_concept_id,
+            target_omop_concept_id,
             Source,
             Target,
             Origin,
@@ -4823,7 +4912,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         dt <- DT::datatable(
           display_data,
           rownames = FALSE,
-          selection = "none",
+          selection = "single",
           escape = FALSE,
           filter = "top",
           options = list(
@@ -4833,12 +4922,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             ordering = TRUE,
             autoWidth = FALSE,
             columnDefs = list(
-              list(targets = 0, visible = FALSE),
-              list(targets = 1, width = "30%"),
-              list(targets = 2, width = "30%"),
-              list(targets = 3, width = "10%", className = "dt-center"),
-              list(targets = 4, width = "12%"),
-              list(targets = 5, width = "18%", orderable = FALSE, searchable = FALSE, className = "dt-center")
+              list(targets = 0:5, visible = FALSE),
+              list(targets = 6, width = "30%"),
+              list(targets = 7, width = "30%"),
+              list(targets = 8, width = "10%", className = "dt-center"),
+              list(targets = 9, width = "12%"),
+              list(targets = 10, width = "18%", orderable = FALSE, searchable = FALSE, className = "dt-center")
             ),
             drawCallback = DT::JS("
               function(settings) {
@@ -4848,6 +4937,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           ),
           colnames = c(
             "ID",
+            "source_concept_index",
+            "csv_mapping_id",
+            "csv_file_path",
+            "target_general_concept_id",
+            "target_omop_concept_id",
             "Source Concept",
             "Target Concept",
             "Origin",
@@ -5018,6 +5112,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         ) %>%
         dplyr::select(
           mapping_id,
+          source_concept_index,
+          csv_mapping_id,
+          csv_file_path,
+          target_general_concept_id,
+          target_omop_concept_id,
           Source,
           Target,
           Origin,
@@ -5116,61 +5215,24 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
     }, ignoreInit = TRUE)
 
-    #### Handle Comment Editing ----
-    observe_event(input$eval_table_dblclick, {
-      if (is.null(input$eval_table_dblclick)) return()
+    #### Handle Evaluate Mappings Row Selection ----
+    observe_event(input$evaluate_mappings_table_rows_selected, {
+      if (mapping_tab() != "evaluate_mappings") return()
 
-      mapping_id <- input$eval_table_dblclick$mapping_id
-      source_text <- input$eval_table_dblclick$source
-      target_text <- input$eval_table_dblclick$target
+      row_selected <- input$evaluate_mappings_table_rows_selected
 
-      selected_eval_mapping_id(mapping_id)
-
-      # Update modal info
-      shinyjs::html("eval_comment_mapping_info", sprintf(
-        "<strong>Source:</strong> %s<br><strong>Target:</strong> %s",
-        source_text, target_text
-      ))
-
-      # Get current comment from database
-      db_dir <- get_app_dir()
-      db_path <- file.path(db_dir, "indicate.db")
-
-      if (file.exists(db_path)) {
-        con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
-        on.exit(DBI::dbDisconnect(con), add = TRUE)
-
-        existing_comment <- DBI::dbGetQuery(
-          con,
-          "SELECT comment FROM mapping_evaluations
-           WHERE mapping_id = ? AND evaluator_user_id = ?",
-          params = list(mapping_id, current_user()$user_id)
-        )
-
-        comment_value <- if (nrow(existing_comment) > 0 && !is.na(existing_comment$comment[1])) {
-          existing_comment$comment[1]
-        } else {
-          ""
-        }
-
-        updateTextAreaInput(session, "eval_comment_text", value = comment_value)
+      if (is.null(row_selected) || length(row_selected) == 0) {
+        shinyjs::hide("eval_details_container")
+        eval_selected_row_data(NULL)
+        eval_source_json(NULL)
+        eval_source_row(NULL)
+        eval_target_concept_id(NULL)
+        eval_target_json(NULL)
+        eval_target_mapping(NULL)
+        return()
       }
 
-      # Show modal
-      shinyjs::show("eval_comment_modal")
-    }, ignoreInit = TRUE)
-
-    #### Save Comment ----
-    observe_event(input$save_eval_comment, {
-      if (is.null(selected_eval_mapping_id())) return()
-      if (is.null(current_user())) return()
-
-      mapping_id <- selected_eval_mapping_id()
-      user_id <- current_user()$user_id
-      comment_text <- input$eval_comment_text
-      timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
-
-      # Get database connection
+      # Get database connection to fetch mapping data
       db_dir <- get_app_dir()
       db_path <- file.path(db_dir, "indicate.db")
 
@@ -5179,40 +5241,368 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
       on.exit(DBI::dbDisconnect(con), add = TRUE)
 
-      # Check if evaluation exists
-      existing <- DBI::dbGetQuery(
-        con,
-        "SELECT evaluation_id FROM mapping_evaluations
-         WHERE mapping_id = ? AND evaluator_user_id = ?",
-        params = list(mapping_id, user_id)
-      )
+      # Get all mappings for this alignment
+      query <- "
+        SELECT
+          cm.mapping_id,
+          cm.source_concept_index,
+          cm.target_general_concept_id,
+          cm.target_omop_concept_id,
+          cm.csv_file_path,
+          cm.csv_mapping_id
+        FROM concept_mappings cm
+        WHERE cm.alignment_id = ?
+      "
+      mappings_db <- DBI::dbGetQuery(con, query, params = list(selected_alignment_id()))
 
-      if (nrow(existing) > 0) {
-        # Update existing evaluation
-        DBI::dbExecute(
-          con,
-          "UPDATE mapping_evaluations
-           SET comment = ?, evaluated_at = ?
-           WHERE mapping_id = ? AND evaluator_user_id = ?",
-          params = list(comment_text, timestamp, mapping_id, user_id)
-        )
-      } else {
-        # Insert new evaluation with comment only
-        DBI::dbExecute(
-          con,
-          "INSERT INTO mapping_evaluations
-           (alignment_id, mapping_id, evaluator_user_id, comment, evaluated_at)
-           VALUES (?, ?, ?, ?, ?)",
-          params = list(selected_alignment_id(), mapping_id, user_id, comment_text, timestamp)
-        )
+      if (row_selected < 1 || row_selected > nrow(mappings_db)) return()
+
+      selected_mapping <- mappings_db[row_selected, ]
+      eval_selected_row_data(selected_mapping)
+
+      # Load source concept JSON data
+      csv_path <- selected_mapping$csv_file_path
+      csv_mapping_id <- selected_mapping$csv_mapping_id
+
+      if (!is.null(csv_path) && file.exists(csv_path)) {
+        df <- read.csv(csv_path, stringsAsFactors = FALSE)
+
+        if (csv_mapping_id <= nrow(df)) {
+          row_data <- df[csv_mapping_id, ]
+          eval_source_row(row_data)
+
+          # Check if json column exists
+          if ("json" %in% colnames(df)) {
+            json_str <- df$json[csv_mapping_id]
+            if (!is.null(json_str) && !is.na(json_str) && json_str != "") {
+              json_data <- tryCatch(
+                jsonlite::fromJSON(json_str),
+                error = function(e) NULL
+              )
+              eval_source_json(json_data)
+            } else {
+              eval_source_json(NULL)
+            }
+          } else {
+            eval_source_json(NULL)
+          }
+        }
       }
 
-      # Hide modal
-      shinyjs::hide("eval_comment_modal")
+      # Load target concept data
+      target_gc_id <- selected_mapping$target_general_concept_id
+      if (!is.null(target_gc_id) && !is.na(target_gc_id)) {
+        eval_target_concept_id(target_gc_id)
 
-      # Trigger refresh
-      mappings_refresh_trigger(mappings_refresh_trigger() + 1)
-    }, ignoreInit = TRUE)
+        # Get general concept info
+        gc_data <- data()$general_concepts
+        if (!is.null(gc_data)) {
+          selected_gc <- gc_data %>%
+            dplyr::filter(general_concept_id == target_gc_id)
+
+          if (nrow(selected_gc) > 0) {
+            # Create JSON-like data from general concept info
+            target_json <- list(
+              data_types = NULL,
+              numeric_data = NULL,
+              histogram = NULL,
+              categorical_data = NULL,
+              measurement_frequency = NULL,
+              missing_rate = NULL
+            )
+
+            # If the general concept has a statistical_summary JSON, parse it
+            if ("statistical_summary" %in% names(selected_gc) &&
+                !is.null(selected_gc$statistical_summary[1]) &&
+                !is.na(selected_gc$statistical_summary[1]) &&
+                selected_gc$statistical_summary[1] != "") {
+              target_json <- tryCatch(
+                jsonlite::fromJSON(selected_gc$statistical_summary[1]),
+                error = function(e) target_json
+              )
+            }
+            eval_target_json(target_json)
+          }
+        }
+
+        # Get target mapping data (concept mappings for this general concept)
+        target_omop_id <- selected_mapping$target_omop_concept_id
+        if (!is.null(target_omop_id) && !is.na(target_omop_id)) {
+          mappings_data <- data()$concept_mappings %>%
+            dplyr::filter(
+              general_concept_id == target_gc_id,
+              omop_concept_id == target_omop_id
+            )
+
+          if (nrow(mappings_data) > 0) {
+            eval_target_mapping(mappings_data[1, ])
+          }
+        }
+      }
+
+      # Show the details container
+      shinyjs::show("eval_details_container")
+      shinyjs::runjs(sprintf("$('#%s').css('display', 'flex');", ns("eval_details_container")))
+    }, ignoreNULL = FALSE)
+
+    #### Handle Evaluate Source Tab Selection ----
+    observe_event(input$eval_source_tab_selected, {
+      eval_source_tab(input$eval_source_tab_selected)
+    })
+
+    #### Handle Evaluate Target Tab Selection ----
+    observe_event(input$eval_target_tab_selected, {
+      eval_target_tab(input$eval_target_tab_selected)
+    })
+
+    #### Render Evaluate Source Concept Details ----
+    output$eval_source_concept_details_content <- renderUI({
+      json_data <- eval_source_json()
+      row_data <- eval_source_row()
+      tab <- eval_source_tab()
+
+      if (is.null(eval_selected_row_data())) {
+        return(tags$div(
+          style = "color: #999; font-style: italic;",
+          "Select a mapping to see source details."
+        ))
+      }
+
+      if (is.null(json_data)) {
+        return(tags$div(
+          style = "color: #999; font-style: italic;",
+          "No JSON data available for this source concept."
+        ))
+      }
+
+      if (tab == "summary") {
+        render_json_summary(json_data, row_data)
+      } else if (tab == "distribution") {
+        render_json_distribution(json_data)
+      } else if (tab == "temporal") {
+        render_json_temporal(json_data)
+      } else if (tab == "units") {
+        render_json_units(json_data)
+      } else {
+        tags$div("Unknown tab")
+      }
+    })
+
+    #### Render Evaluate Target Concept Details ----
+    output$eval_target_concept_details_content <- renderUI({
+      json_data <- eval_target_json()
+      concept_id <- eval_target_concept_id()
+      tab <- eval_target_tab()
+
+      if (is.null(eval_selected_row_data())) {
+        return(tags$div(
+          style = "color: #999; font-style: italic;",
+          "Select a mapping to see target details."
+        ))
+      }
+
+      if (is.null(concept_id)) {
+        return(tags$div(
+          style = "color: #999; font-style: italic;",
+          "No target concept available."
+        ))
+      }
+
+      if (tab == "comments") {
+        # Display comments for the selected general concept
+        render_eval_target_comments(concept_id)
+      } else if (is.null(json_data) || (is.null(json_data$numeric_data) && is.null(json_data$categorical_data))) {
+        return(tags$div(
+          style = "color: #999; font-style: italic;",
+          "No statistical data available for this concept."
+        ))
+      } else if (tab == "summary") {
+        render_eval_target_summary(json_data, concept_id)
+      } else if (tab == "distribution") {
+        render_target_distribution(json_data)
+      } else {
+        tags$div("Unknown tab")
+      }
+    })
+
+    #### Render Evaluate Target Comments ----
+    render_eval_target_comments <- function(concept_id) {
+      if (is.null(data())) return(tags$div(style = "color: #999;", "No data available."))
+
+      concept_info <- data()$general_concepts %>%
+        dplyr::filter(general_concept_id == concept_id)
+
+      if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1]) && nchar(concept_info$comments[1]) > 0) {
+        tags$div(
+          class = "comments-container",
+          style = "background: #e6f3ff; border: 1px solid #0f60af; border-radius: 6px; height: 100%; overflow-y: auto; box-sizing: border-box;",
+          tags$div(
+            class = "markdown-content",
+            style = "padding: 10px;",
+            shiny::markdown(concept_info$comments[1])
+          )
+        )
+      } else {
+        tags$div(
+          style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic; height: 100%; overflow-y: auto; box-sizing: border-box;",
+          "No comments available for this concept."
+        )
+      }
+    }
+
+    #### Render Evaluate Target Summary ----
+    render_eval_target_summary <- function(json_data, concept_id) {
+      left_items <- list()
+      right_items <- list()
+
+      # Get unit from selected mapping's omop_unit_concept_id via DuckDB
+      mapping_data <- eval_target_mapping()
+      source_row <- eval_source_row()
+      vocab_data <- vocabularies()
+
+      target_unit_name <- NULL
+      source_unit_name <- NULL
+
+      # Get target unit name
+      if (!is.null(mapping_data) && "omop_unit_concept_id" %in% names(mapping_data)) {
+        unit_concept_id <- mapping_data$omop_unit_concept_id
+        if (!is.null(unit_concept_id) && !is.na(unit_concept_id) && unit_concept_id != "" && unit_concept_id != "/") {
+          if (!is.null(vocab_data) && !is.null(vocab_data$concept)) {
+            unit_info <- vocab_data$concept %>%
+              dplyr::filter(concept_id == as.integer(unit_concept_id)) %>%
+              head(1) %>%
+              dplyr::collect()
+            if (nrow(unit_info) > 0 && !is.null(unit_info$concept_name)) {
+              target_unit_name <- unit_info$concept_name
+            }
+          }
+        }
+      }
+
+      # Get source unit name for comparison
+      if (!is.null(source_row) && "unit" %in% names(source_row)) {
+        source_unit <- source_row$unit
+        if (!is.null(source_unit) && !is.na(source_unit) && source_unit != "" && source_unit != "/") {
+          source_unit_name <- source_unit
+        }
+      }
+
+      # Display unit with comparison
+      if (!is.null(target_unit_name)) {
+        left_items <- c(left_items, list(
+          tags$div(
+            class = "detail-item",
+            style = "margin-bottom: 6px;",
+            tags$span(style = "font-weight: 600; color: #666;", "Unit:"),
+            tags$span(style = "color: #fd7e14; font-weight: 600;", target_unit_name),
+            if (!is.null(source_unit_name)) {
+              tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", source_unit_name, ")"))
+            }
+          )
+        ))
+      }
+
+      # Get source data for comparison
+      source_json <- eval_source_json()
+      has_source <- !is.null(source_json)
+
+      if (!is.null(json_data$missing_rate)) {
+        source_missing <- if (has_source && !is.null(source_json$missing_rate)) source_json$missing_rate else NULL
+        left_items <- c(left_items, list(
+          tags$div(
+            class = "detail-item",
+            style = "margin-bottom: 6px;",
+            tags$span(style = "font-weight: 600; color: #666;", "Missing:"),
+            tags$span(style = "color: #fd7e14; font-weight: 600;", paste0(json_data$missing_rate, "%")),
+            if (!is.null(source_missing)) {
+              tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", source_missing, "%)"))
+            }
+          )
+        ))
+      }
+
+      # Numeric data summary
+      if (!is.null(json_data$numeric_data)) {
+        nd <- json_data$numeric_data
+
+        # Min value
+        if (!is.null(nd$min)) {
+          source_min <- if (has_source && !is.null(source_json$numeric_data$min)) source_json$numeric_data$min else NULL
+          right_items <- c(right_items, list(
+            tags$div(
+              class = "detail-item",
+              style = "margin-bottom: 6px;",
+              tags$span(style = "font-weight: 600; color: #666;", "Min:"),
+              tags$span(style = "color: #fd7e14; font-weight: 600;", format(nd$min, big.mark = " ")),
+              if (!is.null(source_min)) {
+                tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", format(source_min, big.mark = " "), ")"))
+              }
+            )
+          ))
+        }
+
+        # Max value
+        if (!is.null(nd$max)) {
+          source_max <- if (has_source && !is.null(source_json$numeric_data$max)) source_json$numeric_data$max else NULL
+          right_items <- c(right_items, list(
+            tags$div(
+              class = "detail-item",
+              style = "margin-bottom: 6px;",
+              tags$span(style = "font-weight: 600; color: #666;", "Max:"),
+              tags$span(style = "color: #fd7e14; font-weight: 600;", format(nd$max, big.mark = " ")),
+              if (!is.null(source_max)) {
+                tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", format(source_max, big.mark = " "), ")"))
+              }
+            )
+          ))
+        }
+
+        # Mean value
+        if (!is.null(nd$mean)) {
+          source_mean <- if (has_source && !is.null(source_json$numeric_data$mean)) source_json$numeric_data$mean else NULL
+          right_items <- c(right_items, list(
+            tags$div(
+              class = "detail-item",
+              style = "margin-bottom: 6px;",
+              tags$span(style = "font-weight: 600; color: #666;", "Mean:"),
+              tags$span(style = "color: #fd7e14; font-weight: 600;", format(round(nd$mean, 2), big.mark = " ")),
+              if (!is.null(source_mean)) {
+                tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", format(round(source_mean, 2), big.mark = " "), ")"))
+              }
+            )
+          ))
+        }
+
+        # Median value
+        if (!is.null(nd$median)) {
+          source_median <- if (has_source && !is.null(source_json$numeric_data$median)) source_json$numeric_data$median else NULL
+          right_items <- c(right_items, list(
+            tags$div(
+              class = "detail-item",
+              style = "margin-bottom: 6px;",
+              tags$span(style = "font-weight: 600; color: #666;", "Median:"),
+              tags$span(style = "color: #fd7e14; font-weight: 600;", format(round(nd$median, 2), big.mark = " ")),
+              if (!is.null(source_median)) {
+                tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", format(round(source_median, 2), big.mark = " "), ")"))
+              }
+            )
+          ))
+        }
+      }
+
+      # Create two-column layout
+      tags$div(
+        style = "display: flex; gap: 20px;",
+        tags$div(
+          style = "flex: 1;",
+          left_items
+        ),
+        tags$div(
+          style = "flex: 1;",
+          right_items
+        )
+      )
+    }
 
     ### c) Import Mappings Tab ----
 
@@ -5706,6 +6096,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         }
 
         # Process each row in the import file
+        skipped_count <- 0
         for (i in seq_len(nrow(import_data))) {
           row <- import_data[i, ]
           source_code <- as.character(row$source_code)
@@ -5735,26 +6126,37 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             }
           }
 
-          # Check if mapping already exists for this source code
-          existing <- DBI::dbGetQuery(
+          # Check if this exact mapping already exists (same source + same target)
+          existing_exact <- DBI::dbGetQuery(
             con,
-            "SELECT mapping_id, source_concept_index FROM concept_mappings
+            "SELECT mapping_id FROM concept_mappings
+             WHERE alignment_id = ? AND csv_file_path = ? AND source_concept_index = ?
+               AND target_omop_concept_id = ?",
+            params = list(alignment_id, csv_file_path, source_concept_index, target_concept_id)
+          )
+
+          if (nrow(existing_exact) > 0) {
+            # Skip if exact mapping already exists (both manual and imported)
+            skipped_count <- skipped_count + 1
+            next
+          }
+
+          # Check if any mapping exists for this source (for overwrite mode)
+          existing_source <- DBI::dbGetQuery(
+            con,
+            "SELECT mapping_id FROM concept_mappings
              WHERE alignment_id = ? AND csv_file_path = ? AND source_concept_index = ?",
             params = list(alignment_id, csv_file_path, source_concept_index)
           )
 
-          if (nrow(existing) > 0) {
-            if (import_mode == "merge") {
-              # Skip existing mappings in merge mode
-              next
-            }
-            # In overwrite mode, update existing
+          if (nrow(existing_source) > 0 && import_mode == "overwrite") {
+            # In overwrite mode, update the first existing mapping
             DBI::dbExecute(
               con,
               "UPDATE concept_mappings
                SET target_omop_concept_id = ?, imported_mapping_id = ?, mapping_datetime = ?
-               WHERE alignment_id = ? AND csv_file_path = ? AND source_concept_index = ?",
-              params = list(target_concept_id, import_id, timestamp, alignment_id, csv_file_path, source_concept_index)
+               WHERE mapping_id = ?",
+              params = list(target_concept_id, import_id, timestamp, existing_source$mapping_id[1])
             )
           } else {
             # Create unique csv_mapping_id
@@ -5764,7 +6166,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               params = list(csv_file_path)
             )$max_id[1]
 
-            # Insert new mapping
+            # Insert new mapping (allows multiple mappings per source)
             DBI::dbExecute(
               con,
               "INSERT INTO concept_mappings (alignment_id, csv_file_path, csv_mapping_id, source_concept_index,
@@ -5786,10 +6188,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
         DBI::dbCommit(con)
 
-        showNotification(
-          paste("Successfully imported", imported_count, "mappings"),
-          type = "message"
-        )
+        # Build notification message
+        msg <- paste("Successfully imported", imported_count, "mappings")
+        if (skipped_count > 0) {
+          msg <- paste0(msg, " (", skipped_count, " duplicates skipped)")
+        }
+        showNotification(msg, type = "message")
 
         # Reset selected file after successful import
         import_selected_file(NULL)

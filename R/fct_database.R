@@ -151,10 +151,38 @@ init_database <- function(con) {
         imported_mapping_id INTEGER,
         FOREIGN KEY (alignment_id) REFERENCES concept_alignments(alignment_id),
         FOREIGN KEY (mapped_by_user_id) REFERENCES users(user_id),
-        FOREIGN KEY (imported_mapping_id) REFERENCES imported_mappings(import_id),
-        UNIQUE(csv_file_path, csv_mapping_id)
+        FOREIGN KEY (imported_mapping_id) REFERENCES imported_mappings(import_id)
       )"
     )
+  } else {
+    # Migration: remove UNIQUE constraint if it exists (for existing databases)
+    # SQLite doesn't support DROP CONSTRAINT, so we need to recreate the table
+    existing_sql <- DBI::dbGetQuery(con, "SELECT sql FROM sqlite_master WHERE type='table' AND name='concept_mappings'")$sql[1]
+    if (!is.null(existing_sql) && grepl("UNIQUE\\s*\\(\\s*csv_file_path\\s*,\\s*csv_mapping_id\\s*\\)", existing_sql, ignore.case = TRUE)) {
+      # Recreate table without UNIQUE constraint
+      DBI::dbExecute(con, "ALTER TABLE concept_mappings RENAME TO concept_mappings_old")
+      DBI::dbExecute(
+        con,
+        "CREATE TABLE concept_mappings (
+          mapping_id INTEGER PRIMARY KEY AUTOINCREMENT,
+          alignment_id INTEGER NOT NULL,
+          csv_file_path TEXT NOT NULL,
+          csv_mapping_id INTEGER NOT NULL,
+          source_concept_index INTEGER NOT NULL,
+          target_general_concept_id INTEGER,
+          target_omop_concept_id INTEGER,
+          target_custom_concept_id INTEGER,
+          mapped_by_user_id INTEGER,
+          mapping_datetime TEXT,
+          imported_mapping_id INTEGER,
+          FOREIGN KEY (alignment_id) REFERENCES concept_alignments(alignment_id),
+          FOREIGN KEY (mapped_by_user_id) REFERENCES users(user_id),
+          FOREIGN KEY (imported_mapping_id) REFERENCES imported_mappings(import_id)
+        )"
+      )
+      DBI::dbExecute(con, "INSERT INTO concept_mappings SELECT * FROM concept_mappings_old")
+      DBI::dbExecute(con, "DROP TABLE concept_mappings_old")
+    }
   }
 
   # Create mapping_evaluations table

@@ -25,7 +25,7 @@ storage_size: large
   - [Usage Guide](#usage-guide)
     - [1. Dictionary Explorer](#1-dictionary-explorer)
     - [2. Concept Mapping](#2-concept-mapping)
-    - [3. Use Case Management](#3-use-case-management)
+    - [3. Projects Management](#3-projects-management)
     - [4. Settings](#4-settings)
     - [5. Development Tools](#5-development-tools)
 - [Governance and Versioning](#governance-and-versioning)
@@ -177,7 +177,7 @@ The Dictionary Explorer provides a four-panel layout for browsing the INDICATE M
 **Viewing General Concept Details**:
 1. After selecting a general concept, the bottom-left panel shows all terminology mappings
 2. Each row represents a specific code in a standard vocabulary (SNOMED, LOINC, RxNorm, ICD-10)
-3. The "Recommended" column indicates the preferred concepts
+3. The "Standard" column indicates standard OMOP concepts (S) vs non-standard or classification concepts
 4. Click on a concept to see full details in the right panels
 
 **Exploring Concept Relationships**:
@@ -226,20 +226,20 @@ Once your alignment is created, you can map each concept individually:
 
 ![Alignment Wizard](man/figures/alignment_wizard.png)
 
-#### 3. Use Case Management
+#### 3. Projects Management
 
-Define and manage clinical use cases with assigned concepts.
+Define and manage projects with assigned concepts.
 
-![Use Cases Overview](man/figures/use_cases.png)
+![Projects Overview](man/figures/use_cases.png)
 
-**Defining Use Cases**:
-1. Navigate to the **Use Cases** tab
-2. Click **Add Use Case** to create a new use case
+**Defining Projects**:
+1. Navigate to the **Projects** tab
+2. Click **Add Project** to create a new project
 3. Enter name, description, and short name
-4. Save the use case
+4. Save the project
 
 **Assigning Concepts**:
-1. Select a use case from the list
+1. Select a project from the list
 2. View assigned concepts in the table
 3. Add or remove concept assignments as needed
 4. Mark concepts as required or optional

@@ -197,6 +197,59 @@ mod_general_settings_ui <- function(id) {
                     ),
                     placeholder = "Select a backup ZIP file"
                   ),
+
+                  # Import category selection
+                  tags$div(
+                    id = ns("import_options_container"),
+                    style = "display: none; margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #dee2e6;",
+                    tags$div(
+                      style = "font-weight: 600; font-size: 13px; color: #333; margin-bottom: 12px;",
+                      "Select what to import:"
+                    ),
+                    checkboxInput(
+                      ns("import_config_users"),
+                      label = tagList(
+                        tags$span("Configuration & Users", style = "font-weight: 500;"),
+                        tags$span(" (config, users tables)", style = "color: #666; font-size: 12px;")
+                      ),
+                      value = TRUE,
+                      width = "100%"
+                    ),
+                    checkboxInput(
+                      ns("import_alignments"),
+                      label = tagList(
+                        tags$span("Alignments", style = "font-weight: 500;"),
+                        tags$span(" (concept alignments, mappings, evaluations + files)", style = "color: #666; font-size: 12px;")
+                      ),
+                      value = TRUE,
+                      width = "100%"
+                    ),
+                    checkboxInput(
+                      ns("import_dictionary"),
+                      label = tagList(
+                        tags$span("Dictionary", style = "font-weight: 500;"),
+                        tags$span(" (general concepts, mappings, projects, statistics)", style = "color: #666; font-size: 12px;")
+                      ),
+                      value = TRUE,
+                      width = "100%"
+                    ),
+                    tags$div(
+                      style = "margin-top: 15px;",
+                      actionButton(
+                        ns("confirm_restore"),
+                        label = "Confirm Restore",
+                        class = "btn-primary-custom",
+                        icon = icon("check")
+                      ),
+                      actionButton(
+                        ns("cancel_restore"),
+                        label = "Cancel",
+                        class = "btn-secondary-custom",
+                        style = "margin-left: 10px;",
+                        icon = icon("times")
+                      )
+                    )
+                  ),
                   uiOutput(ns("backup_restore_status"))
                 ),
 
@@ -205,7 +258,7 @@ mod_general_settings_ui <- function(id) {
                   tags$p(
                     style = "margin: 0; font-size: 13px; color: #333;",
                     tags$i(class = "fas fa-exclamation-triangle", style = "margin-right: 6px; color: #ffc107;"),
-                    tags$strong("Warning:"), " Restoring from a backup will replace all current data. This action cannot be undone."
+                    tags$strong("Warning:"), " Restoring data will ", tags$strong("delete"), " existing data in selected categories before importing. This action cannot be undone."
                   )
                 )
               )
@@ -326,52 +379,270 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
 
     ### Upload Restore Handler ----
 
+    # Store the uploaded file path temporarily
+    uploaded_backup_path <- reactiveVal(NULL)
+    temp_extract_dir <- reactiveVal(NULL)
+
     observe_event(input$upload_backup_file, {
       file <- input$upload_backup_file
       if (is.null(file)) return()
 
-      app_dir <- get_app_dir()
-
       tryCatch({
         # Create a temporary directory for extraction
-        temp_extract_dir <- file.path(tempdir(), "indicate_restore")
-        if (dir.exists(temp_extract_dir)) {
-          unlink(temp_extract_dir, recursive = TRUE)
+        extract_dir <- file.path(tempdir(), "indicate_restore")
+        if (dir.exists(extract_dir)) {
+          unlink(extract_dir, recursive = TRUE)
         }
-        dir.create(temp_extract_dir, recursive = TRUE)
+        dir.create(extract_dir, recursive = TRUE)
 
         # Extract ZIP file
-        unzip(file$datapath, exdir = temp_extract_dir)
+        unzip(file$datapath, exdir = extract_dir)
 
         # Get list of extracted files
-        extracted_files <- list.files(temp_extract_dir, recursive = TRUE, full.names = TRUE)
+        extracted_files <- list.files(extract_dir, recursive = TRUE, full.names = TRUE)
 
         if (length(extracted_files) == 0) {
           backup_restore_message(list(
             success = FALSE,
             message = "The backup file appears to be empty or invalid."
           ))
+          unlink(extract_dir, recursive = TRUE)
           return()
         }
 
-        # Copy extracted files to app_dir, preserving structure
-        for (f in extracted_files) {
-          rel_path <- sub(paste0("^", normalizePath(temp_extract_dir), "/?"), "", normalizePath(f))
-          dest_path <- file.path(app_dir, rel_path)
-          dest_dir <- dirname(dest_path)
-          if (!dir.exists(dest_dir)) {
-            dir.create(dest_dir, recursive = TRUE)
+        # Store the extraction directory path
+        temp_extract_dir(extract_dir)
+        uploaded_backup_path(file$datapath)
+
+        # Show import options
+        shinyjs::show("import_options_container")
+        backup_restore_message(NULL)
+
+      }, error = function(e) {
+        backup_restore_message(list(
+          success = FALSE,
+          message = paste("Error reading backup file:", e$message)
+        ))
+      })
+    })
+
+    ### Cancel Restore Handler ----
+
+    observe_event(input$cancel_restore, {
+      # Clean up temp directory
+      extract_dir <- temp_extract_dir()
+      if (!is.null(extract_dir) && dir.exists(extract_dir)) {
+        unlink(extract_dir, recursive = TRUE)
+      }
+
+      # Reset state
+      temp_extract_dir(NULL)
+      uploaded_backup_path(NULL)
+
+      # Hide options
+      shinyjs::hide("import_options_container")
+
+      # Reset file input
+      shinyjs::reset("upload_backup_file")
+    })
+
+    ### Confirm Restore Handler ----
+
+    observe_event(input$confirm_restore, {
+      extract_dir <- temp_extract_dir()
+      if (is.null(extract_dir) || !dir.exists(extract_dir)) {
+        backup_restore_message(list(
+          success = FALSE,
+          message = "No backup file to restore. Please upload a backup first."
+        ))
+        return()
+      }
+
+      # Check if at least one category is selected
+      import_config <- isTRUE(input$import_config_users)
+      import_alignments <- isTRUE(input$import_alignments)
+      import_dictionary <- isTRUE(input$import_dictionary)
+
+      if (!import_config && !import_alignments && !import_dictionary) {
+        backup_restore_message(list(
+          success = FALSE,
+          message = "Please select at least one category to import."
+        ))
+        return()
+      }
+
+      app_dir <- get_app_dir()
+
+      tryCatch({
+        # 1) Configuration & Users
+        if (import_config) {
+          # Delete config and users tables
+          con <- get_db_connection()
+          on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+          DBI::dbExecute(con, "DELETE FROM config")
+          DBI::dbExecute(con, "DELETE FROM users")
+
+          # Import from backup if database exists
+          backup_db_path <- file.path(extract_dir, "indicate.db")
+          if (file.exists(backup_db_path)) {
+            backup_con <- DBI::dbConnect(RSQLite::SQLite(), backup_db_path)
+            on.exit(DBI::dbDisconnect(backup_con), add = TRUE)
+
+            # Import config
+            if (DBI::dbExistsTable(backup_con, "config")) {
+              config_data <- DBI::dbReadTable(backup_con, "config")
+              if (nrow(config_data) > 0) {
+                DBI::dbWriteTable(con, "config", config_data, append = TRUE)
+              }
+            }
+
+            # Import users
+            if (DBI::dbExistsTable(backup_con, "users")) {
+              users_data <- DBI::dbReadTable(backup_con, "users")
+              if (nrow(users_data) > 0) {
+                DBI::dbWriteTable(con, "users", users_data, append = TRUE)
+              }
+            }
           }
-          file.copy(f, dest_path, overwrite = TRUE)
+        }
+
+        # 2) Alignments (database tables + concept_mapping folder)
+        if (import_alignments) {
+          con <- get_db_connection()
+          on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+          # Delete alignment-related tables (order matters for foreign keys)
+          DBI::dbExecute(con, "DELETE FROM mapping_evaluations")
+          DBI::dbExecute(con, "DELETE FROM concept_mappings")
+          DBI::dbExecute(con, "DELETE FROM imported_mappings")
+          DBI::dbExecute(con, "DELETE FROM concept_alignments")
+
+          # Delete concept_mapping folder
+          concept_mapping_dir <- file.path(app_dir, "concept_mapping")
+          if (dir.exists(concept_mapping_dir)) {
+            unlink(concept_mapping_dir, recursive = TRUE)
+          }
+          dir.create(concept_mapping_dir, recursive = TRUE)
+
+          # Import from backup
+          backup_db_path <- file.path(extract_dir, "indicate.db")
+          if (file.exists(backup_db_path)) {
+            backup_con <- DBI::dbConnect(RSQLite::SQLite(), backup_db_path)
+            on.exit(DBI::dbDisconnect(backup_con), add = TRUE)
+
+            # Import concept_alignments
+            if (DBI::dbExistsTable(backup_con, "concept_alignments")) {
+              data <- DBI::dbReadTable(backup_con, "concept_alignments")
+              if (nrow(data) > 0) {
+                DBI::dbWriteTable(con, "concept_alignments", data, append = TRUE)
+              }
+            }
+
+            # Import imported_mappings
+            if (DBI::dbExistsTable(backup_con, "imported_mappings")) {
+              data <- DBI::dbReadTable(backup_con, "imported_mappings")
+              if (nrow(data) > 0) {
+                DBI::dbWriteTable(con, "imported_mappings", data, append = TRUE)
+              }
+            }
+
+            # Import concept_mappings
+            if (DBI::dbExistsTable(backup_con, "concept_mappings")) {
+              data <- DBI::dbReadTable(backup_con, "concept_mappings")
+              if (nrow(data) > 0) {
+                DBI::dbWriteTable(con, "concept_mappings", data, append = TRUE)
+              }
+            }
+
+            # Import mapping_evaluations
+            if (DBI::dbExistsTable(backup_con, "mapping_evaluations")) {
+              data <- DBI::dbReadTable(backup_con, "mapping_evaluations")
+              if (nrow(data) > 0) {
+                DBI::dbWriteTable(con, "mapping_evaluations", data, append = TRUE)
+              }
+            }
+          }
+
+          # Copy concept_mapping folder from backup
+          backup_mapping_dir <- file.path(extract_dir, "concept_mapping")
+          if (dir.exists(backup_mapping_dir)) {
+            mapping_files <- list.files(backup_mapping_dir, recursive = TRUE, full.names = TRUE)
+            for (f in mapping_files) {
+              rel_path <- sub(paste0("^", normalizePath(backup_mapping_dir), "/?"), "", normalizePath(f))
+              dest_path <- file.path(concept_mapping_dir, rel_path)
+              dest_dir <- dirname(dest_path)
+              if (!dir.exists(dest_dir)) {
+                dir.create(dest_dir, recursive = TRUE)
+              }
+              file.copy(f, dest_path, overwrite = TRUE)
+            }
+          }
+        }
+
+        # 3) Dictionary (data_dictionary folder, also check for legacy csv folder)
+        if (import_dictionary) {
+          # Delete data_dictionary folder
+          data_dict_dir <- file.path(app_dir, "data_dictionary")
+          if (dir.exists(data_dict_dir)) {
+            unlink(data_dict_dir, recursive = TRUE)
+          }
+          dir.create(data_dict_dir, recursive = TRUE)
+
+          # Check for data_dictionary folder in backup (new format)
+          backup_data_dict_dir <- file.path(extract_dir, "data_dictionary")
+
+          # Also check for legacy csv folder (old format)
+          backup_csv_dir <- file.path(extract_dir, "csv")
+
+          if (dir.exists(backup_data_dict_dir)) {
+            # New format: copy from data_dictionary
+            dict_files <- list.files(backup_data_dict_dir, recursive = TRUE, full.names = TRUE)
+            for (f in dict_files) {
+              rel_path <- sub(paste0("^", normalizePath(backup_data_dict_dir), "/?"), "", normalizePath(f))
+              dest_path <- file.path(data_dict_dir, rel_path)
+              dest_dir <- dirname(dest_path)
+              if (!dir.exists(dest_dir)) {
+                dir.create(dest_dir, recursive = TRUE)
+              }
+              file.copy(f, dest_path, overwrite = TRUE)
+            }
+          } else if (dir.exists(backup_csv_dir)) {
+            # Legacy format: copy from csv folder
+            dict_files <- list.files(backup_csv_dir, recursive = TRUE, full.names = TRUE)
+            for (f in dict_files) {
+              rel_path <- sub(paste0("^", normalizePath(backup_csv_dir), "/?"), "", normalizePath(f))
+              dest_path <- file.path(data_dict_dir, rel_path)
+              dest_dir <- dirname(dest_path)
+              if (!dir.exists(dest_dir)) {
+                dir.create(dest_dir, recursive = TRUE)
+              }
+              file.copy(f, dest_path, overwrite = TRUE)
+            }
+          }
         }
 
         # Clean up
-        unlink(temp_extract_dir, recursive = TRUE)
+        unlink(extract_dir, recursive = TRUE)
+        temp_extract_dir(NULL)
+        uploaded_backup_path(NULL)
+
+        # Hide options
+        shinyjs::hide("import_options_container")
+        shinyjs::reset("upload_backup_file")
+
+        # Show success message
+        categories_imported <- c()
+        if (import_config) categories_imported <- c(categories_imported, "Configuration & Users")
+        if (import_alignments) categories_imported <- c(categories_imported, "Alignments")
+        if (import_dictionary) categories_imported <- c(categories_imported, "Dictionary")
 
         backup_restore_message(list(
           success = TRUE,
-          message = "Backup restored successfully. Please reload the application to apply changes."
+          message = paste0("Successfully restored: ", paste(categories_imported, collapse = ", "), "."),
+          reload_message = "Please reload the application to apply changes."
         ))
+
       }, error = function(e) {
         backup_restore_message(list(
           success = FALSE,
@@ -401,7 +672,9 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
             tags$div(
               style = "margin-top: 10px; padding: 10px; background: #d4edda; border-left: 3px solid #28a745; border-radius: 4px; font-size: 12px;",
               tags$i(class = "fas fa-check-circle", style = "margin-right: 6px; color: #28a745;"),
-              msg$message
+              msg$message,
+              " ",
+              tags$strong(msg$reload_message)
             ),
             tags$div(
               style = "margin-top: 10px;",

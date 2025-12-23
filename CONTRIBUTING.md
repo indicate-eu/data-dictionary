@@ -282,8 +282,8 @@ data-dictionary/
 │   ├── fct_*.R           # Function libraries
 │   └── utils_*.R         # Utility functions
 ├── inst/
-│   ├── extdata/csv/      # CSV data files
-│   └── www/              # Web assets (CSS, JS)
+│   ├── extdata/data_dictionary/  # Data dictionary CSV files
+│   └── www/                      # Web assets (CSS, JS)
 ├── man/                   # R documentation
 ├── tests/                 # Test files
 ├── .github/              # GitHub workflows

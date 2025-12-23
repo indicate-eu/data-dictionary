@@ -157,7 +157,7 @@ All expert comments should follow this **modular structure**:
 [LOINC pre-coordination explanation if applicable - see section 2 for standard text]
 [One sentence stating what to prioritize]
 
-## Recommended concepts
+## Standard concepts
 
 **Default and [primary dimension] concepts:**
 
@@ -168,8 +168,8 @@ All expert comments should follow this **modular structure**:
 
 - **[Concept]** ([Vocab] [Code]): [When to use this concept]
 
-## Not recommended for routine use
-[OPTIONAL - only when there are many non-recommended concepts]
+## Non-standard concepts
+[OPTIONAL - only when there are many non-standard concepts that may still be useful]
 
 [Explanation of when to use these concepts and FACT_RELATIONSHIP recommendation]
 
@@ -196,13 +196,13 @@ All expert comments **must include**:
 2. **Mapping Strategy** with:
    - LOINC pre-coordination explanation (if applicable)
    - Statement of what to prioritize
-   - **Recommended concepts** subsection with default concept and primary dimension groupings
+   - **Standard concepts** subsection with default concept and primary dimension groupings
 
 ### Optional Sections
 
 Include these sections **only when necessary**:
 
-3. **Not recommended for routine use** (within Mapping Strategy) - For concepts with many position/context modifiers that should use FACT_RELATIONSHIP instead
+3. **Non-standard concepts** (within Mapping Strategy) - For concepts with many position/context modifiers that should use FACT_RELATIONSHIP instead
 4. **Clinical Context** - For complex concepts with multiple clinical scenarios (e.g., ICU vs cardiology settings)
 5. **Important Notes** - Clinical warnings, measurement caveats, common errors
 
@@ -254,7 +254,7 @@ Include these sections **only when necessary**:
 
 [One sentence stating what to prioritize]
 
-## Recommended concepts
+## Standard concepts
 
 **Default and [primary dimension] concepts:**
 
@@ -265,7 +265,7 @@ Include these sections **only when necessary**:
 
 - **[Concept]** ([Vocab] [Code]): [When to use this concept]
 
-## Not recommended for routine use
+## Non-standard concepts
 
 [Explanation of when to use these concepts and FACT_RELATIONSHIP recommendation]
 
@@ -278,12 +278,12 @@ Include these sections **only when necessary**:
 - For concepts with many LOINC mappings that combine dimensions (method + position + context), **start with the standard LOINC pre-coordination explanation**:
   > "LOINC uses **pre-coordinated concepts** that combine multiple dimensions (measurement method + position + context) into single codes. This can create redundancy when only one dimension (e.g., method) is documented. For most ICU use cases, we recommend capturing the measurement method and linking position or clinical context separately via OMOP FACT_RELATIONSHIP table."
 - State what to **prioritize** (usually measurement method for vital signs/labs)
-- Split concepts into **"Recommended concepts"** and **"Not recommended for routine use"** sections when applicable
-- In "Recommended concepts":
+- Split concepts into **"Standard concepts"** and **"Non-standard concepts"** sections when applicable
+- In "Standard concepts":
   - List the **default/generic concept first**
   - Group by **primary dimension** (e.g., measurement method)
-  - Include specialized concepts (neonatal, obstetric) if they are recommended for those populations
-- In "Not recommended for routine use":
+  - Include specialized concepts (neonatal, obstetric) if they are standard for those populations
+- In "Non-standard concepts":
   - Explain when to use these concepts (e.g., "only when position is the primary clinical focus")
   - Recommend using **FACT_RELATIONSHIP** with SNOMED position/context concepts instead
   - Provide OMOP concept IDs for common SNOMED modifiers (e.g., "Supine body position" SNOMED 4221822, "Sitting position" SNOMED 4142787)
@@ -300,7 +300,7 @@ LOINC uses **pre-coordinated concepts** that combine multiple dimensions (measur
 
 Prioritize the **measurement method** over position or context modifiers.
 
-## Recommended concepts
+## Standard concepts
 
 **Default and measurement method concepts:**
 
@@ -314,7 +314,7 @@ Prioritize the **measurement method** over position or context modifiers.
 - **1 minute Apgar Heart rate** (LOINC 32407-9): Apgar score heart rate component at 1 minute after birth (0-2 scale, not bpm)
 - **Fetal Heart rate** (LOINC 55283-6): Heart rate measured in utero via fetal monitoring
 
-## Not recommended for routine use
+## Non-standard concepts
 
 Use these concepts **only when position, activity, or clinical context is the primary clinical focus** (e.g., orthostatic vital sign assessment, exercise stress testing).
 
@@ -333,7 +333,7 @@ For most use cases, we recommend capturing patient position or clinical context 
 
 Prioritize the most granular concept available that matches your measurement method and anatomical location. Use the generic "Cardiac output" concept only when the specific measurement method or anatomical location cannot be determined.
 
-## Recommended concepts
+## Standard concepts
 
 **Default concept:**
 

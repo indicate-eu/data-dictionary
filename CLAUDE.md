@@ -24,35 +24,58 @@ indicate-data-dictionary/
 │   ├── app_server.R               # Main server logic
 │   ├── mod_dictionary_explorer.R  # Dictionary explorer module
 │   ├── mod_concept_mapping.R      # Concept mapping module
-│   ├── mod_use_cases.R            # Use cases management module
-│   ├── mod_settings.R             # Settings module
+│   ├── mod_projects.R             # Projects management module
+│   ├── mod_general_settings.R     # General settings module
+│   ├── mod_users.R                # User management module
 │   ├── mod_dev_tools.R            # Development tools module
 │   ├── mod_improvements.R         # Dictionary improvements module
-│   ├── fct_athena.R               # ATHENA OHDSI integration functions
+│   ├── mod_login.R                # Login/authentication module
+│   ├── mod_page_header.R          # Page header with navigation
+│   ├── fct_concept_mapping.R      # Concept mapping functions
+│   ├── fct_config.R               # Configuration and environment detection
 │   ├── fct_database.R             # Database operations
+│   ├── fct_datatable.R            # DataTable helper functions
 │   ├── fct_duckdb.R               # DuckDB integration
-│   ├── utils_config.R             # Configuration settings
-│   ├── utils_data_csv.R           # CSV data loading utilities
-│   └── utils_helpers.R            # Helper functions
+│   ├── fct_history.R              # History tracking functions
+│   ├── fct_projects.R             # Projects helper functions
+│   ├── fct_statistical_analysis.R # Statistical analysis functions
+│   ├── fct_statistics_display.R   # Statistics display functions
+│   ├── fct_url_builders.R         # URL builders (ATHENA, FHIR)
+│   ├── fct_users.R                # User management functions
+│   ├── fct_vocabularies.R         # OHDSI vocabulary functions
+│   ├── utils_csv.R                # CSV data loading utilities
+│   ├── utils_datatable_callbacks.R # DataTable callback utilities
+│   ├── utils_datatables.R         # DataTable configuration utilities
+│   ├── utils_server.R             # Server-side utilities
+│   └── utils_ui.R                 # UI helper functions
 ├── inst/
 │   ├── extdata/                   # Data files
-│   │   └── csv/                   # CSV data files
-│   │       ├── concept_mappings.csv      # Concept to dictionary mappings
-│   │       ├── concept_statistics.csv    # Usage statistics
-│   │       ├── custom_concepts.csv       # User-defined concepts
-│   │       ├── general_concept_use_cases.csv  # Use case assignments
-│   │       ├── general_concepts.csv      # General concept definitions
-│   │       ├── unit_conversions.csv      # Unit conversion mappings
-│   │       └── use_cases.csv             # Use case definitions
+│   │   └── data_dictionary/       # Data dictionary CSV files
+│   │       ├── general_concepts_en.csv           # General concepts (English)
+│   │       ├── general_concepts_fr.csv           # General concepts (French)
+│   │       ├── general_concepts_details.csv      # Concept mappings to OMOP
+│   │       ├── general_concepts_details_statistics.csv  # EHDEN usage statistics
+│   │       ├── general_concepts_details_history.csv     # Edit history
+│   │       ├── general_concepts_history.csv      # General concepts history
+│   │       ├── general_concepts_projects.csv     # Project assignments
+│   │       ├── projects.csv                      # Project definitions
+│   │       ├── custom_concepts.csv               # User-defined concepts
+│   │       └── unit_conversions.csv              # Unit conversion mappings
 │   └── www/                       # Web assets (CSS, JS, images)
 │       ├── style.css              # Main stylesheet
+│       ├── clipboard.js           # Clipboard copy functionality
+│       ├── comments_scroll_sync.js # Comments scroll synchronization
+│       ├── copy_menu.js           # Copy menu interactions
+│       ├── dt_callback.js         # DataTable callbacks
+│       ├── evaluate_mappings.js   # Evaluate mappings interactions
 │       ├── folder_display.js      # Folder tree display
+│       ├── keyboard_nav.js        # Keyboard navigation
 │       ├── login_handler.js       # Login form interactions
 │       ├── prevent_doubleclick_selection.js # Prevent text selection
-│       ├── recommended_toggle.js  # Recommended concept filter
+│       ├── recommended_toggle.js  # Standard concept filter toggle
 │       ├── resizable_splitter.js  # Panel resizing
+│       ├── selectize_modal_fix.js # Selectize modal z-index fix
 │       ├── settings_menu.js       # Settings UI
-│       ├── users_table.js         # Users table interactions
 │       ├── view_details.js        # Detail view management
 │       └── logo.png               # INDICATE logo
 ├── man/                           # R documentation
@@ -220,56 +243,96 @@ library(shiny)
 
 1. **`mod_dictionary_explorer.R`**:
    - Browse INDICATE dictionary concepts
-   - Four-panel quadrant layout
-   - Search and filter functionality
+   - Four-panel quadrant layout with resizable splitters
+   - General concepts table with category/subcategory hierarchy
+   - Concept mappings to OMOP vocabularies (SNOMED, LOINC, RxNorm, ICD-10)
+   - Edit mode for modifying mappings and statistics
    - Links to ATHENA and FHIR resources
+   - Comments display with markdown rendering
 
 2. **`mod_concept_mapping.R`**:
-   - Create and manage custom concepts
-   - Align custom concepts to dictionary
-   - Folder-based organization
-   - Multi-page modal forms for alignment
-   - Search ATHENA for concept suggestions
+   - Create and manage alignments (collections of source concepts)
+   - Align source concepts to dictionary general concepts
+   - Four tabs: Summary, All Mappings, Import Mappings, Evaluate Mappings
+   - Import mappings from CSV files
+   - Projects compatibility view
+   - Multi-page modal forms for alignment creation
 
-3. **`mod_use_cases.R`**:
-   - Manage use case definitions
-   - Assign concepts to use cases
-   - View use case requirements
+3. **`mod_projects.R`**:
+   - Manage project definitions
+   - Assign general concepts to projects
+   - View project requirements and coverage
    - Breadcrumb navigation
 
-4. **`mod_settings.R`**:
+4. **`mod_general_settings.R`**:
    - Configure application behavior
-   - Database settings
-   - UI preferences
+   - OHDSI vocabulary folder selection
+   - Language preferences
    - Data export/import
 
-5. **`mod_dev_tools.R`**:
-   - Database inspection
-   - View table schemas
-   - Execute SQL queries
+5. **`mod_users.R`**:
+   - User management (admin only)
+   - Create, edit, delete users
+   - Role assignment
+
+6. **`mod_dev_tools.R`**:
+   - Data quality metrics (missing comments, non-standard concepts)
+   - R console for querying OHDSI vocabularies
    - Debug data issues
 
-6. **`mod_improvements.R`**:
+7. **`mod_improvements.R`**:
    - Propose dictionary improvements
    - Submit new concepts
    - Track improvement status
 
+8. **`mod_login.R`**:
+   - User authentication
+   - Login form handling
+
+9. **`mod_page_header.R`**:
+   - Application header with navigation tabs
+   - User menu and settings access
+
 ### Function Libraries
 
-**`fct_athena.R`**:
-- `search_athena_concepts()`: Search ATHENA vocabulary
+**`fct_vocabularies.R`**:
+- `search_omop_concepts()`: Search OHDSI vocabulary concepts
+- `get_concept_details()`: Fetch concept details with relationships
 - `get_concept_descendants()`: Fetch concept hierarchy
-- `build_athena_url()`: Generate ATHENA links
+- `get_concept_ancestors()`: Fetch concept ancestors
+- `get_related_concepts()`: Get related concepts by relationship type
+
+**`fct_url_builders.R`**:
+- `build_athena_url()`: Generate ATHENA OHDSI links
+- `build_fhir_url()`: Generate FHIR Terminology Server links
 
 **`fct_database.R`**:
-- `get_database_connection()`: Get DuckDB connection
-- `execute_query()`: Run SQL queries
-- `insert_record()`, `update_record()`, `delete_record()`: CRUD operations
+- `save_csv_data()`: Save data to CSV files
+- `load_csv_data()`: Load data from CSV files
 
 **`fct_duckdb.R`**:
-- `initialize_duckdb()`: Set up in-memory database
-- `load_csv_to_duckdb()`: Import CSV files
+- `initialize_duckdb()`: Set up in-memory database for vocabularies
+- `load_vocabulary_tables()`: Load OHDSI vocabulary CSV files
 - `create_indexes()`: Optimize queries
+
+**`fct_history.R`**:
+- `log_action()`: Record user actions to history files
+- `get_history()`: Retrieve action history
+
+**`fct_config.R`**:
+- `is_container()`: Detect Docker/container environment
+- `get_vocab_path()`: Get vocabulary folder path
+
+**`fct_datatable.R`**:
+- `create_datatable()`: Create standardized DataTables
+- `format_datatable_columns()`: Apply consistent formatting
+
+**`fct_statistics_display.R`**:
+- `render_statistics_summary()`: Display EHDEN network statistics
+- `format_statistics_values()`: Format numeric values for display
+
+**`fct_projects.R`**:
+- Helper functions for project management
 
 ---
 
@@ -322,19 +385,22 @@ library(shiny)
 
 The application uses a **dual data storage approach**:
 
-1. **CSV Files** (`inst/extdata/csv/`): Structured data for application use
+1. **CSV Files** (`inst/extdata/data_dictionary/`): Structured data for application use
 2. **DuckDB** (runtime): In-memory database for fast queries and joins
 
 ### CSV Data Files
 
 The application uses the following CSV files:
 
-- **`general_concepts.csv`**: Core concept definitions (category, subcategory, general_concept_name)
-- **`concept_mappings.csv`**: Mappings between general concepts and standard terminologies (SNOMED, LOINC, RxNorm, ICD-10)
-- **`general_concept_use_cases.csv`**: Which use cases require which general concepts
-- **`use_cases.csv`**: Use case definitions (id, name, description, short_name)
-- **`custom_concepts.csv`**: User-defined concepts not in the dictionary
-- **`concept_statistics.csv`**: EHDEN network usage statistics
+- **`general_concepts_en.csv`**: Core concept definitions in English (category, subcategory, general_concept_name, comments)
+- **`general_concepts_fr.csv`**: Core concept definitions in French
+- **`general_concepts_details.csv`**: Mappings between general concepts and OMOP vocabularies (SNOMED, LOINC, RxNorm, ICD-10)
+- **`general_concepts_details_statistics.csv`**: EHDEN network usage statistics (loinc_rank, ehden_rows_count, ehden_num_data_sources)
+- **`general_concepts_details_history.csv`**: Edit history for concept mappings
+- **`general_concepts_history.csv`**: Edit history for general concepts
+- **`general_concepts_projects.csv`**: Which projects require which general concepts
+- **`projects.csv`**: Project definitions (id, name, description, short_name)
+- **`custom_concepts.csv`**: User-defined source concepts for alignments
 - **`unit_conversions.csv`**: Unit measurement mappings
 
 ### Data Loading
@@ -345,7 +411,7 @@ Load CSV data with explicit column types when needed:
 col_types <- cols(
   general_concept_id = col_integer(),
   category = col_character(),
-  recommended = col_logical(),
+  omop_concept_id = col_integer(),
   ...
 )
 data <- read_csv(file_path, col_types = col_types)
@@ -360,32 +426,37 @@ data <- read_csv(file_path, col_types = col_types)
 
 ### Column Naming
 
-**General Concepts** (`general_concepts.csv`):
+**General Concepts** (`general_concepts_en.csv`, `general_concepts_fr.csv`):
 - `general_concept_id`: Unique identifier
 - `category`, `subcategory`, `general_concept_name`: Concept hierarchy
-- `comment`: Expert guidance text
+- `comments`: Expert guidance text (markdown format)
 
-**Concept Mappings** (`concept_mappings.csv`):
-- `mapping_id`: Unique mapping identifier
+**Concept Mappings** (`general_concepts_details.csv`):
 - `general_concept_id`: Link to general concept
-- `vocabulary_id`: Standard terminology (SNOMED, LOINC, RxNorm, ICD10)
+- `vocabulary_id`: Standard terminology (SNOMED, LOINC, RxNorm, ICD10CM)
 - `concept_code`: Code in the vocabulary
 - `concept_name`: Display name
 - `omop_concept_id`: OMOP CDM concept ID
-- `recommended`: Boolean indicating preferred mapping
-- `omop_unit_concept_id`, `unit`: Unit of measure
-- `ehden_rows_count`, `ehden_num_data_sources`: Usage statistics
+- `omop_unit_concept_id`: Unit concept ID (for measurements)
+- `standard_concept`: From OHDSI vocabulary (S=Standard, C=Classification, NULL=Non-standard)
 
-**Use Case Assignments** (`general_concept_use_cases.csv`):
+**Concept Statistics** (`general_concepts_details_statistics.csv`):
+- `omop_concept_id`: Link to concept mapping
+- `loinc_rank`: LOINC usage ranking
+- `ehden_rows_count`: Number of rows in EHDEN network
+- `ehden_num_data_sources`: Number of data sources using this concept
+
+**Project Assignments** (`general_concepts_projects.csv`):
 - `general_concept_id`: Link to general concept
-- `use_case_id`: Link to use case
+- `project_id`: Link to project
 - `is_required`: Boolean for requirement status
 
 **Custom Concepts** (`custom_concepts.csv`):
 - `custom_concept_id`: Unique identifier
-- `custom_concept_name`: User-defined name
+- `alignment_id`: Link to alignment
+- `source_concept_name`: User-defined source concept name
 - `description`: Concept description
-- `mapping_id`: Link to dictionary mapping (if aligned)
+- `general_concept_id`: Link to dictionary general concept (if aligned)
 - `created_at`, `updated_at`: Timestamps
 
 ### Expert Comments for General Concepts
@@ -733,7 +804,7 @@ The application uses **`shiny.router`** for client-side routing with a multi-mod
 **Available Routes**:
 1. **`/`** (root): Dictionary Explorer - Browse and search the INDICATE dictionary
 2. **`/mapping`**: Concept Mapping - Align user concepts with dictionary concepts
-3. **`/use-cases`**: Use Cases - Manage use cases and concept assignments
+3. **`/projects`**: Projects - Manage projects and concept assignments
 4. **`/improvements`**: Improvements - Propose dictionary enhancements
 5. **`/general-settings`**: General Settings - Configure application behavior
 6. **`/users`**: Users - User management (admin only)
@@ -750,7 +821,7 @@ The application uses **`shiny.router`** for client-side routing with a multi-mod
 ```r
 router_ui(
   route("/", create_page_container(mod_dictionary_explorer_ui("dictionary_explorer"))),
-  route("use-cases", create_page_container(mod_use_cases_ui("use_cases"))),
+  route("projects", create_page_container(mod_projects_ui("projects"))),
   route("mapping", create_page_container(mod_concept_mapping_ui("concept_mapping"))),
   # ... other routes
 )
@@ -844,8 +915,8 @@ observe({
 
 **Brand Colors** (INDICATE):
 - Primary: `#0f60af` (blue)
-- Success: `#28a745` (green for TRUE/recommended)
-- Danger: `#dc3545` (red for FALSE)
+- Success: `#28a745` (green for standard concepts)
+- Danger: `#dc3545` (red for non-standard concepts)
 - Background: `#f8f9fa` (light gray)
 - Text: `#333` (dark gray)
 
@@ -887,15 +958,19 @@ Always create clickable links to external resources:
 JavaScript and CSS files in `inst/www/`:
 
 - **`style.css`** - All application styles and CSS classes
+- **`clipboard.js`** - Clipboard copy functionality
+- **`comments_scroll_sync.js`** - Comments panel scroll synchronization
+- **`copy_menu.js`** - Copy menu interactions
 - **`dt_callback.js`** - DataTable event callbacks and customization
+- **`evaluate_mappings.js`** - Evaluate mappings tab interactions
 - **`folder_display.js`** - Folder tree visualization for concept mapping
-- **`keyboard_nav.js`** - Keyboard navigation helpers (legacy/unused)
+- **`keyboard_nav.js`** - Keyboard navigation helpers
 - **`login_handler.js`** - Login form interactions (Enter key, etc.)
 - **`prevent_doubleclick_selection.js`** - Prevent accidental text selection on double-click
-- **`recommended_toggle.js`** - Recommended concepts filter toggle
+- **`recommended_toggle.js`** - Standard concepts filter toggle
 - **`resizable_splitter.js`** - Panel resizing (horizontal/vertical splitters)
+- **`selectize_modal_fix.js`** - Fix selectize dropdowns in modals (z-index)
 - **`settings_menu.js`** - Settings UI interactions
-- **`users_table.js`** - Users table interactions and editing
 - **`view_details.js`** - Detail panel management and display
 
 **Note**: Navigation is handled by `shiny.router` (R package), not custom JavaScript
@@ -1371,7 +1446,7 @@ Ensure all package dependencies are:
 
 ### Data Files
 
-- Keep CSV files in `inst/extdata/csv/`
+- Keep CSV files in `inst/extdata/data_dictionary/`
 - Ensure file sizes are reasonable (<50 MB per file)
 - Document data update procedures
 - Use version control for data files

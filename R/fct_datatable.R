@@ -98,11 +98,11 @@ save_datatable_state <- function(input, table_id, saved_page, saved_search) {
 #' \dontrun{
 #'   # Style a single column
 #'   dt <- datatable(data) %>%
-#'     style_yes_no_column("recommended")
+#'     style_yes_no_column("is_required")
 #'
 #'   # Style multiple columns
 #'   dt <- datatable(data) %>%
-#'     style_yes_no_column("recommended") %>%
+#'     style_yes_no_column("is_required") %>%
 #'     style_yes_no_column("is_active")
 #'
 #'   # Custom colors

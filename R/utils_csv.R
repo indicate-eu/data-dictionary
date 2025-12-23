@@ -1,8 +1,8 @@
-#' CSV File Utilities
+#' Data Dictionary File Utilities
 #'
-#' @description Helper functions for CSV file operations including path resolution
-#' and data loading/saving for dictionary CSV files. CSV files are stored in the
-#' user's app_folder directory and are copied from the package on first launch.
+#' @description Helper functions for data dictionary file operations including path resolution
+#' and data loading/saving for dictionary CSV files. Files are stored in the
+#' user's app_folder/data_dictionary directory and are copied from the package on first launch.
 #' @noRd
 
 # List of CSV files managed by the application
@@ -19,17 +19,28 @@ CSV_FILES <- c(
   "general_concepts_details_history.csv"
 )
 
-#' Get User CSV Directory
+#' Get User Data Dictionary Directory
 #'
-#' @description Returns the path to the user's CSV directory in app_folder.
+#' @description Returns the path to the user's data_dictionary directory in app_folder.
 #' Creates the directory if it doesn't exist.
 #'
-#' @return Character: Full path to the user's CSV directory
+#' @return Character: Full path to the user's data_dictionary directory
+#'
+#' @noRd
+get_user_data_dictionary_dir <- function() {
+  data_dict_dir <- get_app_dir("data_dictionary")
+  return(data_dict_dir)
+}
+
+#' Get User CSV Directory (deprecated alias)
+#'
+#' @description Alias for get_user_data_dictionary_dir() for backward compatibility.
+#'
+#' @return Character: Full path to the user's data_dictionary directory
 #'
 #' @noRd
 get_user_csv_dir <- function() {
-  csv_dir <- get_app_dir("csv")
-  return(csv_dir)
+  get_user_data_dictionary_dir()
 }
 
 #' Get CSV File Path
@@ -59,29 +70,40 @@ get_csv_path <- function(filename) {
   return(file.path(csv_dir, filename))
 }
 
-#' Get Package CSV Directory
+#' Get Package Data Dictionary Directory
 #'
-#' @description Returns the path to the package's original CSV files in extdata.
+#' @description Returns the path to the package's original data dictionary files in extdata.
 #' These are the template files that get copied to the user's app_folder.
 #'
-#' @return Character: Full path to the package's CSV directory
+#' @return Character: Full path to the package's data_dictionary directory
 #'
 #' @noRd
-get_package_csv_dir <- function() {
+get_package_data_dictionary_dir <- function() {
   # Try installed package location first
-  pkg_dir <- system.file("extdata", "csv", package = "indicate")
+  pkg_dir <- system.file("extdata", "data_dictionary", package = "indicate")
 
   # If not found or empty, use development path
   if (!dir.exists(pkg_dir) || pkg_dir == "") {
-    pkg_dir <- file.path("inst", "extdata", "csv")
+    pkg_dir <- file.path("inst", "extdata", "data_dictionary")
   }
 
   return(pkg_dir)
 }
 
-#' Initialize User CSV Files
+#' Get Package CSV Directory (deprecated alias)
 #'
-#' @description Copies CSV files from the package's extdata directory to the user's
+#' @description Alias for get_package_data_dictionary_dir() for backward compatibility.
+#'
+#' @return Character: Full path to the package's data_dictionary directory
+#'
+#' @noRd
+get_package_csv_dir <- function() {
+  get_package_data_dictionary_dir()
+}
+
+#' Initialize User Data Dictionary Files
+#'
+#' @description Copies data dictionary files from the package's extdata directory to the user's
 #' app_folder if they don't already exist. This ensures users have their own
 #' editable copies of the dictionary data.
 #'
@@ -93,20 +115,20 @@ get_package_csv_dir <- function() {
 #' any modifications the user has made.
 #'
 #' @noRd
-initialize_user_csv_files <- function() {
-  user_csv_dir <- get_user_csv_dir()
-  pkg_csv_dir <- get_package_csv_dir()
+initialize_user_data_dictionary_files <- function() {
+  user_dir <- get_user_data_dictionary_dir()
+  pkg_dir <- get_package_data_dictionary_dir()
 
-  # Check if package CSV directory exists
- if (!dir.exists(pkg_csv_dir)) {
-    warning("Package CSV directory not found: ", pkg_csv_dir)
+  # Check if package data dictionary directory exists
+  if (!dir.exists(pkg_dir)) {
+    warning("Package data dictionary directory not found: ", pkg_dir)
     return(invisible(FALSE))
   }
 
-  # Copy each CSV file if it doesn't exist in user directory
+  # Copy each file if it doesn't exist in user directory
   for (filename in CSV_FILES) {
-    user_file <- file.path(user_csv_dir, filename)
-    pkg_file <- file.path(pkg_csv_dir, filename)
+    user_file <- file.path(user_dir, filename)
+    pkg_file <- file.path(pkg_dir, filename)
 
     if (!file.exists(user_file) && file.exists(pkg_file)) {
       file.copy(pkg_file, user_file, overwrite = FALSE)
@@ -114,6 +136,17 @@ initialize_user_csv_files <- function() {
   }
 
   return(invisible(TRUE))
+}
+
+#' Initialize User CSV Files (deprecated alias)
+#'
+#' @description Alias for initialize_user_data_dictionary_files() for backward compatibility.
+#'
+#' @return Invisible TRUE on success
+#'
+#' @noRd
+initialize_user_csv_files <- function() {
+  initialize_user_data_dictionary_files()
 }
 
 #' Load CSV Data
