@@ -67,6 +67,22 @@ html, body {
   height: 100%;
 }
 
+/* Target concept details panels - ensure comments take full height */
+#concept_mapping-target_concept_details_content,
+#concept_mapping-eval_target_concept_details_content {
+  height: 100%;
+}
+
+#concept_mapping-target_concept_details_content > div,
+#concept_mapping-eval_target_concept_details_content > div {
+  height: 100%;
+}
+
+/* Evaluate mappings panel height */
+#concept_mapping-panel_evaluate_mappings {
+  height: calc(100% - 60px);
+}
+
 /* Import mappings panel - flex layout when visible */
 .import-mappings-panel {
   flex-direction: column;
@@ -2427,6 +2443,29 @@ a.btn-success-custom:hover {
   padding: 12px;
   margin: 12px 0;
   font-size: 13px;
+}
+
+.modal-fullscreen .markdown-content table,
+.modal-fullscreen-content .markdown-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 12px 0;
+  font-size: 13px;
+}
+
+.modal-fullscreen .markdown-content th,
+.modal-fullscreen-content .markdown-content th {
+  background: #f0f0f0;
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid #ddd;
+}
+
+.modal-fullscreen .markdown-content td,
+.modal-fullscreen-content .markdown-content td {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
 }
 
 /* Comments expand button hover effect

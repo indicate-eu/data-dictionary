@@ -404,6 +404,110 @@ mod_concept_mapping_ui <- function(id, i18n) {
           uiOutput(ns("eval_comments_fullscreen_content"))
         )
       )
+    ),
+
+    ### Modal - Source JSON Fullscreen (Edit Mappings) ----
+    tags$div(
+      id = ns("source_json_fullscreen_modal"),
+      class = "modal-overlay modal-fullscreen",
+      style = "display: none;",
+      tags$div(
+        class = "modal-fullscreen-content",
+        style = "height: 100vh; display: flex; flex-direction: column;",
+        tags$div(
+          style = paste0(
+            "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; ",
+            "display: flex; justify-content: space-between; align-items: center; ",
+            "box-shadow: 0 2px 4px rgba(0,0,0,0.1);"
+          ),
+          tags$h3(
+            style = "margin: 0; color: #0f60af;",
+            "Source Concept - JSON Structure"
+          ),
+          actionButton(
+            ns("close_source_json_fullscreen"),
+            label = HTML("&times;"),
+            class = "modal-close",
+            style = paste0(
+              "font-size: 28px; font-weight: 300; color: #666; border: none; ",
+              "background: none; cursor: pointer; padding: 0; width: 30px; ",
+              "height: 30px; line-height: 1;"
+            )
+          )
+        ),
+        tags$div(
+          style = "flex: 1; overflow: hidden; display: flex; gap: 0;",
+          # Left column: Raw JSON
+          tags$div(
+            style = paste0(
+              "flex: 1; overflow: auto; padding: 20px; background: #fff; ",
+              "border-right: 1px solid #ddd;"
+            ),
+            tags$h4(
+              style = "margin: 0 0 15px 0; color: #0f60af; font-size: 14px;",
+              "Raw JSON"
+            ),
+            uiOutput(ns("source_json_fullscreen_content"))
+          ),
+          # Right column: Tutorial
+          tags$div(
+            style = "flex: 1; overflow: auto; padding: 20px; background: #f8f9fa;",
+            uiOutput(ns("source_json_tutorial"))
+          )
+        )
+      )
+    ),
+
+    ### Modal - Eval Source JSON Fullscreen (Evaluate Mappings) ----
+    tags$div(
+      id = ns("eval_source_json_fullscreen_modal"),
+      class = "modal-overlay modal-fullscreen",
+      style = "display: none;",
+      tags$div(
+        class = "modal-fullscreen-content",
+        style = "height: 100vh; display: flex; flex-direction: column;",
+        tags$div(
+          style = paste0(
+            "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; ",
+            "display: flex; justify-content: space-between; align-items: center; ",
+            "box-shadow: 0 2px 4px rgba(0,0,0,0.1);"
+          ),
+          tags$h3(
+            style = "margin: 0; color: #0f60af;",
+            "Source Concept - JSON Structure"
+          ),
+          actionButton(
+            ns("close_eval_source_json_fullscreen"),
+            label = HTML("&times;"),
+            class = "modal-close",
+            style = paste0(
+              "font-size: 28px; font-weight: 300; color: #666; border: none; ",
+              "background: none; cursor: pointer; padding: 0; width: 30px; ",
+              "height: 30px; line-height: 1;"
+            )
+          )
+        ),
+        tags$div(
+          style = "flex: 1; overflow: hidden; display: flex; gap: 0;",
+          # Left column: Raw JSON
+          tags$div(
+            style = paste0(
+              "flex: 1; overflow: auto; padding: 20px; background: #fff; ",
+              "border-right: 1px solid #ddd;"
+            ),
+            tags$h4(
+              style = "margin: 0 0 15px 0; color: #0f60af; font-size: 14px;",
+              "Raw JSON"
+            ),
+            uiOutput(ns("eval_source_json_fullscreen_content"))
+          ),
+          # Right column: Tutorial
+          tags$div(
+            style = "flex: 1; overflow: auto; padding: 20px; background: #f8f9fa;",
+            uiOutput(ns("eval_source_json_tutorial"))
+          )
+        )
+      )
     )
 
   )
@@ -474,7 +578,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     eval_target_json <- reactiveVal(NULL)  # Target concept JSON data for evaluate mappings
     eval_target_mapping <- reactiveVal(NULL)  # Target mapping data for evaluate mappings
     eval_source_tab <- reactiveVal("summary")  # Selected tab for source concept details
-    eval_target_detail_tab <- reactiveVal("comments")  # Main tab: "comments" or "statistical_summary"
+    eval_target_detail_tab <- reactiveVal("statistical_summary")  # Main tab: "comments" or "statistical_summary"
     eval_target_stats_sub_tab <- reactiveVal("summary")  # Sub-tab: "summary" or "distribution"
     eval_target_selected_profile <- reactiveVal(NULL)  # Selected profile name for evaluate target
 
@@ -1674,7 +1778,19 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 tags$div(
                   class = "section-header",
                   style = "margin-bottom: 0;",
-                  tags$h4(style = "margin: 0;", "Source Concept Details")
+                  tags$h4(style = "margin: 0;", "Source Concept Details"),
+                  actionButton(
+                    ns("view_source_json"),
+                    label = NULL,
+                    icon = icon("code"),
+                    class = "btn-icon-only has-tooltip",
+                    style = paste0(
+                      "background: transparent; border: none; color: #333; ",
+                      "padding: 4px 7px; cursor: pointer; font-size: 12px; ",
+                      "margin-left: auto;"
+                    ),
+                    `data-tooltip` = "View raw JSON"
+                  )
                 ),
                 tags$div(
                   style = "flex: 1; min-height: 0; overflow: auto; padding: 0 10px 10px 10px;",
@@ -1772,7 +1888,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                     class = "section-tabs",
                     tags$button(
                       id = ns("target_detail_tab_comments"),
-                      class = "tab-btn tab-btn-active",
+                      class = "tab-btn",
                       onclick = sprintf("
                         document.querySelectorAll('#%s > .section-header > .section-tabs .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
                         this.classList.add('tab-btn-active');
@@ -1782,7 +1898,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                     ),
                     tags$button(
                       id = ns("target_detail_tab_statistical_summary"),
-                      class = "tab-btn",
+                      class = "tab-btn tab-btn-active",
                       onclick = sprintf("
                         document.querySelectorAll('#%s > .section-header > .section-tabs .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
                         this.classList.add('tab-btn-active');
@@ -1887,7 +2003,19 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               tags$div(
                 class = "section-header",
                 style = "margin-bottom: 0;",
-                tags$h4(style = "margin: 0;", "Source Concept Details")
+                tags$h4(style = "margin: 0;", "Source Concept Details"),
+                actionButton(
+                  ns("view_eval_source_json"),
+                  label = NULL,
+                  icon = icon("code"),
+                  class = "btn-icon-only has-tooltip",
+                  style = paste0(
+                    "background: transparent; border: none; color: #333; ",
+                    "padding: 4px 7px; cursor: pointer; font-size: 12px; ",
+                    "margin-left: auto;"
+                  ),
+                  `data-tooltip` = "View raw JSON"
+                )
               ),
               tags$div(
                 style = "flex: 1; min-height: 0; overflow: auto; padding: 0 10px 10px 10px;",
@@ -1961,7 +2089,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                   class = "section-tabs",
                   tags$button(
                     id = ns("eval_target_detail_tab_comments"),
-                    class = "tab-btn tab-btn-active",
+                    class = "tab-btn",
                     onclick = sprintf("
                       document.querySelectorAll('#%s > .section-header > .section-tabs .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
                       this.classList.add('tab-btn-active');
@@ -1971,7 +2099,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                   ),
                   tags$button(
                     id = ns("eval_target_detail_tab_statistical_summary"),
-                    class = "tab-btn",
+                    class = "tab-btn tab-btn-active",
                     onclick = sprintf("
                       document.querySelectorAll('#%s > .section-header > .section-tabs .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
                       this.classList.add('tab-btn-active');
@@ -3978,35 +4106,69 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     render_json_temporal <- function(json_data) {
       items <- list()
 
-      # Temporal coverage
+      # Temporal coverage (start/end dates)
+      # Check both temporal_coverage (old format) and temporal_distribution (new format)
+      tc <- NULL
       if (!is.null(json_data$temporal_coverage)) {
         tc <- json_data$temporal_coverage
+      } else if (!is.null(json_data$temporal_distribution) &&
+                 !is.null(json_data$temporal_distribution$start_date)) {
+        tc <- json_data$temporal_distribution
+      }
+
+      if (!is.null(tc) && !is.null(tc$start_date)) {
         items <- c(items, list(
           tags$div(
             style = "display: flex; gap: 20px; margin-bottom: 15px;",
             tags$div(
               class = "detail-item",
-              tags$span(class = "detail-label", "First:"),
-              tags$span(class = "detail-value", tc$first_occurrence)
+              tags$span(class = "detail-label", "Start:"),
+              tags$span(class = "detail-value", tc$start_date)
             ),
             tags$div(
               class = "detail-item",
-              tags$span(class = "detail-label", "Last:"),
-              tags$span(class = "detail-value", tc$last_occurrence)
+              tags$span(class = "detail-label", "End:"),
+              tags$span(class = "detail-value", tc$end_date)
             )
           )
         ))
       }
 
-      # Distribution by year - ggplot bar chart
-      if (!is.null(json_data$distribution_by_year) && length(json_data$distribution_by_year) > 0) {
-        year_df <- as.data.frame(json_data$distribution_by_year)
-        if (nrow(year_df) > 0 && "year" %in% colnames(year_df) && "percentage" %in% colnames(year_df)) {
-          year_df$year <- as.factor(year_df$year)
+      # Temporal distribution by year (or other interval) - ggplot bar chart
+      if (!is.null(json_data$temporal_distribution) &&
+          length(json_data$temporal_distribution) > 0) {
+        # Handle nested structure with by_year array
+        td <- json_data$temporal_distribution
+        if (!is.null(td$by_year) && length(td$by_year) > 0) {
+          year_df <- as.data.frame(td$by_year)
+        } else if (is.list(td) && length(td) > 0 && !is.null(td[[1]]$year)) {
+          # Fallback: direct array format
+          year_df <- as.data.frame(td)
+        } else {
+          year_df <- data.frame()
+        }
 
-          p <- ggplot2::ggplot(year_df, ggplot2::aes(x = year, y = percentage)) +
+        # Determine x-axis column (year, month, quarter, etc.)
+        x_col <- NULL
+        x_label <- NULL
+        if ("year" %in% colnames(year_df)) {
+          x_col <- "year"
+          x_label <- "Year"
+        } else if ("month" %in% colnames(year_df)) {
+          x_col <- "month"
+          x_label <- "Month"
+        } else if ("quarter" %in% colnames(year_df)) {
+          x_col <- "quarter"
+          x_label <- "Quarter"
+        }
+
+        if (!is.null(x_col) && nrow(year_df) > 0 &&
+            "percentage" %in% colnames(year_df)) {
+          year_df$x_val <- as.factor(year_df[[x_col]])
+
+          p <- ggplot2::ggplot(year_df, ggplot2::aes(x = x_val, y = percentage)) +
             ggplot2::geom_col(fill = "#0f60af", width = 0.7) +
-            ggplot2::labs(x = NULL, y = "%") +
+            ggplot2::labs(x = x_label, y = "%") +
             ggplot2::theme_minimal(base_size = 11) +
             ggplot2::theme(
               panel.grid.major.x = ggplot2::element_blank(),
@@ -4035,16 +4197,16 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Helper function to render units tab
     render_json_units <- function(json_data) {
-      # Distribution by unit - horizontal bar chart
-      if (!is.null(json_data$distribution_by_unit) && length(json_data$distribution_by_unit) > 0) {
-        unit_df <- as.data.frame(json_data$distribution_by_unit)
-        if (nrow(unit_df) > 0 && "unit_name" %in% colnames(unit_df) && "percentage" %in% colnames(unit_df)) {
+      # Distribution by hospital unit - horizontal bar chart
+      if (!is.null(json_data$hospital_units) && length(json_data$hospital_units) > 0) {
+        unit_df <- as.data.frame(json_data$hospital_units)
+        if (nrow(unit_df) > 0 && "unit" %in% colnames(unit_df) && "percentage" %in% colnames(unit_df)) {
           # Order by percentage descending
           unit_df <- unit_df[order(-unit_df$percentage), ]
           # Truncate names if too long
-          unit_df$unit_label <- ifelse(nchar(unit_df$unit_name) > 20,
-            paste0(substr(unit_df$unit_name, 1, 18), "..."),
-            unit_df$unit_name)
+          unit_df$unit_label <- ifelse(nchar(unit_df$unit) > 20,
+            paste0(substr(unit_df$unit, 1, 18), "..."),
+            unit_df$unit)
           unit_df$unit_label <- factor(unit_df$unit_label, levels = rev(unit_df$unit_label))
 
           # Calculate height based on number of units
@@ -4076,6 +4238,464 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       )
     }
 
+    # Helper function to render JSON tutorial
+    render_json_tutorial <- function(language = "en") {
+      if (language == "fr") {
+        tutorial_md <- '
+## Guide de structure JSON
+
+Ce JSON decrit les statistiques d\'un concept source importe.
+
+### Structure principale
+
+```json
+{
+  "data_types": "numeric",
+  "numeric_data": { ... },
+  "histogram": [ ... ],
+  "measurement_frequency": { ... },
+  "missing_rate": 5.2,
+  "temporal_distribution": { ... },
+  "hospital_units": [ ... ]
+}
+```
+
+### Type de donnees (`data_types`)
+
+Indique le(s) type(s) de donnees. Peut etre une valeur unique ou un tableau.
+
+```json
+{
+  "data_types": "numeric"
+}
+```
+
+Ou plusieurs types :
+
+```json
+{
+  "data_types": ["numeric", "categorical"]
+}
+```
+
+Valeurs possibles : `"numeric"`, `"categorical"`
+
+### Donnees numeriques (`numeric_data`)
+
+Statistiques descriptives pour les variables numeriques.
+
+```json
+{
+  "numeric_data": {
+    "mean": 120.5,
+    "sd": 15.3,
+    "min": 60,
+    "max": 250,
+    "p5": 95,
+    "p25": 110,
+    "median": 118,
+    "p75": 130,
+    "p95": 150
+  }
+}
+```
+
+| Champ | Description |
+|-------|-------------|
+| `mean` | Moyenne |
+| `sd` | Ecart-type |
+| `min`, `max` | Valeurs extremes |
+| `p5`, `p25`, `median`, `p75`, `p95` | Percentiles |
+
+### Histogramme (`histogram`)
+
+Distribution des valeurs (pour donnees numeriques). Chaque element contient `x` (valeur) et `count` (nombre d\'occurrences).
+
+```json
+{
+  "histogram": [
+    {"x": 60, "count": 150},
+    {"x": 80, "count": 2500},
+    {"x": 100, "count": 5000},
+    {"x": 120, "count": 4200},
+    {"x": 140, "count": 1800},
+    {"x": 160, "count": 600},
+    {"x": 180, "count": 200}
+  ]
+}
+```
+
+### Donnees categorielles (`categorical_data`)
+
+Distribution des categories (pour variables categorielles).
+
+```json
+{
+  "data_types": "categorical",
+  "categorical_data": [
+    {"category": "Normal", "count": 45000, "percentage": 52.3},
+    {"category": "Low", "count": 18500, "percentage": 21.5},
+    {"category": "High", "count": 15200, "percentage": 17.7},
+    {"category": "Critical", "count": 7300, "percentage": 8.5}
+  ]
+}
+```
+
+### Frequence de mesure (`measurement_frequency`)
+
+Intervalle typique entre les mesures.
+
+```json
+{
+  "measurement_frequency": {
+    "typical_interval": "4 hours",
+    "min_interval": "1 hour",
+    "max_interval": "24 hours"
+  }
+}
+```
+
+### Taux de donnees manquantes (`missing_rate`)
+
+Pourcentage de valeurs manquantes.
+
+```json
+{
+  "missing_rate": 5.2
+}
+```
+
+### Distribution temporelle (`temporal_distribution`)
+
+Couverture et repartition des donnees par annee.
+
+```json
+{
+  "temporal_distribution": {
+    "start_date": "2018-01-15",
+    "end_date": "2024-06-30",
+    "by_year": [
+      {"year": 2018, "percentage": 8.5},
+      {"year": 2019, "percentage": 12.3},
+      {"year": 2020, "percentage": 15.1},
+      {"year": 2021, "percentage": 18.7},
+      {"year": 2022, "percentage": 20.4},
+      {"year": 2023, "percentage": 16.8},
+      {"year": 2024, "percentage": 8.2}
+    ]
+  }
+}
+```
+
+### Distribution par service (`hospital_units`)
+
+Repartition des donnees par service hospitalier.
+
+```json
+{
+  "hospital_units": [
+    {"unit": "MICU", "percentage": 22.5},
+    {"unit": "SICU", "percentage": 18.3},
+    {"unit": "CCU", "percentage": 15.7},
+    {"unit": "NICU", "percentage": 12.1},
+    {"unit": "PICU", "percentage": 8.9},
+    {"unit": "Neuro ICU", "percentage": 7.2},
+    {"unit": "Burn ICU", "percentage": 5.4},
+    {"unit": "Cardiac ICU", "percentage": 4.8},
+    {"unit": "Trauma ICU", "percentage": 3.2},
+    {"unit": "Step-down", "percentage": 1.9}
+  ]
+}
+```
+
+### Exemple complet (numerique)
+
+```json
+{
+  "data_types": "numeric",
+  "numeric_data": {
+    "mean": 120.5,
+    "sd": 15.3,
+    "min": 60,
+    "max": 250,
+    "p5": 95,
+    "p25": 110,
+    "median": 118,
+    "p75": 130,
+    "p95": 150
+  },
+  "histogram": [
+    {"x": 60, "count": 150},
+    {"x": 80, "count": 2500},
+    {"x": 100, "count": 5000},
+    {"x": 120, "count": 4200},
+    {"x": 140, "count": 1800}
+  ],
+  "measurement_frequency": {
+    "typical_interval": "4 hours"
+  },
+  "missing_data": {
+    "missing_rate": 5.2
+  },
+  "temporal_distribution": {
+    "start_date": "2018-01-15",
+    "end_date": "2024-06-30",
+    "by_year": [
+      {"year": 2020, "percentage": 25.1},
+      {"year": 2021, "percentage": 28.7},
+      {"year": 2022, "percentage": 30.4},
+      {"year": 2023, "percentage": 15.8}
+    ]
+  },
+  "hospital_units": [
+    {"unit": "MICU", "percentage": 22.5},
+    {"unit": "SICU", "percentage": 18.3},
+    {"unit": "CCU", "percentage": 15.7},
+    {"unit": "NICU", "percentage": 12.1},
+    {"unit": "PICU", "percentage": 8.9},
+    {"unit": "Neuro ICU", "percentage": 7.2},
+    {"unit": "Burn ICU", "percentage": 5.4},
+    {"unit": "Cardiac ICU", "percentage": 4.8},
+    {"unit": "Trauma ICU", "percentage": 3.2},
+    {"unit": "Step-down", "percentage": 1.9}
+  ]
+}
+```
+'
+      } else {
+        tutorial_md <- '
+## JSON Structure Guide
+
+This JSON describes statistics for an imported source concept.
+
+### Main Structure
+
+```json
+{
+  "data_types": "numeric",
+  "numeric_data": { ... },
+  "histogram": [ ... ],
+  "measurement_frequency": { ... },
+  "missing_rate": 5.2,
+  "temporal_distribution": { ... },
+  "hospital_units": [ ... ]
+}
+```
+
+### Data Type (`data_types`)
+
+Indicates the data type(s). Can be a single value or an array.
+
+```json
+{
+  "data_types": "numeric"
+}
+```
+
+Or multiple types:
+
+```json
+{
+  "data_types": ["numeric", "categorical"]
+}
+```
+
+Possible values: `"numeric"`, `"categorical"`
+
+### Numeric Data (`numeric_data`)
+
+Descriptive statistics for numeric variables.
+
+```json
+{
+  "numeric_data": {
+    "mean": 120.5,
+    "sd": 15.3,
+    "min": 60,
+    "max": 250,
+    "p5": 95,
+    "p25": 110,
+    "median": 118,
+    "p75": 130,
+    "p95": 150
+  }
+}
+```
+
+| Field | Description |
+|-------|-------------|
+| `mean` | Mean value |
+| `sd` | Standard deviation |
+| `min`, `max` | Extreme values |
+| `p5`, `p25`, `median`, `p75`, `p95` | Percentiles |
+
+### Histogram (`histogram`)
+
+Value distribution (for numeric data). Each element contains `x` (value) and `count` (number of occurrences).
+
+```json
+{
+  "histogram": [
+    {"x": 60, "count": 150},
+    {"x": 80, "count": 2500},
+    {"x": 100, "count": 5000},
+    {"x": 120, "count": 4200},
+    {"x": 140, "count": 1800},
+    {"x": 160, "count": 600},
+    {"x": 180, "count": 200}
+  ]
+}
+```
+
+### Categorical Data (`categorical_data`)
+
+Category distribution (for categorical variables).
+
+```json
+{
+  "data_types": "categorical",
+  "categorical_data": [
+    {"category": "Normal", "count": 45000, "percentage": 52.3},
+    {"category": "Low", "count": 18500, "percentage": 21.5},
+    {"category": "High", "count": 15200, "percentage": 17.7},
+    {"category": "Critical", "count": 7300, "percentage": 8.5}
+  ]
+}
+```
+
+### Measurement Frequency (`measurement_frequency`)
+
+Typical interval between measurements.
+
+```json
+{
+  "measurement_frequency": {
+    "typical_interval": "4 hours",
+    "min_interval": "1 hour",
+    "max_interval": "24 hours"
+  }
+}
+```
+
+### Missing Rate (`missing_rate`)
+
+Percentage of missing values.
+
+```json
+{
+  "missing_rate": 5.2
+}
+```
+
+### Temporal Distribution (`temporal_distribution`)
+
+Data coverage and distribution by year.
+
+```json
+{
+  "temporal_distribution": {
+    "start_date": "2018-01-15",
+    "end_date": "2024-06-30",
+    "by_year": [
+      {"year": 2018, "percentage": 8.5},
+      {"year": 2019, "percentage": 12.3},
+      {"year": 2020, "percentage": 15.1},
+      {"year": 2021, "percentage": 18.7},
+      {"year": 2022, "percentage": 20.4},
+      {"year": 2023, "percentage": 16.8},
+      {"year": 2024, "percentage": 8.2}
+    ]
+  }
+}
+```
+
+### Hospital Units Distribution (`hospital_units`)
+
+Data distribution by hospital unit/ward.
+
+```json
+{
+  "hospital_units": [
+    {"unit": "MICU", "percentage": 22.5},
+    {"unit": "SICU", "percentage": 18.3},
+    {"unit": "CCU", "percentage": 15.7},
+    {"unit": "NICU", "percentage": 12.1},
+    {"unit": "PICU", "percentage": 8.9},
+    {"unit": "Neuro ICU", "percentage": 7.2},
+    {"unit": "Burn ICU", "percentage": 5.4},
+    {"unit": "Cardiac ICU", "percentage": 4.8},
+    {"unit": "Trauma ICU", "percentage": 3.2},
+    {"unit": "Step-down", "percentage": 1.9}
+  ]
+}
+```
+
+### Complete Example (numeric)
+
+```json
+{
+  "data_types": "numeric",
+  "numeric_data": {
+    "mean": 120.5,
+    "sd": 15.3,
+    "min": 60,
+    "max": 250,
+    "p5": 95,
+    "p25": 110,
+    "median": 118,
+    "p75": 130,
+    "p95": 150
+  },
+  "histogram": [
+    {"x": 60, "count": 150},
+    {"x": 80, "count": 2500},
+    {"x": 100, "count": 5000},
+    {"x": 120, "count": 4200},
+    {"x": 140, "count": 1800}
+  ],
+  "measurement_frequency": {
+    "typical_interval": "4 hours"
+  },
+  "missing_rate": 5.2,
+  "temporal_distribution": {
+    "start_date": "2018-01-15",
+    "end_date": "2024-06-30",
+    "by_year": [
+      {"year": 2020, "percentage": 25.1},
+      {"year": 2021, "percentage": 28.7},
+      {"year": 2022, "percentage": 30.4},
+      {"year": 2023, "percentage": 15.8}
+    ]
+  },
+  "hospital_units": [
+    {"unit": "MICU", "percentage": 22.5},
+    {"unit": "SICU", "percentage": 18.3},
+    {"unit": "CCU", "percentage": 15.7},
+    {"unit": "NICU", "percentage": 12.1},
+    {"unit": "PICU", "percentage": 8.9},
+    {"unit": "Neuro ICU", "percentage": 7.2},
+    {"unit": "Burn ICU", "percentage": 5.4},
+    {"unit": "Cardiac ICU", "percentage": 4.8},
+    {"unit": "Trauma ICU", "percentage": 3.2},
+    {"unit": "Step-down", "percentage": 1.9}
+  ]
+}
+```
+'
+      }
+
+      # Render markdown to HTML
+      tags$div(
+        class = "markdown-content",
+        style = "font-size: 13px; line-height: 1.6;",
+        HTML(markdown::markdownToHTML(
+          text = tutorial_md,
+          fragment.only = TRUE,
+          options = c("fragment_only", "base64_images", "smartypants")
+        ))
+      )
+    }
+
     #### Target Concept Details Panel ----
     # Reactive to store the concept mappings table data (sorted as displayed)
     concept_mappings_table_data <- reactiveVal(NULL)
@@ -4084,7 +4704,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     selected_target_concept_id <- reactiveVal(NULL)
     selected_target_json <- reactiveVal(NULL)
     selected_target_mapping <- reactiveVal(NULL)
-    target_detail_tab <- reactiveVal("comments")  # "comments" or "statistical_summary"
+    target_detail_tab <- reactiveVal("statistical_summary")  # "comments" or "statistical_summary"
     target_stats_sub_tab <- reactiveVal("summary")  # "summary" or "distribution"
     target_selected_profile <- reactiveVal(NULL)  # Selected profile name
 
@@ -4373,6 +4993,90 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           "No comments available for this concept."
         )
       }
+    })
+
+    # Handle view source JSON button (Edit Mappings)
+    observe_event(input$view_source_json, {
+      shinyjs::show("source_json_fullscreen_modal")
+    })
+
+    # Handle close source JSON fullscreen modal
+    observe_event(input$close_source_json_fullscreen, {
+      shinyjs::hide("source_json_fullscreen_modal")
+    })
+
+    # Render source JSON fullscreen content (Edit Mappings)
+    output$source_json_fullscreen_content <- renderUI({
+      json_data <- selected_source_json()
+      if (is.null(json_data)) {
+        return(tags$div(
+          style = "padding: 20px; color: #999; font-style: italic;",
+          "No JSON data available."
+        ))
+      }
+
+      # Pretty print the JSON
+      json_text <- tryCatch({
+        jsonlite::toJSON(json_data, pretty = TRUE, auto_unbox = TRUE)
+      }, error = function(e) {
+        as.character(json_data)
+      })
+
+      tags$pre(
+        style = paste0(
+          "margin: 0; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; ",
+          "font-size: 13px; line-height: 1.5; white-space: pre-wrap; ",
+          "word-wrap: break-word; color: #333;"
+        ),
+        as.character(json_text)
+      )
+    })
+
+    # Render source JSON tutorial (Edit Mappings)
+    output$source_json_tutorial <- renderUI({
+      render_json_tutorial(Sys.getenv("INDICATE_LANGUAGE", "en"))
+    })
+
+    # Handle view eval source JSON button (Evaluate Mappings)
+    observe_event(input$view_eval_source_json, {
+      shinyjs::show("eval_source_json_fullscreen_modal")
+    })
+
+    # Handle close eval source JSON fullscreen modal
+    observe_event(input$close_eval_source_json_fullscreen, {
+      shinyjs::hide("eval_source_json_fullscreen_modal")
+    })
+
+    # Render eval source JSON fullscreen content (Evaluate Mappings)
+    output$eval_source_json_fullscreen_content <- renderUI({
+      json_data <- eval_source_json()
+      if (is.null(json_data)) {
+        return(tags$div(
+          style = "padding: 20px; color: #999; font-style: italic;",
+          "No JSON data available."
+        ))
+      }
+
+      # Pretty print the JSON
+      json_text <- tryCatch({
+        jsonlite::toJSON(json_data, pretty = TRUE, auto_unbox = TRUE)
+      }, error = function(e) {
+        as.character(json_data)
+      })
+
+      tags$pre(
+        style = paste0(
+          "margin: 0; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; ",
+          "font-size: 13px; line-height: 1.5; white-space: pre-wrap; ",
+          "word-wrap: break-word; color: #333;"
+        ),
+        as.character(json_text)
+      )
+    })
+
+    # Render eval source JSON tutorial (Evaluate Mappings)
+    output$eval_source_json_tutorial <- renderUI({
+      render_json_tutorial(Sys.getenv("INDICATE_LANGUAGE", "en"))
     })
 
     # Target summary render - uses shared render_stats_summary_panel from fct_statistics_display.R
@@ -5468,10 +6172,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             if (has_profiles && length(profile_names) > 1) {
               tags$div(
                 style = "display: flex; align-items: center; gap: 8px;",
-                tags$span(style = "font-size: 12px; color: #666;", paste0(i18n$t("profile"), " :")),
+                tags$span(style = "font-size: 11px; color: #666;", paste0(i18n$t("profile"), " :")),
                 tags$select(
                   id = ns("eval_target_profile_select"),
-                  style = "font-size: 12px; padding: 4px 8px; border-radius: 4px; border: 1px solid #ccc;",
+                  style = "font-size: 11px; padding: 2px 6px; border: 1px solid #ccc; border-radius: 4px;",
                   onchange = sprintf("Shiny.setInputValue('%s', this.value, {priority: 'event'})", ns("eval_target_profile_selected")),
                   lapply(profile_names, function(p) {
                     if (p == selected_profile) {
