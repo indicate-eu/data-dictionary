@@ -352,3 +352,5 @@ import_deleted_successfully,Import deleted successfully
 import_failed,Import failed:
 delete_failed,Delete failed:
 no_mapping_file_found,No mapping file found for this alignment
+other,Other
+no_additional_columns,No additional columns available for this concept.

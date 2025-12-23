@@ -1845,6 +1845,16 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                         Shiny.setInputValue('%s', 'units', {priority: 'event'});
                       ", ns("concept_details_panel"), ns("detail_tab_selected")),
                       i18n$t("hospital_units")
+                    ),
+                    tags$button(
+                      id = ns("detail_tab_other"),
+                      class = "tab-btn",
+                      onclick = sprintf("
+                        document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                        this.classList.add('tab-btn-active');
+                        Shiny.setInputValue('%s', 'other', {priority: 'event'});
+                      ", ns("concept_details_panel"), ns("detail_tab_selected")),
+                      i18n$t("other")
                     )
                   ),
                   # Content area for selected tab
@@ -2072,6 +2082,16 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                       Shiny.setInputValue('%s', 'units', {priority: 'event'});
                     ", ns("eval_source_concept_details_panel"), ns("eval_source_tab_selected")),
                     i18n$t("hospital_units")
+                  ),
+                  tags$button(
+                    id = ns("eval_source_tab_other"),
+                    class = "tab-btn",
+                    onclick = sprintf("
+                      document.querySelectorAll('#%s .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                      this.classList.add('tab-btn-active');
+                      Shiny.setInputValue('%s', 'other', {priority: 'event'});
+                    ", ns("eval_source_concept_details_panel"), ns("eval_source_tab_selected")),
+                    i18n$t("other")
                   )
                 ),
                 # Content area for selected tab
@@ -3874,6 +3894,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         render_json_temporal(json_data)
       } else if (tab == "units") {
         render_json_units(json_data)
+      } else if (tab == "other") {
+        render_source_other_columns(row_data, json_data)
       } else {
         tags$div("Unknown tab")
       }
@@ -4288,6 +4310,103 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       tags$div(
         style = "color: #999; font-style: italic;",
         "No unit distribution data available."
+      )
+    }
+
+    # Helper function to render additional columns from source concept
+    render_source_other_columns <- function(row_data, json_data = NULL) {
+      # Standard columns that are not displayed in the "Other" tab
+      standard_cols <- c(
+        "mapping_id", "vocabulary_id", "concept_code", "concept_name", "json"
+      )
+
+      # Standard JSON fields that are displayed in other tabs
+      standard_json_fields <- c(
+        "data_types", "numeric_data", "histogram", "categorical_data",
+        "measurement_frequency", "missing_rate", "temporal_distribution",
+        "hospital_units", "unit"
+      )
+
+      if (is.null(row_data)) {
+        return(tags$div(
+          style = "color: #999; font-style: italic;",
+          i18n$t("no_data_available")
+        ))
+      }
+
+      items <- list()
+
+      # Get additional columns from row_data
+      all_cols <- colnames(row_data)
+      additional_cols <- setdiff(all_cols, standard_cols)
+
+      # Build display items for each additional column
+      for (col in additional_cols) {
+        value <- row_data[[col]]
+        if (is.null(value) || is.na(value) || value == "") {
+          display_value <- "/"
+        } else {
+          display_value <- as.character(value)
+        }
+
+        items <- c(items, list(tags$div(
+          class = "detail-item",
+          style = "margin-bottom: 8px; display: flex; gap: 8px;",
+          tags$span(
+            style = "font-weight: 600; color: #666; min-width: 120px;",
+            paste0(col, ":")
+          ),
+          tags$span(
+            class = "detail-value",
+            style = "word-break: break-word;",
+            display_value
+          )
+        )))
+      }
+
+      # Get additional fields from JSON
+      if (!is.null(json_data) && is.list(json_data)) {
+        json_fields <- names(json_data)
+        additional_json_fields <- setdiff(json_fields, standard_json_fields)
+
+        for (field in additional_json_fields) {
+          value <- json_data[[field]]
+          if (is.null(value) || (is.atomic(value) && is.na(value))) {
+            display_value <- "/"
+          } else if (is.list(value) || is.vector(value) && length(value) > 1) {
+            display_value <- tryCatch({
+              jsonlite::toJSON(value, auto_unbox = TRUE)
+            }, error = function(e) as.character(value))
+          } else {
+            display_value <- as.character(value)
+          }
+
+          items <- c(items, list(tags$div(
+            class = "detail-item",
+            style = "margin-bottom: 8px; display: flex; gap: 8px;",
+            tags$span(
+              style = "font-weight: 600; color: #666; min-width: 120px;",
+              paste0(field, " (JSON):")
+            ),
+            tags$span(
+              class = "detail-value",
+              style = "word-break: break-word;",
+              display_value
+            )
+          )))
+        }
+      }
+
+      if (length(items) == 0) {
+        return(tags$div(
+          style = "color: #999; font-style: italic;",
+          i18n$t("no_additional_columns")
+        ))
+      }
+
+      tags$div(
+        style = "padding: 5px 0;",
+        items
       )
     }
 
@@ -5078,7 +5197,7 @@ Data distribution by hospital unit/ward.
       tags$pre(
         style = paste0(
           "margin: 0; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; ",
-          "font-size: 13px; line-height: 1.5; white-space: pre-wrap; ",
+          "font-size: 11px; line-height: 1.5; white-space: pre-wrap; ",
           "word-wrap: break-word; color: #333;"
         ),
         as.character(json_text)
@@ -5120,7 +5239,7 @@ Data distribution by hospital unit/ward.
       tags$pre(
         style = paste0(
           "margin: 0; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; ",
-          "font-size: 13px; line-height: 1.5; white-space: pre-wrap; ",
+          "font-size: 11px; line-height: 1.5; white-space: pre-wrap; ",
           "word-wrap: break-word; color: #333;"
         ),
         as.character(json_text)
@@ -6149,6 +6268,8 @@ Data distribution by hospital unit/ward.
         render_json_temporal(json_data)
       } else if (tab == "units") {
         render_json_units(json_data)
+      } else if (tab == "other") {
+        render_source_other_columns(row_data, json_data)
       } else {
         tags$div("Unknown tab")
       }

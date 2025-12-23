@@ -352,3 +352,5 @@ import_deleted_successfully,Import supprimé avec succès
 import_failed,Échec de l'import :
 delete_failed,Échec de la suppression :
 no_mapping_file_found,Aucun fichier de mapping trouvé pour cet alignement
+other,Autres
+no_additional_columns,Aucune colonne supplémentaire disponible pour ce concept.
