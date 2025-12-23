@@ -4888,8 +4888,20 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                     histogram_plot <- NULL
                     if (!is.null(summary_data$histogram) && length(summary_data$histogram) > 0) {
                       hist_df <- as.data.frame(summary_data$histogram)
-                      if (nrow(hist_df) > 0 && "bin_start" %in% colnames(hist_df) && "count" %in% colnames(hist_df)) {
-                        hist_df$bin_mid <- (hist_df$bin_start + hist_df$bin_end) / 2
+                      # Support both formats: new "x" format and legacy "bin_start/bin_end" format
+                      if (nrow(hist_df) > 0 && "count" %in% colnames(hist_df)) {
+                        if ("x" %in% colnames(hist_df)) {
+                          hist_df$bin_mid <- hist_df$x
+                        } else if ("bin_start" %in% colnames(hist_df) && "bin_end" %in% colnames(hist_df)) {
+                          hist_df$bin_mid <- (hist_df$bin_start + hist_df$bin_end) / 2
+                        } else {
+                          hist_df <- NULL
+                        }
+                      } else {
+                        hist_df <- NULL
+                      }
+
+                      if (!is.null(hist_df) && nrow(hist_df) > 0) {
                         total_count <- sum(hist_df$count, na.rm = TRUE)
                         hist_df$percentage <- if (total_count > 0) hist_df$count / total_count * 100 else 0
 

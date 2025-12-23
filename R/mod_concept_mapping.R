@@ -1627,7 +1627,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         # Edit Mappings panel
         tags$div(
           id = ns("panel_edit_mappings"),
-          style = "display: none; height: calc(100% - 10px); min-height: 0; margin: 0 10px 10px 10px;",
+          style = "display: none; height: calc(100% - 60px); min-height: 0; margin: 0 10px 10px 10px;",
           tags$div(
             style = "height: 100%; display: flex; gap: 15px; min-height: 0;",
             # Left column: Source Concepts (top) + Concept Details (bottom)
@@ -3876,8 +3876,20 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           histogram_plot <- NULL
           if (!is.null(json_data$histogram) && length(json_data$histogram) > 0) {
             hist_df <- as.data.frame(json_data$histogram)
-            if (nrow(hist_df) > 0 && "bin_start" %in% colnames(hist_df) && "count" %in% colnames(hist_df)) {
-              hist_df$bin_mid <- (hist_df$bin_start + hist_df$bin_end) / 2
+            # Support both formats: new "x" format and legacy "bin_start/bin_end" format
+            if (nrow(hist_df) > 0 && "count" %in% colnames(hist_df)) {
+              if ("x" %in% colnames(hist_df)) {
+                hist_df$bin_mid <- hist_df$x
+              } else if ("bin_start" %in% colnames(hist_df) && "bin_end" %in% colnames(hist_df)) {
+                hist_df$bin_mid <- (hist_df$bin_start + hist_df$bin_end) / 2
+              } else {
+                hist_df <- NULL
+              }
+            } else {
+              hist_df <- NULL
+            }
+
+            if (!is.null(hist_df) && nrow(hist_df) > 0) {
               # Calculate percentages
               total_count <- sum(hist_df$count, na.rm = TRUE)
               hist_df$percentage <- if (total_count > 0) hist_df$count / total_count * 100 else 0
@@ -4170,8 +4182,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
     })
 
-    # Helper function to render target comments
-    render_target_comments <- function(concept_id) {
+    # Helper function to render comments with fullscreen button
+    # Factorized for use in both Edit Mappings and Evaluate Mappings tabs
+    render_comments_panel <- function(concept_id, expand_button_id) {
       if (is.null(data())) return(tags$div(style = "color: #999;", "No data available."))
 
       concept_info <- data()$general_concepts %>%
@@ -4184,7 +4197,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           tags$div(
             style = "position: sticky; top: -1px; left: -1px; z-index: 100; height: 0;",
             actionButton(
-              session$ns("expand_target_comments"),
+              session$ns(expand_button_id),
               label = NULL,
               icon = icon("expand"),
               class = "btn-icon-only comments-expand-btn",
@@ -4204,6 +4217,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           "No comments available for this concept."
         )
       }
+    }
+
+    # Wrapper for Edit Mappings tab
+    render_target_comments <- function(concept_id) {
+      render_comments_panel(concept_id, "expand_target_comments")
     }
 
     # Handle expand comments button for target
@@ -4277,15 +4295,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     })
 
     # Target summary render (orange theme)
-    render_target_summary <- function(json_data, concept_id) {
+    # Factorized summary panel renderer
+    render_summary_panel <- function(json_data, concept_id, mapping_data, source_row, source_json) {
       left_items <- list()
       right_items <- list()
 
-      # Get unit from selected mapping's omop_unit_concept_id via DuckDB
-      mapping_data <- selected_target_mapping()
-      source_row <- selected_source_row()
       vocab_data <- vocabularies()
-
       target_unit_name <- NULL
       source_unit_name <- NULL
 
@@ -4328,8 +4343,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         ))
       }
 
-      # Get source data for comparison
-      source_json <- selected_source_json()
       has_source <- !is.null(source_json)
 
       if (!is.null(json_data$missing_rate)) {
@@ -4410,10 +4423,33 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       )
     }
 
-    # Target distribution render (orange theme with source comparison)
-    render_target_distribution <- function(json_data) {
-      source_json <- selected_source_json()
+    # Wrapper for Edit Mappings tab
+    render_target_summary <- function(json_data, concept_id) {
+      render_summary_panel(json_data, concept_id, selected_target_mapping(), selected_source_row(), selected_source_json())
+    }
 
+    # Factorized helper function for parsing histogram data (supports both x and bin_start/bin_end formats)
+    parse_histogram_data <- function(histogram_list) {
+      if (is.null(histogram_list) || length(histogram_list) == 0) return(NULL)
+      hist_df <- as.data.frame(histogram_list)
+      if (nrow(hist_df) == 0 || !"count" %in% colnames(hist_df)) return(NULL)
+
+      if ("x" %in% colnames(hist_df)) {
+        hist_df$bin_mid <- hist_df$x
+      } else if ("bin_start" %in% colnames(hist_df) && "bin_end" %in% colnames(hist_df)) {
+        hist_df$bin_mid <- (hist_df$bin_start + hist_df$bin_end) / 2
+      } else {
+        return(NULL)
+      }
+
+      total_count <- sum(hist_df$count, na.rm = TRUE)
+      hist_df$percentage <- if (total_count > 0) hist_df$count / total_count * 100 else 0
+      hist_df
+    }
+
+    # Factorized target distribution render (orange theme with optional source comparison)
+    # source_json parameter allows using either selected_source_json() or eval_source_json()
+    render_distribution_panel <- function(json_data, source_json = NULL) {
       # Check if source has valid numeric data with required fields
       has_source <- !is.null(source_json) &&
                     !is.null(source_json$numeric_data) &&
@@ -4498,21 +4534,13 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
           # Histogram comparison using step/area lines instead of overlapping bars
           histogram_plot <- NULL
-          if (!is.null(json_data$histogram) && length(json_data$histogram) > 0) {
-            hist_df <- as.data.frame(json_data$histogram)
-            if (nrow(hist_df) > 0 && "bin_start" %in% colnames(hist_df) && "count" %in% colnames(hist_df)) {
-              hist_df$bin_mid <- (hist_df$bin_start + hist_df$bin_end) / 2
-              total_count <- sum(hist_df$count, na.rm = TRUE)
-              hist_df$percentage <- if (total_count > 0) hist_df$count / total_count * 100 else 0
+          hist_df <- parse_histogram_data(json_data$histogram)
+          if (!is.null(hist_df)) {
               hist_df$source <- "Target"
 
               # If source data available, create comparison with lines
-              if (has_source && !is.null(source_json$histogram) && length(source_json$histogram) > 0) {
-                source_hist <- as.data.frame(source_json$histogram)
-                if (nrow(source_hist) > 0 && "bin_start" %in% colnames(source_hist)) {
-                  source_hist$bin_mid <- (source_hist$bin_start + source_hist$bin_end) / 2
-                  source_total <- sum(source_hist$count, na.rm = TRUE)
-                  source_hist$percentage <- if (source_total > 0) source_hist$count / source_total * 100 else 0
+              source_hist <- if (has_source) parse_histogram_data(source_json$histogram) else NULL
+              if (!is.null(source_hist)) {
                   source_hist$source <- "Source"
 
                   # Combine both
@@ -4539,7 +4567,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                     )
 
                   histogram_plot <- renderPlot({ p_hist }, height = 140, width = "auto")
-                }
               }
 
               if (is.null(histogram_plot)) {
@@ -4560,7 +4587,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
                 histogram_plot <- renderPlot({ p_hist }, height = 120, width = "auto")
               }
-            }
           }
 
           boxplot_height <- if (has_source) 100 else 80
@@ -4620,6 +4646,16 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         style = "color: #999; font-style: italic;",
         "No distribution data available."
       )
+    }
+
+    # Wrapper for Edit Mappings tab (uses selected_source_json)
+    render_target_distribution <- function(json_data) {
+      render_distribution_panel(json_data, selected_source_json())
+    }
+
+    # Wrapper for Evaluate Mappings tab (uses eval_source_json)
+    render_eval_target_distribution <- function(json_data) {
+      render_distribution_panel(json_data, eval_source_json())
     }
 
     #### Modal - Concept Details ----
@@ -5050,11 +5086,13 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           )
 
       # Render table with prepared data
+      # Using selection = "none" to handle row selection manually via JavaScript
+      # This prevents action button clicks from affecting row selection
       output$evaluate_mappings_table <- DT::renderDT({
         dt <- DT::datatable(
           display_data,
           rownames = FALSE,
-          selection = list(mode = "single", target = "row"),
+          selection = "none",
           escape = FALSE,
           filter = "top",
           options = list(
@@ -5363,10 +5401,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     }, ignoreInit = TRUE)
 
     #### Handle Evaluate Mappings Row Selection ----
-    observe_event(input$evaluate_mappings_table_rows_selected, {
+    # Using manual row selection input from JavaScript (selection = "none" in datatable)
+    observe_event(input$evaluate_mappings_table_row_selected, {
       if (mapping_tab() != "evaluate_mappings") return()
 
-      row_selected <- input$evaluate_mappings_table_rows_selected
+      row_selected <- input$evaluate_mappings_table_row_selected
 
       if (is.null(row_selected) || length(row_selected) == 0) {
         shinyjs::hide("eval_details_container")
@@ -5566,205 +5605,22 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       } else if (tab == "summary") {
         render_eval_target_summary(json_data, concept_id)
       } else if (tab == "distribution") {
-        render_target_distribution(json_data)
+        render_eval_target_distribution(json_data)
       } else {
         tags$div("Unknown tab")
       }
     })
 
     #### Render Evaluate Target Comments ----
+    # Uses factorized render_comments_panel function
     render_eval_target_comments <- function(concept_id) {
-      if (is.null(data())) return(tags$div(style = "color: #999;", "No data available."))
-
-      concept_info <- data()$general_concepts %>%
-        dplyr::filter(general_concept_id == concept_id)
-
-      if (nrow(concept_info) > 0 && !is.na(concept_info$comments[1]) && nchar(concept_info$comments[1]) > 0) {
-        tags$div(
-          style = "height: 100%; display: flex; flex-direction: column;",
-          # Header with fullscreen button
-          tags$div(
-            style = "display: flex; justify-content: flex-end; margin-bottom: 5px;",
-            actionButton(
-              ns("expand_eval_comments"),
-              label = NULL,
-              icon = icon("expand"),
-              class = "btn-sm",
-              style = "padding: 2px 6px; font-size: 12px; background: transparent; border: 1px solid #0f60af; color: #0f60af;",
-              title = "View fullscreen"
-            )
-          ),
-          # Comments content
-          tags$div(
-            class = "comments-container",
-            style = "background: #e6f3ff; border: 1px solid #0f60af; border-radius: 6px; flex: 1; overflow-y: auto; box-sizing: border-box;",
-            tags$div(
-              class = "markdown-content",
-              style = "padding: 10px;",
-              shiny::markdown(concept_info$comments[1])
-            )
-          )
-        )
-      } else {
-        tags$div(
-          style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic; height: 100%; overflow-y: auto; box-sizing: border-box;",
-          "No comments available for this concept."
-        )
-      }
+      render_comments_panel(concept_id, "expand_eval_comments")
     }
 
     #### Render Evaluate Target Summary ----
+    # Wrapper for Evaluate Mappings tab
     render_eval_target_summary <- function(json_data, concept_id) {
-      left_items <- list()
-      right_items <- list()
-
-      # Get unit from selected mapping's omop_unit_concept_id via DuckDB
-      mapping_data <- eval_target_mapping()
-      source_row <- eval_source_row()
-      vocab_data <- vocabularies()
-
-      target_unit_name <- NULL
-      source_unit_name <- NULL
-
-      # Get target unit name
-      if (!is.null(mapping_data) && "omop_unit_concept_id" %in% names(mapping_data)) {
-        unit_concept_id <- mapping_data$omop_unit_concept_id
-        if (!is.null(unit_concept_id) && !is.na(unit_concept_id) && unit_concept_id != "" && unit_concept_id != "/") {
-          if (!is.null(vocab_data) && !is.null(vocab_data$concept)) {
-            unit_info <- vocab_data$concept %>%
-              dplyr::filter(concept_id == as.integer(unit_concept_id)) %>%
-              head(1) %>%
-              dplyr::collect()
-            if (nrow(unit_info) > 0 && !is.null(unit_info$concept_name)) {
-              target_unit_name <- unit_info$concept_name
-            }
-          }
-        }
-      }
-
-      # Get source unit name for comparison
-      if (!is.null(source_row) && "unit" %in% names(source_row)) {
-        source_unit <- source_row$unit
-        if (!is.null(source_unit) && !is.na(source_unit) && source_unit != "" && source_unit != "/") {
-          source_unit_name <- source_unit
-        }
-      }
-
-      # Display unit with comparison
-      if (!is.null(target_unit_name)) {
-        left_items <- c(left_items, list(
-          tags$div(
-            class = "detail-item",
-            style = "margin-bottom: 6px;",
-            tags$span(style = "font-weight: 600; color: #666;", "Unit:"),
-            tags$span(style = "color: #fd7e14; font-weight: 600;", target_unit_name),
-            if (!is.null(source_unit_name)) {
-              tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", source_unit_name, ")"))
-            }
-          )
-        ))
-      }
-
-      # Get source data for comparison
-      source_json <- eval_source_json()
-      has_source <- !is.null(source_json)
-
-      if (!is.null(json_data$missing_rate)) {
-        source_missing <- if (has_source && !is.null(source_json$missing_rate)) source_json$missing_rate else NULL
-        left_items <- c(left_items, list(
-          tags$div(
-            class = "detail-item",
-            style = "margin-bottom: 6px;",
-            tags$span(style = "font-weight: 600; color: #666;", "Missing:"),
-            tags$span(style = "color: #fd7e14; font-weight: 600;", paste0(json_data$missing_rate, "%")),
-            if (!is.null(source_missing)) {
-              tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", source_missing, "%)"))
-            }
-          )
-        ))
-      }
-
-      # Numeric data summary
-      if (!is.null(json_data$numeric_data)) {
-        nd <- json_data$numeric_data
-
-        # Min value
-        if (!is.null(nd$min)) {
-          source_min <- if (has_source && !is.null(source_json$numeric_data$min)) source_json$numeric_data$min else NULL
-          right_items <- c(right_items, list(
-            tags$div(
-              class = "detail-item",
-              style = "margin-bottom: 6px;",
-              tags$span(style = "font-weight: 600; color: #666;", "Min:"),
-              tags$span(style = "color: #fd7e14; font-weight: 600;", format(nd$min, big.mark = " ")),
-              if (!is.null(source_min)) {
-                tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", format(source_min, big.mark = " "), ")"))
-              }
-            )
-          ))
-        }
-
-        # Max value
-        if (!is.null(nd$max)) {
-          source_max <- if (has_source && !is.null(source_json$numeric_data$max)) source_json$numeric_data$max else NULL
-          right_items <- c(right_items, list(
-            tags$div(
-              class = "detail-item",
-              style = "margin-bottom: 6px;",
-              tags$span(style = "font-weight: 600; color: #666;", "Max:"),
-              tags$span(style = "color: #fd7e14; font-weight: 600;", format(nd$max, big.mark = " ")),
-              if (!is.null(source_max)) {
-                tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", format(source_max, big.mark = " "), ")"))
-              }
-            )
-          ))
-        }
-
-        # Mean value
-        if (!is.null(nd$mean)) {
-          source_mean <- if (has_source && !is.null(source_json$numeric_data$mean)) source_json$numeric_data$mean else NULL
-          right_items <- c(right_items, list(
-            tags$div(
-              class = "detail-item",
-              style = "margin-bottom: 6px;",
-              tags$span(style = "font-weight: 600; color: #666;", "Mean:"),
-              tags$span(style = "color: #fd7e14; font-weight: 600;", format(round(nd$mean, 2), big.mark = " ")),
-              if (!is.null(source_mean)) {
-                tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", format(round(source_mean, 2), big.mark = " "), ")"))
-              }
-            )
-          ))
-        }
-
-        # Median value
-        if (!is.null(nd$median)) {
-          source_median <- if (has_source && !is.null(source_json$numeric_data$median)) source_json$numeric_data$median else NULL
-          right_items <- c(right_items, list(
-            tags$div(
-              class = "detail-item",
-              style = "margin-bottom: 6px;",
-              tags$span(style = "font-weight: 600; color: #666;", "Median:"),
-              tags$span(style = "color: #fd7e14; font-weight: 600;", format(round(nd$median, 2), big.mark = " ")),
-              if (!is.null(source_median)) {
-                tags$span(style = "color: #0f60af; margin-left: 5px;", paste0("(", format(round(source_median, 2), big.mark = " "), ")"))
-              }
-            )
-          ))
-        }
-      }
-
-      # Create two-column layout
-      tags$div(
-        style = "display: flex; gap: 20px;",
-        tags$div(
-          style = "flex: 1;",
-          left_items
-        ),
-        tags$div(
-          style = "flex: 1;",
-          right_items
-        )
-      )
+      render_summary_panel(json_data, concept_id, eval_target_mapping(), eval_source_row(), eval_source_json())
     }
 
     ### c) Import Mappings Tab ----
