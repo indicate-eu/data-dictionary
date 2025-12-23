@@ -572,6 +572,24 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
               file.copy(f, dest_path, overwrite = TRUE)
             }
           }
+
+          # Migrate csv_file_path from absolute paths to filenames only
+          # This ensures portability between different environments
+          mappings_data <- DBI::dbGetQuery(con, "SELECT DISTINCT csv_file_path FROM concept_mappings WHERE csv_file_path IS NOT NULL")
+          if (nrow(mappings_data) > 0) {
+            for (old_path in mappings_data$csv_file_path) {
+              if (!is.na(old_path) && old_path != "") {
+                filename <- basename(old_path)
+                if (filename != old_path) {
+                  DBI::dbExecute(
+                    con,
+                    "UPDATE concept_mappings SET csv_file_path = ? WHERE csv_file_path = ?",
+                    params = list(filename, old_path)
+                  )
+                }
+              }
+            }
+          }
         }
 
         # 3) Dictionary (data_dictionary folder, also check for legacy csv folder)

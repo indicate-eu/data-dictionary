@@ -2653,9 +2653,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
 
       # Try to read source CSV for concept names (optional)
-      csv_path <- mappings_db$csv_file_path[1]
+      csv_filename <- mappings_db$csv_file_path[1]
+      csv_path <- file.path(get_app_dir("concept_mapping"), csv_filename)
       source_df <- NULL
-      if (file.exists(csv_path)) {
+      if (!is.na(csv_filename) && file.exists(csv_path)) {
         source_df <- read.csv(csv_path, stringsAsFactors = FALSE)
       }
 
@@ -2902,9 +2903,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
 
       # Try to read source CSV for concept names (optional)
-      csv_path <- mappings_db$csv_file_path[1]
+      csv_filename <- mappings_db$csv_file_path[1]
+      csv_path <- file.path(get_app_dir("concept_mapping"), csv_filename)
       source_df <- NULL
-      if (file.exists(csv_path)) {
+      if (!is.na(csv_filename) && file.exists(csv_path)) {
         source_df <- read.csv(csv_path, stringsAsFactors = FALSE)
       }
 
@@ -3082,10 +3084,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       delete_concept_mapping(mapping_id_to_delete)
 
       # Update CSV file to remove the mapping
-      csv_path <- mapping_to_delete$csv_file_path[1]
+      csv_filename <- mapping_to_delete$csv_file_path[1]
+      csv_path <- file.path(get_app_dir("concept_mapping"), csv_filename)
       csv_mapping_id <- mapping_to_delete$csv_mapping_id[1]
 
-      if (!is.na(csv_path) && !is.na(csv_mapping_id) && file.exists(csv_path)) {
+      if (!is.na(csv_filename) && !is.na(csv_mapping_id) && file.exists(csv_path)) {
         df <- read.csv(csv_path, stringsAsFactors = FALSE)
 
         # Find the row with this mapping_id
@@ -5382,9 +5385,9 @@ Data distribution by hospital unit/ward.
       file_id <- alignment$file_id[1]
       
       mapping_dir <- get_app_dir("concept_mapping")
-      
-      csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
-      
+      csv_filename <- paste0(file_id, ".csv")
+      csv_path <- file.path(mapping_dir, csv_filename)
+
       if (!file.exists(csv_path)) return()
       
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
@@ -5495,7 +5498,7 @@ Data distribution by hospital unit/ward.
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         params = list(
           selected_alignment_id(),
-          csv_path,
+          csv_filename,
           csv_mapping_id,
           source_row,
           target_general_concept_id,
@@ -5622,9 +5625,10 @@ Data distribution by hospital unit/ward.
         }
 
         # Read CSV to get source concept names (if file exists)
-        csv_path <- mappings_db$csv_file_path[1]
+        csv_filename <- mappings_db$csv_file_path[1]
+        csv_path <- file.path(get_app_dir("concept_mapping"), csv_filename)
         df <- NULL
-        if (file.exists(csv_path)) {
+        if (!is.na(csv_filename) && file.exists(csv_path)) {
           df <- read.csv(csv_path, stringsAsFactors = FALSE)
         }
 
@@ -5872,9 +5876,10 @@ Data distribution by hospital unit/ward.
       if (nrow(mappings_db) == 0) return()
 
       # Read CSV to get source concept names (if file exists)
-      csv_path <- mappings_db$csv_file_path[1]
+      csv_filename <- mappings_db$csv_file_path[1]
+      csv_path <- file.path(get_app_dir("concept_mapping"), csv_filename)
       df <- NULL
-      if (file.exists(csv_path)) {
+      if (!is.na(csv_filename) && file.exists(csv_path)) {
         df <- read.csv(csv_path, stringsAsFactors = FALSE)
       }
 
@@ -6136,10 +6141,11 @@ Data distribution by hospital unit/ward.
       eval_selected_row_data(selected_mapping)
 
       # Load source concept JSON data
-      csv_path <- selected_mapping$csv_file_path
+      csv_filename <- selected_mapping$csv_file_path
+      csv_path <- file.path(get_app_dir("concept_mapping"), csv_filename)
       csv_mapping_id <- selected_mapping$csv_mapping_id
 
-      if (!is.null(csv_path) && file.exists(csv_path)) {
+      if (!is.na(csv_filename) && file.exists(csv_path)) {
         df <- read.csv(csv_path, stringsAsFactors = FALSE)
 
         if (csv_mapping_id <= nrow(df)) {
@@ -6849,7 +6855,8 @@ Data distribution by hospital unit/ward.
       }
 
       file_id <- alignment_info$file_id[1]
-      csv_file_path <- file.path(get_app_dir(), "uploads", paste0(file_id, ".csv"))
+      csv_filename <- paste0(file_id, ".csv")
+      csv_file_path <- file.path(get_app_dir("concept_mapping"), csv_filename)
 
       # Check if alignment source file exists - if not, we'll work without it
       has_source_file <- file.exists(csv_file_path)
@@ -6916,7 +6923,7 @@ Data distribution by hospital unit/ward.
             "SELECT mapping_id FROM concept_mappings
              WHERE alignment_id = ? AND csv_file_path = ? AND source_concept_index = ?
                AND target_omop_concept_id = ?",
-            params = list(alignment_id, csv_file_path, source_concept_index, target_concept_id)
+            params = list(alignment_id, csv_filename, source_concept_index, target_concept_id)
           )
 
           if (nrow(existing_exact) > 0) {
@@ -6929,7 +6936,7 @@ Data distribution by hospital unit/ward.
           max_id <- DBI::dbGetQuery(
             con,
             "SELECT COALESCE(MAX(csv_mapping_id), 0) as max_id FROM concept_mappings WHERE csv_file_path = ?",
-            params = list(csv_file_path)
+            params = list(csv_filename)
           )$max_id[1]
 
           # Insert new mapping (allows multiple mappings per source)
@@ -6938,7 +6945,7 @@ Data distribution by hospital unit/ward.
             "INSERT INTO concept_mappings (alignment_id, csv_file_path, csv_mapping_id, source_concept_index,
                                            target_omop_concept_id, imported_mapping_id, mapping_datetime)
              VALUES (?, ?, ?, ?, ?, ?, ?)",
-            params = list(alignment_id, csv_file_path, max_id + 1, source_concept_index, target_concept_id, import_id, timestamp)
+            params = list(alignment_id, csv_filename, max_id + 1, source_concept_index, target_concept_id, import_id, timestamp)
           )
 
           imported_count <- imported_count + 1
