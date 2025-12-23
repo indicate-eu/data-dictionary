@@ -27,7 +27,7 @@ html, body {
 /* Section titles
 -------------------------------------------------- */
 .section-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   color: #0f60af;
 }
@@ -291,7 +291,7 @@ a:hover {
 /* Breadcrumb link specific styling */
 .breadcrumb-link {
   color: #0f60af !important;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
@@ -433,7 +433,7 @@ a:hover {
 -------------------------------------------------- */
 h3, h4 {
   color: #0f60af;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   margin-top: 5px;
   margin-bottom: 10px;
@@ -626,7 +626,6 @@ hr {
 .section-header {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
   flex-shrink: 0;
   height: 40px;
 }
@@ -652,7 +651,7 @@ hr {
   flex-direction: column;
   background: white;
   border-radius: 8px;
-  padding: 15px;
+  padding: 5px 15px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
@@ -734,12 +733,12 @@ hr {
 }
 
 .comments-container {
-  background-color: #e6f3ff;
-  border: 1px solid #0f60af;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
   border-radius: 6px;
   margin-top: 10px;
   position: relative;
-  font-size: 14px;
+  font-size: 12px;
   overflow-y: auto !important;
   flex: 1;
   min-height: 0;
@@ -2264,83 +2263,86 @@ a.btn-success-custom:hover {
 /* Markdown content styling
 -------------------------------------------------- */
 .markdown-content h1 {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 600;
-  color: #dc3545;
-  margin: 16px 0 12px 0;
-  line-height: 1.4;
+  color: #0a4a8a;
+  margin: 12px 0 8px 0;
+  line-height: 1.3;
 }
 
 .markdown-content h2 {
-  font-size: 16px;
-  font-weight: 600;
-  color: #fd7e14;
-  margin: 14px 0 10px 0;
-  line-height: 1.4;
-}
-
-.markdown-content h3 {
-  font-size: 15px;
-  font-weight: 600;
-  color: #28a745;
-  margin: 12px 0 8px 0;
-  line-height: 1.4;
-}
-
-.markdown-content h4 {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: #0f60af;
   margin: 10px 0 6px 0;
-  line-height: 1.4;
+  line-height: 1.3;
+}
+
+.markdown-content h3 {
+  font-size: 12px;
+  font-weight: 600;
+  color: #2980b9;
+  margin: 8px 0 5px 0;
+  line-height: 1.3;
+}
+
+.markdown-content h4 {
+  font-size: 11px;
+  font-weight: 600;
+  color: #3498db;
+  margin: 6px 0 4px 0;
+  line-height: 1.3;
 }
 
 .markdown-content h5 {
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 600;
-  color: #6f42c1;
-  margin: 8px 0 6px 0;
-  line-height: 1.4;
+  color: #5dade2;
+  margin: 5px 0 3px 0;
+  line-height: 1.3;
 }
 
 .markdown-content h6 {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 600;
-  color: #6c757d;
-  margin: 8px 0 6px 0;
-  line-height: 1.4;
+  color: #85c1e9;
+  margin: 5px 0 3px 0;
+  line-height: 1.3;
 }
 
 .markdown-content p {
-  margin: 8px 0;
-  line-height: 1.6;
+  margin: 5px 0;
+  line-height: 1.5;
+  font-size: 11px;
 }
 
 .markdown-content ul,
 .markdown-content ol {
-  margin: 8px 0;
-  padding-left: 24px;
+  margin: 5px 0;
+  padding-left: 18px;
+  font-size: 11px;
 }
 
 .markdown-content li {
-  margin: 4px 0;
-  line-height: 1.6;
+  margin: 2px 0;
+  line-height: 1.5;
 }
 
 .markdown-content code {
   background: #f4f4f4;
-  padding: 2px 6px;
+  padding: 1px 4px;
   border-radius: 3px;
   font-family: 'Courier New', monospace;
-  font-size: 13px;
+  font-size: 10px;
 }
 
 .markdown-content pre {
   background: #f4f4f4;
-  padding: 12px;
+  padding: 8px;
   border-radius: 4px;
   overflow-x: auto;
-  margin: 12px 0;
+  margin: 8px 0;
+  font-size: 10px;
 }
 
 .markdown-content pre code {
@@ -2348,13 +2350,92 @@ a.btn-success-custom:hover {
   padding: 0;
 }
 
+/* Markdown content styling - fullscreen version (larger sizes)
+-------------------------------------------------- */
+.modal-fullscreen .markdown-content h1,
+.modal-fullscreen-content .markdown-content h1 {
+  font-size: 18px;
+  margin: 16px 0 12px 0;
+  line-height: 1.4;
+}
+
+.modal-fullscreen .markdown-content h2,
+.modal-fullscreen-content .markdown-content h2 {
+  font-size: 16px;
+  margin: 14px 0 10px 0;
+  line-height: 1.4;
+}
+
+.modal-fullscreen .markdown-content h3,
+.modal-fullscreen-content .markdown-content h3 {
+  font-size: 15px;
+  margin: 12px 0 8px 0;
+  line-height: 1.4;
+}
+
+.modal-fullscreen .markdown-content h4,
+.modal-fullscreen-content .markdown-content h4 {
+  font-size: 14px;
+  margin: 10px 0 6px 0;
+  line-height: 1.4;
+}
+
+.modal-fullscreen .markdown-content h5,
+.modal-fullscreen-content .markdown-content h5 {
+  font-size: 13px;
+  margin: 8px 0 6px 0;
+  line-height: 1.4;
+}
+
+.modal-fullscreen .markdown-content h6,
+.modal-fullscreen-content .markdown-content h6 {
+  font-size: 12px;
+  margin: 8px 0 6px 0;
+  line-height: 1.4;
+}
+
+.modal-fullscreen .markdown-content p,
+.modal-fullscreen-content .markdown-content p {
+  margin: 8px 0;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.modal-fullscreen .markdown-content ul,
+.modal-fullscreen .markdown-content ol,
+.modal-fullscreen-content .markdown-content ul,
+.modal-fullscreen-content .markdown-content ol {
+  margin: 8px 0;
+  padding-left: 24px;
+  font-size: 14px;
+}
+
+.modal-fullscreen .markdown-content li,
+.modal-fullscreen-content .markdown-content li {
+  margin: 4px 0;
+  line-height: 1.6;
+}
+
+.modal-fullscreen .markdown-content code,
+.modal-fullscreen-content .markdown-content code {
+  padding: 2px 6px;
+  font-size: 13px;
+}
+
+.modal-fullscreen .markdown-content pre,
+.modal-fullscreen-content .markdown-content pre {
+  padding: 12px;
+  margin: 12px 0;
+  font-size: 13px;
+}
+
 /* Comments expand button hover effect
 -------------------------------------------------- */
 .comments-expand-btn:hover {
   background: #0f60af !important;
   color: white !important;
-  border-right: 1px solid #0f60af !important;
-  border-bottom: 1px solid #0f60af !important;
+  border-right: 1px solid #ccc !important;
+  border-bottom: 1px solid #ccc !important;
 }
 
 /* Draggable and Resizable Modal

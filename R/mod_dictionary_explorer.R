@@ -1133,6 +1133,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     selected_mapped_concept_id <- reactiveVal(NULL)  # Track selected concept in mappings table
     relationships_tab <- reactiveVal("related")  # Track active tab: "related", "hierarchy", "synonyms"
     comments_tab <- reactiveVal("comments")  # Track active tab: "comments", "statistical_summary"
+    statistical_summary_sub_tab <- reactiveVal("summary")  # Track sub-tab: "summary", "distribution"
+    selected_profile <- reactiveVal(NULL)  # Track selected profile for statistical summary
     selected_categories <- reactiveVal(character(0))  # Track selected category filters
 
     ### Edit Mode State ----
@@ -4760,7 +4762,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               if (nchar(current_comment) > 0) {
                 tags$div(
                   class = "comments-container",
-                  style = "background: #e6f3ff; border: 1px solid #0f60af; border-radius: 6px; height: 100%; overflow-y: auto; box-sizing: border-box; position: relative;",
+                  style = "background: #ffffff; border: 1px solid #ccc; border-radius: 6px; height: 100%; overflow-y: auto; box-sizing: border-box; position: relative;",
                   tags$div(
                     style = "position: sticky; top: -1px; left: -1px; z-index: 100; height: 0;",
                     actionButton(
@@ -4768,7 +4770,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                       label = NULL,
                       icon = icon("expand"),
                       class = "btn-icon-only comments-expand-btn",
-                      style = "background: rgba(255, 255, 255, 0.95); border: none; border-right: 1px solid #0f60af; border-bottom: 1px solid #0f60af; color: #0f60af; padding: 4px 7px; cursor: pointer; border-radius: 5px 0 0 0; font-size: 12px;",
+                      style = "background: rgba(255, 255, 255, 0.95); border: none; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; color: #0f60af; padding: 4px 7px; cursor: pointer; border-radius: 5px 0 0 0; font-size: 12px;",
                       `data-tooltip` = "View in fullscreen"
                     )
                   ),
@@ -4826,171 +4828,71 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 )
               )
             } else {
-              # View mode: show statistical summary (same format as Source Concept Details in mod_concept_mapping)
-              summary_data <- NULL
+              # View mode: show statistical summary with tabs (Summary/Distribution) and profile selector
+              raw_summary_data <- NULL
               if (nrow(concept_info) > 0 && !is.na(concept_info$statistical_summary[1]) && nchar(concept_info$statistical_summary[1]) > 0) {
-                summary_data <- jsonlite::fromJSON(concept_info$statistical_summary[1])
+                raw_summary_data <- jsonlite::fromJSON(concept_info$statistical_summary[1])
               }
 
-              # Helper function to check if numeric_data has actual values (not just nulls)
-              has_numeric_values <- function(nd) {
-                if (is.null(nd)) return(FALSE)
-                # Check if at least one key statistic has a non-null value
-                !is.null(nd$min) && !is.na(nd$min) ||
-                !is.null(nd$max) && !is.na(nd$max) ||
-                !is.null(nd$mean) && !is.na(nd$mean) ||
-                !is.null(nd$median) && !is.na(nd$median) ||
-                !is.null(nd$p25) && !is.na(nd$p25) ||
-                !is.null(nd$p75) && !is.na(nd$p75)
-              }
-
-              if (!is.null(summary_data)) {
-                # Check for numeric data with actual values and required percentiles
-                if (!is.null(summary_data$numeric_data) && has_numeric_values(summary_data$numeric_data)) {
-                  nd <- summary_data$numeric_data
-                  if (!is.null(nd$p25) && !is.na(nd$p25) && !is.null(nd$p75) && !is.na(nd$p75)) {
-                    # Calculate values for display
-                    min_val <- if (!is.null(nd$min) && !is.na(nd$min)) nd$min else nd$p5
-                    max_val <- if (!is.null(nd$max) && !is.na(nd$max)) nd$max else nd$p95
-                    median_val <- if (!is.null(nd$median) && !is.na(nd$median)) nd$median else (nd$p25 + nd$p75) / 2
-                    lower_val <- if (!is.null(nd$p5) && !is.na(nd$p5)) nd$p5 else min_val
-                    upper_val <- if (!is.null(nd$p95) && !is.na(nd$p95)) nd$p95 else max_val
-
-                    # Create horizontal boxplot with ggplot2
-                    p <- ggplot2::ggplot() +
-                      ggplot2::geom_boxplot(
-                        ggplot2::aes(x = "", ymin = lower_val, lower = nd$p25, middle = median_val,
-                                     upper = nd$p75, ymax = upper_val),
-                        stat = "identity",
-                        fill = "#0f60af",
-                        color = "#333",
-                        width = 0.5,
-                        fatten = 0
-                      ) +
-                      ggplot2::geom_segment(
-                        ggplot2::aes(x = 0.75, xend = 1.25, y = median_val, yend = median_val),
-                        color = "white",
-                        linewidth = 1
-                      ) +
-                      ggplot2::coord_flip() +
-                      ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
-                      ggplot2::labs(x = NULL, y = NULL) +
-                      ggplot2::theme_minimal(base_size = 11) +
-                      ggplot2::theme(
-                        panel.grid.major.y = ggplot2::element_blank(),
-                        panel.grid.minor = ggplot2::element_blank(),
-                        axis.text.y = ggplot2::element_blank(),
-                        axis.text.x = ggplot2::element_text(size = 9),
-                        plot.margin = ggplot2::margin(5, 10, 5, 10)
-                      )
-
-                    # Check if histogram data exists - render as line plot
-                    histogram_plot <- NULL
-                    if (!is.null(summary_data$histogram) && length(summary_data$histogram) > 0) {
-                      hist_df <- as.data.frame(summary_data$histogram)
-                      # Support both formats: new "x" format and legacy "bin_start/bin_end" format
-                      if (nrow(hist_df) > 0 && "count" %in% colnames(hist_df)) {
-                        if ("x" %in% colnames(hist_df)) {
-                          hist_df$bin_mid <- hist_df$x
-                        } else if ("bin_start" %in% colnames(hist_df) && "bin_end" %in% colnames(hist_df)) {
-                          hist_df$bin_mid <- (hist_df$bin_start + hist_df$bin_end) / 2
-                        } else {
-                          hist_df <- NULL
-                        }
-                      } else {
-                        hist_df <- NULL
-                      }
-
-                      if (!is.null(hist_df) && nrow(hist_df) > 0) {
-                        total_count <- sum(hist_df$count, na.rm = TRUE)
-                        hist_df$percentage <- if (total_count > 0) hist_df$count / total_count * 100 else 0
-
-                        p_hist <- ggplot2::ggplot(hist_df, ggplot2::aes(x = bin_mid, y = percentage)) +
-                          ggplot2::geom_area(fill = "#0f60af", alpha = 0.3) +
-                          ggplot2::geom_line(color = "#0f60af", linewidth = 1.2) +
-                          ggplot2::geom_point(color = "#0f60af", size = 2) +
-                          ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.02, 0.02))) +
-                          ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0.05)), labels = function(x) paste0(x, "%")) +
-                          ggplot2::labs(x = NULL, y = NULL) +
-                          ggplot2::theme_minimal(base_size = 10) +
-                          ggplot2::theme(
-                            panel.grid.minor = ggplot2::element_blank(),
-                            panel.grid.major.x = ggplot2::element_blank(),
-                            axis.text = ggplot2::element_text(size = 8),
-                            plot.margin = ggplot2::margin(5, 10, 5, 10)
-                          )
-
-                        histogram_plot <- renderPlot({ p_hist }, height = 120, width = "auto")
-                      }
-                    }
-
-                    tags$div(
-                      tags$div(
-                        style = "display: flex; gap: 20px;",
-                        # Left: statistics grid
-                        tags$div(
-                          style = "flex: 1;",
-                          tags$div(
-                            style = "display: grid; grid-template-columns: 70px 1fr; gap: 4px; font-size: 12px;",
-                            tags$span(style = "font-weight: 600; color: #666;", "Min:"), tags$span(round(min_val, 2)),
-                            tags$span(style = "font-weight: 600; color: #666;", "P5:"), tags$span(if (!is.null(nd$p5)) round(nd$p5, 2) else "-"),
-                            tags$span(style = "font-weight: 600; color: #666;", "P25:"), tags$span(round(nd$p25, 2)),
-                            tags$span(style = "font-weight: 600; color: #0f60af;", "Median:"), tags$span(style = "font-weight: 600;", round(median_val, 2)),
-                            tags$span(style = "font-weight: 600; color: #666;", "P75:"), tags$span(round(nd$p75, 2)),
-                            tags$span(style = "font-weight: 600; color: #666;", "P95:"), tags$span(if (!is.null(nd$p95)) round(nd$p95, 2) else "-"),
-                            tags$span(style = "font-weight: 600; color: #666;", "Max:"), tags$span(round(max_val, 2))
-                          )
-                        ),
-                        # Right: boxplot
-                        tags$div(
-                          style = "flex: 1.5;",
-                          renderPlot({ p }, height = 80, width = "auto")
-                        )
-                      ),
-                      # Histogram below
-                      if (!is.null(histogram_plot)) {
-                        tags$div(
-                          style = "margin-top: 10px;",
-                          histogram_plot
-                        )
-                      }
-                    )
-                  } else {
-                    tags$div(
-                      style = "color: #999; font-style: italic;",
-                      "Numeric data available but missing percentile information (P25, P75)."
-                    )
-                  }
-                } else if (!is.null(summary_data$categorical_data) && length(summary_data$categorical_data) > 0) {
-                  # Categorical distribution
-                  cat_df <- as.data.frame(summary_data$categorical_data)
-                  if (nrow(cat_df) > 0 && "value" %in% colnames(cat_df) && "percentage" %in% colnames(cat_df)) {
-                    rows <- lapply(seq_len(nrow(cat_df)), function(i) {
-                      tags$div(
-                        style = "display: flex; align-items: center; margin-bottom: 5px;",
-                        tags$span(style = "width: 120px; font-size: 13px;", cat_df$value[i]),
-                        tags$div(
-                          style = sprintf("width: %s%%; background: #0f60af; height: 18px; border-radius: 3px; margin-right: 8px;", cat_df$percentage[i])
-                        ),
-                        tags$span(style = "font-size: 12px; color: #666;", paste0(cat_df$percentage[i], "%"))
-                      )
-                    })
-                    tags$div(
-                      tags$h5(style = "margin-bottom: 10px;", "Categorical Distribution"),
-                      do.call(tagList, rows)
-                    )
-                  } else {
-                    tags$div(
-                      style = "color: #999; font-style: italic;",
-                      "Categorical data format not recognized."
-                    )
-                  }
-                } else {
-                  tags$div(
-                    style = "color: #999; font-style: italic;",
-                    "No statistical data available in this summary."
-                  )
+              if (!is.null(raw_summary_data)) {
+                # Get profile names and current selection
+                profile_names <- get_profile_names(raw_summary_data)
+                current_profile <- selected_profile()
+                if (is.null(current_profile) || !(current_profile %in% profile_names)) {
+                  current_profile <- if (!is.null(raw_summary_data$default_profile)) raw_summary_data$default_profile else profile_names[1]
                 }
+
+                # Get data for selected profile
+                profile_data <- get_profile_data(raw_summary_data, current_profile)
+                current_sub_tab <- statistical_summary_sub_tab()
+
+                # Main UI with tabs and profile selector
+                tags$div(
+                  style = "height: 100%; display: flex; flex-direction: column;",
+                  # Header with tabs on left and profile dropdown on right
+                  tags$div(
+                    style = "display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid #dee2e6; margin-bottom: 10px;",
+                    # Tabs (override position:absolute from .section-tabs CSS)
+                    tags$div(
+                      class = "section-tabs",
+                      style = "position: static; transform: none; display: flex; gap: 5px;",
+                      tags$button(
+                        class = paste("tab-btn", if (current_sub_tab == "summary") "tab-btn-active" else ""),
+                        onclick = sprintf("Shiny.setInputValue('%s', 'summary', {priority: 'event'})", ns("stat_summary_sub_tab_click")),
+                        "Summary"
+                      ),
+                      tags$button(
+                        class = paste("tab-btn", if (current_sub_tab == "distribution") "tab-btn-active" else ""),
+                        onclick = sprintf("Shiny.setInputValue('%s', 'distribution', {priority: 'event'})", ns("stat_summary_sub_tab_click")),
+                        "Distribution"
+                      )
+                    ),
+                    # Profile dropdown (only show if multiple profiles)
+                    if (length(profile_names) > 1) {
+                      tags$div(
+                        style = "display: flex; align-items: center; gap: 8px;",
+                        tags$span(style = "font-size: 11px; color: #666;", "Profile:"),
+                        tags$select(
+                          id = ns("stat_profile_select"),
+                          style = "font-size: 11px; padding: 2px 6px; border: 1px solid #ccc; border-radius: 4px;",
+                          onchange = sprintf("Shiny.setInputValue('%s', this.value, {priority: 'event'})", ns("stat_profile_change")),
+                          lapply(profile_names, function(pn) {
+                            tags$option(value = pn, selected = if (pn == current_profile) "selected" else NULL, pn)
+                          })
+                        )
+                      )
+                    }
+                  ),
+                  # Tab content using shared render functions
+                  tags$div(
+                    style = "flex: 1; overflow-y: auto;",
+                    if (current_sub_tab == "summary") {
+                      render_stats_summary_panel(profile_data)
+                    } else {
+                      render_stats_distribution_panel(profile_data)
+                    }
+                  )
+                )
               } else {
                 tags$div(
                   style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic; height: 100%; overflow-y: auto; box-sizing: border-box;",
@@ -5011,6 +4913,26 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         value = get_default_statistical_summary_template()
       )
     })
+
+    # Handle statistical summary sub-tab change
+    observe_event(input$stat_summary_sub_tab_click, {
+      new_tab <- input$stat_summary_sub_tab_click
+      if (!is.null(new_tab) && new_tab %in% c("summary", "distribution")) {
+        statistical_summary_sub_tab(new_tab)
+        # Trigger re-render
+        comments_display_trigger(comments_display_trigger() + 1)
+      }
+    }, ignoreInit = TRUE)
+
+    # Handle statistical summary profile change
+    observe_event(input$stat_profile_change, {
+      new_profile <- input$stat_profile_change
+      if (!is.null(new_profile)) {
+        selected_profile(new_profile)
+        # Trigger re-render
+        comments_display_trigger(comments_display_trigger() + 1)
+      }
+    }, ignoreInit = TRUE)
 
     # Handle expand comments button to show fullscreen modal
     observe_event(input$expand_comments, {

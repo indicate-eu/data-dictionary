@@ -175,24 +175,120 @@ create_detail_item <- function(label, value,
 #' @noRd
 get_default_statistical_summary_template <- function() {
   '{
-  "data_types": [],
-  "numeric_data": {
-    "min": null,
-    "max": null,
-    "mean": null,
-    "median": null,
-    "sd": null,
-    "cv": null,
-    "p5": null,
-    "p25": null,
-    "p75": null,
-    "p95": null
-  },
-  "histogram": [],
-  "categorical_data": [],
-  "measurement_frequency": {
-    "typical_interval": null
-  },
-  "missing_rate": null
+  "profiles": [
+    {
+      "name": "All patients",
+      "description": "Default profile for all patients",
+      "data_types": [],
+      "numeric_data": {
+        "min": null,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "sd": null,
+        "cv": null,
+        "p5": null,
+        "p25": null,
+        "p75": null,
+        "p95": null
+      },
+      "histogram": [],
+      "categorical_data": [],
+      "measurement_frequency": {
+        "typical_interval": null
+      }
+    }
+  ],
+  "default_profile": "All patients"
 }'
+}
+
+#' Get Profile Names from Statistical Summary JSON
+#'
+#' @description Extracts profile names from JSON data. Supports both new format (with profiles)
+#' and legacy format (without profiles, returns "All patients" as default)
+#' @param json_data Parsed JSON data (list)
+#' @return Character vector of profile names
+#' @noRd
+get_profile_names <- function(json_data) {
+  if (is.null(json_data)) return(c("All patients"))
+
+  # New format with profiles
+  if (!is.null(json_data$profiles) && length(json_data$profiles) > 0) {
+    profiles <- json_data$profiles
+
+    # If profiles is a data.frame (jsonlite behavior with arrays of objects)
+    if (is.data.frame(profiles)) {
+      if ("name" %in% names(profiles)) {
+        return(profiles$name)
+      }
+      return(c("All patients"))
+    }
+
+    # If profiles is a list of lists
+    if (is.list(profiles)) {
+      return(sapply(profiles, function(p) {
+        if (is.list(p) && !is.null(p$name)) p$name else "Unknown"
+      }))
+    }
+  }
+
+  # Legacy format without profiles
+  return(c("All patients"))
+}
+
+#' Get Profile Data from Statistical Summary JSON
+#'
+#' @description Extracts data for a specific profile. Supports both new format (with profiles)
+#' and legacy format (without profiles, returns the data directly)
+#' @param json_data Parsed JSON data (list)
+#' @param profile_name Name of the profile to extract (default: NULL uses default_profile or first)
+#' @return List containing profile data (numeric_data, histogram, categorical_data, etc.)
+#' @noRd
+get_profile_data <- function(json_data, profile_name = NULL) {
+  if (is.null(json_data)) return(NULL)
+
+  # New format with profiles
+  if (!is.null(json_data$profiles) && length(json_data$profiles) > 0) {
+    profiles <- json_data$profiles
+
+    # Determine default profile name
+    if (is.null(profile_name) || profile_name == "") {
+      profile_name <- json_data$default_profile
+    }
+
+    # If profiles is a data.frame (jsonlite behavior with arrays of objects)
+    if (is.data.frame(profiles)) {
+      # Find the row matching the profile name
+      if (!is.null(profile_name) && "name" %in% names(profiles)) {
+        idx <- which(profiles$name == profile_name)
+        if (length(idx) > 0) {
+          return(as.list(profiles[idx[1], ]))
+        }
+      }
+      # Fallback to first row
+      return(as.list(profiles[1, ]))
+    }
+
+    # If profiles is a list of lists
+    if (is.list(profiles)) {
+      # Set default profile name if not specified
+      if (is.null(profile_name)) {
+        profile_name <- if (!is.null(profiles[[1]]$name)) profiles[[1]]$name else NULL
+      }
+
+      # Find the matching profile
+      for (profile in profiles) {
+        if (is.list(profile) && !is.null(profile$name) && profile$name == profile_name) {
+          return(profile)
+        }
+      }
+
+      # Fallback to first profile
+      return(profiles[[1]])
+    }
+  }
+
+  # Legacy format without profiles - return data directly
+  return(json_data)
 }
