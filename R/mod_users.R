@@ -32,6 +32,7 @@
 #' @description Module for managing users
 #'
 #' @param id Namespace id
+#' @param i18n Translator object from shiny.i18n
 #'
 #' @return Shiny module UI
 #' @noRd
@@ -39,7 +40,7 @@
 #' @importFrom shiny NS div actionButton uiOutput textInput passwordInput selectInput
 #' @importFrom DT DTOutput
 #' @importFrom htmltools tagList tags
-mod_users_ui <- function(id) {
+mod_users_ui <- function(id, i18n) {
   ns <- NS(id)
 
   div(
@@ -51,7 +52,7 @@ mod_users_ui <- function(id) {
       style = "display: flex; justify-content: flex-end; align-items: center; margin-bottom: 20px;",
       actionButton(
         ns("add_user_btn"),
-        "Add User",
+        i18n$t("add_user"),
         class = "btn-success-custom",
         icon = icon("plus")
       )
@@ -78,7 +79,7 @@ mod_users_ui <- function(id) {
           class = "modal-header",
           tags$h3(
             id = ns("modal_title"),
-            "Add User"
+            i18n$t("add_user")
           ),
           tags$button(
             class = "modal-close",
@@ -93,13 +94,13 @@ mod_users_ui <- function(id) {
           div(
             style = "margin-bottom: 15px;",
             tags$label(
-              "Login *",
+              tagList(i18n$t("login_label"), " *"),
               style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
             ),
           textInput(
             ns("user_login"),
             label = NULL,
-            placeholder = "Enter login",
+            placeholder = as.character(i18n$t("enter_login")),
             width = "100%"
           ),
           div(
@@ -111,7 +112,7 @@ mod_users_ui <- function(id) {
         div(
           style = "margin-bottom: 15px;",
           tags$label(
-            "Password *",
+            tagList(i18n$t("password_label"), " *"),
             style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
           ),
           div(
@@ -119,7 +120,7 @@ mod_users_ui <- function(id) {
             passwordInput(
               ns("user_password"),
               label = NULL,
-              placeholder = "Enter password",
+              placeholder = as.character(i18n$t("enter_password")),
               width = "100%"
             ),
             tags$button(
@@ -137,20 +138,20 @@ mod_users_ui <- function(id) {
           tags$small(
             id = ns("password_help"),
             style = "color: #7f8c8d; font-size: 12px;",
-            "Leave empty to keep current password"
+            i18n$t("leave_empty_password")
           )
         ),
 
         div(
           style = "margin-bottom: 15px;",
           tags$label(
-            "First Name *",
+            tagList(i18n$t("first_name"), " *"),
             style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
           ),
           textInput(
             ns("user_first_name"),
             label = NULL,
-            placeholder = "Enter first name",
+            placeholder = as.character(i18n$t("enter_first_name")),
             width = "100%"
           ),
           div(
@@ -162,13 +163,13 @@ mod_users_ui <- function(id) {
         div(
           style = "margin-bottom: 15px;",
           tags$label(
-            "Last Name *",
+            tagList(i18n$t("last_name"), " *"),
             style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
           ),
           textInput(
             ns("user_last_name"),
             label = NULL,
-            placeholder = "Enter last name",
+            placeholder = as.character(i18n$t("enter_last_name")),
             width = "100%"
           ),
           div(
@@ -180,16 +181,15 @@ mod_users_ui <- function(id) {
         div(
           style = "margin-bottom: 15px;",
           tags$label(
-            "Role",
+            i18n$t("role"),
             style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
           ),
           selectInput(
             ns("user_role"),
             label = NULL,
-            choices = c(
-              "Clinician" = "Clinician",
-              "Data scientist" = "Data scientist",
-              "Engineer" = "Engineer"
+            choices = stats::setNames(
+              c("Clinician", "Data scientist", "Engineer"),
+              c(as.character(i18n$t("clinician")), as.character(i18n$t("data_scientist")), as.character(i18n$t("engineer")))
             ),
             width = "100%"
           )
@@ -198,12 +198,12 @@ mod_users_ui <- function(id) {
         div(
           style = "margin-bottom: 20px;",
           tags$label(
-            "Affiliation",
+            i18n$t("affiliation"),
             style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
           ),
           tags$textarea(
             id = ns("user_affiliation"),
-            placeholder = "Enter institution or organization",
+            placeholder = as.character(i18n$t("enter_affiliation")),
             style = "width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 14px; resize: vertical; min-height: 60px;"
           )
         )
@@ -216,11 +216,11 @@ mod_users_ui <- function(id) {
             class = "btn btn-secondary btn-secondary-custom",
             onclick = sprintf("$('#%s').hide();", ns("user_modal")),
             tags$i(class = "fas fa-times"),
-            " Cancel"
+            " ", i18n$t("cancel")
           ),
           actionButton(
             ns("save_user"),
-            "Save",
+            i18n$t("save"),
             class = "btn-primary-custom",
             icon = icon("save")
           )
@@ -239,7 +239,7 @@ mod_users_ui <- function(id) {
         style = "max-width: 500px;",
         tags$div(
           class = "modal-header",
-          tags$h3("Confirm Deletion"),
+          tags$h3(i18n$t("confirm_deletion")),
           tags$button(
             class = "modal-close",
             onclick = sprintf("$('#%s').hide();", ns("delete_confirmation_modal")),
@@ -259,13 +259,13 @@ mod_users_ui <- function(id) {
           style = "display: flex; gap: 10px; justify-content: flex-end; padding: 15px 20px; border-top: 1px solid #dee2e6;",
           actionButton(
             ns("cancel_delete"),
-            "Cancel",
+            i18n$t("cancel"),
             class = "btn-secondary-custom",
             icon = icon("times")
           ),
           actionButton(
             ns("confirm_delete"),
-            "Delete",
+            i18n$t("delete"),
             class = "btn-danger-custom",
             icon = icon("trash")
           )
@@ -283,13 +283,14 @@ mod_users_ui <- function(id) {
 #'
 #' @param id Namespace id
 #' @param current_user Reactive containing current user data
+#' @param i18n Translator object from shiny.i18n
 #'
 #' @return NULL
 #' @noRd
 #'
 #' @importFrom shiny moduleServer reactive observeEvent req renderUI updateTextInput updateSelectInput
 #' @importFrom DT renderDT datatable formatStyle styleEqual
-mod_users_server <- function(id, current_user, log_level = character()) {
+mod_users_server <- function(id, current_user, i18n, log_level = character()) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -318,14 +319,14 @@ mod_users_server <- function(id, current_user, log_level = character()) {
         users$Actions <- sapply(users$user_id, function(id) {
           create_datatable_actions(list(
             list(
-              label = "Edit",
+              label = as.character(i18n$t("edit")),
               icon = "edit",
               type = "warning",
               class = "btn-edit",
               data_attr = list(id = id)
             ),
             list(
-              label = "Delete",
+              label = as.character(i18n$t("delete")),
               icon = "trash",
               type = "danger",
               class = "btn-delete",
@@ -336,7 +337,14 @@ mod_users_server <- function(id, current_user, log_level = character()) {
 
         # Select display columns
         display_data <- users[, c("login", "first_name", "last_name", "role", "affiliation", "Actions")]
-        colnames(display_data) <- c("Login", "First Name", "Last Name", "Role", "Affiliation", "Actions")
+        colnames(display_data) <- c(
+          as.character(i18n$t("login_label")),
+          as.character(i18n$t("first_name")),
+          as.character(i18n$t("last_name")),
+          as.character(i18n$t("role")),
+          as.character(i18n$t("affiliation")),
+          as.character(i18n$t("actions"))
+        )
 
         dt <- datatable(
           display_data,
@@ -350,6 +358,7 @@ mod_users_server <- function(id, current_user, log_level = character()) {
             dom = "tp",
             ordering = TRUE,
             autoWidth = FALSE,
+            language = get_datatable_language(),
             columnDefs = list(
               list(width = "200px", targets = 5),
               list(searchable = FALSE, targets = 5),
@@ -383,7 +392,7 @@ mod_users_server <- function(id, current_user, log_level = character()) {
 
       # Reset form
       editing_user_id(NULL)
-      shinyjs::html("modal_title", "Add User")
+      shinyjs::html("modal_title", as.character(i18n$t("add_user")))
       shinyjs::hide("password_help")
       updateTextInput(session, "user_login", value = "")
       updateTextInput(session, "user_password", value = "")
@@ -423,7 +432,7 @@ mod_users_server <- function(id, current_user, log_level = character()) {
 
       # Set editing mode
       editing_user_id(edit_user$user_id)
-      shinyjs::html("modal_title", "Edit User")
+      shinyjs::html("modal_title", as.character(i18n$t("edit_user")))
       shinyjs::show("password_help")
 
       # Populate form
@@ -518,21 +527,21 @@ mod_users_server <- function(id, current_user, log_level = character()) {
 
       # Validate login
       if (is.null(input$user_login) || nchar(input$user_login) == 0) {
-        shinyjs::html("login_error", "Login is required.")
+        shinyjs::html("login_error", as.character(i18n$t("login_required")))
         shinyjs::show("login_error")
         has_errors <- TRUE
       }
 
       # Validate first name
       if (is.null(input$user_first_name) || nchar(trimws(input$user_first_name)) == 0) {
-        shinyjs::html("first_name_error", "First name is required.")
+        shinyjs::html("first_name_error", as.character(i18n$t("first_name_required")))
         shinyjs::show("first_name_error")
         has_errors <- TRUE
       }
 
       # Validate last name
       if (is.null(input$user_last_name) || nchar(trimws(input$user_last_name)) == 0) {
-        shinyjs::html("last_name_error", "Last name is required.")
+        shinyjs::html("last_name_error", as.character(i18n$t("last_name_required")))
         shinyjs::show("last_name_error")
         has_errors <- TRUE
       }
@@ -541,7 +550,7 @@ mod_users_server <- function(id, current_user, log_level = character()) {
       if (is.null(editing_user_id())) {
         # Adding new user - password required
         if (is.null(input$user_password) || nchar(input$user_password) == 0) {
-          shinyjs::html("password_error", "Password is required for new users.")
+          shinyjs::html("password_error", as.character(i18n$t("password_required")))
           shinyjs::show("password_error")
           has_errors <- TRUE
         }
@@ -563,7 +572,7 @@ mod_users_server <- function(id, current_user, log_level = character()) {
         )
 
         if (is.null(result)) {
-          shinyjs::html("login_error", "Login already exists. Please choose a different login.")
+          shinyjs::html("login_error", as.character(i18n$t("login_exists")))
           shinyjs::show("login_error")
           return()
         }

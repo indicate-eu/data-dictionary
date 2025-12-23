@@ -28,6 +28,7 @@
 #' @description UI function for the development tools module
 #'
 #' @param id Module ID
+#' @param i18n Translator object from shiny.i18n
 #'
 #' @return Shiny UI elements
 #' @noRd
@@ -35,7 +36,7 @@
 #' @importFrom shiny NS uiOutput tabsetPanel tabPanel actionButton verbatimTextOutput
 #' @importFrom htmltools tags tagList
 #' @importFrom shinyAce aceEditor
-mod_dev_tools_ui <- function(id) {
+mod_dev_tools_ui <- function(id, i18n) {
   ns <- NS(id)
 
   tagList(
@@ -47,7 +48,7 @@ mod_dev_tools_ui <- function(id) {
 
               ### Data Quality Tab ----
               tabPanel(
-                "Data Quality",
+                i18n$t("data_quality"),
                 value = "data_quality",
                 tags$div(
                   style = "margin-top: 10px; height: 100%;",
@@ -57,7 +58,7 @@ mod_dev_tools_ui <- function(id) {
 
               ### R Console Tab ----
               tabPanel(
-                "R Console",
+                i18n$t("r_console"),
                 value = "r_console",
                 tags$div(
                   style = "margin-top: 10px; height: calc(100% - 10px); display: flex; flex-direction: column;",
@@ -68,7 +69,7 @@ mod_dev_tools_ui <- function(id) {
                       style = "flex: 1; height: 100%; display: flex; flex-direction: column;",
                       tags$div(
                         class = "section-header",
-                        tags$h4("R Code")
+                        tags$h4(i18n$t("r_code"))
                       ),
                       tags$div(
                         style = paste0(
@@ -102,17 +103,17 @@ mod_dev_tools_ui <- function(id) {
                       ),
                       tags$div(
                         style = "margin-top: 10px; margin-bottom: 10px; padding: 10px; background: #e6f3ff; border-left: 3px solid #0f60af; border-radius: 4px; font-size: 12px;",
-                        tags$strong("Available objects:"),
+                        tags$strong(i18n$t("available_objects")),
                         tags$br(),
-                        tags$code("concept"), " - OHDSI concept table",
+                        tags$code("concept"), " - ", i18n$t("concept_table"),
                         tags$br(),
-                        tags$code("concept_relationship"), " - OHDSI concept_relationship table",
+                        tags$code("concept_relationship"), " - ", i18n$t("concept_relationship_table"),
                         tags$br(),
-                        tags$code("concept_ancestor"), " - OHDSI concept_ancestor table"
+                        tags$code("concept_ancestor"), " - ", i18n$t("concept_ancestor_table")
                       ),
                       tags$div(
                         style = "margin-top: 10px;",
-                        actionButton(ns("run_code"), "Run Code", class = "btn-primary", icon = icon("play"))
+                        actionButton(ns("run_code"), i18n$t("run_code"), class = "btn-primary", icon = icon("play"))
                       )
                     ),
                     # Right: Results
@@ -120,7 +121,7 @@ mod_dev_tools_ui <- function(id) {
                       style = "flex: 1; height: 100%; display: flex; flex-direction: column;",
                       tags$div(
                         class = "section-header",
-                        tags$h4("Results")
+                        tags$h4(i18n$t("results"))
                       ),
                       tags$div(
                         style = "flex: 1; height: 100%; overflow: auto; background: white; border: 1px solid #dee2e6; border-radius: 6px; padding: 10px; font-size: 11px;",
@@ -145,6 +146,7 @@ mod_dev_tools_ui <- function(id) {
 #' @param id Module ID
 #' @param data Reactive containing the CSV data
 #' @param vocabularies Reactive containing preloaded OHDSI vocabularies
+#' @param i18n Translator object from shiny.i18n
 #'
 #' @return Module server logic
 #' @noRd
@@ -153,7 +155,7 @@ mod_dev_tools_ui <- function(id) {
 #' @importFrom DT renderDT datatable DTOutput
 #' @importFrom dplyr filter summarise n select
 #' @importFrom htmltools tags HTML
-mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()) {
+mod_dev_tools_server <- function(id, data, vocabularies, i18n, log_level = character()) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -246,7 +248,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
             ),
             tags$div(
               style = "font-size: 14px; color: #666; margin-bottom: 8px;",
-              "Missing Comments"
+              i18n$t("missing_comments")
             ),
             tags$div(
               style = paste0(
@@ -271,7 +273,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
             ),
             tags$div(
               style = "font-size: 14px; color: #666; margin-bottom: 8px;",
-              "Non-Standard Concepts"
+              i18n$t("non_standard_concepts")
             ),
             if (!is.na(non_standard_count)) {
               tagList(
@@ -290,7 +292,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
             } else {
               tags$div(
                 style = "font-size: 14px; color: #999; font-style: italic;",
-                "Vocabularies not loaded"
+                i18n$t("vocabularies_not_loaded")
               )
             }
           )
@@ -304,7 +306,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
           ),
           tags$div(
             class = "section-header section-header-with-tabs",
-            tags$h4("Missing Data Details"),
+            tags$h4(i18n$t("missing_data_details")),
             tags$div(
               class = "section-tabs",
               tags$button(
@@ -314,7 +316,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
                   "Shiny.setInputValue('%s', 'missing_comments', {priority: 'event'})",
                   ns("switch_data_quality_tab")
                 ),
-                "Missing Comments"
+                i18n$t("missing_comments")
               ),
               tags$button(
                 class = "tab-btn",
@@ -323,7 +325,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
                   "Shiny.setInputValue('%s', 'non_standard', {priority: 'event'})",
                   ns("switch_data_quality_tab")
                 ),
-                "Non-Standard"
+                i18n$t("non_standard")
               )
             )
           ),
@@ -408,7 +410,11 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
               list(targets = 1, width = "150px")
             )
           ),
-          colnames = c("Category", "Subcategory", "General Concept Name")
+          colnames = c(
+            as.character(i18n$t("category")),
+            as.character(i18n$t("subcategory")),
+            as.character(i18n$t("general_concept_name"))
+          )
         )
       }, server = FALSE)
     }, once = TRUE)
@@ -484,12 +490,12 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
             )
           ),
           colnames = c(
-            "Category",
-            "Subcategory",
-            "General Concept",
-            "OMOP Concept Name",
-            "OMOP Concept ID",
-            "Standard"
+            as.character(i18n$t("category")),
+            as.character(i18n$t("subcategory")),
+            as.character(i18n$t("general_concept")),
+            as.character(i18n$t("omop_concept_name")),
+            as.character(i18n$t("omop_concept_id")),
+            as.character(i18n$t("standard"))
           )
         )
       }, server = FALSE)
@@ -510,11 +516,11 @@ mod_dev_tools_server <- function(id, data, vocabularies, log_level = character()
         status <- code_status()
 
         if (status == "initial") {
-          cat("Run code to see results here")
+          cat(as.character(i18n$t("run_code_results")))
         } else if (status == "no_code") {
-          cat("Warning: Please enter R code to execute.")
+          cat(paste0("Warning: ", as.character(i18n$t("enter_r_code"))))
         } else if (status == "no_vocab") {
-          cat("Error: OHDSI vocabularies not loaded.")
+          cat(paste0("Error: ", as.character(i18n$t("vocabularies_not_loaded"))))
         } else if (status == "error") {
           cat("Error:\n")
           cat(code_error_msg())

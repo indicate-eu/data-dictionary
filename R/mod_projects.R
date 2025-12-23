@@ -708,19 +708,19 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
       # Format for display (include project_id as first column, will be hidden)
       display_df <- data.frame(
         project_id = result$project_id,
-        Name = result$project_name,
-        `Short Description` = ifelse(
-          is.na(result$short_description),
-          "",
-          result$short_description
-        ),
-        Concepts = result$concept_count,
         stringsAsFactors = FALSE,
         check.names = FALSE
       )
+      display_df[[as.character(i18n$t("project_name"))]] <- result$project_name
+      display_df[[as.character(i18n$t("short_description"))]] <- ifelse(
+        is.na(result$short_description),
+        "",
+        result$short_description
+      )
+      display_df[[as.character(i18n$t("concepts"))]] <- result$concept_count
 
       # Add action buttons column (generate for each row)
-      display_df$Actions <- sapply(display_df$project_id, function(id) {
+      display_df[[as.character(i18n$t("actions"))]] <- sapply(display_df$project_id, function(id) {
         create_datatable_actions(list(
           list(
             label = "Edit",
@@ -968,6 +968,10 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
       session$ns("project_delete_clicked")
       ))
 
+      # Merge DataTable language with custom empty message
+      dt_language <- get_datatable_language()
+      dt_language$emptyTable <- as.character(i18n$t("no_projects"))
+
       output$projects_table <- DT::renderDT({
         datatable(
           df,
@@ -985,9 +989,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
               list(targets = 0, visible = FALSE),  # Hide project_id column
               list(targets = 4, orderable = FALSE, width = "280px", searchable = FALSE, className = "dt-center")  # Actions column
             ),
-            language = list(
-              emptyTable = "No projects found. Click 'Add Project' to create one."
-            ),
+            language = dt_language,
             drawCallback = callback_js
           )
         )
@@ -1092,7 +1094,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
                 class = "fas fa-info-circle",
                 style = "font-size: 48px; margin-bottom: 15px;"
               ),
-              tags$p("Select a project to view its details")
+              tags$p(i18n$t("select_project"))
             )
           )
         }
@@ -1112,11 +1114,11 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
                 "background: #f8f9fa; padding: 15px; ",
                 "border-radius: 6px; margin-bottom: 15px;"
               ),
-              tags$strong("Short Description:"),
+              tags$strong(i18n$t("short_description"), ":"),
               tags$p(
                 style = "margin-top: 8px; margin-bottom: 0;",
                 if (is.na(selected_uc$short_description)) {
-                  tags$em("No short description")
+                  tags$em(i18n$t("no_data_available"))
                 } else {
                   selected_uc$short_description
                 }
@@ -1129,7 +1131,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
                   "background: #fff; padding: 15px; border: 1px solid #dee2e6; ",
                   "border-radius: 6px;"
                 ),
-                tags$strong("Detailed Description:"),
+                tags$strong(i18n$t("long_description"), ":"),
                 tags$p(
                   style = "margin-top: 8px; margin-bottom: 0; line-height: 1.6;",
                   selected_uc$long_description
@@ -1147,14 +1149,15 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
 
       output$available_general_concepts_table <- DT::renderDT({
         if (is.null(df)) {
+          empty_df <- data.frame(
+            stringsAsFactors = FALSE,
+            check.names = FALSE
+          )
+          empty_df[[as.character(i18n$t("category"))]] <- character(0)
+          empty_df[[as.character(i18n$t("subcategory"))]] <- character(0)
+          empty_df[[as.character(i18n$t("general_concept_name"))]] <- character(0)
           return(datatable(
-            data.frame(
-              Category = character(0),
-              Subcategory = character(0),
-              Concept = character(0),
-              stringsAsFactors = FALSE,
-              check.names = FALSE
-            ),
+            empty_df,
             filter = "top",
             selection = "multiple",
             rownames = FALSE,
@@ -1163,12 +1166,18 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
               pageLength = 10,
               dom = "tip",
               ordering = TRUE,
-              autoWidth = FALSE
+              autoWidth = FALSE,
+              language = get_datatable_language()
             )
           ))
         }
 
         df_display <- df[, -1]  # Remove general_concept_id column
+        colnames(df_display) <- c(
+          as.character(i18n$t("category")),
+          as.character(i18n$t("subcategory")),
+          as.character(i18n$t("general_concept_name"))
+        )
 
         datatable(
           df_display,
@@ -1180,7 +1189,8 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
             pageLength = 10,
             dom = "tip",
             ordering = TRUE,
-            autoWidth = FALSE
+            autoWidth = FALSE,
+            language = get_datatable_language()
           )
         )
       }, server = FALSE)
@@ -1190,16 +1200,21 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
     observe_event(selected_concepts_table_trigger(), {
       df <- get_selected_general_concepts()
 
+      # Merge DataTable language with custom empty message
+      dt_language <- get_datatable_language()
+      dt_language$emptyTable <- as.character(i18n$t("no_concepts_selected"))
+
       output$selected_general_concepts_table <- DT::renderDT({
         if (is.null(df)) {
+          empty_df <- data.frame(
+            stringsAsFactors = FALSE,
+            check.names = FALSE
+          )
+          empty_df[[as.character(i18n$t("category"))]] <- character(0)
+          empty_df[[as.character(i18n$t("subcategory"))]] <- character(0)
+          empty_df[[as.character(i18n$t("general_concept_name"))]] <- character(0)
           return(datatable(
-            data.frame(
-              Category = character(0),
-              Subcategory = character(0),
-              Concept = character(0),
-              stringsAsFactors = FALSE,
-              check.names = FALSE
-            ),
+            empty_df,
             filter = "top",
             selection = "multiple",
             rownames = FALSE,
@@ -1209,18 +1224,17 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
               dom = "tip",
               ordering = TRUE,
               autoWidth = FALSE,
-              language = list(
-                emptyTable = paste0(
-                  "No general concepts selected for this project. ",
-                  "Select general concepts from the left panel ",
-                  "and click 'Add Selected Concepts'."
-                )
-              )
+              language = dt_language
             )
           ))
         }
 
         df_display <- df[, -1]  # Remove general_concept_id column
+        colnames(df_display) <- c(
+          as.character(i18n$t("category")),
+          as.character(i18n$t("subcategory")),
+          as.character(i18n$t("general_concept_name"))
+        )
 
         datatable(
           df_display,
@@ -1233,13 +1247,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
             dom = "tip",
             ordering = TRUE,
             autoWidth = FALSE,
-            language = list(
-              emptyTable = paste0(
-                "No general concepts selected for this project. ",
-                "Select general concepts from the left panel ",
-                "and click 'Add Selected Concepts'."
-              )
-            )
+            language = dt_language
           )
         )
       }, server = FALSE)

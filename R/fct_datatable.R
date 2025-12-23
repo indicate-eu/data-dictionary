@@ -1,8 +1,83 @@
 #' DataTable Functions
 #'
-#' @description Helper functions for DataTables including state management
-#' and business logic helpers
+#' @description Helper functions for DataTables including state management,
+#' business logic helpers, and internationalization support
 #' @noRd
+
+#' Get DataTable Language Options
+#'
+#' @description Returns a list of language options for DataTables based on the current language.
+#' This provides translations for pagination, info, and other DataTable UI elements.
+#'
+#' @param language Character: Language code ("en" or "fr"). Defaults to INDICATE_LANGUAGE env var or "en".
+#'
+#' @return List of language options compatible with DataTables options$language
+#'
+#' @examples
+#' \dontrun{
+#'   # Use in a datatable
+#'   DT::datatable(
+#'     data,
+#'     options = list(
+#'       language = get_datatable_language()
+#'     )
+#'   )
+#' }
+#'
+#' @noRd
+get_datatable_language <- function(language = NULL) {
+  if (is.null(language)) {
+    language <- Sys.getenv("INDICATE_LANGUAGE", "en")
+  }
+
+  if (language == "fr") {
+    list(
+      processing = "Traitement en cours...",
+      search = "Rechercher :",
+      lengthMenu = "Afficher _MENU_ \u00e9l\u00e9ments",
+      info = "Affichage de _START_ \u00e0 _END_ sur _TOTAL_ \u00e9l\u00e9ments",
+      infoEmpty = "Affichage de 0 \u00e0 0 sur 0 \u00e9l\u00e9ments",
+      infoFiltered = "(filtr\u00e9 de _MAX_ \u00e9l\u00e9ments au total)",
+      infoPostFix = "",
+      loadingRecords = "Chargement en cours...",
+      zeroRecords = "Aucun \u00e9l\u00e9ment \u00e0 afficher",
+      emptyTable = "Aucune donn\u00e9e disponible dans le tableau",
+      paginate = list(
+        first = "Premier",
+        previous = "Pr\u00e9c\u00e9dent",
+        `next` = "Suivant",
+        last = "Dernier"
+      ),
+      aria = list(
+        sortAscending = ": activer pour trier la colonne par ordre croissant",
+        sortDescending = ": activer pour trier la colonne par ordre d\u00e9croissant"
+      )
+    )
+  } else {
+    list(
+      processing = "Processing...",
+      search = "Search:",
+      lengthMenu = "Show _MENU_ entries",
+      info = "Showing _START_ to _END_ of _TOTAL_ entries",
+      infoEmpty = "Showing 0 to 0 of 0 entries",
+      infoFiltered = "(filtered from _MAX_ total entries)",
+      infoPostFix = "",
+      loadingRecords = "Loading...",
+      zeroRecords = "No matching records found",
+      emptyTable = "No data available in table",
+      paginate = list(
+        first = "First",
+        previous = "Previous",
+        `next` = "Next",
+        last = "Last"
+      ),
+      aria = list(
+        sortAscending = ": activate to sort column ascending",
+        sortDescending = ": activate to sort column descending"
+      )
+    )
+  }
+}
 
 
 #' Create Empty DataTable

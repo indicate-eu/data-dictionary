@@ -71,8 +71,6 @@ select_concept_to_view,Select a concept to view details
 no_concept_selected,No concept selected
 no_mapping_selected,No mapping selected
 select_mapping_to_view,Select a mapping to view details
-recommended,Recommended
-not_recommended,Not recommended
 vocabulary,Vocabulary
 domain,Domain
 concept_class,Concept Class
@@ -149,7 +147,6 @@ run_code_results,Run code to see results here
 enter_r_code,Please enter R code to execute.
 vocabularies_not_loaded,OHDSI vocabularies not loaded.
 missing_comments,Missing Comments
-recommended_non_standard,Recommended Non-Standard
 missing_data_details,Missing Data Details
 ohdsi_vocabularies,OHDSI Vocabularies
 backup_restore,Backup & Restore
@@ -222,3 +219,136 @@ unit_concept_name,Unit Concept Name
 fhir_resource,FHIR Resource
 add_alignment,Add Alignment
 no_alignments_yet,No alignments yet. Click 'Add Alignment' to create one.
+alignment_name,Alignment Name
+enter_alignment_name,Enter alignment name
+please_enter_alignment_name,Please enter an alignment name
+description,Description
+enter_description,Enter description
+upload_csv_file,Upload CSV File
+please_upload_file,Please upload a file
+back,Back
+next,Next
+column_mapping,Column Mapping
+additional_columns,Additional Columns
+concept_mappings,Concept Mappings
+summary,Summary
+all_mappings,All Mappings
+import_mappings,Import Mappings
+edit_mappings,Edit Mappings
+evaluate_mappings,Evaluate Mappings
+source_concepts,Source Concepts
+add_mapping,Add Mapping
+target_concept_details,Target Concept Details
+distribution,Distribution
+temporal,Temporal
+hospital_units,Hospital Units
+import_mappings_from_csv,Import Mappings from CSV
+import_mappings_csv_desc,"Import mappings from a source_to_concept_map CSV file. The file should contain the following columns:"
+source_concept_id,Source concept ID
+target_concept_id,Target concept ID
+select_csv_file,Select CSV file:
+import_history,Import History
+completed_mappings,Completed Mappings
+no_alignment_selected,No alignment selected
+no_mappings_yet,No mappings created yet.
+no_mappings_select_add,"No mappings created yet. Select a source concept and a mapped concept, then click 'Add Mapping'."
+no_mapped_concepts,No mapped concepts found for this general concept.
+no_json_data,No JSON data available for this concept.
+no_summary_data,No summary data available.
+no_distribution_data,No distribution data available.
+no_temporal_data,No temporal data available.
+no_unit_data,No unit distribution data available.
+select_general_concept,Select a general concept to see target details.
+no_data_available,No data available.
+mapping_added,Mapping added successfully.
+imported,Imported
+remove,Remove
+source_concept,Source Concept
+target_concept,Target Concept
+origin,Origin
+upvotes,Upvotes
+downvotes,Downvotes
+uncertain,Uncertain
+actions,Actions
+added,Added
+status,Status
+export,Export
+no_projects_defined,No projects defined
+total_concepts,Total Concepts
+mapped_concepts,Mapped Concepts
+covered,Covered
+evaluated_mappings,Evaluated Mappings
+no_mapping_file,No mapping file found for this alignment
+no_mappings_found,No mappings found in this alignment
+csv_file_not_found,CSV file not found
+created,Created
+delete_alignment_confirm,Are you sure you want to delete this alignment? This action cannot be undone.
+edit_alignment,Edit Alignment
+non_standard_concepts,Non-Standard Concepts
+non_standard,Non-Standard
+omop_concept_name,OMOP Concept Name
+general_concept,General Concept
+browse_vocab_folder_desc,Browse and select the folder containing your OHDSI Vocabularies files.
+no_database_info,"No database found. Select a vocabulary folder above to create one, or place a pre-built vocabularies.duckdb file in the application folder."
+reload_message,Please reload the application to apply changes.
+show_hide_columns,Show/Hide Columns
+mapped,Mapped
+name,Name
+source_concept_details,Source Concept Details
+view_raw_json,View raw JSON
+relationship,Relationship
+code,Code
+synonym,Synonym
+language,Language
+no_related_concepts,No related concepts found.
+no_descendant_concepts,No descendant concepts found in hierarchy.
+no_synonyms_found,No synonyms found for this concept.
+concept_hierarchy,Concept Hierarchy:
+timestamp,Timestamp
+user,User
+action,Action
+concept,Concept
+comment,Comment
+no_history_available,No history available
+no_history_available_concept,No history available for this concept
+select_concept_table_details,Select a concept from the table to view details.
+select_concept_descendants,Select a concept to view descendants.
+select_mapped_concept_details,Select a concept from the Mapped Concepts table to view its details.
+already_added,Already Added
+copied,Copied
+view_graph,View Graph
+manual,Manual
+not_evaluated,Not Evaluated
+approved,Approved
+rejected,Rejected
+no_file_selected,No file selected
+omop_id,OMOP ID
+unit_id,Unit ID
+custom,Custom
+general_concepts_mapped,General Concepts Mapped
+no_imports_yet,No imports yet. Use the form above to import mappings.
+source_code_col,source_code
+source_vocabulary_id_col,source_vocabulary_id
+target_concept_id_col,target_concept_id
+source_code_desc,Source concept code
+source_vocabulary_id_desc,Source vocabulary identifier
+target_concept_id_desc,Target OMOP concept ID
+clear_evaluation,Clear Evaluation
+mapped_concepts_tooltip,Specific OMOP concepts mapped to the selected general concept
+projects_compatibility,Projects Compatibility
+mapping_already_exists,This mapping already exists.
+mapping_added_successfully,Mapping added successfully.
+please_select_csv_file,Please select a CSV file to import
+selected_file_no_longer_exists,Selected file no longer exists
+no_alignment_selected_error,No alignment selected
+must_be_logged_in_import,You must be logged in to import mappings
+error_reading_csv,Error reading CSV:
+missing_required_columns,Missing required columns:
+database_not_found,Database not found
+alignment_not_found,Alignment not found
+successfully_imported_mappings,Successfully imported {count} mappings
+duplicates_skipped,{count} duplicates skipped
+import_deleted_successfully,Import deleted successfully
+import_failed,Import failed:
+delete_failed,Delete failed:
+no_mapping_file_found,No mapping file found for this alignment

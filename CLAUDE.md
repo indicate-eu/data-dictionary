@@ -72,7 +72,6 @@ indicate-data-dictionary/
 │       ├── keyboard_nav.js        # Keyboard navigation
 │       ├── login_handler.js       # Login form interactions
 │       ├── prevent_doubleclick_selection.js # Prevent text selection
-│       ├── recommended_toggle.js  # Standard concept filter toggle
 │       ├── resizable_splitter.js  # Panel resizing
 │       ├── selectize_modal_fix.js # Selectize modal z-index fix
 │       ├── settings_menu.js       # Settings UI
@@ -967,7 +966,6 @@ JavaScript and CSS files in `inst/www/`:
 - **`keyboard_nav.js`** - Keyboard navigation helpers
 - **`login_handler.js`** - Login form interactions (Enter key, etc.)
 - **`prevent_doubleclick_selection.js`** - Prevent accidental text selection on double-click
-- **`recommended_toggle.js`** - Standard concepts filter toggle
 - **`resizable_splitter.js`** - Panel resizing (horizontal/vertical splitters)
 - **`selectize_modal_fix.js`** - Fix selectize dropdowns in modals (z-index)
 - **`settings_menu.js`** - Settings UI interactions

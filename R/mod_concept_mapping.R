@@ -145,26 +145,26 @@ mod_concept_mapping_ui <- function(id, i18n) {
             id = ns("modal_page_1"),
             tags$div(
               style = "margin-bottom: 20px;",
-              tags$label("Alignment Name", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+              tags$label(i18n$t("alignment_name"), style = "display: block; font-weight: 600; margin-bottom: 8px;"),
               textInput(
                 ns("alignment_name"),
                 label = NULL,
-                placeholder = "Enter alignment name",
+                placeholder = as.character(i18n$t("enter_alignment_name")),
                 width = "100%"
               ),
               tags$div(
                 id = ns("alignment_name_error"),
                 style = "color: #dc3545; font-size: 13px; margin-top: 5px; display: none;",
-                "Please enter an alignment name"
+                i18n$t("please_enter_alignment_name")
               )
             ),
             tags$div(
               style = "margin-bottom: 20px;",
-              tags$label("Description", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+              tags$label(i18n$t("description"), style = "display: block; font-weight: 600; margin-bottom: 8px;"),
               textAreaInput(
                 ns("alignment_description"),
                 label = NULL,
-                placeholder = "Enter description",
+                placeholder = as.character(i18n$t("enter_description")),
                 width = "100%",
                 rows = 4
               )
@@ -183,7 +183,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
                   style = "background-color: #f8f9fa; border-radius: 4px; overflow: hidden;",
                   tags$div(
                     style = "background-color: #fd7e14; color: white; padding: 10px 15px; font-weight: 600; font-size: 14px;",
-                    "Upload CSV File"
+                    i18n$t("upload_csv_file")
                   ),
                   tags$div(
                     style = "padding: 15px;",
@@ -195,7 +195,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
                     tags$div(
                       id = ns("alignment_file_error"),
                       style = "color: #dc3545; font-size: 13px; margin-top: 5px; display: none;",
-                      "Please upload a file"
+                      i18n$t("please_upload_file")
                     )
                   )
                 ),
@@ -225,26 +225,26 @@ mod_concept_mapping_ui <- function(id, i18n) {
             style = "display: flex; gap: 10px;",
             actionButton(
               ns("alignment_modal_cancel"),
-              "Cancel",
+              i18n$t("cancel"),
               class = "btn btn-secondary btn-secondary-custom",
               icon = icon("times")
             ),
             actionButton(
               ns("alignment_modal_back"),
-              "Back",
+              i18n$t("back"),
               class = "btn btn-secondary btn-secondary-custom",
               icon = icon("arrow-left"),
               style = "display: none;"
             ),
             actionButton(
               ns("alignment_modal_next"),
-              "Next",
+              i18n$t("next"),
               class = "btn-primary-custom",
               icon = icon("arrow-right")
             ),
             actionButton(
               ns("alignment_modal_save"),
-              "Save",
+              i18n$t("save"),
               class = "btn-success-custom",
               icon = icon("save"),
               style = "display: none;"
@@ -288,7 +288,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
         class = "modal-content",
         tags$div(
           class = "modal-header",
-          tags$h3("ETL Guidance & Comments"),
+          tags$h3(i18n$t("etl_guidance_comments")),
           tags$button(
             class = "modal-close",
             onclick = sprintf("$('#%s').hide();", ns("etl_comments_modal")),
@@ -313,7 +313,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
         style = "max-width: 500px;",
         tags$div(
           class = "modal-header",
-          tags$h3("Confirm Deletion"),
+          tags$h3(i18n$t("confirm_deletion")),
           tags$button(
             class = "modal-close",
             onclick = sprintf("$('#%s').hide();", ns("delete_confirmation_modal")),
@@ -324,7 +324,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
           class = "modal-body",
           tags$p(
             style = "margin-bottom: 20px;",
-            "Are you sure you want to delete this alignment? This action cannot be undone."
+            i18n$t("delete_alignment_confirm")
           ),
           tags$div(
             id = ns("delete_alignment_name_display"),
@@ -338,11 +338,11 @@ mod_concept_mapping_ui <- function(id, i18n) {
             class = "btn btn-secondary",
             onclick = sprintf("$('#%s').hide();", ns("delete_confirmation_modal")),
             tags$i(class = "fas fa-times"),
-            " Cancel"
+            paste0(" ", i18n$t("cancel"))
           ),
           actionButton(
             ns("confirm_delete_alignment"),
-            "Delete",
+            i18n$t("delete"),
             class = "btn btn-danger",
             icon = icon("trash")
           )
@@ -362,7 +362,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
           style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
           tags$h3(
             style = "margin: 0; color: #0f60af;",
-            "ETL Guidance & Comments"
+            i18n$t("etl_guidance_comments")
           ),
           actionButton(
             ns("close_target_comments_fullscreen"),
@@ -390,7 +390,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
           style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
           tags$h3(
             style = "margin: 0; color: #0f60af;",
-            "ETL Guidance & Comments"
+            i18n$t("etl_guidance_comments")
           ),
           actionButton(
             ns("close_eval_comments_fullscreen"),
@@ -695,7 +695,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 tags$span(style = "color: #6c757d; font-size: 16px; margin: 0 10px;", ">"),
                 tags$span(
                   class = "section-title",
-                  "Mapped Concepts"
+                  i18n$t("mapped_concepts")
                 )
               )
             }
@@ -706,27 +706,27 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             tags$button(
               class = paste("tab-btn", if (current_tab == "summary") "tab-btn-active" else ""),
               onclick = sprintf("Shiny.setInputValue('%s', 'summary', {priority: 'event'})", ns("mapping_tab_click")),
-              "Summary"
+              i18n$t("summary")
             ),
             tags$button(
               class = paste("tab-btn", if (current_tab == "all_mappings") "tab-btn-active" else ""),
               onclick = sprintf("Shiny.setInputValue('%s', 'all_mappings', {priority: 'event'})", ns("mapping_tab_click")),
-              "All Mappings"
+              i18n$t("all_mappings")
             ),
             tags$button(
               class = paste("tab-btn", if (current_tab == "import_mappings") "tab-btn-active" else ""),
               onclick = sprintf("Shiny.setInputValue('%s', 'import_mappings', {priority: 'event'})", ns("mapping_tab_click")),
-              "Import Mappings"
+              i18n$t("import_mappings")
             ),
             tags$button(
               class = paste("tab-btn", if (current_tab == "edit_mappings") "tab-btn-active" else ""),
               onclick = sprintf("Shiny.setInputValue('%s', 'edit_mappings', {priority: 'event'})", ns("mapping_tab_click")),
-              "Edit Mappings"
+              i18n$t("edit_mappings")
             ),
             tags$button(
               class = paste("tab-btn", if (current_tab == "evaluate_mappings") "tab-btn-active" else ""),
               onclick = sprintf("Shiny.setInputValue('%s', 'evaluate_mappings', {priority: 'event'})", ns("mapping_tab_click")),
-              "Evaluate Mappings"
+              i18n$t("evaluate_mappings")
             )
           )
         )
@@ -882,12 +882,19 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         options = list(
           pageLength = 25,
           dom = 'tp',
+          language = get_datatable_language(),
           columnDefs = list(
             list(targets = 0, visible = FALSE),
             list(targets = 4, orderable = FALSE, width = "300px", searchable = FALSE, className = "dt-center")
           )
         ),
-        colnames = c("ID", "Name", "Description", "Created", "Actions")
+        colnames = c(
+          "ID",
+          as.character(i18n$t("project_name")),
+          as.character(i18n$t("description")),
+          as.character(i18n$t("created")),
+          as.character(i18n$t("actions"))
+        )
       )
 
       dt <- add_doubleclick_handler(dt, ns("open_alignment"))
@@ -1172,7 +1179,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           options = list(
             pageLength = 8,
             dom = 'tp',
-            ordering = TRUE
+            ordering = TRUE,
+            language = get_datatable_language()
           ),
           rownames = FALSE,
           selection = 'none',
@@ -1186,7 +1194,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         options = list(
           pageLength = 8,
           dom = 'tp',
-          ordering = TRUE
+          ordering = TRUE,
+          language = get_datatable_language()
         ),
         rownames = FALSE,
         selection = 'none',
@@ -1506,14 +1515,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
       
       if (!file.exists(csv_path)) {
-        showNotification("No mapping file found for this alignment", type = "error")
+        showNotification(i18n$t("no_mapping_file_found"), type = "error")
         return()
       }
       
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
       
       if (!"target_general_concept_id" %in% colnames(df)) {
-        showNotification("No mappings found in this alignment", type = "warning")
+        showNotification(i18n$t("no_mappings_found"), type = "warning")
         return()
       }
       
@@ -1521,7 +1530,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         dplyr::filter(!is.na(target_general_concept_id))
       
       if (nrow(mapped_rows) == 0) {
-        showNotification("No mappings found in this alignment", type = "warning")
+        showNotification(i18n$t("no_mappings_found"), type = "warning")
         return()
       }
       
@@ -1749,7 +1758,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                     style = "flex: 1;",
                     tags$h4(
                       style = "margin: 0;",
-                      "Source Concepts",
+                      i18n$t("source_concepts"),
                       tags$span(
                         class = "info-icon",
                         `data-tooltip` = "Concepts from your uploaded CSV file to be mapped to INDICATE concepts",
@@ -1778,7 +1787,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 tags$div(
                   class = "section-header",
                   style = "margin-bottom: 0;",
-                  tags$h4(style = "margin: 0;", "Source Concept Details"),
+                  tags$h4(style = "margin: 0;", i18n$t("source_concept_details")),
                   actionButton(
                     ns("view_source_json"),
                     label = NULL,
@@ -1789,7 +1798,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                       "padding: 4px 7px; cursor: pointer; font-size: 12px; ",
                       "margin-left: auto;"
                     ),
-                    `data-tooltip` = "View raw JSON"
+                    `data-tooltip` = i18n$t("view_raw_json")
                   )
                 ),
                 tags$div(
@@ -1805,7 +1814,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                         this.classList.add('tab-btn-active');
                         Shiny.setInputValue('%s', 'summary', {priority: 'event'});
                       ", ns("concept_details_panel"), ns("detail_tab_selected")),
-                      "Summary"
+                      i18n$t("summary")
                     ),
                     tags$button(
                       id = ns("detail_tab_distribution"),
@@ -1815,7 +1824,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                         this.classList.add('tab-btn-active');
                         Shiny.setInputValue('%s', 'distribution', {priority: 'event'});
                       ", ns("concept_details_panel"), ns("detail_tab_selected")),
-                      "Distribution"
+                      i18n$t("distribution")
                     ),
                     tags$button(
                       id = ns("detail_tab_temporal"),
@@ -1825,7 +1834,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                         this.classList.add('tab-btn-active');
                         Shiny.setInputValue('%s', 'temporal', {priority: 'event'});
                       ", ns("concept_details_panel"), ns("detail_tab_selected")),
-                      "Temporal"
+                      i18n$t("temporal")
                     ),
                     tags$button(
                       id = ns("detail_tab_units"),
@@ -1835,7 +1844,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                         this.classList.add('tab-btn-active');
                         Shiny.setInputValue('%s', 'units', {priority: 'event'});
                       ", ns("concept_details_panel"), ns("detail_tab_selected")),
-                      "Hospital Units"
+                      i18n$t("hospital_units")
                     )
                   ),
                   # Content area for selected tab
@@ -1927,48 +1936,50 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           tags$div(
             class = "card-container",
             style = "height: 50%; overflow: auto; padding: 20px;",
-            tags$h4(style = "margin-bottom: 15px; color: #0f60af;", "Import Mappings from CSV"),
+            # Header with title and import button on same line
+            tags$div(
+              style = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;",
+              tags$h4(style = "margin: 0; color: #0f60af;", i18n$t("import_mappings_from_csv")),
+              tags$div(
+                style = "display: flex; align-items: center; gap: 10px;",
+                actionButton(
+                  ns("do_import_mappings"),
+                  i18n$t("import_mappings"),
+                  class = "btn-primary-custom",
+                  icon = icon("file-import")
+                ),
+                uiOutput(ns("import_status_message"), inline = TRUE)
+              )
+            ),
             tags$p(
               style = "margin-bottom: 10px; color: #666;",
-              "Import mappings from a source_to_concept_map CSV file. The file should contain the following columns:"
+              i18n$t("import_mappings_csv_desc")
             ),
             tags$ul(
               style = "margin-bottom: 20px; color: #666; padding-left: 20px;",
-              tags$li(tags$code("source_code"), " - Source concept code"),
-              tags$li(tags$code("source_vocabulary_id"), " - Source vocabulary identifier"),
-              tags$li(tags$code("target_concept_id"), " - Target OMOP concept ID")
+              tags$li(tags$code(i18n$t("source_code_col")), " - ", i18n$t("source_code_desc")),
+              tags$li(tags$code(i18n$t("source_vocabulary_id_col")), " - ", i18n$t("source_vocabulary_id_desc")),
+              tags$li(tags$code(i18n$t("target_concept_id_col")), " - ", i18n$t("target_concept_id_desc"))
             ),
 
             # Browse button and file path display
             tags$div(
-              style = "margin-bottom: 15px;",
-              tags$label(style = "display: block; margin-bottom: 5px; font-weight: 500;", "Select CSV file:"),
+              tags$label(style = "display: block; margin-bottom: 5px; font-weight: 500;", i18n$t("select_csv_file")),
               tags$div(
                 style = "display: flex; align-items: center; gap: 15px;",
                 actionButton(
                   ns("browse_import_file"),
                   label = tagList(
                     tags$i(class = "fas fa-folder-open", style = "margin-right: 6px;"),
-                    "Browse..."
+                    i18n$t("browse")
                   ),
-                  style = "background: #0f60af; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer;"
+                  style = "background: #0f60af; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 500; cursor: pointer;"
                 ),
                 tags$div(
                   style = "flex: 1;",
                   uiOutput(ns("import_file_path_display"))
                 )
               )
-            ),
-
-            # Import button
-            tags$div(
-              actionButton(
-                ns("do_import_mappings"),
-                "Import Mappings",
-                class = "btn-primary-custom",
-                icon = icon("file-import")
-              ),
-              uiOutput(ns("import_status_message"), inline = TRUE)
             )
           ),
 
@@ -1976,7 +1987,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           tags$div(
             class = "card-container",
             style = "margin-top: 10px; height: calc(50% - 10px); overflow: auto; padding: 20px;",
-            tags$h4(style = "margin-bottom: 15px; color: #0f60af;", "Import History"),
+            tags$h4(style = "margin-bottom: 15px; color: #0f60af;", i18n$t("import_history")),
             DT::DTOutput(ns("import_history_table"))
           )
         ),
@@ -2003,7 +2014,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               tags$div(
                 class = "section-header",
                 style = "margin-bottom: 0;",
-                tags$h4(style = "margin: 0;", "Source Concept Details"),
+                tags$h4(style = "margin: 0;", i18n$t("source_concept_details")),
                 actionButton(
                   ns("view_eval_source_json"),
                   label = NULL,
@@ -2014,7 +2025,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                     "padding: 4px 7px; cursor: pointer; font-size: 12px; ",
                     "margin-left: auto;"
                   ),
-                  `data-tooltip` = "View raw JSON"
+                  `data-tooltip` = i18n$t("view_raw_json")
                 )
               ),
               tags$div(
@@ -2030,7 +2041,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                       this.classList.add('tab-btn-active');
                       Shiny.setInputValue('%s', 'summary', {priority: 'event'});
                     ", ns("eval_source_concept_details_panel"), ns("eval_source_tab_selected")),
-                    "Summary"
+                    i18n$t("summary")
                   ),
                   tags$button(
                     id = ns("eval_source_tab_distribution"),
@@ -2040,7 +2051,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                       this.classList.add('tab-btn-active');
                       Shiny.setInputValue('%s', 'distribution', {priority: 'event'});
                     ", ns("eval_source_concept_details_panel"), ns("eval_source_tab_selected")),
-                    "Distribution"
+                    i18n$t("distribution")
                   ),
                   tags$button(
                     id = ns("eval_source_tab_temporal"),
@@ -2050,7 +2061,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                       this.classList.add('tab-btn-active');
                       Shiny.setInputValue('%s', 'temporal', {priority: 'event'});
                     ", ns("eval_source_concept_details_panel"), ns("eval_source_tab_selected")),
-                    "Temporal"
+                    i18n$t("temporal")
                   ),
                   tags$button(
                     id = ns("eval_source_tab_units"),
@@ -2060,7 +2071,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                       this.classList.add('tab-btn-active');
                       Shiny.setInputValue('%s', 'units', {priority: 'event'});
                     ", ns("eval_source_concept_details_panel"), ns("eval_source_tab_selected")),
-                    "Hospital Units"
+                    i18n$t("hospital_units")
                   )
                 ),
                 # Content area for selected tab
@@ -2131,7 +2142,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               class = "section-header",
 
               tags$h4(
-                "Source Concepts",
+                i18n$t("source_concepts"),
                 tags$span(
                   class = "info-icon",
                   `data-tooltip` = "Concepts from your uploaded CSV file to be mapped to INDICATE concepts",
@@ -2151,10 +2162,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               style = "height: 40px; display: flex; justify-content: space-between; align-items: center;",
               tags$h4(
                 style = "margin: 0;",
-                "Mapped Concepts",
+                i18n$t("mapped_concepts"),
                 tags$span(
                   class = "info-icon",
-                  `data-tooltip` = "Specific OMOP concepts mapped to the selected general concept",
+                  `data-tooltip` = i18n$t("mapped_concepts_tooltip"),
                   "ⓘ"
                 )
               ),
@@ -2208,10 +2219,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         tags$div(
           class = "section-header",
           tags$h4(
-            "General Concepts",
+            i18n$t("general_concepts"),
             tags$span(
               class = "info-icon",
-              `data-tooltip` = "General concepts from the INDICATE Minimal Data Dictionary. Double-click a row to view mapped concepts.",
+              `data-tooltip` = i18n$t("general_concepts_tooltip"),
               "ⓘ"
             )
           )
@@ -2238,7 +2249,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               class = "breadcrumb-link",
               style = "cursor: pointer;",
               onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("back_to_general_list")),
-              "General Concepts"
+              i18n$t("general_concepts")
             ),
             tags$span(style = "color: #6c757d; margin: 0 8px;", ">"),
             tags$span(concept_name)
@@ -2390,7 +2401,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               ),
               tags$div(
                 style = "font-size: 14px; color: #666; margin-bottom: 8px;",
-                "Mapped Concepts"
+                i18n$t("mapped_concepts")
               ),
               tags$div(
                 style = paste0(
@@ -2415,7 +2426,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               ),
               tags$div(
                 style = "font-size: 14px; color: #666; margin-bottom: 8px;",
-                "General Concepts Mapped"
+                i18n$t("general_concepts_mapped")
               ),
               tags$div(
                 style = paste0(
@@ -2440,7 +2451,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               ),
               tags$div(
                 style = "font-size: 14px; color: #666; margin-bottom: 8px;",
-                "Evaluated Mappings"
+                i18n$t("evaluated_mappings")
               ),
               tags$div(
                 style = paste0(
@@ -2467,7 +2478,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 style = "background: none; border-bottom: none; padding: 0 0 0 5px;",
                 tags$span(
                   class = "section-title",
-                  "Projects Compatibility"
+                  i18n$t("projects_compatibility")
                 )
               ),
               DT::DTOutput(ns("projects_compatibility_table"))
@@ -2554,13 +2565,20 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             dom = 'ltp',
             ordering = TRUE,
             autoWidth = FALSE,
+            language = get_datatable_language(),
             columnDefs = list(
               list(targets = 2, width = "100px", className = "dt-center"),
               list(targets = 3, width = "100px", className = "dt-center"),
               list(targets = 4, width = "80px", className = "dt-center")
             )
           ),
-          colnames = c("Name", "Description", "Total Concepts", "Mapped Concepts", "Covered")
+          colnames = c(
+            as.character(i18n$t("name")),
+            as.character(i18n$t("description")),
+            as.character(i18n$t("total_concepts")),
+            as.character(i18n$t("mapped_concepts")),
+            as.character(i18n$t("covered"))
+          )
         ) %>%
           style_yes_no_custom("covered")
 
@@ -2766,20 +2784,21 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           Target = paste0(concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"),
           Origin = dplyr::if_else(
             is.na(imported_mapping_id),
-            '<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">Manual</span>',
-            '<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">Imported</span>'
+            sprintf('<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("manual")),
+            sprintf('<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("imported"))
           ),
           Upvotes = ifelse(is.na(upvotes), 0L, as.integer(upvotes)),
           Downvotes = ifelse(is.na(downvotes), 0L, as.integer(downvotes)),
           Uncertain = ifelse(is.na(uncertain_votes), 0L, as.integer(uncertain_votes)),
           Actions = sprintf(
-            '<button class="dt-action-btn dt-action-btn-danger delete-mapping-btn" data-id="%d">Delete</button>',
-            db_mapping_id
+            '<button class="dt-action-btn dt-action-btn-danger delete-mapping-btn" data-id="%d">%s</button>',
+            db_mapping_id,
+            i18n$t("delete")
           )
         ) %>%
         dplyr::select(Source, Target, Origin, Upvotes, Downvotes, Uncertain, Actions)
 
-      # Render table with prepared data
+      # Render table with prepared data (All Mappings)
       output$all_mappings_table_main <- DT::renderDT({
         dt <- datatable(
           display_df,
@@ -2789,6 +2808,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             pageLength = 15,
             lengthMenu = c(10, 15, 20, 50, 100, 200),
             dom = 'ltp',
+            language = get_datatable_language(),
             columnDefs = list(
               list(targets = 2, width = "80px", className = "dt-center"),
               list(targets = 3, width = "60px", className = "dt-center"),
@@ -2799,7 +2819,15 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           ),
           rownames = FALSE,
           selection = 'none',
-          colnames = c("Source Concept", "Target Concept", "Origin", "Upvotes", "Downvotes", "Uncertain", "Actions")
+          colnames = c(
+            as.character(i18n$t("source_concept")),
+            as.character(i18n$t("target_concept")),
+            as.character(i18n$t("origin")),
+            as.character(i18n$t("upvotes")),
+            as.character(i18n$t("downvotes")),
+            as.character(i18n$t("uncertain")),
+            as.character(i18n$t("actions"))
+          )
         )
 
         # Add button handlers
@@ -2981,15 +3009,16 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           Target = paste0(concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"),
           Origin = dplyr::if_else(
             is.na(imported_mapping_id),
-            '<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">Manual</span>',
-            '<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">Imported</span>'
+            sprintf('<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("manual")),
+            sprintf('<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("imported"))
           ),
           Upvotes = ifelse(is.na(upvotes), 0L, as.integer(upvotes)),
           Downvotes = ifelse(is.na(downvotes), 0L, as.integer(downvotes)),
           Uncertain = ifelse(is.na(uncertain_votes), 0L, as.integer(uncertain_votes)),
           Actions = sprintf(
-            '<button class="dt-action-btn dt-action-btn-danger delete-mapping-btn" data-id="%d">Delete</button>',
-            db_mapping_id
+            '<button class="dt-action-btn dt-action-btn-danger delete-mapping-btn" data-id="%d">%s</button>',
+            db_mapping_id,
+            i18n$t("delete")
           )
         ) %>%
         dplyr::select(Source, Target, Origin, Upvotes, Downvotes, Uncertain, Actions)
@@ -3107,7 +3136,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           options = list(
             pageLength = 8,
             lengthMenu = list(c(5, 8, 10, 15, 20, 50, 100), c('5', '8', '10', '15', '20', '50', '100')),
-            dom = 'ltp'
+            dom = 'ltp',
+            language = get_datatable_language()
           ),
           rownames = FALSE,
           selection = 'single'
@@ -3148,11 +3178,18 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           options = list(
             pageLength = 10,
             lengthMenu = list(c(5, 8, 10, 15, 20, 50, 100), c('5', '8', '10', '15', '20', '50', '100')),
-            dom = 'ltp'
+            dom = 'ltp',
+            language = get_datatable_language()
           ),
           rownames = FALSE,
           selection = 'single',
-          colnames = c("OMOP Concept ID", "Concept Name", "Concept Code", "Vocabulary", "Standard")
+          colnames = c(
+            as.character(i18n$t("omop_concept_id")),
+            as.character(i18n$t("concept_name")),
+            as.character(i18n$t("concept_code")),
+            as.character(i18n$t("vocabulary")),
+            as.character(i18n$t("standard"))
+          )
         )
       }, server = TRUE)
     })
@@ -3319,13 +3356,18 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           options = list(
             pageLength = 6,
             dom = 'tp',
+            language = get_datatable_language(),
             columnDefs = list(
               list(targets = 2, className = "dt-center")
             )
           ),
           rownames = FALSE,
           selection = 'none',
-          colnames = c("Source Concept", "Target Concept", "Actions")
+          colnames = c(
+            as.character(i18n$t("source_concept")),
+            as.character(i18n$t("target_concept")),
+            as.character(i18n$t("actions"))
+          )
         )
       }, server = TRUE)
     })
@@ -3421,10 +3463,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       df_display <- df[, c(available_standard, other_cols, "Mapped"), drop = FALSE]
 
       nice_names <- colnames(df_display)
-      nice_names[nice_names == "vocabulary_id"] <- "Vocabulary"
-      nice_names[nice_names == "concept_code"] <- "Code"
-      nice_names[nice_names == "concept_name"] <- "Name"
-      nice_names[nice_names == "statistical_summary"] <- "Summary"
+      nice_names[nice_names == "vocabulary_id"] <- as.character(i18n$t("vocabulary"))
+      nice_names[nice_names == "concept_code"] <- as.character(i18n$t("concept_code"))
+      nice_names[nice_names == "concept_name"] <- as.character(i18n$t("name"))
+      nice_names[nice_names == "statistical_summary"] <- as.character(i18n$t("summary"))
+      nice_names[nice_names == "Mapped"] <- as.character(i18n$t("mapped"))
 
       mapped_col_index <- which(colnames(df_display) == "Mapped") - 1
 
@@ -3453,10 +3496,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             pageLength = 8,
             lengthMenu = list(c(5, 8, 10, 15, 20, 50, 100), c("5", "8", "10", "15", "20", "50", "100")),
             dom = "Bltp",
+            language = get_datatable_language(),
             buttons = list(
               list(
                 extend = "colvis",
-                text = "Show/Hide Columns"
+                text = as.character(i18n$t("show_hide_columns"))
               )
             ),
             columnDefs = column_defs
@@ -3584,6 +3628,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             pageLength = 15,
             lengthMenu = list(c(5, 10, 15, 20, 50, 100), c("5", "10", "15", "20", "50", "100")),
             dom = "ltp",
+            language = get_datatable_language(),
             columnDefs = list(
               list(targets = 0, visible = FALSE),
               list(targets = 1, width = "200px")
@@ -3591,7 +3636,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           ),
           rownames = FALSE,
           selection = "single",
-          colnames = c("ID", "Category", "Subcategory", "General Concept")
+          colnames = c("ID", as.character(i18n$t("category")), as.character(i18n$t("subcategory")), as.character(i18n$t("general_concept")))
         )
 
         dt <- add_doubleclick_handler(dt, ns("view_mapped_concepts"))
@@ -3720,6 +3765,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             pageLength = 15,
             lengthMenu = list(c(5, 10, 15, 20, 50, 100), c("5", "10", "15", "20", "50", "100")),
             dom = "ltp",
+            language = get_datatable_language(),
             columnDefs = list(
               list(targets = c(4, 5), visible = FALSE)  # Hide omop_unit_concept_id and is_custom
             )
@@ -3727,7 +3773,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           rownames = FALSE,
           selection = "single",
           filter = "top",
-          colnames = c("Concept Name", "Vocabulary", "Code", "OMOP ID", "Unit ID", "Custom")
+          colnames = c(
+            as.character(i18n$t("concept_name")),
+            as.character(i18n$t("vocabulary")),
+            as.character(i18n$t("code")),
+            as.character(i18n$t("omop_id")),
+            as.character(i18n$t("unit_id")),
+            as.character(i18n$t("custom"))
+          )
         )
 
         dt
@@ -4244,7 +4297,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         tutorial_md <- '
 ## Guide de structure JSON
 
-Ce JSON decrit les statistiques d\'un concept source importe.
+Ce JSON décrit les statistiques d\'un concept source importé.
 
 ### Structure principale
 
@@ -4260,9 +4313,9 @@ Ce JSON decrit les statistiques d\'un concept source importe.
 }
 ```
 
-### Type de donnees (`data_types`)
+### Type de données (`data_types`)
 
-Indique le(s) type(s) de donnees. Peut etre une valeur unique ou un tableau.
+Indique le(s) type(s) de données. Peut être une valeur unique ou un tableau.
 
 ```json
 {
@@ -4280,9 +4333,9 @@ Ou plusieurs types :
 
 Valeurs possibles : `"numeric"`, `"categorical"`
 
-### Donnees numeriques (`numeric_data`)
+### Données numériques (`numeric_data`)
 
-Statistiques descriptives pour les variables numeriques.
+Statistiques descriptives pour les variables numériques.
 
 ```json
 {
@@ -4303,13 +4356,13 @@ Statistiques descriptives pour les variables numeriques.
 | Champ | Description |
 |-------|-------------|
 | `mean` | Moyenne |
-| `sd` | Ecart-type |
-| `min`, `max` | Valeurs extremes |
+| `sd` | Écart-type |
+| `min`, `max` | Valeurs extrêmes |
 | `p5`, `p25`, `median`, `p75`, `p95` | Percentiles |
 
 ### Histogramme (`histogram`)
 
-Distribution des valeurs (pour donnees numeriques). Chaque element contient `x` (valeur) et `count` (nombre d\'occurrences).
+Distribution des valeurs (pour données numériques). Chaque élément contient `x` (valeur) et `count` (nombre d\'occurrences).
 
 ```json
 {
@@ -4325,9 +4378,9 @@ Distribution des valeurs (pour donnees numeriques). Chaque element contient `x` 
 }
 ```
 
-### Donnees categorielles (`categorical_data`)
+### Données catégorielles (`categorical_data`)
 
-Distribution des categories (pour variables categorielles).
+Distribution des catégories (pour variables catégorielles).
 
 ```json
 {
@@ -4341,7 +4394,7 @@ Distribution des categories (pour variables categorielles).
 }
 ```
 
-### Frequence de mesure (`measurement_frequency`)
+### Fréquence de mesure (`measurement_frequency`)
 
 Intervalle typique entre les mesures.
 
@@ -4355,7 +4408,7 @@ Intervalle typique entre les mesures.
 }
 ```
 
-### Taux de donnees manquantes (`missing_rate`)
+### Taux de données manquantes (`missing_rate`)
 
 Pourcentage de valeurs manquantes.
 
@@ -4367,7 +4420,7 @@ Pourcentage de valeurs manquantes.
 
 ### Distribution temporelle (`temporal_distribution`)
 
-Couverture et repartition des donnees par annee.
+Couverture et répartition des données par année.
 
 ```json
 {
@@ -4389,7 +4442,7 @@ Couverture et repartition des donnees par annee.
 
 ### Distribution par service (`hospital_units`)
 
-Repartition des donnees par service hospitalier.
+Répartition des données par service hospitalier.
 
 ```json
 {
@@ -4408,7 +4461,7 @@ Repartition des donnees par service hospitalier.
 }
 ```
 
-### Exemple complet (numerique)
+### Exemple complet (numérique)
 
 ```json
 {
@@ -5297,7 +5350,7 @@ Data distribution by hospital unit/ward.
 
       if (nrow(existing_exact) > 0) {
         showNotification(
-          "This mapping already exists.",
+          i18n$t("mapping_already_exists"),
           type = "warning",
           duration = 3
         )
@@ -5336,7 +5389,7 @@ Data distribution by hospital unit/ward.
 
       # Show success notification
       showNotification(
-        "Mapping added successfully.",
+        i18n$t("mapping_added_successfully"),
         type = "message",
         duration = 2
       )
@@ -5520,11 +5573,11 @@ Data distribution by hospital unit/ward.
         enriched_data <- enriched_data %>%
           dplyr::mutate(
             status = dplyr::case_when(
-              is.na(is_approved) ~ "Not Evaluated",
-              is_approved == 1 ~ "Approved",
-              is_approved == 0 ~ "Rejected",
-              is_approved == -1 ~ "Uncertain",
-              TRUE ~ "Not Evaluated"
+              is.na(is_approved) ~ as.character(i18n$t("not_evaluated")),
+              is_approved == 1 ~ as.character(i18n$t("approved")),
+              is_approved == 0 ~ as.character(i18n$t("rejected")),
+              is_approved == -1 ~ as.character(i18n$t("uncertain")),
+              TRUE ~ as.character(i18n$t("not_evaluated"))
             )
           )
 
@@ -5562,11 +5615,16 @@ Data distribution by hospital unit/ward.
           dplyr::mutate(
             Source = paste0(source_concept_name, " (", source_vocabulary_id, ": ", source_concept_code, ")"),
             Target = paste0(concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"),
-            status = factor(status, levels = c("Not Evaluated", "Approved", "Rejected", "Uncertain")),
+            status = factor(status, levels = c(
+              as.character(i18n$t("not_evaluated")),
+              as.character(i18n$t("approved")),
+              as.character(i18n$t("rejected")),
+              as.character(i18n$t("uncertain"))
+            )),
             Origin = dplyr::if_else(
               is.na(imported_mapping_id),
-              '<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">Manual</span>',
-              '<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">Imported</span>'
+              sprintf('<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("manual")),
+              sprintf('<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("imported"))
             ),
             Added = dplyr::if_else(
               is.na(mapping_datetime) | mapping_datetime == "",
@@ -5606,6 +5664,7 @@ Data distribution by hospital unit/ward.
             ordering = TRUE,
             autoWidth = FALSE,
             stateSave = TRUE,
+            language = get_datatable_language(),
             columnDefs = list(
               list(targets = 0:5, visible = FALSE),
               list(targets = 6, width = "25%"),
@@ -5623,22 +5682,22 @@ Data distribution by hospital unit/ward.
             "csv_file_path",
             "target_general_concept_id",
             "target_omop_concept_id",
-            "Source Concept",
-            "Target Concept",
-            "Origin",
-            "Added",
-            "Status",
-            "Actions"
+            as.character(i18n$t("source_concept")),
+            as.character(i18n$t("target_concept")),
+            as.character(i18n$t("origin")),
+            as.character(i18n$t("added")),
+            as.character(i18n$t("status")),
+            as.character(i18n$t("actions"))
           )
         ) %>%
           DT::formatStyle(
             "status",
             backgroundColor = DT::styleEqual(
-              c("Approved", "Rejected", "Uncertain", "Not Evaluated"),
+              c(i18n$t("approved"), i18n$t("rejected"), i18n$t("uncertain"), i18n$t("not_evaluated")),
               c("#d4edda", "#f8d7da", "#fff3cd", "#e7e7e7")
             ),
             color = DT::styleEqual(
-              c("Approved", "Rejected", "Uncertain", "Not Evaluated"),
+              c(i18n$t("approved"), i18n$t("rejected"), i18n$t("uncertain"), i18n$t("not_evaluated")),
               c("#155724", "#721c24", "#856404", "#666666")
             ),
             fontWeight = "bold"
@@ -5744,11 +5803,11 @@ Data distribution by hospital unit/ward.
       enriched_data <- enriched_data %>%
         dplyr::mutate(
           status = dplyr::case_when(
-            is.na(is_approved) ~ "Not Evaluated",
-            is_approved == 1 ~ "Approved",
-            is_approved == 0 ~ "Rejected",
-            is_approved == -1 ~ "Uncertain",
-            TRUE ~ "Not Evaluated"
+            is.na(is_approved) ~ as.character(i18n$t("not_evaluated")),
+            is_approved == 1 ~ as.character(i18n$t("approved")),
+            is_approved == 0 ~ as.character(i18n$t("rejected")),
+            is_approved == -1 ~ as.character(i18n$t("uncertain")),
+            TRUE ~ as.character(i18n$t("not_evaluated"))
           )
         )
 
@@ -5761,19 +5820,21 @@ Data distribution by hospital unit/ward.
         dplyr::mutate(
           Actions = sprintf(
             '<div style="display: flex; gap: 5px; justify-content: center;">
-              <button class="btn-eval-action" data-action="approve" data-row="%d" data-mapping-id="%d" title="Approve">
+              <button class="btn-eval-action" data-action="approve" data-row="%%d" data-mapping-id="%%d" title="%s">
                 <i class="fas fa-check"></i>
               </button>
-              <button class="btn-eval-action" data-action="reject" data-row="%d" data-mapping-id="%d" title="Reject">
+              <button class="btn-eval-action" data-action="reject" data-row="%%d" data-mapping-id="%%d" title="%s">
                 <i class="fas fa-times"></i>
               </button>
-              <button class="btn-eval-action" data-action="uncertain" data-row="%d" data-mapping-id="%d" title="Uncertain">
+              <button class="btn-eval-action" data-action="uncertain" data-row="%%d" data-mapping-id="%%d" title="%s">
                 <i class="fas fa-question"></i>
               </button>
-              <button class="btn-eval-action" data-action="clear" data-row="%d" data-mapping-id="%d" title="Clear Evaluation">
+              <button class="btn-eval-action" data-action="clear" data-row="%%d" data-mapping-id="%%d" title="%s">
                 <i class="fas fa-redo"></i>
               </button>
             </div>',
+            i18n$t("approved"), i18n$t("rejected"), i18n$t("uncertain"), i18n$t("clear_evaluation")
+          ) %>% sprintf(
             row_index, mapping_id,
             row_index, mapping_id,
             row_index, mapping_id,
@@ -5786,11 +5847,16 @@ Data distribution by hospital unit/ward.
         dplyr::mutate(
           Source = paste0(source_concept_name, " (", source_vocabulary_id, ": ", source_concept_code, ")"),
           Target = paste0(concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"),
-          status = factor(status, levels = c("Not Evaluated", "Approved", "Rejected", "Uncertain")),
+          status = factor(status, levels = c(
+            as.character(i18n$t("not_evaluated")),
+            as.character(i18n$t("approved")),
+            as.character(i18n$t("rejected")),
+            as.character(i18n$t("uncertain"))
+          )),
           Origin = dplyr::if_else(
             is.na(imported_mapping_id),
-            '<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">Manual</span>',
-            '<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">Imported</span>'
+            sprintf('<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("manual")),
+            sprintf('<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("imported"))
           ),
           Added = dplyr::if_else(
             is.na(mapping_datetime) | mapping_datetime == "",
@@ -6302,7 +6368,7 @@ Data distribution by hospital unit/ward.
             ),
             tags$span(
               style = "color: #999;",
-              "No file selected"
+              i18n$t("no_file_selected")
             )
           )
         } else {
@@ -6551,7 +6617,7 @@ Data distribution by hospital unit/ward.
       if (nrow(import_history) == 0) {
         output$import_history_table <- DT::renderDT({
           DT::datatable(
-            data.frame(Message = "No imports yet. Use the form above to import mappings."),
+            data.frame(Message = as.character(i18n$t("no_imports_yet"))),
             options = list(dom = "t"),
             rownames = FALSE
           )
@@ -6585,7 +6651,8 @@ Data distribution by hospital unit/ward.
           options = list(
             dom = "t",
             pageLength = 10,
-            ordering = FALSE
+            ordering = FALSE,
+            language = get_datatable_language()
           )
         )
       })
@@ -6595,23 +6662,23 @@ Data distribution by hospital unit/ward.
     observe_event(input$do_import_mappings, {
       selected_file <- import_selected_file()
       if (is.null(selected_file) || nchar(selected_file) == 0) {
-        showNotification("Please select a CSV file to import", type = "warning")
+        showNotification(i18n$t("please_select_csv_file"), type = "warning")
         return()
       }
 
       if (!file.exists(selected_file)) {
-        showNotification("Selected file no longer exists", type = "error")
+        showNotification(i18n$t("selected_file_no_longer_exists"), type = "error")
         return()
       }
 
       alignment_id <- selected_alignment_id()
       if (is.null(alignment_id)) {
-        showNotification("No alignment selected", type = "error")
+        showNotification(i18n$t("no_alignment_selected_error"), type = "error")
         return()
       }
 
       if (is.null(current_user())) {
-        showNotification("You must be logged in to import mappings", type = "error")
+        showNotification(i18n$t("must_be_logged_in_import"), type = "error")
         return()
       }
 
@@ -6619,7 +6686,7 @@ Data distribution by hospital unit/ward.
       import_data <- tryCatch({
         read.csv(selected_file, stringsAsFactors = FALSE)
       }, error = function(e) {
-        showNotification(paste("Error reading CSV:", e$message), type = "error")
+        showNotification(paste(i18n$t("error_reading_csv"), e$message), type = "error")
         return(NULL)
       })
 
@@ -6630,7 +6697,7 @@ Data distribution by hospital unit/ward.
       missing_cols <- setdiff(required_cols, colnames(import_data))
       if (length(missing_cols) > 0) {
         showNotification(
-          paste("Missing required columns:", paste(missing_cols, collapse = ", ")),
+          paste(i18n$t("missing_required_columns"), paste(missing_cols, collapse = ", ")),
           type = "error"
         )
         return()
@@ -6641,7 +6708,7 @@ Data distribution by hospital unit/ward.
       db_path <- file.path(db_dir, "indicate.db")
 
       if (!file.exists(db_path)) {
-        showNotification("Database not found", type = "error")
+        showNotification(i18n$t("database_not_found"), type = "error")
         return()
       }
 
@@ -6656,7 +6723,7 @@ Data distribution by hospital unit/ward.
       )
 
       if (nrow(alignment_info) == 0) {
-        showNotification("Alignment not found", type = "error")
+        showNotification(i18n$t("alignment_not_found"), type = "error")
         return()
       }
 
@@ -6766,9 +6833,10 @@ Data distribution by hospital unit/ward.
         DBI::dbCommit(con)
 
         # Build notification message
-        msg <- paste("Successfully imported", imported_count, "mappings")
+        msg <- gsub("\\{count\\}", imported_count, i18n$t("successfully_imported_mappings"))
         if (skipped_count > 0) {
-          msg <- paste0(msg, " (", skipped_count, " duplicates skipped)")
+          skipped_msg <- gsub("\\{count\\}", skipped_count, i18n$t("duplicates_skipped"))
+          msg <- paste0(msg, " (", skipped_msg, ")")
         }
         showNotification(msg, type = "message")
 
@@ -6781,7 +6849,7 @@ Data distribution by hospital unit/ward.
 
       }, error = function(e) {
         DBI::dbRollback(con)
-        showNotification(paste("Import failed:", e$message), type = "error")
+        showNotification(paste(i18n$t("import_failed"), e$message), type = "error")
       })
     }, ignoreInit = TRUE)
 
@@ -6818,7 +6886,7 @@ Data distribution by hospital unit/ward.
 
         DBI::dbCommit(con)
 
-        showNotification("Import deleted successfully", type = "message")
+        showNotification(i18n$t("import_deleted_successfully"), type = "message")
 
         # Trigger refresh
         import_history_trigger(import_history_trigger() + 1)
@@ -6826,7 +6894,7 @@ Data distribution by hospital unit/ward.
 
       }, error = function(e) {
         DBI::dbRollback(con)
-        showNotification(paste("Delete failed:", e$message), type = "error")
+        showNotification(paste(i18n$t("delete_failed"), e$message), type = "error")
       })
     }, ignoreInit = TRUE)
   })

@@ -391,7 +391,8 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
                                 icon = icon("copy"),
                                 class = "btn-icon-only copy-menu-trigger has-tooltip",
                                 style = "background: transparent; border: none; color: #666; padding: 0; cursor: pointer; flex-shrink: 0;",
-                                `data-tooltip` = as.character(i18n$t("copy_concept_details"))
+                                `data-tooltip` = as.character(i18n$t("copy_concept_details")),
+                                `data-copied-text` = as.character(i18n$t("copied"))
                               ),
                               # Dropdown menu
                               tags$div(
@@ -1494,7 +1495,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 }, 100);
               ", ns("mapped_concepts_add_modal")),
               tags$i(class = "fa fa-plus"),
-              " Add Concepts"
+              paste0(" ", i18n$t("add_concepts"))
             )
           )
         }
@@ -1730,11 +1731,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           history <- get_history("general_concept")
 
           if (nrow(history) == 0) {
-            return(DT::datatable(
-              data.frame(Message = "No history available"),
-              options = list(dom = 't'),
-              rownames = FALSE
-            ))
+            return(create_empty_datatable(as.character(i18n$t("no_history_available"))))
           }
 
           # Prepare display data
@@ -1769,11 +1766,19 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             rownames = FALSE,
             filter = 'top',
             escape = FALSE,
-            colnames = c("Timestamp", "User", "Action", "Concept", "Comment", "Actions"),
+            colnames = c(
+              as.character(i18n$t("timestamp")),
+              as.character(i18n$t("user")),
+              as.character(i18n$t("action")),
+              as.character(i18n$t("concept")),
+              as.character(i18n$t("comment")),
+              as.character(i18n$t("actions"))
+            ),
             options = list(
               pageLength = 20,
               lengthMenu = list(c(10, 20, 50, 100, -1), c('10', '20', '50', '100', 'All')),
               dom = 'ltip',
+              language = get_datatable_language(),
               order = list(list(0, 'desc')),
               columnDefs = list(
                 list(targets = 0, width = "140px"),
@@ -1819,11 +1824,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               dplyr::filter(general_concept_id == concept_id)
 
             if (nrow(history) == 0) {
-              return(DT::datatable(
-                data.frame(Message = "No history available for this concept"),
-                options = list(dom = 't'),
-                rownames = FALSE
-              ))
+              return(create_empty_datatable(as.character(i18n$t("no_history_available_concept"))))
             }
 
             # Format columns (excluding general_concept_id since we're already filtered on it)
@@ -1866,7 +1867,16 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               table_data,
               selection = 'none',
               rownames = FALSE,
-              colnames = c("Timestamp", "User", "Action", "Vocabulary", "Code", "Concept", "Comment", "Actions"),
+              colnames = c(
+                as.character(i18n$t("timestamp")),
+                as.character(i18n$t("user")),
+                as.character(i18n$t("action")),
+                as.character(i18n$t("vocabulary")),
+                as.character(i18n$t("code")),
+                as.character(i18n$t("concept")),
+                as.character(i18n$t("comment")),
+                as.character(i18n$t("actions"))
+              ),
               escape = FALSE,
               class = 'cell-border stripe hover',
               filter = 'top',
@@ -1874,6 +1884,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 pageLength = 20,
                 lengthMenu = list(c(10, 20, 50, 100, -1), c('10', '20', '50', '100', 'All')),
                 dom = 'ltip',
+                language = get_datatable_language(),
                 order = list(list(0, 'desc')),
                 columnDefs = list(
                   list(targets = 0, width = "140px"),  # timestamp
@@ -1967,22 +1978,31 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           subcategory = factor(subcategory),
           actions = if (general_concepts_edit_mode()) {
             sprintf(
-              '<button class="delete-concept-btn" data-id="%s" style="padding: 4px 12px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Delete</button>',
-              general_concept_id
+              '<button class="delete-concept-btn" data-id="%s" style="padding: 4px 12px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">%s</button>',
+              general_concept_id,
+              as.character(i18n$t("delete"))
             )
           } else {
             sprintf(
-              '<button class="view-details-btn" data-id="%s">View Details</button>',
-              general_concept_id
+              '<button class="view-details-btn" data-id="%s">%s</button>',
+              general_concept_id,
+              as.character(i18n$t("view_details"))
             )
           }
         )
 
       # Select columns based on edit mode
+      col_names <- c(
+        "ID",
+        as.character(i18n$t("category")),
+        as.character(i18n$t("subcategory")),
+        as.character(i18n$t("general_concept_name")),
+        as.character(i18n$t("actions"))
+      )
+
       if (general_concepts_edit_mode()) {
         table_data <- table_data %>%
           dplyr::select(general_concept_id, category, subcategory, general_concept_name, actions)
-        col_names <- c("ID", "Category", "Subcategory", "General Concept Name", "Actions")
         col_defs <- list(
           list(targets = 0, visible = FALSE),
           list(targets = 1, width = "150px"),
@@ -1994,7 +2014,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       } else {
         table_data <- table_data %>%
           dplyr::select(general_concept_id, category, subcategory, general_concept_name, actions)
-        col_names <- c("ID", "Category", "Subcategory", "General Concept Name", "Actions")
         col_defs <- list(
           list(targets = 0, visible = FALSE),
           list(targets = 1, width = "150px"),
@@ -2017,6 +2036,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           pageLength = 20,
           lengthMenu = list(c(10, 15, 20, 25, 50, 100, -1), c('10', '15', '20', '25', '50', '100', 'All')),
           dom = 'ltip',
+          language = get_datatable_language(),
           columnDefs = col_defs
         )
       )
@@ -3275,6 +3295,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         options = list(
           pageLength = 6,
           dom = 'tip',
+          language = get_datatable_language(),
           select = list(style = 'single', info = FALSE),
           columnDefs = col_defs,
           displayStart = current_page_start,
@@ -3410,7 +3431,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             style = "padding: 20px; background: #f8f9fa; border-radius: 6px; text-align: center;",
             tags$p(
               style = "color: #666; font-style: italic;",
-              "Select a concept from the table to view details."
+              i18n$t("select_concept_table_details")
             )
           ))
         }
@@ -3458,7 +3479,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           if (is_already_added) {
             tags$div(
               style = "margin-top: 15px; padding: 8px 12px; background: #28a745; color: white; border-radius: 4px; text-align: center; font-weight: bold;",
-              "✓ Already Added"
+              paste0("\u2713 ", i18n$t("already_added"))
             )
           }
         )
@@ -3468,7 +3489,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       output$mapped_concepts_add_descendants_table <- DT::renderDT({
         if (is.null(concept) || nrow(concept) == 0) {
           return(DT::datatable(
-            data.frame(Message = "Select a concept to view descendants."),
+            data.frame(Message = as.character(i18n$t("select_concept_descendants"))),
             options = list(dom = 't'),
             rownames = FALSE,
             selection = 'none'
@@ -3519,7 +3540,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             pageLength = 8,
             dom = 'tp',
             ordering = TRUE,
-            autoWidth = FALSE
+            autoWidth = FALSE,
+            language = get_datatable_language()
           ),
           colnames = c("Concept ID", "Name", "Vocabulary")
         )
@@ -3587,6 +3609,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             pageLength = page_length,
             lengthMenu = list(c(5, 10, 15, 20, 50, 100, 200, 500), c('5', '10', '15', '20', '50', '100', '200', '500')),
             dom = 'ltip',  # l=length, t=table, i=info, p=pagination
+            language = get_datatable_language(),
             ordering = TRUE,
             autoWidth = FALSE,
             paging = TRUE,
@@ -5181,7 +5204,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
 
       if (nrow(related_concepts) == 0) {
-        return(create_empty_datatable("No related concepts found."))
+        return(create_empty_datatable(as.character(i18n$t("no_related_concepts"))))
       }
 
       # Reorder columns: relationship_id, concept_name, vocabulary_id, concept_code, omop_concept_id (hidden)
@@ -5192,10 +5215,17 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         related_concepts,
         selection = 'none',
         rownames = FALSE,
-        colnames = c("Relationship", "Concept Name", "Vocabulary", "Code", "OMOP ID"),
+        colnames = c(
+          as.character(i18n$t("relationship")),
+          as.character(i18n$t("concept_name")),
+          as.character(i18n$t("vocabulary")),
+          as.character(i18n$t("code")),
+          "OMOP ID"
+        ),
         options = list(
           pageLength = 6,
           dom = 'tip',
+          language = get_datatable_language(),
           columnDefs = list(
             list(targets = 4, visible = FALSE),  # OMOP ID hidden
             list(targets = 0, width = "150px")   # Relationship column width
@@ -5339,13 +5369,13 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             ),
             tags$span(
               style = "color: #666; font-size: 13px;",
-              "descendants"
+              tolower(i18n$t("descendants"))
             )
           )
         ),
         actionButton(
           ns("view_hierarchy_graph"),
-          "View Graph",
+          i18n$t("view_graph"),
           class = "btn-view-graph",
           style = "padding: 8px 16px; background: #0f60af; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 500;"
           )
@@ -5373,7 +5403,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       }
 
       if (nrow(descendant_concepts) == 0) {
-        return(create_empty_datatable("No descendant concepts found in hierarchy."))
+        return(create_empty_datatable(as.character(i18n$t("no_descendant_concepts"))))
       }
 
       # Reorder columns: relationship_id, concept_name, vocabulary_id, concept_code, omop_concept_id (hidden)
@@ -5384,10 +5414,17 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         descendant_concepts,
         selection = 'none',
         rownames = FALSE,
-        colnames = c("Relationship", "Concept Name", "Vocabulary", "Code", "OMOP ID"),
+        colnames = c(
+          as.character(i18n$t("relationship")),
+          as.character(i18n$t("concept_name")),
+          as.character(i18n$t("vocabulary")),
+          as.character(i18n$t("code")),
+          "OMOP ID"
+        ),
         options = list(
           pageLength = 6,
           dom = 'tip',
+          language = get_datatable_language(),
           columnDefs = list(
             list(targets = 4, visible = FALSE),  # OMOP ID hidden
             list(targets = 0, width = "150px")   # Relationship column width
@@ -5418,7 +5455,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           synonyms <- get_concept_synonyms(omop_concept_id, vocab_data)
 
       if (nrow(synonyms) == 0) {
-        return(create_empty_datatable("No synonyms found for this concept."))
+        return(create_empty_datatable(as.character(i18n$t("no_synonyms_found"))))
       }
 
       # Select only synonym and language columns (hide language_concept_id)
@@ -5429,10 +5466,15 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         synonyms,
         selection = 'none',
         rownames = FALSE,
-        colnames = c("Synonym", "Language", "Language ID"),
+        colnames = c(
+          as.character(i18n$t("synonym")),
+          as.character(i18n$t("language")),
+          "Language ID"
+        ),
         options = list(
           pageLength = 6,
           dom = 'tip',
+          language = get_datatable_language(),
           columnDefs = list(
             list(targets = 2, visible = FALSE)  # Language ID hidden
           )
@@ -5458,7 +5500,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         style = "display: flex; align-items: center; gap: 10px;",
         tags$span(
           style = "font-weight: 600; color: #333; font-size: 16px;",
-          "Concept Hierarchy:"
+          i18n$t("concept_hierarchy")
         ),
         tags$span(
           style = "color: #0f60af; font-size: 16px; font-weight: 500;",

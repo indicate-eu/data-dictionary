@@ -55,7 +55,8 @@ hf_hub_download(repo_id=\"indicate-eu/ohdsi-vocabularies\", filename=\"CONCEPT_S
 hf_hub_download(repo_id=\"indicate-eu/ohdsi-vocabularies\", filename=\"DOMAIN.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
 hf_hub_download(repo_id=\"indicate-eu/ohdsi-vocabularies\", filename=\"DRUG_STRENGTH.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
 hf_hub_download(repo_id=\"indicate-eu/ohdsi-vocabularies\", filename=\"RELATIONSHIP.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
-hf_hub_download(repo_id=\"indicate-eu/ohdsi-vocabularies\", filename=\"VOCABULARY.csv\", repo_type=\"dataset\", local_dir=d, token=token)"\n\
+hf_hub_download(repo_id=\"indicate-eu/ohdsi-vocabularies\", filename=\"VOCABULARY.csv\", repo_type=\"dataset\", local_dir=d, token=token); \
+hf_hub_download(repo_id=\"indicate-eu/ohdsi-vocabularies\", filename=\"vocabularies.duckdb\", repo_type=\"dataset\", local_dir=\"/root/indicate_files\", token=token)"\n\
     echo "Download complete."\n\
 else\n\
     echo "HF_TOKEN not set, skipping vocabulary download."\n\

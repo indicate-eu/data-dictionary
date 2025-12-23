@@ -160,6 +160,7 @@ app_server <- function(input, output, session) {
           "dev_tools",
           data = data,
           vocabularies = reactive({ vocabularies() }),
+          i18n = i18n,
           log_level = log_level
         )
         modules_initialized$dev_tools <- TRUE
@@ -188,6 +189,7 @@ app_server <- function(input, output, session) {
         mod_users_server(
           "users",
           current_user = current_user,
+          i18n = i18n,
           log_level = log_level
         )
         modules_initialized$users <- TRUE

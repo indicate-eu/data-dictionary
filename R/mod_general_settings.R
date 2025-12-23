@@ -43,13 +43,14 @@
 #' @description UI function for general settings
 #'
 #' @param id Module ID
+#' @param i18n Translator object from shiny.i18n
 #'
 #' @return Shiny UI elements
 #' @noRd
 #'
 #' @importFrom shiny NS fluidRow column h3 h4 p textOutput actionButton uiOutput
 #' @importFrom htmltools tags tagList
-mod_general_settings_ui <- function(id) {
+mod_general_settings_ui <- function(id, i18n) {
   ns <- NS(id)
 
   tagList(
@@ -61,7 +62,7 @@ mod_general_settings_ui <- function(id) {
 
           ### OHDSI Vocabularies Tab ----
           tabPanel(
-            "OHDSI Vocabularies",
+            i18n$t("ohdsi_vocabularies"),
             value = "ohdsi_vocabularies",
             icon = icon("book-medical"),
             tags$div(
@@ -69,7 +70,7 @@ mod_general_settings_ui <- function(id) {
               div(class = "settings-section",
                 p(
                   style = "color: #666; margin-bottom: 15px;",
-                  "Browse and select the folder containing your OHDSI Vocabularies files."
+                  i18n$t("browse_vocab_folder_desc")
                 ),
 
                 # Browse folder button
@@ -79,7 +80,7 @@ mod_general_settings_ui <- function(id) {
                     ns("browse_folder"),
                     label = tagList(
                       tags$i(class = "fas fa-folder-open", style = "margin-right: 6px;"),
-                      "Browse..."
+                      i18n$t("browse")
                     ),
                     style = "background: #0f60af; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer;"
                   ),
@@ -94,14 +95,7 @@ mod_general_settings_ui <- function(id) {
                   tags$p(
                     style = "margin: 0; font-size: 13px; color: #333;",
                     tags$i(class = "fas fa-info-circle", style = "margin-right: 6px; color: #0f60af;"),
-                    tags$strong("Note:"), " The OHDSI Vocabularies can be downloaded from ",
-                    tags$a(
-                      href = "https://athena.ohdsi.org/",
-                      target = "_blank",
-                      "ATHENA",
-                      style = "color: #0f60af; text-decoration: underline;"
-                    ),
-                    " (registration required)."
+                    i18n$t("athena_note")
                   )
                 ),
 
@@ -113,11 +107,11 @@ mod_general_settings_ui <- function(id) {
                     tags$div(
                       style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 5px;",
                       tags$i(class = "fas fa-database", style = "margin-right: 8px; color: #0f60af;"),
-                      "DuckDB Database Status"
+                      i18n$t("duckdb_status")
                     ),
                     tags$p(
                       style = "margin: 0; font-size: 12px; color: #666;",
-                      "A DuckDB database is automatically created from ATHENA CSV files for instant loading at startup."
+                      i18n$t("duckdb_description")
                     )
                   ),
                   uiOutput(ns("duckdb_status"))
@@ -131,11 +125,11 @@ mod_general_settings_ui <- function(id) {
                     tags$div(
                       style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 5px;",
                       tags$i(class = "fas fa-project-diagram", style = "margin-right: 8px; color: #0f60af;"),
-                      "OHDSI Relationships Mappings"
+                      i18n$t("ohdsi_relationships")
                     ),
                     tags$p(
                       style = "margin: 0; font-size: 12px; color: #666;",
-                      "Load additional concept mappings from OHDSI vocabulary relationships. This enriches the dictionary with related concepts from standard vocabularies."
+                      i18n$t("ohdsi_relationships_desc")
                     )
                   ),
                   uiOutput(ns("ohdsi_mappings_status"))
@@ -146,7 +140,7 @@ mod_general_settings_ui <- function(id) {
 
           ### Backup & Restore Tab ----
           tabPanel(
-            "Backup & Restore",
+            i18n$t("backup_restore"),
             value = "backup_restore",
             icon = icon("database"),
             tags$div(
@@ -163,7 +157,7 @@ mod_general_settings_ui <- function(id) {
                   tags$div(
                     style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 10px;",
                     tags$i(class = "fas fa-download", style = "margin-right: 8px; color: #28a745;"),
-                    "Download Backup"
+                    i18n$t("download_backup")
                   ),
                   downloadButton(
                     ns("download_backup"),
@@ -173,7 +167,7 @@ mod_general_settings_ui <- function(id) {
                   ),
                   tags$p(
                     style = "margin-top: 8px; font-size: 12px; color: #666;",
-                    "Creates a ZIP archive containing the database and concept mappings (excludes vocabulary files)."
+                    i18n$t("download_backup_desc")
                   )
                 ),
 
@@ -184,7 +178,7 @@ mod_general_settings_ui <- function(id) {
                   tags$div(
                     style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 10px;",
                     tags$i(class = "fas fa-upload", style = "margin-right: 8px; color: #0f60af;"),
-                    "Restore from Backup"
+                    i18n$t("restore_from_backup")
                   ),
                   fileInput(
                     ns("upload_backup_file"),
@@ -193,9 +187,9 @@ mod_general_settings_ui <- function(id) {
                     width = "400px",
                     buttonLabel = tagList(
                       tags$i(class = "fas fa-upload", style = "margin-right: 6px;"),
-                      "Upload..."
+                      i18n$t("browse")
                     ),
-                    placeholder = "Select a backup ZIP file"
+                    placeholder = as.character(i18n$t("select_backup_file"))
                   ),
 
                   # Import category selection

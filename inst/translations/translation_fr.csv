@@ -66,13 +66,11 @@ optional,Optionnel
 concept_name,Nom du concept
 concept_details,Détails du concept
 general_concepts,Concepts généraux
-dictionary_explorer,Explorateur du dictionnaire
+dictionary_explorer,Dictionnaire des concepts
 select_concept_to_view,Sélectionnez un concept pour voir les détails
 no_concept_selected,Aucun concept sélectionné
 no_mapping_selected,Aucun mapping sélectionné
 select_mapping_to_view,Sélectionnez un mapping pour voir les détails
-recommended,Recommandé
-not_recommended,Non recommandé
 vocabulary,Vocabulaire
 domain,Domaine
 concept_class,Classe du concept
@@ -149,7 +147,6 @@ run_code_results,Exécutez le code pour voir les résultats ici
 enter_r_code,Veuillez entrer du code R à exécuter.
 vocabularies_not_loaded,Vocabulaires OHDSI non chargés.
 missing_comments,Commentaires manquants
-recommended_non_standard,Recommandés non standard
 missing_data_details,Détails des données manquantes
 ohdsi_vocabularies,Vocabulaires OHDSI
 backup_restore,Sauvegarde et restauration
@@ -222,3 +219,136 @@ unit_concept_name,Nom du concept d'unité
 fhir_resource,Ressource FHIR
 add_alignment,Ajouter un alignement
 no_alignments_yet,Aucun alignement. Cliquez sur 'Ajouter un alignement' pour en créer un.
+alignment_name,Nom de l'alignement
+enter_alignment_name,Entrez le nom de l'alignement
+please_enter_alignment_name,Veuillez entrer un nom d'alignement
+description,Description
+enter_description,Entrez la description
+upload_csv_file,Téléverser un fichier CSV
+please_upload_file,Veuillez téléverser un fichier
+back,Retour
+next,Suivant
+column_mapping,Mapping des colonnes
+additional_columns,Colonnes supplémentaires
+concept_mappings,Mappings de concepts
+summary,Résumé
+all_mappings,Tous les mappings
+import_mappings,Importer des mappings
+edit_mappings,Éditer les mappings
+evaluate_mappings,Évaluer les mappings
+source_concepts,Concepts sources
+add_mapping,Ajouter un mapping
+target_concept_details,Détails du concept cible
+distribution,Distribution
+temporal,Temporel
+hospital_units,Services hospitaliers
+import_mappings_from_csv,Importer des mappings depuis un CSV
+import_mappings_csv_desc,"Importer des mappings depuis un fichier CSV source_to_concept_map. Le fichier doit contenir les colonnes suivantes :"
+source_concept_id,ID du concept source
+target_concept_id,ID du concept cible
+select_csv_file,Sélectionner un fichier CSV :
+import_history,Historique des imports
+completed_mappings,Mappings complétés
+no_alignment_selected,Aucun alignement sélectionné
+no_mappings_yet,Aucun mapping créé pour le moment.
+no_mappings_select_add,"Aucun mapping créé. Sélectionnez un concept source et un concept mappé, puis cliquez sur 'Ajouter un mapping'."
+no_mapped_concepts,Aucun concept mappé trouvé pour ce concept général.
+no_json_data,Aucune donnée JSON disponible pour ce concept.
+no_summary_data,Aucune donnée de résumé disponible.
+no_distribution_data,Aucune donnée de distribution disponible.
+no_temporal_data,Aucune donnée temporelle disponible.
+no_unit_data,Aucune donnée de distribution par service disponible.
+select_general_concept,Sélectionnez un concept général pour voir les détails cibles.
+no_data_available,Aucune donnée disponible.
+mapping_added,Mapping ajouté avec succès.
+imported,Importé
+remove,Supprimer
+source_concept,Concept source
+target_concept,Concept cible
+origin,Origine
+upvotes,Votes positifs
+downvotes,Votes négatifs
+uncertain,Incertain
+actions,Actions
+added,Ajouté
+status,Statut
+export,Exporter
+no_projects_defined,Aucun projet défini
+total_concepts,Concepts totaux
+mapped_concepts,Concepts mappés
+covered,Couvert
+evaluated_mappings,Mappings évalués
+no_mapping_file,Aucun fichier de mapping trouvé pour cet alignement
+no_mappings_found,Aucun mapping trouvé dans cet alignement
+csv_file_not_found,Fichier CSV non trouvé
+created,Créé
+delete_alignment_confirm,Êtes-vous sûr de vouloir supprimer cet alignement ? Cette action est irréversible.
+edit_alignment,Modifier l'alignement
+non_standard_concepts,Concepts non standard
+non_standard,Non standard
+omop_concept_name,Nom du concept OMOP
+general_concept,Concept général
+browse_vocab_folder_desc,Parcourir et sélectionner le dossier contenant vos fichiers de vocabulaires OHDSI.
+no_database_info,"Aucune base de données trouvée. Sélectionnez un dossier de vocabulaires ci-dessus pour en créer une, ou placez un fichier vocabularies.duckdb pré-construit dans le dossier de l'application."
+reload_message,Veuillez recharger l'application pour appliquer les changements.
+show_hide_columns,Afficher/Masquer les colonnes
+mapped,Mappé
+name,Nom
+source_concept_details,Détails du concept source
+view_raw_json,Voir le JSON brut
+relationship,Relation
+code,Code
+synonym,Synonyme
+language,Langue
+no_related_concepts,Aucun concept lié trouvé.
+no_descendant_concepts,Aucun concept descendant trouvé dans la hiérarchie.
+no_synonyms_found,Aucun synonyme trouvé pour ce concept.
+concept_hierarchy,Hiérarchie du concept :
+timestamp,Date
+user,Utilisateur
+action,Action
+concept,Concept
+comment,Commentaire
+no_history_available,Aucun historique disponible
+no_history_available_concept,Aucun historique disponible pour ce concept
+select_concept_table_details,Sélectionnez un concept du tableau pour voir les détails.
+select_concept_descendants,Sélectionnez un concept pour voir les descendants.
+select_mapped_concept_details,Sélectionnez un concept du tableau des concepts mappés pour voir ses détails.
+already_added,Déjà ajouté
+copied,Copié
+view_graph,Voir le graphe
+manual,Manuel
+not_evaluated,Non évalué
+approved,Approuvé
+rejected,Rejeté
+no_file_selected,Aucun fichier sélectionné
+omop_id,ID OMOP
+unit_id,ID unité
+custom,Personnalisé
+general_concepts_mapped,Concepts généraux mappés
+no_imports_yet,Aucun import pour le moment. Utilisez le formulaire ci-dessus pour importer des mappings.
+source_code_col,source_code
+source_vocabulary_id_col,source_vocabulary_id
+target_concept_id_col,target_concept_id
+source_code_desc,Code du concept source
+source_vocabulary_id_desc,Identifiant du vocabulaire source
+target_concept_id_desc,ID du concept OMOP cible
+clear_evaluation,Effacer l'évaluation
+mapped_concepts_tooltip,Concepts OMOP spécifiques mappés au concept général sélectionné
+projects_compatibility,Compatibilité des projets
+mapping_already_exists,Ce mapping existe déjà.
+mapping_added_successfully,Mapping ajouté avec succès.
+please_select_csv_file,Veuillez sélectionner un fichier CSV à importer
+selected_file_no_longer_exists,Le fichier sélectionné n'existe plus
+no_alignment_selected_error,Aucun alignement sélectionné
+must_be_logged_in_import,Vous devez être connecté pour importer des mappings
+error_reading_csv,Erreur de lecture du CSV :
+missing_required_columns,Colonnes requises manquantes :
+database_not_found,Base de données non trouvée
+alignment_not_found,Alignement non trouvé
+successfully_imported_mappings,{count} mappings importés avec succès
+duplicates_skipped,{count} doublons ignorés
+import_deleted_successfully,Import supprimé avec succès
+import_failed,Échec de l'import :
+delete_failed,Échec de la suppression :
+no_mapping_file_found,Aucun fichier de mapping trouvé pour cet alignement

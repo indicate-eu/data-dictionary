@@ -1876,7 +1876,7 @@ a.btn-success-custom:hover {
 }
 
 .btn-icon-only.copied::after {
-  content: 'Copied' !important;
+  content: attr(data-copied-text) !important;
   background: #333 !important;
   opacity: 1 !important;
   transition: opacity 0.3s ease !important;
@@ -2358,7 +2358,7 @@ a.btn-success-custom:hover {
   border-radius: 4px;
   overflow-x: auto;
   margin: 8px 0;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .markdown-content pre code {
