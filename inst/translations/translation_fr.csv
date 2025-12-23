@@ -208,3 +208,17 @@ confirm_delete_user,Êtes-vous sûr de vouloir supprimer l'utilisateur
 athena_note,Les vocabulaires OHDSI peuvent être téléchargés depuis ATHENA (inscription requise).
 edit_project,Modifier le projet
 update_project,Mettre à jour
+ehden_data_sources,Sources de données EHDEN
+ehden_rows_count,Lignes EHDEN
+loinc_rank,Rang LOINC
+unit,Unité
+omop_unit_concept_id,ID du concept d'unité
+omop_concept_id,ID OMOP
+profile,Profil
+validity,Validité
+standard,Standard
+domain_id,ID du domaine
+unit_concept_name,Nom du concept d'unité
+fhir_resource,Ressource FHIR
+add_alignment,Ajouter un alignement
+no_alignments_yet,Aucun alignement. Cliquez sur 'Ajouter un alignement' pour en créer un.

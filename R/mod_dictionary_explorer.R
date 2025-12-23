@@ -2638,7 +2638,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Update statistical_summary in general_concepts and log changes
       new_statistical_summary <- input$statistical_summary_editor
       if (!is.null(new_statistical_summary) && nrow(current_concept) > 0) {
-        old_statistical_summary <- if (!is.na(current_concept$statistical_summary[1])) {
+        old_statistical_summary <- if ("statistical_summary" %in% names(current_concept) &&
+                                       !is.null(current_concept$statistical_summary[1]) &&
+                                       !is.na(current_concept$statistical_summary[1])) {
           current_concept$statistical_summary[1]
         } else {
           ""
@@ -2646,14 +2648,22 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
         # Check if statistical summary has changed
         if (old_statistical_summary != new_statistical_summary) {
-          general_concepts <- general_concepts %>%
-            dplyr::mutate(
-              statistical_summary = ifelse(
-                general_concept_id == concept_id,
-                new_statistical_summary,
-                statistical_summary
+          # Update statistical_summary in memory (general_concepts has it joined from stats file)
+          if ("statistical_summary" %in% names(general_concepts)) {
+            general_concepts <- general_concepts %>%
+              dplyr::mutate(
+                statistical_summary = ifelse(
+                  general_concept_id == concept_id,
+                  new_statistical_summary,
+                  statistical_summary
+                )
               )
-            )
+          } else {
+            # Add the column if it doesn't exist
+            general_concepts <- general_concepts %>%
+              dplyr::mutate(statistical_summary = NA_character_)
+            general_concepts$statistical_summary[general_concepts$general_concept_id == concept_id] <- new_statistical_summary
+          }
 
           # Get concept name for history
           concept_name <- if (!is.na(current_concept$general_concept_name[1])) {
@@ -2957,13 +2967,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         concept_mappings <- dplyr::bind_rows(concept_mappings, new_mappings_df)
       }
 
-      # Write to CSV files (language-specific for general_concepts)
+      # Write to CSV files (language-specific for general_concepts + stats file)
       lang <- current_language()
-      general_concepts_file <- paste0("general_concepts_", lang, ".csv")
-      readr::write_csv(
-        general_concepts,
-        get_csv_path(general_concepts_file)
-      )
+      save_general_concepts_csv(general_concepts, language = lang)
 
       readr::write_csv(
         concept_mappings,
@@ -3439,14 +3445,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             class = "concept-details-container",
             style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); grid-auto-flow: column; gap: 4px 15px;",
             # Column 1
-            create_detail_item("Concept Name", concept$concept_name, include_colon = FALSE),
-            create_detail_item("Vocabulary ID", concept$vocabulary_id, include_colon = FALSE),
-            create_detail_item("Domain ID", concept$domain_id, include_colon = FALSE),
-            create_detail_item("Concept Class", concept$concept_class_id, include_colon = FALSE),
+            create_detail_item(i18n$t("concept_name"), concept$concept_name, include_colon = FALSE),
+            create_detail_item(i18n$t("vocabulary_id"), concept$vocabulary_id, include_colon = FALSE),
+            create_detail_item(i18n$t("domain_id"), concept$domain_id, include_colon = FALSE),
+            create_detail_item(i18n$t("concept_class"), concept$concept_class_id, include_colon = FALSE),
             # Column 2
-            create_detail_item("OMOP Concept ID", concept$concept_id, include_colon = FALSE),
-            create_detail_item("Concept Code", concept$concept_code, include_colon = FALSE),
-            create_detail_item("Standard", if (!is.na(concept$standard_concept)) concept$standard_concept else "No", include_colon = FALSE),
+            create_detail_item(i18n$t("omop_concept_id"), concept$concept_id, include_colon = FALSE),
+            create_detail_item(i18n$t("concept_code"), concept$concept_code, include_colon = FALSE),
+            create_detail_item(i18n$t("standard"), if (!is.na(concept$standard_concept)) concept$standard_concept else "No", include_colon = FALSE),
             tags$div()  # Empty slot to balance grid
           ),
           if (is_already_added) {
@@ -3913,30 +3919,30 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           class = "concept-details-container",
           style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(8, auto); grid-auto-flow: column; gap: 4px 15px;",
           # Column 1
-          create_detail_item("Concept Name", info$concept_name, include_colon = FALSE),
-          create_detail_item("Category",
+          create_detail_item(i18n$t("concept_name"), info$concept_name, include_colon = FALSE),
+          create_detail_item(i18n$t("category"),
                             ifelse(nrow(general_concept_info) > 0,
                                   general_concept_info$category[1], NA),
                             include_colon = FALSE),
-          create_detail_item("Sub-category",
+          create_detail_item(i18n$t("subcategory"),
                             ifelse(nrow(general_concept_info) > 0,
                                   general_concept_info$subcategory[1], NA),
                             include_colon = FALSE),
-          create_detail_item("EHDEN Data Sources", "/", include_colon = FALSE),
-          create_detail_item("EHDEN Rows Count", "/", include_colon = FALSE),
-          create_detail_item("LOINC Rank", "/", include_colon = FALSE),
-          create_detail_item("Validity", validity_text, color = validity_color, include_colon = FALSE),
-          create_detail_item("Standard", standard_text, color = standard_color, include_colon = FALSE),
+          create_detail_item(i18n$t("ehden_data_sources"), "/", include_colon = FALSE),
+          create_detail_item(i18n$t("ehden_rows_count"), "/", include_colon = FALSE),
+          create_detail_item(i18n$t("loinc_rank"), "/", include_colon = FALSE),
+          create_detail_item(i18n$t("validity"), validity_text, color = validity_color, include_colon = FALSE),
+          create_detail_item(i18n$t("standard"), standard_text, color = standard_color, include_colon = FALSE),
           # Column 2 (must have exactly 8 items)
-          create_detail_item("Vocabulary ID", info$vocabulary_id, include_colon = FALSE),
-          create_detail_item("Domain ID", if (!is.na(info$domain_id)) info$domain_id else "/", include_colon = FALSE),
-          create_detail_item("Concept Code", info$concept_code, include_colon = FALSE),
-          create_detail_item("OMOP Concept ID", info$concept_id, url = athena_url, include_colon = FALSE),
+          create_detail_item(i18n$t("vocabulary_id"), info$vocabulary_id, include_colon = FALSE),
+          create_detail_item(i18n$t("domain_id"), if (!is.na(info$domain_id)) info$domain_id else "/", include_colon = FALSE),
+          create_detail_item(i18n$t("concept_code"), info$concept_code, include_colon = FALSE),
+          create_detail_item(i18n$t("omop_concept_id"), info$concept_id, url = athena_url, include_colon = FALSE),
           if (!is.null(fhir_url)) {
             if (fhir_url == "no_link") {
               tags$div(
                 class = "detail-item",
-                tags$strong("FHIR Resource"),
+                tags$strong(i18n$t("fhir_resource")),
                 tags$span(
                   style = "color: #999; font-style: italic;",
                   "No link available"
@@ -3945,7 +3951,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             } else {
               tags$div(
                 class = "detail-item",
-                tags$strong("FHIR Resource"),
+                tags$strong(i18n$t("fhir_resource")),
                 tags$a(
                   href = fhir_url,
                   target = "_blank",
@@ -3957,8 +3963,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           } else {
             tags$div(class = "detail-item", style = "visibility: hidden;")
           },
-          create_detail_item("Unit Concept Name", "/", include_colon = FALSE),
-          create_detail_item("OMOP Unit Concept ID", "/", include_colon = FALSE),
+          create_detail_item(i18n$t("unit_concept_name"), "/", include_colon = FALSE),
+          create_detail_item(i18n$t("omop_unit_concept_id"), "/", include_colon = FALSE),
           tags$div(class = "detail-item", style = "visibility: hidden;"),
           tags$div(class = "detail-item", style = "visibility: hidden;")
         ))
@@ -4084,30 +4090,30 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         class = "concept-details-container",
         style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(8, auto); grid-auto-flow: column; gap: 4px 15px;",
         # Column 1
-        create_detail_item("Concept Name", info$concept_name, include_colon = FALSE, is_editing = is_editing, ns = ns),
-        create_detail_item("Category",
+        create_detail_item(i18n$t("concept_name"), info$concept_name, include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item(i18n$t("category"),
                           ifelse(nrow(general_concept_info) > 0,
                                 general_concept_info$category[1], NA),
                           include_colon = FALSE, is_editing = is_editing, ns = ns),
-        create_detail_item("Sub-category",
+        create_detail_item(i18n$t("subcategory"),
                           ifelse(nrow(general_concept_info) > 0,
                                 general_concept_info$subcategory[1], NA),
                           include_colon = FALSE, is_editing = is_editing, ns = ns),
-        create_detail_item("EHDEN Data Sources", info$ehden_num_data_sources, format_number = TRUE, editable = TRUE, input_id = "ehden_num_data_sources_input", step = 1, include_colon = FALSE, is_editing = is_editing, ns = ns),
-        create_detail_item("EHDEN Rows Count", info$ehden_rows_count, format_number = TRUE, editable = TRUE, input_id = "ehden_rows_count_input", step = 1000, include_colon = FALSE, is_editing = is_editing, ns = ns),
-        create_detail_item("LOINC Rank", info$loinc_rank, editable = TRUE, input_id = "loinc_rank_input", step = 1, include_colon = FALSE, is_editing = is_editing, ns = ns),
-        create_detail_item("Validity", validity_text, color = validity_color, include_colon = FALSE, is_editing = is_editing, ns = ns),
-        create_detail_item("Standard", standard_text, color = standard_color, include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item(i18n$t("ehden_data_sources"), info$ehden_num_data_sources, format_number = TRUE, editable = TRUE, input_id = "ehden_num_data_sources_input", step = 1, include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item(i18n$t("ehden_rows_count"), info$ehden_rows_count, format_number = TRUE, editable = TRUE, input_id = "ehden_rows_count_input", step = 1000, include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item(i18n$t("loinc_rank"), info$loinc_rank, editable = TRUE, input_id = "loinc_rank_input", step = 1, include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item(i18n$t("validity"), validity_text, color = validity_color, include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item(i18n$t("standard"), standard_text, color = standard_color, include_colon = FALSE, is_editing = is_editing, ns = ns),
         # Column 2 (must have exactly 8 items)
-        create_detail_item("Vocabulary ID", info$vocabulary_id, include_colon = FALSE, is_editing = is_editing, ns = ns),
-        create_detail_item("Domain ID", if (!is.null(validity_info) && !is.na(validity_info$domain_id)) validity_info$domain_id else "/", include_colon = FALSE, is_editing = is_editing, ns = ns),
-        create_detail_item("Concept Code", info$concept_code, include_colon = FALSE, is_editing = is_editing, ns = ns),
-        create_detail_item("OMOP Concept ID", info$omop_concept_id, url = athena_url, include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item(i18n$t("vocabulary_id"), info$vocabulary_id, include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item(i18n$t("domain_id"), if (!is.null(validity_info) && !is.na(validity_info$domain_id)) validity_info$domain_id else "/", include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item(i18n$t("concept_code"), info$concept_code, include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item(i18n$t("omop_concept_id"), info$omop_concept_id, url = athena_url, include_colon = FALSE, is_editing = is_editing, ns = ns),
         if (!is.null(fhir_url)) {
           if (fhir_url == "no_link") {
             tags$div(
               class = "detail-item",
-              tags$strong("FHIR Resource"),
+              tags$strong(i18n$t("fhir_resource")),
               tags$span(
                 style = "color: #999; font-style: italic;",
                 "No link available"
@@ -4116,7 +4122,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           } else {
             tags$div(
               class = "detail-item",
-              tags$strong("FHIR Resource"),
+              tags$strong(i18n$t("fhir_resource")),
               tags$a(
                 href = fhir_url,
                 target = "_blank",
@@ -4128,14 +4134,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         } else {
           tags$div(class = "detail-item", style = "visibility: hidden;")
         },
-        create_detail_item("Unit Concept Name",
+        create_detail_item(i18n$t("unit_concept_name"),
                           if (!is.null(unit_concept_name) && unit_concept_name != "") {
                             unit_concept_name
                           } else {
                             "/"
                           },
                           include_colon = FALSE),
-        create_detail_item("OMOP Unit Concept ID",
+        create_detail_item(i18n$t("omop_unit_concept_id"),
                           if (!is.null(info$omop_unit_concept_id) && !is.na(info$omop_unit_concept_id) && info$omop_unit_concept_id != "" && info$omop_unit_concept_id != "/") {
                             as.integer(info$omop_unit_concept_id)
                           } else {
@@ -4791,8 +4797,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             # Statistical Summary tab
             if (is_editing) {
               # Edit mode: show JSON editor with aceEditor
-              current_summary <- if (nrow(concept_info) > 0 && !is.na(concept_info$statistical_summary[1])) {
-                concept_info$statistical_summary[1]
+              stat_summary_edit <- if (nrow(concept_info) > 0) concept_info$statistical_summary[1] else NA
+              current_summary <- if (!is.null(stat_summary_edit) && !is.na(stat_summary_edit) && nchar(stat_summary_edit) > 0) {
+                stat_summary_edit
               } else {
                 get_default_statistical_summary_template()
               }
@@ -4830,16 +4837,40 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             } else {
               # View mode: show statistical summary with tabs (Summary/Distribution) and profile selector
               raw_summary_data <- NULL
-              if (nrow(concept_info) > 0 && !is.na(concept_info$statistical_summary[1]) && nchar(concept_info$statistical_summary[1]) > 0) {
-                raw_summary_data <- jsonlite::fromJSON(concept_info$statistical_summary[1])
+              json_error <- NULL
+              stat_summary <- concept_info$statistical_summary[1]
+              if (nrow(concept_info) > 0 && !is.null(stat_summary) && !is.na(stat_summary) && nchar(stat_summary) > 0) {
+                tryCatch({
+                  raw_summary_data <- jsonlite::fromJSON(concept_info$statistical_summary[1])
+                }, error = function(e) {
+                  json_error <<- e$message
+                })
               }
 
-              if (!is.null(raw_summary_data)) {
+              # Show error message if JSON parsing failed
+              if (!is.null(json_error)) {
+                tags$div(
+                  style = "padding: 15px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 6px; color: #856404;",
+                  tags$strong("JSON Error: "),
+                  tags$span(json_error),
+                  tags$br(),
+                  tags$span(style = "font-size: 12px; margin-top: 10px; display: block;",
+                           "Switch to Edit Mode to fix the JSON.")
+                )
+              } else if (!is.null(raw_summary_data)) {
                 # Get profile names and current selection
                 profile_names <- get_profile_names(raw_summary_data)
+                # Filter out NA values from profile names
+                profile_names <- profile_names[!is.na(profile_names)]
+                if (length(profile_names) == 0) {
+                  profile_names <- c(if (Sys.getenv("INDICATE_LANGUAGE", "en") == "fr") "Tous les patients" else "All patients")
+                }
                 current_profile <- selected_profile()
-                if (is.null(current_profile) || !(current_profile %in% profile_names)) {
-                  current_profile <- if (!is.null(raw_summary_data$default_profile)) raw_summary_data$default_profile else profile_names[1]
+                if (is.null(current_profile) || is.na(current_profile) || !(current_profile %in% profile_names)) {
+                  current_profile <- get_default_profile_name(raw_summary_data)
+                  if (is.null(current_profile) || is.na(current_profile)) {
+                    current_profile <- profile_names[1]
+                  }
                 }
 
                 # Get data for selected profile
@@ -4871,13 +4902,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                     if (length(profile_names) > 1) {
                       tags$div(
                         style = "display: flex; align-items: center; gap: 8px;",
-                        tags$span(style = "font-size: 11px; color: #666;", "Profile:"),
+                        tags$span(style = "font-size: 11px; color: #666;", paste0(i18n$t("profile"), " :")),
                         tags$select(
                           id = ns("stat_profile_select"),
                           style = "font-size: 11px; padding: 2px 6px; border: 1px solid #ccc; border-radius: 4px;",
                           onchange = sprintf("Shiny.setInputValue('%s', this.value, {priority: 'event'})", ns("stat_profile_change")),
                           lapply(profile_names, function(pn) {
-                            tags$option(value = pn, selected = if (pn == current_profile) "selected" else NULL, pn)
+                            is_selected <- !is.na(pn) && !is.na(current_profile) && pn == current_profile
+                            tags$option(value = pn, selected = if (is_selected) "selected" else NULL, pn)
                           })
                         )
                       )
@@ -5634,22 +5666,22 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         class = "concept-details-container",
         style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(6, auto); grid-auto-flow: column; gap: 4px 15px;",
         # Column 1
-        create_detail_item("Concept Name", info$concept_name, include_colon = FALSE),
-        create_detail_item("Category", info$domain_id, include_colon = FALSE),
-        create_detail_item("Sub-category", info$concept_class_id, include_colon = FALSE),
-        create_detail_item("Validity", validity_text, color = validity_color, include_colon = FALSE),
-        create_detail_item("Standard", standard_text, color = standard_color, include_colon = FALSE),
+        create_detail_item(i18n$t("concept_name"), info$concept_name, include_colon = FALSE),
+        create_detail_item(i18n$t("category"), info$domain_id, include_colon = FALSE),
+        create_detail_item(i18n$t("subcategory"), info$concept_class_id, include_colon = FALSE),
+        create_detail_item(i18n$t("validity"), validity_text, color = validity_color, include_colon = FALSE),
+        create_detail_item(i18n$t("standard"), standard_text, color = standard_color, include_colon = FALSE),
         tags$div(class = "detail-item", style = "visibility: hidden;"),
         # Column 2
-        create_detail_item("Vocabulary ID", info$vocabulary_id, include_colon = FALSE),
-        create_detail_item("Domain ID", info$domain_id, include_colon = FALSE),
-        create_detail_item("Concept Code", info$concept_code, include_colon = FALSE),
-        create_detail_item("OMOP Concept ID", info$concept_id, url = athena_url, include_colon = FALSE),
+        create_detail_item(i18n$t("vocabulary_id"), info$vocabulary_id, include_colon = FALSE),
+        create_detail_item(i18n$t("domain_id"), info$domain_id, include_colon = FALSE),
+        create_detail_item(i18n$t("concept_code"), info$concept_code, include_colon = FALSE),
+        create_detail_item(i18n$t("omop_concept_id"), info$concept_id, url = athena_url, include_colon = FALSE),
         if (!is.null(fhir_url)) {
           if (fhir_url == "no_link") {
             tags$div(
               class = "detail-item",
-              tags$strong("FHIR Resource"),
+              tags$strong(i18n$t("fhir_resource")),
               tags$span(
                 style = "color: #999; font-style: italic;",
                 "No link available"
@@ -5658,7 +5690,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           } else {
             tags$div(
               class = "detail-item",
-              tags$strong("FHIR Resource"),
+              tags$strong(i18n$t("fhir_resource")),
               tags$a(
                 href = fhir_url,
                 target = "_blank",

@@ -177,8 +177,10 @@ get_default_statistical_summary_template <- function() {
   '{
   "profiles": [
     {
-      "name": "All patients",
-      "description": "Default profile for all patients",
+      "name_en": "All patients",
+      "name_fr": "Tous les patients",
+      "description_en": "Default profile for all patients",
+      "description_fr": "Profil par defaut pour tous les patients",
       "data_types": [],
       "numeric_data": {
         "min": null,
@@ -199,19 +201,30 @@ get_default_statistical_summary_template <- function() {
       }
     }
   ],
-  "default_profile": "All patients"
+  "default_profile_en": "All patients",
+  "default_profile_fr": "Tous les patients"
 }'
 }
 
 #' Get Profile Names from Statistical Summary JSON
 #'
-#' @description Extracts profile names from JSON data. Supports both new format (with profiles)
-#' and legacy format (without profiles, returns "All patients" as default)
+#' @description Extracts profile names from JSON data. Supports multilingual format
+#' (name_en, name_fr), legacy format (name), and format without profiles.
 #' @param json_data Parsed JSON data (list)
+#' @param language Character: Language code ("en" or "fr"). Defaults to
+#'   INDICATE_LANGUAGE environment variable or "en".
 #' @return Character vector of profile names
 #' @noRd
-get_profile_names <- function(json_data) {
-  if (is.null(json_data)) return(c("All patients"))
+get_profile_names <- function(json_data, language = NULL) {
+  if (is.null(language)) {
+    language <- Sys.getenv("INDICATE_LANGUAGE", "en")
+  }
+  if (!language %in% c("en", "fr")) language <- "en"
+
+  default_name <- if (language == "fr") "Tous les patients" else "All patients"
+  name_field <- paste0("name_", language)
+
+  if (is.null(json_data)) return(c(default_name))
 
   # New format with profiles
   if (!is.null(json_data$profiles) && length(json_data$profiles) > 0) {
@@ -219,51 +232,83 @@ get_profile_names <- function(json_data) {
 
     # If profiles is a data.frame (jsonlite behavior with arrays of objects)
     if (is.data.frame(profiles)) {
-      if ("name" %in% names(profiles)) {
+      # Try multilingual field first, then legacy field
+      if (name_field %in% names(profiles)) {
+        return(profiles[[name_field]])
+      } else if ("name" %in% names(profiles)) {
         return(profiles$name)
       }
-      return(c("All patients"))
+      return(c(default_name))
     }
 
     # If profiles is a list of lists
     if (is.list(profiles)) {
       return(sapply(profiles, function(p) {
-        if (is.list(p) && !is.null(p$name)) p$name else "Unknown"
+        if (is.list(p)) {
+          # Try multilingual field first, then legacy field
+          if (!is.null(p[[name_field]])) {
+            return(p[[name_field]])
+          } else if (!is.null(p$name)) {
+            return(p$name)
+          }
+        }
+        return("Unknown")
       }))
     }
   }
 
   # Legacy format without profiles
-  return(c("All patients"))
+  return(c(default_name))
 }
 
 #' Get Profile Data from Statistical Summary JSON
 #'
-#' @description Extracts data for a specific profile. Supports both new format (with profiles)
-#' and legacy format (without profiles, returns the data directly)
+#' @description Extracts data for a specific profile. Supports multilingual format
+#' (name_en, name_fr), legacy format (name), and format without profiles.
 #' @param json_data Parsed JSON data (list)
 #' @param profile_name Name of the profile to extract (default: NULL uses default_profile or first)
+#' @param language Character: Language code ("en" or "fr"). Defaults to
+#'   INDICATE_LANGUAGE environment variable or "en".
 #' @return List containing profile data (numeric_data, histogram, categorical_data, etc.)
 #' @noRd
-get_profile_data <- function(json_data, profile_name = NULL) {
+get_profile_data <- function(json_data, profile_name = NULL, language = NULL) {
   if (is.null(json_data)) return(NULL)
+
+  if (is.null(language)) {
+    language <- Sys.getenv("INDICATE_LANGUAGE", "en")
+  }
+  if (!language %in% c("en", "fr")) language <- "en"
+
+  name_field <- paste0("name_", language)
+  default_profile_field <- paste0("default_profile_", language)
 
   # New format with profiles
   if (!is.null(json_data$profiles) && length(json_data$profiles) > 0) {
     profiles <- json_data$profiles
 
-    # Determine default profile name
+    # Determine default profile name (try multilingual then legacy)
     if (is.null(profile_name) || profile_name == "") {
-      profile_name <- json_data$default_profile
+      profile_name <- json_data[[default_profile_field]]
+      if (is.null(profile_name)) {
+        profile_name <- json_data$default_profile
+      }
     }
 
     # If profiles is a data.frame (jsonlite behavior with arrays of objects)
     if (is.data.frame(profiles)) {
-      # Find the row matching the profile name
-      if (!is.null(profile_name) && "name" %in% names(profiles)) {
-        idx <- which(profiles$name == profile_name)
-        if (length(idx) > 0) {
-          return(as.list(profiles[idx[1], ]))
+      # Find the row matching the profile name (check multilingual then legacy)
+      if (!is.null(profile_name)) {
+        if (name_field %in% names(profiles)) {
+          idx <- which(profiles[[name_field]] == profile_name)
+          if (length(idx) > 0) {
+            return(as.list(profiles[idx[1], ]))
+          }
+        }
+        if ("name" %in% names(profiles)) {
+          idx <- which(profiles$name == profile_name)
+          if (length(idx) > 0) {
+            return(as.list(profiles[idx[1], ]))
+          }
         }
       }
       # Fallback to first row
@@ -274,13 +319,23 @@ get_profile_data <- function(json_data, profile_name = NULL) {
     if (is.list(profiles)) {
       # Set default profile name if not specified
       if (is.null(profile_name)) {
-        profile_name <- if (!is.null(profiles[[1]]$name)) profiles[[1]]$name else NULL
+        first_profile <- profiles[[1]]
+        profile_name <- first_profile[[name_field]]
+        if (is.null(profile_name)) {
+          profile_name <- first_profile$name
+        }
       }
 
-      # Find the matching profile
+      # Find the matching profile (check multilingual then legacy)
       for (profile in profiles) {
-        if (is.list(profile) && !is.null(profile$name) && profile$name == profile_name) {
-          return(profile)
+        if (is.list(profile)) {
+          profile_match_name <- profile[[name_field]]
+          if (is.null(profile_match_name)) {
+            profile_match_name <- profile$name
+          }
+          if (!is.null(profile_match_name) && profile_match_name == profile_name) {
+            return(profile)
+          }
         }
       }
 
@@ -291,4 +346,42 @@ get_profile_data <- function(json_data, profile_name = NULL) {
 
   # Legacy format without profiles - return data directly
   return(json_data)
+}
+
+#' Get Default Profile Name from Statistical Summary JSON
+#'
+#' @description Gets the default profile name from JSON data, supporting multilingual format.
+#' @param json_data Parsed JSON data (list)
+#' @param language Character: Language code ("en" or "fr"). Defaults to
+#'   INDICATE_LANGUAGE environment variable or "en".
+#' @return Character: Default profile name, or first profile name, or localized "All patients"
+#' @noRd
+get_default_profile_name <- function(json_data, language = NULL) {
+  if (is.null(language)) {
+    language <- Sys.getenv("INDICATE_LANGUAGE", "en")
+  }
+  if (!language %in% c("en", "fr")) language <- "en"
+
+  default_name <- if (language == "fr") "Tous les patients" else "All patients"
+  default_profile_field <- paste0("default_profile_", language)
+
+  if (is.null(json_data)) return(default_name)
+
+  # Try multilingual field first
+  if (!is.null(json_data[[default_profile_field]])) {
+    return(json_data[[default_profile_field]])
+  }
+
+  # Try legacy field
+  if (!is.null(json_data$default_profile)) {
+    return(json_data$default_profile)
+  }
+
+  # Fallback to first profile name
+  profile_names <- get_profile_names(json_data, language)
+  if (length(profile_names) > 0) {
+    return(profile_names[1])
+  }
+
+  return(default_name)
 }

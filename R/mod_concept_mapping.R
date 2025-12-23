@@ -101,7 +101,7 @@
 #' @importFrom shiny NS fluidRow column actionButton uiOutput textInput numericInput
 #' @importFrom htmltools tags tagList
 #' @importFrom DT DTOutput
-mod_concept_mapping_ui <- function(id) {
+mod_concept_mapping_ui <- function(id, i18n) {
   ns <- NS(id)
 
   tagList(
@@ -130,7 +130,7 @@ mod_concept_mapping_ui <- function(id) {
         style = "max-width: 600px; max-height: 90vh; display: flex; flex-direction: column;",
         tags$div(
           class = "modal-header",
-          tags$h3(id = ns("alignment_modal_title"), "Add Alignment"),
+          tags$h3(id = ns("alignment_modal_title"), i18n$t("add_alignment")),
           tags$button(
             class = "modal-close",
             onclick = sprintf("$('#%s').hide();", ns("alignment_modal")),
@@ -427,7 +427,7 @@ mod_concept_mapping_ui <- function(id) {
 #'
 #' @importFrom shiny moduleServer reactive observe observeEvent req
 #' @importFrom DT renderDT datatable formatStyle
-mod_concept_mapping_server <- function(id, data, config, vocabularies, current_user = reactive(NULL), log_level = character()) {
+mod_concept_mapping_server <- function(id, data, config, vocabularies, current_user = reactive(NULL), i18n = NULL, log_level = character()) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -731,7 +731,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       alignments <- alignments_data()
 
       if (nrow(alignments) == 0) {
-        return(create_empty_datatable("No alignments yet. Click 'Add Alignment' to create one."))
+        return(create_empty_datatable(i18n$t("no_alignments_yet")))
       }
 
       alignments_display <- alignments %>%
@@ -1592,7 +1592,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             style = "display: flex; gap: 10px;",
             actionButton(
               ns("add_alignment"),
-              "Add Alignment",
+              i18n$t("add_alignment"),
               class = "btn-success-custom",
               icon = icon("plus")
             )
@@ -4197,7 +4197,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
         # Set default profile if not set
         if (is.null(current_profile) || !current_profile %in% profile_names) {
-          current_profile <- if (!is.null(json_data$default_profile)) json_data$default_profile else profile_names[1]
+          current_profile <- get_default_profile_name(json_data)
           target_selected_profile(current_profile)
         }
 
@@ -4235,13 +4235,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             if (length(profile_names) > 1) {
               tags$div(
                 style = "display: flex; align-items: center; gap: 8px;",
-                tags$span(style = "font-size: 11px; color: #666;", "Profile:"),
+                tags$span(style = "font-size: 11px; color: #666;", paste0(i18n$t("profile"), " :")),
                 tags$select(
                   id = ns("target_profile_select"),
                   style = "font-size: 11px; padding: 2px 6px; border: 1px solid #ccc; border-radius: 4px;",
                   onchange = sprintf("Shiny.setInputValue('%s', this.value, {priority: 'event'})", ns("target_profile_change")),
                   lapply(profile_names, function(pn) {
-                    tags$option(value = pn, selected = if (pn == current_profile) "selected" else NULL, pn)
+                    is_selected <- !is.na(pn) && !is.na(current_profile) && pn == current_profile
+                    tags$option(value = pn, selected = if (is_selected) "selected" else NULL, pn)
                   })
                 )
               )
@@ -5467,7 +5468,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             if (has_profiles && length(profile_names) > 1) {
               tags$div(
                 style = "display: flex; align-items: center; gap: 8px;",
-                tags$span(style = "font-size: 12px; color: #666;", "Profile:"),
+                tags$span(style = "font-size: 12px; color: #666;", paste0(i18n$t("profile"), " :")),
                 tags$select(
                   id = ns("eval_target_profile_select"),
                   style = "font-size: 12px; padding: 4px 8px; border-radius: 4px; border: 1px solid #ccc;",

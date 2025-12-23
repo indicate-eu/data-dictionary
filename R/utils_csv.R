@@ -9,6 +9,7 @@
 CSV_FILES <- c(
   "general_concepts_en.csv",
   "general_concepts_fr.csv",
+  "general_concepts_stats.csv",
   "projects.csv",
   "general_concepts_projects.csv",
   "general_concepts_details.csv",
@@ -189,6 +190,21 @@ load_csv_data <- function(language = NULL) {
     na.strings = c("", "NA")
   )
 
+  # Load general concepts stats (language-independent)
+  general_concepts_stats <- read.csv(
+    file.path(csv_dir, "general_concepts_stats.csv"),
+    stringsAsFactors = FALSE,
+    na.strings = c("", "NA")
+  )
+
+  # Join stats to general concepts
+  general_concepts <- merge(
+    general_concepts,
+    general_concepts_stats,
+    by = "general_concept_id",
+    all.x = TRUE
+  )
+
   projects <- read.csv(
     file.path(csv_dir, "projects.csv"),
     stringsAsFactors = FALSE,
@@ -238,13 +254,15 @@ load_csv_data <- function(language = NULL) {
 
 #' Save General Concepts to CSV
 #'
-#' @description Save general concepts data to CSV file in user's app_folder
+#' @description Save general concepts data to CSV file in user's app_folder.
+#' This function saves both the language-specific file (category, subcategory, name, comments)
+#' and the stats file (statistical_summary) separately.
 #'
-#' @param general_concepts_data Data frame with general concepts
+#' @param general_concepts_data Data frame with general concepts (may include statistical_summary)
 #' @param language Character: Language code ("en" or "fr"). Defaults to
 #'   INDICATE_LANGUAGE environment variable or "en".
 #'
-#' @return NULL (side effect: saves file)
+#' @return NULL (side effect: saves files)
 #' @noRd
 save_general_concepts_csv <- function(general_concepts_data, language = NULL) {
   # Get language from parameter or environment variable
@@ -258,10 +276,46 @@ save_general_concepts_csv <- function(general_concepts_data, language = NULL) {
   }
 
   csv_dir <- get_user_csv_dir()
+
+  # Separate language-specific columns from stats
+  language_cols <- c("general_concept_id", "category", "subcategory", "general_concept_name", "comments")
+  stats_cols <- c("general_concept_id", "statistical_summary")
+
+  # Save language-specific file (without statistical_summary)
+  language_data <- general_concepts_data[, intersect(language_cols, names(general_concepts_data)), drop = FALSE]
   general_concepts_file <- paste0("general_concepts_", language, ".csv")
   write.csv(
-    general_concepts_data,
+    language_data,
     file.path(csv_dir, general_concepts_file),
+    row.names = FALSE,
+    quote = TRUE
+  )
+
+  # Save stats file (only if statistical_summary column exists)
+  if ("statistical_summary" %in% names(general_concepts_data)) {
+    stats_data <- general_concepts_data[, intersect(stats_cols, names(general_concepts_data)), drop = FALSE]
+    write.csv(
+      stats_data,
+      file.path(csv_dir, "general_concepts_stats.csv"),
+      row.names = FALSE,
+      quote = TRUE
+    )
+  }
+}
+
+#' Save General Concepts Stats to CSV
+#'
+#' @description Save general concepts statistics data to CSV file
+#'
+#' @param stats_data Data frame with general_concept_id and statistical_summary
+#'
+#' @return NULL (side effect: saves file)
+#' @noRd
+save_general_concepts_stats_csv <- function(stats_data) {
+  csv_dir <- get_user_csv_dir()
+  write.csv(
+    stats_data,
+    file.path(csv_dir, "general_concepts_stats.csv"),
     row.names = FALSE,
     quote = TRUE
   )

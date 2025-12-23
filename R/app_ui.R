@@ -85,7 +85,7 @@ language <- Sys.getenv("INDICATE_LANGUAGE", "en")
         router_ui(
           route("/", create_page_container(mod_dictionary_explorer_ui("dictionary_explorer", i18n))),
           route("projects", create_page_container(mod_projects_ui("projects", i18n))),
-          route("mapping", create_page_container(mod_concept_mapping_ui("concept_mapping"))),
+          route("mapping", create_page_container(mod_concept_mapping_ui("concept_mapping", i18n))),
           route("improvements", create_page_container(mod_improvements_ui("improvements"))),
           route("dev-tools", create_page_container(mod_dev_tools_ui("dev_tools"))),
           route("general-settings", create_page_container(mod_general_settings_ui("general_settings"))),

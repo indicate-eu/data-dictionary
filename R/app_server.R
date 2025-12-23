@@ -126,6 +126,7 @@ app_server <- function(input, output, session) {
           config = config,
           vocabularies = reactive({ vocabularies() }),
           current_user = current_user,
+          i18n = i18n,
           log_level = log_level
         )
         modules_initialized$concept_mapping <- TRUE
