@@ -156,6 +156,11 @@ mod_concept_mapping_ui <- function(id, i18n) {
                 id = ns("alignment_name_error"),
                 style = "color: #dc3545; font-size: 13px; margin-top: 5px; display: none;",
                 i18n$t("please_enter_alignment_name")
+              ),
+              tags$div(
+                id = ns("alignment_name_duplicate_error"),
+                style = "color: #dc3545; font-size: 13px; margin-top: 5px; display: none;",
+                i18n$t("name_already_exists")
               )
             ),
             tags$div(
@@ -208,6 +213,34 @@ mod_concept_mapping_ui <- function(id, i18n) {
                 DT::DTOutput(ns("file_preview_table"))
               )
             )
+          ),
+          # Page 3: Column Data Types (hidden initially)
+          tags$div(
+            id = ns("modal_page_3"),
+            style = "display: none; height: 100%;",
+            tags$div(
+              style = "display: flex; gap: 20px; height: 100%;",
+              # Left: Data type selection
+              tags$div(
+                style = "flex: 1; min-width: 50%; display: flex; flex-direction: column; overflow-y: auto; gap: 10px;",
+                tags$div(
+                  style = "background-color: #f8f9fa; border-radius: 4px; overflow: hidden;",
+                  tags$div(
+                    style = "background-color: #fd7e14; color: white; padding: 10px 15px; font-weight: 600; font-size: 14px;",
+                    i18n$t("column_data_types")
+                  ),
+                  tags$div(
+                    style = "padding: 15px;",
+                    uiOutput(ns("column_data_types_controls"))
+                  )
+                )
+              ),
+              # Right: File preview (same as page 2)
+              tags$div(
+                style = "width: 50%; display: flex; flex-direction: column; overflow: auto;",
+                DT::DTOutput(ns("file_preview_table_page3"))
+              )
+            )
           )
         ),
         tags$div(
@@ -216,7 +249,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
           tags$div(
             id = ns("modal_page_indicator"),
             style = "color: #666; font-size: 14px;",
-            "Page 1 of 2"
+            "Page 1 of 3"
           ),
           tags$div(
             style = "flex: 1;"
@@ -1204,20 +1237,171 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       )
     }, server = TRUE)
 
+    #### Page 3: Column Data Types ----
+    output$column_data_types_controls <- renderUI({
+      df <- file_preview_data()
+      if (is.null(df)) return(tags$p(style = "color: #999;", i18n$t("no_file_uploaded")))
+
+      col_names <- colnames(df)
+
+      # Data type choices
+      type_choices <- c(
+        "character" = "character",
+        "numeric" = "numeric",
+        "integer" = "integer",
+        "factor" = "factor",
+        "date" = "date",
+        "datetime" = "datetime",
+        "logical" = "logical"
+      )
+
+      # Infer default types from data
+      infer_type <- function(col_data) {
+        if (all(is.na(col_data))) return("character")
+        sample_data <- col_data[!is.na(col_data)]
+        if (length(sample_data) == 0) return("character")
+
+        # Convert to character for type inference
+        sample_data <- as.character(sample_data)
+
+        # Check if logical
+        if (all(tolower(sample_data) %in% c("true", "false", "t", "f", "yes", "no", "1", "0"))) return("logical")
+
+        # Check if numeric
+        numeric_result <- tryCatch({
+          nums <- suppressWarnings(as.numeric(sample_data))
+          if (!any(is.na(nums))) {
+            if (all(nums == floor(nums))) return("integer")
+            return("numeric")
+          }
+          NULL
+        }, error = function(e) NULL)
+        if (!is.null(numeric_result)) return(numeric_result)
+
+        # Check if date (YYYY-MM-DD format)
+        date_result <- tryCatch({
+          dates <- suppressWarnings(as.Date(sample_data, format = "%Y-%m-%d"))
+          if (!any(is.na(dates))) return("date")
+          NULL
+        }, error = function(e) NULL)
+        if (!is.null(date_result)) return(date_result)
+
+        # Check if datetime (try common formats)
+        datetime_result <- tryCatch({
+          # Try ISO format first
+          dts <- suppressWarnings(as.POSIXct(sample_data, format = "%Y-%m-%d %H:%M:%S"))
+          if (!any(is.na(dts))) return("datetime")
+          NULL
+        }, error = function(e) NULL)
+        if (!is.null(datetime_result)) return(datetime_result)
+
+        # Default to character
+        return("character")
+      }
+
+      # Create a dropdown for each column
+      column_controls <- lapply(col_names, function(col_name) {
+        inferred_type <- infer_type(df[[col_name]])
+        input_id <- paste0("col_type_", gsub("[^a-zA-Z0-9]", "_", col_name))
+
+        tags$div(
+          style = "display: flex; align-items: center; margin-bottom: 8px; gap: 10px;",
+          tags$span(
+            style = "min-width: 150px; font-weight: 500; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;",
+            title = col_name,
+            col_name
+          ),
+          tags$div(
+            style = "flex: 1;",
+            selectInput(
+              ns(input_id),
+              label = NULL,
+              choices = type_choices,
+              selected = inferred_type,
+              width = "100%"
+            )
+          )
+        )
+      })
+
+      tags$div(
+        style = "max-height: 400px; overflow-y: auto;",
+        column_controls
+      )
+    })
+
+    # File preview for page 3 (same data as page 2)
+    output$file_preview_table_page3 <- DT::renderDT({
+      df <- file_preview_data()
+
+      if (is.null(df)) {
+        return(datatable(
+          data.frame(),
+          options = list(
+            pageLength = 8,
+            dom = 'tp',
+            ordering = TRUE,
+            language = get_datatable_language()
+          ),
+          rownames = FALSE,
+          selection = 'none',
+          filter = 'none',
+          class = 'display'
+        ))
+      }
+
+      datatable(
+        df,
+        options = list(
+          pageLength = 8,
+          dom = 'tp',
+          ordering = TRUE,
+          language = get_datatable_language()
+        ),
+        rownames = FALSE,
+        selection = 'none',
+        filter = 'none',
+        class = 'display'
+      )
+    }, server = TRUE)
+
     #### Modal Navigation & Save Handling ----
     observe_event(input$alignment_modal_next, {
       if (modal_page() == 1) {
         # Validate alignment name before proceeding to page 2
-        is_valid <- validate_required_inputs(
-          input,
-          fields = list(alignment_name = "alignment_name_error")
-        )
+        alignment_name <- trimws(input$alignment_name)
 
-        if (!is_valid) {
+        # Check if name is empty
+        if (alignment_name == "") {
+          shinyjs::show("alignment_name_error")
+          shinyjs::hide("alignment_name_duplicate_error")
           shinyjs::runjs(sprintf("$('#%s input').css('border-color', '#dc3545');", ns("alignment_name")))
           return()
         }
 
+        shinyjs::hide("alignment_name_error")
+
+        # Check for duplicate name (only in add mode, or if name changed in edit mode)
+        alignments <- alignments_data()
+        if (!is.null(alignments) && nrow(alignments) > 0) {
+          existing_names <- tolower(alignments$name)
+
+          # In edit mode, exclude the current alignment from duplicate check
+          if (modal_mode() == "edit" && !is.null(selected_alignment_id())) {
+            current_alignment <- alignments %>% dplyr::filter(alignment_id == selected_alignment_id())
+            if (nrow(current_alignment) > 0) {
+              existing_names <- existing_names[existing_names != tolower(current_alignment$name[1])]
+            }
+          }
+
+          if (tolower(alignment_name) %in% existing_names) {
+            shinyjs::show("alignment_name_duplicate_error")
+            shinyjs::runjs(sprintf("$('#%s input').css('border-color', '#dc3545');", ns("alignment_name")))
+            return()
+          }
+        }
+
+        shinyjs::hide("alignment_name_duplicate_error")
         shinyjs::runjs(sprintf("$('#%s input').css('border-color', '');", ns("alignment_name")))
 
         modal_page(2)
@@ -1227,7 +1411,35 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
         shinyjs::runjs(sprintf("$('#%s').css({'max-width': '90vw', 'height': '80vh', 'max-height': '80vh'});", ns("alignment_modal_dialog")))
 
-        shinyjs::runjs(sprintf("$('#%s').text('Page 2 of 2');", ns("modal_page_indicator")))
+        shinyjs::runjs(sprintf("$('#%s').text('Page 2 of 3');", ns("modal_page_indicator")))
+        shinyjs::show("alignment_modal_back")
+        shinyjs::show("alignment_modal_next")
+        shinyjs::hide("alignment_modal_save")
+
+      } else if (modal_page() == 2) {
+        # Validate file upload and column mappings before proceeding to page 3
+        if (is.null(input$alignment_file)) {
+          shinyjs::show("alignment_file_error")
+          return()
+        }
+
+        is_valid <- validate_required_inputs(
+          input,
+          fields = list(
+            col_vocabulary_id = "col_vocabulary_id_error",
+            col_concept_code = "col_concept_code_error",
+            col_concept_name = "col_concept_name_error"
+          )
+        )
+
+        if (!is_valid) return()
+
+        modal_page(3)
+
+        shinyjs::hide(id = "modal_page_2")
+        shinyjs::show(id = "modal_page_3")
+
+        shinyjs::runjs(sprintf("$('#%s').text('Page 3 of 3');", ns("modal_page_indicator")))
         shinyjs::show("alignment_modal_back")
         shinyjs::hide("alignment_modal_next")
         shinyjs::show("alignment_modal_save")
@@ -1243,8 +1455,19 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
         shinyjs::runjs(sprintf("$('#%s').css({'max-width': '600px', 'height': 'auto', 'max-height': '90vh'});", ns("alignment_modal_dialog")))
 
-        shinyjs::runjs(sprintf("$('#%s').text('Page 1 of 2');", ns("modal_page_indicator")))
+        shinyjs::runjs(sprintf("$('#%s').text('Page 1 of 3');", ns("modal_page_indicator")))
         shinyjs::hide("alignment_modal_back")
+        shinyjs::show("alignment_modal_next")
+        shinyjs::hide("alignment_modal_save")
+
+      } else if (modal_page() == 3) {
+        modal_page(2)
+
+        shinyjs::show(id = "modal_page_2")
+        shinyjs::hide(id = "modal_page_3")
+
+        shinyjs::runjs(sprintf("$('#%s').text('Page 2 of 3');", ns("modal_page_indicator")))
+        shinyjs::show("alignment_modal_back")
         shinyjs::show("alignment_modal_next")
         shinyjs::hide("alignment_modal_save")
       }
@@ -1281,9 +1504,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       shinyjs::show(id = "modal_page_1")
       shinyjs::hide(id = "modal_page_2")
+      shinyjs::hide(id = "modal_page_3")
       shinyjs::runjs(sprintf("$('#%s').css({'max-width': '600px', 'height': 'auto', 'max-height': '90vh'});", ns("alignment_modal_dialog")))
 
-      shinyjs::runjs(sprintf("$('#%s').text('Page 1 of 2');", ns("modal_page_indicator")))
+      shinyjs::runjs(sprintf("$('#%s').text('Page 1 of 3');", ns("modal_page_indicator")))
       shinyjs::hide("alignment_modal_back")
       shinyjs::show("alignment_modal_next")
       shinyjs::hide("alignment_modal_save")
@@ -1316,17 +1540,39 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     #### Save Alignment ----
     observe_event(input$alignment_modal_save, {
       # Validate alignment name (required for both add and edit modes)
-      is_valid <- validate_required_inputs(
-        input,
-        fields = list(alignment_name = "alignment_name_error")
-      )
+      alignment_name_value <- trimws(input$alignment_name)
 
-      if (!is_valid) {
+      if (alignment_name_value == "") {
+        shinyjs::show("alignment_name_error")
+        shinyjs::hide("alignment_name_duplicate_error")
         shinyjs::runjs(sprintf("$('#%s input').css('border-color', '#dc3545');", ns("alignment_name")))
         return()
-      } else {
-        shinyjs::runjs(sprintf("$('#%s input').css('border-color', '');", ns("alignment_name")))
       }
+
+      shinyjs::hide("alignment_name_error")
+
+      # Check for duplicate name
+      alignments <- alignments_data()
+      if (!is.null(alignments) && nrow(alignments) > 0) {
+        existing_names <- tolower(alignments$name)
+
+        # In edit mode, exclude the current alignment from duplicate check
+        if (modal_mode() == "edit" && !is.null(selected_alignment_id())) {
+          current_alignment <- alignments %>% dplyr::filter(alignment_id == selected_alignment_id())
+          if (nrow(current_alignment) > 0) {
+            existing_names <- existing_names[existing_names != tolower(current_alignment$name[1])]
+          }
+        }
+
+        if (tolower(alignment_name_value) %in% existing_names) {
+          shinyjs::show("alignment_name_duplicate_error")
+          shinyjs::runjs(sprintf("$('#%s input').css('border-color', '#dc3545');", ns("alignment_name")))
+          return()
+        }
+      }
+
+      shinyjs::hide("alignment_name_duplicate_error")
+      shinyjs::runjs(sprintf("$('#%s input').css('border-color', '');", ns("alignment_name")))
 
       # Validate file upload and column mappings (only for add mode)
       if (modal_mode() == "add") {
@@ -1447,12 +1693,28 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       shinyjs::show(id = "modal_page_1")
       shinyjs::hide(id = "modal_page_2")
+      shinyjs::hide(id = "modal_page_3")
       shinyjs::runjs(sprintf("$('#%s').css({'max-width': '600px', 'height': 'auto', 'max-height': '90vh'});", ns("alignment_modal_dialog")))
 
-      shinyjs::runjs(sprintf("$('#%s').text('Page 1 of 2');", ns("modal_page_indicator")))
+      shinyjs::runjs(sprintf("$('#%s').text('Page 1 of 3');", ns("modal_page_indicator")))
       shinyjs::hide("alignment_modal_back")
       shinyjs::show("alignment_modal_next")
       shinyjs::hide("alignment_modal_save")
+
+      # Reset form inputs for next add
+      updateTextInput(session, "alignment_name", value = "")
+      updateTextAreaInput(session, "alignment_description", value = "")
+      file_preview_data(NULL)
+      shinyjs::reset("alignment_file")
+      updateSelectInput(session, "csv_delimiter", selected = "auto")
+      updateSelectInput(session, "csv_encoding", selected = "UTF-8")
+      updateSelectInput(session, "col_vocabulary_id", selected = "")
+      updateSelectInput(session, "col_concept_code", selected = "")
+      updateSelectInput(session, "col_concept_name", selected = "")
+      updateSelectInput(session, "col_json", selected = "")
+      updateSelectInput(session, "col_additional", selected = character(0))
+      shinyjs::runjs(sprintf("$('#%s').html('');", ns("csv_options")))
+      shinyjs::runjs(sprintf("$('#%s').html('');", ns("column_mapping_wrapper")))
     })
 
     ### Delete Alignment ----
@@ -2522,27 +2784,22 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           return(create_empty_datatable("No projects defined"))
         }
 
-        # Get alignment mappings
-        alignments <- alignments_data()
-        alignment <- alignments %>%
-          dplyr::filter(alignment_id == selected_alignment_id())
+        # Get mapped general concepts from database
+        db_path <- file.path(get_app_dir(), "indicate.db")
+        mapped_general_concept_ids <- integer(0)
 
-        if (nrow(alignment) != 1) return()
+        if (file.exists(db_path)) {
+          con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+          on.exit(DBI::dbDisconnect(con), add = TRUE)
 
-        file_id <- alignment$file_id[1]
+          # Query mapped general concept IDs for this alignment
+          query <- "SELECT DISTINCT target_general_concept_id FROM concept_mappings WHERE alignment_id = ? AND target_general_concept_id IS NOT NULL"
+          result <- DBI::dbGetQuery(con, query, params = list(selected_alignment_id()))
 
-        # Get CSV path
-        mapping_dir <- get_app_dir("concept_mapping")
-
-        csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
-
-        if (!file.exists(csv_path)) {
-          return(create_empty_datatable("CSV file not found"))
+          if (nrow(result) > 0) {
+            mapped_general_concept_ids <- as.integer(result$target_general_concept_id)
+          }
         }
-
-        # Read CSV to get mapped general concepts
-        df <- read.csv(csv_path, stringsAsFactors = FALSE)
-        mapped_general_concept_ids <- unique(df$target_general_concept_id[!is.na(df$target_general_concept_id)])
 
         # Build project compatibility table
         uc_compat <- projects %>%
@@ -2553,8 +2810,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 0L
               } else {
                 current_uc_id <- project_id
-                nrow(general_concept_projects %>%
-                  dplyr::filter(project_id == current_uc_id))
+                # Get unique general concept IDs for this project
+                length(unique(general_concept_projects %>%
+                  dplyr::filter(project_id == current_uc_id) %>%
+                  dplyr::pull(general_concept_id)))
               }
             },
             mapped_concepts = {
@@ -2562,9 +2821,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 0L
               } else {
                 current_uc_id <- project_id
-                required_gc_ids <- general_concept_projects %>%
+                # Get unique required general concept IDs for this project
+                required_gc_ids <- unique(general_concept_projects %>%
                   dplyr::filter(project_id == current_uc_id) %>%
-                  dplyr::pull(general_concept_id)
+                  dplyr::pull(general_concept_id))
+                required_gc_ids <- as.integer(required_gc_ids)
                 sum(required_gc_ids %in% mapped_general_concept_ids)
               }
             },
@@ -3532,7 +3793,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           rownames = FALSE,
           selection = "single"
         )
-        
+
         dt <- dt %>%
           style_yes_no_column("Mapped")
 
@@ -3815,6 +4076,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     selected_source_json <- reactiveVal(NULL)
     selected_source_row <- reactiveVal(NULL)  # Store full row data for rows_count, patients_count
     detail_tab <- reactiveVal("summary")
+    source_distribution_type <- reactiveVal("auto")  # "auto", "numeric", or "categorical"
 
     # Show/hide concept details panel based on row selection
     observe_event(input$source_concepts_table_rows_selected, {
@@ -3876,11 +4138,17 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       detail_tab(input$detail_tab_selected)
     })
 
+    # Handle distribution type selection
+    observe_event(input$source_distribution_type_change, {
+      source_distribution_type(input$source_distribution_type_change)
+    })
+
     # Render concept details content based on selected tab
     output$concept_details_content <- renderUI({
       json_data <- selected_source_json()
       row_data <- selected_source_row()
       tab <- detail_tab()
+      dist_type <- source_distribution_type()
 
       if (is.null(json_data)) {
         return(tags$div(
@@ -3892,7 +4160,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (tab == "summary") {
         render_json_summary(json_data, row_data)
       } else if (tab == "distribution") {
-        render_json_distribution(json_data)
+        render_json_distribution(json_data, dist_type)
       } else if (tab == "temporal") {
         render_json_temporal(json_data)
       } else if (tab == "units") {
@@ -3909,7 +4177,43 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       left_items <- list()
       right_items <- list()
 
-      # Left column: Metadata (rows, patients, unit, missing, frequency)
+      # Left column: Source concept info (vocabulary, code, name) + rows, patients, unit
+
+      # Vocabulary
+      if (!is.null(row_data) && !is.null(row_data$vocabulary_id) && !is.na(row_data$vocabulary_id)) {
+        left_items <- c(left_items, list(
+          tags$div(
+            class = "detail-item",
+            style = "margin-bottom: 6px;",
+            tags$span(style = "font-weight: 600; color: #666;", "Vocabulary:"),
+            tags$span(class = "detail-value", row_data$vocabulary_id)
+          )
+        ))
+      }
+
+      # Concept Code
+      if (!is.null(row_data) && !is.null(row_data$concept_code) && !is.na(row_data$concept_code)) {
+        left_items <- c(left_items, list(
+          tags$div(
+            class = "detail-item",
+            style = "margin-bottom: 6px;",
+            tags$span(style = "font-weight: 600; color: #666;", "Concept Code:"),
+            tags$span(class = "detail-value", row_data$concept_code)
+          )
+        ))
+      }
+
+      # Concept Name
+      if (!is.null(row_data) && !is.null(row_data$concept_name) && !is.na(row_data$concept_name)) {
+        left_items <- c(left_items, list(
+          tags$div(
+            class = "detail-item",
+            style = "margin-bottom: 6px;",
+            tags$span(style = "font-weight: 600; color: #666;", "Name:"),
+            tags$span(class = "detail-value", row_data$concept_name)
+          )
+        ))
+      }
 
       # Rows count
       if (!is.null(row_data) && !is.null(row_data$rows_count) && !is.na(row_data$rows_count)) {
@@ -3935,21 +4239,31 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         ))
       }
 
-      # Unit info
-      if (!is.null(json_data$unit) && !is.null(json_data$unit$name) && !is.na(json_data$unit$name)) {
+      # Unit info (can be a string or an object with $name)
+      unit_value <- NULL
+      if (!is.null(json_data$unit)) {
+        if (is.character(json_data$unit)) {
+          unit_value <- json_data$unit
+        } else if (is.list(json_data$unit) && !is.null(json_data$unit$name)) {
+          unit_value <- json_data$unit$name
+        }
+      }
+      if (!is.null(unit_value) && !is.na(unit_value) && nchar(unit_value) > 0) {
         left_items <- c(left_items, list(
           tags$div(
             class = "detail-item",
             style = "margin-bottom: 6px;",
             tags$span(style = "font-weight: 600; color: #666;", "Unit:"),
-            tags$span(class = "detail-value", json_data$unit$name)
+            tags$span(class = "detail-value", unit_value)
           )
         ))
       }
 
+      # Right column: Missing, Interval, numeric stats (mean, median, sd, range)
+
       # Missing rate
       if (!is.null(json_data$missing_rate)) {
-        left_items <- c(left_items, list(
+        right_items <- c(right_items, list(
           tags$div(
             class = "detail-item",
             style = "margin-bottom: 6px;",
@@ -3963,7 +4277,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (!is.null(json_data$measurement_frequency)) {
         mf <- json_data$measurement_frequency
         if (!is.null(mf$typical_interval) && !is.na(mf$typical_interval)) {
-          left_items <- c(left_items, list(
+          right_items <- c(right_items, list(
             tags$div(
               class = "detail-item",
               style = "margin-bottom: 6px;",
@@ -3973,7 +4287,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           ))
         }
         if (!is.null(mf$average_per_patient_per_day) && !is.na(mf$average_per_patient_per_day)) {
-          left_items <- c(left_items, list(
+          right_items <- c(right_items, list(
             tags$div(
               class = "detail-item",
               style = "margin-bottom: 6px;",
@@ -3984,7 +4298,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         }
       }
 
-      # Right column: Numeric data summary (mean, median, sd, range)
+      # Numeric data summary (mean, median, sd, range)
       if (!is.null(json_data$numeric_data)) {
         nd <- json_data$numeric_data
         if (!is.null(nd$mean) && !is.na(nd$mean)) {
@@ -4038,24 +4352,61 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     }
 
     # Helper function to render distribution tab (boxplot visualization)
-    render_json_distribution <- function(json_data) {
-      if (!is.null(json_data$numeric_data)) {
-        nd <- json_data$numeric_data
-        if (!is.null(nd$p25) && !is.na(nd$p25) && !is.null(nd$p75) && !is.na(nd$p75)) {
-          # Create data for ggplot boxplot using quantiles
-          min_val <- if (!is.null(nd$min) && !is.na(nd$min)) nd$min else nd$p5
-          max_val <- if (!is.null(nd$max) && !is.na(nd$max)) nd$max else nd$p95
-          median_val <- if (!is.null(nd$median) && !is.na(nd$median)) nd$median else (nd$p25 + nd$p75) / 2
-          lower_val <- if (!is.null(nd$p5) && !is.na(nd$p5)) nd$p5 else min_val
-          upper_val <- if (!is.null(nd$p95) && !is.na(nd$p95)) nd$p95 else max_val
+    render_json_distribution <- function(json_data, selected_type = "auto") {
+      # Check which distribution types are available
+      has_numeric <- !is.null(json_data$numeric_data) &&
+        !is.null(json_data$numeric_data$p25) && !is.na(json_data$numeric_data$p25) &&
+        !is.null(json_data$numeric_data$p75) && !is.na(json_data$numeric_data$p75)
 
-          # Create horizontal boxplot with ggplot2
-          p <- ggplot2::ggplot() +
-            ggplot2::geom_boxplot(
-              ggplot2::aes(x = "", ymin = lower_val, lower = nd$p25, middle = median_val,
-                           upper = nd$p75, ymax = upper_val),
-              stat = "identity",
-              fill = "#0f60af",
+      has_categorical <- !is.null(json_data$categorical_data) && length(json_data$categorical_data) > 0
+
+      # Validate categorical data structure
+      if (has_categorical) {
+        cat_df <- as.data.frame(json_data$categorical_data)
+        value_col <- if ("value" %in% colnames(cat_df)) "value" else if ("category" %in% colnames(cat_df)) "category" else NULL
+        has_categorical <- nrow(cat_df) > 0 && !is.null(value_col) && "percentage" %in% colnames(cat_df)
+      }
+
+      # Determine which type to show
+      show_type <- selected_type
+      if (show_type == "auto") {
+        # Default to numeric if available, otherwise categorical
+        show_type <- if (has_numeric) "numeric" else if (has_categorical) "categorical" else "none"
+      }
+
+      # Build header with dropdown if both types exist
+      header <- NULL
+      if (has_numeric && has_categorical) {
+        header <- tags$div(
+          class = "inline-select-container",
+          style = "margin-bottom: 15px;",
+          tags$span(class = "inline-select-label", paste0(i18n$t("distribution_type"), " :")),
+          tags$select(
+            id = ns("source_distribution_type_select"),
+            class = "inline-select",
+            onchange = sprintf("Shiny.setInputValue('%s', this.value, {priority: 'event'})", ns("source_distribution_type_change")),
+            tags$option(value = "numeric", selected = if (show_type == "numeric") "selected" else NULL, i18n$t("numeric_distribution")),
+            tags$option(value = "categorical", selected = if (show_type == "categorical") "selected" else NULL, i18n$t("categorical_distribution"))
+          )
+        )
+      }
+
+      # Render numeric distribution
+      if (show_type == "numeric" && has_numeric) {
+        nd <- json_data$numeric_data
+        min_val <- if (!is.null(nd$min) && !is.na(nd$min)) nd$min else nd$p5
+        max_val <- if (!is.null(nd$max) && !is.na(nd$max)) nd$max else nd$p95
+        median_val <- if (!is.null(nd$median) && !is.na(nd$median)) nd$median else (nd$p25 + nd$p75) / 2
+        lower_val <- if (!is.null(nd$p5) && !is.na(nd$p5)) nd$p5 else min_val
+        upper_val <- if (!is.null(nd$p95) && !is.na(nd$p95)) nd$p95 else max_val
+
+        # Create horizontal boxplot with ggplot2
+        p <- ggplot2::ggplot() +
+          ggplot2::geom_boxplot(
+            ggplot2::aes(x = "", ymin = lower_val, lower = nd$p25, middle = median_val,
+                         upper = nd$p75, ymax = upper_val),
+            stat = "identity",
+            fill = "#0f60af",
               color = "#333",
               width = 0.5,
               fatten = 0  # Hide default median line
@@ -4095,7 +4446,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               hist_df <- NULL
             }
 
-            if (!is.null(hist_df) && nrow(hist_df) > 0) {
+            # Validate that bin_mid column exists and has valid numeric values
+            if (!is.null(hist_df) && nrow(hist_df) > 0 &&
+                "bin_mid" %in% colnames(hist_df) &&
+                !all(is.na(hist_df$bin_mid)) &&
+                is.numeric(hist_df$bin_mid)) {
               # Calculate percentages
               total_count <- sum(hist_df$count, na.rm = TRUE)
               hist_df$percentage <- if (total_count > 0) hist_df$count / total_count * 100 else 0
@@ -4119,7 +4474,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             }
           }
 
-          return(tags$div(
+          numeric_content <- tags$div(
             tags$div(
               style = "display: flex; gap: 20px;",
               # Left: statistics
@@ -4149,28 +4504,41 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 histogram_plot
               )
             }
-          ))
-        }
+          )
+
+          return(tags$div(header, numeric_content))
       }
 
       # Categorical distribution
-      if (!is.null(json_data$categorical_data) && length(json_data$categorical_data) > 0) {
+      if (show_type == "categorical" && has_categorical) {
         cat_df <- as.data.frame(json_data$categorical_data)
-        if (nrow(cat_df) > 0 && "value" %in% colnames(cat_df) && "percentage" %in% colnames(cat_df)) {
+
+        # Support both "value" and "category" column names
+        value_col <- if ("value" %in% colnames(cat_df)) "value" else if ("category" %in% colnames(cat_df)) "category" else NULL
+
+        if (nrow(cat_df) > 0 && !is.null(value_col) && "percentage" %in% colnames(cat_df)) {
+          # Truncate long category names for display
+          cat_df$display_value <- sapply(cat_df[[value_col]], function(v) {
+            v <- gsub("\r\n|\r|\n", " ", as.character(v))
+            if (nchar(v) > 50) paste0(substr(v, 1, 47), "...") else v
+          })
+
           rows <- lapply(seq_len(nrow(cat_df)), function(i) {
             tags$div(
               style = "display: flex; align-items: center; margin-bottom: 5px;",
-              tags$span(style = "width: 120px; font-size: 13px;", cat_df$value[i]),
-              tags$div(
-                style = sprintf("width: %s%%; background: #0f60af; height: 18px; border-radius: 3px; margin-right: 8px;", cat_df$percentage[i])
+              tags$span(
+                style = "width: 200px; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;",
+                title = gsub("\r\n|\r|\n", " ", as.character(cat_df[[value_col]][i])),
+                cat_df$display_value[i]
               ),
-              tags$span(style = "font-size: 12px; color: #666;", paste0(cat_df$percentage[i], "%"))
+              tags$div(
+                style = "flex: 1; margin: 0 8px;",
+                tags$div(style = sprintf("width: %s%%; background: #0f60af; height: 18px; border-radius: 3px;", cat_df$percentage[i]))
+              ),
+              tags$span(style = "font-size: 12px; color: #666; min-width: 45px; text-align: right;", paste0(cat_df$percentage[i], "%"))
             )
           })
-          return(tags$div(
-            tags$h5(style = "margin-bottom: 10px;", "Categorical Distribution"),
-            rows
-          ))
+          return(tags$div(header, do.call(shiny::tagList, rows)))
         }
       }
 
@@ -5290,12 +5658,15 @@ Data distribution by hospital unit/ward.
       }
 
       # Use the shared render function from fct_statistics_display.R
+      # Don't show missing_rate and measurement_frequency for Target Concept Details
+      # as these are source-specific stats (not relevant for EHDEN target data)
       render_stats_summary_panel(
         profile_data = profile_data,
         source_data = source_profile,
         row_data = NULL,  # Concept Mapping doesn't have row/patient counts
         target_unit_name = target_unit_name,
-        source_unit_name = source_unit_name
+        source_unit_name = source_unit_name,
+        show_source_specific_stats = FALSE
       )
     }
 
@@ -5602,6 +5973,7 @@ Data distribution by hospital unit/ward.
             cm.csv_mapping_id,
             cm.imported_mapping_id,
             cm.mapping_datetime,
+            cm.mapped_by_user_id,
             me.is_approved,
             me.comment
           FROM concept_mappings cm
@@ -5708,30 +6080,42 @@ Data distribution by hospital unit/ward.
         enriched_data <- enriched_data %>%
           dplyr::mutate(row_index = dplyr::row_number())
 
-        # Create action buttons HTML
+        # Store current user ID for comparison
+        current_user_id <- current_user()$user_id
+
+        # Create action buttons HTML (or message if user created the mapping)
         enriched_data <- enriched_data %>%
+          dplyr::rowwise() %>%
           dplyr::mutate(
-            Actions = sprintf(
-              '<div style="display: flex; gap: 5px; justify-content: center;">
-                <button class="btn-eval-action" data-action="approve" data-row="%d" data-mapping-id="%d" title="Approve">
-                  <i class="fas fa-check"></i>
-                </button>
-                <button class="btn-eval-action" data-action="reject" data-row="%d" data-mapping-id="%d" title="Reject">
-                  <i class="fas fa-times"></i>
-                </button>
-                <button class="btn-eval-action" data-action="uncertain" data-row="%d" data-mapping-id="%d" title="Uncertain">
-                  <i class="fas fa-question"></i>
-                </button>
-                <button class="btn-eval-action" data-action="clear" data-row="%d" data-mapping-id="%d" title="Clear Evaluation">
-                  <i class="fas fa-redo"></i>
-                </button>
-              </div>',
-              row_index, mapping_id,
-              row_index, mapping_id,
-              row_index, mapping_id,
-              row_index, mapping_id
-            )
-          )
+            Actions = if (!is.na(mapped_by_user_id) && mapped_by_user_id == current_user_id) {
+              sprintf(
+                '<span style="color: #999; font-style: italic; font-size: 12px;">%s</span>',
+                i18n$t("cannot_evaluate_own_mappings")
+              )
+            } else {
+              sprintf(
+                '<div style="display: flex; gap: 5px; justify-content: center;">
+                  <button class="btn-eval-action" data-action="approve" data-row="%d" data-mapping-id="%d" title="Approve">
+                    <i class="fas fa-check"></i>
+                  </button>
+                  <button class="btn-eval-action" data-action="reject" data-row="%d" data-mapping-id="%d" title="Reject">
+                    <i class="fas fa-times"></i>
+                  </button>
+                  <button class="btn-eval-action" data-action="uncertain" data-row="%d" data-mapping-id="%d" title="Uncertain">
+                    <i class="fas fa-question"></i>
+                  </button>
+                  <button class="btn-eval-action" data-action="clear" data-row="%d" data-mapping-id="%d" title="Clear Evaluation">
+                    <i class="fas fa-redo"></i>
+                  </button>
+                </div>',
+                row_index, mapping_id,
+                row_index, mapping_id,
+                row_index, mapping_id,
+                row_index, mapping_id
+              )
+            }
+          ) %>%
+          dplyr::ungroup()
 
         # Build display columns like in All Completed Mappings
         display_data <- enriched_data %>%

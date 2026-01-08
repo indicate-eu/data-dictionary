@@ -2140,6 +2140,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       if (length(deleted_list) > 0) {
         concept_mappings <- current_data()$concept_mappings
         custom_concepts <- current_data()$custom_concepts
+        general_concept_projects <- current_data()$general_concept_projects
 
         for (deleted_id_str in names(deleted_list)) {
           deleted_id <- as.integer(deleted_id_str)
@@ -2174,6 +2175,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           # Remove associated custom concepts (cascade delete)
           custom_concepts <- custom_concepts %>%
             dplyr::filter(is.na(general_concept_id) | general_concept_id != deleted_id)
+
+          # Remove from project assignments (cascade delete)
+          if (!is.null(general_concept_projects)) {
+            general_concept_projects <- general_concept_projects %>%
+              dplyr::filter(general_concept_id != deleted_id)
+          }
         }
 
         # Save updated mappings and custom concepts to CSV
@@ -2187,10 +2194,27 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           readr::write_csv(custom_concepts, csv_path_custom)
         }
 
+        # Save updated project assignments to CSV
+        csv_path_projects <- get_csv_path("general_concepts_projects.csv")
+        if (file.exists(csv_path_projects) && !is.null(general_concept_projects)) {
+          readr::write_csv(general_concept_projects, csv_path_projects)
+        }
+
+        # Remove from stats file (general_concepts_stats.csv)
+        csv_path_stats <- get_csv_path("general_concepts_stats.csv")
+        if (file.exists(csv_path_stats)) {
+          stats_data <- readr::read_csv(csv_path_stats, show_col_types = FALSE)
+          deleted_ids <- as.integer(names(deleted_list))
+          stats_data <- stats_data %>%
+            dplyr::filter(!general_concept_id %in% deleted_ids)
+          readr::write_csv(stats_data, csv_path_stats)
+        }
+
         # Update local data with deleted associations
         data <- local_data()
         data$concept_mappings <- concept_mappings
         data$custom_concepts <- custom_concepts
+        data$general_concept_projects <- general_concept_projects
         local_data(data)
 
         # Clear deletion list

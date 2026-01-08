@@ -66,6 +66,7 @@ optional,Optional
 concept_name,Concept Name
 concept_details,Concept Details
 general_concepts,General Concepts
+general_concepts_tooltip,Standardized concepts from the INDICATE data dictionary. Select a concept to map your source data to it.
 dictionary_explorer,Dictionary Explorer
 select_concept_to_view,Select a concept to view details
 no_concept_selected,No concept selected
@@ -354,3 +355,11 @@ delete_failed,Delete failed:
 no_mapping_file_found,No mapping file found for this alignment
 other,Other
 no_additional_columns,No additional columns available for this concept.
+column_data_types,Column Data Types
+no_file_uploaded,No file uploaded yet.
+name_already_exists,This name already exists. Please choose a different name.
+cannot_evaluate_own_mappings,You cannot evaluate your own mappings.
+distribution_type,Distribution Type
+numeric_distribution,Numeric
+categorical_distribution,Categorical
+export_project,Export Project

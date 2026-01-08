@@ -559,11 +559,21 @@ mod_users_server <- function(id, current_user, i18n, log_level = character()) {
       # Stop if there are validation errors
       if (has_errors) return()
 
-      # Proceed with adding/updating user
+      # Check for duplicate login
+      users <- users_data()
+      login_to_check <- trimws(input$user_login)
+
       if (is.null(editing_user_id())) {
+        # Adding new user - check if login already exists
+        if (tolower(login_to_check) %in% tolower(users$login)) {
+          shinyjs::html("login_error", as.character(i18n$t("login_exists")))
+          shinyjs::show("login_error")
+          return()
+        }
+
         # Add user
         result <- add_user(
-          login = input$user_login,
+          login = login_to_check,
           password = input$user_password,
           first_name = input$user_first_name,
           last_name = input$user_last_name,
@@ -577,10 +587,18 @@ mod_users_server <- function(id, current_user, i18n, log_level = character()) {
           return()
         }
       } else {
+        # Editing existing user - check if login already exists for other users
+        other_users <- users[users$user_id != editing_user_id(), ]
+        if (tolower(login_to_check) %in% tolower(other_users$login)) {
+          shinyjs::html("login_error", as.character(i18n$t("login_exists")))
+          shinyjs::show("login_error")
+          return()
+        }
+
         # Editing existing user
         update_params <- list(
           user_id = editing_user_id(),
-          login = input$user_login,
+          login = login_to_check,
           first_name = input$user_first_name,
           last_name = input$user_last_name,
           role = input$user_role,

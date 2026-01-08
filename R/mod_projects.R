@@ -73,6 +73,7 @@ mod_projects_ui <- function(id, i18n) {
       )
     ),
 
+
     ## UI - Modals ----
     ### Modal - Add New Project ----
     tags$div(
@@ -116,6 +117,11 @@ mod_projects_ui <- function(id, i18n) {
               id = ns("name_error"),
               class = "input-error-message",
               i18n$t("name_required")
+            ),
+            tags$div(
+              id = ns("name_duplicate_error"),
+              class = "input-error-message",
+              i18n$t("name_already_exists")
             )
           ),
           tags$div(
@@ -280,6 +286,11 @@ mod_projects_ui <- function(id, i18n) {
               id = ns("edit_name_error"),
               class = "input-error-message",
               i18n$t("name_required")
+            ),
+            tags$div(
+              id = ns("edit_name_duplicate_error"),
+              class = "input-error-message",
+              i18n$t("name_already_exists")
             )
           ),
           tags$div(
@@ -737,6 +748,13 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
             data_attr = list(`project-id` = id)
           ),
           list(
+            label = "Export",
+            icon = "download",
+            type = "success",
+            class = "project-export-btn",
+            data_attr = list(`project-id` = id)
+          ),
+          list(
             label = "Delete",
             icon = "trash",
             type = "danger",
@@ -931,6 +949,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
           $(table.table().node()).off('dblclick', 'tbody tr');
           $(table.table().node()).off('click', '.project-edit-btn');
           $(table.table().node()).off('click', '.project-configure-btn');
+          $(table.table().node()).off('click', '.project-export-btn');
           $(table.table().node()).off('click', '.project-delete-btn');
 
           // Add double-click handler for table rows
@@ -955,6 +974,12 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
             Shiny.setInputValue('%s', projectId, {priority: 'event'});
           });
 
+          $(table.table().node()).on('click', '.project-export-btn', function(e) {
+            e.stopPropagation();
+            var projectId = $(this).data('project-id');
+            Shiny.setInputValue('%s', projectId, {priority: 'event'});
+          });
+
           $(table.table().node()).on('click', '.project-delete-btn', function(e) {
             e.stopPropagation();
             var projectId = $(this).data('project-id');
@@ -965,6 +990,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
       session$ns("dblclick_project_id"),
       session$ns("project_edit_clicked"),
       session$ns("project_configure_clicked"),
+      session$ns("project_export_clicked"),
       session$ns("project_delete_clicked")
       ))
 
@@ -987,7 +1013,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
             autoWidth = FALSE,
             columnDefs = list(
               list(targets = 0, visible = FALSE),  # Hide project_id column
-              list(targets = 4, orderable = FALSE, width = "280px", searchable = FALSE, className = "dt-center")  # Actions column
+              list(targets = 4, orderable = FALSE, width = "350px", searchable = FALSE, className = "dt-center")  # Actions column
             ),
             language = dt_language,
             drawCallback = callback_js
@@ -1079,6 +1105,167 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
 
       # Show confirmation modal
       shinyjs::runjs(sprintf("$('#%s').show();", ns("delete_confirmation_modal")))
+    }, ignoreInit = TRUE)
+
+    # Handler for Export button in datatable
+    observe_event(input$project_export_clicked, {
+      project_id <- input$project_export_clicked
+      if (is.null(project_id)) return()
+
+      tryCatch({
+        # Get project name for filename
+        projects_data <- projects_reactive()
+        project <- projects_data[projects_data$project_id == project_id, ]
+        project_name <- if (nrow(project) > 0) {
+          gsub("[^a-zA-Z0-9_-]", "_", project$project_name)
+        } else {
+          "project"
+        }
+        filename <- paste0(project_name, "-", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".csv")
+
+        # Get general concepts assigned to this project
+        gc_uc_data <- general_concept_projects_reactive()
+        assigned_gc_ids <- gc_uc_data %>%
+          dplyr::filter(project_id == !!project_id) %>%
+          .$general_concept_id
+
+        if (length(assigned_gc_ids) == 0) {
+          # Empty export
+          export_data <- data.frame(
+            general_concept_id = integer(),
+            general_concept_name = character(),
+            category = character(),
+            subcategory = character(),
+            vocabulary_id = character(),
+            concept_code = character(),
+            concept_name = character(),
+            omop_concept_id = integer(),
+            omop_unit_concept_id = integer()
+          )
+        } else {
+          # Get general concepts details
+          general_concepts <- data()$general_concepts
+          gc_details <- general_concepts %>%
+            dplyr::filter(general_concept_id %in% assigned_gc_ids)
+
+          # Get concept mappings (OMOP)
+          concept_mappings <- data()$concept_mappings
+
+          # Get custom concepts
+          custom_concepts <- data()$custom_concepts
+
+          # Join OMOP concept mappings
+          omop_data <- gc_details %>%
+            dplyr::inner_join(
+              concept_mappings %>%
+                dplyr::select(general_concept_id, omop_concept_id, omop_unit_concept_id),
+              by = "general_concept_id"
+            )
+
+          # Enrich OMOP data with vocabulary info from DuckDB
+          vocab_data <- vocabularies()
+          if (!is.null(vocab_data) && nrow(omop_data) > 0) {
+            concept_ids <- unique(omop_data$omop_concept_id[!is.na(omop_data$omop_concept_id)])
+            if (length(concept_ids) > 0) {
+              omop_concepts <- vocab_data$concept %>%
+                dplyr::filter(concept_id %in% concept_ids) %>%
+                dplyr::select(concept_id, vocabulary_id, concept_code, concept_name) %>%
+                dplyr::collect()
+
+              omop_data <- omop_data %>%
+                dplyr::left_join(
+                  omop_concepts,
+                  by = c("omop_concept_id" = "concept_id")
+                )
+            } else {
+              omop_data <- omop_data %>%
+                dplyr::mutate(
+                  vocabulary_id = NA_character_,
+                  concept_code = NA_character_,
+                  concept_name = NA_character_
+                )
+            }
+          } else {
+            omop_data <- omop_data %>%
+              dplyr::mutate(
+                vocabulary_id = NA_character_,
+                concept_code = NA_character_,
+                concept_name = NA_character_
+              )
+          }
+
+          # Join custom concepts
+          custom_data <- gc_details %>%
+            dplyr::inner_join(
+              custom_concepts %>%
+                dplyr::select(
+                  general_concept_id,
+                  vocabulary_id,
+                  concept_code,
+                  concept_name,
+                  omop_unit_concept_id
+                ),
+              by = "general_concept_id"
+            ) %>%
+            dplyr::mutate(omop_concept_id = NA_integer_)
+
+          # Handle "/" values in custom concepts and convert to integer
+          if (nrow(custom_data) > 0) {
+            custom_data <- custom_data %>%
+              dplyr::mutate(
+                concept_code = dplyr::if_else(concept_code == "/", NA_character_, concept_code),
+                omop_unit_concept_id = as.integer(dplyr::if_else(
+                  as.character(omop_unit_concept_id) == "/",
+                  NA_character_,
+                  as.character(omop_unit_concept_id)
+                ))
+              )
+          }
+
+          # Ensure omop_data has integer type for omop_unit_concept_id
+          if (nrow(omop_data) > 0) {
+            omop_data <- omop_data %>%
+              dplyr::mutate(omop_unit_concept_id = suppressWarnings(as.integer(omop_unit_concept_id)))
+          }
+
+          # Combine OMOP and custom concepts
+          export_data <- dplyr::bind_rows(omop_data, custom_data) %>%
+            dplyr::select(
+              general_concept_id,
+              general_concept_name,
+              category,
+              subcategory,
+              vocabulary_id,
+              concept_code,
+              concept_name,
+              omop_concept_id,
+              omop_unit_concept_id
+            ) %>%
+            dplyr::arrange(category, subcategory, general_concept_name, vocabulary_id)
+        }
+
+        # Write to temp file and read back for consistent CSV formatting
+        temp_csv <- tempfile(fileext = ".csv")
+        write.csv(export_data, temp_csv, row.names = FALSE, quote = TRUE, na = "")
+        csv_content <- paste(readLines(temp_csv, warn = FALSE), collapse = "\n")
+        unlink(temp_csv)
+
+        # Encode and trigger download via JavaScript (same pattern as source_to_concept_map export)
+        csv_encoded <- base64enc::base64encode(charToRaw(csv_content))
+        download_js <- sprintf(
+          "var link = document.createElement('a');
+           link.href = 'data:text/csv;base64,%s';
+           link.download = '%s';
+           link.click();",
+          csv_encoded,
+          filename
+        )
+
+        shinyjs::runjs(download_js)
+
+      }, error = function(e) {
+        cat("[ERROR] Export failed:", conditionMessage(e), "\n")
+      })
     }, ignoreInit = TRUE)
 
     ### Project Details Rendering ----
@@ -1270,13 +1457,24 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
       name <- trimws(input$new_project_name)
       short_desc <- trimws(input$new_project_short_description)
 
+      # Get current projects for validation
+      projects_data <- projects_reactive()
+
       # Validation
       has_error <- FALSE
       if (name == "") {
         shinyjs::runjs(sprintf("$('#%s').show();", ns("name_error")))
+        shinyjs::runjs(sprintf("$('#%s').hide();", ns("name_duplicate_error")))
         has_error <- TRUE
       } else {
         shinyjs::runjs(sprintf("$('#%s').hide();", ns("name_error")))
+        # Check for duplicate name
+        if (tolower(name) %in% tolower(projects_data$project_name)) {
+          shinyjs::runjs(sprintf("$('#%s').show();", ns("name_duplicate_error")))
+          has_error <- TRUE
+        } else {
+          shinyjs::runjs(sprintf("$('#%s').hide();", ns("name_duplicate_error")))
+        }
       }
 
       if (short_desc == "") {
@@ -1288,8 +1486,6 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
 
       if (has_error) return()
 
-      # Get current projects
-      projects_data <- projects_reactive()
       long_desc <- trimws(input$new_project_long_description)
 
       # Create new project
@@ -1323,13 +1519,29 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
       name <- trimws(input$edit_project_name)
       short_desc <- trimws(input$edit_project_short_description)
 
+      # Get current project from edit reactive
+      project <- selected_project_for_edit()
+      if (is.null(project)) return()
+
+      # Get projects data for validation
+      projects_data <- projects_reactive()
+
       # Validation
       has_error <- FALSE
       if (name == "") {
         shinyjs::runjs(sprintf("$('#%s').show();", ns("edit_name_error")))
+        shinyjs::runjs(sprintf("$('#%s').hide();", ns("edit_name_duplicate_error")))
         has_error <- TRUE
       } else {
         shinyjs::runjs(sprintf("$('#%s').hide();", ns("edit_name_error")))
+        # Check for duplicate name (excluding the current project)
+        other_projects <- projects_data[projects_data$project_id != project$id, ]
+        if (tolower(name) %in% tolower(other_projects$project_name)) {
+          shinyjs::runjs(sprintf("$('#%s').show();", ns("edit_name_duplicate_error")))
+          has_error <- TRUE
+        } else {
+          shinyjs::runjs(sprintf("$('#%s').hide();", ns("edit_name_duplicate_error")))
+        }
       }
 
       if (short_desc == "") {
@@ -1341,12 +1553,6 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
 
       if (has_error) return()
 
-      # Get current project from edit reactive
-      project <- selected_project_for_edit()
-      if (is.null(project)) return()
-
-      # Get projects data
-      projects_data <- projects_reactive()
       long_desc <- trimws(input$edit_project_long_description)
 
       # Update the project

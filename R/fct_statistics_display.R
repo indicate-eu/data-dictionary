@@ -227,7 +227,7 @@ create_dual_line_plot <- function(source_histogram, target_histogram) {
 
 #' Create categorical bar chart
 #'
-#' @param categorical_data List or data frame with value, percentage columns
+#' @param categorical_data List or data frame with value/category, percentage columns
 #' @param color Bar color (default: source blue)
 #' @return ggplot object
 #' @noRd
@@ -235,14 +235,20 @@ create_categorical_chart <- function(categorical_data, color = "#0f60af") {
   if (is.null(categorical_data) || length(categorical_data) == 0) return(NULL)
 
   cat_df <- as.data.frame(categorical_data)
-  if (nrow(cat_df) == 0 || !"value" %in% colnames(cat_df) || !"percentage" %in% colnames(cat_df)) {
+
+  # Support both "value" and "category" column names
+  value_col <- if ("value" %in% colnames(cat_df)) "value" else if ("category" %in% colnames(cat_df)) "category" else NULL
+
+  if (nrow(cat_df) == 0 || is.null(value_col) || !"percentage" %in% colnames(cat_df)) {
     return(NULL)
   }
 
   cat_df <- cat_df[order(-cat_df$percentage), ]
-  cat_df$value_label <- ifelse(nchar(as.character(cat_df$value)) > 20,
-                                paste0(substr(as.character(cat_df$value), 1, 18), "..."),
-                                as.character(cat_df$value))
+  # Clean up carriage returns and newlines, then truncate
+  cat_df$value_label <- sapply(cat_df[[value_col]], function(v) {
+    v <- gsub("\r\n|\r|\n", " ", as.character(v))
+    if (nchar(v) > 20) paste0(substr(v, 1, 18), "...") else v
+  })
   cat_df$value_label <- factor(cat_df$value_label, levels = rev(cat_df$value_label))
 
   plot_height <- max(100, min(250, nrow(cat_df) * 25))
@@ -442,9 +448,11 @@ has_numeric_values <- function(nd) {
 #' @param row_data Optional row data containing rows_count, patients_count
 #' @param target_unit_name Optional unit name for the target concept
 #' @param source_unit_name Optional source unit name for comparison
+#' @param show_source_specific_stats Logical: show missing_rate and measurement_frequency
+#'   (these are source-specific and should not be shown for Target Concept Details)
 #' @return shiny tagList
 #' @noRd
-render_stats_summary_panel <- function(profile_data, source_data = NULL, row_data = NULL, target_unit_name = NULL, source_unit_name = NULL) {
+render_stats_summary_panel <- function(profile_data, source_data = NULL, row_data = NULL, target_unit_name = NULL, source_unit_name = NULL, show_source_specific_stats = TRUE) {
   items <- list()
 
   colors <- get_stats_colors()
@@ -492,8 +500,8 @@ render_stats_summary_panel <- function(profile_data, source_data = NULL, row_dat
     ))
   }
 
-  # Missing rate
-  if (!is.null(profile_data$missing_rate) && !is.na(profile_data$missing_rate)) {
+  # Missing rate (source-specific, only show when show_source_specific_stats is TRUE)
+  if (show_source_specific_stats && !is.null(profile_data$missing_rate) && !is.na(profile_data$missing_rate)) {
     source_missing <- if (has_source && !is.null(source_data$missing_rate)) source_data$missing_rate else NULL
     items <- c(items, list(
       shiny::tags$div(
@@ -511,8 +519,8 @@ render_stats_summary_panel <- function(profile_data, source_data = NULL, row_dat
     ))
   }
 
-  # Measurement frequency
-  if (!is.null(profile_data$measurement_frequency) && !is.null(profile_data$measurement_frequency$typical_interval)) {
+  # Measurement frequency (source-specific, only show when show_source_specific_stats is TRUE)
+  if (show_source_specific_stats && !is.null(profile_data$measurement_frequency) && !is.null(profile_data$measurement_frequency$typical_interval)) {
     items <- c(items, list(
       shiny::tags$div(
         class = "detail-item", style = "margin-bottom: 6px;",
@@ -741,13 +749,30 @@ render_stats_distribution_panel <- function(profile_data, source_data = NULL, pr
   # Categorical distribution (bar chart)
   if (!is.null(profile_data$categorical_data) && length(profile_data$categorical_data) > 0) {
     cat_df <- as.data.frame(profile_data$categorical_data)
-    if (nrow(cat_df) > 0 && "value" %in% colnames(cat_df) && "percentage" %in% colnames(cat_df)) {
+
+    # Support both "value" and "category" column names
+    value_col <- if ("value" %in% colnames(cat_df)) "value" else if ("category" %in% colnames(cat_df)) "category" else NULL
+
+    if (nrow(cat_df) > 0 && !is.null(value_col) && "percentage" %in% colnames(cat_df)) {
+      # Truncate long category names for display
+      cat_df$display_value <- sapply(cat_df[[value_col]], function(v) {
+        v <- gsub("\r\n|\r|\n", " ", as.character(v))
+        if (nchar(v) > 50) paste0(substr(v, 1, 47), "...") else v
+      })
+
       rows <- lapply(seq_len(nrow(cat_df)), function(i) {
         shiny::tags$div(
           style = "display: flex; align-items: center; margin-bottom: 5px;",
-          shiny::tags$span(style = "width: 120px; font-size: 13px;", cat_df$value[i]),
-          shiny::tags$div(style = sprintf("width: %s%%; background: %s; height: 18px; border-radius: 3px; margin-right: 8px;", cat_df$percentage[i], main_color)),
-          shiny::tags$span(style = "font-size: 12px; color: #666;", paste0(cat_df$percentage[i], "%"))
+          shiny::tags$span(
+            style = "width: 200px; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;",
+            title = gsub("\r\n|\r|\n", " ", as.character(cat_df[[value_col]][i])),
+            cat_df$display_value[i]
+          ),
+          shiny::tags$div(
+            style = "flex: 1; margin: 0 8px;",
+            shiny::tags$div(style = sprintf("width: %s%%; background: %s; height: 18px; border-radius: 3px;", cat_df$percentage[i], main_color))
+          ),
+          shiny::tags$span(style = "font-size: 12px; color: #666; min-width: 45px; text-align: right;", paste0(cat_df$percentage[i], "%"))
         )
       })
       return(do.call(shiny::tagList, rows))

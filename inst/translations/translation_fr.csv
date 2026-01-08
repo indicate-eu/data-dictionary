@@ -66,6 +66,7 @@ optional,Optionnel
 concept_name,Nom du concept
 concept_details,Détails du concept
 general_concepts,Concepts généraux
+general_concepts_tooltip,Concepts standardisés du dictionnaire de données INDICATE. Sélectionnez un concept pour y associer vos données sources.
 dictionary_explorer,Dictionnaire des concepts
 select_concept_to_view,Sélectionnez un concept pour voir les détails
 no_concept_selected,Aucun concept sélectionné
@@ -354,3 +355,11 @@ delete_failed,Échec de la suppression :
 no_mapping_file_found,Aucun fichier de mapping trouvé pour cet alignement
 other,Autres
 no_additional_columns,Aucune colonne supplémentaire disponible pour ce concept.
+column_data_types,Types de données des colonnes
+no_file_uploaded,Aucun fichier téléchargé.
+name_already_exists,Ce nom existe déjà. Veuillez choisir un nom différent.
+cannot_evaluate_own_mappings,Vous ne pouvez pas évaluer vos propres mappings.
+distribution_type,Type de distribution
+numeric_distribution,Numérique
+categorical_distribution,Catégoriel
+export_project,Exporter le projet

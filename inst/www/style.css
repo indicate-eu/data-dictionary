@@ -32,6 +32,26 @@ html, body {
   color: #0f60af;
 }
 
+/* Inline select dropdowns (compact style)
+-------------------------------------------------- */
+.inline-select-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.inline-select-label {
+  font-size: 11px;
+  color: #666;
+}
+
+.inline-select {
+  font-size: 11px;
+  padding: 2px 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 /* Shiny notifications
 -------------------------------------------------- */
 #shiny-notification-panel {
