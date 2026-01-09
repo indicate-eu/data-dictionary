@@ -217,7 +217,10 @@ validity,Validity
 standard,Standard
 domain_id,Domain ID
 unit_concept_name,Unit Concept Name
+unit_concept_code,Unit Concept Code
 fhir_resource,FHIR Resource
+unit_fhir_resource,Unit FHIR Resource
+unit_conversions,Unit Conversions
 add_alignment,Add Alignment
 no_alignments_yet,No alignments yet. Click 'Add Alignment' to create one.
 alignment_name,Alignment Name
@@ -229,6 +232,7 @@ upload_csv_file,Upload CSV File
 please_upload_file,Please upload a file
 back,Back
 next,Next
+view,View
 column_mapping,Column Mapping
 additional_columns,Additional Columns
 concept_mappings,Concept Mappings

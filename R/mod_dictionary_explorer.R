@@ -1150,6 +1150,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     deleted_concepts <- reactiveVal(list())  # Store deleted concept IDs by general_concept_id
     deleted_general_concepts <- reactiveVal(list())  # Store deleted general concept IDs to be removed on save
     original_general_concepts <- reactiveVal(NULL)  # Store original state for cancel in list edit mode
+    original_concept_mappings <- reactiveVal(NULL)  # Store original state for cancel in detail edit mode
     add_modal_selected_concept <- reactiveVal(NULL)  # Store selected concept in add modal
     add_modal_concept_details_trigger <- reactiveVal(0)  # Trigger to refresh concept details in add modal
     newly_added_concept_id <- reactiveVal(NULL)  # Track newly added concept ID for navigation
@@ -1677,6 +1678,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     
     # Handle edit page button
     observe_event(input$general_concept_detail_edit_page, {
+      # Save current state for cancel functionality
+      original_concept_mappings(current_data()$concept_mappings)
+
       general_concept_detail_edit_mode(TRUE)
       update_button_visibility()
     })
@@ -1697,6 +1701,15 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       deleted_concepts(list())
       added_concepts(list())
       edited_mapping_details(list())  # Reset temporary mapping detail edits
+
+      # Restore original concept_mappings data
+      if (!is.null(original_concept_mappings())) {
+        data_restored <- local_data()
+        data_restored$concept_mappings <- original_concept_mappings()
+        local_data(data_restored)
+        original_concept_mappings(NULL)
+      }
+
       general_concept_detail_edit_mode(FALSE)
       # Reset tab to comments
       comments_tab("comments")
@@ -1704,9 +1717,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       shinyjs::hide("general_concept_detail_edit_buttons")
       shinyjs::show("general_concept_detail_action_buttons")
 
-      # Temporary changes are stored in deleted_concepts(), added_concepts(), and edited_mapping_details()
-      # which are applied during table rendering. Resetting these lists is enough.
-      # Just trigger table re-render to show original data
+      # Trigger table re-render to show original data
       concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
       selected_mapping_details_trigger(selected_mapping_details_trigger() + 1)
     })
@@ -3281,8 +3292,24 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         });
       ", session$ns("concept_mappings_page_start"))
 
+      # Add delete icon click handler
+      delete_handler_code <- sprintf("
+        $(table.table().node()).off('click', '.delete-icon');
+        $(table.table().node()).on('click', '.delete-icon', function(e) {
+          e.stopPropagation();
+          var omopId = $(this).data('omop-id');
+          var customId = $(this).data('custom-id');
+          var isCustom = customId !== '' && customId !== undefined;
+          Shiny.setInputValue('%s', {
+            omop_id: omopId || null,
+            custom_id: customId || null,
+            is_custom: isCustom
+          }, {priority: 'event'});
+        });
+      ", session$ns("delete_concept"))
+
       # Combine callbacks
-      callback <- JS(paste(base_callback, page_tracking_code, sep = "\n"))
+      callback <- JS(paste(base_callback, page_tracking_code, delete_handler_code, sep = "\n"))
 
       # Build initComplete callback that includes keyboard nav
       init_complete_js <- create_keyboard_nav(keyboard_nav, TRUE, FALSE)
@@ -4003,7 +4030,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                   href = fhir_url,
                   target = "_blank",
                   style = "color: #0f60af; text-decoration: underline;",
-                  "View"
+                  i18n$t("view")
                 )
               )
             }
@@ -4089,6 +4116,44 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         NULL
       }
 
+      # Get unit conversions for this concept
+      unit_conversions_text <- NULL
+      if (!is.null(info$omop_concept_id) && !is.na(info$omop_concept_id)) {
+        unit_conversions_data <- data()$unit_conversions
+        if (!is.null(unit_conversions_data) && nrow(unit_conversions_data) > 0) {
+          # Find conversions where this concept is concept_1
+          conversions <- unit_conversions_data %>%
+            dplyr::filter(omop_concept_id_1 == info$omop_concept_id)
+
+          if (nrow(conversions) > 0 && !is.null(vocab_data)) {
+            # Get unit concept codes for display
+            unit_ids <- unique(c(conversions$unit_concept_id_1, conversions$unit_concept_id_2))
+            unit_info <- vocab_data$concept %>%
+              dplyr::filter(concept_id %in% unit_ids) %>%
+              dplyr::select(concept_id, concept_code) %>%
+              dplyr::collect()
+
+            unit_codes <- setNames(unit_info$concept_code, unit_info$concept_id)
+
+            # Build conversion strings
+            conversion_strings <- sapply(seq_len(nrow(conversions)), function(i) {
+              unit_code_1 <- unit_codes[as.character(conversions$unit_concept_id_1[i])]
+              unit_code_2 <- unit_codes[as.character(conversions$unit_concept_id_2[i])]
+              factor <- conversions$conversion_factor[i]
+              if (!is.na(unit_code_1) && !is.na(unit_code_2)) {
+                sprintf("1 %s = %s %s", unit_code_1, factor, unit_code_2)
+              } else {
+                NULL
+              }
+            })
+            conversion_strings <- conversion_strings[!sapply(conversion_strings, is.null)]
+            if (length(conversion_strings) > 0) {
+              unit_conversions_text <- paste(conversion_strings, collapse = ", ")
+            }
+          }
+        }
+      }
+
       # Get edit mode status
       is_editing <- general_concept_detail_edit_mode()
 
@@ -4135,8 +4200,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       tags$div(
         class = "concept-details-container",
-        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(8, auto); grid-auto-flow: column; gap: 4px 15px;",
-        # Column 1
+        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(10, auto); grid-auto-flow: column; gap: 4px 15px;",
+        # Column 1 (10 items)
         create_detail_item(i18n$t("concept_name"), info$concept_name, include_colon = FALSE, is_editing = is_editing, ns = ns),
         create_detail_item(i18n$t("category"),
                           ifelse(nrow(general_concept_info) > 0,
@@ -4151,7 +4216,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         create_detail_item(i18n$t("loinc_rank"), info$loinc_rank, editable = TRUE, input_id = "loinc_rank_input", step = 1, include_colon = FALSE, is_editing = is_editing, ns = ns),
         create_detail_item(i18n$t("validity"), validity_text, color = validity_color, include_colon = FALSE, is_editing = is_editing, ns = ns),
         create_detail_item(i18n$t("standard"), standard_text, color = standard_color, include_colon = FALSE, is_editing = is_editing, ns = ns),
-        # Column 2 (must have exactly 8 items)
+        tags$div(class = "detail-item", style = "visibility: hidden;"),
+        tags$div(class = "detail-item", style = "visibility: hidden;"),
+        # Column 2 (10 items)
         create_detail_item(i18n$t("vocabulary_id"), info$vocabulary_id, include_colon = FALSE, is_editing = is_editing, ns = ns),
         create_detail_item(i18n$t("domain_id"), if (!is.null(validity_info) && !is.na(validity_info$domain_id)) validity_info$domain_id else "/", include_colon = FALSE, is_editing = is_editing, ns = ns),
         create_detail_item(i18n$t("concept_code"), info$concept_code, include_colon = FALSE, is_editing = is_editing, ns = ns),
@@ -4174,7 +4241,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 href = fhir_url,
                 target = "_blank",
                 style = "color: #0f60af; text-decoration: underline;",
-                "View"
+                i18n$t("view")
               )
             )
           }
@@ -4184,6 +4251,13 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         create_detail_item(i18n$t("unit_concept_name"),
                           if (!is.null(unit_concept_name) && unit_concept_name != "") {
                             unit_concept_name
+                          } else {
+                            "/"
+                          },
+                          include_colon = FALSE),
+        create_detail_item(i18n$t("unit_concept_code"),
+                          if (!is.null(unit_concept_code) && unit_concept_code != "") {
+                            unit_concept_code
                           } else {
                             "/"
                           },
@@ -4199,17 +4273,24 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         if (!is.null(unit_fhir_url)) {
           tags$div(
             class = "detail-item",
-            tags$strong("Unit FHIR Resource"),
+            tags$strong(i18n$t("unit_fhir_resource")),
             tags$a(
               href = unit_fhir_url,
               target = "_blank",
               style = "color: #0f60af; text-decoration: underline;",
-              "View"
+              i18n$t("view")
             )
           )
         } else {
           tags$div(class = "detail-item", style = "visibility: hidden;")
-        }
+        },
+        create_detail_item(i18n$t("unit_conversions"),
+                          if (!is.null(unit_conversions_text) && unit_conversions_text != "") {
+                            unit_conversions_text
+                          } else {
+                            "/"
+                          },
+                          include_colon = FALSE)
         )
       })
     }, ignoreInit = TRUE)
@@ -5761,7 +5842,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 href = fhir_url,
                 target = "_blank",
                 style = "color: #0f60af; text-decoration: underline;",
-                "View"
+                i18n$t("view")
               )
             )
           }

@@ -58,6 +58,7 @@ init_database <- function(con) {
         description TEXT,
         file_id TEXT NOT NULL,
         original_filename TEXT,
+        column_types TEXT,
         created_date TEXT,
         updated_at TEXT
       )"
@@ -78,10 +79,16 @@ init_database <- function(con) {
           description TEXT,
           file_id TEXT NOT NULL,
           original_filename TEXT,
+          column_types TEXT,
           created_date TEXT,
           updated_at TEXT
         )"
       )
+    }
+
+    # Add column_types column if missing
+    if (!"column_types" %in% columns$name) {
+      DBI::dbExecute(con, "ALTER TABLE concept_alignments ADD COLUMN column_types TEXT")
     }
   }
 

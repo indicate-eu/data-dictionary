@@ -15,10 +15,11 @@
 #' @param description Alignment description
 #' @param file_id Unique file identifier
 #' @param original_filename Original filename
+#' @param column_types JSON string with column type definitions
 #'
 #' @return Alignment ID of the newly created alignment
 #' @noRd
-add_alignment <- function(name, description = "", file_id, original_filename = "") {
+add_alignment <- function(name, description = "", file_id, original_filename = "", column_types = NULL) {
   con <- get_db_connection()
   on.exit(DBI::dbDisconnect(con))
 
@@ -26,9 +27,9 @@ add_alignment <- function(name, description = "", file_id, original_filename = "
 
   DBI::dbExecute(
     con,
-    "INSERT INTO concept_alignments (name, description, file_id, original_filename, created_date, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?)",
-    params = list(name, description, file_id, original_filename, timestamp, timestamp)
+    "INSERT INTO concept_alignments (name, description, file_id, original_filename, column_types, created_date, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?)",
+    params = list(name, description, file_id, original_filename, column_types, timestamp, timestamp)
   )
 
   # Get the ID of the newly inserted alignment
@@ -70,12 +71,56 @@ get_all_alignments <- function() {
 
   result <- DBI::dbGetQuery(
     con,
-    "SELECT alignment_id, name, description, file_id, original_filename, created_date, updated_at
+    "SELECT alignment_id, name, description, file_id, original_filename, column_types, created_date, updated_at
      FROM concept_alignments
      ORDER BY created_date DESC"
   )
 
   return(result)
+}
+
+#' Apply column types to dataframe
+#'
+#' @description Apply column types stored as JSON to a dataframe
+#'
+#' @param df Dataframe to modify
+#' @param column_types_json JSON string with column type definitions
+#'
+#' @return Modified dataframe with applied types
+#' @noRd
+apply_column_types <- function(df, column_types_json) {
+  if (is.null(column_types_json) || is.na(column_types_json) || column_types_json == "") {
+    return(df)
+  }
+
+  column_types <- tryCatch(
+    jsonlite::fromJSON(column_types_json),
+    error = function(e) NULL
+  )
+
+  if (is.null(column_types)) {
+    return(df)
+  }
+
+  for (col_name in names(column_types)) {
+    if (!col_name %in% colnames(df)) next
+
+    col_type <- column_types[[col_name]]
+    df[[col_name]] <- tryCatch({
+      switch(col_type,
+        "character" = as.character(df[[col_name]]),
+        "numeric" = as.numeric(df[[col_name]]),
+        "integer" = as.integer(df[[col_name]]),
+        "factor" = as.factor(df[[col_name]]),
+        "date" = as.Date(df[[col_name]]),
+        "datetime" = as.POSIXct(df[[col_name]]),
+        "logical" = as.logical(df[[col_name]]),
+        df[[col_name]]
+      )
+    }, error = function(e) df[[col_name]])
+  }
+
+  return(df)
 }
 
 #' Update concept alignment

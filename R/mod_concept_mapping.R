@@ -1670,11 +1670,30 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
         write.csv(new_df, csv_path, row.names = FALSE)
 
+        # Collect column types from page 3
+        column_types_list <- list()
+        col_names <- colnames(new_df)
+        for (col_name in col_names) {
+          input_id <- paste0("col_type_", gsub("[^a-zA-Z0-9]", "_", col_name))
+          col_type <- input[[input_id]]
+          if (!is.null(col_type) && col_type != "") {
+            column_types_list[[col_name]] <- col_type
+          }
+        }
+
+        # Convert to JSON string
+        column_types_json <- if (length(column_types_list) > 0) {
+          jsonlite::toJSON(column_types_list, auto_unbox = TRUE)
+        } else {
+          NULL
+        }
+
         new_id <- add_alignment(
           name = input$alignment_name,
           description = ifelse(is.null(input$alignment_description), "", input$alignment_description),
           file_id = file_id,
-          original_filename = input$alignment_file$name
+          original_filename = input$alignment_file$name,
+          column_types = column_types_json
         )
 
         alignments_data(get_all_alignments())
@@ -3407,6 +3426,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
 
+      # Apply column types from alignment settings
+      column_types_json <- alignment$column_types[1]
+      df <- apply_column_types(df, column_types_json)
+
       standard_cols <- c("vocabulary_id", "concept_code", "concept_name", "statistical_summary")
       available_standard <- standard_cols[standard_cols %in% colnames(df)]
       excluded_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime", "mapped_by_user_id", "mapping_id")
@@ -3506,6 +3529,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       # Read CSV
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
+
+      # Apply column types from alignment settings
+      column_types_json <- alignment$column_types[1]
+      df <- apply_column_types(df, column_types_json)
 
       # Filter only rows with mappings
       if (!"target_omop_concept_id" %in% colnames(df)) {
@@ -3692,7 +3719,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
 
-      if ("vocabulary_id" %in% colnames(df)) {
+      # Apply column types from alignment settings
+      column_types_json <- alignment$column_types[1]
+      df <- apply_column_types(df, column_types_json)
+
+      # Default vocabulary_id to factor if not already set by column_types
+      if ("vocabulary_id" %in% colnames(df) && !is.factor(df$vocabulary_id)) {
         df <- df %>%
           dplyr::mutate(vocabulary_id = as.factor(vocabulary_id))
       }
@@ -3824,7 +3856,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
 
-      if ("vocabulary_id" %in% colnames(df)) {
+      # Apply column types from alignment settings
+      column_types_json <- alignment$column_types[1]
+      df <- apply_column_types(df, column_types_json)
+
+      # Default vocabulary_id to factor if not already set by column_types
+      if ("vocabulary_id" %in% colnames(df) && !is.factor(df$vocabulary_id)) {
         df <- df %>%
           dplyr::mutate(vocabulary_id = as.factor(vocabulary_id))
       }
