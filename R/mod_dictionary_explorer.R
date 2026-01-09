@@ -1240,9 +1240,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     }, ignoreInit = TRUE)
 
     # When general_concepts_edit_mode_trigger fires, update breadcrumb and general_concepts_table
+    # Only update general_concepts_table if we're in list view (editing general concepts list)
     observe_event(general_concepts_edit_mode_trigger(), {
       breadcrumb_trigger(breadcrumb_trigger() + 1)
-      general_concepts_table_trigger(general_concepts_table_trigger() + 1)
+      if (current_view() == "list") {
+        general_concepts_table_trigger(general_concepts_table_trigger() + 1)
+      }
     }, ignoreInit = TRUE)
 
     # When concept_trigger fires, update history_ui, comments_display, concept_mappings_table, and selected_mapping_details
@@ -1253,13 +1256,15 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       selected_mapping_details_trigger(selected_mapping_details_trigger() + 1)
     }, ignoreInit = TRUE)
 
-    # When local_data_trigger fires, update comments_display and general_concepts_table
+    # When local_data_trigger fires, update comments_display
+    # Note: general_concepts_table is only refreshed when in list view, as
+    # changes from detail view only affect concept_mappings, not general_concepts
     observe_event(local_data_trigger(), {
       view <- current_view()
 
       comments_display_trigger(comments_display_trigger() + 1)
-      # Only reload general_concepts table if we're in list view
-      # This prevents losing category filter when saving from detail view
+      # Only reload general_concepts table if we're currently in list view
+      # When in detail view, changes don't affect general_concepts data
       if (view == "list") {
         general_concepts_table_trigger(general_concepts_table_trigger() + 1)
       }
@@ -1572,17 +1577,16 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       # 2. Hide all containers and show the current one
       lapply(all_containers, function(id) shinyjs::hide(id = id))
+
       if (!is.null(view_containers[[view]])) {
         shinyjs::show(id = view_containers[[view]])
       }
 
-      # 3. Reload general_concepts table when returning to list view
-      # The existing filter restoration system will preserve category filters
-      if (view == "list") {
-        general_concepts_table_trigger(general_concepts_table_trigger() + 1)
-      }
+      # Note: We do NOT reload general_concepts_table when returning to list view
+      # The table is already rendered and hidden, just showing it is sufficient
+      # Changes from detail view only affect concept_mappings, not general_concepts
 
-      # 4. Trigger cascade
+      # 3. Trigger cascade
       view_trigger(view_trigger() + 1)
     })
 
@@ -1975,11 +1979,17 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
     ## 3) Server - General Concepts Page ----
     ### General Concepts Table Rendering ----
-    # Render general concepts table when general_concepts_table trigger fires (cascade observer)
-    observe_event(general_concepts_table_trigger(), {
-      output$general_concepts_table <- DT::renderDT({
+    # Render general concepts table only when general_concepts_table_trigger fires
+    # Using bindEvent() to control when the render executes, preventing automatic re-renders
+    # This ensures the table state (page, filters) is preserved when navigating between views
+    output$general_concepts_table <- DT::renderDT({
+      # Force dependency on trigger
+      trigger_val <- general_concepts_table_trigger()
 
-      general_concepts <- current_data()$general_concepts
+      # Use isolate() to prevent reactive dependencies on data sources
+      # The table should only re-render when general_concepts_table_trigger() fires
+      general_concepts <- isolate(current_data()$general_concepts)
+      edit_mode <- isolate(general_concepts_edit_mode())
 
       # Prepare table data
       table_data <- general_concepts %>%
@@ -1987,7 +1997,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           # Always keep as factor to preserve dropdown filters
           category = factor(category),
           subcategory = factor(subcategory),
-          actions = if (general_concepts_edit_mode()) {
+          actions = if (edit_mode) {
             sprintf(
               '<button class="delete-concept-btn" data-id="%s" style="padding: 4px 12px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">%s</button>',
               general_concept_id,
@@ -2011,7 +2021,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         as.character(i18n$t("actions"))
       )
 
-      if (general_concepts_edit_mode()) {
+      if (edit_mode) {
         table_data <- table_data %>%
           dplyr::select(general_concept_id, category, subcategory, general_concept_name, actions)
         col_defs <- list(
@@ -2061,12 +2071,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         ),
         doubleclick_input_id = ns("view_concept_details"),
         doubleclick_column = 0,
-        doubleclick_condition = sprintf("!%s", tolower(as.character(general_concepts_edit_mode())))
+        doubleclick_condition = sprintf("!%s", tolower(as.character(edit_mode)))
       )
 
-        dt
-      }, server = FALSE)
-    })
+      dt
+    }, server = FALSE) |> bindEvent(general_concepts_table_trigger())
 
     # Handle "View Details" button click
     observe_event(input$view_concept_details, {
@@ -2085,8 +2094,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       selected_mapped_concept_id(NULL)
       current_mappings(NULL)
       relationships_tab("related")
-      general_concept_detail_edit_mode(FALSE)  # Exit edit mode when going back to list
-      general_concepts_edit_mode(FALSE)  # Exit list edit mode when going back to list
+      # Only reset edit modes if they are currently TRUE (to avoid triggering unnecessary cascades)
+      if (general_concept_detail_edit_mode()) general_concept_detail_edit_mode(FALSE)
+      if (general_concepts_edit_mode()) general_concepts_edit_mode(FALSE)
+      # No need to restore datatable state - the table is just hidden/shown, state is preserved
     })
     
     ### List Edit Mode ----
@@ -3707,10 +3718,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               dplyr::collect()
 
             if (nrow(descendants) > 0) {
-              # Filter to keep only valid concepts
+              # Filter to keep only valid concepts, excluding the concept itself
               valid_descendants <- vocab_data$concept %>%
                 dplyr::filter(
                   concept_id %in% descendants$descendant_concept_id,
+                  concept_id != selected_concept$concept_id,
                   is.na(invalid_reason)
                 ) %>%
                 dplyr::pull(concept_id)
@@ -3746,10 +3758,16 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         stringsAsFactors = FALSE
       )
 
-      # Remove duplicates
+      # Remove duplicates (check both saved mappings and already-added concepts in this session)
       existing_keys <- concept_mappings %>%
         dplyr::mutate(key = paste(general_concept_id, omop_concept_id, sep = "_")) %>%
         dplyr::pull(key)
+
+      # Also include keys from concepts already added in this editing session
+      current_added <- added_concepts()
+      if (!is.null(current_added) && length(current_added) > 0) {
+        existing_keys <- c(existing_keys, names(current_added))
+      }
 
       new_mappings <- new_mappings %>%
         dplyr::mutate(key = paste(general_concept_id, omop_concept_id, sep = "_")) %>%
