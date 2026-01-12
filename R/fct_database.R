@@ -212,5 +212,22 @@ init_database <- function(con) {
     )
   }
 
+  # Create mapping_comments table for discussion comments on mappings
+  if (!DBI::dbExistsTable(con, "mapping_comments")) {
+    DBI::dbExecute(
+      con,
+      "CREATE TABLE mapping_comments (
+        comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        mapping_id INTEGER NOT NULL,
+        user_id INTEGER NOT NULL,
+        comment TEXT NOT NULL,
+        evaluation_status INTEGER,
+        created_at TEXT NOT NULL,
+        FOREIGN KEY (mapping_id) REFERENCES concept_mappings(mapping_id),
+        FOREIGN KEY (user_id) REFERENCES users(user_id)
+      )"
+    )
+  }
+
   invisible(NULL)
 }

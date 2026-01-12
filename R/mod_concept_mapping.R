@@ -287,6 +287,156 @@ mod_concept_mapping_ui <- function(id, i18n) {
       )
     ),
 
+    # Modal for Import Column Mapping
+    tags$div(
+      id = ns("import_column_modal"),
+      class = "modal-overlay",
+      style = "display: none;",
+      onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("import_column_modal")),
+      tags$div(
+        id = ns("import_column_modal_dialog"),
+        class = "modal-content",
+        style = "max-width: 90vw; max-height: 80vh; display: flex; flex-direction: column; height: 80vh;",
+        tags$div(
+          class = "modal-header",
+          tags$h3(i18n$t("import_column_mapping")),
+          tags$button(
+            class = "modal-close",
+            onclick = sprintf("$('#%s').hide();", ns("import_column_modal")),
+            "×"
+          )
+        ),
+        tags$div(
+          class = "modal-body",
+          style = "flex: 1; overflow: hidden; padding: 20px; display: flex; flex-direction: column;",
+          tags$div(
+            style = "display: flex; gap: 20px; height: 100%;",
+            # Left: Column mapping dropdowns
+            tags$div(
+              style = "flex: 0 0 350px; display: flex; flex-direction: column; overflow-y: auto;",
+              tags$div(
+                style = "background-color: #f8f9fa; border-radius: 4px; overflow: hidden;",
+                tags$div(
+                  style = "background-color: #fd7e14; color: white; padding: 10px 15px; font-weight: 600; font-size: 14px;",
+                  i18n$t("import_column_mapping")
+                ),
+                tags$div(
+                  style = "padding: 15px;",
+                  tags$p(
+                    style = "margin-bottom: 15px; color: #666; font-size: 13px;",
+                    i18n$t("import_column_mapping_desc")
+                  ),
+                  # Source Code Column (required)
+                  tags$div(
+                    style = "margin-bottom: 15px;",
+                    tags$label(
+                      style = "display: block; margin-bottom: 5px; font-weight: 500;",
+                      i18n$t("source_code_column"),
+                      tags$span(style = "color: #dc3545;", " *")
+                    ),
+                    selectInput(
+                      ns("import_map_source_code"),
+                      label = NULL,
+                      choices = c(""),
+                      selected = "",
+                      width = "100%"
+                    ),
+                    tags$div(
+                      id = ns("import_error_source_code"),
+                      style = "color: #dc3545; font-size: 13px; margin-top: 5px; display: none;",
+                      i18n$t("field_required")
+                    )
+                  ),
+                  # Source Vocabulary Column (required)
+                  tags$div(
+                    style = "margin-bottom: 15px;",
+                    tags$label(
+                      style = "display: block; margin-bottom: 5px; font-weight: 500;",
+                      i18n$t("source_vocabulary_column"),
+                      tags$span(style = "color: #dc3545;", " *")
+                    ),
+                    selectInput(
+                      ns("import_map_source_vocab"),
+                      label = NULL,
+                      choices = c(""),
+                      selected = "",
+                      width = "100%"
+                    ),
+                    tags$div(
+                      id = ns("import_error_source_vocab"),
+                      style = "color: #dc3545; font-size: 13px; margin-top: 5px; display: none;",
+                      i18n$t("field_required")
+                    )
+                  ),
+                  # Target Concept ID Column (required)
+                  tags$div(
+                    style = "margin-bottom: 15px;",
+                    tags$label(
+                      style = "display: block; margin-bottom: 5px; font-weight: 500;",
+                      i18n$t("target_concept_column"),
+                      tags$span(style = "color: #dc3545;", " *")
+                    ),
+                    selectInput(
+                      ns("import_map_target_concept"),
+                      label = NULL,
+                      choices = c(""),
+                      selected = "",
+                      width = "100%"
+                    ),
+                    tags$div(
+                      id = ns("import_error_target_concept"),
+                      style = "color: #dc3545; font-size: 13px; margin-top: 5px; display: none;",
+                      i18n$t("field_required")
+                    ),
+                    tags$div(
+                      id = ns("import_error_numeric"),
+                      style = "color: #dc3545; font-size: 13px; margin-top: 5px; display: none;",
+                      i18n$t("invalid_numeric_values")
+                    )
+                  )
+                )
+              )
+            ),
+            # Right: Preview table
+            tags$div(
+              style = "flex: 1; display: flex; flex-direction: column; overflow: auto;",
+              tags$div(
+                style = "background-color: #f8f9fa; border-radius: 4px; overflow: hidden; height: 100%; display: flex; flex-direction: column;",
+                tags$div(
+                  style = "background-color: #0f60af; color: white; padding: 10px 15px; font-weight: 600; font-size: 14px;",
+                  i18n$t("import_preview")
+                ),
+                tags$div(
+                  style = "padding: 15px; flex: 1; overflow: auto;",
+                  tags$p(
+                    id = ns("import_rows_count"),
+                    style = "color: #666; font-size: 13px; margin-bottom: 10px;"
+                  ),
+                  DT::DTOutput(ns("import_preview_table"))
+                )
+              )
+            )
+          )
+        ),
+        tags$div(
+          class = "modal-footer",
+          style = "padding: 15px 20px; border-top: 1px solid #dee2e6; display: flex; justify-content: flex-end; gap: 10px;",
+          actionButton(
+            ns("import_cancel_mapping"),
+            i18n$t("cancel"),
+            class = "btn btn-secondary btn-secondary-custom",
+            icon = icon("times")
+          ),
+          actionButton(
+            ns("import_confirm_mapping"),
+            i18n$t("import_mappings"),
+            class = "btn-primary-custom",
+            icon = icon("file-import")
+          )
+        )
+      )
+    ),
+
     # Modal for concept details
     tags$div(
       id = ns("concept_detail_modal"),
@@ -435,6 +585,108 @@ mod_concept_mapping_ui <- function(id, i18n) {
         tags$div(
           style = "flex: 1; overflow: auto; padding: 0;",
           uiOutput(ns("eval_comments_fullscreen_content"))
+        )
+      )
+    ),
+
+    ### Modal - Mapping Comments ----
+    tags$div(
+      id = ns("mapping_comments_modal"),
+      class = "modal-overlay",
+      style = "display: none; z-index: 1050;",
+      onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("mapping_comments_modal")),
+      tags$div(
+        class = "modal-content",
+        style = "max-width: 700px; max-height: 80vh; display: flex; flex-direction: column;",
+        tags$div(
+          class = "modal-header",
+          tags$h3(i18n$t("mapping_comments")),
+          tags$button(
+            class = "modal-close",
+            onclick = sprintf("$('#%s').hide();", ns("mapping_comments_modal")),
+            "×"
+          )
+        ),
+        tags$div(
+          class = "modal-body",
+          style = "flex: 1; overflow: auto; display: flex; flex-direction: column;",
+          # Comments list container
+          tags$div(
+            id = ns("mapping_comments_list"),
+            style = "flex: 1; overflow: auto; margin-bottom: 15px; min-height: 200px;"
+          ),
+          # Add comment form
+          tags$div(
+            style = "border-top: 1px solid #ddd; padding-top: 15px;",
+            tags$div(
+              style = "margin-bottom: 10px;",
+              tags$label(
+                `for` = ns("new_mapping_comment"),
+                style = "font-weight: 600; margin-bottom: 5px; display: block;",
+                i18n$t("add_comment")
+              ),
+              tags$textarea(
+                id = ns("new_mapping_comment"),
+                style = "width: 100%; min-height: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; resize: vertical;",
+                placeholder = i18n$t("add_comment_placeholder")
+              )
+            ),
+            tags$div(
+              style = "display: flex; justify-content: flex-end;",
+              actionButton(
+                ns("submit_mapping_comment"),
+                i18n$t("add_comment"),
+                class = "btn-primary-custom",
+                icon = icon("paper-plane")
+              )
+            )
+          )
+        )
+      )
+    ),
+
+    ### Modal - Delete Comment Confirmation ----
+    tags$div(
+      id = ns("delete_comment_modal"),
+      class = "modal-overlay",
+      style = "display: none; z-index: 1060;",
+      onclick = sprintf(
+        "if (event.target === this) $('#%s').hide();",
+        ns("delete_comment_modal")
+      ),
+      tags$div(
+        class = "modal-content",
+        style = "max-width: 400px;",
+        tags$div(
+          class = "modal-header",
+          tags$h3(i18n$t("confirm_deletion")),
+          tags$button(
+            class = "modal-close",
+            onclick = sprintf("$('#%s').hide();", ns("delete_comment_modal")),
+            HTML("&times;")
+          )
+        ),
+        tags$div(
+          class = "modal-body",
+          tags$p(
+            style = "margin-bottom: 20px;",
+            i18n$t("delete_comment_confirm")
+          )
+        ),
+        tags$div(
+          class = "modal-footer",
+          style = "display: flex; justify-content: flex-end; gap: 10px;",
+          tags$button(
+            class = "btn btn-secondary",
+            onclick = sprintf("$('#%s').hide();", ns("delete_comment_modal")),
+            i18n$t("cancel")
+          ),
+          actionButton(
+            ns("confirm_delete_comment"),
+            i18n$t("delete"),
+            class = "btn btn-danger",
+            icon = icon("trash")
+          )
         )
       )
     ),
@@ -611,7 +863,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     eval_target_json <- reactiveVal(NULL)  # Target concept JSON data for evaluate mappings
     eval_target_mapping <- reactiveVal(NULL)  # Target mapping data for evaluate mappings
     eval_source_tab <- reactiveVal("summary")  # Selected tab for source concept details
-    eval_target_detail_tab <- reactiveVal("statistical_summary")  # Main tab: "comments" or "statistical_summary"
+    eval_target_detail_tab <- reactiveVal("summary")  # Main tab: "summary", "comments" or "statistical_summary"
     eval_target_stats_sub_tab <- reactiveVal("summary")  # Sub-tab: "summary" or "distribution"
     eval_target_selected_profile <- reactiveVal(NULL)  # Selected profile name for evaluate target
 
@@ -623,12 +875,20 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     evaluate_mappings_table_trigger <- reactiveVal(0)  # Trigger for Evaluate Mappings tab table
     import_history_trigger <- reactiveVal(0)  # Trigger for Import Mappings history table
 
-    # Import file browser state
-    import_current_path <- reactiveVal(path.expand("~"))
+    # Import file state
     import_selected_file <- reactiveVal(NULL)
-    import_sort_order <- reactiveVal("asc")
-    import_filter_text <- reactiveVal("")
-    import_message <- reactiveVal(NULL)
+
+    # Import column mapping state
+    import_csv_data <- reactiveVal(NULL)  # Stores the CSV data after file selection
+    import_csv_columns <- reactiveVal(NULL)  # Column names from CSV
+    import_source_code_col <- reactiveVal(NULL)  # Selected column for source_code
+    import_source_vocab_col <- reactiveVal(NULL)  # Selected column for source_vocabulary_id (optional)
+    import_target_concept_col <- reactiveVal(NULL)  # Selected column for target_concept_id
+
+    # Mapping comments state
+    comments_mapping_id <- reactiveVal(NULL)  # Track mapping ID for comments modal
+    comments_trigger <- reactiveVal(0)  # Trigger to refresh comments display
+    comment_to_delete <- reactiveVal(NULL)  # Track comment ID to delete
 
     # Separate trigger for source concepts table updates (used by mapping operations)
     source_concepts_table_trigger <- reactiveVal(0)  # Trigger for Edit Mappings table (mapping changes)
@@ -1159,6 +1419,24 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               multiple = TRUE
             )
           )
+        ),
+        tags$div(
+          style = "margin-bottom: 10px;",
+          tags$label(
+            i18n$t("target_concept_id_column"),
+            tags$span(style = "color: #666; font-weight: normal; font-size: 12px;", " (", i18n$t("optional"), ")"),
+            style = "display: block; font-weight: 600; margin-bottom: 8px;"
+          ),
+          selectInput(
+            ns("col_target_concept_id"),
+            label = NULL,
+            choices = choices,
+            selected = ""
+          ),
+          tags$p(
+            style = "color: #666; font-size: 12px; margin-top: 5px;",
+            i18n$t("target_concept_id_column_desc")
+          )
         )
       )
     })
@@ -1490,6 +1768,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       updateSelectInput(session, "col_concept_name", selected = "")
       updateSelectInput(session, "col_json", selected = "")
       updateSelectInput(session, "col_additional", selected = character(0))
+      updateSelectInput(session, "col_target_concept_id", selected = "")
 
       shinyjs::runjs(sprintf("$('#%s').html('');", ns("csv_options")))
       shinyjs::runjs(sprintf("$('#%s').html('');", ns("column_mapping_wrapper")))
@@ -1624,7 +1903,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           vocabulary_id = input$col_vocabulary_id,
           concept_code = input$col_concept_code,
           concept_name = input$col_concept_name,
-          json = input$col_json
+          json = input$col_json,
+          target_concept_id = input$col_target_concept_id
         )
 
         additional_cols <- input$col_additional
@@ -1696,6 +1976,17 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           column_types = column_types_json
         )
 
+        # Import mappings if target_concept_id column was selected and has data
+        if ("target_concept_id" %in% colnames(new_df)) {
+          import_target_concept_mappings(
+            alignment_id = new_id,
+            source_data = new_df,
+            csv_filename = paste0(file_id, ".csv"),
+            user_id = current_user()$user_id,
+            original_filename = input$alignment_file$name
+          )
+        }
+
         alignments_data(get_all_alignments())
       } else if (modal_mode() == "edit") {
         update_alignment(
@@ -1732,6 +2023,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       updateSelectInput(session, "col_concept_name", selected = "")
       updateSelectInput(session, "col_json", selected = "")
       updateSelectInput(session, "col_additional", selected = character(0))
+      updateSelectInput(session, "col_target_concept_id", selected = "")
       shinyjs::runjs(sprintf("$('#%s').html('');", ns("csv_options")))
       shinyjs::runjs(sprintf("$('#%s').html('');", ns("column_mapping_wrapper")))
     })
@@ -2227,48 +2519,34 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           tags$div(
             class = "card-container",
             style = "height: 50%; overflow: auto; padding: 20px;",
-            # Header with title and import button on same line
+            # Header with title
+            tags$h4(style = "margin-bottom: 15px; color: #0f60af;", i18n$t("import_mappings_from_csv")),
+            tags$p(
+              style = "margin-bottom: 15px; color: #666;",
+              i18n$t("import_mappings_csv_desc")
+            ),
+
+            # File input and Import button on same line
             tags$div(
-              style = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;",
-              tags$h4(style = "margin: 0; color: #0f60af;", i18n$t("import_mappings_from_csv")),
+              style = "display: flex; align-items: flex-end; gap: 15px;",
+              # File input (narrower)
               tags$div(
-                style = "display: flex; align-items: center; gap: 10px;",
+                style = "flex: 0 0 300px;",
+                fileInput(
+                  ns("import_file_input"),
+                  label = i18n$t("select_csv_file"),
+                  accept = c(".csv"),
+                  width = "100%"
+                )
+              ),
+              # Import button
+              tags$div(
+                style = "position: relative; top: -40px;",
                 actionButton(
                   ns("do_import_mappings"),
                   i18n$t("import_mappings"),
                   class = "btn-primary-custom",
                   icon = icon("file-import")
-                ),
-                uiOutput(ns("import_status_message"), inline = TRUE)
-              )
-            ),
-            tags$p(
-              style = "margin-bottom: 10px; color: #666;",
-              i18n$t("import_mappings_csv_desc")
-            ),
-            tags$ul(
-              style = "margin-bottom: 20px; color: #666; padding-left: 20px;",
-              tags$li(tags$code(i18n$t("source_code_col")), " - ", i18n$t("source_code_desc")),
-              tags$li(tags$code(i18n$t("source_vocabulary_id_col")), " - ", i18n$t("source_vocabulary_id_desc")),
-              tags$li(tags$code(i18n$t("target_concept_id_col")), " - ", i18n$t("target_concept_id_desc"))
-            ),
-
-            # Browse button and file path display
-            tags$div(
-              tags$label(style = "display: block; margin-bottom: 5px; font-weight: 500;", i18n$t("select_csv_file")),
-              tags$div(
-                style = "display: flex; align-items: center; gap: 15px;",
-                actionButton(
-                  ns("browse_import_file"),
-                  label = tagList(
-                    tags$i(class = "fas fa-folder-open", style = "margin-right: 6px;"),
-                    i18n$t("browse")
-                  ),
-                  style = "background: #0f60af; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 500; cursor: pointer;"
-                ),
-                tags$div(
-                  style = "flex: 1;",
-                  uiOutput(ns("import_file_path_display"))
                 )
               )
             )
@@ -2396,9 +2674,19 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                     "ⓘ"
                   )
                 ),
-                # Main tabs: Comments + Statistical Summary (top-right)
+                # Main tabs: Summary + Comments + Statistical Summary (top-right)
                 tags$div(
                   class = "section-tabs",
+                  tags$button(
+                    id = ns("eval_target_detail_tab_summary"),
+                    class = "tab-btn tab-btn-active",
+                    onclick = sprintf("
+                      document.querySelectorAll('#%s > .section-header > .section-tabs .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                      this.classList.add('tab-btn-active');
+                      Shiny.setInputValue('%s', 'summary', {priority: 'event'});
+                    ", ns("eval_target_concept_details_panel"), ns("eval_target_detail_tab_selected")),
+                    i18n$t("summary")
+                  ),
                   tags$button(
                     id = ns("eval_target_detail_tab_comments"),
                     class = "tab-btn",
@@ -2407,17 +2695,17 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                       this.classList.add('tab-btn-active');
                       Shiny.setInputValue('%s', 'comments', {priority: 'event'});
                     ", ns("eval_target_concept_details_panel"), ns("eval_target_detail_tab_selected")),
-                    "Comments"
+                    i18n$t("comments")
                   ),
                   tags$button(
                     id = ns("eval_target_detail_tab_statistical_summary"),
-                    class = "tab-btn tab-btn-active",
+                    class = "tab-btn",
                     onclick = sprintf("
                       document.querySelectorAll('#%s > .section-header > .section-tabs .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
                       this.classList.add('tab-btn-active');
                       Shiny.setInputValue('%s', 'statistical_summary', {priority: 'event'});
                     ", ns("eval_target_concept_details_panel"), ns("eval_target_detail_tab_selected")),
-                    "Statistical Summary"
+                    i18n$t("statistical_summary")
                   )
                 )
               ),
@@ -5998,7 +6286,7 @@ Data distribution by hospital unit/ward.
         con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
         on.exit(DBI::dbDisconnect(con), add = TRUE)
 
-        # Get all mappings with evaluation status for current user
+        # Get all mappings with evaluation status for current user and comment count
         query <- "
           SELECT
             cm.mapping_id,
@@ -6012,7 +6300,8 @@ Data distribution by hospital unit/ward.
             cm.mapping_datetime,
             cm.mapped_by_user_id,
             me.is_approved,
-            me.comment
+            me.comment,
+            COALESCE((SELECT COUNT(*) FROM mapping_comments mc WHERE mc.mapping_id = cm.mapping_id), 0) as comments_count
           FROM concept_mappings cm
           LEFT JOIN mapping_evaluations me
             ON cm.mapping_id = me.mapping_id
@@ -6124,10 +6413,24 @@ Data distribution by hospital unit/ward.
         enriched_data <- enriched_data %>%
           dplyr::rowwise() %>%
           dplyr::mutate(
+            comments_badge = if (comments_count > 0) {
+              sprintf('<span style="position: absolute; top: -6px; right: -6px; background: #dc3545; color: white; border-radius: 50%%; font-size: 10px; min-width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; padding: 0 4px;">%d</span>', comments_count)
+            } else {
+              ""
+            },
             Actions = if (!is.na(mapped_by_user_id) && mapped_by_user_id == current_user_id) {
+              # User can't evaluate own mappings, but can still view/add comments
               sprintf(
-                '<span style="color: #999; font-style: italic; font-size: 12px;">%s</span>',
-                i18n$t("cannot_evaluate_own_mappings")
+                '<div style="display: flex; gap: 5px; justify-content: center; align-items: center;">
+                  <span style="color: #999; font-style: italic; font-size: 11px; margin-right: 5px;">%s</span>
+                  <button class="btn-eval-action btn-comments" data-action="comments" data-mapping-id="%d" title="%s" style="position: relative;">
+                    <i class="fas fa-comment"></i>%s
+                  </button>
+                </div>',
+                i18n$t("cannot_evaluate_own_mappings"),
+                mapping_id,
+                i18n$t("mapping_comments"),
+                comments_badge
               )
             } else {
               sprintf(
@@ -6144,11 +6447,15 @@ Data distribution by hospital unit/ward.
                   <button class="btn-eval-action" data-action="clear" data-row="%d" data-mapping-id="%d" title="Clear Evaluation">
                     <i class="fas fa-redo"></i>
                   </button>
+                  <button class="btn-eval-action btn-comments" data-action="comments" data-mapping-id="%d" title="%s" style="position: relative;">
+                    <i class="fas fa-comment"></i>%s
+                  </button>
                 </div>',
                 row_index, mapping_id,
                 row_index, mapping_id,
                 row_index, mapping_id,
-                row_index, mapping_id
+                row_index, mapping_id,
+                mapping_id, i18n$t("mapping_comments"), comments_badge
               )
             }
           ) %>%
@@ -6267,7 +6574,7 @@ Data distribution by hospital unit/ward.
       con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
       on.exit(DBI::dbDisconnect(con), add = TRUE)
 
-      # Get all mappings with evaluation status for current user
+      # Get all mappings with evaluation status for current user and comment count
       query <- "
         SELECT
           cm.mapping_id,
@@ -6279,8 +6586,10 @@ Data distribution by hospital unit/ward.
           cm.csv_mapping_id,
           cm.imported_mapping_id,
           cm.mapping_datetime,
+          cm.mapped_by_user_id,
           me.is_approved,
-          me.comment
+          me.comment,
+          COALESCE((SELECT COUNT(*) FROM mapping_comments mc WHERE mc.mapping_id = cm.mapping_id), 0) as comments_count
         FROM concept_mappings cm
         LEFT JOIN mapping_evaluations me
           ON cm.mapping_id = me.mapping_id
@@ -6360,32 +6669,60 @@ Data distribution by hospital unit/ward.
       enriched_data <- enriched_data %>%
         dplyr::mutate(row_index = dplyr::row_number())
 
-      # Create action buttons HTML
+      # Store current user ID for comparison
+      current_user_id <- current_user()$user_id
+
+      # Create action buttons HTML (matching initial render logic)
       enriched_data <- enriched_data %>%
+        dplyr::rowwise() %>%
         dplyr::mutate(
-          Actions = sprintf(
-            '<div style="display: flex; gap: 5px; justify-content: center;">
-              <button class="btn-eval-action" data-action="approve" data-row="%%d" data-mapping-id="%%d" title="%s">
-                <i class="fas fa-check"></i>
-              </button>
-              <button class="btn-eval-action" data-action="reject" data-row="%%d" data-mapping-id="%%d" title="%s">
-                <i class="fas fa-times"></i>
-              </button>
-              <button class="btn-eval-action" data-action="uncertain" data-row="%%d" data-mapping-id="%%d" title="%s">
-                <i class="fas fa-question"></i>
-              </button>
-              <button class="btn-eval-action" data-action="clear" data-row="%%d" data-mapping-id="%%d" title="%s">
-                <i class="fas fa-redo"></i>
-              </button>
-            </div>',
-            i18n$t("approved"), i18n$t("rejected"), i18n$t("uncertain"), i18n$t("clear_evaluation")
-          ) %>% sprintf(
-            row_index, mapping_id,
-            row_index, mapping_id,
-            row_index, mapping_id,
-            row_index, mapping_id
-          )
-        )
+          comments_badge = if (comments_count > 0) {
+            sprintf('<span style="position: absolute; top: -6px; right: -6px; background: #dc3545; color: white; border-radius: 50%%; font-size: 10px; min-width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; padding: 0 4px;">%d</span>', comments_count)
+          } else {
+            ""
+          },
+          Actions = if (!is.na(mapped_by_user_id) && mapped_by_user_id == current_user_id) {
+            # User can't evaluate own mappings, but can still view/add comments
+            sprintf(
+              '<div style="display: flex; gap: 5px; justify-content: center; align-items: center;">
+                <span style="color: #999; font-style: italic; font-size: 11px; margin-right: 5px;">%s</span>
+                <button class="btn-eval-action btn-comments" data-action="comments" data-mapping-id="%d" title="%s" style="position: relative;">
+                  <i class="fas fa-comment"></i>%s
+                </button>
+              </div>',
+              i18n$t("cannot_evaluate_own_mappings"),
+              mapping_id,
+              i18n$t("mapping_comments"),
+              comments_badge
+            )
+          } else {
+            sprintf(
+              '<div style="display: flex; gap: 5px; justify-content: center;">
+                <button class="btn-eval-action" data-action="approve" data-row="%d" data-mapping-id="%d" title="%s">
+                  <i class="fas fa-check"></i>
+                </button>
+                <button class="btn-eval-action" data-action="reject" data-row="%d" data-mapping-id="%d" title="%s">
+                  <i class="fas fa-times"></i>
+                </button>
+                <button class="btn-eval-action" data-action="uncertain" data-row="%d" data-mapping-id="%d" title="%s">
+                  <i class="fas fa-question"></i>
+                </button>
+                <button class="btn-eval-action" data-action="clear" data-row="%d" data-mapping-id="%d" title="%s">
+                  <i class="fas fa-redo"></i>
+                </button>
+                <button class="btn-eval-action btn-comments" data-action="comments" data-mapping-id="%d" title="%s" style="position: relative;">
+                  <i class="fas fa-comment"></i>%s
+                </button>
+              </div>',
+              row_index, mapping_id, i18n$t("approved"),
+              row_index, mapping_id, i18n$t("rejected"),
+              row_index, mapping_id, i18n$t("uncertain"),
+              row_index, mapping_id, i18n$t("clear_evaluation"),
+              mapping_id, i18n$t("mapping_comments"), comments_badge
+            )
+          }
+        ) %>%
+        dplyr::ungroup()
 
       # Build display columns
       display_data <- enriched_data %>%
@@ -6439,6 +6776,18 @@ Data distribution by hospital unit/ward.
 
       action_data <- input$eval_action
       action <- action_data$action
+
+      # Handle comments action separately
+      if (action == "comments") {
+        mapping_id <- as.integer(action_data$mapping_id)
+        if (!is.na(mapping_id)) {
+          comments_mapping_id(mapping_id)
+          comments_trigger(comments_trigger() + 1)
+          shinyjs::show("mapping_comments_modal")
+        }
+        return()
+      }
+
       row_index <- as.integer(action_data$row)
 
       # Get database connection
@@ -6512,6 +6861,256 @@ Data distribution by hospital unit/ward.
       }
 
       # Trigger refresh to update the table
+      mappings_refresh_trigger(mappings_refresh_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    #### Render Mapping Comments ----
+    observe_event(comments_trigger(), {
+      mapping_id <- comments_mapping_id()
+      if (is.null(mapping_id)) return()
+
+      # Get database connection
+      db_dir <- get_app_dir()
+      db_path <- file.path(db_dir, "indicate.db")
+
+      if (!file.exists(db_path)) {
+        shinyjs::html("mapping_comments_list", paste0(
+          '<div style="color: #999; font-style: italic; padding: 20px; text-align: center;">',
+          i18n$t("no_comments_yet"),
+          '</div>'
+        ))
+        return()
+      }
+
+      con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+      # Get comments for this mapping with user info and evaluation status
+      comments_data <- DBI::dbGetQuery(
+        con,
+        "SELECT mc.comment_id, mc.comment, mc.evaluation_status, mc.created_at, mc.user_id,
+                u.first_name, u.last_name
+         FROM mapping_comments mc
+         LEFT JOIN users u ON mc.user_id = u.user_id
+         WHERE mc.mapping_id = ?
+         ORDER BY mc.created_at DESC",
+        params = list(mapping_id)
+      )
+
+      if (nrow(comments_data) == 0) {
+        shinyjs::html("mapping_comments_list", paste0(
+          '<div style="color: #999; font-style: italic; padding: 20px; text-align: center;">',
+          i18n$t("no_comments_yet"),
+          '</div>'
+        ))
+        return()
+      }
+
+      current_user_id <- current_user()$user_id
+
+      # Build comments HTML
+      comments_html <- sapply(seq_len(nrow(comments_data)), function(i) {
+        row <- comments_data[i, ]
+
+        # Format user name
+        user_name <- paste(row$first_name, row$last_name)
+
+        # Format date
+        date_str <- row$created_at
+
+        # Format evaluation status
+        status_html <- ""
+        if (!is.na(row$evaluation_status)) {
+          status_text <- switch(
+            as.character(row$evaluation_status),
+            "1" = i18n$t("approved"),
+            "0" = i18n$t("rejected"),
+            "-1" = i18n$t("uncertain"),
+            ""
+          )
+          status_color <- switch(
+            as.character(row$evaluation_status),
+            "1" = "#28a745",
+            "0" = "#dc3545",
+            "-1" = "#ffc107",
+            "#999"
+          )
+          if (status_text != "") {
+            status_html <- sprintf(
+              '<span style="background: %s; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 10px;">%s</span>',
+              status_color, status_text
+            )
+          }
+        } else {
+          # Show "Not Evaluated" status when no evaluation exists
+          status_html <- sprintf(
+            '<span style="background: #6c757d; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 10px;">%s</span>',
+            i18n$t("not_evaluated")
+          )
+        }
+
+        # Delete button (only for own comments)
+        delete_btn <- ""
+        if (!is.na(row$user_id) && row$user_id == current_user_id) {
+          delete_btn <- sprintf(
+            '<button class="btn-delete-comment" data-comment-id="%d" title="%s" onclick="Shiny.setInputValue(\'%s\', %d, {priority: \'event\'});">
+              <i class="fas fa-trash"></i>
+            </button>',
+            row$comment_id,
+            i18n$t("delete"),
+            ns("delete_mapping_comment"),
+            row$comment_id
+          )
+        }
+
+        # Convert newlines to <br> for HTML display
+        comment_html <- gsub("\n", "<br>", htmltools::htmlEscape(row$comment))
+
+        sprintf(
+          '<div style="position: relative; padding: 15px; padding-right: 40px; border-bottom: 1px solid #eee; background: %s;">
+            %s
+            <div style="display: flex; align-items: center; margin-bottom: 8px; padding-right: 20px;">
+              <span style="font-weight: 600; color: #0f60af;">%s</span>
+              %s
+              <span style="color: #999; font-size: 12px; margin-left: auto;">%s</span>
+            </div>
+            <div style="color: #333; line-height: 1.5; white-space: pre-wrap;">%s</div>
+          </div>',
+          if (i %% 2 == 0) "#f8f9fa" else "#fff",
+          delete_btn,
+          htmltools::htmlEscape(user_name),
+          status_html,
+          htmltools::htmlEscape(date_str),
+          comment_html
+        )
+      })
+
+      shinyjs::html("mapping_comments_list", paste(comments_html, collapse = ""))
+    }, ignoreInit = TRUE)
+
+    #### Submit Mapping Comment ----
+    observe_event(input$submit_mapping_comment, {
+      mapping_id <- comments_mapping_id()
+      if (is.null(mapping_id)) return()
+      if (is.null(current_user())) return()
+
+      # Get comment text from textarea using JavaScript
+      shinyjs::runjs(sprintf(
+        "Shiny.setInputValue('%s', document.getElementById('%s').value, {priority: 'event'});",
+        ns("new_comment_text"),
+        ns("new_mapping_comment")
+      ))
+    }, ignoreInit = TRUE)
+
+    observe_event(input$new_comment_text, {
+      comment_text <- input$new_comment_text
+      if (is.null(comment_text) || trimws(comment_text) == "") return()
+
+      mapping_id <- comments_mapping_id()
+      if (is.null(mapping_id)) return()
+      if (is.null(current_user())) return()
+
+      # Get database connection
+      db_dir <- get_app_dir()
+      db_path <- file.path(db_dir, "indicate.db")
+
+      if (!file.exists(db_path)) return()
+
+      con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+      user_id <- current_user()$user_id
+      timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+
+      # Get current evaluation status for this user (if any)
+      evaluation <- DBI::dbGetQuery(
+        con,
+        "SELECT is_approved FROM mapping_evaluations
+         WHERE mapping_id = ? AND evaluator_user_id = ?",
+        params = list(mapping_id, user_id)
+      )
+
+      evaluation_status <- if (nrow(evaluation) > 0) evaluation$is_approved[1] else NA_integer_
+
+      # Insert comment
+      DBI::dbExecute(
+        con,
+        "INSERT INTO mapping_comments (mapping_id, user_id, comment, evaluation_status, created_at)
+         VALUES (?, ?, ?, ?, ?)",
+        params = list(mapping_id, user_id, trimws(comment_text), evaluation_status, timestamp)
+      )
+
+      # Clear textarea
+      shinyjs::runjs(sprintf("document.getElementById('%s').value = '';", ns("new_mapping_comment")))
+
+      showNotification(i18n$t("comment_added"), type = "message")
+
+      # Refresh comments display
+      comments_trigger(comments_trigger() + 1)
+
+      # Refresh evaluate mappings table to update comment count (using proxy to preserve page/filters)
+      mappings_refresh_trigger(mappings_refresh_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    #### Delete Mapping Comment - Show Confirmation Modal ----
+    observe_event(input$delete_mapping_comment, {
+      comment_id <- input$delete_mapping_comment
+      if (is.null(comment_id)) return()
+
+      # Store comment_id for confirmation
+      comment_to_delete(comment_id)
+
+      # Show confirmation modal
+      shinyjs::runjs(sprintf("$('#%s').show();", ns("delete_comment_modal")))
+    }, ignoreInit = TRUE)
+
+    #### Delete Mapping Comment - Confirm Deletion ----
+    observe_event(input$confirm_delete_comment, {
+      comment_id <- comment_to_delete()
+      if (is.null(comment_id)) return()
+      if (is.null(current_user())) return()
+
+      # Get database connection
+      db_dir <- get_app_dir()
+      db_path <- file.path(db_dir, "indicate.db")
+
+      if (!file.exists(db_path)) return()
+
+      con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+      # Verify the comment belongs to current user before deleting
+      user_id <- current_user()$user_id
+      comment_check <- DBI::dbGetQuery(
+        con,
+        "SELECT user_id FROM mapping_comments WHERE comment_id = ?",
+        params = list(comment_id)
+      )
+
+      if (nrow(comment_check) == 0 || comment_check$user_id[1] != user_id) {
+        showNotification("Cannot delete this comment.", type = "error")
+        shinyjs::runjs(sprintf("$('#%s').hide();", ns("delete_comment_modal")))
+        comment_to_delete(NULL)
+        return()
+      }
+
+      # Delete comment
+      DBI::dbExecute(
+        con,
+        "DELETE FROM mapping_comments WHERE comment_id = ?",
+        params = list(comment_id)
+      )
+
+      showNotification(i18n$t("comment_deleted"), type = "message")
+
+      # Hide modal
+      shinyjs::runjs(sprintf("$('#%s').hide();", ns("delete_comment_modal")))
+      comment_to_delete(NULL)
+
+      # Refresh comments display
+      comments_trigger(comments_trigger() + 1)
+
+      # Refresh evaluate mappings table to update comment count (using proxy to preserve page/filters)
       mappings_refresh_trigger(mappings_refresh_trigger() + 1)
     }, ignoreInit = TRUE)
 
@@ -6726,7 +7325,10 @@ Data distribution by hospital unit/ward.
         ))
       }
 
-      if (main_tab == "comments") {
+      if (main_tab == "summary") {
+        # Display concept summary details (like Selected Concept Details in Dictionary Explorer)
+        render_eval_target_concept_summary(concept_id)
+      } else if (main_tab == "comments") {
         # Display comments for the selected general concept
         render_eval_target_comments(concept_id)
       } else if (main_tab == "statistical_summary") {
@@ -6822,7 +7424,170 @@ Data distribution by hospital unit/ward.
       render_comments_panel(concept_id, "expand_eval_comments")
     }
 
-    #### Render Evaluate Target Summary ----
+    #### Render Evaluate Target Concept Summary ----
+    # Display concept details like Selected Concept Details in Dictionary Explorer
+    render_eval_target_concept_summary <- function(concept_id) {
+      # Get selected row data
+      row_data <- eval_selected_row_data()
+      if (is.null(row_data)) {
+        return(tags$div(
+          style = "color: #999; font-style: italic; padding: 15px;",
+          "No mapping selected."
+        ))
+      }
+
+      # Get target OMOP concept ID from row data
+      omop_concept_id <- row_data$target_omop_concept_id
+      if (is.null(omop_concept_id) || is.na(omop_concept_id)) {
+        return(tags$div(
+          style = "color: #999; font-style: italic; padding: 15px;",
+          "No OMOP concept available for this mapping."
+        ))
+      }
+
+      # Get general concept info
+      general_concept_info <- data()$general_concepts %>%
+        dplyr::filter(general_concept_id == concept_id)
+
+      # Get concept details from OHDSI vocabularies
+      vocab_data <- vocabularies()
+      if (is.null(vocab_data)) {
+        return(tags$div(
+          style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic;",
+          "Vocabulary data not available."
+        ))
+      }
+
+      concept_details <- vocab_data$concept %>%
+        dplyr::filter(concept_id == !!omop_concept_id) %>%
+        dplyr::collect()
+
+      if (nrow(concept_details) == 0) {
+        return(tags$div(
+          style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic;",
+          "Concept details not found in vocabularies."
+        ))
+      }
+
+      info <- concept_details[1, ]
+
+      # Get concept mapping for statistics
+      concept_mapping <- data()$concept_mappings %>%
+        dplyr::filter(omop_concept_id == !!omop_concept_id)
+
+      # Get statistics from concept_statistics
+      concept_stats_data <- data()$concept_statistics
+      if (!is.null(concept_stats_data) && nrow(concept_mapping) > 0) {
+        concept_stats <- concept_stats_data %>%
+          dplyr::filter(omop_concept_id == !!omop_concept_id)
+        if (nrow(concept_stats) > 0) {
+          ehden_num_data_sources <- concept_stats$ehden_num_data_sources[1]
+          ehden_rows_count <- concept_stats$ehden_rows_count[1]
+          loinc_rank <- concept_stats$loinc_rank[1]
+        } else {
+          ehden_num_data_sources <- NA
+          ehden_rows_count <- NA
+          loinc_rank <- NA
+        }
+      } else {
+        ehden_num_data_sources <- NA
+        ehden_rows_count <- NA
+        loinc_rank <- NA
+      }
+
+      # Build URLs
+      athena_url <- paste0(config$athena_base_url, "/", omop_concept_id)
+      fhir_url <- build_fhir_url(info$vocabulary_id, info$concept_code, config)
+
+      # Determine validity and standard
+      is_valid <- is.na(info$invalid_reason) || info$invalid_reason == ""
+      validity_color <- if (is_valid) "#28a745" else "#dc3545"
+      validity_text <- if (is_valid) "Valid" else paste0("Invalid (", info$invalid_reason, ")")
+
+      is_standard <- !is.na(info$standard_concept) && info$standard_concept == "S"
+      standard_color <- if (is_standard) "#28a745" else "#dc3545"
+      standard_text <- if (is_standard) "Standard" else "Non-standard"
+
+      # Get unit concept info if available
+      unit_concept_name <- NULL
+      unit_concept_code <- NULL
+      unit_concept_id <- NULL
+      athena_unit_url <- NULL
+
+      if (nrow(concept_mapping) > 0 && !is.na(concept_mapping$omop_unit_concept_id[1]) &&
+          concept_mapping$omop_unit_concept_id[1] != "" && concept_mapping$omop_unit_concept_id[1] != "/") {
+        unit_concept_id <- concept_mapping$omop_unit_concept_id[1]
+        athena_unit_url <- paste0(config$athena_base_url, "/", unit_concept_id)
+
+        unit_concept_info <- vocab_data$concept %>%
+          dplyr::filter(concept_id == as.integer(unit_concept_id)) %>%
+          dplyr::collect()
+        if (nrow(unit_concept_info) > 0) {
+          unit_concept_name <- unit_concept_info$concept_name[1]
+          unit_concept_code <- unit_concept_info$concept_code[1]
+        }
+      }
+
+      # Display concept details in grid layout
+      tags$div(
+        class = "concept-details-container",
+        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(8, auto); grid-auto-flow: column; gap: 4px 15px; padding: 15px;",
+        # Column 1
+        create_detail_item(i18n$t("concept_name"), info$concept_name, include_colon = FALSE),
+        create_detail_item(i18n$t("category"),
+                          ifelse(nrow(general_concept_info) > 0, general_concept_info$category[1], NA),
+                          include_colon = FALSE),
+        create_detail_item(i18n$t("subcategory"),
+                          ifelse(nrow(general_concept_info) > 0, general_concept_info$subcategory[1], NA),
+                          include_colon = FALSE),
+        create_detail_item(i18n$t("ehden_data_sources"),
+                          if (!is.na(ehden_num_data_sources)) ehden_num_data_sources else "/",
+                          include_colon = FALSE),
+        create_detail_item(i18n$t("ehden_rows_count"),
+                          if (!is.na(ehden_rows_count)) format(ehden_rows_count, big.mark = ",") else "/",
+                          include_colon = FALSE),
+        create_detail_item(i18n$t("loinc_rank"),
+                          if (!is.na(loinc_rank)) loinc_rank else "/",
+                          include_colon = FALSE),
+        create_detail_item(i18n$t("validity"), validity_text, color = validity_color, include_colon = FALSE),
+        create_detail_item(i18n$t("standard"), standard_text, color = standard_color, include_colon = FALSE),
+        # Column 2
+        create_detail_item(i18n$t("vocabulary_id"), info$vocabulary_id, include_colon = FALSE),
+        create_detail_item(i18n$t("domain_id"), if (!is.na(info$domain_id)) info$domain_id else "/", include_colon = FALSE),
+        create_detail_item(i18n$t("concept_code"), info$concept_code, include_colon = FALSE),
+        create_detail_item(i18n$t("omop_concept_id"), omop_concept_id, url = athena_url, include_colon = FALSE),
+        if (!is.null(fhir_url) && fhir_url != "no_link") {
+          tags$div(
+            class = "detail-item",
+            tags$strong(i18n$t("fhir_resource")),
+            tags$a(
+              href = fhir_url,
+              target = "_blank",
+              style = "color: #0f60af; text-decoration: underline;",
+              i18n$t("view")
+            )
+          )
+        } else {
+          tags$div(
+            class = "detail-item",
+            tags$strong(i18n$t("fhir_resource")),
+            tags$span(style = "color: #999; font-style: italic;", "No link available")
+          )
+        },
+        create_detail_item(i18n$t("unit_concept_name"),
+                          if (!is.null(unit_concept_name)) unit_concept_name else "/",
+                          include_colon = FALSE),
+        if (!is.null(athena_unit_url)) {
+          create_detail_item(i18n$t("omop_unit_concept_id"), unit_concept_id, url = athena_unit_url, include_colon = FALSE)
+        } else {
+          create_detail_item(i18n$t("omop_unit_concept_id"), "/", include_colon = FALSE)
+        },
+        tags$div(class = "detail-item", style = "visibility: hidden;"),
+        tags$div(class = "detail-item", style = "visibility: hidden;")
+      )
+    }
+
+    #### Render Evaluate Target Statistical Summary ----
     # Wrapper for Evaluate Mappings tab (profile_data already extracted)
     render_eval_target_summary <- function(profile_data, concept_id) {
       render_summary_panel(profile_data, concept_id, eval_target_mapping(), eval_source_row(), eval_source_json())
@@ -6830,302 +7595,34 @@ Data distribution by hospital unit/ward.
 
     ### c) Import Mappings Tab ----
 
-    #### File Browser Modal Function ----
-    show_import_browser_modal <- function() {
-      showModal(
-        modalDialog(
-          title = tagList(
-            tags$i(class = "fas fa-folder-open", style = "margin-right: 8px;"),
-            "Select CSV File to Import"
-          ),
-          size = "l",
-          easyClose = FALSE,
+    #### Column Mapping Modal Function ----
+    show_import_column_mapping_modal <- function() {
+      columns <- import_csv_columns()
+      if (is.null(columns)) return()
 
-          # Current path and home button
-          tags$div(
-            style = "display: flex; align-items: center; gap: 10px; margin-bottom: 10px;",
-            tags$div(
-              style = "flex: 1; font-family: monospace; background: #f8f9fa; padding: 8px 12px; border-radius: 4px; font-size: 12px; border: 1px solid #dee2e6;",
-              uiOutput(ns("import_browser_current_path"))
-            ),
-            actionButton(
-              ns("import_go_home"),
-              label = tags$i(class = "fas fa-home"),
-              style = "padding: 8px 12px; border-radius: 4px; background: #6c757d; color: white; border: none;"
-            )
-          ),
+      # Create choices for selectInput with empty first option
+      column_choices <- c("", columns)
+      names(column_choices) <- c(i18n$t("select_column"), columns)
 
-          # Search filter
-          tags$div(
-            style = "margin-bottom: 10px;",
-            textInput(
-              ns("import_filter_input"),
-              label = NULL,
-              placeholder = "Search folders and files...",
-              width = "100%"
-            )
-          ),
+      # Update selectInputs with column choices
+      updateSelectInput(session, "import_map_source_code", choices = column_choices, selected = "")
+      updateSelectInput(session, "import_map_source_vocab", choices = column_choices, selected = "")
+      updateSelectInput(session, "import_map_target_concept", choices = column_choices, selected = "")
 
-          # File browser with table header
-          tags$div(
-            style = paste0(
-              "border: 1px solid #dee2e6; border-radius: 4px; ",
-              "background: white; height: 400px; overflow-y: auto;"
-            ),
-            # Table header
-            tags$div(
-              style = "background: #f8f9fa; border-bottom: 2px solid #dee2e6; position: sticky; top: 0; z-index: 10;",
-              tags$div(
-                class = "file-browser-header",
-                style = "padding: 10px 12px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 600; color: #333;",
-                onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("import_toggle_sort")),
-                tags$span("Name"),
-                uiOutput(ns("import_sort_icon"), inline = TRUE)
-              )
-            ),
-            # File list
-            uiOutput(ns("import_file_browser"))
-          ),
+      # Hide error messages
+      shinyjs::hide("import_error_source_code")
+      shinyjs::hide("import_error_source_vocab")
+      shinyjs::hide("import_error_target_concept")
+      shinyjs::hide("import_error_numeric")
 
-          footer = tagList(
-            actionButton(ns("import_cancel_browse"), "Cancel", class = "btn-secondary-custom", icon = icon("times")),
-            actionButton(ns("import_select_file"), "Select", class = "btn-primary-custom", icon = icon("check"), style = "margin-left: 10px;")
-          )
-        )
-      )
+      # Update rows count
+      csv_data <- import_csv_data()
+      rows_text <- paste0(i18n$t("rows_to_import"), ": ", if (!is.null(csv_data)) nrow(csv_data) else 0)
+      shinyjs::html("import_rows_count", rows_text)
+
+      # Show the custom modal
+      shinyjs::show("import_column_modal")
     }
-
-    #### File Path Display ----
-    import_file_path_trigger <- reactiveVal(0)
-
-    observe_event(import_selected_file(), {
-      import_file_path_trigger(import_file_path_trigger() + 1)
-    })
-
-    observe_event(import_file_path_trigger(), {
-      file_path <- import_selected_file()
-
-      output$import_file_path_display <- renderUI({
-        if (is.null(file_path) || nchar(file_path) == 0) {
-          tags$div(
-            style = paste0(
-              "font-family: monospace; background: #f8f9fa; ",
-              "padding: 10px; border-radius: 4px; font-size: 12px; ",
-              "min-height: 40px; display: flex; align-items: center; ",
-              "border: 1px solid #dee2e6;"
-            ),
-            tags$span(
-              style = "color: #999;",
-              i18n$t("no_file_selected")
-            )
-          )
-        } else {
-          tags$div(
-            style = paste0(
-              "font-family: monospace; background: #e6f3ff; ",
-              "padding: 10px; border-radius: 4px; font-size: 12px; ",
-              "min-height: 40px; display: flex; align-items: center; ",
-              "border: 1px solid #0f60af;"
-            ),
-            tags$span(
-              style = "color: #333;",
-              file_path
-            )
-          )
-        }
-      })
-    }, ignoreInit = FALSE)
-
-    #### Browse Button Handler ----
-    observe_event(input$browse_import_file, {
-      # Start at home directory
-      start_path <- path.expand("~")
-      import_current_path(start_path)
-      import_sort_order("asc")
-      import_filter_text("")
-      show_import_browser_modal()
-    }, ignoreInit = TRUE)
-
-    #### Toggle Sort ----
-    observe_event(input$import_toggle_sort, {
-      if (import_sort_order() == "asc") {
-        import_sort_order("desc")
-      } else {
-        import_sort_order("asc")
-      }
-    }, ignoreInit = TRUE)
-
-    #### Filter Input ----
-    observe_event(input$import_filter_input, {
-      if (is.null(input$import_filter_input)) return()
-      import_filter_text(input$import_filter_input)
-    }, ignoreInit = TRUE)
-
-    #### Current Path Display ----
-    import_browser_path_trigger <- reactiveVal(0)
-
-    observe_event(import_current_path(), {
-      import_browser_path_trigger(import_browser_path_trigger() + 1)
-    })
-
-    observe_event(import_browser_path_trigger(), {
-      output$import_browser_current_path <- renderUI({
-        tags$span(import_current_path())
-      })
-    }, ignoreInit = FALSE)
-
-    #### Sort Icon Display ----
-    import_sort_icon_trigger <- reactiveVal(0)
-
-    observe_event(import_sort_order(), {
-      import_sort_icon_trigger(import_sort_icon_trigger() + 1)
-    })
-
-    observe_event(import_sort_icon_trigger(), {
-      output$import_sort_icon <- renderUI({
-        if (import_sort_order() == "asc") {
-          tags$i(class = "fas fa-sort-alpha-down", title = "Sort A-Z")
-        } else {
-          tags$i(class = "fas fa-sort-alpha-up", title = "Sort Z-A")
-        }
-      })
-    }, ignoreInit = FALSE)
-
-    #### Go Home Button ----
-    observe_event(input$import_go_home, {
-      import_current_path(path.expand("~"))
-    }, ignoreInit = TRUE)
-
-    #### File Browser Rendering ----
-    import_file_browser_trigger <- reactiveVal(0)
-
-    observe_event(list(import_current_path(), import_filter_text(), import_sort_order()), {
-      import_file_browser_trigger(import_file_browser_trigger() + 1)
-    })
-
-    observe_event(import_file_browser_trigger(), {
-      path <- import_current_path()
-      filter <- import_filter_text()
-      order <- import_sort_order()
-
-      output$import_file_browser <- renderUI({
-        items <- list.files(path, full.names = TRUE, include.dirs = TRUE)
-
-        if (length(items) == 0) {
-          return(
-            tags$div(
-              style = "padding: 20px; text-align: center; color: #999;",
-              tags$i(class = "fas fa-folder-open", style = "font-size: 32px; margin-bottom: 10px;"),
-              tags$p("Empty folder")
-            )
-          )
-        }
-
-        # Separate directories and files
-        is_dir <- file.info(items)$isdir
-        dirs <- items[is_dir]
-        files <- items[!is_dir]
-
-        # Filter to show only CSV files
-        files <- files[grepl("\\.csv$", files, ignore.case = TRUE)]
-
-        # Apply filter if present
-        if (!is.null(filter) && nchar(filter) > 0) {
-          dirs <- dirs[grepl(filter, basename(dirs), ignore.case = TRUE)]
-          files <- files[grepl(filter, basename(files), ignore.case = TRUE)]
-        }
-
-        # Sort based on order
-        if (order == "asc") {
-          dirs <- sort(dirs)
-          files <- sort(files)
-        } else {
-          dirs <- sort(dirs, decreasing = TRUE)
-          files <- sort(files, decreasing = TRUE)
-        }
-
-        # Check if filtered results are empty
-        if (length(dirs) == 0 && length(files) == 0) {
-          return(
-            tags$div(
-              style = "padding: 20px; text-align: center; color: #999;",
-              tags$i(class = "fas fa-search", style = "font-size: 32px; margin-bottom: 10px;"),
-              tags$p("No items match your search")
-            )
-          )
-        }
-
-        # Create list items
-        items_ui <- list()
-
-        # Add parent directory link if not at root
-        if (path != "/" && path != path.expand("~")) {
-          parent_path <- dirname(path)
-          items_ui <- append(items_ui, list(
-            tags$div(
-              class = "file-browser-item",
-              style = "padding: 8px 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f0f0f0;",
-              onclick = sprintf("Shiny.setInputValue('%s', '%s', {priority: 'event'})", ns("import_navigate_to"), parent_path),
-              tags$i(class = "fas fa-level-up-alt", style = "color: #6c757d; width: 16px;"),
-              tags$span("..", style = "font-weight: 500; color: #333;")
-            )
-          ))
-        }
-
-        # Add directories
-        for (dir in dirs) {
-          dir_name <- basename(dir)
-          items_ui <- append(items_ui, list(
-            tags$div(
-              class = "file-browser-item file-browser-folder",
-              style = "padding: 8px 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f0f0f0;",
-              onclick = sprintf("Shiny.setInputValue('%s', '%s', {priority: 'event'})", ns("import_navigate_to"), dir),
-              tags$i(class = "fas fa-folder", style = "color: #f4c430; width: 16px;"),
-              tags$span(dir_name, style = "flex: 1; color: #333;")
-            )
-          ))
-        }
-
-        # Add CSV files (clickable to select)
-        for (file in files) {
-          file_name <- basename(file)
-          items_ui <- append(items_ui, list(
-            tags$div(
-              class = "file-browser-item",
-              style = "padding: 8px 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f0f0f0;",
-              `data-path` = file,
-              onclick = sprintf("Shiny.setInputValue('%s', '%s', {priority: 'event'})", ns("import_select_file_path"), file),
-              tags$i(class = "fas fa-file-csv", style = "color: #28a745; width: 16px;"),
-              tags$span(file_name, style = "flex: 1; color: #333;")
-            )
-          ))
-        }
-
-        tagList(items_ui)
-      })
-    }, ignoreInit = FALSE)
-
-    #### Navigation Handler ----
-    observe_event(input$import_navigate_to, {
-      new_path <- input$import_navigate_to
-      if (dir.exists(new_path)) {
-        import_current_path(new_path)
-      }
-    }, ignoreInit = TRUE)
-
-    #### Select File Handler ----
-    observe_event(input$import_select_file_path, {
-      file_path <- input$import_select_file_path
-      if (file.exists(file_path)) {
-        import_selected_file(file_path)
-        removeModal()
-      }
-    }, ignoreInit = TRUE)
-
-    #### Cancel Browse ----
-    observe_event(input$import_cancel_browse, {
-      removeModal()
-    }, ignoreInit = TRUE)
 
     #### Import History Table ----
     observe_event(import_history_trigger(), {
@@ -7206,16 +7703,35 @@ Data distribution by hospital unit/ward.
       })
     }, ignoreInit = FALSE)
 
-    #### Import CSV Handler ----
-    observe_event(input$do_import_mappings, {
-      selected_file <- import_selected_file()
-      if (is.null(selected_file) || nchar(selected_file) == 0) {
-        showNotification(i18n$t("please_select_csv_file"), type = "warning")
-        return()
-      }
+    #### Import File Input Handler ----
+    observe_event(input$import_file_input, {
+      file_info <- input$import_file_input
+      if (is.null(file_info)) return()
 
-      if (!file.exists(selected_file)) {
-        showNotification(i18n$t("selected_file_no_longer_exists"), type = "error")
+      # Read the CSV file
+      csv_data <- tryCatch({
+        read.csv(file_info$datapath, stringsAsFactors = FALSE)
+      }, error = function(e) {
+        showNotification(paste(i18n$t("error_reading_csv"), e$message), type = "error")
+        return(NULL)
+      })
+
+      if (!is.null(csv_data)) {
+        import_selected_file(file_info$datapath)
+        import_csv_data(csv_data)
+        import_csv_columns(colnames(csv_data))
+        # Reset column selections
+        import_source_code_col(NULL)
+        import_source_vocab_col(NULL)
+        import_target_concept_col(NULL)
+      }
+    }, ignoreInit = TRUE)
+
+    #### Import CSV Handler - Open Column Mapping Modal ----
+    observe_event(input$do_import_mappings, {
+      # Check if CSV data is loaded
+      if (is.null(import_csv_data())) {
+        showNotification(i18n$t("please_select_csv_file"), type = "warning")
         return()
       }
 
@@ -7230,7 +7746,102 @@ Data distribution by hospital unit/ward.
         return()
       }
 
-      # Read the CSV file
+      # Show column mapping modal
+      show_import_column_mapping_modal()
+    }, ignoreInit = TRUE)
+
+    #### Preview Table for Column Mapping Modal ----
+    observe_event(list(
+      input$import_map_source_code,
+      input$import_map_source_vocab,
+      input$import_map_target_concept
+    ), {
+      csv_data <- import_csv_data()
+      if (is.null(csv_data)) return()
+
+      source_col <- input$import_map_source_code
+      vocab_col <- input$import_map_source_vocab
+      target_col <- input$import_map_target_concept
+
+      # Build preview data frame
+      preview_data <- data.frame(row_num = seq_len(min(10, nrow(csv_data))))
+
+      if (!is.null(source_col) && source_col != "" && source_col %in% colnames(csv_data)) {
+        preview_data$source_code <- csv_data[[source_col]][1:nrow(preview_data)]
+      } else {
+        preview_data$source_code <- rep("-", nrow(preview_data))
+      }
+
+      if (!is.null(vocab_col) && vocab_col != "" && vocab_col %in% colnames(csv_data)) {
+        preview_data$source_vocabulary <- csv_data[[vocab_col]][1:nrow(preview_data)]
+      } else {
+        preview_data$source_vocabulary <- rep("-", nrow(preview_data))
+      }
+
+      if (!is.null(target_col) && target_col != "" && target_col %in% colnames(csv_data)) {
+        preview_data$target_concept_id <- csv_data[[target_col]][1:nrow(preview_data)]
+      } else {
+        preview_data$target_concept_id <- rep("-", nrow(preview_data))
+      }
+
+      # Remove row_num column
+      preview_data$row_num <- NULL
+
+      output$import_preview_table <- DT::renderDT({
+        DT::datatable(
+          preview_data,
+          rownames = FALSE,
+          options = list(
+            dom = "t",
+            pageLength = 10,
+            ordering = FALSE,
+            scrollX = TRUE
+          )
+        )
+      })
+    }, ignoreInit = TRUE)
+
+    #### Cancel Column Mapping Modal ----
+    observe_event(input$import_cancel_mapping, {
+      shinyjs::hide("import_column_modal")
+    }, ignoreInit = TRUE)
+
+    #### Confirm Import with Column Mapping ----
+    observe_event(input$import_confirm_mapping, {
+      # Hide all error messages first
+      shinyjs::hide("import_error_source_code")
+      shinyjs::hide("import_error_source_vocab")
+      shinyjs::hide("import_error_target_concept")
+      shinyjs::hide("import_error_numeric")
+
+      # Validate required columns are selected
+      source_col <- input$import_map_source_code
+      vocab_col <- input$import_map_source_vocab
+      target_col <- input$import_map_target_concept
+
+      has_error <- FALSE
+
+      if (is.null(source_col) || source_col == "") {
+        shinyjs::show("import_error_source_code")
+        has_error <- TRUE
+      }
+
+      if (is.null(vocab_col) || vocab_col == "") {
+        shinyjs::show("import_error_source_vocab")
+        has_error <- TRUE
+      }
+
+      if (is.null(target_col) || target_col == "") {
+        shinyjs::show("import_error_target_concept")
+        has_error <- TRUE
+      }
+
+      if (has_error) return()
+
+      selected_file <- import_selected_file()
+      alignment_id <- selected_alignment_id()
+
+      # Read full CSV file
       import_data <- tryCatch({
         read.csv(selected_file, stringsAsFactors = FALSE)
       }, error = function(e) {
@@ -7240,16 +7851,23 @@ Data distribution by hospital unit/ward.
 
       if (is.null(import_data)) return()
 
-      # Validate required columns
-      required_cols <- c("source_code", "target_concept_id")
-      missing_cols <- setdiff(required_cols, colnames(import_data))
-      if (length(missing_cols) > 0) {
-        showNotification(
-          paste(i18n$t("missing_required_columns"), paste(missing_cols, collapse = ", ")),
-          type = "error"
-        )
+      # Rename columns to standard names
+      colnames(import_data)[colnames(import_data) == source_col] <- "source_code"
+      colnames(import_data)[colnames(import_data) == vocab_col] <- "source_vocabulary_id"
+      colnames(import_data)[colnames(import_data) == target_col] <- "target_concept_id"
+
+      # Validate that target_concept_id contains numeric values
+      target_values <- import_data$target_concept_id
+      numeric_values <- suppressWarnings(as.numeric(target_values))
+      invalid_count <- sum(is.na(numeric_values) & !is.na(target_values))
+
+      if (invalid_count > 0) {
+        shinyjs::show("import_error_numeric")
         return()
       }
+
+      # Convert to integer
+      import_data$target_concept_id <- as.integer(numeric_values)
 
       # Get database connection
       db_dir <- get_app_dir()
@@ -7389,12 +8007,18 @@ Data distribution by hospital unit/ward.
         }
         showNotification(msg, type = "message")
 
-        # Reset selected file after successful import
+        # Close modal
+        shinyjs::hide("import_column_modal")
+
+        # Reset selected file and CSV data after successful import
         import_selected_file(NULL)
+        import_csv_data(NULL)
+        import_csv_columns(NULL)
 
         # Trigger refresh
         import_history_trigger(import_history_trigger() + 1)
         mappings_refresh_trigger(mappings_refresh_trigger() + 1)
+        evaluate_mappings_table_trigger(evaluate_mappings_table_trigger() + 1)
 
       }, error = function(e) {
         DBI::dbRollback(con)
@@ -7440,6 +8064,8 @@ Data distribution by hospital unit/ward.
         # Trigger refresh
         import_history_trigger(import_history_trigger() + 1)
         mappings_refresh_trigger(mappings_refresh_trigger() + 1)
+        all_mappings_table_trigger(all_mappings_table_trigger() + 1)
+        evaluate_mappings_table_trigger(evaluate_mappings_table_trigger() + 1)
 
       }, error = function(e) {
         DBI::dbRollback(con)

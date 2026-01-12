@@ -123,6 +123,110 @@ apply_column_types <- function(df, column_types_json) {
   return(df)
 }
 
+#' Import target concept mappings from alignment creation
+#'
+#' @description Import mappings from target_concept_id column when creating an alignment.
+#' Imports all mappings regardless of whether the target concept exists in INDICATE.
+#'
+#' @param alignment_id Alignment ID
+#' @param source_data Data frame with source data including target_concept_id column
+#' @param csv_filename CSV filename for the alignment
+#' @param user_id User ID performing the import
+#' @param original_filename Original filename for the import record
+#'
+#' @return Number of mappings imported
+#' @noRd
+import_target_concept_mappings <- function(alignment_id, source_data, csv_filename, user_id, original_filename) {
+  if (!"target_concept_id" %in% colnames(source_data)) {
+    return(0)
+  }
+
+  # Filter rows with valid target_concept_id
+  mappings_to_import <- source_data[!is.na(source_data$target_concept_id) & source_data$target_concept_id != "", ]
+
+  if (nrow(mappings_to_import) == 0) {
+    return(0)
+  }
+
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+
+  # Start transaction
+ DBI::dbBegin(con)
+
+  tryCatch({
+    # Create import record
+    DBI::dbExecute(
+      con,
+      "INSERT INTO imported_mappings (alignment_id, original_filename, import_mode, concepts_count, imported_by_user_id, imported_at)
+       VALUES (?, ?, ?, 0, ?, ?)",
+      params = list(alignment_id, original_filename, "initial", user_id, timestamp)
+    )
+
+    import_id <- DBI::dbGetQuery(con, "SELECT last_insert_rowid() as id")$id[1]
+
+    imported_count <- 0
+
+    # Process each row with a target_concept_id
+    for (i in seq_len(nrow(source_data))) {
+      target_id <- source_data$target_concept_id[i]
+
+      # Skip empty or NA values
+      if (is.na(target_id) || target_id == "") {
+        next
+      }
+
+      # Convert to integer
+      target_concept_id <- suppressWarnings(as.integer(target_id))
+      if (is.na(target_concept_id)) {
+        next
+      }
+
+      # Use mapping_id as source_concept_index (1-based index)
+      source_concept_index <- if ("mapping_id" %in% colnames(source_data)) {
+        source_data$mapping_id[i]
+      } else {
+        i
+      }
+
+      # Create unique csv_mapping_id
+      max_id <- DBI::dbGetQuery(
+        con,
+        "SELECT COALESCE(MAX(csv_mapping_id), 0) as max_id FROM concept_mappings WHERE csv_file_path = ?",
+        params = list(csv_filename)
+      )$max_id[1]
+
+      # Insert mapping
+      DBI::dbExecute(
+        con,
+        "INSERT INTO concept_mappings (alignment_id, csv_file_path, csv_mapping_id, source_concept_index,
+                                       target_omop_concept_id, imported_mapping_id, mapping_datetime)
+         VALUES (?, ?, ?, ?, ?, ?, ?)",
+        params = list(alignment_id, csv_filename, max_id + 1, source_concept_index, target_concept_id, import_id, timestamp)
+      )
+
+      imported_count <- imported_count + 1
+    }
+
+    # Update import record with actual count
+    DBI::dbExecute(
+      con,
+      "UPDATE imported_mappings SET concepts_count = ? WHERE import_id = ?",
+      params = list(imported_count, import_id)
+    )
+
+    DBI::dbCommit(con)
+
+    return(imported_count)
+  }, error = function(e) {
+    DBI::dbRollback(con)
+    warning("Failed to import target concept mappings: ", e$message)
+    return(0)
+  })
+}
+
 #' Update concept alignment
 #'
 #' @description Update an existing concept alignment

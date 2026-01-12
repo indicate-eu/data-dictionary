@@ -1294,6 +1294,34 @@ table.dataTable thead tr td .selectize-dropdown .option {
   background: #5a6268 !important;
 }
 
+.btn-eval-action[data-action="comments"] {
+  background: #17a2b8 !important;
+}
+
+.btn-eval-action[data-action="comments"]:hover {
+  background: #138496 !important;
+}
+
+/* Delete comment button in mapping comments modal */
+.btn-delete-comment {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #dc3545;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-delete-comment:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
 /* Reusable button classes
 -------------------------------------------------- */
 .btn-primary-custom {

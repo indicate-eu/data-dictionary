@@ -4506,23 +4506,25 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         if (nrow(concept_details) > 0) {
           concept_row <- concept_details[1, ]
 
-          # Build ATLAS item format
+          # Build ATLAS item format (exact order matching ATLAS export)
           atlas_item <- list(
             concept = list(
+              CONCEPT_CLASS_ID = concept_row$concept_class_id,
+              CONCEPT_CODE = concept_row$concept_code,
               CONCEPT_ID = as.integer(concept_row$concept_id),
               CONCEPT_NAME = concept_row$concept_name,
+              DOMAIN_ID = concept_row$domain_id,
+              INVALID_REASON = ifelse(is.na(concept_row$invalid_reason), "V", concept_row$invalid_reason),
+              INVALID_REASON_CAPTION = ifelse(is.na(concept_row$invalid_reason), "Valid", "Invalid"),
               STANDARD_CONCEPT = ifelse(is.na(concept_row$standard_concept), "", concept_row$standard_concept),
               STANDARD_CONCEPT_CAPTION = dplyr::case_when(
                 concept_row$standard_concept == "S" ~ "Standard",
                 concept_row$standard_concept == "C" ~ "Classification",
                 TRUE ~ "Non-Standard"
               ),
-              INVALID_REASON = ifelse(is.na(concept_row$invalid_reason), "V", concept_row$invalid_reason),
-              INVALID_REASON_CAPTION = ifelse(is.na(concept_row$invalid_reason), "Valid", "Invalid"),
-              CONCEPT_CODE = concept_row$concept_code,
-              DOMAIN_ID = concept_row$domain_id,
               VOCABULARY_ID = concept_row$vocabulary_id,
-              CONCEPT_CLASS_ID = concept_row$concept_class_id
+              VALID_START_DATE = as.character(concept_row$valid_start_date),
+              VALID_END_DATE = as.character(concept_row$valid_end_date)
             ),
             isExcluded = FALSE,
             includeDescendants = FALSE,

@@ -369,3 +369,39 @@ numeric_distribution,Numeric
 categorical_distribution,Categorical
 export_project,Export Project
 download_csv,Download CSV
+import_column_mapping,Column Mapping
+import_column_mapping_desc,Select which columns from your CSV file correspond to the required fields.
+source_code_column,Source Code Column
+source_vocabulary_column,Source Vocabulary Column
+target_concept_column,Target Concept ID Column
+select_column,Select column...
+none_optional,(None)
+preview_import,Preview Import
+import_preview,Import Preview
+rows_to_import,Rows to import
+import_preview_desc,Review the mappings that will be imported from your CSV file.
+invalid_numeric_values,contains non-numeric values
+field_required,This field is required
+target_concept_id_column,Target Concept ID Column
+target_concept_id_column_desc,Optional: Select a column containing target OMOP concept IDs to pre-fill mappings
+mapping_comments,Comments
+no_comments_yet,No comments yet. Be the first to add a comment.
+add_comment,Add Comment
+add_comment_placeholder,Add your comment...
+comment_added,Comment added successfully.
+comment_deleted,Comment deleted successfully.
+delete_comment_confirm,Are you sure you want to delete this comment?
+export_mappings,Export Mappings
+export_format,Export Format
+usagi_format,Usagi Format
+omop_cdm_format,OMOP CDM Format (SOURCE_TO_CONCEPT_MAP)
+include_mappings_by_status,Include Mappings by Status
+include_approved,Include approved mappings
+include_rejected,Include rejected mappings
+include_uncertain,Include uncertain mappings
+include_not_evaluated,Include not evaluated mappings
+total_mappings,Total Mappings
+mappings_approved,Approved
+mappings_rejected,Rejected
+mappings_uncertain,Uncertain
+mappings_not_evaluated,Not Evaluated
