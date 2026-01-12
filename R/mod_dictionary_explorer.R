@@ -398,19 +398,19 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
                               tags$div(
                                 id = ns("copy_menu_dropdown"),
                                 class = "copy-dropdown-menu",
-                                style = "display: none; position: absolute; top: 100%; right: 0; background: white; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1000; min-width: 180px; margin-top: 4px;",
+                                style = "display: none; position: absolute; top: 100%; right: 0; background: white; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 1000; min-width: 220px; margin-top: 4px; white-space: nowrap;",
                                 tags$div(
                                   class = "copy-menu-item",
-                                  id = ns("copy_as_json"),
+                                  id = ns("copy_as_atlas_json"),
                                   style = "padding: 10px 15px; cursor: pointer; border-bottom: 1px solid #eee;",
-                                  tags$i(class = "fa fa-code", style = "margin-right: 8px; color: #0f60af;"),
-                                  i18n$t("copy_as_json")
+                                  tags$i(class = "fa fa-code", style = "width: 16px; text-align: center; margin-right: 8px; color: #0f60af; display: inline-block;"),
+                                  i18n$t("copy_as_atlas_json")
                                 ),
                                 tags$div(
                                   class = "copy-menu-item",
                                   id = ns("copy_as_omop_sql"),
                                   style = "padding: 10px 15px; cursor: pointer;",
-                                  tags$i(class = "fa fa-database", style = "margin-right: 8px; color: #0f60af;"),
+                                  tags$i(class = "fa fa-database", style = "width: 16px; text-align: center; margin-right: 8px; color: #0f60af; display: inline-block;"),
                                   i18n$t("copy_omop_sql")
                                 )
                               )
@@ -446,14 +446,6 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
                               `data-tooltip` = as.character(i18n$t("selected_concept_details_tooltip")),
                               "ⓘ"
                             )
-                          ),
-                          actionButton(
-                            ns("copy_concept_json"),
-                            label = NULL,
-                            icon = icon("copy"),
-                            class = "btn-icon-only",
-                            style = "background: transparent; border: none; color: #666; padding: 0; cursor: pointer; flex-shrink: 0;",
-                            `data-tooltip` = as.character(i18n$t("copy_as_json"))
                           )
                         ),
                         tags$div(
@@ -4393,71 +4385,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       edited_mapping_details(current_edits)
     }, ignoreInit = TRUE)
 
-    # Handle copy concept JSON button
-    observe_event(input$copy_concept_json, {
-      omop_concept_id <- selected_mapped_concept_id()
-      concept_id <- selected_concept_id()
-
-      if (is.null(omop_concept_id) || is.null(concept_id)) return()
-
-      # Get concept mapping
-      concept_mapping <- current_data()$concept_mappings %>%
-        dplyr::filter(
-          general_concept_id == concept_id,
-          omop_concept_id == !!omop_concept_id
-        )
-
-      # Get general concept info
-      general_concept_info <- data()$general_concepts %>%
-        dplyr::filter(general_concept_id == concept_id)
-
-      # Get concept details from vocabularies
-      vocab_data <- vocabularies()
-      concept_details <- NULL
-      if (!is.null(vocab_data)) {
-        concept_details <- vocab_data$concept %>%
-          dplyr::filter(concept_id == omop_concept_id) %>%
-          dplyr::collect()
-        if (nrow(concept_details) > 0) {
-          concept_details <- concept_details[1, ]
-        } else {
-          concept_details <- NULL
-        }
-      }
-
-      # Get statistics
-      concept_stats_data <- current_data()$concept_statistics
-      concept_stats <- NULL
-      if (!is.null(concept_stats_data)) {
-        concept_stats <- concept_stats_data %>%
-          dplyr::filter(omop_concept_id == !!omop_concept_id)
-        if (nrow(concept_stats) > 0) {
-          concept_stats <- concept_stats[1, ]
-        } else {
-          concept_stats <- NULL
-        }
-      }
-
-      # Build JSON object using helper function
-      json_data <- build_concept_details_json(
-        concept_mapping = if (nrow(concept_mapping) > 0) concept_mapping else NULL,
-        general_concept_info = general_concept_info,
-        concept_details = concept_details,
-        concept_stats = concept_stats
-      )
-
-      if (length(json_data) == 0) return()
-
-      # Convert to JSON
-      json_string <- jsonlite::toJSON(json_data, pretty = TRUE, auto_unbox = TRUE, na = "null")
-
-      # Copy to clipboard using JavaScript
-      session$sendCustomMessage("copyToClipboard", list(
-        text = as.character(json_string),
-        buttonId = session$ns("copy_concept_json")
-      ))
-    })
-
     # Handle copy general concept with all mappings JSON button
     observe_event(input$copy_general_concept_json, {
       concept_id <- selected_concept_id()
@@ -4543,92 +4470,88 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       ))
     })
 
-    # Handle copy as JSON from dropdown menu
-    observe_event(input$copy_as_json, {
+    # Handle copy as ATLAS JSON from dropdown menu
+    observe_event(input$copy_as_atlas_json, {
       concept_id <- selected_concept_id()
 
       if (is.null(concept_id)) return()
-
-      # Get general concept info
-      general_concept_info <- data()$general_concepts %>%
-        dplyr::filter(general_concept_id == concept_id)
-
-      if (nrow(general_concept_info) == 0) return()
 
       # Get all concept mappings for this general concept
       all_mappings <- current_data()$concept_mappings %>%
         dplyr::filter(general_concept_id == concept_id)
 
-      # Get vocabularies and statistics
+      if (nrow(all_mappings) == 0) {
+        showNotification("No mapped concepts found", type = "warning", duration = 3)
+        return()
+      }
+
+      # Get vocabularies
       vocab_data <- vocabularies()
-      concept_stats_data <- current_data()$concept_statistics
+      if (is.null(vocab_data)) {
+        showNotification("OHDSI vocabularies not loaded", type = "warning", duration = 3)
+        return()
+      }
 
-      # Build array of mapped concepts
-      mapped_concepts <- list()
+      # Build ATLAS concept set items array
+      atlas_items <- list()
 
-      if (nrow(all_mappings) > 0) {
-        for (i in 1:nrow(all_mappings)) {
-          mapping <- all_mappings[i, ]
+      for (i in 1:nrow(all_mappings)) {
+        omop_id <- all_mappings$omop_concept_id[i]
 
-          # Get concept details from vocabularies
-          concept_details <- NULL
-          if (!is.null(vocab_data)) {
-            concept_details <- vocab_data$concept %>%
-              dplyr::filter(concept_id == mapping$omop_concept_id) %>%
-              dplyr::collect()
-            if (nrow(concept_details) > 0) {
-              concept_details <- concept_details[1, ]
-            } else {
-              concept_details <- NULL
-            }
-          }
+        # Get concept details from vocabularies
+        concept_details <- vocab_data$concept %>%
+          dplyr::filter(concept_id == omop_id) %>%
+          dplyr::collect()
 
-          # Get statistics
-          concept_stats <- NULL
-          if (!is.null(concept_stats_data)) {
-            concept_stats <- concept_stats_data %>%
-              dplyr::filter(omop_concept_id == mapping$omop_concept_id)
-            if (nrow(concept_stats) > 0) {
-              concept_stats <- concept_stats[1, ]
-            } else {
-              concept_stats <- NULL
-            }
-          }
+        if (nrow(concept_details) > 0) {
+          concept_row <- concept_details[1, ]
 
-          # Build JSON for this concept using helper function
-          concept_json <- build_concept_details_json(
-            concept_mapping = mapping,
-            general_concept_info = general_concept_info,
-            concept_details = concept_details,
-            concept_stats = concept_stats
+          # Build ATLAS item format
+          atlas_item <- list(
+            concept = list(
+              CONCEPT_ID = as.integer(concept_row$concept_id),
+              CONCEPT_NAME = concept_row$concept_name,
+              STANDARD_CONCEPT = ifelse(is.na(concept_row$standard_concept), "", concept_row$standard_concept),
+              STANDARD_CONCEPT_CAPTION = dplyr::case_when(
+                concept_row$standard_concept == "S" ~ "Standard",
+                concept_row$standard_concept == "C" ~ "Classification",
+                TRUE ~ "Non-Standard"
+              ),
+              INVALID_REASON = ifelse(is.na(concept_row$invalid_reason), "V", concept_row$invalid_reason),
+              INVALID_REASON_CAPTION = ifelse(is.na(concept_row$invalid_reason), "Valid", "Invalid"),
+              CONCEPT_CODE = concept_row$concept_code,
+              DOMAIN_ID = concept_row$domain_id,
+              VOCABULARY_ID = concept_row$vocabulary_id,
+              CONCEPT_CLASS_ID = concept_row$concept_class_id
+            ),
+            isExcluded = FALSE,
+            includeDescendants = FALSE,
+            includeMapped = FALSE
           )
 
-          if (length(concept_json) > 0) {
-            mapped_concepts[[length(mapped_concepts) + 1]] <- concept_json
-          }
+          atlas_items[[length(atlas_items) + 1]] <- atlas_item
         }
       }
 
-      # Build final JSON structure
-      json_data <- list(
-        general_concept_id = general_concept_info$general_concept_id[1],
-        general_concept_name = general_concept_info$general_concept_name[1],
-        category = general_concept_info$category[1],
-        subcategory = general_concept_info$subcategory[1],
-        mapped_concepts = mapped_concepts
-      )
+      if (length(atlas_items) == 0) {
+        showNotification("No concept details found", type = "warning", duration = 3)
+        return()
+      }
+
+      # Build final ATLAS concept set JSON
+      atlas_json <- list(items = atlas_items)
 
       # Convert to JSON
-      json_string <- jsonlite::toJSON(json_data, pretty = TRUE, auto_unbox = TRUE, na = "null")
+      json_string <- jsonlite::toJSON(atlas_json, pretty = TRUE, auto_unbox = TRUE, na = "null")
 
       # Copy to clipboard using JavaScript
       session$sendCustomMessage("copyToClipboard", list(
         text = as.character(json_string),
-        buttonId = session$ns("copy_as_json")
+        buttonId = session$ns("copy_as_atlas_json")
       ))
 
       # Show success notification
-      showNotification("Concept details copied as JSON", type = "message", duration = 2)
+      showNotification(i18n$t("copied"), type = "message", duration = 2)
     })
 
     # Handle copy as OMOP SQL from dropdown menu

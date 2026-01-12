@@ -26,6 +26,7 @@ associated_concepts,Associated Concepts
 associated_concepts_tooltip,"Concepts from standard terminologies (SNOMED CT, LOINC, RxNorm, etc.) associated with the selected general concept."
 copy_concept_details,Copy concept details
 copy_as_json,Copy as JSON
+copy_as_atlas_json,Copy as ATLAS JSON
 copy_omop_sql,Copy OMOP SQL
 selected_concept_details,Selected Concept Details
 selected_concept_details_tooltip,"Detailed information of the concept selected in the associated concepts table: vocabulary, domain, class, and links to ATHENA and FHIR resources."
