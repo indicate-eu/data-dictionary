@@ -29,6 +29,12 @@ language <- Sys.getenv("INDICATE_LANGUAGE", "en")
 
     # CSS and JavaScript dependencies
     tags$head(
+      tags$title("INDICATE Data Dictionary"),
+      tags$link(
+        rel = "icon",
+        type = "image/png",
+        href = "www/favicon.png"
+      ),
       tags$link(
         rel = "stylesheet",
         type = "text/css",

@@ -515,12 +515,21 @@ render_project_config_ui <- function(ns, i18n) {
           "background: white; border-radius: 8px; ",
           "box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 20px;"
         ),
-        # Header with title
-        tags$h4(
-          i18n$t("selected_concepts_for_project"),
+        # Header with title and download button
+        tags$div(
           style = paste0(
-            "margin: 0 0 10px 0; color: #28a745; ",
-            "border-bottom: 2px solid #28a745; padding-bottom: 10px;"
+            "display: flex; justify-content: space-between; align-items: center; ",
+            "margin: 0 0 10px 0; border-bottom: 2px solid #28a745; padding-bottom: 10px;"
+          ),
+          tags$h4(
+            i18n$t("selected_concepts_for_project"),
+            style = "margin: 0; color: #28a745;"
+          ),
+          actionButton(
+            ns("download_project_csv"),
+            i18n$t("download_csv"),
+            class = "btn btn-success btn-sm",
+            icon = icon("download")
           )
         ),
         # Buttons row
@@ -748,13 +757,6 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
             data_attr = list(`project-id` = id)
           ),
           list(
-            label = "Export",
-            icon = "download",
-            type = "success",
-            class = "project-export-btn",
-            data_attr = list(`project-id` = id)
-          ),
-          list(
             label = "Delete",
             icon = "trash",
             type = "danger",
@@ -949,7 +951,6 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
           $(table.table().node()).off('dblclick', 'tbody tr');
           $(table.table().node()).off('click', '.project-edit-btn');
           $(table.table().node()).off('click', '.project-configure-btn');
-          $(table.table().node()).off('click', '.project-export-btn');
           $(table.table().node()).off('click', '.project-delete-btn');
 
           // Add double-click handler for table rows
@@ -974,12 +975,6 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
             Shiny.setInputValue('%s', projectId, {priority: 'event'});
           });
 
-          $(table.table().node()).on('click', '.project-export-btn', function(e) {
-            e.stopPropagation();
-            var projectId = $(this).data('project-id');
-            Shiny.setInputValue('%s', projectId, {priority: 'event'});
-          });
-
           $(table.table().node()).on('click', '.project-delete-btn', function(e) {
             e.stopPropagation();
             var projectId = $(this).data('project-id');
@@ -990,7 +985,6 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
       session$ns("dblclick_project_id"),
       session$ns("project_edit_clicked"),
       session$ns("project_configure_clicked"),
-      session$ns("project_export_clicked"),
       session$ns("project_delete_clicked")
       ))
 
@@ -1013,7 +1007,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
             autoWidth = FALSE,
             columnDefs = list(
               list(targets = 0, visible = FALSE),  # Hide project_id column
-              list(targets = 4, orderable = FALSE, width = "350px", searchable = FALSE, className = "dt-center")  # Actions column
+              list(targets = 4, orderable = FALSE, width = "280px", searchable = FALSE, className = "dt-center")  # Actions column
             ),
             language = dt_language,
             drawCallback = callback_js
@@ -1107,20 +1101,16 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
       shinyjs::runjs(sprintf("$('#%s').show();", ns("delete_confirmation_modal")))
     }, ignoreInit = TRUE)
 
-    # Handler for Export button in datatable
-    observe_event(input$project_export_clicked, {
-      project_id <- input$project_export_clicked
-      if (is.null(project_id)) return()
+    # Handler for Download CSV button in project config view
+    observe_event(input$download_project_csv, {
+      project <- selected_project()
+      if (is.null(project)) return()
+
+      project_id <- project$id
 
       tryCatch({
         # Get project name for filename
-        projects_data <- projects_reactive()
-        project <- projects_data[projects_data$project_id == project_id, ]
-        project_name <- if (nrow(project) > 0) {
-          gsub("[^a-zA-Z0-9_-]", "_", project$project_name)
-        } else {
-          "project"
-        }
+        project_name <- gsub("[^a-zA-Z0-9_-]", "_", project$name)
         filename <- paste0(project_name, "-", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".csv")
 
         # Get general concepts assigned to this project

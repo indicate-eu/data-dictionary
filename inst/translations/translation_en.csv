@@ -367,3 +367,4 @@ distribution_type,Distribution Type
 numeric_distribution,Numeric
 categorical_distribution,Categorical
 export_project,Export Project
+download_csv,Download CSV

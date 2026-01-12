@@ -47,19 +47,19 @@ The INDICATE project, launched in December 2024 and funded by the European Union
 
 ### The Minimal Data Dictionary
 
-The INDICATE Minimal Data Dictionary comprises **11,924 clinical concepts** organized into nine categories:
+The INDICATE Minimal Data Dictionary comprises **332 general concepts** linked to **23,241 standard concepts** from international terminologies, organized into nine categories:
 
-| Category | Number of Concepts | Description |
-|----------|-------------------|-------------|
-| Demographics and Encounters | 14 | Patient demographics and admissions (e.g., age, gender, dates) |
-| Conditions | 230 | Diagnoses and medical conditions (e.g., ARDS, sepsis) |
-| Clinical Observations | 21 | Non-numeric clinical assessments (e.g., Glasgow Coma Scale) |
-| Vital Signs | 27 | Basic physiological measurements (e.g., heart rate) |
-| Laboratory Measurements | 199 | Blood and urine tests (e.g., lactate, creatinine, sodium) |
-| Microbiology | 50 | Culture results and pathogens (e.g., Pseudomonas aeruginosa) |
-| Ventilation | 52 | Mechanical ventilation parameters (e.g., FiO₂, PEEP) |
-| Drugs | 11,313 | Medications with dose and form (e.g., Norepinephrine 2 MG/ML Injection) |
-| Procedures | 18 | Medical interventions (e.g., intubation, dialysis, ECMO) |
+| Category | Description | General Concepts | Standard Concepts |
+|----------|-------------|------------------|-------------------|
+| Clinical Observations | Non-numeric clinical assessments (e.g., Glasgow Coma Scale) | 15 | 16 |
+| Conditions | Diagnoses and medical conditions (e.g., ARDS, sepsis) | 17 | 315 |
+| Demographics, Encounters & Other | Patient demographics, admissions and other data (e.g., age, gender, dates) | 20 | 51 |
+| Drugs | Medications with dose and form (e.g., Norepinephrine 2 MG/ML Injection) | 112 | 9,153 |
+| Labs | Blood and urine tests (e.g., lactate, creatinine, sodium) | 76 | 265 |
+| Microbiology | Culture results and pathogens (e.g., Pseudomonas aeruginosa) | 48 | 12,628 |
+| Procedures | Medical interventions (e.g., intubation, dialysis, ECMO) | 8 | 344 |
+| Ventilation | Mechanical ventilation parameters (e.g., FiO₂, PEEP) | 26 | 207 |
+| Vitals | Basic physiological measurements (e.g., heart rate) | 10 | 262 |
 
 ### Standard Terminologies
 
@@ -162,28 +162,29 @@ After logging in, you need to import ATHENA vocabulary data to enable full funct
 
 #### 1. Dictionary Explorer
 
-The Dictionary Explorer provides a four-panel layout for browsing the INDICATE Minimal Data Dictionary.
+The Dictionary Explorer allows you to browse the INDICATE Minimal Data Dictionary. General concepts are high-level clinical concepts used in study definitions, such as "Heart rate" or "Type 2 diabetes", without detailed coding information.
+
+**Browsing General Concepts**:
+
+The main view displays a single table listing all general concepts organized by category and subcategory. Use column filters to search for specific concepts (e.g., "lactate", "sepsis"). Double-click any row to view detailed information.
 
 ![Dictionary Explorer Interface](man/figures/dictionary_explorer.png)
 
-**Exploring General Concepts**:
-1. Navigate to the **Dictionary Explorer** tab
-2. The top-left panel shows general concepts grouped by category and subcategory
-3. Use column filters to search for specific concepts (e.g., "lactate", "sepsis")
-4. Click any row to load detailed information
+**Viewing General Concept Details**:
+
+After selecting a general concept, a four-panel layout displays detailed information:
+- **Top-left**: General concept information (category, subcategory, name)
+- **Bottom-left**: All terminology mappings to standard vocabularies (SNOMED, LOINC, RxNorm, ICD-10)
+- **Top-right**: Selected mapping details with links to ATHENA and FHIR resources
+- **Bottom-right**: Expert comments and ETL guidance
+
+The "Standard" column indicates standard OMOP concepts (S) vs non-standard or classification concepts. Click on a mapping to see full details in the right panels.
 
 ![Concept Details View](man/figures/concept_details.png)
 
-**Viewing General Concept Details**:
-1. After selecting a general concept, the bottom-left panel shows all terminology mappings
-2. Each row represents a specific code in a standard vocabulary (SNOMED, LOINC, RxNorm, ICD-10)
-3. The "Standard" column indicates standard OMOP concepts (S) vs non-standard or classification concepts
-4. Click on a concept to see full details in the right panels
-
 **Exploring Concept Relationships**:
-- View the hierarchical structure of concepts with the relationships tree
-- See parent and child concepts in the hierarchy
-- Understand relationship types (Is a, Has ingredient, Subsumes, etc.)
+
+View the hierarchical structure of concepts with the relationships tree. See parent and child concepts in the hierarchy and understand relationship types (Is a, Has ingredient, Subsumes, etc.).
 
 <p align="center">
   <img src="man/figures/concept_relationships.png" alt="Concept Relationships" width="750"/>
