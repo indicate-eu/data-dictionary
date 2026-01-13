@@ -421,3 +421,27 @@ include_all_approved,Inclure tous (au moins une approbation)
 only_majority_approval,Seulement avec majorité d'approbations
 frequency,Fréquence
 no_columns_selected,Aucune colonne sélectionnée
+indicate_format_desc,Export complet avec évaluations et commentaires (ZIP)
+export_successful_indicate,Alignement exporté avec succès au format INDICATE
+export_error,Erreur d'export :
+import_format,Format d'import
+import_format_csv,Fichier CSV (Mapping manuel)
+import_format_csv_desc,Sélectionner manuellement les colonnes pour le code source, vocabulaire et concept cible
+import_format_stcm,SOURCE_TO_CONCEPT_MAP
+import_format_stcm_desc,Format OMOP CDM avec noms de colonnes standards
+import_format_usagi,Format Usagi
+import_format_usagi_desc,Importer des mappings exportés depuis l'application Usagi
+import_format_indicate,INDICATE Data Dictionary
+import_format_indicate_desc,Importer un alignement depuis un export INDICATE (ZIP)
+select_import_format,Sélectionner le format d'import...
+import_validation_success,Format de fichier validé avec succès
+import_validation_error,Format de fichier invalide.
+missing_columns,Colonnes requises manquantes :
+invalid_file_type,Type de fichier invalide. Attendu :
+select_zip_file,Sélectionner le fichier ZIP :
+import_indicate_success,Alignement importé avec succès avec {mappings} mappings et {evaluations} évaluations
+import_indicate_format,Importer
+import_alignment_created,Alignement "{name}" créé avec succès avec {mappings} mappings
+users_not_found_warning,{count} utilisateur(s) non trouvé(s) (assigné(s) à l'utilisateur courant)
+alignment_name_exists,Un alignement avec ce nom existe déjà
+mappings_skipped_no_match,{count} mapping(s) ignoré(s) (concept source non trouvé)

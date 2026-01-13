@@ -797,15 +797,33 @@ mod_concept_mapping_ui <- function(id, i18n) {
                   style = "color: #999; font-size: 12px;",
                   i18n$t("usagi_format_desc")
                 )
+              ),
+              tags$div(
+                style = "display: flex; align-items: center; gap: 10px;",
+                tags$input(
+                  type = "radio",
+                  id = ns("export_format_indicate"),
+                  name = ns("export_format"),
+                  value = "indicate",
+                  style = "margin: 0; cursor: pointer;"
+                ),
+                tags$label(
+                  `for` = ns("export_format_indicate"),
+                  style = "margin: 0; cursor: pointer; font-weight: 500;",
+                  "INDICATE Data Dictionary"
+                ),
+                tags$span(
+                  style = "color: #999; font-size: 12px;",
+                  i18n$t("indicate_format_desc")
+                )
               )
             )
           ),
 
-          tags$hr(style = "margin: 20px 0;"),
-
-          # Mapping inclusion criteria
+          # Mapping inclusion criteria (hidden for INDICATE format)
           tags$div(
-            style = "margin-bottom: 10px;",
+            id = ns("mapping_filter_section"),
+            tags$hr(style = "margin: 20px 0;"),
             tags$h4(style = "margin-bottom: 15px; color: #333;", i18n$t("include_mappings_by_status")),
             tags$div(
               style = "display: flex; flex-direction: column; gap: 8px;",
@@ -961,17 +979,17 @@ mod_concept_mapping_ui <- function(id, i18n) {
                   )
                 )
               )
-            )
-          ),
+            ),
 
-          # Total to export
-          tags$div(
-            style = "margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 4px; text-align: center;",
-            tags$span(style = "font-size: 14px; color: #666;", i18n$t("total_mappings_to_export")),
-            tags$span(
-              id = ns("export_total_count"),
-              style = "font-size: 18px; font-weight: 600; color: #0f60af; margin-left: 10px;",
-              "0"
+            # Total to export
+            tags$div(
+              style = "margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 4px; text-align: center;",
+              tags$span(style = "font-size: 14px; color: #666;", i18n$t("total_mappings_to_export")),
+              tags$span(
+                id = ns("export_total_count"),
+                style = "font-size: 18px; font-weight: 600; color: #0f60af; margin-left: 10px;",
+                "0"
+              )
             )
           )
         ),
@@ -988,6 +1006,87 @@ mod_concept_mapping_ui <- function(id, i18n) {
             i18n$t("export"),
             class = "btn btn-primary-custom",
             icon = icon("download")
+          )
+        )
+      )
+    ),
+
+    ### Modal - Import INDICATE Format ----
+    tags$div(
+      id = ns("import_indicate_modal"),
+      class = "modal-overlay",
+      style = "display: none; z-index: 1050;",
+      onclick = sprintf(
+        "if (event.target === this) $('#%s').hide();",
+        ns("import_indicate_modal")
+      ),
+      tags$div(
+        class = "modal-content",
+        style = "max-width: 500px;",
+        tags$div(
+          class = "modal-header",
+          tags$h3(i18n$t("import_indicate_format")),
+          tags$button(
+            class = "modal-close",
+            onclick = sprintf("$('#%s').hide();", ns("import_indicate_modal")),
+            HTML("&times;")
+          )
+        ),
+        tags$div(
+          class = "modal-body",
+          style = "padding: 20px;",
+
+          # Description
+          tags$p(
+            style = "color: #666; margin-bottom: 20px;",
+            i18n$t("import_format_indicate_desc")
+          ),
+
+          # File input
+          fileInput(
+            ns("import_indicate_zip_file"),
+            label = i18n$t("select_zip_file"),
+            accept = ".zip",
+            width = "100%"
+          ),
+
+          # Alignment name input (populated from metadata after file selection)
+          tags$div(
+            id = ns("import_indicate_name_container"),
+            style = "display: none; margin-top: 15px;",
+            textInput(
+              ns("import_indicate_name"),
+              label = i18n$t("alignment_name"),
+              value = "",
+              width = "100%"
+            ),
+            tags$div(
+              id = ns("import_indicate_name_error"),
+              class = "input-error-message",
+              style = "display: none;",
+              i18n$t("alignment_name_exists")
+            )
+          ),
+
+          # Validation status
+          tags$div(
+            id = ns("import_indicate_validation_status"),
+            style = "margin-top: 10px; display: none;"
+          )
+        ),
+        tags$div(
+          class = "modal-footer",
+          style = "display: flex; justify-content: flex-end; gap: 10px; padding: 15px 20px; border-top: 1px solid #eee;",
+          tags$button(
+            class = "btn btn-secondary",
+            onclick = sprintf("$('#%s').hide();", ns("import_indicate_modal")),
+            i18n$t("cancel")
+          ),
+          actionButton(
+            ns("confirm_import_indicate"),
+            i18n$t("import_mappings"),
+            class = "btn btn-primary-custom",
+            icon = icon("file-import")
           )
         )
       )
@@ -1179,6 +1278,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Import file state
     import_selected_file <- reactiveVal(NULL)
+    import_validation_result <- reactiveVal(NULL)  # Stores validation result for selected file
 
     # Import column mapping state
     import_csv_data <- reactiveVal(NULL)  # Stores the CSV data after file selection
@@ -1253,6 +1353,48 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       mapped_concepts_table_trigger(mapped_concepts_table_trigger() + 1)
       concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
     }, ignoreInit = TRUE)
+
+    ### Helper Functions ----
+    # Display import status message in the validation banner
+    show_import_status <- function(message, type = "success", warning_message = NULL) {
+      if (type == "success") {
+        bg_color <- "#d4edda"
+        text_color <- "#155724"
+        icon <- "fa-check-circle"
+      } else if (type == "warning") {
+        bg_color <- "#fff3cd"
+        text_color <- "#856404"
+        icon <- "fa-exclamation-triangle"
+      } else {
+        bg_color <- "#f8d7da"
+        text_color <- "#721c24"
+        icon <- "fa-exclamation-circle"
+      }
+
+      # Build HTML content
+      html_content <- sprintf(
+        '<div style="display: inline-block; background-color: %s; color: %s; padding: 10px; border-radius: 4px;">
+          <i class="fas %s"></i> %s
+        </div>',
+        bg_color, text_color, icon, message
+      )
+
+      # Add warning message if provided (on new line)
+      if (!is.null(warning_message) && nchar(warning_message) > 0) {
+        html_content <- paste0(
+          html_content,
+          sprintf(
+            '<br><div style="display: inline-block; background-color: #fff3cd; color: #856404; padding: 10px; border-radius: 4px; margin-top: 8px;">
+              <i class="fas fa-exclamation-triangle"></i> %s
+            </div>',
+            warning_message
+          )
+        )
+      }
+
+      shinyjs::html("import_validation_status", html_content)
+      shinyjs::show("import_validation_status")
+    }
 
     ### Breadcrumb Rendering ----
     output$breadcrumb <- renderUI({
@@ -1437,11 +1579,100 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         return(create_empty_datatable(i18n$t("no_alignments_yet")))
       }
 
+      # Get database connection for statistics
+      db_dir <- get_app_dir()
+      db_path <- file.path(db_dir, "indicate.db")
+
+      # Calculate statistics for each alignment
+      stats_list <- lapply(alignments$alignment_id, function(aid) {
+        # Get CSV path for this alignment
+        csv_path <- file.path(db_dir, paste0("alignment_", aid, ".csv"))
+        total_source_concepts <- 0
+        if (file.exists(csv_path)) {
+          df <- read.csv(csv_path, stringsAsFactors = FALSE)
+          total_source_concepts <- nrow(df)
+        }
+
+        if (!file.exists(db_path)) {
+          return(list(
+            mapped_concepts = "0 / 0",
+            general_concepts_mapped = "0",
+            evaluated_mappings = "0 / 0"
+          ))
+        }
+
+        con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+        on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+        # Count unique source concepts that have mappings
+        mappings_result <- DBI::dbGetQuery(
+          con,
+          "SELECT COUNT(DISTINCT row_id) as mapped_count FROM concept_mappings WHERE alignment_id = ?",
+          params = list(aid)
+        )
+        mapped_source_concepts <- mappings_result$mapped_count[1]
+
+        # Count distinct general concepts mapped
+        all_mappings <- DBI::dbGetQuery(
+          con,
+          "SELECT DISTINCT target_general_concept_id, target_omop_concept_id FROM concept_mappings WHERE alignment_id = ?",
+          params = list(aid)
+        )
+
+        direct_general_ids <- all_mappings$target_general_concept_id[!is.na(all_mappings$target_general_concept_id)]
+        imported_omop_ids <- all_mappings$target_omop_concept_id[
+          is.na(all_mappings$target_general_concept_id) & !is.na(all_mappings$target_omop_concept_id)
+        ]
+
+        # Lookup general concepts from dictionary for imported OMOP concept IDs
+        dictionary_mappings <- data()$concept_mappings
+        if (!is.null(dictionary_mappings) && length(imported_omop_ids) > 0) {
+          lookup_general_ids <- dictionary_mappings$general_concept_id[
+            dictionary_mappings$omop_concept_id %in% imported_omop_ids
+          ]
+          lookup_general_ids <- unique(lookup_general_ids[!is.na(lookup_general_ids)])
+        } else {
+          lookup_general_ids <- integer(0)
+        }
+
+        mapped_general_concept_ids <- unique(c(direct_general_ids, lookup_general_ids))
+        total_general_concepts <- length(mapped_general_concept_ids)
+
+        # Count evaluated mappings (mappings with at least one evaluation)
+        evaluated_result <- DBI::dbGetQuery(
+          con,
+          "SELECT COUNT(DISTINCT cm.mapping_id) as evaluated_count
+           FROM concept_mappings cm
+           INNER JOIN mapping_evaluations me ON cm.mapping_id = me.mapping_id
+           WHERE cm.alignment_id = ?",
+          params = list(aid)
+        )
+        evaluated_count <- evaluated_result$evaluated_count[1]
+
+        # Total mappings for this alignment
+        total_mappings_result <- DBI::dbGetQuery(
+          con,
+          "SELECT COUNT(*) as total FROM concept_mappings WHERE alignment_id = ?",
+          params = list(aid)
+        )
+        total_mappings <- total_mappings_result$total[1]
+
+        list(
+          mapped_concepts = as.character(mapped_source_concepts),
+          general_concepts_mapped = as.character(total_general_concepts),
+          evaluated_mappings = as.character(evaluated_count)
+        )
+      })
+
+      # Convert to data frame columns
       alignments_display <- alignments %>%
         dplyr::mutate(
-          created_formatted = format(as.POSIXct(created_date), "%Y-%m-%d %H:%M")
+          created_formatted = format(as.POSIXct(created_date), "%Y-%m-%d %H:%M"),
+          mapped_concepts = sapply(stats_list, function(x) x$mapped_concepts),
+          general_concepts_mapped = sapply(stats_list, function(x) x$general_concepts_mapped),
+          evaluated_mappings = sapply(stats_list, function(x) x$evaluated_mappings)
         ) %>%
-        dplyr::select(alignment_id, name, description, created_formatted)
+        dplyr::select(alignment_id, name, description, mapped_concepts, general_concepts_mapped, evaluated_mappings, created_formatted)
 
       # Add action buttons (generate for each row)
       alignments_display$Actions <- sapply(alignments_display$alignment_id, function(id) {
@@ -1484,13 +1715,20 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           language = get_datatable_language(),
           columnDefs = list(
             list(targets = 0, visible = FALSE),
-            list(targets = 4, orderable = FALSE, width = "300px", searchable = FALSE, className = "dt-center")
+            list(targets = 3, width = "90px", className = "dt-center"),
+            list(targets = 4, width = "90px", className = "dt-center"),
+            list(targets = 5, width = "90px", className = "dt-center"),
+            list(targets = 6, width = "120px", className = "dt-center"),
+            list(targets = 7, orderable = FALSE, width = "340px", searchable = FALSE, className = "dt-center")
           )
         ),
         colnames = c(
           "ID",
           as.character(i18n$t("project_name")),
           as.character(i18n$t("description")),
+          as.character(i18n$t("mapped_concepts")),
+          as.character(i18n$t("general_concepts_mapped")),
+          as.character(i18n$t("evaluated_mappings")),
           as.character(i18n$t("created")),
           as.character(i18n$t("actions"))
         )
@@ -1523,6 +1761,376 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         shinyjs::runjs(sprintf("$('#%s input').css('border-color', '');", ns("alignment_name")))
       }
     }, ignoreInit = TRUE)
+
+    ### Import INDICATE Format Modal ----
+    import_indicate_validation <- reactiveVal(NULL)
+
+    observe_event(input$open_import_indicate_modal, {
+      # Reset state
+      import_indicate_validation(NULL)
+      shinyjs::hide("import_indicate_validation_status")
+      shinyjs::hide("import_indicate_name_container")
+      shinyjs::hide("import_indicate_name_error")
+      updateTextInput(session, "import_indicate_name", value = "")
+      shinyjs::show("import_indicate_modal")
+    })
+
+    observe_event(input$import_indicate_zip_file, {
+      file_info <- input$import_indicate_zip_file
+      if (is.null(file_info)) return()
+
+      # Validate ZIP file
+      validation <- validate_indicate_zip(file_info$datapath, i18n)
+      import_indicate_validation(validation)
+
+      # Show validation status
+      if (validation$valid) {
+        # Extract alignment name from metadata and populate the name field
+        temp_dir <- tempfile(pattern = "indicate_validate_")
+        dir.create(temp_dir)
+        on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
+        zip::unzip(file_info$datapath, exdir = temp_dir)
+        metadata <- jsonlite::read_json(file.path(temp_dir, "metadata.json"))
+        alignment_name <- metadata$alignment$name %||% paste0("Imported_", format(Sys.time(), "%Y%m%d_%H%M%S"))
+
+        updateTextInput(session, "import_indicate_name", value = alignment_name)
+        shinyjs::show("import_indicate_name_container")
+
+        # Check if name already exists
+        db_path <- file.path(get_app_dir(), "indicate.db")
+        if (file.exists(db_path)) {
+          con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+          on.exit(DBI::dbDisconnect(con), add = TRUE)
+          existing <- DBI::dbGetQuery(
+            con,
+            "SELECT COUNT(*) as cnt FROM concept_alignments WHERE name = ?",
+            params = list(alignment_name)
+          )
+          if (existing$cnt[1] > 0) {
+            shinyjs::show("import_indicate_name_error")
+          } else {
+            shinyjs::hide("import_indicate_name_error")
+          }
+        }
+
+        shinyjs::html(
+          "import_indicate_validation_status",
+          sprintf(
+            '<div style="background-color: #d4edda; color: #155724; padding: 10px; border-radius: 4px;">
+              <i class="fas fa-check-circle"></i> %s<br>
+              <small>%d mappings, %d evaluations</small>
+            </div>',
+            i18n$t("import_validation_success"),
+            validation$mappings_count %||% 0,
+            validation$evaluations_count %||% 0
+          )
+        )
+      } else {
+        shinyjs::hide("import_indicate_name_container")
+        shinyjs::html(
+          "import_indicate_validation_status",
+          sprintf(
+            '<div style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px;">
+              <i class="fas fa-exclamation-circle"></i> %s %s
+            </div>',
+            i18n$t("import_validation_error"),
+            validation$message
+          )
+        )
+      }
+      shinyjs::show("import_indicate_validation_status")
+    }, ignoreInit = TRUE)
+
+    # Check name uniqueness when user types
+    observe_event(input$import_indicate_name, {
+      name <- input$import_indicate_name
+      if (is.null(name) || name == "") return()
+
+      db_path <- file.path(get_app_dir(), "indicate.db")
+      if (file.exists(db_path)) {
+        con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+        on.exit(DBI::dbDisconnect(con), add = TRUE)
+        existing <- DBI::dbGetQuery(
+          con,
+          "SELECT COUNT(*) as cnt FROM concept_alignments WHERE name = ?",
+          params = list(name)
+        )
+        if (existing$cnt[1] > 0) {
+          shinyjs::show("import_indicate_name_error")
+        } else {
+          shinyjs::hide("import_indicate_name_error")
+        }
+      }
+    }, ignoreInit = TRUE)
+
+    observe_event(input$confirm_import_indicate, {
+      file_info <- input$import_indicate_zip_file
+      validation <- import_indicate_validation()
+
+      if (is.null(file_info) || is.null(validation) || !validation$valid) {
+        show_import_status(i18n$t("import_validation_error"), "error")
+        return()
+      }
+
+      if (is.null(current_user())) {
+        show_import_status(i18n$t("must_be_logged_in_import"), "error")
+        return()
+      }
+
+      # Get alignment name from input field
+      alignment_name <- trimws(input$import_indicate_name)
+      if (is.null(alignment_name) || alignment_name == "") {
+        shinyjs::show("import_indicate_name_error")
+        return()
+      }
+
+      # Check if name already exists before proceeding
+      db_path <- file.path(get_app_dir(), "indicate.db")
+      if (file.exists(db_path)) {
+        con_check <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+        existing <- DBI::dbGetQuery(
+          con_check,
+          "SELECT COUNT(*) as cnt FROM concept_alignments WHERE name = ?",
+          params = list(alignment_name)
+        )
+        DBI::dbDisconnect(con_check)
+        if (existing$cnt[1] > 0) {
+          shinyjs::show("import_indicate_name_error")
+          return()
+        }
+      }
+
+      # Extract ZIP and create new alignment
+      tryCatch({
+        temp_dir <- tempfile(pattern = "indicate_import_new_")
+        dir.create(temp_dir)
+        on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
+
+        zip::unzip(file_info$datapath, exdir = temp_dir)
+
+        # Read metadata
+        metadata <- jsonlite::read_json(file.path(temp_dir, "metadata.json"))
+
+        # Get alignment description from metadata
+        alignment_description <- metadata$alignment$description %||% ""
+
+        # Read source_concepts.csv if exists
+        source_concepts_path <- file.path(temp_dir, "source_concepts.csv")
+        if (!file.exists(source_concepts_path)) {
+          showNotification("source_concepts.csv not found in ZIP", type = "error")
+          return()
+        }
+        source_concepts <- read.csv(source_concepts_path, stringsAsFactors = FALSE)
+
+        # Generate file_id and save source concepts
+        file_id <- paste0("import_", format(Sys.time(), "%Y%m%d%H%M%S"), "_", sample(1000:9999, 1))
+        mapping_dir <- get_app_dir("concept_mapping")
+        if (!dir.exists(mapping_dir)) dir.create(mapping_dir, recursive = TRUE)
+        csv_filename <- paste0(file_id, ".csv")
+        csv_file_path <- file.path(mapping_dir, csv_filename)
+        write.csv(source_concepts, csv_file_path, row.names = FALSE)
+
+        # Create new alignment in database
+        con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+        on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+        timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+
+        # Insert alignment
+        DBI::dbExecute(
+          con,
+          "INSERT INTO concept_alignments (name, description, file_id, created_date)
+           VALUES (?, ?, ?, ?)",
+          params = list(alignment_name, alignment_description, file_id, timestamp)
+        )
+        new_alignment_id <- DBI::dbGetQuery(con, "SELECT last_insert_rowid() as id")$id[1]
+
+        # Read mappings, evaluations, comments
+        mappings_path <- file.path(temp_dir, "mappings.csv")
+        mappings <- if (file.exists(mappings_path)) read.csv(mappings_path, stringsAsFactors = FALSE) else data.frame()
+
+        evaluations_path <- file.path(temp_dir, "evaluations.csv")
+        evaluations <- if (file.exists(evaluations_path)) read.csv(evaluations_path, stringsAsFactors = FALSE) else data.frame()
+
+        comments_path <- file.path(temp_dir, "comments.csv")
+        comments <- if (file.exists(comments_path)) read.csv(comments_path, stringsAsFactors = FALSE) else data.frame()
+
+        # Start transaction
+        DBI::dbBegin(con)
+
+        imported_mappings <- 0
+        imported_evaluations <- 0
+        imported_comments <- 0
+        skipped_mappings <- 0
+        unresolved_users <- list()  # Track users not found
+        mapping_id_map <- list()  # Maps old mapping_id to new database mapping_id
+
+        # Build lookup index for source_concepts by vocabulary_id + concept_code
+        source_lookup <- list()
+        has_vocab_code <- "vocabulary_id" %in% colnames(source_concepts) && "concept_code" %in% colnames(source_concepts)
+        if (has_vocab_code) {
+          for (i in seq_len(nrow(source_concepts))) {
+            vocab_id <- as.character(source_concepts$vocabulary_id[i])
+            code <- as.character(source_concepts$concept_code[i])
+            if (!is.na(vocab_id) && !is.na(code) && vocab_id != "" && code != "") {
+              key <- paste0(vocab_id, "|||", code)
+              source_lookup[[key]] <- i
+            }
+          }
+        }
+
+        # Import mappings with vocabulary_id + concept_code matching
+        if (nrow(mappings) > 0) {
+          for (i in seq_len(nrow(mappings))) {
+            row <- mappings[i, ]
+            old_mapping_id <- row$mapping_id
+
+            # Find row_id by matching vocabulary_id + concept_code
+            new_source_index <- NA_integer_
+
+            if (has_vocab_code && "vocabulary_id" %in% colnames(mappings) && "concept_code" %in% colnames(mappings)) {
+              vocab_id <- as.character(row$vocabulary_id)
+              code <- as.character(row$concept_code)
+              if (!is.na(vocab_id) && !is.na(code) && vocab_id != "" && code != "") {
+                key <- paste0(vocab_id, "|||", code)
+                if (!is.null(source_lookup[[key]])) {
+                  new_source_index <- source_lookup[[key]]
+                }
+              }
+            }
+
+            # Skip mapping if source concept not found in new alignment
+            if (is.na(new_source_index)) {
+              skipped_mappings <- skipped_mappings + 1
+              next
+            }
+
+            # Get target_general_concept_id if available
+            target_general_id <- if ("target_general_concept_id" %in% colnames(row) && !is.na(row$target_general_concept_id)) {
+              row$target_general_concept_id
+            } else {
+              NA_integer_
+            }
+
+            DBI::dbExecute(
+              con,
+              "INSERT INTO concept_mappings (alignment_id, csv_file_path, row_id,
+                                             target_general_concept_id, target_omop_concept_id, mapping_datetime)
+               VALUES (?, ?, ?, ?, ?, ?)",
+              params = list(
+                new_alignment_id, csv_filename, new_source_index,
+                target_general_id, row$target_omop_concept_id, timestamp
+              )
+            )
+
+            new_mapping_id <- DBI::dbGetQuery(con, "SELECT last_insert_rowid() as id")$id[1]
+            mapping_id_map[[as.character(old_mapping_id)]] <- new_mapping_id
+            imported_mappings <- imported_mappings + 1
+          }
+        }
+
+        # Helper function to resolve user by first_name + last_name
+        # Returns list(user_id, found, imported_user_name)
+        # If user not found, user_id is NA and imported_user_name contains the original name
+        resolve_user <- function(row, con) {
+          if ("user_first_name" %in% colnames(row) && "user_last_name" %in% colnames(row) &&
+              !is.na(row$user_first_name) && !is.na(row$user_last_name) &&
+              row$user_first_name != "" && row$user_last_name != "") {
+            original_name <- paste(row$user_first_name, row$user_last_name)
+            found <- DBI::dbGetQuery(
+              con,
+              "SELECT user_id FROM users WHERE first_name = ? AND last_name = ?",
+              params = list(row$user_first_name, row$user_last_name)
+            )
+            if (nrow(found) > 0) {
+              return(list(user_id = found$user_id[1], found = TRUE, imported_user_name = NA_character_))
+            } else {
+              return(list(user_id = NA_integer_, found = FALSE, imported_user_name = original_name))
+            }
+          }
+          return(list(user_id = NA_integer_, found = FALSE, imported_user_name = NA_character_))
+        }
+
+        # Import evaluations
+        if (nrow(evaluations) > 0) {
+          for (i in seq_len(nrow(evaluations))) {
+            row <- evaluations[i, ]
+            old_mapping_id <- as.character(row$mapping_id)
+            new_mapping_id <- mapping_id_map[[old_mapping_id]]
+
+            if (!is.null(new_mapping_id)) {
+              resolved <- resolve_user(row, con)
+              if (!resolved$found && !is.na(resolved$imported_user_name)) {
+                unresolved_users[[resolved$imported_user_name]] <- TRUE
+              }
+
+              DBI::dbExecute(
+                con,
+                "INSERT INTO mapping_evaluations (alignment_id, mapping_id, evaluator_user_id, imported_user_name, is_approved, evaluated_at)
+                 VALUES (?, ?, ?, ?, ?, ?)",
+                params = list(new_alignment_id, new_mapping_id, resolved$user_id, resolved$imported_user_name, row$is_approved, timestamp)
+              )
+              imported_evaluations <- imported_evaluations + 1
+            }
+          }
+        }
+
+        # Import comments
+        if (nrow(comments) > 0) {
+          for (i in seq_len(nrow(comments))) {
+            row <- comments[i, ]
+            old_mapping_id <- as.character(row$mapping_id)
+            new_mapping_id <- mapping_id_map[[old_mapping_id]]
+
+            if (!is.null(new_mapping_id)) {
+              resolved <- resolve_user(row, con)
+              if (!resolved$found && !is.na(resolved$imported_user_name)) {
+                unresolved_users[[resolved$imported_user_name]] <- TRUE
+              }
+              comment_val <- if ("comment" %in% colnames(row)) row$comment else ""
+
+              DBI::dbExecute(
+                con,
+                "INSERT INTO mapping_comments (mapping_id, user_id, imported_user_name, comment, created_at)
+                 VALUES (?, ?, ?, ?, ?)",
+                params = list(new_mapping_id, resolved$user_id, resolved$imported_user_name, comment_val, timestamp)
+              )
+              imported_comments <- imported_comments + 1
+            }
+          }
+        }
+
+        DBI::dbCommit(con)
+
+        # Hide modal
+        shinyjs::hide("import_indicate_modal")
+
+        # Show success
+        msg <- gsub("\\{name\\}", alignment_name, i18n$t("import_alignment_created"))
+        msg <- gsub("\\{mappings\\}", imported_mappings, msg)
+
+        # Add skipped mappings info if any
+        if (skipped_mappings > 0) {
+          skipped_msg <- gsub("\\{count\\}", skipped_mappings, i18n$t("mappings_skipped_no_match"))
+          msg <- paste0(msg, " (", skipped_msg, ")")
+        }
+        showNotification(msg, type = "message", duration = 10)
+
+        # Show warning if some users were not found
+        if (length(unresolved_users) > 0) {
+          unresolved_names <- names(unresolved_users)
+          warning_msg <- gsub("\\{count\\}", length(unresolved_names), i18n$t("users_not_found_warning"))
+          warning_msg <- paste0(warning_msg, ": ", paste(unresolved_names, collapse = ", "))
+          showNotification(warning_msg, type = "warning", duration = 10)
+        }
+
+        # Refresh alignments data to update the table
+        alignments_data(get_all_alignments())
+
+      }, error = function(e) {
+        showNotification(paste(i18n$t("import_failed"), e$message), type = "error")
+      })
+    })
 
     ### Edit Alignment ----
     observe_event(input$edit_alignment, {
@@ -2297,7 +2905,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
         new_df <- new_df %>% dplyr::distinct()
 
-        new_df <- cbind(mapping_id = seq_len(nrow(new_df)), new_df, stringsAsFactors = FALSE)
+        new_df <- cbind(row_id = seq_len(nrow(new_df)), new_df, stringsAsFactors = FALSE)
 
         file_id <- paste0("alignment_", format(Sys.time(), "%Y%m%d_%H%M%S"), "_", sample(1000:9999, 1))
 
@@ -2583,6 +3191,17 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       ))
     }, ignoreInit = TRUE)
 
+    ### Export - Show/Hide Filter Section Based on Format ----
+    observe_event(input$export_format_value, {
+      if (is.null(input$export_format_value)) return()
+
+      if (input$export_format_value == "indicate") {
+        shinyjs::hide("mapping_filter_section")
+      } else {
+        shinyjs::show("mapping_filter_section")
+      }
+    }, ignoreInit = TRUE)
+
     ### Export - Update Total Count ----
     # Listen to checkbox changes and trigger recalculation
     observe_event(c(
@@ -2717,11 +3336,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         not_evaluated_mappings
       ) %>% dplyr::distinct(mapping_id, .keep_all = TRUE)
 
-      if (nrow(selected_mappings) == 0) {
-        showNotification(i18n$t("no_mappings_to_export"), type = "warning")
-        return()
-      }
-
       # Get full mapping data from database
       db_dir <- get_app_dir()
       db_path <- file.path(db_dir, "indicate.db")
@@ -2750,8 +3364,68 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Get vocabulary data
       vocab_data <- vocabularies()
 
-      # Get format value (default to usagi if not yet set)
-      export_format <- if (!is.null(input$export_format_value)) input$export_format_value else "usagi"
+      # Get format value (default to source_to_concept_map if not yet set)
+      export_format <- if (!is.null(input$export_format_value)) input$export_format_value else "source_to_concept_map"
+
+      # Generate safe filename
+      safe_name <- gsub("[^a-zA-Z0-9_-]", "_", alignment_name)
+      timestamp <- format(Sys.time(), "%Y-%m-%d_%H-%M-%S")
+
+      if (export_format == "indicate") {
+        # Export in INDICATE Data Dictionary format (ZIP)
+        alignment_desc <- alignment$description[1]
+        if (is.na(alignment_desc)) alignment_desc <- ""
+
+        tryCatch({
+          zip_path <- export_indicate_format(
+            alignment_id = alignment_id,
+            alignment_name = alignment_name,
+            alignment_description = alignment_desc,
+            current_user = current_user(),
+            db_path = db_path,
+            mapping_dir = mapping_dir
+          )
+
+          filename <- paste0(safe_name, "_indicate_alignment_", timestamp, ".zip")
+
+          # Read ZIP file and encode
+          zip_content <- readBin(zip_path, "raw", file.info(zip_path)$size)
+          zip_encoded <- base64enc::base64encode(zip_content)
+          unlink(zip_path)
+
+          download_js <- sprintf(
+            "var link = document.createElement('a');
+             link.href = 'data:application/zip;base64,%s';
+             link.download = '%s';
+             link.click();",
+            zip_encoded,
+            filename
+          )
+
+          shinyjs::runjs(download_js)
+
+          # Hide modal
+          shinyjs::runjs(sprintf("$('#%s').hide();", ns("export_modal")))
+
+          showNotification(
+            i18n$t("export_successful_indicate"),
+            type = "message"
+          )
+        }, error = function(e) {
+          showNotification(
+            paste(i18n$t("export_error"), e$message),
+            type = "error"
+          )
+        })
+
+        return()
+      }
+
+      # For CSV formats, filter mappings
+      if (nrow(selected_mappings) == 0) {
+        showNotification(i18n$t("no_mappings_to_export"), type = "warning")
+        return()
+      }
 
       if (export_format == "usagi") {
         # Export in Usagi format
@@ -2767,9 +3441,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         filename_suffix <- "source_to_concept_map"
       }
 
-      # Generate filename and download
-      safe_name <- gsub("[^a-zA-Z0-9_-]", "_", alignment_name)
-      timestamp <- format(Sys.time(), "%Y-%m-%d_%H-%M-%S")
       filename <- paste0(safe_name, "_", filename_suffix, "_", timestamp, ".csv")
 
       temp_csv <- tempfile(fileext = ".csv")
@@ -2791,11 +3462,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       # Hide modal
       shinyjs::runjs(sprintf("$('#%s').hide();", ns("export_modal")))
-
-      showNotification(
-        sprintf(i18n$t("export_successful"), nrow(export_data)),
-        type = "message"
-      )
     }, ignoreInit = TRUE)
 
     ## 4) Server - Alignment Detail View ----
@@ -2894,6 +3560,13 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               i18n$t("add_alignment"),
               class = "btn-success-custom",
               icon = icon("plus")
+            ),
+            # Import INDICATE format button
+            actionButton(
+              ns("open_import_indicate_modal"),
+              i18n$t("import_indicate_format"),
+              class = "btn-primary-custom",
+              icon = icon("file-import")
             )
           )
         ),
@@ -3128,33 +3801,67 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           class = "import-mappings-panel",
           style = "margin: 0 10px 10px 10px; height: calc(100% - 10px); min-height: 0; display: none; flex-direction: column;",
 
-          # Import from CSV widget
+          # Import widget
           tags$div(
             class = "card-container",
             style = "height: 50%; overflow: auto; padding: 20px;",
             # Header with title
-            tags$h4(style = "margin-bottom: 15px; color: #0f60af;", i18n$t("import_mappings_from_csv")),
-            tags$p(
-              style = "margin-bottom: 15px; color: #666;",
-              i18n$t("import_mappings_csv_desc")
-            ),
+            tags$h4(style = "margin-bottom: 15px; color: #0f60af;", i18n$t("import_mappings")),
 
-            # File input and Import button on same line
+            # Format selector and file input row
             tags$div(
-              style = "display: flex; align-items: flex-end; gap: 15px;",
-              # File input (narrower)
+              style = "display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap;",
+
+              # Format dropdown
               tags$div(
-                style = "flex: 0 0 300px;",
-                fileInput(
-                  ns("import_file_input"),
-                  label = i18n$t("select_csv_file"),
-                  accept = c(".csv"),
+                style = "flex: 0 0 280px;",
+                tags$label(
+                  style = "display: block; margin-bottom: 5px; font-weight: 500;",
+                  i18n$t("import_format")
+                ),
+                selectInput(
+                  ns("import_format"),
+                  label = NULL,
+                  choices = stats::setNames(
+                    c("csv", "stcm", "usagi", "indicate"),
+                    c(i18n$t("import_format_csv"), i18n$t("import_format_stcm"),
+                      i18n$t("import_format_usagi"), i18n$t("import_format_indicate"))
+                  ),
+                  selected = "csv",
                   width = "100%"
                 )
               ),
+
+              # File input container (changes based on format)
+              tags$div(
+                id = ns("import_file_container"),
+                style = "flex: 0 0 300px;",
+                # CSV file input (default)
+                tags$div(
+                  id = ns("import_csv_input_wrapper"),
+                  fileInput(
+                    ns("import_file_input"),
+                    label = i18n$t("select_csv_file"),
+                    accept = c(".csv"),
+                    width = "100%"
+                  )
+                ),
+                # ZIP file input (for INDICATE format)
+                tags$div(
+                  id = ns("import_zip_input_wrapper"),
+                  style = "display: none;",
+                  fileInput(
+                    ns("import_zip_file_input"),
+                    label = i18n$t("select_zip_file"),
+                    accept = c(".zip"),
+                    width = "100%"
+                  )
+                )
+              ),
+
               # Import button
               tags$div(
-                style = "position: relative; top: -40px;",
+                style = "position: relative; top: 24px;",
                 actionButton(
                   ns("do_import_mappings"),
                   i18n$t("import_mappings"),
@@ -3162,6 +3869,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                   icon = icon("file-import")
                 )
               )
+            ),
+
+            # Validation status message
+            tags$div(
+              id = ns("import_validation_status"),
+              style = "display: none;"
             )
           ),
 
@@ -3510,7 +4223,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       # Count unique source concepts that have mappings (includes both manual and imported)
       mappings_query <- "
-        SELECT COUNT(DISTINCT csv_mapping_id) as unique_source_concepts
+        SELECT COUNT(DISTINCT row_id) as unique_source_concepts
         FROM concept_mappings
         WHERE alignment_id = ?
       "
@@ -3815,8 +4528,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         "SELECT
           cm.mapping_id,
           cm.csv_file_path,
-          cm.csv_mapping_id,
-          cm.source_concept_index,
+          cm.row_id,
           cm.target_general_concept_id,
           cm.target_omop_concept_id,
           cm.target_custom_concept_id,
@@ -3841,33 +4553,33 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         source_df <- read.csv(csv_path, stringsAsFactors = FALSE)
       }
 
-      # Enrich with source concept information by matching on mapping_id
-      if (!is.null(source_df) && "mapping_id" %in% colnames(source_df)) {
-        # Join on mapping_id column from CSV
-        source_cols <- c("mapping_id")
+      # Enrich with source concept information by matching row_id (DB) with row_id (CSV)
+      if (!is.null(source_df) && "row_id" %in% colnames(source_df)) {
+        # Join on row_id column from CSV with row_id from DB
+        source_cols <- c("row_id")
         if ("concept_name" %in% colnames(source_df)) source_cols <- c(source_cols, "concept_name")
         if ("concept_code" %in% colnames(source_df)) source_cols <- c(source_cols, "concept_code")
         if ("vocabulary_id" %in% colnames(source_df)) source_cols <- c(source_cols, "vocabulary_id")
 
         source_join_df <- source_df[, source_cols, drop = FALSE]
-        colnames(source_join_df) <- c("csv_mapping_id",
+        colnames(source_join_df) <- c("row_id",
           if ("concept_name" %in% colnames(source_df)) "concept_name_source" else NULL,
           if ("concept_code" %in% colnames(source_df)) "concept_code_source" else NULL,
           if ("vocabulary_id" %in% colnames(source_df)) "vocabulary_id_source" else NULL
         )
 
         mapped_rows <- mappings_db %>%
-          dplyr::left_join(source_join_df, by = "csv_mapping_id")
+          dplyr::left_join(source_join_df, by = "row_id")
 
         # Fill in defaults for missing columns
         if (!"concept_name_source" %in% colnames(mapped_rows)) {
           mapped_rows <- mapped_rows %>%
-            dplyr::mutate(concept_name_source = paste0("Source concept #", source_concept_index))
+            dplyr::mutate(concept_name_source = paste0("Source concept #", row_id))
         } else {
           mapped_rows <- mapped_rows %>%
             dplyr::mutate(concept_name_source = dplyr::if_else(
               is.na(concept_name_source),
-              paste0("Source concept #", source_concept_index),
+              paste0("Source concept #", row_id),
               concept_name_source
             ))
         }
@@ -3880,10 +4592,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             dplyr::mutate(vocabulary_id_source = NA_character_)
         }
       } else {
-        # Fallback for CSV without mapping_id column
+        # Fallback for CSV without row_id column
         mapped_rows <- mappings_db %>%
           dplyr::mutate(
-            concept_name_source = paste0("Source concept #", source_concept_index),
+            concept_name_source = paste0("Source concept #", row_id),
             concept_code_source = NA_character_,
             vocabulary_id_source = NA_character_
           )
@@ -4016,7 +4728,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               list(targets = 3, width = "60px", className = "dt-center"),
               list(targets = 4, width = "60px", className = "dt-center"),
               list(targets = 5, width = "60px", className = "dt-center"),
-              list(targets = 6, searchable = FALSE, orderable = FALSE, className = "dt-center")
+              list(targets = 6, width = "70px", searchable = FALSE, orderable = FALSE, className = "dt-center")
             )
           ),
           rownames = FALSE,
@@ -4066,8 +4778,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         "SELECT
           cm.mapping_id,
           cm.csv_file_path,
-          cm.csv_mapping_id,
-          cm.source_concept_index,
+          cm.row_id,
           cm.target_general_concept_id,
           cm.target_omop_concept_id,
           cm.target_custom_concept_id,
@@ -4091,33 +4802,33 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         source_df <- read.csv(csv_path, stringsAsFactors = FALSE)
       }
 
-      # Enrich with source concept information by matching on mapping_id
-      if (!is.null(source_df) && "mapping_id" %in% colnames(source_df)) {
-        # Join on mapping_id column from CSV
-        source_cols <- c("mapping_id")
+      # Enrich with source concept information by matching row_id (DB) with row_id (CSV)
+      if (!is.null(source_df) && "row_id" %in% colnames(source_df)) {
+        # Join on row_id column from CSV with row_id from DB
+        source_cols <- c("row_id")
         if ("concept_name" %in% colnames(source_df)) source_cols <- c(source_cols, "concept_name")
         if ("concept_code" %in% colnames(source_df)) source_cols <- c(source_cols, "concept_code")
         if ("vocabulary_id" %in% colnames(source_df)) source_cols <- c(source_cols, "vocabulary_id")
 
         source_join_df <- source_df[, source_cols, drop = FALSE]
-        colnames(source_join_df) <- c("csv_mapping_id",
+        colnames(source_join_df) <- c("row_id",
           if ("concept_name" %in% colnames(source_df)) "concept_name_source" else NULL,
           if ("concept_code" %in% colnames(source_df)) "concept_code_source" else NULL,
           if ("vocabulary_id" %in% colnames(source_df)) "vocabulary_id_source" else NULL
         )
 
         mapped_rows <- mappings_db %>%
-          dplyr::left_join(source_join_df, by = "csv_mapping_id")
+          dplyr::left_join(source_join_df, by = "row_id")
 
         # Fill in defaults for missing columns
         if (!"concept_name_source" %in% colnames(mapped_rows)) {
           mapped_rows <- mapped_rows %>%
-            dplyr::mutate(concept_name_source = paste0("Source concept #", source_concept_index))
+            dplyr::mutate(concept_name_source = paste0("Source concept #", row_id))
         } else {
           mapped_rows <- mapped_rows %>%
             dplyr::mutate(concept_name_source = dplyr::if_else(
               is.na(concept_name_source),
-              paste0("Source concept #", source_concept_index),
+              paste0("Source concept #", row_id),
               concept_name_source
             ))
         }
@@ -4130,10 +4841,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             dplyr::mutate(vocabulary_id_source = NA_character_)
         }
       } else {
-        # Fallback for CSV without mapping_id column
+        # Fallback for CSV without row_id column
         mapped_rows <- mappings_db %>%
           dplyr::mutate(
-            concept_name_source = paste0("Source concept #", source_concept_index),
+            concept_name_source = paste0("Source concept #", row_id),
             concept_code_source = NA_character_,
             vocabulary_id_source = NA_character_
           )
@@ -4255,7 +4966,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Get mapping details
       mapping_to_delete <- DBI::dbGetQuery(
         con,
-        "SELECT csv_file_path, csv_mapping_id FROM concept_mappings WHERE mapping_id = ?",
+        "SELECT csv_file_path, row_id FROM concept_mappings WHERE mapping_id = ?",
         params = list(mapping_id_to_delete)
       )
 
@@ -4267,13 +4978,13 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Update CSV file to remove the mapping
       csv_filename <- mapping_to_delete$csv_file_path[1]
       csv_path <- file.path(get_app_dir("concept_mapping"), csv_filename)
-      csv_mapping_id <- mapping_to_delete$csv_mapping_id[1]
+      row_id <- mapping_to_delete$row_id[1]
 
-      if (!is.na(csv_filename) && !is.na(csv_mapping_id) && file.exists(csv_path)) {
+      if (!is.na(csv_filename) && !is.na(row_id) && file.exists(csv_path)) {
         df <- read.csv(csv_path, stringsAsFactors = FALSE)
 
-        # Find the row with this mapping_id
-        row_to_clear <- which(df$mapping_id == csv_mapping_id)
+        # Find the row with this row_id
+        row_to_clear <- which(df$row_id == row_id)
 
         if (length(row_to_clear) > 0) {
           # Clear mapping columns
@@ -4333,7 +5044,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       standard_cols <- c("vocabulary_id", "concept_code", "concept_name", "statistical_summary")
       available_standard <- standard_cols[standard_cols %in% colnames(df)]
-      excluded_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime", "mapped_by_user_id", "mapping_id")
+      excluded_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime", "mapped_by_user_id", "row_id")
       other_cols <- setdiff(colnames(df), c(standard_cols, excluded_cols))
       df_final <- df[, c(available_standard, other_cols), drop = FALSE]
 
@@ -4639,23 +5350,19 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           dplyr::mutate(vocabulary_id = as.factor(vocabulary_id))
       }
 
-      # Add row index for matching with database mappings
-      df <- df %>%
-        dplyr::mutate(row_index = dplyr::row_number())
-
       # Check database for mappings (includes imported mappings)
       db_dir <- get_app_dir()
       db_path <- file.path(db_dir, "indicate.db")
-      db_mapped_indices <- integer(0)
+      db_mapped_row_ids <- integer(0)
 
       if (file.exists(db_path)) {
         con_db <- DBI::dbConnect(RSQLite::SQLite(), db_path)
         db_mappings <- DBI::dbGetQuery(
           con_db,
-          "SELECT DISTINCT csv_mapping_id FROM concept_mappings WHERE alignment_id = ?",
+          "SELECT DISTINCT row_id FROM concept_mappings WHERE alignment_id = ?",
           params = list(selected_alignment_id())
         )
-        db_mapped_indices <- db_mappings$csv_mapping_id
+        db_mapped_row_ids <- db_mappings$row_id
         DBI::dbDisconnect(con_db)
       }
 
@@ -4671,7 +5378,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (has_omop_cols) {
         csv_mapped <- csv_mapped | !is.na(df$target_omop_concept_id)
       }
-      db_mapped <- df$row_index %in% db_mapped_indices
+      db_mapped <- df$row_id %in% db_mapped_row_ids
 
       df <- df %>%
         dplyr::mutate(
@@ -4679,12 +5386,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             ifelse(csv_mapped | db_mapped, "Yes", "No"),
             levels = c("Yes", "No")
           )
-        ) %>%
-        dplyr::select(-row_index)
+        )
 
       standard_cols <- c("vocabulary_id", "concept_code", "concept_name", "statistical_summary")
       available_standard <- standard_cols[standard_cols %in% colnames(df)]
-      target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime", "mapped_by_user_id", "mapping_id")
+      target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime", "mapped_by_user_id", "row_id")
       other_cols <- setdiff(colnames(df), c(standard_cols, target_cols, "Mapped"))
       df_display <- df[, c(available_standard, other_cols, "Mapped"), drop = FALSE]
 
@@ -4698,16 +5404,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       mapped_col_index <- which(colnames(df_display) == "Mapped") - 1
 
-      # Find JSON column index to hide by default
-      json_col_index <- which(colnames(df_display) == "json") - 1
-
       # Build columnDefs list
       column_defs <- list(
         list(targets = mapped_col_index, width = "80px", className = "dt-center")
       )
 
       # Hide JSON column by default if it exists
-      if (length(json_col_index) > 0) {
+      if ("json" %in% colnames(df_display)) {
+        json_col_index <- which(colnames(df_display) == "json") - 1
         column_defs <- c(column_defs, list(
           list(targets = json_col_index, visible = FALSE)
         ))
@@ -4777,23 +5481,19 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           dplyr::mutate(vocabulary_id = as.factor(vocabulary_id))
       }
 
-      # Add row index for matching with database mappings
-      df <- df %>%
-        dplyr::mutate(row_index = dplyr::row_number())
-
       # Check database for mappings (includes imported mappings)
       db_dir <- get_app_dir()
       db_path <- file.path(db_dir, "indicate.db")
-      db_mapped_indices <- integer(0)
+      db_mapped_row_ids <- integer(0)
 
       if (file.exists(db_path)) {
         con_db <- DBI::dbConnect(RSQLite::SQLite(), db_path)
         db_mappings <- DBI::dbGetQuery(
           con_db,
-          "SELECT DISTINCT csv_mapping_id FROM concept_mappings WHERE alignment_id = ?",
+          "SELECT DISTINCT row_id FROM concept_mappings WHERE alignment_id = ?",
           params = list(selected_alignment_id())
         )
-        db_mapped_indices <- db_mappings$csv_mapping_id
+        db_mapped_row_ids <- db_mappings$row_id
         DBI::dbDisconnect(con_db)
       }
 
@@ -4809,7 +5509,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (has_omop_cols) {
         csv_mapped <- csv_mapped | !is.na(df$target_omop_concept_id)
       }
-      db_mapped <- df$row_index %in% db_mapped_indices
+      db_mapped <- df$row_id %in% db_mapped_row_ids
 
       df <- df %>%
         dplyr::mutate(
@@ -4817,12 +5517,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             ifelse(csv_mapped | db_mapped, "Yes", "No"),
             levels = c("Yes", "No")
           )
-        ) %>%
-        dplyr::select(-row_index)
+        )
 
       standard_cols <- c("vocabulary_id", "concept_code", "concept_name", "statistical_summary")
       available_standard <- standard_cols[standard_cols %in% colnames(df)]
-      target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime", "mapped_by_user_id", "mapping_id")
+      target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime", "mapped_by_user_id", "row_id")
       other_cols <- setdiff(colnames(df), c(standard_cols, target_cols, "Mapped"))
       df_display <- df[, c(available_standard, other_cols, "Mapped"), drop = FALSE]
 
@@ -5636,7 +6335,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     render_source_other_columns <- function(row_data, json_data = NULL) {
       # Standard columns that are not displayed in the "Other" tab
       standard_cols <- c(
-        "mapping_id", "vocabulary_id", "concept_code", "concept_name", "json"
+        "row_id", "vocabulary_id", "concept_code", "concept_name", "json"
       )
 
       # Standard JSON fields that are displayed in other tabs
@@ -6765,24 +7464,25 @@ Data distribution by hospital unit/ward.
         }
       }
       
-      csv_mapping_id <- df$mapping_id[source_row]
+      # Get the actual row_id from the CSV (not the table row index)
+      csv_row_id <- df$row_id[source_row]
 
       con <- get_db_connection()
       on.exit(DBI::dbDisconnect(con), add = TRUE)
 
       # Check if this exact mapping already exists (same source + same target)
-      # Use source_concept_index to match both manual and imported mappings
+      # Use row_id to match both manual and imported mappings
       existing_exact <- DBI::dbGetQuery(
         con,
         "SELECT mapping_id FROM concept_mappings
          WHERE alignment_id = ?
-           AND source_concept_index = ?
+           AND row_id = ?
            AND target_general_concept_id = ?
            AND (target_omop_concept_id = ? OR (target_omop_concept_id IS NULL AND ? IS NULL))
            AND (target_custom_concept_id = ? OR (target_custom_concept_id IS NULL AND ? IS NULL))",
         params = list(
           selected_alignment_id(),
-          source_row,
+          csv_row_id,
           target_general_concept_id,
           target_omop_concept_id, target_omop_concept_id,
           target_custom_concept_id, target_custom_concept_id
@@ -6807,19 +7507,17 @@ Data distribution by hospital unit/ward.
         "INSERT INTO concept_mappings (
           alignment_id,
           csv_file_path,
-          csv_mapping_id,
-          source_concept_index,
+          row_id,
           target_general_concept_id,
           target_omop_concept_id,
           target_custom_concept_id,
           mapped_by_user_id,
           mapping_datetime
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
         params = list(
           selected_alignment_id(),
           csv_filename,
-          csv_mapping_id,
-          source_row,
+          csv_row_id,
           target_general_concept_id,
           target_omop_concept_id,
           target_custom_concept_id,
@@ -6902,128 +7600,129 @@ Data distribution by hospital unit/ward.
 
       # Prepare data outside renderDT
       db_dir <- get_app_dir()
-        db_path <- file.path(db_dir, "indicate.db")
+      db_path <- file.path(db_dir, "indicate.db")
 
-        if (!file.exists(db_path)) return()
+      if (!file.exists(db_path)) return()
 
-        con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
-        on.exit(DBI::dbDisconnect(con), add = TRUE)
+      con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
 
-        # Get all mappings with evaluation status for current user and comment count
-        query <- "
-          SELECT
-            cm.mapping_id,
-            cm.source_concept_index,
-            cm.target_general_concept_id,
-            cm.target_omop_concept_id,
-            cm.target_custom_concept_id,
-            cm.csv_file_path,
-            cm.csv_mapping_id,
-            cm.imported_mapping_id,
-            cm.mapping_datetime,
-            cm.mapped_by_user_id,
-            me.is_approved,
-            me.comment,
-            COALESCE((SELECT COUNT(*) FROM mapping_comments mc WHERE mc.mapping_id = cm.mapping_id), 0) as comments_count
-          FROM concept_mappings cm
-          LEFT JOIN mapping_evaluations me
-            ON cm.mapping_id = me.mapping_id
-            AND me.evaluator_user_id = ?
-          WHERE cm.alignment_id = ?
-        "
+      # Get all mappings with evaluation status for current user and comment count
+      query <- "
+        SELECT
+          cm.mapping_id,
+          cm.row_id,
+          cm.target_general_concept_id,
+          cm.target_omop_concept_id,
+          cm.target_custom_concept_id,
+          cm.csv_file_path,
+          cm.imported_mapping_id,
+          cm.mapping_datetime,
+          cm.mapped_by_user_id,
+          me.is_approved,
+          me.comment,
+          COALESCE((SELECT COUNT(*) FROM mapping_comments mc WHERE mc.mapping_id = cm.mapping_id), 0) as comments_count
+        FROM concept_mappings cm
+        LEFT JOIN mapping_evaluations me
+          ON cm.mapping_id = me.mapping_id
+          AND me.evaluator_user_id = ?
+        WHERE cm.alignment_id = ?
+      "
 
-        mappings_db <- DBI::dbGetQuery(
-          con,
-          query,
-          params = list(current_user()$user_id, selected_alignment_id())
+      mappings_db <- DBI::dbGetQuery(
+        con,
+        query,
+        params = list(current_user()$user_id, selected_alignment_id())
+      )
+
+      if (nrow(mappings_db) == 0) {
+        output$evaluate_mappings_table <- DT::renderDT({
+          create_empty_datatable("No mappings created yet.")
+        }, server = TRUE)
+        return()
+      }
+
+      # Read CSV to get source concept names (if file exists)
+      csv_filename <- mappings_db$csv_file_path[1]
+      csv_path <- file.path(get_app_dir("concept_mapping"), csv_filename)
+
+      df <- NULL
+      if (!is.na(csv_filename) && file.exists(csv_path)) {
+        df <- read.csv(csv_path, stringsAsFactors = FALSE)
+      }
+
+      # Enrich with source concept information by matching row_id (DB) with row_id (CSV)
+      if (!is.null(df) && "row_id" %in% colnames(df)) {
+        # Join on row_id column from CSV with row_id from DB
+        source_cols <- c("row_id")
+        if ("concept_name" %in% colnames(df)) source_cols <- c(source_cols, "concept_name")
+        if ("concept_code" %in% colnames(df)) source_cols <- c(source_cols, "concept_code")
+        if ("vocabulary_id" %in% colnames(df)) source_cols <- c(source_cols, "vocabulary_id")
+
+        source_df <- df[, source_cols, drop = FALSE]
+        colnames(source_df) <- c("row_id",
+          if ("concept_name" %in% colnames(df)) "source_concept_name" else NULL,
+          if ("concept_code" %in% colnames(df)) "source_concept_code" else NULL,
+          if ("vocabulary_id" %in% colnames(df)) "source_vocabulary_id" else NULL
         )
 
-        if (nrow(mappings_db) == 0) {
-          output$evaluate_mappings_table <- DT::renderDT({
-            create_empty_datatable("No mappings created yet.")
-          }, server = TRUE)
-          return()
-        }
+        enriched_data <- mappings_db %>%
+          dplyr::left_join(source_df, by = "row_id")
 
-        # Read CSV to get source concept names (if file exists)
-        csv_filename <- mappings_db$csv_file_path[1]
-        csv_path <- file.path(get_app_dir("concept_mapping"), csv_filename)
-        df <- NULL
-        if (!is.na(csv_filename) && file.exists(csv_path)) {
-          df <- read.csv(csv_path, stringsAsFactors = FALSE)
-        }
-
-        # Enrich with source concept information by matching on mapping_id
-        if (!is.null(df) && "mapping_id" %in% colnames(df)) {
-          # Join on mapping_id column from CSV
-          source_cols <- c("mapping_id")
-          if ("concept_name" %in% colnames(df)) source_cols <- c(source_cols, "concept_name")
-          if ("concept_code" %in% colnames(df)) source_cols <- c(source_cols, "concept_code")
-          if ("vocabulary_id" %in% colnames(df)) source_cols <- c(source_cols, "vocabulary_id")
-
-          source_df <- df[, source_cols, drop = FALSE]
-          colnames(source_df) <- c("csv_mapping_id",
-            if ("concept_name" %in% colnames(df)) "source_concept_name" else NULL,
-            if ("concept_code" %in% colnames(df)) "source_concept_code" else NULL,
-            if ("vocabulary_id" %in% colnames(df)) "source_vocabulary_id" else NULL
-          )
-
-          enriched_data <- mappings_db %>%
-            dplyr::left_join(source_df, by = "csv_mapping_id")
-
-          # Fill in defaults for missing columns
-          if (!"source_concept_name" %in% colnames(enriched_data)) {
-            enriched_data <- enriched_data %>%
-              dplyr::mutate(source_concept_name = paste0("Source concept #", source_concept_index))
-          } else {
-            enriched_data <- enriched_data %>%
-              dplyr::mutate(source_concept_name = dplyr::if_else(
-                is.na(source_concept_name),
-                paste0("Source concept #", source_concept_index),
-                source_concept_name
-              ))
-          }
-          if (!"source_concept_code" %in% colnames(enriched_data)) {
-            enriched_data <- enriched_data %>%
-              dplyr::mutate(source_concept_code = NA_character_)
-          }
-          if (!"source_vocabulary_id" %in% colnames(enriched_data)) {
-            enriched_data <- enriched_data %>%
-              dplyr::mutate(source_vocabulary_id = NA_character_)
-          }
+        # Fill in defaults for missing columns
+        if (!"source_concept_name" %in% colnames(enriched_data)) {
+          enriched_data <- enriched_data %>%
+            dplyr::mutate(source_concept_name = paste0("Source concept #", row_id))
         } else {
-          # Fallback for CSV without mapping_id column
-          enriched_data <- mappings_db %>%
-            dplyr::mutate(
-              source_concept_name = paste0("Source concept #", source_concept_index),
-              source_concept_code = NA_character_,
-              source_vocabulary_id = NA_character_
-            )
+          enriched_data <- enriched_data %>%
+            dplyr::mutate(source_concept_name = dplyr::if_else(
+              is.na(source_concept_name),
+              paste0("Source concept #", row_id),
+              source_concept_name
+            ))
         }
-
-        # Enrich with target general concept information
-        general_concepts <- data()$general_concepts
-        enriched_data <- enriched_data %>%
-          dplyr::left_join(
-            general_concepts %>%
-              dplyr::select(general_concept_id, target_general_concept_name = general_concept_name),
-            by = c("target_general_concept_id" = "general_concept_id")
-          )
-
-        # Enrich with target concept info (OMOP or custom)
-        enriched_data <- enrich_target_concepts(enriched_data, vocabularies(), data())
-
-        # Add status column
-        enriched_data <- enriched_data %>%
+        if (!"source_concept_code" %in% colnames(enriched_data)) {
+          enriched_data <- enriched_data %>%
+            dplyr::mutate(source_concept_code = NA_character_)
+        }
+        if (!"source_vocabulary_id" %in% colnames(enriched_data)) {
+          enriched_data <- enriched_data %>%
+            dplyr::mutate(source_vocabulary_id = NA_character_)
+        }
+      } else {
+        # Fallback for CSV without row_id column
+        enriched_data <- mappings_db %>%
           dplyr::mutate(
-            status = dplyr::case_when(
-              is.na(is_approved) ~ as.character(i18n$t("not_evaluated")),
-              is_approved == 1 ~ as.character(i18n$t("approved")),
-              is_approved == 0 ~ as.character(i18n$t("rejected")),
-              is_approved == -1 ~ as.character(i18n$t("uncertain")),
-              TRUE ~ as.character(i18n$t("not_evaluated"))
-            )
+            source_concept_name = paste0("Source concept #", row_id),
+            source_concept_code = NA_character_,
+            source_vocabulary_id = NA_character_
           )
+      }
+
+      # Enrich with target general concept information
+      general_concepts <- data()$general_concepts
+
+      enriched_data <- enriched_data %>%
+        dplyr::left_join(
+          general_concepts %>%
+            dplyr::select(general_concept_id, target_general_concept_name = general_concept_name),
+          by = c("target_general_concept_id" = "general_concept_id")
+        )
+
+      # Enrich with target concept info (OMOP or custom)
+      enriched_data <- enrich_target_concepts(enriched_data, vocabularies(), data())
+
+      # Add status column
+      enriched_data <- enriched_data %>%
+        dplyr::mutate(
+          status = dplyr::case_when(
+            is.na(is_approved) ~ as.character(i18n$t("not_evaluated")),
+            is_approved == 1 ~ as.character(i18n$t("approved")),
+            is_approved == 0 ~ as.character(i18n$t("rejected")),
+            is_approved == -1 ~ as.character(i18n$t("uncertain")),
+            TRUE ~ as.character(i18n$t("not_evaluated"))
+          )
+        )
 
         # Add row index for actions
         enriched_data <- enriched_data %>%
@@ -7106,8 +7805,7 @@ Data distribution by hospital unit/ward.
           ) %>%
           dplyr::select(
             mapping_id,
-            source_concept_index,
-            csv_mapping_id,
+            row_id,
             csv_file_path,
             target_general_concept_id,
             target_omop_concept_id,
@@ -7138,19 +7836,18 @@ Data distribution by hospital unit/ward.
             stateSave = TRUE,
             language = get_datatable_language(),
             columnDefs = list(
-              list(targets = 0:5, visible = FALSE),
+              list(targets = 0:4, visible = FALSE),
+              list(targets = 5, width = "25%"),
               list(targets = 6, width = "25%"),
-              list(targets = 7, width = "25%"),
-              list(targets = 8, width = "8%", className = "dt-center"),
-              list(targets = 9, width = "12%"),
-              list(targets = 10, width = "10%"),
-              list(targets = 11, width = "20%", orderable = FALSE, searchable = FALSE, className = "dt-center no-select")
+              list(targets = 7, width = "8%", className = "dt-center"),
+              list(targets = 8, width = "12%"),
+              list(targets = 9, width = "10%"),
+              list(targets = 10, width = "20%", orderable = FALSE, searchable = FALSE, className = "dt-center no-select")
             )
           ),
           colnames = c(
             "ID",
-            "source_concept_index",
-            "csv_mapping_id",
+            "row_id",
             "csv_file_path",
             "target_general_concept_id",
             "target_omop_concept_id",
@@ -7199,12 +7896,11 @@ Data distribution by hospital unit/ward.
       query <- "
         SELECT
           cm.mapping_id,
-          cm.source_concept_index,
+          cm.row_id,
           cm.target_general_concept_id,
           cm.target_omop_concept_id,
           cm.target_custom_concept_id,
           cm.csv_file_path,
-          cm.csv_mapping_id,
           cm.imported_mapping_id,
           cm.mapping_datetime,
           cm.mapped_by_user_id,
@@ -7239,22 +7935,22 @@ Data distribution by hospital unit/ward.
         dplyr::rowwise() %>%
         dplyr::mutate(
           source_concept_name = {
-            if (!is.null(df) && csv_mapping_id <= nrow(df) && "concept_name" %in% colnames(df)) {
-              df$concept_name[csv_mapping_id]
+            if (!is.null(df) && row_id <= nrow(df) && "concept_name" %in% colnames(df)) {
+              df$concept_name[row_id]
             } else {
-              paste0("Source concept #", source_concept_index)
+              paste0("Source concept #", row_id)
             }
           },
           source_concept_code = {
-            if (!is.null(df) && csv_mapping_id <= nrow(df) && "concept_code" %in% colnames(df)) {
-              df$concept_code[csv_mapping_id]
+            if (!is.null(df) && row_id <= nrow(df) && "concept_code" %in% colnames(df)) {
+              df$concept_code[row_id]
             } else {
               NA_character_
             }
           },
           source_vocabulary_id = {
-            if (!is.null(df) && csv_mapping_id <= nrow(df) && "vocabulary_id" %in% colnames(df)) {
-              df$vocabulary_id[csv_mapping_id]
+            if (!is.null(df) && row_id <= nrow(df) && "vocabulary_id" %in% colnames(df)) {
+              df$vocabulary_id[row_id]
             } else {
               NA_character_
             }
@@ -7367,8 +8063,7 @@ Data distribution by hospital unit/ward.
         ) %>%
         dplyr::select(
           mapping_id,
-          source_concept_index,
-          csv_mapping_id,
+          row_id,
           csv_file_path,
           target_general_concept_id,
           target_omop_concept_id,
@@ -7508,7 +8203,7 @@ Data distribution by hospital unit/ward.
       comments_data <- DBI::dbGetQuery(
         con,
         "SELECT mc.comment_id, mc.comment, mc.evaluation_status, mc.created_at, mc.user_id,
-                u.first_name, u.last_name
+                mc.imported_user_name, u.first_name, u.last_name
          FROM mapping_comments mc
          LEFT JOIN users u ON mc.user_id = u.user_id
          WHERE mc.mapping_id = ?
@@ -7531,8 +8226,12 @@ Data distribution by hospital unit/ward.
       comments_html <- sapply(seq_len(nrow(comments_data)), function(i) {
         row <- comments_data[i, ]
 
-        # Format user name
-        user_name <- paste(row$first_name, row$last_name)
+        # Format user name: use imported_user_name if user_id is NULL
+        if (is.na(row$user_id) && !is.na(row$imported_user_name) && row$imported_user_name != "") {
+          user_name <- paste0(row$imported_user_name, " (", i18n$t("imported"), ")")
+        } else {
+          user_name <- paste(row$first_name, row$last_name)
+        }
 
         # Format date
         date_str <- row$created_at
@@ -7764,11 +8463,10 @@ Data distribution by hospital unit/ward.
       query <- "
         SELECT
           cm.mapping_id,
-          cm.source_concept_index,
+          cm.row_id,
           cm.target_general_concept_id,
           cm.target_omop_concept_id,
-          cm.csv_file_path,
-          cm.csv_mapping_id
+          cm.csv_file_path
         FROM concept_mappings cm
         WHERE cm.alignment_id = ?
       "
@@ -7782,18 +8480,18 @@ Data distribution by hospital unit/ward.
       # Load source concept JSON data
       csv_filename <- selected_mapping$csv_file_path
       csv_path <- file.path(get_app_dir("concept_mapping"), csv_filename)
-      csv_mapping_id <- selected_mapping$csv_mapping_id
+      row_id <- selected_mapping$row_id
 
       if (!is.na(csv_filename) && file.exists(csv_path)) {
         df <- read.csv(csv_path, stringsAsFactors = FALSE)
 
-        if (csv_mapping_id <= nrow(df)) {
-          row_data <- df[csv_mapping_id, ]
+        if (row_id <= nrow(df)) {
+          row_data <- df[row_id, ]
           eval_source_row(row_data)
 
           # Check if json column exists
           if ("json" %in% colnames(df)) {
-            json_str <- df$json[csv_mapping_id]
+            json_str <- df$json[row_id]
             if (!is.null(json_str) && !is.na(json_str) && json_str != "") {
               json_data <- tryCatch(
                 jsonlite::fromJSON(json_str),
@@ -8214,6 +8912,538 @@ Data distribution by hospital unit/ward.
 
     ### c) Import Mappings Tab ----
 
+    #### Validated Import Function (STCM, Usagi) ----
+    do_validated_import <- function(file_path, alignment_id, user, i18n) {
+      format <- input$import_format
+      validation <- import_validation_result()
+
+      if (is.null(validation) || !validation$valid) {
+        show_import_status(i18n$t("import_validation_error"), "error")
+        return()
+      }
+
+      # Read the file
+      import_data <- tryCatch({
+        read.csv(file_path, stringsAsFactors = FALSE)
+      }, error = function(e) {
+        show_import_status(paste(i18n$t("error_reading_csv"), e$message), "error")
+        return(NULL)
+      })
+
+      if (is.null(import_data)) return()
+
+      # Map columns based on format
+      col_mapping <- validation$column_mapping
+
+      # Rename columns to standard names
+      colnames(import_data)[colnames(import_data) == col_mapping$source_code] <- "source_code"
+      if (!is.null(col_mapping$source_vocabulary_id)) {
+        colnames(import_data)[colnames(import_data) == col_mapping$source_vocabulary_id] <- "source_vocabulary_id"
+      } else {
+        import_data$source_vocabulary_id <- ""
+      }
+      colnames(import_data)[colnames(import_data) == col_mapping$target_concept_id] <- "target_concept_id"
+
+      # Convert target_concept_id to integer
+      target_values <- import_data$target_concept_id
+      numeric_values <- suppressWarnings(as.numeric(target_values))
+      invalid_count <- sum(is.na(numeric_values) & !is.na(target_values))
+
+      if (invalid_count > 0) {
+        showNotification(
+          paste(i18n$t("import_validation_error"), "target_concept_id", i18n$t("contains_non_numeric_values")),
+          type = "error"
+        )
+        return()
+      }
+
+      import_data$target_concept_id <- as.integer(numeric_values)
+
+      # Get database connection
+      db_dir <- get_app_dir()
+      db_path <- file.path(db_dir, "indicate.db")
+
+      if (!file.exists(db_path)) {
+        showNotification(i18n$t("database_not_found"), type = "error")
+        return()
+      }
+
+      con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+      # Get the alignment's CSV file path
+      alignment_info <- DBI::dbGetQuery(
+        con,
+        "SELECT file_id FROM concept_alignments WHERE alignment_id = ?",
+        params = list(alignment_id)
+      )
+
+      if (nrow(alignment_info) == 0) {
+        showNotification(i18n$t("alignment_not_found"), type = "error")
+        return()
+      }
+
+      file_id <- alignment_info$file_id[1]
+      csv_filename <- paste0(file_id, ".csv")
+      csv_file_path <- file.path(get_app_dir("concept_mapping"), csv_filename)
+
+      # Check if alignment source file exists
+      has_source_file <- file.exists(csv_file_path)
+      source_data <- NULL
+      if (has_source_file) {
+        source_data <- read.csv(csv_file_path, stringsAsFactors = FALSE)
+      }
+
+      # Start transaction
+      DBI::dbBegin(con)
+
+      tryCatch({
+        import_mode <- format
+        timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+        user_id <- user$user_id
+        imported_count <- 0
+
+        # Create import record
+        original_filename <- basename(file_path)
+        DBI::dbExecute(
+          con,
+          "INSERT INTO imported_mappings (alignment_id, original_filename, import_mode, concepts_count, imported_by_user_id, imported_at)
+           VALUES (?, ?, ?, 0, ?, ?)",
+          params = list(alignment_id, original_filename, import_mode, user_id, timestamp)
+        )
+
+        import_id <- DBI::dbGetQuery(con, "SELECT last_insert_rowid() as id")$id[1]
+
+        # Process each row
+        skipped_count <- 0
+        for (i in seq_len(nrow(import_data))) {
+          row <- import_data[i, ]
+          source_code <- as.character(row$source_code)
+          target_concept_id <- as.integer(row$target_concept_id)
+
+          # Skip rows with invalid target_concept_id
+          if (is.na(target_concept_id) || target_concept_id == 0) {
+            skipped_count <- skipped_count + 1
+            next
+          }
+
+          # Find source row_id by matching vocabulary_id + concept_code
+          source_row_id <- NA_integer_
+          source_vocab_id <- as.character(row$source_vocabulary_id)
+
+          # If we have source data, try to find matching row by vocabulary_id + concept_code
+          if (!is.null(source_data) && "row_id" %in% colnames(source_data)) {
+            # Match on vocabulary_id + concept_code
+            if ("vocabulary_id" %in% colnames(source_data) && "concept_code" %in% colnames(source_data)) {
+              matching_rows <- source_data[
+                source_data$vocabulary_id == source_vocab_id &
+                source_data$concept_code == source_code, ]
+              if (nrow(matching_rows) > 0) {
+                source_row_id <- matching_rows$row_id[1]
+              }
+            }
+
+            # Fallback: match on concept_code only if no vocabulary match
+            if (is.na(source_row_id)) {
+              matching_rows <- source_data[
+                source_data$concept_code == source_code |
+                (if ("source_code" %in% colnames(source_data)) source_data$source_code == source_code else rep(FALSE, nrow(source_data))), ]
+              if (nrow(matching_rows) > 0) {
+                source_row_id <- matching_rows$row_id[1]
+              }
+            }
+          }
+
+          # Skip if no matching source concept found
+          if (is.na(source_row_id)) {
+            skipped_count <- skipped_count + 1
+            next
+          }
+
+          # Check if this exact mapping already exists
+          existing_exact <- DBI::dbGetQuery(
+            con,
+            "SELECT mapping_id FROM concept_mappings
+             WHERE alignment_id = ? AND csv_file_path = ? AND row_id = ?
+               AND target_omop_concept_id = ?",
+            params = list(alignment_id, csv_filename, source_row_id, target_concept_id)
+          )
+
+          if (nrow(existing_exact) > 0) {
+            skipped_count <- skipped_count + 1
+            next
+          }
+
+          # Insert new mapping
+          DBI::dbExecute(
+            con,
+            "INSERT INTO concept_mappings (alignment_id, csv_file_path, row_id,
+                                           target_omop_concept_id, imported_mapping_id, mapping_datetime)
+             VALUES (?, ?, ?, ?, ?, ?)",
+            params = list(alignment_id, csv_filename, source_row_id, target_concept_id, import_id, timestamp)
+          )
+
+          imported_count <- imported_count + 1
+        }
+
+        # Update import record with actual count
+        DBI::dbExecute(
+          con,
+          "UPDATE imported_mappings SET concepts_count = ? WHERE import_id = ?",
+          params = list(imported_count, import_id)
+        )
+
+        DBI::dbCommit(con)
+
+        # Build success message
+        msg <- gsub("\\{count\\}", imported_count, i18n$t("successfully_imported_mappings"))
+        if (skipped_count > 0) {
+          msg <- paste0(msg, " (", gsub("\\{count\\}", skipped_count, i18n$t("duplicates_skipped")), ")")
+        }
+
+        # Show in validation banner
+        show_import_status(msg, "success")
+
+        # Refresh history and mappings tables
+        import_history_trigger(import_history_trigger() + 1)
+        source_concepts_table_trigger(source_concepts_table_trigger() + 1)
+        summary_trigger(summary_trigger() + 1)
+        mappings_refresh_trigger(mappings_refresh_trigger() + 1)
+        all_mappings_table_trigger(all_mappings_table_trigger() + 1)
+        evaluate_mappings_table_trigger(evaluate_mappings_table_trigger() + 1)
+
+        # Reset file input
+        import_selected_file(NULL)
+        import_csv_data(NULL)
+        import_csv_columns(NULL)
+        import_validation_result(NULL)
+
+      }, error = function(e) {
+        DBI::dbRollback(con)
+        show_import_status(paste(i18n$t("import_failed"), e$message), "error")
+      })
+    }
+
+    #### INDICATE Import Function ----
+    do_indicate_import <- function(zip_path, alignment_id, user, i18n) {
+      if (!file.exists(zip_path)) {
+        show_import_status(i18n$t("import_validation_error"), "error")
+        return()
+      }
+
+      # Extract ZIP
+      temp_dir <- tempfile(pattern = "indicate_import_")
+      dir.create(temp_dir)
+      on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
+
+      tryCatch({
+        zip::unzip(zip_path, exdir = temp_dir)
+
+        # Read metadata
+        metadata <- jsonlite::read_json(file.path(temp_dir, "metadata.json"))
+
+        # Read mappings
+        mappings_path <- file.path(temp_dir, "mappings.csv")
+        mappings <- if (file.exists(mappings_path)) {
+          read.csv(mappings_path, stringsAsFactors = FALSE)
+        } else {
+          data.frame()
+        }
+
+        # Read evaluations
+        evaluations_path <- file.path(temp_dir, "evaluations.csv")
+        evaluations <- if (file.exists(evaluations_path)) {
+          read.csv(evaluations_path, stringsAsFactors = FALSE)
+        } else {
+          data.frame()
+        }
+
+        # Read comments
+        comments_path <- file.path(temp_dir, "comments.csv")
+        comments <- if (file.exists(comments_path)) {
+          read.csv(comments_path, stringsAsFactors = FALSE)
+        } else {
+          data.frame()
+        }
+
+        # Get database connection
+        db_dir <- get_app_dir()
+        db_path <- file.path(db_dir, "indicate.db")
+
+        if (!file.exists(db_path)) {
+          showNotification(i18n$t("database_not_found"), type = "error")
+          return()
+        }
+
+        con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+        on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+        # Get alignment info
+        alignment_info <- DBI::dbGetQuery(
+          con,
+          "SELECT file_id FROM concept_alignments WHERE alignment_id = ?",
+          params = list(alignment_id)
+        )
+
+        if (nrow(alignment_info) == 0) {
+          showNotification(i18n$t("alignment_not_found"), type = "error")
+          return()
+        }
+
+        file_id <- alignment_info$file_id[1]
+        csv_filename <- paste0(file_id, ".csv")
+        csv_file_path <- file.path(get_app_dir("concept_mapping"), csv_filename)
+
+        # Load existing source CSV to check for duplicates
+        existing_source <- NULL
+        if (file.exists(csv_file_path)) {
+          existing_source <- read.csv(csv_file_path, stringsAsFactors = FALSE)
+        }
+
+        # Get existing mappings for this alignment
+        existing_mappings <- DBI::dbGetQuery(
+          con,
+          "SELECT row_id, target_omop_concept_id FROM concept_mappings WHERE alignment_id = ?",
+          params = list(alignment_id)
+        )
+
+        # Build set of existing (vocabulary_id, concept_code, target_omop_concept_id) combinations
+        existing_combos <- list()
+        if (!is.null(existing_source) && nrow(existing_mappings) > 0) {
+          for (j in seq_len(nrow(existing_mappings))) {
+            idx <- existing_mappings$row_id[j]
+            target_id <- existing_mappings$target_omop_concept_id[j]
+            if (!is.na(idx) && idx >= 1 && idx <= nrow(existing_source)) {
+              src_row <- existing_source[idx, ]
+              vocab_id <- if ("vocabulary_id" %in% colnames(src_row)) as.character(src_row$vocabulary_id) else ""
+              concept_code <- if ("concept_code" %in% colnames(src_row)) as.character(src_row$concept_code) else ""
+              combo_key <- paste(vocab_id, concept_code, target_id, sep = "|||")
+              existing_combos[[combo_key]] <- TRUE
+            }
+          }
+        }
+
+        # Start transaction
+        DBI::dbBegin(con)
+
+        timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+        user_id <- user$user_id
+        imported_mappings <- 0
+        imported_evaluations <- 0
+        imported_comments <- 0
+        skipped_duplicates <- 0
+        skipped_no_match <- 0
+        unresolved_users <- list()  # Track users not found
+
+        # Build lookup index for existing_source by vocabulary_id + concept_code
+        source_lookup <- list()
+        has_vocab_code <- !is.null(existing_source) &&
+                          "vocabulary_id" %in% colnames(existing_source) &&
+                          "concept_code" %in% colnames(existing_source)
+        if (has_vocab_code) {
+          for (j in seq_len(nrow(existing_source))) {
+            v_id <- as.character(existing_source$vocabulary_id[j])
+            c_code <- as.character(existing_source$concept_code[j])
+            if (!is.na(v_id) && !is.na(c_code) && v_id != "" && c_code != "") {
+              lookup_key <- paste0(v_id, "|||", c_code)
+              source_lookup[[lookup_key]] <- j
+            }
+          }
+        }
+
+        # Create import record
+        DBI::dbExecute(
+          con,
+          "INSERT INTO imported_mappings (alignment_id, original_filename, import_mode, concepts_count, imported_by_user_id, imported_at)
+           VALUES (?, ?, ?, 0, ?, ?)",
+          params = list(alignment_id, basename(zip_path), "indicate", user_id, timestamp)
+        )
+        import_id <- DBI::dbGetQuery(con, "SELECT last_insert_rowid() as id")$id[1]
+
+        # Map old mapping_id to new database mapping_id for evaluations/comments
+        mapping_id_map <- list()
+
+        # Import mappings
+        if (nrow(mappings) > 0) {
+          for (i in seq_len(nrow(mappings))) {
+            row <- mappings[i, ]
+            old_mapping_id <- row$mapping_id
+
+            # Get vocabulary_id and concept_code from imported mapping
+            vocab_id <- if ("vocabulary_id" %in% colnames(row) && !is.na(row$vocabulary_id)) as.character(row$vocabulary_id) else ""
+            concept_code <- if ("concept_code" %in% colnames(row) && !is.na(row$concept_code)) as.character(row$concept_code) else ""
+            target_id <- row$target_omop_concept_id
+
+            # Find row_id by matching vocabulary_id + concept_code
+            new_source_index <- NA_integer_
+            if (has_vocab_code && vocab_id != "" && concept_code != "") {
+              lookup_key <- paste0(vocab_id, "|||", concept_code)
+              if (!is.null(source_lookup[[lookup_key]])) {
+                new_source_index <- source_lookup[[lookup_key]]
+              }
+            }
+
+            # Skip mapping if source concept not found in current alignment
+            if (is.na(new_source_index)) {
+              skipped_no_match <- skipped_no_match + 1
+              next
+            }
+
+            # Check for duplicate using vocabulary_id, concept_code, target_omop_concept_id
+            combo_key <- paste(vocab_id, concept_code, target_id, sep = "|||")
+
+            if (!is.null(existing_combos[[combo_key]])) {
+              skipped_duplicates <- skipped_duplicates + 1
+              next
+            }
+
+            # Insert mapping with the correct row_id for current alignment
+            DBI::dbExecute(
+              con,
+              "INSERT INTO concept_mappings (alignment_id, csv_file_path, row_id,
+                                             target_omop_concept_id, imported_mapping_id, mapping_datetime)
+               VALUES (?, ?, ?, ?, ?, ?)",
+              params = list(
+                alignment_id, csv_filename, new_source_index,
+                row$target_omop_concept_id, import_id, timestamp
+              )
+            )
+
+            new_mapping_id <- DBI::dbGetQuery(con, "SELECT last_insert_rowid() as id")$id[1]
+            mapping_id_map[[as.character(old_mapping_id)]] <- new_mapping_id
+            imported_mappings <- imported_mappings + 1
+
+            # Add to existing combos to prevent duplicates within same import
+            existing_combos[[combo_key]] <- TRUE
+          }
+        }
+
+        # Helper function to resolve user by first_name + last_name only
+        # Returns list(user_id, found, imported_user_name)
+        # If user not found, user_id is NA and imported_user_name contains the original name
+        resolve_user_fn <- function(row, con) {
+          if ("user_first_name" %in% colnames(row) && "user_last_name" %in% colnames(row) &&
+              !is.na(row$user_first_name) && !is.na(row$user_last_name) &&
+              row$user_first_name != "" && row$user_last_name != "") {
+            original_name <- paste(row$user_first_name, row$user_last_name)
+            found <- DBI::dbGetQuery(
+              con,
+              "SELECT user_id FROM users WHERE first_name = ? AND last_name = ?",
+              params = list(row$user_first_name, row$user_last_name)
+            )
+            if (nrow(found) > 0) {
+              return(list(user_id = found$user_id[1], found = TRUE, imported_user_name = NA_character_))
+            } else {
+              return(list(user_id = NA_integer_, found = FALSE, imported_user_name = original_name))
+            }
+          }
+          return(list(user_id = NA_integer_, found = FALSE, imported_user_name = NA_character_))
+        }
+
+        # Import evaluations with mapped IDs
+        if (nrow(evaluations) > 0) {
+          for (i in seq_len(nrow(evaluations))) {
+            row <- evaluations[i, ]
+            old_mapping_id <- as.character(row$mapping_id)
+            new_mapping_id <- mapping_id_map[[old_mapping_id]]
+
+            if (!is.null(new_mapping_id)) {
+              resolved <- resolve_user_fn(row, con)
+              if (!resolved$found && !is.na(resolved$imported_user_name)) {
+                unresolved_users[[resolved$imported_user_name]] <- TRUE
+              }
+
+              DBI::dbExecute(
+                con,
+                "INSERT INTO mapping_evaluations (alignment_id, mapping_id, evaluator_user_id, imported_user_name, is_approved, evaluated_at)
+                 VALUES (?, ?, ?, ?, ?, ?)",
+                params = list(alignment_id, new_mapping_id, resolved$user_id, resolved$imported_user_name, row$is_approved, timestamp)
+              )
+              imported_evaluations <- imported_evaluations + 1
+            }
+          }
+        }
+
+        # Import comments with mapped IDs
+        if (nrow(comments) > 0) {
+          for (i in seq_len(nrow(comments))) {
+            row <- comments[i, ]
+            old_mapping_id <- as.character(row$mapping_id)
+            new_mapping_id <- mapping_id_map[[old_mapping_id]]
+
+            if (!is.null(new_mapping_id)) {
+              resolved <- resolve_user_fn(row, con)
+              if (!resolved$found && !is.na(resolved$imported_user_name)) {
+                unresolved_users[[resolved$imported_user_name]] <- TRUE
+              }
+
+              # Use original comment if available
+              comment_val <- if ("comment" %in% colnames(row)) row$comment else ""
+
+              DBI::dbExecute(
+                con,
+                "INSERT INTO mapping_comments (mapping_id, user_id, imported_user_name, comment, created_at)
+                 VALUES (?, ?, ?, ?, ?)",
+                params = list(new_mapping_id, resolved$user_id, resolved$imported_user_name, comment_val, timestamp)
+              )
+              imported_comments <- imported_comments + 1
+            }
+          }
+        }
+
+        # Update import record
+        DBI::dbExecute(
+          con,
+          "UPDATE imported_mappings SET concepts_count = ? WHERE import_id = ?",
+          params = list(imported_mappings, import_id)
+        )
+
+        DBI::dbCommit(con)
+
+        # Build success message
+        msg <- gsub("\\{mappings\\}", imported_mappings, i18n$t("import_indicate_success"))
+        msg <- gsub("\\{evaluations\\}", imported_evaluations, msg)
+
+        # Add info about skipped mappings
+        skipped_info <- c()
+        if (skipped_no_match > 0) {
+          skipped_info <- c(skipped_info, gsub("\\{count\\}", skipped_no_match, i18n$t("mappings_skipped_no_match")))
+        }
+        if (skipped_duplicates > 0) {
+          skipped_info <- c(skipped_info, gsub("\\{count\\}", skipped_duplicates, i18n$t("duplicates_skipped")))
+        }
+        if (length(skipped_info) > 0) {
+          msg <- paste0(msg, " (", paste(skipped_info, collapse = ", "), ")")
+        }
+
+        # Build warning message if some users were not found
+        warning_msg <- NULL
+        if (length(unresolved_users) > 0) {
+          unresolved_names <- names(unresolved_users)
+          warning_msg <- gsub("\\{count\\}", length(unresolved_names), i18n$t("users_not_found_warning"))
+          warning_msg <- paste0(warning_msg, ": ", paste(unresolved_names, collapse = ", "))
+        }
+
+        # Show in validation banner
+        show_import_status(msg, "success", warning_msg)
+
+        # Refresh tables
+        import_history_trigger(import_history_trigger() + 1)
+        source_concepts_table_trigger(source_concepts_table_trigger() + 1)
+        summary_trigger(summary_trigger() + 1)
+        mappings_refresh_trigger(mappings_refresh_trigger() + 1)
+        all_mappings_table_trigger(all_mappings_table_trigger() + 1)
+        evaluate_mappings_table_trigger(evaluate_mappings_table_trigger() + 1)
+
+        # Reset file input
+        import_selected_file(NULL)
+        import_validation_result(NULL)
+
+      }, error = function(e) {
+        show_import_status(paste(i18n$t("import_failed"), e$message), "error")
+      })
+    }
+
     #### Column Mapping Modal Function ----
     show_import_column_mapping_modal <- function() {
       columns <- import_csv_columns()
@@ -8322,10 +9552,32 @@ Data distribution by hospital unit/ward.
       })
     }, ignoreInit = FALSE)
 
+    #### Import Format Change Handler ----
+    observe_event(input$import_format, {
+      format <- input$import_format
+      if (is.null(format)) return()
+
+      # Update file input visibility based on format
+      if (format == "indicate") {
+        shinyjs::hide("import_csv_input_wrapper")
+        shinyjs::show("import_zip_input_wrapper")
+      } else {
+        shinyjs::show("import_csv_input_wrapper")
+        shinyjs::hide("import_zip_input_wrapper")
+      }
+
+      # Reset validation status
+      shinyjs::hide("import_validation_status")
+      import_validation_result(NULL)
+    }, ignoreInit = TRUE)
+
     #### Import File Input Handler ----
     observe_event(input$import_file_input, {
       file_info <- input$import_file_input
       if (is.null(file_info)) return()
+
+      format <- input$import_format
+      if (is.null(format)) format <- "csv"
 
       # Read the CSV file
       csv_data <- tryCatch({
@@ -8335,24 +9587,88 @@ Data distribution by hospital unit/ward.
         return(NULL)
       })
 
-      if (!is.null(csv_data)) {
-        import_selected_file(file_info$datapath)
-        import_csv_data(csv_data)
-        import_csv_columns(colnames(csv_data))
-        # Reset column selections
-        import_source_code_col(NULL)
-        import_source_vocab_col(NULL)
-        import_target_concept_col(NULL)
+      if (is.null(csv_data)) return()
+
+      import_selected_file(file_info$datapath)
+      import_csv_data(csv_data)
+      import_csv_columns(colnames(csv_data))
+      # Reset column selections
+      import_source_code_col(NULL)
+      import_source_vocab_col(NULL)
+      import_target_concept_col(NULL)
+
+      # Validate based on format
+      validation <- validate_import_file(csv_data, format, i18n)
+      import_validation_result(validation)
+
+      # Show validation result
+      if (validation$valid) {
+        shinyjs::html(
+          "import_validation_status",
+          sprintf(
+            '<div style="display: inline-block; background-color: #d4edda; color: #155724; padding: 10px; border-radius: 4px;">
+              <i class="fas fa-check-circle"></i> %s
+            </div>',
+            i18n$t("import_validation_success")
+          )
+        )
+      } else {
+        shinyjs::html(
+          "import_validation_status",
+          sprintf(
+            '<div style="display: inline-block; background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px;">
+              <i class="fas fa-exclamation-circle"></i> %s %s
+            </div>',
+            i18n$t("import_validation_error"),
+            validation$message
+          )
+        )
       }
+      shinyjs::show("import_validation_status")
+    }, ignoreInit = TRUE)
+
+    #### Import ZIP File Input Handler (INDICATE format) ----
+    observe_event(input$import_zip_file_input, {
+      file_info <- input$import_zip_file_input
+      if (is.null(file_info)) return()
+
+      # Validate ZIP file structure
+      validation <- validate_indicate_zip(file_info$datapath, i18n)
+      import_validation_result(validation)
+      import_selected_file(file_info$datapath)
+
+      # Show validation result
+      if (validation$valid) {
+        shinyjs::html(
+          "import_validation_status",
+          sprintf(
+            '<div style="display: inline-block; background-color: #d4edda; color: #155724; padding: 10px; border-radius: 4px;">
+              <i class="fas fa-check-circle"></i> %s (%d mappings, %d evaluations)
+            </div>',
+            i18n$t("import_validation_success"),
+            validation$mappings_count %||% 0,
+            validation$evaluations_count %||% 0
+          )
+        )
+      } else {
+        shinyjs::html(
+          "import_validation_status",
+          sprintf(
+            '<div style="display: inline-block; background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px;">
+              <i class="fas fa-exclamation-circle"></i> %s %s
+            </div>',
+            i18n$t("import_validation_error"),
+            validation$message
+          )
+        )
+      }
+      shinyjs::show("import_validation_status")
     }, ignoreInit = TRUE)
 
     #### Import CSV Handler - Open Column Mapping Modal ----
     observe_event(input$do_import_mappings, {
-      # Check if CSV data is loaded
-      if (is.null(import_csv_data())) {
-        showNotification(i18n$t("please_select_csv_file"), type = "warning")
-        return()
-      }
+      format <- input$import_format
+      if (is.null(format)) format <- "csv"
 
       alignment_id <- selected_alignment_id()
       if (is.null(alignment_id)) {
@@ -8361,12 +9677,47 @@ Data distribution by hospital unit/ward.
       }
 
       if (is.null(current_user())) {
-        showNotification(i18n$t("must_be_logged_in_import"), type = "error")
+        show_import_status(i18n$t("must_be_logged_in_import"), "error")
         return()
       }
 
-      # Show column mapping modal
-      show_import_column_mapping_modal()
+      # Handle based on format
+      if (format == "indicate") {
+        # INDICATE format import
+        validation <- import_validation_result()
+        if (is.null(validation) || !validation$valid) {
+          show_import_status(i18n$t("import_validation_error"), "error")
+          return()
+        }
+        # Perform INDICATE import
+        do_indicate_import(
+          import_selected_file(),
+          alignment_id,
+          current_user(),
+          i18n
+        )
+      } else if (format == "csv") {
+        # Manual column mapping required
+        if (is.null(import_csv_data())) {
+          show_import_status(i18n$t("please_select_csv_file"), "warning")
+          return()
+        }
+        show_import_column_mapping_modal()
+      } else {
+        # STCM or Usagi format - auto-validated
+        validation <- import_validation_result()
+        if (is.null(validation) || !validation$valid) {
+          show_import_status(i18n$t("import_validation_error"), "error")
+          return()
+        }
+        # Perform import with pre-mapped columns
+        do_validated_import(
+          import_selected_file(),
+          alignment_id,
+          current_user(),
+          i18n
+        )
+      }
     }, ignoreInit = TRUE)
 
     #### Preview Table for Column Mapping Modal ----
@@ -8551,37 +9902,60 @@ Data distribution by hospital unit/ward.
           source_code <- as.character(row$source_code)
           target_concept_id <- as.integer(row$target_concept_id)
 
-          # Use source_code as the unique identifier for the concept
-          # Generate a hash-based index from source_code for consistency
-          source_concept_index <- i
+          # Find row_id by matching vocabulary_id + concept_code
+          row_id <- NA_integer_
+          source_vocab_id <- as.character(row$source_vocabulary_id)
 
-          # If we have source data, try to find matching index
+          # If we have source data, try to find matching index by vocabulary_id + concept_code
           if (!is.null(source_data)) {
-            matching_indices <- which(
-              source_data$concept_code == source_code |
-              (if ("source_code" %in% colnames(source_data)) source_data$source_code == source_code else FALSE)
-            )
+            # Match on vocabulary_id + concept_code
+            if ("vocabulary_id" %in% colnames(source_data) && "concept_code" %in% colnames(source_data)) {
+              matching_indices <- which(
+                source_data$vocabulary_id == source_vocab_id &
+                source_data$concept_code == source_code
+              )
+              if (length(matching_indices) > 0) {
+                row_id <- matching_indices[1]
+              }
+            }
 
-            if (length(matching_indices) == 0 && "source_code_description" %in% colnames(row)) {
+            # Fallback: match on concept_code only if no vocabulary match
+            if (is.na(row_id)) {
+              matching_indices <- which(
+                source_data$concept_code == source_code |
+                (if ("source_code" %in% colnames(source_data)) source_data$source_code == source_code else FALSE)
+              )
+              if (length(matching_indices) > 0) {
+                row_id <- matching_indices[1]
+              }
+            }
+
+            # Fallback: match on concept_name/source_code_description
+            if (is.na(row_id) && "source_code_description" %in% colnames(row)) {
               source_desc <- as.character(row$source_code_description)
               matching_indices <- which(
                 source_data$concept_name == source_desc |
                 (if ("source_code_description" %in% colnames(source_data)) source_data$source_code_description == source_desc else FALSE)
               )
+              if (length(matching_indices) > 0) {
+                row_id <- matching_indices[1]
+              }
             }
+          }
 
-            if (length(matching_indices) > 0) {
-              source_concept_index <- matching_indices[1]
-            }
+          # Skip if no matching source concept found
+          if (is.na(row_id)) {
+            skipped_count <- skipped_count + 1
+            next
           }
 
           # Check if this exact mapping already exists (same source + same target)
           existing_exact <- DBI::dbGetQuery(
             con,
             "SELECT mapping_id FROM concept_mappings
-             WHERE alignment_id = ? AND csv_file_path = ? AND source_concept_index = ?
+             WHERE alignment_id = ? AND csv_file_path = ? AND row_id = ?
                AND target_omop_concept_id = ?",
-            params = list(alignment_id, csv_filename, source_concept_index, target_concept_id)
+            params = list(alignment_id, csv_filename, row_id, target_concept_id)
           )
 
           if (nrow(existing_exact) > 0) {
@@ -8590,20 +9964,13 @@ Data distribution by hospital unit/ward.
             next
           }
 
-          # Create unique csv_mapping_id
-          max_id <- DBI::dbGetQuery(
-            con,
-            "SELECT COALESCE(MAX(csv_mapping_id), 0) as max_id FROM concept_mappings WHERE csv_file_path = ?",
-            params = list(csv_filename)
-          )$max_id[1]
-
           # Insert new mapping (allows multiple mappings per source)
           DBI::dbExecute(
             con,
-            "INSERT INTO concept_mappings (alignment_id, csv_file_path, csv_mapping_id, source_concept_index,
+            "INSERT INTO concept_mappings (alignment_id, csv_file_path, row_id,
                                            target_omop_concept_id, imported_mapping_id, mapping_datetime)
-             VALUES (?, ?, ?, ?, ?, ?, ?)",
-            params = list(alignment_id, csv_filename, max_id + 1, source_concept_index, target_concept_id, import_id, timestamp)
+             VALUES (?, ?, ?, ?, ?, ?)",
+            params = list(alignment_id, csv_filename, row_id, target_concept_id, import_id, timestamp)
           )
 
           imported_count <- imported_count + 1
@@ -8618,13 +9985,15 @@ Data distribution by hospital unit/ward.
 
         DBI::dbCommit(con)
 
-        # Build notification message
+        # Build success message
         msg <- gsub("\\{count\\}", imported_count, i18n$t("successfully_imported_mappings"))
         if (skipped_count > 0) {
           skipped_msg <- gsub("\\{count\\}", skipped_count, i18n$t("duplicates_skipped"))
           msg <- paste0(msg, " (", skipped_msg, ")")
         }
-        showNotification(msg, type = "message")
+
+        # Show in validation banner
+        show_import_status(msg, "success")
 
         # Close modal
         shinyjs::hide("import_column_modal")
@@ -8637,11 +10006,12 @@ Data distribution by hospital unit/ward.
         # Trigger refresh
         import_history_trigger(import_history_trigger() + 1)
         mappings_refresh_trigger(mappings_refresh_trigger() + 1)
+        all_mappings_table_trigger(all_mappings_table_trigger() + 1)
         evaluate_mappings_table_trigger(evaluate_mappings_table_trigger() + 1)
 
       }, error = function(e) {
         DBI::dbRollback(con)
-        showNotification(paste(i18n$t("import_failed"), e$message), type = "error")
+        show_import_status(paste(i18n$t("import_failed"), e$message), "error")
       })
     }, ignoreInit = TRUE)
 

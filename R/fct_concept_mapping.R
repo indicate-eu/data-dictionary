@@ -184,27 +184,20 @@ import_target_concept_mappings <- function(alignment_id, source_data, csv_filena
         next
       }
 
-      # Use mapping_id as source_concept_index (1-based index)
-      source_concept_index <- if ("mapping_id" %in% colnames(source_data)) {
-        source_data$mapping_id[i]
+      # Use row_id from source data (1-based index)
+      source_row_id <- if ("row_id" %in% colnames(source_data)) {
+        source_data$row_id[i]
       } else {
         i
       }
 
-      # Create unique csv_mapping_id
-      max_id <- DBI::dbGetQuery(
-        con,
-        "SELECT COALESCE(MAX(csv_mapping_id), 0) as max_id FROM concept_mappings WHERE csv_file_path = ?",
-        params = list(csv_filename)
-      )$max_id[1]
-
       # Insert mapping
       DBI::dbExecute(
         con,
-        "INSERT INTO concept_mappings (alignment_id, csv_file_path, csv_mapping_id, source_concept_index,
+        "INSERT INTO concept_mappings (alignment_id, csv_file_path, row_id,
                                        target_omop_concept_id, imported_mapping_id, mapping_datetime)
-         VALUES (?, ?, ?, ?, ?, ?, ?)",
-        params = list(alignment_id, csv_filename, max_id + 1, source_concept_index, target_concept_id, import_id, timestamp)
+         VALUES (?, ?, ?, ?, ?, ?)",
+        params = list(alignment_id, csv_filename, source_row_id, target_concept_id, import_id, timestamp)
       )
 
       imported_count <- imported_count + 1
@@ -328,17 +321,18 @@ export_usagi_format <- function(mappings_full, selected_mappings, source_df, voc
     source_name <- ""
     source_frequency <- 0
 
-    if (!is.null(source_df) && !is.na(mapping$csv_mapping_id)) {
-      row_idx <- mapping$csv_mapping_id
-      if (row_idx <= nrow(source_df)) {
-        if ("concept_code" %in% colnames(source_df)) {
-          source_code <- as.character(source_df$concept_code[row_idx])
+    if (!is.null(source_df) && !is.na(mapping$row_id) && "row_id" %in% colnames(source_df)) {
+      matching_rows <- source_df[source_df$row_id == mapping$row_id, ]
+      if (nrow(matching_rows) > 0) {
+        src_row <- matching_rows[1, ]
+        if ("concept_code" %in% colnames(src_row)) {
+          source_code <- as.character(src_row$concept_code)
         }
-        if ("concept_name" %in% colnames(source_df)) {
-          source_name <- as.character(source_df$concept_name[row_idx])
+        if ("concept_name" %in% colnames(src_row)) {
+          source_name <- as.character(src_row$concept_name)
         }
-        if ("frequency" %in% colnames(source_df)) {
-          source_frequency <- as.integer(source_df$frequency[row_idx])
+        if ("frequency" %in% colnames(src_row)) {
+          source_frequency <- as.integer(src_row$frequency)
         }
       }
     }
@@ -461,17 +455,18 @@ export_source_to_concept_map_format <- function(mappings_full, source_df, vocab_
     source_code_description <- ""
     source_vocabulary_id <- ""
 
-    if (!is.null(source_df) && !is.na(mapping$csv_mapping_id)) {
-      row_idx <- mapping$csv_mapping_id
-      if (row_idx <= nrow(source_df)) {
-        if ("concept_code" %in% colnames(source_df)) {
-          source_code <- as.character(source_df$concept_code[row_idx])
+    if (!is.null(source_df) && !is.na(mapping$row_id) && "row_id" %in% colnames(source_df)) {
+      matching_rows <- source_df[source_df$row_id == mapping$row_id, ]
+      if (nrow(matching_rows) > 0) {
+        src_row <- matching_rows[1, ]
+        if ("concept_code" %in% colnames(src_row)) {
+          source_code <- as.character(src_row$concept_code)
         }
-        if ("concept_name" %in% colnames(source_df)) {
-          source_code_description <- as.character(source_df$concept_name[row_idx])
+        if ("concept_name" %in% colnames(src_row)) {
+          source_code_description <- as.character(src_row$concept_name)
         }
-        if ("vocabulary_id" %in% colnames(source_df)) {
-          source_vocabulary_id <- as.character(source_df$vocabulary_id[row_idx])
+        if ("vocabulary_id" %in% colnames(src_row)) {
+          source_vocabulary_id <- as.character(src_row$vocabulary_id)
         }
       }
     }
@@ -536,4 +531,359 @@ export_source_to_concept_map_format <- function(mappings_full, source_df, vocab_
   }
 
   dplyr::bind_rows(export_rows)
+}
+
+#' Export alignment in INDICATE Data Dictionary format
+#'
+#' @description Export alignment as ZIP file containing source concepts,
+#' mappings, evaluations, comments and metadata
+#'
+#' @param alignment_id Alignment ID to export
+#' @param alignment_name Name of the alignment
+#' @param alignment_description Description of the alignment
+#' @param current_user Current user information
+#' @param db_path Path to the SQLite database
+#' @param mapping_dir Path to concept_mapping directory
+#'
+#' @return Path to the created ZIP file (temporary file)
+#' @noRd
+export_indicate_format <- function(alignment_id, alignment_name, alignment_description,
+                                    current_user, db_path, mapping_dir) {
+
+  if (!file.exists(db_path)) {
+    stop("Database not found")
+  }
+
+  con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+  on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+  # Get alignment info
+  alignment <- DBI::dbGetQuery(
+    con,
+    "SELECT * FROM concept_alignments WHERE alignment_id = ?",
+    params = list(alignment_id)
+  )
+
+  if (nrow(alignment) == 0) {
+    stop("Alignment not found")
+  }
+
+  # Get mappings for this alignment with user info
+  mappings <- DBI::dbGetQuery(
+    con,
+    "SELECT cm.mapping_id, cm.row_id,
+            cm.target_general_concept_id, cm.target_omop_concept_id, cm.target_custom_concept_id,
+            cm.mapping_datetime,
+            u.first_name as user_first_name, u.last_name as user_last_name
+     FROM concept_mappings cm
+     LEFT JOIN users u ON cm.mapped_by_user_id = u.user_id
+     WHERE cm.alignment_id = ?",
+    params = list(alignment_id)
+  )
+
+  # Get evaluations for these mappings with user info (first_name, last_name only)
+  evaluations <- data.frame()
+  if (nrow(mappings) > 0) {
+    mapping_ids <- paste(mappings$mapping_id, collapse = ",")
+    evaluations <- DBI::dbGetQuery(
+      con,
+      sprintf(
+        "SELECT e.mapping_id, e.is_approved, e.comment, e.evaluated_at,
+                u.first_name as user_first_name, u.last_name as user_last_name
+         FROM mapping_evaluations e
+         LEFT JOIN users u ON e.evaluator_user_id = u.user_id
+         WHERE e.mapping_id IN (%s)",
+        mapping_ids
+      )
+    )
+  }
+
+  # Get comments for these mappings with user info (first_name, last_name only)
+  comments <- data.frame()
+  if (nrow(mappings) > 0) {
+    mapping_ids <- paste(mappings$mapping_id, collapse = ",")
+    comments <- DBI::dbGetQuery(
+      con,
+      sprintf(
+        "SELECT c.mapping_id, c.comment, c.created_at,
+                u.first_name as user_first_name, u.last_name as user_last_name
+         FROM mapping_comments c
+         LEFT JOIN users u ON c.user_id = u.user_id
+         WHERE c.mapping_id IN (%s)",
+        mapping_ids
+      )
+    )
+  }
+
+  # Read source concepts CSV
+  file_id <- alignment$file_id[1]
+  source_csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
+  source_concepts <- data.frame()
+  if (file.exists(source_csv_path)) {
+    source_concepts <- read.csv(source_csv_path, stringsAsFactors = FALSE)
+  }
+
+  # Calculate statistics
+  stats <- list(
+    total_source_concepts = nrow(source_concepts),
+    total_mappings = nrow(mappings),
+    total_evaluations = nrow(evaluations),
+    total_comments = nrow(comments),
+    approved_count = sum(evaluations$is_approved == 1, na.rm = TRUE),
+    rejected_count = sum(evaluations$is_approved == 0, na.rm = TRUE),
+    uncertain_count = sum(evaluations$is_approved == -1, na.rm = TRUE)
+  )
+
+  # Build exported_by as "First Last" or fallback to login
+
+  exported_by_name <- "unknown"
+  if (!is.null(current_user)) {
+    if (!is.null(current_user$first_name) && !is.null(current_user$last_name) &&
+        current_user$first_name != "" && current_user$last_name != "") {
+      exported_by_name <- paste(current_user$first_name, current_user$last_name)
+    } else if (!is.null(current_user$login)) {
+      exported_by_name <- current_user$login
+    }
+  }
+
+  # Create metadata
+  metadata <- list(
+    format_version = "1.0",
+    format_type = "INDICATE_DATA_DICTIONARY",
+    export_date = format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ"),
+    exported_by = exported_by_name,
+    alignment = list(
+      name = alignment_name,
+      description = alignment_description,
+      created_date = alignment$created_date[1],
+      column_types = if ("column_types" %in% colnames(alignment)) alignment$column_types[1] else NULL
+    ),
+    statistics = stats
+  )
+
+  # Create temporary directory for ZIP contents
+  temp_dir <- tempfile(pattern = "indicate_export_")
+  dir.create(temp_dir)
+
+  # Write files
+  jsonlite::write_json(metadata, file.path(temp_dir, "metadata.json"), pretty = TRUE, auto_unbox = TRUE)
+
+  if (nrow(source_concepts) > 0) {
+    write.csv(source_concepts, file.path(temp_dir, "source_concepts.csv"), row.names = FALSE)
+  }
+
+  if (nrow(mappings) > 0) {
+    # Prepare mappings for export
+    mappings_export <- mappings
+
+    # Enrich mappings with vocabulary_id and concept_code from source_concepts
+    # Join on row_id (DB) with row_id (CSV)
+    if (nrow(source_concepts) > 0 && "row_id" %in% colnames(source_concepts)) {
+      mappings_export$vocabulary_id <- NA_character_
+      mappings_export$concept_code <- NA_character_
+
+      for (i in seq_len(nrow(mappings_export))) {
+        target_row_id <- mappings_export$row_id[i]
+        matching_rows <- source_concepts[source_concepts$row_id == target_row_id, ]
+        if (nrow(matching_rows) > 0) {
+          src_row <- matching_rows[1, ]
+          if ("vocabulary_id" %in% colnames(src_row)) {
+            mappings_export$vocabulary_id[i] <- as.character(src_row$vocabulary_id)
+          }
+          if ("concept_code" %in% colnames(src_row)) {
+            mappings_export$concept_code[i] <- as.character(src_row$concept_code)
+          }
+        }
+      }
+    }
+
+    write.csv(mappings_export, file.path(temp_dir, "mappings.csv"), row.names = FALSE)
+  }
+
+  if (nrow(evaluations) > 0) {
+    write.csv(evaluations, file.path(temp_dir, "evaluations.csv"), row.names = FALSE)
+  }
+
+  if (nrow(comments) > 0) {
+    write.csv(comments, file.path(temp_dir, "comments.csv"), row.names = FALSE)
+  }
+
+  # Create ZIP file
+  zip_path <- tempfile(pattern = "indicate_export_", fileext = ".zip")
+
+  # Get list of files to zip
+  files_to_zip <- list.files(temp_dir, full.names = TRUE)
+
+  # Create ZIP (using zip package or base R)
+  old_wd <- getwd()
+  setwd(temp_dir)
+  zip::zip(zip_path, files = basename(files_to_zip))
+  setwd(old_wd)
+
+  # Clean up temp directory
+
+  unlink(temp_dir, recursive = TRUE)
+
+  return(zip_path)
+}
+
+
+# IMPORT VALIDATION FUNCTIONS ====
+
+#' Validate import file based on format
+#'
+#' @description Validates CSV file structure based on selected format
+#'
+#' @param csv_data Data frame from CSV file
+#' @param format Import format (csv, stcm, usagi)
+#' @param i18n Internationalization object
+#'
+#' @return List with valid (logical), message (character), and column_mapping (list)
+#' @noRd
+validate_import_file <- function(csv_data, format, i18n) {
+  columns <- colnames(csv_data)
+
+  if (format == "csv") {
+    # CSV format: any columns accepted, manual mapping required
+    return(list(
+      valid = TRUE,
+      message = "",
+      column_mapping = NULL
+    ))
+  }
+
+  if (format == "stcm") {
+    # SOURCE_TO_CONCEPT_MAP format - required columns
+    required_cols <- c("source_code", "source_vocabulary_id", "target_concept_id")
+    missing <- setdiff(required_cols, columns)
+
+    if (length(missing) > 0) {
+      return(list(
+        valid = FALSE,
+        message = paste(i18n$t("missing_columns"), paste(missing, collapse = ", ")),
+        column_mapping = NULL
+      ))
+    }
+
+    return(list(
+      valid = TRUE,
+      message = "",
+      column_mapping = list(
+        source_code = "source_code",
+        source_vocabulary_id = "source_vocabulary_id",
+        target_concept_id = "target_concept_id"
+      )
+    ))
+  }
+
+  if (format == "usagi") {
+    # Usagi format - required columns
+    required_cols <- c("sourceCode", "conceptId")
+    missing <- setdiff(required_cols, columns)
+
+    if (length(missing) > 0) {
+      return(list(
+        valid = FALSE,
+        message = paste(i18n$t("missing_columns"), paste(missing, collapse = ", ")),
+        column_mapping = NULL
+      ))
+    }
+
+    # Check for optional columns
+    has_vocab <- "sourceVocabulary" %in% columns
+    has_name <- "sourceName" %in% columns
+
+    return(list(
+      valid = TRUE,
+      message = "",
+      column_mapping = list(
+        source_code = "sourceCode",
+        source_vocabulary_id = if (has_vocab) "sourceVocabulary" else NULL,
+        source_name = if (has_name) "sourceName" else NULL,
+        target_concept_id = "conceptId"
+      )
+    ))
+  }
+
+  # Unknown format
+  return(list(
+    valid = FALSE,
+    message = "Unknown format",
+    column_mapping = NULL
+  ))
+}
+
+
+#' Validate INDICATE ZIP file
+#'
+#' @description Validates INDICATE export ZIP file structure
+#'
+#' @param zip_path Path to ZIP file
+#' @param i18n Internationalization object
+#'
+#' @return List with valid (logical), message (character), mappings_count, evaluations_count
+#' @noRd
+validate_indicate_zip <- function(zip_path, i18n) {
+  if (!file.exists(zip_path)) {
+    return(list(valid = FALSE, message = "File not found"))
+  }
+
+  # List files in ZIP
+  tryCatch({
+    zip_contents <- zip::zip_list(zip_path)
+    files_in_zip <- zip_contents$filename
+
+    # Check for required metadata.json
+    if (!"metadata.json" %in% files_in_zip) {
+      return(list(
+        valid = FALSE,
+        message = paste(i18n$t("missing_columns"), "metadata.json")
+      ))
+    }
+
+    # Extract to temp directory for validation
+    temp_dir <- tempfile(pattern = "indicate_validate_")
+    dir.create(temp_dir)
+    on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
+
+    zip::unzip(zip_path, exdir = temp_dir)
+
+    # Read and validate metadata
+    metadata_path <- file.path(temp_dir, "metadata.json")
+    metadata <- jsonlite::read_json(metadata_path)
+
+    if (is.null(metadata$format_type) || metadata$format_type != "INDICATE_DATA_DICTIONARY") {
+      return(list(
+        valid = FALSE,
+        message = paste(i18n$t("import_validation_error"), "Invalid format_type in metadata")
+      ))
+    }
+
+    # Count mappings and evaluations
+    mappings_count <- 0
+    evaluations_count <- 0
+
+    if ("mappings.csv" %in% files_in_zip) {
+      mappings <- read.csv(file.path(temp_dir, "mappings.csv"), stringsAsFactors = FALSE)
+      mappings_count <- nrow(mappings)
+    }
+
+    if ("evaluations.csv" %in% files_in_zip) {
+      evaluations <- read.csv(file.path(temp_dir, "evaluations.csv"), stringsAsFactors = FALSE)
+      evaluations_count <- nrow(evaluations)
+    }
+
+    return(list(
+      valid = TRUE,
+      message = "",
+      mappings_count = mappings_count,
+      evaluations_count = evaluations_count,
+      metadata = metadata
+    ))
+  }, error = function(e) {
+    return(list(
+      valid = FALSE,
+      message = e$message
+    ))
+  })
 }

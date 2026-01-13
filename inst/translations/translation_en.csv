@@ -421,3 +421,27 @@ include_all_approved,Include all (at least one approval)
 only_majority_approval,Only with majority approval
 frequency,Frequency
 no_columns_selected,No columns selected
+indicate_format_desc,Full export with evaluations and comments (ZIP)
+export_successful_indicate,Alignment exported successfully in INDICATE format
+export_error,Export error:
+import_format,Import Format
+import_format_csv,CSV File (Manual Mapping)
+import_format_csv_desc,Select columns manually for source code, vocabulary, and target concept ID
+import_format_stcm,SOURCE_TO_CONCEPT_MAP
+import_format_stcm_desc,OMOP CDM format with standard column names
+import_format_usagi,Usagi Format
+import_format_usagi_desc,Import mappings exported from Usagi desktop application
+import_format_indicate,INDICATE Data Dictionary
+import_format_indicate_desc,Import alignment from INDICATE export (ZIP)
+select_import_format,Select import format...
+import_validation_success,File format validated successfully
+import_validation_error,Invalid file format.
+missing_columns,Missing required columns:
+invalid_file_type,Invalid file type. Expected:
+select_zip_file,Select ZIP file:
+import_indicate_success,Successfully imported alignment with {mappings} mappings and {evaluations} evaluations
+import_indicate_format,Import
+import_alignment_created,Alignment "{name}" created successfully with {mappings} mappings
+users_not_found_warning,{count} user(s) not found (assigned to current user)
+alignment_name_exists,An alignment with this name already exists
+mappings_skipped_no_match,{count} mapping(s) skipped (source concept not found)
