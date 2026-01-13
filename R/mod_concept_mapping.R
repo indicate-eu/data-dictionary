@@ -691,6 +691,308 @@ mod_concept_mapping_ui <- function(id, i18n) {
       )
     ),
 
+    ### Modal - Export Alignment ----
+    tags$div(
+      id = ns("export_modal"),
+      class = "modal-overlay",
+      style = "display: none; z-index: 1050;",
+      onclick = sprintf(
+        "if (event.target === this) $('#%s').hide();",
+        ns("export_modal")
+      ),
+      tags$div(
+        class = "modal-content",
+        style = "max-width: 750px; max-height: 95vh; overflow: visible;",
+        tags$div(
+          class = "modal-header",
+          tags$h3(i18n$t("export_alignment")),
+          tags$button(
+            class = "modal-close",
+            onclick = sprintf("$('#%s').hide();", ns("export_modal")),
+            HTML("&times;")
+          )
+        ),
+        tags$div(
+          class = "modal-body",
+          style = "padding: 20px; max-height: calc(95vh - 140px); overflow-y: auto;",
+
+          # Statistics summary
+          tags$div(
+            style = "margin-bottom: 20px;",
+            tags$h4(style = "margin-bottom: 15px; color: #333;", i18n$t("mapping_statistics")),
+            tags$div(
+              id = ns("export_stats_container"),
+              style = "display: flex; gap: 10px; flex-wrap: nowrap;",
+              tags$div(
+                style = "background: #f8f9fa; padding: 10px 15px; border-radius: 4px; text-align: center; flex: 1;",
+                tags$div(id = ns("stat_total"), style = "font-size: 20px; font-weight: 600; color: #0f60af;", "0"),
+                tags$div(style = "font-size: 11px; color: #666;", i18n$t("total_mappings"))
+              ),
+              tags$div(
+                style = "background: #d4edda; padding: 10px 15px; border-radius: 4px; text-align: center; flex: 1;",
+                tags$div(id = ns("stat_approved"), style = "font-size: 20px; font-weight: 600; color: #28a745;", "0"),
+                tags$div(style = "font-size: 11px; color: #155724;", i18n$t("approved"))
+              ),
+              tags$div(
+                style = "background: #f8d7da; padding: 10px 15px; border-radius: 4px; text-align: center; flex: 1;",
+                tags$div(id = ns("stat_rejected"), style = "font-size: 20px; font-weight: 600; color: #dc3545;", "0"),
+                tags$div(style = "font-size: 11px; color: #721c24;", i18n$t("rejected"))
+              ),
+              tags$div(
+                style = "background: #fff3cd; padding: 10px 15px; border-radius: 4px; text-align: center; flex: 1;",
+                tags$div(id = ns("stat_uncertain"), style = "font-size: 20px; font-weight: 600; color: #856404;", "0"),
+                tags$div(style = "font-size: 11px; color: #856404;", i18n$t("uncertain"))
+              ),
+              tags$div(
+                style = "background: #e2e3e5; padding: 10px 15px; border-radius: 4px; text-align: center; flex: 1;",
+                tags$div(id = ns("stat_not_evaluated"), style = "font-size: 20px; font-weight: 600; color: #6c757d;", "0"),
+                tags$div(style = "font-size: 11px; color: #495057;", i18n$t("not_evaluated"))
+              )
+            )
+          ),
+
+          tags$hr(style = "margin: 20px 0;"),
+
+          # Export format selection
+          tags$div(
+            style = "margin-bottom: 20px;",
+            tags$h4(style = "margin-bottom: 10px; color: #333;", i18n$t("export_format")),
+            tags$div(
+              style = "display: flex; flex-direction: column; gap: 12px; padding-left: 5px;",
+              tags$div(
+                style = "display: flex; align-items: center; gap: 10px;",
+                tags$input(
+                  type = "radio",
+                  id = ns("export_format_stcm"),
+                  name = ns("export_format"),
+                  value = "source_to_concept_map",
+                  checked = "checked",
+                  style = "margin: 0; cursor: pointer;"
+                ),
+                tags$label(
+                  `for` = ns("export_format_stcm"),
+                  style = "margin: 0; cursor: pointer; font-weight: 500;",
+                  "SOURCE_TO_CONCEPT_MAP"
+                ),
+                tags$span(
+                  style = "color: #999; font-size: 12px;",
+                  i18n$t("stcm_format_desc")
+                )
+              ),
+              tags$div(
+                style = "display: flex; align-items: center; gap: 10px;",
+                tags$input(
+                  type = "radio",
+                  id = ns("export_format_usagi"),
+                  name = ns("export_format"),
+                  value = "usagi",
+                  style = "margin: 0; cursor: pointer;"
+                ),
+                tags$label(
+                  `for` = ns("export_format_usagi"),
+                  style = "margin: 0; cursor: pointer; font-weight: 500;",
+                  "Usagi Format"
+                ),
+                tags$span(
+                  style = "color: #999; font-size: 12px;",
+                  i18n$t("usagi_format_desc")
+                )
+              )
+            )
+          ),
+
+          tags$hr(style = "margin: 20px 0;"),
+
+          # Mapping inclusion criteria
+          tags$div(
+            style = "margin-bottom: 10px;",
+            tags$h4(style = "margin-bottom: 15px; color: #333;", i18n$t("include_mappings_by_status")),
+            tags$div(
+              style = "display: flex; flex-direction: column; gap: 8px;",
+
+              # Approved checkbox with sub-options
+              tags$div(
+                tags$div(
+                  style = "display: flex; align-items: center; gap: 10px;",
+                  checkboxInput(
+                    ns("export_include_approved"),
+                    label = NULL,
+                    value = TRUE,
+                    width = "auto"
+                  ),
+                  tags$label(
+                    `for` = ns("export_include_approved"),
+                    style = "margin: 0; cursor: pointer; display: flex; align-items: center; gap: 8px;",
+                    tags$span(
+                      style = "background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px;",
+                      i18n$t("approved")
+                    ),
+                    tags$span(
+                      id = ns("export_count_approved"),
+                      style = "color: #999; font-weight: 600;",
+                      "[0]"
+                    )
+                  )
+                ),
+                # Sub-options for approved (shown when approved is checked)
+                tags$div(
+                  id = ns("approved_sub_options"),
+                  style = "margin-left: 30px; margin-top: 8px; padding: 10px; background: #f8f9fa; border-radius: 4px; display: flex; flex-direction: column; gap: 8px;",
+                  tags$div(
+                    style = "display: flex; align-items: center; gap: 8px;",
+                    tags$input(
+                      type = "radio",
+                      id = ns("approved_filter_all"),
+                      name = ns("approved_filter"),
+                      value = "all",
+                      checked = "checked",
+                      style = "margin: 0; cursor: pointer;"
+                    ),
+                    tags$label(
+                      `for` = ns("approved_filter_all"),
+                      style = "margin: 0; cursor: pointer; color: #555; font-size: 13px;",
+                      i18n$t("include_all_approved")
+                    )
+                  ),
+                  tags$div(
+                    style = "display: flex; align-items: center; gap: 8px;",
+                    tags$input(
+                      type = "radio",
+                      id = ns("approved_filter_majority"),
+                      name = ns("approved_filter"),
+                      value = "majority",
+                      style = "margin: 0; cursor: pointer;"
+                    ),
+                    tags$label(
+                      `for` = ns("approved_filter_majority"),
+                      style = "margin: 0; cursor: pointer; color: #555; font-size: 13px;",
+                      i18n$t("only_majority_approval")
+                    )
+                  ),
+                  tags$div(
+                    style = "display: flex; align-items: center; gap: 8px;",
+                    tags$input(
+                      type = "radio",
+                      id = ns("approved_filter_no_rejection"),
+                      name = ns("approved_filter"),
+                      value = "no_rejection",
+                      style = "margin: 0; cursor: pointer;"
+                    ),
+                    tags$label(
+                      `for` = ns("approved_filter_no_rejection"),
+                      style = "margin: 0; cursor: pointer; color: #555; font-size: 13px;",
+                      i18n$t("exclude_if_any_rejection")
+                    )
+                  )
+                )
+              ),
+
+              # Rejected checkbox
+              tags$div(
+                style = "display: flex; align-items: center; gap: 10px;",
+                checkboxInput(
+                  ns("export_include_rejected"),
+                  label = NULL,
+                  value = FALSE,
+                  width = "auto"
+                ),
+                tags$label(
+                  `for` = ns("export_include_rejected"),
+                  style = "margin: 0; cursor: pointer; display: flex; align-items: center; gap: 8px;",
+                  tags$span(
+                    style = "background: #dc3545; color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px;",
+                    i18n$t("rejected")
+                  ),
+                  tags$span(style = "color: #666; font-size: 13px;", i18n$t("at_least_one_rejection")),
+                  tags$span(
+                    id = ns("export_count_rejected"),
+                    style = "color: #999; font-weight: 600;",
+                    "[0]"
+                  )
+                )
+              ),
+
+              # Uncertain checkbox
+              tags$div(
+                style = "display: flex; align-items: center; gap: 10px;",
+                checkboxInput(
+                  ns("export_include_uncertain"),
+                  label = NULL,
+                  value = FALSE,
+                  width = "auto"
+                ),
+                tags$label(
+                  `for` = ns("export_include_uncertain"),
+                  style = "margin: 0; cursor: pointer; display: flex; align-items: center; gap: 8px;",
+                  tags$span(
+                    style = "background: #ffc107; color: #333; padding: 2px 8px; border-radius: 4px; font-size: 12px;",
+                    i18n$t("uncertain")
+                  ),
+                  tags$span(style = "color: #666; font-size: 13px;", i18n$t("uncertain_no_approval")),
+                  tags$span(
+                    id = ns("export_count_uncertain"),
+                    style = "color: #999; font-weight: 600;",
+                    "[0]"
+                  )
+                )
+              ),
+
+              # Not Evaluated checkbox
+              tags$div(
+                style = "display: flex; align-items: center; gap: 10px;",
+                checkboxInput(
+                  ns("export_include_not_evaluated"),
+                  label = NULL,
+                  value = FALSE,
+                  width = "auto"
+                ),
+                tags$label(
+                  `for` = ns("export_include_not_evaluated"),
+                  style = "margin: 0; cursor: pointer; display: flex; align-items: center; gap: 8px;",
+                  tags$span(
+                    style = "background: #6c757d; color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px;",
+                    i18n$t("not_evaluated")
+                  ),
+                  tags$span(style = "color: #666; font-size: 13px;", i18n$t("no_evaluation")),
+                  tags$span(
+                    id = ns("export_count_not_evaluated"),
+                    style = "color: #999; font-weight: 600;",
+                    "[0]"
+                  )
+                )
+              )
+            )
+          ),
+
+          # Total to export
+          tags$div(
+            style = "margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 4px; text-align: center;",
+            tags$span(style = "font-size: 14px; color: #666;", i18n$t("total_mappings_to_export")),
+            tags$span(
+              id = ns("export_total_count"),
+              style = "font-size: 18px; font-weight: 600; color: #0f60af; margin-left: 10px;",
+              "0"
+            )
+          )
+        ),
+        tags$div(
+          class = "modal-footer",
+          style = "display: flex; justify-content: flex-end; gap: 10px; padding: 15px 20px; border-top: 1px solid #eee;",
+          tags$button(
+            class = "btn btn-secondary",
+            onclick = sprintf("$('#%s').hide();", ns("export_modal")),
+            i18n$t("cancel")
+          ),
+          actionButton(
+            ns("confirm_export"),
+            i18n$t("export"),
+            class = "btn btn-primary-custom",
+            icon = icon("download")
+          )
+        )
+      )
+    ),
+
     ### Modal - Source JSON Fullscreen (Edit Mappings) ----
     tags$div(
       id = ns("source_json_fullscreen_modal"),
@@ -889,6 +1191,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     comments_mapping_id <- reactiveVal(NULL)  # Track mapping ID for comments modal
     comments_trigger <- reactiveVal(0)  # Trigger to refresh comments display
     comment_to_delete <- reactiveVal(NULL)  # Track comment ID to delete
+
+    # Export modal state
+    export_alignment_id <- reactiveVal(NULL)  # Track alignment ID for export modal
+    export_stats <- reactiveVal(NULL)  # Store export statistics
 
     # Separate trigger for source concepts table updates (used by mapping operations)
     source_concepts_table_trigger <- reactiveVal(0)  # Trigger for Edit Mappings table (mapping changes)
@@ -1400,7 +1706,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           style = "display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;",
           tags$div(
             style = "flex: 1; min-width: 150px;",
-            tags$label("JSON Column", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+            tags$label(
+              "JSON Column",
+              tags$span(style = "color: #999; font-weight: normal; font-size: 12px;", " (optional)"),
+              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+            ),
             selectInput(
               ns("col_json"),
               label = NULL,
@@ -1410,7 +1720,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           ),
           tags$div(
             style = "flex: 1; min-width: 150px;",
-            tags$label("Additional Columns", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+            tags$label(
+              "Additional Columns",
+              tags$span(style = "color: #999; font-weight: normal; font-size: 12px;", " (optional)"),
+              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+            ),
             selectizeInput(
               ns("col_additional"),
               label = NULL,
@@ -1421,21 +1735,44 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           )
         ),
         tags$div(
-          style = "margin-bottom: 10px;",
-          tags$label(
-            i18n$t("target_concept_id_column"),
-            tags$span(style = "color: #666; font-weight: normal; font-size: 12px;", " (", i18n$t("optional"), ")"),
-            style = "display: block; font-weight: 600; margin-bottom: 8px;"
+          style = "display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;",
+          tags$div(
+            style = "flex: 1; min-width: 150px;",
+            tags$label(
+              i18n$t("target_concept_id_column"),
+              tags$span(style = "color: #999; font-weight: normal; font-size: 12px;", paste0(" (", i18n$t("optional"), ")")),
+              tags$span(
+                class = "help-tooltip",
+                style = "margin-left: 5px; cursor: help; position: relative; display: inline-block;",
+                tags$i(class = "fas fa-question-circle", style = "color: #999; font-size: 12px;"),
+                tags$span(
+                  class = "tooltip-text",
+                  style = "visibility: hidden; background-color: #333; color: #fff; text-align: center; border-radius: 6px; padding: 8px 12px; position: absolute; z-index: 1000; bottom: 125%; left: 50%; transform: translateX(-50%); width: 250px; font-size: 12px; font-weight: normal; opacity: 0; transition: opacity 0.2s;",
+                  i18n$t("target_concept_id_column_desc")
+                )
+              ),
+              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+            ),
+            selectInput(
+              ns("col_target_concept_id"),
+              label = NULL,
+              choices = choices,
+              selected = ""
+            )
           ),
-          selectInput(
-            ns("col_target_concept_id"),
-            label = NULL,
-            choices = choices,
-            selected = ""
-          ),
-          tags$p(
-            style = "color: #666; font-size: 12px; margin-top: 5px;",
-            i18n$t("target_concept_id_column_desc")
+          tags$div(
+            style = "flex: 1; min-width: 150px;",
+            tags$label(
+              "Frequency Column",
+              tags$span(style = "color: #999; font-weight: normal; font-size: 12px;", " (optional)"),
+              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+            ),
+            selectInput(
+              ns("col_frequency"),
+              label = NULL,
+              choices = choices,
+              selected = ""
+            )
           )
         )
       )
@@ -1520,7 +1857,28 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       df <- file_preview_data()
       if (is.null(df)) return(tags$p(style = "color: #999;", i18n$t("no_file_uploaded")))
 
-      col_names <- colnames(df)
+      # Get only the columns selected in page 2 dropdowns
+      selected_cols <- c(
+        input$col_vocabulary_id,
+        input$col_frequency,
+        input$col_concept_code,
+        input$col_concept_name,
+        input$col_json,
+        input$col_target_concept_id
+      )
+      # Add additional columns (multiple selection)
+      if (!is.null(input$col_additional)) {
+        selected_cols <- c(selected_cols, input$col_additional)
+      }
+      # Remove empty selections and duplicates
+      selected_cols <- unique(selected_cols[selected_cols != "" & !is.na(selected_cols)])
+
+      # Filter to only selected columns that exist in df
+      col_names <- selected_cols[selected_cols %in% colnames(df)]
+
+      if (length(col_names) == 0) {
+        return(tags$p(style = "color: #999;", i18n$t("no_columns_selected")))
+      }
 
       # Data type choices
       type_choices <- c(
@@ -1764,6 +2122,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       updateSelectInput(session, "csv_delimiter", selected = "auto")
       updateSelectInput(session, "csv_encoding", selected = "UTF-8")
       updateSelectInput(session, "col_vocabulary_id", selected = "")
+      updateSelectInput(session, "col_frequency", selected = "")
       updateSelectInput(session, "col_concept_code", selected = "")
       updateSelectInput(session, "col_concept_name", selected = "")
       updateSelectInput(session, "col_json", selected = "")
@@ -1904,7 +2263,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           concept_code = input$col_concept_code,
           concept_name = input$col_concept_name,
           json = input$col_json,
-          target_concept_id = input$col_target_concept_id
+          target_concept_id = input$col_target_concept_id,
+          frequency = input$col_frequency
         )
 
         additional_cols <- input$col_additional
@@ -2019,6 +2379,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       updateSelectInput(session, "csv_delimiter", selected = "auto")
       updateSelectInput(session, "csv_encoding", selected = "UTF-8")
       updateSelectInput(session, "col_vocabulary_id", selected = "")
+      updateSelectInput(session, "col_frequency", selected = "")
       updateSelectInput(session, "col_concept_code", selected = "")
       updateSelectInput(session, "col_concept_name", selected = "")
       updateSelectInput(session, "col_json", selected = "")
@@ -2071,107 +2432,351 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     })
     
     
-    ### Export Alignment ----
+    ### Export Alignment - Open Modal ----
     observe_event(input$export_alignment, {
       alignment_id <- input$export_alignment
+      if (is.null(alignment_id)) return()
+
+      # Store alignment_id for export
+      export_alignment_id(alignment_id)
+
+      # Get database connection to calculate statistics
+      db_dir <- get_app_dir()
+      db_path <- file.path(db_dir, "indicate.db")
+
+      if (!file.exists(db_path)) {
+        showNotification(i18n$t("database_not_found"), type = "error")
+        return()
+      }
+
+      con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+      # Get all mappings for this alignment with evaluation summary
+      mappings_query <- "
+        SELECT
+          cm.mapping_id,
+          cm.target_omop_concept_id,
+          COALESCE(SUM(CASE WHEN me.is_approved = 1 THEN 1 ELSE 0 END), 0) as approval_count,
+          COALESCE(SUM(CASE WHEN me.is_approved = 0 THEN 1 ELSE 0 END), 0) as rejection_count,
+          COALESCE(SUM(CASE WHEN me.is_approved = -1 THEN 1 ELSE 0 END), 0) as uncertain_count,
+          COUNT(me.evaluation_id) as total_evaluations
+        FROM concept_mappings cm
+        LEFT JOIN mapping_evaluations me ON cm.mapping_id = me.mapping_id
+        WHERE cm.alignment_id = ?
+        GROUP BY cm.mapping_id
+      "
+
+      mappings_data <- DBI::dbGetQuery(con, mappings_query, params = list(alignment_id))
+
+      if (nrow(mappings_data) == 0) {
+        showNotification(i18n$t("no_mappings_found"), type = "warning")
+        return()
+      }
+
+      # Calculate statistics based on evaluation criteria
+      # Approved: at least one approval
+      count_approved <- sum(mappings_data$approval_count > 0)
+      # Rejected: at least one rejection (and no approval)
+      count_rejected <- sum(mappings_data$rejection_count > 0 & mappings_data$approval_count == 0)
+      # Uncertain: at least one uncertain (and no approval, no rejection)
+      count_uncertain <- sum(mappings_data$uncertain_count > 0 & mappings_data$approval_count == 0 & mappings_data$rejection_count == 0)
+      # Not evaluated: no evaluations at all
+      count_not_evaluated <- sum(mappings_data$total_evaluations == 0)
+
+      total_mappings <- nrow(mappings_data)
+
+      # Store statistics
+      stats <- list(
+        total = total_mappings,
+        approved = count_approved,
+        rejected = count_rejected,
+        uncertain = count_uncertain,
+        not_evaluated = count_not_evaluated,
+        mappings_data = mappings_data
+      )
+      export_stats(stats)
+
+      # Update statistics display
+      shinyjs::html("stat_total", as.character(total_mappings))
+      shinyjs::html("stat_approved", as.character(count_approved))
+      shinyjs::html("stat_rejected", as.character(count_rejected))
+      shinyjs::html("stat_uncertain", as.character(count_uncertain))
+      shinyjs::html("stat_not_evaluated", as.character(count_not_evaluated))
+
+      # Update checkbox counts
+      shinyjs::html("export_count_approved", sprintf("[%d]", count_approved))
+      shinyjs::html("export_count_rejected", sprintf("[%d]", count_rejected))
+      shinyjs::html("export_count_uncertain", sprintf("[%d]", count_uncertain))
+      shinyjs::html("export_count_not_evaluated", sprintf("[%d]", count_not_evaluated))
+
+      # Reset checkboxes to defaults
+      updateCheckboxInput(session, "export_include_approved", value = TRUE)
+      updateCheckboxInput(session, "export_include_rejected", value = FALSE)
+      updateCheckboxInput(session, "export_include_uncertain", value = FALSE)
+      updateCheckboxInput(session, "export_include_not_evaluated", value = FALSE)
+
+      # Reset radio buttons via JavaScript
+      shinyjs::runjs(sprintf("
+        document.getElementById('%s').checked = true;
+        document.getElementById('%s').checked = false;
+        document.getElementById('%s').checked = true;
+        document.getElementById('%s').checked = false;
+        document.getElementById('%s').checked = false;
+        $('#%s').show();
+        Shiny.setInputValue('%s', 'source_to_concept_map', {priority: 'event'});
+        Shiny.setInputValue('%s', 'all', {priority: 'event'});
+      ",
+        ns("export_format_stcm"),
+        ns("export_format_usagi"),
+        ns("approved_filter_all"),
+        ns("approved_filter_majority"),
+        ns("approved_filter_no_rejection"),
+        ns("approved_sub_options"),
+        ns("export_format_value"),
+        ns("approved_filter_value")
+      ))
+
+      # Show modal
+      shinyjs::runjs(sprintf("$('#%s').show();", ns("export_modal")))
+    }, ignoreInit = TRUE)
+
+    ### Export - Toggle Approved Sub-options ----
+    observe_event(input$export_include_approved, {
+      if (isTRUE(input$export_include_approved)) {
+        shinyjs::show("approved_sub_options")
+      } else {
+        shinyjs::hide("approved_sub_options")
+      }
+      # Trigger count update
+      shinyjs::runjs(sprintf(
+        "var filter = $('input[name=\"%s\"]:checked').val() || 'all';
+         Shiny.setInputValue('%s', filter, {priority: 'event'});",
+        ns("approved_filter"),
+        ns("approved_filter_value")
+      ))
+    }, ignoreInit = TRUE)
+
+    ### Export - Listen to Approved Filter Radio Changes ----
+    # Add JavaScript event listener for radio button changes and calculate initial total
+    observe_event(export_stats(), {
+      stats <- export_stats()
+      if (is.null(stats)) return()
+
+      # Calculate initial total (approved checkbox is TRUE by default, filter is "all")
+      initial_total <- stats$approved
+      shinyjs::html("export_total_count", as.character(initial_total))
+
+      # When modal opens, set up listeners for radio buttons
+      shinyjs::runjs(sprintf("
+        $('input[name=\"%s\"]').off('change.export').on('change.export', function() {
+          Shiny.setInputValue('%s', $(this).val(), {priority: 'event'});
+        });
+        $('input[name=\"%s\"]').off('change.export').on('change.export', function() {
+          Shiny.setInputValue('%s', $(this).val(), {priority: 'event'});
+        });
+      ",
+        ns("approved_filter"),
+        ns("approved_filter_value"),
+        ns("export_format"),
+        ns("export_format_value")
+      ))
+    }, ignoreInit = TRUE)
+
+    ### Export - Update Total Count ----
+    # Listen to checkbox changes and trigger recalculation
+    observe_event(c(
+      input$export_include_approved,
+      input$export_include_rejected,
+      input$export_include_uncertain,
+      input$export_include_not_evaluated
+    ), {
+      # Trigger JS to send current approved_filter value
+      shinyjs::runjs(sprintf(
+        "var filter = $('input[name=\"%s\"]:checked').val() || 'all';
+         Shiny.setInputValue('%s', filter, {priority: 'event'});",
+        ns("approved_filter"),
+        ns("approved_filter_value")
+      ))
+    }, ignoreInit = TRUE)
+
+    # Also listen to radio button changes via JS
+    observe_event(input$approved_filter_value, {
+      stats <- export_stats()
+      if (is.null(stats)) return()
+
+      mappings_data <- stats$mappings_data
+      approved_filter <- input$approved_filter_value
+
+      # Filter approved mappings based on sub-option
+      approved_mappings <- if (isTRUE(input$export_include_approved)) {
+        base_approved <- mappings_data %>% dplyr::filter(approval_count > 0)
+
+        if (approved_filter == "majority") {
+          base_approved %>% dplyr::filter(approval_count > rejection_count)
+        } else if (approved_filter == "no_rejection") {
+          base_approved %>% dplyr::filter(rejection_count == 0)
+        } else {
+          base_approved
+        }
+      } else {
+        mappings_data %>% dplyr::filter(FALSE)
+      }
+
+      # Filter other categories
+      rejected_mappings <- if (isTRUE(input$export_include_rejected)) {
+        mappings_data %>% dplyr::filter(rejection_count > 0 & approval_count == 0)
+      } else {
+        mappings_data %>% dplyr::filter(FALSE)
+      }
+
+      uncertain_mappings <- if (isTRUE(input$export_include_uncertain)) {
+        mappings_data %>% dplyr::filter(uncertain_count > 0 & approval_count == 0 & rejection_count == 0)
+      } else {
+        mappings_data %>% dplyr::filter(FALSE)
+      }
+
+      not_evaluated_mappings <- if (isTRUE(input$export_include_not_evaluated)) {
+        mappings_data %>% dplyr::filter(total_evaluations == 0)
+      } else {
+        mappings_data %>% dplyr::filter(FALSE)
+      }
+
+      # Combine all selected mappings
+      selected_mapping_ids <- unique(c(
+        approved_mappings$mapping_id,
+        rejected_mappings$mapping_id,
+        uncertain_mappings$mapping_id,
+        not_evaluated_mappings$mapping_id
+      ))
+
+      total_to_export <- length(selected_mapping_ids)
+      shinyjs::html("export_total_count", as.character(total_to_export))
+    }, ignoreInit = TRUE)
+
+    ### Export - Confirm Export ----
+    observe_event(input$confirm_export, {
+      alignment_id <- export_alignment_id()
+      if (is.null(alignment_id)) return()
+
+      stats <- export_stats()
+      if (is.null(stats)) return()
+
       alignments <- alignments_data()
       alignment <- alignments %>%
         dplyr::filter(alignment_id == !!alignment_id)
-      
+
       if (nrow(alignment) == 0) return()
-      
+
       file_id <- alignment$file_id[1]
       alignment_name <- alignment$name[1]
-      
-      mapping_dir <- get_app_dir("concept_mapping")
-      
-      csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
-      
-      if (!file.exists(csv_path)) {
-        showNotification(i18n$t("no_mapping_file_found"), type = "error")
-        return()
-      }
-      
-      df <- read.csv(csv_path, stringsAsFactors = FALSE)
-      
-      if (!"target_general_concept_id" %in% colnames(df)) {
-        showNotification(i18n$t("no_mappings_found"), type = "warning")
-        return()
-      }
-      
-      mapped_rows <- df %>%
-        dplyr::filter(!is.na(target_general_concept_id))
-      
-      if (nrow(mapped_rows) == 0) {
-        showNotification(i18n$t("no_mappings_found"), type = "warning")
-        return()
-      }
-      
-      vocab_data <- vocabularies()
-      
-      export_data <- data.frame(
-        source_code = character(),
-        source_concept_id = integer(),
-        source_code_description = character(),
-        source_vocabulary_id = character(),
-        target_concept_id = integer(),
-        target_vocabulary_id = character(),
-        valid_start_date = character(),
-        valid_end_date = character(),
-        invalid_reason = character(),
-        stringsAsFactors = FALSE
-      )
-      
-      for (i in 1:nrow(mapped_rows)) {
-        mapped_concept <- mapped_rows[i, ]
-        
-        target_concept_id <- 0
-        target_vocabulary_id <- NA_character_
-        
-        if (!is.na(mapped_concept$target_omop_concept_id) && mapped_concept$target_omop_concept_id != 0) {
-          target_concept_id <- mapped_concept$target_omop_concept_id
-          if (!is.null(vocab_data)) {
-            target_info <- vocab_data$concept %>%
-              dplyr::filter(concept_id == mapped_concept$target_omop_concept_id) %>%
-              dplyr::select(concept_id, vocabulary_id) %>%
-              dplyr::collect()
-            
-            if (nrow(target_info) > 0) {
-              target_vocabulary_id <- target_info$vocabulary_id[1]
-            }
-          }
+
+      # Get mappings to export based on criteria
+      mappings_data <- stats$mappings_data
+      approved_filter <- input$approved_filter_value
+
+      # Filter approved mappings based on sub-option
+      approved_mappings <- if (isTRUE(input$export_include_approved)) {
+        base_approved <- mappings_data %>% dplyr::filter(approval_count > 0)
+
+        if (!is.null(approved_filter) && approved_filter == "majority") {
+          base_approved %>% dplyr::filter(approval_count > rejection_count)
+        } else if (!is.null(approved_filter) && approved_filter == "no_rejection") {
+          base_approved %>% dplyr::filter(rejection_count == 0)
+        } else {
+          base_approved
         }
-        
-        valid_start_date <- "1970-01-01"
-        if ("mapping_datetime" %in% colnames(mapped_concept) && !is.na(mapped_concept$mapping_datetime)) {
-          valid_start_date <- format(as.Date(as.POSIXct(mapped_concept$mapping_datetime)), "%Y-%m-%d")
-        }
-        
-        export_row <- data.frame(
-          source_code = as.character(mapped_concept$concept_code),
-          source_concept_id = 0L,
-          source_code_description = as.character(mapped_concept$concept_name),
-          source_vocabulary_id = as.character(mapped_concept$vocabulary_id),
-          target_concept_id = as.integer(target_concept_id),
-          target_vocabulary_id = as.character(target_vocabulary_id),
-          valid_start_date = valid_start_date,
-          valid_end_date = "2099-12-31",
-          invalid_reason = NA_character_,
-          stringsAsFactors = FALSE
+      } else {
+        mappings_data %>% dplyr::filter(FALSE)
+      }
+
+      # Filter other categories
+      rejected_mappings <- if (isTRUE(input$export_include_rejected)) {
+        mappings_data %>% dplyr::filter(rejection_count > 0 & approval_count == 0)
+      } else {
+        mappings_data %>% dplyr::filter(FALSE)
+      }
+
+      uncertain_mappings <- if (isTRUE(input$export_include_uncertain)) {
+        mappings_data %>% dplyr::filter(uncertain_count > 0 & approval_count == 0 & rejection_count == 0)
+      } else {
+        mappings_data %>% dplyr::filter(FALSE)
+      }
+
+      not_evaluated_mappings <- if (isTRUE(input$export_include_not_evaluated)) {
+        mappings_data %>% dplyr::filter(total_evaluations == 0)
+      } else {
+        mappings_data %>% dplyr::filter(FALSE)
+      }
+
+      # Combine all selected mappings (use bind_rows to keep full data)
+      selected_mappings <- dplyr::bind_rows(
+        approved_mappings,
+        rejected_mappings,
+        uncertain_mappings,
+        not_evaluated_mappings
+      ) %>% dplyr::distinct(mapping_id, .keep_all = TRUE)
+
+      if (nrow(selected_mappings) == 0) {
+        showNotification(i18n$t("no_mappings_to_export"), type = "warning")
+        return()
+      }
+
+      # Get full mapping data from database
+      db_dir <- get_app_dir()
+      db_path <- file.path(db_dir, "indicate.db")
+      con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+      mapping_ids <- selected_mappings$mapping_id
+
+      # Get mapping details
+      mappings_full <- DBI::dbGetQuery(
+        con,
+        sprintf(
+          "SELECT * FROM concept_mappings WHERE mapping_id IN (%s)",
+          paste(mapping_ids, collapse = ",")
         )
-        
-        export_data <- rbind(export_data, export_row)
+      )
+
+      # Read source CSV for concept names
+      mapping_dir <- get_app_dir("concept_mapping")
+      csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
+      source_df <- NULL
+      if (file.exists(csv_path)) {
+        source_df <- read.csv(csv_path, stringsAsFactors = FALSE)
       }
-      
+
+      # Get vocabulary data
+      vocab_data <- vocabularies()
+
+      # Get format value (default to usagi if not yet set)
+      export_format <- if (!is.null(input$export_format_value)) input$export_format_value else "usagi"
+
+      if (export_format == "usagi") {
+        # Export in Usagi format
+        export_data <- export_usagi_format(
+          mappings_full, selected_mappings, source_df, vocab_data, alignment_name, current_user(), i18n
+        )
+        filename_suffix <- "usagi"
+      } else {
+        # Export in SOURCE_TO_CONCEPT_MAP format
+        export_data <- export_source_to_concept_map_format(
+          mappings_full, source_df, vocab_data
+        )
+        filename_suffix <- "source_to_concept_map"
+      }
+
+      # Generate filename and download
       safe_name <- gsub("[^a-zA-Z0-9_-]", "_", alignment_name)
       timestamp <- format(Sys.time(), "%Y-%m-%d_%H-%M-%S")
-      filename <- paste0(safe_name, "_source_to_concept_map_", timestamp, ".csv")
-      
+      filename <- paste0(safe_name, "_", filename_suffix, "_", timestamp, ".csv")
+
       temp_csv <- tempfile(fileext = ".csv")
       write.csv(export_data, temp_csv, row.names = FALSE, quote = TRUE, na = "")
       csv_content <- paste(readLines(temp_csv, warn = FALSE), collapse = "\n")
       unlink(temp_csv)
-      
+
       csv_encoded <- base64enc::base64encode(charToRaw(csv_content))
       download_js <- sprintf(
         "var link = document.createElement('a');
@@ -2181,9 +2786,17 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         csv_encoded,
         filename
       )
-      
+
       shinyjs::runjs(download_js)
-    })
+
+      # Hide modal
+      shinyjs::runjs(sprintf("$('#%s').hide();", ns("export_modal")))
+
+      showNotification(
+        sprintf(i18n$t("export_successful"), nrow(export_data)),
+        type = "message"
+      )
+    }, ignoreInit = TRUE)
 
     ## 4) Server - Alignment Detail View ----
     ### Helper Functions - View Renderers ----
@@ -3724,10 +4337,19 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       other_cols <- setdiff(colnames(df), c(standard_cols, excluded_cols))
       df_final <- df[, c(available_standard, other_cols), drop = FALSE]
 
+      # Rename columns for display
+      nice_names <- colnames(df_final)
+      nice_names[nice_names == "vocabulary_id"] <- as.character(i18n$t("vocabulary"))
+      nice_names[nice_names == "concept_code"] <- as.character(i18n$t("concept_code"))
+      nice_names[nice_names == "concept_name"] <- as.character(i18n$t("name"))
+      nice_names[nice_names == "statistical_summary"] <- as.character(i18n$t("summary"))
+      nice_names[nice_names == "frequency"] <- as.character(i18n$t("frequency"))
+
       # Render table with prepared data only
       output$source_concepts_table_mapped <- DT::renderDT({
         datatable(
           df_final,
+          colnames = nice_names,
           options = list(
             pageLength = 8,
             lengthMenu = list(c(5, 8, 10, 15, 20, 50, 100), c('5', '8', '10', '15', '20', '50', '100')),
@@ -4071,6 +4693,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       nice_names[nice_names == "concept_code"] <- as.character(i18n$t("concept_code"))
       nice_names[nice_names == "concept_name"] <- as.character(i18n$t("name"))
       nice_names[nice_names == "statistical_summary"] <- as.character(i18n$t("summary"))
+      nice_names[nice_names == "frequency"] <- as.character(i18n$t("frequency"))
       nice_names[nice_names == "Mapped"] <- as.character(i18n$t("mapped"))
 
       mapped_col_index <- which(colnames(df_display) == "Mapped") - 1
@@ -6422,12 +7045,10 @@ Data distribution by hospital unit/ward.
               # User can't evaluate own mappings, but can still view/add comments
               sprintf(
                 '<div style="display: flex; gap: 5px; justify-content: center; align-items: center;">
-                  <span style="color: #999; font-style: italic; font-size: 11px; margin-right: 5px;">%s</span>
                   <button class="btn-eval-action btn-comments" data-action="comments" data-mapping-id="%d" title="%s" style="position: relative;">
                     <i class="fas fa-comment"></i>%s
                   </button>
                 </div>',
-                i18n$t("cannot_evaluate_own_mappings"),
                 mapping_id,
                 i18n$t("mapping_comments"),
                 comments_badge
@@ -6685,12 +7306,10 @@ Data distribution by hospital unit/ward.
             # User can't evaluate own mappings, but can still view/add comments
             sprintf(
               '<div style="display: flex; gap: 5px; justify-content: center; align-items: center;">
-                <span style="color: #999; font-style: italic; font-size: 11px; margin-right: 5px;">%s</span>
                 <button class="btn-eval-action btn-comments" data-action="comments" data-mapping-id="%d" title="%s" style="position: relative;">
                   <i class="fas fa-comment"></i>%s
                 </button>
               </div>',
-              i18n$t("cannot_evaluate_own_mappings"),
               mapping_id,
               i18n$t("mapping_comments"),
               comments_badge

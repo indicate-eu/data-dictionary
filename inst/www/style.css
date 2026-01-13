@@ -2794,3 +2794,21 @@ button.btn-icon-only:hover {
   position: fixed !important;
   z-index: 100000 !important;
 }
+
+/* Help tooltip styling
+-------------------------------------------------- */
+.help-tooltip:hover .tooltip-text {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.help-tooltip .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}

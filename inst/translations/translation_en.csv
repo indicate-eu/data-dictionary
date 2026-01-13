@@ -405,3 +405,19 @@ mappings_approved,Approved
 mappings_rejected,Rejected
 mappings_uncertain,Uncertain
 mappings_not_evaluated,Not Evaluated
+export_alignment,Export Alignment
+mapping_statistics,Mapping Statistics
+at_least_one_approval,At least one approval
+at_least_one_rejection,At least one rejection
+uncertain_no_approval,Uncertain only (no approval)
+no_evaluation,No evaluation yet
+exclude_if_any_rejection,Exclude mappings with at least one rejection
+total_mappings_to_export,Total mappings to export:
+no_mappings_to_export,No mappings match the selected criteria.
+export_successful,%d mappings exported successfully.
+usagi_format_desc,Compatible with Usagi desktop
+stcm_format_desc,For OMOP CDM ETL
+include_all_approved,Include all (at least one approval)
+only_majority_approval,Only with majority approval
+frequency,Frequency
+no_columns_selected,No columns selected

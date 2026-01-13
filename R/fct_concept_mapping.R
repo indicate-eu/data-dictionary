@@ -295,3 +295,245 @@ get_alignment_mappings <- function(alignment_id) {
     params = list(alignment_id)
   )
 }
+
+# EXPORT FUNCTIONS ====
+
+#' Export mappings in Usagi format
+#'
+#' @description Export mappings in a format compatible with OHDSI Usagi
+#'
+#' @param mappings_full Full mapping data from database
+#' @param selected_mappings Filtered mappings with evaluation counts
+#' @param source_df Source CSV data
+#' @param vocab_data Vocabulary data (DuckDB connection)
+#' @param alignment_name Name of the alignment
+#' @param current_user Current user object
+#' @param i18n Translation object
+#'
+#' @return Data frame in Usagi format
+#' @noRd
+export_usagi_format <- function(mappings_full, selected_mappings, source_df, vocab_data, alignment_name, current_user, i18n) {
+
+  # Initialize export data frame with Usagi columns
+  export_rows <- list()
+
+  for (i in seq_len(nrow(mappings_full))) {
+    mapping <- mappings_full[i, ]
+    eval_data <- selected_mappings[selected_mappings$mapping_id == mapping$mapping_id, ]
+
+    if (nrow(eval_data) == 0) next
+
+    # Get source concept info from CSV
+    source_code <- ""
+    source_name <- ""
+    source_frequency <- 0
+
+    if (!is.null(source_df) && !is.na(mapping$csv_mapping_id)) {
+      row_idx <- mapping$csv_mapping_id
+      if (row_idx <= nrow(source_df)) {
+        if ("concept_code" %in% colnames(source_df)) {
+          source_code <- as.character(source_df$concept_code[row_idx])
+        }
+        if ("concept_name" %in% colnames(source_df)) {
+          source_name <- as.character(source_df$concept_name[row_idx])
+        }
+        if ("frequency" %in% colnames(source_df)) {
+          source_frequency <- as.integer(source_df$frequency[row_idx])
+        }
+      }
+    }
+
+    # Get target concept info from vocabulary
+    concept_id <- 0
+    concept_name <- ""
+    domain_id <- ""
+    vocabulary_id <- ""
+
+    if (!is.na(mapping$target_omop_concept_id) && mapping$target_omop_concept_id != 0) {
+      concept_id <- mapping$target_omop_concept_id
+
+      if (!is.null(vocab_data)) {
+        target_info <- vocab_data$concept %>%
+          dplyr::filter(concept_id == !!mapping$target_omop_concept_id) %>%
+          dplyr::select(concept_id, concept_name, domain_id, vocabulary_id) %>%
+          dplyr::collect()
+
+        if (nrow(target_info) > 0) {
+          concept_name <- target_info$concept_name[1]
+          domain_id <- target_info$domain_id[1]
+          vocabulary_id <- target_info$vocabulary_id[1]
+        }
+      }
+    }
+
+    # Determine mapping status based on evaluations
+    approval_count <- eval_data$approval_count[1]
+    rejection_count <- eval_data$rejection_count[1]
+    uncertain_count <- eval_data$uncertain_count[1]
+    total_evaluations <- eval_data$total_evaluations[1]
+
+    mapping_status <- if (approval_count > 0) {
+      "APPROVED"
+    } else if (rejection_count > 0) {
+      "INVALID"
+    } else if (uncertain_count > 0) {
+      "FLAGGED"
+    } else {
+      "UNCHECKED"
+    }
+
+    # Determine equivalence
+    equivalence <- "UNREVIEWED"
+    if (approval_count > 0 || rejection_count > 0 || uncertain_count > 0) {
+      equivalence <- "EQUIVALENT"
+    }
+
+    # Build row
+    export_row <- data.frame(
+      sourceCode = source_code,
+      sourceName = source_name,
+      sourceFrequency = source_frequency,
+      sourceAutoAssignedConceptIds = "",
+      matchScore = 0.00,
+      mappingStatus = mapping_status,
+      equivalence = equivalence,
+      statusSetBy = if (!is.null(current_user)) current_user$login else "",
+      statusSetOn = floor(as.numeric(Sys.time()) * 1000),
+      conceptId = concept_id,
+      conceptName = concept_name,
+      domainId = domain_id,
+      mappingType = "MAPS_TO",
+      comment = "",
+      createdBy = if (!is.null(current_user)) current_user$login else "",
+      createdOn = floor(as.numeric(as.POSIXct(mapping$mapping_datetime)) * 1000),
+      assignedReviewer = "",
+      stringsAsFactors = FALSE
+    )
+
+    export_rows[[length(export_rows) + 1]] <- export_row
+  }
+
+  if (length(export_rows) == 0) {
+    return(data.frame(
+      sourceCode = character(),
+      sourceName = character(),
+      sourceFrequency = integer(),
+      sourceAutoAssignedConceptIds = character(),
+      matchScore = numeric(),
+      mappingStatus = character(),
+      equivalence = character(),
+      statusSetBy = character(),
+      statusSetOn = numeric(),
+      conceptId = integer(),
+      conceptName = character(),
+      domainId = character(),
+      mappingType = character(),
+      comment = character(),
+      createdBy = character(),
+      createdOn = numeric(),
+      assignedReviewer = character(),
+      stringsAsFactors = FALSE
+    ))
+  }
+
+  dplyr::bind_rows(export_rows)
+}
+
+#' Export mappings in SOURCE_TO_CONCEPT_MAP format
+#'
+#' @description Export mappings in OMOP CDM SOURCE_TO_CONCEPT_MAP format
+#'
+#' @param mappings_full Full mapping data from database
+#' @param source_df Source CSV data
+#' @param vocab_data Vocabulary data (DuckDB connection)
+#'
+#' @return Data frame in SOURCE_TO_CONCEPT_MAP format
+#' @noRd
+export_source_to_concept_map_format <- function(mappings_full, source_df, vocab_data) {
+
+  export_rows <- list()
+
+  for (i in seq_len(nrow(mappings_full))) {
+    mapping <- mappings_full[i, ]
+
+    # Get source concept info from CSV
+    source_code <- ""
+    source_code_description <- ""
+    source_vocabulary_id <- ""
+
+    if (!is.null(source_df) && !is.na(mapping$csv_mapping_id)) {
+      row_idx <- mapping$csv_mapping_id
+      if (row_idx <= nrow(source_df)) {
+        if ("concept_code" %in% colnames(source_df)) {
+          source_code <- as.character(source_df$concept_code[row_idx])
+        }
+        if ("concept_name" %in% colnames(source_df)) {
+          source_code_description <- as.character(source_df$concept_name[row_idx])
+        }
+        if ("vocabulary_id" %in% colnames(source_df)) {
+          source_vocabulary_id <- as.character(source_df$vocabulary_id[row_idx])
+        }
+      }
+    }
+
+    # Get target concept info
+    target_concept_id <- 0
+    target_vocabulary_id <- ""
+
+    if (!is.na(mapping$target_omop_concept_id) && mapping$target_omop_concept_id != 0) {
+      target_concept_id <- mapping$target_omop_concept_id
+
+      if (!is.null(vocab_data)) {
+        target_info <- vocab_data$concept %>%
+          dplyr::filter(concept_id == !!mapping$target_omop_concept_id) %>%
+          dplyr::select(concept_id, vocabulary_id) %>%
+          dplyr::collect()
+
+        if (nrow(target_info) > 0) {
+          target_vocabulary_id <- target_info$vocabulary_id[1]
+        }
+      }
+    }
+
+    # Valid start date from mapping datetime
+    valid_start_date <- "1970-01-01"
+    if (!is.na(mapping$mapping_datetime)) {
+      valid_start_date <- tryCatch(
+        format(as.Date(as.POSIXct(mapping$mapping_datetime)), "%Y-%m-%d"),
+        error = function(e) "1970-01-01"
+      )
+    }
+
+    export_row <- data.frame(
+      source_code = source_code,
+      source_concept_id = 0L,
+      source_vocabulary_id = source_vocabulary_id,
+      source_code_description = source_code_description,
+      target_concept_id = as.integer(target_concept_id),
+      target_vocabulary_id = target_vocabulary_id,
+      valid_start_date = valid_start_date,
+      valid_end_date = "2099-12-31",
+      invalid_reason = NA_character_,
+      stringsAsFactors = FALSE
+    )
+
+    export_rows[[length(export_rows) + 1]] <- export_row
+  }
+
+  if (length(export_rows) == 0) {
+    return(data.frame(
+      source_code = character(),
+      source_concept_id = integer(),
+      source_vocabulary_id = character(),
+      source_code_description = character(),
+      target_concept_id = integer(),
+      target_vocabulary_id = character(),
+      valid_start_date = character(),
+      valid_end_date = character(),
+      invalid_reason = character(),
+      stringsAsFactors = FALSE
+    ))
+  }
+
+  dplyr::bind_rows(export_rows)
+}
