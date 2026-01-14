@@ -11,7 +11,6 @@
 #' @param port Port used to run the Shiny app. Default is 3838.
 #' @param host Host address to run the app on. Default is "0.0.0.0".
 #' @param ... Additional arguments passed to \code{\link[shiny]{shinyApp}}
-#' @param options A named list of options to pass to \code{\link[shiny]{shinyApp}}.
 #'
 #' @return A Shiny app object
 #' @export
@@ -33,8 +32,7 @@ run_app <- function(
     debug_mode = "error",
     port = 3838,
     host = "0.0.0.0",
-    ...,
-    options = list()
+    ...
 ) {
 
   # Validate language
@@ -61,8 +59,13 @@ if (!(language %in% c("en", "fr"))) {
     Sys.setenv(INDICATE_DEBUG_MODE = paste(debug_mode, collapse = ","))
   }
 
-  # Set Shiny options for port, host, and browser launch
-  base::options(shiny.port = port, shiny.host = host, shiny.launch.browser = TRUE)
+  # Set Shiny options for port, host, browser launch, and max upload size (4096 MB)
+  base::options(
+    shiny.port = port,
+    shiny.host = host,
+    shiny.launch.browser = TRUE,
+    shiny.maxRequestSize = 4096 * 1024^2
+  )
 
   # Add resource path for www directory
   addResourcePath("www", system.file("www", package = "indicate"))
@@ -70,7 +73,6 @@ if (!(language %in% c("en", "fr"))) {
   shinyApp(
     ui = app_ui,
     server = app_server,
-    options = options,
     ...
   )
 }
