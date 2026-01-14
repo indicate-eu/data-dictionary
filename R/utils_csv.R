@@ -18,7 +18,8 @@ CSV_FILES <- c(
   "unit_conversions.csv",
   "general_concepts_history.csv",
   "general_concepts_details_history.csv",
-  "general_concepts_last_id.txt"
+  "general_concepts_last_id.txt",
+  "global_comment.txt"
 )
 
 #' Get User Data Dictionary Directory
@@ -528,4 +529,41 @@ get_comment_for_language <- function(concept_info, lang) {
   } else {
     ""
   }
+}
+
+#' Get Global Comment
+#'
+#' @description Reads the global comment from the global_comment.txt file
+#' in the user's app_folder/data_dictionary directory.
+#'
+#' @return Character string with the global comment, or empty string if not found
+#' @noRd
+get_global_comment <- function() {
+  file_path <- get_csv_path("global_comment.txt")
+
+  if (!file.exists(file_path)) {
+    return("")
+  }
+
+  # Read all lines and join with newline
+  content <- readLines(file_path, warn = FALSE)
+  paste(content, collapse = "\n")
+}
+
+#' Save Global Comment
+#'
+#' @description Saves the global comment to the global_comment.txt file
+#' in the user's app_folder/data_dictionary directory.
+#'
+#' @param comment Character string with the global comment content
+#'
+#' @return Invisible TRUE on success
+#' @noRd
+save_global_comment <- function(comment) {
+  file_path <- get_csv_path("global_comment.txt")
+
+  # Write content to file
+  writeLines(comment, file_path)
+
+  return(invisible(TRUE))
 }

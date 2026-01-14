@@ -6,6 +6,7 @@
 #   ## UI - Main Layout
 #      ### OHDSI Vocabularies Tab - Browse and select vocabulary files folder
 #      ### INDICATE Concepts Tab - Import/export data dictionary folder
+#      ### Global Comment Tab - Edit global comment accessible from all Comments panels
 #      ### Backup & Restore Tab - Download/upload application data backup (ZIP)
 #
 # SERVER STRUCTURE:
@@ -180,6 +181,75 @@ mod_general_settings_ui <- function(id, i18n) {
                     style = "margin: 0; font-size: 13px; color: #333;",
                     tags$i(class = "fas fa-exclamation-triangle", style = "margin-right: 6px; color: #ffc107;"),
                     tags$strong("Warning:"), " ", i18n$t("upload_dictionary_warning")
+                  )
+                )
+              )
+            )
+          ),
+
+          ### Global Comment Tab ----
+          tabPanel(
+            i18n$t("global_comment"),
+            value = "global_comment",
+            icon = icon("comment-dots"),
+            tags$div(
+              style = "margin-top: 10px; height: calc(100vh - 170px); display: flex; flex-direction: column;",
+
+              # Header with description and save button
+              tags$div(
+                style = "display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; flex-shrink: 0;",
+                tags$p(
+                  style = "color: #666; margin: 0; flex: 1; padding-right: 20px;",
+                  i18n$t("global_comment_desc")
+                ),
+                tags$div(
+                  style = "display: flex; align-items: center; gap: 10px;",
+                  uiOutput(ns("global_comment_status")),
+                  actionButton(
+                    ns("save_global_comment_btn"),
+                    label = tagList(
+                      tags$i(class = "fas fa-save", style = "margin-right: 6px;"),
+                      i18n$t("save_global_comment")
+                    ),
+                    class = "btn-success-custom"
+                  )
+                )
+              ),
+
+              # Split view: textarea on left, preview on right (matching dictionary explorer style)
+              tags$div(
+                style = "flex: 1; display: flex; gap: 0; min-height: 0; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;",
+
+                # Left: textarea editor
+                tags$div(
+                  style = "flex: 1; padding: 10px; border-right: 1px solid #ddd; display: flex; flex-direction: column; overflow: hidden;",
+                  tags$h4(
+                    style = "margin-top: 0; color: #0f60af; font-size: 16px; font-weight: 600; margin-bottom: 15px; flex-shrink: 0;",
+                    "Edit"
+                  ),
+                  tags$div(
+                    style = "flex: 1; overflow: hidden;",
+                    shiny::textAreaInput(
+                      ns("global_comment_input"),
+                      label = NULL,
+                      value = "",
+                      placeholder = "Enter global comment here (supports Markdown)...",
+                      width = "100%",
+                      height = "100%"
+                    )
+                  )
+                ),
+
+                # Right: markdown preview
+                tags$div(
+                  style = "flex: 1; padding: 10px; display: flex; flex-direction: column; overflow: hidden;",
+                  tags$h4(
+                    style = "margin-top: 0; color: #0f60af; font-size: 16px; font-weight: 600; margin-bottom: 15px; flex-shrink: 0;",
+                    "Preview"
+                  ),
+                  tags$div(
+                    style = "flex: 1; overflow-y: auto;",
+                    uiOutput(ns("global_comment_preview"))
                   )
                 )
               )
@@ -1632,6 +1702,89 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
         } else {
           tags$div(
             style = "margin-top: 10px; padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px;",
+            tags$i(class = "fas fa-exclamation-circle", style = "margin-right: 6px; color: #dc3545;"),
+            msg$message
+          )
+        }
+      })
+    }, ignoreInit = FALSE)
+
+    ## 5) Server - Global Comment ----
+
+    ### Global Comment State ----
+    global_comment_message <- reactiveVal(NULL)
+
+    ### Load Global Comment on Init ----
+    observe({
+      comment <- get_global_comment()
+      if (!is.null(comment) && nchar(comment) > 0) {
+        updateTextAreaInput(session, "global_comment_input", value = comment)
+      }
+    }, priority = 100)
+
+    ### Live Preview of Global Comment ----
+    observe_event(input$global_comment_input, {
+      output$global_comment_preview <- renderUI({
+        text <- input$global_comment_input
+        if (is.null(text) || nchar(text) == 0) {
+          tags$div(
+            style = "color: #999; font-style: italic; margin: 5px;",
+            "Preview will appear here as you type..."
+          )
+        } else {
+          tags$div(
+            class = "markdown-content",
+            style = "background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); margin: 5px; height: 100%; overflow-y: auto;",
+            shiny::markdown(text)
+          )
+        }
+      })
+    }, ignoreInit = FALSE)
+
+    ### Save Global Comment Handler ----
+    observe_event(input$save_global_comment_btn, {
+      comment_text <- input$global_comment_input
+
+      # Handle NULL or empty input
+      if (is.null(comment_text)) {
+        comment_text <- ""
+      }
+
+      # Save to file
+      data_dict_dir <- get_user_data_dictionary_dir()
+      file_path <- file.path(data_dict_dir, "global_comment.txt")
+      writeLines(comment_text, file_path)
+
+      global_comment_message(list(
+        success = TRUE,
+        message = config$i18n$t("global_comment_saved")
+      ))
+    })
+
+    ### Global Comment Status Display ----
+    global_comment_status_trigger <- reactiveVal(0)
+
+    observe_event(global_comment_message(), {
+      global_comment_status_trigger(global_comment_status_trigger() + 1)
+    })
+
+    observe_event(global_comment_status_trigger(), {
+      output$global_comment_status <- renderUI({
+        msg <- global_comment_message()
+
+        if (is.null(msg)) {
+          return(NULL)
+        }
+
+        if (msg$success) {
+          tags$span(
+            style = "padding: 6px 12px; background: #d4edda; border-radius: 4px; font-size: 12px; color: #155724;",
+            tags$i(class = "fas fa-check-circle", style = "margin-right: 6px; color: #28a745;"),
+            msg$message
+          )
+        } else {
+          tags$span(
+            style = "padding: 6px 12px; background: #f8d7da; border-radius: 4px; font-size: 12px; color: #721c24;",
             tags$i(class = "fas fa-exclamation-circle", style = "margin-right: 6px; color: #dc3545;"),
             msg$message
           )

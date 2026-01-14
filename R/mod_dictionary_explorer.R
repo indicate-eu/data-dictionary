@@ -1201,10 +1201,9 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
             uiOutput(ns("hierarchy_graph_breadcrumb"))
           ),
           tags$button(
-            class = "modal-close-graph",
+            class = "modal-fullscreen-close",
             onclick = sprintf("$('#%s').hide();", ns("hierarchy_graph_modal")),
-            style = "font-size: 28px; font-weight: 300; color: #666; border: none; background: none; cursor: pointer; padding: 0; width: 30px; height: 30px; line-height: 1;",
-            "×"
+            HTML("&times;")
           )
         ),
         # Graph content
@@ -1225,20 +1224,48 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
         style = "height: 100%; display: flex; flex-direction: column;",
         tags$div(
           style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
-          tags$h3(
-            style = "margin: 0; color: #0f60af;",
-            i18n$t("etl_guidance_comments")
+          # Left side: Back button (hidden by default) + Title
+          tags$div(
+            style = "display: flex; align-items: center; gap: 10px;",
+            actionButton(
+              ns("back_from_global_comment"),
+              label = HTML("&#8592;"),
+              class = "btn-back-comment",
+              style = "display: none;"
+            ),
+            tags$h3(
+              id = ns("comments_modal_title"),
+              style = "margin: 0; color: #0f60af;",
+              i18n$t("etl_guidance_comments")
+            )
           ),
+          # Center: Global Comment button
+          actionButton(
+            ns("view_global_comment"),
+            label = tagList(
+              tags$i(class = "fas fa-globe", style = "margin-right: 6px;"),
+              i18n$t("view_global_comment")
+            ),
+            class = "btn-global-comment"
+          ),
+          # Right side: Close button
           actionButton(
             ns("close_fullscreen_modal"),
-            label = HTML("×"),
-            class = "modal-close",
-            style = "font-size: 28px; font-weight: 300; color: #666; border: none; background: none; cursor: pointer; padding: 0; width: 30px; height: 30px; line-height: 1;"
+            label = HTML("&times;"),
+            class = "modal-fullscreen-close"
           )
         ),
+        # Concept comment content
         tags$div(
+          id = ns("concept_comment_container"),
           style = "flex: 1; overflow: hidden; padding: 0;",
           uiOutput(ns("comments_fullscreen_content"))
+        ),
+        # Global comment content (hidden by default)
+        tags$div(
+          id = ns("global_comment_container"),
+          style = "flex: 1; overflow: hidden; padding: 20px; display: none;",
+          uiOutput(ns("global_comment_display"))
         ),
         tags$style(HTML(sprintf("
           #%s {
@@ -1265,8 +1292,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
           actionButton(
             ns("close_concept_set_fullscreen"),
             label = HTML("&times;"),
-            class = "modal-close",
-            style = "font-size: 28px; font-weight: 300; color: #666; border: none; background: none; cursor: pointer; padding: 0; width: 30px; height: 30px; line-height: 1;"
+            class = "modal-fullscreen-close"
           )
         ),
         tags$div(
@@ -4084,7 +4110,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           selection = 'none',
           options = list(
             pageLength = 8,
-            dom = 'tp',
+            dom = 'tip',
             ordering = TRUE,
             autoWidth = FALSE,
             language = get_datatable_language()
@@ -4499,8 +4525,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         # Display full info for OHDSI-only concepts (with "/" for missing EHDEN/LOINC data)
         return(tags$div(
           class = "concept-details-container",
-          style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(8, auto); grid-auto-flow: column; gap: 4px 15px;",
-          # Column 1
+          style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(9, auto); grid-auto-flow: column; gap: 4px 15px;",
+          # Column 1 (9 items)
           create_detail_item(i18n$t("concept_name"), info$concept_name, include_colon = FALSE),
           create_detail_item(i18n$t("category"),
                             ifelse(nrow(general_concept_info) > 0,
@@ -4516,7 +4542,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           create_detail_item(i18n$t("validity"), validity_text, color = validity_color, include_colon = FALSE),
           create_detail_item(i18n$t("standard"), standard_text, color = standard_color, include_colon = FALSE),
           tags$div(class = "detail-item", style = "visibility: hidden;"),
-          # Column 2 (must have exactly 9 items)
+          # Column 2 (9 items)
           create_detail_item(i18n$t("vocabulary_id"), info$vocabulary_id, include_colon = FALSE),
           create_detail_item(i18n$t("domain_id"), if (!is.na(info$domain_id)) info$domain_id else "/", include_colon = FALSE),
           create_detail_item(i18n$t("concept_class"), "/", include_colon = FALSE),
@@ -4549,7 +4575,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           },
           create_detail_item(i18n$t("unit_concept_name"), "/", include_colon = FALSE),
           create_detail_item(i18n$t("omop_unit_concept_id"), "/", include_colon = FALSE),
-          tags$div(class = "detail-item", style = "visibility: hidden;"),
           tags$div(class = "detail-item", style = "visibility: hidden;")
         ))
       }
@@ -4710,8 +4735,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       tags$div(
         class = "concept-details-container",
-        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(10, auto); grid-auto-flow: column; gap: 4px 15px;",
-        # Column 1 (10 items)
+        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(11, auto); grid-auto-flow: column; gap: 4px 15px;",
+        # Column 1 (11 items)
         create_detail_item(i18n$t("concept_name"), info$concept_name, include_colon = FALSE, is_editing = is_editing, ns = ns),
         create_detail_item(i18n$t("category"),
                           ifelse(nrow(general_concept_info) > 0,
@@ -5713,6 +5738,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       concept_id <- selected_concept_id()
       if (is.null(concept_id)) return()
 
+      # Check if we're in edit mode and hide/show global comment button accordingly
+      is_edit_mode <- general_concept_detail_edit_mode()
+      if (is_edit_mode) {
+        shinyjs::hide("view_global_comment")
+      } else {
+        shinyjs::show("view_global_comment")
+      }
+
       output$comments_fullscreen_content <- renderUI({
         concept_info <- current_data()$general_concepts %>%
           dplyr::filter(general_concept_id == concept_id)
@@ -5816,8 +5849,74 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         updateTextAreaInput(session, "comments_input", value = input$fullscreen_comments_input)
       }
 
+      # Reset to concept comment view before closing
+      shinyjs::hide("global_comment_container")
+      shinyjs::show("concept_comment_container")
+      shinyjs::hide("back_from_global_comment")
+      shinyjs::show("view_global_comment")
+      shinyjs::runjs(sprintf(
+        "$('#%s').text('%s')",
+        ns("comments_modal_title"),
+        i18n$t("etl_guidance_comments")
+      ))
+
       # Close the modal
       shinyjs::hide("comments_fullscreen_modal")
+    }, ignoreInit = TRUE)
+
+    # Handle view global comment button click
+    observe_event(input$view_global_comment, {
+      # Switch to global comment view
+      shinyjs::hide("concept_comment_container")
+      shinyjs::show("global_comment_container")
+      shinyjs::show("back_from_global_comment")
+      shinyjs::hide("view_global_comment")
+      shinyjs::runjs(sprintf(
+        "$('#%s').text('%s')",
+        ns("comments_modal_title"),
+        i18n$t("global_comment")
+      ))
+
+      # Load and render global comment from file
+      output$global_comment_display <- renderUI({
+        comment <- get_global_comment()
+
+        if (is.null(comment) || nchar(comment) == 0) {
+          return(
+            tags$div(
+              style = "height: 100%; padding: 10px; overflow-y: auto; background: #f8f9fa;",
+              tags$div(
+                style = "background: white; padding: 20px; border-radius: 8px; color: #999; font-style: italic; text-align: center; height: 100%;",
+                i18n$t("no_global_comment")
+              )
+            )
+          )
+        }
+
+        # Render markdown content with same styling as concept comment fullscreen view
+        tags$div(
+          style = "height: 100%; padding: 10px; overflow-y: auto; background: #f8f9fa;",
+          tags$div(
+            class = "markdown-content",
+            style = "background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); height: 100%; overflow-y: auto;",
+            shiny::markdown(comment)
+          )
+        )
+      })
+    }, ignoreInit = TRUE)
+
+    # Handle back from global comment button click
+    observe_event(input$back_from_global_comment, {
+      # Switch back to concept comment view
+      shinyjs::hide("global_comment_container")
+      shinyjs::show("concept_comment_container")
+      shinyjs::hide("back_from_global_comment")
+      shinyjs::show("view_global_comment")
+      shinyjs::runjs(sprintf(
+        "$('#%s').text('%s')",
+        ns("comments_modal_title"),
+        i18n$t("etl_guidance_comments")
+      ))
     }, ignoreInit = TRUE)
 
     # Handle concept set fullscreen button click
@@ -5926,7 +6025,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           escape = FALSE,
           options = list(
             pageLength = 25,
-            dom = 'ftp',
+            dom = 'ftip',
             ordering = TRUE,
             autoWidth = FALSE,
             columnDefs = list(

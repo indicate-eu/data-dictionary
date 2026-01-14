@@ -543,20 +543,48 @@ mod_concept_mapping_ui <- function(id, i18n) {
         style = "height: 100vh; display: flex; flex-direction: column;",
         tags$div(
           style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
-          tags$h3(
-            style = "margin: 0; color: #0f60af;",
-            i18n$t("etl_guidance_comments")
+          # Left: Back button (hidden by default) and title
+          tags$div(
+            style = "display: flex; align-items: center; gap: 10px;",
+            actionButton(
+              ns("back_from_target_global_comment"),
+              label = HTML("&#8592;"),
+              class = "btn-back-comment",
+              style = "display: none;"
+            ),
+            tags$h3(
+              id = ns("target_comments_modal_title"),
+              style = "margin: 0; color: #0f60af;",
+              i18n$t("etl_guidance_comments")
+            )
           ),
+          # Center: Global Comment button
+          actionButton(
+            ns("view_target_global_comment"),
+            label = tagList(
+              tags$i(class = "fas fa-globe", style = "margin-right: 6px;"),
+              i18n$t("view_global_comment")
+            ),
+            class = "btn-global-comment"
+          ),
+          # Right: Close button
           actionButton(
             ns("close_target_comments_fullscreen"),
             label = HTML("&times;"),
-            class = "modal-close",
-            style = "font-size: 28px; font-weight: 300; color: #666; border: none; background: none; cursor: pointer; padding: 0; width: 30px; height: 30px; line-height: 1;"
+            class = "modal-fullscreen-close"
           )
         ),
+        # Concept comment content
         tags$div(
-          style = "flex: 1; overflow: auto; padding: 0;",
+          id = ns("target_concept_comment_container"),
+          style = "flex: 1; overflow: hidden; padding: 0;",
           uiOutput(ns("target_comments_fullscreen_content"))
+        ),
+        # Global comment content (hidden by default)
+        tags$div(
+          id = ns("target_global_comment_container"),
+          style = "flex: 1; overflow: hidden; padding: 20px; display: none;",
+          uiOutput(ns("target_global_comment_display"))
         )
       )
     ),
@@ -571,20 +599,48 @@ mod_concept_mapping_ui <- function(id, i18n) {
         style = "height: 100vh; display: flex; flex-direction: column;",
         tags$div(
           style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
-          tags$h3(
-            style = "margin: 0; color: #0f60af;",
-            i18n$t("etl_guidance_comments")
+          # Left: Back button (hidden by default) and title
+          tags$div(
+            style = "display: flex; align-items: center; gap: 10px;",
+            actionButton(
+              ns("back_from_eval_global_comment"),
+              label = HTML("&#8592;"),
+              class = "btn-back-comment",
+              style = "display: none;"
+            ),
+            tags$h3(
+              id = ns("eval_comments_modal_title"),
+              style = "margin: 0; color: #0f60af;",
+              i18n$t("etl_guidance_comments")
+            )
           ),
+          # Center: Global Comment button
+          actionButton(
+            ns("view_eval_global_comment"),
+            label = tagList(
+              tags$i(class = "fas fa-globe", style = "margin-right: 6px;"),
+              i18n$t("view_global_comment")
+            ),
+            class = "btn-global-comment"
+          ),
+          # Right: Close button
           actionButton(
             ns("close_eval_comments_fullscreen"),
             label = HTML("&times;"),
-            class = "modal-close",
-            style = "font-size: 28px; font-weight: 300; color: #666; border: none; background: none; cursor: pointer; padding: 0; width: 30px; height: 30px; line-height: 1;"
+            class = "modal-fullscreen-close"
           )
         ),
+        # Concept comment content
         tags$div(
-          style = "flex: 1; overflow: auto; padding: 0;",
+          id = ns("eval_concept_comment_container"),
+          style = "flex: 1; overflow: hidden; padding: 0;",
           uiOutput(ns("eval_comments_fullscreen_content"))
+        ),
+        # Global comment content (hidden by default)
+        tags$div(
+          id = ns("eval_global_comment_container"),
+          style = "flex: 1; overflow: hidden; padding: 20px; display: none;",
+          uiOutput(ns("eval_global_comment_display"))
         )
       )
     ),
@@ -1326,12 +1382,16 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Separate trigger for source concepts table updates (used by mapping operations)
     source_concepts_table_trigger <- reactiveVal(0)  # Trigger for Edit Mappings table (mapping changes)
+    source_concepts_data <- reactiveVal(NULL)  # Store source concepts data for proxy updates
+    source_concepts_colnames <- reactiveVal(NULL)  # Store column names
+    source_concepts_column_defs <- reactiveVal(NULL)  # Store column definitions
 
     # Cascade triggers for selected_general_concept_id() changes
     selected_general_concept_id_trigger <- reactiveVal(0)  # Primary trigger when general concept selection changes
     mapped_concepts_table_trigger <- reactiveVal(0)  # Trigger for Mapped view table
     concept_mappings_table_trigger <- reactiveVal(0)  # Trigger for Edit Mappings concept mappings table
     general_concepts_table_trigger <- reactiveVal(0)  # Trigger for General Concepts table in Edit Mappings
+    edit_mappings_initialized <- reactiveVal(FALSE)  # Track if Edit Mappings tables have been initialized
 
     # Cascade triggers for summary_trigger() changes
     summary_content_trigger <- reactiveVal(0)  # Trigger for summary content rendering
@@ -1360,6 +1420,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     observe_event(selected_alignment_id(), {
       # Reset tab to summary when changing alignments
       mapping_tab("summary")
+      # Reset edit mappings initialized flag so tables re-render on next tab switch
+      edit_mappings_initialized(FALSE)
       selected_alignment_id_trigger(selected_alignment_id_trigger() + 1)
     }, ignoreInit = TRUE)
 
@@ -1548,11 +1610,15 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         shinyjs::show("panel_summary")
       } else if (tab == "all_mappings") {
         shinyjs::show("panel_all_mappings")
+        shinyjs::runjs(sprintf("$('#%s').css('display', 'flex');", ns("panel_all_mappings")))
       } else if (tab == "edit_mappings") {
         shinyjs::show("panel_edit_mappings")
-        # Trigger table rendering for Edit Mappings tab
-        source_concepts_table_general_trigger(source_concepts_table_general_trigger() + 1)
-        general_concepts_table_trigger(general_concepts_table_trigger() + 1)
+        # Only trigger table rendering if not already initialized for this alignment
+        if (!edit_mappings_initialized()) {
+          source_concepts_table_general_trigger(source_concepts_table_general_trigger() + 1)
+          general_concepts_table_trigger(general_concepts_table_trigger() + 1)
+          edit_mappings_initialized(TRUE)
+        }
       } else if (tab == "import_mappings") {
         shinyjs::show("panel_import_mappings")
         # Trigger import history table rendering
@@ -3654,9 +3720,15 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         # All Mappings panel
         tags$div(
           id = ns("panel_all_mappings"),
-          class = "card-container",
-          style = "margin: 0 10px 10px 10px; height: calc(100% - 10px); min-height: 0; overflow: auto; display: none;",
-          DT::DTOutput(ns("all_mappings_table_main"))
+          style = "height: 100%; min-height: 0; display: none; flex-direction: column; padding: 10px;",
+          tags$div(
+            class = "card-container card-container-flex",
+            style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
+            tags$div(
+              style = "flex: 1; min-height: 0; overflow: auto;",
+              DT::DTOutput(ns("all_mappings_table_main"), height = "100%")
+            )
+          )
         ),
 
         # Edit Mappings panel
@@ -3822,7 +3894,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                       "ⓘ"
                     )
                   ),
-                  # Main tabs: Summary + Comments + Statistical Summary (top-right)
+                  # Main tabs: Summary + Statistical Summary (top-right)
                   tags$div(
                     class = "section-tabs",
                     tags$button(
@@ -3834,16 +3906,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                         Shiny.setInputValue('%s', 'summary', {priority: 'event'});
                       ", ns("target_concept_details_panel"), ns("target_detail_tab_selected")),
                       i18n$t("summary")
-                    ),
-                    tags$button(
-                      id = ns("target_detail_tab_comments"),
-                      class = "tab-btn",
-                      onclick = sprintf("
-                        document.querySelectorAll('#%s > .section-header > .section-tabs .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
-                        this.classList.add('tab-btn-active');
-                        Shiny.setInputValue('%s', 'comments', {priority: 'event'});
-                      ", ns("target_concept_details_panel"), ns("target_detail_tab_selected")),
-                      i18n$t("comments")
                     ),
                     tags$button(
                       id = ns("target_detail_tab_statistical_summary"),
@@ -4239,6 +4301,17 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             ),
             tags$span(style = "color: #6c757d; margin: 0 8px;", ">"),
             tags$span(concept_name)
+          ),
+          tags$div(
+            style = "display: flex; gap: 8px;",
+            tags$button(
+              type = "button",
+              class = "btn btn-sm btn-primary-custom",
+              style = "display: flex; align-items: center; gap: 4px;",
+              onclick = sprintf("Shiny.setInputValue('%s', Math.random(), {priority: 'event'})", ns("open_comments_modal_click")),
+              tags$i(class = "fa fa-comment"),
+              i18n$t("comments")
+            )
           )
         )
       }
@@ -5269,11 +5342,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         ) %>%
         dplyr::select(Category, Source, Target, Origin, Upvotes, Downvotes, Uncertain, Actions)
 
-      # Update table data using proxy (preserves state)
-      shinyjs::delay(100, {
-        proxy <- DT::dataTableProxy("all_mappings_table_main", session = session)
-        DT::replaceData(proxy, display_df, resetPaging = FALSE, rownames = FALSE)
-      })
+      # Use proxy to update data (preserves filters and pagination)
+      proxy <- DT::dataTableProxy("all_mappings_table_main", session = session)
+      DT::replaceData(proxy, display_df, resetPaging = FALSE, rownames = FALSE)
     }, ignoreInit = TRUE)
 
     #### Delete Mapping Actions ----
@@ -5732,6 +5803,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       nice_names[nice_names == "concept_name"] <- as.character(i18n$t("name"))
       nice_names[nice_names == "statistical_summary"] <- as.character(i18n$t("summary"))
       nice_names[nice_names == "frequency"] <- as.character(i18n$t("frequency"))
+      nice_names[nice_names == "category"] <- as.character(i18n$t("category"))
+      nice_names[nice_names == "subcategory"] <- as.character(i18n$t("subcategory"))
       nice_names[nice_names == "Mapped"] <- as.character(i18n$t("mapped"))
 
       mapped_col_index <- which(colnames(df_display) == "Mapped") - 1
@@ -5749,6 +5822,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         ))
       }
 
+      # Store data in reactive for proxy updates
+      source_concepts_data(df_display)
+      source_concepts_colnames(nice_names)
+      source_concepts_column_defs(column_defs)
+
       # Render table with prepared data only
       output$source_concepts_table <- DT::renderDT({
         dt <- datatable(
@@ -5758,7 +5836,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           options = list(
             pageLength = 8,
             lengthMenu = list(c(5, 8, 10, 15, 20, 50, 100), c("5", "8", "10", "15", "20", "50", "100")),
-            dom = "Bltp",
+            dom = "Bltip",
             language = get_datatable_language(),
             buttons = list(
               list(
@@ -5781,22 +5859,21 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     })
 
     #### Update Source Concepts Table Data Using Proxy ----
-    # Update data without re-rendering when mappings change
+    # Update only the Mapped column data using proxy (preserves filters)
     observe_event(source_concepts_table_trigger(), {
       if (source_concepts_table_trigger() == 0) return()
       if (is.null(selected_alignment_id())) return()
-      
-      # Prepare updated data (same logic as initial render)
+      if (is.null(source_concepts_data())) return()
+
+      # Get current data and recalculate Mapped status
       alignments <- alignments_data()
       alignment <- alignments %>%
         dplyr::filter(alignment_id == selected_alignment_id())
-      
-      if (nrow(alignment) != 1) return()
-      
-      file_id <- alignment$file_id[1]
-      
-      mapping_dir <- get_app_dir("concept_mapping")
 
+      if (nrow(alignment) != 1) return()
+
+      file_id <- alignment$file_id[1]
+      mapping_dir <- get_app_dir("concept_mapping")
       csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
 
       if (!file.exists(csv_path)) return()
@@ -5807,13 +5884,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       column_types_json <- alignment$column_types[1]
       df <- apply_column_types(df, column_types_json)
 
-      # Default vocabulary_id to factor if not already set by column_types
-      if ("vocabulary_id" %in% colnames(df) && !is.factor(df$vocabulary_id)) {
-        df <- df %>%
-          dplyr::mutate(vocabulary_id = as.factor(vocabulary_id))
-      }
-
-      # Check database for mappings (includes imported mappings)
+      # Check database for mappings
       db_dir <- get_app_dir()
       db_path <- file.path(db_dir, "indicate.db")
       db_mapped_row_ids <- integer(0)
@@ -5832,8 +5903,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       has_target_cols <- "target_general_concept_id" %in% colnames(df)
       has_omop_cols <- "target_omop_concept_id" %in% colnames(df)
 
-      # Consider mapped if: CSV has target columns set OR concept exists in database mappings
-      # Build mapped status based on available columns (avoid referencing non-existent columns)
       csv_mapped <- rep(FALSE, nrow(df))
       if (has_target_cols) {
         csv_mapped <- csv_mapped | !is.na(df$target_general_concept_id)
@@ -5857,11 +5926,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       other_cols <- setdiff(colnames(df), c(standard_cols, target_cols, "Mapped"))
       df_display <- df[, c(available_standard, other_cols, "Mapped"), drop = FALSE]
 
-      # Update table data using proxy (preserves state)
-      shinyjs::delay(100, {
-        proxy <- DT::dataTableProxy("source_concepts_table", session = session)
-        DT::replaceData(proxy, df_display, resetPaging = FALSE, rownames = FALSE)
-      })
+      # Update stored data
+      source_concepts_data(df_display)
+
+      # Use proxy to update data (preserves filters and pagination)
+      proxy <- DT::dataTableProxy("source_concepts_table", session = session)
+      DT::replaceData(proxy, df_display, resetPaging = FALSE, rownames = FALSE)
     }, ignoreInit = TRUE)
     
     #### General Concepts Table Rendering ----
@@ -5890,7 +5960,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           options = list(
             pageLength = 15,
             lengthMenu = list(c(5, 10, 15, 20, 50, 100), c("5", "10", "15", "20", "50", "100")),
-            dom = "ltp",
+            dom = "ltip",
             language = get_datatable_language(),
             columnDefs = list(
               list(targets = 0, visible = FALSE),
@@ -6032,7 +6102,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           options = list(
             pageLength = 15,
             lengthMenu = list(c(5, 10, 15, 20, 50, 100), c("5", "10", "15", "20", "50", "100")),
-            dom = "Bltp",
+            dom = "Bltip",
             language = get_datatable_language(),
             buttons = list(
               list(
@@ -7637,6 +7707,11 @@ Data distribution by hospital unit/ward.
       )
     }
 
+    # Handle open comments modal from General Concepts header
+    observe_event(input$open_comments_modal_click, {
+      shinyjs::show("target_comments_fullscreen_modal")
+    })
+
     # Handle expand comments button for target
     observe_event(input$expand_target_comments, {
       shinyjs::show("target_comments_fullscreen_modal")
@@ -7649,7 +7724,9 @@ Data distribution by hospital unit/ward.
 
     # Render fullscreen comments content
     output$target_comments_fullscreen_content <- renderUI({
-      concept_id <- selected_target_concept_id()
+      # Prioritize selected_general_concept_id (from header button) over selected_target_concept_id
+      concept_id <- selected_general_concept_id()
+      if (is.null(concept_id)) concept_id <- selected_target_concept_id()
       if (is.null(concept_id)) return(NULL)
       if (is.null(data())) return(NULL)
 
@@ -7706,6 +7783,116 @@ Data distribution by hospital unit/ward.
         )
       }
     })
+
+    # Handle view target global comment button click
+    observe_event(input$view_target_global_comment, {
+      # Switch to global comment view
+      shinyjs::hide("target_concept_comment_container")
+      shinyjs::show("target_global_comment_container")
+      shinyjs::show("back_from_target_global_comment")
+      shinyjs::hide("view_target_global_comment")
+      shinyjs::runjs(sprintf(
+        "$('#%s').text('%s')",
+        ns("target_comments_modal_title"),
+        i18n$t("global_comment")
+      ))
+
+      # Load and render global comment from file
+      output$target_global_comment_display <- renderUI({
+        comment <- get_global_comment()
+
+        if (is.null(comment) || nchar(comment) == 0) {
+          return(
+            tags$div(
+              style = "height: 100%; padding: 10px; overflow-y: auto; background: #f8f9fa;",
+              tags$div(
+                style = "background: white; padding: 20px; border-radius: 8px; color: #999; font-style: italic; text-align: center; height: 100%;",
+                i18n$t("no_global_comment")
+              )
+            )
+          )
+        }
+
+        # Render markdown content with same styling as concept comment fullscreen view
+        tags$div(
+          style = "height: 100%; padding: 10px; overflow-y: auto; background: #f8f9fa;",
+          tags$div(
+            class = "markdown-content",
+            style = "background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); height: 100%; overflow-y: auto;",
+            shiny::markdown(comment)
+          )
+        )
+      })
+    }, ignoreInit = TRUE)
+
+    # Handle back from target global comment button click
+    observe_event(input$back_from_target_global_comment, {
+      # Switch back to concept comment view
+      shinyjs::hide("target_global_comment_container")
+      shinyjs::show("target_concept_comment_container")
+      shinyjs::hide("back_from_target_global_comment")
+      shinyjs::show("view_target_global_comment")
+      shinyjs::runjs(sprintf(
+        "$('#%s').text('%s')",
+        ns("target_comments_modal_title"),
+        i18n$t("etl_guidance_comments")
+      ))
+    }, ignoreInit = TRUE)
+
+    # Handle view eval global comment button click
+    observe_event(input$view_eval_global_comment, {
+      # Switch to global comment view
+      shinyjs::hide("eval_concept_comment_container")
+      shinyjs::show("eval_global_comment_container")
+      shinyjs::show("back_from_eval_global_comment")
+      shinyjs::hide("view_eval_global_comment")
+      shinyjs::runjs(sprintf(
+        "$('#%s').text('%s')",
+        ns("eval_comments_modal_title"),
+        i18n$t("global_comment")
+      ))
+
+      # Load and render global comment from file
+      output$eval_global_comment_display <- renderUI({
+        comment <- get_global_comment()
+
+        if (is.null(comment) || nchar(comment) == 0) {
+          return(
+            tags$div(
+              style = "height: 100%; padding: 10px; overflow-y: auto; background: #f8f9fa;",
+              tags$div(
+                style = "background: white; padding: 20px; border-radius: 8px; color: #999; font-style: italic; text-align: center; height: 100%;",
+                i18n$t("no_global_comment")
+              )
+            )
+          )
+        }
+
+        # Render markdown content with same styling as concept comment fullscreen view
+        tags$div(
+          style = "height: 100%; padding: 10px; overflow-y: auto; background: #f8f9fa;",
+          tags$div(
+            class = "markdown-content",
+            style = "background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); height: 100%; overflow-y: auto;",
+            shiny::markdown(comment)
+          )
+        )
+      })
+    }, ignoreInit = TRUE)
+
+    # Handle back from eval global comment button click
+    observe_event(input$back_from_eval_global_comment, {
+      # Switch back to concept comment view
+      shinyjs::hide("eval_global_comment_container")
+      shinyjs::show("eval_concept_comment_container")
+      shinyjs::hide("back_from_eval_global_comment")
+      shinyjs::show("view_eval_global_comment")
+      shinyjs::runjs(sprintf(
+        "$('#%s').text('%s')",
+        ns("eval_comments_modal_title"),
+        i18n$t("etl_guidance_comments")
+      ))
+    }, ignoreInit = TRUE)
 
     # Handle view source JSON button (Edit Mappings)
     observe_event(input$view_source_json, {
@@ -8665,7 +8852,7 @@ Data distribution by hospital unit/ward.
           options = list(
             pageLength = 8,
             lengthMenu = c(5, 8, 10, 15, 20, 50, 100),
-            dom = "Bltp",
+            dom = "Bltip",
             buttons = list("colvis"),
             ordering = TRUE,
             autoWidth = FALSE,

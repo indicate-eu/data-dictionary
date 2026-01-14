@@ -474,3 +474,10 @@ download_dictionary_desc,"Downloads all data dictionary files as a ZIP archive (
 upload_dictionary,Upload Dictionary
 select_dictionary_zip,Select a dictionary ZIP file
 upload_dictionary_warning,"Importing a dictionary will overwrite existing data dictionary files. This action cannot be undone."
+global_comment,Global Comment
+global_comment_desc,"Write a global comment that will be accessible from all Comments panels. This can contain general guidance, important notes, or instructions applicable to the entire dictionary."
+save_global_comment,Save Global Comment
+global_comment_saved,Global comment saved successfully.
+view_global_comment,Global Comment
+back_to_concept_comment,Back to Concept Comment
+no_global_comment,No global comment has been defined yet. You can add one in General Settings > Global Comment.

@@ -80,7 +80,32 @@ html, body {
 
 /* Concept mapping content area - ensure full height for flex layout */
 #concept_mapping-content_area {
-  height: 100%;
+  height: calc(100vh - 170px);
+}
+
+/* Global comment textarea - fill container */
+#general_settings-global_comment_input {
+  height: 100% !important;
+  min-height: 400px;
+  resize: none;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+/* Ensure the parent container of global comment textarea fills height */
+#general_settings-global_comment_input + .shiny-input-container,
+.shiny-input-container:has(#general_settings-global_comment_input) {
+  height: 100% !important;
+  margin-bottom: 0 !important;
+}
+
+/* Target form-group wrapper around global comment textarea */
+div:has(> #general_settings-global_comment_input) {
+  height: 100% !important;
 }
 
 #concept_mapping-summary_content {
@@ -2181,6 +2206,91 @@ button.btn-icon-only:hover {
 #dictionary_explorer-comments_fullscreen_modal textarea {
   height: 100% !important;
   resize: none;
+}
+
+/* Fullscreen Modal Close Button
+-------------------------------------------------- */
+.modal-fullscreen-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  font-size: 28px;
+  font-weight: 300;
+  color: #666;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+}
+
+.modal-fullscreen-close:hover {
+  background-color: #f0f0f0;
+  color: #333;
+  transform: scale(1.05);
+}
+
+.modal-fullscreen-close:active {
+  transform: scale(0.95);
+}
+
+/* Global Comment Button in Fullscreen Modal */
+.btn-global-comment {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.btn-global-comment:hover {
+  background-color: #218838;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.btn-global-comment:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Back Button in Fullscreen Modal */
+.btn-back-comment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+  color: #666;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-back-comment:hover {
+  background-color: #f0f0f0;
+  color: #333;
+  transform: scale(1.05);
+}
+
+.btn-back-comment:active {
+  transform: scale(0.95);
 }
 
 .modal-close-graph {

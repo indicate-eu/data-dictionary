@@ -404,7 +404,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, i18n, log_level = chara
             pageLength = 15,
             lengthMenu = list(c(5, 10, 15, 20, 50, 100),
                              c("5", "10", "15", "20", "50", "100")),
-            dom = "ltp",
+            dom = "ltip",
             columnDefs = list(
               list(targets = 0, width = "150px"),
               list(targets = 1, width = "150px")
@@ -481,7 +481,7 @@ mod_dev_tools_server <- function(id, data, vocabularies, i18n, log_level = chara
             pageLength = 15,
             lengthMenu = list(c(5, 10, 15, 20, 50, 100),
                              c("5", "10", "15", "20", "50", "100")),
-            dom = "ltp",
+            dom = "ltip",
             columnDefs = list(
               list(targets = 0, width = "120px"),
               list(targets = 1, width = "120px"),
