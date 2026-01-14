@@ -428,3 +428,25 @@ save_unit_conversions_csv <- function(unit_conversions_data) {
     quote = TRUE
   )
 }
+
+#' Get Comment for a General Concept in the Current Language
+#'
+#' @description Extracts the comment text for a general concept.
+#' Each language has its own CSV file with a 'comments' column containing
+#' expert guidance in that language.
+#'
+#' @param concept_info A data frame containing concept information with a 'comments' column
+#' @param lang The current language code (e.g., "en", "fr") - kept for API consistency
+#'
+#' @return Character string with the comment text, or empty string if not found
+#' @noRd
+get_comment_for_language <- function(concept_info, lang) {
+  if (nrow(concept_info) == 0) return("")
+
+  # Use 'comments' column - each language file has its own comments
+  if ("comments" %in% names(concept_info) && !is.na(concept_info$comments[1])) {
+    concept_info$comments[1]
+  } else {
+    ""
+  }
+}

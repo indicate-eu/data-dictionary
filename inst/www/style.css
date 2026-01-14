@@ -235,6 +235,71 @@ html, body {
   transform: translateX(22px);
 }
 
+/* Small toggle for DataTable cells */
+.toggle-switch.toggle-small {
+  width: 32px;
+  height: 16px;
+}
+
+.toggle-switch.toggle-small .toggle-slider {
+  border-radius: 16px;
+}
+
+.toggle-switch.toggle-small .toggle-slider:before {
+  height: 12px;
+  width: 12px;
+  left: 2px;
+  bottom: 2px;
+}
+
+.toggle-switch.toggle-small input:checked + .toggle-slider:before {
+  transform: translateX(16px);
+}
+
+/* Exclude toggle - red when checked */
+.toggle-switch.toggle-exclude input:checked + .toggle-slider {
+  background-color: #dc3545;
+}
+
+/* Toggle count display next to toggle */
+.toggle-count {
+  font-size: 11px;
+  color: #666;
+  margin-left: 4px;
+}
+
+/* Delete icon hover effect in DataTable */
+.delete-icon {
+  transition: background-color 0.2s ease, color 0.2s ease;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.delete-icon:hover {
+  background-color: #dc3545;
+  color: white !important;
+}
+
+/* DataTable Buttons extension - Column visibility button */
+.btn-colvis {
+  background-color: #f8f9fa !important;
+  border: 1px solid #ddd !important;
+  color: #333 !important;
+  font-size: 12px !important;
+  padding: 4px 10px !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+}
+
+.btn-colvis:hover {
+  background-color: #e9ecef !important;
+  border-color: #ccc !important;
+}
+
+.dt-buttons {
+  margin-bottom: 10px;
+}
+
 /* Comments display - special handling for comments quadrant */
 .quadrant-bottom-left .quadrant-content {
   overflow-y: hidden !important; /* Prevent double scrollbar */
@@ -899,6 +964,7 @@ div.dataTables_paginate a.paginate_button.current *,
 }
 
 .dataTables_length {
+  margin-top: 3px;
   margin-bottom: 8px;
   font-size: 12px !important;
   font-weight: 300;

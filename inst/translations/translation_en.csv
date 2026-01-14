@@ -11,6 +11,7 @@ please_enter_login,Please enter your login.
 please_enter_password,Please enter your password.
 invalid_login_or_password,Invalid login or password. Please try again.
 add_concept,Add concept
+concept_added,Concept added
 history,History
 edit_page,Edit page
 cancel,Cancel
@@ -45,6 +46,10 @@ general_concept_name,General Concept Name
 enter_concept_name,Enter concept name
 concept_name_required,Concept name is required
 category,Category
+category_breakdown,Category Breakdown
+distribution,Distribution
+completion,Completion
+view_fullscreen,View fullscreen
 select_category,Select category...
 category_required,Category is required
 subcategory,Subcategory
@@ -245,7 +250,6 @@ evaluate_mappings,Evaluate Mappings
 source_concepts,Source Concepts
 add_mapping,Add Mapping
 target_concept_details,Target Concept Details
-distribution,Distribution
 temporal,Temporal
 hospital_units,Hospital Units
 import_mappings_from_csv,Import Mappings from CSV
@@ -283,6 +287,7 @@ no_projects_defined,No projects defined
 total_concepts,Total Concepts
 mapped_concepts,Mapped Concepts
 covered,Covered
+coverage,Coverage
 evaluated_mappings,Evaluated Mappings
 no_mapping_file,No mapping file found for this alignment
 no_mappings_found,No mappings found in this alignment
@@ -445,3 +450,19 @@ import_alignment_created,Alignment "{name}" created successfully with {mappings}
 users_not_found_warning,{count} user(s) not found (assigned to current user)
 alignment_name_exists,An alignment with this name already exists
 mappings_skipped_no_match,{count} mapping(s) skipped (source concept not found)
+import_json,Import JSON
+import_atlas_json,Import ATLAS JSON
+import_atlas_json_desc,Paste a concept set JSON exported from ATLAS to import the concepts into this general concept.
+import,Import
+json_empty_error,Please paste JSON content
+json_parse_error,Invalid JSON format
+json_no_items_error,No items found in JSON
+concepts_imported,concept(s) imported
+concepts_skipped,already existed
+no_new_concepts,All concepts already exist in this general concept
+search_categories,Search categories...
+sort_by,Sort by:
+sort_rate_desc,Rate (highest first)
+sort_rate_asc,Rate (lowest first)
+sort_alpha_asc,Alphabetical (A-Z)
+sort_alpha_desc,Alphabetical (Z-A)

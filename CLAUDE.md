@@ -6,7 +6,7 @@ This file provides development guidelines for Claude Code when working on the IN
 
 **INDICATE Data Dictionary** is an R Shiny package that provides an interactive web application to explore the INDICATE Minimal Data Dictionary - a consensus-based collection of 11,924 standardized clinical concepts designed to harmonize intensive care unit (ICU) data across Europe.
 
-**Technologies**: R (>= 4.0.0), Shiny (>= 1.7.0), DT, dplyr, readxl, jQuery, DataTables
+**Technologies**: R (>= 4.0.0), Shiny (>= 1.7.0), DT, dplyr, readxl, shiny.i18n, shiny.router, DuckDB, jQuery, DataTables
 
 **Author**: Boris Delange (boris.delange@univ-rennes.fr)
 
@@ -31,13 +31,14 @@ indicate-data-dictionary/
 │   ├── mod_improvements.R         # Dictionary improvements module
 │   ├── mod_login.R                # Login/authentication module
 │   ├── mod_page_header.R          # Page header with navigation
-│   ├── fct_concept_mapping.R      # Concept mapping functions
+│   ├── fct_concept_mapping.R      # Concept mapping and import/export functions
 │   ├── fct_config.R               # Configuration and environment detection
 │   ├── fct_database.R             # Database operations
 │   ├── fct_datatable.R            # DataTable helper functions
 │   ├── fct_duckdb.R               # DuckDB integration
 │   ├── fct_history.R              # History tracking functions
 │   ├── fct_projects.R             # Projects helper functions
+│   ├── fct_shiny_helpers.R        # Shiny helper functions (R code execution, button visibility)
 │   ├── fct_statistical_analysis.R # Statistical analysis functions
 │   ├── fct_statistics_display.R   # Statistics display functions
 │   ├── fct_url_builders.R         # URL builders (ATHENA, FHIR)
@@ -58,9 +59,15 @@ indicate-data-dictionary/
 │   │       ├── general_concepts_details_history.csv     # Edit history
 │   │       ├── general_concepts_history.csv      # General concepts history
 │   │       ├── general_concepts_projects.csv     # Project assignments
+│   │       ├── general_concepts_stats.csv        # Aggregated statistics
 │   │       ├── projects.csv                      # Project definitions
 │   │       ├── custom_concepts.csv               # User-defined concepts
 │   │       └── unit_conversions.csv              # Unit conversion mappings
+│   ├── scripts/                   # Utility scripts
+│   │   └── enrich_concept_mappings.R  # Data enrichment script
+│   ├── translations/              # Internationalization files
+│   │   ├── translation_en.csv     # English translations
+│   │   └── translation_fr.csv     # French translations
 │   └── www/                       # Web assets (CSS, JS, images)
 │       ├── style.css              # Main stylesheet
 │       ├── clipboard.js           # Clipboard copy functionality
@@ -76,7 +83,8 @@ indicate-data-dictionary/
 │       ├── selectize_modal_fix.js # Selectize modal z-index fix
 │       ├── settings_menu.js       # Settings UI
 │       ├── view_details.js        # Detail view management
-│       └── logo.png               # INDICATE logo
+│       ├── logo.png               # INDICATE logo
+│       └── favicon.png            # Application favicon
 ├── man/                           # R documentation
 ├── tests/                         # Test files
 ├── DESCRIPTION                    # Package metadata
@@ -87,20 +95,24 @@ indicate-data-dictionary/
 
 This project follows the **Shiny module pattern**:
 
-- **Module UI**: `mod_<name>_ui(id)` - Creates namespaced UI elements
-- **Module Server**: `mod_<name>_server(id, ...)` - Implements server logic with namespace
+- **Module UI**: `mod_<name>_ui(id, i18n)` - Creates namespaced UI elements with i18n support
+- **Module Server**: `mod_<name>_server(id, data, config, ...)` - Implements server logic with namespace
 
 **Example**:
 ```r
-# UI function
-mod_dictionary_explorer_ui <- function(id) {
+# UI function - receives i18n for translations
+mod_dictionary_explorer_ui <- function(id, i18n) {
   ns <- NS(id)
-  # Use ns() to wrap all input/output IDs
+  tagList(
+    tags$h3(i18n$t("dictionary_explorer")),
+    # Use ns() to wrap all input/output IDs
+  )
 }
 
-# Server function
-mod_dictionary_explorer_server <- function(id, data, comments, config) {
+# Server function - receives data and config (which contains i18n)
+mod_dictionary_explorer_server <- function(id, data, config) {
   moduleServer(id, function(input, output, session) {
+    i18n <- config$i18n
     # Module logic here
   })
 }
@@ -248,14 +260,19 @@ library(shiny)
    - Edit mode for modifying mappings and statistics
    - Links to ATHENA and FHIR resources
    - Comments display with markdown rendering
+   - Concept set toggles (is_excluded, include_descendants, include_mapped)
+   - Fullscreen modal for concept set visualization
 
 2. **`mod_concept_mapping.R`**:
    - Create and manage alignments (collections of source concepts)
    - Align source concepts to dictionary general concepts
    - Four tabs: Summary, All Mappings, Import Mappings, Evaluate Mappings
-   - Import mappings from CSV files
+   - Import mappings from CSV/Excel and INDICATE format
+   - Export to Usagi, STCM, and ATLAS JSON formats
+   - Coverage display with percentage-based color coding
    - Projects compatibility view
    - Multi-page modal forms for alignment creation
+   - Comments system for mapping evaluations
 
 3. **`mod_projects.R`**:
    - Manage project definitions
@@ -300,6 +317,15 @@ library(shiny)
 - `get_concept_descendants()`: Fetch concept hierarchy
 - `get_concept_ancestors()`: Fetch concept ancestors
 - `get_related_concepts()`: Get related concepts by relationship type
+- `get_concept_descendants_count()`: Count descendant concepts
+- `get_concept_mapped_count()`: Count mapped concepts
+- `resolve_concept_set()`: Resolve concept set with descendants/mapped inclusion
+
+**`fct_concept_mapping.R`**:
+- `import_indicate_alignment()`: Import alignments from INDICATE format
+- `export_usagi_format()`: Export alignments to Usagi format
+- `export_stcm_format()`: Export alignments to STCM format
+- `export_atlas_json()`: Export concept sets to ATLAS JSON format
 
 **`fct_url_builders.R`**:
 - `build_athena_url()`: Generate ATHENA OHDSI links
@@ -325,6 +351,12 @@ library(shiny)
 **`fct_datatable.R`**:
 - `create_datatable()`: Create standardized DataTables
 - `format_datatable_columns()`: Apply consistent formatting
+- `prepare_concept_set_display()`: Prepare concept set data with HTML toggles
+- `get_concept_set_datatable_columns()`: Column configuration for concept set DataTables
+
+**`fct_shiny_helpers.R`**:
+- `execute_r_code_safely()`: Execute R code with error handling
+- `get_button_visibility()`: Determine button visibility based on user role and view state
 
 **`fct_statistics_display.R`**:
 - `render_statistics_summary()`: Display EHDEN network statistics
@@ -332,6 +364,10 @@ library(shiny)
 
 **`fct_projects.R`**:
 - Helper functions for project management
+
+**`utils_csv.R`**:
+- `load_csv_data()`: Load CSV data with type handling
+- `get_comment_for_language()`: Extract comment text for a general concept in current language
 
 ---
 
@@ -398,6 +434,7 @@ The application uses the following CSV files:
 - **`general_concepts_details_history.csv`**: Edit history for concept mappings
 - **`general_concepts_history.csv`**: Edit history for general concepts
 - **`general_concepts_projects.csv`**: Which projects require which general concepts
+- **`general_concepts_stats.csv`**: Aggregated statistics for general concepts
 - **`projects.csv`**: Project definitions (id, name, description, short_name)
 - **`custom_concepts.csv`**: User-defined source concepts for alignments
 - **`unit_conversions.csv`**: Unit measurement mappings
@@ -438,6 +475,9 @@ data <- read_csv(file_path, col_types = col_types)
 - `omop_concept_id`: OMOP CDM concept ID
 - `omop_unit_concept_id`: Unit concept ID (for measurements)
 - `standard_concept`: From OHDSI vocabulary (S=Standard, C=Classification, NULL=Non-standard)
+- `is_excluded`: Boolean for concept set exclusion
+- `include_descendants`: Boolean to include descendant concepts in concept set
+- `include_mapped`: Boolean to include mapped concepts in concept set
 
 **Concept Statistics** (`general_concepts_details_statistics.csv`):
 - `omop_concept_id`: Link to concept mapping
@@ -1031,6 +1071,9 @@ The application provides a comprehensive set of reusable CSS classes defined in 
 
 - **`.input-error-message`** - Form validation error text (red, 12px, hidden by default)
 - **`.toggle-switch`**, **`.toggle-slider`** - Custom toggle switch components
+- **`.toggle-switch.toggle-small`** - Smaller toggle switches for DataTable cells
+- **`.toggle-switch.toggle-exclude`** - Red toggles for exclusion indicators
+- **`.toggle-count`** - Font styling for toggle counts
 
 #### Quadrant Layout (Four-Panel View)
 
@@ -1070,6 +1113,9 @@ The application provides a comprehensive set of reusable CSS classes defined in 
 DataTables are styled globally, but you can use these classes:
 - **`.relationship-table`** - Custom styled table for relationships
 - **`.dataTable`** - Automatically applied to DT tables
+- **`.btn-colvis`** - DataTable column visibility button styling
+- **`.dt-buttons`** - DataTable buttons container styling
+- **`.delete-icon`** - Delete icon with hover effects
 
 #### Utilities
 
@@ -1203,6 +1249,50 @@ Endpoints:
 Base URL: `https://athena.ohdsi.org/search-terms/terms/<concept_id>`
 
 Use for OMOP concept lookups.
+
+---
+
+## Internationalization (i18n)
+
+The application supports multiple languages using **shiny.i18n**:
+
+### Configuration
+
+- Translation files are stored in `inst/translations/`
+- Supported languages: English (`en`), French (`fr`)
+- Set language via `INDICATE_LANGUAGE` environment variable or `run_app(language = "en")`
+
+### Translation Files
+
+- **`translation_en.csv`**: English translations (key, translation columns)
+- **`translation_fr.csv`**: French translations (key, translation columns)
+
+### Usage in Code
+
+```r
+# In module UI - pass i18n as parameter
+mod_example_ui <- function(id, i18n) {
+  ns <- NS(id)
+  tagList(
+    tags$h3(i18n$t("section_title")),
+    actionButton(ns("save"), i18n$t("save_button"))
+  )
+}
+
+# In module server - use i18n from config
+mod_example_server <- function(id, config) {
+  moduleServer(id, function(input, output, session) {
+    i18n <- config$i18n
+    # Use i18n$t("key") for translations
+  })
+}
+```
+
+### Adding New Translations
+
+1. Add the key to both `translation_en.csv` and `translation_fr.csv`
+2. Ensure consistent key naming (snake_case)
+3. Keep translations concise for UI elements
 
 ---
 
@@ -1453,13 +1543,20 @@ Ensure all package dependencies are:
 
 ## Future Development
 
-### Planned Features (from README)
+### Implemented Features
 
-1. **Semantic Alignment Module**: Tool to align user concepts with dictionary
-2. **Dictionary Improvement Module**: Interface to propose additions
-3. **HealthDCAT-AP Alignment**: FAIR principles for EHDS
-4. **Additional Terminologies**: Beyond current vocabularies
-5. **Enhanced Visualization**: Concept relationship mapping
+1. **Semantic Alignment Module**: Align user concepts with dictionary general concepts
+2. **Import/Export**: Support for Usagi, STCM, ATLAS JSON, and INDICATE formats
+3. **Concept Sets**: Advanced concept set management with descendants/mapped inclusion
+4. **Coverage Metrics**: Percentage-based coverage display with color coding
+5. **Comments System**: Mapping evaluations with comments
+6. **Internationalization**: English and French language support
+
+### Planned Features
+
+1. **HealthDCAT-AP Alignment**: FAIR principles for EHDS
+2. **Additional Terminologies**: Beyond current vocabularies
+3. **Enhanced Visualization**: Concept relationship mapping
 
 ### Extension Points
 

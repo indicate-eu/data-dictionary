@@ -993,6 +993,188 @@ load_ohdsi_vocabularies <- function(vocab_folder) {
   })
 }
 
+#' Get Descendants Count for a Concept
+#'
+#' @description Count the number of descendant concepts for a given OMOP concept.
+#' Uses the concept_ancestor table to find all descendants.
+#'
+#' @param concept_id OMOP concept ID
+#' @param vocabularies List containing vocabulary data (concept_ancestor table)
+#'
+#' @return Integer count of descendant concepts (excluding the concept itself)
+#' @noRd
+get_concept_descendants_count <- function(concept_id, vocabularies) {
+  if (is.null(vocabularies) || is.null(concept_id) || is.na(concept_id)) {
+    return(0L)
+  }
+
+  tryCatch({
+    descendants <- vocabularies$concept_ancestor %>%
+      dplyr::filter(
+        ancestor_concept_id == concept_id,
+        descendant_concept_id != concept_id
+      ) %>%
+      dplyr::summarise(n = dplyr::n()) %>%
+      dplyr::collect()
+
+    return(as.integer(descendants$n[1]))
+  }, error = function(e) {
+    return(0L)
+  })
+}
+
+#' Get Mapped Concepts Count for a Concept
+#'
+#' @description Count the number of concepts mapped to/from a given OMOP concept.
+#' Uses the concept_relationship table with "Maps to" and "Mapped from" relationships.
+#'
+#' @param concept_id OMOP concept ID
+#' @param vocabularies List containing vocabulary data (concept_relationship table)
+#'
+#' @return Integer count of mapped concepts
+#' @noRd
+get_concept_mapped_count <- function(concept_id, vocabularies) {
+  if (is.null(vocabularies) || is.null(concept_id) || is.na(concept_id)) {
+    return(0L)
+  }
+
+  tryCatch({
+    mapped <- vocabularies$concept_relationship %>%
+      dplyr::filter(
+        concept_id_1 == concept_id,
+        relationship_id %in% c("Maps to", "Mapped from")
+      ) %>%
+      dplyr::summarise(n = dplyr::n()) %>%
+      dplyr::collect()
+
+    return(as.integer(mapped$n[1]))
+  }, error = function(e) {
+    return(0L)
+  })
+}
+
+#' Resolve Concept Set
+#'
+#' @description Resolve a concept set by including descendants and mapped concepts
+#' based on the include_descendants and include_mapped flags, and excluding
+#' concepts marked as is_excluded.
+#'
+#' @param mappings Data frame with concept mappings. Must contain columns:
+#'   omop_concept_id, is_excluded, include_descendants, include_mapped
+#' @param vocabularies List containing vocabulary data
+#'
+#' @return Data frame with resolved concepts (unique, sorted by concept_name)
+#' @noRd
+resolve_concept_set <- function(mappings, vocabularies) {
+  if (is.null(mappings) || nrow(mappings) == 0) {
+    return(data.frame())
+  }
+
+  # Ensure required columns exist with default values
+  if (!"is_excluded" %in% names(mappings)) {
+    mappings$is_excluded <- FALSE
+  }
+  if (!"include_descendants" %in% names(mappings)) {
+    mappings$include_descendants <- FALSE
+  }
+  if (!"include_mapped" %in% names(mappings)) {
+    mappings$include_mapped <- FALSE
+  }
+
+  # Convert to logical if needed (CSV may read as character)
+  mappings$is_excluded <- as.logical(mappings$is_excluded)
+  mappings$include_descendants <- as.logical(mappings$include_descendants)
+  mappings$include_mapped <- as.logical(mappings$include_mapped)
+
+  # Replace NA with FALSE
+  mappings$is_excluded[is.na(mappings$is_excluded)] <- FALSE
+  mappings$include_descendants[is.na(mappings$include_descendants)] <- FALSE
+  mappings$include_mapped[is.na(mappings$include_mapped)] <- FALSE
+
+  if (is.null(vocabularies)) {
+    return(mappings %>% dplyr::filter(!.data$is_excluded))
+  }
+
+  # Filter out excluded concepts for resolution
+  non_excluded <- mappings %>%
+    dplyr::filter(!.data$is_excluded)
+
+  if (nrow(non_excluded) == 0) {
+    return(data.frame())
+  }
+
+  # Start with base concepts
+  resolved_ids <- non_excluded$omop_concept_id
+
+  tryCatch({
+    # Add descendants where include_descendants is TRUE
+    concepts_with_descendants <- non_excluded %>%
+      dplyr::filter(.data$include_descendants == TRUE)
+
+    if (nrow(concepts_with_descendants) > 0) {
+      for (cid in concepts_with_descendants$omop_concept_id) {
+        descendants <- vocabularies$concept_ancestor %>%
+          dplyr::filter(
+            ancestor_concept_id == cid,
+            descendant_concept_id != cid
+          ) %>%
+          dplyr::select(descendant_concept_id) %>%
+          dplyr::collect()
+
+        if (nrow(descendants) > 0) {
+          resolved_ids <- c(resolved_ids, descendants$descendant_concept_id)
+        }
+      }
+    }
+
+    # Add mapped concepts where include_mapped is TRUE
+    concepts_with_mapped <- non_excluded %>%
+      dplyr::filter(.data$include_mapped == TRUE)
+
+    if (nrow(concepts_with_mapped) > 0) {
+      for (cid in concepts_with_mapped$omop_concept_id) {
+        mapped <- vocabularies$concept_relationship %>%
+          dplyr::filter(
+            concept_id_1 == cid,
+            relationship_id %in% c("Maps to", "Mapped from")
+          ) %>%
+          dplyr::select(concept_id_2) %>%
+          dplyr::collect()
+
+        if (nrow(mapped) > 0) {
+          resolved_ids <- c(resolved_ids, mapped$concept_id_2)
+        }
+      }
+    }
+
+    # Get unique concept IDs
+    resolved_ids <- unique(resolved_ids)
+
+    # Get concept details for all resolved IDs
+    if (length(resolved_ids) > 0) {
+      resolved_concepts <- vocabularies$concept %>%
+        dplyr::filter(concept_id %in% resolved_ids) %>%
+        dplyr::select(
+          omop_concept_id = concept_id,
+          concept_name,
+          vocabulary_id,
+          domain_id,
+          concept_code,
+          standard_concept
+        ) %>%
+        dplyr::collect() %>%
+        dplyr::arrange(concept_name)
+
+      return(resolved_concepts)
+    }
+
+    return(data.frame())
+
+  }, error = function(e) {
+    return(mappings %>% dplyr::filter(!is_excluded))
+  })
+}
+
 #' Get Clinical Drug Concepts from Ingredient
 #'
 #' @description Query OHDSI vocabularies to retrieve Clinical Drug concepts

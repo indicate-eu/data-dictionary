@@ -324,3 +324,160 @@ with_datatable_state <- function(input, table_id, saved_page, saved_search, sess
 
   invisible(result)
 }
+
+#' Prepare Concept Set Data for DataTable Display
+#'
+#' @description Prepares concept set data with HTML toggle switches for
+#' is_excluded, include_descendants, and include_mapped columns. Used by both
+#' Dictionary Explorer and Concept Mapping modules for consistent display.
+#'
+#' @param mappings Data frame with concept mappings containing columns:
+#'   omop_concept_id, concept_name, vocabulary_id, domain_id, concept_code,
+#'   standard_concept, is_excluded, include_descendants, include_mapped
+#' @param ns Shiny namespace function
+#' @param editable Logical: Whether to show editable toggles (TRUE) or read-only display (FALSE)
+#' @param toggle_input_id Character: Input ID for toggle change events (used when editable=TRUE)
+#' @param delete_enabled Logical: Whether to show delete icons (default TRUE when editable)
+#'
+#' @return Data frame with HTML columns for toggles and standard_concept badge
+#'
+#' @noRd
+prepare_concept_set_display <- function(
+    mappings,
+    ns,
+    editable = TRUE,
+    toggle_input_id = "toggle_concept_option",
+    delete_enabled = TRUE
+) {
+  if (nrow(mappings) == 0) {
+    return(mappings)
+  }
+
+  # Ensure required columns exist with defaults
+
+  if (!"is_excluded" %in% colnames(mappings)) {
+    mappings$is_excluded <- FALSE
+  }
+  if (!"include_descendants" %in% colnames(mappings)) {
+    mappings$include_descendants <- FALSE
+  }
+  if (!"include_mapped" %in% colnames(mappings)) {
+    mappings$include_mapped <- FALSE
+  }
+
+  # Build standard_concept badge
+
+  mappings <- mappings %>%
+    dplyr::mutate(
+      standard_concept_display = dplyr::case_when(
+        standard_concept == "S" ~ '<span class="badge-status badge-success">Standard</span>',
+        standard_concept == "C" ~ '<span class="badge-status badge-secondary">Classification</span>',
+        TRUE ~ '<span class="badge-status badge-danger">Non-standard</span>'
+      )
+    )
+
+  if (editable) {
+    # Build HTML toggle switches
+    mappings <- mappings %>%
+      dplyr::mutate(
+        is_excluded_toggle = sprintf(
+          '<label class="toggle-switch toggle-small toggle-exclude"><input type="checkbox" data-omop-id="%s" data-field="is_excluded" %s onchange="Shiny.setInputValue(\'%s\', {omop_id: %s, field: \'is_excluded\', value: this.checked}, {priority: \'event\'})"><span class="toggle-slider"></span></label>',
+          omop_concept_id, ifelse(is_excluded, "checked", ""), ns(toggle_input_id), omop_concept_id
+        ),
+        include_descendants_toggle = sprintf(
+          '<label class="toggle-switch toggle-small"><input type="checkbox" data-omop-id="%s" data-field="include_descendants" %s onchange="Shiny.setInputValue(\'%s\', {omop_id: %s, field: \'include_descendants\', value: this.checked}, {priority: \'event\'})"><span class="toggle-slider"></span></label>',
+          omop_concept_id, ifelse(include_descendants, "checked", ""), ns(toggle_input_id), omop_concept_id
+        ),
+        include_mapped_toggle = sprintf(
+          '<label class="toggle-switch toggle-small"><input type="checkbox" data-omop-id="%s" data-field="include_mapped" %s onchange="Shiny.setInputValue(\'%s\', {omop_id: %s, field: \'include_mapped\', value: this.checked}, {priority: \'event\'})"><span class="toggle-slider"></span></label>',
+          omop_concept_id, ifelse(include_mapped, "checked", ""), ns(toggle_input_id), omop_concept_id
+        )
+      )
+
+    if (delete_enabled) {
+      # Ensure is_custom and custom_concept_id columns exist
+      if (!"is_custom" %in% colnames(mappings)) {
+        mappings$is_custom <- FALSE
+      }
+      if (!"custom_concept_id" %in% colnames(mappings)) {
+        mappings$custom_concept_id <- NA_integer_
+      }
+
+      mappings <- mappings %>%
+        dplyr::mutate(
+          action = dplyr::if_else(
+            is_custom == TRUE & !is.na(custom_concept_id),
+            sprintf(
+              '<i class="fa fa-trash delete-icon" data-omop-id="" data-custom-id="%s" style="cursor: pointer; color: #dc3545;"></i>',
+              custom_concept_id
+            ),
+            sprintf(
+              '<i class="fa fa-trash delete-icon" data-omop-id="%s" data-custom-id="" style="cursor: pointer; color: #dc3545;"></i>',
+              omop_concept_id
+            )
+          )
+        )
+    }
+  }
+
+  mappings
+}
+
+#' Get Column Configuration for Concept Set DataTable
+#'
+#' @description Returns column names, escape settings, and column definitions
+#' for concept set DataTables based on edit mode.
+#'
+#' @param editable Logical: Whether table is in edit mode
+#' @param delete_enabled Logical: Whether delete column is shown
+#'
+#' @return List with escape_cols, col_names, and col_defs
+#'
+#' @noRd
+get_concept_set_column_config <- function(editable = TRUE, delete_enabled = TRUE) {
+  if (editable) {
+    if (delete_enabled) {
+      # Edit mode with delete: omop_concept_id, concept_name, vocabulary_id, domain_id, concept_code, standard_concept_display, is_excluded_toggle, include_descendants_toggle, include_mapped_toggle, action
+      list(
+        escape_cols = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE),
+        col_names = c("OMOP Concept ID", "Concept Name", "Vocabulary", "Domain", "Code", "Standard", "Exclude", "Descendants", "Mapped", "Action"),
+        col_defs = list(
+          list(targets = 0, visible = FALSE),
+          list(targets = 1, width = "25%"),
+          list(targets = 3, visible = FALSE),
+          list(targets = 5, width = "90px", className = 'dt-center'),
+          list(targets = 6, width = "70px", className = 'dt-center'),
+          list(targets = 7, width = "110px", className = 'dt-center'),
+          list(targets = 8, width = "100px", className = 'dt-center'),
+          list(targets = 9, width = "50px", className = 'dt-center')
+        )
+      )
+    } else {
+      # Edit mode without delete
+      list(
+        escape_cols = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE),
+        col_names = c("OMOP Concept ID", "Concept Name", "Vocabulary", "Domain", "Code", "Standard", "Exclude", "Descendants", "Mapped"),
+        col_defs = list(
+          list(targets = 0, visible = FALSE),
+          list(targets = 1, width = "25%"),
+          list(targets = 3, visible = FALSE),
+          list(targets = 5, width = "90px", className = 'dt-center'),
+          list(targets = 6, width = "70px", className = 'dt-center'),
+          list(targets = 7, width = "110px", className = 'dt-center'),
+          list(targets = 8, width = "100px", className = 'dt-center')
+        )
+      )
+    }
+  } else {
+    # View mode: omop_concept_id, concept_name, vocabulary_id, domain_id, concept_code, standard_concept_display
+    list(
+      escape_cols = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE),
+      col_names = c("OMOP Concept ID", "Concept Name", "Vocabulary", "Domain", "Code", "Standard"),
+      col_defs = list(
+        list(targets = 0, visible = FALSE),
+        list(targets = 3, visible = FALSE),
+        list(targets = 5, width = "120px", className = 'dt-center')
+      )
+    )
+  }
+}

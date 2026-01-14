@@ -11,6 +11,7 @@ please_enter_login,Veuillez entrer votre identifiant.
 please_enter_password,Veuillez entrer votre mot de passe.
 invalid_login_or_password,Identifiant ou mot de passe invalide. Veuillez réessayer.
 add_concept,Ajouter un concept
+concept_added,Concept ajouté
 history,Historique
 edit_page,Modifier la page
 cancel,Annuler
@@ -45,6 +46,10 @@ general_concept_name,Nom du concept général
 enter_concept_name,Entrez le nom du concept
 concept_name_required,Le nom du concept est requis
 category,Catégorie
+category_breakdown,Répartition par catégorie
+distribution,Distribution
+completion,Complétion
+view_fullscreen,Voir en plein écran
 select_category,Sélectionnez une catégorie...
 category_required,La catégorie est requise
 subcategory,Sous-catégorie
@@ -245,7 +250,6 @@ evaluate_mappings,Évaluer les mappings
 source_concepts,Concepts sources
 add_mapping,Ajouter un mapping
 target_concept_details,Détails du concept cible
-distribution,Distribution
 temporal,Temporel
 hospital_units,Services hospitaliers
 import_mappings_from_csv,Importer des mappings depuis un CSV
@@ -283,6 +287,7 @@ no_projects_defined,Aucun projet défini
 total_concepts,Concepts totaux
 mapped_concepts,Concepts mappés
 covered,Couvert
+coverage,Couverture
 evaluated_mappings,Mappings évalués
 no_mapping_file,Aucun fichier de mapping trouvé pour cet alignement
 no_mappings_found,Aucun mapping trouvé dans cet alignement
@@ -445,3 +450,19 @@ import_alignment_created,Alignement "{name}" créé avec succès avec {mappings}
 users_not_found_warning,{count} utilisateur(s) non trouvé(s) (assigné(s) à l'utilisateur courant)
 alignment_name_exists,Un alignement avec ce nom existe déjà
 mappings_skipped_no_match,{count} mapping(s) ignoré(s) (concept source non trouvé)
+import_json,Importer JSON
+import_atlas_json,Importer un JSON ATLAS
+import_atlas_json_desc,Collez un JSON de concept set exporté depuis ATLAS pour importer les concepts dans ce concept général.
+import,Importer
+json_empty_error,Veuillez coller du contenu JSON
+json_parse_error,Format JSON invalide
+json_no_items_error,Aucun élément trouvé dans le JSON
+concepts_imported,concept(s) importé(s)
+concepts_skipped,existai(en)t déjà
+no_new_concepts,Tous les concepts existent déjà dans ce concept général
+search_categories,Rechercher des catégories...
+sort_by,Trier par :
+sort_rate_desc,Taux (plus élevé en premier)
+sort_rate_asc,Taux (plus bas en premier)
+sort_alpha_asc,Alphabétique (A-Z)
+sort_alpha_desc,Alphabétique (Z-A)

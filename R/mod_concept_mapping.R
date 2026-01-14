@@ -1194,6 +1194,34 @@ mod_concept_mapping_ui <- function(id, i18n) {
           )
         )
       )
+    ),
+
+    ### Modal - Category Breakdown Fullscreen ----
+    tags$div(
+      id = ns("category_breakdown_fullscreen_modal"),
+      class = "modal-overlay modal-fullscreen",
+      style = "display: none;",
+      tags$div(
+        class = "modal-fullscreen-content",
+        style = "height: 100vh; display: flex; flex-direction: column;",
+        tags$div(
+          style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
+          tags$h3(
+            style = "margin: 0; color: #0f60af;",
+            i18n$t("category_breakdown")
+          ),
+          actionButton(
+            ns("close_category_breakdown_fullscreen"),
+            label = HTML("&times;"),
+            class = "modal-close",
+            style = "font-size: 28px; font-weight: 300; color: #666; border: none; background: none; cursor: pointer; padding: 0; width: 30px; height: 30px; line-height: 1;"
+          )
+        ),
+        tags$div(
+          style = "flex: 1; overflow: auto; padding: 20px;",
+          uiOutput(ns("category_breakdown_fullscreen_content"))
+        )
+      )
     )
 
   )
@@ -1330,6 +1358,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     ### Cascade Observers for selected_alignment_id() ----
     # Primary observer: Fires main trigger when alignment selection changes
     observe_event(selected_alignment_id(), {
+      # Reset tab to summary when changing alignments
+      mapping_tab("summary")
       selected_alignment_id_trigger(selected_alignment_id_trigger() + 1)
     }, ignoreInit = TRUE)
 
@@ -2262,6 +2292,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       choices <- c("", col_names)
 
       tagList(
+        # Row 1: Vocabulary ID Column
         tags$div(
           style = "margin-bottom: 10px;",
           tags$label("Vocabulary ID Column", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
@@ -2277,6 +2308,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             "Please select Vocabulary ID column"
           )
         ),
+        # Row 2: Concept Code + Concept Name
         tags$div(
           style = "display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;",
           tags$div(
@@ -2310,8 +2342,23 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             )
           )
         ),
+        # Row 3: Category Column + JSON Column
         tags$div(
           style = "display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;",
+          tags$div(
+            style = "flex: 1; min-width: 150px;",
+            tags$label(
+              "Category Column",
+              tags$span(style = "color: #999; font-weight: normal; font-size: 12px;", " (optional)"),
+              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+            ),
+            selectInput(
+              ns("col_category"),
+              label = NULL,
+              choices = choices,
+              selected = ""
+            )
+          ),
           tags$div(
             style = "flex: 1; min-width: 150px;",
             tags$label(
@@ -2325,25 +2372,25 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               choices = choices,
               selected = ""
             )
-          ),
+          )
+        ),
+        # Row 4: Frequency Column + Target Concept ID Column
+        tags$div(
+          style = "display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;",
           tags$div(
             style = "flex: 1; min-width: 150px;",
             tags$label(
-              "Additional Columns",
+              "Frequency Column",
               tags$span(style = "color: #999; font-weight: normal; font-size: 12px;", " (optional)"),
               style = "display: block; font-weight: 600; margin-bottom: 8px;"
             ),
-            selectizeInput(
-              ns("col_additional"),
+            selectInput(
+              ns("col_frequency"),
               label = NULL,
-              choices = col_names,
-              selected = NULL,
-              multiple = TRUE
+              choices = choices,
+              selected = ""
             )
-          )
-        ),
-        tags$div(
-          style = "display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;",
+          ),
           tags$div(
             style = "flex: 1; min-width: 150px;",
             tags$label(
@@ -2367,20 +2414,22 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               choices = choices,
               selected = ""
             )
+          )
+        ),
+        # Row 5: Additional Columns
+        tags$div(
+          style = "margin-bottom: 10px;",
+          tags$label(
+            "Additional Columns",
+            tags$span(style = "color: #999; font-weight: normal; font-size: 12px;", " (optional)"),
+            style = "display: block; font-weight: 600; margin-bottom: 8px;"
           ),
-          tags$div(
-            style = "flex: 1; min-width: 150px;",
-            tags$label(
-              "Frequency Column",
-              tags$span(style = "color: #999; font-weight: normal; font-size: 12px;", " (optional)"),
-              style = "display: block; font-weight: 600; margin-bottom: 8px;"
-            ),
-            selectInput(
-              ns("col_frequency"),
-              label = NULL,
-              choices = choices,
-              selected = ""
-            )
+          selectizeInput(
+            ns("col_additional"),
+            label = NULL,
+            choices = col_names,
+            selected = NULL,
+            multiple = TRUE
           )
         )
       )
@@ -2471,9 +2520,13 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         input$col_frequency,
         input$col_concept_code,
         input$col_concept_name,
+        input$col_category,
         input$col_json,
         input$col_target_concept_id
       )
+
+      # Track which column is the category column (for default type)
+      category_col <- input$col_category
       # Add additional columns (multiple selection)
       if (!is.null(input$col_additional)) {
         selected_cols <- c(selected_cols, input$col_additional)
@@ -2545,7 +2598,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       # Create a dropdown for each column
       column_controls <- lapply(col_names, function(col_name) {
-        inferred_type <- infer_type(df[[col_name]])
+        # Default category column to factor, otherwise infer from data
+        if (!is.null(category_col) && category_col != "" && col_name == category_col) {
+          selected_type <- "factor"
+        } else {
+          selected_type <- infer_type(df[[col_name]])
+        }
         input_id <- paste0("col_type_", gsub("[^a-zA-Z0-9]", "_", col_name))
 
         tags$div(
@@ -2561,7 +2619,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               ns(input_id),
               label = NULL,
               choices = type_choices,
-              selected = inferred_type,
+              selected = selected_type,
               width = "100%"
             )
           )
@@ -2733,6 +2791,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       updateSelectInput(session, "col_frequency", selected = "")
       updateSelectInput(session, "col_concept_code", selected = "")
       updateSelectInput(session, "col_concept_name", selected = "")
+      updateSelectInput(session, "col_category", selected = "")
       updateSelectInput(session, "col_json", selected = "")
       updateSelectInput(session, "col_additional", selected = character(0))
       updateSelectInput(session, "col_target_concept_id", selected = "")
@@ -2870,6 +2929,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           vocabulary_id = input$col_vocabulary_id,
           concept_code = input$col_concept_code,
           concept_name = input$col_concept_name,
+          category = input$col_category,
           json = input$col_json,
           target_concept_id = input$col_target_concept_id,
           frequency = input$col_frequency
@@ -2990,6 +3050,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       updateSelectInput(session, "col_frequency", selected = "")
       updateSelectInput(session, "col_concept_code", selected = "")
       updateSelectInput(session, "col_concept_name", selected = "")
+      updateSelectInput(session, "col_category", selected = "")
       updateSelectInput(session, "col_json", selected = "")
       updateSelectInput(session, "col_additional", selected = character(0))
       updateSelectInput(session, "col_target_concept_id", selected = "")
@@ -3761,9 +3822,19 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                       "ⓘ"
                     )
                   ),
-                  # Main tabs: Comments + Statistical Summary (top-right)
+                  # Main tabs: Summary + Comments + Statistical Summary (top-right)
                   tags$div(
                     class = "section-tabs",
+                    tags$button(
+                      id = ns("target_detail_tab_summary"),
+                      class = "tab-btn tab-btn-active",
+                      onclick = sprintf("
+                        document.querySelectorAll('#%s > .section-header > .section-tabs .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
+                        this.classList.add('tab-btn-active');
+                        Shiny.setInputValue('%s', 'summary', {priority: 'event'});
+                      ", ns("target_concept_details_panel"), ns("target_detail_tab_selected")),
+                      i18n$t("summary")
+                    ),
                     tags$button(
                       id = ns("target_detail_tab_comments"),
                       class = "tab-btn",
@@ -3772,17 +3843,17 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                         this.classList.add('tab-btn-active');
                         Shiny.setInputValue('%s', 'comments', {priority: 'event'});
                       ", ns("target_concept_details_panel"), ns("target_detail_tab_selected")),
-                      "Comments"
+                      i18n$t("comments")
                     ),
                     tags$button(
                       id = ns("target_detail_tab_statistical_summary"),
-                      class = "tab-btn tab-btn-active",
+                      class = "tab-btn",
                       onclick = sprintf("
                         document.querySelectorAll('#%s > .section-header > .section-tabs .tab-btn').forEach(b => b.classList.remove('tab-btn-active'));
                         this.classList.add('tab-btn-active');
                         Shiny.setInputValue('%s', 'statistical_summary', {priority: 'event'});
                       ", ns("target_concept_details_panel"), ns("target_detail_tab_selected")),
-                      "Statistical Summary"
+                      i18n$t("statistical_summary")
                     )
                   )
                 ),
@@ -4293,110 +4364,339 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         0
       }
 
+      # Calculate category breakdown if category column exists in CSV
+      category_data <- NULL
+      has_category <- FALSE
+      if (file.exists(csv_path)) {
+        if ("category" %in% colnames(df)) {
+          has_category <- TRUE
+
+          # Ensure row_id exists for joining
+          if (!"row_id" %in% colnames(df)) {
+            df$row_id <- seq_len(nrow(df))
+          }
+
+          # Get mapped row_ids from database
+          mapped_row_ids_query <- "SELECT DISTINCT row_id FROM concept_mappings WHERE alignment_id = ?"
+          mapped_row_ids <- DBI::dbGetQuery(con, mapped_row_ids_query, params = list(selected_alignment_id()))$row_id
+
+          # Count concepts per category (all source concepts)
+          category_counts <- as.data.frame(table(df$category, useNA = "ifany"), stringsAsFactors = FALSE)
+          colnames(category_counts) <- c("category", "total")
+          rownames(category_counts) <- NULL
+
+          # Replace NA with "Uncategorized"
+          category_counts$category <- ifelse(
+            is.na(category_counts$category) | category_counts$category == "",
+            "Uncategorized",
+            as.character(category_counts$category)
+          )
+
+          # Count mapped concepts per category
+          df$is_mapped <- df$row_id %in% mapped_row_ids
+          df$category_clean <- ifelse(
+            is.na(df$category) | df$category == "",
+            "Uncategorized",
+            as.character(df$category)
+          )
+
+          mapped_by_category <- df %>%
+            dplyr::filter(is_mapped) %>%
+            dplyr::group_by(category_clean) %>%
+            dplyr::summarise(mapped = dplyr::n(), .groups = "drop") %>%
+            dplyr::rename(category = category_clean)
+
+          # Join total and mapped counts
+          category_data <- category_counts %>%
+            dplyr::left_join(mapped_by_category, by = "category") %>%
+            dplyr::mutate(mapped = ifelse(is.na(mapped), 0L, as.integer(mapped)))
+          rownames(category_data) <- NULL
+
+          # Sort by total count descending
+          category_data <- category_data[order(-category_data$total), ]
+          rownames(category_data) <- NULL
+        }
+      }
+
       # Render UI
       output$summary_content <- renderUI({
         tags$div(
           style = "height: 100%; min-height: 0; display: flex; flex-direction: column;",
 
-          # Summary cards
+          # Top section: Summary stats cards (percentage-based width)
           tags$div(
-            style = paste0(
-              "display: flex; flex-wrap: wrap; ",
-              "gap: 20px; align-content: flex-start; ",
-              "margin: 0 10px;"
-            ),
+            style = "display: flex; flex-direction: row; padding: 10px; gap: 10px; flex-shrink: 0;",
 
-            # Card 1: Mapped concepts in alignment
+            # Card 1: Mapped concepts in alignment (33%)
             tags$div(
               style = paste0(
-                "flex: 1 1 300px; background: white; ",
-                "border-radius: 8px; padding: 20px; ",
+                "flex: 1; min-width: 0; background: white; ",
+                "border-radius: 8px; padding: 15px; ",
                 "box-shadow: 0 2px 8px rgba(0,0,0,0.1); ",
                 "border-left: 4px solid #28a745;"
               ),
               tags$div(
-                style = "font-size: 14px; color: #666; margin-bottom: 8px;",
+                style = "font-size: 13px; color: #666; margin-bottom: 6px;",
                 i18n$t("mapped_concepts")
               ),
               tags$div(
                 style = paste0(
-                  "font-size: 32px; font-weight: 700; color: #28a745; ",
-                  "margin-bottom: 5px;"
+                  "font-size: 24px; font-weight: 700; color: #28a745; ",
+                  "margin-bottom: 4px;"
                 ),
                 paste0(mapped_source_concepts, " / ", total_source_concepts)
               ),
               tags$div(
-                style = "font-size: 18px; color: #999;",
+                style = "font-size: 16px; color: #999;",
                 paste0(pct_mapped_source, "%")
               )
             ),
 
-            # Card 2: General concepts mapped
+            # Card 2: General concepts mapped (33%)
             tags$div(
               style = paste0(
-                "flex: 1 1 300px; background: white; ",
-                "border-radius: 8px; padding: 20px; ",
+                "flex: 1; min-width: 0; background: white; ",
+                "border-radius: 8px; padding: 15px; ",
                 "box-shadow: 0 2px 8px rgba(0,0,0,0.1); ",
                 "border-left: 4px solid #17a2b8;"
               ),
               tags$div(
-                style = "font-size: 14px; color: #666; margin-bottom: 8px;",
+                style = "font-size: 13px; color: #666; margin-bottom: 6px;",
                 i18n$t("general_concepts_mapped")
               ),
               tags$div(
                 style = paste0(
-                  "font-size: 32px; font-weight: 700; color: #17a2b8; ",
-                  "margin-bottom: 5px;"
+                  "font-size: 24px; font-weight: 700; color: #17a2b8; ",
+                  "margin-bottom: 4px;"
                 ),
                 paste0(total_general_concepts, " / ", total_dictionary_concepts)
               ),
               tags$div(
-                style = "font-size: 18px; color: #999;",
+                style = "font-size: 16px; color: #999;",
                 paste0(pct_general_concepts, "%")
               )
             ),
 
-            # Card 3: Evaluated mappings
+            # Card 3: Evaluated mappings (33%)
             tags$div(
               style = paste0(
-                "flex: 1 1 300px; background: white; ",
-                "border-radius: 8px; padding: 20px; ",
+                "flex: 1; min-width: 0; background: white; ",
+                "border-radius: 8px; padding: 15px; ",
                 "box-shadow: 0 2px 8px rgba(0,0,0,0.1); ",
                 "border-left: 4px solid #ffc107;"
               ),
               tags$div(
-                style = "font-size: 14px; color: #666; margin-bottom: 8px;",
+                style = "font-size: 13px; color: #666; margin-bottom: 6px;",
                 i18n$t("evaluated_mappings")
               ),
               tags$div(
                 style = paste0(
-                  "font-size: 32px; font-weight: 700; color: #ffc107; ",
-                  "margin-bottom: 5px;"
+                  "font-size: 24px; font-weight: 700; color: #ffc107; ",
+                  "margin-bottom: 4px;"
                 ),
                 paste0(evaluated_count, " / ", mapped_source_concepts)
               ),
               tags$div(
-                style = "font-size: 18px; color: #999;",
+                style = "font-size: 16px; color: #999;",
                 paste0(pct_evaluated, "%")
               )
             )
           ),
 
-          # Projects Compatibility Section
+          # Bottom section: Category Breakdown and Projects side by side (50% each)
           tags$div(
-            style = "flex: 1; min-height: 0;",
-            tags$div(
-              class = "card-container",
-              style = "margin: 10px 10px 10px 10px; height: calc(100% - 20px); overflow: auto;",
+            style = "flex: 1; min-height: 0; display: flex; flex-direction: row; padding: 0 10px 10px 10px; gap: 10px;",
+
+            # Left: Category Breakdown (50%)
+            if (has_category && !is.null(category_data) && nrow(category_data) > 0) {
               tags$div(
-                class = "section-header",
-                style = "background: none; border-bottom: none; padding: 0 0 0 5px;",
-                tags$span(
-                  class = "section-title",
-                  i18n$t("projects_compatibility")
-                )
+                style = paste0(
+                  "flex: 1; min-width: 0; display: flex; flex-direction: column; ",
+                  "background: white; border-radius: 8px; padding: 15px; ",
+                  "box-shadow: 0 2px 8px rgba(0,0,0,0.1); ",
+                  "border-left: 4px solid #0f60af;"
+                ),
+                # Header with title, tab buttons, and fullscreen button
+                tags$div(
+                  style = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;",
+                  tags$div(
+                    style = "font-size: 14px; color: #666;",
+                    i18n$t("category_breakdown")
+                  ),
+                  tags$div(
+                    style = "display: flex; align-items: center; gap: 8px;",
+                    # Tab buttons for distribution/completion
+                    tags$div(
+                      style = "display: flex; gap: 4px;",
+                      tags$button(
+                        id = ns("category_tab_distribution"),
+                        class = "btn btn-sm category-tab-btn active",
+                        style = paste0(
+                          "padding: 4px 10px; font-size: 12px; border-radius: 4px; ",
+                          "border: 1px solid #0f60af; background: #0f60af; color: white; cursor: pointer;"
+                        ),
+                        onclick = sprintf(
+                          "document.getElementById('%s').style.display='block'; document.getElementById('%s').style.display='none'; this.style.background='#0f60af'; this.style.color='white'; document.getElementById('%s').style.background='white'; document.getElementById('%s').style.color='#28a745';",
+                          ns("category_distribution_content"), ns("category_completion_content"),
+                          ns("category_tab_completion"), ns("category_tab_completion")
+                        ),
+                        i18n$t("distribution")
+                      ),
+                      tags$button(
+                        id = ns("category_tab_completion"),
+                        class = "btn btn-sm category-tab-btn",
+                        style = paste0(
+                          "padding: 4px 10px; font-size: 12px; border-radius: 4px; ",
+                          "border: 1px solid #28a745; background: white; color: #28a745; cursor: pointer;"
+                        ),
+                        onclick = sprintf(
+                          "document.getElementById('%s').style.display='none'; document.getElementById('%s').style.display='block'; this.style.background='#28a745'; this.style.color='white'; document.getElementById('%s').style.background='white'; document.getElementById('%s').style.color='#0f60af';",
+                          ns("category_distribution_content"), ns("category_completion_content"),
+                          ns("category_tab_distribution"), ns("category_tab_distribution")
+                        ),
+                        i18n$t("completion")
+                      )
+                    ),
+                    # Fullscreen button
+                    actionButton(
+                      ns("open_category_breakdown_fullscreen"),
+                      label = NULL,
+                      icon = icon("expand-alt"),
+                      class = "btn-icon-only has-tooltip",
+                      style = paste0(
+                        "background: transparent; border: none; color: #333; ",
+                        "padding: 4px 8px; cursor: pointer; font-size: 14px;"
+                      ),
+                      `data-tooltip` = i18n$t("view_fullscreen")
+                    )
+                  )
+                ),
+                # Distribution view (blue bars - concept count per category, with completion overlay)
+                tags$div(
+                  id = ns("category_distribution_content"),
+                  style = "flex: 1; min-height: 0; overflow-y: auto;",
+                  lapply(seq_len(min(nrow(category_data), 10)), function(i) {
+                    cat_name <- category_data$category[i]
+                    cat_total <- category_data$total[i]
+                    cat_mapped <- category_data$mapped[i]
+                    pct_total <- round(cat_total / total_source_concepts * 100, 1)
+                    pct_mapped_of_total <- if (cat_total > 0) round(cat_mapped / cat_total * 100, 1) else 0
+                    tags$div(
+                      style = "margin-bottom: 8px;",
+                      tags$div(
+                        style = "display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 2px;",
+                        tags$span(
+                          style = "max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;",
+                          cat_name
+                        ),
+                        tags$span(
+                          style = "color: #666;",
+                          sprintf("%d (%s%%)", cat_total, pct_total)
+                        )
+                      ),
+                      # Blue bar for distribution with hatched completion overlay
+                      tags$div(
+                        style = "background: #e9ecef; border-radius: 4px; height: 8px; overflow: hidden; position: relative;",
+                        # Base blue bar (full distribution width)
+                        tags$div(
+                          style = sprintf(
+                            "background: #0f60af; width: %s%%; height: 100%%; position: relative;",
+                            pct_total
+                          ),
+                          # Hatched overlay for completed portion (relative to category bar width)
+                          tags$div(
+                            style = sprintf(
+                              paste0(
+                                "position: absolute; left: 0; top: 0; height: 100%%; width: %s%%; ",
+                                "background: repeating-linear-gradient(",
+                                "45deg, ",
+                                "rgba(255,255,255,0.3), ",
+                                "rgba(255,255,255,0.3) 2px, ",
+                                "transparent 2px, ",
+                                "transparent 4px",
+                                ");"
+                              ),
+                              pct_mapped_of_total
+                            )
+                          )
+                        )
+                      )
+                    )
+                  }),
+                  if (nrow(category_data) > 10) {
+                    tags$div(
+                      style = "text-align: center; font-size: 12px; color: #666; margin-top: 10px;",
+                      sprintf("... and %d more categories", nrow(category_data) - 10)
+                    )
+                  }
+                ),
+                # Completion view (green bars - mapping completion per category, sorted by completion %)
+                {
+                  # Sort by completion percentage descending
+                  category_data_by_completion <- category_data %>%
+                    dplyr::mutate(pct_mapped = ifelse(total > 0, mapped / total * 100, 0)) %>%
+                    dplyr::arrange(dplyr::desc(pct_mapped))
+
+                  tags$div(
+                    id = ns("category_completion_content"),
+                    style = "flex: 1; min-height: 0; overflow-y: auto; display: none;",
+                    lapply(seq_len(min(nrow(category_data_by_completion), 10)), function(i) {
+                      cat_name <- category_data_by_completion$category[i]
+                      cat_total <- category_data_by_completion$total[i]
+                      cat_mapped <- category_data_by_completion$mapped[i]
+                      pct_mapped <- round(category_data_by_completion$pct_mapped[i], 1)
+                      tags$div(
+                        style = "margin-bottom: 8px;",
+                        tags$div(
+                          style = "display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 2px;",
+                          tags$span(
+                            style = "max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;",
+                            cat_name
+                          ),
+                          tags$span(
+                            style = "color: #666;",
+                            sprintf("%d / %d (%s%%)", cat_mapped, cat_total, pct_mapped)
+                          )
+                        ),
+                        # Green bar for completion (full bar = 100% mapped)
+                        tags$div(
+                          style = "background: #e9ecef; border-radius: 4px; height: 8px; overflow: hidden;",
+                          tags$div(
+                            style = sprintf(
+                              "background: #28a745; width: %s%%; height: 100%%;",
+                              pct_mapped
+                            )
+                          )
+                        )
+                      )
+                    }),
+                    if (nrow(category_data_by_completion) > 10) {
+                      tags$div(
+                        style = "text-align: center; font-size: 12px; color: #666; margin-top: 10px;",
+                        sprintf("... and %d more categories", nrow(category_data_by_completion) - 10)
+                      )
+                    }
+                  )
+                }
+              )
+            },
+
+            # Right: Projects Compatibility (50%)
+            tags$div(
+              style = paste0(
+                "flex: 1; min-width: 0; display: flex; flex-direction: column; ",
+                "background: white; border-radius: 8px; padding: 15px; ",
+                "box-shadow: 0 2px 8px rgba(0,0,0,0.1); ",
+                "border-left: 4px solid #0f60af;"
               ),
-              DT::DTOutput(ns("projects_compatibility_table"))
+              tags$div(
+                style = "font-size: 14px; color: #666; margin-bottom: 10px;",
+                i18n$t("projects_compatibility")
+              ),
+              tags$div(
+                style = "flex: 1; min-height: 0; overflow: auto;",
+                DT::DTOutput(ns("projects_compatibility_table"))
+              )
             )
           )
         )
@@ -4462,10 +4762,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 sum(required_gc_ids %in% mapped_general_concept_ids)
               }
             },
-            covered = ifelse(total_concepts > 0 && mapped_concepts == total_concepts, "Yes", "No")
+            coverage_pct = ifelse(total_concepts > 0, round(mapped_concepts / total_concepts * 100), 0)
           ) %>%
           dplyr::ungroup() %>%
-          dplyr::select(project_name, short_description, total_concepts, mapped_concepts, covered)
+          dplyr::select(project_name, short_description, total_concepts, mapped_concepts, coverage_pct)
 
         # Create datatable
         dt <- datatable(
@@ -4483,7 +4783,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             columnDefs = list(
               list(targets = 2, width = "100px", className = "dt-center"),
               list(targets = 3, width = "100px", className = "dt-center"),
-              list(targets = 4, width = "80px", className = "dt-center")
+              list(targets = 4, width = "100px", className = "dt-center")
             )
           ),
           colnames = c(
@@ -4491,10 +4791,22 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             as.character(i18n$t("description")),
             as.character(i18n$t("total_concepts")),
             as.character(i18n$t("mapped_concepts")),
-            as.character(i18n$t("covered"))
+            as.character(i18n$t("coverage"))
           )
         ) %>%
-          style_yes_no_custom("covered")
+          DT::formatStyle(
+            "coverage_pct",
+            backgroundColor = DT::styleInterval(
+              c(50, 100),
+              c("#f8d7da", "#fff3cd", "#d4edda")
+            ),
+            color = DT::styleInterval(
+              c(50, 100),
+              c("#721c24", "#856404", "#155724")
+            ),
+            fontWeight = "bold"
+          ) %>%
+          DT::formatString("coverage_pct", suffix = "%")
 
         dt
       }, server = TRUE)
@@ -4560,12 +4872,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         if ("concept_name" %in% colnames(source_df)) source_cols <- c(source_cols, "concept_name")
         if ("concept_code" %in% colnames(source_df)) source_cols <- c(source_cols, "concept_code")
         if ("vocabulary_id" %in% colnames(source_df)) source_cols <- c(source_cols, "vocabulary_id")
+        if ("category" %in% colnames(source_df)) source_cols <- c(source_cols, "category")
 
         source_join_df <- source_df[, source_cols, drop = FALSE]
         colnames(source_join_df) <- c("row_id",
           if ("concept_name" %in% colnames(source_df)) "concept_name_source" else NULL,
           if ("concept_code" %in% colnames(source_df)) "concept_code_source" else NULL,
-          if ("vocabulary_id" %in% colnames(source_df)) "vocabulary_id_source" else NULL
+          if ("vocabulary_id" %in% colnames(source_df)) "vocabulary_id_source" else NULL,
+          if ("category" %in% colnames(source_df)) "source_category" else NULL
         )
 
         mapped_rows <- mappings_db %>%
@@ -4591,13 +4905,18 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           mapped_rows <- mapped_rows %>%
             dplyr::mutate(vocabulary_id_source = NA_character_)
         }
+        if (!"source_category" %in% colnames(mapped_rows)) {
+          mapped_rows <- mapped_rows %>%
+            dplyr::mutate(source_category = NA_character_)
+        }
       } else {
         # Fallback for CSV without row_id column
         mapped_rows <- mappings_db %>%
           dplyr::mutate(
             concept_name_source = paste0("Source concept #", row_id),
             concept_code_source = NA_character_,
-            vocabulary_id_source = NA_character_
+            vocabulary_id_source = NA_character_,
+            source_category = NA_character_
           )
       }
 
@@ -4694,6 +5013,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Build display dataframe
       display_df <- enriched_rows %>%
         dplyr::mutate(
+          Category = factor(dplyr::if_else(is.na(source_category) | source_category == "", "/", source_category)),
           Source = paste0(concept_name_source, " (", vocabulary_id_source, ": ", concept_code_source, ")"),
           Target = paste0(concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"),
           Origin = dplyr::if_else(
@@ -4710,7 +5030,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             i18n$t("delete")
           )
         ) %>%
-        dplyr::select(Source, Target, Origin, Upvotes, Downvotes, Uncertain, Actions)
+        dplyr::select(Category, Source, Target, Origin, Upvotes, Downvotes, Uncertain, Actions)
 
       # Render table with prepared data (All Mappings)
       output$all_mappings_table_main <- DT::renderDT({
@@ -4718,22 +5038,26 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           display_df,
           escape = FALSE,
           filter = 'top',
+          extensions = "Buttons",
           options = list(
             pageLength = 15,
             lengthMenu = c(10, 15, 20, 50, 100, 200),
-            dom = 'ltp',
+            dom = 'Bltp',
+            buttons = list("colvis"),
             language = get_datatable_language(),
             columnDefs = list(
-              list(targets = 2, width = "80px", className = "dt-center"),
-              list(targets = 3, width = "60px", className = "dt-center"),
+              list(targets = 0, width = "10%"),
+              list(targets = 3, width = "80px", className = "dt-center"),
               list(targets = 4, width = "60px", className = "dt-center"),
               list(targets = 5, width = "60px", className = "dt-center"),
-              list(targets = 6, width = "70px", searchable = FALSE, orderable = FALSE, className = "dt-center")
+              list(targets = 6, width = "60px", className = "dt-center"),
+              list(targets = 7, width = "70px", searchable = FALSE, orderable = FALSE, className = "dt-center")
             )
           ),
           rownames = FALSE,
           selection = 'none',
           colnames = c(
+            as.character(i18n$t("category")),
             as.character(i18n$t("source_concept")),
             as.character(i18n$t("target_concept")),
             as.character(i18n$t("origin")),
@@ -4809,12 +5133,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         if ("concept_name" %in% colnames(source_df)) source_cols <- c(source_cols, "concept_name")
         if ("concept_code" %in% colnames(source_df)) source_cols <- c(source_cols, "concept_code")
         if ("vocabulary_id" %in% colnames(source_df)) source_cols <- c(source_cols, "vocabulary_id")
+        if ("category" %in% colnames(source_df)) source_cols <- c(source_cols, "category")
 
         source_join_df <- source_df[, source_cols, drop = FALSE]
         colnames(source_join_df) <- c("row_id",
           if ("concept_name" %in% colnames(source_df)) "concept_name_source" else NULL,
           if ("concept_code" %in% colnames(source_df)) "concept_code_source" else NULL,
-          if ("vocabulary_id" %in% colnames(source_df)) "vocabulary_id_source" else NULL
+          if ("vocabulary_id" %in% colnames(source_df)) "vocabulary_id_source" else NULL,
+          if ("category" %in% colnames(source_df)) "source_category" else NULL
         )
 
         mapped_rows <- mappings_db %>%
@@ -4840,13 +5166,18 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           mapped_rows <- mapped_rows %>%
             dplyr::mutate(vocabulary_id_source = NA_character_)
         }
+        if (!"source_category" %in% colnames(mapped_rows)) {
+          mapped_rows <- mapped_rows %>%
+            dplyr::mutate(source_category = NA_character_)
+        }
       } else {
         # Fallback for CSV without row_id column
         mapped_rows <- mappings_db %>%
           dplyr::mutate(
             concept_name_source = paste0("Source concept #", row_id),
             concept_code_source = NA_character_,
-            vocabulary_id_source = NA_character_
+            vocabulary_id_source = NA_character_,
+            source_category = NA_character_
           )
       }
 
@@ -4919,6 +5250,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Build display dataframe
       display_df <- enriched_rows %>%
         dplyr::mutate(
+          Category = factor(dplyr::if_else(is.na(source_category) | source_category == "", "/", source_category)),
           Source = paste0(concept_name_source, " (", vocabulary_id_source, ": ", concept_code_source, ")"),
           Target = paste0(concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"),
           Origin = dplyr::if_else(
@@ -4935,7 +5267,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             i18n$t("delete")
           )
         ) %>%
-        dplyr::select(Source, Target, Origin, Upvotes, Downvotes, Uncertain, Actions)
+        dplyr::select(Category, Source, Target, Origin, Upvotes, Downvotes, Uncertain, Actions)
 
       # Update table data using proxy (preserves state)
       shinyjs::delay(100, {
@@ -5582,7 +5914,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (is.null(selected_general_concept_id())) return()
       if (is.null(data())) return()
       if (mapping_tab() != "edit_mappings") return()
-      
+
       # Prepare data outside renderDT
       vocab_data <- vocabularies()
       if (is.null(vocab_data)) {
@@ -5591,42 +5923,48 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         }, server = TRUE)
         return()
       }
-      
+
       concept_mappings <- data()$concept_mappings %>%
         dplyr::filter(general_concept_id == selected_general_concept_id())
-      
-      if (!is.null(vocab_data) && nrow(concept_mappings) > 0) {
-        concept_ids <- concept_mappings$omop_concept_id
-        omop_concepts <- vocab_data$concept %>%
-          dplyr::filter(concept_id %in% concept_ids) %>%
-          dplyr::select(concept_id, concept_name, vocabulary_id, concept_code) %>%
-          dplyr::collect()
-        
-        concept_mappings <- concept_mappings %>%
-          dplyr::left_join(
-            omop_concepts,
-            by = c("omop_concept_id" = "concept_id")
-          ) %>%
-          dplyr::mutate(is_custom = FALSE)
-      } else if (nrow(concept_mappings) > 0) {
-        concept_mappings <- concept_mappings %>%
-          dplyr::mutate(
-            concept_name = NA_character_,
-            vocabulary_id = NA_character_,
-            concept_code = NA_character_,
-            is_custom = FALSE
+
+      # Use resolve_concept_set to expand descendants/mapped concepts (like in data dictionary)
+      if (nrow(concept_mappings) > 0) {
+        resolved_concepts <- resolve_concept_set(concept_mappings, vocab_data)
+
+        if (nrow(resolved_concepts) > 0) {
+          mappings <- resolved_concepts %>%
+            dplyr::mutate(
+              is_custom = FALSE,
+              custom_concept_id = NA_integer_
+            )
+        } else {
+          mappings <- data.frame(
+            omop_concept_id = integer(),
+            concept_name = character(),
+            vocabulary_id = character(),
+            domain_id = character(),
+            concept_code = character(),
+            standard_concept = character(),
+            is_custom = logical(),
+            custom_concept_id = integer(),
+            stringsAsFactors = FALSE
           )
+        }
       } else {
-        concept_mappings <- data.frame(
+        mappings <- data.frame(
+          omop_concept_id = integer(),
           concept_name = character(),
           vocabulary_id = character(),
+          domain_id = character(),
           concept_code = character(),
-          omop_concept_id = integer(),
-          omop_unit_concept_id = character(),
-          is_custom = logical()
+          standard_concept = character(),
+          is_custom = logical(),
+          custom_concept_id = integer(),
+          stringsAsFactors = FALSE
         )
       }
 
+      # Add custom concepts (they don't go through resolve_concept_set)
       custom_concepts_path <- get_csv_path("custom_concepts.csv")
       if (file.exists(custom_concepts_path)) {
         custom_concepts <- readr::read_csv(custom_concepts_path, show_col_types = FALSE) %>%
@@ -5639,79 +5977,81 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           ) %>%
           dplyr::mutate(
             omop_concept_id = NA_integer_,
-            omop_unit_concept_id = NA_character_,
+            domain_id = NA_character_,
+            standard_concept = NA_character_,
             is_custom = TRUE
           )
-      } else {
-        custom_concepts <- data.frame(
-          custom_concept_id = integer(),
-          concept_name = character(),
-          vocabulary_id = character(),
-          concept_code = character(),
-          omop_concept_id = integer(),
-          omop_unit_concept_id = character(),
-          is_custom = logical()
-        )
+
+        if (nrow(custom_concepts) > 0) {
+          mappings <- dplyr::bind_rows(mappings, custom_concepts)
+        }
       }
 
-      if (nrow(concept_mappings) > 0) {
-        omop_for_bind <- concept_mappings %>%
-          dplyr::select(concept_name, vocabulary_id, concept_code, omop_concept_id, omop_unit_concept_id, is_custom)
-      } else {
-        omop_for_bind <- concept_mappings
-      }
-
-      all_concepts <- dplyr::bind_rows(omop_for_bind, custom_concepts)
-
-      if (nrow(all_concepts) == 0) {
+      if (nrow(mappings) == 0) {
         output$concept_mappings_table <- DT::renderDT({
           create_empty_datatable("No mapped concepts found for this general concept.")
         }, server = TRUE)
         return()
       }
 
-      mappings <- all_concepts %>%
-        dplyr::select(
-          concept_name,
-          vocabulary_id,
-          concept_code,
-          omop_concept_id,
-          omop_unit_concept_id,
-          is_custom
+      # Sort by standard_concept then concept_name
+      mappings <- mappings %>%
+        dplyr::mutate(
+          vocabulary_id = factor(vocabulary_id),
+          sort_order = dplyr::case_when(
+            standard_concept == "S" ~ 1,
+            standard_concept == "C" ~ 2,
+            TRUE ~ 3
+          )
         ) %>%
-        dplyr::arrange(concept_name)
+        dplyr::arrange(sort_order, concept_name) %>%
+        dplyr::select(-sort_order)
 
       # Store the sorted data for row selection lookups
       concept_mappings_table_data(mappings)
 
-      # For display, convert omop_concept_id to character
-      mappings_display <- mappings %>%
-        dplyr::mutate(omop_concept_id = as.character(omop_concept_id))
+      # Prepare display data using shared function (view mode, no toggles)
+      mappings_display <- prepare_concept_set_display(
+        mappings = mappings,
+        ns = ns,
+        editable = FALSE
+      )
+
+      # Select columns for view mode display (without toggle columns since they're resolved)
+      mappings_display <- mappings_display %>%
+        dplyr::select(omop_concept_id, concept_name, vocabulary_id, domain_id, concept_code, standard_concept_display)
+
+      # Get column configuration for view mode
+      col_config <- get_concept_set_column_config(editable = FALSE)
 
       # Render table with prepared data
+      # Columns: omop_concept_id, concept_name, vocabulary_id, domain_id, concept_code, standard_concept_display
       output$concept_mappings_table <- DT::renderDT({
         dt <- datatable(
           mappings_display,
           options = list(
             pageLength = 15,
             lengthMenu = list(c(5, 10, 15, 20, 50, 100), c("5", "10", "15", "20", "50", "100")),
-            dom = "ltp",
+            dom = "Bltp",
             language = get_datatable_language(),
+            buttons = list(
+              list(
+                extend = "colvis",
+                text = "Columns",
+                className = "btn-colvis"
+              )
+            ),
             columnDefs = list(
-              list(targets = c(4, 5), visible = FALSE)  # Hide omop_unit_concept_id and is_custom
+              list(targets = 0, visible = FALSE),  # Hide OMOP Concept ID
+              list(targets = 3, visible = FALSE),  # Hide Domain
+              list(targets = 5, width = "90px", className = "dt-center")  # Standard column
             )
           ),
           rownames = FALSE,
+          escape = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE),  # 6 columns, standard_concept_display is HTML
           selection = "single",
           filter = "top",
-          colnames = c(
-            as.character(i18n$t("concept_name")),
-            as.character(i18n$t("vocabulary")),
-            as.character(i18n$t("code")),
-            as.character(i18n$t("omop_id")),
-            as.character(i18n$t("unit_id")),
-            as.character(i18n$t("custom"))
-          )
+          colnames = c("OMOP Concept ID", "Concept Name", "Vocabulary", "Domain", "Code", "Standard")
         )
 
         dt
@@ -6894,7 +7234,7 @@ Data distribution by hospital unit/ward.
     selected_target_concept_id <- reactiveVal(NULL)
     selected_target_json <- reactiveVal(NULL)
     selected_target_mapping <- reactiveVal(NULL)
-    target_detail_tab <- reactiveVal("statistical_summary")  # "comments" or "statistical_summary"
+    target_detail_tab <- reactiveVal("summary")  # "summary", "comments" or "statistical_summary"
     target_stats_sub_tab <- reactiveVal("summary")  # "summary" or "distribution"
     target_selected_profile <- reactiveVal(NULL)  # Selected profile name
 
@@ -6995,7 +7335,10 @@ Data distribution by hospital unit/ward.
         ))
       }
 
-      if (tab == "comments") {
+      if (tab == "summary") {
+        # Display concept summary details
+        render_target_concept_summary(concept_id)
+      } else if (tab == "comments") {
         # Display comments for the selected general concept
         render_target_comments(concept_id)
       } else if (tab == "statistical_summary") {
@@ -7113,6 +7456,183 @@ Data distribution by hospital unit/ward.
     # Wrapper for Edit Mappings tab
     render_target_comments <- function(concept_id) {
       render_comments_panel(concept_id, "expand_target_comments")
+    }
+
+    # Render target concept summary for Edit Mappings tab
+    # Displays concept details like Selected Concept Details in Dictionary Explorer
+    render_target_concept_summary <- function(concept_id) {
+      # Get selected mapping data
+      mapping_data <- selected_target_mapping()
+      if (is.null(mapping_data)) {
+        return(tags$div(
+          style = "color: #999; font-style: italic; padding: 15px;",
+          "No mapping selected."
+        ))
+      }
+
+      # Get OMOP concept ID from mapping
+      omop_concept_id <- mapping_data$omop_concept_id
+      if (is.null(omop_concept_id) || is.na(omop_concept_id)) {
+        return(tags$div(
+          style = "color: #999; font-style: italic; padding: 15px;",
+          "No OMOP concept available for this mapping."
+        ))
+      }
+
+      # Use factorized function
+      render_concept_summary_panel(concept_id, omop_concept_id, mapping_data)
+    }
+
+    # Factorized function for rendering concept summary panel
+    # Used by both Edit Mappings and Evaluate Mappings tabs
+    render_concept_summary_panel <- function(concept_id, omop_concept_id, mapping_data) {
+      # Get general concept info
+      general_concept_info <- data()$general_concepts %>%
+        dplyr::filter(general_concept_id == concept_id)
+
+      # Get concept details from OHDSI vocabularies
+      vocab_data <- vocabularies()
+      if (is.null(vocab_data)) {
+        return(tags$div(
+          style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic;",
+          "Vocabulary data not available."
+        ))
+      }
+
+      concept_details <- vocab_data$concept %>%
+        dplyr::filter(concept_id == !!omop_concept_id) %>%
+        dplyr::collect()
+
+      if (nrow(concept_details) == 0) {
+        return(tags$div(
+          style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic;",
+          "Concept details not found in vocabularies."
+        ))
+      }
+
+      info <- concept_details[1, ]
+
+      # Get concept mapping for statistics
+      concept_mapping <- data()$concept_mappings %>%
+        dplyr::filter(omop_concept_id == !!omop_concept_id)
+
+      # Get statistics from concept_statistics
+      concept_stats_data <- data()$concept_statistics
+      if (!is.null(concept_stats_data) && nrow(concept_mapping) > 0) {
+        concept_stats <- concept_stats_data %>%
+          dplyr::filter(omop_concept_id == !!omop_concept_id)
+        if (nrow(concept_stats) > 0) {
+          ehden_num_data_sources <- concept_stats$ehden_num_data_sources[1]
+          ehden_rows_count <- concept_stats$ehden_rows_count[1]
+          loinc_rank <- concept_stats$loinc_rank[1]
+        } else {
+          ehden_num_data_sources <- NA
+          ehden_rows_count <- NA
+          loinc_rank <- NA
+        }
+      } else {
+        ehden_num_data_sources <- NA
+        ehden_rows_count <- NA
+        loinc_rank <- NA
+      }
+
+      # Build URLs
+      athena_url <- paste0(config$athena_base_url, "/", omop_concept_id)
+      fhir_url <- build_fhir_url(info$vocabulary_id, info$concept_code, config)
+
+      # Determine validity and standard
+      is_valid <- is.na(info$invalid_reason) || info$invalid_reason == ""
+      validity_color <- if (is_valid) "#28a745" else "#dc3545"
+      validity_text <- if (is_valid) "Valid" else paste0("Invalid (", info$invalid_reason, ")")
+
+      is_standard <- !is.na(info$standard_concept) && info$standard_concept == "S"
+      standard_color <- if (is_standard) "#28a745" else "#dc3545"
+      standard_text <- if (is_standard) "Standard" else "Non-standard"
+
+      # Get unit concept info if available
+      unit_concept_name <- NULL
+      unit_concept_code <- NULL
+      unit_concept_id <- NULL
+      athena_unit_url <- NULL
+
+      # Check for unit in mapping_data or concept_mapping
+      unit_id <- NULL
+      if (!is.null(mapping_data) && "omop_unit_concept_id" %in% names(mapping_data)) {
+        unit_id <- mapping_data$omop_unit_concept_id
+      } else if (nrow(concept_mapping) > 0) {
+        unit_id <- concept_mapping$omop_unit_concept_id[1]
+      }
+
+      if (!is.null(unit_id) && !is.na(unit_id) && unit_id != "" && unit_id != "/") {
+        unit_concept_id <- unit_id
+        athena_unit_url <- paste0(config$athena_base_url, "/", unit_concept_id)
+
+        unit_concept_info <- vocab_data$concept %>%
+          dplyr::filter(concept_id == as.integer(unit_concept_id)) %>%
+          dplyr::collect()
+        if (nrow(unit_concept_info) > 0) {
+          unit_concept_name <- unit_concept_info$concept_name[1]
+          unit_concept_code <- unit_concept_info$concept_code[1]
+        }
+      }
+
+      # Display concept details in grid layout
+      tags$div(
+        class = "concept-details-container",
+        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(8, auto); grid-auto-flow: column; gap: 4px 15px; padding: 15px;",
+        # Column 1
+        create_detail_item(i18n$t("concept_name"), info$concept_name, include_colon = FALSE),
+        create_detail_item(i18n$t("category"),
+                          ifelse(nrow(general_concept_info) > 0, general_concept_info$category[1], NA),
+                          include_colon = FALSE),
+        create_detail_item(i18n$t("subcategory"),
+                          ifelse(nrow(general_concept_info) > 0, general_concept_info$subcategory[1], NA),
+                          include_colon = FALSE),
+        create_detail_item(i18n$t("ehden_data_sources"),
+                          if (!is.na(ehden_num_data_sources)) ehden_num_data_sources else "/",
+                          include_colon = FALSE),
+        create_detail_item(i18n$t("ehden_rows_count"),
+                          if (!is.na(ehden_rows_count)) format(ehden_rows_count, big.mark = ",") else "/",
+                          include_colon = FALSE),
+        create_detail_item(i18n$t("loinc_rank"),
+                          if (!is.na(loinc_rank)) loinc_rank else "/",
+                          include_colon = FALSE),
+        create_detail_item(i18n$t("validity"), validity_text, color = validity_color, include_colon = FALSE),
+        create_detail_item(i18n$t("standard"), standard_text, color = standard_color, include_colon = FALSE),
+        # Column 2
+        create_detail_item(i18n$t("vocabulary_id"), info$vocabulary_id, include_colon = FALSE),
+        create_detail_item(i18n$t("domain_id"), if (!is.na(info$domain_id)) info$domain_id else "/", include_colon = FALSE),
+        create_detail_item(i18n$t("concept_code"), info$concept_code, include_colon = FALSE),
+        create_detail_item(i18n$t("omop_concept_id"), omop_concept_id, url = athena_url, include_colon = FALSE),
+        if (!is.null(fhir_url) && fhir_url != "no_link") {
+          tags$div(
+            class = "detail-item",
+            tags$strong(i18n$t("fhir_resource")),
+            tags$a(
+              href = fhir_url,
+              target = "_blank",
+              style = "color: #0f60af; text-decoration: underline;",
+              i18n$t("view")
+            )
+          )
+        } else {
+          tags$div(
+            class = "detail-item",
+            tags$strong(i18n$t("fhir_resource")),
+            tags$span(style = "color: #999; font-style: italic;", "No link available")
+          )
+        },
+        create_detail_item(i18n$t("unit_concept_name"),
+                          if (!is.null(unit_concept_name)) unit_concept_name else "/",
+                          include_colon = FALSE),
+        if (!is.null(athena_unit_url)) {
+          create_detail_item(i18n$t("omop_unit_concept_id"), unit_concept_id, url = athena_unit_url, include_colon = FALSE)
+        } else {
+          create_detail_item(i18n$t("omop_unit_concept_id"), "/", include_colon = FALSE)
+        },
+        tags$div(class = "detail-item", style = "visibility: hidden;"),
+        tags$div(class = "detail-item", style = "visibility: hidden;")
+      )
     }
 
     # Handle expand comments button for target
@@ -7267,6 +7787,309 @@ Data distribution by hospital unit/ward.
     # Render eval source JSON tutorial (Evaluate Mappings)
     output$eval_source_json_tutorial <- renderUI({
       render_json_tutorial(Sys.getenv("INDICATE_LANGUAGE", "en"))
+    })
+
+    # Handle open category breakdown fullscreen button
+    observe_event(input$open_category_breakdown_fullscreen, {
+      shinyjs::show("category_breakdown_fullscreen_modal")
+    })
+
+    # Handle close category breakdown fullscreen modal
+    observe_event(input$close_category_breakdown_fullscreen, {
+      shinyjs::hide("category_breakdown_fullscreen_modal")
+    })
+
+    # Render category breakdown fullscreen content
+    output$category_breakdown_fullscreen_content <- renderUI({
+      if (is.null(selected_alignment_id())) return(NULL)
+
+      # Get alignment info
+      alignments <- alignments_data()
+      alignment <- alignments %>%
+        dplyr::filter(alignment_id == selected_alignment_id())
+
+      if (nrow(alignment) != 1) return(NULL)
+
+      file_id <- alignment$file_id[1]
+      mapping_dir <- get_app_dir("concept_mapping")
+      csv_path <- file.path(mapping_dir, paste0(file_id, ".csv"))
+
+      if (!file.exists(csv_path)) {
+        return(tags$div(
+          style = "padding: 20px; color: #999; font-style: italic;",
+          "CSV file not found."
+        ))
+      }
+
+      df <- read.csv(csv_path, stringsAsFactors = FALSE)
+
+      if (!"category" %in% colnames(df)) {
+        return(tags$div(
+          style = "padding: 20px; color: #999; font-style: italic;",
+          "No category column in the source data."
+        ))
+      }
+
+      total_source_concepts <- nrow(df)
+
+      # Get mapped row_ids from database
+      db_path <- file.path(get_app_dir(), "indicate.db")
+      mapped_row_ids <- integer(0)
+
+      if (file.exists(db_path)) {
+        con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+        on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+        mapped_row_ids_query <- "SELECT DISTINCT row_id FROM concept_mappings WHERE alignment_id = ?"
+        mapped_row_ids <- DBI::dbGetQuery(con, mapped_row_ids_query, params = list(selected_alignment_id()))$row_id
+      }
+
+      # Count mapped concepts per category
+      df$is_mapped <- df$row_id %in% mapped_row_ids
+      df$category_clean <- ifelse(
+        is.na(df$category) | df$category == "",
+        "Uncategorized",
+        as.character(df$category)
+      )
+
+      # Aggregate by category
+      category_data <- df %>%
+        dplyr::group_by(category_clean) %>%
+        dplyr::summarise(
+          total = dplyr::n(),
+          mapped = sum(is_mapped),
+          .groups = "drop"
+        ) %>%
+        dplyr::rename(category = category_clean) %>%
+        dplyr::arrange(dplyr::desc(total))
+
+      if (nrow(category_data) == 0) {
+        return(tags$div(
+          style = "padding: 20px; color: #999; font-style: italic;",
+          "No category data available."
+        ))
+      }
+
+      # Render with tab buttons for distribution/completion
+      tags$div(
+        style = "height: 100%; display: flex; flex-direction: column;",
+        # Controls row: Tab buttons, search, and sort
+        tags$div(
+          style = "display: flex; align-items: center; gap: 15px; margin-bottom: 15px; flex-wrap: wrap;",
+          # Tab buttons
+          tags$div(
+            style = "display: flex; gap: 8px;",
+            tags$button(
+              id = ns("fullscreen_tab_distribution"),
+              class = "btn btn-sm",
+              style = paste0(
+                "padding: 6px 16px; font-size: 13px; border-radius: 4px; ",
+                "border: 1px solid #0f60af; background: #0f60af; color: white; cursor: pointer;"
+              ),
+              onclick = sprintf(
+                "document.getElementById('%s').style.display='block'; document.getElementById('%s').style.display='none'; this.style.background='#0f60af'; this.style.color='white'; document.getElementById('%s').style.background='white'; document.getElementById('%s').style.color='#28a745';",
+                ns("fullscreen_distribution_content"), ns("fullscreen_completion_content"),
+                ns("fullscreen_tab_completion"), ns("fullscreen_tab_completion")
+              ),
+              i18n$t("distribution")
+            ),
+            tags$button(
+              id = ns("fullscreen_tab_completion"),
+              class = "btn btn-sm",
+              style = paste0(
+                "padding: 6px 16px; font-size: 13px; border-radius: 4px; ",
+                "border: 1px solid #28a745; background: white; color: #28a745; cursor: pointer;"
+              ),
+              onclick = sprintf(
+                "document.getElementById('%s').style.display='none'; document.getElementById('%s').style.display='block'; this.style.background='#28a745'; this.style.color='white'; document.getElementById('%s').style.background='white'; document.getElementById('%s').style.color='#0f60af';",
+                ns("fullscreen_distribution_content"), ns("fullscreen_completion_content"),
+                ns("fullscreen_tab_distribution"), ns("fullscreen_tab_distribution")
+              ),
+              i18n$t("completion")
+            )
+          ),
+          # Spacer
+          tags$div(style = "flex: 1;"),
+          # Search input
+          tags$div(
+            style = "display: flex; align-items: center; gap: 8px;",
+            tags$input(
+              id = ns("fullscreen_category_search"),
+              type = "text",
+              placeholder = i18n$t("search_categories"),
+              style = "padding: 6px 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px; width: 200px;",
+              oninput = sprintf("window.filterCategoryBreakdown('%s', '%s', this.value);",
+                ns("fullscreen_distribution_content"), ns("fullscreen_completion_content"))
+            )
+          ),
+          # Sort dropdown
+          tags$div(
+            style = "display: flex; align-items: center; gap: 8px;",
+            tags$label(
+              style = "font-size: 13px; color: #666; margin: 0;",
+              i18n$t("sort_by")
+            ),
+            tags$select(
+              id = ns("fullscreen_category_sort"),
+              style = "padding: 6px 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px; cursor: pointer;",
+              onchange = sprintf("window.sortCategoryBreakdown('%s', '%s', this.value);",
+                ns("fullscreen_distribution_content"), ns("fullscreen_completion_content")),
+              tags$option(value = "rate_desc", i18n$t("sort_rate_desc")),
+              tags$option(value = "rate_asc", i18n$t("sort_rate_asc")),
+              tags$option(value = "alpha_asc", i18n$t("sort_alpha_asc")),
+              tags$option(value = "alpha_desc", i18n$t("sort_alpha_desc"))
+            )
+          )
+        ),
+        # Distribution view (blue bars with hatched completion overlay)
+        tags$div(
+          id = ns("fullscreen_distribution_content"),
+          style = "flex: 1; overflow-y: auto;",
+          lapply(seq_len(nrow(category_data)), function(i) {
+            cat_name <- category_data$category[i]
+            cat_total <- category_data$total[i]
+            cat_mapped <- category_data$mapped[i]
+            pct_total <- round(cat_total / total_source_concepts * 100, 1)
+            pct_mapped_of_total <- if (cat_total > 0) round(cat_mapped / cat_total * 100, 1) else 0
+            tags$div(
+              class = "category-bar-item",
+              `data-category` = tolower(cat_name),
+              `data-rate` = pct_total,
+              style = "margin-bottom: 12px;",
+              tags$div(
+                style = "display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 4px;",
+                tags$span(
+                  class = "category-name",
+                  style = "max-width: 70%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;",
+                  cat_name
+                ),
+                tags$span(
+                  style = "color: #666;",
+                  sprintf("%d (%s%%)", cat_total, pct_total)
+                )
+              ),
+              # Blue bar for distribution with hatched completion overlay
+              tags$div(
+                style = "background: #e9ecef; border-radius: 4px; height: 16px; overflow: hidden; position: relative;",
+                # Base blue bar (full distribution width)
+                tags$div(
+                  style = sprintf(
+                    "background: #0f60af; width: %s%%; height: 100%%; position: relative;",
+                    pct_total
+                  ),
+                  # Hatched overlay for completed portion
+                  tags$div(
+                    style = sprintf(
+                      paste0(
+                        "position: absolute; left: 0; top: 0; height: 100%%; width: %s%%; ",
+                        "background: repeating-linear-gradient(",
+                        "45deg, ",
+                        "rgba(255,255,255,0.3), ",
+                        "rgba(255,255,255,0.3) 2px, ",
+                        "transparent 2px, ",
+                        "transparent 4px",
+                        ");"
+                      ),
+                      pct_mapped_of_total
+                    )
+                  )
+                )
+              )
+            )
+          })
+        ),
+        # Completion view (green bars, sorted by completion %)
+        {
+          # Sort by completion percentage descending for fullscreen
+          category_data_by_completion <- category_data %>%
+            dplyr::mutate(pct_mapped = ifelse(total > 0, mapped / total * 100, 0)) %>%
+            dplyr::arrange(dplyr::desc(pct_mapped))
+
+          tags$div(
+            id = ns("fullscreen_completion_content"),
+            style = "flex: 1; overflow-y: auto; display: none;",
+            lapply(seq_len(nrow(category_data_by_completion)), function(i) {
+              cat_name <- category_data_by_completion$category[i]
+              cat_total <- category_data_by_completion$total[i]
+              cat_mapped <- category_data_by_completion$mapped[i]
+              pct_mapped <- round(category_data_by_completion$pct_mapped[i], 1)
+              tags$div(
+                class = "category-bar-item",
+                `data-category` = tolower(cat_name),
+                `data-rate` = pct_mapped,
+                style = "margin-bottom: 12px;",
+                tags$div(
+                  style = "display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 4px;",
+                  tags$span(
+                    class = "category-name",
+                    style = "max-width: 70%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;",
+                    cat_name
+                  ),
+                  tags$span(
+                    style = "color: #666;",
+                    sprintf("%d / %d (%s%%)", cat_mapped, cat_total, pct_mapped)
+                  )
+                ),
+                # Green bar for completion (full bar = 100% mapped)
+                tags$div(
+                  style = "background: #e9ecef; border-radius: 4px; height: 16px; overflow: hidden;",
+                  tags$div(
+                    style = sprintf(
+                      "background: #28a745; width: %s%%; height: 100%%;",
+                      pct_mapped
+                    )
+                  )
+                )
+              )
+            })
+          )
+        },
+        # JavaScript for filter and sort
+        tags$script(HTML(sprintf("
+          window.filterCategoryBreakdown = function(distId, compId, searchText) {
+            var searchLower = searchText.toLowerCase();
+            ['#' + distId, '#' + compId].forEach(function(containerId) {
+              $(containerId + ' .category-bar-item').each(function() {
+                var category = $(this).data('category') || '';
+                if (category.indexOf(searchLower) !== -1 || searchText === '') {
+                  $(this).show();
+                } else {
+                  $(this).hide();
+                }
+              });
+            });
+          };
+
+          window.sortCategoryBreakdown = function(distId, compId, sortType) {
+            ['#' + distId, '#' + compId].forEach(function(containerId) {
+              var $container = $(containerId);
+              var $items = $container.find('.category-bar-item').detach();
+
+              $items.sort(function(a, b) {
+                var aCategory = $(a).data('category') || '';
+                var bCategory = $(b).data('category') || '';
+                var aRate = parseFloat($(a).data('rate')) || 0;
+                var bRate = parseFloat($(b).data('rate')) || 0;
+
+                switch(sortType) {
+                  case 'rate_desc':
+                    return bRate - aRate;
+                  case 'rate_asc':
+                    return aRate - bRate;
+                  case 'alpha_asc':
+                    return aCategory.localeCompare(bCategory);
+                  case 'alpha_desc':
+                    return bCategory.localeCompare(aCategory);
+                  default:
+                    return 0;
+                }
+              });
+
+              $container.append($items);
+            });
+          };
+        ")))
+      )
     })
 
     # Target summary render - uses shared render_stats_summary_panel from fct_statistics_display.R
@@ -7658,12 +8481,14 @@ Data distribution by hospital unit/ward.
         if ("concept_name" %in% colnames(df)) source_cols <- c(source_cols, "concept_name")
         if ("concept_code" %in% colnames(df)) source_cols <- c(source_cols, "concept_code")
         if ("vocabulary_id" %in% colnames(df)) source_cols <- c(source_cols, "vocabulary_id")
+        if ("category" %in% colnames(df)) source_cols <- c(source_cols, "category")
 
         source_df <- df[, source_cols, drop = FALSE]
         colnames(source_df) <- c("row_id",
           if ("concept_name" %in% colnames(df)) "source_concept_name" else NULL,
           if ("concept_code" %in% colnames(df)) "source_concept_code" else NULL,
-          if ("vocabulary_id" %in% colnames(df)) "source_vocabulary_id" else NULL
+          if ("vocabulary_id" %in% colnames(df)) "source_vocabulary_id" else NULL,
+          if ("category" %in% colnames(df)) "source_category" else NULL
         )
 
         enriched_data <- mappings_db %>%
@@ -7689,13 +8514,18 @@ Data distribution by hospital unit/ward.
           enriched_data <- enriched_data %>%
             dplyr::mutate(source_vocabulary_id = NA_character_)
         }
+        if (!"source_category" %in% colnames(enriched_data)) {
+          enriched_data <- enriched_data %>%
+            dplyr::mutate(source_category = NA_character_)
+        }
       } else {
         # Fallback for CSV without row_id column
         enriched_data <- mappings_db %>%
           dplyr::mutate(
             source_concept_name = paste0("Source concept #", row_id),
             source_concept_code = NA_character_,
-            source_vocabulary_id = NA_character_
+            source_vocabulary_id = NA_character_,
+            source_category = NA_character_
           )
       }
 
@@ -7786,6 +8616,7 @@ Data distribution by hospital unit/ward.
           dplyr::mutate(
             Source = paste0(source_concept_name, " (", source_vocabulary_id, ": ", source_concept_code, ")"),
             Target = paste0(concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"),
+            Category = factor(dplyr::if_else(is.na(source_category) | source_category == "", "/", source_category)),
             status = factor(status, levels = c(
               as.character(i18n$t("not_evaluated")),
               as.character(i18n$t("approved")),
@@ -7809,6 +8640,7 @@ Data distribution by hospital unit/ward.
             csv_file_path,
             target_general_concept_id,
             target_omop_concept_id,
+            Category,
             Source,
             Target,
             Origin,
@@ -7827,22 +8659,25 @@ Data distribution by hospital unit/ward.
           selection = "none",
           escape = FALSE,
           filter = "top",
+          extensions = "Buttons",
           options = list(
             pageLength = 8,
             lengthMenu = c(5, 8, 10, 15, 20, 50, 100),
-            dom = "ltp",
+            dom = "Bltp",
+            buttons = list("colvis"),
             ordering = TRUE,
             autoWidth = FALSE,
             stateSave = TRUE,
             language = get_datatable_language(),
             columnDefs = list(
               list(targets = 0:4, visible = FALSE),
-              list(targets = 5, width = "25%"),
-              list(targets = 6, width = "25%"),
-              list(targets = 7, width = "8%", className = "dt-center"),
-              list(targets = 8, width = "12%"),
+              list(targets = 5, width = "10%"),
+              list(targets = 6, width = "22%"),
+              list(targets = 7, width = "22%"),
+              list(targets = 8, width = "8%", className = "dt-center"),
               list(targets = 9, width = "10%"),
-              list(targets = 10, width = "20%", orderable = FALSE, searchable = FALSE, className = "dt-center no-select")
+              list(targets = 10, width = "10%"),
+              list(targets = 11, width = "18%", orderable = FALSE, searchable = FALSE, className = "dt-center no-select")
             )
           ),
           colnames = c(
@@ -7851,6 +8686,7 @@ Data distribution by hospital unit/ward.
             "csv_file_path",
             "target_general_concept_id",
             "target_omop_concept_id",
+            as.character(i18n$t("category")),
             as.character(i18n$t("source_concept")),
             as.character(i18n$t("target_concept")),
             as.character(i18n$t("origin")),
@@ -7954,6 +8790,13 @@ Data distribution by hospital unit/ward.
             } else {
               NA_character_
             }
+          },
+          source_category = {
+            if (!is.null(df) && row_id <= nrow(df) && "category" %in% colnames(df)) {
+              df$category[row_id]
+            } else {
+              NA_character_
+            }
           }
         ) %>%
         dplyr::ungroup()
@@ -8044,6 +8887,7 @@ Data distribution by hospital unit/ward.
         dplyr::mutate(
           Source = paste0(source_concept_name, " (", source_vocabulary_id, ": ", source_concept_code, ")"),
           Target = paste0(concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"),
+          Category = factor(dplyr::if_else(is.na(source_category) | source_category == "", "/", source_category)),
           status = factor(status, levels = c(
             as.character(i18n$t("not_evaluated")),
             as.character(i18n$t("approved")),
@@ -8067,6 +8911,7 @@ Data distribution by hospital unit/ward.
           csv_file_path,
           target_general_concept_id,
           target_omop_concept_id,
+          Category,
           Source,
           Target,
           Origin,
@@ -8743,6 +9588,7 @@ Data distribution by hospital unit/ward.
 
     #### Render Evaluate Target Concept Summary ----
     # Display concept details like Selected Concept Details in Dictionary Explorer
+    # Uses factorized render_concept_summary_panel function
     render_eval_target_concept_summary <- function(concept_id) {
       # Get selected row data
       row_data <- eval_selected_row_data()
@@ -8762,146 +9608,8 @@ Data distribution by hospital unit/ward.
         ))
       }
 
-      # Get general concept info
-      general_concept_info <- data()$general_concepts %>%
-        dplyr::filter(general_concept_id == concept_id)
-
-      # Get concept details from OHDSI vocabularies
-      vocab_data <- vocabularies()
-      if (is.null(vocab_data)) {
-        return(tags$div(
-          style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic;",
-          "Vocabulary data not available."
-        ))
-      }
-
-      concept_details <- vocab_data$concept %>%
-        dplyr::filter(concept_id == !!omop_concept_id) %>%
-        dplyr::collect()
-
-      if (nrow(concept_details) == 0) {
-        return(tags$div(
-          style = "padding: 15px; background: #f8f9fa; border-radius: 6px; color: #999; font-style: italic;",
-          "Concept details not found in vocabularies."
-        ))
-      }
-
-      info <- concept_details[1, ]
-
-      # Get concept mapping for statistics
-      concept_mapping <- data()$concept_mappings %>%
-        dplyr::filter(omop_concept_id == !!omop_concept_id)
-
-      # Get statistics from concept_statistics
-      concept_stats_data <- data()$concept_statistics
-      if (!is.null(concept_stats_data) && nrow(concept_mapping) > 0) {
-        concept_stats <- concept_stats_data %>%
-          dplyr::filter(omop_concept_id == !!omop_concept_id)
-        if (nrow(concept_stats) > 0) {
-          ehden_num_data_sources <- concept_stats$ehden_num_data_sources[1]
-          ehden_rows_count <- concept_stats$ehden_rows_count[1]
-          loinc_rank <- concept_stats$loinc_rank[1]
-        } else {
-          ehden_num_data_sources <- NA
-          ehden_rows_count <- NA
-          loinc_rank <- NA
-        }
-      } else {
-        ehden_num_data_sources <- NA
-        ehden_rows_count <- NA
-        loinc_rank <- NA
-      }
-
-      # Build URLs
-      athena_url <- paste0(config$athena_base_url, "/", omop_concept_id)
-      fhir_url <- build_fhir_url(info$vocabulary_id, info$concept_code, config)
-
-      # Determine validity and standard
-      is_valid <- is.na(info$invalid_reason) || info$invalid_reason == ""
-      validity_color <- if (is_valid) "#28a745" else "#dc3545"
-      validity_text <- if (is_valid) "Valid" else paste0("Invalid (", info$invalid_reason, ")")
-
-      is_standard <- !is.na(info$standard_concept) && info$standard_concept == "S"
-      standard_color <- if (is_standard) "#28a745" else "#dc3545"
-      standard_text <- if (is_standard) "Standard" else "Non-standard"
-
-      # Get unit concept info if available
-      unit_concept_name <- NULL
-      unit_concept_code <- NULL
-      unit_concept_id <- NULL
-      athena_unit_url <- NULL
-
-      if (nrow(concept_mapping) > 0 && !is.na(concept_mapping$omop_unit_concept_id[1]) &&
-          concept_mapping$omop_unit_concept_id[1] != "" && concept_mapping$omop_unit_concept_id[1] != "/") {
-        unit_concept_id <- concept_mapping$omop_unit_concept_id[1]
-        athena_unit_url <- paste0(config$athena_base_url, "/", unit_concept_id)
-
-        unit_concept_info <- vocab_data$concept %>%
-          dplyr::filter(concept_id == as.integer(unit_concept_id)) %>%
-          dplyr::collect()
-        if (nrow(unit_concept_info) > 0) {
-          unit_concept_name <- unit_concept_info$concept_name[1]
-          unit_concept_code <- unit_concept_info$concept_code[1]
-        }
-      }
-
-      # Display concept details in grid layout
-      tags$div(
-        class = "concept-details-container",
-        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(8, auto); grid-auto-flow: column; gap: 4px 15px; padding: 15px;",
-        # Column 1
-        create_detail_item(i18n$t("concept_name"), info$concept_name, include_colon = FALSE),
-        create_detail_item(i18n$t("category"),
-                          ifelse(nrow(general_concept_info) > 0, general_concept_info$category[1], NA),
-                          include_colon = FALSE),
-        create_detail_item(i18n$t("subcategory"),
-                          ifelse(nrow(general_concept_info) > 0, general_concept_info$subcategory[1], NA),
-                          include_colon = FALSE),
-        create_detail_item(i18n$t("ehden_data_sources"),
-                          if (!is.na(ehden_num_data_sources)) ehden_num_data_sources else "/",
-                          include_colon = FALSE),
-        create_detail_item(i18n$t("ehden_rows_count"),
-                          if (!is.na(ehden_rows_count)) format(ehden_rows_count, big.mark = ",") else "/",
-                          include_colon = FALSE),
-        create_detail_item(i18n$t("loinc_rank"),
-                          if (!is.na(loinc_rank)) loinc_rank else "/",
-                          include_colon = FALSE),
-        create_detail_item(i18n$t("validity"), validity_text, color = validity_color, include_colon = FALSE),
-        create_detail_item(i18n$t("standard"), standard_text, color = standard_color, include_colon = FALSE),
-        # Column 2
-        create_detail_item(i18n$t("vocabulary_id"), info$vocabulary_id, include_colon = FALSE),
-        create_detail_item(i18n$t("domain_id"), if (!is.na(info$domain_id)) info$domain_id else "/", include_colon = FALSE),
-        create_detail_item(i18n$t("concept_code"), info$concept_code, include_colon = FALSE),
-        create_detail_item(i18n$t("omop_concept_id"), omop_concept_id, url = athena_url, include_colon = FALSE),
-        if (!is.null(fhir_url) && fhir_url != "no_link") {
-          tags$div(
-            class = "detail-item",
-            tags$strong(i18n$t("fhir_resource")),
-            tags$a(
-              href = fhir_url,
-              target = "_blank",
-              style = "color: #0f60af; text-decoration: underline;",
-              i18n$t("view")
-            )
-          )
-        } else {
-          tags$div(
-            class = "detail-item",
-            tags$strong(i18n$t("fhir_resource")),
-            tags$span(style = "color: #999; font-style: italic;", "No link available")
-          )
-        },
-        create_detail_item(i18n$t("unit_concept_name"),
-                          if (!is.null(unit_concept_name)) unit_concept_name else "/",
-                          include_colon = FALSE),
-        if (!is.null(athena_unit_url)) {
-          create_detail_item(i18n$t("omop_unit_concept_id"), unit_concept_id, url = athena_unit_url, include_colon = FALSE)
-        } else {
-          create_detail_item(i18n$t("omop_unit_concept_id"), "/", include_colon = FALSE)
-        },
-        tags$div(class = "detail-item", style = "visibility: hidden;"),
-        tags$div(class = "detail-item", style = "visibility: hidden;")
-      )
+      # Use factorized function
+      render_concept_summary_panel(concept_id, omop_concept_id, NULL)
     }
 
     #### Render Evaluate Target Statistical Summary ----
