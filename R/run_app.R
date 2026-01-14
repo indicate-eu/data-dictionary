@@ -8,6 +8,8 @@
 #' @param debug_mode Character vector specifying debug output level.
 #'   Can include "event" to log all observer events, "error" to log errors,
 #'   or both c("event", "error"). Default is "error" (only log errors).
+#' @param port Port used to run the Shiny app. Default is 3838.
+#' @param host Host address to run the app on. Default is "0.0.0.0".
 #' @param ... Additional arguments passed to \code{\link[shiny]{shinyApp}}
 #' @param options A named list of options to pass to \code{\link[shiny]{shinyApp}}.
 #'   By default, the browser is launched automatically.
@@ -24,11 +26,14 @@
 #' run_app(app_folder = "~/Documents/my_indicate_data")
 #' run_app(debug_mode = "error")
 #' run_app(debug_mode = c("event", "error"))
+#' run_app(port = 8080, host = "127.0.0.1")
 #' }
 run_app <- function(
     language = "en",
     app_folder = NULL,
     debug_mode = "error",
+    port = 3838,
+    host = "0.0.0.0",
     ...,
     options = list()
 ) {
@@ -56,6 +61,9 @@ if (!(language %in% c("en", "fr"))) {
   if (!is.null(debug_mode)) {
     Sys.setenv(INDICATE_DEBUG_MODE = paste(debug_mode, collapse = ","))
   }
+
+  # Set Shiny options for port and host
+  options(shiny.port = port, shiny.host = host)
 
   # Add resource path for www directory
   addResourcePath("www", system.file("www", package = "indicate"))
