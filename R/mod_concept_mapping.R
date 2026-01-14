@@ -7579,7 +7579,7 @@ Data distribution by hospital unit/ward.
       # Display concept details in grid layout
       tags$div(
         class = "concept-details-container",
-        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(8, auto); grid-auto-flow: column; gap: 4px 15px; padding: 15px;",
+        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(9, auto); grid-auto-flow: column; gap: 4px 15px; padding: 15px;",
         # Column 1
         create_detail_item(i18n$t("concept_name"), info$concept_name, include_colon = FALSE),
         create_detail_item(i18n$t("category"),
@@ -7599,9 +7599,11 @@ Data distribution by hospital unit/ward.
                           include_colon = FALSE),
         create_detail_item(i18n$t("validity"), validity_text, color = validity_color, include_colon = FALSE),
         create_detail_item(i18n$t("standard"), standard_text, color = standard_color, include_colon = FALSE),
+        tags$div(class = "detail-item", style = "visibility: hidden;"),
         # Column 2
         create_detail_item(i18n$t("vocabulary_id"), info$vocabulary_id, include_colon = FALSE),
         create_detail_item(i18n$t("domain_id"), if (!is.na(info$domain_id)) info$domain_id else "/", include_colon = FALSE),
+        create_detail_item(i18n$t("concept_class"), if (!is.na(info$concept_class_id)) info$concept_class_id else "/", include_colon = FALSE),
         create_detail_item(i18n$t("concept_code"), info$concept_code, include_colon = FALSE),
         create_detail_item(i18n$t("omop_concept_id"), omop_concept_id, url = athena_url, include_colon = FALSE),
         if (!is.null(fhir_url) && fhir_url != "no_link") {

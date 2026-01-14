@@ -466,3 +466,11 @@ sort_rate_desc,Rate (highest first)
 sort_rate_asc,Rate (lowest first)
 sort_alpha_asc,Alphabetical (A-Z)
 sort_alpha_desc,Alphabetical (Z-A)
+indicate_concepts,INDICATE Concepts
+indicate_concepts_desc,"Export or import the INDICATE data dictionary (general concepts, mappings, projects, statistics)."
+download_dictionary,Download Dictionary
+download_dictionary_zip,Download dictionary (ZIP)
+download_dictionary_desc,"Downloads all data dictionary files as a ZIP archive (CSV files, history, statistics)."
+upload_dictionary,Upload Dictionary
+select_dictionary_zip,Select a dictionary ZIP file
+upload_dictionary_warning,"Importing a dictionary will overwrite existing data dictionary files. This action cannot be undone."

@@ -4,17 +4,15 @@
 #
 # UI STRUCTURE:
 #   ## UI - Main Layout
-#      ### Backup & Restore - Download/upload application data backup (ZIP)
-#      ### OHDSI Vocabularies - Browse and select vocabulary files folder
-#      ### DuckDB Database Status - Display database status and controls
-#      ### OHDSI Relationships Mappings - Load/Reload mappings from vocabulary relationships
+#      ### OHDSI Vocabularies Tab - Browse and select vocabulary files folder
+#      ### INDICATE Concepts Tab - Import/export data dictionary folder
+#      ### Backup & Restore Tab - Download/upload application data backup (ZIP)
 #
 # SERVER STRUCTURE:
 #   ## 1) Server - Reactive Values & State
 #      ### Folder Browser State - Track current path, selection, sort order
 #      ### Backup & Restore State - Track restore status messages
 #      ### DuckDB Status - Processing status and messages
-#      ### OHDSI Mappings Status - Processing status and last sync time
 #
 #   ## 1b) Server - Backup & Restore
 #      ### Download Backup Handler - Create ZIP of app_folder (excluding vocabularies.duckdb)
@@ -32,9 +30,9 @@
 #      ### Database Recreation - Recreate existing database
 #      ### Status Display - Show database status and controls
 #
-#   ## 4) Server - OHDSI Relationships Mappings
-#      ### Load Mappings - Load from vocabulary relationships
-#      ### Status Display - Show last sync time and controls
+#   ## 4) Server - INDICATE Concepts
+#      ### Download Dictionary - Export data_dictionary folder as ZIP
+#      ### Upload Dictionary - Import data_dictionary from ZIP
 
 # UI SECTION ====
 
@@ -115,24 +113,74 @@ mod_general_settings_ui <- function(id, i18n) {
                     )
                   ),
                   uiOutput(ns("duckdb_status"))
+                )
+              )
+            )
+          ),
+
+          ### INDICATE Concepts Tab ----
+          tabPanel(
+            i18n$t("indicate_concepts"),
+            value = "indicate_concepts",
+            icon = icon("book"),
+            tags$div(
+              style = "margin-top: 10px; height: 100%; overflow-y: auto;",
+              div(class = "settings-section",
+                p(
+                  style = "color: #666; margin-bottom: 15px;",
+                  i18n$t("indicate_concepts_desc")
                 ),
 
-                # OHDSI Relationships Mappings
+                # Download dictionary
                 tags$div(
-                  style = "margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #dee2e6;",
+                  style = "margin-bottom: 20px;",
                   tags$div(
-                    style = "margin-bottom: 10px;",
-                    tags$div(
-                      style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 5px;",
-                      tags$i(class = "fas fa-project-diagram", style = "margin-right: 8px; color: #0f60af;"),
-                      i18n$t("ohdsi_relationships")
-                    ),
-                    tags$p(
-                      style = "margin: 0; font-size: 12px; color: #666;",
-                      i18n$t("ohdsi_relationships_desc")
-                    )
+                    style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 10px;",
+                    tags$i(class = "fas fa-download", style = "margin-right: 8px; color: #28a745;"),
+                    i18n$t("download_dictionary")
                   ),
-                  uiOutput(ns("ohdsi_mappings_status"))
+                  downloadButton(
+                    ns("download_dictionary"),
+                    label = i18n$t("download_dictionary_zip"),
+                    class = "btn-success-custom",
+                    icon = icon("download")
+                  ),
+                  tags$p(
+                    style = "margin-top: 8px; font-size: 12px; color: #666;",
+                    i18n$t("download_dictionary_desc")
+                  )
+                ),
+
+                tags$hr(style = "border-color: #dee2e6; margin: 20px 0;"),
+
+                # Upload dictionary
+                tags$div(
+                  tags$div(
+                    style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 10px;",
+                    tags$i(class = "fas fa-upload", style = "margin-right: 8px; color: #0f60af;"),
+                    i18n$t("upload_dictionary")
+                  ),
+                  fileInput(
+                    ns("upload_dictionary_file"),
+                    label = NULL,
+                    accept = ".zip",
+                    width = "400px",
+                    buttonLabel = tagList(
+                      tags$i(class = "fas fa-upload", style = "margin-right: 6px;"),
+                      i18n$t("browse")
+                    ),
+                    placeholder = i18n$t("select_dictionary_zip")
+                  ),
+                  uiOutput(ns("dictionary_upload_status"))
+                ),
+
+                tags$div(
+                  style = "margin-top: 15px; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;",
+                  tags$p(
+                    style = "margin: 0; font-size: 13px; color: #333;",
+                    tags$i(class = "fas fa-exclamation-triangle", style = "margin-right: 6px; color: #ffc107;"),
+                    tags$strong("Warning:"), " ", i18n$t("upload_dictionary_warning")
+                  )
                 )
               )
             )
@@ -304,27 +352,14 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     duckdb_processing <- reactiveVal(FALSE)
     duckdb_message <- reactiveVal(NULL)
 
-    ### OHDSI Mappings Status ----
-    ohdsi_mappings_processing <- reactiveVal(FALSE)
-    ohdsi_mappings_message <- reactiveVal(NULL)
-    ohdsi_mappings_last_sync <- reactiveVal(NULL)
+    ### Dictionary Import/Export Status ----
+    dictionary_upload_message <- reactiveVal(NULL)
 
     # Load saved vocab folder from database on initialization
     saved_path <- get_vocab_folder()
     if (!is.null(saved_path) && nchar(saved_path) > 0) {
       selected_folder(saved_path)
     }
-
-    # Load OHDSI mappings last sync time on initialization
-    sync_time <- get_ohdsi_mappings_sync()
-
-    # If no sync time exists, set it to now (first initialization)
-    if (is.null(sync_time)) {
-      sync_time <- Sys.time()
-      set_ohdsi_mappings_sync(sync_time)
-    }
-
-    ohdsi_mappings_last_sync(sync_time)
 
     ## 1b) Server - Backup & Restore ----
 
@@ -1427,138 +1462,182 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
       })
     })
 
-    ## 4) Server - OHDSI Relationships Mappings ----
+    ## 4) Server - INDICATE Concepts ----
 
-    ### Load/Reload Mappings ----
+    ### Download Dictionary Handler ----
 
-    observe_event(input$load_ohdsi_mappings, {
-      # Check if vocabularies are loaded
-      vocab_data <- vocabularies()
-      if (is.null(vocab_data)) {
-        ohdsi_mappings_message(list(success = FALSE, message = "Please load OHDSI vocabularies first."))
-        return()
-      }
+    output$download_dictionary <- downloadHandler(
+      filename = function() {
+        paste0("indicate_dictionary_", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".zip")
+      },
+      content = function(file) {
+        data_dict_dir <- get_user_data_dictionary_dir()
 
-      # Set processing status
-      ohdsi_mappings_processing(TRUE)
-      ohdsi_mappings_message(NULL)
+        # Get all files in data_dictionary folder
+        all_files <- list.files(data_dict_dir, recursive = TRUE, full.names = TRUE)
 
-      # Delay to update UI
-      shinyjs::delay(100, {
-        # Read current general_concepts_details
-        concept_mappings_path <- get_csv_path("general_concepts_details.csv")
-        concept_mappings <- readr::read_csv(concept_mappings_path, show_col_types = FALSE)
-
-        # Load OHDSI relationships
-        tryCatch({
-          concept_mappings <- load_ohdsi_relationships(
-            vocab_data,
-            concept_mappings
-          )
-
-          # Save to CSV
-          readr::write_csv(concept_mappings, concept_mappings_path)
-
-          # Update last sync time
-          sync_time <- Sys.time()
-          set_ohdsi_mappings_sync(sync_time)
-          ohdsi_mappings_last_sync(sync_time)
-
-          ohdsi_mappings_processing(FALSE)
-          ohdsi_mappings_message(list(success = TRUE, message = "OHDSI mappings loaded successfully."))
-        }, error = function(e) {
-          ohdsi_mappings_processing(FALSE)
-          ohdsi_mappings_message(list(success = FALSE, message = paste("Error:", e$message)))
-        })
-      })
-    })
-
-    ### Status Display ----
-
-    ohdsi_mappings_status_trigger <- reactiveVal(0)
-
-    observe_event(list(ohdsi_mappings_processing(), ohdsi_mappings_message(), ohdsi_mappings_last_sync()), {
-      ohdsi_mappings_status_trigger(ohdsi_mappings_status_trigger() + 1)
-    })
-
-    observe_event(ohdsi_mappings_status_trigger(), {
-      output$ohdsi_mappings_status <- renderUI({
-        # Show processing message
-        if (ohdsi_mappings_processing()) {
-          return(
-            tags$div(
-              style = "padding: 10px; background: #fff3cd; border-left: 3px solid #ffc107; border-radius: 4px; font-size: 12px;",
-              tags$i(class = "fas fa-spinner fa-spin", style = "margin-right: 6px;"),
-              "Loading OHDSI relationships mappings... This may take a few minutes."
-            )
-          )
+        if (length(all_files) == 0) {
+          # Create empty zip if no files
+          file.create(file)
+          return()
         }
 
-        # Show error message if there was one
-        msg <- ohdsi_mappings_message()
-        if (!is.null(msg) && !msg$success) {
-          return(
-            tags$div(
-              style = "padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px;",
-              tags$i(class = "fas fa-exclamation-circle", style = "margin-right: 6px; color: #dc3545;"),
-              msg$message
-            )
-          )
+        # Create a temporary directory for the export
+        temp_dir <- file.path(tempdir(), "indicate_dictionary_export")
+        if (dir.exists(temp_dir)) {
+          unlink(temp_dir, recursive = TRUE)
         }
+        dir.create(temp_dir, recursive = TRUE)
+
+        # Copy files preserving directory structure
+        for (f in all_files) {
+          rel_path <- sub(paste0("^", normalizePath(data_dict_dir), "/?"), "", normalizePath(f))
+          dest_path <- file.path(temp_dir, rel_path)
+          dest_dir <- dirname(dest_path)
+          if (!dir.exists(dest_dir)) {
+            dir.create(dest_dir, recursive = TRUE)
+          }
+          file.copy(f, dest_path, overwrite = TRUE)
+        }
+
+        # Create ZIP file
+        old_wd <- getwd()
+        setwd(temp_dir)
+        zip(file, files = list.files(".", recursive = TRUE), flags = "-q")
+        setwd(old_wd)
+
+        # Clean up
+        unlink(temp_dir, recursive = TRUE)
+      },
+      contentType = "application/zip"
+    )
+
+    ### Upload Dictionary Handler ----
+
+    observe_event(input$upload_dictionary_file, {
+      file <- input$upload_dictionary_file
+      if (is.null(file)) return()
+
+      tryCatch({
+        # Create a temporary directory for extraction
+        extract_dir <- file.path(tempdir(), "indicate_dictionary_import")
+        if (dir.exists(extract_dir)) {
+          unlink(extract_dir, recursive = TRUE)
+        }
+        dir.create(extract_dir, recursive = TRUE)
+
+        # Extract ZIP file
+        unzip(file$datapath, exdir = extract_dir)
+
+        # Get list of extracted files
+        extracted_files <- list.files(extract_dir, recursive = TRUE, full.names = TRUE)
+
+        if (length(extracted_files) == 0) {
+          dictionary_upload_message(list(
+            success = FALSE,
+            message = "The ZIP file appears to be empty or invalid."
+          ))
+          unlink(extract_dir, recursive = TRUE)
+          return()
+        }
+
+        # Check for expected CSV files
+        csv_files <- list.files(extract_dir, pattern = "\\.csv$", recursive = TRUE)
+        expected_files <- c("general_concepts_en.csv", "general_concepts_details.csv")
+        found_expected <- sum(basename(csv_files) %in% expected_files)
+
+        if (found_expected == 0) {
+          dictionary_upload_message(list(
+            success = FALSE,
+            message = "No valid dictionary files found. Expected files like general_concepts_en.csv, general_concepts_details.csv"
+          ))
+          unlink(extract_dir, recursive = TRUE)
+          return()
+        }
+
+        # Get target directory
+        data_dict_dir <- get_user_data_dictionary_dir()
+
+        # Copy files to data_dictionary folder
+        for (f in extracted_files) {
+          rel_path <- sub(paste0("^", normalizePath(extract_dir), "/?"), "", normalizePath(f))
+          dest_path <- file.path(data_dict_dir, rel_path)
+          dest_dir <- dirname(dest_path)
+          if (!dir.exists(dest_dir)) {
+            dir.create(dest_dir, recursive = TRUE)
+          }
+          file.copy(f, dest_path, overwrite = TRUE)
+        }
+
+        # Clean up
+        unlink(extract_dir, recursive = TRUE)
 
         # Show success message
-        if (!is.null(msg) && msg$success) {
-          return(
-            tags$div(
-              style = "padding: 10px; background: #d4edda; border-left: 3px solid #28a745; border-radius: 4px; font-size: 12px;",
-              tags$i(class = "fas fa-check-circle", style = "margin-right: 6px; color: #28a745;"),
-              msg$message
-            )
-          )
+        dictionary_upload_message(list(
+          success = TRUE,
+          message = paste(length(extracted_files), "files imported successfully."),
+          reload_required = TRUE
+        ))
+
+      }, error = function(e) {
+        dictionary_upload_message(list(
+          success = FALSE,
+          message = paste("Error importing dictionary:", e$message)
+        ))
+      })
+    })
+
+    ### Dictionary Upload Status Display ----
+
+    dictionary_upload_status_trigger <- reactiveVal(0)
+
+    observe_event(dictionary_upload_message(), {
+      dictionary_upload_status_trigger(dictionary_upload_status_trigger() + 1)
+    })
+
+    observe_event(dictionary_upload_status_trigger(), {
+      output$dictionary_upload_status <- renderUI({
+        msg <- dictionary_upload_message()
+
+        if (is.null(msg)) {
+          return(NULL)
         }
 
-        # Show current status
-        last_sync <- ohdsi_mappings_last_sync()
-        if (!is.null(last_sync)) {
-          formatted_time <- format(last_sync, "%Y-%m-%d %H:%M:%S", tz = Sys.timezone())
-          return(
+        if (msg$success) {
+          tags$div(
             tags$div(
-              style = "padding: 10px; background: #d4edda; border-left: 3px solid #28a745; border-radius: 4px; font-size: 12px; display: flex; align-items: center; gap: 8px;",
-              tags$i(class = "fas fa-check-circle", style = "color: #28a745;"),
-              tags$span("Last synchronized: "),
-              tags$code(formatted_time),
-              actionButton(
-                ns("load_ohdsi_mappings"),
-                label = tagList(
-                  tags$i(class = "fas fa-sync-alt", style = "margin-right: 6px;"),
-                  "Reload"
-                ),
-                class = "btn-sm",
-                style = "background: #fd7e14; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 12px; cursor: pointer;"
+              style = "margin-top: 10px; padding: 10px; background: #d4edda; border-left: 3px solid #28a745; border-radius: 4px; font-size: 12px;",
+              tags$i(class = "fas fa-check-circle", style = "margin-right: 6px; color: #28a745;"),
+              msg$message,
+              if (isTRUE(msg$reload_required)) {
+                tagList(
+                  " ",
+                  tags$strong("Please reload the application to apply changes.")
+                )
+              }
+            ),
+            if (isTRUE(msg$reload_required)) {
+              tags$div(
+                style = "margin-top: 10px;",
+                actionButton(
+                  ns("reload_after_dictionary_import"),
+                  "Reload application",
+                  class = "btn-primary-custom",
+                  icon = icon("sync-alt"),
+                  onclick = "location.reload();"
+                )
               )
-            )
+            }
           )
         } else {
-          # Never synced - show Load button
-          return(
-            tags$div(
-              style = "padding: 10px; background: #e7f3ff; border-left: 3px solid #0f60af; border-radius: 4px; font-size: 12px; display: flex; align-items: center; gap: 8px;",
-              tags$i(class = "fas fa-info-circle", style = "color: #0f60af;"),
-              tags$span("OHDSI relationships mappings not loaded."),
-              actionButton(
-                ns("load_ohdsi_mappings"),
-                label = tagList(
-                  tags$i(class = "fas fa-download", style = "margin-right: 6px;"),
-                  "Load"
-                ),
-                class = "btn-sm",
-                style = "background: #0f60af; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 12px; cursor: pointer;"
-              )
-            )
+          tags$div(
+            style = "margin-top: 10px; padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px;",
+            tags$i(class = "fas fa-exclamation-circle", style = "margin-right: 6px; color: #dc3545;"),
+            msg$message
           )
         }
       })
-    })
+    }, ignoreInit = FALSE)
 
     # Return reactive settings
     settings <- reactive({

@@ -17,7 +17,8 @@ CSV_FILES <- c(
   "custom_concepts.csv",
   "unit_conversions.csv",
   "general_concepts_history.csv",
-  "general_concepts_details_history.csv"
+  "general_concepts_details_history.csv",
+  "general_concepts_last_id.txt"
 )
 
 #' Get User Data Dictionary Directory
@@ -175,6 +176,9 @@ load_csv_data <- function(language = NULL) {
   # Ensure user CSV files exist
   initialize_user_csv_files()
 
+  # Ensure last ID tracking file exists
+  initialize_last_id_file()
+
   csv_dir <- get_user_csv_dir()
 
   # Check if CSV directory exists
@@ -281,8 +285,9 @@ save_general_concepts_csv <- function(general_concepts_data, language = NULL) {
   language_cols <- c("general_concept_id", "category", "subcategory", "general_concept_name", "comments")
   stats_cols <- c("general_concept_id", "statistical_summary")
 
-  # Save language-specific file (without statistical_summary)
+  # Save language-specific file (without statistical_summary), sorted by ID
   language_data <- general_concepts_data[, intersect(language_cols, names(general_concepts_data)), drop = FALSE]
+  language_data <- language_data[order(language_data$general_concept_id), ]
   general_concepts_file <- paste0("general_concepts_", language, ".csv")
   write.csv(
     language_data,
@@ -291,9 +296,10 @@ save_general_concepts_csv <- function(general_concepts_data, language = NULL) {
     quote = TRUE
   )
 
-  # Save stats file (only if statistical_summary column exists)
+  # Save stats file (only if statistical_summary column exists), sorted by ID
   if ("statistical_summary" %in% names(general_concepts_data)) {
     stats_data <- general_concepts_data[, intersect(stats_cols, names(general_concepts_data)), drop = FALSE]
+    stats_data <- stats_data[order(stats_data$general_concept_id), ]
     write.csv(
       stats_data,
       file.path(csv_dir, "general_concepts_stats.csv"),
@@ -313,6 +319,8 @@ save_general_concepts_csv <- function(general_concepts_data, language = NULL) {
 #' @noRd
 save_general_concepts_stats_csv <- function(stats_data) {
   csv_dir <- get_user_csv_dir()
+  # Sort by general_concept_id before saving
+  stats_data <- stats_data[order(stats_data$general_concept_id), ]
   write.csv(
     stats_data,
     file.path(csv_dir, "general_concepts_stats.csv"),
@@ -427,6 +435,77 @@ save_unit_conversions_csv <- function(unit_conversions_data) {
     row.names = FALSE,
     quote = TRUE
   )
+}
+
+#' Get Next General Concept ID
+#'
+#' @description Generates the next unique general_concept_id by reading and incrementing
+#' the value stored in general_concepts_last_id.txt. This prevents ID reuse even if
+#' concepts are deleted, ensuring alignment imports always reference the correct concept.
+#'
+#' @param general_concepts Data frame with current general concepts (used only for initialization)
+#'
+#' @return Integer: The next available general_concept_id
+#' @noRd
+get_next_general_concept_id <- function(general_concepts = NULL) {
+  csv_dir <- get_user_csv_dir()
+  last_id_file <- file.path(csv_dir, "general_concepts_last_id.txt")
+
+
+  if (file.exists(last_id_file)) {
+    # Read the last used ID
+    last_id <- as.integer(readLines(last_id_file, n = 1, warn = FALSE))
+    if (is.na(last_id)) last_id <- 0
+  } else {
+    # Initialize from current data if file doesn't exist
+    if (!is.null(general_concepts) && nrow(general_concepts) > 0) {
+      last_id <- max(general_concepts$general_concept_id, na.rm = TRUE)
+    } else {
+      last_id <- 0
+    }
+  }
+
+  # Increment and save the new ID
+  new_id <- last_id + 1
+  writeLines(as.character(new_id), last_id_file)
+
+  return(new_id)
+}
+
+#' Initialize Last ID File
+#'
+#' @description Initializes the general_concepts_last_id.txt file based on current data.
+#' Called during application startup to ensure the file exists and is up to date.
+#'
+#' @return Invisible TRUE on success
+#' @noRd
+initialize_last_id_file <- function() {
+  csv_dir <- get_user_csv_dir()
+  last_id_file <- file.path(csv_dir, "general_concepts_last_id.txt")
+
+  # Only initialize if file doesn't exist
+  if (!file.exists(last_id_file)) {
+    # Read all language files to find the max ID
+    max_id <- 0
+
+    for (lang in c("en", "fr")) {
+      lang_file <- file.path(csv_dir, paste0("general_concepts_", lang, ".csv"))
+      if (file.exists(lang_file)) {
+        data <- read.csv(lang_file, stringsAsFactors = FALSE)
+        if (nrow(data) > 0 && "general_concept_id" %in% names(data)) {
+          file_max <- max(data$general_concept_id, na.rm = TRUE)
+          if (!is.na(file_max) && file_max > max_id) {
+            max_id <- file_max
+          }
+        }
+      }
+    }
+
+    # Write the max ID to the file
+    writeLines(as.character(max_id), last_id_file)
+  }
+
+  return(invisible(TRUE))
 }
 
 #' Get Comment for a General Concept in the Current Language

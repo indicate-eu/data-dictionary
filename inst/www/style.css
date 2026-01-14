@@ -1118,6 +1118,52 @@ table.dataTable thead tr td .selectize-dropdown .option {
   display: none !important;
 }
 
+/* DataTables button collection dropdown - remove dark overlay */
+.dt-button-collection {
+  background: white !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  padding: 4px 0 !important;
+  min-width: 120px !important;
+}
+
+/* Remove the dark background overlay */
+div.dt-button-background {
+  display: none !important;
+}
+
+/* Style individual column visibility buttons in dropdown */
+.dt-button-collection .dt-button {
+  display: block !important;
+  width: 100% !important;
+  padding: 6px 12px !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  color: #333 !important;
+  font-size: 11px !important;
+  font-weight: normal !important;
+  text-align: left !important;
+  cursor: pointer !important;
+  transition: background-color 0.15s ease !important;
+}
+
+.dt-button-collection .dt-button:hover {
+  background: #f2f7fd !important;
+}
+
+.dt-button-collection .dt-button.dt-button-active {
+  background: #e8f4fd !important;
+  color: #0f60af !important;
+  font-weight: 500 !important;
+}
+
+.dt-button-collection .dt-button.dt-button-active::before {
+  content: "✓ ";
+  color: #28a745;
+}
+
 /* Utility classes
 -------------------------------------------------- */
 .bold-value {
