@@ -12,7 +12,6 @@
 #' @param host Host address to run the app on. Default is "0.0.0.0".
 #' @param ... Additional arguments passed to \code{\link[shiny]{shinyApp}}
 #' @param options A named list of options to pass to \code{\link[shiny]{shinyApp}}.
-#'   By default, the browser is launched automatically.
 #'
 #' @return A Shiny app object
 #' @export
@@ -62,19 +61,11 @@ if (!(language %in% c("en", "fr"))) {
     Sys.setenv(INDICATE_DEBUG_MODE = paste(debug_mode, collapse = ","))
   }
 
-  # Set Shiny options for port and host
-  options(shiny.port = port, shiny.host = host)
+  # Set Shiny options for port, host, and browser launch
+  base::options(shiny.port = port, shiny.host = host, shiny.launch.browser = TRUE)
 
   # Add resource path for www directory
   addResourcePath("www", system.file("www", package = "indicate"))
-
-  # Force browser launch in system default browser
-  if (!"launch.browser" %in% names(options)) {
-    options$launch.browser <- function(url) {
-      # Force open in system default browser (not VSCode)
-      system(paste0("open '", url, "'"))
-    }
-  }
 
   shinyApp(
     ui = app_ui,
