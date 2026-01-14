@@ -7,13 +7,75 @@
 #' @importFrom duckdb duckdb
 #' @importFrom DBI dbConnect dbDisconnect dbWriteTable dbExistsTable dbListTables dbGetQuery dbExecute
 #' @importFrom readr read_tsv cols col_integer col_character col_date
+#' @importFrom arrow read_parquet
 #' @importFrom dplyr tbl
 
-#' Create DuckDB database from CSV files
+#' Detect vocabulary file format in a folder
 #'
-#' @description Create a DuckDB database from OHDSI vocabulary CSV files
+#' @description Detects whether vocabulary files are in CSV or Parquet format
 #'
-#' @param vocab_folder Path to vocabularies folder containing CSV files
+#' @param vocab_folder Path to vocabularies folder
+#'
+#' @return Character: "parquet", "csv", or NULL if neither found
+#' @noRd
+detect_vocab_format <- function(vocab_folder) {
+  # Check for Parquet files first (preferred)
+  if (file.exists(file.path(vocab_folder, "CONCEPT.parquet"))) {
+    return("parquet")
+  }
+  # Fall back to CSV
+  if (file.exists(file.path(vocab_folder, "CONCEPT.csv"))) {
+    return("csv")
+  }
+  return(NULL)
+}
+
+#' Read vocabulary file (CSV or Parquet)
+#'
+#' @description Reads a vocabulary file in either CSV or Parquet format
+#'
+#' @param vocab_folder Path to vocabularies folder
+#' @param table_name Table name (e.g., "CONCEPT", "CONCEPT_RELATIONSHIP")
+#' @param format File format ("csv" or "parquet")
+#' @param col_types Column types specification for CSV (readr format)
+#'
+#' @return Data frame with vocabulary data
+#' @noRd
+read_vocab_file <- function(vocab_folder, table_name, format, col_types = NULL) {
+  if (format == "parquet") {
+    file_path <- file.path(vocab_folder, paste0(table_name, ".parquet"))
+    return(as.data.frame(arrow::read_parquet(file_path)))
+  } else {
+    file_path <- file.path(vocab_folder, paste0(table_name, ".csv"))
+    return(readr::read_tsv(file_path, col_types = col_types, show_col_types = FALSE))
+  }
+}
+
+#' Load Parquet file directly into DuckDB table
+#'
+#' @description Uses DuckDB's native Parquet support for fast loading
+#'
+#' @param con DuckDB connection
+#' @param vocab_folder Path to vocabularies folder
+#' @param table_name Table name (e.g., "CONCEPT", "CONCEPT_RELATIONSHIP")
+#'
+#' @return NULL (side effect: creates table in DuckDB)
+#' @noRd
+load_parquet_to_duckdb <- function(con, vocab_folder, table_name) {
+  file_path <- file.path(vocab_folder, paste0(table_name, ".parquet"))
+  sql <- sprintf(
+    "CREATE OR REPLACE TABLE %s AS SELECT * FROM read_parquet('%s')",
+    tolower(table_name),
+    file_path
+  )
+  DBI::dbExecute(con, sql)
+}
+
+#' Create DuckDB database from CSV or Parquet files
+#'
+#' @description Create a DuckDB database from OHDSI vocabulary files (CSV or Parquet)
+#'
+#' @param vocab_folder Path to vocabularies folder containing CSV or Parquet files
 #'
 #' @return List with success status and message
 #' @export
@@ -24,31 +86,44 @@ create_duckdb_database <- function(vocab_folder) {
       message = "Invalid vocabularies folder path"
     ))
   }
-  
-  # Define required files
-  required_files <- c(
-    "CONCEPT.csv",
-    "CONCEPT_RELATIONSHIP.csv",
-    "CONCEPT_ANCESTOR.csv",
-    "CONCEPT_SYNONYM.csv",
-    "RELATIONSHIP.csv"
+
+  # Detect file format
+  format <- detect_vocab_format(vocab_folder)
+
+  if (is.null(format)) {
+    return(list(
+      success = FALSE,
+      message = "No vocabulary files found. Expected CONCEPT.csv or CONCEPT.parquet"
+    ))
+  }
+
+  # Define required tables
+  required_tables <- c(
+    "CONCEPT",
+    "CONCEPT_RELATIONSHIP",
+    "CONCEPT_ANCESTOR",
+    "CONCEPT_SYNONYM",
+    "RELATIONSHIP"
   )
-  
+
+  # File extension based on format
+  ext <- if (format == "parquet") ".parquet" else ".csv"
+
   # Check if all required files exist
   missing_files <- c()
-  for (file in required_files) {
-    if (!file.exists(file.path(vocab_folder, file))) {
-      missing_files <- c(missing_files, file)
+  for (table in required_tables) {
+    if (!file.exists(file.path(vocab_folder, paste0(table, ext)))) {
+      missing_files <- c(missing_files, paste0(table, ext))
     }
   }
-  
+
   if (length(missing_files) > 0) {
     return(list(
       success = FALSE,
       message = paste("Missing required files:", paste(missing_files, collapse = ", "))
     ))
   }
-  
+
   db_path <- get_duckdb_path()
   
   # Force close all DuckDB connections before removing the file
@@ -85,81 +160,82 @@ create_duckdb_database <- function(vocab_folder) {
     # Create DuckDB connection
     drv <- duckdb::duckdb(dbdir = db_path, read_only = FALSE)
     con <- DBI::dbConnect(drv)
-    
-    # Load CONCEPT table
-    concept <- readr::read_tsv(
-      file.path(vocab_folder, "CONCEPT.csv"),
-      col_types = readr::cols(
-        concept_id = readr::col_integer(),
-        concept_name = readr::col_character(),
-        domain_id = readr::col_character(),
-        vocabulary_id = readr::col_character(),
-        concept_class_id = readr::col_character(),
-        standard_concept = readr::col_character(),
-        concept_code = readr::col_character(),
-        valid_start_date = readr::col_date(format = "%Y%m%d"),
-        valid_end_date = readr::col_date(format = "%Y%m%d"),
-        invalid_reason = readr::col_character()
-      ),
-      show_col_types = FALSE
-    )
-    DBI::dbWriteTable(con, "concept", concept, overwrite = TRUE)
-    
-    # Load CONCEPT_RELATIONSHIP table
-    concept_relationship <- readr::read_tsv(
-      file.path(vocab_folder, "CONCEPT_RELATIONSHIP.csv"),
-      col_types = readr::cols(
-        concept_id_1 = readr::col_integer(),
-        concept_id_2 = readr::col_integer(),
-        relationship_id = readr::col_character(),
-        valid_start_date = readr::col_date(format = "%Y%m%d"),
-        valid_end_date = readr::col_date(format = "%Y%m%d"),
-        invalid_reason = readr::col_character()
-      ),
-      show_col_types = FALSE
-    )
-    DBI::dbWriteTable(con, "concept_relationship", concept_relationship, overwrite = TRUE)
-    
-    # Load CONCEPT_ANCESTOR table
-    concept_ancestor <- readr::read_tsv(
-      file.path(vocab_folder, "CONCEPT_ANCESTOR.csv"),
-      col_types = readr::cols(
-        ancestor_concept_id = readr::col_integer(),
-        descendant_concept_id = readr::col_integer(),
-        min_levels_of_separation = readr::col_integer(),
-        max_levels_of_separation = readr::col_integer()
-      ),
-      show_col_types = FALSE
-    )
-    DBI::dbWriteTable(con, "concept_ancestor", concept_ancestor, overwrite = TRUE)
-    
-    # Load CONCEPT_SYNONYM table
-    concept_synonym <- readr::read_tsv(
-      file.path(vocab_folder, "CONCEPT_SYNONYM.csv"),
-      col_types = readr::cols(
-        concept_id = readr::col_integer(),
-        concept_synonym_name = readr::col_character(),
-        language_concept_id = readr::col_integer()
-      ),
-      show_col_types = FALSE
-    )
-    DBI::dbWriteTable(con, "concept_synonym", concept_synonym, overwrite = TRUE)
-    
-    # Load RELATIONSHIP table
-    relationship <- readr::read_tsv(
-      file.path(vocab_folder, "RELATIONSHIP.csv"),
-      col_types = readr::cols(
-        relationship_id = readr::col_character(),
-        relationship_name = readr::col_character(),
-        is_hierarchical = readr::col_integer(),
-        defines_ancestry = readr::col_integer(),
-        reverse_relationship_id = readr::col_character(),
-        relationship_concept_id = readr::col_integer()
-      ),
-      show_col_types = FALSE
-    )
-    DBI::dbWriteTable(con, "relationship", relationship, overwrite = TRUE)
-    
+
+    # Load tables based on format
+    if (format == "parquet") {
+      # Use DuckDB native Parquet reading (much faster)
+      load_parquet_to_duckdb(con, vocab_folder, "CONCEPT")
+      load_parquet_to_duckdb(con, vocab_folder, "CONCEPT_RELATIONSHIP")
+      load_parquet_to_duckdb(con, vocab_folder, "CONCEPT_ANCESTOR")
+      load_parquet_to_duckdb(con, vocab_folder, "CONCEPT_SYNONYM")
+      load_parquet_to_duckdb(con, vocab_folder, "RELATIONSHIP")
+    } else {
+      # Load CSV files via R (original method)
+      concept <- read_vocab_file(
+        vocab_folder, "CONCEPT", format,
+        col_types = readr::cols(
+          concept_id = readr::col_integer(),
+          concept_name = readr::col_character(),
+          domain_id = readr::col_character(),
+          vocabulary_id = readr::col_character(),
+          concept_class_id = readr::col_character(),
+          standard_concept = readr::col_character(),
+          concept_code = readr::col_character(),
+          valid_start_date = readr::col_date(format = "%Y%m%d"),
+          valid_end_date = readr::col_date(format = "%Y%m%d"),
+          invalid_reason = readr::col_character()
+        )
+      )
+      DBI::dbWriteTable(con, "concept", concept, overwrite = TRUE)
+
+      concept_relationship <- read_vocab_file(
+        vocab_folder, "CONCEPT_RELATIONSHIP", format,
+        col_types = readr::cols(
+          concept_id_1 = readr::col_integer(),
+          concept_id_2 = readr::col_integer(),
+          relationship_id = readr::col_character(),
+          valid_start_date = readr::col_date(format = "%Y%m%d"),
+          valid_end_date = readr::col_date(format = "%Y%m%d"),
+          invalid_reason = readr::col_character()
+        )
+      )
+      DBI::dbWriteTable(con, "concept_relationship", concept_relationship, overwrite = TRUE)
+
+      concept_ancestor <- read_vocab_file(
+        vocab_folder, "CONCEPT_ANCESTOR", format,
+        col_types = readr::cols(
+          ancestor_concept_id = readr::col_integer(),
+          descendant_concept_id = readr::col_integer(),
+          min_levels_of_separation = readr::col_integer(),
+          max_levels_of_separation = readr::col_integer()
+        )
+      )
+      DBI::dbWriteTable(con, "concept_ancestor", concept_ancestor, overwrite = TRUE)
+
+      concept_synonym <- read_vocab_file(
+        vocab_folder, "CONCEPT_SYNONYM", format,
+        col_types = readr::cols(
+          concept_id = readr::col_integer(),
+          concept_synonym_name = readr::col_character(),
+          language_concept_id = readr::col_integer()
+        )
+      )
+      DBI::dbWriteTable(con, "concept_synonym", concept_synonym, overwrite = TRUE)
+
+      relationship <- read_vocab_file(
+        vocab_folder, "RELATIONSHIP", format,
+        col_types = readr::cols(
+          relationship_id = readr::col_character(),
+          relationship_name = readr::col_character(),
+          is_hierarchical = readr::col_integer(),
+          defines_ancestry = readr::col_integer(),
+          reverse_relationship_id = readr::col_character(),
+          relationship_concept_id = readr::col_integer()
+        )
+      )
+      DBI::dbWriteTable(con, "relationship", relationship, overwrite = TRUE)
+    }
+
     # Create indexes for better performance
     DBI::dbExecute(con, "CREATE INDEX idx_concept_id ON concept(concept_id)")
     DBI::dbExecute(con, "CREATE INDEX idx_concept_code ON concept(concept_code)")
@@ -173,14 +249,16 @@ create_duckdb_database <- function(vocab_folder) {
     DBI::dbExecute(con, "CREATE INDEX idx_synonym_concept ON concept_synonym(concept_id)")
     DBI::dbExecute(con, "CREATE INDEX idx_relationship_id ON relationship(relationship_id)")
     DBI::dbExecute(con, "CREATE INDEX idx_defines_ancestry ON relationship(defines_ancestry)")
-    
+
     # Close connection
     DBI::dbDisconnect(con, shutdown = TRUE)
-    
+
+    format_label <- if (format == "parquet") "Parquet" else "CSV"
     return(list(
       success = TRUE,
-      message = "DuckDB database created successfully",
-      db_path = db_path
+      message = paste0("DuckDB database created successfully from ", format_label, " files"),
+      db_path = db_path,
+      format = format
     ))
     
   }, error = function(e) {

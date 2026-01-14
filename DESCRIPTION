@@ -21,6 +21,7 @@ Imports:
     DBI (>= 1.1.0),
     RSQLite (>= 2.2.0),
     duckdb (>= 0.8.0),
+    arrow (>= 10.0.0),
     rappdirs (>= 0.3.0),
     dplyr (>= 1.1.0),
     magrittr,

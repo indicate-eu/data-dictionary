@@ -3456,19 +3456,22 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         dplyr::filter(general_concept_id == concept_id)
 
       # Ensure boolean columns exist with defaults before applying modifications
-      if (!"is_excluded" %in% names(csv_mappings)) csv_mappings$is_excluded <- FALSE
-      if (!"include_descendants" %in% names(csv_mappings)) csv_mappings$include_descendants <- FALSE
-      if (!"include_mapped" %in% names(csv_mappings)) csv_mappings$include_mapped <- FALSE
+      # Only process if there are rows, otherwise column assignment fails
+      if (nrow(csv_mappings) > 0) {
+        if (!"is_excluded" %in% names(csv_mappings)) csv_mappings$is_excluded <- FALSE
+        if (!"include_descendants" %in% names(csv_mappings)) csv_mappings$include_descendants <- FALSE
+        if (!"include_mapped" %in% names(csv_mappings)) csv_mappings$include_mapped <- FALSE
 
-      # Convert to logical if needed
-      csv_mappings$is_excluded <- as.logical(csv_mappings$is_excluded)
-      csv_mappings$include_descendants <- as.logical(csv_mappings$include_descendants)
-      csv_mappings$include_mapped <- as.logical(csv_mappings$include_mapped)
+        # Convert to logical if needed
+        csv_mappings$is_excluded <- as.logical(csv_mappings$is_excluded)
+        csv_mappings$include_descendants <- as.logical(csv_mappings$include_descendants)
+        csv_mappings$include_mapped <- as.logical(csv_mappings$include_mapped)
 
-      # Replace NA with FALSE
-      csv_mappings$is_excluded[is.na(csv_mappings$is_excluded)] <- FALSE
-      csv_mappings$include_descendants[is.na(csv_mappings$include_descendants)] <- FALSE
-      csv_mappings$include_mapped[is.na(csv_mappings$include_mapped)] <- FALSE
+        # Replace NA with FALSE
+        csv_mappings$is_excluded[is.na(csv_mappings$is_excluded)] <- FALSE
+        csv_mappings$include_descendants[is.na(csv_mappings$include_descendants)] <- FALSE
+        csv_mappings$include_mapped[is.na(csv_mappings$include_mapped)] <- FALSE
+      }
 
       # Apply temporary modifications from modified_concept_options
       current_mods <- modified_concept_options()
@@ -3654,9 +3657,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         custom_concepts_for_edit <- current_data()$custom_concepts %>%
           dplyr::filter(general_concept_id == concept_id)
 
-        if (!"is_excluded" %in% names(custom_concepts_for_edit)) custom_concepts_for_edit$is_excluded <- FALSE
-        if (!"include_descendants" %in% names(custom_concepts_for_edit)) custom_concepts_for_edit$include_descendants <- FALSE
-        if (!"include_mapped" %in% names(custom_concepts_for_edit)) custom_concepts_for_edit$include_mapped <- FALSE
+        # Only add columns if there are rows after filtering
+        if (nrow(custom_concepts_for_edit) > 0) {
+          if (!"is_excluded" %in% names(custom_concepts_for_edit)) custom_concepts_for_edit$is_excluded <- FALSE
+          if (!"include_descendants" %in% names(custom_concepts_for_edit)) custom_concepts_for_edit$include_descendants <- FALSE
+          if (!"include_mapped" %in% names(custom_concepts_for_edit)) custom_concepts_for_edit$include_mapped <- FALSE
+        }
 
         if (!is.null(current_deletions[[concept_key]]) && nrow(custom_concepts_for_edit) > 0) {
           deleted_ids <- current_deletions[[concept_key]]

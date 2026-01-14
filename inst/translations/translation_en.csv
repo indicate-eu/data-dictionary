@@ -162,7 +162,7 @@ no_folder_selected,No folder selected
 select_ohdsi_folder,Select OHDSI Vocabularies Folder
 search_folders,Search folders and files...
 duckdb_status,DuckDB Database Status
-duckdb_description,A DuckDB database is automatically created from ATHENA CSV files for instant loading at startup.
+duckdb_description,A DuckDB database is automatically created from ATHENA vocabulary files (CSV or Parquet) for instant loading at startup.
 creating_duckdb,Creating DuckDB database... This may take a few minutes.
 database_exists,Database exists:
 database_not_exists,Database does not exist
@@ -299,7 +299,7 @@ non_standard_concepts,Non-Standard Concepts
 non_standard,Non-Standard
 omop_concept_name,OMOP Concept Name
 general_concept,General Concept
-browse_vocab_folder_desc,Browse and select the folder containing your OHDSI Vocabularies files.
+browse_vocab_folder_desc,Browse and select the folder containing your OHDSI Vocabularies files (CSV or Parquet format).
 no_database_info,"No database found. Select a vocabulary folder above to create one, or place a pre-built vocabularies.duckdb file in the application folder."
 reload_message,Please reload the application to apply changes.
 show_hide_columns,Show/Hide Columns
