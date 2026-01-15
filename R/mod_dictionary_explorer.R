@@ -50,165 +50,7 @@
 #         #### Hierarchy Graph Fullscreen Modal - Fullscreen hierarchy modal
 #         #### Concept Details Modal (Double-click on Related/Hierarchy) - Quick concept details
 #
-# REACTIVITY OVERVIEW ====
-#
-# This module uses a CASCADE PATTERN for reactivity management.
-# Instead of having observers with multiple triggers like observe_event(c(a(), b(), c())),
-# we have:
-#   1. PRIMARY STATE REACTIVES: The actual state values (current_view, selected_concept_id, etc.)
-#   2. PRIMARY TRIGGERS: Fire when state changes (view_trigger, concept_trigger, etc.)
-#   3. CASCADE OBSERVERS: Listen to primary triggers and fire COMPOSITE TRIGGERS
-#   4. COMPOSITE TRIGGERS: Aggregated triggers that UI observers listen to
-#   5. UI OBSERVERS: Render outputs when their composite trigger fires
-#
-# This creates a clear, traceable flow: State Change -> Primary Trigger -> Cascade -> Composite Trigger -> UI Update
-#
-# ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
-# │ PRIMARY STATE REACTIVES (reactiveVal)                                                           │
-# ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
-# │ current_view                  - "list", "detail", "detail_history", "list_history"              │
-# │ selected_concept_id           - Currently selected general concept ID                           │
-# │ selected_mapped_concept_id    - Currently selected mapping in concept_mappings tables           │
-# │ selected_categories           - Category filter badges selection                                │
-# │ general_concept_detail_edit_mode - Edit mode for detail page (TRUE/FALSE)                       │
-# │ general_concepts_edit_mode    - Edit mode for list page (TRUE/FALSE)                            │
-# │ comments_tab                  - "comments" or "statistical_summary"                             │
-# │ relationships_tab             - "related", "hierarchy", or "synonyms"                           │
-# │ local_data                    - Local copy of CSV data                                          │
-# │ deleted_concepts              - Temporary deleted mappings before save                          │
-# │ added_concepts                - Temporary added mappings before save                            │
-# └─────────────────────────────────────────────────────────────────────────────────────────────────┘
-#
-# ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
-# │ CASCADE FLOW DIAGRAM                                                                            │
-# ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
-# │                                                                                                 │
-# │  PRIMARY STATE              PRIMARY TRIGGER           CASCADE OBSERVER           COMPOSITE      │
-# │  CHANGE                     (fires)                   (propagates to)            TRIGGERS       │
-# │  ─────────────────────────────────────────────────────────────────────────────────────────────  │
-# │                                                                                                 │
-# │  current_view() ──────────► view_trigger ──────────► observe_event(view_trigger)               │
-# │                                                       ├──► breadcrumb_trigger                  │
-# │                                                       └──► history_ui_trigger                  │
-# │                                                                                                 │
-# │  selected_concept_id() ───► concept_trigger ───────► observe_event(concept_trigger)            │
-# │                                                       ├──► history_ui_trigger                  │
-# │                                                       ├──► comments_display_trigger            │
-# │                                                       ├──► concept_mappings_table_trigger      │
-# │                                                       └──► selected_mapping_details_trigger    │
-# │                                                                                                 │
-# │  general_concept_detail     general_concept_detail   observe_event(...)                        │
-# │  _edit_mode() ────────────► _edit_mode_trigger ────► ├──► breadcrumb_trigger                   │
-# │                                                       ├──► comments_display_trigger            │
-# │                                                       ├──► concept_mappings_table_trigger      │
-# │                                                       └──► mapped_concepts_header_trigger      │
-# │                                                                                                 │
-# │  general_concepts           general_concepts         observe_event(...)                        │
-# │  _edit_mode() ────────────► _edit_mode_trigger ────► ├──► breadcrumb_trigger                   │
-# │                                                       └──► general_concepts_table_trigger      │
-# │                                                                                                 │
-# │  local_data() ────────────► local_data_trigger ────► observe_event(local_data_trigger)         │
-# │                                                       ├──► comments_display_trigger            │
-# │                                                       └──► general_concepts_table_trigger      │
-# │                                                            (only if view == "list")            │
-# │                                                                                                 │
-# │  selected_categories() ───► selected_categories     observe_event(...)                         │
-# │                             _trigger ──────────────► └──► general_concepts_table_trigger       │
-# │                                                                                                 │
-# │  comments_tab() ──────────► comments_tab_trigger ──► observe_event(comments_tab_trigger)       │
-# │                                                       └──► comments_display_trigger            │
-# │                                                                                                 │
-# │  selected_mapped            mapped_concept           observe_event(mapped_concept_trigger)     │
-# │  _concept_id() ───────────► _trigger ──────────────► ├──► selected_mapping_details_trigger     │
-# │                                                       └──► relationship_tab_outputs_trigger    │
-# │                                                                                                 │
-# │  deleted_concepts() ──────► deleted_concepts        observe_event(...)                         │
-# │                             _trigger ──────────────► └──► concept_mappings_table_trigger       │
-# │                                                                                                 │
-# └─────────────────────────────────────────────────────────────────────────────────────────────────┘
-#
-# ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
-# │ COMPOSITE TRIGGERS → UI OBSERVERS                                                               │
-# ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
-# │                                                                                                 │
-# │  breadcrumb_trigger ─────────────────► output$breadcrumb (renderUI)                            │
-# │                                                                                                 │
-# │  history_ui_trigger ─────────────────► output$general_concepts_history_ui (renderUI)           │
-# │                                        output$general_concept_detail_history_ui (renderUI)     │
-# │                                                                                                 │
-# │  general_concepts_table_trigger ─────► output$general_concepts_table (DT::renderDT)            │
-# │                                        + restores category filters after render                │
-# │                                                                                                 │
-# │  concept_mappings_table_trigger ─────► output$concept_mappings_table_view/edit (DT::renderDT)  │
-# │                                                                                                 │
-# │  comments_display_trigger ───────────► output$comments_display (renderUI)                      │
-# │                                                                                                 │
-# │  selected_mapping_details_trigger ───► output$selected_mapping_details (renderUI)              │
-# │                                                                                                 │
-# │  mapped_concepts_header_trigger ─────► output$mapped_concepts_header_buttons (renderUI)        │
-# │                                                                                                 │
-# │  relationship_tab_outputs_trigger ───► output$concept_relationships_display (renderUI)         │
-# │                                                                                                 │
-# │  history_tables_trigger ─────────────► output$general_concepts_history_table (DT::renderDT)    │
-# │                                        output$general_concept_detail_history_table (DT::renderDT)│
-# │                                                                                                 │
-# └─────────────────────────────────────────────────────────────────────────────────────────────────┘
-#
-# ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
-# │ DIRECT OBSERVERS (Not part of cascade - direct user interactions)                               │
-# ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
-# │                                                                                                 │
-# │  INPUT EVENT                           ACTION                                                   │
-# │  ─────────────────────────────────────────────────────────────────────────────────────────────  │
-# │  input$view_concept_details ─────────► Sets selected_concept_id(), current_view("detail")      │
-# │  input$back_to_list ─────────────────► Sets current_view("list"), resets edit mode             │
-# │  input$category_filter ──────────────► Toggles category in selected_categories()               │
-# │  input$general_concepts_edit_page ───► Sets general_concepts_edit_mode(TRUE)                   │
-# │  input$general_concepts_cancel_edit ─► Restores original data, edit_mode(FALSE)                │
-# │  input$general_concepts_save_updates ► Saves changes to CSV, edit_mode(FALSE)                  │
-# │  input$general_concept_detail_edit_page ► Sets general_concept_detail_edit_mode(TRUE)          │
-# │  input$general_concept_detail_cancel_edit ► Resets temp changes, edit_mode(FALSE)              │
-# │  input$general_concept_detail_save_updates ► Saves changes to CSV, edit_mode(FALSE)            │
-# │  input$switch_relationships_tab ─────► Sets relationships_tab()                                │
-# │  input$switch_comments_tab ──────────► Sets comments_tab()                                     │
-# │  input$delete_concept ───────────────► Updates deleted_concepts()                              │
-# │  input$mapped_concepts_add_selected ─► Updates added_concepts()                                │
-# │  input$general_concepts_show_history ► Sets current_view("list_history")                       │
-# │  input$general_concept_detail_show_history ► Sets current_view("detail_history")               │
-# │  input$back_to_list_from_history ────► Sets current_view("list")                               │
-# │  input$back_to_detail ───────────────► Sets current_view("detail")                             │
-# │                                                                                                 │
-# └─────────────────────────────────────────────────────────────────────────────────────────────────┘
-#
-# ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
-# │ SPECIAL OBSERVERS                                                                               │
-# ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
-# │                                                                                                 │
-# │  data() ─────────────────────────────► Initializes local_data() on first load                  │
-# │  current_user() ─────────────────────► Updates button visibility (admin vs anonymous)          │
-# │  vocab_loading_status() ─────────────► Shows/hides loading, error, or table                    │
-# │  relationships_tab() ────────────────► Updates tab styling (CSS classes)                       │
-# │  current_view() ─────────────────────► Manages container visibility, triggers view_trigger     │
-# │                                                                                                 │
-# └─────────────────────────────────────────────────────────────────────────────────────────────────┘
-#
-# ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
-# │ POTENTIAL REDUNDANCIES / AREAS FOR REVIEW                                                       │
-# ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
-# │                                                                                                 │
-# │  1. history_tables_trigger: Used in observe_event(list(current_view(), history_tables_trigger))│
-# │     This uses list() syntax instead of cascade pattern. Could be refactored.                   │
-# │                                                                                                 │
-# │  2. add_modal_* triggers: add_modal_selected_concept, add_modal_concept_details_trigger,       │
-# │     add_modal_omop_table_trigger are used for modal-specific updates but not fully             │
-# │     integrated into the cascade pattern.                                                       │
-# │                                                                                                 │
-# │  3. relationships_tab() has a direct observer that updates CSS classes (line 4864)             │
-# │     This could potentially be merged with relationship_tab_outputs_trigger cascade.            │
-# │                                                                                                 │
-# │  4. Some observers call update_button_visibility() directly instead of through cascade.        │
-# │                                                                                                 │
-# └─────────────────────────────────────────────────────────────────────────────────────────────────┘
+# REACTIVITY: See .claude/analysis/reactivity/mod_dictionary_explorer.md for detailed reactivity documentation.
 
 # UI SECTION ====
 
@@ -239,12 +81,12 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
 
               # Action buttons
               tags$div(
-                style = "display: flex; gap: 10px;",
+                class = "flex-gap-10",
                 # General Concepts Page normal buttons
                 shinyjs::hidden(
                   tags$div(
                     id = ns("general_concepts_normal_buttons"),
-                    style = "display: flex; gap: 10px;",
+                    class = "flex-gap-10",
                     actionButton(ns("general_concepts_show_history"), i18n$t("history"), class = "btn-secondary-custom", icon = icon("history")),
                     actionButton(ns("general_concepts_edit_page"), i18n$t("edit_page"), class = "btn-primary-custom", icon = icon("edit"))
                   )
@@ -253,7 +95,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
                 shinyjs::hidden(
                   tags$div(
                     id = ns("general_concepts_edit_buttons"),
-                    style = "display: flex; gap: 10px;",
+                    class = "flex-gap-10",
                     actionButton(ns("show_general_concepts_add_modal"), i18n$t("add_concept"), class = "btn-success-custom", icon = icon("plus")),
                     actionButton(ns("general_concepts_cancel_edit"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
                     actionButton(ns("general_concepts_save_updates"), i18n$t("save_updates"), class = "btn-primary-custom", icon = icon("save"))
@@ -263,7 +105,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
                 shinyjs::hidden(
                   tags$div(
                     id = ns("general_concept_detail_action_buttons"),
-                    style = "display: flex; gap: 10px;",
+                    class = "flex-gap-10",
                     actionButton(ns("general_concept_detail_show_history"), i18n$t("history"), class = "btn-secondary-custom", icon = icon("history")),
                     actionButton(ns("general_concept_detail_edit_page"), i18n$t("edit_page"), class = "btn-toggle", icon = icon("edit"))
                   )
@@ -272,7 +114,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
                 shinyjs::hidden(
                   tags$div(
                     id = ns("general_concept_detail_edit_buttons"),
-                    style = "display: flex; gap: 10px;",
+                    class = "flex-gap-10",
                     actionButton(ns("general_concept_detail_cancel_edit"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
                     actionButton(ns("general_concept_detail_save_updates"), i18n$t("save_updates"), class = "btn-toggle", icon = icon("save"))
                   )
@@ -281,7 +123,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
                 shinyjs::hidden(
                   tags$div(
                     id = ns("back_buttons"),
-                    style = "display: flex; gap: 10px;",
+                    class = "flex-gap-10",
                     actionButton(ns("back_to_list_from_history"), i18n$t("back_to_list"), class = "btn-primary-custom", icon = icon("arrow-left")),
                     actionButton(ns("back_to_detail"), i18n$t("back_to_details"), class = "btn-primary-custom", icon = icon("arrow-left"))
                   )
@@ -380,7 +222,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
                             )
                           ),
                           tags$div(
-                            style = "display: flex; align-items: center; gap: 8px;",
+                            class = "flex-center-gap-8",
                             # Copy button with dropdown menu (hidden in edit mode)
                             tags$div(
                               id = ns("copy_button_container"),
@@ -602,8 +444,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
     ### Modal - Add New General Concept ----
     tags$div(
       id = ns("general_concepts_add_modal"),
-      class = "modal-overlay",
-      style = "display: none;",
+      class = "modal-overlay hidden",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("general_concepts_add_modal")),
       tags$div(
         class = "modal-content",
@@ -618,21 +459,20 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
           )
         ),
         tags$div(
-          class = "modal-body",
-          style = "padding: 20px;",
+          class = "modal-body p-20",
           tags$div(
             id = ns("duplicate_concept_error"),
-            style = "display: none; background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 4px; margin-bottom: 20px; text-align: center; border: 1px solid #f5c6cb;",
+            class = "hidden alert-danger-box mb-20 text-center",
             tags$strong(i18n$t("duplicate_concept")),
             tags$br(),
             tags$span(id = ns("duplicate_concept_error_text"), "")
           ),
           tags$div(
             id = ns("general_concepts_new_name_group"),
-            style = "margin-bottom: 20px;",
+            class = "mb-20",
             tags$label(
               i18n$t("general_concept_name"),
-              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+              class = "form-label"
             ),
             shiny::textInput(
               ns("general_concepts_new_name"),
@@ -650,16 +490,17 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
           ),
           tags$div(
             id = ns("general_concepts_new_category_group"),
-            style = "margin-bottom: 20px;",
+            class = "mb-20",
             tags$label(
               i18n$t("category"),
-              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+              class = "form-label"
             ),
             tags$div(
-              style = "display: flex; gap: 10px; align-items: flex-start;",
+              class = "flex-gap-10",
+              style = "align-items: flex-start;",
               tags$div(
                 id = ns("category_select_container"),
-                style = "flex: 1;",
+                class = "flex-1",
                 selectizeInput(
                   ns("general_concepts_new_category"),
                   label = NULL,
@@ -673,7 +514,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
               ),
               tags$div(
                 id = ns("category_text_container"),
-                style = "flex: 1; display: none;",
+                class = "flex-1 hidden",
                 shiny::textInput(
                   ns("general_concepts_new_category_text"),
                   label = NULL,
@@ -713,16 +554,16 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
           ),
           tags$div(
             id = ns("general_concepts_new_subcategory_group"),
-            style = "margin-bottom: 20px;",
+            class = "mb-20",
             tags$label(
               i18n$t("subcategory"),
-              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+              class = "form-label"
             ),
             tags$div(
               style = "display: flex; gap: 10px; align-items: flex-start;",
               tags$div(
                 id = ns("subcategory_select_container"),
-                style = "flex: 1;",
+                class = "flex-1",
                 selectizeInput(
                   ns("general_concepts_new_subcategory"),
                   label = NULL,
@@ -860,7 +701,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
           # Tab content container
           tags$div(
             class = "tab-content",
-            style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
+            class = "flex-column flex-1", style = "min-height: 0;",
 
             # OMOP Concepts Tab
             tags$div(
@@ -870,7 +711,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
 
               # Search Concepts section (top half)
               tags$div(
-                style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
+                class = "flex-column flex-1", style = "min-height: 0;",
                 tags$div(
                   id = ns("omop_table_container"),
                   style = "flex: 1; min-height: 0; position: relative; overflow: auto;",
@@ -924,10 +765,10 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
                 ),
                 # Right side: Toggles and Add button
                 tags$div(
-                  style = "display: flex; align-items: center; gap: 15px;",
+                  class = "flex-center", style = "gap: 15px;",
                   # Exclude toggle
                   tags$div(
-                    style = "display: flex; align-items: center; gap: 5px;",
+                    class = "flex-center", style = "gap: 5px;",
                     tags$span("Exclude", style = "font-size: 13px; color: #666;"),
                     tags$label(
                       class = "toggle-switch toggle-small toggle-exclude",
@@ -940,7 +781,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
                   ),
                   # Descendants toggle
                   tags$div(
-                    style = "display: flex; align-items: center; gap: 5px;",
+                    class = "flex-center", style = "gap: 5px;",
                     tags$span("Descendants", style = "font-size: 13px; color: #666;"),
                     tags$label(
                       class = "toggle-switch toggle-small",
@@ -953,7 +794,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
                   ),
                   # Mapped toggle
                   tags$div(
-                    style = "display: flex; align-items: center; gap: 5px;",
+                    class = "flex-center", style = "gap: 5px;",
                     tags$span("Mapped", style = "font-size: 13px; color: #666;"),
                     tags$label(
                       class = "toggle-switch toggle-small",
@@ -985,7 +826,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
                 style = "flex: 1; min-height: 0; overflow: auto; padding: 40px; border: 1px solid #ddd; border-radius: 4px; background: white;",
 
                 tags$div(
-                  style = "margin-bottom: 20px;",
+                  class = "mb-20",
                   tags$label(
                     i18n$t("vocabulary_id"), " ",
                     tags$span("*", style = "color: #dc3545;")
@@ -1006,7 +847,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
                 ),
 
                 tags$div(
-                  style = "margin-bottom: 20px;",
+                  class = "mb-20",
                   textInput(
                     ns("custom_concept_code"),
                     i18n$t("concept_code"),
@@ -1016,7 +857,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
                 ),
 
                 tags$div(
-                  style = "margin-bottom: 20px;",
+                  class = "mb-20",
                   tags$label(
                     i18n$t("concept_name"), " ",
                     tags$span("*", style = "color: #dc3545;")
@@ -1051,10 +892,10 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
                 ),
                 # Right side: Exclude toggle and Add button (no Descendants/Mapped for custom concepts)
                 tags$div(
-                  style = "display: flex; align-items: center; gap: 15px;",
+                  class = "flex-center", style = "gap: 15px;",
                   # Exclude toggle
                   tags$div(
-                    style = "display: flex; align-items: center; gap: 5px;",
+                    class = "flex-center", style = "gap: 5px;",
                     tags$span("Exclude", style = "font-size: 13px; color: #666;"),
                     tags$label(
                       class = "toggle-switch toggle-small toggle-exclude",
@@ -1108,7 +949,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
             i18n$t("import_atlas_json_desc")
           ),
           tags$div(
-            style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
+            class = "flex-column flex-1", style = "min-height: 0;",
             tags$label(
               style = "font-weight: 600; margin-bottom: 5px; flex-shrink: 0;",
               "JSON"
@@ -1164,8 +1005,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
     ### Modal - Concept Details Viewer ----
     tags$div(
       id = ns("concept_modal"),
-      class = "modal-overlay",
-      style = "display: none;",
+      class = "modal-overlay hidden",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("concept_modal")),
       tags$div(
         class = "modal-content",
@@ -1188,16 +1028,16 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
     ### Modal - Hierarchy Graph Fullscreen ----
     tags$div(
       id = ns("hierarchy_graph_modal"),
-      class = "modal-overlay modal-fullscreen",
-      style = "height: 100%; display: none;",
+      class = "modal-overlay modal-fullscreen hidden",
+      style = "height: 100%;",
       tags$div(
         class = "modal-fullscreen-content",
-        style = "height: 100%; display: flex; flex-direction: column;",
+        class = "flex-column-full",
         # Header with breadcrumb and close button
         tags$div(
           style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
           tags$div(
-            style = "display: flex; align-items: center; gap: 15px;",
+            class = "flex-center", style = "gap: 15px;",
             uiOutput(ns("hierarchy_graph_breadcrumb"))
           ),
           tags$button(
@@ -1217,11 +1057,10 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
     ### Modal - Comments Fullscreen ----
     tags$div(
       id = ns("comments_fullscreen_modal"),
-      class = "modal-overlay modal-fullscreen",
-      style = "display: none;",
+      class = "modal-overlay modal-fullscreen hidden",
       tags$div(
         class = "modal-fullscreen-content",
-        style = "height: 100%; display: flex; flex-direction: column;",
+        class = "flex-column-full",
         tags$div(
           style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
           # Left side: Back button (hidden by default) + Title
@@ -1230,12 +1069,11 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
             actionButton(
               ns("back_from_global_comment"),
               label = HTML("&#8592;"),
-              class = "btn-back-comment",
-              style = "display: none;"
+              class = "btn-back-comment hidden"
             ),
             tags$h3(
               id = ns("comments_modal_title"),
-              style = "margin: 0; color: #0f60af;",
+              class = "text-primary", style = "margin: 0;",
               i18n$t("etl_guidance_comments")
             )
           ),
@@ -1278,15 +1116,14 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
     ### Modal - Concept Set Fullscreen ----
     tags$div(
       id = ns("concept_set_fullscreen_modal"),
-      class = "modal-overlay modal-fullscreen",
-      style = "display: none;",
+      class = "modal-overlay modal-fullscreen hidden",
       tags$div(
         class = "modal-fullscreen-content",
-        style = "height: 100%; display: flex; flex-direction: column;",
+        class = "flex-column-full",
         tags$div(
           style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
           tags$h3(
-            style = "margin: 0; color: #0f60af;",
+            class = "text-primary", style = "margin: 0;",
             i18n$t("associated_concepts")
           ),
           actionButton(
@@ -3909,7 +3746,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           return(tags$div(
             style = "padding: 20px; background: #f8f9fa; border-radius: 6px; text-align: center;",
             tags$p(
-              style = "color: #666; font-style: italic;",
+              class = "text-muted-italic",
               i18n$t("select_concept_table_details")
             )
           ))
@@ -4359,7 +4196,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           return(tags$div(
             style = "padding: 20px; background: #f8f9fa; border-radius: 6px; text-align: center;",
             tags$p(
-              style = "color: #666; font-style: italic;",
+              class = "text-muted-italic",
               "Select a concept from the Mapped Concepts table to view its details."
             )
           ))
@@ -4444,7 +4281,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 class = "detail-item",
                 tags$strong(i18n$t("fhir_resource")),
                 tags$span(
-                  style = "color: #999; font-style: italic;",
+                  class = "text-muted-italic",
                   "No link available"
                 )
               )
@@ -4464,7 +4301,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             tags$div(
               class = "detail-item",
               tags$strong(i18n$t("fhir_resource")),
-              tags$span(style = "color: #999; font-style: italic;", "No link available")
+              tags$span(class = "text-muted-italic", "No link available")
             )
           },
           create_detail_item(i18n$t("unit_concept_name"), "/", include_colon = FALSE),
@@ -4473,7 +4310,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           tags$div(
             class = "detail-item",
             tags$strong(i18n$t("unit_fhir_resource")),
-            tags$span(style = "color: #999; font-style: italic;", "No link available")
+            tags$span(class = "text-muted-italic", "No link available")
           ),
           create_detail_item(i18n$t("unit_conversions"), "/", include_colon = FALSE)
         ))
@@ -4650,7 +4487,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           tags$div(
             class = "detail-item",
             tags$strong(i18n$t("fhir_resource")),
-            tags$span(style = "color: #999; font-style: italic;", "No link available")
+            tags$span(class = "text-muted-italic", "No link available")
           )
         },
         create_detail_item(i18n$t("unit_concept_name"),
@@ -4690,7 +4527,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           tags$div(
             class = "detail-item",
             tags$strong(i18n$t("unit_fhir_resource")),
-            tags$span(style = "color: #999; font-style: italic;", "No link available")
+            tags$span(class = "text-muted-italic", "No link available")
           )
         },
         create_detail_item(i18n$t("unit_conversions"),
@@ -5370,7 +5207,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               }
 
               tags$div(
-                style = "height: 100%; display: flex; flex-direction: column;",
+                class = "flex-column-full",
                 tags$div(
                   style = "padding: 10px; background: #f8f9fa; border-bottom: 1px solid #dee2e6; display: flex; justify-content: space-between; align-items: center;",
                   tags$span(
@@ -5444,7 +5281,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
                 # Main UI with tabs and profile selector
                 tags$div(
-                  style = "height: 100%; display: flex; flex-direction: column;",
+                  class = "flex-column-full",
                   # Header with tabs on left and profile dropdown on right
                   tags$div(
                     style = "display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid #dee2e6; margin-bottom: 10px;",
@@ -5466,7 +5303,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                     # Profile dropdown (only show if multiple profiles)
                     if (length(profile_names) > 1) {
                       tags$div(
-                        style = "display: flex; align-items: center; gap: 8px;",
+                        class = "flex-center-gap-8",
                         tags$span(style = "font-size: 11px; color: #666;", paste0(i18n$t("profile"), " :")),
                         tags$select(
                           id = ns("stat_profile_select"),
@@ -6054,7 +5891,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # Build stat items
       stat_items <- lapply(1:nrow(top_4), function(i) {
         tags$div(
-          style = "display: flex; align-items: center; gap: 8px;",
+          class = "flex-center-gap-8",
           tags$span(
             style = "font-weight: bold; color: #333;",
             top_4$n[i]
@@ -6070,7 +5907,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       if (other_count > 0) {
         stat_items <- c(stat_items, list(
           tags$div(
-            style = "display: flex; align-items: center; gap: 8px;",
+            class = "flex-center-gap-8",
             tags$span(
               style = "font-weight: bold; color: #333;",
               other_count
@@ -6113,7 +5950,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         tags$div(
           style = "display: flex; gap: 20px;",
           tags$div(
-            style = "display: flex; align-items: center; gap: 8px;",
+            class = "flex-center-gap-8",
             tags$span(
               style = "font-size: 18px; color: #6c757d;",
               "⬆"
@@ -6128,7 +5965,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             )
           ),
           tags$div(
-            style = "display: flex; align-items: center; gap: 8px;",
+            class = "flex-center-gap-8",
             tags$span(
               style = "font-size: 18px; color: #28a745;",
               "⬇"
@@ -6453,7 +6290,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         dplyr::collect()
 
       if (nrow(concept_info) == 0) {
-        return(tags$p("Concept not found.", style = "color: #666; font-style: italic;"))
+        return(tags$p("Concept not found.", class = "text-muted-italic"))
       }
 
       info <- concept_info[1, ]
@@ -6504,7 +6341,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           tags$div(
             class = "detail-item",
             tags$strong(i18n$t("fhir_resource")),
-            tags$span(style = "color: #999; font-style: italic;", "No link available")
+            tags$span(class = "text-muted-italic", "No link available")
           )
         }
         )
