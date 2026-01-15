@@ -69,7 +69,7 @@ mod_users_ui <- function(id, i18n) {
       id = ns("user_modal"),
       class = "modal-overlay",
       style = "display: none;",
-      onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("user_modal")),
+      onclick = sprintf("if (event.target === this) { Shiny.setInputValue('%s', Math.random()); }", ns("close_modal_overlay")),
       div(
         class = "modal-content",
         style = "max-width: 500px;",
@@ -124,15 +124,53 @@ mod_users_ui <- function(id, i18n) {
               width = "100%"
             ),
             tags$button(
-              id = ns("toggle_password"),
               type = "button",
               class = "password-toggle-btn",
-              style = "position: absolute; right: 10px; top: 8px; background: none; border: none; cursor: pointer; color: #7f8c8d;",
+              `data-input` = ns("user_password"),
+              `data-icon` = ns("password_icon"),
+              style = paste0(
+                "position: absolute; right: 10px; top: 50%; ",
+                "transform: translateY(-50%); background: none; ",
+                "border: none; cursor: pointer; color: #666; padding: 5px;"
+              ),
               tags$i(class = "fas fa-eye", id = ns("password_icon"))
             )
           ),
           div(
             id = ns("password_error"),
+            class = "input-error-message"
+          )
+        ),
+
+        div(
+          style = "margin-bottom: 15px;",
+          tags$label(
+            tagList(i18n$t("confirm_password"), " *"),
+            style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
+          ),
+          div(
+            style = "position: relative;",
+            passwordInput(
+              ns("user_password_confirm"),
+              label = NULL,
+              placeholder = as.character(i18n$t("confirm_password")),
+              width = "100%"
+            ),
+            tags$button(
+              type = "button",
+              class = "password-toggle-btn",
+              `data-input` = ns("user_password_confirm"),
+              `data-icon` = ns("password_confirm_icon"),
+              style = paste0(
+                "position: absolute; right: 10px; top: 50%; ",
+                "transform: translateY(-50%); background: none; ",
+                "border: none; cursor: pointer; color: #666; padding: 5px;"
+              ),
+              tags$i(class = "fas fa-eye", id = ns("password_confirm_icon"))
+            )
+          ),
+          div(
+            id = ns("password_confirm_error"),
             class = "input-error-message"
           ),
           tags$small(
@@ -315,8 +353,11 @@ mod_users_server <- function(id, current_user, i18n, log_level = character()) {
       output$users_table <- renderDT({
         users <- users_data()
 
+        # Store user_id as first hidden column for double-click handler
+        users_with_id <- users
+
         # Add action buttons (generate for each row)
-        users$Actions <- sapply(users$user_id, function(id) {
+        users_with_id$Actions <- sapply(users$user_id, function(id) {
           create_datatable_actions(list(
             list(
               label = as.character(i18n$t("edit")),
@@ -335,9 +376,10 @@ mod_users_server <- function(id, current_user, i18n, log_level = character()) {
           ))
         })
 
-        # Select display columns
-        display_data <- users[, c("login", "first_name", "last_name", "role", "affiliation", "Actions")]
+        # Select display columns with user_id first (hidden)
+        display_data <- users_with_id[, c("user_id", "login", "first_name", "last_name", "role", "affiliation", "Actions")]
         colnames(display_data) <- c(
+          "user_id",
           as.character(i18n$t("login_label")),
           as.character(i18n$t("first_name")),
           as.character(i18n$t("last_name")),
@@ -353,6 +395,15 @@ mod_users_server <- function(id, current_user, i18n, log_level = character()) {
           escape = FALSE,
           filter = "top",
           class = "cell-border stripe hover",
+          callback = JS(sprintf("
+            table.on('dblclick', 'tbody tr', function() {
+              var data = table.row(this).data();
+              if (data) {
+                var userId = data[0];
+                Shiny.setInputValue('%s', userId, {priority: 'event'});
+              }
+            });
+          ", ns("edit_user"))),
           options = list(
             pageLength = 25,
             dom = "tip",
@@ -360,9 +411,10 @@ mod_users_server <- function(id, current_user, i18n, log_level = character()) {
             autoWidth = FALSE,
             language = get_datatable_language(),
             columnDefs = list(
-              list(width = "200px", targets = 5),
-              list(searchable = FALSE, targets = 5),
-              list(className = "dt-center", targets = 5)
+              list(visible = FALSE, targets = 0),
+              list(width = "200px", targets = 6),
+              list(searchable = FALSE, targets = 6),
+              list(className = "dt-center", targets = 6)
             )
           )
         )
@@ -390,22 +442,15 @@ mod_users_server <- function(id, current_user, i18n, log_level = character()) {
       user <- current_user()
       if (user$role == "Anonymous") return()
 
-      # Reset form
+      # Set add mode (not editing)
       editing_user_id(NULL)
       shinyjs::html("modal_title", as.character(i18n$t("add_user")))
       shinyjs::hide("password_help")
-      updateTextInput(session, "user_login", value = "")
-      updateTextInput(session, "user_password", value = "")
-      updateTextInput(session, "user_first_name", value = "")
-      updateTextInput(session, "user_last_name", value = "")
-      updateSelectInput(session, "user_role", selected = "Data scientist")
-
-      # Clear textarea using JavaScript
-      shinyjs::runjs(sprintf("$('#%s').val('');", ns("user_affiliation")))
 
       # Hide all error messages
       shinyjs::hide("login_error")
       shinyjs::hide("password_error")
+      shinyjs::hide("password_confirm_error")
       shinyjs::hide("first_name_error")
       shinyjs::hide("last_name_error")
       shinyjs::show("user_modal")
@@ -438,6 +483,7 @@ mod_users_server <- function(id, current_user, i18n, log_level = character()) {
       # Populate form
       updateTextInput(session, "user_login", value = edit_user$login)
       updateTextInput(session, "user_password", value = "")
+      updateTextInput(session, "user_password_confirm", value = "")
       updateTextInput(session, "user_first_name", value = edit_user$first_name)
       updateTextInput(session, "user_last_name", value = edit_user$last_name)
       updateSelectInput(session, "user_role", selected = edit_user$role)
@@ -447,9 +493,18 @@ mod_users_server <- function(id, current_user, i18n, log_level = character()) {
       shinyjs::runjs(sprintf("$('#%s').val('%s');", ns("user_affiliation"),
                              gsub("'", "\\\\'", affiliation_value)))
 
+      # Reset password field types and icons
+      shinyjs::runjs(sprintf("
+        $('#%s').attr('type', 'password');
+        $('#%s').removeClass('fa-eye-slash').addClass('fa-eye');
+        $('#%s').attr('type', 'password');
+        $('#%s').removeClass('fa-eye-slash').addClass('fa-eye');
+      ", ns("user_password"), ns("password_icon"), ns("user_password_confirm"), ns("password_confirm_icon")))
+
       # Hide all error messages
       shinyjs::hide("login_error")
       shinyjs::hide("password_error")
+      shinyjs::hide("password_confirm_error")
       shinyjs::hide("first_name_error")
       shinyjs::hide("last_name_error")
       shinyjs::show("user_modal")
@@ -520,6 +575,7 @@ mod_users_server <- function(id, current_user, i18n, log_level = character()) {
       # Hide all error messages first
       shinyjs::hide("login_error")
       shinyjs::hide("password_error")
+      shinyjs::hide("password_confirm_error")
       shinyjs::hide("first_name_error")
       shinyjs::hide("last_name_error")
 
@@ -556,6 +612,17 @@ mod_users_server <- function(id, current_user, i18n, log_level = character()) {
         }
       }
 
+      # Validate password confirmation if password is provided
+      password_provided <- !is.null(input$user_password) && nchar(input$user_password) > 0
+      if (password_provided) {
+        password_confirm <- if (is.null(input$user_password_confirm)) "" else input$user_password_confirm
+        if (input$user_password != password_confirm) {
+          shinyjs::html("password_confirm_error", as.character(i18n$t("passwords_do_not_match")))
+          shinyjs::show("password_confirm_error")
+          has_errors <- TRUE
+        }
+      }
+
       # Stop if there are validation errors
       if (has_errors) return()
 
@@ -586,6 +653,23 @@ mod_users_server <- function(id, current_user, i18n, log_level = character()) {
           shinyjs::show("login_error")
           return()
         }
+
+        # Reset form after successful add
+        updateTextInput(session, "user_login", value = "")
+        updateTextInput(session, "user_password", value = "")
+        updateTextInput(session, "user_password_confirm", value = "")
+        updateTextInput(session, "user_first_name", value = "")
+        updateTextInput(session, "user_last_name", value = "")
+        updateSelectInput(session, "user_role", selected = "Data scientist")
+        shinyjs::runjs(sprintf("$('#%s').val('');", ns("user_affiliation")))
+
+        # Reset password field types and icons
+        shinyjs::runjs(sprintf("
+          $('#%s').attr('type', 'password');
+          $('#%s').removeClass('fa-eye-slash').addClass('fa-eye');
+          $('#%s').attr('type', 'password');
+          $('#%s').removeClass('fa-eye-slash').addClass('fa-eye');
+        ", ns("user_password"), ns("password_icon"), ns("user_password_confirm"), ns("password_confirm_icon")))
       } else {
         # Editing existing user - check if login already exists for other users
         other_users <- users[users$user_id != editing_user_id(), ]
@@ -621,20 +705,10 @@ mod_users_server <- function(id, current_user, i18n, log_level = character()) {
       shinyjs::hide("user_modal")
     })
 
-    ### Toggle Password Visibility ----
-    observe_event(input$toggle_password, {
-      # Get current input type
-      shinyjs::runjs(sprintf("
-        var input = $('#%s');
-        var icon = $('#%s');
-        if (input.attr('type') === 'password') {
-          input.attr('type', 'text');
-          icon.removeClass('fa-eye').addClass('fa-eye-slash');
-        } else {
-          input.attr('type', 'password');
-          icon.removeClass('fa-eye-slash').addClass('fa-eye');
-        }
-      ", ns("user_password"), ns("password_icon")))
+    ### Close Modal on Overlay Click ----
+    observe_event(input$close_modal_overlay, {
+      # Just close the modal without resetting form fields
+      shinyjs::hide("user_modal")
     })
   })
 }

@@ -1169,12 +1169,24 @@ mod_dictionary_settings_server <- function(id, config, current_user, vocabularie
       # Hide conversion preview
       shinyjs::runjs(sprintf("$('#%s').hide();", ns("conversion_preview")))
 
-      # Show modal first
+      # Show modal
       shinyjs::runjs(sprintf("$('#%s').css('display', 'flex');", ns("add_conversion_modal")))
 
-      # Trigger OMOP table rendering after modal is visible (with delay for DOM update)
+      # Trigger OMOP table rendering after modal is visible
       shinyjs::delay(500, {
         omop_table_trigger(omop_table_trigger() + 1)
+      })
+
+      # Force Shiny to detect the output is now visible and render it
+      shinyjs::delay(600, {
+        shinyjs::runjs(sprintf("
+          $(window).trigger('resize');
+          var $el = $('#%s');
+          if ($el.length) {
+            $el.trigger('shown');
+            Shiny.bindAll($el.parent());
+          }
+        ", ns("omop_search_table")))
       })
     })
 
@@ -1200,6 +1212,9 @@ mod_dictionary_settings_server <- function(id, config, current_user, vocabularie
     # Prepared data for OMOP search table
     omop_table_data <- reactiveVal(NULL)
 
+    # Trigger for DataTable rendering
+    omop_render_trigger <- reactiveVal(0)
+
     # Update OMOP table data when trigger fires
     observe_event(omop_table_trigger(), {
       concepts <- modal_concepts_all()
@@ -1207,70 +1222,74 @@ mod_dictionary_settings_server <- function(id, config, current_user, vocabularie
       if (is.null(concepts) || nrow(concepts) == 0) {
         omop_table_data(NULL)
         omop_search_data(NULL)
-        return()
+      } else {
+        # Convert for better filtering
+        display_concepts <- concepts
+        display_concepts$concept_id <- as.character(display_concepts$concept_id)
+        display_concepts$vocabulary_id <- as.factor(display_concepts$vocabulary_id)
+        display_concepts$domain_id <- as.factor(display_concepts$domain_id)
+        display_concepts$concept_class_id <- as.factor(display_concepts$concept_class_id)
+
+        # Store data for row selection
+        omop_search_data(display_concepts)
+        omop_table_data(display_concepts)
       }
 
-      # Convert for better filtering
-      display_concepts <- concepts
-      display_concepts$concept_id <- as.character(display_concepts$concept_id)
-      display_concepts$vocabulary_id <- as.factor(display_concepts$vocabulary_id)
-      display_concepts$domain_id <- as.factor(display_concepts$domain_id)
-      display_concepts$concept_class_id <- as.factor(display_concepts$concept_class_id)
-
-      # Store data for row selection
-      omop_search_data(display_concepts)
-      omop_table_data(display_concepts)
+      # Trigger DataTable re-render
+      omop_render_trigger(omop_render_trigger() + 1)
     }, ignoreInit = FALSE)
 
-    # OMOP Search DataTable for Add Modal
-    output$omop_search_table <- DT::renderDT({
-      data <- omop_table_data()
+    # OMOP Search DataTable - render inside observer triggered by render trigger
+    observe_event(omop_render_trigger(), {
+      output$omop_search_table <- DT::renderDT({
+        data <- omop_table_data()
 
-      # Show loading message if data not ready
-      if (is.null(data)) {
-        return(DT::datatable(
-          data.frame(Message = i18n$t("loading_vocabularies")),
-          options = list(dom = 't', ordering = FALSE),
+        # Show loading message if data not ready
+        if (is.null(data)) {
+          return(DT::datatable(
+            data.frame(Message = i18n$t("loading_vocabularies")),
+            options = list(dom = 't', ordering = FALSE),
+            rownames = FALSE,
+            selection = 'single'
+          ))
+        }
+
+        DT::datatable(
+          data,
+          selection = 'single',
           rownames = FALSE,
-          selection = 'single'
-        ))
-      }
-
-      DT::datatable(
-        data,
-        selection = 'single',
-        rownames = FALSE,
-        filter = 'top',
-        class = 'cell-border stripe hover compact',
-        options = list(
-          pageLength = 15,
-          lengthMenu = list(c(10, 15, 25, 50, -1), c('10', '15', '25', '50', 'All')),
-          dom = 'ltip',
-          language = get_datatable_language(),
-          ordering = TRUE,
-          autoWidth = FALSE,
-          paging = TRUE,
-          columnDefs = list(
-            list(width = "80px", targets = 0),
-            list(width = "250px", targets = 1),
-            list(width = "100px", targets = 2),
-            list(width = "100px", targets = 3),
-            list(width = "120px", targets = 4),
-            list(width = "100px", targets = 5),
-            list(width = "50px", targets = 6, className = "dt-center")
+          filter = 'top',
+          class = 'cell-border stripe hover compact',
+          options = list(
+            pageLength = 15,
+            lengthMenu = list(c(10, 15, 25, 50, -1), c('10', '15', '25', '50', 'All')),
+            dom = 'ltip',
+            language = get_datatable_language(),
+            ordering = TRUE,
+            autoWidth = FALSE,
+            paging = TRUE,
+            columnDefs = list(
+              list(width = "80px", targets = 0),
+              list(width = "250px", targets = 1),
+              list(width = "100px", targets = 2),
+              list(width = "100px", targets = 3),
+              list(width = "120px", targets = 4),
+              list(width = "100px", targets = 5),
+              list(width = "50px", targets = 6, className = "dt-center")
+            )
+          ),
+          colnames = c(
+            i18n$t("concept_id"),
+            i18n$t("concept_name"),
+            i18n$t("vocabulary"),
+            i18n$t("domain"),
+            i18n$t("concept_class"),
+            i18n$t("code"),
+            "S"
           )
-        ),
-        colnames = c(
-          i18n$t("concept_id"),
-          i18n$t("concept_name"),
-          i18n$t("vocabulary"),
-          i18n$t("domain"),
-          i18n$t("concept_class"),
-          i18n$t("code"),
-          "S"
         )
-      )
-    }, server = TRUE)
+      }, server = TRUE)
+    }, ignoreInit = FALSE)
 
     # Handle "Add as" dropdown selection
     observe_event(input$add_as_selection, {

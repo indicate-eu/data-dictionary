@@ -198,6 +198,8 @@ password_required,Password is required for new users.
 first_name_required,First name is required.
 last_name_required,Last name is required.
 leave_empty_password,Leave empty to keep current password
+confirm_password,Confirm Password
+passwords_do_not_match,Passwords do not match.
 enter_login,Enter login
 enter_password,Enter password
 enter_first_name,Enter first name

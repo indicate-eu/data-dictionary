@@ -198,6 +198,8 @@ password_required,Le mot de passe est requis pour les nouveaux utilisateurs.
 first_name_required,Le prénom est requis.
 last_name_required,Le nom est requis.
 leave_empty_password,Laissez vide pour conserver le mot de passe actuel
+confirm_password,Confirmer le mot de passe
+passwords_do_not_match,Les mots de passe ne correspondent pas.
 enter_login,Entrez l'identifiant
 enter_password,Entrez le mot de passe
 enter_first_name,Entrez le prénom

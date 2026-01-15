@@ -1,8 +1,20 @@
-// Toggle password visibility
-$(document).on('click', '#login-toggle_password', function(e) {
+// Toggle password visibility - generic handler for any password field
+$(document).on('click', '.password-toggle-btn', function(e) {
   e.preventDefault();
-  var passwordInput = $('#login-password');
-  var icon = $('#login-password_icon');
+  var $btn = $(this);
+  var inputId = $btn.data('input');
+  var iconId = $btn.data('icon');
+
+  // Fallback for login page (old format)
+  if (!inputId) {
+    if ($btn.attr('id') === 'login-toggle_password') {
+      inputId = 'login-password';
+      iconId = 'login-password_icon';
+    }
+  }
+
+  var passwordInput = $('#' + inputId);
+  var icon = $('#' + iconId);
 
   if (passwordInput.attr('type') === 'password') {
     passwordInput.attr('type', 'text');
