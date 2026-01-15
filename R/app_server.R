@@ -52,6 +52,7 @@ app_server <- function(input, output, session) {
     improvements = FALSE,
     dev_tools = FALSE,
     general_settings = FALSE,
+    dictionary_settings = FALSE,
     users = FALSE
   )
 
@@ -183,6 +184,18 @@ app_server <- function(input, output, session) {
           log_level = log_level
         )
         modules_initialized$general_settings <- TRUE
+      }
+
+      if (grepl("dictionary-settings", current_route) && !modules_initialized$dictionary_settings) {
+        mod_dictionary_settings_server(
+          "dictionary_settings",
+          config = config,
+          current_user = current_user,
+          vocabularies = vocabularies,
+          i18n = i18n,
+          log_level = log_level
+        )
+        modules_initialized$dictionary_settings <- TRUE
       }
 
       if (grepl("users", current_route) && !modules_initialized$users) {

@@ -84,7 +84,8 @@ html, body {
 }
 
 /* Global comment textarea - fill container */
-#general_settings-global_comment_input {
+#general_settings-global_comment_input,
+#dictionary_settings-global_comment_input {
   height: 100% !important;
   min-height: 400px;
   resize: none;
@@ -98,14 +99,36 @@ html, body {
 
 /* Ensure the parent container of global comment textarea fills height */
 #general_settings-global_comment_input + .shiny-input-container,
-.shiny-input-container:has(#general_settings-global_comment_input) {
+.shiny-input-container:has(#general_settings-global_comment_input),
+#dictionary_settings-global_comment_input + .shiny-input-container,
+.shiny-input-container:has(#dictionary_settings-global_comment_input) {
   height: 100% !important;
   margin-bottom: 0 !important;
 }
 
 /* Target form-group wrapper around global comment textarea */
-div:has(> #general_settings-global_comment_input) {
+div:has(> #general_settings-global_comment_input),
+div:has(> #dictionary_settings-global_comment_input) {
   height: 100% !important;
+}
+
+/* Global comment textarea container - ensure full height */
+.global-comment-textarea-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.global-comment-textarea-container .form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0 !important;
+}
+
+.global-comment-textarea-container .form-group textarea {
+  flex: 1;
 }
 
 #concept_mapping-summary_content {
@@ -2479,6 +2502,43 @@ button.btn-icon-only:hover {
 /* Settings dropdown improvements */
 .settings-dropdown-item:hover {
   background: rgba(255,255,255,0.1) !important;
+}
+
+/* Generic dropdown item */
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* Action buttons in DataTables */
+.btn-action-test {
+  padding: 4px 12px;
+  background: #0f60af;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-action-test:hover {
+  background: #0a4a8a;
+  transform: translateY(-1px);
+}
+
+.btn-action-delete {
+  padding: 4px 12px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-action-delete:hover {
+  background: #b02a37;
+  transform: translateY(-1px);
 }
 
 /* Password toggle button */

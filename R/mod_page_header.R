@@ -59,6 +59,17 @@ mod_page_header_ui <- function(id, i18n) {
                 i18n$t("general_settings")
               ),
 
+              # Dictionary settings item
+              tags$div(
+                id = ns("settings_item_dictionary"),
+                class = "settings-dropdown-item",
+                style = "padding: 12px 20px; cursor: pointer; color: white; border-bottom: 1px solid rgba(255,255,255,0.1); transition: background 0.2s;",
+                onclick = sprintf("$('#%s').hide(); Shiny.setInputValue('%s', true, {priority: 'event'});",
+                                ns("settings_dropdown"), ns("nav_dictionary_settings")),
+                tags$i(class = "fas fa-book", style = "margin-right: 10px;"),
+                i18n$t("dictionary_settings")
+              ),
+
               # Users item
               tags$div(
                 id = ns("settings_item_users"),
@@ -195,6 +206,10 @@ mod_page_header_server <- function(id, current_user, vocab_loading_status, i18n 
       shiny.router::change_page("general-settings", session = session)
     })
 
+    observe_event(input$nav_dictionary_settings, {
+      shiny.router::change_page("dictionary-settings", session = session)
+    })
+
     observe_event(input$nav_users, {
       shiny.router::change_page("users", session = session)
     })
@@ -205,9 +220,11 @@ mod_page_header_server <- function(id, current_user, vocab_loading_status, i18n 
 
       if (!is.null(user) && user$role == "Anonymous") {
         shinyjs::hide("settings_item_general")
+        shinyjs::hide("settings_item_dictionary")
         shinyjs::hide("settings_item_users")
       } else {
         shinyjs::show("settings_item_general")
+        shinyjs::show("settings_item_dictionary")
         shinyjs::show("settings_item_users")
       }
     })

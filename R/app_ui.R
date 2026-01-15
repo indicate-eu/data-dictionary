@@ -95,6 +95,7 @@ language <- Sys.getenv("INDICATE_LANGUAGE", "en")
           route("improvements", create_page_container(mod_improvements_ui("improvements"))),
           route("dev-tools", create_page_container(mod_dev_tools_ui("dev_tools", i18n))),
           route("general-settings", create_page_container(mod_general_settings_ui("general_settings", i18n))),
+          route("dictionary-settings", create_page_container(mod_dictionary_settings_ui("dictionary_settings", i18n))),
           route("users", create_page_container(mod_users_ui("users", i18n)))
         )
       ),

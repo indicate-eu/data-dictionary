@@ -533,6 +533,50 @@ mod_concept_mapping_ui <- function(id, i18n) {
       )
     ),
 
+    ### Modal - Delete Mappings Confirmation ----
+    tags$div(
+      id = ns("delete_mappings_confirmation_modal"),
+      class = "modal-overlay",
+      style = "display: none;",
+      onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("delete_mappings_confirmation_modal")),
+      tags$div(
+        class = "modal-content",
+        style = "max-width: 500px;",
+        tags$div(
+          class = "modal-header",
+          tags$h3(i18n$t("confirm_deletion")),
+          tags$button(
+            class = "modal-close",
+            onclick = sprintf("$('#%s').hide();", ns("delete_mappings_confirmation_modal")),
+            "×"
+          )
+        ),
+        tags$div(
+          class = "modal-body",
+          tags$p(
+            id = ns("delete_mappings_message"),
+            style = "margin-bottom: 20px;"
+          )
+        ),
+        tags$div(
+          class = "modal-footer",
+          style = "display: flex; justify-content: flex-end; gap: 10px;",
+          tags$button(
+            class = "btn btn-secondary",
+            onclick = sprintf("$('#%s').hide();", ns("delete_mappings_confirmation_modal")),
+            tags$i(class = "fas fa-times"),
+            paste0(" ", i18n$t("cancel"))
+          ),
+          actionButton(
+            ns("confirm_delete_mappings"),
+            i18n$t("delete"),
+            class = "btn btn-danger",
+            icon = icon("trash")
+          )
+        )
+      )
+    ),
+
     ### Modal - Comments Fullscreen ----
     tags$div(
       id = ns("target_comments_fullscreen_modal"),
@@ -1378,6 +1422,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Export modal state
     export_alignment_id <- reactiveVal(NULL)  # Track alignment ID for export modal
+
+    # All mappings table state
+    all_mappings_display_data <- reactiveVal(NULL)  # Store display data for selection handling
+    mappings_to_delete <- reactiveVal(NULL)  # Track mapping IDs to delete (for confirmation modal)
     export_stats <- reactiveVal(NULL)  # Store export statistics
 
     # Separate trigger for source concepts table updates (used by mapping operations)
@@ -3724,6 +3772,19 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           tags$div(
             class = "card-container card-container-flex",
             style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
+            # Header with delete button
+            tags$div(
+              style = "display: flex; justify-content: flex-end; align-items: center; padding: 10px 10px 0 10px; flex-shrink: 0;",
+              actionButton(
+                ns("delete_selected_mappings"),
+                label = tagList(
+                  tags$i(class = "fas fa-trash", style = "margin-right: 6px;"),
+                  i18n$t("delete_selected")
+                ),
+                class = "btn-danger-custom",
+                style = "display: none;"
+              )
+            ),
             tags$div(
               style = "flex: 1; min-height: 0; overflow: auto;",
               DT::DTOutput(ns("all_mappings_table_main"), height = "100%")
@@ -5083,9 +5144,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           )
       }
 
-      # Build display dataframe
+      # Build display dataframe with mapping_id for selection
       display_df <- enriched_rows %>%
         dplyr::mutate(
+          mapping_id = db_mapping_id,
           Category = factor(dplyr::if_else(is.na(source_category) | source_category == "", "/", source_category)),
           Source = paste0(concept_name_source, " (", vocabulary_id_source, ": ", concept_code_source, ")"),
           Target = paste0(concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"),
@@ -5096,18 +5158,16 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           ),
           Upvotes = ifelse(is.na(upvotes), 0L, as.integer(upvotes)),
           Downvotes = ifelse(is.na(downvotes), 0L, as.integer(downvotes)),
-          Uncertain = ifelse(is.na(uncertain_votes), 0L, as.integer(uncertain_votes)),
-          Actions = sprintf(
-            '<button class="dt-action-btn dt-action-btn-danger delete-mapping-btn" data-id="%d">%s</button>',
-            db_mapping_id,
-            i18n$t("delete")
-          )
+          Uncertain = ifelse(is.na(uncertain_votes), 0L, as.integer(uncertain_votes))
         ) %>%
-        dplyr::select(Category, Source, Target, Origin, Upvotes, Downvotes, Uncertain, Actions)
+        dplyr::select(mapping_id, Category, Source, Target, Origin, Upvotes, Downvotes, Uncertain)
+
+      # Store display_df for selection handling
+      all_mappings_display_data(display_df)
 
       # Render table with prepared data (All Mappings)
       output$all_mappings_table_main <- DT::renderDT({
-        dt <- datatable(
+        datatable(
           display_df,
           escape = FALSE,
           filter = 'top',
@@ -5119,37 +5179,27 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             buttons = list("colvis"),
             language = get_datatable_language(),
             columnDefs = list(
-              list(targets = 0, width = "10%"),
-              list(targets = 3, width = "80px", className = "dt-center"),
-              list(targets = 4, width = "60px", className = "dt-center"),
+              list(targets = 0, visible = FALSE),
+              list(targets = 1, width = "10%"),
+              list(targets = 4, width = "80px", className = "dt-center"),
               list(targets = 5, width = "60px", className = "dt-center"),
               list(targets = 6, width = "60px", className = "dt-center"),
-              list(targets = 7, width = "70px", searchable = FALSE, orderable = FALSE, className = "dt-center")
+              list(targets = 7, width = "60px", className = "dt-center")
             )
           ),
           rownames = FALSE,
-          selection = 'none',
+          selection = 'multiple',
           colnames = c(
+            "mapping_id",
             as.character(i18n$t("category")),
             as.character(i18n$t("source_concept")),
             as.character(i18n$t("target_concept")),
             as.character(i18n$t("origin")),
             as.character(i18n$t("upvotes")),
             as.character(i18n$t("downvotes")),
-            as.character(i18n$t("uncertain")),
-            as.character(i18n$t("actions"))
+            as.character(i18n$t("uncertain"))
           )
         )
-
-        # Add button handlers
-        dt <- add_button_handlers(
-          dt,
-          handlers = list(
-            list(selector = ".delete-mapping-btn", input_id = ns("delete_mapping_main"))
-          )
-        )
-
-        dt
       }, server = TRUE)
     })
 
@@ -5320,9 +5370,10 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       enriched_rows <- enriched_rows %>%
         dplyr::left_join(vote_stats, by = c("db_mapping_id" = "mapping_id"))
 
-      # Build display dataframe
+      # Build display dataframe with mapping_id for selection
       display_df <- enriched_rows %>%
         dplyr::mutate(
+          mapping_id = db_mapping_id,
           Category = factor(dplyr::if_else(is.na(source_category) | source_category == "", "/", source_category)),
           Source = paste0(concept_name_source, " (", vocabulary_id_source, ": ", concept_code_source, ")"),
           Target = paste0(concept_name_target, " (", vocabulary_id_target, ": ", concept_code_target, ")"),
@@ -5333,14 +5384,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           ),
           Upvotes = ifelse(is.na(upvotes), 0L, as.integer(upvotes)),
           Downvotes = ifelse(is.na(downvotes), 0L, as.integer(downvotes)),
-          Uncertain = ifelse(is.na(uncertain_votes), 0L, as.integer(uncertain_votes)),
-          Actions = sprintf(
-            '<button class="dt-action-btn dt-action-btn-danger delete-mapping-btn" data-id="%d">%s</button>',
-            db_mapping_id,
-            i18n$t("delete")
-          )
+          Uncertain = ifelse(is.na(uncertain_votes), 0L, as.integer(uncertain_votes))
         ) %>%
-        dplyr::select(Category, Source, Target, Origin, Upvotes, Downvotes, Uncertain, Actions)
+        dplyr::select(mapping_id, Category, Source, Target, Origin, Upvotes, Downvotes, Uncertain)
+
+      # Update stored display data for selection handling
+      all_mappings_display_data(display_df)
 
       # Use proxy to update data (preserves filters and pagination)
       proxy <- DT::dataTableProxy("all_mappings_table_main", session = session)
@@ -5348,14 +5397,45 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     }, ignoreInit = TRUE)
 
     #### Delete Mapping Actions ----
-    observe_event(input$delete_mapping_main, {
-      if (is.null(input$delete_mapping_main)) return()
-      if (is.null(selected_alignment_id())) return()
 
-      # Get the mapping_id directly from button click (data-id attribute)
-      mapping_id_to_delete <- as.integer(input$delete_mapping_main)
+    # Show/hide delete selected button based on selection
+    observe_event(input$all_mappings_table_main_rows_selected, {
+      selected_rows <- input$all_mappings_table_main_rows_selected
+      if (length(selected_rows) > 0) {
+        shinyjs::show("delete_selected_mappings")
+      } else {
+        shinyjs::hide("delete_selected_mappings")
+      }
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
-      if (is.na(mapping_id_to_delete)) return()
+    # Handle delete selected button click - show confirmation modal
+    observe_event(input$delete_selected_mappings, {
+      selected_rows <- input$all_mappings_table_main_rows_selected
+      if (length(selected_rows) == 0) return()
+
+      display_data <- all_mappings_display_data()
+      if (is.null(display_data)) return()
+
+      # Get mapping_ids from selected rows
+      selected_mapping_ids <- display_data$mapping_id[selected_rows]
+      mappings_to_delete(selected_mapping_ids)
+
+      # Update modal message
+      count <- length(selected_mapping_ids)
+      message <- sprintf(i18n$t("delete_mappings_confirm"), count)
+      shinyjs::runjs(sprintf("$('#%s').text('%s');", ns("delete_mappings_message"), message))
+
+      # Show confirmation modal
+      shinyjs::show("delete_mappings_confirmation_modal")
+    }, ignoreInit = TRUE)
+
+    # Handle confirmation of deletion
+    observe_event(input$confirm_delete_mappings, {
+      mapping_ids <- mappings_to_delete()
+      if (is.null(mapping_ids) || length(mapping_ids) == 0) return()
+
+      # Hide modal first
+      shinyjs::hide("delete_mappings_confirmation_modal")
 
       # Get mapping details from database
       db_dir <- get_app_dir()
@@ -5366,40 +5446,46 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
       on.exit(DBI::dbDisconnect(con), add = TRUE)
 
-      # Get mapping details
-      mapping_to_delete <- DBI::dbGetQuery(
-        con,
-        "SELECT csv_file_path, row_id FROM concept_mappings WHERE mapping_id = ?",
-        params = list(mapping_id_to_delete)
-      )
+      # Process each mapping to delete
+      for (mapping_id in mapping_ids) {
+        # Get mapping details
+        mapping_to_delete <- DBI::dbGetQuery(
+          con,
+          "SELECT csv_file_path, row_id FROM concept_mappings WHERE mapping_id = ?",
+          params = list(mapping_id)
+        )
 
-      if (nrow(mapping_to_delete) == 0) return()
+        if (nrow(mapping_to_delete) == 0) next
 
-      # Delete from database
-      delete_concept_mapping(mapping_id_to_delete)
+        # Delete from database
+        delete_concept_mapping(mapping_id)
 
-      # Update CSV file to remove the mapping
-      csv_filename <- mapping_to_delete$csv_file_path[1]
-      csv_path <- file.path(get_app_dir("concept_mapping"), csv_filename)
-      row_id <- mapping_to_delete$row_id[1]
+        # Update CSV file to remove the mapping
+        csv_filename <- mapping_to_delete$csv_file_path[1]
+        csv_path <- file.path(get_app_dir("concept_mapping"), csv_filename)
+        row_id <- mapping_to_delete$row_id[1]
 
-      if (!is.na(csv_filename) && !is.na(row_id) && file.exists(csv_path)) {
-        df <- read.csv(csv_path, stringsAsFactors = FALSE)
+        if (!is.na(csv_filename) && !is.na(row_id) && file.exists(csv_path)) {
+          df <- read.csv(csv_path, stringsAsFactors = FALSE)
 
-        # Find the row with this row_id
-        row_to_clear <- which(df$row_id == row_id)
+          # Find the row with this row_id
+          row_to_clear <- which(df$row_id == row_id)
 
-        if (length(row_to_clear) > 0) {
-          # Clear mapping columns
-          if ("target_general_concept_id" %in% colnames(df)) df$target_general_concept_id[row_to_clear] <- NA_integer_
-          if ("target_omop_concept_id" %in% colnames(df)) df$target_omop_concept_id[row_to_clear] <- NA_integer_
-          if ("target_custom_concept_id" %in% colnames(df)) df$target_custom_concept_id[row_to_clear] <- NA_integer_
-          if ("mapped_by_user_id" %in% colnames(df)) df$mapped_by_user_id[row_to_clear] <- NA_integer_
-          if ("mapping_datetime" %in% colnames(df)) df$mapping_datetime[row_to_clear] <- NA_character_
+          if (length(row_to_clear) > 0) {
+            # Clear mapping columns
+            if ("target_general_concept_id" %in% colnames(df)) df$target_general_concept_id[row_to_clear] <- NA_integer_
+            if ("target_omop_concept_id" %in% colnames(df)) df$target_omop_concept_id[row_to_clear] <- NA_integer_
+            if ("target_custom_concept_id" %in% colnames(df)) df$target_custom_concept_id[row_to_clear] <- NA_integer_
+            if ("mapped_by_user_id" %in% colnames(df)) df$mapped_by_user_id[row_to_clear] <- NA_integer_
+            if ("mapping_datetime" %in% colnames(df)) df$mapping_datetime[row_to_clear] <- NA_character_
 
-          write.csv(df, csv_path, row.names = FALSE)
+            write.csv(df, csv_path, row.names = FALSE)
+          }
         }
       }
+
+      # Clear state
+      mappings_to_delete(NULL)
 
       # Trigger refresh
       source_concepts_table_trigger(source_concepts_table_trigger() + 1)
@@ -7582,29 +7668,9 @@ Data distribution by hospital unit/ward.
 
       info <- concept_details[1, ]
 
-      # Get concept mapping for statistics
+      # Get concept mapping for unit info
       concept_mapping <- data()$concept_mappings %>%
         dplyr::filter(omop_concept_id == !!omop_concept_id)
-
-      # Get statistics from concept_statistics
-      concept_stats_data <- data()$concept_statistics
-      if (!is.null(concept_stats_data) && nrow(concept_mapping) > 0) {
-        concept_stats <- concept_stats_data %>%
-          dplyr::filter(omop_concept_id == !!omop_concept_id)
-        if (nrow(concept_stats) > 0) {
-          ehden_num_data_sources <- concept_stats$ehden_num_data_sources[1]
-          ehden_rows_count <- concept_stats$ehden_rows_count[1]
-          loinc_rank <- concept_stats$loinc_rank[1]
-        } else {
-          ehden_num_data_sources <- NA
-          ehden_rows_count <- NA
-          loinc_rank <- NA
-        }
-      } else {
-        ehden_num_data_sources <- NA
-        ehden_rows_count <- NA
-        loinc_rank <- NA
-      }
 
       # Build URLs
       athena_url <- paste0(config$athena_base_url, "/", omop_concept_id)
@@ -7646,11 +7712,18 @@ Data distribution by hospital unit/ward.
         }
       }
 
+      # Build Unit FHIR URL
+      unit_fhir_url <- NULL
+      if (!is.null(unit_concept_code)) {
+        unit_fhir_url <- build_fhir_url("UCUM", unit_concept_code, config)
+      }
+
       # Display concept details in grid layout
       tags$div(
         class = "concept-details-container",
-        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(9, auto); grid-auto-flow: column; gap: 4px 15px; padding: 15px;",
-        # Column 1
+        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(8, auto); grid-auto-flow: column; gap: 4px 15px; padding: 15px;",
+        # Column 1 (8 items): Vocabulary ID, Concept Name, Category, Subcategory, Domain ID, Concept Class ID, Validity, Standard
+        create_detail_item(i18n$t("vocabulary_id"), info$vocabulary_id, include_colon = FALSE),
         create_detail_item(i18n$t("concept_name"), info$concept_name, include_colon = FALSE),
         create_detail_item(i18n$t("category"),
                           ifelse(nrow(general_concept_info) > 0, general_concept_info$category[1], NA),
@@ -7658,22 +7731,11 @@ Data distribution by hospital unit/ward.
         create_detail_item(i18n$t("subcategory"),
                           ifelse(nrow(general_concept_info) > 0, general_concept_info$subcategory[1], NA),
                           include_colon = FALSE),
-        create_detail_item(i18n$t("ehden_data_sources"),
-                          if (!is.na(ehden_num_data_sources)) ehden_num_data_sources else "/",
-                          include_colon = FALSE),
-        create_detail_item(i18n$t("ehden_rows_count"),
-                          if (!is.na(ehden_rows_count)) format(ehden_rows_count, big.mark = ",") else "/",
-                          include_colon = FALSE),
-        create_detail_item(i18n$t("loinc_rank"),
-                          if (!is.na(loinc_rank)) loinc_rank else "/",
-                          include_colon = FALSE),
-        create_detail_item(i18n$t("validity"), validity_text, color = validity_color, include_colon = FALSE),
-        create_detail_item(i18n$t("standard"), standard_text, color = standard_color, include_colon = FALSE),
-        tags$div(class = "detail-item", style = "visibility: hidden;"),
-        # Column 2
-        create_detail_item(i18n$t("vocabulary_id"), info$vocabulary_id, include_colon = FALSE),
         create_detail_item(i18n$t("domain_id"), if (!is.na(info$domain_id)) info$domain_id else "/", include_colon = FALSE),
         create_detail_item(i18n$t("concept_class"), if (!is.na(info$concept_class_id)) info$concept_class_id else "/", include_colon = FALSE),
+        create_detail_item(i18n$t("validity"), validity_text, color = validity_color, include_colon = FALSE),
+        create_detail_item(i18n$t("standard"), standard_text, color = standard_color, include_colon = FALSE),
+        # Column 2 (8 items): Concept Code, OMOP Concept ID, FHIR Resource, Unit Concept Name, Unit Concept Code, Unit Concept ID, Unit FHIR Resource, Unit Conversions
         create_detail_item(i18n$t("concept_code"), info$concept_code, include_colon = FALSE),
         create_detail_item(i18n$t("omop_concept_id"), omop_concept_id, url = athena_url, include_colon = FALSE),
         if (!is.null(fhir_url) && fhir_url != "no_link") {
@@ -7697,13 +7759,33 @@ Data distribution by hospital unit/ward.
         create_detail_item(i18n$t("unit_concept_name"),
                           if (!is.null(unit_concept_name)) unit_concept_name else "/",
                           include_colon = FALSE),
+        create_detail_item(i18n$t("unit_concept_code"),
+                          if (!is.null(unit_concept_code)) unit_concept_code else "/",
+                          include_colon = FALSE),
         if (!is.null(athena_unit_url)) {
           create_detail_item(i18n$t("omop_unit_concept_id"), unit_concept_id, url = athena_unit_url, include_colon = FALSE)
         } else {
           create_detail_item(i18n$t("omop_unit_concept_id"), "/", include_colon = FALSE)
         },
-        tags$div(class = "detail-item", style = "visibility: hidden;"),
-        tags$div(class = "detail-item", style = "visibility: hidden;")
+        if (!is.null(unit_fhir_url) && unit_fhir_url != "no_link") {
+          tags$div(
+            class = "detail-item",
+            tags$strong(i18n$t("unit_fhir_resource")),
+            tags$a(
+              href = unit_fhir_url,
+              target = "_blank",
+              style = "color: #0f60af; text-decoration: underline;",
+              i18n$t("view")
+            )
+          )
+        } else {
+          tags$div(
+            class = "detail-item",
+            tags$strong(i18n$t("unit_fhir_resource")),
+            tags$span(style = "color: #999; font-style: italic;", "No link available")
+          )
+        },
+        create_detail_item(i18n$t("unit_conversions"), "/", include_colon = FALSE)
       )
     }
 
@@ -8619,7 +8701,7 @@ Data distribution by hospital unit/ward.
       con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
       on.exit(DBI::dbDisconnect(con), add = TRUE)
 
-      # Get all mappings with evaluation status for current user and comment count
+      # Get all mappings with evaluation status for current user, mapped by user info, and comment count
       query <- "
         SELECT
           cm.mapping_id,
@@ -8631,6 +8713,8 @@ Data distribution by hospital unit/ward.
           cm.imported_mapping_id,
           cm.mapping_datetime,
           cm.mapped_by_user_id,
+          u.first_name as mapped_by_first_name,
+          u.last_name as mapped_by_last_name,
           me.is_approved,
           me.comment,
           COALESCE((SELECT COUNT(*) FROM mapping_comments mc WHERE mc.mapping_id = cm.mapping_id), 0) as comments_count
@@ -8638,6 +8722,8 @@ Data distribution by hospital unit/ward.
         LEFT JOIN mapping_evaluations me
           ON cm.mapping_id = me.mapping_id
           AND me.evaluator_user_id = ?
+        LEFT JOIN users u
+          ON cm.mapped_by_user_id = u.user_id
         WHERE cm.alignment_id = ?
       "
 
@@ -8817,6 +8903,15 @@ Data distribution by hospital unit/ward.
               sprintf('<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("manual")),
               sprintf('<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("imported"))
             ),
+            Mapped_By = dplyr::if_else(
+              is.na(mapped_by_first_name) & is.na(mapped_by_last_name),
+              "/",
+              paste0(
+                dplyr::if_else(is.na(mapped_by_first_name), "", mapped_by_first_name),
+                " ",
+                dplyr::if_else(is.na(mapped_by_last_name), "", mapped_by_last_name)
+              ) %>% trimws()
+            ),
             Added = dplyr::if_else(
               is.na(mapping_datetime) | mapping_datetime == "",
               "/",
@@ -8824,15 +8919,11 @@ Data distribution by hospital unit/ward.
             )
           ) %>%
           dplyr::select(
-            mapping_id,
-            row_id,
-            csv_file_path,
-            target_general_concept_id,
-            target_omop_concept_id,
             Category,
             Source,
             Target,
             Origin,
+            Mapped_By,
             Added,
             status,
             Actions
@@ -8859,26 +8950,22 @@ Data distribution by hospital unit/ward.
             stateSave = TRUE,
             language = get_datatable_language(),
             columnDefs = list(
-              list(targets = 0:4, visible = FALSE),
+              list(targets = 0, width = "10%"),
+              list(targets = 1, width = "22%"),
+              list(targets = 2, width = "22%"),
+              list(targets = 3, width = "8%", className = "dt-center"),
+              list(targets = 4, width = "12%"),
               list(targets = 5, width = "10%"),
-              list(targets = 6, width = "22%"),
-              list(targets = 7, width = "22%"),
-              list(targets = 8, width = "8%", className = "dt-center"),
-              list(targets = 9, width = "10%"),
-              list(targets = 10, width = "10%"),
-              list(targets = 11, width = "18%", orderable = FALSE, searchable = FALSE, className = "dt-center no-select")
+              list(targets = 6, width = "8%"),
+              list(targets = 7, width = "18%", orderable = FALSE, searchable = FALSE, className = "dt-center no-select")
             )
           ),
           colnames = c(
-            "ID",
-            "row_id",
-            "csv_file_path",
-            "target_general_concept_id",
-            "target_omop_concept_id",
             as.character(i18n$t("category")),
             as.character(i18n$t("source_concept")),
             as.character(i18n$t("target_concept")),
             as.character(i18n$t("origin")),
+            as.character(i18n$t("mapped_by")),
             as.character(i18n$t("added")),
             as.character(i18n$t("status")),
             as.character(i18n$t("actions"))
@@ -8917,7 +9004,7 @@ Data distribution by hospital unit/ward.
       con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
       on.exit(DBI::dbDisconnect(con), add = TRUE)
 
-      # Get all mappings with evaluation status for current user and comment count
+      # Get all mappings with evaluation status for current user, mapped by user info, and comment count
       query <- "
         SELECT
           cm.mapping_id,
@@ -8929,6 +9016,8 @@ Data distribution by hospital unit/ward.
           cm.imported_mapping_id,
           cm.mapping_datetime,
           cm.mapped_by_user_id,
+          u.first_name as mapped_by_first_name,
+          u.last_name as mapped_by_last_name,
           me.is_approved,
           me.comment,
           COALESCE((SELECT COUNT(*) FROM mapping_comments mc WHERE mc.mapping_id = cm.mapping_id), 0) as comments_count
@@ -8936,6 +9025,8 @@ Data distribution by hospital unit/ward.
         LEFT JOIN mapping_evaluations me
           ON cm.mapping_id = me.mapping_id
           AND me.evaluator_user_id = ?
+        LEFT JOIN users u
+          ON cm.mapped_by_user_id = u.user_id
         WHERE cm.alignment_id = ?
       "
 
@@ -9088,6 +9179,15 @@ Data distribution by hospital unit/ward.
             sprintf('<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("manual")),
             sprintf('<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("imported"))
           ),
+          Mapped_By = dplyr::if_else(
+            is.na(mapped_by_first_name) & is.na(mapped_by_last_name),
+            "/",
+            paste0(
+              dplyr::if_else(is.na(mapped_by_first_name), "", mapped_by_first_name),
+              " ",
+              dplyr::if_else(is.na(mapped_by_last_name), "", mapped_by_last_name)
+            ) %>% trimws()
+          ),
           Added = dplyr::if_else(
             is.na(mapping_datetime) | mapping_datetime == "",
             "/",
@@ -9095,15 +9195,11 @@ Data distribution by hospital unit/ward.
           )
         ) %>%
         dplyr::select(
-          mapping_id,
-          row_id,
-          csv_file_path,
-          target_general_concept_id,
-          target_omop_concept_id,
           Category,
           Source,
           Target,
           Origin,
+          Mapped_By,
           Added,
           status,
           Actions

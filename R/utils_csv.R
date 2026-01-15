@@ -13,7 +13,6 @@ CSV_FILES <- c(
   "projects.csv",
   "general_concepts_projects.csv",
   "general_concepts_details.csv",
-  "general_concepts_details_statistics.csv",
   "custom_concepts.csv",
   "unit_conversions.csv",
   "general_concepts_history.csv",
@@ -228,12 +227,6 @@ load_csv_data <- function(language = NULL) {
     na.strings = c("", "NA")
   )
 
-  concept_statistics <- read.csv(
-    file.path(csv_dir, "general_concepts_details_statistics.csv"),
-    stringsAsFactors = FALSE,
-    na.strings = c("", "NA")
-  )
-
   custom_concepts <- read.csv(
     file.path(csv_dir, "custom_concepts.csv"),
     stringsAsFactors = FALSE,
@@ -251,7 +244,6 @@ load_csv_data <- function(language = NULL) {
     projects = projects,
     general_concept_projects = general_concept_projects,
     concept_mappings = concept_mappings,
-    concept_statistics = concept_statistics,
     custom_concepts = custom_concepts,
     unit_conversions = unit_conversions
   ))
@@ -397,24 +389,6 @@ save_custom_concepts_csv <- function(custom_concepts_data) {
   write.csv(
     custom_concepts_data,
     file.path(csv_dir, "custom_concepts.csv"),
-    row.names = FALSE,
-    quote = TRUE
-  )
-}
-
-#' Save Concept Statistics to CSV
-#'
-#' @description Save concept statistics data to CSV file
-#'
-#' @param concept_statistics_data Data frame with concept statistics
-#'
-#' @return NULL (side effect: saves file)
-#' @noRd
-save_concept_statistics_csv <- function(concept_statistics_data) {
-  csv_dir <- get_user_csv_dir()
-  write.csv(
-    concept_statistics_data,
-    file.path(csv_dir, "general_concepts_details_statistics.csv"),
     row.names = FALSE,
     quote = TRUE
   )

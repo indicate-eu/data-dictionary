@@ -255,12 +255,12 @@ validate_required_inputs <- function(input, fields) {
 #' Build Concept Details JSON
 #'
 #' @description Creates a JSON object with detailed information about a concept,
-#' including mapping details, vocabulary information, and statistics
+#' including mapping details and vocabulary information
 #'
 #' @param concept_mapping Data frame: Single row from concept_mappings table
 #' @param general_concept_info Data frame: Single row from general_concepts table
 #' @param concept_details Data frame: Single row from OMOP vocabularies concept table
-#' @param concept_stats Data frame: Single row from concept_statistics table
+#' @param concept_stats Data frame: Unused, kept for backward compatibility
 #'
 #' @return List: Structured data ready for JSON conversion
 #' @noRd
@@ -281,9 +281,6 @@ build_concept_details_json <- function(concept_mapping = NULL,
     json_data$domain_id <- if (!is.null(concept_details)) concept_details$domain_id else NA
     json_data$concept_code <- if (!is.null(concept_details)) concept_details$concept_code else info$concept_code
     json_data$omop_concept_id <- info$omop_concept_id
-    json_data$ehden_num_data_sources <- if (!is.null(concept_stats)) concept_stats$ehden_num_data_sources else NA
-    json_data$ehden_rows_count <- if (!is.null(concept_stats)) concept_stats$ehden_rows_count else NA
-    json_data$loinc_rank <- if (!is.null(concept_stats)) concept_stats$loinc_rank else NA
     json_data$validity <- if (!is.null(concept_details)) {
       if (is.na(concept_details$invalid_reason) || concept_details$invalid_reason == "") "Valid" else paste0("Invalid (", concept_details$invalid_reason, ")")
     } else NA
@@ -302,9 +299,6 @@ build_concept_details_json <- function(concept_mapping = NULL,
     json_data$domain_id <- concept_details$domain_id
     json_data$concept_code <- concept_details$concept_code
     json_data$omop_concept_id <- concept_details$concept_id
-    json_data$ehden_num_data_sources <- NA
-    json_data$ehden_rows_count <- NA
-    json_data$loinc_rank <- NA
     json_data$validity <- if (is.na(concept_details$invalid_reason) || concept_details$invalid_reason == "") "Valid" else paste0("Invalid (", concept_details$invalid_reason, ")")
     json_data$standard <- if (!is.na(concept_details$standard_concept) && concept_details$standard_concept == "S") "Standard" else "Non-standard"
     json_data$unit_concept_name <- NA

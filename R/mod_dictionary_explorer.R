@@ -3063,31 +3063,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       # Update mapping details from edited_mapping_details()
       # - omop_unit_concept_id is stored in general_concepts_details.csv (concept_mappings)
-      # - loinc_rank, ehden_rows_count, ehden_num_data_sources are stored in general_concepts_details_statistics.csv (concept_statistics)
       all_edits <- edited_mapping_details()
       if (length(all_edits) > 0) {
-        # Load concept_statistics for updating statistics fields
-        concept_statistics_path <- get_csv_path("general_concepts_details_statistics.csv")
-        concept_statistics <- if (file.exists(concept_statistics_path)) {
-          df <- readr::read_csv(concept_statistics_path, show_col_types = FALSE)
-          # Ensure correct column types for binding
-          df$omop_concept_id <- as.integer(df$omop_concept_id)
-          df$loinc_rank <- as.integer(df$loinc_rank)
-          df$ehden_rows_count <- as.integer(df$ehden_rows_count)
-          df$ehden_num_data_sources <- as.integer(df$ehden_num_data_sources)
-          df
-        } else {
-          data.frame(
-            omop_concept_id = integer(),
-            loinc_rank = integer(),
-            ehden_rows_count = integer(),
-            ehden_num_data_sources = integer(),
-            stringsAsFactors = FALSE
-          )
-        }
-
-        stats_changed <- FALSE
-
         # Iterate over all edited mappings
         for (mapped_id_str in names(all_edits)) {
           mapped_id <- as.integer(mapped_id_str)
@@ -3095,60 +3072,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
           # Track changes for history logging
           changes_made <- character(0)
-
-          # Find the row in concept_statistics to update (indexed by omop_concept_id only)
-          stats_row_idx <- which(concept_statistics$omop_concept_id == mapped_id)
-
-          # If no row exists for this concept, create one
-          if (length(stats_row_idx) == 0) {
-            new_stats_row <- data.frame(
-              omop_concept_id = as.integer(mapped_id),
-              loinc_rank = NA_integer_,
-              ehden_rows_count = NA_integer_,
-              ehden_num_data_sources = NA_integer_,
-              stringsAsFactors = FALSE
-            )
-            concept_statistics <- dplyr::bind_rows(concept_statistics, new_stats_row)
-            stats_row_idx <- nrow(concept_statistics)
-          } else {
-            stats_row_idx <- stats_row_idx[1]
-          }
-
-          # Update loinc_rank if provided
-          if (!is.null(edits$loinc_rank)) {
-            old_val <- concept_statistics$loinc_rank[stats_row_idx]
-            new_val <- if (is.na(edits$loinc_rank)) NA_integer_ else as.integer(edits$loinc_rank)
-            old_val_int <- if (is.na(old_val)) NA_integer_ else as.integer(old_val)
-            if (!identical(new_val, old_val_int)) {
-              concept_statistics$loinc_rank[stats_row_idx] <- new_val
-              changes_made <- c(changes_made, paste0("LOINC Rank: ", old_val_int, " -> ", new_val))
-              stats_changed <- TRUE
-            }
-          }
-
-          # Update ehden_rows_count if provided
-          if (!is.null(edits$ehden_rows_count)) {
-            old_val <- concept_statistics$ehden_rows_count[stats_row_idx]
-            new_val <- if (is.na(edits$ehden_rows_count)) NA_integer_ else as.integer(edits$ehden_rows_count)
-            old_val_int <- if (is.na(old_val)) NA_integer_ else as.integer(old_val)
-            if (!identical(new_val, old_val_int)) {
-              concept_statistics$ehden_rows_count[stats_row_idx] <- new_val
-              changes_made <- c(changes_made, paste0("EHDEN Rows Count: ", old_val_int, " -> ", new_val))
-              stats_changed <- TRUE
-            }
-          }
-
-          # Update ehden_num_data_sources if provided
-          if (!is.null(edits$ehden_num_data_sources)) {
-            old_val <- concept_statistics$ehden_num_data_sources[stats_row_idx]
-            new_val <- if (is.na(edits$ehden_num_data_sources)) NA_integer_ else as.integer(edits$ehden_num_data_sources)
-            old_val_int <- if (is.na(old_val)) NA_integer_ else as.integer(old_val)
-            if (!identical(new_val, old_val_int)) {
-              concept_statistics$ehden_num_data_sources[stats_row_idx] <- new_val
-              changes_made <- c(changes_made, paste0("EHDEN Data Sources: ", old_val_int, " -> ", new_val))
-              stats_changed <- TRUE
-            }
-          }
 
           # Update omop_unit_concept_id in concept_mappings (general_concepts_details.csv)
           if (!is.null(edits$omop_unit_concept_id)) {
@@ -3192,20 +3115,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               concept_name = if (!is.null(concept_info) && nrow(concept_info) > 0) as.character(concept_info$concept_name[1]) else NA,
               comment = paste0("Updated mapping details: ", paste(changes_made, collapse = "; "))
             )
-          }
-        }
-
-        # Save concept_statistics if any statistics fields changed
-        if (stats_changed) {
-          readr::write_csv(concept_statistics, concept_statistics_path)
-        }
-
-        # Update local_data with new concept_statistics
-        if (stats_changed) {
-          updated_local <- local_data()
-          if (!is.null(updated_local)) {
-            updated_local$concept_statistics <- concept_statistics
-            local_data(updated_local)
           }
         }
       }
@@ -3420,13 +3329,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         )
       }
 
-      # Update local data (preserve concept_statistics from earlier update or from current data)
-      current_local <- local_data()
+      # Update local data
       updated_data <- list(
         general_concepts = general_concepts,
         concept_mappings = concept_mappings,
-        custom_concepts = custom_concepts,
-        concept_statistics = if (!is.null(current_local$concept_statistics)) current_local$concept_statistics else current_data()$concept_statistics
+        custom_concepts = custom_concepts
       )
       local_data(updated_data)
       
@@ -4522,11 +4429,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         standard_color <- if (is_standard) "#28a745" else "#dc3545"
         standard_text <- if (is_standard) "Standard" else "Non-standard"
 
-        # Display full info for OHDSI-only concepts (with "/" for missing EHDEN/LOINC data)
+        # Display full info for OHDSI-only concepts
         return(tags$div(
           class = "concept-details-container",
-          style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(9, auto); grid-auto-flow: column; gap: 4px 15px;",
-          # Column 1 (9 items)
+          style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(8, auto); grid-auto-flow: column; gap: 4px 15px;",
+          # Column 1 (8 items): Vocabulary ID, Concept Name, Category, Subcategory, Domain ID, Concept Class ID, Validity, Standard
+          create_detail_item(i18n$t("vocabulary_id"), info$vocabulary_id, include_colon = FALSE),
           create_detail_item(i18n$t("concept_name"), info$concept_name, include_colon = FALSE),
           create_detail_item(i18n$t("category"),
                             ifelse(nrow(general_concept_info) > 0,
@@ -4536,16 +4444,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                             ifelse(nrow(general_concept_info) > 0,
                                   general_concept_info$subcategory[1], NA),
                             include_colon = FALSE),
-          create_detail_item(i18n$t("ehden_data_sources"), "/", include_colon = FALSE),
-          create_detail_item(i18n$t("ehden_rows_count"), "/", include_colon = FALSE),
-          create_detail_item(i18n$t("loinc_rank"), "/", include_colon = FALSE),
-          create_detail_item(i18n$t("validity"), validity_text, color = validity_color, include_colon = FALSE),
-          create_detail_item(i18n$t("standard"), standard_text, color = standard_color, include_colon = FALSE),
-          tags$div(class = "detail-item", style = "visibility: hidden;"),
-          # Column 2 (9 items)
-          create_detail_item(i18n$t("vocabulary_id"), info$vocabulary_id, include_colon = FALSE),
           create_detail_item(i18n$t("domain_id"), if (!is.na(info$domain_id)) info$domain_id else "/", include_colon = FALSE),
           create_detail_item(i18n$t("concept_class"), "/", include_colon = FALSE),
+          create_detail_item(i18n$t("validity"), validity_text, color = validity_color, include_colon = FALSE),
+          create_detail_item(i18n$t("standard"), standard_text, color = standard_color, include_colon = FALSE),
+          # Column 2 (8 items): Concept Code, OMOP Concept ID, FHIR Resource, Unit Concept Name, Unit Concept Code, Unit Concept ID, Unit FHIR Resource, Unit Conversions
           create_detail_item(i18n$t("concept_code"), info$concept_code, include_colon = FALSE),
           create_detail_item(i18n$t("omop_concept_id"), info$concept_id, url = athena_url, include_colon = FALSE),
           if (!is.null(fhir_url)) {
@@ -4571,11 +4474,21 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               )
             }
           } else {
-            tags$div(class = "detail-item", style = "visibility: hidden;")
+            tags$div(
+              class = "detail-item",
+              tags$strong(i18n$t("fhir_resource")),
+              tags$span(style = "color: #999; font-style: italic;", "No link available")
+            )
           },
           create_detail_item(i18n$t("unit_concept_name"), "/", include_colon = FALSE),
+          create_detail_item(i18n$t("unit_concept_code"), "/", include_colon = FALSE),
           create_detail_item(i18n$t("omop_unit_concept_id"), "/", include_colon = FALSE),
-          tags$div(class = "detail-item", style = "visibility: hidden;")
+          tags$div(
+            class = "detail-item",
+            tags$strong(i18n$t("unit_fhir_resource")),
+            tags$span(style = "color: #999; font-style: italic;", "No link available")
+          ),
+          create_detail_item(i18n$t("unit_conversions"), "/", include_colon = FALSE)
         ))
       }
 
@@ -4598,25 +4511,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         } else {
           validity_info <- NULL
         }
-      }
-
-      # Get statistics from concept_statistics
-      concept_stats_data <- current_data()$concept_statistics
-      if (!is.null(concept_stats_data)) {
-        concept_stats <- concept_stats_data %>%
-          dplyr::filter(omop_concept_id == !!omop_concept_id)
-      } else {
-        concept_stats <- data.frame()
-      }
-
-      if (nrow(concept_stats) > 0) {
-        info$ehden_num_data_sources <- concept_stats$ehden_num_data_sources[1]
-        info$ehden_rows_count <- concept_stats$ehden_rows_count[1]
-        info$loinc_rank <- concept_stats$loinc_rank[1]
-      } else {
-        info$ehden_num_data_sources <- NA
-        info$ehden_rows_count <- NA
-        info$loinc_rank <- NA
       }
 
       # Build URLs
@@ -4735,8 +4629,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       tags$div(
         class = "concept-details-container",
-        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(11, auto); grid-auto-flow: column; gap: 4px 15px;",
-        # Column 1 (11 items)
+        style = "display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(8, auto); grid-auto-flow: column; gap: 4px 15px;",
+        # Column 1 (8 items): Vocabulary ID, Concept Name, Category, Subcategory, Domain ID, Concept Class ID, Validity, Standard
+        create_detail_item(i18n$t("vocabulary_id"), info$vocabulary_id, include_colon = FALSE, is_editing = is_editing, ns = ns),
         create_detail_item(i18n$t("concept_name"), info$concept_name, include_colon = FALSE, is_editing = is_editing, ns = ns),
         create_detail_item(i18n$t("category"),
                           ifelse(nrow(general_concept_info) > 0,
@@ -4746,44 +4641,30 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                           ifelse(nrow(general_concept_info) > 0,
                                 general_concept_info$subcategory[1], NA),
                           include_colon = FALSE, is_editing = is_editing, ns = ns),
-        create_detail_item(i18n$t("ehden_data_sources"), info$ehden_num_data_sources, format_number = TRUE, editable = TRUE, input_id = "ehden_num_data_sources_input", step = 1, include_colon = FALSE, is_editing = is_editing, ns = ns),
-        create_detail_item(i18n$t("ehden_rows_count"), info$ehden_rows_count, format_number = TRUE, editable = TRUE, input_id = "ehden_rows_count_input", step = 1000, include_colon = FALSE, is_editing = is_editing, ns = ns),
-        create_detail_item(i18n$t("loinc_rank"), info$loinc_rank, editable = TRUE, input_id = "loinc_rank_input", step = 1, include_colon = FALSE, is_editing = is_editing, ns = ns),
-        create_detail_item(i18n$t("validity"), validity_text, color = validity_color, include_colon = FALSE, is_editing = is_editing, ns = ns),
-        create_detail_item(i18n$t("standard"), standard_text, color = standard_color, include_colon = FALSE, is_editing = is_editing, ns = ns),
-        tags$div(class = "detail-item", style = "visibility: hidden;"),
-        tags$div(class = "detail-item", style = "visibility: hidden;"),
-        tags$div(class = "detail-item", style = "visibility: hidden;"),
-        # Column 2 (11 items)
-        create_detail_item(i18n$t("vocabulary_id"), info$vocabulary_id, include_colon = FALSE, is_editing = is_editing, ns = ns),
         create_detail_item(i18n$t("domain_id"), if (!is.null(validity_info) && !is.na(validity_info$domain_id)) validity_info$domain_id else "/", include_colon = FALSE, is_editing = is_editing, ns = ns),
         create_detail_item(i18n$t("concept_class"), if (!is.null(validity_info) && !is.na(validity_info$concept_class_id)) validity_info$concept_class_id else "/", include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item(i18n$t("validity"), validity_text, color = validity_color, include_colon = FALSE, is_editing = is_editing, ns = ns),
+        create_detail_item(i18n$t("standard"), standard_text, color = standard_color, include_colon = FALSE, is_editing = is_editing, ns = ns),
+        # Column 2 (8 items): Concept Code, OMOP Concept ID, FHIR Resource, Unit Concept Name, Unit Concept Code, Unit Concept ID, Unit FHIR Resource, Unit Conversions
         create_detail_item(i18n$t("concept_code"), info$concept_code, include_colon = FALSE, is_editing = is_editing, ns = ns),
         create_detail_item(i18n$t("omop_concept_id"), info$omop_concept_id, url = athena_url, include_colon = FALSE, is_editing = is_editing, ns = ns),
-        if (!is.null(fhir_url)) {
-          if (fhir_url == "no_link") {
-            tags$div(
-              class = "detail-item",
-              tags$strong(i18n$t("fhir_resource")),
-              tags$span(
-                style = "color: #999; font-style: italic;",
-                "No link available"
-              )
+        if (!is.null(fhir_url) && fhir_url != "no_link") {
+          tags$div(
+            class = "detail-item",
+            tags$strong(i18n$t("fhir_resource")),
+            tags$a(
+              href = fhir_url,
+              target = "_blank",
+              style = "color: #0f60af; text-decoration: underline;",
+              i18n$t("view")
             )
-          } else {
-            tags$div(
-              class = "detail-item",
-              tags$strong(i18n$t("fhir_resource")),
-              tags$a(
-                href = fhir_url,
-                target = "_blank",
-                style = "color: #0f60af; text-decoration: underline;",
-                i18n$t("view")
-              )
-            )
-          }
+          )
         } else {
-          tags$div(class = "detail-item", style = "visibility: hidden;")
+          tags$div(
+            class = "detail-item",
+            tags$strong(i18n$t("fhir_resource")),
+            tags$span(style = "color: #999; font-style: italic;", "No link available")
+          )
         },
         create_detail_item(i18n$t("unit_concept_name"),
                           if (!is.null(unit_concept_name) && unit_concept_name != "") {
@@ -4819,7 +4700,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             )
           )
         } else {
-          tags$div(class = "detail-item", style = "visibility: hidden;")
+          tags$div(
+            class = "detail-item",
+            tags$strong(i18n$t("unit_fhir_resource")),
+            tags$span(style = "color: #999; font-style: italic;", "No link available")
+          )
         },
         create_detail_item(i18n$t("unit_conversions"),
                           if (!is.null(unit_conversions_text) && unit_conversions_text != "") {
@@ -4849,15 +4734,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           if (!is.null(edits$omop_unit_concept_id)) {
             updateNumericInput(session, "omop_unit_concept_id_input", value = edits$omop_unit_concept_id)
           }
-          if (!is.null(edits$loinc_rank)) {
-            updateNumericInput(session, "loinc_rank_input", value = edits$loinc_rank)
-          }
-          if (!is.null(edits$ehden_rows_count)) {
-            updateNumericInput(session, "ehden_rows_count_input", value = edits$ehden_rows_count)
-          }
-          if (!is.null(edits$ehden_num_data_sources)) {
-            updateNumericInput(session, "ehden_num_data_sources_input", value = edits$ehden_num_data_sources)
-          }
         })
       }
     }, ignoreInit = TRUE)
@@ -4873,42 +4749,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       key <- as.character(mapped_id)
       if (is.null(current_edits[[key]])) current_edits[[key]] <- list()
       current_edits[[key]]$omop_unit_concept_id <- input$omop_unit_concept_id_input
-      edited_mapping_details(current_edits)
-    }, ignoreInit = TRUE)
-
-    observe_event(input$loinc_rank_input, {
-      if (!general_concept_detail_edit_mode()) return()
-      mapped_id <- selected_mapped_concept_id()
-      if (is.null(mapped_id)) return()
-
-      current_edits <- edited_mapping_details()
-      key <- as.character(mapped_id)
-      if (is.null(current_edits[[key]])) current_edits[[key]] <- list()
-      current_edits[[key]]$loinc_rank <- input$loinc_rank_input
-      edited_mapping_details(current_edits)
-    }, ignoreInit = TRUE)
-
-    observe_event(input$ehden_rows_count_input, {
-      if (!general_concept_detail_edit_mode()) return()
-      mapped_id <- selected_mapped_concept_id()
-      if (is.null(mapped_id)) return()
-
-      current_edits <- edited_mapping_details()
-      key <- as.character(mapped_id)
-      if (is.null(current_edits[[key]])) current_edits[[key]] <- list()
-      current_edits[[key]]$ehden_rows_count <- input$ehden_rows_count_input
-      edited_mapping_details(current_edits)
-    }, ignoreInit = TRUE)
-
-    observe_event(input$ehden_num_data_sources_input, {
-      if (!general_concept_detail_edit_mode()) return()
-      mapped_id <- selected_mapped_concept_id()
-      if (is.null(mapped_id)) return()
-
-      current_edits <- edited_mapping_details()
-      key <- as.character(mapped_id)
-      if (is.null(current_edits[[key]])) current_edits[[key]] <- list()
-      current_edits[[key]]$ehden_num_data_sources <- input$ehden_num_data_sources_input
       edited_mapping_details(current_edits)
     }, ignoreInit = TRUE)
 
@@ -4928,9 +4768,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       all_mappings <- current_data()$concept_mappings %>%
         dplyr::filter(general_concept_id == concept_id)
 
-      # Get vocabularies and statistics
+      # Get vocabularies
       vocab_data <- vocabularies()
-      concept_stats_data <- current_data()$concept_statistics
 
       # Build array of mapped concepts
       mapped_concepts <- list()
@@ -4952,24 +4791,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             }
           }
 
-          # Get statistics
-          concept_stats <- NULL
-          if (!is.null(concept_stats_data)) {
-            concept_stats <- concept_stats_data %>%
-              dplyr::filter(omop_concept_id == mapping$omop_concept_id)
-            if (nrow(concept_stats) > 0) {
-              concept_stats <- concept_stats[1, ]
-            } else {
-              concept_stats <- NULL
-            }
-          }
-
           # Build JSON for this concept using helper function
           concept_json <- build_concept_details_json(
             concept_mapping = mapping,
             general_concept_info = general_concept_info,
             concept_details = concept_details,
-            concept_stats = concept_stats
+            concept_stats = NULL
           )
 
           if (length(concept_json) > 0) {
@@ -6675,32 +6502,24 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         create_detail_item(i18n$t("domain_id"), info$domain_id, include_colon = FALSE),
         create_detail_item(i18n$t("concept_code"), info$concept_code, include_colon = FALSE),
         create_detail_item(i18n$t("omop_concept_id"), info$concept_id, url = athena_url, include_colon = FALSE),
-        if (!is.null(fhir_url)) {
-          if (fhir_url == "no_link") {
-            tags$div(
-              class = "detail-item",
-              tags$strong(i18n$t("fhir_resource")),
-              tags$span(
-                style = "color: #999; font-style: italic;",
-                "No link available"
-              )
+        if (!is.null(fhir_url) && fhir_url != "no_link") {
+          tags$div(
+            class = "detail-item",
+            tags$strong(i18n$t("fhir_resource")),
+            tags$a(
+              href = fhir_url,
+              target = "_blank",
+              style = "color: #0f60af; text-decoration: underline;",
+              i18n$t("view")
             )
-          } else {
-            tags$div(
-              class = "detail-item",
-              tags$strong(i18n$t("fhir_resource")),
-              tags$a(
-                href = fhir_url,
-                target = "_blank",
-                style = "color: #0f60af; text-decoration: underline;",
-                i18n$t("view")
-              )
-            )
-          }
+          )
         } else {
-          tags$div(class = "detail-item", style = "visibility: hidden;")
-        },
-          tags$div(class = "detail-item", style = "visibility: hidden;")
+          tags$div(
+            class = "detail-item",
+            tags$strong(i18n$t("fhir_resource")),
+            tags$span(style = "color: #999; font-style: italic;", "No link available")
+          )
+        }
         )
         })
     })

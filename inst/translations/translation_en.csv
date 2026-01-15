@@ -226,7 +226,6 @@ unit_concept_name,Unit Concept Name
 unit_concept_code,Unit Concept Code
 fhir_resource,FHIR Resource
 unit_fhir_resource,Unit FHIR Resource
-unit_conversions,Unit Conversions
 add_alignment,Add Alignment
 no_alignments_yet,No alignments yet. Click 'Add Alignment' to create one.
 alignment_name,Alignment Name
@@ -467,7 +466,7 @@ sort_rate_asc,Rate (lowest first)
 sort_alpha_asc,Alphabetical (A-Z)
 sort_alpha_desc,Alphabetical (Z-A)
 indicate_concepts,INDICATE Concepts
-indicate_concepts_desc,"Export or import the INDICATE data dictionary (general concepts, mappings, projects, statistics)."
+indicate_concepts_desc,"Export or import the INDICATE data dictionary."
 download_dictionary,Download Dictionary
 download_dictionary_zip,Download dictionary (ZIP)
 download_dictionary_desc,"Downloads all data dictionary files as a ZIP archive (CSV files, history, statistics)."
@@ -480,4 +479,37 @@ save_global_comment,Save Global Comment
 global_comment_saved,Global comment saved successfully.
 view_global_comment,Global Comment
 back_to_concept_comment,Back to Concept Comment
-no_global_comment,No global comment has been defined yet. You can add one in General Settings > Global Comment.
+no_global_comment,No global comment has been defined yet. You can add one in Dictionary Settings > Global Comment.
+dictionary_settings,Dictionary Settings
+data_dictionary,Data Dictionary
+mapped_by,Mapped By
+delete_selected,Delete Selected
+delete_mappings_confirm,Are you sure you want to delete %d mapping(s)? This action cannot be undone.
+unit_conversions,Unit Conversions
+unit_conversions_desc,Manage unit conversions between measurement concepts. Double-click on the conversion factor to edit it.
+no_unit_conversions,No unit conversions defined.
+concept_id_1,Concept ID 1
+concept_name_1,Concept Name 1
+unit_1,Unit 1
+conversion_factor,Factor
+concept_id_2,Concept ID 2
+concept_name_2,Concept Name 2
+unit_2,Unit 2
+invalid_conversion_factor,Invalid conversion factor. Must be a positive number.
+conversion_factor_updated,Conversion factor updated successfully.
+conversion_deleted,Conversion deleted successfully.
+add_conversion,Add Conversion
+test_conversion,Test Conversion
+test,Test
+unit_concept_id_1,Unit Concept ID 1
+unit_concept_id_2,Unit Concept ID 2
+add_as,Add as
+select_concept_first,Please select a concept from the table first.
+no_vocabularies_loaded,No vocabularies loaded. Please load OHDSI vocabularies first.
+concept_not_found,Concept not found
+conversion_added,Conversion added successfully.
+columns,Columns
+confirm_delete_conversion,Are you sure you want to delete this unit conversion?
+concept_id,Concept ID
+add,Add
+loading_vocabularies,Loading OMOP vocabularies...
