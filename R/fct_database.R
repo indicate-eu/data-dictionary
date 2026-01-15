@@ -153,6 +153,7 @@ init_database <- function(con) {
         target_omop_concept_id INTEGER,
         target_custom_concept_id INTEGER,
         mapped_by_user_id INTEGER,
+        imported_user_name TEXT,
         mapping_datetime TEXT,
         imported_mapping_id INTEGER,
         FOREIGN KEY (alignment_id) REFERENCES concept_alignments(alignment_id),

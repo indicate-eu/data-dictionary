@@ -41,7 +41,12 @@ get_app_dir <- function(subdir = NULL, create = TRUE) {
     base_dir <- rappdirs::user_config_dir("indicate")
   } else {
     # Use custom application folder
-    base_dir <- file.path(app_folder, "indicate_files")
+    # Avoid creating indicate_files/ inside indicate_files/ if path already ends with it
+    if (basename(app_folder) == "indicate_files") {
+      base_dir <- app_folder
+    } else {
+      base_dir <- file.path(app_folder, "indicate_files")
+    }
   }
 
   # Append subdirectory if specified

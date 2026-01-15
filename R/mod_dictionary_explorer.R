@@ -4268,25 +4268,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       include_descendants_val <- isTRUE(input$add_custom_include_descendants)
       include_mapped_val <- isTRUE(input$add_custom_include_mapped)
 
-      # Get existing custom concepts to determine next ID
+      # Get existing custom concepts and pending additions
       existing_custom <- local_data()$custom_concepts
       current_added_custom <- added_custom_concepts()
 
-      # Calculate max ID from both saved and pending custom concepts
-      max_saved_id <- if (!is.null(existing_custom) && nrow(existing_custom) > 0 && "custom_concept_id" %in% names(existing_custom)) {
-        max(as.integer(existing_custom$custom_concept_id), na.rm = TRUE)
-      } else {
-        0L
-      }
-
-      max_pending_id <- if (length(current_added_custom) > 0) {
-        max(sapply(current_added_custom, function(x) as.integer(x$custom_concept_id)), na.rm = TRUE)
-      } else {
-        0L
-      }
-
-      max_id <- max(max_saved_id, max_pending_id, na.rm = TRUE)
-      new_id <- as.integer(if (is.finite(max_id)) max_id + 1L else 1L)
+      # Get next ID using the centralized function (prevents ID reuse)
+      new_id <- get_next_custom_concept_id(existing_custom)
 
       # Create new custom concept data frame
       new_custom_concept <- data.frame(

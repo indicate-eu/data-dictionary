@@ -541,6 +541,7 @@ mod_dictionary_settings_ui <- function(id, i18n) {
 #' @param config Application configuration
 #' @param current_user Reactive containing current user data
 #' @param vocabularies Reactive containing OHDSI vocabularies data
+#' @param vocab_loading_status Reactive containing vocabulary loading status
 #' @param i18n Translator object for internationalization
 #' @param log_level Log level for debugging
 #'
@@ -548,7 +549,7 @@ mod_dictionary_settings_ui <- function(id, i18n) {
 #' @noRd
 #'
 #' @importFrom shiny moduleServer reactive observeEvent renderUI req downloadHandler
-mod_dictionary_settings_server <- function(id, config, current_user, vocabularies = NULL, i18n = NULL, log_level = character()) {
+mod_dictionary_settings_server <- function(id, config, current_user, vocabularies = NULL, vocab_loading_status = NULL, i18n = NULL, log_level = character()) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -560,6 +561,16 @@ mod_dictionary_settings_server <- function(id, config, current_user, vocabularie
     ### Unit Conversions State ----
     unit_conversions_data <- reactiveVal(NULL)
     unit_conversions_trigger <- reactiveVal(0)
+
+    ### OMOP Search State ----
+    omop_table_trigger <- reactiveVal(0)
+
+    # Trigger OMOP table rendering when vocabularies load
+    observe_event(vocab_loading_status(), {
+      if (!is.null(vocab_loading_status) && vocab_loading_status() == "loaded") {
+        omop_table_trigger(omop_table_trigger() + 1)
+      }
+    }, ignoreInit = FALSE)
 
     ## 2) Server - Data Dictionary ----
 
@@ -1134,9 +1145,6 @@ mod_dictionary_settings_server <- function(id, config, current_user, vocabularie
 
     ### Add Conversion Modal ----
 
-    # Trigger for OMOP search table refresh
-    omop_search_trigger <- reactiveVal(0)
-
     # Store OMOP search data for row selection
     omop_search_data <- reactiveVal(NULL)
 
@@ -1161,35 +1169,21 @@ mod_dictionary_settings_server <- function(id, config, current_user, vocabularie
       # Hide conversion preview
       shinyjs::runjs(sprintf("$('#%s').hide();", ns("conversion_preview")))
 
+      # Show modal first
       shinyjs::runjs(sprintf("$('#%s').css('display', 'flex');", ns("add_conversion_modal")))
 
-      # Trigger table refresh after modal is visible
-      omop_search_trigger(omop_search_trigger() + 1)
+      # Trigger OMOP table rendering after modal is visible (with delay for DOM update)
+      shinyjs::delay(500, {
+        omop_table_trigger(omop_table_trigger() + 1)
+      })
     })
 
-    # OMOP Search DataTable for Add Modal - only loads data when trigger > 0
-    output$omop_search_table <- DT::renderDT({
-      # Wait for modal to open (trigger > 0)
-      trigger_val <- omop_search_trigger()
-      if (trigger_val == 0) {
-        omop_search_data(NULL)
-        return(NULL)
-      }
-
+    # Load all OMOP concepts for modal search
+    modal_concepts_all <- reactive({
       vocab_data <- if (!is.null(vocabularies)) vocabularies() else NULL
+      if (is.null(vocab_data)) return(NULL)
 
-      # Show loading message if vocabularies not loaded
-      if (is.null(vocab_data)) {
-        omop_search_data(NULL)
-        return(DT::datatable(
-          data.frame(Message = i18n$t("loading_vocabularies")),
-          options = list(dom = 't', ordering = FALSE),
-          rownames = FALSE,
-          selection = 'single'
-        ))
-      }
-
-      data <- vocab_data$concept %>%
+      vocab_data$concept %>%
         dplyr::filter(is.na(invalid_reason)) %>%
         dplyr::select(
           concept_id,
@@ -1201,26 +1195,46 @@ mod_dictionary_settings_server <- function(id, config, current_user, vocabularie
           standard_concept
         ) %>%
         dplyr::collect()
+    })
 
-      # Show message if no concepts found
-      if (nrow(data) == 0) {
+    # Prepared data for OMOP search table
+    omop_table_data <- reactiveVal(NULL)
+
+    # Update OMOP table data when trigger fires
+    observe_event(omop_table_trigger(), {
+      concepts <- modal_concepts_all()
+
+      if (is.null(concepts) || nrow(concepts) == 0) {
+        omop_table_data(NULL)
         omop_search_data(NULL)
+        return()
+      }
+
+      # Convert for better filtering
+      display_concepts <- concepts
+      display_concepts$concept_id <- as.character(display_concepts$concept_id)
+      display_concepts$vocabulary_id <- as.factor(display_concepts$vocabulary_id)
+      display_concepts$domain_id <- as.factor(display_concepts$domain_id)
+      display_concepts$concept_class_id <- as.factor(display_concepts$concept_class_id)
+
+      # Store data for row selection
+      omop_search_data(display_concepts)
+      omop_table_data(display_concepts)
+    }, ignoreInit = FALSE)
+
+    # OMOP Search DataTable for Add Modal
+    output$omop_search_table <- DT::renderDT({
+      data <- omop_table_data()
+
+      # Show loading message if data not ready
+      if (is.null(data)) {
         return(DT::datatable(
-          data.frame(Message = i18n$t("no_vocabularies_loaded")),
+          data.frame(Message = i18n$t("loading_vocabularies")),
           options = list(dom = 't', ordering = FALSE),
           rownames = FALSE,
           selection = 'single'
         ))
       }
-
-      # Convert for better filtering
-      data$concept_id <- as.character(data$concept_id)
-      data$vocabulary_id <- as.factor(data$vocabulary_id)
-      data$domain_id <- as.factor(data$domain_id)
-      data$concept_class_id <- as.factor(data$concept_class_id)
-
-      # Store data for row selection
-      omop_search_data(data)
 
       DT::datatable(
         data,
@@ -1256,7 +1270,7 @@ mod_dictionary_settings_server <- function(id, config, current_user, vocabularie
           "S"
         )
       )
-    }, server = FALSE)
+    }, server = TRUE)
 
     # Handle "Add as" dropdown selection
     observe_event(input$add_as_selection, {

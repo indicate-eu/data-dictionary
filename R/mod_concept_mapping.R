@@ -2109,6 +2109,29 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         unresolved_users <- list()  # Track users not found
         mapping_id_map <- list()  # Maps old mapping_id to new database mapping_id
 
+        # Helper function to resolve user by first_name + last_name
+        # Returns list(user_id, found, imported_user_name)
+        # Always stores imported_user_name as backup (even when user_id is found)
+        resolve_user <- function(row, con) {
+          if ("user_first_name" %in% colnames(row) && "user_last_name" %in% colnames(row) &&
+              !is.na(row$user_first_name) && !is.na(row$user_last_name) &&
+              row$user_first_name != "" && row$user_last_name != "") {
+            original_name <- paste(row$user_first_name, row$user_last_name)
+            found <- DBI::dbGetQuery(
+              con,
+              "SELECT user_id FROM users WHERE first_name = ? AND last_name = ?",
+              params = list(row$user_first_name, row$user_last_name)
+            )
+            if (nrow(found) > 0) {
+              # Store both user_id AND imported_user_name as backup
+              return(list(user_id = found$user_id[1], found = TRUE, imported_user_name = original_name))
+            } else {
+              return(list(user_id = NA_integer_, found = FALSE, imported_user_name = original_name))
+            }
+          }
+          return(list(user_id = NA_integer_, found = FALSE, imported_user_name = NA_character_))
+        }
+
         # Build lookup index for source_concepts by vocabulary_id + concept_code
         source_lookup <- list()
         has_vocab_code <- "vocabulary_id" %in% colnames(source_concepts) && "concept_code" %in% colnames(source_concepts)
@@ -2156,14 +2179,29 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               NA_integer_
             }
 
+            # Get target_custom_concept_id if available (keep original ID, it references local custom_concepts.csv)
+            target_custom_id <- if ("target_custom_concept_id" %in% colnames(row) && !is.na(row$target_custom_concept_id)) {
+              as.integer(row$target_custom_concept_id)
+            } else {
+              NA_integer_
+            }
+
+            # Resolve mapping user from exported first_name/last_name
+            resolved <- resolve_user(row, con)
+            if (!resolved$found && !is.na(resolved$imported_user_name)) {
+              unresolved_users[[resolved$imported_user_name]] <- TRUE
+            }
+
             DBI::dbExecute(
               con,
               "INSERT INTO concept_mappings (alignment_id, csv_file_path, row_id,
-                                             target_general_concept_id, target_omop_concept_id, mapping_datetime)
-               VALUES (?, ?, ?, ?, ?, ?)",
+                                             target_general_concept_id, target_omop_concept_id, target_custom_concept_id,
+                                             mapping_datetime, mapped_by_user_id, imported_user_name)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
               params = list(
                 new_alignment_id, csv_filename, new_source_index,
-                target_general_id, row$target_omop_concept_id, timestamp
+                target_general_id, row$target_omop_concept_id, target_custom_id,
+                timestamp, resolved$user_id, resolved$imported_user_name
               )
             )
 
@@ -2171,28 +2209,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             mapping_id_map[[as.character(old_mapping_id)]] <- new_mapping_id
             imported_mappings <- imported_mappings + 1
           }
-        }
-
-        # Helper function to resolve user by first_name + last_name
-        # Returns list(user_id, found, imported_user_name)
-        # If user not found, user_id is NA and imported_user_name contains the original name
-        resolve_user <- function(row, con) {
-          if ("user_first_name" %in% colnames(row) && "user_last_name" %in% colnames(row) &&
-              !is.na(row$user_first_name) && !is.na(row$user_last_name) &&
-              row$user_first_name != "" && row$user_last_name != "") {
-            original_name <- paste(row$user_first_name, row$user_last_name)
-            found <- DBI::dbGetQuery(
-              con,
-              "SELECT user_id FROM users WHERE first_name = ? AND last_name = ?",
-              params = list(row$user_first_name, row$user_last_name)
-            )
-            if (nrow(found) > 0) {
-              return(list(user_id = found$user_id[1], found = TRUE, imported_user_name = NA_character_))
-            } else {
-              return(list(user_id = NA_integer_, found = FALSE, imported_user_name = original_name))
-            }
-          }
-          return(list(user_id = NA_integer_, found = FALSE, imported_user_name = NA_character_))
         }
 
         # Import evaluations
@@ -4968,7 +4984,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
       on.exit(DBI::dbDisconnect(con), add = TRUE)
 
-      # Get all mappings for this alignment from database
+      # Get all mappings for this alignment from database with user info
       mappings_db <- DBI::dbGetQuery(
         con,
         "SELECT
@@ -4978,8 +4994,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           cm.target_general_concept_id,
           cm.target_omop_concept_id,
           cm.target_custom_concept_id,
-          cm.imported_mapping_id
+          cm.imported_mapping_id,
+          cm.mapping_datetime,
+          cm.mapped_by_user_id,
+          cm.imported_user_name,
+          u.first_name as mapped_by_first_name,
+          u.last_name as mapped_by_last_name
         FROM concept_mappings cm
+        LEFT JOIN users u ON cm.mapped_by_user_id = u.user_id
         WHERE cm.alignment_id = ?",
         params = list(selected_alignment_id())
       )
@@ -5156,11 +5178,26 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             sprintf('<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("manual")),
             sprintf('<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("imported"))
           ),
+          Mapped_By = dplyr::case_when(
+            !is.na(mapped_by_first_name) | !is.na(mapped_by_last_name) ~
+              trimws(paste0(
+                dplyr::if_else(is.na(mapped_by_first_name), "", mapped_by_first_name),
+                " ",
+                dplyr::if_else(is.na(mapped_by_last_name), "", mapped_by_last_name)
+              )),
+            !is.na(imported_user_name) ~ imported_user_name,
+            TRUE ~ "/"
+          ),
+          Added = dplyr::if_else(
+            is.na(mapping_datetime) | mapping_datetime == "",
+            "/",
+            mapping_datetime
+          ),
           Upvotes = ifelse(is.na(upvotes), 0L, as.integer(upvotes)),
           Downvotes = ifelse(is.na(downvotes), 0L, as.integer(downvotes)),
           Uncertain = ifelse(is.na(uncertain_votes), 0L, as.integer(uncertain_votes))
         ) %>%
-        dplyr::select(mapping_id, Category, Source, Target, Origin, Upvotes, Downvotes, Uncertain)
+        dplyr::select(mapping_id, Category, Source, Target, Origin, Mapped_By, Added, Upvotes, Downvotes, Uncertain)
 
       # Store display_df for selection handling
       all_mappings_display_data(display_df)
@@ -5182,9 +5219,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               list(targets = 0, visible = FALSE),
               list(targets = 1, width = "10%"),
               list(targets = 4, width = "80px", className = "dt-center"),
-              list(targets = 5, width = "60px", className = "dt-center"),
-              list(targets = 6, width = "60px", className = "dt-center"),
-              list(targets = 7, width = "60px", className = "dt-center")
+              list(targets = 5, width = "12%"),
+              list(targets = 6, width = "10%"),
+              list(targets = 7, width = "60px", className = "dt-center"),
+              list(targets = 8, width = "60px", className = "dt-center"),
+              list(targets = 9, width = "60px", className = "dt-center")
             )
           ),
           rownames = FALSE,
@@ -5195,6 +5234,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             as.character(i18n$t("source_concept")),
             as.character(i18n$t("target_concept")),
             as.character(i18n$t("origin")),
+            as.character(i18n$t("mapped_by")),
+            as.character(i18n$t("added")),
             as.character(i18n$t("upvotes")),
             as.character(i18n$t("downvotes")),
             as.character(i18n$t("uncertain"))
@@ -5219,7 +5260,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
       on.exit(DBI::dbDisconnect(con), add = TRUE)
 
-      # Get all mappings for this alignment from database
+      # Get all mappings for this alignment from database with user info
       mappings_db <- DBI::dbGetQuery(
         con,
         "SELECT
@@ -5229,8 +5270,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           cm.target_general_concept_id,
           cm.target_omop_concept_id,
           cm.target_custom_concept_id,
-          cm.imported_mapping_id
+          cm.imported_mapping_id,
+          cm.mapping_datetime,
+          cm.mapped_by_user_id,
+          cm.imported_user_name,
+          u.first_name as mapped_by_first_name,
+          u.last_name as mapped_by_last_name
         FROM concept_mappings cm
+        LEFT JOIN users u ON cm.mapped_by_user_id = u.user_id
         WHERE cm.alignment_id = ?",
         params = list(selected_alignment_id())
       )
@@ -5382,11 +5429,26 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             sprintf('<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("manual")),
             sprintf('<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("imported"))
           ),
+          Mapped_By = dplyr::case_when(
+            !is.na(mapped_by_first_name) | !is.na(mapped_by_last_name) ~
+              trimws(paste0(
+                dplyr::if_else(is.na(mapped_by_first_name), "", mapped_by_first_name),
+                " ",
+                dplyr::if_else(is.na(mapped_by_last_name), "", mapped_by_last_name)
+              )),
+            !is.na(imported_user_name) ~ imported_user_name,
+            TRUE ~ "/"
+          ),
+          Added = dplyr::if_else(
+            is.na(mapping_datetime) | mapping_datetime == "",
+            "/",
+            mapping_datetime
+          ),
           Upvotes = ifelse(is.na(upvotes), 0L, as.integer(upvotes)),
           Downvotes = ifelse(is.na(downvotes), 0L, as.integer(downvotes)),
           Uncertain = ifelse(is.na(uncertain_votes), 0L, as.integer(uncertain_votes))
         ) %>%
-        dplyr::select(mapping_id, Category, Source, Target, Origin, Upvotes, Downvotes, Uncertain)
+        dplyr::select(mapping_id, Category, Source, Target, Origin, Mapped_By, Added, Upvotes, Downvotes, Uncertain)
 
       # Update stored display data for selection handling
       all_mappings_display_data(display_df)
@@ -5877,7 +5939,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           )
         )
 
-      standard_cols <- c("vocabulary_id", "concept_code", "concept_name", "statistical_summary")
+      standard_cols <- c("vocabulary_id", "category", "concept_code", "concept_name", "statistical_summary")
       available_standard <- standard_cols[standard_cols %in% colnames(df)]
       target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime", "mapped_by_user_id", "row_id")
       other_cols <- setdiff(colnames(df), c(standard_cols, target_cols, "Mapped"))
@@ -6006,7 +6068,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           )
         )
 
-      standard_cols <- c("vocabulary_id", "concept_code", "concept_name", "statistical_summary")
+      standard_cols <- c("vocabulary_id", "category", "concept_code", "concept_name", "statistical_summary")
       available_standard <- standard_cols[standard_cols %in% colnames(df)]
       target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime", "mapped_by_user_id", "row_id")
       other_cols <- setdiff(colnames(df), c(standard_cols, target_cols, "Mapped"))
@@ -6175,13 +6237,13 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       # Select columns for view mode display (without toggle columns since they're resolved)
       mappings_display <- mappings_display %>%
-        dplyr::select(omop_concept_id, concept_name, vocabulary_id, domain_id, concept_code, standard_concept_display)
+        dplyr::select(vocabulary_id, omop_concept_id, concept_code, concept_name, domain_id, standard_concept_display)
 
       # Get column configuration for view mode
       col_config <- get_concept_set_column_config(editable = FALSE)
 
       # Render table with prepared data
-      # Columns: omop_concept_id, concept_name, vocabulary_id, domain_id, concept_code, standard_concept_display
+      # Columns: vocabulary_id, omop_concept_id, concept_code, concept_name, domain_id, standard_concept_display
       output$concept_mappings_table <- DT::renderDT({
         dt <- datatable(
           mappings_display,
@@ -6198,8 +6260,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               )
             ),
             columnDefs = list(
-              list(targets = 0, visible = FALSE),  # Hide OMOP Concept ID
-              list(targets = 3, visible = FALSE),  # Hide Domain
+              list(targets = 4, visible = FALSE),  # Hide Domain
               list(targets = 5, width = "90px", className = "dt-center")  # Standard column
             )
           ),
@@ -6207,7 +6268,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           escape = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE),  # 6 columns, standard_concept_display is HTML
           selection = "single",
           filter = "top",
-          colnames = c("OMOP Concept ID", "Concept Name", "Vocabulary", "Domain", "Code", "Standard")
+          colnames = c("Vocabulary", "OMOP Concept ID", "Code", "Concept Name", "Domain", "Standard")
         )
 
         dt
@@ -8713,6 +8774,7 @@ Data distribution by hospital unit/ward.
           cm.imported_mapping_id,
           cm.mapping_datetime,
           cm.mapped_by_user_id,
+          cm.imported_user_name,
           u.first_name as mapped_by_first_name,
           u.last_name as mapped_by_last_name,
           me.is_approved,
@@ -8833,8 +8895,12 @@ Data distribution by hospital unit/ward.
         enriched_data <- enriched_data %>%
           dplyr::mutate(row_index = dplyr::row_number())
 
-        # Store current user ID for comparison
+        # Store current user info for comparison
         current_user_id <- current_user()$user_id
+        current_user_fullname <- trimws(paste(
+          current_user()$first_name %||% "",
+          current_user()$last_name %||% ""
+        ))
 
         # Create action buttons HTML (or message if user created the mapping)
         enriched_data <- enriched_data %>%
@@ -8845,7 +8911,9 @@ Data distribution by hospital unit/ward.
             } else {
               ""
             },
-            Actions = if (!is.na(mapped_by_user_id) && mapped_by_user_id == current_user_id) {
+            is_own_mapping = (!is.na(mapped_by_user_id) && mapped_by_user_id == current_user_id) ||
+              (!is.na(imported_user_name) && current_user_fullname != "" && imported_user_name == current_user_fullname),
+            Actions = if (is_own_mapping) {
               # User can't evaluate own mappings, but can still view/add comments
               sprintf(
                 '<div style="display: flex; gap: 5px; justify-content: center; align-items: center;">
@@ -8903,14 +8971,15 @@ Data distribution by hospital unit/ward.
               sprintf('<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("manual")),
               sprintf('<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("imported"))
             ),
-            Mapped_By = dplyr::if_else(
-              is.na(mapped_by_first_name) & is.na(mapped_by_last_name),
-              "/",
-              paste0(
-                dplyr::if_else(is.na(mapped_by_first_name), "", mapped_by_first_name),
-                " ",
-                dplyr::if_else(is.na(mapped_by_last_name), "", mapped_by_last_name)
-              ) %>% trimws()
+            Mapped_By = dplyr::case_when(
+              !is.na(mapped_by_first_name) | !is.na(mapped_by_last_name) ~
+                trimws(paste0(
+                  dplyr::if_else(is.na(mapped_by_first_name), "", mapped_by_first_name),
+                  " ",
+                  dplyr::if_else(is.na(mapped_by_last_name), "", mapped_by_last_name)
+                )),
+              !is.na(imported_user_name) ~ imported_user_name,
+              TRUE ~ "/"
             ),
             Added = dplyr::if_else(
               is.na(mapping_datetime) | mapping_datetime == "",
@@ -9016,6 +9085,7 @@ Data distribution by hospital unit/ward.
           cm.imported_mapping_id,
           cm.mapping_datetime,
           cm.mapped_by_user_id,
+          cm.imported_user_name,
           u.first_name as mapped_by_first_name,
           u.last_name as mapped_by_last_name,
           me.is_approved,
@@ -9109,8 +9179,12 @@ Data distribution by hospital unit/ward.
       enriched_data <- enriched_data %>%
         dplyr::mutate(row_index = dplyr::row_number())
 
-      # Store current user ID for comparison
+      # Store current user info for comparison
       current_user_id <- current_user()$user_id
+      current_user_fullname <- trimws(paste(
+        current_user()$first_name %||% "",
+        current_user()$last_name %||% ""
+      ))
 
       # Create action buttons HTML (matching initial render logic)
       enriched_data <- enriched_data %>%
@@ -9121,7 +9195,9 @@ Data distribution by hospital unit/ward.
           } else {
             ""
           },
-          Actions = if (!is.na(mapped_by_user_id) && mapped_by_user_id == current_user_id) {
+          is_own_mapping = (!is.na(mapped_by_user_id) && mapped_by_user_id == current_user_id) ||
+            (!is.na(imported_user_name) && current_user_fullname != "" && imported_user_name == current_user_fullname),
+          Actions = if (is_own_mapping) {
             # User can't evaluate own mappings, but can still view/add comments
             sprintf(
               '<div style="display: flex; gap: 5px; justify-content: center; align-items: center;">
@@ -9179,14 +9255,15 @@ Data distribution by hospital unit/ward.
             sprintf('<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("manual")),
             sprintf('<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("imported"))
           ),
-          Mapped_By = dplyr::if_else(
-            is.na(mapped_by_first_name) & is.na(mapped_by_last_name),
-            "/",
-            paste0(
-              dplyr::if_else(is.na(mapped_by_first_name), "", mapped_by_first_name),
-              " ",
-              dplyr::if_else(is.na(mapped_by_last_name), "", mapped_by_last_name)
-            ) %>% trimws()
+          Mapped_By = dplyr::case_when(
+            !is.na(mapped_by_first_name) | !is.na(mapped_by_last_name) ~
+              trimws(paste0(
+                dplyr::if_else(is.na(mapped_by_first_name), "", mapped_by_first_name),
+                " ",
+                dplyr::if_else(is.na(mapped_by_last_name), "", mapped_by_last_name)
+              )),
+            !is.na(imported_user_name) ~ imported_user_name,
+            TRUE ~ "/"
           ),
           Added = dplyr::if_else(
             is.na(mapping_datetime) | mapping_datetime == "",

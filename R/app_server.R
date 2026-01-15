@@ -192,6 +192,7 @@ app_server <- function(input, output, session) {
           config = config,
           current_user = current_user,
           vocabularies = vocabularies,
+          vocab_loading_status = reactive({ vocab_loading_status() }),
           i18n = i18n,
           log_level = log_level
         )

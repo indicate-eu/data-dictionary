@@ -333,7 +333,13 @@ duckdb_exists <- function() {
 #' @noRd
 get_duckdb_path <- function() {
   app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = path.expand("~"))
-  indicate_files_folder <- file.path(app_folder, "indicate_files")
+
+  # Avoid creating indicate_files/ inside indicate_files/
+  if (basename(app_folder) == "indicate_files") {
+    indicate_files_folder <- app_folder
+  } else {
+    indicate_files_folder <- file.path(app_folder, "indicate_files")
+  }
 
   # Create indicate_files folder if it doesn't exist
   if (!dir.exists(indicate_files_folder)) {

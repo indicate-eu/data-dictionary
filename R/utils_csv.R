@@ -18,6 +18,7 @@ CSV_FILES <- c(
   "general_concepts_history.csv",
   "general_concepts_details_history.csv",
   "general_concepts_last_id.txt",
+  "custom_concepts_last_id.txt",
   "global_comment.txt"
 )
 
@@ -176,8 +177,9 @@ load_csv_data <- function(language = NULL) {
   # Ensure user CSV files exist
   initialize_user_csv_files()
 
-  # Ensure last ID tracking file exists
+  # Ensure last ID tracking files exist
   initialize_last_id_file()
+  initialize_custom_concepts_last_id_file()
 
   csv_dir <- get_user_csv_dir()
 
@@ -472,6 +474,73 @@ initialize_last_id_file <- function() {
           if (!is.na(file_max) && file_max > max_id) {
             max_id <- file_max
           }
+        }
+      }
+    }
+
+    # Write the max ID to the file
+    writeLines(as.character(max_id), last_id_file)
+  }
+
+  return(invisible(TRUE))
+}
+
+#' Get Next Custom Concept ID
+#'
+#' @description Generates the next unique custom_concept_id by reading and incrementing
+#' the value stored in custom_concepts_last_id.txt. This prevents ID reuse even if
+#' concepts are deleted, ensuring alignment imports always reference the correct concept.
+#'
+#' @param custom_concepts Data frame with current custom concepts (used only for initialization)
+#'
+#' @return Integer: The next available custom_concept_id
+#' @noRd
+get_next_custom_concept_id <- function(custom_concepts = NULL) {
+  csv_dir <- get_user_csv_dir()
+  last_id_file <- file.path(csv_dir, "custom_concepts_last_id.txt")
+
+  if (file.exists(last_id_file)) {
+    # Read the last used ID
+    last_id <- as.integer(readLines(last_id_file, n = 1, warn = FALSE))
+    if (is.na(last_id)) last_id <- 0
+  } else {
+    # Initialize from current data if file doesn't exist
+    if (!is.null(custom_concepts) && nrow(custom_concepts) > 0) {
+      last_id <- max(custom_concepts$custom_concept_id, na.rm = TRUE)
+    } else {
+      last_id <- 0
+    }
+  }
+
+  # Increment and save the new ID
+  new_id <- last_id + 1
+  writeLines(as.character(new_id), last_id_file)
+
+  return(new_id)
+}
+
+#' Initialize Custom Concepts Last ID File
+#'
+#' @description Initializes the custom_concepts_last_id.txt file based on current data.
+#' Called during application startup to ensure the file exists and is up to date.
+#'
+#' @return Invisible TRUE on success
+#' @noRd
+initialize_custom_concepts_last_id_file <- function() {
+  csv_dir <- get_user_csv_dir()
+  last_id_file <- file.path(csv_dir, "custom_concepts_last_id.txt")
+
+  # Only initialize if file doesn't exist
+  if (!file.exists(last_id_file)) {
+    custom_concepts_file <- file.path(csv_dir, "custom_concepts.csv")
+    max_id <- 0
+
+    if (file.exists(custom_concepts_file)) {
+      data <- read.csv(custom_concepts_file, stringsAsFactors = FALSE)
+      if (nrow(data) > 0 && "custom_concept_id" %in% names(data)) {
+        file_max <- max(data$custom_concept_id, na.rm = TRUE)
+        if (!is.na(file_max) && file_max > max_id) {
+          max_id <- file_max
         }
       }
     }
