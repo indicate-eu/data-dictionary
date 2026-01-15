@@ -67,12 +67,11 @@ mod_users_ui <- function(id, i18n) {
     ## Modal - Add/Edit User Form ----
     div(
       id = ns("user_modal"),
-      class = "modal-overlay",
-      style = "display: none;",
+      class = "modal-overlay hidden",
       onclick = sprintf("if (event.target === this) { Shiny.setInputValue('%s', Math.random()); }", ns("close_modal_overlay")),
       div(
         class = "modal-content",
-        style = "max-width: 500px;",
+        class = "max-width-500",
 
         # Modal header
         div(
@@ -92,10 +91,10 @@ mod_users_ui <- function(id, i18n) {
         div(
           class = "modal-body",
           div(
-            style = "margin-bottom: 15px;",
+            class = "mb-15",
             tags$label(
               tagList(i18n$t("login_label"), " *"),
-              style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
+              class = "form-label"
             ),
           textInput(
             ns("user_login"),
@@ -110,13 +109,13 @@ mod_users_ui <- function(id, i18n) {
         ),
 
         div(
-          style = "margin-bottom: 15px;",
+          class = "mb-15",
           tags$label(
             tagList(i18n$t("password_label"), " *"),
-            style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
+            class = "form-label"
           ),
           div(
-            style = "position: relative;",
+            class = "position-relative",
             passwordInput(
               ns("user_password"),
               label = NULL,
@@ -143,13 +142,13 @@ mod_users_ui <- function(id, i18n) {
         ),
 
         div(
-          style = "margin-bottom: 15px;",
+          class = "mb-15",
           tags$label(
             tagList(i18n$t("confirm_password"), " *"),
-            style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
+            class = "form-label"
           ),
           div(
-            style = "position: relative;",
+            class = "position-relative",
             passwordInput(
               ns("user_password_confirm"),
               label = NULL,
@@ -181,10 +180,10 @@ mod_users_ui <- function(id, i18n) {
         ),
 
         div(
-          style = "margin-bottom: 15px;",
+          class = "mb-15",
           tags$label(
             tagList(i18n$t("first_name"), " *"),
-            style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
+            class = "form-label"
           ),
           textInput(
             ns("user_first_name"),
@@ -199,10 +198,10 @@ mod_users_ui <- function(id, i18n) {
         ),
 
         div(
-          style = "margin-bottom: 15px;",
+          class = "mb-15",
           tags$label(
             tagList(i18n$t("last_name"), " *"),
-            style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
+            class = "form-label"
           ),
           textInput(
             ns("user_last_name"),
@@ -217,10 +216,10 @@ mod_users_ui <- function(id, i18n) {
         ),
 
         div(
-          style = "margin-bottom: 15px;",
+          class = "mb-15",
           tags$label(
             i18n$t("role"),
-            style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
+            class = "form-label"
           ),
           selectInput(
             ns("user_role"),
@@ -234,10 +233,10 @@ mod_users_ui <- function(id, i18n) {
         ),
 
         div(
-          style = "margin-bottom: 20px;",
+          class = "mb-20",
           tags$label(
             i18n$t("affiliation"),
-            style = "display: block; margin-bottom: 5px; color: #2c3e50; font-weight: 600; font-size: 14px;"
+            class = "form-label"
           ),
           tags$textarea(
             id = ns("user_affiliation"),
@@ -269,12 +268,11 @@ mod_users_ui <- function(id, i18n) {
     ## Modal - Delete Confirmation ----
     tags$div(
       id = ns("delete_confirmation_modal"),
-      class = "modal-overlay",
-      style = "display: none;",
+      class = "modal-overlay hidden",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("delete_confirmation_modal")),
       tags$div(
         class = "modal-content",
-        style = "max-width: 500px;",
+        class = "max-width-500",
         tags$div(
           class = "modal-header",
           tags$h3(i18n$t("confirm_deletion")),
@@ -286,7 +284,7 @@ mod_users_ui <- function(id, i18n) {
         ),
         tags$div(
           class = "modal-body",
-          style = "padding: 20px;",
+          class = "p-20",
           tags$p(
             id = ns("delete_confirmation_message"),
             style = "margin-bottom: 20px; font-size: 14px;"

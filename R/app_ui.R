@@ -77,6 +77,7 @@ language <- Sys.getenv("INDICATE_LANGUAGE", "en")
     ),
 
     # Main application (hidden until authenticated)
+    # Note: Using style instead of class="hidden" because shinyjs::show() works with inline styles
     div(
       id = "main_app",
       style = "display: none;",

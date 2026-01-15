@@ -123,7 +123,7 @@ mod_dictionary_settings_ui <- function(id, i18n) {
                   accept = ".zip",
                   width = "400px",
                   buttonLabel = tagList(
-                    tags$i(class = "fas fa-upload", style = "margin-right: 6px;"),
+                    tags$i(class = "fas fa-upload mr-6"),
                     i18n$t("browse")
                   ),
                   placeholder = i18n$t("select_dictionary_zip")
@@ -152,7 +152,7 @@ mod_dictionary_settings_ui <- function(id, i18n) {
                   actionButton(
                     ns("save_global_comment_btn"),
                     label = tagList(
-                      tags$i(class = "fas fa-save", style = "margin-right: 6px;"),
+                      tags$i(class = "fas fa-save mr-6"),
                       i18n$t("save_global_comment")
                     ),
                     class = "btn-success-custom"
@@ -220,7 +220,7 @@ mod_dictionary_settings_ui <- function(id, i18n) {
                   actionButton(
                     ns("add_conversion_btn"),
                     label = tagList(
-                      tags$i(class = "fas fa-plus", style = "margin-right: 6px;"),
+                      tags$i(class = "fas fa-plus mr-6"),
                       i18n$t("add_conversion")
                     ),
                     class = "btn-primary-custom"
@@ -244,8 +244,7 @@ mod_dictionary_settings_ui <- function(id, i18n) {
     ### Modal - Test Conversion ----
     tags$div(
       id = ns("test_conversion_modal"),
-      class = "modal-overlay",
-      style = "display: none;",
+      class = "modal-overlay hidden",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("test_conversion_modal")),
       tags$div(
         class = "modal-content",
@@ -261,7 +260,7 @@ mod_dictionary_settings_ui <- function(id, i18n) {
         ),
         tags$div(
           class = "modal-body",
-          style = "padding: 20px;",
+          class = "p-20",
 
           # Conversion info display
           uiOutput(ns("test_conversion_info")),
@@ -271,7 +270,7 @@ mod_dictionary_settings_ui <- function(id, i18n) {
             style = "margin-top: 20px;",
             tags$label(
               id = ns("test_value_1_label"),
-              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+              class = "form-label"
             ),
             tags$div(
               style = "display: flex; align-items: center; gap: 10px;",
@@ -308,7 +307,7 @@ mod_dictionary_settings_ui <- function(id, i18n) {
           tags$div(
             tags$label(
               id = ns("test_value_2_label"),
-              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+              class = "form-label"
             ),
             tags$div(
               id = ns("test_result_display"),
@@ -322,8 +321,7 @@ mod_dictionary_settings_ui <- function(id, i18n) {
     ### Modal - Delete Confirmation ----
     tags$div(
       id = ns("delete_confirmation_modal"),
-      class = "modal-overlay",
-      style = "display: none;",
+      class = "modal-overlay hidden",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("delete_confirmation_modal")),
       tags$div(
         class = "modal-content",
@@ -339,7 +337,7 @@ mod_dictionary_settings_ui <- function(id, i18n) {
         ),
         tags$div(
           class = "modal-body",
-          style = "padding: 20px;",
+          class = "p-20",
           tags$p(
             style = "margin: 0 0 20px 0; color: #333;",
             i18n$t("confirm_delete_conversion")
@@ -392,16 +390,16 @@ mod_dictionary_settings_ui <- function(id, i18n) {
 
             # Concept 1
             tags$div(
-              style = "flex: 1; min-width: 150px;",
-              tags$label(i18n$t("concept_id_1"), style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+              class = "flex-input-field",
+              tags$label(i18n$t("concept_id_1"), class = "form-label"),
               textInput(ns("new_concept_id_1"), label = NULL, value = "", width = "100%"),
               tags$div(id = ns("new_concept_id_1_error"), class = "input-error-message", i18n$t("field_required"))
             ),
 
             # Unit 1
             tags$div(
-              style = "flex: 1; min-width: 150px;",
-              tags$label(i18n$t("unit_concept_id_1"), style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+              class = "flex-input-field",
+              tags$label(i18n$t("unit_concept_id_1"), class = "form-label"),
               textInput(ns("new_unit_id_1"), label = NULL, value = "", width = "100%"),
               tags$div(id = ns("new_unit_id_1_error"), class = "input-error-message", i18n$t("field_required"))
             ),
@@ -409,23 +407,23 @@ mod_dictionary_settings_ui <- function(id, i18n) {
             # Conversion Factor
             tags$div(
               style = "flex: 0.5; min-width: 100px;",
-              tags$label(i18n$t("conversion_factor"), style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+              tags$label(i18n$t("conversion_factor"), class = "form-label"),
               numericInput(ns("new_conversion_factor"), label = NULL, value = 1, min = 0, step = 0.001, width = "100%"),
               tags$div(id = ns("new_conversion_factor_error"), class = "input-error-message", i18n$t("field_required"))
             ),
 
             # Concept 2
             tags$div(
-              style = "flex: 1; min-width: 150px;",
-              tags$label(i18n$t("concept_id_2"), style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+              class = "flex-input-field",
+              tags$label(i18n$t("concept_id_2"), class = "form-label"),
               textInput(ns("new_concept_id_2"), label = NULL, value = "", width = "100%"),
               tags$div(id = ns("new_concept_id_2_error"), class = "input-error-message", i18n$t("field_required"))
             ),
 
             # Unit 2
             tags$div(
-              style = "flex: 1; min-width: 150px;",
-              tags$label(i18n$t("unit_concept_id_2"), style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+              class = "flex-input-field",
+              tags$label(i18n$t("unit_concept_id_2"), class = "form-label"),
               textInput(ns("new_unit_id_2"), label = NULL, value = "", width = "100%"),
               tags$div(id = ns("new_unit_id_2_error"), class = "input-error-message", i18n$t("field_required"))
             )
@@ -435,15 +433,15 @@ mod_dictionary_settings_ui <- function(id, i18n) {
           tags$div(
             id = ns("conversion_preview"),
             style = "flex-shrink: 0; padding: 12px 16px; background: #f0f7ff; border: 1px solid #cce0ff; border-radius: 6px; text-align: center; font-size: 14px; color: #333; display: none;",
-            tags$span(id = ns("preview_concept_1"), style = "font-weight: 600;"),
+            tags$span(id = ns("preview_concept_1"), class = "font-weight-600"),
             tags$span("("),
-            tags$span(id = ns("preview_unit_1"), style = "color: #666;"),
+            tags$span(id = ns("preview_unit_1"), class = "text-secondary"),
             tags$span(")"),
             tags$span(id = ns("preview_factor"), style = "color: #0f60af; font-weight: 700; margin: 0 8px;"),
             tags$span("\u2192 "),
-            tags$span(id = ns("preview_concept_2"), style = "font-weight: 600;"),
+            tags$span(id = ns("preview_concept_2"), class = "font-weight-600"),
             tags$span("("),
-            tags$span(id = ns("preview_unit_2"), style = "color: #666;"),
+            tags$span(id = ns("preview_unit_2"), class = "text-secondary"),
             tags$span(")")
           ),
 
@@ -519,7 +517,7 @@ mod_dictionary_settings_ui <- function(id, i18n) {
             actionButton(
               ns("save_new_conversion_btn"),
               label = tagList(
-                tags$i(class = "fa fa-plus", style = "margin-right: 6px;"),
+                tags$i(class = "fa fa-plus mr-6"),
                 i18n$t("add")
               ),
               class = "btn-primary-custom"
@@ -900,12 +898,12 @@ mod_dictionary_settings_server <- function(id, config, current_user, vocabularie
         # Add row index for deletion
         display_data$row_index <- seq_len(nrow(display_data))
 
-        # Create action buttons HTML (Test + Delete) with CSS classes for hover
+        # Create action buttons HTML (Test + Delete) using standard dt-action-btn pattern
         test_label <- i18n$t("test")
         delete_label <- i18n$t("delete")
         display_data$actions <- sapply(seq_len(nrow(display_data)), function(i) {
           sprintf(
-            '<button class="btn-action-test test-conversion-btn" data-row="%d">%s</button><button class="btn-action-delete delete-conversion-btn" data-row="%d">%s</button>',
+            '<button class="dt-action-btn dt-action-btn-warning test-conversion-btn" data-row="%d">%s</button><button class="dt-action-btn dt-action-btn-danger delete-conversion-btn" data-row="%d">%s</button>',
             i,
             test_label,
             i,

@@ -121,8 +121,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
     # Modal for adding/editing alignment (2 pages)
     tags$div(
       id = ns("alignment_modal"),
-      class = "modal-overlay",
-      style = "display: none;",
+      class = "modal-overlay hidden",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("alignment_modal")),
       tags$div(
         id = ns("alignment_modal_dialog"),
@@ -144,8 +143,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
           tags$div(
             id = ns("modal_page_1"),
             tags$div(
-              style = "margin-bottom: 20px;",
-              tags$label(i18n$t("alignment_name"), style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+              class = "mb-20",
+              tags$label(i18n$t("alignment_name"), class = "form-label"),
               textInput(
                 ns("alignment_name"),
                 label = NULL,
@@ -164,8 +163,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
               )
             ),
             tags$div(
-              style = "margin-bottom: 20px;",
-              tags$label(i18n$t("description"), style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+              class = "mb-20",
+              tags$label(i18n$t("description"), class = "form-label"),
               textAreaInput(
                 ns("alignment_description"),
                 label = NULL,
@@ -191,7 +190,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
                     i18n$t("upload_csv_file")
                   ),
                   tags$div(
-                    style = "padding: 15px;",
+                    class = "p-15",
                     fileInput(
                       ns("alignment_file"),
                       label = NULL,
@@ -230,7 +229,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
                     i18n$t("column_data_types")
                   ),
                   tags$div(
-                    style = "padding: 15px;",
+                    class = "p-15",
                     uiOutput(ns("column_data_types_controls"))
                   )
                 )
@@ -252,10 +251,10 @@ mod_concept_mapping_ui <- function(id, i18n) {
             "Page 1 of 3"
           ),
           tags$div(
-            style = "flex: 1;"
+            class = "flex-1"
           ),
           tags$div(
-            style = "display: flex; gap: 10px;",
+            class = "flex-gap-10",
             actionButton(
               ns("alignment_modal_cancel"),
               i18n$t("cancel"),
@@ -265,9 +264,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
             actionButton(
               ns("alignment_modal_back"),
               i18n$t("back"),
-              class = "btn btn-secondary btn-secondary-custom",
-              icon = icon("arrow-left"),
-              style = "display: none;"
+              class = "btn btn-secondary btn-secondary-custom hidden",
+              icon = icon("arrow-left")
             ),
             actionButton(
               ns("alignment_modal_next"),
@@ -278,9 +276,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
             actionButton(
               ns("alignment_modal_save"),
               i18n$t("save"),
-              class = "btn-success-custom",
-              icon = icon("save"),
-              style = "display: none;"
+              class = "btn-success-custom hidden",
+              icon = icon("save")
             )
           )
         )
@@ -290,8 +287,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
     # Modal for Import Column Mapping
     tags$div(
       id = ns("import_column_modal"),
-      class = "modal-overlay",
-      style = "display: none;",
+      class = "modal-overlay hidden",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("import_column_modal")),
       tags$div(
         id = ns("import_column_modal_dialog"),
@@ -321,14 +317,14 @@ mod_concept_mapping_ui <- function(id, i18n) {
                   i18n$t("import_column_mapping")
                 ),
                 tags$div(
-                  style = "padding: 15px;",
+                  class = "p-15",
                   tags$p(
                     style = "margin-bottom: 15px; color: #666; font-size: 13px;",
                     i18n$t("import_column_mapping_desc")
                   ),
                   # Source Code Column (required)
                   tags$div(
-                    style = "margin-bottom: 15px;",
+                    class = "mb-15",
                     tags$label(
                       style = "display: block; margin-bottom: 5px; font-weight: 500;",
                       i18n$t("source_code_column"),
@@ -349,7 +345,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
                   ),
                   # Source Vocabulary Column (required)
                   tags$div(
-                    style = "margin-bottom: 15px;",
+                    class = "mb-15",
                     tags$label(
                       style = "display: block; margin-bottom: 5px; font-weight: 500;",
                       i18n$t("source_vocabulary_column"),
@@ -370,7 +366,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
                   ),
                   # Target Concept ID Column (required)
                   tags$div(
-                    style = "margin-bottom: 15px;",
+                    class = "mb-15",
                     tags$label(
                       style = "display: block; margin-bottom: 5px; font-weight: 500;",
                       i18n$t("target_concept_column"),
@@ -440,8 +436,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
     # Modal for concept details
     tags$div(
       id = ns("concept_detail_modal"),
-      class = "modal-overlay",
-      style = "display: none;",
+      class = "modal-overlay hidden",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("concept_detail_modal")),
       tags$div(
         class = "modal-content",
@@ -464,8 +459,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
     # Modal for ETL guidance and comments
     tags$div(
       id = ns("etl_comments_modal"),
-      class = "modal-overlay",
-      style = "display: none;",
+      class = "modal-overlay hidden",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("etl_comments_modal")),
       tags$div(
         class = "modal-content",
@@ -488,8 +482,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
     # Modal for delete confirmation
     tags$div(
       id = ns("delete_confirmation_modal"),
-      class = "modal-overlay",
-      style = "display: none;",
+      class = "modal-overlay hidden",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("delete_confirmation_modal")),
       tags$div(
         class = "modal-content",
@@ -506,7 +499,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
         tags$div(
           class = "modal-body",
           tags$p(
-            style = "margin-bottom: 20px;",
+            class = "mb-20",
             i18n$t("delete_alignment_confirm")
           ),
           tags$div(
@@ -536,8 +529,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
     ### Modal - Delete Mappings Confirmation ----
     tags$div(
       id = ns("delete_mappings_confirmation_modal"),
-      class = "modal-overlay",
-      style = "display: none;",
+      class = "modal-overlay hidden",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("delete_mappings_confirmation_modal")),
       tags$div(
         class = "modal-content",
@@ -555,7 +547,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
           class = "modal-body",
           tags$p(
             id = ns("delete_mappings_message"),
-            style = "margin-bottom: 20px;"
+            class = "mb-20"
           )
         ),
         tags$div(
@@ -580,8 +572,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
     ### Modal - Comments Fullscreen ----
     tags$div(
       id = ns("target_comments_fullscreen_modal"),
-      class = "modal-overlay modal-fullscreen",
-      style = "display: none;",
+      class = "modal-overlay modal-fullscreen hidden",
       tags$div(
         class = "modal-fullscreen-content",
         style = "height: 100vh; display: flex; flex-direction: column;",
@@ -589,16 +580,15 @@ mod_concept_mapping_ui <- function(id, i18n) {
           style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
           # Left: Back button (hidden by default) and title
           tags$div(
-            style = "display: flex; align-items: center; gap: 10px;",
+            class = "flex-center-gap-10",
             actionButton(
               ns("back_from_target_global_comment"),
               label = HTML("&#8592;"),
-              class = "btn-back-comment",
-              style = "display: none;"
+              class = "btn-back-comment hidden"
             ),
             tags$h3(
               id = ns("target_comments_modal_title"),
-              style = "margin: 0; color: #0f60af;",
+              class = "text-primary", style = "margin: 0;",
               i18n$t("etl_guidance_comments")
             )
           ),
@@ -636,8 +626,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
     ### Modal - Eval Comments Fullscreen ----
     tags$div(
       id = ns("eval_comments_fullscreen_modal"),
-      class = "modal-overlay modal-fullscreen",
-      style = "display: none;",
+      class = "modal-overlay modal-fullscreen hidden",
       tags$div(
         class = "modal-fullscreen-content",
         style = "height: 100vh; display: flex; flex-direction: column;",
@@ -645,16 +634,15 @@ mod_concept_mapping_ui <- function(id, i18n) {
           style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
           # Left: Back button (hidden by default) and title
           tags$div(
-            style = "display: flex; align-items: center; gap: 10px;",
+            class = "flex-center-gap-10",
             actionButton(
               ns("back_from_eval_global_comment"),
               label = HTML("&#8592;"),
-              class = "btn-back-comment",
-              style = "display: none;"
+              class = "btn-back-comment hidden"
             ),
             tags$h3(
               id = ns("eval_comments_modal_title"),
-              style = "margin: 0; color: #0f60af;",
+              class = "text-primary", style = "margin: 0;",
               i18n$t("etl_guidance_comments")
             )
           ),
@@ -769,7 +757,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
         tags$div(
           class = "modal-body",
           tags$p(
-            style = "margin-bottom: 20px;",
+            class = "mb-20",
             i18n$t("delete_comment_confirm")
           )
         ),
@@ -818,7 +806,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
 
           # Statistics summary
           tags$div(
-            style = "margin-bottom: 20px;",
+            class = "mb-20",
             tags$h4(style = "margin-bottom: 15px; color: #333;", i18n$t("mapping_statistics")),
             tags$div(
               id = ns("export_stats_container"),
@@ -855,12 +843,12 @@ mod_concept_mapping_ui <- function(id, i18n) {
 
           # Export format selection
           tags$div(
-            style = "margin-bottom: 20px;",
+            class = "mb-20",
             tags$h4(style = "margin-bottom: 10px; color: #333;", i18n$t("export_format")),
             tags$div(
               style = "display: flex; flex-direction: column; gap: 12px; padding-left: 5px;",
               tags$div(
-                style = "display: flex; align-items: center; gap: 10px;",
+                class = "flex-center-gap-10",
                 tags$input(
                   type = "radio",
                   id = ns("export_format_stcm"),
@@ -880,7 +868,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
                 )
               ),
               tags$div(
-                style = "display: flex; align-items: center; gap: 10px;",
+                class = "flex-center-gap-10",
                 tags$input(
                   type = "radio",
                   id = ns("export_format_usagi"),
@@ -899,7 +887,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
                 )
               ),
               tags$div(
-                style = "display: flex; align-items: center; gap: 10px;",
+                class = "flex-center-gap-10",
                 tags$input(
                   type = "radio",
                   id = ns("export_format_indicate"),
@@ -931,7 +919,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
               # Approved checkbox with sub-options
               tags$div(
                 tags$div(
-                  style = "display: flex; align-items: center; gap: 10px;",
+                  class = "flex-center-gap-10",
                   checkboxInput(
                     ns("export_include_approved"),
                     label = NULL,
@@ -957,7 +945,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
                   id = ns("approved_sub_options"),
                   style = "margin-left: 30px; margin-top: 8px; padding: 10px; background: #f8f9fa; border-radius: 4px; display: flex; flex-direction: column; gap: 8px;",
                   tags$div(
-                    style = "display: flex; align-items: center; gap: 8px;",
+                    class = "flex-center-gap-8",
                     tags$input(
                       type = "radio",
                       id = ns("approved_filter_all"),
@@ -973,7 +961,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
                     )
                   ),
                   tags$div(
-                    style = "display: flex; align-items: center; gap: 8px;",
+                    class = "flex-center-gap-8",
                     tags$input(
                       type = "radio",
                       id = ns("approved_filter_majority"),
@@ -988,7 +976,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
                     )
                   ),
                   tags$div(
-                    style = "display: flex; align-items: center; gap: 8px;",
+                    class = "flex-center-gap-8",
                     tags$input(
                       type = "radio",
                       id = ns("approved_filter_no_rejection"),
@@ -1007,7 +995,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
 
               # Rejected checkbox
               tags$div(
-                style = "display: flex; align-items: center; gap: 10px;",
+                class = "flex-center-gap-10",
                 checkboxInput(
                   ns("export_include_rejected"),
                   label = NULL,
@@ -1032,7 +1020,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
 
               # Uncertain checkbox
               tags$div(
-                style = "display: flex; align-items: center; gap: 10px;",
+                class = "flex-center-gap-10",
                 checkboxInput(
                   ns("export_include_uncertain"),
                   label = NULL,
@@ -1057,7 +1045,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
 
               # Not Evaluated checkbox
               tags$div(
-                style = "display: flex; align-items: center; gap: 10px;",
+                class = "flex-center-gap-10",
                 checkboxInput(
                   ns("export_include_not_evaluated"),
                   label = NULL,
@@ -1162,8 +1150,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
             ),
             tags$div(
               id = ns("import_indicate_name_error"),
-              class = "input-error-message",
-              style = "display: none;",
+              class = "input-error-message hidden",
               i18n$t("alignment_name_exists")
             )
           ),
@@ -1195,8 +1182,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
     ### Modal - Source JSON Fullscreen (Edit Mappings) ----
     tags$div(
       id = ns("source_json_fullscreen_modal"),
-      class = "modal-overlay modal-fullscreen",
-      style = "display: none;",
+      class = "modal-overlay modal-fullscreen hidden",
       tags$div(
         class = "modal-fullscreen-content",
         style = "height: 100vh; display: flex; flex-direction: column;",
@@ -1207,7 +1193,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
             "box-shadow: 0 2px 4px rgba(0,0,0,0.1);"
           ),
           tags$h3(
-            style = "margin: 0; color: #0f60af;",
+            class = "text-primary", style = "margin: 0;",
             "Source Concept - JSON Structure"
           ),
           actionButton(
@@ -1247,8 +1233,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
     ### Modal - Eval Source JSON Fullscreen (Evaluate Mappings) ----
     tags$div(
       id = ns("eval_source_json_fullscreen_modal"),
-      class = "modal-overlay modal-fullscreen",
-      style = "display: none;",
+      class = "modal-overlay modal-fullscreen hidden",
       tags$div(
         class = "modal-fullscreen-content",
         style = "height: 100vh; display: flex; flex-direction: column;",
@@ -1259,7 +1244,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
             "box-shadow: 0 2px 4px rgba(0,0,0,0.1);"
           ),
           tags$h3(
-            style = "margin: 0; color: #0f60af;",
+            class = "text-primary", style = "margin: 0;",
             "Source Concept - JSON Structure"
           ),
           actionButton(
@@ -1299,15 +1284,14 @@ mod_concept_mapping_ui <- function(id, i18n) {
     ### Modal - Category Breakdown Fullscreen ----
     tags$div(
       id = ns("category_breakdown_fullscreen_modal"),
-      class = "modal-overlay modal-fullscreen",
-      style = "display: none;",
+      class = "modal-overlay modal-fullscreen hidden",
       tags$div(
         class = "modal-fullscreen-content",
         style = "height: 100vh; display: flex; flex-direction: column;",
         tags$div(
           style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
           tags$h3(
-            style = "margin: 0; color: #0f60af;",
+            class = "text-primary", style = "margin: 0;",
             i18n$t("category_breakdown")
           ),
           actionButton(
@@ -1553,7 +1537,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           style = "padding: 10px 0 15px 12px; display: flex; align-items: center; justify-content: space-between;",
           # Left side: breadcrumb path
           tags$div(
-            style = "display: flex; align-items: center; gap: 10px;",
+            class = "flex-center-gap-10",
             tags$a(
               class = "breadcrumb-link",
               onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("back_to_alignments")),
@@ -2330,12 +2314,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           "CSV Options"
         ),
         tags$div(
-          style = "padding: 15px;",
+          class = "p-15",
           tags$div(
             style = "display: flex; flex-wrap: wrap; gap: 15px;",
             tags$div(
-              style = "flex: 1; min-width: 150px;",
-              tags$label("Delimiter", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+              class = "flex-input-field",
+              tags$label("Delimiter", class = "form-label"),
               selectInput(
                 ns("csv_delimiter"),
                 label = NULL,
@@ -2350,8 +2334,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               )
             ),
             tags$div(
-              style = "flex: 1; min-width: 150px;",
-              tags$label("Encoding", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+              class = "flex-input-field",
+              tags$label("Encoding", class = "form-label"),
               selectInput(
                 ns("csv_encoding"),
                 label = NULL,
@@ -2376,7 +2360,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         style = "background-color: #f8f9fa; border-radius: 4px;",
         uiOutput(ns("column_mapping_title")),
         tags$div(
-          style = "padding: 15px;",
+          class = "p-15",
           uiOutput(ns("column_mapping_controls"))
         )
       )
@@ -2425,7 +2409,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         # Row 1: Vocabulary ID Column
         tags$div(
           style = "margin-bottom: 10px;",
-          tags$label("Vocabulary ID Column", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+          tags$label("Vocabulary ID Column", class = "form-label"),
           selectInput(
             ns("col_vocabulary_id"),
             label = NULL,
@@ -2442,8 +2426,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         tags$div(
           style = "display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;",
           tags$div(
-            style = "flex: 1; min-width: 150px;",
-            tags$label("Concept Code Column", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+            class = "flex-input-field",
+            tags$label("Concept Code Column", class = "form-label"),
             selectInput(
               ns("col_concept_code"),
               label = NULL,
@@ -2457,8 +2441,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             )
           ),
           tags$div(
-            style = "flex: 1; min-width: 150px;",
-            tags$label("Concept Name Column", style = "display: block; font-weight: 600; margin-bottom: 8px;"),
+            class = "flex-input-field",
+            tags$label("Concept Name Column", class = "form-label"),
             selectInput(
               ns("col_concept_name"),
               label = NULL,
@@ -2476,11 +2460,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         tags$div(
           style = "display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;",
           tags$div(
-            style = "flex: 1; min-width: 150px;",
+            class = "flex-input-field",
             tags$label(
               "Category Column",
               tags$span(style = "color: #999; font-weight: normal; font-size: 12px;", " (optional)"),
-              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+              class = "form-label"
             ),
             selectInput(
               ns("col_category"),
@@ -2490,11 +2474,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             )
           ),
           tags$div(
-            style = "flex: 1; min-width: 150px;",
+            class = "flex-input-field",
             tags$label(
               "JSON Column",
               tags$span(style = "color: #999; font-weight: normal; font-size: 12px;", " (optional)"),
-              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+              class = "form-label"
             ),
             selectInput(
               ns("col_json"),
@@ -2508,11 +2492,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         tags$div(
           style = "display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;",
           tags$div(
-            style = "flex: 1; min-width: 150px;",
+            class = "flex-input-field",
             tags$label(
               "Frequency Column",
               tags$span(style = "color: #999; font-weight: normal; font-size: 12px;", " (optional)"),
-              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+              class = "form-label"
             ),
             selectInput(
               ns("col_frequency"),
@@ -2522,7 +2506,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             )
           ),
           tags$div(
-            style = "flex: 1; min-width: 150px;",
+            class = "flex-input-field",
             tags$label(
               i18n$t("target_concept_id_column"),
               tags$span(style = "color: #999; font-weight: normal; font-size: 12px;", paste0(" (", i18n$t("optional"), ")")),
@@ -2536,7 +2520,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                   i18n$t("target_concept_id_column_desc")
                 )
               ),
-              style = "display: block; font-weight: 600; margin-bottom: 8px;"
+              class = "form-label"
             ),
             selectInput(
               ns("col_target_concept_id"),
@@ -2552,7 +2536,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           tags$label(
             "Additional Columns",
             tags$span(style = "color: #999; font-weight: normal; font-size: 12px;", " (optional)"),
-            style = "display: block; font-weight: 600; margin-bottom: 8px;"
+            class = "form-label"
           ),
           selectizeInput(
             ns("col_additional"),
@@ -2744,7 +2728,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             col_name
           ),
           tags$div(
-            style = "flex: 1;",
+            class = "flex-1",
             selectInput(
               ns(input_id),
               label = NULL,
@@ -3736,7 +3720,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     
     render_alignments_view <- function() {
       tags$div(
-        style = "height: 100%; display: flex; flex-direction: column;",
+        class = "flex-column-full",
         tags$div(
           class = "breadcrumb-nav",
           style = "padding: 10px 0 15px 12px; display: flex; align-items: center; gap: 15px; justify-content: space-between;",
@@ -3745,7 +3729,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             "Concept Mappings"
           ),
           tags$div(
-            style = "display: flex; gap: 10px;",
+            class = "flex-gap-10",
             actionButton(
               ns("add_alignment"),
               i18n$t("add_alignment"),
@@ -3777,7 +3761,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         # Summary panel
         tags$div(
           id = ns("panel_summary"),
-          style = "height: 100%; display: flex; flex-direction: column;",
+          class = "flex-column-full",
           uiOutput(ns("summary_content"))
         ),
 
@@ -3794,15 +3778,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               actionButton(
                 ns("delete_selected_mappings"),
                 label = tagList(
-                  tags$i(class = "fas fa-trash", style = "margin-right: 6px;"),
+                  tags$i(class = "fas fa-trash mr-6"),
                   i18n$t("delete_selected")
                 ),
-                class = "btn-danger-custom",
-                style = "display: none;"
+                class = "btn-danger-custom hidden"
               )
             ),
             tags$div(
-              style = "flex: 1; min-height: 0; overflow: auto;",
+              class = "flex-scroll-container",
               DT::DTOutput(ns("all_mappings_table_main"), height = "100%")
             )
           )
@@ -3824,7 +3807,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 tags$div(
                   class = "section-header",
                   tags$div(
-                    style = "flex: 1;",
+                    class = "flex-1",
                     tags$h4(
                       style = "margin: 0;",
                       i18n$t("source_concepts"),
@@ -3844,7 +3827,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                   )
                 ),
                 tags$div(
-                  style = "flex: 1; min-height: 0; overflow: auto;",
+                  class = "flex-scroll-container",
                   DT::DTOutput(ns("source_concepts_table"))
                 )
               ),
@@ -3941,7 +3924,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 style = "flex: 1; min-height: 0;",
                 uiOutput(ns("general_concepts_header")),
                 tags$div(
-                  style = "flex: 1; min-height: 0; overflow: auto;",
+                  class = "flex-scroll-container",
                   tags$div(
                     id = ns("general_concepts_table_container"),
                     style = "height: 100%;",
@@ -3997,7 +3980,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                   )
                 ),
                 tags$div(
-                  style = "flex: 1; min-height: 0; overflow: auto;",
+                  class = "flex-scroll-container",
                   uiOutput(ns("target_concept_details_content"))
                 )
               )
@@ -4059,7 +4042,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 # ZIP file input (for INDICATE format)
                 tags$div(
                   id = ns("import_zip_input_wrapper"),
-                  style = "display: none;",
+                  class = "hidden",
                   fileInput(
                     ns("import_zip_file_input"),
                     label = i18n$t("select_zip_file"),
@@ -4084,7 +4067,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             # Validation status message
             tags$div(
               id = ns("import_validation_status"),
-              style = "display: none;"
+              class = "hidden"
             )
           ),
 
@@ -4104,7 +4087,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           # Top: Mappings table
           tags$div(
             class = "card-container",
-            style = "flex: 1; min-height: 0; overflow: auto;",
+            class = "flex-scroll-container",
             DT::DTOutput(ns("evaluate_mappings_table"))
           ),
           # Bottom: Source and Target Concept Details side by side
@@ -4246,7 +4229,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 )
               ),
               tags$div(
-                style = "flex: 1; min-height: 0; overflow: auto;",
+                class = "flex-scroll-container",
                 uiOutput(ns("eval_target_concept_details_content"))
               )
             )
@@ -4276,7 +4259,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               )
             ),
             tags$div(
-              style = "flex: 1; min-height: 0; overflow: auto;",
+              class = "flex-scroll-container",
               DT::DTOutput(ns("source_concepts_table_mapped"))
             )
           ),
@@ -4303,7 +4286,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               )
             ),
             tags$div(
-              style = "flex: 1; min-height: 0; overflow: auto;",
+              class = "flex-scroll-container",
               DT::DTOutput(ns("mapped_concepts_table"))
             )
           )
@@ -4324,7 +4307,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             )
           ),
           tags$div(
-            style = "flex: 1; min-height: 0; overflow: auto;",
+            class = "flex-scroll-container",
             DT::DTOutput(ns("realized_mappings_table_mapped"))
           )
         )
@@ -4369,7 +4352,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         tags$div(
           class = "section-header",
           tags$div(
-            style = "flex: 1;",
+            class = "flex-1",
             tags$a(
               class = "breadcrumb-link",
               style = "cursor: pointer;",
@@ -4674,7 +4657,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                     i18n$t("category_breakdown")
                   ),
                   tags$div(
-                    style = "display: flex; align-items: center; gap: 8px;",
+                    class = "flex-center-gap-8",
                     # Tab buttons for distribution/completion
                     tags$div(
                       style = "display: flex; gap: 4px;",
@@ -4740,7 +4723,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                           cat_name
                         ),
                         tags$span(
-                          style = "color: #666;",
+                          class = "text-secondary",
                           sprintf("%d (%s%%)", cat_total, pct_total)
                         )
                       ),
@@ -4804,7 +4787,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                             cat_name
                           ),
                           tags$span(
-                            style = "color: #666;",
+                            class = "text-secondary",
                             sprintf("%d / %d (%s%%)", cat_mapped, cat_total, pct_mapped)
                           )
                         ),
@@ -4844,7 +4827,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 i18n$t("projects_compatibility")
               ),
               tags$div(
-                style = "flex: 1; min-height: 0; overflow: auto;",
+                class = "flex-scroll-container",
                 DT::DTOutput(ns("projects_compatibility_table"))
               )
             )
@@ -6356,7 +6339,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       if (is.null(json_data)) {
         return(tags$div(
-          style = "color: #999; font-style: italic;",
+          class = "text-muted-italic",
           "No JSON data available for this concept."
         ))
       }
@@ -6388,8 +6371,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         left_items <- c(left_items, list(
           tags$div(
             class = "detail-item",
-            style = "margin-bottom: 6px;",
-            tags$span(style = "font-weight: 600; color: #666;", "Vocabulary:"),
+            class = "mb-6",
+            tags$span(class = "label-text", "Vocabulary:"),
             tags$span(class = "detail-value", row_data$vocabulary_id)
           )
         ))
@@ -6400,8 +6383,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         left_items <- c(left_items, list(
           tags$div(
             class = "detail-item",
-            style = "margin-bottom: 6px;",
-            tags$span(style = "font-weight: 600; color: #666;", "Concept Code:"),
+            class = "mb-6",
+            tags$span(class = "label-text", "Concept Code:"),
             tags$span(class = "detail-value", row_data$concept_code)
           )
         ))
@@ -6412,8 +6395,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         left_items <- c(left_items, list(
           tags$div(
             class = "detail-item",
-            style = "margin-bottom: 6px;",
-            tags$span(style = "font-weight: 600; color: #666;", "Name:"),
+            class = "mb-6",
+            tags$span(class = "label-text", "Name:"),
             tags$span(class = "detail-value", row_data$concept_name)
           )
         ))
@@ -6424,8 +6407,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         left_items <- c(left_items, list(
           tags$div(
             class = "detail-item",
-            style = "margin-bottom: 6px;",
-            tags$span(style = "font-weight: 600; color: #666;", "Rows:"),
+            class = "mb-6",
+            tags$span(class = "label-text", "Rows:"),
             tags$span(class = "detail-value", format(row_data$rows_count, big.mark = " "))
           )
         ))
@@ -6436,8 +6419,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         left_items <- c(left_items, list(
           tags$div(
             class = "detail-item",
-            style = "margin-bottom: 6px;",
-            tags$span(style = "font-weight: 600; color: #666;", "Patients:"),
+            class = "mb-6",
+            tags$span(class = "label-text", "Patients:"),
             tags$span(class = "detail-value", format(row_data$patients_count, big.mark = " "))
           )
         ))
@@ -6456,8 +6439,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         left_items <- c(left_items, list(
           tags$div(
             class = "detail-item",
-            style = "margin-bottom: 6px;",
-            tags$span(style = "font-weight: 600; color: #666;", "Unit:"),
+            class = "mb-6",
+            tags$span(class = "label-text", "Unit:"),
             tags$span(class = "detail-value", unit_value)
           )
         ))
@@ -6470,8 +6453,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         right_items <- c(right_items, list(
           tags$div(
             class = "detail-item",
-            style = "margin-bottom: 6px;",
-            tags$span(style = "font-weight: 600; color: #666;", "Missing:"),
+            class = "mb-6",
+            tags$span(class = "label-text", "Missing:"),
             tags$span(class = "detail-value", paste0(json_data$missing_rate, "%"))
           )
         ))
@@ -6484,8 +6467,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           right_items <- c(right_items, list(
             tags$div(
               class = "detail-item",
-              style = "margin-bottom: 6px;",
-              tags$span(style = "font-weight: 600; color: #666;", "Interval:"),
+              class = "mb-6",
+              tags$span(class = "label-text", "Interval:"),
               tags$span(class = "detail-value", gsub("_", " ", mf$typical_interval))
             )
           ))
@@ -6494,8 +6477,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           right_items <- c(right_items, list(
             tags$div(
               class = "detail-item",
-              style = "margin-bottom: 6px;",
-              tags$span(style = "font-weight: 600; color: #666;", "Per day:"),
+              class = "mb-6",
+              tags$span(class = "label-text", "Per day:"),
               tags$span(class = "detail-value", round(mf$average_per_patient_per_day, 1))
             )
           ))
@@ -6509,26 +6492,26 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           right_items <- c(right_items, list(
             tags$div(
               class = "detail-item",
-              style = "margin-bottom: 6px;",
-              tags$span(style = "font-weight: 600; color: #666;", "Mean:"),
+              class = "mb-6",
+              tags$span(class = "label-text", "Mean:"),
               tags$span(class = "detail-value", round(nd$mean, 2))
             ),
             tags$div(
               class = "detail-item",
-              style = "margin-bottom: 6px;",
-              tags$span(style = "font-weight: 600; color: #666;", "Median:"),
+              class = "mb-6",
+              tags$span(class = "label-text", "Median:"),
               tags$span(class = "detail-value", round(nd$median, 2))
             ),
             tags$div(
               class = "detail-item",
-              style = "margin-bottom: 6px;",
-              tags$span(style = "font-weight: 600; color: #666;", "SD:"),
+              class = "mb-6",
+              tags$span(class = "label-text", "SD:"),
               tags$span(class = "detail-value", round(nd$sd, 2))
             ),
             tags$div(
               class = "detail-item",
-              style = "margin-bottom: 6px;",
-              tags$span(style = "font-weight: 600; color: #666;", "Range:"),
+              class = "mb-6",
+              tags$span(class = "label-text", "Range:"),
               tags$span(class = "detail-value", paste(nd$min, "-", nd$max))
             )
           ))
@@ -6537,7 +6520,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       if (length(left_items) == 0 && length(right_items) == 0) {
         return(tags$div(
-          style = "color: #999; font-style: italic;",
+          class = "text-muted-italic",
           "No summary data available."
         ))
       }
@@ -6545,11 +6528,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       tags$div(
         style = "display: flex; gap: 30px;",
         tags$div(
-          style = "flex: 1;",
+          class = "flex-1",
           left_items
         ),
         tags$div(
-          style = "flex: 1;",
+          class = "flex-1",
           right_items
         )
       )
@@ -6583,7 +6566,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       if (has_numeric && has_categorical) {
         header <- tags$div(
           class = "inline-select-container",
-          style = "margin-bottom: 15px;",
+          class = "mb-15",
           tags$span(class = "inline-select-label", paste0(i18n$t("distribution_type"), " :")),
           tags$select(
             id = ns("source_distribution_type_select"),
@@ -6683,16 +6666,16 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               style = "display: flex; gap: 20px;",
               # Left: statistics
               tags$div(
-                style = "flex: 1;",
+                class = "flex-1",
                 tags$div(
                   style = "display: grid; grid-template-columns: 70px 1fr; gap: 4px; font-size: 12px;",
-                  tags$span(style = "font-weight: 600; color: #666;", "Min:"), tags$span(round(min_val, 2)),
-                  tags$span(style = "font-weight: 600; color: #666;", "P5:"), tags$span(if (!is.null(nd$p5)) round(nd$p5, 2) else "-"),
-                  tags$span(style = "font-weight: 600; color: #666;", "P25:"), tags$span(round(nd$p25, 2)),
+                  tags$span(class = "label-text", "Min:"), tags$span(round(min_val, 2)),
+                  tags$span(class = "label-text", "P5:"), tags$span(if (!is.null(nd$p5)) round(nd$p5, 2) else "-"),
+                  tags$span(class = "label-text", "P25:"), tags$span(round(nd$p25, 2)),
                   tags$span(style = "font-weight: 600; color: #0f60af;", "Median:"), tags$span(style = "font-weight: 600;", round(median_val, 2)),
-                  tags$span(style = "font-weight: 600; color: #666;", "P75:"), tags$span(round(nd$p75, 2)),
-                  tags$span(style = "font-weight: 600; color: #666;", "P95:"), tags$span(if (!is.null(nd$p95)) round(nd$p95, 2) else "-"),
-                  tags$span(style = "font-weight: 600; color: #666;", "Max:"), tags$span(round(max_val, 2))
+                  tags$span(class = "label-text", "P75:"), tags$span(round(nd$p75, 2)),
+                  tags$span(class = "label-text", "P95:"), tags$span(if (!is.null(nd$p95)) round(nd$p95, 2) else "-"),
+                  tags$span(class = "label-text", "Max:"), tags$span(round(max_val, 2))
                 )
               ),
               # Right: boxplot
@@ -6747,7 +6730,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
 
       tags$div(
-        style = "color: #999; font-style: italic;",
+        class = "text-muted-italic",
         "No distribution data available."
       )
     }
@@ -6837,7 +6820,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       if (length(items) == 0) {
         return(tags$div(
-          style = "color: #999; font-style: italic;",
+          class = "text-muted-italic",
           "No temporal data available."
         ))
       }
@@ -6883,7 +6866,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       }
 
       tags$div(
-        style = "color: #999; font-style: italic;",
+        class = "text-muted-italic",
         "No unit distribution data available."
       )
     }
@@ -6904,7 +6887,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       if (is.null(row_data)) {
         return(tags$div(
-          style = "color: #999; font-style: italic;",
+          class = "text-muted-italic",
           i18n$t("no_data_available")
         ))
       }
@@ -6974,7 +6957,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       if (length(items) == 0) {
         return(tags$div(
-          style = "color: #999; font-style: italic;",
+          class = "text-muted-italic",
           i18n$t("no_additional_columns")
         ))
       }
@@ -7582,7 +7565,7 @@ Data distribution by hospital unit/ward.
         }
 
         tags$div(
-          style = "height: 100%; display: flex; flex-direction: column;",
+          class = "flex-column-full",
           # Header with sub-tabs (left) and profile dropdown (right)
           tags$div(
             style = "display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border-bottom: 1px solid #eee;",
@@ -7604,7 +7587,7 @@ Data distribution by hospital unit/ward.
             # Profile dropdown (right) - only show if multiple profiles
             if (length(profile_names) > 1) {
               tags$div(
-                style = "display: flex; align-items: center; gap: 8px;",
+                class = "flex-center-gap-8",
                 tags$span(style = "font-size: 11px; color: #666;", paste0(i18n$t("profile"), " :")),
                 tags$select(
                   id = ns("target_profile_select"),
@@ -7814,7 +7797,7 @@ Data distribution by hospital unit/ward.
           tags$div(
             class = "detail-item",
             tags$strong(i18n$t("fhir_resource")),
-            tags$span(style = "color: #999; font-style: italic;", "No link available")
+            tags$span(class = "text-muted-italic", "No link available")
           )
         },
         create_detail_item(i18n$t("unit_concept_name"),
@@ -7843,7 +7826,7 @@ Data distribution by hospital unit/ward.
           tags$div(
             class = "detail-item",
             tags$strong(i18n$t("unit_fhir_resource")),
-            tags$span(style = "color: #999; font-style: italic;", "No link available")
+            tags$span(class = "text-muted-italic", "No link available")
           )
         },
         create_detail_item(i18n$t("unit_conversions"), "/", include_colon = FALSE)
@@ -8204,7 +8187,7 @@ Data distribution by hospital unit/ward.
 
       # Render with tab buttons for distribution/completion
       tags$div(
-        style = "height: 100%; display: flex; flex-direction: column;",
+        class = "flex-column-full",
         # Controls row: Tab buttons, search, and sort
         tags$div(
           style = "display: flex; align-items: center; gap: 15px; margin-bottom: 15px; flex-wrap: wrap;",
@@ -8241,10 +8224,10 @@ Data distribution by hospital unit/ward.
             )
           ),
           # Spacer
-          tags$div(style = "flex: 1;"),
+          tags$div(class = "flex-1"),
           # Search input
           tags$div(
-            style = "display: flex; align-items: center; gap: 8px;",
+            class = "flex-center-gap-8",
             tags$input(
               id = ns("fullscreen_category_search"),
               type = "text",
@@ -8256,7 +8239,7 @@ Data distribution by hospital unit/ward.
           ),
           # Sort dropdown
           tags$div(
-            style = "display: flex; align-items: center; gap: 8px;",
+            class = "flex-center-gap-8",
             tags$label(
               style = "font-size: 13px; color: #666; margin: 0;",
               i18n$t("sort_by")
@@ -8296,7 +8279,7 @@ Data distribution by hospital unit/ward.
                   cat_name
                 ),
                 tags$span(
-                  style = "color: #666;",
+                  class = "text-secondary",
                   sprintf("%d (%s%%)", cat_total, pct_total)
                 )
               ),
@@ -8358,7 +8341,7 @@ Data distribution by hospital unit/ward.
                     cat_name
                   ),
                   tags$span(
-                    style = "color: #666;",
+                    class = "text-secondary",
                     sprintf("%d / %d (%s%%)", cat_mapped, cat_total, pct_mapped)
                   )
                 ),
@@ -9798,14 +9781,14 @@ Data distribution by hospital unit/ward.
 
       if (is.null(eval_selected_row_data())) {
         return(tags$div(
-          style = "color: #999; font-style: italic;",
+          class = "text-muted-italic",
           "Select a mapping to see source details."
         ))
       }
 
       if (is.null(json_data)) {
         return(tags$div(
-          style = "color: #999; font-style: italic;",
+          class = "text-muted-italic",
           "No JSON data available for this source concept."
         ))
       }
@@ -9911,7 +9894,7 @@ Data distribution by hospital unit/ward.
             # Profile dropdown (right) - only show if multiple profiles
             if (has_profiles && length(profile_names) > 1) {
               tags$div(
-                style = "display: flex; align-items: center; gap: 8px;",
+                class = "flex-center-gap-8",
                 tags$span(style = "font-size: 11px; color: #666;", paste0(i18n$t("profile"), " :")),
                 tags$select(
                   id = ns("eval_target_profile_select"),

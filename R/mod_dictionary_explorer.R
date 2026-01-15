@@ -2100,7 +2100,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             )
           } else {
             sprintf(
-              '<button class="view-details-btn" data-id="%s">%s</button>',
+              '<button class="dt-action-btn view-details-btn" data-id="%s">%s</button>',
               general_concept_id,
               as.character(i18n$t("view_details"))
             )

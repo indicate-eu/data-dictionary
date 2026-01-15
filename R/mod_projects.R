@@ -78,15 +78,14 @@ mod_projects_ui <- function(id, i18n) {
     ### Modal - Add New Project ----
     tags$div(
       id = ns("add_project_modal"),
-      class = "modal-overlay",
-      style = "display: none;",
+      class = "modal-overlay hidden",
       onclick = sprintf(
         "if (event.target === this) $('#%s').hide();",
         ns("add_project_modal")
       ),
       tags$div(
         class = "modal-content",
-        style = "max-width: 700px;",
+        class = "max-width-700",
         tags$div(
           class = "modal-header",
           tags$h3(i18n$t("add_project")),
@@ -98,13 +97,13 @@ mod_projects_ui <- function(id, i18n) {
         ),
         tags$div(
           class = "modal-body",
-          style = "padding: 20px;",
+          class = "p-20",
           tags$div(
             id = ns("new_project_name_group"),
-            style = "margin-bottom: 20px;",
+            class = "mb-20",
             tags$label(
-              tags$span(i18n$t("project_name"), " ", style = "font-weight: 600;"),
-              tags$span("*", style = "color: #dc3545;"),
+              tags$span(i18n$t("project_name"), " ", class = "font-weight-600"),
+              tags$span("*", class = "text-danger"),
               style = "display: block; margin-bottom: 8px;"
             ),
             textInput(
@@ -125,10 +124,10 @@ mod_projects_ui <- function(id, i18n) {
             )
           ),
           tags$div(
-            style = "margin-bottom: 20px;",
+            class = "mb-20",
             tags$label(
-              tags$span(i18n$t("short_description"), " ", style = "font-weight: 600;"),
-              tags$span("*", style = "color: #dc3545;"),
+              tags$span(i18n$t("short_description"), " ", class = "font-weight-600"),
+              tags$span("*", class = "text-danger"),
               style = "display: block; margin-bottom: 8px;"
             ),
             textAreaInput(
@@ -145,7 +144,7 @@ mod_projects_ui <- function(id, i18n) {
             )
           ),
           tags$div(
-            style = "margin-bottom: 20px;",
+            class = "mb-20",
             tags$label(
               i18n$t("long_description"),
               style = paste0(
@@ -189,15 +188,14 @@ mod_projects_ui <- function(id, i18n) {
     ### Modal - Delete Confirmation ----
     tags$div(
       id = ns("delete_confirmation_modal"),
-      class = "modal-overlay",
-      style = "display: none;",
+      class = "modal-overlay hidden",
       onclick = sprintf(
         "if (event.target === this) $('#%s').hide();",
         ns("delete_confirmation_modal")
       ),
       tags$div(
         class = "modal-content",
-        style = "max-width: 500px;",
+        class = "max-width-500",
         tags$div(
           class = "modal-header",
           tags$h3(i18n$t("confirm_deletion")),
@@ -209,7 +207,7 @@ mod_projects_ui <- function(id, i18n) {
         ),
         tags$div(
           class = "modal-body",
-          style = "padding: 20px;",
+          class = "p-20",
           tags$p(
             style = "font-size: 14px; margin-bottom: 20px;",
             i18n$t("delete_project_confirm")
@@ -247,15 +245,14 @@ mod_projects_ui <- function(id, i18n) {
     ### Modal - Edit Project ----
     tags$div(
       id = ns("edit_project_modal"),
-      class = "modal-overlay",
-      style = "display: none;",
+      class = "modal-overlay hidden",
       onclick = sprintf(
         "if (event.target === this) $('#%s').hide();",
         ns("edit_project_modal")
       ),
       tags$div(
         class = "modal-content",
-        style = "max-width: 700px;",
+        class = "max-width-700",
         tags$div(
           class = "modal-header",
           tags$h3(i18n$t("edit_project")),
@@ -267,13 +264,13 @@ mod_projects_ui <- function(id, i18n) {
         ),
         tags$div(
           class = "modal-body",
-          style = "padding: 20px;",
+          class = "p-20",
           tags$div(
             id = ns("edit_project_name_group"),
-            style = "margin-bottom: 20px;",
+            class = "mb-20",
             tags$label(
-              tags$span(i18n$t("project_name"), " ", style = "font-weight: 600;"),
-              tags$span("*", style = "color: #dc3545;"),
+              tags$span(i18n$t("project_name"), " ", class = "font-weight-600"),
+              tags$span("*", class = "text-danger"),
               style = "display: block; margin-bottom: 8px;"
             ),
             textInput(
@@ -294,10 +291,10 @@ mod_projects_ui <- function(id, i18n) {
             )
           ),
           tags$div(
-            style = "margin-bottom: 20px;",
+            class = "mb-20",
             tags$label(
-              tags$span(i18n$t("short_description"), " ", style = "font-weight: 600;"),
-              tags$span("*", style = "color: #dc3545;"),
+              tags$span(i18n$t("short_description"), " ", class = "font-weight-600"),
+              tags$span("*", class = "text-danger"),
               style = "display: block; margin-bottom: 8px;"
             ),
             textAreaInput(
@@ -314,7 +311,7 @@ mod_projects_ui <- function(id, i18n) {
             )
           ),
           tags$div(
-            style = "margin-bottom: 20px;",
+            class = "mb-20",
             tags$label(
               i18n$t("long_description"),
               style = paste0(
@@ -413,7 +410,7 @@ render_projects_list_ui <- function(ns, i18n) {
           )
         ),
         tags$div(
-          style = "flex: 1; overflow: auto;",
+          class = "flex-1", style = "overflow: auto;",
           DT::DTOutput(ns("projects_table"))
         )
       ),
@@ -433,7 +430,7 @@ render_projects_list_ui <- function(ns, i18n) {
           )
         ),
         tags$div(
-          style = "flex: 1; overflow: auto;",
+          class = "flex-1", style = "overflow: auto;",
           uiOutput(ns("project_details"))
         )
       )
@@ -503,7 +500,7 @@ render_project_config_ui <- function(ns, i18n) {
         ),
         # DataTable
         tags$div(
-          style = "flex: 1; overflow: auto;",
+          class = "flex-1", style = "overflow: auto;",
           DT::DTOutput(ns("available_general_concepts_table"))
         )
       ),
@@ -564,7 +561,7 @@ render_project_config_ui <- function(ns, i18n) {
         ),
         # DataTable
         tags$div(
-          style = "flex: 1; overflow: auto;",
+          class = "flex-1", style = "overflow: auto;",
           DT::DTOutput(ns("selected_general_concepts_table"))
         )
       )
@@ -1281,7 +1278,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
 
         tagList(
           tags$div(
-            style = "margin-bottom: 20px;",
+            class = "mb-20",
             tags$h5(
               selected_uc$project_name,
               style = "color: #0f60af; margin-bottom: 10px; font-weight: 600;"
