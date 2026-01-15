@@ -1042,7 +1042,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
           ),
           tags$button(
             class = "modal-fullscreen-close",
-            onclick = sprintf("$('#%s').hide();", ns("hierarchy_graph_modal")),
+            onclick = sprintf("$('#%s').addClass('hidden');", ns("hierarchy_graph_modal")),
             HTML("&times;")
           )
         ),
@@ -1190,6 +1190,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     selected_concept_id <- reactiveVal(NULL)
     selected_mapped_concept_id <- reactiveVal(NULL)  # Track selected concept in mappings table
     relationships_tab <- reactiveVal("related")  # Track active tab: "related", "hierarchy", "synonyms"
+    hierarchy_graph_concept_id <- reactiveVal(NULL)  # Track concept ID for hierarchy graph modal
     comments_tab <- reactiveVal("comments")  # Track active tab: "comments", "statistical_summary"
     statistical_summary_sub_tab <- reactiveVal("summary")  # Track sub-tab: "summary", "distribution"
     selected_profile <- reactiveVal(NULL)  # Track selected profile for statistical summary
@@ -5935,6 +5936,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           vocab_data <- vocabularies()
           if (is.null(vocab_data)) return()
 
+      # Store concept_id for hierarchy graph modal button
+      hierarchy_graph_concept_id(omop_concept_id)
+
       # Get hierarchy graph data to extract stats
       hierarchy_data <- get_concept_hierarchy_graph(omop_concept_id, vocab_data)
 
@@ -6191,11 +6195,11 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     ##### Hierarchy Graph Fullscreen Modal ----
     # Observe view graph button click
     observe_event(input$view_hierarchy_graph, {
-      omop_concept_id <- selected_mapped_concept_id()
-      req(omop_concept_id)
+      omop_concept_id <- hierarchy_graph_concept_id()
+      if (is.null(omop_concept_id)) return()
 
-      # Show modal
-      shinyjs::show("hierarchy_graph_modal")
+      # Show modal by removing hidden class (shinyjs::show doesn't override CSS class)
+      shinyjs::removeClass("hierarchy_graph_modal", "hidden")
       
       # Re-render the graph for the modal with explicit dimensions
       output$hierarchy_graph_modal_content <- visNetwork::renderVisNetwork({

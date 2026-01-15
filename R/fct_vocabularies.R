@@ -8,6 +8,49 @@
 #' @importFrom readr read_tsv cols col_integer col_character
 #' @importFrom dplyr filter select left_join bind_rows distinct arrange mutate
 
+#' Decode escaped UTF-8 hex bytes in a string
+#'
+#' @description Converts strings with escaped hex bytes (e.g., <e5><bf><83>)
+#' back to proper UTF-8 characters. OHDSI Athena vocabularies sometimes
+#' store non-ASCII characters in this escaped format.
+#'
+#' @param x Character string potentially containing escaped hex bytes
+#'
+#' @return Character string with decoded UTF-8 characters
+#' @noRd
+decode_escaped_utf8 <- function(x) {
+  if (is.na(x) || !grepl("<[0-9a-f]{2}>", x, ignore.case = TRUE)) {
+    return(x)
+  }
+
+  tryCatch({
+    # Find all sequences of consecutive <xx> hex bytes
+    result <- x
+    # Keep replacing until no more matches
+    while (grepl("<[0-9a-f]{2}>", result, ignore.case = TRUE)) {
+      # Find the first sequence of consecutive hex bytes
+      match <- regexpr("(<[0-9a-f]{2}>)+", result, ignore.case = TRUE)
+      if (match == -1) break
+
+      matched_str <- regmatches(result, match)
+      # Extract hex values
+      hex_values <- gsub("[<>]", "", matched_str)
+      hex_pairs <- strsplit(hex_values, "")[[1]]
+      hex_pairs <- paste0(
+        hex_pairs[seq(1, length(hex_pairs), 2)],
+        hex_pairs[seq(2, length(hex_pairs), 2)]
+      )
+      # Convert to raw bytes and then to UTF-8 character
+      raw_bytes <- as.raw(strtoi(hex_pairs, 16L))
+      decoded <- rawToChar(raw_bytes)
+      Encoding(decoded) <- "UTF-8"
+      # Replace in result
+      result <- sub("(<[0-9a-f]{2}>)+", decoded, result, ignore.case = TRUE)
+    }
+    result
+  }, error = function(e) x)
+}
+
 #' Get all related concepts (combined)
 #'
 #' @description Retrieve all related concepts by combining relationship-based
@@ -279,10 +322,18 @@ get_concept_synonyms <- function(concept_id, vocabularies) {
     synonyms <- vocabularies$concept_synonym %>%
       dplyr::filter(concept_id == !!concept_id) %>%
       dplyr::collect()
-    
+
     if (nrow(synonyms) == 0) {
       return(data.frame())
     }
+
+    # Decode escaped UTF-8 bytes (e.g., <e5><bf><83> -> actual UTF-8 character)
+    # OHDSI Athena vocabularies may store non-ASCII chars in escaped hex format
+    synonyms$concept_synonym_name <- sapply(
+      synonyms$concept_synonym_name,
+      decode_escaped_utf8,
+      USE.NAMES = FALSE
+    )
     
     # Get language names for language_concept_id
     language_ids <- unique(synonyms$language_concept_id)
