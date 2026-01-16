@@ -444,7 +444,8 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
     ### Modal - Add New General Concept ----
     tags$div(
       id = ns("general_concepts_add_modal"),
-      class = "modal-overlay hidden",
+      class = "modal-overlay",
+      style = "display: none;",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("general_concepts_add_modal")),
       tags$div(
         class = "modal-content",
@@ -462,7 +463,8 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
           class = "modal-body p-20",
           tags$div(
             id = ns("duplicate_concept_error"),
-            class = "hidden alert-danger-box mb-20 text-center",
+            class = "alert-danger-box mb-20 text-center",
+            style = "display: none;",
             tags$strong(i18n$t("duplicate_concept")),
             tags$br(),
             tags$span(id = ns("duplicate_concept_error_text"), "")
@@ -514,7 +516,8 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
               ),
               tags$div(
                 id = ns("category_text_container"),
-                class = "flex-1 hidden",
+                class = "flex-1",
+                style = "display: none;",
                 shiny::textInput(
                   ns("general_concepts_new_category_text"),
                   label = NULL,
@@ -1005,7 +1008,8 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
     ### Modal - Concept Details Viewer ----
     tags$div(
       id = ns("concept_modal"),
-      class = "modal-overlay hidden",
+      class = "modal-overlay",
+      style = "display: none;",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("concept_modal")),
       tags$div(
         class = "modal-content",
@@ -1028,7 +1032,8 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
     ### Modal - Hierarchy Graph Fullscreen ----
     tags$div(
       id = ns("hierarchy_graph_modal"),
-      class = "modal-overlay modal-fullscreen hidden",
+      class = "modal-overlay modal-fullscreen",
+      style = "display: none;",
       style = "height: 100%;",
       tags$div(
         class = "modal-fullscreen-content",
@@ -1042,7 +1047,7 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
           ),
           tags$button(
             class = "modal-fullscreen-close",
-            onclick = sprintf("$('#%s').addClass('hidden');", ns("hierarchy_graph_modal")),
+            onclick = sprintf("$('#%s').hide();", ns("hierarchy_graph_modal")),
             HTML("&times;")
           )
         ),
@@ -1057,7 +1062,8 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
     ### Modal - Comments Fullscreen ----
     tags$div(
       id = ns("comments_fullscreen_modal"),
-      class = "modal-overlay modal-fullscreen hidden",
+      class = "modal-overlay modal-fullscreen",
+      style = "display: none;",
       tags$div(
         class = "modal-fullscreen-content",
         class = "flex-column-full",
@@ -1069,7 +1075,8 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
             actionButton(
               ns("back_from_global_comment"),
               label = HTML("&#8592;"),
-              class = "btn-back-comment hidden"
+              class = "btn-back-comment",
+              style = "display: none;"
             ),
             tags$h3(
               id = ns("comments_modal_title"),
@@ -1116,7 +1123,8 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
     ### Modal - Concept Set Fullscreen ----
     tags$div(
       id = ns("concept_set_fullscreen_modal"),
-      class = "modal-overlay modal-fullscreen hidden",
+      class = "modal-overlay modal-fullscreen",
+      style = "display: none;",
       tags$div(
         class = "modal-fullscreen-content",
         class = "flex-column-full",
@@ -6198,8 +6206,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       omop_concept_id <- hierarchy_graph_concept_id()
       if (is.null(omop_concept_id)) return()
 
-      # Show modal by removing hidden class (shinyjs::show doesn't override CSS class)
-      shinyjs::removeClass("hierarchy_graph_modal", "hidden")
+      # Show modal
+      shinyjs::show("hierarchy_graph_modal")
       
       # Re-render the graph for the modal with explicit dimensions
       output$hierarchy_graph_modal_content <- visNetwork::renderVisNetwork({

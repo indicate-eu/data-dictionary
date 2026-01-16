@@ -67,7 +67,8 @@ mod_users_ui <- function(id, i18n) {
     ## Modal - Add/Edit User Form ----
     div(
       id = ns("user_modal"),
-      class = "modal-overlay hidden",
+      class = "modal-overlay",
+      style = "display: none;",
       onclick = sprintf("if (event.target === this) { Shiny.setInputValue('%s', Math.random()); }", ns("close_modal_overlay")),
       div(
         class = "modal-content",
@@ -268,7 +269,8 @@ mod_users_ui <- function(id, i18n) {
     ## Modal - Delete Confirmation ----
     tags$div(
       id = ns("delete_confirmation_modal"),
-      class = "modal-overlay hidden",
+      class = "modal-overlay",
+      style = "display: none;",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("delete_confirmation_modal")),
       tags$div(
         class = "modal-content",

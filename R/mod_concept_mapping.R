@@ -121,7 +121,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
     # Modal for adding/editing alignment (2 pages)
     tags$div(
       id = ns("alignment_modal"),
-      class = "modal-overlay hidden",
+      class = "modal-overlay",
+      style = "display: none;",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("alignment_modal")),
       tags$div(
         id = ns("alignment_modal_dialog"),
@@ -264,7 +265,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
             actionButton(
               ns("alignment_modal_back"),
               i18n$t("back"),
-              class = "btn btn-secondary btn-secondary-custom hidden",
+              class = "btn btn-secondary btn-secondary-custom",
+              style = "display: none;",
               icon = icon("arrow-left")
             ),
             actionButton(
@@ -276,7 +278,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
             actionButton(
               ns("alignment_modal_save"),
               i18n$t("save"),
-              class = "btn-success-custom hidden",
+              class = "btn-success-custom",
+              style = "display: none;",
               icon = icon("save")
             )
           )
@@ -287,7 +290,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
     # Modal for Import Column Mapping
     tags$div(
       id = ns("import_column_modal"),
-      class = "modal-overlay hidden",
+      class = "modal-overlay",
+      style = "display: none;",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("import_column_modal")),
       tags$div(
         id = ns("import_column_modal_dialog"),
@@ -436,7 +440,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
     # Modal for concept details
     tags$div(
       id = ns("concept_detail_modal"),
-      class = "modal-overlay hidden",
+      class = "modal-overlay",
+      style = "display: none;",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("concept_detail_modal")),
       tags$div(
         class = "modal-content",
@@ -459,7 +464,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
     # Modal for ETL guidance and comments
     tags$div(
       id = ns("etl_comments_modal"),
-      class = "modal-overlay hidden",
+      class = "modal-overlay",
+      style = "display: none;",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("etl_comments_modal")),
       tags$div(
         class = "modal-content",
@@ -482,7 +488,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
     # Modal for delete confirmation
     tags$div(
       id = ns("delete_confirmation_modal"),
-      class = "modal-overlay hidden",
+      class = "modal-overlay",
+      style = "display: none;",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("delete_confirmation_modal")),
       tags$div(
         class = "modal-content",
@@ -529,7 +536,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
     ### Modal - Delete Mappings Confirmation ----
     tags$div(
       id = ns("delete_mappings_confirmation_modal"),
-      class = "modal-overlay hidden",
+      class = "modal-overlay",
+      style = "display: none;",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("delete_mappings_confirmation_modal")),
       tags$div(
         class = "modal-content",
@@ -572,7 +580,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
     ### Modal - Comments Fullscreen ----
     tags$div(
       id = ns("target_comments_fullscreen_modal"),
-      class = "modal-overlay modal-fullscreen hidden",
+      class = "modal-overlay modal-fullscreen",
+      style = "display: none;",
       tags$div(
         class = "modal-fullscreen-content",
         style = "height: 100vh; display: flex; flex-direction: column;",
@@ -584,7 +593,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
             actionButton(
               ns("back_from_target_global_comment"),
               label = HTML("&#8592;"),
-              class = "btn-back-comment hidden"
+              class = "btn-back-comment",
+              style = "display: none;"
             ),
             tags$h3(
               id = ns("target_comments_modal_title"),
@@ -626,7 +636,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
     ### Modal - Eval Comments Fullscreen ----
     tags$div(
       id = ns("eval_comments_fullscreen_modal"),
-      class = "modal-overlay modal-fullscreen hidden",
+      class = "modal-overlay modal-fullscreen",
+      style = "display: none;",
       tags$div(
         class = "modal-fullscreen-content",
         style = "height: 100vh; display: flex; flex-direction: column;",
@@ -638,7 +649,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
             actionButton(
               ns("back_from_eval_global_comment"),
               label = HTML("&#8592;"),
-              class = "btn-back-comment hidden"
+              class = "btn-back-comment",
+              style = "display: none;"
             ),
             tags$h3(
               id = ns("eval_comments_modal_title"),
@@ -1150,7 +1162,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
             ),
             tags$div(
               id = ns("import_indicate_name_error"),
-              class = "input-error-message hidden",
+              class = "input-error-message",
+              style = "display: none;",
               i18n$t("alignment_name_exists")
             )
           ),
@@ -1182,7 +1195,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
     ### Modal - Source JSON Fullscreen (Edit Mappings) ----
     tags$div(
       id = ns("source_json_fullscreen_modal"),
-      class = "modal-overlay modal-fullscreen hidden",
+      class = "modal-overlay modal-fullscreen",
+      style = "display: none;",
       tags$div(
         class = "modal-fullscreen-content",
         style = "height: 100vh; display: flex; flex-direction: column;",
@@ -1233,7 +1247,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
     ### Modal - Eval Source JSON Fullscreen (Evaluate Mappings) ----
     tags$div(
       id = ns("eval_source_json_fullscreen_modal"),
-      class = "modal-overlay modal-fullscreen hidden",
+      class = "modal-overlay modal-fullscreen",
+      style = "display: none;",
       tags$div(
         class = "modal-fullscreen-content",
         style = "height: 100vh; display: flex; flex-direction: column;",
@@ -1284,7 +1299,8 @@ mod_concept_mapping_ui <- function(id, i18n) {
     ### Modal - Category Breakdown Fullscreen ----
     tags$div(
       id = ns("category_breakdown_fullscreen_modal"),
-      class = "modal-overlay modal-fullscreen hidden",
+      class = "modal-overlay modal-fullscreen",
+      style = "display: none;",
       tags$div(
         class = "modal-fullscreen-content",
         style = "height: 100vh; display: flex; flex-direction: column;",
@@ -2039,8 +2055,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         # Read metadata
         metadata <- jsonlite::read_json(file.path(temp_dir, "metadata.json"))
 
-        # Get alignment description from metadata
+        # Get alignment description and column_types from metadata
         alignment_description <- metadata$alignment$description %||% ""
+        column_types_json <- metadata$alignment$column_types %||% NULL
 
         # Read source_concepts.csv if exists
         source_concepts_path <- file.path(temp_dir, "source_concepts.csv")
@@ -2049,6 +2066,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           return()
         }
         source_concepts <- read.csv(source_concepts_path, stringsAsFactors = FALSE)
+
+        # Apply column types if available
+        if (!is.null(column_types_json)) {
+          source_concepts <- apply_column_types(source_concepts, column_types_json)
+        }
 
         # Generate file_id and save source concepts
         file_id <- paste0("import_", format(Sys.time(), "%Y%m%d%H%M%S"), "_", sample(1000:9999, 1))
@@ -2064,12 +2086,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
         timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
 
-        # Insert alignment
+        # Insert alignment with column_types
         DBI::dbExecute(
           con,
-          "INSERT INTO concept_alignments (name, description, file_id, created_date)
-           VALUES (?, ?, ?, ?)",
-          params = list(alignment_name, alignment_description, file_id, timestamp)
+          "INSERT INTO concept_alignments (name, description, file_id, created_date, column_types)
+           VALUES (?, ?, ?, ?, ?)",
+          params = list(alignment_name, alignment_description, file_id, timestamp, column_types_json)
         )
         new_alignment_id <- DBI::dbGetQuery(con, "SELECT last_insert_rowid() as id")$id[1]
 
@@ -3781,7 +3803,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                   tags$i(class = "fas fa-trash mr-6"),
                   i18n$t("delete_selected")
                 ),
-                class = "btn-danger-custom hidden"
+                class = "btn-danger-custom",
+                style = "display: none;"
               )
             ),
             tags$div(
@@ -4042,7 +4065,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 # ZIP file input (for INDICATE format)
                 tags$div(
                   id = ns("import_zip_input_wrapper"),
-                  class = "hidden",
+                  style = "display: none;",
                   fileInput(
                     ns("import_zip_file_input"),
                     label = i18n$t("select_zip_file"),
@@ -4067,7 +4090,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             # Validation status message
             tags$div(
               id = ns("import_validation_status"),
-              class = "hidden"
+              style = "display: none;"
             )
           ),
 

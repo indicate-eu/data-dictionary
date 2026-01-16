@@ -78,7 +78,8 @@ mod_projects_ui <- function(id, i18n) {
     ### Modal - Add New Project ----
     tags$div(
       id = ns("add_project_modal"),
-      class = "modal-overlay hidden",
+      class = "modal-overlay",
+      style = "display: none;",
       onclick = sprintf(
         "if (event.target === this) $('#%s').hide();",
         ns("add_project_modal")
@@ -188,7 +189,8 @@ mod_projects_ui <- function(id, i18n) {
     ### Modal - Delete Confirmation ----
     tags$div(
       id = ns("delete_confirmation_modal"),
-      class = "modal-overlay hidden",
+      class = "modal-overlay",
+      style = "display: none;",
       onclick = sprintf(
         "if (event.target === this) $('#%s').hide();",
         ns("delete_confirmation_modal")
@@ -245,7 +247,8 @@ mod_projects_ui <- function(id, i18n) {
     ### Modal - Edit Project ----
     tags$div(
       id = ns("edit_project_modal"),
-      class = "modal-overlay hidden",
+      class = "modal-overlay",
+      style = "display: none;",
       onclick = sprintf(
         "if (event.target === this) $('#%s').hide();",
         ns("edit_project_modal")

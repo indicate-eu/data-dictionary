@@ -244,7 +244,8 @@ mod_dictionary_settings_ui <- function(id, i18n) {
     ### Modal - Test Conversion ----
     tags$div(
       id = ns("test_conversion_modal"),
-      class = "modal-overlay hidden",
+      class = "modal-overlay",
+      style = "display: none;",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("test_conversion_modal")),
       tags$div(
         class = "modal-content",
@@ -321,7 +322,8 @@ mod_dictionary_settings_ui <- function(id, i18n) {
     ### Modal - Delete Confirmation ----
     tags$div(
       id = ns("delete_confirmation_modal"),
-      class = "modal-overlay hidden",
+      class = "modal-overlay",
+      style = "display: none;",
       onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("delete_confirmation_modal")),
       tags$div(
         class = "modal-content",
