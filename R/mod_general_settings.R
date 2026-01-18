@@ -4,29 +4,40 @@
 #
 # UI STRUCTURE:
 #   ## UI - Main Layout
-#      ### OHDSI Vocabularies Tab - Browse and select vocabulary files folder
+#      ### Terminologies Tab - Browse and select vocabulary folders
+#         #### OHDSI Vocabularies Section - Browse OHDSI vocabulary files
+#         #### UMLS Section - Browse UMLS Metathesaurus files
 #      ### Backup & Restore Tab - Download/upload application data backup (ZIP)
+#         #### Download Backup Section
+#         #### Restore from Backup Section
 #
 # SERVER STRUCTURE:
 #   ## 1) Server - Reactive Values & State
 #      ### Folder Browser State - Track current path, selection, sort order
+#      ### UMLS State - Track UMLS folder and processing status
 #      ### Backup & Restore State - Track restore status messages
 #      ### DuckDB Status - Processing status and messages
 #
 #   ## 1b) Server - Backup & Restore
-#      ### Download Backup Handler - Create ZIP of app_folder (excluding vocabularies.duckdb)
+#      ### Download Backup Handler - Create ZIP of app_folder (excluding *.duckdb)
 #      ### Upload Restore Handler - Extract ZIP and restore to app_folder
 #      ### Backup Restore Status Display - Show restore status and reload button
 #
-#   ## 2) Server - Folder Browser
+#   ## 2) Server - Folder Browser (OHDSI)
 #      ### Folder Path Display - Show selected folder path
 #      ### Browser Modal - Modal dialog for folder selection
 #      ### File Browser Rendering - Display folders and files
 #      ### Navigation Handlers - Handle folder navigation and selection
 #
+#   ## 2b) Server - Folder Browser (UMLS)
+#      ### UMLS Folder Path Display
+#      ### UMLS Browser Modal
+#      ### UMLS Database Creation
+#
 #   ## 3) Server - DuckDB Management
-#      ### Database Creation - Create DuckDB from CSV files
-#      ### Database Recreation - Recreate existing database
+#      ### OHDSI Database Creation - Create DuckDB from CSV/Parquet files
+#      ### OHDSI Database Recreation - Recreate existing database
+#      ### UMLS Database Creation - Create DuckDB from RRF files
 #      ### Status Display - Show database status and controls
 
 # UI SECTION ====
@@ -53,22 +64,31 @@ mod_general_settings_ui <- function(id, i18n) {
         tabsetPanel(
           id = ns("settings_tabs"),
 
-          ### OHDSI Vocabularies Tab ----
+          ### Terminologies Tab ----
           tabPanel(
-            i18n$t("ohdsi_vocabularies"),
-            value = "ohdsi_vocabularies",
+            i18n$t("terminologies"),
+            value = "terminologies",
             icon = icon("book-medical"),
             tags$div(
-              style = "margin-top: 10px; height: 100%; overflow-y: auto;",
-              div(class = "settings-section",
-                p(
-                  style = "color: #666; margin-bottom: 15px;",
+              style = "margin-top: 10px; height: calc(100vh - 170px); display: flex; flex-direction: column; gap: 15px;",
+
+              #### OHDSI Vocabularies Section ----
+              div(
+                class = "settings-section",
+                style = "flex: 1; display: flex; flex-direction: column; min-height: 0;",
+                tags$h4(
+                  style = "margin-top: 0; margin-bottom: 15px; color: #333; border-bottom: 2px solid #0f60af; padding-bottom: 8px; flex-shrink: 0;",
+                  tags$i(class = "fas fa-language", style = "margin-right: 8px; color: #0f60af;"),
+                  i18n$t("ohdsi_vocabularies")
+                ),
+                tags$p(
+                  style = "color: #666; margin-bottom: 15px; flex-shrink: 0;",
                   i18n$t("browse_vocab_folder_desc")
                 ),
 
                 # Browse folder button
                 tags$div(
-                  style = "display: flex; align-items: center; gap: 15px;",
+                  style = "display: flex; align-items: center; gap: 15px; flex-shrink: 0;",
                   actionButton(
                     ns("browse_folder"),
                     label = tagList(
@@ -84,7 +104,7 @@ mod_general_settings_ui <- function(id, i18n) {
                 ),
 
                 tags$div(
-                  style = "margin-top: 15px; padding: 12px; background: #e6f3ff; border-left: 4px solid #0f60af; border-radius: 4px;",
+                  style = "margin-top: 15px; padding: 12px; background: #e6f3ff; border-left: 4px solid #0f60af; border-radius: 4px; flex-shrink: 0; width: fit-content;",
                   tags$p(
                     style = "margin: 0; font-size: 13px; color: #333;",
                     tags$i(class = "fas fa-info-circle", style = "margin-right: 6px; color: #0f60af;"),
@@ -94,7 +114,7 @@ mod_general_settings_ui <- function(id, i18n) {
 
                 # DuckDB status
                 tags$div(
-                  style = "margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #dee2e6;",
+                  style = "margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #dee2e6; flex-shrink: 0;",
                   tags$div(
                     style = "margin-bottom: 10px;",
                     tags$div(
@@ -109,6 +129,65 @@ mod_general_settings_ui <- function(id, i18n) {
                   ),
                   uiOutput(ns("duckdb_status"))
                 )
+              ),
+
+              #### UMLS Section ----
+              div(
+                class = "settings-section",
+                style = "flex: 1; display: flex; flex-direction: column; min-height: 0;",
+                tags$h4(
+                  style = "margin-top: 0; margin-bottom: 15px; color: #333; border-bottom: 2px solid #6c5ce7; padding-bottom: 8px; flex-shrink: 0;",
+                  tags$i(class = "fas fa-language", style = "margin-right: 8px; color: #6c5ce7;"),
+                  i18n$t("umls")
+                ),
+                tags$p(
+                  style = "color: #666; margin-bottom: 15px; flex-shrink: 0;",
+                  i18n$t("browse_umls_folder_desc")
+                ),
+
+                # Browse UMLS folder button
+                tags$div(
+                  style = "display: flex; align-items: center; gap: 15px; flex-shrink: 0;",
+                  actionButton(
+                    ns("browse_umls_folder"),
+                    label = tagList(
+                      tags$i(class = "fas fa-folder-open", style = "margin-right: 6px;"),
+                      i18n$t("browse")
+                    ),
+                    style = "background: #6c5ce7; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer;"
+                  ),
+                  tags$div(
+                    style = "flex: 1;",
+                    uiOutput(ns("umls_folder_path_display"))
+                  )
+                ),
+
+                tags$div(
+                  style = "margin-top: 15px; padding: 12px; background: #f0edff; border-left: 4px solid #6c5ce7; border-radius: 4px; flex-shrink: 0; width: fit-content;",
+                  tags$p(
+                    style = "margin: 0; font-size: 13px; color: #333;",
+                    tags$i(class = "fas fa-info-circle", style = "margin-right: 6px; color: #6c5ce7;"),
+                    i18n$t("umls_note")
+                  )
+                ),
+
+                # UMLS DuckDB status
+                tags$div(
+                  style = "margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #dee2e6; flex-shrink: 0;",
+                  tags$div(
+                    style = "margin-bottom: 10px;",
+                    tags$div(
+                      style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 5px;",
+                      tags$i(class = "fas fa-database", style = "margin-right: 8px; color: #6c5ce7;"),
+                      i18n$t("umls_duckdb_status")
+                    ),
+                    tags$p(
+                      style = "margin: 0; font-size: 12px; color: #666;",
+                      i18n$t("umls_duckdb_description")
+                    )
+                  ),
+                  uiOutput(ns("umls_duckdb_status"))
+                )
               )
             )
           ),
@@ -119,117 +198,117 @@ mod_general_settings_ui <- function(id, i18n) {
             value = "backup_restore",
             icon = icon("database"),
             tags$div(
-              style = "margin-top: 10px; height: 100%; overflow-y: auto;",
-              div(class = "settings-section",
-                p(
-                  style = "color: #666; margin-bottom: 15px;",
-                  "Download a backup of the application data or restore from a previous backup."
-                ),
+              style = "margin-top: 10px; height: calc(100vh - 170px); display: flex; flex-direction: column; gap: 15px;",
 
-                # Download backup
+              #### Download Backup Section ----
+              div(
+                class = "settings-section",
+                style = "flex: 1; display: flex; flex-direction: column; min-height: 0;",
+                tags$h4(
+                  style = "margin-top: 0; margin-bottom: 15px; color: #333; border-bottom: 2px solid #28a745; padding-bottom: 8px; flex-shrink: 0;",
+                  tags$i(class = "fas fa-download", style = "margin-right: 8px; color: #28a745;"),
+                  i18n$t("download_backup")
+                ),
+                tags$p(
+                  style = "color: #666; margin-bottom: 15px; flex-shrink: 0;",
+                  i18n$t("download_backup_desc")
+                ),
                 tags$div(
-                  style = "margin-bottom: 20px;",
-                  tags$div(
-                    style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 10px;",
-                    tags$i(class = "fas fa-download", style = "margin-right: 8px; color: #28a745;"),
-                    i18n$t("download_backup")
-                  ),
+                  style = "flex-shrink: 0;",
                   downloadButton(
                     ns("download_backup"),
-                    label = "Download backup (ZIP)",
+                    label = i18n$t("download_backup_zip"),
                     class = "btn-success-custom",
                     icon = icon("download")
-                  ),
-                  tags$p(
-                    style = "margin-top: 8px; font-size: 12px; color: #666;",
-                    i18n$t("download_backup_desc")
                   )
+                )
+              ),
+
+              #### Restore from Backup Section ----
+              div(
+                class = "settings-section",
+                style = "flex: 1; display: flex; flex-direction: column; min-height: 0;",
+                tags$h4(
+                  style = "margin-top: 0; margin-bottom: 15px; color: #333; border-bottom: 2px solid #0f60af; padding-bottom: 8px; flex-shrink: 0;",
+                  tags$i(class = "fas fa-upload", style = "margin-right: 8px; color: #0f60af;"),
+                  i18n$t("restore_from_backup")
                 ),
 
-                tags$hr(style = "border-color: #dee2e6; margin: 20px 0;"),
-
-                # Upload restore
+                # Warning message before file input
                 tags$div(
-                  tags$div(
-                    style = "font-weight: 600; font-size: 14px; color: #333; margin-bottom: 10px;",
-                    tags$i(class = "fas fa-upload", style = "margin-right: 8px; color: #0f60af;"),
-                    i18n$t("restore_from_backup")
-                  ),
-                  fileInput(
-                    ns("upload_backup_file"),
-                    label = NULL,
-                    accept = ".zip",
-                    width = "400px",
-                    buttonLabel = tagList(
-                      tags$i(class = "fas fa-upload", style = "margin-right: 6px;"),
-                      i18n$t("browse")
-                    ),
-                    placeholder = as.character(i18n$t("select_backup_file"))
-                  ),
-
-                  # Import category selection
-                  tags$div(
-                    id = ns("import_options_container"),
-                    style = "display: none; margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #dee2e6;",
-                    tags$div(
-                      style = "font-weight: 600; font-size: 13px; color: #333; margin-bottom: 12px;",
-                      "Select what to import:"
-                    ),
-                    checkboxInput(
-                      ns("import_config_users"),
-                      label = tagList(
-                        tags$span("Configuration & Users", style = "font-weight: 500;"),
-                        tags$span(" (config, users tables)", style = "color: #666; font-size: 12px;")
-                      ),
-                      value = TRUE,
-                      width = "100%"
-                    ),
-                    checkboxInput(
-                      ns("import_alignments"),
-                      label = tagList(
-                        tags$span("Alignments", style = "font-weight: 500;"),
-                        tags$span(" (concept alignments, mappings, evaluations + files)", style = "color: #666; font-size: 12px;")
-                      ),
-                      value = TRUE,
-                      width = "100%"
-                    ),
-                    checkboxInput(
-                      ns("import_dictionary"),
-                      label = tagList(
-                        tags$span("Dictionary", style = "font-weight: 500;"),
-                        tags$span(" (general concepts, mappings, projects, statistics)", style = "color: #666; font-size: 12px;")
-                      ),
-                      value = TRUE,
-                      width = "100%"
-                    ),
-                    tags$div(
-                      style = "margin-top: 15px;",
-                      actionButton(
-                        ns("confirm_restore"),
-                        label = "Confirm Restore",
-                        class = "btn-primary-custom",
-                        icon = icon("check")
-                      ),
-                      actionButton(
-                        ns("cancel_restore"),
-                        label = "Cancel",
-                        class = "btn-secondary-custom",
-                        style = "margin-left: 10px;",
-                        icon = icon("times")
-                      )
-                    )
-                  ),
-                  uiOutput(ns("backup_restore_status"))
-                ),
-
-                tags$div(
-                  style = "margin-top: 15px; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;",
+                  style = "margin-bottom: 15px; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px; flex-shrink: 0; width: fit-content;",
                   tags$p(
                     style = "margin: 0; font-size: 13px; color: #333;",
                     tags$i(class = "fas fa-exclamation-triangle", style = "margin-right: 6px; color: #ffc107;"),
-                    tags$strong("Warning:"), " Restoring data will ", tags$strong("delete"), " existing data in selected categories before importing. This action cannot be undone."
+                    tags$strong("Warning:"), " ", i18n$t("restore_warning")
                   )
-                )
+                ),
+
+                fileInput(
+                  ns("upload_backup_file"),
+                  label = NULL,
+                  accept = ".zip",
+                  width = "400px",
+                  buttonLabel = tagList(
+                    tags$i(class = "fas fa-upload", style = "margin-right: 6px;"),
+                    i18n$t("browse")
+                  ),
+                  placeholder = as.character(i18n$t("select_backup_file"))
+                ),
+
+                # Import category selection
+                tags$div(
+                  id = ns("import_options_container"),
+                  style = "display: none; margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #dee2e6;",
+                  tags$div(
+                    style = "font-weight: 600; font-size: 13px; color: #333; margin-bottom: 12px;",
+                    i18n$t("select_what_to_import")
+                  ),
+                  checkboxInput(
+                    ns("import_config_users"),
+                    label = tagList(
+                      tags$span(i18n$t("configuration_users"), style = "font-weight: 500;"),
+                      tags$span(" (config, users tables)", style = "color: #666; font-size: 12px;")
+                    ),
+                    value = TRUE,
+                    width = "100%"
+                  ),
+                  checkboxInput(
+                    ns("import_alignments"),
+                    label = tagList(
+                      tags$span(i18n$t("alignments"), style = "font-weight: 500;"),
+                      tags$span(" (concept alignments, mappings, evaluations + files)", style = "color: #666; font-size: 12px;")
+                    ),
+                    value = TRUE,
+                    width = "100%"
+                  ),
+                  checkboxInput(
+                    ns("import_dictionary"),
+                    label = tagList(
+                      tags$span(i18n$t("dictionary"), style = "font-weight: 500;"),
+                      tags$span(" (general concepts, mappings, projects, statistics)", style = "color: #666; font-size: 12px;")
+                    ),
+                    value = TRUE,
+                    width = "100%"
+                  ),
+                  tags$div(
+                    style = "margin-top: 15px;",
+                    actionButton(
+                      ns("confirm_restore"),
+                      label = i18n$t("confirm_restore"),
+                      class = "btn-primary-custom",
+                      icon = icon("check")
+                    ),
+                    actionButton(
+                      ns("cancel_restore"),
+                      label = i18n$t("cancel"),
+                      class = "btn-secondary-custom",
+                      style = "margin-left: 10px;",
+                      icon = icon("times")
+                    )
+                  )
+                ),
+                uiOutput(ns("backup_restore_status"))
               )
             )
           )
@@ -279,10 +358,24 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     duckdb_processing <- reactiveVal(FALSE)
     duckdb_message <- reactiveVal(NULL)
 
+    ### UMLS State ----
+    umls_current_path <- reactiveVal(path.expand("~"))
+    selected_umls_folder <- reactiveVal(NULL)
+    umls_sort_order <- reactiveVal("asc")
+    umls_filter_text <- reactiveVal("")
+    umls_duckdb_processing <- reactiveVal(FALSE)
+    umls_duckdb_message <- reactiveVal(NULL)
+
     # Load saved vocab folder from database on initialization
     saved_path <- get_vocab_folder()
     if (!is.null(saved_path) && nchar(saved_path) > 0) {
       selected_folder(saved_path)
+    }
+
+    # Load saved UMLS folder from database on initialization
+    saved_umls_path <- get_umls_folder()
+    if (!is.null(saved_umls_path) && nchar(saved_umls_path) > 0) {
+      selected_umls_folder(saved_umls_path)
     }
 
     ## 1b) Server - Backup & Restore ----
@@ -296,9 +389,9 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
       content = function(file) {
         app_dir <- get_app_dir()
 
-        # Get all files in app_dir except vocabularies.duckdb
+        # Get all files in app_dir except DuckDB files (ohdsi_vocabularies.duckdb, umls.duckdb)
         all_files <- list.files(app_dir, recursive = TRUE, full.names = TRUE)
-        files_to_backup <- all_files[!grepl("vocabularies\\.duckdb$", all_files)]
+        files_to_backup <- all_files[!grepl("\\.duckdb$", all_files)]
 
         # Create a temporary directory for the backup
         temp_dir <- file.path(tempdir(), "indicate_backup")
@@ -1306,7 +1399,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
         if (duckdb_processing()) {
           return(
           tags$div(
-            style = "padding: 10px; background: #fff3cd; border-left: 3px solid #ffc107; border-radius: 4px; font-size: 12px;",
+            style = "padding: 10px; background: #fff3cd; border-left: 3px solid #ffc107; border-radius: 4px; font-size: 12px; width: fit-content;",
             tags$i(class = "fas fa-spinner fa-spin", style = "margin-right: 6px;"),
             "Creating DuckDB database... This may take a few minutes."
           )
@@ -1318,7 +1411,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
         if (!is.null(msg) && !msg$success) {
           return(
           tags$div(
-            style = "padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px;",
+            style = "padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px; width: fit-content;",
             tags$i(class = "fas fa-exclamation-circle", style = "margin-right: 6px; color: #dc3545;"),
             msg$message
           )
@@ -1333,21 +1426,20 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
           db_path <- get_duckdb_path()
           return(
           tags$div(
-            style = "padding: 10px; background: #d4edda; border-left: 3px solid #28a745; border-radius: 4px; font-size: 12px; display: flex; align-items: center; gap: 8px;",
+            style = "padding: 10px; background: #d4edda; border-left: 3px solid #28a745; border-radius: 4px; font-size: 12px; display: flex; align-items: center; gap: 8px; width: fit-content;",
             tags$i(class = "fas fa-check-circle", style = "color: #28a745;"),
             tags$span("Database exists: "),
             tags$code(basename(db_path)),
-            if (has_vocab_folder) {
-              actionButton(
-                ns("recreate_duckdb"),
-                label = tagList(
-                  tags$i(class = "fas fa-redo", style = "margin-right: 6px;"),
-                  "Recreate"
-                ),
-                class = "btn-sm",
-                style = "background: #fd7e14; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 12px; cursor: pointer;"
-              )
-            }
+            actionButton(
+              ns("recreate_duckdb"),
+              label = tagList(
+                tags$i(class = "fas fa-redo", style = "margin-right: 6px;"),
+                "Recreate"
+              ),
+              class = "btn-sm btn-warning-custom",
+              disabled = if (!has_vocab_folder) "disabled" else NULL,
+              title = if (!has_vocab_folder) "Select a vocabulary folder first" else "Recreate database from vocabulary files"
+            )
           )
           )
         } else {
@@ -1356,7 +1448,7 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
             # Vocab folder is configured, show Create button
             return(
               tags$div(
-                style = "padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px; display: flex; align-items: center; gap: 8px;",
+                style = "padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px; display: flex; align-items: center; gap: 8px; width: fit-content;",
                 tags$i(class = "fas fa-times-circle", style = "color: #dc3545;"),
                 tags$span("Database does not exist"),
                 actionButton(
@@ -1374,10 +1466,546 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
             # No vocab folder configured, inform user
             return(
               tags$div(
-                style = "padding: 10px; background: #e2e3e5; border-left: 3px solid #6c757d; border-radius: 4px; font-size: 12px;",
+                style = "padding: 10px; background: #e2e3e5; border-left: 3px solid #6c757d; border-radius: 4px; font-size: 12px; width: fit-content;",
                 tags$i(class = "fas fa-info-circle", style = "margin-right: 6px; color: #6c757d;"),
                 "No database found. Select a vocabulary folder above to create one, or place a pre-built ",
-                tags$code("vocabularies.duckdb"),
+                tags$code("ohdsi_vocabularies.duckdb"),
+                " file in the application folder."
+              )
+            )
+          }
+        }
+      })
+    })
+
+    ## 2b) Server - Folder Browser (UMLS) ----
+
+    ### UMLS Folder Path Display ----
+
+    umls_folder_path_trigger <- reactiveVal(0)
+
+    observe_event(selected_umls_folder(), {
+      umls_folder_path_trigger(umls_folder_path_trigger() + 1)
+    })
+
+    observe_event(umls_folder_path_trigger(), {
+      folder_path <- selected_umls_folder()
+
+      output$umls_folder_path_display <- renderUI({
+        if (is.null(folder_path) || nchar(folder_path) == 0) {
+          tags$div(
+            style = paste0(
+              "font-family: monospace; background: #f8f9fa; ",
+              "padding: 10px; border-radius: 4px; font-size: 12px; ",
+              "min-height: 40px; display: flex; align-items: center; ",
+              "border: 1px solid #dee2e6;"
+            ),
+            tags$span(
+              style = "color: #999;",
+              "No folder selected"
+            )
+          )
+        } else {
+          tags$div(
+            style = paste0(
+              "font-family: monospace; background: #f0edff; ",
+              "padding: 10px; border-radius: 4px; font-size: 12px; ",
+              "min-height: 40px; display: flex; align-items: center; ",
+              "border: 1px solid #6c5ce7;"
+            ),
+            tags$span(
+              style = "color: #333;",
+              folder_path
+            )
+          )
+        }
+      })
+    })
+
+    ### UMLS Browser Modal ----
+
+    observe_event(input$browse_umls_folder, {
+      # Start at selected folder if it exists, otherwise home
+      start_path <- selected_umls_folder()
+      if (is.null(start_path) || !dir.exists(start_path)) {
+        start_path <- path.expand("~")
+      }
+
+      umls_current_path(start_path)
+      umls_sort_order("asc")
+      umls_filter_text("")
+      show_umls_browser_modal()
+    })
+
+    observe_event(input$umls_toggle_sort, {
+      if (umls_sort_order() == "asc") {
+        umls_sort_order("desc")
+      } else {
+        umls_sort_order("asc")
+      }
+    })
+
+    observe_event(input$umls_filter_input, {
+      if (is.null(input$umls_filter_input)) return()
+      umls_filter_text(input$umls_filter_input)
+    })
+
+    # Function to show UMLS browser modal
+    show_umls_browser_modal <- function() {
+      showModal(
+        modalDialog(
+          title = tagList(
+            tags$i(class = "fas fa-folder-open", style = "margin-right: 8px;"),
+            "Select UMLS META Folder"
+          ),
+          size = "l",
+          easyClose = FALSE,
+
+          # Current path and home button
+          tags$div(
+            style = "display: flex; align-items: center; gap: 10px; margin-bottom: 10px;",
+            tags$div(
+              style = "flex: 1; font-family: monospace; background: #f8f9fa; padding: 8px 12px; border-radius: 4px; font-size: 12px; border: 1px solid #dee2e6;",
+              uiOutput(ns("umls_current_path"))
+            ),
+            actionButton(
+              ns("umls_go_home"),
+              label = tags$i(class = "fas fa-home"),
+              style = "padding: 8px 12px; border-radius: 4px; background: #6c757d; color: white; border: none;"
+            )
+          ),
+
+          # Search filter
+          tags$div(
+            style = "margin-bottom: 10px;",
+            textInput(
+              ns("umls_filter_input"),
+              label = NULL,
+              placeholder = "Search folders and files...",
+              width = "100%"
+            )
+          ),
+
+          # File browser with table header
+          tags$div(
+            style = paste0(
+              "border: 1px solid #dee2e6; border-radius: 4px; ",
+              "background: white; height: 400px; overflow-y: auto;"
+            ),
+            # Table header
+            tags$div(
+              style = "background: #f8f9fa; border-bottom: 2px solid #dee2e6; position: sticky; top: 0; z-index: 10;",
+              tags$div(
+                class = "file-browser-header",
+                style = "padding: 10px 12px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 600; color: #333;",
+                onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("umls_toggle_sort")),
+                tags$span("Name"),
+                uiOutput(ns("umls_sort_icon"), inline = TRUE)
+              )
+            ),
+            # File list
+            uiOutput(ns("umls_file_browser"))
+          ),
+
+          footer = tagList(
+            actionButton(ns("umls_cancel_browse"), "Cancel", class = "btn-secondary-custom", icon = icon("times")),
+            actionButton(ns("umls_select_current_folder"), "Select", class = "btn-primary-custom", icon = icon("check"), style = "margin-left: 10px;")
+          )
+        )
+      )
+    }
+
+    ### UMLS File Browser Rendering ----
+
+    umls_current_path_trigger <- reactiveVal(0)
+
+    observe_event(umls_current_path(), {
+      umls_current_path_trigger(umls_current_path_trigger() + 1)
+    })
+
+    observe_event(umls_current_path_trigger(), {
+      output$umls_current_path <- renderUI({
+        tags$span(umls_current_path())
+      })
+    })
+
+    umls_sort_order_trigger <- reactiveVal(0)
+
+    observe_event(umls_sort_order(), {
+      umls_sort_order_trigger(umls_sort_order_trigger() + 1)
+    })
+
+    observe_event(umls_sort_order_trigger(), {
+      output$umls_sort_icon <- renderUI({
+        if (umls_sort_order() == "asc") {
+          tags$i(class = "fas fa-sort-alpha-down", title = "Sort A-Z")
+        } else {
+          tags$i(class = "fas fa-sort-alpha-up", title = "Sort Z-A")
+        }
+      })
+    })
+
+    observe_event(input$umls_go_home, {
+      umls_current_path(path.expand("~"))
+    })
+
+    umls_file_browser_trigger <- reactiveVal(0)
+
+    observe_event(list(umls_current_path(), umls_filter_text(), umls_sort_order()), {
+      umls_file_browser_trigger(umls_file_browser_trigger() + 1)
+    })
+
+    observe_event(umls_file_browser_trigger(), {
+      path <- umls_current_path()
+      filter <- umls_filter_text()
+      order <- umls_sort_order()
+
+      output$umls_file_browser <- renderUI({
+        items <- list.files(path, full.names = TRUE, include.dirs = TRUE)
+
+        if (length(items) == 0) {
+          return(
+            tags$div(
+              style = "padding: 20px; text-align: center; color: #999;",
+              tags$i(class = "fas fa-folder-open", style = "font-size: 32px; margin-bottom: 10px;"),
+              tags$p("Empty folder")
+            )
+          )
+        }
+
+        # Separate directories and files
+        is_dir <- file.info(items)$isdir
+        dirs <- items[is_dir]
+        files <- items[!is_dir]
+
+        # Apply filter if present
+        if (!is.null(filter) && nchar(filter) > 0) {
+          dirs <- dirs[grepl(filter, basename(dirs), ignore.case = TRUE)]
+          files <- files[grepl(filter, basename(files), ignore.case = TRUE)]
+        }
+
+        # Sort based on order
+        if (order == "asc") {
+          dirs <- sort(dirs)
+          files <- sort(files)
+        } else {
+          dirs <- sort(dirs, decreasing = TRUE)
+          files <- sort(files, decreasing = TRUE)
+        }
+
+        # Check if filtered results are empty
+        if (length(dirs) == 0 && length(files) == 0) {
+          return(
+            tags$div(
+              style = "padding: 20px; text-align: center; color: #999;",
+              tags$i(class = "fas fa-search", style = "font-size: 32px; margin-bottom: 10px;"),
+              tags$p("No items match your search")
+            )
+          )
+        }
+
+        # Create list items
+        items_ui <- list()
+
+        # Add parent directory link if not at root
+        if (path != "/" && path != path.expand("~")) {
+          parent_path <- dirname(path)
+          items_ui <- append(items_ui, list(
+            tags$div(
+              class = "file-browser-item",
+              style = "padding: 8px 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f0f0f0;",
+              onclick = sprintf("Shiny.setInputValue('%s', '%s', {priority: 'event'})", ns("umls_navigate_to"), parent_path),
+              tags$i(class = "fas fa-level-up-alt", style = "color: #6c757d; width: 16px;"),
+              tags$span("..", style = "font-weight: 500; color: #333;")
+            )
+          ))
+        }
+
+        # Add directories
+        for (dir in dirs) {
+          dir_name <- basename(dir)
+          items_ui <- append(items_ui, list(
+            tags$div(
+              class = "file-browser-item file-browser-folder",
+              style = "padding: 8px 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f0f0f0;",
+              `data-path` = dir,
+              tags$i(class = "fas fa-folder", style = "color: #f4c430; width: 16px;"),
+              tags$span(dir_name, style = "flex: 1; color: #333;"),
+              actionButton(
+                ns(paste0("umls_select_", gsub("[^a-zA-Z0-9]", "_", dir))),
+                "Select",
+                style = "padding: 4px 12px; font-size: 11px; background: #0f60af; color: white; border: none; border-radius: 4px;",
+                onclick = sprintf("event.stopPropagation(); Shiny.setInputValue('%s', '%s', {priority: 'event'})", ns("umls_select_folder_path"), dir)
+              )
+            )
+          ))
+        }
+
+        # Add files (grayed out, non-clickable)
+        for (file in files) {
+          file_name <- basename(file)
+          items_ui <- append(items_ui, list(
+            tags$div(
+              class = "file-browser-item",
+              style = "padding: 8px 12px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f0f0f0; opacity: 0.5;",
+              tags$i(class = "fas fa-file", style = "color: #333; width: 16px;"),
+              tags$span(file_name, style = "color: #666;")
+            )
+          ))
+        }
+
+        tagList(items_ui)
+      })
+    })
+
+    ### UMLS Navigation Handlers ----
+
+    observe_event(input$umls_navigate_to, {
+      new_path <- input$umls_navigate_to
+      if (dir.exists(new_path)) {
+        umls_current_path(new_path)
+      }
+    })
+
+    observe_event(input$umls_select_folder_path, {
+      folder_path <- input$umls_select_folder_path
+      if (dir.exists(folder_path)) {
+        # Update reactive value
+        selected_umls_folder(folder_path)
+
+        # Save to database
+        set_umls_folder(folder_path)
+
+        # Close modal
+        removeModal()
+
+        # Check if UMLS DuckDB database needs to be created or loaded
+        if (!umls_duckdb_exists()) {
+          # Set processing status to update UI immediately
+          umls_duckdb_processing(TRUE)
+          umls_duckdb_message(NULL)
+
+          # Use shinyjs::delay to trigger creation after UI updates
+          shinyjs::delay(100, {
+            shinyjs::runjs(sprintf(
+              "Shiny.setInputValue('%s', Math.random(), {priority: 'event'})",
+              session$ns("trigger_umls_duckdb_creation")
+            ))
+          })
+        } else {
+          # Database exists - just update the setting
+          set_use_umls(TRUE)
+        }
+      }
+    })
+
+    observe_event(input$umls_cancel_browse, {
+      removeModal()
+    })
+
+    observe_event(input$umls_select_current_folder, {
+      folder_path <- umls_current_path()
+      if (dir.exists(folder_path)) {
+        # Update reactive value
+        selected_umls_folder(folder_path)
+
+        # Save to database
+        set_umls_folder(folder_path)
+
+        # Close modal
+        removeModal()
+
+        # Check if UMLS DuckDB database needs to be created or loaded
+        if (!umls_duckdb_exists()) {
+          umls_duckdb_processing(TRUE)
+          umls_duckdb_message(NULL)
+
+          shinyjs::delay(100, {
+            shinyjs::runjs(sprintf(
+              "Shiny.setInputValue('%s', Math.random(), {priority: 'event'})",
+              session$ns("trigger_umls_duckdb_creation")
+            ))
+          })
+        } else {
+          set_use_umls(TRUE)
+        }
+      }
+    })
+
+    ## 3b) Server - UMLS DuckDB Management ----
+
+    ### UMLS Database Creation ----
+
+    observe_event(input$trigger_umls_duckdb_creation, {
+      tryCatch({
+        umls_folder <- selected_umls_folder()
+
+        if (is.null(umls_folder) || nchar(umls_folder) == 0) {
+          umls_duckdb_processing(FALSE)
+          return()
+        }
+
+        # Force garbage collection
+        gc()
+        gc()
+        Sys.sleep(0.5)
+
+        # Create UMLS DuckDB database
+        result <- create_umls_duckdb_database(umls_folder)
+
+        umls_duckdb_processing(FALSE)
+
+        if (result$success) {
+          set_use_umls(TRUE)
+          umls_duckdb_message(NULL)
+        } else {
+          umls_duckdb_message(result)
+        }
+      }, error = function(e) {
+        umls_duckdb_processing(FALSE)
+        umls_duckdb_message(list(
+          success = FALSE,
+          message = paste("Error creating UMLS DuckDB database:", e$message)
+        ))
+      })
+    })
+
+    ### UMLS Database Recreation ----
+
+    observe_event(input$recreate_umls_duckdb, {
+      umls_folder <- selected_umls_folder()
+
+      if (is.null(umls_folder) || nchar(umls_folder) == 0) {
+        return()
+      }
+
+      umls_duckdb_processing(TRUE)
+      umls_duckdb_message(NULL)
+
+      shinyjs::delay(100, {
+        shinyjs::runjs(sprintf(
+          "Shiny.setInputValue('%s', Math.random(), {priority: 'event'})",
+          session$ns("trigger_umls_duckdb_recreation")
+        ))
+      })
+    })
+
+    observe_event(input$trigger_umls_duckdb_recreation, {
+      tryCatch({
+        umls_folder <- selected_umls_folder()
+
+        if (is.null(umls_folder) || nchar(umls_folder) == 0) {
+          umls_duckdb_processing(FALSE)
+          return()
+        }
+
+        gc()
+        gc()
+        Sys.sleep(0.5)
+
+        result <- create_umls_duckdb_database(umls_folder)
+
+        umls_duckdb_processing(FALSE)
+
+        if (result$success) {
+          set_use_umls(TRUE)
+          umls_duckdb_message(NULL)
+        } else {
+          umls_duckdb_message(result)
+        }
+      }, error = function(e) {
+        umls_duckdb_processing(FALSE)
+        umls_duckdb_message(list(
+          success = FALSE,
+          message = paste("Error recreating UMLS DuckDB database:", e$message)
+        ))
+      })
+    })
+
+    ### UMLS Status Display ----
+
+    umls_duckdb_status_trigger <- reactiveVal(0)
+
+    observe_event(list(selected_umls_folder(), umls_duckdb_processing(), umls_duckdb_message()), {
+      umls_duckdb_status_trigger(umls_duckdb_status_trigger() + 1)
+    })
+
+    observe_event(umls_duckdb_status_trigger(), {
+      umls_folder <- selected_umls_folder()
+
+      output$umls_duckdb_status <- renderUI({
+        if (umls_duckdb_processing()) {
+          return(
+            tags$div(
+              style = "padding: 10px; background: #fff3cd; border-left: 3px solid #ffc107; border-radius: 4px; font-size: 12px; width: fit-content;",
+              tags$i(class = "fas fa-spinner fa-spin", style = "margin-right: 6px;"),
+              "Creating UMLS DuckDB database... This may take several minutes for large files."
+            )
+          )
+        }
+
+        # Show error message if there was one
+        msg <- umls_duckdb_message()
+        if (!is.null(msg) && !msg$success) {
+          return(
+            tags$div(
+              style = "padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px; width: fit-content;",
+              tags$i(class = "fas fa-exclamation-circle", style = "margin-right: 6px; color: #dc3545;"),
+              msg$message
+            )
+          )
+        }
+
+        # Check if UMLS DuckDB database file exists
+        db_exists <- umls_duckdb_exists()
+        has_umls_folder <- !is.null(umls_folder) && nchar(umls_folder) > 0
+
+        if (db_exists) {
+          db_path <- get_umls_duckdb_path()
+          return(
+            tags$div(
+              style = "padding: 10px; background: #d4edda; border-left: 3px solid #28a745; border-radius: 4px; font-size: 12px; display: flex; align-items: center; gap: 8px; width: fit-content;",
+              tags$i(class = "fas fa-check-circle", style = "color: #28a745;"),
+              tags$span("Database exists: "),
+              tags$code(basename(db_path)),
+              actionButton(
+                ns("recreate_umls_duckdb"),
+                label = tagList(
+                  tags$i(class = "fas fa-redo", style = "margin-right: 6px;"),
+                  "Recreate"
+                ),
+                class = "btn-sm btn-warning-custom",
+                disabled = if (!has_umls_folder) "disabled" else NULL,
+                title = if (!has_umls_folder) "Select a UMLS META folder first" else "Recreate database from RRF files"
+              )
+            )
+          )
+        } else {
+          # Database does not exist
+          if (has_umls_folder) {
+            return(
+              tags$div(
+                style = "padding: 10px; background: #f8d7da; border-left: 3px solid #dc3545; border-radius: 4px; font-size: 12px; display: flex; align-items: center; gap: 8px; width: fit-content;",
+                tags$i(class = "fas fa-times-circle", style = "color: #dc3545;"),
+                tags$span("Database does not exist"),
+                actionButton(
+                  ns("recreate_umls_duckdb"),
+                  label = tagList(
+                    tags$i(class = "fas fa-plus", style = "margin-right: 6px;"),
+                    "Create"
+                  ),
+                  class = "btn-sm",
+                  style = "background: #28a745; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 12px; cursor: pointer;"
+                )
+              )
+            )
+          } else {
+            return(
+              tags$div(
+                style = "padding: 10px; background: #e2e3e5; border-left: 3px solid #6c757d; border-radius: 4px; font-size: 12px; width: fit-content;",
+                tags$i(class = "fas fa-info-circle", style = "margin-right: 6px; color: #6c757d;"),
+                "No UMLS database found. Select a UMLS META folder above to create one, or place a pre-built ",
+                tags$code("umls.duckdb"),
                 " file in the application folder."
               )
             )
@@ -1389,7 +2017,8 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     # Return reactive settings
     settings <- reactive({
       list(
-        vocab_folder_path = selected_folder()
+        vocab_folder_path = selected_folder(),
+        umls_folder_path = selected_umls_folder()
       )
     })
 

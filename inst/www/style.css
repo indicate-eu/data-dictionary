@@ -1848,6 +1848,27 @@ a.btn-success-custom:hover {
   background: #c82333 !important;
 }
 
+.btn-warning-custom {
+  background: #fd7e14 !important;
+  border: none !important;
+  padding: 4px 12px !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  color: white !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.btn-warning-custom:hover:not(:disabled) {
+  background: #e96b02 !important;
+}
+
+.btn-warning-custom:disabled {
+  background: #ccc !important;
+  cursor: not-allowed !important;
+  opacity: 0.7 !important;
+}
+
 .btn-toggle {
   padding: 6px 12px !important;
   background: #0f60af !important;

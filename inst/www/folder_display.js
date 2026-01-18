@@ -15,7 +15,16 @@ $(document).on('click', '.file-browser-folder', function(e) {
 
   var path = $(this).data('path');
   if (path) {
-    var inputId = $(this).closest('[id]').attr('id').replace('-file_browser', '') + '-navigate_to';
+    var containerId = $(this).closest('[id]').attr('id');
+    var inputId;
+
+    // Handle both OHDSI (file_browser) and UMLS (umls_file_browser) browser containers
+    if (containerId.indexOf('-umls_file_browser') !== -1) {
+      inputId = containerId.replace('-umls_file_browser', '-umls_navigate_to');
+    } else {
+      inputId = containerId.replace('-file_browser', '-navigate_to');
+    }
+
     Shiny.setInputValue(inputId, path, {priority: 'event'});
   }
 });

@@ -150,6 +150,10 @@ available_objects,Available objects:
 concept_table,OHDSI concept table
 concept_relationship_table,OHDSI concept_relationship table
 concept_ancestor_table,OHDSI concept_ancestor table
+mrconso_table,UMLS concept names and sources
+mrsty_table,UMLS semantic types
+mrdef_table,UMLS definitions (optional)
+mrsab_table,UMLS source metadata (optional)
 run_code_results,Run code to see results here
 enter_r_code,Please enter R code to execute.
 vocabularies_not_loaded,OHDSI vocabularies not loaded.
@@ -161,7 +165,7 @@ browse,Browse...
 no_folder_selected,No folder selected
 select_ohdsi_folder,Select OHDSI Vocabularies Folder
 search_folders,Search folders and files...
-duckdb_status,DuckDB Database Status
+duckdb_status,OHDSI Vocabularies Database Status
 duckdb_description,A DuckDB database is automatically created from ATHENA vocabulary files (CSV or Parquet) for instant loading at startup.
 creating_duckdb,Creating DuckDB database... This may take a few minutes.
 database_exists,Database exists:
@@ -515,3 +519,15 @@ confirm_delete_conversion,Are you sure you want to delete this unit conversion?
 concept_id,Concept ID
 add,Add
 loading_vocabularies,Loading OMOP vocabularies...
+terminologies,Terminologies
+umls,UMLS Metathesaurus
+browse_umls_folder_desc,"Select the folder containing UMLS Metathesaurus RRF files (META folder). Required files: MRCONSO.RRF, MRSTY.RRF."
+umls_note,"Download UMLS from NLM website (requires UMLS license). Point to the META folder containing RRF files."
+umls_duckdb_status,UMLS Database Status
+umls_duckdb_description,UMLS data is converted to a local DuckDB database for fast queries.
+download_backup_zip,Download backup (ZIP)
+select_what_to_import,Select what to import:
+configuration_users,Configuration & Users
+alignments,Alignments
+dictionary,Dictionary
+confirm_restore,Confirm Restore

@@ -346,7 +346,31 @@ get_duckdb_path <- function() {
     dir.create(indicate_files_folder, recursive = TRUE)
   }
 
-  file.path(indicate_files_folder, "vocabularies.duckdb")
+  file.path(indicate_files_folder, "ohdsi_vocabularies.duckdb")
+}
+
+#' Get UMLS DuckDB database path
+#'
+#' @description Get the path where UMLS DuckDB database should be stored
+#'
+#' @return Path to UMLS DuckDB database file
+#' @noRd
+get_umls_duckdb_path <- function() {
+  app_folder <- Sys.getenv("INDICATE_APP_FOLDER", unset = path.expand("~"))
+
+  # Avoid creating indicate_files/ inside indicate_files/
+  if (basename(app_folder) == "indicate_files") {
+    indicate_files_folder <- app_folder
+  } else {
+    indicate_files_folder <- file.path(app_folder, "indicate_files")
+  }
+
+  # Create indicate_files folder if it doesn't exist
+  if (!dir.exists(indicate_files_folder)) {
+    dir.create(indicate_files_folder, recursive = TRUE)
+  }
+
+  file.path(indicate_files_folder, "umls.duckdb")
 }
 
 #' Load vocabularies from DuckDB
@@ -390,5 +414,316 @@ load_vocabularies_from_duckdb <- function() {
       try(DBI::dbDisconnect(con, shutdown = TRUE), silent = TRUE)
     }
     stop(paste("Error loading vocabularies from DuckDB:", e$message))
+  })
+}
+
+# UMLS Database Functions ====
+
+#' Check if UMLS DuckDB database exists
+#'
+#' @description Check if UMLS DuckDB database file exists
+#'
+#' @return TRUE if database exists, FALSE otherwise
+#' @export
+umls_duckdb_exists <- function() {
+  db_path <- get_umls_duckdb_path()
+  return(file.exists(db_path))
+}
+
+#' Create UMLS DuckDB database from RRF files
+#'
+#' @description Create a DuckDB database from UMLS Metathesaurus RRF files
+#'
+#' @param umls_folder Path to UMLS META folder containing RRF files
+#'
+#' @return List with success status and message
+#' @export
+create_umls_duckdb_database <- function(umls_folder) {
+  if (is.null(umls_folder) || !dir.exists(umls_folder)) {
+    return(list(
+      success = FALSE,
+      message = "Invalid UMLS folder path"
+    ))
+  }
+
+  # Define required tables and their columns
+  # MRCONSO: Main concepts file
+  # MRDEF: Definitions
+  # MRSTY: Semantic Types
+  # MRSAB: Source metadata
+  required_files <- c("MRCONSO.RRF", "MRSTY.RRF")
+
+  # Check if required files exist
+  missing_files <- c()
+  for (f in required_files) {
+    if (!file.exists(file.path(umls_folder, f))) {
+      missing_files <- c(missing_files, f)
+    }
+  }
+
+  if (length(missing_files) > 0) {
+    return(list(
+      success = FALSE,
+      message = paste("Missing required files:", paste(missing_files, collapse = ", "))
+    ))
+  }
+
+  db_path <- get_umls_duckdb_path()
+
+  # Force close all DuckDB connections before removing the file
+  if (file.exists(db_path)) {
+    tryCatch({
+      all_cons <- DBI::dbListConnections(duckdb::duckdb())
+      for (con in all_cons) {
+        try(DBI::dbDisconnect(con, shutdown = TRUE), silent = TRUE)
+      }
+    }, error = function(e) {
+      # Ignore errors during cleanup
+    })
+
+    gc()
+    gc()
+    Sys.sleep(0.5)
+
+    unlink(db_path)
+
+    if (file.exists(db_path)) {
+      return(list(
+        success = FALSE,
+        message = "Cannot delete existing UMLS database file. Please restart R and try again."
+      ))
+    }
+  }
+
+  tryCatch({
+    # Create DuckDB connection
+    drv <- duckdb::duckdb(dbdir = db_path, read_only = FALSE)
+    con <- DBI::dbConnect(drv)
+
+    # MRCONSO: Concept names and sources
+    # Columns: CUI,LAT,TS,LUI,STT,SUI,ISPREF,AUI,SAUI,SCUI,SDUI,SAB,TTY,CODE,STR,SRL,SUPPRESS,CVF
+    # Note: quote='' disables quote detection - RRF files contain apostrophes in text fields
+    mrconso_path <- file.path(umls_folder, "MRCONSO.RRF")
+    DBI::dbExecute(con, sprintf("
+      CREATE TABLE mrconso AS
+      SELECT * FROM read_csv('%s',
+        delim='|',
+        header=false,
+        quote='',
+        columns={
+          'cui': 'VARCHAR',
+          'lat': 'VARCHAR',
+          'ts': 'VARCHAR',
+          'lui': 'VARCHAR',
+          'stt': 'VARCHAR',
+          'sui': 'VARCHAR',
+          'ispref': 'VARCHAR',
+          'aui': 'VARCHAR',
+          'saui': 'VARCHAR',
+          'scui': 'VARCHAR',
+          'sdui': 'VARCHAR',
+          'sab': 'VARCHAR',
+          'tty': 'VARCHAR',
+          'code': 'VARCHAR',
+          'str': 'VARCHAR',
+          'srl': 'VARCHAR',
+          'suppress': 'VARCHAR',
+          'cvf': 'VARCHAR'
+        }
+      )", mrconso_path))
+
+    # MRSTY: Semantic Types
+    # Columns: CUI,TUI,STN,STY,ATUI,CVF
+    mrsty_path <- file.path(umls_folder, "MRSTY.RRF")
+    DBI::dbExecute(con, sprintf("
+      CREATE TABLE mrsty AS
+      SELECT * FROM read_csv('%s',
+        delim='|',
+        header=false,
+        quote='',
+        columns={
+          'cui': 'VARCHAR',
+          'tui': 'VARCHAR',
+          'stn': 'VARCHAR',
+          'sty': 'VARCHAR',
+          'atui': 'VARCHAR',
+          'cvf': 'VARCHAR'
+        }
+      )", mrsty_path))
+
+    # MRDEF: Definitions (optional)
+    mrdef_path <- file.path(umls_folder, "MRDEF.RRF")
+    if (file.exists(mrdef_path)) {
+      DBI::dbExecute(con, sprintf("
+        CREATE TABLE mrdef AS
+        SELECT * FROM read_csv('%s',
+          delim='|',
+          header=false,
+          quote='',
+          columns={
+            'cui': 'VARCHAR',
+            'aui': 'VARCHAR',
+            'atui': 'VARCHAR',
+            'satui': 'VARCHAR',
+            'sab': 'VARCHAR',
+            'def': 'VARCHAR',
+            'suppress': 'VARCHAR',
+            'cvf': 'VARCHAR'
+          }
+        )", mrdef_path))
+    }
+
+    # MRSAB: Source metadata (optional, small file)
+    mrsab_path <- file.path(umls_folder, "MRSAB.RRF")
+    if (file.exists(mrsab_path)) {
+      DBI::dbExecute(con, sprintf("
+        CREATE TABLE mrsab AS
+        SELECT * FROM read_csv('%s',
+          delim='|',
+          header=false,
+          quote='',
+          columns={
+            'vcui': 'VARCHAR',
+            'rcui': 'VARCHAR',
+            'vsab': 'VARCHAR',
+            'rsab': 'VARCHAR',
+            'son': 'VARCHAR',
+            'sf': 'VARCHAR',
+            'sver': 'VARCHAR',
+            'vstart': 'VARCHAR',
+            'vend': 'VARCHAR',
+            'imeta': 'VARCHAR',
+            'rmeta': 'VARCHAR',
+            'slc': 'VARCHAR',
+            'scc': 'VARCHAR',
+            'srl': 'VARCHAR',
+            'tfr': 'VARCHAR',
+            'cfr': 'VARCHAR',
+            'cxty': 'VARCHAR',
+            'ttyl': 'VARCHAR',
+            'atnl': 'VARCHAR',
+            'lat': 'VARCHAR',
+            'cenc': 'VARCHAR',
+            'curver': 'VARCHAR',
+            'sabin': 'VARCHAR',
+            'ssn': 'VARCHAR',
+            'scit': 'VARCHAR'
+          }
+        )", mrsab_path))
+    }
+
+    # Create indexes for better performance
+    DBI::dbExecute(con, "CREATE INDEX idx_mrconso_cui ON mrconso(cui)")
+    DBI::dbExecute(con, "CREATE INDEX idx_mrconso_sab ON mrconso(sab)")
+    DBI::dbExecute(con, "CREATE INDEX idx_mrconso_code ON mrconso(code)")
+    DBI::dbExecute(con, "CREATE INDEX idx_mrconso_lat ON mrconso(lat)")
+    DBI::dbExecute(con, "CREATE INDEX idx_mrsty_cui ON mrsty(cui)")
+    DBI::dbExecute(con, "CREATE INDEX idx_mrsty_tui ON mrsty(tui)")
+
+    if (DBI::dbExistsTable(con, "mrdef")) {
+      DBI::dbExecute(con, "CREATE INDEX idx_mrdef_cui ON mrdef(cui)")
+    }
+
+    # Close connection
+    DBI::dbDisconnect(con, shutdown = TRUE)
+
+    return(list(
+      success = TRUE,
+      message = "UMLS DuckDB database created successfully",
+      db_path = db_path
+    ))
+
+  }, error = function(e) {
+    # Clean up on error
+    if (exists("con")) {
+      try(DBI::dbDisconnect(con, shutdown = TRUE), silent = TRUE)
+    }
+    if (file.exists(db_path)) {
+      unlink(db_path)
+    }
+
+    return(list(
+      success = FALSE,
+      message = paste("Error creating UMLS DuckDB database:", e$message)
+    ))
+  })
+}
+
+#' Load UMLS from DuckDB
+#'
+#' @description Load UMLS data from DuckDB database using lazy connections
+#'
+#' @return List with dplyr::tbl connections to UMLS tables
+#' @export
+load_umls_from_duckdb <- function() {
+  db_path <- get_umls_duckdb_path()
+
+  if (!file.exists(db_path)) {
+    stop("UMLS DuckDB database does not exist")
+  }
+
+  tryCatch({
+    # Connect to DuckDB
+    drv <- duckdb::duckdb(dbdir = db_path, read_only = TRUE)
+    con <- DBI::dbConnect(drv)
+
+    # Create lazy dplyr::tbl connections
+    mrconso <- dplyr::tbl(con, "mrconso")
+    mrsty <- dplyr::tbl(con, "mrsty")
+
+    result <- list(
+      mrconso = mrconso,
+      mrsty = mrsty,
+      connection = con
+    )
+
+    # Add optional tables if they exist
+    if (DBI::dbExistsTable(con, "mrdef")) {
+      result$mrdef <- dplyr::tbl(con, "mrdef")
+    }
+    if (DBI::dbExistsTable(con, "mrsab")) {
+      result$mrsab <- dplyr::tbl(con, "mrsab")
+    }
+
+    return(result)
+
+  }, error = function(e) {
+    if (exists("con")) {
+      try(DBI::dbDisconnect(con, shutdown = TRUE), silent = TRUE)
+    }
+    stop(paste("Error loading UMLS from DuckDB:", e$message))
+  })
+}
+
+#' Delete UMLS DuckDB database
+#'
+#' @description Delete the UMLS DuckDB database file
+#'
+#' @return List with success status and message
+#' @export
+delete_umls_duckdb_database <- function() {
+  db_path <- get_umls_duckdb_path()
+
+  if (!file.exists(db_path)) {
+    return(list(
+      success = TRUE,
+      message = "UMLS DuckDB database does not exist"
+    ))
+  }
+
+  tryCatch({
+    gc()
+    Sys.sleep(0.5)
+    unlink(db_path)
+
+    return(list(
+      success = TRUE,
+      message = "UMLS DuckDB database deleted successfully"
+    ))
+  }, error = function(e) {
+    return(list(
+      success = FALSE,
+      message = paste("Error deleting UMLS DuckDB database:", e$message)
+    ))
   })
 }

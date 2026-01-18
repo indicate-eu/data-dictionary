@@ -150,6 +150,10 @@ available_objects,Objets disponibles :
 concept_table,Table concept OHDSI
 concept_relationship_table,Table concept_relationship OHDSI
 concept_ancestor_table,Table concept_ancestor OHDSI
+mrconso_table,Noms de concepts et sources UMLS
+mrsty_table,Types sémantiques UMLS
+mrdef_table,Définitions UMLS (optionnel)
+mrsab_table,Métadonnées des sources UMLS (optionnel)
 run_code_results,Exécutez le code pour voir les résultats ici
 enter_r_code,Veuillez entrer du code R à exécuter.
 vocabularies_not_loaded,Vocabulaires OHDSI non chargés.
@@ -161,7 +165,7 @@ browse,Parcourir...
 no_folder_selected,Aucun dossier sélectionné
 select_ohdsi_folder,Sélectionner le dossier des vocabulaires OHDSI
 search_folders,Rechercher des dossiers et fichiers...
-duckdb_status,Statut de la base DuckDB
+duckdb_status,État de la base OHDSI Vocabularies
 duckdb_description,Une base de données DuckDB est automatiquement créée à partir des fichiers de vocabulaires ATHENA (CSV ou Parquet) pour un chargement instantané au démarrage.
 creating_duckdb,Création de la base DuckDB... Cela peut prendre quelques minutes.
 database_exists,Base de données existante :
@@ -515,3 +519,15 @@ confirm_delete_conversion,Êtes-vous sûr de vouloir supprimer cette conversion 
 concept_id,ID Concept
 add,Ajouter
 loading_vocabularies,Chargement des vocabulaires OMOP...
+terminologies,Terminologies
+umls,UMLS Metathesaurus
+browse_umls_folder_desc,"Sélectionnez le dossier contenant les fichiers RRF du Metathesaurus UMLS (dossier META). Fichiers requis : MRCONSO.RRF, MRSTY.RRF."
+umls_note,"Téléchargez UMLS depuis le site NLM (licence UMLS requise). Pointez vers le dossier META contenant les fichiers RRF."
+umls_duckdb_status,État de la base UMLS
+umls_duckdb_description,Les données UMLS sont converties en base DuckDB locale pour des requêtes rapides.
+download_backup_zip,Télécharger la sauvegarde (ZIP)
+select_what_to_import,Sélectionnez ce qui doit être importé :
+configuration_users,Configuration & Utilisateurs
+alignments,Alignements
+dictionary,Dictionnaire
+confirm_restore,Confirmer la restauration

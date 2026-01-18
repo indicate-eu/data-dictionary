@@ -83,10 +83,16 @@ mod_dev_tools_ui <- function(id, i18n) {
                           height = "100%",
                           fontSize = 11,
                           value = paste(
-                            "# Query vocabularies using dplyr",
+                            "# Query OHDSI vocabularies using dplyr",
                             "# Example:",
                             "concept %>%",
                             "  filter(concept_id == 3004249)",
+                            "",
+                            "# Query UMLS Metathesaurus",
+                            "# Example:",
+                            "# mrconso %>%",
+                            "#   filter(cui == 'C0018787') %>%",
+                            "#   filter(lat == 'ENG')",
                             sep = "\n"
                           ),
                           hotkeys = list(
@@ -103,13 +109,25 @@ mod_dev_tools_ui <- function(id, i18n) {
                       ),
                       tags$div(
                         style = "margin-top: 10px; margin-bottom: 10px; padding: 10px; background: #e6f3ff; border-left: 3px solid #0f60af; border-radius: 4px; font-size: 12px;",
-                        tags$strong(i18n$t("available_objects")),
+                        tags$strong("OHDSI Vocabularies:"),
                         tags$br(),
                         tags$code("concept"), " - ", i18n$t("concept_table"),
                         tags$br(),
                         tags$code("concept_relationship"), " - ", i18n$t("concept_relationship_table"),
                         tags$br(),
                         tags$code("concept_ancestor"), " - ", i18n$t("concept_ancestor_table")
+                      ),
+                      tags$div(
+                        style = "margin-top: 10px; margin-bottom: 10px; padding: 10px; background: #f0edff; border-left: 3px solid #6c5ce7; border-radius: 4px; font-size: 12px;",
+                        tags$strong("UMLS Metathesaurus:"),
+                        tags$br(),
+                        tags$code("mrconso"), " - ", i18n$t("mrconso_table"),
+                        tags$br(),
+                        tags$code("mrsty"), " - ", i18n$t("mrsty_table"),
+                        tags$br(),
+                        tags$code("mrdef"), " - ", i18n$t("mrdef_table"),
+                        tags$br(),
+                        tags$code("mrsab"), " - ", i18n$t("mrsab_table")
                       ),
                       tags$div(
                         style = "margin-top: 10px;",
@@ -539,17 +557,41 @@ mod_dev_tools_server <- function(id, data, vocabularies, i18n, log_level = chara
         return()
       }
 
-      vocab_data <- vocabularies()
+      # Initialize empty objects
+      concept <- NULL
+      concept_relationship <- NULL
+      concept_ancestor <- NULL
+      mrconso <- NULL
+      mrsty <- NULL
+      mrdef <- NULL
+      mrsab <- NULL
 
-      if (is.null(vocab_data)) {
+      # Load OHDSI vocabularies if available
+      vocab_data <- vocabularies()
+      if (!is.null(vocab_data)) {
+        concept <- vocab_data$concept
+        concept_relationship <- vocab_data$concept_relationship
+        concept_ancestor <- vocab_data$concept_ancestor
+      }
+
+      # Load UMLS tables if available
+      if (umls_duckdb_exists()) {
+        tryCatch({
+          umls_data <- load_umls_from_duckdb()
+          mrconso <- umls_data$mrconso
+          mrsty <- umls_data$mrsty
+          if (!is.null(umls_data$mrdef)) mrdef <- umls_data$mrdef
+          if (!is.null(umls_data$mrsab)) mrsab <- umls_data$mrsab
+        }, error = function(e) {
+          # Silently ignore UMLS loading errors
+        })
+      }
+
+      # Check if at least one data source is available
+      if (is.null(vocab_data) && is.null(mrconso)) {
         code_status("no_vocab")
         return()
       }
-
-      # Make vocabularies available as objects
-      concept <- vocab_data$concept
-      concept_relationship <- vocab_data$concept_relationship
-      concept_ancestor <- vocab_data$concept_ancestor
 
       # Evaluate the code
       result <- tryCatch(

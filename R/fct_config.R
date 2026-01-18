@@ -262,3 +262,58 @@ set_use_duckdb <- function(use_duckdb) {
 set_vocab_folder <- function(path) {
   set_config_value("vocab_folder_path", path)
 }
+
+#' Get UMLS folder path
+#'
+#' @description Get the configured UMLS folder path
+#'
+#' @return Folder path or NULL if not configured
+#' @export
+get_umls_folder <- function() {
+  get_config_value("umls_folder_path", default = NULL)
+}
+
+#' Set UMLS folder path
+#'
+#' @description Save the UMLS folder path
+#'
+#' @param path Folder path
+#'
+#' @return TRUE if successful
+#' @export
+set_umls_folder <- function(path) {
+  set_config_value("umls_folder_path", path)
+}
+
+#' Get UMLS usage status
+#'
+#' @description Get whether UMLS database should be used.
+#' Returns TRUE if: (1) the use_umls config is set to "true", OR
+#' (2) a umls.duckdb file exists (auto-detection)
+#'
+#' @return TRUE or FALSE
+#' @export
+get_use_umls <- function() {
+  # First check if UMLS DuckDB file exists
+  duckdb_path <- get_umls_duckdb_path()
+  if (file.exists(duckdb_path)) {
+    return(TRUE)
+  }
+
+  # Otherwise check the config value
+  value <- get_config_value("use_umls", default = "false")
+  return(value == "true")
+}
+
+#' Set UMLS usage status
+#'
+#' @description Set whether UMLS database should be used
+#'
+#' @param use_umls Logical value
+#'
+#' @return TRUE if successful
+#' @export
+set_use_umls <- function(use_umls) {
+  value <- if (use_umls) "true" else "false"
+  set_config_value("use_umls", value)
+}

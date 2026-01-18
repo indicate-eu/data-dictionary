@@ -7948,9 +7948,9 @@ Data distribution by hospital unit/ward.
 
       # Load and render global comment from file
       output$target_global_comment_display <- renderUI({
-        comment <- get_global_comment()
+        content <- get_global_comment()
 
-        if (is.null(comment) || nchar(comment) == 0) {
+        if (is.null(content) || nchar(content) == 0) {
           return(
             tags$div(
               style = "height: 100%; padding: 10px; overflow-y: auto; background: #f8f9fa;",
@@ -7968,7 +7968,7 @@ Data distribution by hospital unit/ward.
           tags$div(
             class = "markdown-content",
             style = "background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); height: 100%; overflow-y: auto;",
-            shiny::markdown(comment)
+            shiny::markdown(content)
           )
         )
       })
@@ -8003,9 +8003,9 @@ Data distribution by hospital unit/ward.
 
       # Load and render global comment from file
       output$eval_global_comment_display <- renderUI({
-        comment <- get_global_comment()
+        content <- get_global_comment()
 
-        if (is.null(comment) || nchar(comment) == 0) {
+        if (is.null(content) || nchar(content) == 0) {
           return(
             tags$div(
               style = "height: 100%; padding: 10px; overflow-y: auto; background: #f8f9fa;",
@@ -8023,7 +8023,7 @@ Data distribution by hospital unit/ward.
           tags$div(
             class = "markdown-content",
             style = "background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); height: 100%; overflow-y: auto;",
-            shiny::markdown(comment)
+            shiny::markdown(content)
           )
         )
       })

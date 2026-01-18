@@ -23,9 +23,9 @@
 #      ### Upload Status Display - Show upload status and reload button
 #
 #   ## 3) Server - Global Comment
-#      ### Load Global Comment - Initialize textarea with existing comment
+#      ### Load Global Comment - Initialize textarea with existing content
 #      ### Live Preview - Render markdown preview as user types
-#      ### Save Handler - Save comment to file (uses showNotification)
+#      ### Save Handler - Save global comment to file (uses showNotification)
 #
 #   ## 4) Server - Unit Conversions
 #      ### Load Conversions - Load from CSV and enrich with concept names
@@ -753,9 +753,9 @@ mod_dictionary_settings_server <- function(id, config, current_user, vocabularie
 
     ### Load Global Comment on Init ----
     observe({
-      comment <- get_global_comment()
-      if (!is.null(comment) && nchar(comment) > 0) {
-        updateTextAreaInput(session, "global_comment_input", value = comment)
+      content <- get_global_comment()
+      if (!is.null(content) && nchar(content) > 0) {
+        updateTextAreaInput(session, "global_comment_input", value = content)
       }
     }, priority = 100)
 
@@ -780,17 +780,17 @@ mod_dictionary_settings_server <- function(id, config, current_user, vocabularie
 
     ### Save Global Comment Handler ----
     observe_event(input$save_global_comment_btn, {
-      comment_text <- input$global_comment_input
+      content_text <- input$global_comment_input
 
       # Handle NULL or empty input
-      if (is.null(comment_text)) {
-        comment_text <- ""
+      if (is.null(content_text)) {
+        content_text <- ""
       }
 
       # Save to file
       data_dict_dir <- get_user_data_dictionary_dir()
       file_path <- file.path(data_dict_dir, "global_comment.txt")
-      writeLines(comment_text, file_path)
+      writeLines(content_text, file_path)
 
       showNotification(i18n$t("global_comment_saved"), type = "message")
     })

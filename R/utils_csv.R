@@ -598,15 +598,15 @@ get_global_comment <- function() {
 #' @description Saves the global comment to the global_comment.txt file
 #' in the user's app_folder/data_dictionary directory.
 #'
-#' @param comment Character string with the global comment content
+#' @param content Character string with the global comment content
 #'
 #' @return Invisible TRUE on success
 #' @noRd
-save_global_comment <- function(comment) {
+save_global_comment <- function(content) {
   file_path <- get_csv_path("global_comment.txt")
 
   # Write content to file
-  writeLines(comment, file_path)
+  writeLines(content, file_path)
 
   return(invisible(TRUE))
 }

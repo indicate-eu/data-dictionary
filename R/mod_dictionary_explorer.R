@@ -5539,9 +5539,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       # Load and render global comment from file
       output$global_comment_display <- renderUI({
-        comment <- get_global_comment()
+        content <- get_global_comment()
 
-        if (is.null(comment) || nchar(comment) == 0) {
+        if (is.null(content) || nchar(content) == 0) {
           return(
             tags$div(
               style = "height: 100%; padding: 10px; overflow-y: auto; background: #f8f9fa;",
@@ -5559,7 +5559,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           tags$div(
             class = "markdown-content",
             style = "background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); height: 100%; overflow-y: auto;",
-            shiny::markdown(comment)
+            shiny::markdown(content)
           )
         )
       })
