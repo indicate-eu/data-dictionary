@@ -4309,7 +4309,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             style = "padding: 20px; background: #f8f9fa; border-radius: 6px; text-align: center;",
             tags$p(
               class = "text-muted-italic",
-              "Select a concept from the Mapped Concepts table to view its details."
+              "Select a concept from the Associated Concepts table to view its details."
             )
           ))
         }

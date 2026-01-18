@@ -73,6 +73,8 @@ concept_name,Concept Name
 concept_details,Concept Details
 general_concepts,General Concepts
 general_concepts_tooltip,Standardized concepts from the INDICATE data dictionary. Select a concept to map your source data to it.
+see_all_omop_concepts,See all OMOP concepts
+all_omop_concepts,All OMOP Concepts
 dictionary_explorer,Dictionary Explorer
 select_concept_to_view,Select a concept to view details
 no_concept_selected,No concept selected

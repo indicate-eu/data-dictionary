@@ -1366,6 +1366,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     alignment_to_delete <- reactiveVal(NULL)  # Track alignment ID to delete
     concept_mappings_view <- reactiveVal("table")  # "table" or "comments" - for right panel when general concept is selected
     file_preview_data <- reactiveVal(NULL)  # Store file preview data
+    show_all_omop_concepts <- reactiveVal(FALSE)  # Track whether to show all OMOP concepts instead of filtered by general concept
 
     ### Edit Mode State ----
     # No edit mode currently implemented for this module
@@ -1697,10 +1698,28 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     observe_event(input$back_to_general_list, {
       selected_general_concept_id(NULL)
+      show_all_omop_concepts(FALSE)
       concept_mappings_view("table")
 
       shinyjs::show("general_concepts_table_container")
       shinyjs::hide("concept_mappings_table_container")
+      shinyjs::hide("target_concept_details_panel")
+
+      # Clear target concept selection state
+      selected_target_concept_id(NULL)
+      selected_target_json(NULL)
+      selected_target_mapping(NULL)
+    })
+
+    observe_event(input$show_all_omop_click, {
+      show_all_omop_concepts(TRUE)
+      selected_general_concept_id(NULL)
+
+      shinyjs::hide("general_concepts_table_container")
+      shinyjs::show("concept_mappings_table_container")
+
+      # Trigger table refresh to show all concepts
+      concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
     })
 
     observe_event(input$view_mapped_concepts, {
@@ -4399,35 +4418,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Only show in mapping view with general view
       if (current_view() != "mapping" || mapping_view() != "general") return(NULL)
 
-      # Check if a general concept is selected
-      if (is.null(selected_general_concept_id())) {
-        # No selection: show simple title
-        tags$div(
-          class = "section-header",
-          tags$h4(
-            i18n$t("general_concepts"),
-            tags$span(
-              class = "info-icon",
-              `data-tooltip` = i18n$t("general_concepts_tooltip"),
-              "ⓘ"
-            )
-          )
-        )
-      } else {
-        # Selection: show breadcrumb
-        if (is.null(data())) return()
-
-        # Get the general concept name
-        general_concepts <- data()$general_concepts
-        selected_concept <- general_concepts[general_concepts$general_concept_id == selected_general_concept_id(), ]
-
-        if (nrow(selected_concept) > 0) {
-          concept_name <- selected_concept$general_concept_name[1]
-        } else {
-          concept_name <- "Unknown"
-        }
-
-        tags$div(
+      # Case 1: Show all OMOP concepts (not filtered by general concept)
+      if (show_all_omop_concepts()) {
+        return(tags$div(
           class = "section-header",
           tags$div(
             class = "flex-1",
@@ -4438,21 +4431,75 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               i18n$t("general_concepts")
             ),
             tags$span(style = "color: #6c757d; margin: 0 8px;", ">"),
-            tags$span(concept_name)
-          ),
+            tags$span(i18n$t("all_omop_concepts"))
+          )
+        ))
+      }
+
+      # Case 2: No general concept selected - show title with "See all OMOP concepts" button
+      if (is.null(selected_general_concept_id())) {
+        return(tags$div(
+          class = "section-header",
           tags$div(
-            style = "display: flex; gap: 8px;",
-            tags$button(
-              type = "button",
-              class = "btn btn-sm btn-primary-custom",
-              style = "display: flex; align-items: center; gap: 4px;",
-              onclick = sprintf("Shiny.setInputValue('%s', Math.random(), {priority: 'event'})", ns("open_comments_modal_click")),
-              tags$i(class = "fa fa-comment"),
-              i18n$t("comments")
+            class = "flex-1",
+            tags$h4(
+              style = "display: inline;",
+              i18n$t("general_concepts"),
+              tags$span(
+                class = "info-icon",
+                `data-tooltip` = i18n$t("general_concepts_tooltip"),
+                "ⓘ"
+              )
             )
+          ),
+          tags$button(
+            type = "button",
+            class = "btn btn-sm btn-primary-custom",
+            style = "display: flex; align-items: center; gap: 4px;",
+            onclick = sprintf("Shiny.setInputValue('%s', Math.random(), {priority: 'event'})", ns("show_all_omop_click")),
+            i18n$t("see_all_omop_concepts")
+          )
+        ))
+      }
+
+      # Case 3: General concept selected - show breadcrumb with Comments button
+      if (is.null(data())) return()
+
+      # Get the general concept name
+      general_concepts <- data()$general_concepts
+      selected_concept <- general_concepts[general_concepts$general_concept_id == selected_general_concept_id(), ]
+
+      if (nrow(selected_concept) > 0) {
+        concept_name <- selected_concept$general_concept_name[1]
+      } else {
+        concept_name <- "Unknown"
+      }
+
+      tags$div(
+        class = "section-header",
+        tags$div(
+          class = "flex-1",
+          tags$a(
+            class = "breadcrumb-link",
+            style = "cursor: pointer;",
+            onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("back_to_general_list")),
+            i18n$t("general_concepts")
+          ),
+          tags$span(style = "color: #6c757d; margin: 0 8px;", ">"),
+          tags$span(concept_name)
+        ),
+        tags$div(
+          style = "display: flex; gap: 8px;",
+          tags$button(
+            type = "button",
+            class = "btn btn-sm btn-primary-custom",
+            style = "display: flex; align-items: center; gap: 4px;",
+            onclick = sprintf("Shiny.setInputValue('%s', Math.random(), {priority: 'event'})", ns("open_comments_modal_click")),
+            tags$i(class = "fa fa-comment"),
+            i18n$t("comments")
           )
         )
-      }
+      )
     })
 
     ### a) Summary Tab ----
@@ -5239,7 +5286,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             sprintf('<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("manual")),
             sprintf('<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("imported"))
           ),
-          Mapped_By = dplyr::case_when(
+          Mapped_By = factor(dplyr::case_when(
             !is.na(mapped_by_first_name) | !is.na(mapped_by_last_name) ~
               trimws(paste0(
                 dplyr::if_else(is.na(mapped_by_first_name), "", mapped_by_first_name),
@@ -5248,7 +5295,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               )),
             !is.na(imported_user_name) ~ imported_user_name,
             TRUE ~ "/"
-          ),
+          )),
           Added = dplyr::if_else(
             is.na(mapping_datetime) | mapping_datetime == "",
             "/",
@@ -5490,7 +5537,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             sprintf('<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("manual")),
             sprintf('<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("imported"))
           ),
-          Mapped_By = dplyr::case_when(
+          Mapped_By = factor(dplyr::case_when(
             !is.na(mapped_by_first_name) | !is.na(mapped_by_last_name) ~
               trimws(paste0(
                 dplyr::if_else(is.na(mapped_by_first_name), "", mapped_by_first_name),
@@ -5499,7 +5546,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               )),
             !is.na(imported_user_name) ~ imported_user_name,
             TRUE ~ "/"
-          ),
+          )),
           Added = dplyr::if_else(
             is.na(mapping_datetime) | mapping_datetime == "",
             "/",
@@ -6189,8 +6236,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     
     #### Concept Mappings Table Rendering ----
     observe_event(concept_mappings_table_trigger(), {
-      # Check visibility first
-      if (is.null(selected_general_concept_id())) return()
+      # Check visibility first - require either a selected general concept or show_all_omop mode
+      if (is.null(selected_general_concept_id()) && !show_all_omop_concepts()) return()
       if (is.null(data())) return()
       if (mapping_tab() != "edit_mappings") return()
 
@@ -6203,6 +6250,110 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         return()
       }
 
+      # Handle "Show All OMOP Concepts" mode differently
+      if (show_all_omop_concepts()) {
+        # Get ALL concepts from OHDSI vocabularies (not just those in dictionary)
+        all_concepts <- vocab_data$concept %>%
+          dplyr::select(
+            omop_concept_id = concept_id,
+            concept_name,
+            vocabulary_id,
+            domain_id,
+            concept_code,
+            standard_concept
+          ) %>%
+          dplyr::collect()
+
+        if (nrow(all_concepts) == 0) {
+          output$concept_mappings_table <- DT::renderDT({
+            create_empty_datatable("No OMOP concepts found in the vocabularies.")
+          }, server = TRUE)
+          return()
+        }
+
+        # Get dictionary mappings to show which concepts are already mapped
+        concept_mappings <- data()$concept_mappings
+        general_concepts <- data()$general_concepts
+
+        # Create lookup for general concept names by omop_concept_id
+        if (nrow(concept_mappings) > 0) {
+          mapping_lookup <- concept_mappings %>%
+            dplyr::left_join(
+              general_concepts %>% dplyr::select(general_concept_id, general_concept_name),
+              by = "general_concept_id"
+            ) %>%
+            dplyr::select(omop_concept_id, general_concept_name) %>%
+            dplyr::distinct()
+
+          # Join all concepts with mapping lookup
+          mappings <- all_concepts %>%
+            dplyr::left_join(mapping_lookup, by = "omop_concept_id")
+        } else {
+          mappings <- all_concepts %>%
+            dplyr::mutate(general_concept_name = NA_character_)
+        }
+
+        # Sort by standard_concept then concept_name
+        mappings <- mappings %>%
+          dplyr::mutate(
+            vocabulary_id = factor(vocabulary_id),
+            sort_order = dplyr::case_when(
+              standard_concept == "S" ~ 1,
+              standard_concept == "C" ~ 2,
+              TRUE ~ 3
+            )
+          ) %>%
+          dplyr::arrange(sort_order, concept_name) %>%
+          dplyr::select(-sort_order)
+
+        # Store the sorted data for row selection lookups
+        concept_mappings_table_data(mappings)
+
+        # Prepare display data
+        mappings_display <- prepare_concept_set_display(
+          mappings = mappings,
+          ns = ns,
+          editable = FALSE
+        )
+
+        # Select columns including general_concept_name
+        mappings_display <- mappings_display %>%
+          dplyr::select(general_concept_name, vocabulary_id, omop_concept_id, concept_code, concept_name, domain_id, standard_concept_display)
+
+        # Render table with general_concept_name column (server-side for large datasets)
+        output$concept_mappings_table <- DT::renderDT({
+          dt <- datatable(
+            mappings_display,
+            options = list(
+              pageLength = 15,
+              lengthMenu = list(c(5, 10, 15, 20, 50, 100), c("5", "10", "15", "20", "50", "100")),
+              dom = "Bltip",
+              language = get_datatable_language(),
+              buttons = list(
+                list(
+                  extend = "colvis",
+                  text = "Columns",
+                  className = "btn-colvis"
+                )
+              ),
+              columnDefs = list(
+                list(targets = 5, visible = FALSE),  # Hide Domain
+                list(targets = 6, width = "90px", className = "dt-center")  # Standard column
+              )
+            ),
+            rownames = FALSE,
+            escape = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE),  # 7 columns, standard_concept_display is HTML
+            selection = "single",
+            filter = "top",
+            colnames = c(as.character(i18n$t("general_concept")), "Vocabulary", "OMOP Concept ID", "Code", "Concept Name", "Domain", "Standard")
+          )
+
+          dt
+        }, server = TRUE)
+        return()
+      }
+
+      # Normal mode: show concepts for selected general concept
       concept_mappings <- data()$concept_mappings %>%
         dplyr::filter(general_concept_id == selected_general_concept_id())
 
@@ -6299,9 +6450,6 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Select columns for view mode display (without toggle columns since they're resolved)
       mappings_display <- mappings_display %>%
         dplyr::select(vocabulary_id, omop_concept_id, concept_code, concept_name, domain_id, standard_concept_display)
-
-      # Get column configuration for view mode
-      col_config <- get_concept_set_column_config(editable = FALSE)
 
       # Render table with prepared data
       # Columns: vocabulary_id, omop_concept_id, concept_code, concept_name, domain_id, standard_concept_display
@@ -7532,7 +7680,9 @@ Data distribution by hospital unit/ward.
 
       # Get selected concept mapping from stored table data (sorted as displayed)
       if (is.null(data())) return()
-      if (is.null(selected_general_concept_id())) return()
+
+      # Allow selection in both normal mode (selected_general_concept_id set) and "all OMOP" mode
+      if (is.null(selected_general_concept_id()) && !show_all_omop_concepts()) return()
 
       # Use the stored table data which matches the displayed order
       mappings_data <- concept_mappings_table_data()
@@ -7547,15 +7697,21 @@ Data distribution by hospital unit/ward.
       gc_data <- data()$general_concepts
       if (is.null(gc_data) || nrow(gc_data) == 0) return()
 
-      selected_gc <- gc_data %>%
-        dplyr::filter(general_concept_id == selected_general_concept_id())
+      # In "all OMOP" mode, get general_concept_id from the selected row if available
+      general_concept_id_to_use <- if (show_all_omop_concepts()) {
+        # The row may have general_concept_name from the join - find the ID
+        if (!is.null(selected_row$general_concept_name) && !is.na(selected_row$general_concept_name)) {
+          gc_match <- gc_data %>%
+            dplyr::filter(general_concept_name == selected_row$general_concept_name)
+          if (nrow(gc_match) > 0) gc_match$general_concept_id[1] else NULL
+        } else {
+          NULL
+        }
+      } else {
+        selected_general_concept_id()
+      }
 
-      if (nrow(selected_gc) == 0) return()
-
-      selected_target_concept_id(selected_gc$general_concept_id[1])
-
-      # Create JSON-like data from general concept info for visualization
-      # Only generalizable fields are kept (no unit - comes from DuckDB, no temporal/hospital distributions)
+      # Create default JSON for visualization
       target_json <- list(
         data_types = NULL,
         numeric_data = NULL,
@@ -7565,12 +7721,24 @@ Data distribution by hospital unit/ward.
         missing_rate = NULL
       )
 
-      # If the general concept has a statistical_summary JSON, parse it
-      if ("statistical_summary" %in% names(selected_gc) && !is.null(selected_gc$statistical_summary[1]) && !is.na(selected_gc$statistical_summary[1]) && selected_gc$statistical_summary[1] != "") {
-        target_json <- tryCatch(
-          jsonlite::fromJSON(selected_gc$statistical_summary[1]),
-          error = function(e) target_json
-        )
+      if (!is.null(general_concept_id_to_use)) {
+        selected_gc <- gc_data %>%
+          dplyr::filter(general_concept_id == general_concept_id_to_use)
+
+        if (nrow(selected_gc) > 0) {
+          selected_target_concept_id(selected_gc$general_concept_id[1])
+
+          # If the general concept has a statistical_summary JSON, parse it
+          if ("statistical_summary" %in% names(selected_gc) && !is.null(selected_gc$statistical_summary[1]) && !is.na(selected_gc$statistical_summary[1]) && selected_gc$statistical_summary[1] != "") {
+            target_json <- tryCatch(
+              jsonlite::fromJSON(selected_gc$statistical_summary[1]),
+              error = function(e) target_json
+            )
+          }
+        }
+      } else {
+        # No general concept associated - still show panel with basic OMOP concept info
+        selected_target_concept_id(NULL)
       }
 
       selected_target_json(target_json)
@@ -7602,19 +7770,21 @@ Data distribution by hospital unit/ward.
     output$target_concept_details_content <- renderUI({
       json_data <- selected_target_json()
       concept_id <- selected_target_concept_id()
+      mapping_data <- selected_target_mapping()
       tab <- target_detail_tab()
       sub_tab <- target_stats_sub_tab()
       current_profile <- target_selected_profile()
 
-      if (is.null(concept_id)) {
+      # Show message only if no concept selected AND no mapping selected
+      if (is.null(concept_id) && is.null(mapping_data)) {
         return(tags$div(
           style = "color: #999; font-style: italic; padding: 15px;",
-          "Select a general concept to see target details."
+          i18n$t("select_concept_to_view")
         ))
       }
 
       if (tab == "summary") {
-        # Display concept summary details
+        # Display concept summary details (works with or without general concept)
         render_target_concept_summary(concept_id)
       } else if (tab == "comments") {
         # Display comments for the selected general concept
@@ -7764,9 +7934,13 @@ Data distribution by hospital unit/ward.
     # Factorized function for rendering concept summary panel
     # Used by both Edit Mappings and Evaluate Mappings tabs
     render_concept_summary_panel <- function(concept_id, omop_concept_id, mapping_data) {
-      # Get general concept info
-      general_concept_info <- data()$general_concepts %>%
-        dplyr::filter(general_concept_id == concept_id)
+      # Get general concept info (if concept_id is available)
+      if (!is.null(concept_id) && !is.na(concept_id)) {
+        general_concept_info <- data()$general_concepts %>%
+          dplyr::filter(general_concept_id == concept_id)
+      } else {
+        general_concept_info <- data.frame()
+      }
 
       # Get concept details from OHDSI vocabularies
       vocab_data <- vocabularies()
@@ -8574,7 +8748,7 @@ Data distribution by hospital unit/ward.
     #### Modal - Concept Details ----
     #### Modal - ETL Comments ----
     #### Add/Remove Mapping Actions ----
-    observe_event(c(mapping_view(), selected_general_concept_id(), input$source_concepts_table_rows_selected, input$concept_mappings_table_rows_selected), {
+    observe_event(c(mapping_view(), selected_general_concept_id(), show_all_omop_concepts(), input$source_concepts_table_rows_selected, input$concept_mappings_table_rows_selected), {
       # Check permission first
       if (!user_has_permission("alignments", "add_mapping")) {
         shinyjs::hide("add_mapping_from_general")
@@ -8586,7 +8760,8 @@ Data distribution by hospital unit/ward.
         return()
       }
 
-      if (is.null(selected_general_concept_id())) {
+      # Allow button in both normal mode and "all OMOP" mode
+      if (is.null(selected_general_concept_id()) && !show_all_omop_concepts()) {
         shinyjs::hide("add_mapping_from_general")
         return()
       }
@@ -8606,38 +8781,43 @@ Data distribution by hospital unit/ward.
       if (!user_has_permission("alignments", "add_mapping")) return()
 
       source_row <- input$source_concepts_table_rows_selected
+      mapping_row <- input$concept_mappings_table_rows_selected
 
+      # Determine which mode we're in
       if (!is.null(selected_general_concept_id())) {
-        mapping_row <- input$concept_mappings_table_rows_selected
-
+        # Normal mode: specific general concept selected
+        if (is.null(source_row) || is.null(mapping_row)) return()
+      } else if (show_all_omop_concepts()) {
+        # "All OMOP" mode: concept selected from full vocabulary list
         if (is.null(source_row) || is.null(mapping_row)) return()
       } else {
+        # Fallback: general concept table selection
         general_row <- input$general_concepts_table_rows_selected
-
         if (is.null(source_row) || is.null(general_row)) return()
       }
 
       if (is.null(selected_alignment_id())) return()
-      
+
       alignments <- alignments_data()
       alignment <- alignments %>%
         dplyr::filter(alignment_id == selected_alignment_id())
-      
+
       if (nrow(alignment) != 1) return()
-      
+
       file_id <- alignment$file_id[1]
-      
+
       mapping_dir <- get_app_dir("concept_mapping")
       csv_filename <- paste0(file_id, ".csv")
       csv_path <- file.path(mapping_dir, csv_filename)
 
       if (!file.exists(csv_path)) return()
-      
+
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
-      
+
       if (is.null(data())) return()
 
       if (!is.null(selected_general_concept_id())) {
+        # Normal mode: specific general concept selected
         target_general_concept_id <- selected_general_concept_id()
 
         # Use stored table data which matches displayed order
@@ -8673,15 +8853,41 @@ Data distribution by hospital unit/ward.
           target_omop_concept_id <- selected_mapping$omop_concept_id
           target_custom_concept_id <- NA_integer_
         }
+      } else if (show_all_omop_concepts()) {
+        # "All OMOP" mode: get the selected OMOP concept from the table
+        mappings_data <- concept_mappings_table_data()
+
+        if (is.null(mappings_data) || nrow(mappings_data) == 0) return()
+        if (mapping_row > nrow(mappings_data)) return()
+
+        selected_mapping <- mappings_data[mapping_row, ]
+        target_omop_concept_id <- selected_mapping$omop_concept_id
+        target_custom_concept_id <- NA_integer_
+
+        # Try to find the general_concept_id if the concept is mapped in dictionary
+        gc_data <- data()$general_concepts
+        if (!is.null(selected_mapping$general_concept_name) && !is.na(selected_mapping$general_concept_name)) {
+          gc_match <- gc_data %>%
+            dplyr::filter(general_concept_name == selected_mapping$general_concept_name)
+          if (nrow(gc_match) > 0) {
+            target_general_concept_id <- gc_match$general_concept_id[1]
+          } else {
+            target_general_concept_id <- NA_integer_
+          }
+        } else {
+          target_general_concept_id <- NA_integer_
+        }
       } else {
+        # Fallback: general concept table selection (no specific mapping)
+        general_row <- input$general_concepts_table_rows_selected
         general_concepts <- data()$general_concepts
         target_general_concept_id <- general_concepts$general_concept_id[general_row]
-        
+
         if (is.na(target_general_concept_id)) return()
-        
+
         concept_mappings_dict <- data()$concept_mappings %>%
           dplyr::filter(general_concept_id == target_general_concept_id)
-        
+
         target_omop_concept_id <- NA_integer_
         target_custom_concept_id <- NA_integer_
         if (nrow(concept_mappings_dict) > 0) {
@@ -9044,7 +9250,7 @@ Data distribution by hospital unit/ward.
               sprintf('<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("manual")),
               sprintf('<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("imported"))
             ),
-            Mapped_By = dplyr::case_when(
+            Mapped_By = factor(dplyr::case_when(
               !is.na(mapped_by_first_name) | !is.na(mapped_by_last_name) ~
                 trimws(paste0(
                   dplyr::if_else(is.na(mapped_by_first_name), "", mapped_by_first_name),
@@ -9053,7 +9259,7 @@ Data distribution by hospital unit/ward.
                 )),
               !is.na(imported_user_name) ~ imported_user_name,
               TRUE ~ "/"
-            ),
+            )),
             Added = dplyr::if_else(
               is.na(mapping_datetime) | mapping_datetime == "",
               "/",
@@ -9328,7 +9534,7 @@ Data distribution by hospital unit/ward.
             sprintf('<span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("manual")),
             sprintf('<span style="background: #0f60af; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">%s</span>', i18n$t("imported"))
           ),
-          Mapped_By = dplyr::case_when(
+          Mapped_By = factor(dplyr::case_when(
             !is.na(mapped_by_first_name) | !is.na(mapped_by_last_name) ~
               trimws(paste0(
                 dplyr::if_else(is.na(mapped_by_first_name), "", mapped_by_first_name),
@@ -9337,7 +9543,7 @@ Data distribution by hospital unit/ward.
               )),
             !is.na(imported_user_name) ~ imported_user_name,
             TRUE ~ "/"
-          ),
+          )),
           Added = dplyr::if_else(
             is.na(mapping_datetime) | mapping_datetime == "",
             "/",
