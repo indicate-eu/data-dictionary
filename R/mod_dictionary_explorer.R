@@ -1192,6 +1192,23 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       return(lang)
     }
 
+    # Helper function to check if current user has a specific permission
+    user_has_permission <- function(category, permission) {
+      user_has_permission_for(current_user, category, permission)
+    }
+
+    # Helper function to check if user can edit any dictionary content
+    can_edit_dictionary <- function() {
+      user_has_permission("dictionary", "edit_general_concept") ||
+        user_has_permission("dictionary", "add_general_concept") ||
+        user_has_permission("dictionary", "delete_general_concept") ||
+        user_has_permission("dictionary", "add_associated_concept") ||
+        user_has_permission("dictionary", "edit_associated_concept") ||
+        user_has_permission("dictionary", "delete_associated_concept") ||
+        user_has_permission("dictionary", "update_comment") ||
+        user_has_permission("dictionary", "update_statistical_summary")
+    }
+
     ## 1) Server - Reactive Values & State ----
     ### View & Selection State ----
     current_view <- reactiveVal("list")  # "list", "detail", "detail_history", or "list_history"
@@ -1399,7 +1416,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     update_button_visibility <- function() {
       user <- current_user()
       view <- current_view()
-      
+      can_edit <- can_edit_dictionary()
+      can_add_general <- user_has_permission("dictionary", "add_general_concept")
+
       # Use shinyjs::delay to ensure DOM is ready
       shinyjs::delay(100, {
         # First hide all buttons
@@ -1408,16 +1427,28 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         shinyjs::hide("general_concept_detail_action_buttons")
         shinyjs::hide("general_concept_detail_edit_buttons")
         shinyjs::hide("back_buttons")
-        
+
         # Then show only the relevant buttons based on user AND view
         if (!is.null(user) && user$role != "Anonymous") {
-          
+
           if (view == "list") {
-            # Show list normal buttons (not edit buttons - those are shown when clicking Edit page)
             if (!general_concepts_edit_mode()) {
+              # Show normal buttons container
               shinyjs::show("general_concepts_normal_buttons")
+              # Hide Edit Page button if user cannot edit dictionary
+              if (!can_edit) {
+                shinyjs::runjs(sprintf("$('#%s').hide();", ns("general_concepts_edit_page")))
+              } else {
+                shinyjs::runjs(sprintf("$('#%s').show();", ns("general_concepts_edit_page")))
+              }
             } else {
               shinyjs::show("general_concepts_edit_buttons")
+              # Hide Add Concept button if user cannot add general concepts
+              if (!can_add_general) {
+                shinyjs::runjs(sprintf("$('#%s').hide();", ns("show_general_concepts_add_modal")))
+              } else {
+                shinyjs::runjs(sprintf("$('#%s').show();", ns("show_general_concepts_add_modal")))
+              }
             }
           } else if (view == "list_history") {
             # Show back button (first button in back_buttons)
@@ -1425,9 +1456,15 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             shinyjs::runjs(sprintf("$('#%s button:last').hide();", ns("back_buttons")))
             shinyjs::show("back_buttons")
           } else if (view == "detail") {
-            # Show detail normal buttons (not edit buttons - those are shown when clicking Edit page)
             if (!general_concept_detail_edit_mode()) {
+              # Show normal buttons container
               shinyjs::show("general_concept_detail_action_buttons")
+              # Hide Edit Page button if user cannot edit dictionary
+              if (!can_edit) {
+                shinyjs::runjs(sprintf("$('#%s').hide();", ns("general_concept_detail_edit_page")))
+              } else {
+                shinyjs::runjs(sprintf("$('#%s').show();", ns("general_concept_detail_edit_page")))
+              }
             } else {
               shinyjs::show("general_concept_detail_edit_buttons")
             }
@@ -1573,33 +1610,39 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     observe_event(mapped_concepts_header_trigger(), {
       output$mapped_concepts_header_buttons <- renderUI({
         if (general_concept_detail_edit_mode()) {
+          can_add <- user_has_permission("dictionary", "add_associated_concept")
+
           tags$div(
             style = "margin-left: auto; display: flex; gap: 5px;",
-            # Import ATLAS JSON button
-            tags$button(
-              class = "btn btn-primary btn-sm",
-              onclick = sprintf("
-                $('#%s').css('display', 'flex');
-                Shiny.setInputValue('%s', Date.now(), {priority: 'event'});
-              ", ns("import_atlas_json_modal"), ns("open_import_atlas_modal")),
-              tags$i(class = "fa fa-upload"),
-              paste0(" ", i18n$t("import_json"))
-            ),
-            # Add concepts button
-            tags$button(
-              class = "btn btn-success btn-sm",
-              onclick = sprintf("
-                $('#%s').css('display', 'flex');
-                Shiny.setInputValue('%s', Date.now(), {priority: 'event'});
-                setTimeout(function() {
-                  $(window).trigger('resize');
-                  Shiny.unbindAll();
-                  Shiny.bindAll();
-                }, 100);
-              ", ns("mapped_concepts_add_modal"), ns("open_add_modal")),
-              tags$i(class = "fa fa-plus"),
-              paste0(" ", i18n$t("add_concepts"))
-            )
+            # Import ATLAS JSON button (only show if user can add)
+            if (can_add) {
+              tags$button(
+                class = "btn btn-primary btn-sm",
+                onclick = sprintf("
+                  $('#%s').css('display', 'flex');
+                  Shiny.setInputValue('%s', Date.now(), {priority: 'event'});
+                ", ns("import_atlas_json_modal"), ns("open_import_atlas_modal")),
+                tags$i(class = "fa fa-upload"),
+                paste0(" ", i18n$t("import_json"))
+              )
+            },
+            # Add concepts button (only show if user can add)
+            if (can_add) {
+              tags$button(
+                class = "btn btn-success btn-sm",
+                onclick = sprintf("
+                  $('#%s').css('display', 'flex');
+                  Shiny.setInputValue('%s', Date.now(), {priority: 'event'});
+                  setTimeout(function() {
+                    $(window).trigger('resize');
+                    Shiny.unbindAll();
+                    Shiny.bindAll();
+                  }, 100);
+                ", ns("mapped_concepts_add_modal"), ns("open_add_modal")),
+                tags$i(class = "fa fa-plus"),
+                paste0(" ", i18n$t("add_concepts"))
+              )
+            }
           )
         }
       })
@@ -1779,6 +1822,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     
     # Handle edit page button
     observe_event(input$general_concept_detail_edit_page, {
+      # Check if user has any edit permission
+      if (!can_edit_dictionary()) return()
+
       # Save current state for cancel functionality
       original_concept_mappings(current_data()$concept_mappings)
       original_custom_concepts(current_data()$custom_concepts)
@@ -1853,6 +1899,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             return(create_empty_datatable(as.character(i18n$t("no_history_available"))))
           }
 
+          # Check permission for delete history
+          can_delete_history <- user_has_permission("dictionary", "delete_history")
+
           # Prepare display data
           table_data <- history %>%
             dplyr::select(history_id, timestamp, username, action_type, general_concept_name, comment) %>%
@@ -1863,21 +1912,47 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               comment = ifelse(is.na(comment) | comment == "NA", "/", comment)
             )
 
-          # Add Delete button column
-          table_data$Actions <- sapply(table_data$history_id, function(id) {
-            create_datatable_actions(list(
-              list(
-                label = "Delete",
-                icon = "trash",
-                type = "danger",
-                class = "btn-delete-history",
-                data_attr = list(id = id)
-              )
-            ))
-          })
+          # Add Delete button column only if user has permission
+          if (can_delete_history) {
+            table_data$Actions <- sapply(table_data$history_id, function(id) {
+              create_datatable_actions(list(
+                list(
+                  label = "Delete",
+                  icon = "trash",
+                  type = "danger",
+                  class = "btn-delete-history",
+                  data_attr = list(id = id)
+                )
+              ))
+            })
+          }
 
           # Remove history_id from display
           table_data <- table_data %>% dplyr::select(-history_id)
+
+          # Build column names based on permissions
+          col_names <- c(
+            as.character(i18n$t("timestamp")),
+            as.character(i18n$t("user")),
+            as.character(i18n$t("action")),
+            as.character(i18n$t("concept")),
+            as.character(i18n$t("comment"))
+          )
+          if (can_delete_history) {
+            col_names <- c(col_names, as.character(i18n$t("actions")))
+          }
+
+          # Build column definitions based on permissions
+          col_defs <- list(
+            list(targets = 0, width = "140px"),
+            list(targets = 1, width = "120px"),
+            list(targets = 2, width = "80px"),
+            list(targets = 3, width = "250px"),
+            list(targets = 4, width = "350px")
+          )
+          if (can_delete_history) {
+            col_defs <- c(col_defs, list(list(targets = 5, width = "100px", searchable = FALSE, className = "dt-center")))
+          }
 
           dt <- DT::datatable(
             table_data,
@@ -1885,28 +1960,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             rownames = FALSE,
             filter = 'top',
             escape = FALSE,
-            colnames = c(
-              as.character(i18n$t("timestamp")),
-              as.character(i18n$t("user")),
-              as.character(i18n$t("action")),
-              as.character(i18n$t("concept")),
-              as.character(i18n$t("comment")),
-              as.character(i18n$t("actions"))
-            ),
+            colnames = col_names,
             options = list(
               pageLength = 20,
               lengthMenu = list(c(10, 20, 50, 100, -1), c('10', '20', '50', '100', 'All')),
               dom = 'ltip',
               language = get_datatable_language(),
               order = list(list(0, 'desc')),
-              columnDefs = list(
-                list(targets = 0, width = "140px"),
-                list(targets = 1, width = "120px"),
-                list(targets = 2, width = "80px"),
-                list(targets = 3, width = "250px"),
-                list(targets = 4, width = "350px"),
-                list(targets = 5, width = "100px", searchable = FALSE, className = "dt-center")
-              )
+              columnDefs = col_defs
             ),
             class = 'cell-border stripe hover'
           ) %>%
@@ -1919,13 +1980,15 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               fontWeight = 'bold'
             )
 
-          # Add button handlers
-          dt <- add_button_handlers(
-            dt,
-            handlers = list(
-              list(selector = ".btn-delete-history", input_id = ns("delete_general_history"))
+          # Add button handlers only if user has permission
+          if (can_delete_history) {
+            dt <- add_button_handlers(
+              dt,
+              handlers = list(
+                list(selector = ".btn-delete-history", input_id = ns("delete_general_history"))
+              )
             )
-          )
+          }
 
           dt
         })
@@ -1945,6 +2008,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             if (nrow(history) == 0) {
               return(create_empty_datatable(as.character(i18n$t("no_history_available_concept"))))
             }
+
+            # Check permission for delete history
+            can_delete_history <- user_has_permission("dictionary", "delete_history")
 
             # Format columns (excluding general_concept_id since we're already filtered on it)
             table_data <- history %>%
@@ -1966,36 +2032,57 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 )
               )
 
-            # Add Delete button column
-            table_data$Actions <- sapply(table_data$history_id, function(id) {
-              create_datatable_actions(list(
-                list(
-                  label = "Delete",
-                  icon = "trash",
-                  type = "danger",
-                  class = "btn-delete-detail-history",
-                  data_attr = list(id = id)
-                )
-              ))
-            })
+            # Add Delete button column only if user has permission
+            if (can_delete_history) {
+              table_data$Actions <- sapply(table_data$history_id, function(id) {
+                create_datatable_actions(list(
+                  list(
+                    label = "Delete",
+                    icon = "trash",
+                    type = "danger",
+                    class = "btn-delete-detail-history",
+                    data_attr = list(id = id)
+                  )
+                ))
+              })
+            }
 
             # Remove history_id from display
             table_data <- table_data %>% dplyr::select(-history_id)
+
+            # Build column names based on permissions
+            col_names <- c(
+              as.character(i18n$t("timestamp")),
+              as.character(i18n$t("user")),
+              as.character(i18n$t("action")),
+              as.character(i18n$t("vocabulary")),
+              as.character(i18n$t("code")),
+              as.character(i18n$t("concept")),
+              as.character(i18n$t("comment"))
+            )
+            if (can_delete_history) {
+              col_names <- c(col_names, as.character(i18n$t("actions")))
+            }
+
+            # Build column definitions based on permissions
+            col_defs <- list(
+              list(targets = 0, width = "140px"),
+              list(targets = 1, width = "120px"),
+              list(targets = 2, width = "100px"),
+              list(targets = 3, width = "100px"),
+              list(targets = 4, width = "100px"),
+              list(targets = 5, width = "200px"),
+              list(targets = 6, width = "250px")
+            )
+            if (can_delete_history) {
+              col_defs <- c(col_defs, list(list(targets = 7, width = "100px", searchable = FALSE, className = "dt-center")))
+            }
 
             dt <- DT::datatable(
               table_data,
               selection = 'none',
               rownames = FALSE,
-              colnames = c(
-                as.character(i18n$t("timestamp")),
-                as.character(i18n$t("user")),
-                as.character(i18n$t("action")),
-                as.character(i18n$t("vocabulary")),
-                as.character(i18n$t("code")),
-                as.character(i18n$t("concept")),
-                as.character(i18n$t("comment")),
-                as.character(i18n$t("actions"))
-              ),
+              colnames = col_names,
               escape = FALSE,
               class = 'cell-border stripe hover',
               filter = 'top',
@@ -2005,16 +2092,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 dom = 'ltip',
                 language = get_datatable_language(),
                 order = list(list(0, 'desc')),
-                columnDefs = list(
-                  list(targets = 0, width = "140px"),  # timestamp
-                  list(targets = 1, width = "120px"),  # username
-                  list(targets = 2, width = "100px"),  # action_type
-                  list(targets = 3, width = "100px"),  # vocabulary_id
-                  list(targets = 4, width = "100px"),  # concept_code
-                  list(targets = 5, width = "200px"),  # concept_name
-                  list(targets = 6, width = "250px"),  # comment
-                  list(targets = 7, width = "100px", searchable = FALSE, className = "dt-center")  # Actions
-                )
+                columnDefs = col_defs
               )
             ) %>%
               DT::formatStyle(
@@ -2026,13 +2104,15 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                 fontWeight = 'bold'
               )
 
-            # Add button handlers
-            dt <- add_button_handlers(
-              dt,
-              handlers = list(
-                list(selector = ".btn-delete-detail-history", input_id = ns("delete_detail_history"))
+            # Add button handlers only if user has permission
+            if (can_delete_history) {
+              dt <- add_button_handlers(
+                dt,
+                handlers = list(
+                  list(selector = ".btn-delete-detail-history", input_id = ns("delete_detail_history"))
+                )
               )
-            )
+            }
 
             dt
           })
@@ -2042,6 +2122,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
     # Delete general concepts history entry
     observe_event(input$delete_general_history, {
+      if (!user_has_permission("dictionary", "delete_history")) return()
+
       history_id <- input$delete_general_history
       if (is.null(history_id)) return()
 
@@ -2062,6 +2144,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
     # Delete detail history entry
     observe_event(input$delete_detail_history, {
+      if (!user_has_permission("dictionary", "delete_history")) return()
+
       history_id <- input$delete_detail_history
       if (is.null(history_id)) return()
 
@@ -2094,6 +2178,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       # The table should only re-render when general_concepts_table_trigger() fires
       general_concepts <- isolate(current_data()$general_concepts)
       edit_mode <- isolate(general_concepts_edit_mode())
+      can_delete <- user_has_permission("dictionary", "delete_general_concept")
 
       # Prepare table data
       table_data <- general_concepts %>%
@@ -2101,12 +2186,14 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           # Always keep as factor to preserve dropdown filters
           category = factor(category),
           subcategory = factor(subcategory),
-          actions = if (edit_mode) {
+          actions = if (edit_mode && can_delete) {
             sprintf(
               '<button class="delete-concept-btn" data-id="%s" style="padding: 4px 12px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">%s</button>',
               general_concept_id,
               as.character(i18n$t("delete"))
             )
+          } else if (edit_mode) {
+            ""
           } else {
             sprintf(
               '<button class="dt-action-btn view-details-btn" data-id="%s">%s</button>',
@@ -2208,6 +2295,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
     # Handle list edit page button
     observe_event(input$general_concepts_edit_page, {
+      # Check if user has any edit permission
+      if (!can_edit_dictionary()) return()
+
       # Save current state for cancel functionality
       original_general_concepts(current_data()$general_concepts)
 
@@ -2256,6 +2346,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     
     observe_event(input$general_concepts_save_updates, {
       if (!general_concepts_edit_mode()) return()
+      # Check if user has any edit permission
+      if (!can_edit_dictionary()) return()
 
       # Save datatable state before exiting edit mode
       save_datatable_state(input, "general_concepts_table", saved_table_page, saved_table_search)
@@ -2573,6 +2665,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     # Handle delete general concept button
     observe_event(input$delete_general_concept, {
       if (!general_concepts_edit_mode()) return()
+      # Check permission
+      if (!user_has_permission("dictionary", "delete_general_concept")) return()
 
       # Save datatable state before deletion
       save_datatable_state(input, "general_concepts_table", saved_table_page, saved_table_search)
@@ -2601,6 +2695,9 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     ### Add New Concept  ----
     # Handle show add concept modal button
     observe_event(input$show_general_concepts_add_modal, {
+      # Check permission
+      if (!user_has_permission("dictionary", "add_general_concept")) return()
+
       # Update category choices
       general_concepts <- current_data()$general_concepts
       categories <- sort(unique(general_concepts$category))
@@ -2780,6 +2877,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     # Handle detail save updates button
     observe_event(input$general_concept_detail_save_updates, {
       if (!general_concept_detail_edit_mode()) return()
+      # Check if user has any edit permission
+      if (!can_edit_dictionary()) return()
 
       concept_id <- selected_concept_id()
       if (is.null(concept_id)) return()
@@ -3950,6 +4049,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     # Add selected OMOP concept(s) with toggle values for concept set options
     observe_event(input$mapped_concepts_add_selected, {
       if (!general_concept_detail_edit_mode()) return()
+      # Check permission
+      if (!user_has_permission("dictionary", "add_associated_concept")) return()
 
       # Get selected row(s)
       selected_rows <- input$mapped_concepts_add_omop_table_rows_selected
@@ -4084,6 +4185,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     # Add custom concept (stored temporarily until Save updates)
     observe_event(input$add_custom_concept, {
       if (!general_concept_detail_edit_mode()) return()
+      # Check permission
+      if (!user_has_permission("dictionary", "add_associated_concept")) return()
 
       # Validate required inputs
       is_valid <- validate_required_inputs(
@@ -5736,6 +5839,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     # Handle delete mapping in detail edit mode
     observe_event(input$delete_concept, {
       if (!general_concept_detail_edit_mode()) return()
+      # Check permission
+      if (!user_has_permission("dictionary", "delete_associated_concept")) return()
 
       concept_id <- selected_concept_id()
       if (is.null(concept_id)) return()

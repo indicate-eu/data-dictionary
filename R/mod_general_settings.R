@@ -198,45 +198,42 @@ mod_general_settings_ui <- function(id, i18n) {
             value = "backup_restore",
             icon = icon("database"),
             tags$div(
-              style = "margin-top: 10px; height: calc(100vh - 170px); display: flex; flex-direction: column; gap: 15px;",
+              style = "margin-top: 10px; height: calc(100vh - 170px); display: flex; flex-direction: row; gap: 15px;",
 
               #### Download Backup Section ----
               div(
                 class = "settings-section",
-                style = "flex: 1; display: flex; flex-direction: column; min-height: 0;",
+                style = "flex: 1; display: flex; flex-direction: column; min-height: 0; height: 50%;",
                 tags$h4(
-                  style = "margin-top: 0; margin-bottom: 15px; color: #333; border-bottom: 2px solid #28a745; padding-bottom: 8px; flex-shrink: 0;",
+                  style = "margin-top: 0; margin-bottom: 15px; color: #333; border-bottom: 2px solid #28a745; padding-bottom: 8px;",
                   tags$i(class = "fas fa-download", style = "margin-right: 8px; color: #28a745;"),
                   i18n$t("download_backup")
                 ),
                 tags$p(
-                  style = "color: #666; margin-bottom: 15px; flex-shrink: 0;",
+                  style = "color: #666; margin-bottom: 15px;",
                   i18n$t("download_backup_desc")
                 ),
-                tags$div(
-                  style = "flex-shrink: 0;",
-                  downloadButton(
-                    ns("download_backup"),
-                    label = i18n$t("download_backup_zip"),
-                    class = "btn-success-custom",
-                    icon = icon("download")
-                  )
+                downloadButton(
+                  ns("download_backup"),
+                  label = i18n$t("download_backup_zip"),
+                  class = "btn-success-custom",
+                  icon = icon("download")
                 )
               ),
 
               #### Restore from Backup Section ----
               div(
                 class = "settings-section",
-                style = "flex: 1; display: flex; flex-direction: column; min-height: 0;",
+                style = "flex: 1; display: flex; flex-direction: column; min-height: 0; height: 50%;",
                 tags$h4(
-                  style = "margin-top: 0; margin-bottom: 15px; color: #333; border-bottom: 2px solid #0f60af; padding-bottom: 8px; flex-shrink: 0;",
+                  style = "margin-top: 0; margin-bottom: 15px; color: #333; border-bottom: 2px solid #0f60af; padding-bottom: 8px;",
                   tags$i(class = "fas fa-upload", style = "margin-right: 8px; color: #0f60af;"),
                   i18n$t("restore_from_backup")
                 ),
 
                 # Warning message before file input
                 tags$div(
-                  style = "margin-bottom: 15px; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px; flex-shrink: 0; width: fit-content;",
+                  style = "margin-bottom: 15px; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px; width: fit-content;",
                   tags$p(
                     style = "margin: 0; font-size: 13px; color: #333;",
                     tags$i(class = "fas fa-exclamation-triangle", style = "margin-right: 6px; color: #ffc107;"),
@@ -339,6 +336,11 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
+    # Helper function to check if current user has a specific permission
+    user_has_permission <- function(category, permission) {
+      user_has_permission_for(current_user, category, permission)
+    }
+
     ## 1) Server - Reactive Values & State ----
 
     ### Folder Browser State ----
@@ -377,6 +379,37 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     if (!is.null(saved_umls_path) && nchar(saved_umls_path) > 0) {
       selected_umls_folder(saved_umls_path)
     }
+
+    ### Tab Visibility Based on Permissions ----
+    observe_event(current_user(), {
+      # Hide/show tabs based on permissions
+      can_access_terminologies <- user_has_permission("general_settings", "access_terminologies")
+      can_access_backup <- user_has_permission("general_settings", "access_backup_restore")
+
+      if (can_access_terminologies) {
+        shinyjs::show(selector = sprintf("#%s li a[data-value='terminologies']", ns("settings_tabs")))
+      } else {
+        shinyjs::hide(selector = sprintf("#%s li a[data-value='terminologies']", ns("settings_tabs")))
+      }
+
+      if (can_access_backup) {
+        shinyjs::show(selector = sprintf("#%s li a[data-value='backup_restore']", ns("settings_tabs")))
+      } else {
+        shinyjs::hide(selector = sprintf("#%s li a[data-value='backup_restore']", ns("settings_tabs")))
+      }
+
+      # Switch to first accessible tab if current tab is not accessible
+      shinyjs::delay(100, {
+        current_tab <- input$settings_tabs
+        if (!is.null(current_tab)) {
+          if (current_tab == "terminologies" && !can_access_terminologies && can_access_backup) {
+            updateTabsetPanel(session, "settings_tabs", selected = "backup_restore")
+          } else if (current_tab == "backup_restore" && !can_access_backup && can_access_terminologies) {
+            updateTabsetPanel(session, "settings_tabs", selected = "terminologies")
+          }
+        }
+      })
+    }, ignoreNULL = FALSE)
 
     ## 1b) Server - Backup & Restore ----
 
@@ -430,6 +463,9 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     temp_extract_dir <- reactiveVal(NULL)
 
     observe_event(input$upload_backup_file, {
+      # Check permissions
+      if (!user_has_permission("general_settings", "access_terminologies")) return()
+
       file <- input$upload_backup_file
       if (is.null(file)) return()
 
@@ -495,6 +531,9 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     ### Confirm Restore Handler ----
 
     observe_event(input$confirm_restore, {
+      # Check permissions
+      if (!user_has_permission("general_settings", "access_terminologies")) return()
+
       extract_dir <- temp_extract_dir()
       if (is.null(extract_dir) || !dir.exists(extract_dir)) {
         backup_restore_message(list(
@@ -808,6 +847,9 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     ### Browser Modal ----
 
     observe_event(input$browse_folder, {
+      # Check permissions
+      if (!user_has_permission("general_settings", "access_terminologies")) return()
+
       # Start at selected folder if it exists, otherwise home
       start_path <- selected_folder()
       if (is.null(start_path) || !dir.exists(start_path)) {
@@ -1051,6 +1093,9 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     })
 
     observe_event(input$select_folder_path, {
+      # Check permissions
+      if (!user_has_permission("general_settings", "access_terminologies")) return()
+
       folder_path <- input$select_folder_path
       if (dir.exists(folder_path)) {
         # Update reactive value
@@ -1091,6 +1136,9 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     ### File Input Handler ----
 
     observe_event(input$upload_vocab_files, {
+      # Check permissions
+      if (!user_has_permission("general_settings", "access_terminologies")) return()
+
       files <- input$upload_vocab_files
       if (is.null(files)) return()
 
@@ -1300,6 +1348,9 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     ### Database Recreation ----
 
     observe_event(input$recreate_duckdb, {
+      # Check permissions
+      if (!user_has_permission("general_settings", "access_terminologies")) return()
+
       vocab_folder <- selected_folder()
 
       if (is.null(vocab_folder) || nchar(vocab_folder) == 0) {
@@ -1525,6 +1576,9 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     ### UMLS Browser Modal ----
 
     observe_event(input$browse_umls_folder, {
+      # Check permissions
+      if (!user_has_permission("general_settings", "access_terminologies")) return()
+
       # Start at selected folder if it exists, otherwise home
       start_path <- selected_umls_folder()
       if (is.null(start_path) || !dir.exists(start_path)) {
@@ -1768,6 +1822,9 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     })
 
     observe_event(input$umls_select_folder_path, {
+      # Check permissions
+      if (!user_has_permission("general_settings", "access_terminologies")) return()
+
       folder_path <- input$umls_select_folder_path
       if (dir.exists(folder_path)) {
         # Update reactive value
@@ -1804,6 +1861,9 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     })
 
     observe_event(input$umls_select_current_folder, {
+      # Check permissions
+      if (!user_has_permission("general_settings", "access_terminologies")) return()
+
       folder_path <- umls_current_path()
       if (dir.exists(folder_path)) {
         # Update reactive value
@@ -1873,6 +1933,9 @@ mod_general_settings_server <- function(id, config, vocabularies = NULL, reset_v
     ### UMLS Database Recreation ----
 
     observe_event(input$recreate_umls_duckdb, {
+      # Check permissions
+      if (!user_has_permission("general_settings", "access_terminologies")) return()
+
       umls_folder <- selected_umls_folder()
 
       if (is.null(umls_folder) || nchar(umls_folder) == 0) {

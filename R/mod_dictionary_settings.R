@@ -67,49 +67,46 @@ mod_dictionary_settings_ui <- function(id, i18n) {
             value = "data_dictionary",
             icon = icon("book"),
             tags$div(
-              style = "margin-top: 10px; height: calc(100vh - 170px); display: flex; flex-direction: column; gap: 15px;",
+              style = "margin-top: 10px; height: calc(100vh - 170px); display: flex; flex-direction: row; gap: 15px;",
 
-              # Export section
+              # Export section (left half)
               div(
                 class = "settings-section",
-                style = "flex: 1; display: flex; flex-direction: column; min-height: 0;",
+                style = "flex: 1; display: flex; flex-direction: column; min-height: 0; height: 50%;",
                 tags$h4(
-                  style = "margin-top: 0; margin-bottom: 15px; color: #333; border-bottom: 2px solid #28a745; padding-bottom: 8px; flex-shrink: 0;",
+                  style = "margin-top: 0; margin-bottom: 15px; color: #333; border-bottom: 2px solid #28a745; padding-bottom: 8px;",
                   tags$i(class = "fas fa-download", style = "margin-right: 8px; color: #28a745;"),
                   i18n$t("export")
                 ),
                 tags$p(
-                  style = "color: #666; margin-bottom: 15px; flex-shrink: 0;",
+                  style = "color: #666; margin-bottom: 15px;",
                   i18n$t("download_dictionary_desc")
                 ),
-                tags$div(
-                  style = "flex-shrink: 0;",
-                  downloadButton(
-                    ns("download_dictionary"),
-                    label = i18n$t("download_dictionary_zip"),
-                    class = "btn-success-custom",
-                    icon = icon("download")
-                  )
+                downloadButton(
+                  ns("download_dictionary"),
+                  label = i18n$t("download_dictionary_zip"),
+                  class = "btn-success-custom",
+                  icon = icon("download")
                 )
               ),
 
-              # Import section
+              # Import section (right half)
               div(
                 class = "settings-section",
-                style = "flex: 1; display: flex; flex-direction: column; min-height: 0;",
+                style = "flex: 1; display: flex; flex-direction: column; min-height: 0; height: 50%;",
                 tags$h4(
-                  style = "margin-top: 0; margin-bottom: 15px; color: #333; border-bottom: 2px solid #0f60af; padding-bottom: 8px; flex-shrink: 0;",
+                  style = "margin-top: 0; margin-bottom: 15px; color: #333; border-bottom: 2px solid #0f60af; padding-bottom: 8px;",
                   tags$i(class = "fas fa-upload", style = "margin-right: 8px; color: #0f60af;"),
                   i18n$t("import")
                 ),
                 tags$p(
-                  style = "color: #666; margin-bottom: 15px; flex-shrink: 0;",
+                  style = "color: #666; margin-bottom: 15px;",
                   i18n$t("indicate_concepts_desc")
                 ),
 
                 # Warning message before file input
                 tags$div(
-                  style = "margin-bottom: 15px; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px; flex-shrink: 0; width: fit-content;",
+                  style = "margin-bottom: 15px; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px; width: fit-content;",
                   tags$p(
                     style = "margin: 0; font-size: 13px; color: #333;",
                     tags$i(class = "fas fa-exclamation-triangle", style = "margin-right: 6px; color: #ffc107;"),
@@ -553,7 +550,62 @@ mod_dictionary_settings_server <- function(id, config, current_user, vocabularie
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
+    # Helper function to check if current user has a specific permission
+    user_has_permission <- function(category, permission) {
+      user_has_permission_for(current_user, category, permission)
+    }
+
     ## 1) Server - Reactive Values & State ----
+
+    ### Tab Visibility Based on Permissions ----
+    observe_event(current_user(), {
+      # Hide/show tabs based on permissions
+      can_import_export <- user_has_permission("dictionary_settings", "import_data_dictionary") ||
+                           user_has_permission("dictionary_settings", "export_data_dictionary")
+      can_manage_units <- user_has_permission("dictionary_settings", "add_unit_conversion") ||
+                          user_has_permission("dictionary_settings", "edit_unit_conversion") ||
+                          user_has_permission("dictionary_settings", "delete_unit_conversion")
+
+      # Data dictionary tab: show if user can import or export
+      if (can_import_export) {
+        shinyjs::show(selector = sprintf("#%s li a[data-value='data_dictionary']", ns("dictionary_settings_tabs")))
+      } else {
+        shinyjs::hide(selector = sprintf("#%s li a[data-value='data_dictionary']", ns("dictionary_settings_tabs")))
+      }
+
+      # Global comment tab: always visible for users with page access (no specific permission)
+      # It's a read/edit feature available to anyone accessing dictionary settings
+
+      # Unit conversions tab: show if user can add/edit/delete conversions
+      if (can_manage_units) {
+        shinyjs::show(selector = sprintf("#%s li a[data-value='unit_conversions']", ns("dictionary_settings_tabs")))
+      } else {
+        shinyjs::hide(selector = sprintf("#%s li a[data-value='unit_conversions']", ns("dictionary_settings_tabs")))
+      }
+
+      # Switch to first accessible tab if current tab is not accessible
+      shinyjs::delay(100, {
+        current_tab <- input$dictionary_settings_tabs
+        if (!is.null(current_tab)) {
+          # Check if current tab is still accessible
+          tab_accessible <- switch(current_tab,
+            "data_dictionary" = can_import_export,
+            "global_comment" = TRUE,
+            "unit_conversions" = can_manage_units,
+            TRUE
+          )
+
+          if (!tab_accessible) {
+            # Find first accessible tab
+            if (can_import_export) {
+              updateTabsetPanel(session, "dictionary_settings_tabs", selected = "data_dictionary")
+            } else {
+              updateTabsetPanel(session, "dictionary_settings_tabs", selected = "global_comment")
+            }
+          }
+        }
+      })
+    }, ignoreNULL = FALSE)
 
     ### Dictionary Upload State ----
     dictionary_upload_message <- reactiveVal(NULL)
@@ -625,6 +677,9 @@ mod_dictionary_settings_server <- function(id, config, current_user, vocabularie
     ### Upload Dictionary Handler ----
 
     observe_event(input$upload_dictionary_file, {
+      # Check permissions
+      if (!user_has_permission("dictionary_settings", "import_data_dictionary")) return()
+
       file <- input$upload_dictionary_file
       if (is.null(file)) return()
 
@@ -984,6 +1039,9 @@ mod_dictionary_settings_server <- function(id, config, current_user, vocabularie
 
     ### Edit Handler - Update conversion factor on cell edit ----
     observe_event(input$unit_conversions_table_cell_edit, {
+      # Check permissions
+      if (!user_has_permission("dictionary_settings", "edit_unit_conversion")) return()
+
       info <- input$unit_conversions_table_cell_edit
       if (is.null(info)) return()
 
@@ -1017,6 +1075,9 @@ mod_dictionary_settings_server <- function(id, config, current_user, vocabularie
     delete_row_index <- reactiveVal(NULL)
 
     observe_event(input$delete_conversion_click, {
+      # Check permissions
+      if (!user_has_permission("dictionary_settings", "delete_unit_conversion")) return()
+
       row_index <- input$delete_conversion_click
       if (is.null(row_index) || row_index < 1) return()
 
@@ -1029,6 +1090,9 @@ mod_dictionary_settings_server <- function(id, config, current_user, vocabularie
 
     ### Confirm Delete Handler - Remove selected conversion ----
     observe_event(input$confirm_delete_btn, {
+      # Check permissions
+      if (!user_has_permission("dictionary_settings", "delete_unit_conversion")) return()
+
       row_index <- delete_row_index()
       if (is.null(row_index) || row_index < 1) return()
 
@@ -1150,6 +1214,9 @@ mod_dictionary_settings_server <- function(id, config, current_user, vocabularie
 
     # Open modal
     observe_event(input$add_conversion_btn, {
+      # Check permissions
+      if (!user_has_permission("dictionary_settings", "add_unit_conversion")) return()
+
       # Reset fields
       updateTextInput(session, "new_concept_id_1", value = "")
       updateTextInput(session, "new_unit_id_1", value = "")
@@ -1394,6 +1461,9 @@ mod_dictionary_settings_server <- function(id, config, current_user, vocabularie
 
     # Save new conversion
     observe_event(input$save_new_conversion_btn, {
+      # Check permissions
+      if (!user_has_permission("dictionary_settings", "add_unit_conversion")) return()
+
       # Get values
       concept_id_1 <- input$new_concept_id_1
       unit_id_1 <- input$new_unit_id_1

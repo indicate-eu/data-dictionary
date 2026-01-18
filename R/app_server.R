@@ -120,29 +120,43 @@ app_server <- function(input, output, session) {
 
     # Initialize modules based on route
     if (!is.null(current_route)) {
-      if (grepl("mapping", current_route) && !modules_initialized$concept_mapping) {
-        mod_concept_mapping_server(
-          "concept_mapping",
-          data = data,
-          config = config,
-          vocabularies = reactive({ vocabularies() }),
-          current_user = current_user,
-          i18n = i18n,
-          log_level = log_level
-        )
-        modules_initialized$concept_mapping <- TRUE
+      if (grepl("mapping", current_route)) {
+        # Check permission before initializing concepts mapping
+        if (!user_has_permission_for(current_user, "alignments", "access_concepts_mapping")) {
+          shiny.router::change_page("/", session = session)
+          return()
+        }
+        if (!modules_initialized$concept_mapping) {
+          mod_concept_mapping_server(
+            "concept_mapping",
+            data = data,
+            config = config,
+            vocabularies = reactive({ vocabularies() }),
+            current_user = current_user,
+            i18n = i18n,
+            log_level = log_level
+          )
+          modules_initialized$concept_mapping <- TRUE
+        }
       }
 
-      if (grepl("projects", current_route) && !modules_initialized$projects) {
-        mod_projects_server(
-          "projects",
-          data = data,
-          vocabularies = reactive({ vocabularies() }),
-          current_user = current_user,
-          i18n = i18n,
-          log_level = log_level
-        )
-        modules_initialized$projects <- TRUE
+      if (grepl("projects", current_route)) {
+        # Check permission before initializing projects
+        if (!user_has_permission_for(current_user, "projects", "access_projects")) {
+          shiny.router::change_page("/", session = session)
+          return()
+        }
+        if (!modules_initialized$projects) {
+          mod_projects_server(
+            "projects",
+            data = data,
+            vocabularies = reactive({ vocabularies() }),
+            current_user = current_user,
+            i18n = i18n,
+            log_level = log_level
+          )
+          modules_initialized$projects <- TRUE
+        }
       }
 
       if (grepl("improvements", current_route) && !modules_initialized$improvements) {
@@ -156,57 +170,86 @@ app_server <- function(input, output, session) {
         modules_initialized$improvements <- TRUE
       }
 
-      if (grepl("dev-tools", current_route) && !modules_initialized$dev_tools) {
-        mod_dev_tools_server(
-          "dev_tools",
-          data = data,
-          vocabularies = reactive({ vocabularies() }),
-          i18n = i18n,
-          log_level = log_level
-        )
-        modules_initialized$dev_tools <- TRUE
+      if (grepl("dev-tools", current_route)) {
+        # Check permission before initializing dev tools
+        if (!user_has_permission_for(current_user, "dev_tools", "view_dev_tools")) {
+          shiny.router::change_page("/", session = session)
+          return()
+        }
+        if (!modules_initialized$dev_tools) {
+          mod_dev_tools_server(
+            "dev_tools",
+            data = data,
+            vocabularies = reactive({ vocabularies() }),
+            current_user = current_user,
+            i18n = i18n,
+            log_level = log_level
+          )
+          modules_initialized$dev_tools <- TRUE
+        }
       }
 
-      if (grepl("general-settings", current_route) && !modules_initialized$general_settings) {
-        mod_general_settings_server(
-          "general_settings",
-          config = config,
-          vocabularies = reactive({ vocabularies() }),
-          reset_vocabularies = function() {
-            vocabularies(NULL)
-            vocab_loading_status("not_loaded")
-          },
-          set_vocabularies = function(vocab_data) {
-            vocabularies(vocab_data)
-            vocab_loading_status("loaded")
-          },
-          current_user = current_user,
-          log_level = log_level
-        )
-        modules_initialized$general_settings <- TRUE
+      if (grepl("general-settings", current_route)) {
+        # Check permission before initializing general settings
+        if (!user_has_permission_for(current_user, "general_settings", "access_general_settings")) {
+          shiny.router::change_page("/", session = session)
+          return()
+        }
+        if (!modules_initialized$general_settings) {
+          mod_general_settings_server(
+            "general_settings",
+            config = config,
+            vocabularies = reactive({ vocabularies() }),
+            reset_vocabularies = function() {
+              vocabularies(NULL)
+              vocab_loading_status("not_loaded")
+            },
+            set_vocabularies = function(vocab_data) {
+              vocabularies(vocab_data)
+              vocab_loading_status("loaded")
+            },
+            current_user = current_user,
+            log_level = log_level
+          )
+          modules_initialized$general_settings <- TRUE
+        }
       }
 
-      if (grepl("dictionary-settings", current_route) && !modules_initialized$dictionary_settings) {
-        mod_dictionary_settings_server(
-          "dictionary_settings",
-          config = config,
-          current_user = current_user,
-          vocabularies = vocabularies,
-          vocab_loading_status = reactive({ vocab_loading_status() }),
-          i18n = i18n,
-          log_level = log_level
-        )
-        modules_initialized$dictionary_settings <- TRUE
+      if (grepl("dictionary-settings", current_route)) {
+        # Check permission before initializing dictionary settings
+        if (!user_has_permission_for(current_user, "dictionary_settings", "access_dictionary_settings")) {
+          shiny.router::change_page("/", session = session)
+          return()
+        }
+        if (!modules_initialized$dictionary_settings) {
+          mod_dictionary_settings_server(
+            "dictionary_settings",
+            config = config,
+            current_user = current_user,
+            vocabularies = vocabularies,
+            vocab_loading_status = reactive({ vocab_loading_status() }),
+            i18n = i18n,
+            log_level = log_level
+          )
+          modules_initialized$dictionary_settings <- TRUE
+        }
       }
 
-      if (grepl("users", current_route) && !modules_initialized$users) {
-        mod_users_server(
-          "users",
-          current_user = current_user,
-          i18n = i18n,
-          log_level = log_level
-        )
-        modules_initialized$users <- TRUE
+      if (grepl("users", current_route)) {
+        # Check permission before initializing users page
+        if (!user_has_permission_for(current_user, "users", "access_users_page")) {
+          shiny.router::change_page("/", session = session)
+          return()
+        }
+        if (!modules_initialized$users) {
+          mod_users_server(
+            "users",
+            current_user = current_user,
+            i18n = i18n,
+            log_level = log_level
+          )
+          modules_initialized$users <- TRUE
+        }
       }
     }
   }, ignoreInit = TRUE)

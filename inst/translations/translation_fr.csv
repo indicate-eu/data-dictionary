@@ -531,3 +531,17 @@ configuration_users,Configuration & Utilisateurs
 alignments,Alignements
 dictionary,Dictionnaire
 confirm_restore,Confirmer la restauration
+user_accesses,Droits d'accès
+user_access,Droits d'accès
+add_user_access,Ajouter un profil d'accès
+edit_user_access,Modifier le profil d'accès
+permissions,Permissions
+select_user_access_to_view_permissions,Sélectionnez un profil d'accès pour voir les permissions
+no_permissions_defined,Aucune permission définie pour ce profil
+user_access_required,Les droits d'accès sont requis
+name_exists,Ce nom existe déjà
+check_all,Tout cocher
+uncheck_all,Tout décocher
+permissions_saved,Permissions enregistrées avec succès
+yes,Oui
+no,Non

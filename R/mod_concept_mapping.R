@@ -1349,6 +1349,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
+    # Helper function to check if current user has a specific permission
+    user_has_permission <- function(category, permission) {
+      user_has_permission_for(current_user, category, permission)
+    }
+
     ## 1) Server - Reactive Values & State ----
     ### View & Selection State ----
     # Track current view and navigation state
@@ -1818,34 +1823,50 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         ) %>%
         dplyr::select(alignment_id, name, description, mapped_concepts, general_concepts_mapped, evaluated_mappings, created_formatted)
 
-      # Add action buttons (generate for each row)
+      # Check permissions for action buttons
+      can_edit <- user_has_permission("alignments", "edit_alignment")
+      can_export <- user_has_permission("alignments", "export_mappings")
+      can_delete <- user_has_permission("alignments", "delete_alignment")
+
+      # Add action buttons (generate for each row based on permissions)
       alignments_display$Actions <- sapply(alignments_display$alignment_id, function(id) {
-        create_datatable_actions(list(
+        actions <- list(
           list(
             label = "Open",
             icon = "folder-open",
             type = "primary",
             onclick = sprintf("Shiny.setInputValue('%s', %d, {priority: 'event'})", ns("open_alignment"), id)
-          ),
-          list(
+          )
+        )
+
+        if (can_edit) {
+          actions <- c(actions, list(list(
             label = "Edit",
             icon = "edit",
             type = "warning",
             onclick = sprintf("Shiny.setInputValue('%s', %d, {priority: 'event'})", ns("edit_alignment"), id)
-          ),
-          list(
+          )))
+        }
+
+        if (can_export) {
+          actions <- c(actions, list(list(
             label = "Export",
             icon = "download",
             type = "success",
             onclick = sprintf("Shiny.setInputValue('%s', %d, {priority: 'event'})", ns("export_alignment"), id)
-          ),
-          list(
+          )))
+        }
+
+        if (can_delete) {
+          actions <- c(actions, list(list(
             label = "Delete",
             icon = "trash",
             type = "danger",
             onclick = sprintf("Shiny.setInputValue('%s', %d, {priority: 'event'})", ns("delete_alignment"), id)
-          )
-        ))
+          )))
+        }
+
+        create_datatable_actions(actions)
       })
 
       dt <- datatable(
@@ -1885,6 +1906,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     ### Add Alignment Modal ----
     #### Modal UI Handling ----
     observe_event(input$add_alignment, {
+      # Check permissions
+      if (!user_has_permission("alignments", "add_alignment")) return()
+
       modal_mode("add")
       modal_page(1)
 
@@ -1910,6 +1934,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     import_indicate_validation <- reactiveVal(NULL)
 
     observe_event(input$open_import_indicate_modal, {
+      # Check permissions
+      if (!user_has_permission("alignments", "import_alignment")) return()
+
       # Reset state
       import_indicate_validation(NULL)
       shinyjs::hide("import_indicate_validation_status")
@@ -2300,6 +2327,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     ### Edit Alignment ----
     observe_event(input$edit_alignment, {
+      # Check permissions
+      if (!user_has_permission("alignments", "edit_alignment")) return()
+
       alignment_id <- input$edit_alignment
       alignment <- alignments_data() %>% filter(alignment_id == !!alignment_id)
 
@@ -3196,6 +3226,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     ### Delete Alignment ----
     observe_event(input$delete_alignment, {
+      # Check permissions
+      if (!user_has_permission("alignments", "delete_alignment")) return()
+
       alignment_id <- input$delete_alignment
       alignment_to_delete(alignment_id)
 
@@ -3212,6 +3245,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     })
 
     observe_event(input$confirm_delete_alignment, {
+      # Check permissions
+      if (!user_has_permission("alignments", "delete_alignment")) return()
       if (is.null(alignment_to_delete())) return()
 
       alignments <- alignments_data()
@@ -3239,6 +3274,9 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     
     ### Export Alignment - Open Modal ----
     observe_event(input$export_alignment, {
+      # Check permissions
+      if (!user_has_permission("alignments", "export_mappings")) return()
+
       alignment_id <- input$export_alignment
       if (is.null(alignment_id)) return()
 
@@ -3741,6 +3779,35 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     }
     
     render_alignments_view <- function() {
+      # Check permissions for buttons
+      can_add <- user_has_permission("alignments", "add_alignment")
+      can_import <- user_has_permission("alignments", "import_alignment")
+
+      # Build buttons list based on permissions
+      buttons <- tagList()
+      if (can_add) {
+        buttons <- tagList(
+          buttons,
+          actionButton(
+            ns("add_alignment"),
+            i18n$t("add_alignment"),
+            class = "btn-success-custom",
+            icon = icon("plus")
+          )
+        )
+      }
+      if (can_import) {
+        buttons <- tagList(
+          buttons,
+          actionButton(
+            ns("open_import_indicate_modal"),
+            i18n$t("import_indicate_format"),
+            class = "btn-primary-custom",
+            icon = icon("file-import")
+          )
+        )
+      }
+
       tags$div(
         class = "flex-column-full",
         tags$div(
@@ -3752,19 +3819,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           ),
           tags$div(
             class = "flex-gap-10",
-            actionButton(
-              ns("add_alignment"),
-              i18n$t("add_alignment"),
-              class = "btn-success-custom",
-              icon = icon("plus")
-            ),
-            # Import INDICATE format button
-            actionButton(
-              ns("open_import_indicate_modal"),
-              i18n$t("import_indicate_format"),
-              class = "btn-primary-custom",
-              icon = icon("file-import")
-            )
+            buttons
           )
         ),
         tags$div(
@@ -8520,19 +8575,25 @@ Data distribution by hospital unit/ward.
     #### Modal - ETL Comments ----
     #### Add/Remove Mapping Actions ----
     observe_event(c(mapping_view(), selected_general_concept_id(), input$source_concepts_table_rows_selected, input$concept_mappings_table_rows_selected), {
+      # Check permission first
+      if (!user_has_permission("alignments", "add_mapping")) {
+        shinyjs::hide("add_mapping_from_general")
+        return()
+      }
+
       if (mapping_view() != "general") {
         shinyjs::hide("add_mapping_from_general")
         return()
       }
-      
+
       if (is.null(selected_general_concept_id())) {
         shinyjs::hide("add_mapping_from_general")
         return()
       }
-      
+
       source_selected <- !is.null(input$source_concepts_table_rows_selected)
       mapping_selected <- !is.null(input$concept_mappings_table_rows_selected)
-      
+
       if (source_selected && mapping_selected) {
         shinyjs::show("add_mapping_from_general")
       } else {
@@ -8541,18 +8602,21 @@ Data distribution by hospital unit/ward.
     })
     
     observe_event(input$add_mapping_from_general, {
+      # Check permissions
+      if (!user_has_permission("alignments", "add_mapping")) return()
+
       source_row <- input$source_concepts_table_rows_selected
-      
+
       if (!is.null(selected_general_concept_id())) {
         mapping_row <- input$concept_mappings_table_rows_selected
-        
+
         if (is.null(source_row) || is.null(mapping_row)) return()
       } else {
         general_row <- input$general_concepts_table_rows_selected
-        
+
         if (is.null(source_row) || is.null(general_row)) return()
       }
-      
+
       if (is.null(selected_alignment_id())) return()
       
       alignments <- alignments_data()
@@ -8708,8 +8772,11 @@ Data distribution by hospital unit/ward.
     })
     
     observe_event(input$remove_mapping, {
+      # Check permissions
+      if (!user_has_permission("alignments", "delete_mappings")) return()
+
       row_num <- input$remove_mapping
-      
+
       if (is.null(selected_alignment_id())) return()
       alignments <- alignments_data()
       alignment <- alignments %>%
@@ -9304,7 +9371,7 @@ Data distribution by hospital unit/ward.
       action_data <- input$eval_action
       action <- action_data$action
 
-      # Handle comments action separately
+      # Handle comments action separately (no permission check needed for viewing)
       if (action == "comments") {
         mapping_id <- as.integer(action_data$mapping_id)
         if (!is.na(mapping_id)) {
@@ -9314,6 +9381,9 @@ Data distribution by hospital unit/ward.
         }
         return()
       }
+
+      # Check permissions for evaluation actions
+      if (!user_has_permission("alignments", "evaluate_mappings")) return()
 
       row_index <- as.integer(action_data$row)
 
@@ -9534,6 +9604,9 @@ Data distribution by hospital unit/ward.
     }, ignoreInit = TRUE)
 
     observe_event(input$new_comment_text, {
+      # Check permissions
+      if (!user_has_permission("alignments", "evaluate_mappings")) return()
+
       comment_text <- input$new_comment_text
       if (is.null(comment_text) || trimws(comment_text) == "") return()
 
@@ -9597,6 +9670,9 @@ Data distribution by hospital unit/ward.
 
     #### Delete Mapping Comment - Confirm Deletion ----
     observe_event(input$confirm_delete_comment, {
+      # Check permissions
+      if (!user_has_permission("alignments", "evaluate_mappings")) return()
+
       comment_id <- comment_to_delete()
       if (is.null(comment_id)) return()
       if (is.null(current_user())) return()
@@ -10854,6 +10930,9 @@ Data distribution by hospital unit/ward.
 
     #### Confirm Import with Column Mapping ----
     observe_event(input$import_confirm_mapping, {
+      # Check permissions
+      if (!user_has_permission("alignments", "import_mappings")) return()
+
       # Hide all error messages first
       shinyjs::hide("import_error_source_code")
       shinyjs::hide("import_error_source_vocab")

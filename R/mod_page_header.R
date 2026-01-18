@@ -115,6 +115,11 @@ mod_page_header_server <- function(id, current_user, vocab_loading_status, i18n 
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
+    # Helper function to check if current user has a specific permission
+    user_has_permission <- function(category, permission) {
+      user_has_permission_for(current_user, category, permission)
+    }
+
     # Get current route reactively
     current_route <- reactive({
       page <- shiny.router::get_page(session)
@@ -143,19 +148,19 @@ mod_page_header_server <- function(id, current_user, vocab_loading_status, i18n 
           id = "nav_projects",
           path = "projects",
           label = tagList(icon("list-check"), tags$span(class = "nav-tab-text", if (!is.null(i18n)) i18n$t("projects") else "Projects")),
-          visible = TRUE
+          visible = user_has_permission("projects", "access_projects")
         ),
         list(
           id = "nav_mapping",
           path = "mapping",
           label = tagList(icon("project-diagram"), tags$span(class = "nav-tab-text", if (!is.null(i18n)) i18n$t("concepts_mapping") else "Concepts Mapping")),
-          visible = !is.null(user) && user$role != "Anonymous"
+          visible = user_has_permission("alignments", "access_concepts_mapping")
         ),
         list(
           id = "nav_dev_tools",
           path = "dev-tools",
           label = tagList(icon("code"), tags$span(class = "nav-tab-text", if (!is.null(i18n)) i18n$t("dev_tools") else "Dev Tools")),
-          visible = !is.null(user) && user$role != "Anonymous"
+          visible = user_has_permission("dev_tools", "view_dev_tools")
         )
       )
 
@@ -214,7 +219,7 @@ mod_page_header_server <- function(id, current_user, vocab_loading_status, i18n 
       shiny.router::change_page("users", session = session)
     })
 
-    # Hide/show menu items based on user role
+    # Hide/show menu items based on permissions
     observe_event(current_user(), {
       user <- current_user()
 
@@ -223,11 +228,26 @@ mod_page_header_server <- function(id, current_user, vocab_loading_status, i18n 
         shinyjs::hide("settings_item_dictionary")
         shinyjs::hide("settings_item_users")
       } else {
-        shinyjs::show("settings_item_general")
-        shinyjs::show("settings_item_dictionary")
-        shinyjs::show("settings_item_users")
+        # Check permissions for each menu item
+        if (user_has_permission("general_settings", "access_general_settings")) {
+          shinyjs::show("settings_item_general")
+        } else {
+          shinyjs::hide("settings_item_general")
+        }
+
+        if (user_has_permission("dictionary_settings", "access_dictionary_settings")) {
+          shinyjs::show("settings_item_dictionary")
+        } else {
+          shinyjs::hide("settings_item_dictionary")
+        }
+
+        if (user_has_permission("users", "access_users_page")) {
+          shinyjs::show("settings_item_users")
+        } else {
+          shinyjs::hide("settings_item_users")
+        }
       }
-    })
+    }, ignoreNULL = FALSE)
 
     # Display current user in header
     output$current_user_display <- renderUI({

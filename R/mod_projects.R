@@ -595,6 +595,11 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
+    # Helper function to check if current user has a specific permission
+    user_has_permission <- function(category, permission) {
+      user_has_permission_for(current_user, category, permission)
+    }
+
     ## 1) Server - Reactive Values & State ====
     ### Reactive Values ----
 
@@ -680,16 +685,29 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
 
     ### Helper Functions ----
 
-    # Function to update button visibility based on user role
+    # Function to update button visibility based on user role and permissions
     update_button_visibility <- function() {
       user <- current_user()
+      can_add <- user_has_permission("projects", "add_project")
+      can_assign <- user_has_permission("projects", "assign_concepts")
 
       # Use shinyjs::delay to ensure DOM is ready
       shinyjs::delay(100, {
         if (!is.null(user) && user$role != "Anonymous") {
-          shinyjs::show("add_project_btn")
-          shinyjs::show("available_action_buttons")
-          shinyjs::show("selected_action_buttons")
+          # Show/hide Add Project button based on permission
+          if (can_add) {
+            shinyjs::show("add_project_btn")
+          } else {
+            shinyjs::hide("add_project_btn")
+          }
+          # Show/hide concept assignment buttons based on permission
+          if (can_assign) {
+            shinyjs::show("available_action_buttons")
+            shinyjs::show("selected_action_buttons")
+          } else {
+            shinyjs::hide("available_action_buttons")
+            shinyjs::hide("selected_action_buttons")
+          }
         } else {
           shinyjs::hide("add_project_btn")
           shinyjs::hide("available_action_buttons")
@@ -739,31 +757,50 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
       )
       display_df[[as.character(i18n$t("concepts"))]] <- result$concept_count
 
-      # Add action buttons column (generate for each row)
+      # Check permissions for action buttons
+      can_edit <- user_has_permission("projects", "edit_project")
+      can_delete <- user_has_permission("projects", "delete_project")
+      can_assign <- user_has_permission("projects", "assign_concepts")
+
+      # Add action buttons column (generate for each row based on permissions)
       display_df[[as.character(i18n$t("actions"))]] <- sapply(display_df$project_id, function(id) {
-        create_datatable_actions(list(
-          list(
+        actions_list <- list()
+
+        if (can_edit) {
+          actions_list <- c(actions_list, list(list(
             label = "Edit",
             icon = "edit",
             type = "warning",
             class = "project-edit-btn",
             data_attr = list(`project-id` = id)
-          ),
-          list(
+          )))
+        }
+
+        if (can_assign) {
+          actions_list <- c(actions_list, list(list(
             label = "Configure",
             icon = "cog",
             type = "primary",
             class = "project-configure-btn",
             data_attr = list(`project-id` = id)
-          ),
-          list(
+          )))
+        }
+
+        if (can_delete) {
+          actions_list <- c(actions_list, list(list(
             label = "Delete",
             icon = "trash",
             type = "danger",
             class = "project-delete-btn",
             data_attr = list(`project-id` = id)
-          )
-        ))
+          )))
+        }
+
+        if (length(actions_list) > 0) {
+          create_datatable_actions(actions_list)
+        } else {
+          ""
+        }
       })
 
       return(display_df)
@@ -1023,6 +1060,9 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
 
     # Handler for Edit button in datatable
     observe_event(input$project_edit_clicked, {
+      # Check permission
+      if (!user_has_permission("projects", "edit_project")) return()
+
       project_id <- input$project_edit_clicked
       if (is.null(project_id)) return()
 
@@ -1071,6 +1111,9 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
 
     # Handler for Configure button in datatable
     observe_event(input$project_configure_clicked, {
+      # Check permission
+      if (!user_has_permission("projects", "assign_concepts")) return()
+
       project_id <- input$project_configure_clicked
       if (is.null(project_id)) return()
 
@@ -1091,6 +1134,9 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
 
     # Handler for Delete button in datatable
     observe_event(input$project_delete_clicked, {
+      # Check permission
+      if (!user_has_permission("projects", "delete_project")) return()
+
       project_id <- input$project_delete_clicked
       if (is.null(project_id)) return()
 
@@ -1439,11 +1485,15 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
 
     ### Project Management - Add ----
     observe_event(input$add_project_btn, {
+      # Check permission
+      if (!user_has_permission("projects", "add_project")) return()
       shinyjs::runjs(sprintf("$('#%s').show();", ns("add_project_modal")))
     }, ignoreInit = TRUE)
 
     # Save new project
     observe_event(input$save_project, {
+      # Check permission
+      if (!user_has_permission("projects", "add_project")) return()
       name <- trimws(input$new_project_name)
       short_desc <- trimws(input$new_project_short_description)
 
@@ -1506,6 +1556,9 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
 
     # Update project button (from edit modal)
     observe_event(input$update_project, {
+      # Check permission
+      if (!user_has_permission("projects", "edit_project")) return()
+
       name <- trimws(input$edit_project_name)
       short_desc <- trimws(input$edit_project_short_description)
 
@@ -1566,6 +1619,9 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
     ### Project Management - Delete Confirmation ----
     # Confirm delete project
     observe_event(input$confirm_delete_project, {
+      # Check permission
+      if (!user_has_permission("projects", "delete_project")) return()
+
       project_id <- selected_project_for_delete()
 
       if (is.null(project_id)) return()
@@ -1629,6 +1685,9 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
 
     ### Concept Assignment - Add Concepts ----
     observe_event(input$add_general_concepts_btn, {
+      # Check permission
+      if (!user_has_permission("projects", "assign_concepts")) return()
+
       selected_rows <- input$available_general_concepts_table_rows_selected
 
       if (is.null(selected_rows) || length(selected_rows) == 0) return()
@@ -1674,6 +1733,9 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
 
     ### Concept Assignment - Remove Concepts ----
     observe_event(input$remove_general_concepts_btn, {
+      # Check permission
+      if (!user_has_permission("projects", "assign_concepts")) return()
+
       selected_rows <- input$selected_general_concepts_table_rows_selected
 
       if (is.null(selected_rows) || length(selected_rows) == 0) return()

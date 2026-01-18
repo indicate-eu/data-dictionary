@@ -46,16 +46,6 @@ mod_dev_tools_ui <- function(id, i18n) {
             tabsetPanel(
               id = ns("dev_tabs"),
 
-              ### Data Quality Tab ----
-              tabPanel(
-                i18n$t("data_quality"),
-                value = "data_quality",
-                tags$div(
-                  style = "margin-top: 10px; height: 100%;",
-                  uiOutput(ns("data_quality_output"))
-                )
-              ),
-
               ### R Console Tab ----
               tabPanel(
                 i18n$t("r_console"),
@@ -82,6 +72,8 @@ mod_dev_tools_ui <- function(id, i18n) {
                           theme = "chrome",
                           height = "100%",
                           fontSize = 11,
+                          debounce = 10,
+                          autoScrollEditorIntoView = TRUE,
                           value = paste(
                             "# Query OHDSI vocabularies using dplyr",
                             "# Example:",
@@ -104,7 +96,8 @@ mod_dev_tools_ui <- function(id, i18n) {
                               win = "Ctrl-Enter",
                               mac = "Command-Enter"
                             )
-                          )
+                          ),
+                          cursorId = ns("r_editor_cursor")
                         )
                       ),
                       tags$div(
@@ -148,6 +141,16 @@ mod_dev_tools_ui <- function(id, i18n) {
                     )
                   )
                 )
+              ),
+
+              ### Data Quality Tab ----
+              tabPanel(
+                i18n$t("data_quality"),
+                value = "data_quality",
+                tags$div(
+                  style = "margin-top: 10px; height: 100%;",
+                  uiOutput(ns("data_quality_output"))
+                )
               )
             )
         )
@@ -173,9 +176,14 @@ mod_dev_tools_ui <- function(id, i18n) {
 #' @importFrom DT renderDT datatable DTOutput
 #' @importFrom dplyr filter summarise n select
 #' @importFrom htmltools tags HTML
-mod_dev_tools_server <- function(id, data, vocabularies, i18n, log_level = character()) {
+mod_dev_tools_server <- function(id, data, vocabularies, current_user = reactive(NULL), i18n, log_level = character()) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
+
+    # Helper function to check if current user has a specific permission
+    user_has_permission <- function(category, permission) {
+      user_has_permission_for(current_user, category, permission)
+    }
 
     ## 1) Server - Reactive Values & State ----
 
@@ -186,6 +194,37 @@ mod_dev_tools_server <- function(id, data, vocabularies, i18n, log_level = chara
     code_result <- reactiveVal(NULL)
     code_status <- reactiveVal("initial")
     code_error_msg <- reactiveVal("")
+
+    ### Ace Editor Resize ----
+    # Helper function to resize Ace editor
+    resize_ace_editor <- function() {
+      shinyjs::runjs(sprintf(
+        "setTimeout(function() { var el = document.getElementById('%s'); if (el && el.env && el.env.editor) { el.env.editor.resize(); el.env.editor.renderer.updateFull(); } }, 200);",
+        ns("r_editor")
+      ))
+    }
+
+    # Trigger for initial resize
+    init_resize_trigger <- reactiveVal(0)
+
+    # Trigger initial resize after first flush
+    session$onFlushed(function() {
+      init_resize_trigger(1)
+    }, once = TRUE)
+
+    # Resize on module initialization
+    observe_event(init_resize_trigger(), {
+      if (init_resize_trigger() > 0) {
+        resize_ace_editor()
+      }
+    }, ignoreInit = TRUE)
+
+    # Resize on tab switch within Dev Tools
+    observe_event(input$dev_tabs, {
+      if (input$dev_tabs == "r_console") {
+        resize_ace_editor()
+      }
+    }, ignoreInit = TRUE)
 
     ## 2) Server - Data Quality ----
 
@@ -552,6 +591,9 @@ mod_dev_tools_server <- function(id, data, vocabularies, i18n, log_level = chara
     ### Code Execution ----
 
     execute_code <- function(code) {
+      # Reset error state before execution
+      code_error_msg("")
+
       if (is.null(code) || nchar(trimws(code)) == 0) {
         code_status("no_code")
         return()
@@ -594,19 +636,22 @@ mod_dev_tools_server <- function(id, data, vocabularies, i18n, log_level = chara
       }
 
       # Evaluate the code
+      execution_error <- FALSE
       result <- tryCatch(
         {
           eval(parse(text = code))
         },
         error = function(e) {
           code_error_msg(as.character(e$message))
-          code_status("error")
+          execution_error <<- TRUE
           return(NULL)
         }
       )
 
-      # Store results if successful
-      if (code_status() != "error") {
+      # Store results
+      if (execution_error) {
+        code_status("error")
+      } else {
         code_result(result)
         code_status("success")
       }
@@ -614,6 +659,9 @@ mod_dev_tools_server <- function(id, data, vocabularies, i18n, log_level = chara
 
     # Run all code (button click)
     observe_event(input$run_code, {
+      # Check permission
+      if (!user_has_permission("dev_tools", "execute_code")) return()
+
       if (is.null(input$r_editor)) return()
       code <- input$r_editor
       execute_code(code)
@@ -621,6 +669,9 @@ mod_dev_tools_server <- function(id, data, vocabularies, i18n, log_level = chara
 
     # Run all code (Ctrl/Cmd + Shift + Enter hotkey)
     observe_event(input$r_editor_runAllKey, {
+      # Check permission
+      if (!user_has_permission("dev_tools", "execute_code")) return()
+
       if (is.null(input$r_editor)) return()
       code <- input$r_editor
       execute_code(code)
@@ -628,9 +679,61 @@ mod_dev_tools_server <- function(id, data, vocabularies, i18n, log_level = chara
 
     # Run selection or current line (Ctrl/Cmd + Enter hotkey)
     observe_event(input$r_editor_runSelectionKey, {
-      if (is.null(input$r_editor_runSelectionKey)) return()
-      code <- input$r_editor_runSelectionKey
-      execute_code(code)
+      # Check permission
+      if (!user_has_permission("dev_tools", "execute_code")) return()
+
+      hotkey_data <- input$r_editor_runSelectionKey
+      editor_content <- input$r_editor
+
+      if (is.null(hotkey_data) || is.null(editor_content)) return()
+
+      # Get range positions (0-indexed)
+      start_row <- hotkey_data$range$start$row
+      start_col <- hotkey_data$range$start$column
+      end_row <- hotkey_data$range$end$row
+      end_col <- hotkey_data$range$end$column
+
+      lines <- strsplit(editor_content, "\n")[[1]]
+      selection <- NULL
+
+      # Check if there's an actual selection (start != end)
+      has_selection <- !(start_row == end_row && start_col == end_col)
+
+      if (has_selection) {
+        # Extract selected text from range positions
+        if (start_row == end_row) {
+          # Single line selection
+          line <- lines[start_row + 1]
+          selection <- substr(line, start_col + 1, end_col)
+        } else {
+          # Multi-line selection
+          selected_lines <- c()
+          for (i in start_row:end_row) {
+            line <- lines[i + 1]
+            if (i == start_row) {
+              # First line: from start_col to end
+              selected_lines <- c(selected_lines, substr(line, start_col + 1, nchar(line)))
+            } else if (i == end_row) {
+              # Last line: from start to end_col
+              selected_lines <- c(selected_lines, substr(line, 1, end_col))
+            } else {
+              # Middle lines: entire line
+              selected_lines <- c(selected_lines, line)
+            }
+          }
+          selection <- paste(selected_lines, collapse = "\n")
+        }
+      } else {
+        # No selection - get current line
+        current_line <- start_row + 1
+        if (current_line >= 1 && current_line <= length(lines)) {
+          selection <- lines[current_line]
+        }
+      }
+
+      if (!is.null(selection) && nchar(trimws(selection)) > 0) {
+        execute_code(selection)
+      }
     })
   })
 }
