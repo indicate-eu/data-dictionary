@@ -270,29 +270,22 @@ get_concept_hierarchy_graph <- function(concept_id, vocabularies,
     
     limited_concept_ids <- all_concepts_limited$concept_id
     
-    # Get hierarchical relationships metadata (where defines_ancestry = 1)
-    hierarchical_rel_info <- vocabularies$relationship %>%
-      dplyr::filter(defines_ancestry == 1) %>%
-      dplyr::select(relationship_id, reverse_relationship_id) %>%
-      dplyr::collect()
-    
-    hierarchical_rels <- hierarchical_rel_info$relationship_id
-    
-    # Identify child-to-parent relationships (like "Is a")
-    # These are relationships where the reverse is the parent-to-child form
-    child_to_parent_rels <- hierarchical_rel_info %>%
-      dplyr::filter(relationship_id < reverse_relationship_id) %>%
-      dplyr::pull(relationship_id)
-    
-    # Get relationships between limited concepts using hierarchical relationships
-    relationships <- vocabularies$concept_relationship %>%
+    # Build edges from concept_ancestor with min_levels_of_separation = 1
+    # This gives us direct parent-child relationships, which is more reliable
+    # than concept_relationship (some LOINC hierarchies are missing from concept_relationship)
+
+    # Get direct parent-child relationships from concept_ancestor
+    # where ancestor is parent and descendant is child (1 level apart)
+    direct_relationships <- vocabularies$concept_ancestor %>%
       dplyr::filter(
-        concept_id_1 %in% limited_concept_ids,
-        concept_id_2 %in% limited_concept_ids,
-        relationship_id %in% hierarchical_rels
+        min_levels_of_separation == 1,
+        ancestor_concept_id %in% limited_concept_ids,
+        descendant_concept_id %in% limited_concept_ids
       ) %>%
+      dplyr::select(ancestor_concept_id, descendant_concept_id) %>%
+      dplyr::distinct() %>%
       dplyr::collect()
-    
+
     # Build nodes data frame
     nodes <- all_concepts_limited %>%
       dplyr::mutate(
@@ -356,27 +349,17 @@ get_concept_hierarchy_graph <- function(concept_id, vocabularies,
                     font.size, font.color, shadow, mass)
     
     # Build edges data frame (parent -> child direction)
-    # For child-to-parent relationships: swap direction (parent=concept_id_2, child=concept_id_1)
-    # For parent-to-child relationships: keep direction (parent=concept_id_1, child=concept_id_2)
-    edges <- relationships %>%
+    # ancestor_concept_id is the parent, descendant_concept_id is the child
+    edges <- direct_relationships %>%
       dplyr::mutate(
-        from = dplyr::if_else(
-          relationship_id %in% child_to_parent_rels,
-          concept_id_2,
-          concept_id_1
-        ),
-        to = dplyr::if_else(
-          relationship_id %in% child_to_parent_rels,
-          concept_id_1,
-          concept_id_2
-        ),
+        from = ancestor_concept_id,
+        to = descendant_concept_id,
         arrows = "to",
         color = "#999",
         width = 2,
         smooth = TRUE
       ) %>%
-      dplyr::select(from, to, arrows, color, width, smooth) %>%
-      dplyr::distinct()
+      dplyr::select(from, to, arrows, color, width, smooth)
     
     return(list(
       nodes = nodes,
