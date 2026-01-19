@@ -558,3 +558,8 @@ enter_bibliography,Saisir la bibliographie...
 created_by,Créé par
 created_at,Créé le
 delete_all,Tout supprimer
+centered_on,Centré sur
+large_hierarchy_warning_title,Avertissement - Hiérarchie volumineuse
+large_hierarchy_warning_text,"Ce concept contient %d concepts à afficher (%d ancêtres + %d descendants). L'affichage d'un graphe aussi volumineux peut ralentir l'application ou la rendre non réactive. Voulez-vous continuer ?"
+continue_anyway,Continuer quand même
+back_to_previous_concept,Retour au concept précédent

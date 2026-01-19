@@ -88,6 +88,64 @@ get_all_related_concepts <- function(concept_id, vocabularies, existing_mappings
   return(all_concepts)
 }
 
+#' Count concepts in hierarchy graph (lightweight check before rendering)
+#'
+#' @description
+#' Count the number of ancestors and descendants for a concept within specified
+#' levels. Use this before calling get_concept_hierarchy_graph to warn users
+#' about large graphs that may cause performance issues.
+#'
+#' @param concept_id OMOP concept ID
+#' @param vocabularies List containing vocabulary data
+#' @param max_levels_up Maximum ancestor levels to count (default: 5)
+#' @param max_levels_down Maximum descendant levels to count (default: 5)
+#'
+#' @return List with total_count, ancestors_count, descendants_count
+#' @noRd
+count_hierarchy_concepts <- function(concept_id, vocabularies,
+                                     max_levels_up = 5,
+                                     max_levels_down = 5) {
+  if (is.null(vocabularies)) {
+    return(list(total_count = 0, ancestors_count = 0, descendants_count = 0))
+  }
+
+  tryCatch({
+    # Get ancestors within max_levels_up
+    ancestors_data <- vocabularies$concept_ancestor %>%
+      dplyr::filter(
+        descendant_concept_id == !!concept_id,
+        min_levels_of_separation <= max_levels_up,
+        min_levels_of_separation > 0
+      ) %>%
+      dplyr::select(ancestor_concept_id) %>%
+      dplyr::distinct() %>%
+      dplyr::collect()
+
+    # Get descendants within max_levels_down
+    descendants_data <- vocabularies$concept_ancestor %>%
+      dplyr::filter(
+        ancestor_concept_id == !!concept_id,
+        min_levels_of_separation <= max_levels_down,
+        min_levels_of_separation > 0
+      ) %>%
+      dplyr::select(descendant_concept_id) %>%
+      dplyr::distinct() %>%
+      dplyr::collect()
+
+    ancestors_count <- nrow(ancestors_data)
+    descendants_count <- nrow(descendants_data)
+
+    return(list(
+      total_count = 1 + ancestors_count + descendants_count,
+      ancestors_count = ancestors_count,
+      descendants_count = descendants_count
+    ))
+
+  }, error = function(e) {
+    return(list(total_count = 0, ancestors_count = 0, descendants_count = 0))
+  })
+}
+
 #' Build hierarchy graph data for visNetwork visualization
 #'
 #' @description
@@ -103,7 +161,8 @@ get_all_related_concepts <- function(concept_id, vocabularies, existing_mappings
 #' @noRd
 get_concept_hierarchy_graph <- function(concept_id, vocabularies,
                                         max_levels_up = 5,
-                                        max_levels_down = 5) {
+                                        max_levels_down = 5,
+                                        previous_concept_id = NULL) {
   if (is.null(vocabularies)) {
     return(list(nodes = data.frame(), edges = data.frame()))
   }
@@ -189,6 +248,18 @@ get_concept_hierarchy_graph <- function(concept_id, vocabularies,
           TRUE ~ "other"
         )
       )
+
+    # Mark previous concept if provided (after initial assignment to avoid vectorization issues)
+    if (!is.null(previous_concept_id)) {
+      all_concepts <- all_concepts %>%
+        dplyr::mutate(
+          relationship_type = dplyr::if_else(
+            concept_id == previous_concept_id & relationship_type != "selected",
+            "previous",
+            relationship_type
+          )
+        )
+    }
     
     # Limit to specified levels
     all_concepts_limited <- all_concepts %>%
@@ -231,6 +302,12 @@ get_concept_hierarchy_graph <- function(concept_id, vocabularies,
           paste0(substr(concept_name, 1, 47), "..."),
           concept_name
         ),
+        # Format standard_concept for display
+        standard_display = dplyr::case_when(
+          standard_concept == "S" ~ "<span style='color: #28a745; font-weight: bold;'>Standard</span>",
+          standard_concept == "C" ~ "<span style='color: #0f60af; font-weight: bold;'>Classification</span>",
+          TRUE ~ "<span style='color: #dc3545; font-weight: bold;'>Non-standard</span>"
+        ),
         title = paste0(
           "<div style='font-family: Arial; padding: 12px; max-width: 600px; min-width: 250px; white-space: normal;'>",
           "<b style='font-size: 15px; color: #0f60af; word-wrap: break-word; overflow-wrap: break-word; display: block; line-height: 1.4; white-space: normal;'>",
@@ -238,26 +315,42 @@ get_concept_hierarchy_graph <- function(concept_id, vocabularies,
           "</b><br><br>",
           "<table style='width: 100%; font-size: 13px;'>",
           "<tr><td style='color: #666; padding-right: 15px; white-space: nowrap;'>OMOP ID:</td><td style='word-break: break-word;'><b>", concept_id, "</b></td></tr>",
+          "<tr><td style='color: #666; padding-right: 15px; white-space: nowrap;'>Domain:</td><td style='word-break: break-word;'>", domain_id, "</td></tr>",
           "<tr><td style='color: #666; padding-right: 15px; white-space: nowrap;'>Vocabulary:</td><td style='word-break: break-word;'>", vocabulary_id, "</td></tr>",
           "<tr><td style='color: #666; padding-right: 15px; white-space: nowrap;'>Code:</td><td style='word-break: break-word;'>", concept_code, "</td></tr>",
           "<tr><td style='color: #666; padding-right: 15px; white-space: nowrap;'>Class:</td><td style='word-break: break-word;'>", concept_class_id, "</td></tr>",
+          "<tr><td style='color: #666; padding-right: 15px; white-space: nowrap;'>Standard:</td><td style='word-break: break-word;'>", standard_display, "</td></tr>",
           "<tr><td style='color: #666; padding-right: 15px; white-space: nowrap;'>Level:</td><td style='word-break: break-word;'>", hierarchy_level, "</td></tr>",
           "</table>",
+          "<div style='margin-top: 10px; font-size: 11px; color: #999; text-align: center;'>Double-click to recenter graph on this concept</div>",
           "</div>"
         ),
         level = hierarchy_level,
         color = dplyr::case_when(
           relationship_type == "selected" ~ "#0f60af",
+          relationship_type == "previous" ~ "#fd7e14",
           relationship_type == "ancestor" ~ "#6c757d",
           relationship_type == "descendant" ~ "#28a745",
           TRUE ~ "#ffc107"
         ),
         shape = "box",
-        borderWidth = dplyr::if_else(relationship_type == "selected", 4, 2),
-        font.size = dplyr::if_else(relationship_type == "selected", 16, 13),
+        borderWidth = dplyr::case_when(
+          relationship_type == "selected" ~ 4,
+          relationship_type == "previous" ~ 3,
+          TRUE ~ 2
+        ),
+        font.size = dplyr::case_when(
+          relationship_type == "selected" ~ 16,
+          relationship_type == "previous" ~ 14,
+          TRUE ~ 13
+        ),
         font.color = "white",
-        shadow = dplyr::if_else(relationship_type == "selected", TRUE, FALSE),
-        mass = dplyr::if_else(relationship_type == "selected", 5, 1)
+        shadow = dplyr::if_else(relationship_type %in% c("selected", "previous"), TRUE, FALSE),
+        mass = dplyr::case_when(
+          relationship_type == "selected" ~ 5,
+          relationship_type == "previous" ~ 3,
+          TRUE ~ 1
+        )
       ) %>%
       dplyr::select(id, label, title, level, color, shape, borderWidth,
                     font.size, font.color, shadow, mass)

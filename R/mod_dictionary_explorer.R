@@ -1038,11 +1038,21 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
       tags$div(
         class = "modal-fullscreen-content",
         class = "flex-column-full",
-        # Header with breadcrumb and close button
+        # Header with back button, breadcrumb, and close button
         tags$div(
           style = "padding: 15px 20px; background: white; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);",
           tags$div(
             class = "flex-center", style = "gap: 15px;",
+            # Back button (hidden by default, shown when history exists)
+            shinyjs::hidden(
+              actionButton(
+                ns("hierarchy_graph_back"),
+                label = HTML("&#8592;"),
+                class = "btn-secondary-custom",
+                style = "padding: 6px 14px; font-size: 24px; line-height: 1;",
+                title = i18n$t("back_to_previous_concept")
+              )
+            ),
             uiOutput(ns("hierarchy_graph_breadcrumb"))
           ),
           tags$button(
@@ -1055,6 +1065,40 @@ mod_dictionary_explorer_ui <- function(id, i18n) {
         tags$div(
           style = "flex: 1; overflow: hidden; padding: 20px;",
           visNetwork::visNetworkOutput(ns("hierarchy_graph_modal_content"), height = "100%", width = "100%")
+        )
+      )
+    ),
+
+    ### Modal - Large Hierarchy Warning ----
+    tags$div(
+      id = ns("large_hierarchy_warning_modal"),
+      class = "modal-overlay",
+      style = "display: none;",
+      tags$div(
+        class = "modal-content",
+        style = "max-width: 500px; padding: 25px;",
+        tags$div(
+          style = "display: flex; align-items: center; gap: 15px; margin-bottom: 20px;",
+          tags$span(style = "font-size: 40px; color: #ffc107;", HTML("&#9888;")),
+          tags$h3(style = "margin: 0; color: #333;", i18n$t("large_hierarchy_warning_title"))
+        ),
+        tags$p(
+          style = "font-size: 15px; color: #555; margin-bottom: 20px; line-height: 1.6;",
+          uiOutput(ns("large_hierarchy_warning_text"))
+        ),
+        tags$div(
+          style = "display: flex; justify-content: flex-end; gap: 10px;",
+          tags$button(
+            id = ns("cancel_large_hierarchy"),
+            class = "btn-secondary-custom",
+            onclick = sprintf("$('#%s').hide();", ns("large_hierarchy_warning_modal")),
+            i18n$t("cancel")
+          ),
+          actionButton(
+            ns("confirm_large_hierarchy"),
+            i18n$t("continue_anyway"),
+            class = "btn-primary-custom"
+          )
         )
       )
     ),
@@ -1215,7 +1259,12 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     selected_concept_id <- reactiveVal(NULL)
     selected_mapped_concept_id <- reactiveVal(NULL)  # Track selected concept in mappings table
     relationships_tab <- reactiveVal("related")  # Track active tab: "related", "hierarchy", "synonyms"
-    hierarchy_graph_concept_id <- reactiveVal(NULL)  # Track concept ID for hierarchy graph modal
+    hierarchy_graph_concept_id <- reactiveVal(NULL)  # Track current concept ID in hierarchy graph modal
+    hierarchy_graph_original_concept_id <- reactiveVal(NULL)  # Track original concept ID (from embedded graph)
+    hierarchy_graph_previous_id <- reactiveVal(NULL)  # Track previous concept for orange highlight
+    hierarchy_graph_pending_id <- reactiveVal(NULL)  # Pending concept ID when confirmation needed
+    hierarchy_graph_pending_source <- reactiveVal(NULL)  # Source: "embedded" or "modal"
+    hierarchy_graph_history <- reactiveVal(list())  # Navigation history stack for back button
     comments_tab <- reactiveVal("comments")  # Track active tab: "comments", "statistical_summary"
     statistical_summary_sub_tab <- reactiveVal("summary")  # Track sub-tab: "summary", "distribution"
     selected_profile <- reactiveVal(NULL)  # Track selected profile for statistical summary
@@ -6140,6 +6189,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
 
       # Store concept_id for hierarchy graph modal button
       hierarchy_graph_concept_id(omop_concept_id)
+      hierarchy_graph_original_concept_id(omop_concept_id)
 
       # Get hierarchy graph data to extract stats
       hierarchy_data <- get_concept_hierarchy_graph(omop_concept_id, vocab_data)
@@ -6388,8 +6438,18 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             algorithm = "hierarchical"
           )
         ) %>%
-          visNetwork::visPhysics(enabled = FALSE) %>%
-          visNetwork::visLayout(randomSeed = 123)
+        visNetwork::visPhysics(enabled = FALSE) %>%
+        visNetwork::visLayout(randomSeed = 123) %>%
+        visNetwork::visEvents(
+          doubleClick = sprintf(
+            "function(params) {
+              if (params.nodes.length > 0) {
+                Shiny.setInputValue('%s', {id: params.nodes[0], rand: Math.random()}, {priority: 'event'});
+              }
+            }",
+            ns("hierarchy_graph_recenter")
+          )
+        )
         })
       }
     }, ignoreInit = TRUE)
@@ -6397,18 +6457,55 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
     ##### Hierarchy Graph Fullscreen Modal ----
     # Observe view graph button click
     observe_event(input$view_hierarchy_graph, {
-      omop_concept_id <- hierarchy_graph_concept_id()
+      # Use original concept ID (from embedded graph) to reset to starting point
+      omop_concept_id <- hierarchy_graph_original_concept_id()
       if (is.null(omop_concept_id)) return()
+
+      # Reset history and current concept when opening modal
+      hierarchy_graph_history(list())
+      hierarchy_graph_concept_id(omop_concept_id)
+      hierarchy_graph_previous_id(NULL)
+      shinyjs::hide("hierarchy_graph_back")
 
       # Show modal
       shinyjs::show("hierarchy_graph_modal")
-      
+
+      # Update breadcrumb with original concept info
+      vocab_data <- vocabularies()
+      if (!is.null(vocab_data)) {
+        output$hierarchy_graph_breadcrumb <- renderUI({
+          concept_info <- vocab_data$concept %>%
+            dplyr::filter(concept_id == !!omop_concept_id) %>%
+            dplyr::collect()
+
+          if (nrow(concept_info) == 0) {
+            return(NULL)
+          }
+
+          tags$div(
+            style = "display: flex; align-items: center; gap: 10px;",
+            tags$span(
+              style = "font-weight: 600; color: #333; font-size: 16px;",
+              i18n$t("concept_hierarchy")
+            ),
+            tags$span(
+              style = "color: #0f60af; font-size: 16px; font-weight: 500;",
+              concept_info$concept_name
+            ),
+            tags$span(
+              style = "color: #999; font-size: 14px;",
+              paste0("(", concept_info$vocabulary_id, " - ", concept_info$concept_code, ")")
+            )
+          )
+        })
+      }
+
       # Re-render the graph for the modal with explicit dimensions
       output$hierarchy_graph_modal_content <- visNetwork::renderVisNetwork({
         vocab_data <- vocabularies()
         if (is.null(vocab_data)) return()
-        
-        # Get hierarchy graph data
+
+        # Get hierarchy graph data (no previous_concept_id since we're starting fresh)
         hierarchy_data <- get_concept_hierarchy_graph(omop_concept_id, vocab_data,
                                                       max_levels_up = 5,
                                                       max_levels_down = 5)
@@ -6466,7 +6563,17 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             )
           ) %>%
           visNetwork::visPhysics(enabled = FALSE) %>%
-          visNetwork::visLayout(randomSeed = 123)
+          visNetwork::visLayout(randomSeed = 123) %>%
+          visNetwork::visEvents(
+            doubleClick = sprintf(
+              "function(params) {
+                if (params.nodes.length > 0) {
+                  Shiny.setInputValue('%s', {id: params.nodes[0], rand: Math.random()}, {priority: 'event'});
+                }
+              }",
+              ns("hierarchy_graph_recenter_modal")
+            )
+          )
       })
       
       # Force Shiny to render this output even when hidden
@@ -6478,7 +6585,404 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           visNetwork::visFit(animation = list(duration = 500))
       })
     })
-    
+
+    ##### Hierarchy Graph Recenter (Double-click on node) ----
+
+    # Helper function to render embedded hierarchy graph
+    render_embedded_hierarchy_graph <- function(target_id, previous_id = NULL) {
+      vocab_data <- vocabularies()
+      if (is.null(vocab_data)) return()
+
+      # Re-render the embedded hierarchy graph with the new central concept
+      output$hierarchy_graph <- visNetwork::renderVisNetwork({
+        hierarchy_data <- get_concept_hierarchy_graph(target_id, vocab_data,
+                                                       max_levels_up = 5,
+                                                       max_levels_down = 5,
+                                                       previous_concept_id = previous_id)
+
+        if (nrow(hierarchy_data$nodes) == 0) {
+          return(NULL)
+        }
+
+        visNetwork::visNetwork(
+          hierarchy_data$nodes,
+          hierarchy_data$edges,
+          height = "100%",
+          width = "100%"
+        ) %>%
+          visNetwork::visHierarchicalLayout(
+            direction = "UD",
+            sortMethod = "directed",
+            levelSeparation = 150,
+            nodeSpacing = 200,
+            treeSpacing = 250,
+            blockShifting = TRUE,
+            edgeMinimization = TRUE,
+            parentCentralization = TRUE
+          ) %>%
+          visNetwork::visNodes(
+            shadow = list(enabled = TRUE, size = 5),
+            borderWidth = 2,
+            margin = 10,
+            widthConstraint = list(maximum = 250)
+          ) %>%
+          visNetwork::visEdges(
+            smooth = list(type = "cubicBezier", roundness = 0.5),
+            color = list(
+              color = "#999",
+              highlight = "#0f60af",
+              hover = "#0f60af"
+            )
+          ) %>%
+          visNetwork::visInteraction(
+            navigationButtons = TRUE,
+            hover = TRUE,
+            zoomView = TRUE,
+            dragView = TRUE,
+            tooltipDelay = 100,
+            hideEdgesOnDrag = FALSE,
+            hideEdgesOnZoom = FALSE
+          ) %>%
+          visNetwork::visOptions(
+            highlightNearest = list(
+              enabled = TRUE,
+              degree = 1,
+              hover = TRUE,
+              algorithm = "hierarchical"
+            )
+          ) %>%
+          visNetwork::visPhysics(enabled = FALSE) %>%
+          visNetwork::visLayout(randomSeed = 123) %>%
+          visNetwork::visEvents(
+            doubleClick = sprintf(
+              "function(params) {
+                if (params.nodes.length > 0) {
+                  Shiny.setInputValue('%s', {id: params.nodes[0], rand: Math.random()}, {priority: 'event'});
+                }
+              }",
+              ns("hierarchy_graph_recenter")
+            )
+          )
+      })
+
+      # Update hierarchy stats widget with new concept
+      output$hierarchy_stats_widget <- renderUI({
+        hierarchy_data <- get_concept_hierarchy_graph(target_id, vocab_data,
+                                                       previous_concept_id = previous_id)
+
+        if (is.null(hierarchy_data$stats)) {
+          return(NULL)
+        }
+
+        stats <- hierarchy_data$stats
+
+        # Get concept info for the header
+        concept_info <- vocab_data$concept %>%
+          dplyr::filter(concept_id == !!target_id) %>%
+          dplyr::collect()
+
+        concept_name <- if (nrow(concept_info) > 0) concept_info$concept_name[1] else ""
+
+        tags$div(
+          class = "hierarchy-stats-widget",
+          style = "padding: 10px; margin-bottom: 10px; background: #f8f9fa; border-radius: 6px;",
+          tags$div(
+            style = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;",
+            tags$div(
+              style = "display: flex; gap: 20px;",
+              tags$div(
+                class = "flex-center-gap-8",
+                tags$span(style = "font-size: 18px; color: #6c757d;", "\u2B06"),
+                tags$span(style = "font-weight: bold; color: #333;", stats$total_ancestors),
+                tags$span(style = "color: #666; font-size: 13px;", "ancestors")
+              ),
+              tags$div(
+                class = "flex-center-gap-8",
+                tags$span(style = "font-size: 18px; color: #28a745;", "\u2B07"),
+                tags$span(style = "font-weight: bold; color: #333;", stats$total_descendants),
+                tags$span(style = "color: #666; font-size: 13px;", "descendants")
+              )
+            ),
+            actionButton(
+              ns("view_hierarchy_graph"),
+              i18n$t("view_graph"),
+              class = "btn-view-graph",
+              style = "padding: 8px 16px; background: #0f60af; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 500;"
+            )
+          ),
+          tags$div(
+            style = "font-size: 12px; color: #666; font-style: italic;",
+            paste0(i18n$t("centered_on"), ": ", concept_name)
+          )
+        )
+      })
+
+      # Update the hierarchy_graph_concept_id for the modal
+      hierarchy_graph_concept_id(target_id)
+    }
+
+    # Handle double-click on embedded hierarchy graph to recenter on clicked concept
+    observe_event(input$hierarchy_graph_recenter, {
+      clicked_id <- input$hierarchy_graph_recenter$id
+      if (is.null(clicked_id)) return()
+
+      vocab_data <- vocabularies()
+      if (is.null(vocab_data)) return()
+
+      # Check the number of concepts before rendering
+      concept_count <- count_hierarchy_concepts(clicked_id, vocab_data,
+                                                 max_levels_up = 5,
+                                                 max_levels_down = 5)
+
+      # If more than 100 concepts, show confirmation modal
+      if (concept_count$total_count > 100) {
+        hierarchy_graph_pending_id(clicked_id)
+        hierarchy_graph_pending_source("embedded")
+
+        # Update warning text
+        output$large_hierarchy_warning_text <- renderUI({
+          tags$span(
+            sprintf(i18n$t("large_hierarchy_warning_text"),
+                    concept_count$total_count,
+                    concept_count$ancestors_count,
+                    concept_count$descendants_count)
+          )
+        })
+
+        shinyjs::show("large_hierarchy_warning_modal")
+        return()
+      }
+
+      # Store current concept as previous before changing
+      current_id <- hierarchy_graph_concept_id()
+      hierarchy_graph_previous_id(current_id)
+
+      # Render the graph directly
+      render_embedded_hierarchy_graph(clicked_id, current_id)
+    }, ignoreInit = TRUE)
+
+    # Helper function to render modal hierarchy graph
+    render_modal_hierarchy_graph <- function(target_id, previous_id = NULL, add_to_history = TRUE) {
+      vocab_data <- vocabularies()
+      if (is.null(vocab_data)) return()
+
+      # Add current concept to history before changing (if requested and there's a previous concept)
+      if (add_to_history && !is.null(previous_id)) {
+        current_history <- hierarchy_graph_history()
+        hierarchy_graph_history(c(current_history, list(previous_id)))
+
+        # Show back button if history is not empty
+        shinyjs::show("hierarchy_graph_back")
+      }
+
+      # Store current concept as previous before changing
+      hierarchy_graph_previous_id(previous_id)
+
+      # Update the hierarchy_graph_concept_id
+      hierarchy_graph_concept_id(target_id)
+
+      # Update breadcrumb with new concept info
+      output$hierarchy_graph_breadcrumb <- renderUI({
+        concept_info <- vocab_data$concept %>%
+          dplyr::filter(concept_id == !!target_id) %>%
+          dplyr::collect()
+
+        if (nrow(concept_info) == 0) {
+          return(NULL)
+        }
+
+        tags$div(
+          style = "display: flex; align-items: center; gap: 10px;",
+          tags$span(
+            style = "font-weight: 600; color: #333; font-size: 16px;",
+            i18n$t("concept_hierarchy")
+          ),
+          tags$span(
+            style = "color: #0f60af; font-size: 16px; font-weight: 500;",
+            concept_info$concept_name
+          ),
+          tags$span(
+            style = "color: #999; font-size: 14px;",
+            paste0("(", concept_info$vocabulary_id, " - ", concept_info$concept_code, ")")
+          )
+        )
+      })
+
+      # Re-render the modal hierarchy graph with the new central concept
+      output$hierarchy_graph_modal_content <- visNetwork::renderVisNetwork({
+        hierarchy_data <- get_concept_hierarchy_graph(target_id, vocab_data,
+                                                       max_levels_up = 5,
+                                                       max_levels_down = 5,
+                                                       previous_concept_id = previous_id)
+
+        if (nrow(hierarchy_data$nodes) == 0) {
+          return(NULL)
+        }
+
+        visNetwork::visNetwork(
+          hierarchy_data$nodes,
+          hierarchy_data$edges,
+          height = "calc(100vh - 100px)",
+          width = "100%"
+        ) %>%
+          visNetwork::visHierarchicalLayout(
+            direction = "UD",
+            sortMethod = "directed",
+            levelSeparation = 150,
+            nodeSpacing = 200,
+            treeSpacing = 250,
+            blockShifting = TRUE,
+            edgeMinimization = TRUE,
+            parentCentralization = TRUE
+          ) %>%
+          visNetwork::visNodes(
+            shadow = list(enabled = TRUE, size = 5),
+            borderWidth = 2,
+            margin = 10,
+            widthConstraint = list(maximum = 250)
+          ) %>%
+          visNetwork::visEdges(
+            smooth = list(type = "cubicBezier", roundness = 0.5),
+            color = list(
+              color = "#999",
+              highlight = "#0f60af",
+              hover = "#0f60af"
+            )
+          ) %>%
+          visNetwork::visInteraction(
+            navigationButtons = TRUE,
+            hover = TRUE,
+            zoomView = TRUE,
+            dragView = TRUE,
+            tooltipDelay = 100,
+            hideEdgesOnDrag = FALSE,
+            hideEdgesOnZoom = FALSE
+          ) %>%
+          visNetwork::visOptions(
+            highlightNearest = list(
+              enabled = TRUE,
+              degree = 1,
+              hover = TRUE,
+              algorithm = "hierarchical"
+            )
+          ) %>%
+          visNetwork::visPhysics(enabled = FALSE) %>%
+          visNetwork::visLayout(randomSeed = 123) %>%
+          visNetwork::visEvents(
+            doubleClick = sprintf(
+              "function(params) {
+                if (params.nodes.length > 0) {
+                  Shiny.setInputValue('%s', {id: params.nodes[0], rand: Math.random()}, {priority: 'event'});
+                }
+              }",
+              ns("hierarchy_graph_recenter_modal")
+            )
+          )
+      })
+
+      # Fit the graph after a short delay
+      shinyjs::delay(300, {
+        visNetwork::visNetworkProxy(ns("hierarchy_graph_modal_content")) %>%
+          visNetwork::visFit(animation = list(duration = 500))
+      })
+    }
+
+    # Handle double-click on modal hierarchy graph to recenter on clicked concept
+    observe_event(input$hierarchy_graph_recenter_modal, {
+      clicked_id <- input$hierarchy_graph_recenter_modal$id
+      if (is.null(clicked_id)) return()
+
+      vocab_data <- vocabularies()
+      if (is.null(vocab_data)) return()
+
+      # Check the number of concepts before rendering
+      concept_count <- count_hierarchy_concepts(clicked_id, vocab_data,
+                                                 max_levels_up = 5,
+                                                 max_levels_down = 5)
+
+      # If more than 100 concepts, show confirmation modal
+      if (concept_count$total_count > 100) {
+        hierarchy_graph_pending_id(clicked_id)
+        hierarchy_graph_pending_source("modal")
+
+        # Update warning text
+        output$large_hierarchy_warning_text <- renderUI({
+          tags$span(
+            sprintf(i18n$t("large_hierarchy_warning_text"),
+                    concept_count$total_count,
+                    concept_count$ancestors_count,
+                    concept_count$descendants_count)
+          )
+        })
+
+        shinyjs::show("large_hierarchy_warning_modal")
+        return()
+      }
+
+      # Store current concept as previous before changing
+      current_id <- hierarchy_graph_concept_id()
+
+      # Render the graph with history tracking
+      render_modal_hierarchy_graph(clicked_id, current_id, add_to_history = TRUE)
+    }, ignoreInit = TRUE)
+
+    # Handle confirmation of large hierarchy graph
+    observe_event(input$confirm_large_hierarchy, {
+      pending_id <- hierarchy_graph_pending_id()
+      pending_source <- hierarchy_graph_pending_source()
+
+      if (is.null(pending_id)) return()
+
+      # Hide the warning modal
+      shinyjs::hide("large_hierarchy_warning_modal")
+
+      # Get current concept for previous highlight
+      current_id <- hierarchy_graph_concept_id()
+
+      if (pending_source == "embedded") {
+        # Store current concept as previous before changing
+        hierarchy_graph_previous_id(current_id)
+
+        # Render embedded graph
+        render_embedded_hierarchy_graph(pending_id, current_id)
+      } else if (pending_source == "modal") {
+        # Render modal graph with history tracking
+        render_modal_hierarchy_graph(pending_id, current_id, add_to_history = TRUE)
+      }
+
+      # Clear pending state
+      hierarchy_graph_pending_id(NULL)
+      hierarchy_graph_pending_source(NULL)
+    }, ignoreInit = TRUE)
+
+    # Handle back button click in modal hierarchy graph
+    observe_event(input$hierarchy_graph_back, {
+      current_history <- hierarchy_graph_history()
+      if (length(current_history) == 0) return()
+
+      # Get the last concept from history
+      previous_concept_id <- current_history[[length(current_history)]]
+
+      # Remove the last entry from history
+      new_history <- if (length(current_history) > 1) {
+        current_history[1:(length(current_history) - 1)]
+      } else {
+        list()
+      }
+      hierarchy_graph_history(new_history)
+
+      # Hide back button if history is now empty
+      if (length(new_history) == 0) {
+        shinyjs::hide("hierarchy_graph_back")
+      }
+
+      # Get current concept to show as "next" (orange) in the previous view
+      current_id <- hierarchy_graph_concept_id()
+
+      # Render the graph without adding to history (we're going back)
+      render_modal_hierarchy_graph(previous_concept_id, current_id, add_to_history = FALSE)
+    }, ignoreInit = TRUE)
+
     ##### Concept Details Modal (Double-click on Related/Hierarchy) ----
     # Render concept modal body when concept is selected
     observe_event(input$modal_concept_id, {
