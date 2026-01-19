@@ -67,7 +67,8 @@ language <- Sys.getenv("INDICATE_LANGUAGE", "en")
       tags$script(src = "www/clipboard.js"),
       tags$script(src = "www/copy_menu.js"),
       tags$script(src = "www/comments_scroll_sync.js"),
-      tags$script(src = "www/selectize_modal_fix.js")
+      tags$script(src = "www/selectize_modal_fix.js"),
+      tags$script(src = "www/fuzzy_search.js")
     ),
 
     # Login page (shown first)

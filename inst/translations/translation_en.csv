@@ -563,3 +563,5 @@ large_hierarchy_warning_title,Large Hierarchy Warning
 large_hierarchy_warning_text,"This concept has %d concepts to display (%d ancestors + %d descendants). Rendering a large graph may cause the application to slow down or become unresponsive. Do you want to continue?"
 continue_anyway,Continue Anyway
 back_to_previous_concept,Back to previous concept
+fuzzy_search,Fuzzy Search
+fuzzy_search_placeholder,Search...

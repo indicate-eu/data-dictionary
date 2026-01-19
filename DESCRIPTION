@@ -34,7 +34,9 @@ Imports:
     shinyAce (>= 0.4.0),
     shinyjs (>= 2.1.0),
     bcrypt (>= 1.1),
-    markdown
+    markdown,
+    stringi (>= 1.7.0),
+    stringdist (>= 0.9.0)
 Suggests:
     testthat (>= 3.0.0),
     knitr,

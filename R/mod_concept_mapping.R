@@ -1439,11 +1439,36 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     source_concepts_data <- reactiveVal(NULL)  # Store source concepts data for proxy updates
     source_concepts_colnames <- reactiveVal(NULL)  # Store column names
     source_concepts_column_defs <- reactiveVal(NULL)  # Store column definitions
+    # Fuzzy search for source concepts table
+    source_concepts_fuzzy <- fuzzy_search_server(
+      "source_concepts_fuzzy_search",
+      input,
+      session,
+      trigger_rv = source_concepts_table_general_trigger,
+      ns = ns
+    )
 
     # Cascade triggers for selected_general_concept_id() changes
     selected_general_concept_id_trigger <- reactiveVal(0)  # Primary trigger when general concept selection changes
     mapped_concepts_table_trigger <- reactiveVal(0)  # Trigger for Mapped view table
     concept_mappings_table_trigger <- reactiveVal(0)  # Trigger for Edit Mappings concept mappings table
+
+    # Fuzzy search for concept mappings table (must be after trigger definition)
+    concept_mappings_fuzzy <- fuzzy_search_server(
+      "concept_mappings_fuzzy_search",
+      input,
+      session,
+      trigger_rv = concept_mappings_table_trigger,
+      ns = ns
+    )
+
+    # Observer for limit 10K checkbox - trigger table refresh when changed
+    observe_event(input$concept_mappings_limit_10k, {
+      if (show_all_omop_concepts()) {
+        concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
+      }
+    }, ignoreInit = TRUE)
+
     general_concepts_table_trigger <- reactiveVal(0)  # Trigger for General Concepts table in Edit Mappings
     edit_mappings_initialized <- reactiveVal(FALSE)  # Track if Edit Mappings tables have been initialized
 
@@ -1486,6 +1511,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       source_concepts_table_general_trigger(source_concepts_table_general_trigger() + 1)
       general_concepts_table_trigger(general_concepts_table_trigger() + 1)
       evaluate_mappings_table_trigger(evaluate_mappings_table_trigger() + 1)
+      # Reset fuzzy search when changing alignment
+      source_concepts_fuzzy$clear()
     }, ignoreInit = TRUE)
 
     ### Cascade Observers for selected_general_concept_id() ----
@@ -1498,6 +1525,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     observe_event(selected_general_concept_id_trigger(), {
       mapped_concepts_table_trigger(mapped_concepts_table_trigger() + 1)
       concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
+      # Reset fuzzy search when changing general concept
+      concept_mappings_fuzzy$clear()
     }, ignoreInit = TRUE)
 
     ### Helper Functions ----
@@ -1705,6 +1734,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       shinyjs::hide("concept_mappings_table_container")
       shinyjs::hide("target_concept_details_panel")
 
+      # Hide the limit checkbox when leaving "Show All OMOP Concepts" mode
+      shinyjs::runjs(sprintf(
+        "$('#%s').closest('.fuzzy-search-limit-checkbox').hide();",
+        ns("concept_mappings_limit_10k")
+      ))
+
       # Clear target concept selection state
       selected_target_concept_id(NULL)
       selected_target_json(NULL)
@@ -1717,6 +1752,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       shinyjs::hide("general_concepts_table_container")
       shinyjs::show("concept_mappings_table_container")
+
+      # Show the limit checkbox when in "Show All OMOP Concepts" mode
+      shinyjs::runjs(sprintf(
+        "$('#%s').closest('.fuzzy-search-limit-checkbox').show();",
+        ns("concept_mappings_limit_10k")
+      ))
 
       # Trigger table refresh to show all concepts
       concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
@@ -3925,6 +3966,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 ),
                 tags$div(
                   class = "flex-scroll-container",
+                  style = "position: relative;",
+                  fuzzy_search_ui("source_concepts_fuzzy_search", ns = ns, i18n = i18n),
                   DT::DTOutput(ns("source_concepts_table"))
                 )
               ),
@@ -4029,7 +4072,14 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                   ),
                   tags$div(
                     id = ns("concept_mappings_table_container"),
-                    style = "height: 100%; display: none;",
+                    style = "height: 100%; display: none; position: relative;",
+                    fuzzy_search_ui(
+                      "concept_mappings_fuzzy_search",
+                      ns = ns,
+                      i18n = i18n,
+                      limit_checkbox = TRUE,
+                      limit_checkbox_id = "concept_mappings_limit_10k"
+                    ),
                     DT::DTOutput(ns("concept_mappings_table"))
                   )
                 )
@@ -4455,7 +4505,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           tags$button(
             type = "button",
             class = "btn btn-sm btn-primary-custom",
-            style = "display: flex; align-items: center; gap: 4px;",
+            style = "display: flex; align-items: center; gap: 4px; height: 28px;",
             onclick = sprintf("Shiny.setInputValue('%s', Math.random(), {priority: 'event'})", ns("show_all_omop_click")),
             i18n$t("see_all_omop_concepts")
           )
@@ -5711,7 +5761,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       nice_names <- colnames(df_final)
       nice_names[nice_names == "vocabulary_id"] <- as.character(i18n$t("vocabulary"))
       nice_names[nice_names == "concept_code"] <- as.character(i18n$t("concept_code"))
-      nice_names[nice_names == "concept_name"] <- as.character(i18n$t("name"))
+      nice_names[nice_names == "concept_name"] <- as.character(i18n$t("concept_name"))
       nice_names[nice_names == "statistical_summary"] <- as.character(i18n$t("summary"))
       nice_names[nice_names == "frequency"] <- as.character(i18n$t("frequency"))
 
@@ -6056,7 +6106,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       nice_names <- colnames(df_display)
       nice_names[nice_names == "vocabulary_id"] <- as.character(i18n$t("vocabulary"))
       nice_names[nice_names == "concept_code"] <- as.character(i18n$t("concept_code"))
-      nice_names[nice_names == "concept_name"] <- as.character(i18n$t("name"))
+      nice_names[nice_names == "concept_name"] <- as.character(i18n$t("concept_name"))
       nice_names[nice_names == "statistical_summary"] <- as.character(i18n$t("summary"))
       nice_names[nice_names == "frequency"] <- as.character(i18n$t("frequency"))
       nice_names[nice_names == "category"] <- as.character(i18n$t("category"))
@@ -6076,6 +6126,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         column_defs <- c(column_defs, list(
           list(targets = json_col_index, visible = FALSE)
         ))
+      }
+
+      # Apply fuzzy search filter if query is provided
+      fuzzy_query <- source_concepts_fuzzy$query()
+      if (!is.null(fuzzy_query) && fuzzy_query != "") {
+        df_display <- fuzzy_search_df(df_display, fuzzy_query, "concept_name", max_dist = 3)
       }
 
       # Store data in reactive for proxy updates
@@ -6252,23 +6308,63 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       # Handle "Show All OMOP Concepts" mode differently
       if (show_all_omop_concepts()) {
-        # Get ALL concepts from OHDSI vocabularies (not just those in dictionary)
-        all_concepts <- vocab_data$concept %>%
-          dplyr::select(
-            omop_concept_id = concept_id,
-            concept_name,
-            vocabulary_id,
-            domain_id,
-            concept_code,
-            standard_concept
-          ) %>%
-          dplyr::collect()
+        # Check if fuzzy search is active
+        fuzzy_query <- concept_mappings_fuzzy$query()
 
-        if (nrow(all_concepts) == 0) {
-          output$concept_mappings_table <- DT::renderDT({
-            create_empty_datatable("No OMOP concepts found in the vocabularies.")
-          }, server = TRUE)
-          return()
+        # Check if limit checkbox is checked (default TRUE if input doesn't exist yet)
+        limit_10k <- isTRUE(input$concept_mappings_limit_10k) || is.null(input$concept_mappings_limit_10k)
+
+        if (!is.null(fuzzy_query) && fuzzy_query != "") {
+          # Use DuckDB Jaro-Winkler for fuzzy search (fast on 4M+ rows)
+          all_concepts <- fuzzy_search_tbl(
+            vocab_data$concept,
+            "concept_name",
+            fuzzy_query,
+            min_score = 0.75,
+            limit = 500
+          )
+
+          if (is.null(all_concepts) || nrow(all_concepts) == 0) {
+            output$concept_mappings_table <- DT::renderDT({
+              create_empty_datatable("No matching concepts found.")
+            }, server = TRUE)
+            return()
+          }
+
+          # Rename columns to match expected format
+          all_concepts <- all_concepts %>%
+            dplyr::select(
+              omop_concept_id = concept_id,
+              concept_name,
+              vocabulary_id,
+              domain_id,
+              concept_code,
+              standard_concept,
+              fuzzy_score
+            )
+        } else {
+          # No fuzzy search - load concepts from DuckDB
+          base_query <- vocab_data$concept %>%
+            dplyr::select(
+              omop_concept_id = concept_id,
+              concept_name,
+              vocabulary_id,
+              domain_id,
+              concept_code,
+              standard_concept
+            )
+
+          # Apply limit if checkbox is checked
+          if (limit_10k) {
+            all_concepts <- base_query %>%
+              utils::head(10000) %>%
+              dplyr::collect() %>%
+              dplyr::mutate(fuzzy_score = NA_real_)
+          } else {
+            all_concepts <- base_query %>%
+              dplyr::collect() %>%
+              dplyr::mutate(fuzzy_score = NA_real_)
+          }
         }
 
         # Get dictionary mappings to show which concepts are already mapped
@@ -6293,7 +6389,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             dplyr::mutate(general_concept_name = NA_character_)
         }
 
-        # Sort by standard_concept then concept_name
+        # Sort by fuzzy_score (best matches first), then standard_concept
         mappings <- mappings %>%
           dplyr::mutate(
             vocabulary_id = factor(vocabulary_id),
@@ -6303,8 +6399,8 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               TRUE ~ 3
             )
           ) %>%
-          dplyr::arrange(sort_order, concept_name) %>%
-          dplyr::select(-sort_order)
+          dplyr::arrange(dplyr::desc(fuzzy_score), sort_order, concept_name) %>%
+          dplyr::select(-sort_order, -fuzzy_score)
 
         # Store the sorted data for row selection lookups
         concept_mappings_table_data(mappings)
@@ -6435,6 +6531,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         ) %>%
         dplyr::arrange(sort_order, concept_name) %>%
         dplyr::select(-sort_order)
+
+      # Apply fuzzy search filter if query is provided
+      fuzzy_query <- concept_mappings_fuzzy$query()
+      if (!is.null(fuzzy_query) && fuzzy_query != "") {
+        mappings <- fuzzy_search_df(mappings, fuzzy_query, "concept_name", max_dist = 3)
+      }
 
       # Store the sorted data for row selection lookups
       concept_mappings_table_data(mappings)
