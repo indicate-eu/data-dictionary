@@ -18319,3 +18319,8 @@ Prioritize using the arterial blood specimen concept (most clinically relevant f
 14832,2026-01-09 10:38:13,Admin User,insert,336,LOINC,71848-6,Oxygen saturation [Pure mass fraction] in Arterial cord blood,Added OMOP concept mapping
 14833,2026-01-09 10:40:53,Admin User,insert,336,LOINC,71852-8,Oxygen saturation [Pure mass fraction] in Arterial blood,Added OMOP concept mapping
 14834,2026-01-09 10:41:43,Admin User,delete,336,LOINC,2708-6,Oxygen saturation in Arterial blood,Deleted OMOP concept mapping
+14835,2026-01-19 09:29:29,Admin User,delete,26,ICD10,J80,Adult respiratory distress syndrome,Deleted OMOP concept mapping
+14836,2026-01-19 09:29:30,Admin User,insert,26,SNOMED,67782005,Acute respiratory distress syndrome,Added OMOP concept mapping
+14837,2026-01-19 09:36:21,Admin User,delete,327,LOINC,32407-9,1 minute Apgar Heart rate,Deleted OMOP concept mapping
+14838,2026-01-19 09:36:21,Admin User,delete,327,LOINC,32402-0,10 minute Apgar Heart rate,Deleted OMOP concept mapping
+14839,2026-01-19 09:36:21,Admin User,delete,327,LOINC,32412-9,5 minute Apgar Heart rate,Deleted OMOP concept mapping

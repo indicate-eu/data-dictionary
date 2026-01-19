@@ -24,7 +24,7 @@
 23,"Condition","APACHE IV - Chronic health conditions","Lymphoma","As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
 24,"Condition","APACHE IV - Chronic health conditions","Metastatic carcinoma","As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
 25,"Condition","APACHE IV - Chronic health conditions","Multiple myeloma","As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
-26,"Condition","General conditions","ARDS",NA
+26,"Condition","General conditions","Adult Respiratory Distress Syndrome (ARDS)",NA
 27,"Condition","General conditions","COPD","As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
 28,"Condition","General conditions","Chronic heart failure","As with all ICD-10 concepts, the recommended approach is to use the <strong>most specific codes</strong> possible. For example, it is better to use E10.0 rather than E10, as the former provides more detailed information about the diagnosis."
 29,"Condition","General conditions","Dependence on home ventilator",NA
