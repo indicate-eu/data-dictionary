@@ -1611,9 +1611,19 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
       output$mapped_concepts_header_buttons <- renderUI({
         if (general_concept_detail_edit_mode()) {
           can_add <- user_has_permission("dictionary", "add_associated_concept")
+          can_delete <- user_has_permission("dictionary", "delete_associated_concept")
 
           tags$div(
             style = "margin-left: auto; display: flex; gap: 5px;",
+            # Delete all button (only show if user can delete)
+            if (can_delete) {
+              tags$button(
+                class = "btn btn-danger btn-sm",
+                onclick = sprintf("Shiny.setInputValue('%s', Date.now(), {priority: 'event'});", ns("delete_all_concepts")),
+                tags$i(class = "fa fa-trash"),
+                paste0(" ", i18n$t("delete_all"))
+              )
+            },
             # Import ATLAS JSON button (only show if user can add)
             if (can_add) {
               tags$button(
@@ -5758,19 +5768,25 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         concept_ids <- csv_mappings$omop_concept_id
         omop_concepts <- vocab_data$concept %>%
           dplyr::filter(concept_id %in% concept_ids) %>%
-          dplyr::select(concept_id, concept_name, vocabulary_id, concept_code, standard_concept) %>%
+          dplyr::select(concept_id, concept_name, vocabulary_id, domain_id, concept_class_id, concept_code, standard_concept) %>%
           dplyr::collect()
 
         mappings <- csv_mappings %>%
           dplyr::left_join(omop_concepts, by = c("omop_concept_id" = "concept_id"))
 
-        # Build display columns with toggles
+        # Build display columns with toggles and factors
         mappings <- mappings %>%
           dplyr::mutate(
-            standard_concept_display = dplyr::case_when(
-              standard_concept == "S" ~ '<span class="badge-status badge-success">Standard</span>',
-              standard_concept == "C" ~ '<span class="badge-status badge-secondary">Classification</span>',
-              TRUE ~ '<span class="badge-status badge-danger">Non-standard</span>'
+            vocabulary_id = factor(vocabulary_id),
+            domain_id = factor(domain_id),
+            concept_class_id = factor(concept_class_id),
+            standard_concept_display = factor(
+              dplyr::case_when(
+                standard_concept == "S" ~ "Standard",
+                standard_concept == "C" ~ "Classification",
+                TRUE ~ "Non-standard"
+              ),
+              levels = c("Standard", "Classification", "Non-standard")
             ),
             is_excluded_toggle = sprintf(
               '<label class="toggle-switch toggle-small toggle-exclude"><input type="checkbox" data-omop-id="%s" data-field="is_excluded" %s onchange="Shiny.setInputValue(\'%s\', {omop_id: %s, field: \'is_excluded\', value: this.checked}, {priority: \'event\'})"><span class="toggle-slider"></span></label>',
@@ -5790,6 +5806,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           dplyr::select(
             concept_name,
             vocabulary_id,
+            domain_id,
+            concept_class_id,
             concept_code,
             standard_concept_display,
             is_excluded_toggle,
@@ -5797,23 +5815,35 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             include_mapped_toggle
           )
 
-        DT::datatable(
+        dt <- DT::datatable(
           display_data,
-          colnames = c("Concept Name", "Vocabulary", "Code", "Standard", "Exclude", "Descendants", "Mapped"),
+          colnames = c("Concept Name", "Vocabulary", "Domain", "Concept Class", "Code", "Standard", "Exclude", "Descendants", "Mapped"),
           selection = 'none',
           rownames = FALSE,
-          escape = FALSE,
+          escape = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE),
+          extensions = 'Buttons',
+          filter = 'top',
           options = list(
             pageLength = 25,
-            dom = 'ftip',
+            lengthMenu = c(10, 25, 50, 100),
+            dom = 'Blrtip',
+            buttons = list(
+              list(
+                extend = 'colvis',
+                text = 'Columns',
+                className = 'btn-colvis'
+              )
+            ),
             ordering = TRUE,
             autoWidth = FALSE,
             columnDefs = list(
-              list(width = "40%", targets = 0),
-              list(className = "dt-center", targets = c(3, 4, 5, 6))
+              list(width = "30%", targets = 0),
+              list(className = "dt-center", targets = c(5, 6, 7, 8))
             )
           )
         )
+
+        dt %>% style_standard_concept_column()
       })
     }, ignoreInit = TRUE)
 
@@ -5880,6 +5910,48 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         current_deletions[[concept_key]] <- unique(c(current_deletions[[concept_key]], concept_unique_id))
       }
 
+      deleted_concepts(current_deletions)
+    }, ignoreInit = TRUE)
+
+    # Handle delete all concepts in detail edit mode
+    observe_event(input$delete_all_concepts, {
+      if (!general_concept_detail_edit_mode()) return()
+      if (!user_has_permission("dictionary", "delete_associated_concept")) return()
+
+      concept_id <- selected_concept_id()
+      if (is.null(concept_id)) return()
+
+      # Get all OMOP concept mappings for this general concept
+      csv_mappings <- current_data()$concept_mappings %>%
+        dplyr::filter(general_concept_id == concept_id)
+
+      # Get all custom concepts for this general concept
+      custom_concepts <- NULL
+      if (!is.null(current_data()$custom_concepts) && nrow(current_data()$custom_concepts) > 0) {
+        custom_concepts <- current_data()$custom_concepts %>%
+          dplyr::filter(general_concept_id == concept_id)
+      }
+
+      # Build list of all concept IDs to delete
+      all_concept_ids <- c()
+
+      if (nrow(csv_mappings) > 0) {
+        omop_ids <- paste0("omop-", csv_mappings$omop_concept_id)
+        all_concept_ids <- c(all_concept_ids, omop_ids)
+      }
+
+      if (!is.null(custom_concepts) && nrow(custom_concepts) > 0) {
+        custom_ids <- paste0("custom-", custom_concepts$custom_concept_id)
+        all_concept_ids <- c(all_concept_ids, custom_ids)
+      }
+
+      if (length(all_concept_ids) == 0) return()
+
+      # Track deletions for this general_concept_id
+      current_deletions <- deleted_concepts()
+      concept_key <- as.character(concept_id)
+
+      current_deletions[[concept_key]] <- unique(c(current_deletions[[concept_key]], all_concept_ids))
       deleted_concepts(current_deletions)
     }, ignoreInit = TRUE)
 

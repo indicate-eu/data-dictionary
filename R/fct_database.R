@@ -151,7 +151,6 @@ init_database <- function(con) {
       c("projects", "add_project"),
       c("projects", "edit_project"),
       c("projects", "delete_project"),
-      c("projects", "assign_concepts"),
       c("alignments", "access_concepts_mapping"),
       c("alignments", "add_alignment"),
       c("alignments", "edit_alignment"),
@@ -412,31 +411,11 @@ init_database <- function(con) {
     load_default_project_metadata(con)
   }
 
-  # Migration: Add edit_context permission if missing
-  existing_perm <- DBI::dbGetQuery(
+  # Migration: Remove deprecated permissions (assign_concepts, edit_context)
+  DBI::dbExecute(
     con,
-    "SELECT 1 FROM user_access_permissions WHERE category = 'projects' AND permission = 'edit_context' LIMIT 1"
+    "DELETE FROM user_access_permissions WHERE category = 'projects' AND permission IN ('assign_concepts', 'edit_context')"
   )
-
-  if (nrow(existing_perm) == 0) {
-    # Get all user access profiles
-    user_accesses <- DBI::dbGetQuery(con, "SELECT user_access_id, name FROM user_accesses")
-
-    for (i in seq_len(nrow(user_accesses))) {
-      ua_id <- user_accesses$user_access_id[i]
-      ua_name <- user_accesses$name[i]
-
-      # Admin gets full_access, others get read_only
-      access_level <- if (ua_name == "Admin") "full_access" else "read_only"
-
-      DBI::dbExecute(
-        con,
-        "INSERT INTO user_access_permissions (user_access_id, category, permission, access_level)
-         VALUES (?, 'projects', 'edit_context', ?)",
-        params = list(ua_id, access_level)
-      )
-    }
-  }
 
   invisible(NULL)
 }

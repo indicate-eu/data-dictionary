@@ -996,7 +996,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
               # Show context buttons (first time entering context tab)
               if (!context_buttons_shown()) {
                 context_buttons_shown(TRUE)
-                if (user_has_permission("projects", "edit_context")) {
+                if (user_has_permission("projects", "edit_project")) {
                   shinyjs::show("context_save_container")
                 }
               }
@@ -1019,7 +1019,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
         # Show variables buttons (first time entering variables tab)
         if (!variables_buttons_shown()) {
           variables_buttons_shown(TRUE)
-          if (user_has_permission("projects", "assign_concepts")) {
+          if (user_has_permission("projects", "edit_project")) {
             shinyjs::delay(100, {
               shinyjs::show("available_action_buttons")
               shinyjs::show("selected_action_buttons")
@@ -1407,7 +1407,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
 
     ### Context Editing - Save ----
     observe_event(input$save_context, {
-      if (!user_has_permission("projects", "edit_context")) return()
+      if (!user_has_permission("projects", "edit_project")) return()
 
       project <- selected_project()
       if (is.null(project)) return()
@@ -1429,7 +1429,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
 
     ### Concept Assignment - Add Concepts ----
     observe_event(input$add_general_concepts_btn, {
-      if (!user_has_permission("projects", "assign_concepts")) return()
+      if (!user_has_permission("projects", "edit_project")) return()
 
       selected_rows <- input$available_general_concepts_table_rows_selected
       if (is.null(selected_rows) || length(selected_rows) == 0) return()
@@ -1455,7 +1455,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
 
     ### Concept Assignment - Remove Concepts ----
     observe_event(input$remove_general_concepts_btn, {
-      if (!user_has_permission("projects", "assign_concepts")) return()
+      if (!user_has_permission("projects", "edit_project")) return()
 
       selected_rows <- input$selected_general_concepts_table_rows_selected
       if (is.null(selected_rows) || length(selected_rows) == 0) return()

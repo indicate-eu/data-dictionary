@@ -176,8 +176,8 @@ mod_users_ui <- function(id, i18n) {
       style = "display: none;",
       onclick = sprintf("if (event.target === this) { Shiny.setInputValue('%s', Math.random()); }", ns("close_modal_overlay")),
       div(
-        class = "modal-content",
-        class = "max-width-500",
+        class = "modal-content max-width-600",
+        style = "max-height: 90vh; display: flex; flex-direction: column;",
 
         # Modal header
         div(
@@ -193,181 +193,197 @@ mod_users_ui <- function(id, i18n) {
           )
         ),
 
-        # Modal body
+        # Modal body with scroll
         div(
           class = "modal-body",
+          style = "overflow-y: auto; flex: 1;",
+
+          # Login field (full width)
           div(
             class = "mb-15",
             tags$label(
               tagList(i18n$t("login_label"), " *"),
               class = "form-label"
             ),
-          textInput(
-            ns("user_login"),
-            label = NULL,
-            placeholder = as.character(i18n$t("enter_login")),
-            width = "100%"
-          ),
-          div(
-            id = ns("login_error"),
-            class = "input-error-message"
-          )
-        ),
-
-        div(
-          class = "mb-15",
-          tags$label(
-            tagList(i18n$t("password_label"), " *"),
-            class = "form-label"
-          ),
-          div(
-            class = "position-relative",
-            passwordInput(
-              ns("user_password"),
+            textInput(
+              ns("user_login"),
               label = NULL,
-              placeholder = as.character(i18n$t("enter_password")),
+              placeholder = as.character(i18n$t("enter_login")),
               width = "100%"
             ),
-            tags$button(
-              type = "button",
-              class = "password-toggle-btn",
-              `data-input` = ns("user_password"),
-              `data-icon` = ns("password_icon"),
-              style = paste0(
-                "position: absolute; right: 10px; top: 50%; ",
-                "transform: translateY(-50%); background: none; ",
-                "border: none; cursor: pointer; color: #666; padding: 5px;"
-              ),
-              tags$i(class = "fas fa-eye", id = ns("password_icon"))
+            div(
+              id = ns("login_error"),
+              class = "input-error-message"
             )
           ),
-          div(
-            id = ns("password_error"),
-            class = "input-error-message"
-          )
-        ),
 
-        div(
-          class = "mb-15",
-          tags$label(
-            tagList(i18n$t("confirm_password"), " *"),
-            class = "form-label"
-          ),
+          # Password and Confirm Password (side by side)
           div(
-            class = "position-relative",
-            passwordInput(
-              ns("user_password_confirm"),
-              label = NULL,
-              placeholder = as.character(i18n$t("confirm_password")),
-              width = "100%"
-            ),
-            tags$button(
-              type = "button",
-              class = "password-toggle-btn",
-              `data-input` = ns("user_password_confirm"),
-              `data-icon` = ns("password_confirm_icon"),
-              style = paste0(
-                "position: absolute; right: 10px; top: 50%; ",
-                "transform: translateY(-50%); background: none; ",
-                "border: none; cursor: pointer; color: #666; padding: 5px;"
+            class = "mb-15",
+            style = "display: flex; gap: 15px;",
+            div(
+              style = "flex: 1;",
+              tags$label(
+                tagList(i18n$t("password_label"), " *"),
+                class = "form-label"
               ),
-              tags$i(class = "fas fa-eye", id = ns("password_confirm_icon"))
+              div(
+                class = "position-relative",
+                passwordInput(
+                  ns("user_password"),
+                  label = NULL,
+                  placeholder = as.character(i18n$t("enter_password")),
+                  width = "100%"
+                ),
+                tags$button(
+                  type = "button",
+                  class = "password-toggle-btn",
+                  `data-input` = ns("user_password"),
+                  `data-icon` = ns("password_icon"),
+                  style = paste0(
+                    "position: absolute; right: 10px; top: 50%; ",
+                    "transform: translateY(-50%); background: none; ",
+                    "border: none; cursor: pointer; color: #666; padding: 5px;"
+                  ),
+                  tags$i(class = "fas fa-eye", id = ns("password_icon"))
+                )
+              ),
+              div(
+                id = ns("password_error"),
+                class = "input-error-message"
+              )
+            ),
+            div(
+              style = "flex: 1;",
+              tags$label(
+                tagList(i18n$t("confirm_password"), " *"),
+                class = "form-label"
+              ),
+              div(
+                class = "position-relative",
+                passwordInput(
+                  ns("user_password_confirm"),
+                  label = NULL,
+                  placeholder = as.character(i18n$t("confirm_password")),
+                  width = "100%"
+                ),
+                tags$button(
+                  type = "button",
+                  class = "password-toggle-btn",
+                  `data-input` = ns("user_password_confirm"),
+                  `data-icon` = ns("password_confirm_icon"),
+                  style = paste0(
+                    "position: absolute; right: 10px; top: 50%; ",
+                    "transform: translateY(-50%); background: none; ",
+                    "border: none; cursor: pointer; color: #666; padding: 5px;"
+                  ),
+                  tags$i(class = "fas fa-eye", id = ns("password_confirm_icon"))
+                )
+              ),
+              div(
+                id = ns("password_confirm_error"),
+                class = "input-error-message"
+              )
             )
-          ),
-          div(
-            id = ns("password_confirm_error"),
-            class = "input-error-message"
           ),
           tags$small(
             id = ns("password_help"),
-            style = "color: #7f8c8d; font-size: 12px;",
+            style = "color: #7f8c8d; font-size: 12px; display: block; margin-bottom: 15px;",
             i18n$t("leave_empty_password")
-          )
-        ),
+          ),
 
-        div(
-          class = "mb-15",
-          tags$label(
-            tagList(i18n$t("first_name"), " *"),
-            class = "form-label"
-          ),
-          textInput(
-            ns("user_first_name"),
-            label = NULL,
-            placeholder = as.character(i18n$t("enter_first_name")),
-            width = "100%"
-          ),
+          # First Name and Last Name (side by side)
           div(
-            id = ns("first_name_error"),
-            class = "input-error-message"
-          )
-        ),
-
-        div(
-          class = "mb-15",
-          tags$label(
-            tagList(i18n$t("last_name"), " *"),
-            class = "form-label"
-          ),
-          textInput(
-            ns("user_last_name"),
-            label = NULL,
-            placeholder = as.character(i18n$t("enter_last_name")),
-            width = "100%"
-          ),
-          div(
-            id = ns("last_name_error"),
-            class = "input-error-message"
-          )
-        ),
-
-        div(
-          class = "mb-15",
-          tags$label(
-            i18n$t("role"),
-            class = "form-label"
-          ),
-          selectInput(
-            ns("user_role"),
-            label = NULL,
-            choices = stats::setNames(
-              c("Clinician", "Data scientist", "Engineer"),
-              c(as.character(i18n$t("clinician")), as.character(i18n$t("data_scientist")), as.character(i18n$t("engineer")))
+            class = "mb-15",
+            style = "display: flex; gap: 15px;",
+            div(
+              style = "flex: 1;",
+              tags$label(
+                tagList(i18n$t("first_name"), " *"),
+                class = "form-label"
+              ),
+              textInput(
+                ns("user_first_name"),
+                label = NULL,
+                placeholder = as.character(i18n$t("enter_first_name")),
+                width = "100%"
+              ),
+              div(
+                id = ns("first_name_error"),
+                class = "input-error-message"
+              )
             ),
-            width = "100%"
-          )
-        ),
+            div(
+              style = "flex: 1;",
+              tags$label(
+                tagList(i18n$t("last_name"), " *"),
+                class = "form-label"
+              ),
+              textInput(
+                ns("user_last_name"),
+                label = NULL,
+                placeholder = as.character(i18n$t("enter_last_name")),
+                width = "100%"
+              ),
+              div(
+                id = ns("last_name_error"),
+                class = "input-error-message"
+              )
+            )
+          ),
 
-        div(
-          class = "mb-15",
-          tags$label(
-            tagList(i18n$t("user_access"), " *"),
-            class = "form-label"
-          ),
-          selectInput(
-            ns("user_user_access"),
-            label = NULL,
-            choices = c(),
-            width = "100%"
-          ),
+          # Role and User Access (side by side)
           div(
-            id = ns("user_access_error"),
-            class = "input-error-message"
-          )
-        ),
-
-        div(
-          class = "mb-20",
-          tags$label(
-            i18n$t("affiliation"),
-            class = "form-label"
+            class = "mb-15",
+            style = "display: flex; gap: 15px;",
+            div(
+              style = "flex: 1;",
+              tags$label(
+                i18n$t("role"),
+                class = "form-label"
+              ),
+              selectInput(
+                ns("user_role"),
+                label = NULL,
+                choices = stats::setNames(
+                  c("Clinician", "Data scientist", "Engineer"),
+                  c(as.character(i18n$t("clinician")), as.character(i18n$t("data_scientist")), as.character(i18n$t("engineer")))
+                ),
+                width = "100%"
+              )
+            ),
+            div(
+              style = "flex: 1;",
+              tags$label(
+                tagList(i18n$t("user_access"), " *"),
+                class = "form-label"
+              ),
+              selectInput(
+                ns("user_user_access"),
+                label = NULL,
+                choices = c(),
+                width = "100%"
+              ),
+              div(
+                id = ns("user_access_error"),
+                class = "input-error-message"
+              )
+            )
           ),
-          tags$textarea(
-            id = ns("user_affiliation"),
-            placeholder = as.character(i18n$t("enter_affiliation")),
-            style = "width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 14px; resize: vertical; min-height: 60px;"
+
+          # Affiliation (full width)
+          div(
+            class = "mb-15",
+            tags$label(
+              i18n$t("affiliation"),
+              class = "form-label"
+            ),
+            tags$textarea(
+              id = ns("user_affiliation"),
+              placeholder = as.character(i18n$t("enter_affiliation")),
+              style = "width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 14px; resize: vertical; min-height: 60px;"
+            )
           )
-        )
         ),
 
         # Modal footer
