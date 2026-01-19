@@ -547,3 +547,14 @@ uncheck_all,Tout décocher
 permissions_saved,Permissions enregistrées avec succès
 yes,Oui
 no,Non
+context,Contexte
+variables,Variables
+justification,Justification scientifique
+bibliography,Bibliographie
+save_context,Enregistrer
+context_saved,Contexte enregistré avec succès
+enter_justification,Saisir la justification scientifique...
+enter_bibliography,Saisir la bibliographie...
+edit_context,Modifier le contexte
+created_by,Créé par
+created_at,Créé le

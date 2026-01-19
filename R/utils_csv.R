@@ -10,8 +10,6 @@ CSV_FILES <- c(
   "general_concepts_en.csv",
   "general_concepts_fr.csv",
   "general_concepts_stats.csv",
-  "projects.csv",
-  "general_concepts_projects.csv",
   "general_concepts_details.csv",
   "custom_concepts.csv",
   "unit_conversions.csv",
@@ -211,17 +209,11 @@ load_csv_data <- function(language = NULL) {
     all.x = TRUE
   )
 
-  projects <- read.csv(
-    file.path(csv_dir, "projects.csv"),
-    stringsAsFactors = FALSE,
-    na.strings = c("", "NA")
-  )
+  # Load projects from database
+  projects <- get_all_projects()
 
-  general_concept_projects <- read.csv(
-    file.path(csv_dir, "general_concepts_projects.csv"),
-    stringsAsFactors = FALSE,
-    na.strings = c("", "NA")
-  )
+  # Load project general concepts from database
+  general_concept_projects <- get_all_project_general_concepts()
 
   concept_mappings <- read.csv(
     file.path(csv_dir, "general_concepts_details.csv"),
@@ -337,42 +329,6 @@ save_concept_mappings_csv <- function(concept_mappings_data) {
   write.csv(
     concept_mappings_data,
     file.path(csv_dir, "general_concepts_details.csv"),
-    row.names = FALSE,
-    quote = TRUE
-  )
-}
-
-#' Save General Concept Projects to CSV
-#'
-#' @description Save general concept projects mappings to CSV file
-#'
-#' @param general_concept_projects_data Data frame with mappings
-#'
-#' @return NULL (side effect: saves file)
-#' @noRd
-save_general_concept_projects_csv <- function(general_concept_projects_data) {
-  csv_dir <- get_user_csv_dir()
-  write.csv(
-    general_concept_projects_data,
-    file.path(csv_dir, "general_concepts_projects.csv"),
-    row.names = FALSE,
-    quote = TRUE
-  )
-}
-
-#' Save Projects to CSV
-#'
-#' @description Save projects data to CSV file
-#'
-#' @param projects_data Data frame with projects
-#'
-#' @return NULL (side effect: saves file)
-#' @noRd
-save_projects_csv <- function(projects_data) {
-  csv_dir <- get_user_csv_dir()
-  write.csv(
-    projects_data,
-    file.path(csv_dir, "projects.csv"),
     row.names = FALSE,
     quote = TRUE
   )

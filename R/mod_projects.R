@@ -1,23 +1,24 @@
 # MODULE STRUCTURE OVERVIEW ====
 #
 # This module provides the Projects management interface with two main views:
-# - Projects List View: Browse and manage projects with details panel
-# - Project Configuration View: Assign general concepts to projects
+# - Projects List View: Browse and manage projects (full width table)
+# - Project Detail View: View and edit project with tabs (Context, Variables)
 #
 # UI STRUCTURE:
 #   ## UI - Main Layout
 #      ### Breadcrumb Navigation - Navigation breadcrumbs for multi-level views
-#      ### Content Area - Dynamic content based on current view (list/config)
-#         #### List View - projects table (70%) + details panel (30%)
-#         #### Config View - Available concepts (50%) + selected concepts (50%)
+#      ### Content Area - Dynamic content based on current view (list/detail)
+#         #### List View - projects table (full width)
+#         #### Detail View - tabs (Context, Variables)
 #   ## UI - Modals
-#      ### Modal - Add New Project - Form to create new projects
+#      ### Modal - Add New Project - Form to create new projects (name + short_description only)
 #      ### Modal - Edit Project - Form to edit existing projects
+#      ### Modal - Delete Confirmation - Confirm project deletion
 #
 # SERVER STRUCTURE:
 #   ## 1) Server - Reactive Values & State
-#      ### View State - Track current view (list/config) and selected project
-#      ### Data Management - projects and general concept assignments
+#      ### View State - Track current view (list/detail) and selected project
+#      ### Tab State - Track current tab (context/variables)
 #      ### Cascade Triggers - Reactive triggers for cascade pattern
 #
 #   ## 2) Server - Navigation & State Changes
@@ -27,15 +28,15 @@
 #
 #   ## 3) Server - UI Rendering
 #      ### Breadcrumb Rendering - Dynamic breadcrumb navigation
-#      ### Content Area Rendering - Switch between list and config views
+#      ### Content Area Rendering - Switch between list and detail views
 #      ### Projects Table - Display projects with concept counts
-#      ### Project Details - Show details of selected project
-#      ### Concept Tables - Available and selected concepts tables
+#      ### Context Tab - Justification and bibliography fields
+#      ### Variables Tab - Available and selected concepts tables
 #
 #   ## 4) Server - User Actions
-#      ### Project Management - Add, edit, delete, configure projects
+#      ### Project Management - Add, edit, delete projects
+#      ### Context Editing - Save justification and bibliography
 #      ### Concept Assignment - Add/remove general concepts to/from projects
-#      ### Table Row Selection - Select all, unselect all, double-click navigation
 #
 # UI SECTION ====
 
@@ -44,12 +45,13 @@
 #' @description UI function for the projects management module
 #'
 #' @param id Module ID
+#' @param i18n Translation object
 #'
 #' @return Shiny UI elements
 #' @noRd
 #'
 #' @importFrom shiny NS actionButton uiOutput textInput textAreaInput
-#' @importFrom shiny updateTextInput updateTextAreaInput selectizeInput icon
+#' @importFrom shiny updateTextInput updateTextAreaInput icon
 #' @importFrom htmltools tags tagList
 #' @importFrom DT DTOutput
 mod_projects_ui <- function(id, i18n) {
@@ -73,7 +75,6 @@ mod_projects_ui <- function(id, i18n) {
       )
     ),
 
-
     ## UI - Modals ----
     ### Modal - Add New Project ----
     tags$div(
@@ -93,7 +94,7 @@ mod_projects_ui <- function(id, i18n) {
           tags$button(
             class = "modal-close",
             onclick = sprintf("$('#%s').hide();", ns("add_project_modal")),
-            "×"
+            "\u00d7"
           )
         ),
         tags$div(
@@ -145,23 +146,6 @@ mod_projects_ui <- function(id, i18n) {
             )
           ),
           tags$div(
-            class = "mb-20",
-            tags$label(
-              i18n$t("long_description"),
-              style = paste0(
-                "display: block; font-weight: 600; ",
-                "margin-bottom: 8px;"
-              )
-            ),
-            textAreaInput(
-              ns("new_project_long_description"),
-              label = NULL,
-              placeholder = as.character(i18n$t("enter_long_description")),
-              width = "100%",
-              rows = 5
-            )
-          ),
-          tags$div(
             style = paste0(
               "display: flex; justify-content: flex-end; ",
               "gap: 10px; margin-top: 20px;"
@@ -204,7 +188,7 @@ mod_projects_ui <- function(id, i18n) {
           tags$button(
             class = "modal-close",
             onclick = sprintf("$('#%s').hide();", ns("delete_confirmation_modal")),
-            "×"
+            "\u00d7"
           )
         ),
         tags$div(
@@ -262,7 +246,7 @@ mod_projects_ui <- function(id, i18n) {
           tags$button(
             class = "modal-close",
             onclick = sprintf("$('#%s').hide();", ns("edit_project_modal")),
-            "×"
+            "\u00d7"
           )
         ),
         tags$div(
@@ -314,23 +298,6 @@ mod_projects_ui <- function(id, i18n) {
             )
           ),
           tags$div(
-            class = "mb-20",
-            tags$label(
-              i18n$t("long_description"),
-              style = paste0(
-                "display: block; font-weight: 600; ",
-                "margin-bottom: 8px;"
-              )
-            ),
-            textAreaInput(
-              ns("edit_project_long_description"),
-              label = NULL,
-              placeholder = as.character(i18n$t("enter_long_description")),
-              width = "100%",
-              rows = 5
-            )
-          ),
-          tags$div(
             style = paste0(
               "display: flex; justify-content: flex-end; ",
               "gap: 10px; margin-top: 20px;"
@@ -361,7 +328,7 @@ mod_projects_ui <- function(id, i18n) {
 
 #' Render Projects List View
 #'
-#' @description Renders the main projects list with split panel
+#' @description Renders the main projects list (full width)
 #'
 #' @param ns Namespace function
 #' @param i18n Translation object
@@ -376,7 +343,7 @@ render_projects_list_ui <- function(ns, i18n) {
         "margin: 5px 0 15px 10px; display: flex; ",
         "justify-content: space-between; align-items: center;"
       ),
-      # Title (matching dictionary explorer style)
+      # Title
       tags$div(
         class = "section-title",
         tags$span(i18n$t("projects"))
@@ -394,69 +361,138 @@ render_projects_list_ui <- function(ns, i18n) {
       )
     ),
 
-    # Split panel layout
+    # Full width projects table
     tags$div(
-      style = "display: flex; gap: 20px; flex: 1; min-height: 0; margin: 10px;",
-
-      # Left panel: projects table (70%)
+      style = "margin: 10px;",
       tags$div(
         style = paste0(
-          "flex: 0 0 70%; display: flex; flex-direction: column; ",
+          "display: flex; flex-direction: column; ",
           "background: white; border-radius: 8px; ",
           "box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 20px;"
-        ),
-        tags$h4(
-          i18n$t("projects"),
-          style = paste0(
-            "margin: 0 0 15px 0; color: #0f60af; ",
-            "border-bottom: 2px solid #0f60af; padding-bottom: 10px;"
-          )
         ),
         tags$div(
           class = "flex-1", style = "overflow: auto;",
           DT::DTOutput(ns("projects_table"))
-        )
-      ),
-
-      # Right panel: project details (30%)
-      tags$div(
-        style = paste0(
-          "flex: 0 0 30%; display: flex; flex-direction: column; ",
-          "background: white; border-radius: 8px; ",
-          "box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 20px;"
-        ),
-        tags$h4(
-          i18n$t("project_details"),
-          style = paste0(
-            "margin: 0 0 15px 0; color: #0f60af; ",
-            "border-bottom: 2px solid #0f60af; padding-bottom: 10px;"
-          )
-        ),
-        tags$div(
-          class = "flex-1", style = "overflow: auto;",
-          uiOutput(ns("project_details"))
         )
       )
     )
   )
 }
 
-#' Render Project Configuration View
+#' Render Project Detail View with Tabs
 #'
-#' @description Renders the project configuration view with 3 panels
+#' @description Renders the project detail view with Context and Variables tabs
 #'
 #' @param ns Namespace function
 #' @param i18n Translation object
 #'
-#' @return UI elements for project configuration view
+#' @return UI elements for project detail view
 #' @noRd
-render_project_config_ui <- function(ns, i18n) {
+render_project_detail_ui <- function(ns, i18n) {
+  tags$div(
+    style = "margin: 0 10px;",
+    tabsetPanel(
+      id = ns("project_tabs"),
+
+      # Context tab
+      tabPanel(
+        i18n$t("context"),
+        value = "context",
+        icon = icon("file-alt"),
+        uiOutput(ns("context_tab_content"))
+      ),
+
+      # Variables tab
+      tabPanel(
+        i18n$t("variables"),
+        value = "variables",
+        icon = icon("list"),
+        uiOutput(ns("variables_tab_content"))
+      )
+    )
+  )
+}
+
+#' Render Context Tab Content
+#'
+#' @description Renders the context tab with justification and bibliography fields
+#'
+#' @param ns Namespace function
+#' @param i18n Translation object
+#'
+#' @return UI elements for context tab
+#' @noRd
+render_context_tab_ui <- function(ns, i18n) {
+  tags$div(
+    style = "margin: 10px 0;",
+    tags$div(
+      style = paste0(
+        "background: white; border-radius: 8px; ",
+        "box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 20px;"
+      ),
+      # Justification field
+      tags$div(
+        class = "mb-20",
+        tags$label(
+          i18n$t("justification"),
+          style = "display: block; font-weight: 600; margin-bottom: 8px; color: #0f60af;"
+        ),
+        textAreaInput(
+          ns("context_justification"),
+          label = NULL,
+          placeholder = as.character(i18n$t("enter_justification")),
+          width = "100%",
+          rows = 8
+        )
+      ),
+      # Bibliography field
+      tags$div(
+        class = "mb-20",
+        tags$label(
+          i18n$t("bibliography"),
+          style = "display: block; font-weight: 600; margin-bottom: 8px; color: #0f60af;"
+        ),
+        textAreaInput(
+          ns("context_bibliography"),
+          label = NULL,
+          placeholder = as.character(i18n$t("enter_bibliography")),
+          width = "100%",
+          rows = 6
+        )
+      ),
+      # Save button
+      shinyjs::hidden(
+        tags$div(
+          id = ns("context_save_container"),
+          style = "display: flex; justify-content: flex-end; gap: 10px;",
+          actionButton(
+            ns("save_context"),
+            i18n$t("save_context"),
+            class = "btn btn-primary",
+            icon = icon("save")
+          )
+        )
+      )
+    )
+  )
+}
+
+#' Render Variables Tab Content
+#'
+#' @description Renders the variables tab with concept selection panels
+#'
+#' @param ns Namespace function
+#' @param i18n Translation object
+#'
+#' @return UI elements for variables tab
+#' @noRd
+render_variables_tab_ui <- function(ns, i18n) {
   tagList(
     # Two-panel layout for concept selection
     tags$div(
-      style = "display: flex; gap: 20px; flex: 1; min-height: 0; margin: 10px;",
+      style = "display: flex; gap: 20px; flex: 1; min-height: 0; margin: 10px 0;",
 
-      # Left panel: Available general concepts (50% width, 100% height)
+      # Left panel: Available general concepts (50% width)
       tags$div(
         style = paste0(
           "flex: 0 0 50%; display: flex; flex-direction: column; ",
@@ -508,7 +544,7 @@ render_project_config_ui <- function(ns, i18n) {
         )
       ),
 
-      # Right panel: Selected general concepts (50% width, 100% height)
+      # Right panel: Selected general concepts (50% width)
       tags$div(
         style = paste0(
           "flex: 0 0 50%; display: flex; flex-direction: column; ",
@@ -581,6 +617,9 @@ render_project_config_ui <- function(ns, i18n) {
 #' @param id Module ID
 #' @param data Reactive containing the application data
 #' @param vocabularies Reactive containing OHDSI vocabulary data
+#' @param current_user Reactive containing current user info
+#' @param i18n Translation object
+#' @param log_level Logging level
 #'
 #' @return Module server logic
 #' @noRd
@@ -603,26 +642,26 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
     ## 1) Server - Reactive Values & State ====
     ### Reactive Values ----
 
-    current_view <- reactiveVal("list")  # "list" or "config"
+    current_view <- reactiveVal("list")  # "list" or "detail"
+    current_tab <- reactiveVal("context")  # "context" or "variables"
     selected_project <- reactiveVal(NULL)
-    selected_project_row <- reactiveVal(NULL)  # For displaying details
     projects_reactive <- reactiveVal(NULL)
-    general_concept_projects_reactive <- reactiveVal(NULL)
+    project_general_concepts_reactive <- reactiveVal(NULL)
+    variables_tables_loaded <- reactiveVal(FALSE)  # Track if concept tables have been loaded for current project
+    context_buttons_shown <- reactiveVal(FALSE)  # Track if context buttons have been shown
+    variables_buttons_shown <- reactiveVal(FALSE)  # Track if variables buttons have been shown
 
     ### Trigger Values (for cascade pattern) ----
 
     data_loaded_trigger <- reactiveVal(0)
     view_changed_trigger <- reactiveVal(0)
-    user_changed_trigger <- reactiveVal(0)
     projects_data_changed_trigger <- reactiveVal(0)
     gc_projects_changed_trigger <- reactiveVal(0)
 
     # Cascade triggers
-    button_visibility_trigger <- reactiveVal(0)
     breadcrumb_trigger <- reactiveVal(0)
     content_area_trigger <- reactiveVal(0)
     projects_table_trigger <- reactiveVal(0)
-    project_details_trigger <- reactiveVal(0)
     available_concepts_table_trigger <- reactiveVal(0)
     selected_concepts_table_trigger <- reactiveVal(0)
 
@@ -631,17 +670,19 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
     observe_event(data(), {
       if (is.null(data())) return()
 
-      projects_reactive(data()$projects)
-      general_concept_projects_reactive(data()$general_concept_projects)
+      # Load projects from database
+      projects_reactive(get_all_projects())
+      project_general_concepts_reactive(get_all_project_general_concepts())
       data_loaded_trigger(data_loaded_trigger() + 1)
+
+      # Show add project button (exists in static UI)
+      if (user_has_permission("projects", "add_project")) {
+        shinyjs::show("add_project_btn")
+      }
     })
 
     ## 2) Server - Navigation & State Changes ====
     ### Primary State Observers ----
-
-    observe_event(current_user(), {
-      user_changed_trigger(user_changed_trigger() + 1)
-    })
 
     observe_event(current_view(), {
       view_changed_trigger(view_changed_trigger() + 1)
@@ -651,20 +692,11 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
       projects_data_changed_trigger(projects_data_changed_trigger() + 1)
     })
 
-    observe_event(general_concept_projects_reactive(), {
+    observe_event(project_general_concepts_reactive(), {
       gc_projects_changed_trigger(gc_projects_changed_trigger() + 1)
     })
 
-    observe_event(selected_project_row(), {
-      project_details_trigger(project_details_trigger() + 1)
-    })
-
     ### Cascade Observers ----
-
-    # When data, user, or view changes, update button visibility
-    observe_event(c(data_loaded_trigger(), user_changed_trigger(), view_changed_trigger()), {
-      button_visibility_trigger(button_visibility_trigger() + 1)
-    }, ignoreInit = TRUE)
 
     # When view or selected project changes, update breadcrumb and content area
     observe_event(c(view_changed_trigger(), selected_project()), {
@@ -672,69 +704,40 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
       content_area_trigger(content_area_trigger() + 1)
     }, ignoreInit = TRUE)
 
-    # When projects data or concept assignments change, update table
-    observe_event(c(projects_data_changed_trigger(), gc_projects_changed_trigger()), {
+    # When projects data changes, update table
+    observe_event(projects_data_changed_trigger(), {
       projects_table_trigger(projects_table_trigger() + 1)
     }, ignoreInit = TRUE)
 
-    # When general concept projects change or view changes, update concept tables
-    observe_event(c(gc_projects_changed_trigger(), view_changed_trigger(), selected_project()), {
+    # When general concept projects change or selected project changes, update concept tables
+    observe_event(c(gc_projects_changed_trigger(), selected_project()), {
       available_concepts_table_trigger(available_concepts_table_trigger() + 1)
       selected_concepts_table_trigger(selected_concepts_table_trigger() + 1)
     }, ignoreInit = TRUE)
 
     ### Helper Functions ----
 
-    # Function to update button visibility based on user role and permissions
-    update_button_visibility <- function() {
-      user <- current_user()
-      can_add <- user_has_permission("projects", "add_project")
-      can_assign <- user_has_permission("projects", "assign_concepts")
-
-      # Use shinyjs::delay to ensure DOM is ready
-      shinyjs::delay(100, {
-        if (!is.null(user) && user$role != "Anonymous") {
-          # Show/hide Add Project button based on permission
-          if (can_add) {
-            shinyjs::show("add_project_btn")
-          } else {
-            shinyjs::hide("add_project_btn")
-          }
-          # Show/hide concept assignment buttons based on permission
-          if (can_assign) {
-            shinyjs::show("available_action_buttons")
-            shinyjs::show("selected_action_buttons")
-          } else {
-            shinyjs::hide("available_action_buttons")
-            shinyjs::hide("selected_action_buttons")
-          }
-        } else {
-          shinyjs::hide("add_project_btn")
-          shinyjs::hide("available_action_buttons")
-          shinyjs::hide("selected_action_buttons")
-        }
-      })
-    }
-
     # Helper function to get projects with concept counts
     get_projects_with_counts <- reactive({
       projects_data <- projects_reactive()
-      gc_uc_data <- general_concept_projects_reactive()
+      gc_data <- project_general_concepts_reactive()
 
-      if (is.null(projects_data) || is.null(gc_uc_data)) {
+      if (is.null(projects_data) || nrow(projects_data) == 0) {
         return(data.frame(
-          Name = character(0),
-          `Short Description` = character(0),
-          Concepts = integer(0),
+          project_id = integer(0),
           stringsAsFactors = FALSE,
           check.names = FALSE
         ))
       }
 
       # Count concepts per project
-      concept_counts <- gc_uc_data %>%
-        group_by(project_id) %>%
-        summarise(concept_count = n(), .groups = "drop")
+      concept_counts <- if (!is.null(gc_data) && nrow(gc_data) > 0) {
+        gc_data %>%
+          group_by(project_id) %>%
+          summarise(concept_count = n(), .groups = "drop")
+      } else {
+        data.frame(project_id = integer(0), concept_count = integer(0))
+      }
 
       # Join with projects
       result <- projects_data %>%
@@ -743,26 +746,30 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
       # Replace NA counts with 0
       result$concept_count[is.na(result$concept_count)] <- 0
 
-      # Format for display (include project_id as first column, will be hidden)
+      # Format for display
       display_df <- data.frame(
         project_id = result$project_id,
         stringsAsFactors = FALSE,
         check.names = FALSE
       )
-      display_df[[as.character(i18n$t("project_name"))]] <- result$project_name
+      display_df[[as.character(i18n$t("project_name"))]] <- result$name
       display_df[[as.character(i18n$t("short_description"))]] <- ifelse(
         is.na(result$short_description),
         "",
         result$short_description
       )
       display_df[[as.character(i18n$t("concepts"))]] <- result$concept_count
+      display_df[[as.character(i18n$t("created_by"))]] <- paste(
+        ifelse(is.na(result$creator_first_name), "", result$creator_first_name),
+        ifelse(is.na(result$creator_last_name), "", result$creator_last_name)
+      )
+      display_df[[as.character(i18n$t("created_at"))]] <- result$created_at
 
       # Check permissions for action buttons
       can_edit <- user_has_permission("projects", "edit_project")
       can_delete <- user_has_permission("projects", "delete_project")
-      can_assign <- user_has_permission("projects", "assign_concepts")
 
-      # Add action buttons column (generate for each row based on permissions)
+      # Add action buttons column
       display_df[[as.character(i18n$t("actions"))]] <- sapply(display_df$project_id, function(id) {
         actions_list <- list()
 
@@ -772,16 +779,6 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
             icon = "edit",
             type = "warning",
             class = "project-edit-btn",
-            data_attr = list(`project-id` = id)
-          )))
-        }
-
-        if (can_assign) {
-          actions_list <- c(actions_list, list(list(
-            label = "Configure",
-            icon = "cog",
-            type = "primary",
-            class = "project-configure-btn",
             data_attr = list(`project-id` = id)
           )))
         }
@@ -806,14 +803,14 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
       return(display_df)
     })
 
-    # Helper function to get available general concepts (excluding already selected ones)
+    # Helper function to get available general concepts
     get_available_general_concepts <- reactive({
       if (is.null(data())) return(NULL)
       if (is.null(selected_project())) return(NULL)
 
       general_concepts <- data()$general_concepts
       project <- selected_project()
-      gc_uc_data <- general_concept_projects_reactive()
+      gc_data <- project_general_concepts_reactive()
 
       if (is.null(general_concepts)) {
         return(data.frame(
@@ -828,8 +825,8 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
 
       # Get IDs of concepts already selected for this project
       selected_gc_ids <- c()
-      if (!is.null(gc_uc_data)) {
-        selected_gc_ids <- gc_uc_data %>%
+      if (!is.null(gc_data) && nrow(gc_data) > 0) {
+        selected_gc_ids <- gc_data %>%
           filter(project_id == project$id) %>%
           .$general_concept_id
       }
@@ -858,9 +855,9 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
 
       project <- selected_project()
       general_concepts <- data()$general_concepts
-      gc_uc_data <- general_concept_projects_reactive()
+      gc_data <- project_general_concepts_reactive()
 
-      if (is.null(gc_uc_data)) {
+      if (is.null(gc_data) || nrow(gc_data) == 0) {
         return(data.frame(
           general_concept_id = integer(0),
           Category = character(0),
@@ -872,7 +869,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
       }
 
       # Filter general concepts for this project
-      selected_gc_ids <- gc_uc_data %>%
+      selected_gc_ids <- gc_data %>%
         filter(project_id == project$id) %>%
         .$general_concept_id
 
@@ -905,13 +902,6 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
     })
 
     ## 3) Server - UI Rendering ====
-    ### Button Visibility ----
-
-    # Update button visibility
-    observe_event(button_visibility_trigger(), {
-      update_button_visibility()
-    })
-
     ### Breadcrumb Rendering ----
     observe_event(breadcrumb_trigger(), {
       view <- current_view()
@@ -921,7 +911,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
           return(NULL)
         }
 
-        if (view == "config") {
+        if (view == "detail") {
           project <- selected_project()
           project_name <- if (!is.null(project)) {
             project$name
@@ -969,11 +959,75 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
       output$content_area <- renderUI({
         if (view == "list") {
           render_projects_list_ui(ns, i18n)
-        } else if (view == "config") {
-          render_project_config_ui(ns, i18n)
+        } else if (view == "detail") {
+          render_project_detail_ui(ns, i18n)
         }
       })
+
+      # When entering detail view, render tab contents and load project data
+      if (view == "detail") {
+        current_tab("context")
+
+        # Reset flags for buttons visibility (new project = new detail view)
+        context_buttons_shown(FALSE)
+        variables_buttons_shown(FALSE)
+        variables_tables_loaded(FALSE)
+
+        # Render tab contents (once when entering detail view)
+        shinyjs::delay(50, {
+          output$context_tab_content <- renderUI({
+            render_context_tab_ui(ns, i18n)
+          })
+
+          output$variables_tab_content <- renderUI({
+            render_variables_tab_ui(ns, i18n)
+          })
+
+          # Load context data for the selected project
+          project <- selected_project()
+          if (!is.null(project)) {
+            justification <- get_project_metadata_value(project$id, "justification")
+            bibliography <- get_project_metadata_value(project$id, "bibliography")
+
+            shinyjs::delay(100, {
+              updateTextAreaInput(session, "context_justification", value = ifelse(is.null(justification), "", justification))
+              updateTextAreaInput(session, "context_bibliography", value = ifelse(is.null(bibliography), "", bibliography))
+
+              # Show context buttons (first time entering context tab)
+              if (!context_buttons_shown()) {
+                context_buttons_shown(TRUE)
+                if (user_has_permission("projects", "edit_context")) {
+                  shinyjs::show("context_save_container")
+                }
+              }
+            })
+          }
+        })
+      }
     })
+
+    ### Tab Switching ----
+    observe_event(input$project_tabs, {
+      current_tab(input$project_tabs)
+
+      # Load concept tables and show buttons on first visit to Variables tab
+      if (input$project_tabs == "variables" && !variables_tables_loaded()) {
+        variables_tables_loaded(TRUE)
+        available_concepts_table_trigger(available_concepts_table_trigger() + 1)
+        selected_concepts_table_trigger(selected_concepts_table_trigger() + 1)
+
+        # Show variables buttons (first time entering variables tab)
+        if (!variables_buttons_shown()) {
+          variables_buttons_shown(TRUE)
+          if (user_has_permission("projects", "assign_concepts")) {
+            shinyjs::delay(100, {
+              shinyjs::show("available_action_buttons")
+              shinyjs::show("selected_action_buttons")
+            })
+          }
+        }
+      }
+    }, ignoreInit = TRUE)
 
     ### Projects Table Rendering ----
     observe_event(projects_table_trigger(), {
@@ -987,7 +1041,6 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
           // Remove any existing handlers to avoid duplicates
           $(table.table().node()).off('dblclick', 'tbody tr');
           $(table.table().node()).off('click', '.project-edit-btn');
-          $(table.table().node()).off('click', '.project-configure-btn');
           $(table.table().node()).off('click', '.project-delete-btn');
 
           // Add double-click handler for table rows
@@ -1006,12 +1059,6 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
             Shiny.setInputValue('%s', projectId, {priority: 'event'});
           });
 
-          $(table.table().node()).on('click', '.project-configure-btn', function(e) {
-            e.stopPropagation();
-            var projectId = $(this).data('project-id');
-            Shiny.setInputValue('%s', projectId, {priority: 'event'});
-          });
-
           $(table.table().node()).on('click', '.project-delete-btn', function(e) {
             e.stopPropagation();
             var projectId = $(this).data('project-id');
@@ -1021,7 +1068,6 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
       ",
       session$ns("dblclick_project_id"),
       session$ns("project_edit_clicked"),
-      session$ns("project_configure_clicked"),
       session$ns("project_delete_clicked")
       ))
 
@@ -1033,7 +1079,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
         datatable(
           df,
           filter = "top",
-          selection = "single",
+          selection = "none",
           rownames = FALSE,
           escape = FALSE,
           class = "cell-border stripe hover",
@@ -1044,7 +1090,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
             autoWidth = FALSE,
             columnDefs = list(
               list(targets = 0, visible = FALSE),  # Hide project_id column
-              list(targets = 4, orderable = FALSE, width = "280px", searchable = FALSE, className = "dt-center")  # Actions column
+              list(targets = 6, orderable = FALSE, width = "180px", searchable = FALSE, className = "dt-center")  # Actions column
             ),
             language = dt_language,
             drawCallback = callback_js
@@ -1053,101 +1099,419 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
       }, server = FALSE)
     })
 
-    ### Project Action Buttons Handlers ----
-    # Store the project for deletion and editing
+    ### Available Concepts Table Rendering ----
+    observe_event(available_concepts_table_trigger(), {
+      if (current_tab() != "variables") return()
+
+      df <- get_available_general_concepts()
+
+      output$available_general_concepts_table <- DT::renderDT({
+        if (is.null(df)) {
+          empty_df <- data.frame(
+            stringsAsFactors = FALSE,
+            check.names = FALSE
+          )
+          empty_df[[as.character(i18n$t("category"))]] <- character(0)
+          empty_df[[as.character(i18n$t("subcategory"))]] <- character(0)
+          empty_df[[as.character(i18n$t("general_concept_name"))]] <- character(0)
+          return(datatable(
+            empty_df,
+            filter = "top",
+            selection = "multiple",
+            rownames = FALSE,
+            class = "cell-border stripe hover",
+            options = list(
+              pageLength = 10,
+              dom = "tip",
+              ordering = TRUE,
+              autoWidth = FALSE,
+              language = get_datatable_language()
+            )
+          ))
+        }
+
+        df_display <- df[, -1]  # Remove general_concept_id column
+        colnames(df_display) <- c(
+          as.character(i18n$t("category")),
+          as.character(i18n$t("subcategory")),
+          as.character(i18n$t("general_concept_name"))
+        )
+
+        datatable(
+          df_display,
+          filter = "top",
+          selection = "multiple",
+          rownames = FALSE,
+          class = "cell-border stripe hover",
+          options = list(
+            pageLength = 10,
+            dom = "tip",
+            ordering = TRUE,
+            autoWidth = FALSE,
+            language = get_datatable_language()
+          )
+        )
+      }, server = FALSE)
+    })
+
+    ### Selected Concepts Table Rendering ----
+    observe_event(selected_concepts_table_trigger(), {
+      if (current_tab() != "variables") return()
+
+      df <- get_selected_general_concepts()
+
+      # Merge DataTable language with custom empty message
+      dt_language <- get_datatable_language()
+      dt_language$emptyTable <- as.character(i18n$t("no_concepts_selected"))
+
+      output$selected_general_concepts_table <- DT::renderDT({
+        if (is.null(df)) {
+          empty_df <- data.frame(
+            stringsAsFactors = FALSE,
+            check.names = FALSE
+          )
+          empty_df[[as.character(i18n$t("category"))]] <- character(0)
+          empty_df[[as.character(i18n$t("subcategory"))]] <- character(0)
+          empty_df[[as.character(i18n$t("general_concept_name"))]] <- character(0)
+          return(datatable(
+            empty_df,
+            filter = "top",
+            selection = "multiple",
+            rownames = FALSE,
+            class = "cell-border stripe hover",
+            options = list(
+              pageLength = 15,
+              dom = "tip",
+              ordering = TRUE,
+              autoWidth = FALSE,
+              language = dt_language
+            )
+          ))
+        }
+
+        df_display <- df[, -1]  # Remove general_concept_id column
+        colnames(df_display) <- c(
+          as.character(i18n$t("category")),
+          as.character(i18n$t("subcategory")),
+          as.character(i18n$t("general_concept_name"))
+        )
+
+        datatable(
+          df_display,
+          filter = "top",
+          selection = "multiple",
+          rownames = FALSE,
+          class = "cell-border stripe hover",
+          options = list(
+            pageLength = 15,
+            dom = "tip",
+            ordering = TRUE,
+            autoWidth = FALSE,
+            language = dt_language
+          )
+        )
+      }, server = FALSE)
+    })
+
+    ## 4) Server - User Actions ====
+    ### Breadcrumb Navigation ----
+    observe_event(input$back_to_list, {
+      current_view("list")
+      selected_project(NULL)
+    }, ignoreInit = TRUE)
+
+    ### Project Selection (double-click) ----
+    observe_event(input$dblclick_project_id, {
+      project_id <- input$dblclick_project_id
+      if (is.null(project_id)) return()
+
+      # Get project data from database
+      project <- get_project(project_id)
+
+      if (!is.null(project)) {
+        selected_project(list(
+          id = project$project_id,
+          name = project$name,
+          short_description = project$short_description
+        ))
+        current_view("detail")
+      }
+    }, ignoreInit = TRUE)
+
+    ### Project Management - Add ----
+    observe_event(input$add_project_btn, {
+      if (!user_has_permission("projects", "add_project")) return()
+      shinyjs::runjs(sprintf("$('#%s').show();", ns("add_project_modal")))
+    }, ignoreInit = TRUE)
+
+    # Store project for deletion and editing
     selected_project_for_delete <- reactiveVal(NULL)
     selected_project_for_edit <- reactiveVal(NULL)
 
-    # Handler for Edit button in datatable
+    # Save new project
+    observe_event(input$save_project, {
+      if (!user_has_permission("projects", "add_project")) return()
+
+      name <- trimws(input$new_project_name)
+      short_desc <- trimws(input$new_project_short_description)
+
+      # Validation
+      has_error <- FALSE
+
+      if (name == "") {
+        shinyjs::runjs(sprintf("$('#%s').show();", ns("name_error")))
+        shinyjs::runjs(sprintf("$('#%s').hide();", ns("name_duplicate_error")))
+        has_error <- TRUE
+      } else {
+        shinyjs::runjs(sprintf("$('#%s').hide();", ns("name_error")))
+        # Check for duplicate name via database
+        projects_data <- projects_reactive()
+        if (!is.null(projects_data) && tolower(name) %in% tolower(projects_data$name)) {
+          shinyjs::runjs(sprintf("$('#%s').show();", ns("name_duplicate_error")))
+          has_error <- TRUE
+        } else {
+          shinyjs::runjs(sprintf("$('#%s').hide();", ns("name_duplicate_error")))
+        }
+      }
+
+      if (short_desc == "") {
+        shinyjs::runjs(sprintf("$('#%s').show();", ns("short_desc_error")))
+        has_error <- TRUE
+      } else {
+        shinyjs::runjs(sprintf("$('#%s').hide();", ns("short_desc_error")))
+      }
+
+      if (has_error) return()
+
+      # Get creator info from current user
+      user <- current_user()
+      creator_first_name <- if (!is.null(user)) user$first_name else ""
+      creator_last_name <- if (!is.null(user)) user$last_name else ""
+
+      # Create new project in database
+      new_id <- add_project(name, short_desc, creator_first_name, creator_last_name)
+
+      if (!is.null(new_id)) {
+        # Reload projects from database
+        projects_reactive(get_all_projects())
+
+        # Close modal and reset
+        shinyjs::runjs(sprintf("$('#%s').hide();", ns("add_project_modal")))
+        updateTextInput(session, "new_project_name", value = "")
+        updateTextAreaInput(session, "new_project_short_description", value = "")
+      }
+    }, ignoreInit = TRUE)
+
+    ### Project Management - Edit ----
     observe_event(input$project_edit_clicked, {
-      # Check permission
       if (!user_has_permission("projects", "edit_project")) return()
 
       project_id <- input$project_edit_clicked
       if (is.null(project_id)) return()
 
-      # Get project data
-      projects_data <- projects_reactive()
-      selected_uc <- projects_data[projects_data$project_id == project_id, ]
-
-      if (nrow(selected_uc) == 0) return()
+      # Get project data from database
+      project <- get_project(project_id)
+      if (is.null(project)) return()
 
       # Populate edit modal
-      updateTextInput(
-        session,
-        "edit_project_name",
-        value = selected_uc$project_name
-      )
-      updateTextAreaInput(
-        session,
-        "edit_project_short_description",
-        value = ifelse(
-          is.na(selected_uc$short_description),
-          "",
-          selected_uc$short_description
-        )
-      )
-      updateTextAreaInput(
-        session,
-        "edit_project_long_description",
-        value = ifelse(
-          is.na(selected_uc$long_description),
-          "",
-          selected_uc$long_description
-        )
-      )
+      updateTextInput(session, "edit_project_name", value = project$name)
+      updateTextAreaInput(session, "edit_project_short_description", value = ifelse(is.na(project$short_description), "", project$short_description))
 
-      # Store the ID for update (do NOT use selected_project as it triggers view change)
+      # Store the ID for update
       selected_project_for_edit(list(
-        id = selected_uc$project_id,
-        name = selected_uc$project_name,
-        short_description = selected_uc$short_description,
-        long_description = selected_uc$long_description
+        id = project$project_id,
+        name = project$name
       ))
 
       # Show modal
       shinyjs::runjs(sprintf("$('#%s').show();", ns("edit_project_modal")))
     }, ignoreInit = TRUE)
 
-    # Handler for Configure button in datatable
-    observe_event(input$project_configure_clicked, {
-      # Check permission
-      if (!user_has_permission("projects", "assign_concepts")) return()
+    # Update project button
+    observe_event(input$update_project, {
+      if (!user_has_permission("projects", "edit_project")) return()
 
-      project_id <- input$project_configure_clicked
-      if (is.null(project_id)) return()
+      name <- trimws(input$edit_project_name)
+      short_desc <- trimws(input$edit_project_short_description)
 
-      # Get project data
-      projects_data <- projects_reactive()
-      selected_uc <- projects_data[projects_data$project_id == project_id, ]
+      project <- selected_project_for_edit()
+      if (is.null(project)) return()
 
-      if (nrow(selected_uc) == 0) return()
+      # Validation
+      has_error <- FALSE
 
-      selected_project(list(
-        id = selected_uc$project_id,
-        name = selected_uc$project_name,
-        short_description = selected_uc$short_description,
-        long_description = selected_uc$long_description
-      ))
-      current_view("config")
+      if (name == "") {
+        shinyjs::runjs(sprintf("$('#%s').show();", ns("edit_name_error")))
+        shinyjs::runjs(sprintf("$('#%s').hide();", ns("edit_name_duplicate_error")))
+        has_error <- TRUE
+      } else {
+        shinyjs::runjs(sprintf("$('#%s').hide();", ns("edit_name_error")))
+        # Check for duplicate name (excluding current project)
+        projects_data <- projects_reactive()
+        other_projects <- projects_data[projects_data$project_id != project$id, ]
+        if (nrow(other_projects) > 0 && tolower(name) %in% tolower(other_projects$name)) {
+          shinyjs::runjs(sprintf("$('#%s').show();", ns("edit_name_duplicate_error")))
+          has_error <- TRUE
+        } else {
+          shinyjs::runjs(sprintf("$('#%s').hide();", ns("edit_name_duplicate_error")))
+        }
+      }
+
+      if (short_desc == "") {
+        shinyjs::runjs(sprintf("$('#%s').show();", ns("edit_short_desc_error")))
+        has_error <- TRUE
+      } else {
+        shinyjs::runjs(sprintf("$('#%s').hide();", ns("edit_short_desc_error")))
+      }
+
+      if (has_error) return()
+
+      # Update project in database
+      update_project(project$id, name = name, short_description = short_desc)
+
+      # Reload projects from database
+      projects_reactive(get_all_projects())
+
+      # Close modal
+      shinyjs::runjs(sprintf("$('#%s').hide();", ns("edit_project_modal")))
     }, ignoreInit = TRUE)
 
-    # Handler for Delete button in datatable
+    ### Project Management - Delete ----
     observe_event(input$project_delete_clicked, {
-      # Check permission
       if (!user_has_permission("projects", "delete_project")) return()
 
       project_id <- input$project_delete_clicked
       if (is.null(project_id)) return()
 
-      # Store the project ID for deletion
       selected_project_for_delete(project_id)
-
-      # Show confirmation modal
       shinyjs::runjs(sprintf("$('#%s').show();", ns("delete_confirmation_modal")))
     }, ignoreInit = TRUE)
 
-    # Handler for Download CSV button in project config view
+    observe_event(input$confirm_delete_project, {
+      if (!user_has_permission("projects", "delete_project")) return()
+
+      project_id <- selected_project_for_delete()
+      if (is.null(project_id)) return()
+
+      # Delete project from database (cascades to metadata and general concepts)
+      delete_project(project_id)
+
+      # Reload data from database
+      projects_reactive(get_all_projects())
+      project_general_concepts_reactive(get_all_project_general_concepts())
+
+      # Clear stored ID and hide modal
+      selected_project_for_delete(NULL)
+      shinyjs::runjs(sprintf("$('#%s').hide();", ns("delete_confirmation_modal")))
+    }, ignoreInit = TRUE)
+
+    ### Context Editing - Save ----
+    observe_event(input$save_context, {
+      if (!user_has_permission("projects", "edit_context")) return()
+
+      project <- selected_project()
+      if (is.null(project)) return()
+
+      justification <- input$context_justification
+      bibliography <- input$context_bibliography
+
+      # Save to database
+      set_project_metadata(project$id, "justification", justification)
+      set_project_metadata(project$id, "bibliography", bibliography)
+
+      # Show success notification
+      showNotification(
+        i18n$t("context_saved"),
+        type = "message",
+        duration = 3
+      )
+    }, ignoreInit = TRUE)
+
+    ### Concept Assignment - Add Concepts ----
+    observe_event(input$add_general_concepts_btn, {
+      if (!user_has_permission("projects", "assign_concepts")) return()
+
+      selected_rows <- input$available_general_concepts_table_rows_selected
+      if (is.null(selected_rows) || length(selected_rows) == 0) return()
+
+      project <- selected_project()
+      if (is.null(project)) return()
+
+      # Get available general concepts and selected ones
+      available_df <- get_available_general_concepts()
+      selected_gc_ids <- available_df$general_concept_id[selected_rows]
+
+      # Add each concept to database
+      for (gc_id in selected_gc_ids) {
+        add_project_general_concept(project$id, gc_id)
+      }
+
+      # Reload data from database
+      project_general_concepts_reactive(get_all_project_general_concepts())
+
+      # Clear selection
+      DT::selectRows(DT::dataTableProxy("available_general_concepts_table", session = session), NULL)
+    }, ignoreInit = TRUE)
+
+    ### Concept Assignment - Remove Concepts ----
+    observe_event(input$remove_general_concepts_btn, {
+      if (!user_has_permission("projects", "assign_concepts")) return()
+
+      selected_rows <- input$selected_general_concepts_table_rows_selected
+      if (is.null(selected_rows) || length(selected_rows) == 0) return()
+
+      project <- selected_project()
+      if (is.null(project)) return()
+
+      # Get selected general concepts
+      selected_df <- get_selected_general_concepts()
+      gc_ids_to_remove <- selected_df$general_concept_id[selected_rows]
+
+      # Remove each concept from database
+      for (gc_id in gc_ids_to_remove) {
+        remove_project_general_concept(project$id, gc_id)
+      }
+
+      # Reload data from database
+      project_general_concepts_reactive(get_all_project_general_concepts())
+    }, ignoreInit = TRUE)
+
+    ### Table Row Selection - Select/Unselect All ----
+    observe_event(input$select_all_available, {
+      df <- get_available_general_concepts()
+      if (!is.null(df) && nrow(df) > 0) {
+        DT::selectRows(
+          DT::dataTableProxy("available_general_concepts_table", session = session),
+          1:nrow(df)
+        )
+      }
+    }, ignoreInit = TRUE)
+
+    observe_event(input$unselect_all_available, {
+      DT::selectRows(
+        DT::dataTableProxy("available_general_concepts_table", session = session),
+        NULL
+      )
+    }, ignoreInit = TRUE)
+
+    observe_event(input$select_all_selected, {
+      df <- get_selected_general_concepts()
+      if (!is.null(df) && nrow(df) > 0) {
+        DT::selectRows(
+          DT::dataTableProxy("selected_general_concepts_table", session = session),
+          1:nrow(df)
+        )
+      }
+    }, ignoreInit = TRUE)
+
+    observe_event(input$unselect_all_selected, {
+      DT::selectRows(
+        DT::dataTableProxy("selected_general_concepts_table", session = session),
+        NULL
+      )
+    }, ignoreInit = TRUE)
+
+    ### Download Project CSV ----
     observe_event(input$download_project_csv, {
       project <- selected_project()
       if (is.null(project)) return()
@@ -1160,8 +1524,8 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
         filename <- paste0(project_name, "-", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"), ".csv")
 
         # Get general concepts assigned to this project
-        gc_uc_data <- general_concept_projects_reactive()
-        assigned_gc_ids <- gc_uc_data %>%
+        gc_data <- project_general_concepts_reactive()
+        assigned_gc_ids <- gc_data %>%
           dplyr::filter(project_id == !!project_id) %>%
           .$general_concept_id
 
@@ -1245,7 +1609,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
             ) %>%
             dplyr::mutate(omop_concept_id = NA_integer_)
 
-          # Handle "/" values in custom concepts and convert to integer
+          # Handle "/" values in custom concepts
           if (nrow(custom_data) > 0) {
             custom_data <- custom_data %>%
               dplyr::mutate(
@@ -1286,7 +1650,7 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
         csv_content <- paste(readLines(temp_csv, warn = FALSE), collapse = "\n")
         unlink(temp_csv)
 
-        # Encode and trigger download via JavaScript (same pattern as source_to_concept_map export)
+        # Encode and trigger download via JavaScript
         csv_encoded <- base64enc::base64encode(charToRaw(csv_content))
         download_js <- sprintf(
           "var link = document.createElement('a');
@@ -1302,498 +1666,6 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
       }, error = function(e) {
         cat("[ERROR] Export failed:", conditionMessage(e), "\n")
       })
-    }, ignoreInit = TRUE)
-
-    ### Project Details Rendering ----
-    observe_event(project_details_trigger(), {
-      output$project_details <- renderUI({
-        selected_row <- selected_project_row()
-
-        if (is.null(selected_row)) {
-          return(
-            tags$div(
-              style = "text-align: center; padding: 40px; color: #6c757d;",
-              tags$i(
-                class = "fas fa-info-circle",
-                style = "font-size: 48px; margin-bottom: 15px;"
-              ),
-              tags$p(i18n$t("select_project"))
-            )
-          )
-        }
-
-        projects_data <- projects_reactive()
-        selected_uc <- projects_data[selected_row, ]
-
-        tagList(
-          tags$div(
-            class = "mb-20",
-            tags$h5(
-              selected_uc$project_name,
-              style = "color: #0f60af; margin-bottom: 10px; font-weight: 600;"
-            ),
-            tags$div(
-              style = paste0(
-                "background: #f8f9fa; padding: 15px; ",
-                "border-radius: 6px; margin-bottom: 15px;"
-              ),
-              tags$strong(i18n$t("short_description"), ":"),
-              tags$p(
-                style = "margin-top: 8px; margin-bottom: 0;",
-                if (is.na(selected_uc$short_description)) {
-                  tags$em(i18n$t("no_data_available"))
-                } else {
-                  selected_uc$short_description
-                }
-              )
-            ),
-            if (!is.na(selected_uc$long_description) &&
-                selected_uc$long_description != "") {
-              tags$div(
-                style = paste0(
-                  "background: #fff; padding: 15px; border: 1px solid #dee2e6; ",
-                  "border-radius: 6px;"
-                ),
-                tags$strong(i18n$t("long_description"), ":"),
-                tags$p(
-                  style = "margin-top: 8px; margin-bottom: 0; line-height: 1.6;",
-                  selected_uc$long_description
-                )
-              )
-            }
-          )
-        )
-      })
-    })
-
-    ### Available Concepts Table Rendering ----
-    observe_event(available_concepts_table_trigger(), {
-      df <- get_available_general_concepts()
-
-      output$available_general_concepts_table <- DT::renderDT({
-        if (is.null(df)) {
-          empty_df <- data.frame(
-            stringsAsFactors = FALSE,
-            check.names = FALSE
-          )
-          empty_df[[as.character(i18n$t("category"))]] <- character(0)
-          empty_df[[as.character(i18n$t("subcategory"))]] <- character(0)
-          empty_df[[as.character(i18n$t("general_concept_name"))]] <- character(0)
-          return(datatable(
-            empty_df,
-            filter = "top",
-            selection = "multiple",
-            rownames = FALSE,
-            class = "cell-border stripe hover",
-            options = list(
-              pageLength = 10,
-              dom = "tip",
-              ordering = TRUE,
-              autoWidth = FALSE,
-              language = get_datatable_language()
-            )
-          ))
-        }
-
-        df_display <- df[, -1]  # Remove general_concept_id column
-        colnames(df_display) <- c(
-          as.character(i18n$t("category")),
-          as.character(i18n$t("subcategory")),
-          as.character(i18n$t("general_concept_name"))
-        )
-
-        datatable(
-          df_display,
-          filter = "top",
-          selection = "multiple",
-          rownames = FALSE,
-          class = "cell-border stripe hover",
-          options = list(
-            pageLength = 10,
-            dom = "tip",
-            ordering = TRUE,
-            autoWidth = FALSE,
-            language = get_datatable_language()
-          )
-        )
-      }, server = FALSE)
-    })
-
-    ### Selected Concepts Table Rendering ----
-    observe_event(selected_concepts_table_trigger(), {
-      df <- get_selected_general_concepts()
-
-      # Merge DataTable language with custom empty message
-      dt_language <- get_datatable_language()
-      dt_language$emptyTable <- as.character(i18n$t("no_concepts_selected"))
-
-      output$selected_general_concepts_table <- DT::renderDT({
-        if (is.null(df)) {
-          empty_df <- data.frame(
-            stringsAsFactors = FALSE,
-            check.names = FALSE
-          )
-          empty_df[[as.character(i18n$t("category"))]] <- character(0)
-          empty_df[[as.character(i18n$t("subcategory"))]] <- character(0)
-          empty_df[[as.character(i18n$t("general_concept_name"))]] <- character(0)
-          return(datatable(
-            empty_df,
-            filter = "top",
-            selection = "multiple",
-            rownames = FALSE,
-            class = "cell-border stripe hover",
-            options = list(
-              pageLength = 15,
-              dom = "tip",
-              ordering = TRUE,
-              autoWidth = FALSE,
-              language = dt_language
-            )
-          ))
-        }
-
-        df_display <- df[, -1]  # Remove general_concept_id column
-        colnames(df_display) <- c(
-          as.character(i18n$t("category")),
-          as.character(i18n$t("subcategory")),
-          as.character(i18n$t("general_concept_name"))
-        )
-
-        datatable(
-          df_display,
-          filter = "top",
-          selection = "multiple",
-          rownames = FALSE,
-          class = "cell-border stripe hover",
-          options = list(
-            pageLength = 15,
-            dom = "tip",
-            ordering = TRUE,
-            autoWidth = FALSE,
-            language = dt_language
-          )
-        )
-      }, server = FALSE)
-    })
-
-    ## 4) Server - User Actions ====
-    ### Breadcrumb Navigation ----
-    observe_event(input$back_to_list, {
-      current_view("list")
-      selected_project(NULL)
-    }, ignoreInit = TRUE)
-
-    ### Project Management - Add ----
-    observe_event(input$add_project_btn, {
-      # Check permission
-      if (!user_has_permission("projects", "add_project")) return()
-      shinyjs::runjs(sprintf("$('#%s').show();", ns("add_project_modal")))
-    }, ignoreInit = TRUE)
-
-    # Save new project
-    observe_event(input$save_project, {
-      # Check permission
-      if (!user_has_permission("projects", "add_project")) return()
-      name <- trimws(input$new_project_name)
-      short_desc <- trimws(input$new_project_short_description)
-
-      # Get current projects for validation
-      projects_data <- projects_reactive()
-
-      # Validation
-      has_error <- FALSE
-      if (name == "") {
-        shinyjs::runjs(sprintf("$('#%s').show();", ns("name_error")))
-        shinyjs::runjs(sprintf("$('#%s').hide();", ns("name_duplicate_error")))
-        has_error <- TRUE
-      } else {
-        shinyjs::runjs(sprintf("$('#%s').hide();", ns("name_error")))
-        # Check for duplicate name
-        if (tolower(name) %in% tolower(projects_data$project_name)) {
-          shinyjs::runjs(sprintf("$('#%s').show();", ns("name_duplicate_error")))
-          has_error <- TRUE
-        } else {
-          shinyjs::runjs(sprintf("$('#%s').hide();", ns("name_duplicate_error")))
-        }
-      }
-
-      if (short_desc == "") {
-        shinyjs::runjs(sprintf("$('#%s').show();", ns("short_desc_error")))
-        has_error <- TRUE
-      } else {
-        shinyjs::runjs(sprintf("$('#%s').hide();", ns("short_desc_error")))
-      }
-
-      if (has_error) return()
-
-      long_desc <- trimws(input$new_project_long_description)
-
-      # Create new project
-      new_id <- get_next_project_id(projects_data)
-      new_project <- data.frame(
-        project_id = new_id,
-        project_name = name,
-        short_description = short_desc,
-        long_description = if (long_desc == "") NA_character_ else long_desc,
-        stringsAsFactors = FALSE
-      )
-
-      # Add to projects
-      projects_data <- rbind(projects_data, new_project)
-
-      save_projects_csv(projects_data)
-      projects_reactive(projects_data)
-
-      # Close modal and reset
-      shinyjs::runjs(sprintf("$('#%s').hide();", ns("add_project_modal")))
-      updateTextInput(session, "new_project_name", value = "")
-      updateTextAreaInput(session, "new_project_short_description", value = "")
-      updateTextAreaInput(session, "new_project_long_description", value = "")
-    }, ignoreInit = TRUE)
-
-    ### Project Management - Edit ----
-    # Now handled by project_edit_clicked observer
-
-    # Update project button (from edit modal)
-    observe_event(input$update_project, {
-      # Check permission
-      if (!user_has_permission("projects", "edit_project")) return()
-
-      name <- trimws(input$edit_project_name)
-      short_desc <- trimws(input$edit_project_short_description)
-
-      # Get current project from edit reactive
-      project <- selected_project_for_edit()
-      if (is.null(project)) return()
-
-      # Get projects data for validation
-      projects_data <- projects_reactive()
-
-      # Validation
-      has_error <- FALSE
-      if (name == "") {
-        shinyjs::runjs(sprintf("$('#%s').show();", ns("edit_name_error")))
-        shinyjs::runjs(sprintf("$('#%s').hide();", ns("edit_name_duplicate_error")))
-        has_error <- TRUE
-      } else {
-        shinyjs::runjs(sprintf("$('#%s').hide();", ns("edit_name_error")))
-        # Check for duplicate name (excluding the current project)
-        other_projects <- projects_data[projects_data$project_id != project$id, ]
-        if (tolower(name) %in% tolower(other_projects$project_name)) {
-          shinyjs::runjs(sprintf("$('#%s').show();", ns("edit_name_duplicate_error")))
-          has_error <- TRUE
-        } else {
-          shinyjs::runjs(sprintf("$('#%s').hide();", ns("edit_name_duplicate_error")))
-        }
-      }
-
-      if (short_desc == "") {
-        shinyjs::runjs(sprintf("$('#%s').show();", ns("edit_short_desc_error")))
-        has_error <- TRUE
-      } else {
-        shinyjs::runjs(sprintf("$('#%s').hide();", ns("edit_short_desc_error")))
-      }
-
-      if (has_error) return()
-
-      long_desc <- trimws(input$edit_project_long_description)
-
-      # Update the project
-      projects_data$project_name[
-        projects_data$project_id == project$id
-      ] <- name
-      projects_data$short_description[
-        projects_data$project_id == project$id
-      ] <- short_desc
-      projects_data$long_description[
-        projects_data$project_id == project$id
-      ] <- if (long_desc == "") NA_character_ else long_desc
-
-      save_projects_csv(projects_data)
-      projects_reactive(projects_data)
-
-      # Close modal
-      shinyjs::runjs(sprintf("$('#%s').hide();", ns("edit_project_modal")))
-    }, ignoreInit = TRUE)
-
-    ### Project Management - Delete Confirmation ----
-    # Confirm delete project
-    observe_event(input$confirm_delete_project, {
-      # Check permission
-      if (!user_has_permission("projects", "delete_project")) return()
-
-      project_id <- selected_project_for_delete()
-
-      if (is.null(project_id)) return()
-
-      # Get projects data
-      projects_data <- projects_reactive()
-
-      # Remove from projects
-      projects_data <- projects_data[
-        projects_data$project_id != project_id,
-      ]
-
-      # Remove from general_concept_projects
-      gc_uc_data <- general_concept_projects_reactive()
-      gc_uc_data <- gc_uc_data[
-        gc_uc_data$project_id != project_id,
-      ]
-
-      save_projects_csv(projects_data)
-      save_general_concept_projects_csv(gc_uc_data)
-      projects_reactive(projects_data)
-      general_concept_projects_reactive(gc_uc_data)
-
-      # Clear stored ID
-      selected_project_for_delete(NULL)
-
-      # Hide modal
-      shinyjs::runjs(sprintf("$('#%s').hide();", ns("delete_confirmation_modal")))
-    }, ignoreInit = TRUE)
-
-    observe_event(input$dblclick_project_id, {
-      project_id <- input$dblclick_project_id
-      if (is.null(project_id)) return()
-
-      # Get project data by ID
-      projects_data <- projects_reactive()
-      selected_uc <- projects_data[projects_data$project_id == project_id, ]
-
-      if (nrow(selected_uc) == 1) {
-        selected_project(list(
-          id = selected_uc$project_id,
-          name = selected_uc$project_name,
-          short_description = selected_uc$short_description,
-          long_description = selected_uc$long_description
-        ))
-        current_view("config")
-      }
-    }, ignoreInit = TRUE)
-
-    # Configure project - now handled by project_configure_clicked observer
-
-    ### Project Details Selection ----
-    observe_event(input$projects_table_rows_selected, {
-      selected_rows <- input$projects_table_rows_selected
-      if (!is.null(selected_rows) && length(selected_rows) == 1) {
-        selected_project_row(selected_rows)
-      } else {
-        selected_project_row(NULL)
-      }
-    })
-
-    ### Concept Assignment - Add Concepts ----
-    observe_event(input$add_general_concepts_btn, {
-      # Check permission
-      if (!user_has_permission("projects", "assign_concepts")) return()
-
-      selected_rows <- input$available_general_concepts_table_rows_selected
-
-      if (is.null(selected_rows) || length(selected_rows) == 0) return()
-
-      # Get selected project
-      project <- selected_project()
-      if (is.null(project)) return()
-
-      # Get available general concepts and selected ones
-      available_df <- get_available_general_concepts()
-      selected_gc_ids <- available_df$general_concept_id[selected_rows]
-
-      # Get current mappings
-      gc_uc_data <- general_concept_projects_reactive()
-
-      # Create new mappings
-      new_mappings <- data.frame(
-        project_id = rep(project$id, length(selected_gc_ids)),
-        general_concept_id = selected_gc_ids,
-        stringsAsFactors = FALSE
-      )
-
-      # Filter out already existing mappings
-      existing_pairs <- paste(
-        gc_uc_data$project_id,
-        gc_uc_data$general_concept_id
-      )
-      new_pairs <- paste(
-        new_mappings$project_id,
-        new_mappings$general_concept_id
-      )
-      new_mappings <- new_mappings[!new_pairs %in% existing_pairs, ]
-
-      if (nrow(new_mappings) > 0) {
-        gc_uc_data <- rbind(gc_uc_data, new_mappings)
-
-        save_general_concept_projects_csv(gc_uc_data)
-        general_concept_projects_reactive(gc_uc_data)
-
-        DT::selectRows(DT::dataTableProxy("available_general_concepts_table", session = session), NULL)
-      }
-    }, ignoreInit = TRUE)
-
-    ### Concept Assignment - Remove Concepts ----
-    observe_event(input$remove_general_concepts_btn, {
-      # Check permission
-      if (!user_has_permission("projects", "assign_concepts")) return()
-
-      selected_rows <- input$selected_general_concepts_table_rows_selected
-
-      if (is.null(selected_rows) || length(selected_rows) == 0) return()
-
-      # Get selected project
-      project <- selected_project()
-      if (is.null(project)) return()
-
-      # Get selected general concepts
-      selected_df <- get_selected_general_concepts()
-      gc_ids_to_remove <- selected_df$general_concept_id[selected_rows]
-
-      gc_uc_data <- general_concept_projects_reactive()
-      gc_uc_data <- gc_uc_data[!(
-        gc_uc_data$general_concept_id %in% gc_ids_to_remove &
-          gc_uc_data$project_id == project$id
-      ), ]
-
-      save_general_concept_projects_csv(gc_uc_data)
-      general_concept_projects_reactive(gc_uc_data)
-    }, ignoreInit = TRUE)
-
-    ### Table Row Selection - Available Concepts ----
-    observe_event(input$select_all_available, {
-      df <- get_available_general_concepts()
-      if (!is.null(df) && nrow(df) > 0) {
-        DT::selectRows(
-          DT::dataTableProxy("available_general_concepts_table", session = session),
-          1:nrow(df)
-        )
-      }
-    }, ignoreInit = TRUE)
-
-    # Unselect all rows in available general concepts table
-    observe_event(input$unselect_all_available, {
-      DT::selectRows(
-        DT::dataTableProxy("available_general_concepts_table", session = session),
-        NULL
-      )
-    }, ignoreInit = TRUE)
-
-    ### Table Row Selection - Selected Concepts ----
-    observe_event(input$select_all_selected, {
-      df <- get_selected_general_concepts()
-      if (!is.null(df) && nrow(df) > 0) {
-        DT::selectRows(
-          DT::dataTableProxy("selected_general_concepts_table", session = session),
-          1:nrow(df)
-        )
-      }
-    }, ignoreInit = TRUE)
-
-    # Unselect all rows in selected general concepts table
-    observe_event(input$unselect_all_selected, {
-      DT::selectRows(
-        DT::dataTableProxy("selected_general_concepts_table", session = session),
-        NULL
-      )
     }, ignoreInit = TRUE)
   })
 }
