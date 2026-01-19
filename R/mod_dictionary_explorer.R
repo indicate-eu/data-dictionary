@@ -3643,7 +3643,6 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         # Prepare view mode data (resolved concepts)
         view_mappings <- mappings_view
 
-        escape_cols_view <- c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE)
         col_names_view <- c("OMOP Concept ID", "Concept Name", "Vocabulary", "Domain", "Code", "Standard")
         col_defs_view <- list(
           list(targets = 0, visible = FALSE),
@@ -3651,11 +3650,10 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           list(targets = 5, width = "120px", className = 'dt-center')
         )
 
-        DT::datatable(
+        dt <- DT::datatable(
           view_mappings,
           selection = 'single',
           rownames = FALSE,
-          escape = escape_cols_view,
           extensions = 'Buttons',
           colnames = col_names_view,
           filter = 'top',
@@ -3677,13 +3675,16 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           ),
           callback = callback
         )
+
+        dt %>% style_standard_concept_column()
       }, server = TRUE)
 
       # Edit mode: always render with direct mappings and toggles
       output$concept_mappings_table_edit <- DT::renderDT({
         edit_mappings <- mappings_edit
 
-        escape_cols_edit <- c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE)
+        # Columns 6-9 (toggles and action) contain HTML and need escape = FALSE
+        escape_cols_edit <- c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE)
         col_names_edit <- c("OMOP Concept ID", "Concept Name", "Vocabulary", "Domain", "Code", "Standard", "Exclude", "Descendants", "Mapped", "Action")
         col_defs_edit <- list(
           list(targets = 0, visible = FALSE),
@@ -3696,7 +3697,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           list(targets = 9, width = "50px", className = 'dt-center')
         )
 
-        DT::datatable(
+        dt <- DT::datatable(
           edit_mappings,
           selection = 'single',
           rownames = FALSE,
@@ -3722,6 +3723,8 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           ),
           callback = callback
         )
+
+        dt %>% style_standard_concept_column()
       }, server = TRUE)
     }, ignoreInit = TRUE)
 
@@ -3997,23 +4000,27 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
           ))
         }
 
-        # Select only display columns
+        # Select only display columns (vocabulary before concept_name, add concept_code)
         display_concepts <- concepts %>%
-          dplyr::select(concept_id, concept_name, vocabulary_id, domain_id, concept_class_id, standard_concept)
+          dplyr::select(concept_id, vocabulary_id, concept_name, concept_code, domain_id, concept_class_id, standard_concept)
 
         # Convert for better filtering
         display_concepts$concept_id <- as.character(display_concepts$concept_id)
         display_concepts$vocabulary_id <- as.factor(display_concepts$vocabulary_id)
+        display_concepts$concept_code <- as.character(display_concepts$concept_code)
         display_concepts$domain_id <- as.factor(display_concepts$domain_id)
         display_concepts$concept_class_id <- as.factor(display_concepts$concept_class_id)
 
-        # Convert standard_concept to readable labels with HTML styling
+        # Convert standard_concept to factor with readable labels
         display_concepts <- display_concepts %>%
           dplyr::mutate(
-            standard_concept = dplyr::case_when(
-              standard_concept == "S" ~ '<span class="badge-status badge-success">Standard</span>',
-              standard_concept == "C" ~ '<span class="badge-status badge-secondary">Classification</span>',
-              TRUE ~ '<span class="badge-status badge-danger">Non-standard</span>'
+            standard_concept = factor(
+              dplyr::case_when(
+                standard_concept == "S" ~ "Standard",
+                standard_concept == "C" ~ "Classification",
+                TRUE ~ "Non-standard"
+              ),
+              levels = c("Standard", "Classification", "Non-standard")
             )
           )
 
@@ -4023,26 +4030,36 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
         page_length <- if (is_multiple) 20 else 5
 
         # Render DataTable with server-side processing
-        DT::datatable(
+        dt <- DT::datatable(
           display_concepts,
           rownames = FALSE,
           selection = selection_mode,
           filter = 'top',
-          escape = FALSE,
+          extensions = 'Buttons',
           options = list(
             pageLength = page_length,
             lengthMenu = list(c(5, 10, 15, 20, 50, 100, 200, 500), c('5', '10', '15', '20', '50', '100', '200', '500')),
-            dom = 'ltip',  # l=length, t=table, i=info, p=pagination
+            dom = 'Bltip',
+            buttons = list(
+              list(
+                extend = 'colvis',
+                text = 'Columns',
+                className = 'btn-colvis'
+              )
+            ),
             language = get_datatable_language(),
             ordering = TRUE,
             autoWidth = FALSE,
             paging = TRUE,
             columnDefs = list(
-              list(targets = 5, width = '100px', className = 'dt-center')  # Standard column (index 5)
+              list(targets = 6, width = '100px', className = 'dt-center')  # Standard column (index 6)
             )
           ),
-          colnames = c("Concept ID", "Concept Name", "Vocabulary", "Domain", "Concept Class", "Standard")
+          colnames = c("Concept ID", "Vocabulary", "Concept Name", "Concept Code", "Domain", "Concept Class", "Standard")
         )
+
+        # Apply styling to standard_concept column
+        dt %>% style_standard_concept_column("standard_concept")
       }, server = TRUE)
     }, ignoreInit = FALSE)
 

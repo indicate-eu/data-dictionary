@@ -6342,13 +6342,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               )
             ),
             rownames = FALSE,
-            escape = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE),  # 7 columns, standard_concept_display is HTML
             selection = "single",
             filter = "top",
             colnames = c(as.character(i18n$t("general_concept")), "Vocabulary", "OMOP Concept ID", "Code", "Concept Name", "Domain", "Standard")
           )
 
-          dt
+          dt %>% style_standard_concept_column()
         }, server = TRUE)
         return()
       }
@@ -6474,13 +6473,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             )
           ),
           rownames = FALSE,
-          escape = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE),  # 6 columns, standard_concept_display is HTML
           selection = "single",
           filter = "top",
           colnames = c("Vocabulary", "OMOP Concept ID", "Code", "Concept Name", "Domain", "Standard")
         )
 
-        dt
+        dt %>% style_standard_concept_column()
       }, server = TRUE)
     })
 

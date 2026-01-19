@@ -250,6 +250,35 @@ style_yes_no_custom <- function(dt, column,
     )
 }
 
+#' Apply Standard Concept Column Styling
+#'
+#' @description Apply consistent styling to standard_concept columns in DataTables.
+#' Colors: Standard (green), Classification (gray), Non-standard (red).
+#'
+#' @param dt DT datatable object to modify
+#' @param column Character: Column name to style (default "standard_concept_display")
+#'
+#' @return DT datatable with styling applied
+#' @noRd
+style_standard_concept_column <- function(dt, column = "standard_concept_display") {
+  dt %>%
+    DT::formatStyle(
+      column,
+      backgroundColor = DT::styleEqual(
+        c("Standard", "Classification", "Non-standard"),
+        c("#d4edda", "#e2e3e5", "#f8d7da")
+      ),
+      fontWeight = DT::styleEqual(
+        c("Standard", "Classification", "Non-standard"),
+        c("bold", "bold", "bold")
+      ),
+      color = DT::styleEqual(
+        c("Standard", "Classification", "Non-standard"),
+        c("#155724", "#383d41", "#721c24")
+      )
+    )
+}
+
 #' Restore DataTable State
 #'
 #' @description Restores previously saved page number and column search filters to a DataTable
@@ -365,14 +394,16 @@ prepare_concept_set_display <- function(
     mappings$include_mapped <- FALSE
   }
 
-  # Build standard_concept badge
-
+  # Build standard_concept_display as factor for filtering
   mappings <- mappings %>%
     dplyr::mutate(
-      standard_concept_display = dplyr::case_when(
-        standard_concept == "S" ~ '<span class="badge-status badge-success">Standard</span>',
-        standard_concept == "C" ~ '<span class="badge-status badge-secondary">Classification</span>',
-        TRUE ~ '<span class="badge-status badge-danger">Non-standard</span>'
+      standard_concept_display = factor(
+        dplyr::case_when(
+          standard_concept == "S" ~ "Standard",
+          standard_concept == "C" ~ "Classification",
+          TRUE ~ "Non-standard"
+        ),
+        levels = c("Standard", "Classification", "Non-standard")
       )
     )
 
