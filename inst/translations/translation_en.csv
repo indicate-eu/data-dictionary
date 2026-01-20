@@ -565,3 +565,11 @@ continue_anyway,Continue Anyway
 back_to_previous_concept,Back to previous concept
 fuzzy_search,Fuzzy Search
 fuzzy_search_placeholder,Search...
+confirm_action,Confirm Action
+limit_10k_warning,Loading all 4M+ concepts may significantly slow down the application.
+limit_10k_warning_details,This operation may take several seconds. The application will not be responsive during this time.
+continue,Continue
+advanced_filters,Advanced Filters
+select_or_type,Select or type...
+clear_all,Clear All
+apply_filters,Apply Filters

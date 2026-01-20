@@ -377,6 +377,15 @@ div:has(> #dictionary_settings-global_comment_input) {
   margin-left: 4px;
 }
 
+/* Multiple selection label with hover effect */
+.multiple-selection-label {
+  transition: color 0.2s ease;
+}
+
+.multiple-selection-label:hover {
+  color: #0f60af;
+}
+
 /* Delete icon hover effect in DataTable */
 .delete-icon {
   transition: background-color 0.2s ease, color 0.2s ease;
@@ -1136,9 +1145,16 @@ div.dataTables_paginate a.paginate_button.current *,
   top: 0;
   right: 8px;
   z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 0;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 0 !important;
+  white-space: nowrap !important;
+}
+
+.fuzzy-search-container > * {
+  flex-shrink: 0 !important;
 }
 
 .fuzzy-search-label {
@@ -1203,6 +1219,37 @@ div.dataTables_paginate a.paginate_button.current *,
 .fuzzy-search-limit-checkbox input[type="checkbox"] {
   margin: 0;
   cursor: pointer;
+}
+
+.fuzzy-search-settings-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  margin-right: 8px;
+  margin-bottom: 0;
+  padding: 0;
+  background-color: var(--bg-light);
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.fuzzy-search-settings-btn:hover {
+  background-color: #e9ecef;
+}
+
+.fuzzy-search-settings-btn.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.fuzzy-search-settings-btn.active:hover {
+  background-color: var(--color-primary-hover);
 }
 
 /* DataTable column filter inputs */
@@ -2813,7 +2860,7 @@ button.btn-icon-only:hover {
   min-height: 0 !important;
 }
 
-#dictionary_explorer-omop_table_container > div {
+#dictionary_explorer-omop_table_container > div:not(.fuzzy-search-container) {
   height: 100% !important;
   min-height: 0 !important;
   display: flex !important;

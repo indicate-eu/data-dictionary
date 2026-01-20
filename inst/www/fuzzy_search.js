@@ -29,4 +29,13 @@ $(document).ready(function() {
     var checked = $(this).is(':checked');
     Shiny.setInputValue(inputId, checked, {priority: 'event'});
   });
+
+  // Listen for clicks on settings button
+  $(document).on('click', '.fuzzy-search-settings-btn', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var inputId = $(this).attr('id');
+    console.log('Settings button clicked, id:', inputId);
+    Shiny.setInputValue(inputId, Math.random(), {priority: 'event'});
+  });
 });

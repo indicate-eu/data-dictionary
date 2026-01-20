@@ -1322,6 +1322,120 @@ mod_concept_mapping_ui <- function(id, i18n) {
           uiOutput(ns("category_breakdown_fullscreen_content"))
         )
       )
+    ),
+
+    ### Modal - Limit 10K Confirmation ----
+    limit_10k_modal_ui(
+      modal_id = "limit_10k_confirmation_modal",
+      checkbox_id = "concept_mappings_limit_10k",
+      confirm_btn_id = "confirm_disable_limit_10k",
+      ns = ns,
+      i18n = i18n
+    ),
+
+    ### Modal - OMOP Advanced Filters ----
+    tags$div(
+      id = ns("omop_filters_modal"),
+      class = "modal-overlay",
+      style = "display: none;",
+      onclick = sprintf("if (event.target === this) $('#%s').hide();", ns("omop_filters_modal")),
+      tags$div(
+        class = "modal-content",
+        style = "max-width: 380px;",
+        tags$div(
+          class = "modal-header",
+          tags$h3(i18n$t("advanced_filters")),
+          tags$button(
+            class = "modal-close",
+            onclick = sprintf("$('#%s').hide();", ns("omop_filters_modal")),
+            HTML("&times;")
+          )
+        ),
+        tags$div(
+          class = "modal-body",
+          style = "padding: 20px;",
+          # Filter fields
+          tags$div(
+            class = "mb-15",
+            tags$label(class = "form-label", "Vocabulary ID"),
+            selectizeInput(
+              ns("omop_filter_vocabulary_id"),
+              label = NULL,
+              choices = NULL,
+              multiple = TRUE,
+              options = list(placeholder = i18n$t("select_or_type"))
+            )
+          ),
+          tags$div(
+            class = "mb-15",
+            tags$label(class = "form-label", "Domain ID"),
+            selectizeInput(
+              ns("omop_filter_domain_id"),
+              label = NULL,
+              choices = NULL,
+              multiple = TRUE,
+              options = list(placeholder = i18n$t("select_or_type"))
+            )
+          ),
+          tags$div(
+            class = "mb-15",
+            tags$label(class = "form-label", "Concept Class ID"),
+            selectizeInput(
+              ns("omop_filter_concept_class_id"),
+              label = NULL,
+              choices = NULL,
+              multiple = TRUE,
+              options = list(placeholder = i18n$t("select_or_type"))
+            )
+          ),
+          tags$div(
+            class = "mb-15",
+            tags$label(class = "form-label", "Standard Concept"),
+            selectizeInput(
+              ns("omop_filter_standard_concept"),
+              label = NULL,
+              choices = NULL,
+              multiple = TRUE,
+              options = list(placeholder = i18n$t("select_or_type"))
+            )
+          ),
+          tags$div(
+            class = "mb-15",
+            tags$label(class = "form-label", "Validity"),
+            selectizeInput(
+              ns("omop_filter_validity"),
+              label = NULL,
+              choices = NULL,
+              multiple = TRUE,
+              options = list(placeholder = i18n$t("select_or_type"))
+            )
+          )
+        ),
+        tags$div(
+          class = "modal-footer",
+          style = "display: flex; justify-content: space-between; gap: 10px;",
+          actionButton(
+            ns("clear_omop_filters"),
+            i18n$t("clear_all"),
+            class = "btn btn-secondary",
+            icon = icon("times")
+          ),
+          tags$div(
+            style = "display: flex; gap: 10px;",
+            tags$button(
+              class = "btn btn-secondary",
+              onclick = sprintf("$('#%s').hide();", ns("omop_filters_modal")),
+              i18n$t("cancel")
+            ),
+            actionButton(
+              ns("apply_omop_filters"),
+              i18n$t("apply_filters"),
+              class = "btn btn-primary-custom",
+              icon = icon("check")
+            )
+          )
+        )
+      )
     )
 
   )
@@ -1462,14 +1576,181 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       ns = ns
     )
 
-    # Observer for limit 10K checkbox - trigger table refresh when changed
+    # Observer for limit 10K checkbox - show confirmation modal when unchecking
     observe_event(input$concept_mappings_limit_10k, {
+      # If unchecking (going from TRUE to FALSE), show confirmation modal
+      if (isFALSE(input$concept_mappings_limit_10k) && show_all_omop_concepts()) {
+        # Show confirmation modal
+        shinyjs::runjs(sprintf("$('#%s').show();", ns("limit_10k_confirmation_modal")))
+        # Re-check the checkbox (will be unchecked by confirm button)
+        shinyjs::runjs(sprintf("$('#%s').prop('checked', true);", ns("concept_mappings_limit_10k")))
+      }
+    }, ignoreInit = TRUE)
+
+    # Confirm disable limit 10K
+    observe_event(input$confirm_disable_limit_10k, {
+      # Hide modal
+      shinyjs::runjs(sprintf("$('#%s').hide();", ns("limit_10k_confirmation_modal")))
+      # Actually uncheck the checkbox and trigger update
+      shinyjs::runjs(sprintf("$('#%s').prop('checked', false);", ns("concept_mappings_limit_10k")))
+      shinyjs::runjs(sprintf("Shiny.setInputValue('%s', false, {priority: 'event'});", ns("concept_mappings_limit_10k_confirmed")))
+    }, ignoreInit = TRUE)
+
+    # Handle confirmed limit 10K disable
+    observe_event(input$concept_mappings_limit_10k_confirmed, {
       if (show_all_omop_concepts()) {
         concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
       }
     }, ignoreInit = TRUE)
 
+    ### OMOP Advanced Filters State ----
+    # Track whether filters have been loaded
+    omop_filters_loaded <- reactiveVal(FALSE)
+    # Track active filters
+    omop_active_filters <- reactiveVal(list(
+      vocabulary_id = NULL,
+      domain_id = NULL,
+      concept_class_id = NULL,
+      standard_concept = NULL,
+      validity = NULL
+    ))
+
+    # Show/hide settings button and limit checkbox when entering/leaving show_all_omop_concepts mode
+    observe_event(show_all_omop_concepts(), {
+      if (show_all_omop_concepts()) {
+        shinyjs::runjs(sprintf("$('#%s').css('display', 'flex');", ns("omop_filters_btn")))
+        shinyjs::runjs(sprintf("$('#%s').closest('.fuzzy-search-limit-checkbox').css('display', 'flex');", ns("concept_mappings_limit_10k")))
+      } else {
+        shinyjs::runjs(sprintf("$('#%s').hide();", ns("omop_filters_btn")))
+        shinyjs::runjs(sprintf("$('#%s').closest('.fuzzy-search-limit-checkbox').hide();", ns("concept_mappings_limit_10k")))
+      }
+    }, ignoreInit = FALSE)
+
+    # Open filters modal when settings button is clicked
+    observe_event(input$omop_filters_btn, {
+      # Load filter values if not already loaded
+      if (!omop_filters_loaded()) {
+        vocabs <- vocabularies()
+        if (!is.null(vocabs) && !is.null(vocabs$concept)) {
+          # Get distinct values for each filter field
+          concept_tbl <- vocabs$concept
+
+          # Vocabulary IDs
+          vocab_ids <- concept_tbl %>%
+            dplyr::distinct(vocabulary_id) %>%
+            dplyr::arrange(vocabulary_id) %>%
+            dplyr::collect() %>%
+            dplyr::pull(vocabulary_id)
+
+          # Domain IDs
+          domain_ids <- concept_tbl %>%
+            dplyr::distinct(domain_id) %>%
+            dplyr::arrange(domain_id) %>%
+            dplyr::collect() %>%
+            dplyr::pull(domain_id)
+
+          # Concept Class IDs
+          concept_class_ids <- concept_tbl %>%
+            dplyr::distinct(concept_class_id) %>%
+            dplyr::arrange(concept_class_id) %>%
+            dplyr::collect() %>%
+            dplyr::pull(concept_class_id)
+
+          # Standard Concept choices with readable names
+          # S = Standard, C = Classification, NS = Non-standard (NULL/empty in DB)
+          standard_choices <- c(
+            "Standard" = "S",
+            "Classification" = "C",
+            "Non-standard" = "NS"
+          )
+
+          # Validity (invalid_reason: NULL = Valid, non-NULL = Invalid)
+          validity_choices <- c("Valid", "Invalid")
+
+          # Update selectize inputs
+          updateSelectizeInput(session, "omop_filter_vocabulary_id", choices = vocab_ids, server = TRUE)
+          updateSelectizeInput(session, "omop_filter_domain_id", choices = domain_ids, server = TRUE)
+          updateSelectizeInput(session, "omop_filter_concept_class_id", choices = concept_class_ids, server = TRUE)
+          updateSelectizeInput(session, "omop_filter_standard_concept", choices = standard_choices, server = FALSE)
+          updateSelectizeInput(session, "omop_filter_validity", choices = validity_choices, server = FALSE)
+
+          omop_filters_loaded(TRUE)
+        }
+      }
+
+      # Show modal
+      shinyjs::runjs(sprintf("$('#%s').show();", ns("omop_filters_modal")))
+    }, ignoreInit = TRUE)
+
+    # Apply filters
+    observe_event(input$apply_omop_filters, {
+      # Store active filters
+      omop_active_filters(list(
+        vocabulary_id = input$omop_filter_vocabulary_id,
+        domain_id = input$omop_filter_domain_id,
+        concept_class_id = input$omop_filter_concept_class_id,
+        standard_concept = input$omop_filter_standard_concept,
+        validity = input$omop_filter_validity
+      ))
+
+      # Update settings button appearance (active if any filter is set)
+      filters <- omop_active_filters()
+      has_active_filters <- any(sapply(filters, function(f) length(f) > 0))
+      if (has_active_filters) {
+        shinyjs::runjs(sprintf("$('#%s').addClass('active');", ns("omop_filters_btn")))
+      } else {
+        shinyjs::runjs(sprintf("$('#%s').removeClass('active');", ns("omop_filters_btn")))
+      }
+
+      # Hide modal
+      shinyjs::runjs(sprintf("$('#%s').hide();", ns("omop_filters_modal")))
+
+      # Trigger table refresh
+      concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    # Clear all filters
+    observe_event(input$clear_omop_filters, {
+      # Reset all selectize inputs
+      updateSelectizeInput(session, "omop_filter_vocabulary_id", selected = character(0))
+      updateSelectizeInput(session, "omop_filter_domain_id", selected = character(0))
+      updateSelectizeInput(session, "omop_filter_concept_class_id", selected = character(0))
+      updateSelectizeInput(session, "omop_filter_standard_concept", selected = character(0))
+      updateSelectizeInput(session, "omop_filter_validity", selected = character(0))
+
+      # Clear active filters
+      omop_active_filters(list(
+        vocabulary_id = NULL,
+        domain_id = NULL,
+        concept_class_id = NULL,
+        standard_concept = NULL,
+        validity = NULL
+      ))
+
+      # Remove active class from settings button
+      shinyjs::runjs(sprintf("$('#%s').removeClass('active');", ns("omop_filters_btn")))
+
+      # Re-enable limit 10K checkbox and trigger change event to update Shiny input
+      shinyjs::runjs(sprintf("
+        var checkbox = $('#%s');
+        checkbox.prop('checked', true);
+        Shiny.setInputValue('%s', true, {priority: 'event'});
+      ", ns("concept_mappings_limit_10k"), ns("concept_mappings_limit_10k")))
+
+      # Hide modal
+      shinyjs::runjs(sprintf("$('#%s').hide();", ns("omop_filters_modal")))
+
+      # Trigger table refresh after a small delay to ensure checkbox state is updated
+      shinyjs::runjs(sprintf("setTimeout(function() { Shiny.setInputValue('%s', Math.random(), {priority: 'event'}); }, 50);", ns("clear_filters_refresh")))
+    }, ignoreInit = TRUE)
+
+    # Handle clear filters refresh - this ensures limit 10K is properly applied
+    observe_event(input$clear_filters_refresh, {
+      concept_mappings_table_trigger(concept_mappings_table_trigger() + 1)
+    }, ignoreInit = TRUE)
+
     general_concepts_table_trigger <- reactiveVal(0)  # Trigger for General Concepts table in Edit Mappings
+    general_concepts_fuzzy_query <- reactiveVal("")  # Fuzzy search query for General Concepts table
     edit_mappings_initialized <- reactiveVal(FALSE)  # Track if Edit Mappings tables have been initialized
 
     # Cascade triggers for summary_trigger() changes
@@ -1513,7 +1794,15 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       evaluate_mappings_table_trigger(evaluate_mappings_table_trigger() + 1)
       # Reset fuzzy search when changing alignment
       source_concepts_fuzzy$clear()
+      general_concepts_fuzzy_query("")
+      shinyjs::runjs(sprintf("$('#%s').val('');", ns("general_concepts_fuzzy_search")))
     }, ignoreInit = TRUE)
+
+    # Observer for General Concepts fuzzy search query
+    observe_event(input$general_concepts_fuzzy_search_query, {
+      general_concepts_fuzzy_query(input$general_concepts_fuzzy_search_query)
+      general_concepts_table_trigger(general_concepts_table_trigger() + 1)
+    }, ignoreNULL = FALSE, ignoreInit = TRUE)
 
     ### Cascade Observers for selected_general_concept_id() ----
     # Primary observer: Fires main trigger when general concept selection changes
@@ -3932,7 +4221,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         # Edit Mappings panel
         tags$div(
           id = ns("panel_edit_mappings"),
-          style = "display: none; height: calc(100% - 60px); min-height: 0; margin: 0 10px 10px 10px;",
+          style = "display: none; height: 100%; min-height: 0; margin: 0 10px;",
           tags$div(
             style = "height: 100%; display: flex; gap: 15px; min-height: 0;",
             # Left column: Source Concepts (top) + Concept Details (bottom)
@@ -3961,7 +4250,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                     "Add Mapping",
                     class = "btn-success-custom",
                     icon = icon("plus"),
-                    style = "height: 32px; padding: 5px 15px; font-size: 14px; display: none;"
+                    style = "height: 32px; padding: 5px 15px; font-size: 14px; margin-right: 8px; display: none;"
                   )
                 ),
                 tags$div(
@@ -4067,7 +4356,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                   class = "flex-scroll-container",
                   tags$div(
                     id = ns("general_concepts_table_container"),
-                    style = "height: 100%;",
+                    style = "height: 100%; position: relative;",
+                    fuzzy_search_ui(
+                      id = "general_concepts_fuzzy_search",
+                      ns = ns,
+                      i18n = i18n
+                    ),
                     DT::DTOutput(ns("general_concepts_table"))
                   ),
                   tags$div(
@@ -4077,8 +4371,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                       "concept_mappings_fuzzy_search",
                       ns = ns,
                       i18n = i18n,
+                      settings_btn = TRUE,
+                      settings_btn_id = "omop_filters_btn",
                       limit_checkbox = TRUE,
-                      limit_checkbox_id = "concept_mappings_limit_10k"
+                      limit_checkbox_id = "concept_mappings_limit_10k",
+                      initially_visible = FALSE
                     ),
                     DT::DTOutput(ns("concept_mappings_table"))
                   )
@@ -4504,7 +4801,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           ),
           tags$button(
             type = "button",
-            class = "btn btn-sm btn-primary-custom",
+            class = "btn btn-sm btn-success-custom",
             style = "display: flex; align-items: center; gap: 4px; height: 28px;",
             onclick = sprintf("Shiny.setInputValue('%s', Math.random(), {priority: 'event'})", ns("show_all_omop_click")),
             i18n$t("see_all_omop_concepts")
@@ -4543,7 +4840,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
           tags$button(
             type = "button",
             class = "btn btn-sm btn-primary-custom",
-            style = "display: flex; align-items: center; gap: 4px;",
+            style = "display: flex; align-items: center; gap: 4px; margin-right: 8px;",
             onclick = sprintf("Shiny.setInputValue('%s', Math.random(), {priority: 'event'})", ns("open_comments_modal_click")),
             tags$i(class = "fa fa-comment"),
             i18n$t("comments")
@@ -6099,9 +6396,11 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       standard_cols <- c("vocabulary_id", "category", "concept_code", "concept_name", "statistical_summary")
       available_standard <- standard_cols[standard_cols %in% colnames(df)]
-      target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime", "mapped_by_user_id", "row_id")
-      other_cols <- setdiff(colnames(df), c(standard_cols, target_cols, "Mapped"))
-      df_display <- df[, c(available_standard, other_cols, "Mapped"), drop = FALSE]
+      target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime", "mapped_by_user_id")
+      other_cols <- setdiff(colnames(df), c(standard_cols, target_cols, "Mapped", "row_id"))
+      # Keep row_id in data for selection handling, but don't display it in the table
+      df_with_rowid <- df[, c("row_id", available_standard, other_cols, "Mapped"), drop = FALSE]
+      df_display <- df_with_rowid[, setdiff(colnames(df_with_rowid), "row_id"), drop = FALSE]
 
       nice_names <- colnames(df_display)
       nice_names[nice_names == "vocabulary_id"] <- as.character(i18n$t("vocabulary"))
@@ -6131,11 +6430,12 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       # Apply fuzzy search filter if query is provided
       fuzzy_query <- source_concepts_fuzzy$query()
       if (!is.null(fuzzy_query) && fuzzy_query != "") {
-        df_display <- fuzzy_search_df(df_display, fuzzy_query, "concept_name", max_dist = 3)
+        df_with_rowid <- fuzzy_search_df(df_with_rowid, fuzzy_query, "concept_name", max_dist = 3)
+        df_display <- df_with_rowid[, setdiff(colnames(df_with_rowid), "row_id"), drop = FALSE]
       }
 
-      # Store data in reactive for proxy updates
-      source_concepts_data(df_display)
+      # Store data with row_id in reactive for selection handling
+      source_concepts_data(df_with_rowid)
       source_concepts_colnames(nice_names)
       source_concepts_column_defs(column_defs)
 
@@ -6236,10 +6536,20 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
       available_standard <- standard_cols[standard_cols %in% colnames(df)]
       target_cols <- c("target_general_concept_id", "target_omop_concept_id", "target_custom_concept_id", "mapping_datetime", "mapped_by_user_id", "row_id")
       other_cols <- setdiff(colnames(df), c(standard_cols, target_cols, "Mapped"))
-      df_display <- df[, c(available_standard, other_cols, "Mapped"), drop = FALSE]
 
-      # Update stored data
-      source_concepts_data(df_display)
+      # Keep row_id for selection handling
+      df_with_rowid <- df[, c("row_id", available_standard, other_cols, "Mapped"), drop = FALSE]
+      df_display <- df_with_rowid[, setdiff(colnames(df_with_rowid), "row_id"), drop = FALSE]
+
+      # Apply fuzzy search filter if query is provided
+      fuzzy_query <- source_concepts_fuzzy$query()
+      if (!is.null(fuzzy_query) && fuzzy_query != "") {
+        df_with_rowid <- fuzzy_search_df(df_with_rowid, fuzzy_query, "concept_name", max_dist = 3)
+        df_display <- df_with_rowid[, setdiff(colnames(df_with_rowid), "row_id"), drop = FALSE]
+      }
+
+      # Update stored data with row_id for selection handling
+      source_concepts_data(df_with_rowid)
 
       # Use proxy to update data (preserves filters and pagination)
       proxy <- DT::dataTableProxy("source_concepts_table", session = session)
@@ -6263,6 +6573,17 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         general_concept_name = general_concepts$general_concept_name,
         stringsAsFactors = FALSE
       )
+
+      # Apply fuzzy search filter
+      fuzzy_query <- general_concepts_fuzzy_query()
+      if (!is.null(fuzzy_query) && fuzzy_query != "" && nrow(general_concepts_display) > 0) {
+        general_concepts_display <- fuzzy_search_df(
+          general_concepts_display,
+          fuzzy_query,
+          "general_concept_name",
+          max_dist = 3
+        )
+      }
 
       # Render table with prepared data
       output$general_concepts_table <- DT::renderDT({
@@ -6314,46 +6635,101 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         # Check if limit checkbox is checked (default TRUE if input doesn't exist yet)
         limit_10k <- isTRUE(input$concept_mappings_limit_10k) || is.null(input$concept_mappings_limit_10k)
 
-        if (!is.null(fuzzy_query) && fuzzy_query != "") {
-          # Use DuckDB Jaro-Winkler for fuzzy search (fast on 4M+ rows)
-          all_concepts <- fuzzy_search_tbl(
-            vocab_data$concept,
-            "concept_name",
-            fuzzy_query,
-            min_score = 0.75,
-            limit = 500
+        # Get active filters
+        filters <- omop_active_filters()
+
+        # Build base query with all necessary columns
+        base_query <- vocab_data$concept %>%
+          dplyr::select(
+            omop_concept_id = concept_id,
+            concept_name,
+            vocabulary_id,
+            domain_id,
+            concept_code,
+            standard_concept,
+            invalid_reason
           )
 
-          if (is.null(all_concepts) || nrow(all_concepts) == 0) {
-            output$concept_mappings_table <- DT::renderDT({
-              create_empty_datatable("No matching concepts found.")
-            }, server = TRUE)
-            return()
-          }
-
-          # Rename columns to match expected format
-          all_concepts <- all_concepts %>%
-            dplyr::select(
-              omop_concept_id = concept_id,
-              concept_name,
-              vocabulary_id,
-              domain_id,
-              concept_code,
-              standard_concept,
-              fuzzy_score
-            )
-        } else {
-          # No fuzzy search - load concepts from DuckDB
+        # Apply filters to base query
+        if (length(filters$vocabulary_id) > 0) {
+          base_query <- base_query %>% dplyr::filter(vocabulary_id %in% !!filters$vocabulary_id)
+        }
+        if (length(filters$domain_id) > 0) {
+          base_query <- base_query %>% dplyr::filter(domain_id %in% !!filters$domain_id)
+        }
+        if (length(filters$concept_class_id) > 0) {
+          # Need to re-add concept_class_id for filtering
           base_query <- vocab_data$concept %>%
             dplyr::select(
               omop_concept_id = concept_id,
               concept_name,
               vocabulary_id,
               domain_id,
+              concept_class_id,
               concept_code,
-              standard_concept
+              standard_concept,
+              invalid_reason
             )
+          if (length(filters$vocabulary_id) > 0) {
+            base_query <- base_query %>% dplyr::filter(vocabulary_id %in% !!filters$vocabulary_id)
+          }
+          if (length(filters$domain_id) > 0) {
+            base_query <- base_query %>% dplyr::filter(domain_id %in% !!filters$domain_id)
+          }
+          base_query <- base_query %>%
+            dplyr::filter(concept_class_id %in% !!filters$concept_class_id) %>%
+            dplyr::select(-concept_class_id)
+        }
+        if (length(filters$standard_concept) > 0) {
+          # Handle "NS" (Non-standard) which means NULL or empty standard_concept in DB
+          if ("NS" %in% filters$standard_concept) {
+            other_vals <- filters$standard_concept[filters$standard_concept != "NS"]
+            if (length(other_vals) > 0) {
+              # Filter for NULL/empty OR specific values (S, C)
+              base_query <- base_query %>%
+                dplyr::filter(is.na(standard_concept) | standard_concept == "" | standard_concept %in% !!other_vals)
+            } else {
+              # Only non-standard selected
+              base_query <- base_query %>%
+                dplyr::filter(is.na(standard_concept) | standard_concept == "")
+            }
+          } else {
+            # Only S or C selected
+            base_query <- base_query %>% dplyr::filter(standard_concept %in% !!filters$standard_concept)
+          }
+        }
+        if (length(filters$validity) > 0) {
+          if ("Valid" %in% filters$validity && !"Invalid" %in% filters$validity) {
+            base_query <- base_query %>% dplyr::filter(is.na(invalid_reason))
+          } else if ("Invalid" %in% filters$validity && !"Valid" %in% filters$validity) {
+            base_query <- base_query %>% dplyr::filter(!is.na(invalid_reason))
+          }
+        }
 
+        if (!is.null(fuzzy_query) && fuzzy_query != "") {
+          # Use DuckDB Jaro-Winkler for fuzzy search directly in SQL (fast on 4M+ rows)
+          query_escaped <- gsub("'", "''", tolower(fuzzy_query))
+
+          all_concepts <- base_query %>%
+            dplyr::mutate(
+              fuzzy_score = dplyr::sql(sprintf(
+                "jaro_winkler_similarity(lower(concept_name), '%s')",
+                query_escaped
+              ))
+            ) %>%
+            dplyr::filter(fuzzy_score > 0.75) %>%
+            dplyr::arrange(dplyr::desc(fuzzy_score)) %>%
+            utils::head(10000) %>%
+            dplyr::collect()
+
+          if (nrow(all_concepts) == 0) {
+            output$concept_mappings_table <- DT::renderDT({
+              create_empty_datatable("No matching concepts found.")
+            }, server = TRUE)
+            return()
+          }
+        } else {
+          # No fuzzy search - load concepts from DuckDB
           # Apply limit if checkbox is checked
           if (limit_10k) {
             all_concepts <- base_query %>%
@@ -6366,6 +6742,13 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
               dplyr::mutate(fuzzy_score = NA_real_)
           }
         }
+
+        # Add validity column based on invalid_reason
+        all_concepts <- all_concepts %>%
+          dplyr::mutate(
+            validity = ifelse(is.na(invalid_reason), "Valid", "Invalid")
+          ) %>%
+          dplyr::select(-invalid_reason)
 
         # Get dictionary mappings to show which concepts are already mapped
         concept_mappings <- data()$concept_mappings
@@ -6400,23 +6783,68 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             )
           ) %>%
           dplyr::arrange(dplyr::desc(fuzzy_score), sort_order, concept_name) %>%
-          dplyr::select(-sort_order, -fuzzy_score)
+          dplyr::select(-sort_order)
+
+        # Ensure validity column exists in mappings (should be present from base_query)
+        if (!"validity" %in% colnames(mappings)) {
+          mappings <- mappings %>%
+            dplyr::mutate(validity = "Valid")
+        }
 
         # Store the sorted data for row selection lookups
         concept_mappings_table_data(mappings)
 
-        # Prepare display data
+        # Ensure fuzzy_score exists in mappings
+        if (!"fuzzy_score" %in% colnames(mappings)) {
+          mappings <- mappings %>%
+            dplyr::mutate(fuzzy_score = NA_real_)
+        }
+
+        # Prepare display data (preserves all columns including fuzzy_score and validity)
         mappings_display <- prepare_concept_set_display(
           mappings = mappings,
           ns = ns,
           editable = FALSE
         )
 
-        # Select columns including general_concept_name
-        mappings_display <- mappings_display %>%
-          dplyr::select(general_concept_name, vocabulary_id, omop_concept_id, concept_code, concept_name, domain_id, standard_concept_display)
+        # Ensure validity exists
+        if (!"validity" %in% colnames(mappings_display)) {
+          mappings_display <- mappings_display %>%
+            dplyr::mutate(validity = "Valid")
+        } else {
+          mappings_display <- mappings_display %>%
+            dplyr::mutate(validity = dplyr::coalesce(validity, "Valid"))
+        }
 
-        # Render table with general_concept_name column (server-side for large datasets)
+        # Ensure fuzzy_score exists
+        if (!"fuzzy_score" %in% colnames(mappings_display)) {
+          mappings_display <- mappings_display %>%
+            dplyr::mutate(fuzzy_score = NA_real_)
+        }
+
+        # Ensure standard_concept_display exists (may be missing if mappings was empty)
+        if (!"standard_concept_display" %in% colnames(mappings_display)) {
+          mappings_display <- mappings_display %>%
+            dplyr::mutate(
+              standard_concept_display = factor(
+                dplyr::case_when(
+                  standard_concept == "S" ~ "Standard",
+                  standard_concept == "C" ~ "Classification",
+                  TRUE ~ "Non-standard"
+                ),
+                levels = c("Standard", "Classification", "Non-standard")
+              )
+            )
+        }
+
+        # Select columns including general_concept_name, validity, and fuzzy_score
+        mappings_display <- mappings_display %>%
+          dplyr::select(general_concept_name, vocabulary_id, omop_concept_id, concept_code, concept_name, domain_id, standard_concept_display, validity, fuzzy_score)
+
+        # Determine if fuzzy search is active (to show/hide Score column)
+        fuzzy_active <- !is.null(fuzzy_query) && fuzzy_query != ""
+
+        # Render table with general_concept_name, validity, and fuzzy_score columns (server-side for large datasets)
         output$concept_mappings_table <- DT::renderDT({
           dt <- datatable(
             mappings_display,
@@ -6433,17 +6861,33 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 )
               ),
               columnDefs = list(
+                list(targets = 0, visible = FALSE),  # Hide General Concept by default
                 list(targets = 5, visible = FALSE),  # Hide Domain
-                list(targets = 6, width = "90px", className = "dt-center")  # Standard column
+                list(targets = 6, width = "90px", className = "dt-center"),  # Standard column
+                list(targets = 7, visible = FALSE, width = "70px", className = "dt-center"),  # Hide Validity by default
+                list(targets = 8, width = "60px", className = "dt-center", visible = fuzzy_active)  # Score column - visible only when fuzzy search active
               )
             ),
             rownames = FALSE,
             selection = "single",
             filter = "top",
-            colnames = c(as.character(i18n$t("general_concept")), "Vocabulary", "OMOP Concept ID", "Code", "Concept Name", "Domain", "Standard")
+            colnames = c(as.character(i18n$t("general_concept")), "Vocabulary", "OMOP Concept ID", "Code", "Concept Name", "Domain", "Standard", as.character(i18n$t("validity")), "Fuzzy Score")
           )
 
-          dt %>% style_standard_concept_column()
+          dt <- dt %>%
+            style_standard_concept_column() %>%
+            DT::formatStyle(
+              "validity",
+              color = DT::styleEqual(c("Valid", "Invalid"), c("#28a745", "#dc3545")),
+              fontWeight = "bold"
+            )
+
+          # Format Score column only when fuzzy search is active
+          if (fuzzy_active) {
+            dt <- dt %>% DT::formatRound(columns = "fuzzy_score", digits = 2)
+          }
+
+          dt
         }, server = TRUE)
         return()
       }
@@ -6603,7 +7047,15 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         return()
       }
 
-      # Get the selected row data
+      # Get the row_id from the displayed data (handles fuzzy filtering)
+      displayed_data <- source_concepts_data()
+      if (is.null(displayed_data) || row_selected > nrow(displayed_data)) return()
+
+      # Get row_id from the selected row in displayed data
+      selected_row_id <- displayed_data$row_id[row_selected]
+      if (is.null(selected_row_id) || is.na(selected_row_id)) return()
+
+      # Get the selected row data from CSV using row_id
       if (is.null(selected_alignment_id())) return()
 
       alignments <- alignments_data()
@@ -6620,15 +7072,16 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
       df <- read.csv(csv_path, stringsAsFactors = FALSE)
 
-      if (row_selected > nrow(df)) return()
+      # Find the row by row_id instead of index
+      row_data <- df[df$row_id == selected_row_id, ]
+      if (nrow(row_data) == 0) return()
 
       # Store the full row data
-      row_data <- df[row_selected, ]
       selected_source_row(row_data)
 
       # Check if json column exists
       if ("json" %in% colnames(df)) {
-        json_str <- df$json[row_selected]
+        json_str <- row_data$json[1]
         if (!is.null(json_str) && !is.na(json_str) && json_str != "") {
           json_data <- tryCatch(
             jsonlite::fromJSON(json_str),
@@ -8995,8 +9448,10 @@ Data distribution by hospital unit/ward.
         }
       }
       
-      # Get the actual row_id from the CSV (not the table row index)
-      csv_row_id <- df$row_id[source_row]
+      # Get the actual row_id from displayed data (handles fuzzy filtering)
+      displayed_data <- source_concepts_data()
+      if (is.null(displayed_data) || source_row > nrow(displayed_data)) return()
+      csv_row_id <- displayed_data$row_id[source_row]
 
       con <- get_db_connection()
       on.exit(DBI::dbDisconnect(con), add = TRUE)

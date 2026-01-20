@@ -279,6 +279,33 @@ style_standard_concept_column <- function(dt, column = "standard_concept_display
     )
 }
 
+#' Style Validity Column
+#'
+#' @description Applies consistent styling to validity columns in DataTables.
+#' Valid = green background, Invalid = red background.
+#'
+#' @param dt A datatable object
+#' @param column Character: Name of the validity column (default "validity")
+#' @return The datatable with styling applied
+style_validity_column <- function(dt, column = "validity") {
+  dt %>%
+    DT::formatStyle(
+      column,
+      backgroundColor = DT::styleEqual(
+        c("Valid", "Invalid"),
+        c("#d4edda", "#f8d7da")
+      ),
+      fontWeight = DT::styleEqual(
+        c("Valid", "Invalid"),
+        c("bold", "bold")
+      ),
+      color = DT::styleEqual(
+        c("Valid", "Invalid"),
+        c("#155724", "#721c24")
+      )
+    )
+}
+
 #' Restore DataTable State
 #'
 #' @description Restores previously saved page number and column search filters to a DataTable

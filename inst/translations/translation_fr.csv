@@ -565,3 +565,11 @@ continue_anyway,Continuer quand même
 back_to_previous_concept,Retour au concept précédent
 fuzzy_search,Recherche floue
 fuzzy_search_placeholder,Rechercher...
+confirm_action,Confirmer l'action
+limit_10k_warning,Le chargement des 4M+ concepts peut ralentir significativement l'application.
+limit_10k_warning_details,Cette opération peut prendre plusieurs secondes. L'application ne sera pas réactive pendant ce temps.
+continue,Continuer
+advanced_filters,Filtres avancés
+select_or_type,Sélectionnez ou tapez...
+clear_all,Tout effacer
+apply_filters,Appliquer les filtres
