@@ -367,6 +367,7 @@ alignment_not_found,Alignment not found
 successfully_imported_mappings,Successfully imported {count} mappings
 duplicates_skipped,{count} duplicates skipped
 import_deleted_successfully,Import deleted successfully
+delete_import_confirmation_message,Are you sure you want to delete this import?
 import_failed,Import failed:
 delete_failed,Delete failed:
 no_mapping_file_found,No mapping file found for this alignment

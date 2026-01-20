@@ -791,6 +791,54 @@ mod_concept_mapping_ui <- function(id, i18n) {
       )
     ),
 
+    ### Modal - Delete Import Confirmation ----
+    tags$div(
+      id = ns("delete_import_modal"),
+      class = "modal-overlay",
+      style = "display: none; z-index: 1060;",
+      onclick = sprintf(
+        "if (event.target === this) $('#%s').hide();",
+        ns("delete_import_modal")
+      ),
+      tags$div(
+        class = "modal-content",
+        style = "max-width: 500px;",
+        tags$div(
+          class = "modal-header",
+          tags$h3(i18n$t("confirm_deletion")),
+          tags$button(
+            class = "modal-close",
+            onclick = sprintf("$('#%s').hide();", ns("delete_import_modal")),
+            HTML("&times;")
+          )
+        ),
+        tags$div(
+          class = "modal-body",
+          style = "padding: 20px;",
+          tags$p(
+            id = ns("delete_import_message"),
+            style = "margin-bottom: 15px;",
+            i18n$t("delete_import_confirmation_message")
+          )
+        ),
+        tags$div(
+          class = "modal-footer",
+          style = "display: flex; justify-content: flex-end; gap: 10px;",
+          tags$button(
+            class = "btn btn-secondary",
+            onclick = sprintf("$('#%s').hide();", ns("delete_import_modal")),
+            i18n$t("cancel")
+          ),
+          actionButton(
+            ns("confirm_delete_import"),
+            i18n$t("delete"),
+            class = "btn btn-danger",
+            icon = icon("trash")
+          )
+        )
+      )
+    ),
+
     ### Modal - Export Alignment ----
     tags$div(
       id = ns("export_modal"),
@@ -1526,6 +1574,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
 
     # Import file state
     import_selected_file <- reactiveVal(NULL)
+    import_selected_filename <- reactiveVal(NULL)  # Original filename from upload
     import_validation_result <- reactiveVal(NULL)  # Stores validation result for selected file
 
     # Import column mapping state
@@ -1539,6 +1588,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
     comments_mapping_id <- reactiveVal(NULL)  # Track mapping ID for comments modal
     comments_trigger <- reactiveVal(0)  # Trigger to refresh comments display
     comment_to_delete <- reactiveVal(NULL)  # Track comment ID to delete
+    import_to_delete <- reactiveVal(NULL)  # Track import ID to delete
 
     # Export modal state
     export_alignment_id <- reactiveVal(NULL)  # Track alignment ID for export modal
@@ -5370,7 +5420,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
             coverage_pct = ifelse(total_concepts > 0, round(mapped_concepts / total_concepts * 100), 0)
           ) %>%
           dplyr::ungroup() %>%
-          dplyr::select(project_name, short_description, total_concepts, mapped_concepts, coverage_pct)
+          dplyr::select(name, short_description, total_concepts, mapped_concepts, coverage_pct)
 
         # Create datatable
         dt <- datatable(
@@ -11038,7 +11088,7 @@ Data distribution by hospital unit/ward.
     }
 
     #### INDICATE Import Function ----
-    do_indicate_import <- function(zip_path, alignment_id, user, i18n) {
+    do_indicate_import <- function(zip_path, alignment_id, user, i18n, original_filename = NULL) {
       if (!file.exists(zip_path)) {
         show_import_status(i18n$t("import_validation_error"), "error")
         return()
@@ -11153,6 +11203,7 @@ Data distribution by hospital unit/ward.
         has_vocab_code <- !is.null(existing_source) &&
                           "vocabulary_id" %in% colnames(existing_source) &&
                           "concept_code" %in% colnames(existing_source)
+
         if (has_vocab_code) {
           for (j in seq_len(nrow(existing_source))) {
             v_id <- as.character(existing_source$vocabulary_id[j])
@@ -11164,17 +11215,46 @@ Data distribution by hospital unit/ward.
           }
         }
 
-        # Create import record
+        # Check if we can match by row_id directly (fallback)
+        max_source_rows <- if (!is.null(existing_source)) nrow(existing_source) else 0
+        can_match_by_row_id <- max_source_rows > 0
+
+        # Create import record with original filename
+        import_filename <- if (!is.null(original_filename) && original_filename != "") {
+          original_filename
+        } else {
+          basename(zip_path)
+        }
         DBI::dbExecute(
           con,
           "INSERT INTO imported_mappings (alignment_id, original_filename, import_mode, concepts_count, imported_by_user_id, imported_at)
            VALUES (?, ?, ?, 0, ?, ?)",
-          params = list(alignment_id, basename(zip_path), "indicate", user_id, timestamp)
+          params = list(alignment_id, import_filename, "indicate", user_id, timestamp)
         )
         import_id <- DBI::dbGetQuery(con, "SELECT last_insert_rowid() as id")$id[1]
 
         # Map old mapping_id to new database mapping_id for evaluations/comments
         mapping_id_map <- list()
+
+        # Helper function to resolve user by first_name + last_name
+        resolve_user_fn <- function(row, con) {
+          if ("user_first_name" %in% colnames(row) && "user_last_name" %in% colnames(row) &&
+              !is.na(row$user_first_name) && !is.na(row$user_last_name) &&
+              row$user_first_name != "" && row$user_last_name != "") {
+            original_name <- paste(row$user_first_name, row$user_last_name)
+            found <- DBI::dbGetQuery(
+              con,
+              "SELECT user_id FROM users WHERE first_name = ? AND last_name = ?",
+              params = list(row$user_first_name, row$user_last_name)
+            )
+            if (nrow(found) > 0) {
+              return(list(user_id = found$user_id[1], found = TRUE, imported_user_name = original_name))
+            } else {
+              return(list(user_id = NA_integer_, found = FALSE, imported_user_name = original_name))
+            }
+          }
+          return(list(user_id = NA_integer_, found = FALSE, imported_user_name = NA_character_))
+        }
 
         # Import mappings
         if (nrow(mappings) > 0) {
@@ -11196,6 +11276,14 @@ Data distribution by hospital unit/ward.
               }
             }
 
+            # Fallback: try to match by row_id if the existing source doesn't have vocab_id + concept_code
+            if (is.na(new_source_index) && can_match_by_row_id && "row_id" %in% colnames(row)) {
+              imported_row_id <- suppressWarnings(as.integer(row$row_id))
+              if (!is.na(imported_row_id) && imported_row_id >= 1 && imported_row_id <= max_source_rows) {
+                new_source_index <- imported_row_id
+              }
+            }
+
             # Skip mapping if source concept not found in current alignment
             if (is.na(new_source_index)) {
               skipped_no_match <- skipped_no_match + 1
@@ -11203,22 +11291,35 @@ Data distribution by hospital unit/ward.
             }
 
             # Check for duplicate using vocabulary_id, concept_code, target_omop_concept_id
-            combo_key <- paste(vocab_id, concept_code, target_id, sep = "|||")
+            # If vocab_id or concept_code are empty, use row_id instead for duplicate detection
+            combo_key <- if (vocab_id != "" && concept_code != "") {
+              paste(vocab_id, concept_code, target_id, sep = "|||")
+            } else {
+              paste("row", new_source_index, target_id, sep = "|||")
+            }
 
             if (!is.null(existing_combos[[combo_key]])) {
               skipped_duplicates <- skipped_duplicates + 1
               next
             }
 
+            # Resolve mapping user from exported first_name/last_name
+            resolved <- resolve_user_fn(row, con)
+            if (!resolved$found && !is.na(resolved$imported_user_name)) {
+              unresolved_users[[resolved$imported_user_name]] <- TRUE
+            }
+
             # Insert mapping with the correct row_id for current alignment
             DBI::dbExecute(
               con,
               "INSERT INTO concept_mappings (alignment_id, csv_file_path, row_id,
-                                             target_omop_concept_id, imported_mapping_id, mapping_datetime)
-               VALUES (?, ?, ?, ?, ?, ?)",
+                                             target_omop_concept_id, imported_mapping_id, mapping_datetime,
+                                             mapped_by_user_id, imported_user_name)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
               params = list(
                 alignment_id, csv_filename, new_source_index,
-                row$target_omop_concept_id, import_id, timestamp
+                row$target_omop_concept_id, import_id, timestamp,
+                resolved$user_id, resolved$imported_user_name
               )
             )
 
@@ -11229,28 +11330,6 @@ Data distribution by hospital unit/ward.
             # Add to existing combos to prevent duplicates within same import
             existing_combos[[combo_key]] <- TRUE
           }
-        }
-
-        # Helper function to resolve user by first_name + last_name only
-        # Returns list(user_id, found, imported_user_name)
-        # If user not found, user_id is NA and imported_user_name contains the original name
-        resolve_user_fn <- function(row, con) {
-          if ("user_first_name" %in% colnames(row) && "user_last_name" %in% colnames(row) &&
-              !is.na(row$user_first_name) && !is.na(row$user_last_name) &&
-              row$user_first_name != "" && row$user_last_name != "") {
-            original_name <- paste(row$user_first_name, row$user_last_name)
-            found <- DBI::dbGetQuery(
-              con,
-              "SELECT user_id FROM users WHERE first_name = ? AND last_name = ?",
-              params = list(row$user_first_name, row$user_last_name)
-            )
-            if (nrow(found) > 0) {
-              return(list(user_id = found$user_id[1], found = TRUE, imported_user_name = NA_character_))
-            } else {
-              return(list(user_id = NA_integer_, found = FALSE, imported_user_name = original_name))
-            }
-          }
-          return(list(user_id = NA_integer_, found = FALSE, imported_user_name = NA_character_))
         }
 
         # Import evaluations with mapped IDs
@@ -11549,6 +11628,7 @@ Data distribution by hospital unit/ward.
       validation <- validate_indicate_zip(file_info$datapath, i18n)
       import_validation_result(validation)
       import_selected_file(file_info$datapath)
+      import_selected_filename(file_info$name)  # Store original filename
 
       # Show validation result
       if (validation$valid) {
@@ -11607,7 +11687,8 @@ Data distribution by hospital unit/ward.
           import_selected_file(),
           alignment_id,
           current_user(),
-          i18n
+          i18n,
+          import_selected_filename()
         )
       } else if (format == "csv") {
         # Manual column mapping required
@@ -11931,16 +12012,59 @@ Data distribution by hospital unit/ward.
       })
     }, ignoreInit = TRUE)
 
-    #### Delete Import ----
+    #### Delete Import - Show Confirmation Modal ----
     observe_event(input$delete_import, {
       import_id <- input$delete_import
+      if (is.null(import_id)) return()
+
+      # Store import_id for confirmation
+      import_to_delete(import_id)
+
+      # Get import info for confirmation message
+      db_dir <- get_app_dir()
+      db_path <- file.path(db_dir, "indicate.db")
+
+      if (file.exists(db_path)) {
+        con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+        on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+        import_info <- DBI::dbGetQuery(
+          con,
+          "SELECT original_filename, concepts_count FROM imported_mappings
+           WHERE import_id = ?",
+          params = list(import_id)
+        )
+
+        if (nrow(import_info) > 0) {
+          message <- sprintf(
+            "%s '%s' (%d %s)",
+            i18n$t("delete_import_confirmation_message"),
+            import_info$original_filename[1],
+            import_info$concepts_count[1],
+            i18n$t("mappings")
+          )
+          shinyjs::html("delete_import_message", message)
+        }
+      }
+
+      # Show confirmation modal
+      shinyjs::runjs(sprintf("$('#%s').show();", ns("delete_import_modal")))
+    }, ignoreInit = TRUE)
+
+    #### Delete Import - Confirm Deletion ----
+    observe_event(input$confirm_delete_import, {
+      import_id <- import_to_delete()
       if (is.null(import_id)) return()
 
       # Get database connection
       db_dir <- get_app_dir()
       db_path <- file.path(db_dir, "indicate.db")
 
-      if (!file.exists(db_path)) return()
+      if (!file.exists(db_path)) {
+        shinyjs::runjs(sprintf("$('#%s').hide();", ns("delete_import_modal")))
+        import_to_delete(NULL)
+        return()
+      }
 
       con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
       on.exit(DBI::dbDisconnect(con), add = TRUE)
@@ -11966,6 +12090,10 @@ Data distribution by hospital unit/ward.
 
         showNotification(i18n$t("import_deleted_successfully"), type = "message")
 
+        # Hide modal and clear state
+        shinyjs::runjs(sprintf("$('#%s').hide();", ns("delete_import_modal")))
+        import_to_delete(NULL)
+
         # Trigger refresh
         import_history_trigger(import_history_trigger() + 1)
         mappings_refresh_trigger(mappings_refresh_trigger() + 1)
@@ -11975,6 +12103,8 @@ Data distribution by hospital unit/ward.
       }, error = function(e) {
         DBI::dbRollback(con)
         showNotification(paste(i18n$t("delete_failed"), e$message), type = "error")
+        shinyjs::runjs(sprintf("$('#%s').hide();", ns("delete_import_modal")))
+        import_to_delete(NULL)
       })
     }, ignoreInit = TRUE)
   })
