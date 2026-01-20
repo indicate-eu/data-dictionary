@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction - Documentation INDICATE Data Dictionary</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="doc-header">
+    <img src="../assets/logo.png" alt="INDICATE" class="doc-header-logo">
+    <span class="doc-header-title">INDICATE Data Dictionary</span>
+    <span class="doc-header-subtitle">Documentation</span>
+    <div class="doc-header-right">
+      <div class="lang-switch">
+        <a href="../en/index.html" class="lang-btn">EN</a>
+        <a href="index.html" class="lang-btn active">FR</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="doc-container">
+    <!-- Sidebar -->
+    <nav class="doc-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Pour commencer</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html" class="active">Introduction</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="quickstart.html">Démarrage rapide</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Dictionnaire de données</div>
+        <ul class="sidebar-nav">
+          <li><a href="dictionary-overview.html">Vue d'ensemble</a></li>
+          <li><a href="dictionary-concepts.html">Concepts généraux</a></li>
+          <li><a href="dictionary-mappings.html">Terminologies standard</a></li>
+          <li><a href="dictionary-comments.html">Commentaires experts</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Projets</div>
+        <ul class="sidebar-nav">
+          <li><a href="projects-overview.html">Vue d'ensemble</a></li>
+          <li><a href="projects-create.html">Créer un projet</a></li>
+          <li><a href="projects-assign.html">Assigner des concepts</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Alignement de concepts</div>
+        <ul class="sidebar-nav">
+          <li><a href="mapping-overview.html">Vue d'ensemble</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Référence</div>
+        <ul class="sidebar-nav">
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="glossary.html">Glossaire</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="doc-main">
+      <h1>Introduction</h1>
+
+      <p>
+        Le <strong>INDICATE Data Dictionary</strong> est une application web permettant d'explorer et
+        d'aligner des données cliniques avec le dictionnaire de données INDICATE — une collection
+        consensuelle de concepts cliniques standardisés conçue pour harmoniser les données des unités
+        de réanimation à travers l'Europe.
+      </p>
+
+      <img src="../assets/screenshots/fr/dictionary-explorer.png" alt="INDICATE Data Dictionary - Interface Dictionary Explorer">
+      <p class="img-caption">Vue en quatre panneaux du Dictionary Explorer : concepts standard associés (en haut à gauche), détails du concept sélectionné (en haut à droite), commentaires et guide ETL avec distribution attendue des valeurs (en bas à gauche), et relations et hiérarchie du concept (en bas à droite).</p>
+
+      <div class="info-box info">
+        <div class="info-box-title">Qu'est-ce qu'INDICATE ?</div>
+        <p>
+          <a href="https://indicate-europe.eu/" target="_blank">INDICATE</a> est une initiative
+          européenne lancée en décembre 2024, cofinancée par le programme Digital Europe de l'Union
+          européenne (Grant Agreement No. 101167778). Le projet vise à développer une infrastructure
+          fédérée pour le partage sécurisé et transfrontalier des données de réanimation,
+          permettant une prise de décision clinique basée sur les données et le développement de
+          modèles d'IA fiables pour la réanimation.
+        </p>
+      </div>
+
+      <h2>Pourquoi un dictionnaire de données ?</h2>
+
+      <p>
+        Même en utilisant des terminologies standardisées comme LOINC et SNOMED CT, un même concept
+        clinique peut être représenté par des centaines de codes distincts, variant selon la méthode
+        de mesure, le type de prélèvement ou le contexte clinique. Sans aide experte, sélectionner
+        le concept standard le plus adapté à chaque variable locale devient une tâche complexe et
+        sujette aux erreurs.
+      </p>
+
+      <p>
+        Le dictionnaire de données INDICATE répond à ce défi en fournissant des recommandations
+        explicites pour harmoniser la sélection des terminologies dans les différents contextes
+        européens de réanimation. Il est conçu pour être <strong>agnostique du modèle ETL</strong>,
+        supportant à la fois les transformations OMOP CDM et FHIR.
+      </p>
+
+      <h2>Approche par concepts généraux</h2>
+
+      <p>
+        Le dictionnaire est organisé autour de <strong>concepts généraux</strong> — des variables
+        cliniquement significatives telles qu'elles apparaissent dans les protocoles d'étude. Lors
+        de la conception d'une étude clinique, les chercheurs parlent de « Fréquence cardiaque » ou
+        de « Créatinine sérique » plutôt que de codes LOINC spécifiques avec leurs variations de
+        méthode et de prélèvement. Notre dictionnaire adopte ce niveau pragmatique de définition,
+        regroupant les codes terminologiques apparentés sous des concepts cliniques intuitifs
+        organisés par catégories (paramètres vitaux, biologie, traitements, etc.).
+      </p>
+
+      <p>
+        Chaque concept général peut être exprimé comme un <strong>concept set</strong> compatible
+        avec OHDSI ATLAS, combinant plusieurs codes standard avec une logique d'inclusion/exclusion
+        et d'inclusion des concepts descendants. Cette interopérabilité avec le format « concept set » d'ATLAS
+        augmente la pertinence du dictionnaire pour la recherche observationnelle et la définition
+        de cohortes.
+      </p>
+
+      <h2>Fonctionnalités principales</h2>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h4>Dictionnaire des concepts</h4>
+          <p>Parcourez les concepts cliniques standardisés organisés par catégorie : antécédents, paramètres vitaux, biologie, ventilation, traitements, et plus encore.</p>
+        </div>
+        <div class="feature-card">
+          <h4>Alignement de concepts</h4>
+          <p>Alignez vos concepts sources locaux avec les concepts des terminologies standard pour assurer l'harmonisation sémantique.</p>
+        </div>
+        <div class="feature-card">
+          <h4>Terminologies standard</h4>
+          <p>Chaque concept est aligné vers des terminologies standard (SNOMED CT, LOINC, RxNorm), avec des liens vers ATHENA et le serveur de terminologie FHIR.</p>
+        </div>
+        <div class="feature-card">
+          <h4>Commentaires experts</h4>
+          <p>Accédez aux recommandations d'experts du domaine — cliniciens, biologistes, médecins en informatique médicale et data scientists — pour guider la sélection des concepts lors de l'ETL. Continuellement enrichi.</p>
+        </div>
+        <div class="feature-card">
+          <h4>Projets</h4>
+          <p>Organisez les concepts en projets correspondant à des cas d'usage cliniques spécifiques ou des besoins de recherche.</p>
+        </div>
+        <div class="feature-card">
+          <h4>Interopérabilité OHDSI</h4>
+          <p>Exportez les alignements dans des formats compatibles avec les outils OHDSI : Usagi, table SOURCE_TO_CONCEPT_MAP et concept sets ATLAS.</p>
+        </div>
+      </div>
+
+      <h2>Alignement de concepts assisté par LLM</h2>
+
+      <p>
+        L'application prend en charge l'alignement de concepts via des outils CLI tels que Claude Code
+        ou Mistral Vibe CLI, avec possibilité d'utiliser des modèles locaux (par exemple via Ollama). La
+        combinaison des <strong>commentaires experts</strong> et de la <strong>similarité statistique</strong>
+        (basée sur les distributions de valeurs) améliore significativement la précision des alignements
+        automatisés.
+      </p>
+
+      <h2>À qui s'adresse cette application ?</h2>
+
+      <p>Cette application est conçue pour :</p>
+
+      <div class="audience-grid">
+        <div class="audience-card audience-clinicians">
+          <div class="audience-icon">
+            <i class="fas fa-user-md"></i>
+          </div>
+          <h4>Cliniciens</h4>
+          <p>Apporter leur expertise sur les concepts généraux et assister dans l'alignement</p>
+        </div>
+        <div class="audience-card audience-researchers">
+          <div class="audience-icon">
+            <i class="fas fa-flask"></i>
+          </div>
+          <h4>Chercheurs</h4>
+          <p>Explorer le dictionnaire INDICATE pour la conception d'études</p>
+        </div>
+        <div class="audience-card audience-data-scientists">
+          <div class="audience-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h4>Data Scientists</h4>
+          <p>Réaliser l'alignement et utiliser les requêtes SQL générées pour les analyses fédérées</p>
+        </div>
+        <div class="audience-card audience-data-engineers">
+          <div class="audience-icon">
+            <i class="fas fa-database"></i>
+          </div>
+          <h4>Data Engineers</h4>
+          <p>Utiliser l'alignement pour construire les pipelines ETL</p>
+        </div>
+      </div>
+
+      <h2>Pour commencer</h2>
+
+      <p>Choisissez votre parcours selon vos besoins :</p>
+
+      <ul>
+        <li>
+          <strong>Explorer le dictionnaire</strong> — Accédez à la
+          <a href="dictionary-overview.html">Vue d'ensemble du dictionnaire</a>
+        </li>
+        <li>
+          <strong>Installer localement</strong> — Suivez le
+          <a href="installation.html">Guide d'installation</a>
+        </li>
+        <li>
+          <strong>Aligner vos données</strong> — Découvrez
+          <a href="mapping-overview.html">l'alignement de concepts</a>
+        </li>
+      </ul>
+
+      <h2>À propos du projet INDICATE</h2>
+
+      <p>
+        Le consortium INDICATE comprend des partenaires de 12 pays européens, avec 15 fournisseurs
+        de données implémentant une infrastructure fédérée paneuropéenne. Le développement du
+        dictionnaire de données a été guidé par six
+        <a href="https://indicate-europe.eu/use-cases/" target="_blank">cas d'usage cliniques</a>.
+      </p>
+
+      <p>
+        Des réunions interdisciplinaires régulières ont réuni des experts cliniques, des data
+        scientists et des spécialistes de l'interopérabilité pour mapper les besoins cliniques
+        vers les terminologies standard. Cette méthodologie collaborative s'est avérée essentielle
+        pour aligner les priorités cliniques avec la faisabilité technique.
+      </p>
+
+      <p>
+        En savoir plus sur <a href="https://indicate-europe.eu/" target="_blank">indicate-europe.eu</a>.
+      </p>
+
+      <!-- Footer navigation -->
+      <div class="doc-footer-nav">
+        <div></div>
+        <a href="installation.html" class="nav-next">
+          <span class="nav-label">Suivant</span>
+          <span class="nav-title">Installation</span>
+        </a>
+      </div>
+    </main>
+  </div>
+  <script src="../assets/lightbox.js"></script>
+</body>
+</html>

@@ -6,6 +6,7 @@
   <title>Introduction - INDICATE Data Dictionary Documentation</title>
   <link rel="icon" type="image/png" href="../assets/favicon.png">
   <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
   <!-- Header -->
@@ -14,9 +15,6 @@
     <span class="doc-header-title">INDICATE Data Dictionary</span>
     <span class="doc-header-subtitle">Documentation</span>
     <div class="doc-header-right">
-      <a href="https://huggingface.co/spaces/music-fandom/indicate-data-dictionary" class="doc-header-link" target="_blank">
-        Launch App
-      </a>
       <div class="lang-switch">
         <a href="index.html" class="lang-btn active">EN</a>
         <a href="../fr/index.html" class="lang-btn">FR</a>
@@ -41,7 +39,7 @@
         <ul class="sidebar-nav">
           <li><a href="dictionary-overview.html">Overview</a></li>
           <li><a href="dictionary-concepts.html">General Concepts</a></li>
-          <li><a href="dictionary-mappings.html">OMOP Mappings</a></li>
+          <li><a href="dictionary-mappings.html">Standard Terminologies</a></li>
           <li><a href="dictionary-comments.html">Expert Comments</a></li>
         </ul>
       </div>
@@ -59,19 +57,6 @@
         <div class="sidebar-section-title">Concept Mapping</div>
         <ul class="sidebar-nav">
           <li><a href="mapping-overview.html">Overview</a></li>
-          <li><a href="mapping-alignments.html">Alignments</a></li>
-          <li><a href="mapping-import.html">Import Data</a></li>
-          <li><a href="mapping-export.html">Export Formats</a></li>
-          <li><a href="mapping-evaluate.html">Evaluate Mappings</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
-        <div class="sidebar-section-title">Advanced</div>
-        <ul class="sidebar-nav">
-          <li><a href="vocabularies.html">OHDSI Vocabularies</a></li>
-          <li><a href="settings.html">Settings</a></li>
-          <li><a href="users.html">User Management</a></li>
         </ul>
       </div>
 
@@ -80,7 +65,6 @@
         <ul class="sidebar-nav">
           <li><a href="faq.html">FAQ</a></li>
           <li><a href="glossary.html">Glossary</a></li>
-          <li><a href="changelog.html">Changelog</a></li>
         </ul>
       </div>
     </nav>
@@ -90,61 +74,132 @@
       <h1>Introduction</h1>
 
       <p>
-        The <strong>INDICATE Data Dictionary</strong> is an interactive web application
-        designed to explore and align clinical data with the INDICATE Minimal Data Dictionary
-        - a consensus-based collection of <strong>11,924 standardized clinical concepts</strong> for
-        harmonizing intensive care unit (ICU) data across Europe.
+        The <strong>INDICATE Data Dictionary</strong> is a web application for exploring and
+        aligning clinical data with the INDICATE Data Dictionary — a consensus-based
+        collection of standardized clinical concepts designed to harmonize intensive care unit
+        (ICU) data across Europe.
       </p>
+
+      <img src="../assets/screenshots/en/dictionary-explorer.png" alt="INDICATE Data Dictionary - Dictionary Explorer interface">
+      <p class="img-caption">The Dictionary Explorer four-panel view: associated standard concepts (top-left), selected concept details (top-right), comments and ETL guidance with expected value distribution (bottom-left), and concept relationships with hierarchy graph (bottom-right).</p>
 
       <div class="info-box info">
         <div class="info-box-title">What is INDICATE?</div>
         <p>
-          INDICATE (INtensive care Data Integration CollAborative TErminology) is a European
-          collaborative project aimed at creating a standardized vocabulary for ICU data,
-          enabling better interoperability and research across healthcare systems.
+          <a href="https://indicate-europe.eu/" target="_blank">INDICATE</a> is a European
+          initiative launched in December 2024, co-funded by the European Union's Digital Europe
+          Programme (Grant Agreement No. 101167778). The project aims to develop a federated
+          infrastructure for secure, cross-border ICU data sharing, enabling data-driven clinical
+          decision-making and the development of trustworthy AI models for intensive care.
         </p>
       </div>
+
+      <h2>Why a Data Dictionary?</h2>
+
+      <p>
+        Even when using standardized terminologies like LOINC and SNOMED CT, a single clinical
+        concept can be represented by hundreds of distinct codes, varying by measurement method,
+        specimen type, or clinical context. Without expert guidance, selecting the most appropriate
+        standard concept for each local variable becomes a complex and error-prone task.
+      </p>
+
+      <p>
+        The INDICATE Data Dictionary addresses this challenge by providing explicit
+        recommendations to harmonize terminology selection across diverse European ICU settings.
+        It is designed to be <strong>agnostic of the ETL model</strong>, supporting both OMOP CDM
+        and FHIR-based transformations.
+      </p>
+
+      <h2>General Concepts Approach</h2>
+
+      <p>
+        The dictionary is organized around <strong>general concepts</strong> — clinically meaningful
+        variables as they appear in study protocols. When designing a clinical study, researchers
+        refer to "Heart Rate" or "Serum Creatinine" rather than specific LOINC codes with their
+        method and specimen variations. Our dictionary adopts this pragmatic level of definition,
+        grouping related terminology codes under intuitive clinical concepts organized by categories
+        (vital signs, laboratory, medications, etc.).
+      </p>
+
+      <p>
+        Each general concept can be expressed as a <strong>concept set</strong> compatible with
+        OHDSI ATLAS, combining multiple standard codes with inclusion/exclusion logic and descendant
+        handling. This interoperability with the ATLAS concept set format increases the relevance
+        of the dictionary for observational research and cohort definition.
+      </p>
 
       <h2>Key Features</h2>
 
       <div class="feature-grid">
         <div class="feature-card">
           <h4>Dictionary Explorer</h4>
-          <p>Browse 11,924 standardized clinical concepts organized by category and subcategory.</p>
+          <p>Browse standardized clinical concepts organized by category: demographics, conditions, vital signs, laboratory, ventilation, drugs, and more.</p>
         </div>
         <div class="feature-card">
-          <h4>OMOP Mappings</h4>
-          <p>View mappings to standard terminologies: SNOMED CT, LOINC, RxNorm, and ICD-10.</p>
+          <h4>Concept Alignment</h4>
+          <p>Align your local source concepts with standard terminology concepts to ensure semantic harmonization.</p>
         </div>
         <div class="feature-card">
-          <h4>Concept Mapping</h4>
-          <p>Align your local source concepts with the INDICATE dictionary general concepts.</p>
-        </div>
-        <div class="feature-card">
-          <h4>Projects</h4>
-          <p>Organize concepts into projects for specific research use cases.</p>
-        </div>
-        <div class="feature-card">
-          <h4>Export Formats</h4>
-          <p>Export to Usagi, STCM, and ATLAS JSON formats for OHDSI workflows.</p>
+          <h4>Standard Terminologies</h4>
+          <p>Each concept is mapped to standard terminologies (SNOMED CT, LOINC, RxNorm), with links to ATHENA and the FHIR Terminology Server.</p>
         </div>
         <div class="feature-card">
           <h4>Expert Comments</h4>
-          <p>Access expert guidance to help with concept alignment decisions.</p>
+          <p>Access guidance from domain experts — clinicians, biologists, medical informatics specialists, and data scientists — to help with concept selection during ETL. Continuously enriched.</p>
+        </div>
+        <div class="feature-card">
+          <h4>Projects</h4>
+          <p>Organize concepts into projects corresponding to specific clinical use cases or research requirements.</p>
+        </div>
+        <div class="feature-card">
+          <h4>OHDSI Interoperability</h4>
+          <p>Export alignments in formats compatible with OHDSI tools: Usagi, SOURCE_TO_CONCEPT_MAP table, and ATLAS concept sets.</p>
         </div>
       </div>
+
+      <h2>LLM-Assisted Concept Mapping</h2>
+
+      <p>
+        The application supports concept mapping through CLI tools such as Claude Code or Mistral
+        Vibe CLI, with the option to use local models (e.g. via Ollama). The combination of
+        <strong>expert comments</strong> and <strong>statistical similarity</strong> (based on value
+        distributions) significantly improves the accuracy of automated alignments.
+      </p>
 
       <h2>Who is this for?</h2>
 
       <p>This application is designed for:</p>
 
-      <ul>
-        <li><strong>Data Scientists</strong> - Working on ICU data harmonization projects</li>
-        <li><strong>Clinical Informaticists</strong> - Mapping local terminologies to standard vocabularies</li>
-        <li><strong>Researchers</strong> - Exploring the INDICATE minimal data dictionary</li>
-        <li><strong>OMOP CDM Users</strong> - Creating concept sets for observational research</li>
-        <li><strong>Healthcare Data Engineers</strong> - Building ETL pipelines for clinical data</li>
-      </ul>
+      <div class="audience-grid">
+        <div class="audience-card audience-clinicians">
+          <div class="audience-icon">
+            <i class="fas fa-user-md"></i>
+          </div>
+          <h4>Clinicians</h4>
+          <p>Provide expertise on general concepts and assist with alignment</p>
+        </div>
+        <div class="audience-card audience-researchers">
+          <div class="audience-icon">
+            <i class="fas fa-flask"></i>
+          </div>
+          <h4>Researchers</h4>
+          <p>Exploring the INDICATE data dictionary for study design</p>
+        </div>
+        <div class="audience-card audience-data-scientists">
+          <div class="audience-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h4>Data Scientists</h4>
+          <p>Perform alignment and use generated SQL queries for federated analyses</p>
+        </div>
+        <div class="audience-card audience-data-engineers">
+          <div class="audience-icon">
+            <i class="fas fa-database"></i>
+          </div>
+          <h4>Data Engineers</h4>
+          <p>Use alignment to build ETL pipelines</p>
+        </div>
+      </div>
 
       <h2>Getting Started</h2>
 
@@ -152,36 +207,37 @@
 
       <ul>
         <li>
-          <strong>Try it online</strong> - Access the application on
-          <a href="https://huggingface.co/spaces/music-fandom/indicate-data-dictionary" target="_blank">Hugging Face Spaces</a>
-        </li>
-        <li>
-          <strong>Explore the dictionary</strong> - Jump to
+          <strong>Explore the dictionary</strong> — Jump to the
           <a href="dictionary-overview.html">Data Dictionary Overview</a>
         </li>
         <li>
-          <strong>Install locally</strong> - Follow the
+          <strong>Install locally</strong> — Follow the
           <a href="installation.html">Installation Guide</a>
         </li>
         <li>
-          <strong>Map your data</strong> - Learn about
-          <a href="mapping-overview.html">Concept Mapping</a>
+          <strong>Align your data</strong> — Learn about
+          <a href="mapping-overview.html">Concept Alignment</a>
         </li>
       </ul>
 
       <h2>About the INDICATE Project</h2>
 
       <p>
-        The INDICATE project brings together intensive care experts, clinical informaticists,
-        and data scientists from across Europe to create a unified vocabulary for ICU data.
-        The minimal data dictionary represents the consensus of this collaborative effort,
-        providing a foundation for multi-center research and data sharing.
+        The INDICATE consortium comprises partners from 12 European countries, with 15 data
+        providers implementing a pan-European federated infrastructure. The data dictionary
+        development was driven by six
+        <a href="https://indicate-europe.eu/use-cases/" target="_blank">clinical use cases</a>.
       </p>
 
       <p>
-        Each general concept in the dictionary is mapped to standard terminologies used in
-        the OMOP Common Data Model, facilitating integration with the broader OHDSI
-        (Observational Health Data Sciences and Informatics) network.
+        Regular interdisciplinary meetings brought together clinical experts, data scientists, and
+        interoperability specialists to map clinical requirements to standard terminologies. The
+        collaborative methodology proved essential for aligning clinical priorities with technical
+        feasibility.
+      </p>
+
+      <p>
+        Learn more at <a href="https://indicate-europe.eu/" target="_blank">indicate-europe.eu</a>.
       </p>
 
       <!-- Footer navigation -->
@@ -194,5 +250,6 @@
       </div>
     </main>
   </div>
+  <script src="../assets/lightbox.js"></script>
 </body>
 </html>

@@ -1,0 +1,33 @@
+# GitLab Pages configuration for INDICATE Data Dictionary documentation
+# This file deploys the static HTML documentation to GitLab Pages
+
+image: alpine:latest
+
+pages:
+  stage: deploy
+  script:
+    - echo "Deploying documentation to GitLab Pages..."
+    - mkdir -p public
+    - cp -r en public/
+    - cp -r fr public/
+    - cp -r assets public/
+    # Create redirect from root to EN version
+    - |
+      cat > public/index.html << 'EOF'
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="refresh" content="0; url=en/index.html">
+        <title>Redirecting...</title>
+      </head>
+      <body>
+        <p>Redirecting to <a href="en/index.html">English documentation</a>...</p>
+      </body>
+      </html>
+      EOF
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
