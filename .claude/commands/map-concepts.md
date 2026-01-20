@@ -10,7 +10,7 @@ Each general concept may have:
 - **Expert comment**: Domain knowledge to help with alignment (common methods, ambiguities, when to use specific concepts)
 - **Expected distribution** (JSON): Typical value ranges for data quality validation
 
-See `llm_concept_mapping.md` for detailed structure documentation.
+See `.claude/docs/llm_concept_mapping.md` for detailed structure documentation.
 
 ## Instructions
 
@@ -215,4 +215,4 @@ NEXT STEPS
 
 ## Reference
 
-See `llm_concept_mapping.md` for detailed documentation.
+See `.claude/docs/llm_concept_mapping.md` for detailed documentation.
