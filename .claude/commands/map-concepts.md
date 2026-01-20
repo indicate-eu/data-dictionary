@@ -132,7 +132,9 @@ dbGetQuery(vocab_con, "
 
 ### Step 5: Generate Output Files
 
-**1. Create `mappings_list.json`** at `{app_folder}/concept_mapping/mappings_list.json`:
+**1. Create a timestamped JSON file** at `{app_folder}/concept_mapping/mappings_list_<timestamp>.json`:
+
+Use this exact format for the filename: `mappings_list_YYYY-MM-DD_HH-MM-SS.json`
 
 ```json
 {
@@ -151,15 +153,15 @@ dbGetQuery(vocab_con, "
 **2. Run the export script** (from project root):
 
 ```bash
-Rscript inst/scripts/llm_create_indicate_export.R "{app_folder}" "{model_name}"
+Rscript inst/scripts/llm_create_indicate_export.R "{app_folder}" "{model_name}" "mappings_list_<timestamp>.json"
 ```
 
 This single script:
 1. Creates a temporary folder for export files
 2. Generates all INDICATE format files
 3. Validates mappings (target concepts exist, scores valid, etc.)
-4. If validation passes → creates ZIP and removes temp folder
-5. If validation fails → keeps temp folder for debugging
+4. If validation passes → creates ZIP, removes temp folder, and deletes JSON file
+5. If validation fails → keeps temp folder and JSON file for debugging
 
 **Author name format**: The model name is stored with a fixed prefix:
 - first_name: "LLM -" (fixed prefix)

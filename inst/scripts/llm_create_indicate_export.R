@@ -1,18 +1,18 @@
 #' Create INDICATE export from LLM mappings
 #'
 #' @description
-#' This script creates an INDICATE-format ZIP from mappings_list.json.
+#' This script creates an INDICATE-format ZIP from a mappings JSON file.
 #' It generates files in a temporary folder, validates them, and only creates
 #' the ZIP if validation passes.
 #'
 #' @details
-#' Required input: {app_folder}/concept_mapping/mappings_list.json
+#' Required input: JSON file with mappings (path passed as argument)
 #'
 #' Run from project root:
-#' Rscript inst/scripts/llm_create_indicate_export.R <app_folder> <model_name>
+#' Rscript inst/scripts/llm_create_indicate_export.R <app_folder> <model_name> <json_file>
 #'
 #' Example:
-#' Rscript inst/scripts/llm_create_indicate_export.R ~/indicate_files "Claude Opus 4.5"
+#' Rscript inst/scripts/llm_create_indicate_export.R ~/indicate_files "Claude Opus 4.5" mappings_list_2025-01-20_13-15-00.json
 
 library(duckdb)
 library(DBI)
@@ -22,12 +22,13 @@ library(zip)
 
 # Parse arguments
 args <- commandArgs(trailingOnly = TRUE)
-if (length(args) < 2) {
-  stop("Usage: Rscript llm_create_indicate_export.R <app_folder> <model_name>")
+if (length(args) < 3) {
+  stop("Usage: Rscript llm_create_indicate_export.R <app_folder> <model_name> <json_file>")
 }
 
 app_folder <- path.expand(args[1])
 model_name <- args[2]
+json_file <- args[3]
 
 # Author attribution
 author_first_name <- "LLM -"
@@ -38,9 +39,9 @@ cat("App folder:", app_folder, "\n")
 cat("Model:", model_name, "\n\n")
 
 # Read mapping configuration
-config_path <- file.path(app_folder, "concept_mapping", "mappings_list.json")
+config_path <- file.path(app_folder, "concept_mapping", json_file)
 if (!file.exists(config_path)) {
-  stop("mappings_list.json not found at: ", config_path)
+  stop("JSON file not found at: ", config_path)
 }
 
 config <- fromJSON(config_path)
@@ -373,6 +374,9 @@ setwd(old_wd)
 
 # Remove export folder after successful ZIP creation
 unlink(export_folder, recursive = TRUE)
+
+# Remove input JSON file after successful ZIP creation
+unlink(config_path)
 
 cat("Summary:\n")
 cat("  Mapped:   ", mapped_count, " (", round(100 * mapped_count / nrow(mapping_df)), "%)\n", sep = "")
