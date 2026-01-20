@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Installation - Documentation INDICATE Data Dictionary</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="doc-header">
+    <img src="../assets/logo.png" alt="INDICATE" class="doc-header-logo">
+    <span class="doc-header-title">INDICATE Data Dictionary</span>
+    <span class="doc-header-subtitle">Documentation</span>
+    <div class="doc-header-right">
+      <div class="lang-switch">
+        <a href="../en/installation.html" class="lang-btn">EN</a>
+        <a href="installation.html" class="lang-btn active">FR</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="doc-container">
+    <!-- Sidebar -->
+    <nav class="doc-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Démarrage</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="installation.html" class="active">Installation</a></li>
+          <li><a href="quickstart.html">Prise en main</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Dictionnaire</div>
+        <ul class="sidebar-nav">
+          <li><a href="dictionary-overview.html">Vue d'ensemble</a></li>
+          <li><a href="dictionary-concepts.html">Concepts généraux</a></li>
+          <li><a href="dictionary-mappings.html">Terminologies standard</a></li>
+          <li><a href="dictionary-comments.html">Commentaires experts</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Projets</div>
+        <ul class="sidebar-nav">
+          <li><a href="projects-overview.html">Vue d'ensemble</a></li>
+          <li><a href="projects-create.html">Créer un projet</a></li>
+          <li><a href="projects-assign.html">Assigner des concepts</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Alignement de concepts</div>
+        <ul class="sidebar-nav">
+          <li><a href="mapping-overview.html">Vue d'ensemble</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Référence</div>
+        <ul class="sidebar-nav">
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="glossary.html">Glossaire</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="doc-main">
+      <h1>Installation</h1>
+
+      <p>
+        L'application INDICATE Data Dictionary peut être installée localement en tant que
+        package R ou déployée via Docker.
+      </p>
+
+      <h2>Option 1 : Installation en tant que package R</h2>
+
+      <h3>Prérequis</h3>
+
+      <ul>
+        <li>R version 4.0.0 ou supérieure</li>
+      </ul>
+
+      <h3>Étapes d'installation</h3>
+
+      <ol class="steps">
+        <li>
+          <strong>Installer depuis GitHub</strong>
+          <p>Ouvrez R et exécutez :</p>
+          <pre><code># Installer remotes si ce n'est pas déjà fait
+install.packages("remotes")
+
+# Installer le package INDICATE Data Dictionary (version dev, recommandée)
+remotes::install_github("indicate-eu/data-dictionary", ref = "dev")
+
+# Ou installer la version stable depuis la branche main
+remotes::install_github("indicate-eu/data-dictionary")</code></pre>
+          <div class="info-box info">
+            <div class="info-box-title">Version de développement</div>
+            <p>
+              Pendant la phase de développement actif, nous recommandons d'installer la branche
+              <code>dev</code> pour accéder aux dernières fonctionnalités et corrections.
+            </p>
+          </div>
+        </li>
+        <li>
+          <strong>Lancer l'application</strong>
+          <pre><code>indicate::run_app()</code></pre>
+          <p>L'application s'ouvrira dans votre navigateur web par défaut.</p>
+        </li>
+      </ol>
+
+      <h3>Options de configuration</h3>
+
+      <p>Vous pouvez personnaliser le comportement de l'application avec ces paramètres :</p>
+
+      <pre><code>indicate::run_app(
+  language = "en",
+  app_folder = NULL,
+  debug_mode = "error",
+  port = 3838,
+  host = "0.0.0.0"
+)</code></pre>
+
+      <table class="params-table">
+        <thead>
+          <tr>
+            <th>Paramètre</th>
+            <th>Description</th>
+            <th>Défaut</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>language</code></td>
+            <td>Langue de l'interface : <code>"en"</code> (anglais) ou <code>"fr"</code> (français)</td>
+            <td><code>"en"</code></td>
+          </tr>
+          <tr>
+            <td><code>app_folder</code></td>
+            <td>Chemin vers le dossier où les fichiers de l'application seront stockés. Si <code>NULL</code>, utilise le répertoire personnel de l'utilisateur.</td>
+            <td><code>NULL</code></td>
+          </tr>
+          <tr>
+            <td><code>debug_mode</code></td>
+            <td>Niveau de débogage : <code>"error"</code>, <code>"event"</code>, ou <code>c("event", "error")</code></td>
+            <td><code>"error"</code></td>
+          </tr>
+          <tr>
+            <td><code>port</code></td>
+            <td>Numéro de port pour le serveur Shiny</td>
+            <td><code>3838</code></td>
+          </tr>
+          <tr>
+            <td><code>host</code></td>
+            <td>Adresse hôte (<code>"127.0.0.1"</code> pour local uniquement, <code>"0.0.0.0"</code> pour accès réseau)</td>
+            <td><code>"0.0.0.0"</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Option 2 : Déploiement Docker</h2>
+
+      <div class="info-box info">
+        <div class="info-box-title">Prochainement</div>
+        <p>
+          Une image Docker sera disponible sur DockerHub prochainement. Cela vous permettra de
+          déployer l'application dans des environnements isolés sans installer R.
+        </p>
+      </div>
+
+      <h3>Construction depuis les sources</h3>
+
+      <p>En attendant, vous pouvez construire l'image Docker localement :</p>
+
+      <pre><code># Cloner le dépôt
+git clone https://github.com/indicate-eu/data-dictionary.git
+cd data-dictionary
+
+# Construire l'image
+docker build -t indicate-data-dictionary .
+
+# Lancer le conteneur
+docker run -p 3838:3838 indicate-data-dictionary</code></pre>
+
+      <p>Ouvrez votre navigateur et accédez à <code>http://localhost:3838</code></p>
+
+      <h2>Vocabulaires OHDSI</h2>
+
+      <p>
+        L'application nécessite les vocabulaires OHDSI d'ATHENA pour fonctionner correctement.
+        Ces vocabulaires permettent la recherche de concepts, la navigation dans les hiérarchies
+        et la consultation des relations.
+      </p>
+
+      <div class="info-box warning">
+        <div class="info-box-title">Requis</div>
+        <p>
+          Le téléchargement des vocabulaires OHDSI nécessite une inscription sur le site ATHENA
+          et l'acceptation des accords de licence des vocabulaires.
+        </p>
+      </div>
+
+      <ol class="steps">
+        <li>
+          <strong>S'inscrire sur ATHENA</strong>
+          <p>
+            Créez un compte sur <a href="https://athena.ohdsi.org/" target="_blank">athena.ohdsi.org</a>
+          </p>
+        </li>
+        <li>
+          <strong>Sélectionner les vocabulaires</strong>
+          <p>Sélectionnez les vocabulaires suivants pour le téléchargement : SNOMED-CT, LOINC, RxNorm, RxNorm Extension, UCUM, ATC, ICD-10.</p>
+          <img src="../assets/screenshots/en/athena-download.png" alt="Interface de sélection des vocabulaires ATHENA">
+        </li>
+        <li>
+          <strong>Télécharger et extraire</strong>
+          <p>
+            Téléchargez le fichier ZIP et extrayez-le dans un dossier sur votre ordinateur.
+            Notez le chemin vers ce dossier.
+          </p>
+        </li>
+        <li>
+          <strong>Configurer dans l'application</strong>
+          <p>
+            Cliquez sur l'icône de rouages en haut à droite de l'application, puis sélectionnez "General settings".
+          </p>
+          <img src="../assets/screenshots/fr/general-settings-menu.png" alt="Accès au menu General settings" style="max-width: 200px;">
+          <p>
+            Spécifiez le chemin vers le dossier contenant les fichiers CSV téléchargés depuis ATHENA
+            (CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, CONCEPT_ANCESTOR.csv, etc.).
+          </p>
+          <img src="../assets/screenshots/fr/vocabulary-upload.png" alt="Configuration du dossier des vocabulaires OHDSI">
+        </li>
+      </ol>
+
+      <!-- Footer navigation -->
+      <div class="doc-footer-nav">
+        <a href="index.html" class="nav-prev">
+          <span class="nav-label">Précédent</span>
+          <span class="nav-title">Introduction</span>
+        </a>
+        <a href="quickstart.html" class="nav-next">
+          <span class="nav-label">Suivant</span>
+          <span class="nav-title">Prise en main</span>
+        </a>
+      </div>
+    </main>
+  </div>
+  <script src="../assets/lightbox.js"></script>
+</body>
+</html>
