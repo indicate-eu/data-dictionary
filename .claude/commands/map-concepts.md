@@ -68,14 +68,22 @@ source_concepts <- read.csv(csv_path, stringsAsFactors = FALSE)
 cat(sprintf("Loaded %d source concepts\n", nrow(source_concepts)))
 
 if ("category" %in% names(source_concepts)) {
-  cat("\nCategories (with concept counts):\n")
-  print(sort(table(source_concepts$category), decreasing = TRUE))
+  categories <- sort(unique(source_concepts$category))
+  category_df <- data.frame(
+    N = seq_along(categories),
+    Category = categories,
+    Count = sapply(categories, function(cat) sum(source_concepts$category == cat))
+  )
+  print(category_df, row.names = FALSE)
 }
 ```
 
-**Ask the user**:
-1. Filter by category? (show list with counts)
+**Display the full category list in chat** (as a numbered table), then ask the user:
+1. Which category to map? (enter number, name, or "all")
 2. Sort order? (by category, alphabetically, or as-is)
+
+**IMPORTANT**: Do NOT use AskUserQuestion for category selection - there are often 50+ categories.
+Display the list directly in the conversation and let the user respond with the number or name.
 
 ### Step 4: Perform Mapping
 
@@ -140,15 +148,22 @@ dbGetQuery(vocab_con, "
 }
 ```
 
-**2. Run the scripts** (from project root):
+**2. Run the export script** (from project root):
 
 ```bash
-# Create mapping CSV
-Rscript inst/scripts/llm_create_mapping_csv.R "{app_folder}"
-
-# Create INDICATE ZIP with model name as author
-Rscript inst/scripts/llm_create_indicate_zip.R "{app_folder}" "{model_name}"
+Rscript inst/scripts/llm_create_indicate_export.R "{app_folder}" "{model_name}"
 ```
+
+This single script:
+1. Creates a temporary folder for export files
+2. Generates all INDICATE format files
+3. Validates mappings (target concepts exist, scores valid, etc.)
+4. If validation passes → creates ZIP and removes temp folder
+5. If validation fails → keeps temp folder for debugging
+
+**Author name format**: The model name is stored with a fixed prefix:
+- first_name: "LLM -" (fixed prefix)
+- last_name: model name (e.g., "Claude Opus 4.5", "Llama 3.3")
 
 ### Step 6: Generate Final Report
 

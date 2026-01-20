@@ -1361,8 +1361,7 @@ mod_concept_mapping_ui <- function(id, i18n) {
           actionButton(
             ns("close_category_breakdown_fullscreen"),
             label = HTML("&times;"),
-            class = "modal-close",
-            style = "font-size: 28px; font-weight: 300; color: #666; border: none; background: none; cursor: pointer; padding: 0; width: 30px; height: 30px; line-height: 1;"
+            class = "modal-fullscreen-close"
           )
         ),
         tags$div(
@@ -2697,24 +2696,35 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
         # Hide modal
         shinyjs::hide("import_indicate_modal")
 
-        # Show success
-        msg <- gsub("\\{name\\}", alignment_name, i18n$t("import_alignment_created"))
-        msg <- gsub("\\{mappings\\}", imported_mappings, msg)
+        # Build notification message with HTML formatting
+        msg_parts <- list()
+
+        # Success message with bold alignment name
+        success_msg <- i18n$t("import_alignment_created")
+        success_msg <- gsub("\\{name\\}", paste0("<strong>", alignment_name, "</strong>"), success_msg)
+        success_msg <- gsub("\\{mappings\\}", paste0("<strong>", imported_mappings, "</strong>"), success_msg)
+        msg_parts[[length(msg_parts) + 1]] <- success_msg
 
         # Add skipped mappings info if any
         if (skipped_mappings > 0) {
-          skipped_msg <- gsub("\\{count\\}", skipped_mappings, i18n$t("mappings_skipped_no_match"))
-          msg <- paste0(msg, " (", skipped_msg, ")")
+          skipped_msg <- gsub("\\{count\\}", paste0("<strong>", skipped_mappings, "</strong>"), i18n$t("mappings_skipped_no_match"))
+          msg_parts[[length(msg_parts) + 1]] <- paste0("(", skipped_msg, ")")
         }
-        showNotification(msg, type = "message", duration = 10)
 
-        # Show warning if some users were not found
-        if (length(unresolved_users) > 0) {
+        # Add warning about unresolved users if any
+        has_warning <- length(unresolved_users) > 0
+        if (has_warning) {
           unresolved_names <- names(unresolved_users)
-          warning_msg <- gsub("\\{count\\}", length(unresolved_names), i18n$t("users_not_found_warning"))
+          warning_msg <- gsub("\\{count\\}", paste0("<strong>", length(unresolved_names), "</strong>"), i18n$t("users_not_found_warning"))
           warning_msg <- paste0(warning_msg, ": ", paste(unresolved_names, collapse = ", "))
-          showNotification(warning_msg, type = "warning", duration = 10)
+          msg_parts[[length(msg_parts) + 1]] <- warning_msg
         }
+
+        notification_type <- if (has_warning) "warning" else "message"
+        notification_ui <- tags$div(
+          lapply(msg_parts, function(part) tags$div(HTML(part)))
+        )
+        showNotification(notification_ui, type = notification_type, duration = 10)
 
         # Refresh alignments data to update the table
         alignments_data(get_all_alignments())
@@ -5230,7 +5240,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                 tags$div(
                   id = ns("category_distribution_content"),
                   style = "flex: 1; min-height: 0; overflow-y: auto;",
-                  lapply(seq_len(min(nrow(category_data), 10)), function(i) {
+                  lapply(seq_len(nrow(category_data)), function(i) {
                     cat_name <- category_data$category[i]
                     cat_total <- category_data$total[i]
                     cat_mapped <- category_data$mapped[i]
@@ -5277,13 +5287,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                         )
                       )
                     )
-                  }),
-                  if (nrow(category_data) > 10) {
-                    tags$div(
-                      style = "text-align: center; font-size: 12px; color: #666; margin-top: 10px;",
-                      sprintf("... and %d more categories", nrow(category_data) - 10)
-                    )
-                  }
+                  })
                 ),
                 # Completion view (green bars - mapping completion per category, sorted by completion %)
                 {
@@ -5295,7 +5299,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                   tags$div(
                     id = ns("category_completion_content"),
                     style = "flex: 1; min-height: 0; overflow-y: auto; display: none;",
-                    lapply(seq_len(min(nrow(category_data_by_completion), 10)), function(i) {
+                    lapply(seq_len(nrow(category_data_by_completion)), function(i) {
                       cat_name <- category_data_by_completion$category[i]
                       cat_total <- category_data_by_completion$total[i]
                       cat_mapped <- category_data_by_completion$mapped[i]
@@ -5324,13 +5328,7 @@ mod_concept_mapping_server <- function(id, data, config, vocabularies, current_u
                           )
                         )
                       )
-                    }),
-                    if (nrow(category_data_by_completion) > 10) {
-                      tags$div(
-                        style = "text-align: center; font-size: 12px; color: #666; margin-top: 10px;",
-                        sprintf("... and %d more categories", nrow(category_data_by_completion) - 10)
-                      )
-                    }
+                    })
                   )
                 }
               )

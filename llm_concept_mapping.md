@@ -190,13 +190,43 @@ The project includes helper scripts in `inst/scripts/` to simplify output genera
 
 Save to: `{app_folder}/concept_mapping/mappings_list.json`
 
-**Step 2: Run the scripts**
+**Step 2: Run the export script**
 
 ```bash
 # From project root
-Rscript inst/scripts/llm_create_mapping_csv.R "{app_folder}"
-Rscript inst/scripts/llm_create_indicate_zip.R "{app_folder}" "{model_name}"
+Rscript inst/scripts/llm_create_indicate_export.R "{app_folder}" "{model_name}"
 ```
+
+This single script handles everything:
+1. Creates a temporary folder (`llm_export_<timestamp>/`)
+2. Generates all INDICATE format files
+3. Validates mappings
+4. If validation passes → creates ZIP and removes temp folder
+5. If validation fails → keeps temp folder for debugging
+
+### Author Attribution
+
+The model name is stored with a fixed prefix to clearly identify LLM-generated mappings:
+- `user_first_name`: "LLM -" (fixed prefix)
+- `user_last_name`: The model name
+
+**Examples**:
+| Model Name | user_first_name | user_last_name |
+|------------|-----------------|----------------|
+| Claude Opus 4.5 | LLM - | Claude Opus 4.5 |
+| GPT-4 | LLM - | GPT-4 |
+| Llama 3.3 | LLM - | Llama 3.3 |
+
+### Quality Validation (Built-in)
+
+The export script automatically validates before creating the ZIP:
+
+1. **Source Codes**: All codes exist in alignment, no duplicates
+2. **Target Concepts**: Exist in OHDSI, are standard (`S`), are valid
+3. **Scores**: Between 0-1, consistent with mapped/unmapped status
+4. **Comments**: Present for low-confidence (<0.8) and unmapped concepts
+
+If validation fails, fix errors in `mappings_list.json` and re-run.
 
 ### Manual Generation
 
@@ -237,5 +267,4 @@ Generate a summary report with:
 |------|-------------|
 | `llm_concept_mapping.md` | This guide |
 | `.claude/commands/map-concepts.md` | Claude Code command |
-| `inst/scripts/llm_create_mapping_csv.R` | CSV generation script |
-| `inst/scripts/llm_create_indicate_zip.R` | ZIP generation script |
+| `inst/scripts/llm_create_indicate_export.R` | Main export script (generates, validates, zips) |

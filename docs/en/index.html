@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction - INDICATE Data Dictionary Documentation</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="doc-header">
+    <img src="../assets/logo.png" alt="INDICATE" class="doc-header-logo">
+    <span class="doc-header-title">INDICATE Data Dictionary</span>
+    <span class="doc-header-subtitle">Documentation</span>
+    <div class="doc-header-right">
+      <a href="https://huggingface.co/spaces/music-fandom/indicate-data-dictionary" class="doc-header-link" target="_blank">
+        Launch App
+      </a>
+      <div class="lang-switch">
+        <a href="index.html" class="lang-btn active">EN</a>
+        <a href="../fr/index.html" class="lang-btn">FR</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="doc-container">
+    <!-- Sidebar -->
+    <nav class="doc-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Getting Started</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html" class="active">Introduction</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="quickstart.html">Quick Start</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Data Dictionary</div>
+        <ul class="sidebar-nav">
+          <li><a href="dictionary-overview.html">Overview</a></li>
+          <li><a href="dictionary-concepts.html">General Concepts</a></li>
+          <li><a href="dictionary-mappings.html">OMOP Mappings</a></li>
+          <li><a href="dictionary-comments.html">Expert Comments</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Projects</div>
+        <ul class="sidebar-nav">
+          <li><a href="projects-overview.html">Overview</a></li>
+          <li><a href="projects-create.html">Create a Project</a></li>
+          <li><a href="projects-assign.html">Assign Concepts</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Concept Mapping</div>
+        <ul class="sidebar-nav">
+          <li><a href="mapping-overview.html">Overview</a></li>
+          <li><a href="mapping-alignments.html">Alignments</a></li>
+          <li><a href="mapping-import.html">Import Data</a></li>
+          <li><a href="mapping-export.html">Export Formats</a></li>
+          <li><a href="mapping-evaluate.html">Evaluate Mappings</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Advanced</div>
+        <ul class="sidebar-nav">
+          <li><a href="vocabularies.html">OHDSI Vocabularies</a></li>
+          <li><a href="settings.html">Settings</a></li>
+          <li><a href="users.html">User Management</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <ul class="sidebar-nav">
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="glossary.html">Glossary</a></li>
+          <li><a href="changelog.html">Changelog</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="doc-main">
+      <h1>Introduction</h1>
+
+      <p>
+        The <strong>INDICATE Data Dictionary</strong> is an interactive web application
+        designed to explore and align clinical data with the INDICATE Minimal Data Dictionary
+        - a consensus-based collection of <strong>11,924 standardized clinical concepts</strong> for
+        harmonizing intensive care unit (ICU) data across Europe.
+      </p>
+
+      <div class="info-box info">
+        <div class="info-box-title">What is INDICATE?</div>
+        <p>
+          INDICATE (INtensive care Data Integration CollAborative TErminology) is a European
+          collaborative project aimed at creating a standardized vocabulary for ICU data,
+          enabling better interoperability and research across healthcare systems.
+        </p>
+      </div>
+
+      <h2>Key Features</h2>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h4>Dictionary Explorer</h4>
+          <p>Browse 11,924 standardized clinical concepts organized by category and subcategory.</p>
+        </div>
+        <div class="feature-card">
+          <h4>OMOP Mappings</h4>
+          <p>View mappings to standard terminologies: SNOMED CT, LOINC, RxNorm, and ICD-10.</p>
+        </div>
+        <div class="feature-card">
+          <h4>Concept Mapping</h4>
+          <p>Align your local source concepts with the INDICATE dictionary general concepts.</p>
+        </div>
+        <div class="feature-card">
+          <h4>Projects</h4>
+          <p>Organize concepts into projects for specific research use cases.</p>
+        </div>
+        <div class="feature-card">
+          <h4>Export Formats</h4>
+          <p>Export to Usagi, STCM, and ATLAS JSON formats for OHDSI workflows.</p>
+        </div>
+        <div class="feature-card">
+          <h4>Expert Comments</h4>
+          <p>Access expert guidance to help with concept alignment decisions.</p>
+        </div>
+      </div>
+
+      <h2>Who is this for?</h2>
+
+      <p>This application is designed for:</p>
+
+      <ul>
+        <li><strong>Data Scientists</strong> - Working on ICU data harmonization projects</li>
+        <li><strong>Clinical Informaticists</strong> - Mapping local terminologies to standard vocabularies</li>
+        <li><strong>Researchers</strong> - Exploring the INDICATE minimal data dictionary</li>
+        <li><strong>OMOP CDM Users</strong> - Creating concept sets for observational research</li>
+        <li><strong>Healthcare Data Engineers</strong> - Building ETL pipelines for clinical data</li>
+      </ul>
+
+      <h2>Getting Started</h2>
+
+      <p>Choose your path based on your needs:</p>
+
+      <ul>
+        <li>
+          <strong>Try it online</strong> - Access the application on
+          <a href="https://huggingface.co/spaces/music-fandom/indicate-data-dictionary" target="_blank">Hugging Face Spaces</a>
+        </li>
+        <li>
+          <strong>Explore the dictionary</strong> - Jump to
+          <a href="dictionary-overview.html">Data Dictionary Overview</a>
+        </li>
+        <li>
+          <strong>Install locally</strong> - Follow the
+          <a href="installation.html">Installation Guide</a>
+        </li>
+        <li>
+          <strong>Map your data</strong> - Learn about
+          <a href="mapping-overview.html">Concept Mapping</a>
+        </li>
+      </ul>
+
+      <h2>About the INDICATE Project</h2>
+
+      <p>
+        The INDICATE project brings together intensive care experts, clinical informaticists,
+        and data scientists from across Europe to create a unified vocabulary for ICU data.
+        The minimal data dictionary represents the consensus of this collaborative effort,
+        providing a foundation for multi-center research and data sharing.
+      </p>
+
+      <p>
+        Each general concept in the dictionary is mapped to standard terminologies used in
+        the OMOP Common Data Model, facilitating integration with the broader OHDSI
+        (Observational Health Data Sciences and Informatics) network.
+      </p>
+
+      <!-- Footer navigation -->
+      <div class="doc-footer-nav">
+        <div></div>
+        <a href="installation.html" class="nav-next">
+          <span class="nav-label">Next</span>
+          <span class="nav-title">Installation</span>
+        </a>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
