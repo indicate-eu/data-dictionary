@@ -8,9 +8,9 @@ pages:
   script:
     - echo "Deploying documentation to GitLab Pages..."
     - mkdir -p public
-    - cp -r en public/
-    - cp -r fr public/
-    - cp -r assets public/
+    - cp -r docs/en public/
+    - cp -r docs/fr public/
+    - cp -r docs/assets public/
     # Create redirect from root to EN version
     - |
       cat > public/index.html << 'EOF'

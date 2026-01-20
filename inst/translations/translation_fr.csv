@@ -455,7 +455,7 @@ select_zip_file,Sélectionner le fichier ZIP :
 import_indicate_success,Alignement importé avec succès avec {mappings} mappings et {evaluations} évaluations
 import_indicate_format,Importer
 import_alignment_created,Alignement "{name}" créé avec succès avec {mappings} mappings
-users_not_found_warning,{count} utilisateur(s) non trouvé(s) (assigné(s) à l'utilisateur courant)
+users_not_found_warning,{count} utilisateur(s) non trouvé(s)
 alignment_name_exists,Un alignement avec ce nom existe déjà
 mappings_skipped_no_match,{count} mapping(s) ignoré(s) (concept source non trouvé)
 import_json,Importer JSON

@@ -1645,7 +1645,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
               # Title
               tags$div(
                 class = "section-title",
-                tags$span("General Concepts")
+                tags$span(i18n$t("general_concepts"))
               ),
               # Category badges
               tags$div(
@@ -1670,7 +1670,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
             # Left side: title
             tags$div(
               class = "section-title",
-              "General Concepts"
+              i18n$t("general_concepts")
             )
           )
         } else {
@@ -1689,7 +1689,7 @@ mod_dictionary_explorer_server <- function(id, data, config, vocabularies, vocab
                     href = "#",
                     onclick = sprintf("Shiny.setInputValue('%s', true, {priority: 'event'})", ns("back_to_list")),
                     class = "breadcrumb-link",
-                    "General Concepts"
+                    i18n$t("general_concepts")
                   ),
                   tags$span(
                     style = "margin: 0 8px; color: #999;",
