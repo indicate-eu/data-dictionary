@@ -33,40 +33,6 @@
           <li><a href="quickstart.html">Quick Start</a></li>
         </ul>
       </div>
-
-      <div class="sidebar-section">
-        <div class="sidebar-section-title">Data Dictionary</div>
-        <ul class="sidebar-nav">
-          <li><a href="dictionary-overview.html">Overview</a></li>
-          <li><a href="dictionary-concepts.html">General Concepts</a></li>
-          <li><a href="dictionary-mappings.html">Standard Terminologies</a></li>
-          <li><a href="dictionary-comments.html">Expert Comments</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
-        <div class="sidebar-section-title">Projects</div>
-        <ul class="sidebar-nav">
-          <li><a href="projects-overview.html">Overview</a></li>
-          <li><a href="projects-create.html">Create a Project</a></li>
-          <li><a href="projects-assign.html">Assign Concepts</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
-        <div class="sidebar-section-title">Concept Mapping</div>
-        <ul class="sidebar-nav">
-          <li><a href="mapping-overview.html">Overview</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
-        <div class="sidebar-section-title">Reference</div>
-        <ul class="sidebar-nav">
-          <li><a href="faq.html">FAQ</a></li>
-          <li><a href="glossary.html">Glossary</a></li>
-        </ul>
-      </div>
     </nav>
 
     <!-- Main content -->
@@ -115,7 +81,7 @@ remotes::install_github("indicate-eu/data-dictionary")</code></pre>
         </li>
       </ol>
 
-      <h3>Configuration Options</h3>
+      <h3 id="configuration-options">Configuration Options</h3>
 
       <p>You can customize the application behavior with these parameters:</p>
 
@@ -189,54 +155,6 @@ docker build -t indicate-data-dictionary .
 docker run -p 3838:3838 indicate-data-dictionary</code></pre>
 
       <p>Open your browser and navigate to <code>http://localhost:3838</code></p>
-
-      <h2>OHDSI Vocabularies</h2>
-
-      <p>
-        The application requires OHDSI vocabularies from ATHENA to function properly.
-        These vocabularies enable concept search, hierarchy navigation, and relationship lookups.
-      </p>
-
-      <div class="info-box warning">
-        <div class="info-box-title">Required</div>
-        <p>
-          Downloading OHDSI vocabularies requires registration on the ATHENA website
-          and acceptance of vocabulary license agreements.
-        </p>
-      </div>
-
-      <ol class="steps">
-        <li>
-          <strong>Register on ATHENA</strong>
-          <p>
-            Create an account at <a href="https://athena.ohdsi.org/" target="_blank">athena.ohdsi.org</a>
-          </p>
-        </li>
-        <li>
-          <strong>Select vocabularies</strong>
-          <p>Select the following vocabularies for download: SNOMED-CT, LOINC, RxNorm, RxNorm Extension, UCUM, ATC, ICD-10.</p>
-          <img src="../assets/screenshots/en/athena-download.png" alt="ATHENA vocabulary selection interface">
-        </li>
-        <li>
-          <strong>Download and extract</strong>
-          <p>
-            Download the ZIP file and extract it to a folder on your computer. Note the path
-            to this folder.
-          </p>
-        </li>
-        <li>
-          <strong>Configure in the application</strong>
-          <p>
-            Click the gear icon in the top right corner of the application, then select "General settings".
-          </p>
-          <img src="../assets/screenshots/en/general-settings-menu.png" alt="General settings menu access" style="max-width: 200px;">
-          <p>
-            Specify the path to the folder containing the CSV files downloaded from ATHENA
-            (CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, CONCEPT_ANCESTOR.csv, etc.).
-          </p>
-          <img src="../assets/screenshots/en/vocabulary-upload.png" alt="OHDSI vocabulary folder configuration">
-        </li>
-      </ol>
 
       <!-- Footer navigation -->
       <div class="doc-footer-nav">

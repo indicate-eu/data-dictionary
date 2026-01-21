@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prise en main - Documentation INDICATE Data Dictionary</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="doc-header">
+    <img src="../assets/logo.png" alt="INDICATE" class="doc-header-logo">
+    <span class="doc-header-title">INDICATE Data Dictionary</span>
+    <span class="doc-header-subtitle">Documentation</span>
+    <div class="doc-header-right">
+      <div class="lang-switch">
+        <a href="../en/quickstart.html" class="lang-btn">EN</a>
+        <a href="quickstart.html" class="lang-btn active">FR</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="doc-container">
+    <!-- Sidebar -->
+    <nav class="doc-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Démarrage</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="quickstart.html" class="active">Prise en main</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="doc-main">
+      <h1>Prise en main</h1>
+
+      <p>
+        Ce guide vous aidera à démarrer avec INDICATE Data Dictionary en quelques minutes.
+        Suivez ces étapes pour explorer le dictionnaire et comprendre sa structure.
+      </p>
+
+      <h2>Étape 1 : Lancer l'application</h2>
+
+      <p>Après l'installation, démarrez l'application :</p>
+
+      <pre><code>indicate::run_app()</code></pre>
+
+      <p>
+        L'application s'ouvrira dans votre navigateur web par défaut. Consultez la page
+        <a href="installation.html#configuration-options">Installation</a> pour les arguments disponibles
+        (langue, port, etc.).
+      </p>
+
+      <h2>Étape 2 : Se connecter</h2>
+
+      <p>
+        Vous verrez l'écran de connexion. Utilisez les identifiants par défaut pour vous connecter :
+      </p>
+
+      <img src="../assets/screenshots/fr/login-screen.png" alt="Écran de connexion" style="max-width: 350px;">
+
+      <ul>
+        <li><strong>Nom d'utilisateur :</strong> <code>admin</code></li>
+        <li><strong>Mot de passe :</strong> <code>admin</code></li>
+      </ul>
+
+      <div class="info-box warning">
+        <div class="info-box-title">Note de sécurité</div>
+        <p>
+          Pour une utilisation en production, changez le mot de passe par défaut immédiatement
+          après la première connexion via la section de gestion des utilisateurs.
+        </p>
+      </div>
+
+      <h2>Étape 3 : Configurer les vocabulaires OHDSI</h2>
+
+      <p>
+        À la première connexion, vous verrez un message d'erreur indiquant que les vocabulaires OHDSI ne sont pas chargés.
+        Le dictionnaire nécessite ces vocabulaires pour fonctionner correctement.
+      </p>
+
+      <div class="info-box warning">
+        <div class="info-box-title">Requis</div>
+        <p>
+          Le téléchargement des vocabulaires OHDSI nécessite une inscription sur le site ATHENA
+          et l'acceptation des accords de licence des vocabulaires.
+        </p>
+      </div>
+
+      <ol class="steps">
+        <li>
+          <strong>S'inscrire sur ATHENA</strong>
+          <p>
+            Créez un compte sur <a href="https://athena.ohdsi.org/" target="_blank">athena.ohdsi.org</a>
+          </p>
+        </li>
+        <li>
+          <strong>Sélectionner les vocabulaires</strong>
+          <p>Sélectionnez les vocabulaires suivants pour le téléchargement : SNOMED-CT, LOINC, RxNorm, RxNorm Extension, UCUM, ATC, ICD-10.</p>
+          <img src="../assets/screenshots/en/athena-download.png" alt="Interface de sélection des vocabulaires ATHENA">
+        </li>
+        <li>
+          <strong>Télécharger et extraire</strong>
+          <p>
+            Téléchargez le fichier ZIP et extrayez-le dans un dossier sur votre ordinateur.
+            Notez le chemin vers ce dossier.
+          </p>
+        </li>
+        <li>
+          <strong>Configurer dans l'application</strong>
+          <p>
+            Cliquez sur l'icône de rouages en haut à droite de l'application, puis sélectionnez "General settings".
+          </p>
+          <img src="../assets/screenshots/fr/general-settings-menu.png" alt="Accès au menu General settings" style="max-width: 200px;">
+          <p>
+            Spécifiez le chemin vers le dossier contenant les fichiers CSV téléchargés depuis ATHENA
+            (CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, CONCEPT_ANCESTOR.csv, etc.).
+          </p>
+          <img src="../assets/screenshots/fr/vocabulary-upload.png" alt="Configuration du dossier des vocabulaires OHDSI">
+        </li>
+      </ol>
+
+      <h2>Étape 4 : Explorer le dictionnaire</h2>
+
+      <p>
+        Une fois les vocabulaires chargés, vous pouvez accéder à la page <strong>Explorateur du dictionnaire</strong>.
+        C'est l'interface principale pour parcourir le dictionnaire INDICATE.
+      </p>
+
+      <h3>Liste des concepts généraux</h3>
+
+      <p>
+        La vue initiale affiche un DataTable avec tous les concepts généraux du dictionnaire.
+      </p>
+
+      <img src="../assets/screenshots/fr/general-concepts-list.png" alt="Liste des concepts généraux">
+
+      <ul>
+        <li>Utilisez les <strong>badges de catégorie</strong> en haut pour filtrer par catégorie (Paramètres vitaux, Biologie, Traitements, etc.)</li>
+        <li>Utilisez le champ <strong>Fuzzy Search</strong> (en haut à droite) pour rechercher des noms de concepts avec correspondance approximative</li>
+        <li>Utilisez les <strong>filtres de colonnes</strong> pour les correspondances exactes uniquement</li>
+        <li><strong>Double-cliquez</strong> sur une ligne ou cliquez sur le bouton <strong>View details</strong> pour voir les détails du concept</li>
+      </ul>
+
+      <h3>Détails d'un concept général</h3>
+
+      <p>
+        Lorsque vous sélectionnez un concept, vous accédez à la vue détaillée organisée en quatre panneaux :
+      </p>
+
+      <img src="../assets/screenshots/fr/general-concepts-details.png" alt="Vue à quatre panneaux de l'explorateur du dictionnaire">
+
+      <ul>
+        <li><strong>En haut à gauche :</strong> Concepts associés - visualisez les concepts associés des terminologies OMOP (SNOMED, LOINC, RxNorm) pour ce concept</li>
+        <li><strong>En bas à gauche :</strong> Commentaires experts - lisez les recommandations des experts cliniques pour aider à l'ETL et visualisez la distribution statistique attendue pour ce concept</li>
+        <li><strong>En haut à droite :</strong> Détails du concept - consultez les détails du concept sélectionné, avec des liens vers ATHENA et le serveur de terminologie FHIR</li>
+        <li><strong>En bas à droite :</strong> Concepts liés - visualisez les concepts liés, la hiérarchie (ancêtres/descendants) et les synonymes</li>
+      </ul>
+
+      <h2>Prochaines étapes</h2>
+
+      <p>Maintenant que vous êtes familiarisé avec les bases, apprenez-en plus sur :</p>
+
+      <ul>
+        <li><strong>Dictionnaire de données</strong> - Explorez plus en détail la structure du dictionnaire, les concepts généraux et les commentaires experts</li>
+        <li><strong>Projets</strong> - Créez des projets et assignez des concepts généraux à votre projet</li>
+        <li><strong>Alignement de concepts</strong> - Alignez vos données sources avec les concepts du dictionnaire via le module d'alignement sémantique</li>
+      </ul>
+
+      <!-- Footer navigation -->
+      <div class="doc-footer-nav">
+        <a href="installation.html" class="nav-prev">
+          <span class="nav-label">Précédent</span>
+          <span class="nav-title">Installation</span>
+        </a>
+        <div></div>
+      </div>
+    </main>
+  </div>
+  <script src="../assets/lightbox.js"></script>
+</body>
+</html>

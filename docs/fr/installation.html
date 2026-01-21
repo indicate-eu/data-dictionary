@@ -33,40 +33,6 @@
           <li><a href="quickstart.html">Prise en main</a></li>
         </ul>
       </div>
-
-      <div class="sidebar-section">
-        <div class="sidebar-section-title">Dictionnaire</div>
-        <ul class="sidebar-nav">
-          <li><a href="dictionary-overview.html">Vue d'ensemble</a></li>
-          <li><a href="dictionary-concepts.html">Concepts généraux</a></li>
-          <li><a href="dictionary-mappings.html">Terminologies standard</a></li>
-          <li><a href="dictionary-comments.html">Commentaires experts</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
-        <div class="sidebar-section-title">Projets</div>
-        <ul class="sidebar-nav">
-          <li><a href="projects-overview.html">Vue d'ensemble</a></li>
-          <li><a href="projects-create.html">Créer un projet</a></li>
-          <li><a href="projects-assign.html">Assigner des concepts</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
-        <div class="sidebar-section-title">Alignement de concepts</div>
-        <ul class="sidebar-nav">
-          <li><a href="mapping-overview.html">Vue d'ensemble</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
-        <div class="sidebar-section-title">Référence</div>
-        <ul class="sidebar-nav">
-          <li><a href="faq.html">FAQ</a></li>
-          <li><a href="glossary.html">Glossaire</a></li>
-        </ul>
-      </div>
     </nav>
 
     <!-- Main content -->
@@ -115,7 +81,7 @@ remotes::install_github("indicate-eu/data-dictionary")</code></pre>
         </li>
       </ol>
 
-      <h3>Options de configuration</h3>
+      <h3 id="configuration-options">Options de configuration</h3>
 
       <p>Vous pouvez personnaliser le comportement de l'application avec ces paramètres :</p>
 
@@ -189,55 +155,6 @@ docker build -t indicate-data-dictionary .
 docker run -p 3838:3838 indicate-data-dictionary</code></pre>
 
       <p>Ouvrez votre navigateur et accédez à <code>http://localhost:3838</code></p>
-
-      <h2>Vocabulaires OHDSI</h2>
-
-      <p>
-        L'application nécessite les vocabulaires OHDSI d'ATHENA pour fonctionner correctement.
-        Ces vocabulaires permettent la recherche de concepts, la navigation dans les hiérarchies
-        et la consultation des relations.
-      </p>
-
-      <div class="info-box warning">
-        <div class="info-box-title">Requis</div>
-        <p>
-          Le téléchargement des vocabulaires OHDSI nécessite une inscription sur le site ATHENA
-          et l'acceptation des accords de licence des vocabulaires.
-        </p>
-      </div>
-
-      <ol class="steps">
-        <li>
-          <strong>S'inscrire sur ATHENA</strong>
-          <p>
-            Créez un compte sur <a href="https://athena.ohdsi.org/" target="_blank">athena.ohdsi.org</a>
-          </p>
-        </li>
-        <li>
-          <strong>Sélectionner les vocabulaires</strong>
-          <p>Sélectionnez les vocabulaires suivants pour le téléchargement : SNOMED-CT, LOINC, RxNorm, RxNorm Extension, UCUM, ATC, ICD-10.</p>
-          <img src="../assets/screenshots/en/athena-download.png" alt="Interface de sélection des vocabulaires ATHENA">
-        </li>
-        <li>
-          <strong>Télécharger et extraire</strong>
-          <p>
-            Téléchargez le fichier ZIP et extrayez-le dans un dossier sur votre ordinateur.
-            Notez le chemin vers ce dossier.
-          </p>
-        </li>
-        <li>
-          <strong>Configurer dans l'application</strong>
-          <p>
-            Cliquez sur l'icône de rouages en haut à droite de l'application, puis sélectionnez "General settings".
-          </p>
-          <img src="../assets/screenshots/fr/general-settings-menu.png" alt="Accès au menu General settings" style="max-width: 200px;">
-          <p>
-            Spécifiez le chemin vers le dossier contenant les fichiers CSV téléchargés depuis ATHENA
-            (CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, CONCEPT_ANCESTOR.csv, etc.).
-          </p>
-          <img src="../assets/screenshots/fr/vocabulary-upload.png" alt="Configuration du dossier des vocabulaires OHDSI">
-        </li>
-      </ol>
 
       <!-- Footer navigation -->
       <div class="doc-footer-nav">

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Start - INDICATE Data Dictionary Documentation</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="doc-header">
+    <img src="../assets/logo.png" alt="INDICATE" class="doc-header-logo">
+    <span class="doc-header-title">INDICATE Data Dictionary</span>
+    <span class="doc-header-subtitle">Documentation</span>
+    <div class="doc-header-right">
+      <div class="lang-switch">
+        <a href="quickstart.html" class="lang-btn active">EN</a>
+        <a href="../fr/quickstart.html" class="lang-btn">FR</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="doc-container">
+    <!-- Sidebar -->
+    <nav class="doc-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Getting Started</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="quickstart.html" class="active">Quick Start</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="doc-main">
+      <h1>Quick Start</h1>
+
+      <p>
+        This guide will help you get started with INDICATE Data Dictionary in just a few minutes.
+        Follow these steps to explore the dictionary and understand its structure.
+      </p>
+
+      <h2>Step 1: Launch the Application</h2>
+
+      <p>After installation, start the application:</p>
+
+      <pre><code>indicate::run_app()</code></pre>
+
+      <p>
+        The application will open in your default web browser. See the
+        <a href="installation.html#configuration-options">Installation</a> page for available arguments
+        (language, port, etc.).
+      </p>
+
+      <h2>Step 2: Log In</h2>
+
+      <p>
+        You will see the login screen. Use the default credentials to log in:
+      </p>
+
+      <img src="../assets/screenshots/en/login-screen.png" alt="Login screen" style="max-width: 350px;">
+
+      <ul>
+        <li><strong>Username:</strong> <code>admin</code></li>
+        <li><strong>Password:</strong> <code>admin</code></li>
+      </ul>
+
+      <div class="info-box warning">
+        <div class="info-box-title">Security Note</div>
+        <p>
+          For production use, change the default password immediately after first login
+          via the Users management section.
+        </p>
+      </div>
+
+      <h2>Step 3: Configure OHDSI Vocabularies</h2>
+
+      <p>
+        On first login, you will see an error message indicating that OHDSI vocabularies are not loaded.
+        The dictionary requires these vocabularies to function properly.
+      </p>
+
+      <div class="info-box warning">
+        <div class="info-box-title">Required</div>
+        <p>
+          Downloading OHDSI vocabularies requires registration on the ATHENA website
+          and acceptance of vocabulary license agreements.
+        </p>
+      </div>
+
+      <ol class="steps">
+        <li>
+          <strong>Register on ATHENA</strong>
+          <p>
+            Create an account at <a href="https://athena.ohdsi.org/" target="_blank">athena.ohdsi.org</a>
+          </p>
+        </li>
+        <li>
+          <strong>Select vocabularies</strong>
+          <p>Select the following vocabularies for download: SNOMED-CT, LOINC, RxNorm, RxNorm Extension, UCUM, ATC, ICD-10.</p>
+          <img src="../assets/screenshots/en/athena-download.png" alt="ATHENA vocabulary selection interface">
+        </li>
+        <li>
+          <strong>Download and extract</strong>
+          <p>
+            Download the ZIP file and extract it to a folder on your computer. Note the path
+            to this folder.
+          </p>
+        </li>
+        <li>
+          <strong>Configure in the application</strong>
+          <p>
+            Click the gear icon in the top right corner of the application, then select "General settings".
+          </p>
+          <img src="../assets/screenshots/en/general-settings-menu.png" alt="General settings menu access" style="max-width: 200px;">
+          <p>
+            Specify the path to the folder containing the CSV files downloaded from ATHENA
+            (CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, CONCEPT_ANCESTOR.csv, etc.).
+          </p>
+          <img src="../assets/screenshots/en/vocabulary-upload.png" alt="OHDSI vocabulary folder configuration">
+        </li>
+      </ol>
+
+      <h2>Step 4: Explore the Dictionary</h2>
+
+      <p>
+        Once vocabularies are loaded, you can access the <strong>Dictionary Explorer</strong> page.
+        This is the main interface for browsing the INDICATE dictionary.
+      </p>
+
+      <h3>General Concepts List</h3>
+
+      <p>
+        The initial view displays a DataTable with all general concepts from the dictionary.
+      </p>
+
+      <img src="../assets/screenshots/en/general-concepts-list.png" alt="General concepts list">
+
+      <ul>
+        <li>Use the <strong>category badges</strong> at the top to filter by category (Vitals, Labs, Drugs, etc.)</li>
+        <li>Use the <strong>Fuzzy Search</strong> input (top right) to search concept names with approximate matching</li>
+        <li>Use the <strong>column filters</strong> for exact matches only</li>
+        <li><strong>Double-click</strong> on a row or click the <strong>View details</strong> button to see the concept details</li>
+      </ul>
+
+      <h3>General Concept Details</h3>
+
+      <p>
+        When you select a concept, you enter the detail view organized in four panels:
+      </p>
+
+      <img src="../assets/screenshots/en/general-concepts-details.png" alt="Dictionary Explorer four-panel view">
+
+      <ul>
+        <li><strong>Top-Left:</strong> Associated concepts - View associated concepts from OMOP vocabularies (SNOMED, LOINC, RxNorm, ICD-10) for this general concept</li>
+        <li><strong>Bottom-Left:</strong> Expert comments - Read guidance from clinical experts to help with ETL and view the expected statistical distribution for this concept</li>
+        <li><strong>Top-Right:</strong> Concept details - See details about the selected concept, with links to ATHENA and the FHIR Terminology Server</li>
+        <li><strong>Bottom-Right:</strong> Related concepts - View related concepts, hierarchy (ancestors/descendants), and synonyms</li>
+      </ul>
+
+      <h2>Next Steps</h2>
+
+      <p>Now that you're familiar with the basics, learn more about:</p>
+
+      <ul>
+        <li><strong>Data Dictionary</strong> - Explore in more detail the dictionary structure, general concepts, and expert comments</li>
+        <li><strong>Projects</strong> - Create projects and assign general concepts to your project</li>
+        <li><strong>Concept Mapping</strong> - Align your source data with dictionary concepts using the semantic mapping module</li>
+      </ul>
+
+      <!-- Footer navigation -->
+      <div class="doc-footer-nav">
+        <a href="installation.html" class="nav-prev">
+          <span class="nav-label">Previous</span>
+          <span class="nav-title">Installation</span>
+        </a>
+        <div></div>
+      </div>
+    </main>
+  </div>
+  <script src="../assets/lightbox.js"></script>
+</body>
+</html>
