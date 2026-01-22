@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Détails d'un concept général - Documentation INDICATE Data Dictionary</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="doc-header">
+    <img src="../assets/logo.png" alt="INDICATE" class="doc-header-logo">
+    <span class="doc-header-title">INDICATE Data Dictionary</span>
+    <span class="doc-header-subtitle">Documentation</span>
+    <div class="doc-header-right">
+      <div class="lang-switch">
+        <a href="../en/general-concept-details.html" class="lang-btn">EN</a>
+        <a href="general-concept-details.html" class="lang-btn active">FR</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="doc-container">
+    <!-- Sidebar -->
+    <nav class="doc-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Premiers pas</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="quickstart.html">Démarrage rapide</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Explorateur du dictionnaire</div>
+        <ul class="sidebar-nav">
+          <li><a href="dictionary-explorer.html">Concepts généraux</a></li>
+          <li><a href="general-concept-details.html" class="active">Détails d'un concept général</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="doc-main">
+      <h1>Détails d'un concept général</h1>
+
+      <p>
+        Lorsque vous sélectionnez un concept général dans la liste des <a href="dictionary-explorer.html">Concepts généraux</a>,
+        vous accédez à la vue détaillée. Cette page affiche des informations complètes sur le concept général sélectionné,
+        organisées dans un <strong>agencement à quatre panneaux</strong>.
+      </p>
+
+      <img src="../assets/screenshots/fr/general-concepts-details.png" alt="Vue à quatre panneaux des détails d'un concept général">
+
+      <h2>Vue d'ensemble de l'agencement</h2>
+
+      <p>
+        La vue détaillée est divisée en quatre quadrants :
+      </p>
+
+      <ul>
+        <li><strong>En haut à gauche : concepts associés</strong> — concepts terminologiques spécifiques (LOINC, SNOMED, RxNorm)
+        liés à ce concept général, avec leurs identifiants de concepts OMOP</li>
+        <li><strong>En haut à droite : détails du concept sélectionné</strong> — métadonnées détaillées sur le concept
+        actuellement sélectionné dans la table des concepts associés</li>
+        <li><strong>En bas à droite : relations et hiérarchie des concepts</strong> — concepts liés, position hiérarchique
+        et synonymes des vocabulaires OMOP</li>
+        <li><strong>En bas à gauche : commentaires et conseils ETL</strong> — commentaires d'experts et informations
+        statistiques sur la distribution pour faciliter l'alignement des données</li>
+      </ul>
+
+      <h2>1. Concepts associés (en haut à gauche)</h2>
+
+      <p>
+        Ce panneau affiche tous les concepts terminologiques associés au concept général sélectionné. Il s'agit
+        de codes spécifiques issus de vocabulaires standards (LOINC, SNOMED CT, RxNorm, ICD-10) qui ont été mappés
+        à ce concept général.
+      </p>
+
+      <img src="../assets/screenshots/fr/associated-concepts.png" alt="Panneau Concepts associés">
+
+      <h3>Fonctionnalités du tableau</h3>
+
+      <ul>
+        <li><strong>Visibilité des colonnes</strong> — Cliquez sur le menu déroulant <strong>Colonnes</strong> en haut à gauche
+        du tableau pour afficher ou masquer des colonnes spécifiques</li>
+        <li><strong>Filtres de colonnes</strong> — Utilisez les champs de texte en haut de chaque colonne pour une correspondance exacte</li>
+        <li><strong>Recherche approximative</strong> — Utilisez le champ de recherche approximative pour une correspondance approximative sur les noms de concepts</li>
+        <li><strong>Sélection de ligne</strong> — Cliquez sur une ligne pour la sélectionner. Les panneaux Détails du concept sélectionné et
+        Relations des concepts se mettront à jour pour afficher les informations sur le concept sélectionné</li>
+      </ul>
+
+      <h3>Options de copie</h3>
+
+      <p>
+        Le bouton <strong>Copier</strong> en haut à droite du tableau propose des options d'export :
+      </p>
+
+      <img src="../assets/screenshots/fr/copy-options.png" alt="Menu des options de copie" style="max-width: 200px;">
+
+      <ul>
+        <li><strong>Copier en ATLAS JSON</strong> — Copie le concept set au format ATLAS JSON. Ce format
+        est compatible avec les <a href="https://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:atlas:concept_sets"
+        target="_blank">concept sets OHDSI ATLAS</a></li>
+        <li><strong>Copier OMOP SQL</strong> — Copie une requête SQL qui inclut tous les concepts associés pour
+        ce concept général</li>
+      </ul>
+
+      <h3>Mode édition</h3>
+
+      <p>
+        Lorsque vous entrez en mode édition en cliquant sur <strong>Editer la page</strong> en haut à droite,
+        les boutons d'action changent pour :
+      </p>
+
+      <ul>
+        <li><strong>Plein écran</strong> — Affiche le tableau en mode plein écran pour faciliter l'édition</li>
+        <li><strong>Tout supprimer</strong> — Supprime tous les concepts associés à ce concept général</li>
+        <li><strong>Importer JSON</strong> — Importe des concepts depuis un fichier de concept set ATLAS JSON</li>
+        <li><strong>Ajouter les concepts</strong> — Ouvre la fenêtre modale pour ajouter de nouveaux concepts à la liste</li>
+      </ul>
+
+      <img src="../assets/screenshots/fr/edit-mode-details.png" alt="Boutons du mode édition pour les Concepts associés">
+
+      <div class="info-box info">
+        <div class="info-box-title">Comprendre les concept sets vs l'affichage</div>
+        <p>
+          <strong>En mode édition</strong>, vous sélectionnez généralement des concepts de classification plus larges et incluez leurs descendants.
+          Par exemple, vous pourriez ajouter des concepts comme :
+        </p>
+        <ul>
+          <li>Heart rate | Arterial system | Heart rate taken in specific position (LOINC LP416415-0, Classification)</li>
+          <li>Heart rate | Peripheral artery | Specific heart rate (LOINC LP415785-7, Classification)</li>
+        </ul>
+        <p>
+          <strong>En mode visualisation</strong>, le tableau affiche le concept set complet étendu, incluant tous les descendants.
+          Pour le même concept général, vous verrez des concepts standards spécifiques comme :
+        </p>
+        <ul>
+          <li>Heart rate --W exercise (LOINC 89273-7, Standard)</li>
+          <li>Heart rate --during anesthesia (LOINC 89278-6, Standard)</li>
+          <li>Heart rate --post exercise (LOINC 40442-6, Standard)</li>
+          <li>Heart rate --resting (LOINC 40443-4, Standard)</li>
+        </ul>
+        <p>
+          Cette approche vous permet de gérer efficacement les concept sets en sélectionnant des concepts parents plutôt que
+          d'ajouter individuellement des centaines de concepts spécifiques.
+        </p>
+      </div>
+
+      <h3>Ajout de concepts</h3>
+
+      <p>
+        Cliquer sur <strong>Ajouter des concepts</strong> ouvre une fenêtre modale avec deux onglets :
+      </p>
+
+      <h4>Rechercher des concepts OMOP</h4>
+
+      <p>
+        Cet onglet vous permet de rechercher dans toute la base de données de vocabulaires OMOP :
+      </p>
+
+      <img src="../assets/screenshots/fr/search-omop-concepts.png" alt="Fenêtre modale de recherche de concepts OMOP">
+
+      <ul>
+        <li><strong>Recherche approximative</strong> — Recherchez des concepts par nom avec correspondance approximative</li>
+        <li><strong>Limiter à 10K</strong> — Activez cette option pour limiter les résultats à 10 000 concepts. Cela évite
+        de surcharger le tableau lors de la recherche parmi des millions de concepts OMOP</li>
+        <li><strong>Filtres avancés</strong> — Filtrez par Vocabulary ID, Domain ID, Concept Class ID,
+        statut Standard Concept et Validity. Cela vous permet d'afficher tous les concepts filtrés
+        (en désactivant "Limiter à 10K")</li>
+      </ul>
+
+      <p>
+        Lorsque vous cliquez sur un concept dans les résultats de recherche, vous pouvez voir ses détails et ses descendants.
+      </p>
+
+      <h4>Options de concept set</h4>
+
+      <p>
+        Lors de l'ajout de concepts, vous pouvez configurer trois options importantes qui définissent comment le concept
+        sera inclus dans le concept set :
+      </p>
+
+      <ul>
+        <li><strong>Exclure</strong> — Lorsque coché, ce concept sera exclu du concept set.
+        C'est utile lorsque vous souhaitez inclure tous les descendants d'un concept parent sauf certains spécifiques.
+        Lorsque combiné avec "Descendants", tous les concepts descendants seront également exclus</li>
+        <li><strong>Descendants</strong> — Lorsque coché, tous les concepts descendants (enfants, petits-enfants, etc.)
+        dans la hiérarchie du vocabulaire seront automatiquement inclus dans le concept set. Si "Exclure" est également coché,
+        tous les descendants seront exclus du concept set</li>
+        <li><strong>Mappés</strong> — Lorsque coché, les concepts mappés à ce concept via
+        des relations "Maps to" seront également inclus</li>
+      </ul>
+
+      <div class="info-box info">
+        <div class="info-box-title">Comprendre les concept sets</div>
+        <p>
+          Ces options suivent la logique des concept sets OHDSI ATLAS. Pour des informations détaillées sur le
+          fonctionnement des concept sets, consultez la
+          <a href="https://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:atlas:concept_sets"
+          target="_blank">documentation des concept sets ATLAS</a>.
+        </p>
+      </div>
+
+      <h4>Ajouter un concept personnalisé</h4>
+
+      <p>
+        Cet onglet vous permet d'ajouter des concepts personnalisés qui peuvent ne pas exister dans les vocabulaires OMOP standards.
+      </p>
+
+      <img src="../assets/screenshots/fr/add-custom-concept.png" alt="Formulaire d'ajout de concept personnalisé" style="max-width: 350px;">
+
+      <div class="info-box warning">
+        <div class="info-box-title">⚠️ Éviter les concepts personnalisés</div>
+        <p>
+          L'ajout de concepts personnalisés doit être <strong>absolument évité</strong> dans la mesure du possible. Les concepts personnalisés
+          altèrent l'interopérabilité et empêchent le partage de données à travers le réseau OHDSI.
+        </p>
+        <p>
+          Si vous avez besoin d'un concept qui n'existe pas dans les vocabulaires standards, cela ne devrait être utilisé que comme
+          <strong>solution temporaire</strong> pendant que vous soumettez le concept au
+          <a href="https://www.ohdsi.org/workgroups/#CDM-Vocab" target="_blank">groupe de travail OHDSI Vocabulary</a>
+          pour trouver une solution permanente.
+        </p>
+      </div>
+
+      <h2>2. Détails du concept sélectionné (en haut à droite)</h2>
+
+      <p>
+        Lorsqu'un concept est sélectionné dans le tableau des concepts associés, ce panneau affiche ses
+        métadonnées complètes :
+      </p>
+
+      <img src="../assets/screenshots/fr/selected-concept-details.png" alt="Panneau Détails du concept sélectionné">
+
+      <ul>
+        <li><strong>Vocabulary ID</strong> — Le vocabulaire source (LOINC, SNOMED, RxNorm, etc.)</li>
+        <li><strong>Concept Name</strong> — Le nom officiel du concept</li>
+        <li><strong>Category</strong> — La catégorie du concept général</li>
+        <li><strong>Subcategory</strong> — La sous-catégorie du concept général</li>
+        <li><strong>Domain ID</strong> — Le domaine OMOP (Measurement, Condition, Drug, etc.)</li>
+        <li><strong>Concept Class</strong> — La classe du concept dans le vocabulaire</li>
+        <li><strong>Validity</strong> — Si le concept est actuellement valide ou déprécié</li>
+        <li><strong>Standard</strong> — Statut de concept standard (Standard, Classification, ou Non-standard)</li>
+        <li><strong>Concept Code</strong> — Le code dans le vocabulaire source</li>
+        <li><strong>OMOP Concept ID</strong> — L'identifiant OMOP unique (lien vers ATHENA)</li>
+        <li><strong>FHIR Resource</strong> — Lien pour voir le concept sur un serveur de terminologie FHIR</li>
+      </ul>
+
+      <h3>Informations sur l'unité</h3>
+
+      <p>
+        Pour les concepts de mesure, des informations supplémentaires sur l'unité sont affichées :
+      </p>
+
+      <ul>
+        <li><strong>Unit Concept Name</strong> — Le nom de l'unité associée (par ex., "per minute")</li>
+        <li><strong>Unit Concept Code</strong> — Le code UCUM (par ex., "/min")</li>
+        <li><strong>Unit Concept ID</strong> — L'identifiant de concept OMOP pour l'unité</li>
+        <li><strong>Unit FHIR Resource</strong> — Lien pour voir l'unité sur un serveur FHIR</li>
+        <li><strong>Unit Conversions</strong> — Conversions d'unités disponibles pour ce concept</li>
+      </ul>
+
+      <h3>Liens externes</h3>
+
+      <p>
+        Le panneau fournit des liens directs vers :
+      </p>
+
+      <ul>
+        <li><strong>ATHENA</strong> — Voir le concept sur le navigateur de vocabulaires OHDSI ATHENA</li>
+        <li><strong>FHIR Terminology Server</strong> — Voir le concept comme une ressource FHIR CodeSystem</li>
+      </ul>
+
+      <h3>Attribution d'unités</h3>
+
+      <p>
+        En mode édition, vous pouvez attribuer un Unit Concept ID aux concepts de mesure. Les unités doivent être
+        des concepts UCUM (Unified Code for Units of Measure) du vocabulaire OMOP.
+      </p>
+
+      <h2>3. Commentaires et conseils ETL (en bas à gauche)</h2>
+
+      <p>
+        Ce panneau fournit des conseils essentiels pour l'alignement des données et les processus ETL.
+      </p>
+
+      <img src="../assets/screenshots/en/comments-etl-guidance-panel.png" alt="Panneau Commentaires et conseils ETL">
+
+      <h3>Commentaires d'experts</h3>
+
+      <p>
+        L'onglet <strong>Commentaires</strong> contient des conseils d'experts rédigés par des spécialistes du domaine
+        (data scientists et experts cliniques). Ces commentaires décrivent :
+      </p>
+
+      <ul>
+        <li>La signification clinique et le contexte du concept général</li>
+        <li>Quels concepts associés privilégier dans différents scénarios</li>
+        <li>Les pièges courants et les cas limites à considérer pendant l'ETL</li>
+        <li>Les différences entre des concepts similaires à travers les vocabulaires</li>
+      </ul>
+
+      <p>
+        Ce contenu est continuellement enrichi au fur et à mesure que les experts contribuent leurs connaissances.
+      </p>
+
+      <p>
+        En mode édition, l'éditeur de commentaires offre une vue à deux panneaux avec aperçu markdown en direct :
+      </p>
+
+      <img src="../assets/screenshots/en/comments-editor-markdown.png" alt="Éditeur de commentaires avec aperçu markdown en direct">
+
+      <h3>Résumé statistique</h3>
+
+      <p>
+        L'onglet <strong>Résumé statistique</strong> affiche les distributions de données attendues pour ce
+        concept général. Ces informations aident à valider vos données pendant l'ETL en fournissant des plages
+        de référence et des patterns typiques.
+      </p>
+
+      <img src="../assets/screenshots/en/statistical-summary.png" alt="Résumé statistique avec histogramme et statistiques" style="max-width: 650px;">
+
+      <p>
+        Les données statistiques sont stockées au format JSON. Vous pouvez fournir un seul profil statistique directement,
+        ou utiliser plusieurs <strong>profils</strong> pour différentes populations de patients (par ex., Adulte, Enfant, Nouveau-né).
+      </p>
+
+      <h4>Structure JSON requise</h4>
+
+      <style>
+        .badge { display: inline-block; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: 600; margin-left: 4px; }
+        .badge-required { background-color: #dc3545; color: white; }
+        .badge-optional { background-color: #6c757d; color: white; }
+        h5 { font-style: italic; margin-top: 1.2em; margin-bottom: 0.6em; color: #333; }
+        .info-box-validation { margin-top: 2em; }
+      </style>
+
+      <p>Pour créer un fichier JSON statistique valide, suivez ces exigences :</p>
+
+      <h5>Option 1 : Données statistiques directes (Simple)</h5>
+
+      <p>Fournissez les données statistiques directement au niveau racine (pas besoin de tableau profiles) :</p>
+
+      <ul>
+        <li><span class="badge badge-required">requis</span> <strong>"name_en"</strong> — Nom du profil en anglais</li>
+        <li><span class="badge badge-required">requis</span> <strong>"name_fr"</strong> — Nom du profil en français</li>
+        <li><span class="badge badge-required">requis</span> <strong>"description_en"</strong> — Description du profil en anglais</li>
+        <li><span class="badge badge-required">requis</span> <strong>"description_fr"</strong> — Description du profil en français</li>
+        <li><span class="badge badge-required">requis</span> <strong>"data_types"</strong> — Tableau : ["numeric"], ["categorical"], ou les deux</li>
+      </ul>
+
+      <h5>Option 2 : Profils multiples (Avancé)</h5>
+
+      <p>Utilisez un tableau profiles pour différentes populations de patients (chaque profil a la même structure que l'Option 1) :</p>
+
+      <ul>
+        <li><span class="badge badge-required">requis</span> <strong>"profiles"</strong> — Tableau d'objets profils</li>
+        <li><span class="badge badge-required">requis</span> <strong>"default_profile"</strong> — Chaîne correspondant au name_en d'un profil</li>
+      </ul>
+
+      <h5>Champs de données numériques</h5>
+
+      <p>Si <strong>"data_types"</strong> inclut "numeric", ajoutez un objet <strong>"numeric_data"</strong> avec :</p>
+
+      <ul>
+        <li><span class="badge badge-required">requis</span> <strong>"min"</strong> — Valeur minimale</li>
+        <li><span class="badge badge-required">requis</span> <strong>"max"</strong> — Valeur maximale</li>
+        <li><span class="badge badge-required">requis</span> <strong>"mean"</strong> — Moyenne arithmétique</li>
+        <li><span class="badge badge-required">requis</span> <strong>"median"</strong> — Médiane (50e percentile)</li>
+        <li><span class="badge badge-required">requis</span> <strong>"sd"</strong> — Écart-type</li>
+        <li><span class="badge badge-optional">optionnel</span> <strong>"cv"</strong> — Coefficient de variation (sd/mean × 100)</li>
+        <li><span class="badge badge-optional">optionnel</span> <strong>"p5"</strong> — 5e percentile</li>
+        <li><span class="badge badge-required">requis</span> <strong>"p25"</strong> — 25e percentile (Q1)</li>
+        <li><span class="badge badge-required">requis</span> <strong>"p75"</strong> — 75e percentile (Q3)</li>
+        <li><span class="badge badge-optional">optionnel</span> <strong>"p95"</strong> — 95e percentile</li>
+      </ul>
+
+      <h5>Données d'histogramme</h5>
+
+      <p>Ajoutez un tableau <strong>"histogram"</strong> avec des objets contenant :</p>
+
+      <ul>
+        <li><strong>"x"</strong> — Centre de la classe ou valeur</li>
+        <li><strong>"count"</strong> — Nombre d'observations</li>
+      </ul>
+
+      <p><strong>Règles pour les histogrammes :</strong></p>
+      <ul>
+        <li>Utilisez 10-50 classes pour les données continues (plus de classes offrent une meilleure résolution)</li>
+        <li>Les valeurs doivent être en ordre croissant par "x"</li>
+        <li>Couvrir la plage de p5 à p95 (ou plus large)</li>
+        <li>Utilisez un tableau vide [] si aucune donnée d'histogramme n'est disponible</li>
+      </ul>
+
+      <h5>Champs de données catégorielles</h5>
+
+      <p>Si <strong>"data_types"</strong> inclut "categorical", ajoutez un tableau <strong>"categorical_data"</strong> avec des objets :</p>
+
+      <ul>
+        <li><strong>"category"</strong> — Nom de la catégorie</li>
+        <li><strong>"count"</strong> — Nombre d'observations</li>
+        <li><span class="badge badge-optional">optionnel</span> <strong>"percentage"</strong> — Valeur en pourcentage</li>
+      </ul>
+
+      <h5>Métadonnées supplémentaires</h5>
+
+      <ul>
+        <li><span class="badge badge-optional">optionnel</span> <strong>"measurement_frequency"</strong> — Objet avec "typical_interval": "hourly" | "continuous" | "daily" | "weekly"</li>
+      </ul>
+
+      <h4>Exemple complet (Cliquer pour développer)</h4>
+
+      <details>
+        <summary>Voir l'exemple JSON complet avec 3 profils (Adulte, Enfant, Nouveau-né)</summary>
+        <pre><code>{
+  "profiles": [
+    {
+      "name_en": "Adult",
+      "description_en": "Adults (18+ years)",
+      "name_fr": "Adulte",
+      "description_fr": "Adultes (18+ ans)",
+      "data_types": ["numeric"],
+      "numeric_data": {
+        "min": 25,
+        "max": 220,
+        "mean": 82.4,
+        "median": 78,
+        "sd": 18.6,
+        "cv": 22.5,
+        "p5": 52,
+        "p25": 68,
+        "p75": 92,
+        "p95": 118
+      },
+      "histogram": [
+        {"x": 30, "count": 1245},
+        {"x": 40, "count": 4982},
+        {"x": 50, "count": 37284},
+        {"x": 60, "count": 124568},
+        {"x": 70, "count": 286542},
+        {"x": 80, "count": 324567},
+        {"x": 90, "count": 248956},
+        {"x": 100, "count": 124568},
+        {"x": 110, "count": 56234},
+        {"x": 120, "count": 24856},
+        {"x": 130, "count": 8456},
+        {"x": 140, "count": 2845},
+        {"x": 150, "count": 956}
+      ],
+      "categorical_data": [],
+      "measurement_frequency": {
+        "typical_interval": "hourly"
+      }
+    },
+    {
+      "name_en": "Child",
+      "description_en": "Children (1-17 years)",
+      "name_fr": "Enfant",
+      "description_fr": "Enfants (1-17 ans)",
+      "data_types": ["numeric"],
+      "numeric_data": {
+        "min": 45,
+        "max": 200,
+        "mean": 98.5,
+        "median": 95,
+        "sd": 22.3,
+        "cv": 22.6,
+        "p5": 65,
+        "p25": 82,
+        "p75": 112,
+        "p95": 145
+      },
+      "histogram": [
+        {"x": 50, "count": 892},
+        {"x": 60, "count": 3567},
+        {"x": 70, "count": 12456},
+        {"x": 80, "count": 28945},
+        {"x": 90, "count": 45678},
+        {"x": 100, "count": 52341},
+        {"x": 110, "count": 38956},
+        {"x": 120, "count": 24567},
+        {"x": 130, "count": 12345},
+        {"x": 140, "count": 5678},
+        {"x": 150, "count": 2345},
+        {"x": 160, "count": 892}
+      ],
+      "categorical_data": [],
+      "measurement_frequency": {
+        "typical_interval": "hourly"
+      }
+    },
+    {
+      "name_en": "Newborn",
+      "description_en": "Newborns (0-28 days)",
+      "name_fr": "Nouveau-né",
+      "description_fr": "Nouveau-nés (0-28 jours)",
+      "data_types": ["numeric"],
+      "numeric_data": {
+        "min": 80,
+        "max": 205,
+        "mean": 142.5,
+        "median": 140,
+        "sd": 18.2,
+        "cv": 12.8,
+        "p5": 115,
+        "p25": 130,
+        "p75": 155,
+        "p95": 175
+      },
+      "histogram": [
+        {"x": 85, "count": 234},
+        {"x": 95, "count": 567},
+        {"x": 105, "count": 1892},
+        {"x": 115, "count": 4567},
+        {"x": 125, "count": 8945},
+        {"x": 135, "count": 14567},
+        {"x": 145, "count": 16789},
+        {"x": 155, "count": 12345},
+        {"x": 165, "count": 6789},
+        {"x": 175, "count": 2345},
+        {"x": 185, "count": 678},
+        {"x": 195, "count": 189}
+      ],
+      "categorical_data": [],
+      "measurement_frequency": {
+        "typical_interval": "continuous"
+      }
+    }
+  ],
+  "default_profile": "Adult"
+}</code></pre>
+      </details>
+
+      <h4>Exemple avec données catégorielles (Cliquer pour développer)</h4>
+
+      <details>
+        <summary>Voir l'exemple de données catégorielles</summary>
+        <pre><code>{
+  "profiles": [
+    {
+      "name_en": "Adult",
+      "description_en": "Adults (18+ years)",
+      "name_fr": "Adulte",
+      "description_fr": "Adultes (18+ ans)",
+      "data_types": ["categorical"],
+      "numeric_data": {},
+      "histogram": [],
+      "categorical_data": [
+        {"category": "Normal", "count": 65432, "percentage": 68.5},
+        {"category": "Abnormal", "count": 21234, "percentage": 22.2},
+        {"category": "Critical", "count": 8890, "percentage": 9.3}
+      ],
+      "measurement_frequency": {
+        "typical_interval": "daily"
+      }
+    }
+  ],
+  "default_profile": "Adult"
+}</code></pre>
+      </details>
+
+      <h2>4. Relations et hiérarchie des concepts (en bas à droite)</h2>
+
+      <img src="../assets/screenshots/fr/concept-relationships-panel.png" alt="Panneau Relations et hiérarchie des concepts">
+
+      <p>
+        Ce panneau montre comment le concept sélectionné est lié à d'autres concepts dans les vocabulaires OMOP.
+        Il comporte trois onglets :
+      </p>
+
+      <h3>Onglet Liés</h3>
+
+      <p>
+        Affiche les concepts liés au concept sélectionné via la table OMOP <code>CONCEPT_RELATIONSHIP</code>.
+        Cela inclut des relations comme :
+      </p>
+
+      <ul>
+        <li>"Maps to" — Alignement vers des concepts standards</li>
+        <li>"Is a" — Relations hiérarchiques</li>
+        <li>"Has component" — Relations de composants pour les panels de laboratoire</li>
+        <li>Et de nombreux autres types de relations spécifiques à chaque vocabulaire</li>
+      </ul>
+
+      <h3>Onglet Hiérarchie</h3>
+
+      <p>
+        Montre la position hiérarchique du concept sélectionné en utilisant la table OMOP <code>CONCEPT_ANCESTOR</code>.
+        Cela affiche :
+      </p>
+
+      <ul>
+        <li><strong>Ancêtres</strong> — Concepts parents remontant dans l'arbre hiérarchique</li>
+        <li><strong>Descendants</strong> — Concepts enfants descendant dans l'arbre hiérarchique</li>
+      </ul>
+
+      <p>
+        Cliquez sur <strong>Voir le graphe</strong> pour visualiser la hiérarchie sous forme de graphe interactif. Cela
+        fournit une représentation visuelle de l'organisation des concepts dans la structure du vocabulaire.
+      </p>
+
+      <img src="../assets/screenshots/fr/hierarchy-graph.png" alt="Visualisation du graphe hiérarchique">
+
+      <p>
+        Le graphe hiérarchique est entièrement interactif :
+      </p>
+
+      <ul>
+        <li><strong>Double-cliquez sur n'importe quel concept</strong> dans le graphe pour recentrer la visualisation sur ce concept.
+        Un nouveau graphe apparaîtra, montrant les ancêtres et descendants du concept sélectionné</li>
+        <li><strong>Concept précédent mis en évidence</strong> — Le concept que vous visualisiez précédemment apparaît en orange,
+        facilitant le suivi de votre chemin de navigation dans la hiérarchie</li>
+        <li><strong>Navigation retour</strong> — Utilisez le bouton flèche de retour en haut à droite du graphe pour revenir
+        à la vue du concept précédent</li>
+      </ul>
+
+      <h3>Onglet Synonymes</h3>
+
+      <p>
+        Liste tous les synonymes du concept sélectionné depuis la table OMOP <code>CONCEPT_SYNONYM</code>.
+        C'est utile pour comprendre les différents noms et termes utilisés pour désigner le même concept
+        à travers différents contextes et langues.
+      </p>
+
+      <!-- Footer navigation -->
+      <div class="doc-footer-nav">
+        <a href="dictionary-explorer.html" class="nav-prev">
+          <span class="nav-label">Précédent</span>
+          <span class="nav-title">Concepts généraux</span>
+        </a>
+        <div></div>
+      </div>
+    </main>
+  </div>
+  <script src="../assets/lightbox.js"></script>
+</body>
+</html>
