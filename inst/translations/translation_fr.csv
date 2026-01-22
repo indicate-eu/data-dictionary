@@ -13,7 +13,7 @@ invalid_login_or_password,Identifiant ou mot de passe invalide. Veuillez réessa
 add_concept,Ajouter un concept
 concept_added,Concept ajouté
 history,Historique
-edit_page,Modifier la page
+edit_page,Editer la page
 cancel,Annuler
 save_updates,Enregistrer
 back_to_list,Retour à la liste
@@ -564,7 +564,7 @@ large_hierarchy_warning_title,Avertissement - Hiérarchie volumineuse
 large_hierarchy_warning_text,"Ce concept contient %d concepts à afficher (%d ancêtres + %d descendants). L'affichage d'un graphe aussi volumineux peut ralentir l'application ou la rendre non réactive. Voulez-vous continuer ?"
 continue_anyway,Continuer quand même
 back_to_previous_concept,Retour au concept précédent
-fuzzy_search,Recherche floue
+fuzzy_search,Recherche approx
 fuzzy_search_placeholder,Rechercher...
 confirm_action,Confirmer l'action
 limit_10k_warning,Le chargement des 4M+ concepts peut ralentir significativement l'application.

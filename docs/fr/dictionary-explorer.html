@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Concepts généraux - Documentation INDICATE Data Dictionary</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="doc-header">
+    <img src="../assets/logo.png" alt="INDICATE" class="doc-header-logo">
+    <span class="doc-header-title">INDICATE Data Dictionary</span>
+    <span class="doc-header-subtitle">Documentation</span>
+    <div class="doc-header-right">
+      <div class="lang-switch">
+        <a href="../en/dictionary-explorer.html" class="lang-btn">EN</a>
+        <a href="dictionary-explorer.html" class="lang-btn active">FR</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="doc-container">
+    <!-- Sidebar -->
+    <nav class="doc-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Démarrage</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="quickstart.html">Prise en main</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Explorateur du dictionnaire</div>
+        <ul class="sidebar-nav">
+          <li><a href="dictionary-explorer.html" class="active">Concepts généraux</a></li>
+          <li><a href="general-concept-details.html">Détails d'un concept général</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="doc-main">
+      <h1>Concepts généraux</h1>
+
+      <p>
+        La page <strong>Concepts généraux</strong> est le point d'entrée principal pour parcourir le
+        dictionnaire de données INDICATE. Elle affiche tous les concepts généraux organisés par
+        catégorie et sous-catégorie.
+      </p>
+
+      <img src="../assets/screenshots/fr/general-concepts-list.png" alt="Liste des concepts généraux">
+
+      <h2>Pourquoi des concepts généraux ?</h2>
+
+      <p>
+        Le dictionnaire de données INDICATE est organisé autour de <strong>concepts généraux</strong>
+        plutôt que de codes terminologiques individuels. Ce choix de conception reflète la façon dont
+        les chercheurs cliniques travaillent réellement : lors de la conception d'un protocole d'étude,
+        ils parlent de « Fréquence cardiaque » ou de « Créatinine sérique » plutôt que de codes LOINC
+        spécifiques avec leurs variations de méthode et de prélèvement.
+      </p>
+
+      <p>
+        Ce niveau d'abstraction offre plusieurs avantages :
+      </p>
+
+      <ul>
+        <li><strong>Facilite la conception de projets de recherche</strong> — les cliniciens et
+        chercheurs peuvent rapidement identifier les variables disponibles dans le dictionnaire sans
+        naviguer dans des hiérarchies terminologiques complexes</li>
+        <li><strong>Améliore la communication</strong> — fournit un langage commun entre data scientists
+        et cliniciens, comblant le fossé entre les codes terminologiques techniques et les concepts
+        cliniques</li>
+        <li><strong>Simplifie les décisions ETL</strong> — chaque concept général regroupe des codes
+        terminologiques apparentés, facilitant les décisions d'alignement des données sources</li>
+      </ul>
+
+      <h3>Catégories et sous-catégories</h3>
+
+      <p>
+        Les concepts généraux sont organisés en <strong>catégories</strong> (par ex. Paramètres vitaux,
+        Biologie, Traitements) et <strong>sous-catégories</strong> (par ex. Hémodynamique, Ventilatoire)
+        pour aider les utilisateurs à naviguer efficacement dans le dictionnaire.
+      </p>
+
+      <h2>Rechercher dans le dictionnaire</h2>
+
+      <p>
+        L'application propose plusieurs moyens pour trouver des concepts dans le dictionnaire :
+      </p>
+
+      <h3>Badges de catégorie</h3>
+
+      <p>
+        En haut de la page, les <strong>badges de catégorie</strong> permettent de filtrer rapidement
+        le tableau par catégorie. Cliquez sur un badge pour afficher uniquement les concepts de cette
+        catégorie. Cliquez à nouveau pour retirer le filtre.
+      </p>
+
+      <img src="../assets/screenshots/fr/category-badges.png" alt="Badges de catégorie pour le filtrage">
+
+      <h3>Filtres de colonnes</h3>
+
+      <p>
+        Chaque colonne du tableau dispose d'un <strong>champ de filtre</strong> en haut. Ces filtres
+        effectuent une <strong>correspondance exacte</strong> — seules les lignes contenant exactement
+        le texte saisi seront affichées. Les filtres de colonnes peuvent être combinés pour des
+        recherches précises.
+      </p>
+
+      <h3>Recherche approximative</h3>
+
+      <p>
+        Le champ '<strong>Recherche approx</strong>' (en haut à droite) recherche dans la colonne
+        <strong>nom du concept général</strong> en utilisant une correspondance approximative. C'est
+        utile lorsque vous n'êtes pas sûr de l'orthographe exacte ou que vous souhaitez trouver des
+        concepts similaires.
+      </p>
+
+      <p>
+        Par exemple, rechercher « kreatinin » (avec une faute de frappe) trouvera quand même
+        « Créatinine » et les concepts associés, facilitant la recherche même avec des erreurs
+        d'orthographe.
+      </p>
+
+      <h2>Mode édition</h2>
+
+      <p>
+        Le dictionnaire peut être modifié par les utilisateurs disposant des permissions appropriées.
+        Pour entrer en mode édition, cliquez sur le bouton <strong>Editer la page</strong> en haut à droite
+        de la page.
+      </p>
+
+      <img src="../assets/screenshots/fr/edit-mode.png" alt="Bouton Editer la page">
+
+      <p>
+        En mode édition, vous pouvez :
+      </p>
+
+      <h3>Supprimer des concepts généraux</h3>
+
+      <p>
+        Cliquez sur le bouton <strong>Supprimer</strong> dans la colonne Actions pour supprimer un concept
+        général du dictionnaire. Une boîte de dialogue de confirmation apparaîtra avant la suppression.
+      </p>
+
+      <h3>Modifier les noms en ligne</h3>
+
+      <p>
+        <strong>Double-cliquez</strong> sur n'importe quelle cellule des colonnes Catégorie,
+        Sous-catégorie ou Nom du concept général pour modifier la valeur directement dans le tableau.
+      </p>
+
+      <img src="../assets/screenshots/fr/inline-edit.png" alt="Édition en ligne des noms de concepts">
+
+      <h3>Ajouter de nouveaux concepts généraux</h3>
+
+      <p>
+        Cliquez sur le bouton <strong>Ajouter un concept</strong> pour créer un nouveau concept général.
+        Un formulaire apparaîtra où vous devrez renseigner :
+      </p>
+
+      <ul>
+        <li><strong>Nom du concept général</strong> — Le nom du nouveau concept</li>
+        <li><strong>Catégorie</strong> — Sélectionnez parmi les catégories existantes ou créez-en une nouvelle</li>
+        <li><strong>Sous-catégorie</strong> — Sélectionnez parmi les sous-catégories existantes ou créez-en une nouvelle</li>
+      </ul>
+
+      <img src="../assets/screenshots/fr/add-concept-form.png" alt="Formulaire d'ajout de concept" style="max-width: 500px;">
+
+      <div class="info-box info">
+        <div class="info-box-title">Créer de nouvelles catégories</div>
+        <p>
+          Pour créer une nouvelle catégorie ou sous-catégorie, cliquez sur le bouton <strong>+</strong>
+          à côté du menu déroulant. Entrez le nouveau nom et il sera ajouté à la liste des options
+          disponibles.
+        </p>
+      </div>
+
+      <h2>Afficher les détails d'un concept</h2>
+
+      <p>
+        Pour afficher les détails d'un concept général, y compris ses concepts OMOP associés et les
+        commentaires experts :
+      </p>
+
+      <ul>
+        <li><strong>Double-cliquez</strong> sur une ligne du tableau, ou</li>
+        <li>Sélectionnez une ligne et cliquez sur le bouton <strong>Voir les détails</strong></li>
+      </ul>
+
+      <p>
+        Cela vous amènera à la page <a href="general-concept-details.html">Détails d'un concept général</a>.
+      </p>
+
+      <!-- Footer navigation -->
+      <div class="doc-footer-nav">
+        <a href="quickstart.html" class="nav-prev">
+          <span class="nav-label">Précédent</span>
+          <span class="nav-title">Prise en main</span>
+        </a>
+        <a href="general-concept-details.html" class="nav-next">
+          <span class="nav-label">Suivant</span>
+          <span class="nav-title">Détails d'un concept général</span>
+        </a>
+      </div>
+    </main>
+  </div>
+  <script src="../assets/lightbox.js"></script>
+</body>
+</html>

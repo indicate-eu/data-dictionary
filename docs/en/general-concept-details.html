@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>General Concept Details - INDICATE Data Dictionary Documentation</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="doc-header">
+    <img src="../assets/logo.png" alt="INDICATE" class="doc-header-logo">
+    <span class="doc-header-title">INDICATE Data Dictionary</span>
+    <span class="doc-header-subtitle">Documentation</span>
+    <div class="doc-header-right">
+      <div class="lang-switch">
+        <a href="general-concept-details.html" class="lang-btn active">EN</a>
+        <a href="../fr/general-concept-details.html" class="lang-btn">FR</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="doc-container">
+    <!-- Sidebar -->
+    <nav class="doc-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Getting Started</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="quickstart.html">Quick Start</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Dictionary Explorer</div>
+        <ul class="sidebar-nav">
+          <li><a href="dictionary-explorer.html">General Concepts</a></li>
+          <li><a href="general-concept-details.html" class="active">General Concept Details</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="doc-main">
+      <h1>General Concept Details</h1>
+
+      <p>
+        When you select a general concept from the <a href="dictionary-explorer.html">General Concepts</a>
+        list, you enter the detail view. This page displays comprehensive information about the selected
+        general concept, organized in a <strong>four-panel layout</strong>.
+      </p>
+
+      <img src="../assets/screenshots/en/general-concepts-details.png" alt="General Concept Details four-panel view">
+
+      <h2>Page Layout Overview</h2>
+
+      <p>
+        The detail view is divided into four resizable quadrants:
+      </p>
+
+      <ul>
+        <li><strong>Top-Left: Associated Concepts</strong> — Specific terminology concepts (LOINC, SNOMED, RxNorm)
+        linked to this general concept, with their OMOP Concept IDs</li>
+        <li><strong>Top-Right: Selected Concept Details</strong> — Detailed metadata about the currently selected
+        concept from the Associated Concepts table</li>
+        <li><strong>Bottom-Right: Concept Relationships &amp; Hierarchy</strong> — Related concepts, hierarchical
+        position, and synonyms from OMOP vocabularies</li>
+        <li><strong>Bottom-Left: Comments &amp; ETL Guidance</strong> — Expert comments and statistical distribution
+        information to help with data alignment</li>
+      </ul>
+
+      <h2>1. Associated Concepts (Top-Left)</h2>
+
+      <p>
+        This panel displays all terminology concepts associated with the selected general concept. These are
+        specific codes from standard vocabularies (LOINC, SNOMED CT, RxNorm, ICD-10) that have been mapped
+        to this general concept.
+      </p>
+
+      <img src="../assets/screenshots/en/associated-concepts.png" alt="Associated Concepts panel">
+
+      <h3>Table Features</h3>
+
+      <ul>
+        <li><strong>Column Visibility</strong> — Click the <strong>Columns</strong> dropdown at the top-left
+        of the table to show or hide specific columns</li>
+        <li><strong>Column Filters</strong> — Use the text fields at the top of each column for exact matching</li>
+        <li><strong>Fuzzy Search</strong> — Use the fuzzy search input for approximate matching on concept names</li>
+        <li><strong>Row Selection</strong> — Click on a row to select it. The Selected Concept Details and
+        Concept Relationships panels will update to show information about the selected concept</li>
+      </ul>
+
+      <h3>Copy Options</h3>
+
+      <p>
+        The <strong>Copy</strong> button at the top-right of the table provides export options:
+      </p>
+
+      <img src="../assets/screenshots/en/copy-options.png" alt="Copy options menu" style="max-width: 200px;">
+
+      <ul>
+        <li><strong>Copy as ATLAS JSON</strong> — Copies the concept set in ATLAS JSON format. This format
+        is compatible with <a href="https://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:atlas:concept_sets"
+        target="_blank">OHDSI ATLAS concept sets</a></li>
+        <li><strong>Copy OMOP SQL</strong> — Copies a SQL query that includes all associated concepts for
+        this general concept</li>
+      </ul>
+
+      <h3>Edit Mode</h3>
+
+      <p>
+        When you enter edit mode by clicking <strong>Edit page</strong> in the top-right corner, the
+        action buttons change to:
+      </p>
+
+      <ul>
+        <li><strong>Fullscreen</strong> — Display the table in fullscreen mode for easier editing</li>
+        <li><strong>Delete all</strong> — Remove all associated concepts from this general concept</li>
+        <li><strong>Import JSON</strong> — Import concepts from an ATLAS concept set JSON file</li>
+        <li><strong>Add concepts</strong> — Open the modal to add new concepts to the list</li>
+      </ul>
+
+      <img src="../assets/screenshots/en/edit-mode-details.png" alt="Edit mode buttons for Associated Concepts">
+      
+      <div class="info-box info">
+        <div class="info-box-title">Understanding Concept Sets vs. Display</div>
+        <p>
+          <strong>In edit mode</strong>, you typically select broader classification concepts and include their descendants.
+          For example, you might add concepts like:
+        </p>
+        <ul>
+          <li>Heart rate | Arterial system | Heart rate taken in specific position (LOINC LP416415-0, Classification)</li>
+          <li>Heart rate | Peripheral artery | Specific heart rate (LOINC LP415785-7, Classification)</li>
+        </ul>
+        <p>
+          <strong>In view mode</strong>, the table displays the complete expanded concept set, including all descendants.
+          For the same general concept, you'll see specific standard concepts like:
+        </p>
+        <ul>
+          <li>Heart rate --W exercise (LOINC 89273-7, Standard)</li>
+          <li>Heart rate --during anesthesia (LOINC 89278-6, Standard)</li>
+          <li>Heart rate --post exercise (LOINC 40442-6, Standard)</li>
+          <li>Heart rate --resting (LOINC 40443-4, Standard)</li>
+        </ul>
+        <p>
+          This approach allows you to efficiently manage concept sets by selecting parent concepts rather than
+          individually adding hundreds of specific concepts.
+        </p>
+      </div>
+
+      <h3>Adding Concepts</h3>
+
+      <p>
+        Clicking <strong>Add concepts</strong> opens a modal with two tabs:
+      </p>
+
+      <h4>Search OMOP Concepts</h4>
+
+      <p>
+        This tab allows you to search the entire OMOP vocabulary database:
+      </p>
+
+      <img src="../assets/screenshots/en/search-omop-concepts.png" alt="Search OMOP Concepts modal">
+
+      <ul>
+        <li><strong>Fuzzy Search</strong> — Search for concepts by name with approximate matching</li>
+        <li><strong>Limit 10K</strong> — Toggle this option to limit results to 10,000 concepts. This prevents
+        overloading the table when searching across millions of OMOP concepts</li>
+        <li><strong>Advanced Filters</strong> — Filter by Vocabulary ID, Domain ID, Concept Class ID,
+        Standard Concept status, and Validity. This allows you to display all filtered concepts
+        (by unchecking "Limit 10K")</li>
+      </ul>
+
+      <p>
+        When you click on a concept in the search results, you can view its details and descendants.
+      </p>
+
+      <h4>Concept Set Options</h4>
+
+      <p>
+        When adding concepts, you can configure three important options that define how the concept
+        will be included in the concept set:
+      </p>
+
+      <ul>
+        <li><strong>Exclude</strong> — When checked, this concept will be excluded from the concept set.
+        This is useful when you want to include all descendants of a parent concept except for specific ones.
+        When combined with "Descendants", all descendant concepts will also be excluded</li>
+        <li><strong>Descendants</strong> — When checked, all descendant concepts (children, grandchildren, etc.)
+        in the vocabulary hierarchy will be automatically included in the concept set. If "Exclude" is also checked,
+        all descendants will be excluded from the concept set</li>
+        <li><strong>Mapped</strong> — When checked, concepts that are mapped to this concept through
+        "Maps to" relationships will also be included</li>
+      </ul>
+
+      <div class="info-box info">
+        <div class="info-box-title">Understanding Concept Sets</div>
+        <p>
+          These options follow the OHDSI ATLAS concept set logic. For detailed information about how
+          concept sets work, see the
+          <a href="https://www.ohdsi.org/web/wiki/doku.php?id=documentation:software:atlas:concept_sets"
+          target="_blank">ATLAS Concept Sets documentation</a>.
+        </p>
+      </div>
+
+      <h4>Add Custom Concept</h4>
+
+      <p>
+        This tab allows you to add custom concepts that may not exist in the standard OMOP vocabularies.
+      </p>
+
+      <img src="../assets/screenshots/en/add-custom-concept.png" alt="Add Custom Concept form" style="max-width: 350px;">
+
+      <div class="info-box warning">
+        <div class="info-box-title">⚠️ Avoid Custom Concepts</div>
+        <p>
+          Adding custom concepts should be <strong>absolutely avoided</strong> whenever possible. Custom concepts
+          break interoperability and prevent data sharing across the OHDSI network.
+        </p>
+        <p>
+          If you need a concept that doesn't exist in the standard vocabularies, this should only be used as a
+          <strong>temporary solution</strong> while you submit the concept to the
+          <a href="https://www.ohdsi.org/workgroups/#CDM-Vocab" target="_blank">OHDSI Vocabulary Working Group</a>
+          to find a permanent solution.
+        </p>
+      </div>
+
+      <h2>2. Selected Concept Details (Top-Right)</h2>
+
+      <p>
+        When a concept is selected in the Associated Concepts table, this panel displays its complete
+        metadata:
+      </p>
+
+      <img src="../assets/screenshots/en/selected-concept-details.png" alt="Selected Concept Details panel">
+
+      <ul>
+        <li><strong>Vocabulary ID</strong> — The source vocabulary (LOINC, SNOMED, RxNorm, etc.)</li>
+        <li><strong>Concept Name</strong> — The official name of the concept</li>
+        <li><strong>Category</strong> — The general concept's category</li>
+        <li><strong>Subcategory</strong> — The general concept's subcategory</li>
+        <li><strong>Domain ID</strong> — The OMOP domain (Measurement, Condition, Drug, etc.)</li>
+        <li><strong>Concept Class</strong> — The concept class within the vocabulary</li>
+        <li><strong>Validity</strong> — Whether the concept is currently valid or deprecated</li>
+        <li><strong>Standard</strong> — Standard concept status (Standard, Classification, or Non-standard)</li>
+        <li><strong>Concept Code</strong> — The code in the source vocabulary</li>
+        <li><strong>OMOP Concept ID</strong> — The unique OMOP identifier (links to ATHENA)</li>
+        <li><strong>FHIR Resource</strong> — Link to view the concept on a FHIR Terminology Server</li>
+      </ul>
+
+      <h3>Unit Information</h3>
+
+      <p>
+        For measurement concepts, additional unit information is displayed:
+      </p>
+
+      <ul>
+        <li><strong>Unit Concept Name</strong> — The name of the associated unit (e.g., "per minute")</li>
+        <li><strong>Unit Concept Code</strong> — The UCUM code (e.g., "/min")</li>
+        <li><strong>Unit Concept ID</strong> — The OMOP concept ID for the unit</li>
+        <li><strong>Unit FHIR Resource</strong> — Link to view the unit on a FHIR server</li>
+        <li><strong>Unit Conversions</strong> — Available unit conversions for this concept</li>
+      </ul>
+
+      <h3>External Links</h3>
+
+      <p>
+        The panel provides direct links to:
+      </p>
+
+      <ul>
+        <li><strong>ATHENA</strong> — View the concept on the OHDSI ATHENA vocabulary browser</li>
+        <li><strong>FHIR Terminology Server</strong> — View the concept as a FHIR CodeSystem resource</li>
+      </ul>
+
+      <h3>Assigning Units</h3>
+
+      <p>
+        In edit mode, you can assign a Unit Concept ID to measurement concepts. Units should be
+        UCUM (Unified Code for Units of Measure) concepts from the OMOP vocabulary.
+      </p>
+
+      <h2>3. Comments &amp; ETL Guidance (Bottom-Left)</h2>
+
+      <p>
+        This panel provides essential guidance for data alignment and ETL processes.
+      </p>
+
+      <img src="../assets/screenshots/en/comments-etl-guidance-panel.png" alt="Comments and ETL Guidance panel">
+
+      <h3>Expert Comments</h3>
+
+      <p>
+        The <strong>Comments</strong> tab contains expert guidance written by domain specialists
+        (data scientists and clinical experts). These comments describe:
+      </p>
+
+      <ul>
+        <li>The clinical meaning and context of the general concept</li>
+        <li>Which associated concepts to prefer in different scenarios</li>
+        <li>Common pitfalls and edge cases to consider during ETL</li>
+        <li>Differences between similar concepts across vocabularies</li>
+      </ul>
+
+      <p>
+        This content is continuously enriched as experts contribute their knowledge.
+      </p>
+
+      <p>
+        In edit mode, the comments editor provides a dual-pane view with live markdown preview:
+      </p>
+
+      <img src="../assets/screenshots/en/comments-editor-markdown.png" alt="Comments editor with live markdown preview">
+
+      <h3>Statistical Summary</h3>
+
+      <p>
+        The <strong>Statistical Summary</strong> tab displays expected data distributions for this
+        general concept. This information helps validate your data during ETL by providing reference
+        ranges and typical patterns.
+      </p>
+
+      <img src="../assets/screenshots/en/statistical-summary.png" alt="Statistical Summary with histogram and statistics" style="max-width: 650px;">
+
+      <p>
+        The statistical data is stored in JSON format. You can provide a single statistical profile directly,
+        or use multiple <strong>profiles</strong> for different patient populations (e.g., Adult, Child, Newborn).
+      </p>
+
+      <h4>JSON Structure Requirements</h4>
+
+      <style>
+        .badge { display: inline-block; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: 600; margin-left: 4px; }
+        .badge-required { background-color: #dc3545; color: white; }
+        .badge-optional { background-color: #6c757d; color: white; }
+        h5 { font-style: italic; margin-top: 1.2em; margin-bottom: 0.6em; color: #333; }
+        .info-box-validation { margin-top: 2em; }
+      </style>
+
+      <p>To create a valid statistical JSON file, follow these requirements:</p>
+
+      <h5>Option 1: Direct Statistical Data (Simple)</h5>
+
+      <p>Provide statistical data directly at the root level (no profiles array needed):</p>
+
+      <ul>
+        <li><span class="badge badge-required">required</span> <strong>"name_en"</strong> — Profile name in English</li>
+        <li><span class="badge badge-required">required</span> <strong>"name_fr"</strong> — Profile name in French</li>
+        <li><span class="badge badge-required">required</span> <strong>"description_en"</strong> — Profile description in English</li>
+        <li><span class="badge badge-required">required</span> <strong>"description_fr"</strong> — Profile description in French</li>
+        <li><span class="badge badge-required">required</span> <strong>"data_types"</strong> — Array: ["numeric"], ["categorical"], or both</li>
+      </ul>
+
+      <h5>Option 2: Multiple Profiles (Advanced)</h5>
+
+      <p>Use a profiles array for different patient populations (each profile has the same structure as Option 1):</p>
+
+      <ul>
+        <li><span class="badge badge-required">required</span> <strong>"profiles"</strong> — Array of profile objects</li>
+        <li><span class="badge badge-required">required</span> <strong>"default_profile"</strong> — String matching one profile's name_en</li>
+      </ul>
+
+      <h5>Numeric Data Fields</h5>
+
+      <p>If <strong>"data_types"</strong> includes "numeric", add a <strong>"numeric_data"</strong> object with:</p>
+
+      <ul>
+        <li><span class="badge badge-required">required</span> <strong>"min"</strong> — Minimum value</li>
+        <li><span class="badge badge-required">required</span> <strong>"max"</strong> — Maximum value</li>
+        <li><span class="badge badge-required">required</span> <strong>"mean"</strong> — Arithmetic mean</li>
+        <li><span class="badge badge-required">required</span> <strong>"median"</strong> — Median (50th percentile)</li>
+        <li><span class="badge badge-required">required</span> <strong>"sd"</strong> — Standard deviation</li>
+        <li><span class="badge badge-optional">optional</span> <strong>"cv"</strong> — Coefficient of variation (sd/mean × 100)</li>
+        <li><span class="badge badge-optional">optional</span> <strong>"p5"</strong> — 5th percentile</li>
+        <li><span class="badge badge-required">required</span> <strong>"p25"</strong> — 25th percentile (Q1)</li>
+        <li><span class="badge badge-required">required</span> <strong>"p75"</strong> — 75th percentile (Q3)</li>
+        <li><span class="badge badge-optional">optional</span> <strong>"p95"</strong> — 95th percentile</li>
+      </ul>
+
+      <h5>Histogram Data</h5>
+
+      <p>Add a <strong>"histogram"</strong> array with objects containing:</p>
+
+      <ul>
+        <li><strong>"x"</strong> — Bin center or value</li>
+        <li><strong>"count"</strong> — Number of observations</li>
+      </ul>
+
+      <p><strong>Rules for histograms:</strong></p>
+      <ul>
+        <li>Use 10-50 bins for continuous data (more bins provide finer resolution)</li>
+        <li>Values must be in ascending order by "x"</li>
+        <li>Cover the range from p5 to p95 (or wider)</li>
+        <li>Use empty array [] if no histogram data available</li>
+      </ul>
+
+      <h5>Categorical Data Fields</h5>
+
+      <p>If <strong>"data_types"</strong> includes "categorical", add a <strong>"categorical_data"</strong> array with objects:</p>
+
+      <ul>
+        <li><strong>"category"</strong> — Category name</li>
+        <li><strong>"count"</strong> — Number of observations</li>
+        <li><span class="badge badge-optional">optional</span> <strong>"percentage"</strong> — Percentage value</li>
+      </ul>
+
+      <h5>Additional Metadata</h5>
+
+      <ul>
+        <li><span class="badge badge-optional">optional</span> <strong>"measurement_frequency"</strong> — Object with "typical_interval": "hourly" | "continuous" | "daily" | "weekly"</li>
+      </ul>
+
+      <h4>Complete Example (Click to expand)</h4>
+
+      <details>
+        <summary>View complete JSON example with 3 profiles (Adult, Child, Newborn)</summary>
+        <pre><code>{
+  "profiles": [
+    {
+      "name_en": "Adult",
+      "description_en": "Adults (18+ years)",
+      "name_fr": "Adulte",
+      "description_fr": "Adultes (18+ ans)",
+      "data_types": ["numeric"],
+      "numeric_data": {
+        "min": 25,
+        "max": 220,
+        "mean": 82.4,
+        "median": 78,
+        "sd": 18.6,
+        "cv": 22.5,
+        "p5": 52,
+        "p25": 68,
+        "p75": 92,
+        "p95": 118
+      },
+      "histogram": [
+        {"x": 30, "count": 1245},
+        {"x": 40, "count": 4982},
+        {"x": 50, "count": 37284},
+        {"x": 60, "count": 124568},
+        {"x": 70, "count": 286542},
+        {"x": 80, "count": 324567},
+        {"x": 90, "count": 248956},
+        {"x": 100, "count": 124568},
+        {"x": 110, "count": 56234},
+        {"x": 120, "count": 24856},
+        {"x": 130, "count": 8456},
+        {"x": 140, "count": 2845},
+        {"x": 150, "count": 956}
+      ],
+      "categorical_data": [],
+      "measurement_frequency": {
+        "typical_interval": "hourly"
+      }
+    },
+    {
+      "name_en": "Child",
+      "description_en": "Children (1-17 years)",
+      "name_fr": "Enfant",
+      "description_fr": "Enfants (1-17 ans)",
+      "data_types": ["numeric"],
+      "numeric_data": {
+        "min": 45,
+        "max": 200,
+        "mean": 98.5,
+        "median": 95,
+        "sd": 22.3,
+        "cv": 22.6,
+        "p5": 65,
+        "p25": 82,
+        "p75": 112,
+        "p95": 145
+      },
+      "histogram": [
+        {"x": 50, "count": 892},
+        {"x": 60, "count": 3567},
+        {"x": 70, "count": 12456},
+        {"x": 80, "count": 28945},
+        {"x": 90, "count": 45678},
+        {"x": 100, "count": 52341},
+        {"x": 110, "count": 38956},
+        {"x": 120, "count": 24567},
+        {"x": 130, "count": 12345},
+        {"x": 140, "count": 5678},
+        {"x": 150, "count": 2345},
+        {"x": 160, "count": 892}
+      ],
+      "categorical_data": [],
+      "measurement_frequency": {
+        "typical_interval": "hourly"
+      }
+    },
+    {
+      "name_en": "Newborn",
+      "description_en": "Newborns (0-28 days)",
+      "name_fr": "Nouveau-né",
+      "description_fr": "Nouveau-nés (0-28 jours)",
+      "data_types": ["numeric"],
+      "numeric_data": {
+        "min": 80,
+        "max": 205,
+        "mean": 142.5,
+        "median": 140,
+        "sd": 18.2,
+        "cv": 12.8,
+        "p5": 115,
+        "p25": 130,
+        "p75": 155,
+        "p95": 175
+      },
+      "histogram": [
+        {"x": 85, "count": 234},
+        {"x": 95, "count": 567},
+        {"x": 105, "count": 1892},
+        {"x": 115, "count": 4567},
+        {"x": 125, "count": 8945},
+        {"x": 135, "count": 14567},
+        {"x": 145, "count": 16789},
+        {"x": 155, "count": 12345},
+        {"x": 165, "count": 6789},
+        {"x": 175, "count": 2345},
+        {"x": 185, "count": 678},
+        {"x": 195, "count": 189}
+      ],
+      "categorical_data": [],
+      "measurement_frequency": {
+        "typical_interval": "continuous"
+      }
+    }
+  ],
+  "default_profile": "Adult"
+}</code></pre>
+      </details>
+
+      <h4>Example with Categorical Data (Click to expand)</h4>
+
+      <details>
+        <summary>View categorical data example</summary>
+        <pre><code>{
+  "profiles": [
+    {
+      "name_en": "Adult",
+      "description_en": "Adults (18+ years)",
+      "name_fr": "Adulte",
+      "description_fr": "Adultes (18+ ans)",
+      "data_types": ["categorical"],
+      "numeric_data": {},
+      "histogram": [],
+      "categorical_data": [
+        {"category": "Normal", "count": 65432, "percentage": 68.5},
+        {"category": "Abnormal", "count": 21234, "percentage": 22.2},
+        {"category": "Critical", "count": 8890, "percentage": 9.3}
+      ],
+      "measurement_frequency": {
+        "typical_interval": "daily"
+      }
+    }
+  ],
+  "default_profile": "Adult"
+}</code></pre>
+      </details>
+
+      <h2>4. Concept Relationships &amp; Hierarchy (Bottom-Right)</h2>
+
+      <img src="../assets/screenshots/en/concept-relationships-panel.png" alt="Concept Relationships & Hierarchy Panel">
+
+      <p>
+        This panel shows how the selected concept relates to other concepts in the OMOP vocabularies.
+        It has three tabs:
+      </p>
+
+      <h3>Related Tab</h3>
+
+      <p>
+        Displays concepts related to the selected concept through the OMOP <code>CONCEPT_RELATIONSHIP</code>
+        table. This includes relationships like:
+      </p>
+
+      <ul>
+        <li>"Maps to" — Standard concept mappings</li>
+        <li>"Is a" — Hierarchical relationships</li>
+        <li>"Has component" — Component relationships for lab panels</li>
+        <li>And many other relationship types specific to each vocabulary</li>
+      </ul>
+
+      <h3>Hierarchy Tab</h3>
+
+      <p>
+        Shows the hierarchical position of the selected concept using the OMOP <code>CONCEPT_ANCESTOR</code>
+        table. This displays:
+      </p>
+
+      <ul>
+        <li><strong>Ancestors</strong> — Parent concepts up the hierarchy tree</li>
+        <li><strong>Descendants</strong> — Child concepts down the hierarchy tree</li>
+      </ul>
+
+      <p>
+        Click <strong>View Graph</strong> to visualize the hierarchy as an interactive graph. This
+        provides a visual representation of how concepts are organized within the vocabulary structure.
+      </p>
+
+      <img src="../assets/screenshots/en/hierarchy-graph.png" alt="Hierarchy Graph Visualization">
+
+      <p>
+        The hierarchy graph is fully interactive:
+      </p>
+
+      <ul>
+        <li><strong>Double-click any concept</strong> in the graph to re-center the visualization on that concept.
+        A new graph will appear, showing the ancestors and descendants of the selected concept</li>
+        <li><strong>Previous concept highlighted</strong> — The concept you were viewing before appears in orange,
+        making it easy to track your navigation path through the hierarchy</li>
+        <li><strong>Back navigation</strong> — Use the back arrow button at the top-right of the graph to return
+        to the previous concept view</li>
+      </ul>
+
+      <h3>Synonyms Tab</h3>
+
+      <p>
+        Lists all synonyms for the selected concept from the OMOP <code>CONCEPT_SYNONYM</code> table.
+        This is useful for understanding the various names and terms used to refer to the same concept
+        across different contexts and languages.
+      </p>
+
+      <!-- Footer navigation -->
+      <div class="doc-footer-nav">
+        <a href="dictionary-explorer.html" class="nav-prev">
+          <span class="nav-label">Previous</span>
+          <span class="nav-title">General Concepts</span>
+        </a>
+        <div></div>
+      </div>
+    </main>
+  </div>
+  <script src="../assets/lightbox.js"></script>
+</body>
+</html>

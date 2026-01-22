@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>General Concepts - INDICATE Data Dictionary Documentation</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="doc-header">
+    <img src="../assets/logo.png" alt="INDICATE" class="doc-header-logo">
+    <span class="doc-header-title">INDICATE Data Dictionary</span>
+    <span class="doc-header-subtitle">Documentation</span>
+    <div class="doc-header-right">
+      <div class="lang-switch">
+        <a href="dictionary-explorer.html" class="lang-btn active">EN</a>
+        <a href="../fr/dictionary-explorer.html" class="lang-btn">FR</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="doc-container">
+    <!-- Sidebar -->
+    <nav class="doc-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Getting Started</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="quickstart.html">Quick Start</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Dictionary Explorer</div>
+        <ul class="sidebar-nav">
+          <li><a href="dictionary-explorer.html" class="active">General Concepts</a></li>
+          <li><a href="general-concept-details.html">General Concept Details</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="doc-main">
+      <h1>General Concepts</h1>
+
+      <p>
+        The <strong>General Concepts</strong> page is the main entry point for browsing the INDICATE
+        Data Dictionary. It displays all general concepts organized by category and subcategory.
+      </p>
+
+      <img src="../assets/screenshots/en/general-concepts-list.png" alt="General Concepts list view">
+
+      <h2>Why General Concepts?</h2>
+
+      <p>
+        The INDICATE Data Dictionary is organized around <strong>general concepts</strong> rather than
+        individual terminology codes. This design choice reflects how clinical researchers actually
+        work: when designing a study protocol, they refer to "Heart Rate" or "Serum Creatinine" rather
+        than specific LOINC codes with their method and specimen variations.
+      </p>
+
+      <p>
+        This level of abstraction provides several benefits:
+      </p>
+
+      <ul>
+        <li><strong>Facilitates research project design</strong> — Clinicians and researchers can
+        quickly identify which variables are available in the dictionary without navigating complex
+        terminology hierarchies</li>
+        <li><strong>Improves communication</strong> — Provides a common language between data scientists
+        and clinicians, bridging the gap between technical terminology codes and clinical concepts</li>
+        <li><strong>Simplifies ETL decisions</strong> — Each general concept groups related terminology
+        codes, making it easier to decide how to map source data</li>
+      </ul>
+
+      <h3>Categories and Subcategories</h3>
+
+      <p>
+        General concepts are organized into <strong>categories</strong> (e.g., Vitals, Labs, Drugs)
+        and <strong>subcategories</strong> (e.g., Haemodynamics, Ventilatory) to help users navigate
+        the dictionary efficiently.
+      </p>
+
+      <h2>Searching the Dictionary</h2>
+
+      <p>
+        The application provides multiple ways to find concepts in the dictionary:
+      </p>
+
+      <h3>Category Badges</h3>
+
+      <p>
+        At the top of the page, <strong>category badges</strong> allow you to quickly filter the table
+        by category. Click on a badge to show only concepts from that category. Click again to remove
+        the filter.
+      </p>
+
+      <img src="../assets/screenshots/en/category-badges.png" alt="Category badges for filtering">
+
+      <h3>Column Filters</h3>
+
+      <p>
+        Each column in the DataTable has a <strong>filter input</strong> at the top. These filters
+        perform <strong>exact matching</strong> — only rows that contain the exact text you type will
+        be shown. Column filters can be combined for precise searches.
+      </p>
+
+      <h3>Fuzzy Search</h3>
+
+      <p>
+        The <strong>Fuzzy Search</strong> input (top right) searches the <strong>general concept name</strong>
+        column using approximate matching. This is useful when you're not sure of the exact spelling
+        or want to find similar concepts.
+      </p>
+
+      <p>
+        For example, searching "kreatinin" (with a typo) will still find "Creatinine" and related
+        concepts, making it easier to find what you're looking for even with spelling mistakes.
+      </p>
+
+      <h2>Edit Mode</h2>
+
+      <p>
+        The dictionary can be edited by users with appropriate permissions. To enter edit mode,
+        click the <strong>Edit page</strong> button in the top right corner of the page.
+      </p>
+
+      <img src="../assets/screenshots/en/edit-mode.png" alt="Edit page button">
+
+      <p>
+        In edit mode, you can:
+      </p>
+
+      <h3>Delete General Concepts</h3>
+
+      <p>
+        Click the <strong>Delete</strong> button in the Actions column to remove a general concept
+        from the dictionary. A confirmation dialog will appear before deletion.
+      </p>
+
+      <h3>Edit Names Inline</h3>
+
+      <p>
+        <strong>Double-click</strong> on any cell in the Category, Subcategory, or General Concept Name
+        columns to edit the value directly in the table.
+      </p>
+
+      <img src="../assets/screenshots/en/inline-edit.png" alt="Inline editing of concept names">
+
+      <h3>Add New General Concepts</h3>
+
+      <p>
+        Click the <strong>Add concept</strong> button to create a new general concept. A form will
+        appear where you need to provide:
+      </p>
+
+      <ul>
+        <li><strong>General Concept Name</strong> — The name of the new concept</li>
+        <li><strong>Category</strong> — Select from existing categories or create a new one</li>
+        <li><strong>Subcategory</strong> — Select from existing subcategories or create a new one</li>
+      </ul>
+
+      <img src="../assets/screenshots/en/add-concept-form.png" alt="Add concept form" style="max-width: 500px;">
+
+      <div class="info-box info">
+        <div class="info-box-title">Creating New Categories</div>
+        <p>
+          To create a new category or subcategory, click the <strong>+</strong> button next to the
+          dropdown menu. Enter the new name and it will be added to the list of available options.
+        </p>
+      </div>
+
+      <h2>Viewing Concept Details</h2>
+
+      <p>
+        To view the details of a general concept, including its associated OMOP concepts and expert
+        comments:
+      </p>
+
+      <ul>
+        <li><strong>Double-click</strong> on a row in the table, or</li>
+        <li>Select a row and click the <strong>View details</strong> button</li>
+      </ul>
+
+      <p>
+        This will take you to the <a href="general-concept-details.html">Concept Details</a> page.
+      </p>
+
+      <!-- Footer navigation -->
+      <div class="doc-footer-nav">
+        <a href="quickstart.html" class="nav-prev">
+          <span class="nav-label">Previous</span>
+          <span class="nav-title">Quick Start</span>
+        </a>
+        <a href="general-concept-details.html" class="nav-next">
+          <span class="nav-label">Next</span>
+          <span class="nav-title">General Concept Details</span>
+        </a>
+      </div>
+    </main>
+  </div>
+  <script src="../assets/lightbox.js"></script>
+</body>
+</html>
