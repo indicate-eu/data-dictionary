@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>General Settings - INDICATE Data Dictionary Documentation</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="doc-header">
+    <img src="../assets/logo.png" alt="INDICATE" class="doc-header-logo">
+    <span class="doc-header-title">INDICATE Data Dictionary</span>
+    <span class="doc-header-subtitle">Documentation</span>
+    <div class="doc-header-right">
+      <div class="lang-switch">
+        <a href="general-settings.html" class="lang-btn active">EN</a>
+        <a href="../fr/general-settings.html" class="lang-btn">FR</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="doc-container">
+    <!-- Sidebar -->
+    <nav class="doc-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Getting Started</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="quickstart.html">Quick Start</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Dictionary Explorer</div>
+        <ul class="sidebar-nav">
+          <li><a href="dictionary-explorer.html">General Concepts</a></li>
+          <li><a href="general-concept-details.html">General Concept Details</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Projects</div>
+        <ul class="sidebar-nav">
+          <li><a href="projects.html">Managing Projects</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Settings</div>
+        <ul class="sidebar-nav">
+          <li><a href="general-settings.html" class="active">General Settings</a></li>
+          <li><a href="dictionary-settings.html">Dictionary Settings</a></li>
+          <li><a href="users.html">Users</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="doc-main">
+      <h1>General Settings</h1>
+
+      <p>
+        To access application settings, click the <strong>gear icon</strong> in the top-right corner of the page.
+        A dropdown menu will appear with three options: <strong>General Settings</strong>,
+        <strong>Dictionary Settings</strong>, and <strong>Users</strong>.
+      </p>
+
+      <img src="../assets/screenshots/en/settings-menu.png" alt="Settings dropdown menu">
+
+      <p>
+        The General Settings page contains two tabs: <strong>Terminologies</strong> and
+        <strong>Backup & Restore</strong>.
+      </p>
+
+      <h2>Terminologies Tab</h2>
+
+      <p>
+        This tab allows you to configure external terminology databases that power the application's
+        concept search and mapping features.
+      </p>
+
+      <img src="../assets/screenshots/en/general-settings-terminologies.png" alt="Terminologies settings tab">
+
+      <h3>OHDSI Vocabularies</h3>
+
+      <p>
+        The OHDSI Vocabularies section allows you to configure the standardized medical terminologies
+        (SNOMED CT, LOINC, RxNorm, ICD-10, etc.) used throughout the application.
+      </p>
+
+      <p>
+        <strong>Browse and select the folder containing your OHDSI Vocabularies files (CSV or Parquet format).</strong>
+      </p>
+
+      <ul>
+        <li><strong>Local installation</strong> — select a folder on your PC or Mac</li>
+        <li><strong>Server installation</strong> — select a folder on the server filesystem</li>
+      </ul>
+
+      <div class="info-box info">
+        <div class="info-box-title">Downloading OHDSI Vocabularies</div>
+        <p>
+          You must download the OHDSI Vocabularies files from ATHENA before configuring this setting.
+          See <a href="quickstart.html#step-3-configure-ohdsi-vocabularies">Quick Start → Step 3: Configure OHDSI Vocabularies</a>
+          for detailed instructions.
+        </p>
+      </div>
+
+      <h4>How It Works</h4>
+
+      <p>
+        When you select a vocabulary folder, the application will:
+      </p>
+
+      <ol>
+        <li>Read the vocabulary CSV or Parquet files (<code>CONCEPT.csv</code>,
+        <code>CONCEPT_RELATIONSHIP.csv</code>, <code>CONCEPT_ANCESTOR.csv</code>, etc.)</li>
+        <li>Create a DuckDB database in the application data folder (<code>indicate_files/</code>
+        in your app folder, which defaults to your home directory)</li>
+        <li>Index the data for fast querying</li>
+      </ol>
+
+      <p>
+        The DuckDB database provides high-performance querying for this substantial dataset, enabling
+        fast concept searches and relationship lookups throughout the application.
+      </p>
+
+      <h3>UMLS Metathesaurus</h3>
+
+      <p>
+        The UMLS Metathesaurus section allows you to import the Unified Medical Language System (UMLS)
+        Metathesaurus, which provides mappings between different medical terminologies.
+      </p>
+
+      <p>
+        Similar to OHDSI Vocabularies, you can browse and select a folder containing UMLS files.
+        The application will create a DuckDB database for efficient querying.
+      </p>
+
+      <div class="info-box info">
+        <div class="info-box-title">Development Feature</div>
+        <p>
+          The UMLS Metathesaurus integration was implemented for application development purposes.
+          Both the OHDSI Vocabularies and UMLS databases can be queried directly using the code
+          editor in the <strong>Dev Tools</strong> page (documentation coming soon).
+        </p>
+      </div>
+
+      <h2>Backup & Restore Tab</h2>
+
+      <p>
+        This tab provides tools to back up and restore your application data, including the
+        application database, data dictionary files, and concept mappings.
+      </p>
+
+      <img src="../assets/screenshots/en/general-settings-backup.png" alt="Backup & Restore settings tab">
+
+      <h3>Download Backup</h3>
+
+      <p>
+        The <strong>Download Backup</strong> section allows you to create a complete backup of your
+        application data. The backup includes:
+      </p>
+
+      <ul>
+        <li><strong>Application database</strong> — <code>indicate.db</code> (SQLite database containing
+        user data, projects, mappings, and application state)</li>
+        <li><strong>Data dictionary files</strong> — CSV files from the <code>data_dictionary/</code>
+        folder (general concepts, mappings, statistics, history)</li>
+        <li><strong>Concept mappings</strong> — files from the <code>concept_mapping/</code> folder
+        (custom alignments and source concepts)</li>
+      </ul>
+
+      <p>
+        Click the <strong>Download Backup</strong> button to create and download a ZIP archive
+        containing all these files.
+      </p>
+
+      <h3>Restore Backup</h3>
+
+      <p>
+        The <strong>Restore Backup</strong> section allows you to restore a previously downloaded
+        backup file.
+      </p>
+
+      <ol>
+        <li>Click <strong>Choose File</strong> to select a backup ZIP file</li>
+        <li>Click <strong>Restore Backup</strong> to upload and extract the backup</li>
+        <li>The application will restore all data from the backup</li>
+      </ol>
+
+      <div class="info-box warning">
+        <div class="info-box-title">⚠️ Warning: Data Will Be Overwritten</div>
+        <p>
+          Restoring a backup will <strong>overwrite all current application data</strong>, including
+          the database, data dictionary, and concept mappings. Make sure to create a backup of your
+          current data before restoring if you want to preserve it.
+        </p>
+      </div>
+
+      <!-- Footer navigation -->
+      <div class="doc-footer-nav">
+        <a href="projects.html" class="nav-prev">
+          <span class="nav-label">Previous</span>
+          <span class="nav-title">Managing Projects</span>
+        </a>
+        <a href="dictionary-settings.html" class="nav-next">
+          <span class="nav-label">Next</span>
+          <span class="nav-title">Dictionary Settings</span>
+        </a>
+      </div>
+    </main>
+  </div>
+  <script src="../assets/lightbox.js"></script>
+</body>
+</html>
