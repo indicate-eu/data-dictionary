@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects - INDICATE Data Dictionary Documentation</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="doc-header">
+    <img src="../assets/logo.png" alt="INDICATE" class="doc-header-logo">
+    <span class="doc-header-title">INDICATE Data Dictionary</span>
+    <span class="doc-header-subtitle">Documentation</span>
+    <div class="doc-header-right">
+      <div class="lang-switch">
+        <a href="projects.html" class="lang-btn active">EN</a>
+        <a href="../fr/projects.html" class="lang-btn">FR</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="doc-container">
+    <!-- Sidebar -->
+    <nav class="doc-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Getting Started</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="quickstart.html">Quick Start</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Dictionary Explorer</div>
+        <ul class="sidebar-nav">
+          <li><a href="dictionary-explorer.html">General Concepts</a></li>
+          <li><a href="general-concept-details.html">General Concept Details</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Projects</div>
+        <ul class="sidebar-nav">
+          <li><a href="projects.html" class="active">Managing Projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="doc-main">
+      <h1>Projects</h1>
+
+      <p>
+        The Projects module allows you to define and manage scientific projects that will use data from your
+        database. A project can be a machine learning study, a classical statistical analysis, a
+        management dashboard, or any other data-driven initiative.
+      </p>
+
+      <p>
+        For each project, you specify which general concepts are required, allowing you to track data
+        requirements and ensure your data collection supports your research objectives.
+      </p>
+
+      <img src="../assets/screenshots/en/projects-list.png" alt="Projects list page">
+
+      <h2>Projects List</h2>
+
+      <p>
+        The main Projects page displays all defined projects in a table with the following columns:
+      </p>
+
+      <ul>
+        <li><strong>Project Name</strong> — The name of the project</li>
+        <li><strong>Short Description</strong> — A brief description of the project's purpose</li>
+        <li><strong>Actions</strong> — Edit or delete the project</li>
+      </ul>
+
+      <h3>Creating a Project</h3>
+
+      <p>
+        Click the <strong>Add Project</strong> button to create a new project. You'll need to provide:
+      </p>
+
+      <ul>
+        <li><strong>Project Name</strong> — A descriptive name for your project</li>
+        <li><strong>Short Description</strong> — A brief summary of what the project aims to accomplish</li>
+      </ul>
+
+      <img src="../assets/screenshots/en/create-project-modal.png" alt="Create project modal">
+
+      <h3>Managing Projects</h3>
+
+      <p>
+        From the Actions column, you can:
+      </p>
+
+      <ul>
+        <li><strong>Edit</strong> — Modify the project name and description</li>
+        <li><strong>Delete</strong> — Remove the project from the system</li>
+      </ul>
+
+      <h3>Opening a Project</h3>
+
+      <p>
+        <strong>Double-click on any project row</strong> to open the project detail view. This opens a
+        dedicated page where you can configure the project's requirements and documentation.
+      </p>
+
+      <h2>Project Detail View</h2>
+
+      <p>
+        When you open a project, you'll see two tabs:
+      </p>
+
+      <h3>1. Context Tab</h3>
+
+      <p>
+        This tab provides space for project documentation:
+      </p>
+
+      <ul>
+        <li><strong>Scientific Justification</strong> — Describe the scientific rationale for the project,
+        research questions, and expected outcomes</li>
+        <li><strong>Bibliography</strong> — List relevant literature and references that inform the project</li>
+      </ul>
+
+      <p>
+        This documentation helps team members understand the project context and ensures consistent
+        interpretation of data requirements.
+      </p>
+
+      <div class="info-box info">
+        <div class="info-box-title">Future Enhancements</div>
+        <p>
+          The project detail page will be progressively enriched with additional fields such as
+          inclusion/exclusion criteria, study population characteristics, and the ability to add
+          custom fields to capture project-specific information.
+        </p>
+      </div>
+
+      <h3>2. Variables Tab</h3>
+
+      <p>
+        This tab allows you to specify which general concepts are required for your project. The interface
+        is divided into two panels:
+      </p>
+
+      <img src="../assets/screenshots/en/project-variables.png" alt="Project variables selection interface">
+
+      <h4>Available Concepts (Left Panel)</h4>
+
+      <p>
+        Displays all general concepts from the INDICATE dictionary. You can:
+      </p>
+
+      <ul>
+        <li><strong>Select concepts</strong> — Click on individual rows to select them</li>
+        <li><strong>Select all / Deselect all</strong> — Use the buttons above the table to quickly
+        select or deselect all concepts</li>
+        <li><strong>Add selected concepts</strong> — Click the <strong>Add selected concepts</strong>
+        button to move selected concepts to the project requirements</li>
+      </ul>
+
+      <h4>Selected Concepts for Project (Right Panel)</h4>
+
+      <p>
+        Shows the general concepts that have been assigned to this project. You can:
+      </p>
+
+      <ul>
+        <li><strong>Select concepts</strong> — Click on individual rows to select them</li>
+        <li><strong>Select all / Deselect all</strong> — Use the buttons above the table to quickly
+        select or deselect all concepts</li>
+        <li><strong>Remove selected concepts</strong> — Click the <strong>Remove selected concepts</strong>
+        button to remove concepts from the project requirements</li>
+      </ul>
+
+      <h3>Using Project Requirements</h3>
+
+      <p>
+        Defining project requirements serves two key perspectives:
+      </p>
+
+      <ul>
+        <li><strong>For Project Creators</strong> — Identify which data providers can participate in
+        the project based on the availability of required concepts in their databases</li>
+        <li><strong>For Data Providers</strong> — Discover which projects they can contribute to
+        based on the concepts available in their data</li>
+      </ul>
+
+      <div class="info-box info">
+        <div class="info-box-title">Best Practices</div>
+        <p>
+          When defining project requirements, include all general concepts that will be used in your
+          analysis, even if they're only needed for adjustment or stratification. This ensures complete
+          data collection from the start.
+        </p>
+      </div>
+
+      <!-- Footer navigation -->
+      <div class="doc-footer-nav">
+        <a href="general-concept-details.html" class="nav-prev">
+          <span class="nav-label">Previous</span>
+          <span class="nav-title">General Concept Details</span>
+        </a>
+        <div></div>
+      </div>
+    </main>
+  </div>
+  <script src="../assets/lightbox.js"></script>
+</body>
+</html>

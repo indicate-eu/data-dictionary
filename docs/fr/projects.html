@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projets - Documentation INDICATE Data Dictionary</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="doc-header">
+    <img src="../assets/logo.png" alt="INDICATE" class="doc-header-logo">
+    <span class="doc-header-title">INDICATE Data Dictionary</span>
+    <span class="doc-header-subtitle">Documentation</span>
+    <div class="doc-header-right">
+      <div class="lang-switch">
+        <a href="../en/projects.html" class="lang-btn">EN</a>
+        <a href="projects.html" class="lang-btn active">FR</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="doc-container">
+    <!-- Sidebar -->
+    <nav class="doc-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Premiers pas</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="quickstart.html">Démarrage rapide</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Explorateur du dictionnaire</div>
+        <ul class="sidebar-nav">
+          <li><a href="dictionary-explorer.html">Concepts généraux</a></li>
+          <li><a href="general-concept-details.html">Détails d'un concept général</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Projets</div>
+        <ul class="sidebar-nav">
+          <li><a href="projects.html" class="active">Gestion des projets</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="doc-main">
+      <h1>Projets</h1>
+
+      <p>
+        Le module Projets vous permet de définir et de gérer des projets scientifiques qui utiliseront les données
+        de votre base de données. Un projet peut être une étude de machine learning, une analyse statistique
+        classique, un tableau de bord de pilotage, ou toute autre initiative exploitant des données.
+      </p>
+
+      <p>
+        Pour chaque projet, vous spécifiez quels concepts généraux sont nécessaires, ce qui vous permet de suivre
+        les besoins en données et de vous assurer que votre collecte de données soutient vos objectifs de recherche.
+      </p>
+
+      <img src="../assets/screenshots/fr/projects-list.png" alt="Page de la liste des projets">
+
+      <h2>Liste des projets</h2>
+
+      <p>
+        La page principale des Projets affiche tous les projets définis dans un tableau avec les colonnes suivantes :
+      </p>
+
+      <ul>
+        <li><strong>Nom du projet</strong> — le nom du projet</li>
+        <li><strong>Description courte</strong> — une brève description de l'objectif du projet</li>
+        <li><strong>Actions</strong> — éditer ou supprimer le projet</li>
+      </ul>
+
+      <h3>Créer un projet</h3>
+
+      <p>
+        Cliquez sur le bouton <strong>Ajouter un projet</strong> pour créer un nouveau projet. Vous devrez fournir :
+      </p>
+
+      <ul>
+        <li><strong>Nom du projet</strong> — un nom descriptif pour votre projet</li>
+        <li><strong>Description courte</strong> — un bref résumé de ce que le projet vise à accomplir</li>
+      </ul>
+
+      <img src="../assets/screenshots/fr/create-project-modal.png" alt="Fenêtre modale de création de projet">
+
+      <h3>Gérer les projets</h3>
+
+      <p>
+        Depuis la colonne Actions, vous pouvez :
+      </p>
+
+      <ul>
+        <li><strong>Éditer</strong> — modifier le nom et la description du projet</li>
+        <li><strong>Supprimer</strong> — retirer le projet du système</li>
+      </ul>
+
+      <h3>Ouvrir un projet</h3>
+
+      <p>
+        <strong>Double-cliquez sur n'importe quelle ligne de projet</strong> pour ouvrir la vue détaillée du projet.
+        Cela ouvre une page dédiée où vous pouvez configurer les exigences et la documentation du projet.
+      </p>
+
+      <h2>Vue détaillée d'un projet</h2>
+
+      <p>
+        Lorsque vous ouvrez un projet, vous verrez deux onglets :
+      </p>
+
+      <h3>1. Onglet Contexte</h3>
+
+      <p>
+        Cet onglet fournit un espace pour la documentation du projet :
+      </p>
+
+      <ul>
+        <li><strong>Justification scientifique</strong> — décrivez la justification scientifique du projet,
+        les questions de recherche et les résultats attendus</li>
+        <li><strong>Bibliographie</strong> — listez la littérature pertinente et les références qui informent le projet</li>
+      </ul>
+
+      <p>
+        Cette documentation aide les membres de l'équipe à comprendre le contexte du projet et assure une
+        interprétation cohérente des besoins en données.
+      </p>
+
+      <div class="info-box info">
+        <div class="info-box-title">Améliorations futures</div>
+        <p>
+          La page de détails du projet sera progressivement enrichie avec des champs supplémentaires tels que
+          les critères d'inclusion/exclusion, les caractéristiques de la population étudiée, et la possibilité
+          d'ajouter des champs personnalisés pour capturer des informations spécifiques au projet.
+        </p>
+      </div>
+
+      <h3>2. Onglet Variables</h3>
+
+      <p>
+        Cet onglet vous permet de spécifier quels concepts généraux sont nécessaires pour votre projet. L'interface
+        est divisée en deux panneaux :
+      </p>
+
+      <img src="../assets/screenshots/fr/project-variables.png" alt="Interface de sélection des variables du projet">
+
+      <h4>Concepts disponibles (panneau de gauche)</h4>
+
+      <p>
+        Affiche tous les concepts généraux du dictionnaire INDICATE. Vous pouvez :
+      </p>
+
+      <ul>
+        <li><strong>Sélectionner des concepts</strong> — cliquez sur des lignes individuelles pour les sélectionner</li>
+        <li><strong>Tout sélectionner / Tout désélectionner</strong> — utilisez les boutons au-dessus du tableau pour
+        sélectionner ou désélectionner rapidement tous les concepts</li>
+        <li><strong>Ajouter les concepts sélectionnés</strong> — cliquez sur le bouton <strong>Ajouter les concepts sélectionnés</strong>
+        pour déplacer les concepts sélectionnés vers les exigences du projet</li>
+      </ul>
+
+      <h4>Concepts sélectionnés pour le projet (panneau de droite)</h4>
+
+      <p>
+        Affiche les concepts généraux qui ont été assignés à ce projet. Vous pouvez :
+      </p>
+
+      <ul>
+        <li><strong>Sélectionner des concepts</strong> — cliquez sur des lignes individuelles pour les sélectionner</li>
+        <li><strong>Tout sélectionner / Tout désélectionner</strong> — utilisez les boutons au-dessus du tableau pour
+        sélectionner ou désélectionner rapidement tous les concepts</li>
+        <li><strong>Retirer les concepts sélectionnés</strong> — cliquez sur le bouton <strong>Retirer les concepts sélectionnés</strong>
+        pour retirer les concepts des exigences du projet</li>
+      </ul>
+
+      <h3>Utiliser les exigences du projet</h3>
+
+      <p>
+        Définir les exigences d'un projet répond à deux perspectives clés :
+      </p>
+
+      <ul>
+        <li><strong>Pour les créateurs de projet</strong> — identifier quels fournisseurs de données peuvent participer
+        au projet en fonction de la disponibilité des concepts requis dans leurs bases de données</li>
+        <li><strong>Pour les fournisseurs de données</strong> — découvrir à quels projets ils peuvent contribuer
+        en fonction des concepts disponibles dans leurs données</li>
+      </ul>
+
+      <div class="info-box info">
+        <div class="info-box-title">Bonnes pratiques</div>
+        <p>
+          Lors de la définition des exigences d'un projet, incluez tous les concepts généraux qui seront utilisés dans
+          votre analyse, même s'ils ne sont nécessaires que pour l'ajustement ou la stratification. Cela garantit une
+          collecte de données complète dès le départ.
+        </p>
+      </div>
+
+      <!-- Footer navigation -->
+      <div class="doc-footer-nav">
+        <a href="general-concept-details.html" class="nav-prev">
+          <span class="nav-label">Précédent</span>
+          <span class="nav-title">Détails d'un concept général</span>
+        </a>
+        <div></div>
+      </div>
+    </main>
+  </div>
+  <script src="../assets/lightbox.js"></script>
+</body>
+</html>

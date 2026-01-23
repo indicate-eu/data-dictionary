@@ -350,13 +350,12 @@ render_projects_list_ui <- function(ns, i18n) {
       ),
       tags$div(
         style = "display: flex; gap: 10px;",
-        shinyjs::hidden(
-          actionButton(
-            ns("add_project_btn"),
-            i18n$t("add_project"),
-            class = "btn-success-custom",
-            icon = icon("plus")
-          )
+        actionButton(
+          ns("add_project_btn"),
+          i18n$t("add_project"),
+          class = "btn-success-custom",
+          icon = icon("plus"),
+          style = "display: none;"
         )
       )
     ),
@@ -676,9 +675,12 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
       data_loaded_trigger(data_loaded_trigger() + 1)
 
       # Show add project button (exists in static UI)
-      if (user_has_permission("projects", "add_project")) {
+      shinyjs::delay(100, {
         shinyjs::show("add_project_btn")
-      }
+      })
+      # if (user_has_permission("projects", "add_project")) {
+      #   shinyjs::show("add_project_btn")
+      # }
     })
 
     ## 2) Server - Navigation & State Changes ====
@@ -963,6 +965,13 @@ mod_projects_server <- function(id, data, vocabularies = reactive({ NULL }), cur
           render_project_detail_ui(ns, i18n)
         }
       })
+
+      # When in list view, show add project button after UI is rendered
+      if (view == "list") {
+        shinyjs::delay(100, {
+          shinyjs::show("add_project_btn")
+        })
+      }
 
       # When entering detail view, render tab contents and load project data
       if (view == "detail") {

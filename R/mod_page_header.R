@@ -46,7 +46,7 @@ mod_page_header_ui <- function(id, i18n) {
             tags$div(
               id = ns("settings_dropdown"),
               class = "settings-dropdown",
-              style = "display: none; position: absolute; right: 0; top: 100%; margin-top: 5px; background: #2c3e50; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 1000; min-width: 200px;",
+              style = "display: none; position: absolute; right: 0; top: 100%; margin-top: 5px; background: #2c3e50; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 1000; min-width: 200px; width: max-content; white-space: nowrap;",
 
               # General settings item
               tags$div(
