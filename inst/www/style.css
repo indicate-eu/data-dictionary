@@ -122,7 +122,7 @@ html, body {
 
 .shiny-notification {
   position: fixed !important;
-  top: 72px !important; /* Header height (10px padding + 40px logo + 10px padding + 2px border + 10px margin) */
+  top: 62px !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
   width: auto !important;
@@ -677,7 +677,6 @@ h3, h4 {
   flex-direction: column;
   overflow: hidden;
   min-height: 0;
-  padding: 0 10px;
 }
 
 .main-content {
@@ -686,7 +685,6 @@ h3, h4 {
   flex: 1;
   min-height: 0;
   overflow: hidden;
-  margin-top: 10px;
 }
 
 /* Settings page should take full height */
@@ -2084,7 +2082,190 @@ a.btn-success-custom:hover {
   }
 }
 
-/* Quadrant layout for concept details view
+/* Page Layout System (new)
+-------------------------------------------------- */
+
+/* Page header with title and action buttons */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  margin: 0;
+  border-bottom: none;
+}
+
+/* Base container - fills available space */
+.layout-container {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Full layout - single panel */
+.layout-full {
+  flex-direction: column;
+}
+
+.layout-full > .layout-panel {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Column layouts */
+.layout-columns {
+  flex-direction: row;
+}
+
+.layout-column {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  min-height: 0;
+}
+
+.layout-column > .layout-panel {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Row layouts */
+.layout-rows {
+  flex-direction: column;
+}
+
+.layout-row {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-height: 150px;
+}
+
+.layout-row > .layout-panel {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Quadrant layout */
+.layout-quadrant {
+  flex-direction: column;
+}
+
+.layout-quadrant .layout-row {
+  flex: 1;
+}
+
+.layout-quadrant-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+  min-height: 0;
+}
+
+.layout-quadrant-panel > .layout-panel {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Splitters */
+.layout-splitter {
+  flex-shrink: 0;
+  background: #e9ecef;
+  transition: background 0.2s;
+}
+
+.layout-splitter:hover {
+  background: #0f60af;
+}
+
+.layout-splitter-vertical {
+  width: 6px;
+  cursor: col-resize;
+}
+
+.layout-splitter-horizontal {
+  height: 6px;
+  cursor: row-resize;
+}
+
+.layout-splitter.dragging {
+  background: #0f60af;
+}
+
+/* Panel structure */
+.layout-panel {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  overflow: visible;
+  margin: 4px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  background: #f8f9fa;
+  border-bottom: 2px solid var(--color-primary);
+  flex-shrink: 0;
+  min-height: 48px;
+  position: relative;
+  overflow: visible;
+  z-index: 10;
+}
+
+.panel-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.panel-content {
+  flex: 1;
+  overflow: auto;
+  padding: 15px;
+  min-height: 0;
+  position: relative;
+}
+
+/* Fix for Shiny outputs in panels */
+.panel-content > .shiny-html-output,
+.panel-content > .shiny-bound-output {
+  height: 100%;
+}
+
+.panel-content .dataTables_wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-content .dataTables_wrapper .dataTables_scroll {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Legacy quadrant layout (keep for backward compatibility)
 -------------------------------------------------- */
 .quadrant-layout {
   display: flex;
@@ -2443,7 +2624,7 @@ a.btn-success-custom:hover {
 .info-icon::after {
   content: attr(data-tooltip);
   position: absolute;
-  left: 50%;
+  left: calc(50% + 10px);
   top: 125%;
   transform: translateX(-50%);
   background: #333;
@@ -2470,7 +2651,7 @@ a.btn-success-custom:hover {
 .info-icon::before {
   content: '';
   position: absolute;
-  left: 50%;
+  left: calc(50% + 10px);
   top: 115%;
   transform: translateX(-50%);
   border: 6px solid transparent;

@@ -1,0 +1,576 @@
+base,fr
+app_title,Dictionnaire de données INDICATE
+login,Identifiant
+password,Mot de passe
+login_placeholder,Entrez votre identifiant
+password_placeholder,Entrez votre mot de passe
+log_in,Se connecter
+anonymous,Anonyme
+anonymous_access_limited,L'accès anonyme a des permissions limitées
+please_enter_login,Veuillez entrer votre identifiant.
+please_enter_password,Veuillez entrer votre mot de passe.
+invalid_login_or_password,Identifiant ou mot de passe invalide. Veuillez réessayer.
+add_concept,Ajouter un concept
+concept_added,Concept ajouté
+history,Historique
+edit_page,Editer la page
+cancel,Annuler
+save_updates,Enregistrer
+back_to_list,Retour à la liste
+back_to_details,Retour aux détails
+loading_ohdsi_vocabularies,Chargement des vocabulaires OHDSI
+please_wait_vocabularies,Veuillez patienter pendant le chargement de la base de données des vocabulaires...
+ohdsi_vocabularies_not_loaded,Vocabulaires OHDSI non chargés
+ohdsi_vocabularies_required,La base de données des vocabulaires OHDSI est nécessaire pour afficher les mappings de concepts et les détails terminologiques. Veuillez configurer le dossier des vocabulaires dans les paramètres.
+go_to_settings,Aller aux paramètres
+associated_concepts,Concepts associés
+associated_concepts_tooltip,"Concepts des terminologies standard (SNOMED CT, LOINC, RxNorm, etc.) associés au concept général sélectionné."
+copy_concept_details,Copier les détails du concept
+copy_as_json,Copier en JSON
+copy_as_atlas_json,Copier en JSON ATLAS
+copy_omop_sql,Copier SQL OMOP
+selected_concept_details,Détails du concept sélectionné
+selected_concept_details_tooltip,"Informations détaillées du concept sélectionné dans le tableau des concepts associés : vocabulaire, domaine, classe, ainsi que les liens vers ATHENA et les ressources FHIR."
+etl_guidance_comments,Commentaires et guide pour l'ETL
+etl_guidance_comments_tooltip,Commentaires rédigés par des experts du domaine pour aider à comprendre le concept et à réaliser un mapping adéquat.
+comments,Commentaires
+statistical_summary,Résumé statistique
+concept_relationships_hierarchy,Relations et hiérarchie des concepts
+concept_relationships_tooltip,"Concepts liés au concept sélectionné et position dans la hiérarchie des vocabulaires OHDSI. Double-cliquez sur une ligne pour voir les détails."
+related,Liés
+hierarchy,Hiérarchie
+synonyms,Synonymes
+add_new_concept,Ajouter un nouveau concept
+duplicate_concept,Concept en double
+general_concept_name,Nom du concept général
+enter_concept_name,Entrez le nom du concept
+concept_name_required,Le nom du concept est requis
+category,Catégorie
+category_breakdown,Répartition par catégorie
+distribution,Distribution
+completion,Complétion
+view_fullscreen,Voir en plein écran
+select_category,Sélectionnez une catégorie...
+category_required,La catégorie est requise
+subcategory,Sous-catégorie
+first_select_category,Sélectionnez d'abord une catégorie...
+enter_new_category,Entrez une nouvelle catégorie
+enter_new_subcategory,Entrez une nouvelle sous-catégorie
+subcategory_required,La sous-catégorie est requise
+add_concepts_to_mapping,Ajouter des concepts au mapping
+search_omop_concepts,Rechercher des concepts OMOP
+add_custom_concept,Ajouter un concept personnalisé
+selected_concept_details_modal,Détails du concept sélectionné
+descendants,Descendants
+multiple_selection,Sélection multiple
+include_descendants,Inclure les descendants
+add_concepts,Ajouter les concepts
+vocabulary_id,ID du vocabulaire
+vocabulary_id_required,L'ID du vocabulaire est requis
+concept_code,Code du concept
+optional,Optionnel
+concept_name,Nom du concept
+concept_details,Détails du concept
+general_concepts,Concepts généraux
+general_concepts_tooltip,Concepts standardisés du dictionnaire de données INDICATE. Sélectionnez un concept pour y associer vos données sources.
+see_all_omop_concepts,Voir tous les concepts OMOP
+all_omop_concepts,Tous les concepts OMOP
+dictionary_explorer,Dictionnaire des concepts
+select_concept_to_view,Sélectionnez un concept pour voir les détails
+no_concept_selected,Aucun concept sélectionné
+no_mapping_selected,Aucun mapping sélectionné
+select_mapping_to_view,Sélectionnez un mapping pour voir les détails
+vocabulary,Vocabulaire
+domain,Domaine
+concept_class,Classe du concept
+standard_concept,Concept standard
+invalid_reason,Raison d'invalidité
+view_in_athena,Voir dans ATHENA
+view_in_fhir,Voir dans FHIR
+no_comments,Aucun commentaire disponible pour ce concept.
+no_statistical_data,Aucune donnée statistique disponible pour ce concept.
+ehden_statistics,Statistiques du réseau EHDEN
+data_sources,Sources de données
+total_rows,Lignes totales
+no_relationships,Aucune relation trouvée pour ce concept.
+no_hierarchy,Aucune donnée hiérarchique disponible pour ce concept.
+no_synonyms,Aucun synonyme trouvé pour ce concept.
+view_details,Voir les détails
+delete,Supprimer
+confirm_delete,Confirmer la suppression
+are_you_sure_delete,Êtes-vous sûr de vouloir supprimer ce concept ?
+search,Rechercher
+clear_filters,Effacer les filtres
+all_categories,Toutes les catégories
+edit_mode,Mode édition
+view_mode,Mode visualisation
+changes_saved,Modifications enregistrées avec succès
+no_changes,Aucune modification à enregistrer
+error_saving,Erreur lors de l'enregistrement
+projects,Projets
+concepts_mapping,Mapping des concepts
+improvements,Améliorations
+dev_tools,Outils dev
+general_settings,Paramètres généraux
+users,Utilisateurs
+logout,Déconnexion
+add_project,Ajouter un projet
+project_details,Détails du projet
+select_project,Sélectionnez un projet pour voir ses détails
+project_name,Nom
+short_description,Description courte
+long_description,Description détaillée
+concepts,Concepts
+name_required,Le nom est requis
+short_description_required,La description courte est requise
+enter_name,Entrez le nom
+enter_short_description,Entrez une description courte (1-2 phrases)
+enter_long_description,Entrez une description détaillée (optionnel)
+configure,Configurer
+edit,Modifier
+update,Mettre à jour
+confirm_deletion,Confirmer la suppression
+delete_project_confirm,Êtes-vous sûr de vouloir supprimer le(s) projet(s) sélectionné(s) ? Cette action est irréversible.
+delete_project_note,Toutes les associations de concepts pour ce projet seront également supprimées.
+no_projects,Aucun projet trouvé. Cliquez sur 'Ajouter un projet' pour en créer un.
+available_concepts,Concepts disponibles
+selected_concepts,Concepts sélectionnés
+selected_concepts_for_project,Concepts sélectionnés pour le projet
+add_selected_concepts,Ajouter les concepts sélectionnés
+remove_selected_concepts,Retirer les concepts sélectionnés
+no_concepts_selected,Aucun concept général sélectionné pour ce projet. Sélectionnez des concepts généraux dans le panneau de gauche et cliquez sur 'Ajouter les concepts sélectionnés'.
+dictionary_improvements,Améliorations du dictionnaire
+dictionary_improvements_desc,Contribuez au dictionnaire de données INDICATE en proposant de nouveaux concepts, relations et améliorations.
+coming_soon,Bientôt disponible
+data_quality,Qualité des données
+r_console,Console R
+r_code,Code R
+results,Résultats
+run_code,Exécuter le code
+query_vocabularies,Interroger les vocabulaires avec dplyr
+available_objects,Objets disponibles :
+concept_table,Table concept OHDSI
+concept_relationship_table,Table concept_relationship OHDSI
+concept_ancestor_table,Table concept_ancestor OHDSI
+mrconso_table,Noms de concepts et sources UMLS
+mrsty_table,Types sémantiques UMLS
+mrdef_table,Définitions UMLS (optionnel)
+mrsab_table,Métadonnées des sources UMLS (optionnel)
+run_code_results,Exécutez le code pour voir les résultats ici
+enter_r_code,Veuillez entrer du code R à exécuter.
+vocabularies_not_loaded,Vocabulaires OHDSI non chargés.
+missing_comments,Commentaires manquants
+missing_data_details,Détails des données manquantes
+ohdsi_vocabularies,Vocabulaires OHDSI
+backup_restore,Sauvegarde et restauration
+browse,Parcourir...
+no_folder_selected,Aucun dossier sélectionné
+select_ohdsi_folder,Sélectionner le dossier des vocabulaires OHDSI
+search_folders,Rechercher des dossiers et fichiers...
+duckdb_status,État de la base OHDSI Vocabularies
+duckdb_description,Une base de données DuckDB est automatiquement créée à partir des fichiers de vocabulaires ATHENA (CSV ou Parquet) pour un chargement instantané au démarrage.
+creating_duckdb,Création de la base DuckDB... Cela peut prendre quelques minutes.
+database_exists,Base de données existante :
+database_not_exists,La base de données n'existe pas
+recreate,Recréer
+create,Créer
+ohdsi_relationships,Mappings des relations OHDSI
+ohdsi_relationships_desc,Charger des mappings de concepts supplémentaires à partir des relations des vocabulaires OHDSI. Cela enrichit le dictionnaire avec des concepts liés des vocabulaires standards.
+loading_ohdsi_mappings,Chargement des mappings de relations OHDSI... Cela peut prendre quelques minutes.
+load_vocabularies_first,Veuillez d'abord charger les vocabulaires OHDSI.
+ohdsi_mappings_loaded,Mappings OHDSI chargés avec succès.
+last_synchronized,Dernière synchronisation :
+reload,Recharger
+load,Charger
+ohdsi_mappings_not_loaded,Mappings des relations OHDSI non chargés.
+download_backup,Télécharger la sauvegarde
+download_backup_desc,Crée une archive ZIP contenant la base de données et les mappings de concepts (exclut les fichiers de vocabulaires).
+restore_from_backup,Restaurer depuis une sauvegarde
+select_backup_file,Sélectionnez un fichier de sauvegarde ZIP
+restore_warning,La restauration d'une sauvegarde remplacera toutes les données actuelles. Cette action est irréversible.
+backup_restored,Sauvegarde restaurée avec succès. Veuillez recharger l'application pour appliquer les modifications.
+backup_empty,Le fichier de sauvegarde semble vide ou invalide.
+reload_application,Recharger l'application
+add_user,Ajouter un utilisateur
+edit_user,Modifier l'utilisateur
+login_label,Identifiant
+password_label,Mot de passe
+first_name,Prénom
+last_name,Nom
+role,Rôle
+affiliation,Affiliation
+login_required,L'identifiant est requis.
+password_required,Le mot de passe est requis pour les nouveaux utilisateurs.
+first_name_required,Le prénom est requis.
+last_name_required,Le nom est requis.
+leave_empty_password,Laissez vide pour conserver le mot de passe actuel
+confirm_password,Confirmer le mot de passe
+passwords_do_not_match,Les mots de passe ne correspondent pas.
+enter_login,Entrez l'identifiant
+enter_password,Entrez le mot de passe
+enter_first_name,Entrez le prénom
+enter_last_name,Entrez le nom
+enter_affiliation,Entrez l'institution ou l'organisation
+save,Enregistrer
+clinician,Clinicien
+data_scientist,Data scientist
+engineer,Ingénieur
+login_exists,Cet identifiant existe déjà. Veuillez en choisir un autre.
+confirm_delete_user,Êtes-vous sûr de vouloir supprimer l'utilisateur
+athena_note,Les vocabulaires OHDSI peuvent être téléchargés depuis ATHENA (inscription requise).
+edit_project,Modifier le projet
+update_project,Mettre à jour
+ehden_data_sources,Sources de données EHDEN
+ehden_rows_count,Lignes EHDEN
+loinc_rank,Rang LOINC
+unit,Unité
+omop_unit_concept_id,ID du concept d'unité
+omop_concept_id,ID OMOP
+profile,Profil
+validity,Validité
+standard,Standard
+domain_id,ID du domaine
+unit_concept_name,Nom du concept d'unité
+unit_concept_code,Code du concept d'unité
+fhir_resource,Ressource FHIR
+unit_fhir_resource,Ressource FHIR de l'unité
+add_alignment,Ajouter un alignement
+no_alignments_yet,Aucun alignement. Cliquez sur 'Ajouter un alignement' pour en créer un.
+alignment_name,Nom de l'alignement
+enter_alignment_name,Entrez le nom de l'alignement
+please_enter_alignment_name,Veuillez entrer un nom d'alignement
+description,Description
+enter_description,Entrez la description
+upload_csv_file,Téléverser un fichier CSV
+please_upload_file,Veuillez téléverser un fichier
+back,Retour
+next,Suivant
+view,Voir
+column_mapping,Mapping des colonnes
+additional_columns,Colonnes supplémentaires
+concept_mappings,Mappings de concepts
+summary,Résumé
+all_mappings,Tous les mappings
+import_mappings,Importer des mappings
+edit_mappings,Éditer les mappings
+evaluate_mappings,Évaluer les mappings
+source_concepts,Concepts sources
+add_mapping,Ajouter un mapping
+target_concept_details,Détails du concept cible
+temporal,Temporel
+hospital_units,Services hospitaliers
+import_mappings_from_csv,Importer des mappings depuis un CSV
+import_mappings_csv_desc,"Importer des mappings depuis un fichier CSV source_to_concept_map. Le fichier doit contenir les colonnes suivantes :"
+source_concept_id,ID du concept source
+target_concept_id,ID du concept cible
+select_csv_file,Sélectionner un fichier CSV :
+import_history,Historique des imports
+completed_mappings,Mappings complétés
+no_alignment_selected,Aucun alignement sélectionné
+no_mappings_yet,Aucun mapping créé pour le moment.
+no_mappings_select_add,"Aucun mapping créé. Sélectionnez un concept source et un concept mappé, puis cliquez sur 'Ajouter un mapping'."
+no_mapped_concepts,Aucun concept mappé trouvé pour ce concept général.
+no_json_data,Aucune donnée JSON disponible pour ce concept.
+no_summary_data,Aucune donnée de résumé disponible.
+no_distribution_data,Aucune donnée de distribution disponible.
+no_temporal_data,Aucune donnée temporelle disponible.
+no_unit_data,Aucune donnée de distribution par service disponible.
+select_general_concept,Sélectionnez un concept général pour voir les détails cibles.
+no_data_available,Aucune donnée disponible.
+mapping_added,Mapping ajouté avec succès.
+imported,Importé
+remove,Supprimer
+source_concept,Concept source
+target_concept,Concept cible
+origin,Origine
+upvotes,Votes positifs
+downvotes,Votes négatifs
+uncertain,Incertain
+actions,Actions
+added,Ajouté
+status,Statut
+export,Exporter
+no_projects_defined,Aucun projet défini
+total_concepts,Concepts totaux
+mapped_concepts,Concepts mappés
+covered,Couvert
+coverage,Couverture
+evaluated_mappings,Mappings évalués
+no_mapping_file,Aucun fichier de mapping trouvé pour cet alignement
+no_mappings_found,Aucun mapping trouvé dans cet alignement
+csv_file_not_found,Fichier CSV non trouvé
+created,Créé
+delete_alignment_confirm,Êtes-vous sûr de vouloir supprimer cet alignement ? Cette action est irréversible.
+edit_alignment,Modifier l'alignement
+non_standard_concepts,Concepts non standard
+non_standard,Non standard
+omop_concept_name,Nom du concept OMOP
+general_concept,Concept général
+browse_vocab_folder_desc,Parcourir et sélectionner le dossier contenant vos fichiers de vocabulaires OHDSI (format CSV ou Parquet).
+no_database_info,"Aucune base de données trouvée. Sélectionnez un dossier de vocabulaires ci-dessus pour en créer une, ou placez un fichier vocabularies.duckdb pré-construit dans le dossier de l'application."
+reload_message,Veuillez recharger l'application pour appliquer les changements.
+show_hide_columns,Afficher/Masquer les colonnes
+mapped,Mappé
+name,Nom
+source_concept_details,Détails du concept source
+view_raw_json,Voir le JSON brut
+relationship,Relation
+code,Code
+synonym,Synonyme
+language,Langue
+no_related_concepts,Aucun concept lié trouvé.
+no_descendant_concepts,Aucun concept descendant trouvé dans la hiérarchie.
+no_synonyms_found,Aucun synonyme trouvé pour ce concept.
+concept_hierarchy,Hiérarchie du concept :
+timestamp,Date
+user,Utilisateur
+action,Action
+concept,Concept
+comment,Commentaire
+no_history_available,Aucun historique disponible
+no_history_available_concept,Aucun historique disponible pour ce concept
+select_concept_table_details,Sélectionnez un concept du tableau pour voir les détails.
+select_concept_descendants,Sélectionnez un concept pour voir les descendants.
+select_mapped_concept_details,Sélectionnez un concept du tableau des concepts mappés pour voir ses détails.
+already_added,Déjà ajouté
+copied,Copié
+view_graph,Voir le graphe
+manual,Manuel
+not_evaluated,Non évalué
+approved,Approuvé
+rejected,Rejeté
+no_file_selected,Aucun fichier sélectionné
+omop_id,ID OMOP
+unit_id,ID unité
+custom,Personnalisé
+general_concepts_mapped,Concepts généraux mappés
+no_imports_yet,Aucun import pour le moment. Utilisez le formulaire ci-dessus pour importer des mappings.
+source_code_col,source_code
+source_vocabulary_id_col,source_vocabulary_id
+target_concept_id_col,target_concept_id
+source_code_desc,Code du concept source
+source_vocabulary_id_desc,Identifiant du vocabulaire source
+target_concept_id_desc,ID du concept OMOP cible
+clear_evaluation,Effacer l'évaluation
+mapped_concepts_tooltip,Concepts OMOP spécifiques mappés au concept général sélectionné
+projects_compatibility,Compatibilité des projets
+mapping_already_exists,Ce mapping existe déjà.
+mapping_added_successfully,Mapping ajouté avec succès.
+please_select_csv_file,Veuillez sélectionner un fichier CSV à importer
+selected_file_no_longer_exists,Le fichier sélectionné n'existe plus
+no_alignment_selected_error,Aucun alignement sélectionné
+must_be_logged_in_import,Vous devez être connecté pour importer des mappings
+error_reading_csv,Erreur de lecture du CSV :
+missing_required_columns,Colonnes requises manquantes :
+database_not_found,Base de données non trouvée
+alignment_not_found,Alignement non trouvé
+successfully_imported_mappings,{count} mappings importés avec succès
+duplicates_skipped,{count} doublons ignorés
+import_deleted_successfully,Import supprimé avec succès
+delete_import_confirmation_message,Êtes-vous sûr de vouloir supprimer cet import ?
+import_failed,Échec de l'import :
+delete_failed,Échec de la suppression :
+no_mapping_file_found,Aucun fichier de mapping trouvé pour cet alignement
+other,Autres
+no_additional_columns,Aucune colonne supplémentaire disponible pour ce concept.
+column_data_types,Types de données des colonnes
+no_file_uploaded,Aucun fichier téléchargé.
+name_already_exists,Ce nom existe déjà. Veuillez choisir un nom différent.
+cannot_evaluate_own_mappings,Vous ne pouvez pas évaluer vos propres mappings.
+distribution_type,Type de distribution
+numeric_distribution,Numérique
+categorical_distribution,Catégoriel
+export_project,Exporter le projet
+download_csv,Télécharger le CSV
+import_column_mapping,Correspondance des colonnes
+import_column_mapping_desc,Sélectionnez les colonnes de votre fichier CSV correspondant aux champs requis.
+source_code_column,Colonne du code source
+source_vocabulary_column,Colonne du vocabulaire source
+target_concept_column,Colonne de l'ID du concept cible
+select_column,Sélectionner une colonne...
+none_optional,(Aucune)
+preview_import,Aperçu de l'import
+import_preview,Aperçu de l'import
+rows_to_import,Lignes à importer
+import_preview_desc,Vérifiez les mappings qui seront importés depuis votre fichier CSV.
+invalid_numeric_values,contient des valeurs non numériques
+field_required,Ce champ est obligatoire
+target_concept_id_column,Colonne ID Concept Cible
+target_concept_id_column_desc,Optionnel : Sélectionnez une colonne contenant les IDs de concepts OMOP cibles pour pré-remplir les mappings
+mapping_comments,Commentaires
+no_comments_yet,Aucun commentaire. Soyez le premier à en ajouter un.
+add_comment,Ajouter un commentaire
+add_comment_placeholder,Ajoutez votre commentaire...
+comment_added,Commentaire ajouté avec succès.
+comment_deleted,Commentaire supprimé avec succès.
+delete_comment_confirm,Êtes-vous sûr de vouloir supprimer ce commentaire ?
+export_mappings,Exporter les mappings
+export_format,Format d'export
+usagi_format,Format Usagi
+omop_cdm_format,Format OMOP CDM (SOURCE_TO_CONCEPT_MAP)
+include_mappings_by_status,Inclure les mappings par statut
+include_approved,Inclure les mappings approuvés
+include_rejected,Inclure les mappings rejetés
+include_uncertain,Inclure les mappings incertains
+include_not_evaluated,Inclure les mappings non évalués
+total_mappings,Total des mappings
+mappings_approved,Approuvés
+mappings_rejected,Rejetés
+mappings_uncertain,Incertains
+mappings_not_evaluated,Non évalués
+export_alignment,Exporter l'alignement
+mapping_statistics,Statistiques des mappings
+at_least_one_approval,Au moins une approbation
+at_least_one_rejection,Au moins un rejet
+uncertain_no_approval,Incertain uniquement (pas d'approbation)
+no_evaluation,Pas encore évalué
+exclude_if_any_rejection,Exclure les mappings avec au moins un rejet
+total_mappings_to_export,Total des mappings à exporter :
+no_mappings_to_export,Aucun mapping ne correspond aux critères sélectionnés.
+export_successful,%d mappings exportés avec succès.
+usagi_format_desc,Compatible avec Usagi desktop
+stcm_format_desc,Pour l'ETL OMOP CDM
+include_all_approved,Inclure tous (au moins une approbation)
+only_majority_approval,Seulement avec majorité d'approbations
+frequency,Fréquence
+no_columns_selected,Aucune colonne sélectionnée
+indicate_format_desc,Export complet avec évaluations et commentaires (ZIP)
+export_successful_indicate,Alignement exporté avec succès au format INDICATE
+export_error,Erreur d'export :
+import_format,Format d'import
+import_format_csv,Fichier CSV (Mapping manuel)
+import_format_csv_desc,Sélectionner manuellement les colonnes pour le code source, vocabulaire et concept cible
+import_format_stcm,SOURCE_TO_CONCEPT_MAP
+import_format_stcm_desc,Format OMOP CDM avec noms de colonnes standards
+import_format_usagi,Format Usagi
+import_format_usagi_desc,Importer des mappings exportés depuis l'application Usagi
+import_format_indicate,INDICATE Data Dictionary
+import_format_indicate_desc,Importer un alignement depuis un export INDICATE (ZIP)
+select_import_format,Sélectionner le format d'import...
+import_validation_success,Format de fichier validé avec succès
+import_validation_error,Format de fichier invalide.
+missing_columns,Colonnes requises manquantes :
+invalid_file_type,Type de fichier invalide. Attendu :
+select_zip_file,Sélectionner le fichier ZIP :
+import_indicate_success,Alignement importé avec succès avec {mappings} mappings et {evaluations} évaluations
+import_indicate_format,Importer
+import_alignment_created,Alignement "{name}" créé avec succès avec {mappings} mappings
+users_not_found_warning,{count} utilisateur(s) non trouvé(s)
+alignment_name_exists,Un alignement avec ce nom existe déjà
+mappings_skipped_no_match,{count} mapping(s) ignoré(s) (concept source non trouvé)
+import_json,Importer JSON
+import_atlas_json,Importer un JSON ATLAS
+import_atlas_json_desc,Collez un JSON de concept set exporté depuis ATLAS pour importer les concepts dans ce concept général.
+import,Importer
+json_empty_error,Veuillez coller du contenu JSON
+json_parse_error,Format JSON invalide
+json_no_items_error,Aucun élément trouvé dans le JSON
+concepts_imported,concept(s) importé(s)
+concepts_skipped,existai(en)t déjà
+no_new_concepts,Tous les concepts existent déjà dans ce concept général
+search_categories,Rechercher des catégories...
+sort_by,Trier par :
+sort_rate_desc,Taux (plus élevé en premier)
+sort_rate_asc,Taux (plus bas en premier)
+sort_alpha_asc,Alphabétique (A-Z)
+sort_alpha_desc,Alphabétique (Z-A)
+indicate_concepts,Concepts INDICATE
+indicate_concepts_desc,"Exporter ou importer le dictionnaire de données INDICATE."
+download_dictionary,Télécharger le dictionnaire
+download_dictionary_zip,Télécharger le dictionnaire (ZIP)
+download_dictionary_desc,"Télécharge tous les fichiers du dictionnaire de données sous forme d'archive ZIP (fichiers CSV, historique, statistiques)."
+upload_dictionary,Importer un dictionnaire
+select_dictionary_zip,Sélectionner un fichier ZIP de dictionnaire
+upload_dictionary_warning,"L'importation d'un dictionnaire écrasera les fichiers existants. Cette action ne peut pas être annulée."
+global_comment,Commentaire global
+global_comment_desc,"Rédigez un commentaire global qui sera accessible depuis tous les panneaux de commentaires. Il peut contenir des directives générales, des notes importantes ou des instructions applicables à l'ensemble du dictionnaire."
+save_global_comment,Enregistrer le commentaire global
+global_comment_saved,Commentaire global enregistré avec succès.
+view_global_comment,Commentaire global
+back_to_concept_comment,Retour au commentaire du concept
+no_global_comment,Aucun commentaire global n'a encore été défini. Vous pouvez en ajouter un dans Paramètres du dictionnaire > Commentaire global.
+dictionary_settings,Paramètres du dictionnaire
+data_dictionary,Dictionnaire de données
+mapped_by,Mappé par
+delete_selected,Supprimer la sélection
+delete_mappings_confirm,Êtes-vous sûr de vouloir supprimer %d mapping(s) ? Cette action est irréversible.
+unit_conversions,Conversions d'unités
+unit_conversions_desc,Gérer les conversions d'unités entre les concepts de mesure. Double-cliquez sur le facteur de conversion pour le modifier.
+no_unit_conversions,Aucune conversion d'unité définie.
+concept_id_1,ID Concept 1
+concept_name_1,Nom Concept 1
+unit_1,Unité 1
+conversion_factor,Facteur
+concept_id_2,ID Concept 2
+concept_name_2,Nom Concept 2
+unit_2,Unité 2
+invalid_conversion_factor,Facteur de conversion invalide. Doit être un nombre positif.
+conversion_factor_updated,Facteur de conversion mis à jour avec succès.
+conversion_deleted,Conversion supprimée avec succès.
+add_conversion,Ajouter une conversion
+test_conversion,Tester la conversion
+test,Tester
+unit_concept_id_1,ID Concept Unité 1
+unit_concept_id_2,ID Concept Unité 2
+add_as,Ajouter en tant que
+select_concept_first,Veuillez d'abord sélectionner un concept dans le tableau.
+no_vocabularies_loaded,Aucun vocabulaire chargé. Veuillez d'abord charger les vocabulaires OHDSI.
+concept_not_found,Concept non trouvé
+conversion_added,Conversion ajoutée avec succès.
+columns,Colonnes
+confirm_delete_conversion,Êtes-vous sûr de vouloir supprimer cette conversion ?
+concept_id,ID Concept
+add,Ajouter
+loading_vocabularies,Chargement des vocabulaires OMOP...
+terminologies,Terminologies
+umls,UMLS Metathesaurus
+browse_umls_folder_desc,"Sélectionnez le dossier contenant les fichiers RRF du Metathesaurus UMLS (dossier META). Fichiers requis : MRCONSO.RRF, MRSTY.RRF."
+umls_note,"Téléchargez UMLS depuis le site NLM (licence UMLS requise). Pointez vers le dossier META contenant les fichiers RRF."
+umls_duckdb_status,État de la base UMLS
+umls_duckdb_description,Les données UMLS sont converties en base DuckDB locale pour des requêtes rapides.
+download_backup_zip,Télécharger la sauvegarde (ZIP)
+select_what_to_import,Sélectionnez ce qui doit être importé :
+configuration_users,Configuration & Utilisateurs
+alignments,Alignements
+dictionary,Dictionnaire
+confirm_restore,Confirmer la restauration
+user_accesses,Droits d'accès
+user_access,Droits d'accès
+add_user_access,Ajouter un profil d'accès
+edit_user_access,Modifier le profil d'accès
+permissions,Permissions
+select_user_access_to_view_permissions,Sélectionnez un profil d'accès pour voir les permissions
+no_permissions_defined,Aucune permission définie pour ce profil
+user_access_required,Les droits d'accès sont requis
+name_exists,Ce nom existe déjà
+check_all,Tout cocher
+uncheck_all,Tout décocher
+permissions_saved,Permissions enregistrées avec succès
+yes,Oui
+no,Non
+context,Contexte
+variables,Variables
+justification,Justification scientifique
+bibliography,Bibliographie
+save_context,Enregistrer
+context_saved,Contexte enregistré avec succès
+enter_justification,Saisir la justification scientifique...
+enter_bibliography,Saisir la bibliographie...
+created_by,Créé par
+created_at,Créé le
+delete_all,Tout supprimer
+centered_on,Centré sur
+large_hierarchy_warning_title,Avertissement - Hiérarchie volumineuse
+large_hierarchy_warning_text,"Ce concept contient %d concepts à afficher (%d ancêtres + %d descendants). L'affichage d'un graphe aussi volumineux peut ralentir l'application ou la rendre non réactive. Voulez-vous continuer ?"
+continue_anyway,Continuer quand même
+back_to_previous_concept,Retour au concept précédent
+fuzzy_search,Recherche approx
+fuzzy_search_placeholder,Rechercher...
+confirm_action,Confirmer l'action
+limit_10k_warning,Le chargement des 4M+ concepts peut ralentir significativement l'application.
+limit_10k_warning_details,Cette opération peut prendre plusieurs secondes. L'application ne sera pas réactive pendant ce temps.
+continue,Continuer
+advanced_filters,Filtres avancés
+select_or_type,Sélectionnez ou tapez...
+clear_all,Tout effacer
+apply_filters,Appliquer les filtres
