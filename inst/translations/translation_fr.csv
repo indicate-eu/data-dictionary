@@ -27,3 +27,158 @@ password,Mot de passe
 login_button,Se connecter
 login_error,Nom d'utilisateur ou mot de passe invalide
 welcome,Bienvenue
+add_user,Ajouter un Utilisateur
+edit_user,Modifier l'Utilisateur
+edit,Modifier
+delete,Supprimer
+cancel,Annuler
+save,Enregistrer
+confirm_deletion,Confirmer la Suppression
+user_accesses,Niveaux d'Acces
+add_user_access,Ajouter un Niveau d'Acces
+edit_user_access,Modifier le Niveau d'Acces
+login_label,Identifiant
+password_label,Mot de passe
+confirm_password,Confirmer le mot de passe
+enter_login,Entrez l'identifiant
+enter_password,Entrez le mot de passe
+first_name,Prenom
+last_name,Nom
+enter_first_name,Entrez le prenom
+enter_last_name,Entrez le nom
+role,Role
+clinician,Clinicien
+data_scientist,Data Scientist
+engineer,Ingenieur
+user_access,Niveau d'Acces
+affiliation,Affiliation
+enter_affiliation,Entrez l'affiliation
+enter_name,Entrez le nom
+enter_description,Entrez la description
+leave_empty_password,Laissez vide pour conserver le mot de passe actuel
+no_users_found,Aucun utilisateur trouve
+no_user_accesses_found,Aucun niveau d'acces trouve
+login_required,L'identifiant est requis
+password_required,Le mot de passe est requis
+first_name_required,Le prenom est requis
+last_name_required,Le nom est requis
+user_access_required,Le niveau d'acces est requis
+name_required,Le nom est requis
+passwords_do_not_match,Les mots de passe ne correspondent pas
+login_exists,Cet identifiant existe deja
+name_exists,Ce nom existe deja
+confirm_delete_user,Voulez-vous vraiment supprimer l'utilisateur
+confirm_delete_user_access,Voulez-vous vraiment supprimer le niveau d'acces
+cannot_delete_assigned_user_access,Vous ne pouvez pas supprimer un niveau d'acces encore attribue a des utilisateurs
+cannot_delete_users_assigned,Impossible de supprimer ce niveau d'acces car des utilisateurs y sont encore attribues
+terminologies,Terminologies
+ohdsi_vocabularies,Vocabulaires OHDSI
+ohdsi_vocabularies_desc,Selectionnez le dossier contenant les fichiers CSV des vocabulaires OHDSI (CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, etc.)
+browse,Parcourir
+athena_note,Telechargez les fichiers de vocabulaire depuis ATHENA (athena.ohdsi.org)
+database_status,Statut de la Base de Donnees
+database_status_desc,Statut de la base de donnees des vocabulaires
+no_folder_selected,Aucun dossier selectionne
+no_vocabulary_folder_selected,Aucun dossier de vocabulaire selectionne. Veuillez selectionner un dossier contenant les fichiers de vocabulaire OHDSI.
+missing_vocabulary_files,Fichiers de vocabulaire requis manquants
+vocabulary_files_found,Fichiers de vocabulaire trouves et prets a l'emploi
+select_vocabulary_folder,Selectionner le Dossier de Vocabulaire
+search_folders,Rechercher des dossiers et fichiers...
+select,Selectionner
+folder_not_found,Dossier introuvable
+empty_folder,Dossier vide
+no_items_match,Aucun element ne correspond a votre recherche
+backup_restore,Sauvegarde & Restauration
+download_backup,Telecharger la Sauvegarde
+download_backup_desc,Telechargez une sauvegarde complete de vos donnees applicatives au format ZIP.
+download_backup_zip,Telecharger le ZIP de Sauvegarde
+restore_from_backup,Restaurer depuis une Sauvegarde
+restore_warning,La restauration depuis une sauvegarde remplacera vos donnees actuelles. Cette action est irreversible.
+select_backup_file,Selectionnez un fichier ZIP de sauvegarde...
+select_what_to_import,Selectionnez ce que vous souhaitez importer :
+configuration_users,Configuration & Utilisateurs
+dictionary,Dictionnaire
+confirm_restore,Confirmer la Restauration
+backup_empty_or_invalid,Le fichier de sauvegarde semble vide ou invalide.
+error_reading_backup,Erreur lors de la lecture du fichier de sauvegarde :
+no_backup_to_restore,Aucun fichier de sauvegarde a restaurer. Veuillez d'abord telecharger une sauvegarde.
+select_at_least_one_category,Veuillez selectionner au moins une categorie a importer.
+successfully_restored,Restauration reussie
+reload_to_apply_changes,Veuillez recharger l'application pour appliquer les modifications.
+error_restoring_backup,Erreur lors de la restauration de la sauvegarde :
+reload_application,Recharger l'Application
+umls_vocabularies,Vocabulaires UMLS
+umls_vocabularies_desc,Selectionnez le dossier contenant les fichiers RRF UMLS (MRCONSO.RRF, MRREL.RRF, etc.)
+umls_note,Telechargez les fichiers de vocabulaire depuis UMLS (uts.nlm.nih.gov)
+umls_database_status,Statut de la Base UMLS
+umls_database_status_desc,Statut de la base de donnees des vocabulaires UMLS
+no_umls_folder_selected,Aucun dossier UMLS selectionne. Veuillez selectionner un dossier contenant les fichiers RRF UMLS.
+missing_umls_files,Fichiers UMLS requis manquants
+umls_files_found,Fichiers UMLS trouves et prets a l'emploi
+select_umls_folder,Selectionner le Dossier UMLS
+edit_concept_set,Modifier l'Ensemble de Concepts
+enter_category,Entrez la categorie
+enter_subcategory,Entrez la sous-categorie
+enter_tags,Entrez les tags (separes par des virgules)
+etl_comment,Commentaire ETL
+enter_etl_comment,Entrez les instructions ETL
+concept_set_added,Ensemble de concepts cree avec succes
+concept_set_updated,Ensemble de concepts mis a jour avec succes
+concept_set_deleted,Ensemble de concepts supprime avec succes
+confirm_delete_concept_set,Voulez-vous vraiment supprimer l'ensemble de concepts
+select_category,Selectionner une categorie
+select_subcategory,Selectionner une sous-categorie
+first_select_category,Selectionnez d'abord une categorie
+enter_new_category,Entrez une nouvelle categorie
+enter_new_subcategory,Entrez une nouvelle sous-categorie
+select_tags,Selectionner des tags
+manage_tags,Gerer les Tags
+add_new_tag,Ajouter un Nouveau Tag
+enter_tag_name,Entrez le nom du tag
+existing_tags,Tags Existants
+no_tags,Aucun tag disponible
+tag_name,Nom du Tag
+usage,Utilisation
+tag_name_required,Le nom du tag est requis
+tag_already_exists,Ce tag existe deja
+tag_added,Tag ajoute avec succes
+edit_tag,Modifier le Tag
+tag_updated,Tag mis a jour avec succes
+confirm_delete_tag,Voulez-vous vraiment supprimer le tag
+tag_deleted,Tag supprime avec succes
+cannot_delete_tag_in_use,Impossible de supprimer un tag utilise par des ensembles de concepts
+close,Fermer
+add,Ajouter
+creating_duckdb_database,Creation de la base DuckDB en cours... Cela peut prendre quelques minutes.
+database_exists,Base de donnees existante :
+database_does_not_exist,Base de donnees inexistante
+recreate,Recreer
+create,Creer
+select_vocabulary_folder_first,Selectionnez d'abord un dossier de vocabulaire
+recreate_database_tooltip,Recreer la base de donnees a partir des fichiers de vocabulaire
+error_creating_duckdb,Erreur lors de la creation de la base DuckDB :
+r_console,Console R
+r_code,Code R
+results,Resultats
+run_code,Executer le Code
+run_code_results,Cliquez sur 'Executer le Code' ou appuyez sur Ctrl+Shift+Enter pour executer le code.
+enter_r_code,Veuillez entrer du code R a executer.
+data_quality,Qualite des Donnees
+missing_comments,Commentaires Manquants
+non_standard_concepts,Concepts Non Standards
+non_standard,Non Standard
+vocabularies_not_loaded,Vocabulaires non charges. Veuillez configurer les vocabulaires OHDSI dans les Parametres Generaux.
+missing_data_details,Details des Donnees Manquantes
+concept_table,Table concept OHDSI
+concept_relationship_table,Relations entre concepts OHDSI
+concept_ancestor_table,Ancetres de concepts OHDSI
+mrconso_table,Noms de concepts et atomes UMLS
+mrsty_table,Types semantiques UMLS
+mrdef_table,Definitions UMLS
+mrsab_table,Vocabulaires sources UMLS
+general_concept,Concept General
+general_concept_name,Nom du Concept General
+omop_concept_name,Nom du Concept OMOP
+omop_concept_id,ID Concept OMOP
+standard,Standard
+color,Couleur

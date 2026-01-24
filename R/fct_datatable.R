@@ -143,6 +143,46 @@ create_standard_datatable <- function(
   do.call(DT::datatable, dt_args)
 }
 
+#' Add Button Click Handlers to DataTable
+#'
+#' @description Creates a JavaScript drawCallback that handles click events
+#' on buttons within DataTable cells, extracting data-id attributes and
+#' triggering Shiny input events.
+#'
+#' @param dt DT datatable object to modify
+#' @param handlers List of handlers with structure:
+#'   list(list(selector = ".btn-class", input_id = "namespaced_id"), ...)
+#'
+#' @return Modified datatable object with drawCallback configured
+#' @noRd
+add_button_handlers <- function(dt, handlers) {
+  off_calls <- sapply(handlers, function(h) {
+    sprintf("$(table.table().node()).off('click', '%s');", h$selector)
+  })
+
+  on_calls <- sapply(handlers, function(h) {
+    sprintf("
+      $(table.table().node()).on('click', '%s', function(e) {
+        e.stopPropagation();
+        var id = $(this).data('id');
+        Shiny.setInputValue('%s', id, {priority: 'event'});
+      });", h$selector, h$input_id)
+  })
+
+  js_code <- sprintf("
+    function(settings) {
+      var table = this.api();
+      %s
+      %s
+    }
+  ", paste(off_calls, collapse = "\n      "),
+     paste(on_calls, collapse = "\n"))
+
+  dt$x$options$drawCallback <- htmlwidgets::JS(js_code)
+
+  dt
+}
+
 #' Get DataTable Language Options
 #'
 #' @description Returns language options for DataTables based on current language.

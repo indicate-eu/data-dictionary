@@ -27,3 +27,158 @@ password,Password
 login_button,Sign In
 login_error,Invalid username or password
 welcome,Welcome
+add_user,Add User
+edit_user,Edit User
+edit,Edit
+delete,Delete
+cancel,Cancel
+save,Save
+confirm_deletion,Confirm Deletion
+user_accesses,User Accesses
+add_user_access,Add User Access
+edit_user_access,Edit User Access
+login_label,Login
+password_label,Password
+confirm_password,Confirm Password
+enter_login,Enter login
+enter_password,Enter password
+first_name,First Name
+last_name,Last Name
+enter_first_name,Enter first name
+enter_last_name,Enter last name
+role,Role
+clinician,Clinician
+data_scientist,Data Scientist
+engineer,Engineer
+user_access,User Access
+affiliation,Affiliation
+enter_affiliation,Enter affiliation
+enter_name,Enter name
+enter_description,Enter description
+leave_empty_password,Leave empty to keep current password
+no_users_found,No users found
+no_user_accesses_found,No user accesses found
+login_required,Login is required
+password_required,Password is required
+first_name_required,First name is required
+last_name_required,Last name is required
+user_access_required,User access is required
+name_required,Name is required
+passwords_do_not_match,Passwords do not match
+login_exists,This login already exists
+name_exists,This name already exists
+confirm_delete_user,Are you sure you want to delete user
+confirm_delete_user_access,Are you sure you want to delete user access
+cannot_delete_assigned_user_access,You cannot delete a user access that is still assigned to users
+cannot_delete_users_assigned,Cannot delete this user access because users are still assigned to it
+terminologies,Terminologies
+ohdsi_vocabularies,OHDSI Vocabularies
+ohdsi_vocabularies_desc,Select the folder containing OHDSI vocabulary CSV files (CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, etc.)
+browse,Browse
+athena_note,Download vocabulary files from ATHENA (athena.ohdsi.org)
+database_status,Database Status
+database_status_desc,Status of the vocabulary database
+no_folder_selected,No folder selected
+no_vocabulary_folder_selected,No vocabulary folder selected. Please select a folder containing OHDSI vocabulary files.
+missing_vocabulary_files,Missing required vocabulary files
+vocabulary_files_found,Vocabulary files found and ready to use
+select_vocabulary_folder,Select Vocabulary Folder
+search_folders,Search folders and files...
+select,Select
+folder_not_found,Folder not found
+empty_folder,Empty folder
+no_items_match,No items match your search
+backup_restore,Backup & Restore
+download_backup,Download Backup
+download_backup_desc,Download a complete backup of your application data as a ZIP file.
+download_backup_zip,Download Backup ZIP
+restore_from_backup,Restore from Backup
+restore_warning,Restoring from a backup will replace your current data. This action cannot be undone.
+select_backup_file,Select backup ZIP file...
+select_what_to_import,Select what to import:
+configuration_users,Configuration & Users
+dictionary,Dictionary
+confirm_restore,Confirm Restore
+backup_empty_or_invalid,The backup file appears to be empty or invalid.
+error_reading_backup,Error reading backup file:
+no_backup_to_restore,No backup file to restore. Please upload a backup first.
+select_at_least_one_category,Please select at least one category to import.
+successfully_restored,Successfully restored
+reload_to_apply_changes,Please reload the application to apply changes.
+error_restoring_backup,Error restoring backup:
+reload_application,Reload Application
+umls_vocabularies,UMLS Vocabularies
+umls_vocabularies_desc,Select the folder containing UMLS RRF files (MRCONSO.RRF, MRREL.RRF, etc.)
+umls_note,Download vocabulary files from UMLS (uts.nlm.nih.gov)
+umls_database_status,UMLS Database Status
+umls_database_status_desc,Status of the UMLS vocabulary database
+no_umls_folder_selected,No UMLS folder selected. Please select a folder containing UMLS RRF files.
+missing_umls_files,Missing required UMLS files
+umls_files_found,UMLS files found and ready to use
+select_umls_folder,Select UMLS Folder
+edit_concept_set,Edit Concept Set
+enter_category,Enter category
+enter_subcategory,Enter subcategory
+enter_tags,Enter tags (comma-separated)
+etl_comment,ETL Comment
+enter_etl_comment,Enter ETL guidance comment
+concept_set_added,Concept set created successfully
+concept_set_updated,Concept set updated successfully
+concept_set_deleted,Concept set deleted successfully
+confirm_delete_concept_set,Are you sure you want to delete the concept set
+select_category,Select category
+select_subcategory,Select subcategory
+first_select_category,First select a category
+enter_new_category,Enter new category
+enter_new_subcategory,Enter new subcategory
+select_tags,Select tags
+manage_tags,Manage Tags
+add_new_tag,Add New Tag
+enter_tag_name,Enter tag name
+existing_tags,Existing Tags
+no_tags,No tags available
+tag_name,Tag Name
+usage,Usage
+tag_name_required,Tag name is required
+tag_already_exists,This tag already exists
+tag_added,Tag added successfully
+edit_tag,Edit Tag
+tag_updated,Tag updated successfully
+confirm_delete_tag,Are you sure you want to delete the tag
+tag_deleted,Tag deleted successfully
+cannot_delete_tag_in_use,Cannot delete tag that is in use by concept sets
+close,Close
+add,Add
+creating_duckdb_database,Creating DuckDB database... This may take a few minutes.
+database_exists,Database exists:
+database_does_not_exist,Database does not exist
+recreate,Recreate
+create,Create
+select_vocabulary_folder_first,Select a vocabulary folder first
+recreate_database_tooltip,Recreate database from vocabulary files
+error_creating_duckdb,Error creating DuckDB database:
+r_console,R Console
+r_code,R Code
+results,Results
+run_code,Run Code
+run_code_results,Click 'Run Code' or press Ctrl+Shift+Enter to execute the code.
+enter_r_code,Please enter R code to execute.
+data_quality,Data Quality
+missing_comments,Missing Comments
+non_standard_concepts,Non-Standard Concepts
+non_standard,Non-Standard
+vocabularies_not_loaded,Vocabularies not loaded. Please configure OHDSI vocabularies in General Settings.
+missing_data_details,Missing Data Details
+concept_table,OHDSI concept table
+concept_relationship_table,OHDSI concept relationships
+concept_ancestor_table,OHDSI concept ancestors
+mrconso_table,UMLS concept names and atoms
+mrsty_table,UMLS semantic types
+mrdef_table,UMLS definitions
+mrsab_table,UMLS source vocabularies
+general_concept,General Concept
+general_concept_name,General Concept Name
+omop_concept_name,OMOP Concept Name
+omop_concept_id,OMOP Concept ID
+standard,Standard
+color,Color

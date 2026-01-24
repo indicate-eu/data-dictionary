@@ -36,6 +36,11 @@ app_server <- function(input, output, session) {
     role = "User"
   ))
 
+  # Load OHDSI vocabularies from DuckDB (if available)
+  vocabularies <- reactive({
+    load_vocabularies_from_duckdb()
+  })
+
   # Initialize header module
   header_result <- mod_page_header_server(
     "page_header",
@@ -89,6 +94,7 @@ app_server <- function(input, output, session) {
   mod_dev_tools_server(
     "dev_tools",
     i18n = i18n,
+    vocabularies = vocabularies,
     current_user = current_user
   )
 }
