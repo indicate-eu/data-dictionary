@@ -13,3 +13,17 @@ description,Description
 tags,Tags
 concepts,Concepts
 actions,Actions
+projects,Projets
+concept_mapping,Mapping de Concepts
+general_settings,Parametres Generaux
+dictionary_settings,Parametres du Dictionnaire
+users,Utilisateurs
+dev_tools,Outils Dev
+logout,Deconnexion
+coming_soon,Bientot disponible...
+login,Connexion
+username,Nom d'utilisateur
+password,Mot de passe
+login_button,Se connecter
+login_error,Nom d'utilisateur ou mot de passe invalide
+welcome,Bienvenue

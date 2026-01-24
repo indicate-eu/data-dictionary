@@ -13,3 +13,17 @@ description,Description
 tags,Tags
 concepts,Concepts
 actions,Actions
+projects,Projects
+concept_mapping,Concept Mapping
+general_settings,General Settings
+dictionary_settings,Dictionary Settings
+users,Users
+dev_tools,Dev Tools
+logout,Logout
+coming_soon,Coming soon...
+login,Login
+username,Username
+password,Password
+login_button,Sign In
+login_error,Invalid username or password
+welcome,Welcome

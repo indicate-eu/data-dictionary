@@ -566,9 +566,27 @@ a:hover {
   flex-shrink: 0;
 }
 
-.header-left .action-label {
+.header-logo-btn,
+.header-logo-btn:hover,
+.header-logo-btn:focus,
+.header-logo-btn:active,
+.header-logo-btn:focus:active {
+  background: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  cursor: pointer;
   display: flex;
   align-items: center;
+  gap: 15px;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.header-logo-btn .action-label {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .header-logo {
@@ -582,6 +600,11 @@ a:hover {
   margin: 0;
   color: #0f60af;
   white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.header-logo-btn:hover .header-title {
+  color: #0a4a8a;
 }
 
 /* Navigation tabs */
@@ -606,6 +629,25 @@ a:hover {
   align-items: center;
   flex-shrink: 0;
   gap: 12px;
+}
+
+.current-user-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: #0f60af;
+  border-radius: 20px;
+  color: white;
+  font-size: 14px;
+}
+
+.current-user-badge i {
+  font-size: 16px;
+}
+
+.current-user-badge span {
+  font-weight: 500;
 }
 
 .nav-tab {
@@ -685,6 +727,7 @@ h3, h4 {
   flex: 1;
   min-height: 0;
   overflow: hidden;
+  padding-top: 4px;
 }
 
 /* Settings page should take full height */
@@ -2201,7 +2244,7 @@ a.btn-success-custom:hover {
   display: flex;
   flex-direction: column;
   background: white;
-  border: 1px solid #e9ecef;
+  border: 1px solid #d0d7de;
   border-radius: 6px;
   overflow: visible;
   margin: 4px;
@@ -2214,11 +2257,17 @@ a.btn-success-custom:hover {
   padding: 10px 15px;
   background: #f8f9fa;
   border-bottom: 2px solid var(--color-primary);
+  border-radius: 5px 5px 0 0;
   flex-shrink: 0;
-  min-height: 48px;
+  height: 48px;
   position: relative;
   overflow: visible;
   z-index: 10;
+}
+
+.panel-header .btn {
+  padding: 4px 12px;
+  font-size: 13px;
 }
 
 .panel-header-left {
@@ -3125,9 +3174,35 @@ button.btn-icon-only:hover {
   color: #333 !important;
 }
 
-/* Settings dropdown improvements */
+/* Settings dropdown */
+.settings-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 5px;
+  background: #2c3e50;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  min-width: 200px;
+  width: max-content;
+  white-space: nowrap;
+}
+
+.settings-dropdown-item {
+  padding: 12px 20px;
+  cursor: pointer;
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.2s;
+}
+
+.settings-dropdown-item:last-child {
+  border-bottom: none;
+}
+
 .settings-dropdown-item:hover {
-  background: rgba(255,255,255,0.1) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
 }
 
 /* Generic dropdown item */

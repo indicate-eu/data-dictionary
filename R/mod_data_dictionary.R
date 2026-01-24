@@ -34,20 +34,14 @@ mod_data_dictionary_ui <- function(id, i18n) {
       tags$div(
         class = "main-content",
 
-        # Header with title and action buttons
-        tags$div(
-          class = "page-header",
-
-          tags$h2(
-            class = "section-title",
-            i18n$t("data_dictionary")
-          ),
-
-          # Action buttons (visible based on permissions)
-          tags$div(
-            id = ns("action_buttons"),
-            class = "flex-gap-10",
-            shinyjs::hidden(
+        # Main content: Concept Sets table
+        create_page_layout(
+          "full",
+          create_panel(
+            title = i18n$t("concept_sets"),
+            content = DT::DTOutput(ns("concept_sets_table")),
+            tooltip = i18n$t("concept_sets_tooltip"),
+            header_extra = shinyjs::hidden(
               actionButton(
                 ns("add_concept_set"),
                 i18n$t("add_concept_set"),
@@ -55,16 +49,6 @@ mod_data_dictionary_ui <- function(id, i18n) {
                 icon = icon("plus")
               )
             )
-          )
-        ),
-
-        # Main content: Concept Sets table
-        create_page_layout(
-          "full",
-          create_panel(
-            title = i18n$t("concept_sets"),
-            content = DT::DTOutput(ns("concept_sets_table")),
-            tooltip = i18n$t("concept_sets_tooltip")
           )
         )
       )
@@ -101,18 +85,11 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     concept_sets_data <- reactiveVal(NULL)
 
     ## Triggers ----
-    init_trigger <- reactiveVal(0)
-
-    # Initialize on module load
-    observe_event(TRUE, {
-      init_trigger(1)
-    }, ignoreInit = FALSE, once = TRUE)
+    init_trigger <- reactiveVal(1)
 
     # 2) INITIALIZATION OBSERVER ====
 
     observe_event(init_trigger(), {
-      if (init_trigger() == 0) return()
-
       # Show/hide buttons based on permissions
       if (can_edit()) {
         shinyjs::show("add_concept_set")
