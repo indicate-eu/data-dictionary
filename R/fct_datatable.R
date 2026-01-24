@@ -90,6 +90,7 @@ create_empty_datatable <- function(message, column_name = "Message") {
 #' @param escape Which columns to escape (TRUE/FALSE or vector)
 #' @param callback JavaScript callback (optional)
 #' @param class CSS class for table
+#' @param fuzzy_search Logical: Enable fuzzy search (default: FALSE)
 #'
 #' @return DT datatable object
 #' @noRd
@@ -103,7 +104,8 @@ create_standard_datatable <- function(
     col_defs = NULL,
     escape = TRUE,
     callback = NULL,
-    class = "cell-border stripe hover"
+    class = "cell-border stripe hover",
+    fuzzy_search = FALSE
 ) {
   options <- list(
     pageLength = page_length,
@@ -114,6 +116,15 @@ create_standard_datatable <- function(
     autoWidth = FALSE,
     paging = TRUE
   )
+
+  # Add fuzzy search configuration
+  if (fuzzy_search) {
+    options$search <- list(
+      smart = TRUE,
+      regex = FALSE,
+      caseInsensitive = TRUE
+    )
+  }
 
   if (!is.null(col_defs)) {
     options$columnDefs <- col_defs
@@ -147,15 +158,18 @@ create_standard_datatable <- function(
 #'
 #' @description Creates a JavaScript drawCallback that handles click events
 #' on buttons within DataTable cells, extracting data-id attributes and
-#' triggering Shiny input events.
+#' triggering Shiny input events. Optionally adds double-click handler on rows.
 #'
 #' @param dt DT datatable object to modify
 #' @param handlers List of handlers with structure:
 #'   list(list(selector = ".btn-class", input_id = "namespaced_id"), ...)
+#' @param dblclick_input_id Optional: Shiny input ID for double-click on row.
+#'   If provided, double-clicking a row triggers this input with the first column value (ID).
+#' @param id_column_index Index of the column containing the row ID for double-click (default: 0)
 #'
 #' @return Modified datatable object with drawCallback configured
 #' @noRd
-add_button_handlers <- function(dt, handlers) {
+add_button_handlers <- function(dt, handlers, dblclick_input_id = NULL, id_column_index = 0) {
   off_calls <- sapply(handlers, function(h) {
     sprintf("$(table.table().node()).off('click', '%s');", h$selector)
   })
@@ -169,14 +183,30 @@ add_button_handlers <- function(dt, handlers) {
       });", h$selector, h$input_id)
   })
 
+  # Add double-click handler if specified
+  dblclick_js <- ""
+  if (!is.null(dblclick_input_id)) {
+    dblclick_js <- sprintf("
+      $(table.table().node()).off('dblclick', 'tbody tr');
+      $(table.table().node()).on('dblclick', 'tbody tr', function() {
+        var rowData = table.row(this).data();
+        if (rowData && rowData[%d]) {
+          var rowId = rowData[%d];
+          Shiny.setInputValue('%s', rowId, {priority: 'event'});
+        }
+      });", id_column_index, id_column_index, dblclick_input_id)
+  }
+
   js_code <- sprintf("
     function(settings) {
       var table = this.api();
       %s
       %s
+      %s
     }
   ", paste(off_calls, collapse = "\n      "),
-     paste(on_calls, collapse = "\n"))
+     paste(on_calls, collapse = "\n"),
+     dblclick_js)
 
   dt$x$options$drawCallback <- htmlwidgets::JS(js_code)
 

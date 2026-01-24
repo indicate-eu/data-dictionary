@@ -182,3 +182,41 @@ omop_concept_name,Nom du Concept OMOP
 omop_concept_id,ID Concept OMOP
 standard,Standard
 color,Couleur
+add_project,Ajouter un Projet
+edit_project,Modifier le Projet
+no_projects,Aucun projet disponible
+confirm_delete_project,Voulez-vous vraiment supprimer le projet
+project_added,Projet cree avec succes
+project_updated,Projet mis a jour avec succes
+project_deleted,Projet supprime avec succes
+projects_tooltip,Parcourir et gerer les projets
+available_concept_sets,Ensembles de Concepts Disponibles
+selected_concept_sets,Ensembles de Concepts Selectionnes
+available_concept_sets_tooltip,Selectionnez des ensembles de concepts a ajouter a ce projet
+selected_concept_sets_tooltip,Ensembles de concepts assignes a ce projet
+add_selected,Ajouter la Selection
+remove_selected,Retirer la Selection
+all_concept_sets_added,Tous les ensembles de concepts ont ete ajoutes a ce projet
+no_concept_sets_assigned,Aucun ensemble de concepts assigne a ce projet
+concept_sets_added,Ensembles de concepts ajoutes avec succes
+concept_sets_removed,Ensembles de concepts retires avec succes
+created_by,Cree Par
+created_at,Cree Le
+last_update,Derniere Maj
+context,Contexte
+variables,Variables
+short_description,Description Courte
+enter_short_description,Entrez une description courte
+short_description_required,La description courte est requise
+justification,Justification
+enter_justification,Entrez la justification scientifique
+bibliography,Bibliographie
+enter_bibliography,Entrez les references bibliographiques
+save_context,Enregistrer le Contexte
+context_saved,Contexte enregistre avec succes
+name_already_exists,Ce nom existe deja
+delete_project_confirm,Voulez-vous vraiment supprimer ce projet ?
+delete_project_note,Cela supprimera toutes les associations avec les ensembles de concepts
+export,Exporter
+fuzzy_search,Recherche Fuzzy
+fuzzy_search_placeholder,Rechercher par nom...

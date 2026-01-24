@@ -125,6 +125,36 @@ CRUD operations for concept sets and database initialization:
 - `init_database()`: Initialize database tables
 - `update_concept_set()`: Update an existing concept set
 
+**CRITICAL: RSQLite NULL Handling**
+
+RSQLite does NOT accept `NULL` values in parameterized queries. Using `NULL` causes the error:
+```
+Error: Parameter X does not have length 1.
+```
+
+**Solution**: Always convert `NULL` to `NA` before passing to `DBI::dbExecute()`:
+
+```r
+# Helper function to convert NULL to NA
+null_to_na <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else x
+
+# Use in INSERT statements
+DBI::dbExecute(
+  con,
+  "INSERT INTO table (col1, col2, col3) VALUES (?, ?, ?)",
+  params = list(value1, null_to_na(optional_value), null_to_na(another_optional))
+)
+
+# Use in UPDATE statements with dynamic parameters
+updates <- list(...)
+updates <- lapply(updates, null_to_na)  # Convert all NULL values
+```
+
+**When to apply**:
+- Any optional parameter that could be `NULL`
+- Values from user input that might be empty strings converted to `NULL`
+- Default parameter values like `description = NULL`
+
 #### `fct_users.R` - User Management
 
 User authentication and CRUD operations:

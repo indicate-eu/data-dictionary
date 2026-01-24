@@ -93,11 +93,25 @@ add_concept_set <- function(id = NULL, name, description = NULL, category = NULL
     id <- max_id$next_id[1]
   }
 
+  # Convert NULL to NA for RSQLite compatibility
+  null_to_na <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else x
+
   DBI::dbExecute(
     con,
     "INSERT INTO concept_sets (id, name, description, category, subcategory, etl_comment, tags, created_by, created_date, modified_date)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    params = list(id, name, description, category, subcategory, etl_comment, tags, created_by, timestamp, timestamp)
+    params = list(
+      id,
+      name,
+      null_to_na(description),
+      null_to_na(category),
+      null_to_na(subcategory),
+      null_to_na(etl_comment),
+      null_to_na(tags),
+      null_to_na(created_by),
+      timestamp,
+      timestamp
+    )
   )
 
   id
@@ -181,6 +195,10 @@ update_concept_set <- function(concept_set_id, ...) {
 
   updates <- list(...)
   if (length(updates) == 0) return(TRUE)
+
+  # Convert NULL to NA for RSQLite compatibility
+  null_to_na <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else x
+  updates <- lapply(updates, null_to_na)
 
   set_clauses <- paste0(names(updates), " = ?", collapse = ", ")
   set_clauses <- paste0(set_clauses, ", modified_date = ?")
@@ -363,6 +381,251 @@ update_tag <- function(tag_id, name, color = NULL) {
   TRUE
 }
 
+# PROJECTS CRUD ====
+
+#' Add Project
+#'
+#' @description Create a new project
+#' @param name Project name
+#' @param description Project description
+#' @param created_by Username who created the project
+#' @return Project ID
+#' @noRd
+add_project <- function(name, description = NULL, created_by = NULL) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+
+  # Convert NULL to NA for RSQLite compatibility
+  null_to_na <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else x
+
+  DBI::dbExecute(
+    con,
+    "INSERT INTO projects (name, description, created_by, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?)",
+    params = list(name, null_to_na(description), null_to_na(created_by), timestamp, timestamp)
+  )
+
+  result <- DBI::dbGetQuery(con, "SELECT last_insert_rowid() AS id")
+  result$id[1]
+}
+
+#' Delete Project
+#'
+#' @description Delete a project and its concept set associations
+#' @param project_id Project ID
+#' @return TRUE if successful
+#' @noRd
+delete_project <- function(project_id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  # Delete concept set associations first
+  DBI::dbExecute(
+    con,
+    "DELETE FROM project_concept_sets WHERE project_id = ?",
+    params = list(project_id)
+  )
+
+  # Delete the project
+  DBI::dbExecute(
+    con,
+    "DELETE FROM projects WHERE project_id = ?",
+    params = list(project_id)
+  )
+
+  TRUE
+}
+
+#' Get All Projects
+#'
+#' @description Retrieve all projects with concept set counts
+#' @return Data frame with projects
+#' @noRd
+get_all_projects <- function() {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbGetQuery(
+    con,
+    "SELECT
+      p.project_id,
+      p.name,
+      p.description,
+      p.created_by,
+      p.created_at,
+      p.updated_at,
+      (SELECT COUNT(*) FROM project_concept_sets pcs WHERE pcs.project_id = p.project_id) AS concept_set_count
+    FROM projects p
+    ORDER BY p.name"
+  )
+}
+
+#' Get Project by ID
+#'
+#' @description Retrieve a specific project
+#' @param project_id Project ID
+#' @return List with project data, or NULL if not found
+#' @noRd
+get_project <- function(project_id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  project <- DBI::dbGetQuery(
+    con,
+    "SELECT * FROM projects WHERE project_id = ?",
+    params = list(project_id)
+  )
+
+  if (nrow(project) == 0) return(NULL)
+
+  as.list(project[1, ])
+}
+
+#' Update Project
+#'
+#' @description Update an existing project
+#' @param project_id Project ID
+#' @param ... Fields to update (name, description)
+#' @return TRUE if successful
+#' @noRd
+update_project <- function(project_id, ...) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  updates <- list(...)
+  if (length(updates) == 0) return(TRUE)
+
+  # Convert NULL to NA for RSQLite compatibility
+  null_to_na <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else x
+  updates <- lapply(updates, null_to_na)
+
+  set_clauses <- paste0(names(updates), " = ?", collapse = ", ")
+  set_clauses <- paste0(set_clauses, ", updated_at = ?")
+
+  timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+  params <- c(unname(updates), timestamp, project_id)
+
+  DBI::dbExecute(
+    con,
+    paste0("UPDATE projects SET ", set_clauses, " WHERE project_id = ?"),
+    params = params
+  )
+
+  TRUE
+}
+
+# PROJECT CONCEPT SETS CRUD ====
+
+#' Add Concept Set to Project
+#'
+#' @description Associate a concept set with a project
+#' @param project_id Project ID
+#' @param concept_set_id Concept set ID
+#' @return TRUE if successful
+#' @noRd
+add_project_concept_set <- function(project_id, concept_set_id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  # Check if association already exists
+  existing <- DBI::dbGetQuery(
+    con,
+    "SELECT 1 FROM project_concept_sets WHERE project_id = ? AND concept_set_id = ?",
+    params = list(project_id, concept_set_id)
+  )
+
+  if (nrow(existing) > 0) return(TRUE)
+
+  timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+
+  DBI::dbExecute(
+    con,
+    "INSERT INTO project_concept_sets (project_id, concept_set_id, created_at)
+     VALUES (?, ?, ?)",
+    params = list(project_id, concept_set_id, timestamp)
+  )
+
+  TRUE
+}
+
+#' Remove Concept Set from Project
+#'
+#' @description Remove association between a concept set and a project
+#' @param project_id Project ID
+#' @param concept_set_id Concept set ID
+#' @return TRUE if successful
+#' @noRd
+remove_project_concept_set <- function(project_id, concept_set_id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbExecute(
+    con,
+    "DELETE FROM project_concept_sets WHERE project_id = ? AND concept_set_id = ?",
+    params = list(project_id, concept_set_id)
+  )
+
+  TRUE
+}
+
+#' Get Concept Sets for Project
+#'
+#' @description Get all concept sets associated with a project
+#' @param project_id Project ID
+#' @return Data frame with concept sets
+#' @noRd
+get_project_concept_sets <- function(project_id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbGetQuery(
+    con,
+    "SELECT
+      cs.id,
+      cs.name,
+      cs.description,
+      cs.category,
+      cs.subcategory,
+      cs.tags,
+      pcs.created_at AS added_at
+    FROM project_concept_sets pcs
+    JOIN concept_sets cs ON pcs.concept_set_id = cs.id
+    WHERE pcs.project_id = ?
+    ORDER BY cs.category, cs.subcategory, cs.name",
+    params = list(project_id)
+  )
+}
+
+#' Get Available Concept Sets for Project
+#'
+#' @description Get concept sets not yet associated with a project
+#' @param project_id Project ID
+#' @return Data frame with available concept sets
+#' @noRd
+get_available_concept_sets_for_project <- function(project_id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbGetQuery(
+    con,
+    "SELECT
+      cs.id,
+      cs.name,
+      cs.description,
+      cs.category,
+      cs.subcategory,
+      cs.tags
+    FROM concept_sets cs
+    WHERE cs.id NOT IN (
+      SELECT concept_set_id FROM project_concept_sets WHERE project_id = ?
+    )
+    ORDER BY cs.category, cs.subcategory, cs.name",
+    params = list(project_id)
+  )
+}
+
 # DATABASE CONNECTION ====
 
 #' Get Application Directory Path
@@ -534,6 +797,47 @@ init_database <- function(con) {
       "INSERT INTO users (login, password_hash, first_name, last_name, role, user_access_id, created_at, updated_at)
        VALUES ('admin', ?, 'Admin', 'User', 'Admin', 1, ?, ?)",
       params = list(admin_hash, timestamp, timestamp)
+    )
+  }
+
+  # Projects table
+  if (!DBI::dbExistsTable(con, "projects")) {
+    DBI::dbExecute(
+      con,
+      "CREATE TABLE projects (
+        project_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL UNIQUE,
+        description TEXT,
+        justification TEXT,
+        bibliography TEXT,
+        created_by TEXT,
+        created_at TEXT,
+        updated_at TEXT
+      )"
+    )
+  } else {
+    # Add missing columns for existing databases
+    existing_cols <- DBI::dbListFields(con, "projects")
+    if (!"justification" %in% existing_cols) {
+      DBI::dbExecute(con, "ALTER TABLE projects ADD COLUMN justification TEXT")
+    }
+    if (!"bibliography" %in% existing_cols) {
+      DBI::dbExecute(con, "ALTER TABLE projects ADD COLUMN bibliography TEXT")
+    }
+  }
+
+  # Project-Concept Sets association table
+  if (!DBI::dbExistsTable(con, "project_concept_sets")) {
+    DBI::dbExecute(
+      con,
+      "CREATE TABLE project_concept_sets (
+        project_id INTEGER NOT NULL,
+        concept_set_id INTEGER NOT NULL,
+        created_at TEXT,
+        PRIMARY KEY (project_id, concept_set_id),
+        FOREIGN KEY (project_id) REFERENCES projects(project_id),
+        FOREIGN KEY (concept_set_id) REFERENCES concept_sets(id)
+      )"
     )
   }
 

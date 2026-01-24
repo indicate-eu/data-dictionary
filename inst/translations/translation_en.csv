@@ -182,3 +182,41 @@ omop_concept_name,OMOP Concept Name
 omop_concept_id,OMOP Concept ID
 standard,Standard
 color,Color
+add_project,Add Project
+edit_project,Edit Project
+no_projects,No projects available
+confirm_delete_project,Are you sure you want to delete the project
+project_added,Project created successfully
+project_updated,Project updated successfully
+project_deleted,Project deleted successfully
+projects_tooltip,Browse and manage projects
+available_concept_sets,Available Concept Sets
+selected_concept_sets,Selected Concept Sets
+available_concept_sets_tooltip,Select concept sets to add to this project
+selected_concept_sets_tooltip,Concept sets assigned to this project
+add_selected,Add Selected
+remove_selected,Remove Selected
+all_concept_sets_added,All concept sets have been added to this project
+no_concept_sets_assigned,No concept sets assigned to this project
+concept_sets_added,Concept sets added successfully
+concept_sets_removed,Concept sets removed successfully
+created_by,Created By
+created_at,Created At
+last_update,Last Update
+context,Context
+variables,Variables
+short_description,Short Description
+enter_short_description,Enter short description
+short_description_required,Short description is required
+justification,Justification
+enter_justification,Enter scientific justification
+bibliography,Bibliography
+enter_bibliography,Enter bibliographic references
+save_context,Save Context
+context_saved,Context saved successfully
+name_already_exists,This name already exists
+delete_project_confirm,Are you sure you want to delete this project?
+delete_project_note,This will remove all concept set associations
+export,Export
+fuzzy_search,Fuzzy Search
+fuzzy_search_placeholder,Search by name...

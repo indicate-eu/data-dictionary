@@ -1182,7 +1182,7 @@ div.dataTables_paginate a.paginate_button.current *,
 .fuzzy-search-container {
   position: absolute;
   top: 0;
-  right: 8px;
+  right: 0;
   z-index: 10;
   display: inline-flex !important;
   flex-direction: row !important;
@@ -2017,10 +2017,11 @@ a.btn-success-custom:hover {
 .btn-danger-custom {
   background: #dc3545 !important;
   border: none !important;
-  padding: 4px 12px !important;
+  padding: 6px 16px !important;
   border-radius: 4px !important;
   color: white !important;
   cursor: pointer !important;
+  font-size: 14px !important;
   transition: background-color 0.2s ease !important;
 }
 
@@ -2031,9 +2032,9 @@ a.btn-success-custom:hover {
 .btn-warning-custom {
   background: #fd7e14 !important;
   border: none !important;
-  padding: 4px 12px !important;
+  padding: 6px 16px !important;
   border-radius: 4px !important;
-  font-size: 12px !important;
+  font-size: 14px !important;
   color: white !important;
   cursor: pointer !important;
   transition: background-color 0.2s ease !important;
@@ -2787,8 +2788,9 @@ a.btn-success-custom:hover {
   border-radius: 6px;
   font-size: 12px;
   font-weight: normal;
-  white-space: pre-line;
-  width: 280px;
+  white-space: nowrap;
+  width: auto;
+  max-width: 300px;
   text-align: left;
   z-index: 10000;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -4360,7 +4362,7 @@ button.btn-icon-only:hover {
 
 /* Make concept set modal wider */
 #data_dictionary-concept_set_modal .modal-content {
-  max-width: 700px;
+  max-width: 800px;
 }
 
 /* Name and Description inputs - fixed width 300px */
@@ -4380,7 +4382,7 @@ button.btn-icon-only:hover {
 }
 
 .category-subcategory-col {
-  width: 300px;
+  width: 350px;
   flex-shrink: 0;
 }
 
@@ -4392,18 +4394,25 @@ button.btn-icon-only:hover {
 }
 
 .input-with-toggle .input-container {
-  width: 260px;
+  width: 270px;
   flex-shrink: 0;
 }
 
-/* Tags dropdown + button = 300px total (260px input + 6px gap + 34px button) */
+/* Tags dropdown aligned with subcategory end */
+/* 350px (category) + 15px (gap) + 350px (subcategory) = 715px total */
+/* Subtract button (34px) and gap (6px) so dropdown ends at 715px: 715 - 34 - 6 = 675px */
 #data_dictionary-concept_set_modal .input-with-toggle:has([id$="concept_set_tags"]) {
-  width: 300px;
+  width: 715px;
 }
 
 #data_dictionary-concept_set_modal .input-with-toggle:has([id$="concept_set_tags"]) .input-container {
-  flex: 1;
-  width: auto;
+  width: 675px;
+  flex-shrink: 0;
+}
+
+#data_dictionary-concept_set_modal .input-with-toggle:has([id$="concept_set_tags"]) .input-container .form-group,
+#data_dictionary-concept_set_modal .input-with-toggle:has([id$="concept_set_tags"]) .input-container .selectize-control {
+  width: 100%;
 }
 
 /* Smaller toggle button to match input height - blue by default */
@@ -4495,6 +4504,10 @@ button.btn-icon-only:hover {
 .add-tag-color {
   display: flex;
   align-items: center;
+}
+
+.add-tag-row > .btn-success-custom {
+  margin-top: 1px;
 }
 
 /* Edit tag row layout */

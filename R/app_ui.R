@@ -35,6 +35,8 @@ app_ui <- function() {
         rel = "stylesheet",
         href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       ),
+      # Fuzzy search JS (debounced input handler)
+      tags$script(src = "www/fuzzy_search.js"),
       # Settings dropdown toggle script
       tags$script(HTML("
         $(document).ready(function() {

@@ -50,7 +50,11 @@ mod_data_dictionary_ui <- function(id, i18n) {
           "full",
           create_panel(
             title = i18n$t("concept_sets"),
-            content = DT::DTOutput(ns("concept_sets_table")),
+            content = tags$div(
+              style = "position: relative;",
+              fuzzy_search_ui("fuzzy_search", ns = ns, i18n = i18n),
+              DT::DTOutput(ns("concept_sets_table"))
+            ),
             tooltip = i18n$t("concept_sets_tooltip"),
             header_extra = shinyjs::hidden(
               actionButton(
@@ -324,7 +328,6 @@ mod_data_dictionary_ui <- function(id, i18n) {
                 ),
                 tags$div(
                   class = "edit-tag-color",
-                  tags$label(class = "form-label", i18n$t("color")),
                   create_color_picker(id = "edit_tag_color", value = "#6c757d", ns = ns)
                 )
               ),
@@ -418,6 +421,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     editing_tag_id <- reactiveVal(NULL)
     deleting_tag_id <- reactiveVal(NULL)
 
+    ## Fuzzy Search ----
+    fuzzy <- fuzzy_search_server("fuzzy_search", input, session, trigger_rv = table_trigger, ns = ns)
+
     # 2) DATA LOADING ====
 
     ## Load Concept Sets and Tags ----
@@ -449,29 +455,68 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           return(create_empty_datatable(as.character(i18n$t("no_concept_sets"))))
         }
 
-        # Prepare display data
+        # Apply fuzzy search filter on name column
+        query <- fuzzy$query()
+        if (!is.null(query) && query != "") {
+          data <- fuzzy_search_df(data, query, "name", max_dist = 3)
+          if (nrow(data) == 0) {
+            return(create_empty_datatable(as.character(i18n$t("no_concept_sets"))))
+          }
+        }
+
+        # Format last update date (show date and time HH:MM, or empty if NA)
+        format_date <- function(dt_str) {
+          if (is.na(dt_str) || dt_str == "") return("")
+          tryCatch({
+            # Parse ISO format and return date + time (HH:MM)
+            # Format: "YYYY-MM-DD HH:MM"
+            substr(dt_str, 1, 16)
+          }, error = function(e) "")
+        }
+
+        # Prepare display data - order: category, subcategory, name, description, tags, concepts, last_update
         display_data <- data.frame(
           id = data$id,
-          name = data$name,
           category = ifelse(is.na(data$category), "", data$category),
           subcategory = ifelse(is.na(data$subcategory), "", data$subcategory),
+          name = data$name,
           description = ifelse(
             is.na(data$description), "",
             ifelse(nchar(data$description) > 100, paste0(substr(data$description, 1, 100), "..."), data$description)
           ),
           tags = ifelse(is.na(data$tags), "", data$tags),
           item_count = data$item_count,
+          last_update = sapply(data$modified_date, format_date),
           stringsAsFactors = FALSE
         )
+
+        # Convert to factors for dropdown filters
+        display_data$category <- factor(display_data$category)
+        display_data$subcategory <- factor(display_data$subcategory)
+        display_data$tags <- factor(display_data$tags)
 
         # Add action buttons
         display_data$actions <- sapply(display_data$id, function(row_id) {
           create_datatable_actions(list(
             list(
+              label = as.character(i18n$t("view")),
+              icon = "eye",
+              type = "primary",
+              class = "btn-view",
+              data_attr = list(id = row_id)
+            ),
+            list(
               label = as.character(i18n$t("edit")),
               icon = "edit",
               type = "warning",
               class = "btn-edit",
+              data_attr = list(id = row_id)
+            ),
+            list(
+              label = as.character(i18n$t("export")),
+              icon = "download",
+              type = "success",
+              class = "btn-export",
               data_attr = list(id = row_id)
             ),
             list(
@@ -486,34 +531,43 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
         dt <- create_standard_datatable(
           display_data,
-          selection = "single",
+          selection = "none",
           col_names = c(
             "ID",
-            as.character(i18n$t("name")),
             as.character(i18n$t("category")),
             as.character(i18n$t("subcategory")),
+            as.character(i18n$t("name")),
             as.character(i18n$t("description")),
             as.character(i18n$t("tags")),
             as.character(i18n$t("concepts")),
+            as.character(i18n$t("last_update")),
             as.character(i18n$t("actions"))
           ),
           col_defs = list(
             list(targets = 0, visible = FALSE),
-            list(targets = 1, width = "18%"),
-            list(targets = 2, width = "10%"),
-            list(targets = 3, width = "10%"),
-            list(targets = 4, width = "28%"),
-            list(targets = 5, width = "10%"),
-            list(targets = 6, width = "8%", className = "dt-center"),
-            list(targets = 7, width = "16%", className = "dt-center")
+            list(targets = 1, width = "9%"),
+            list(targets = 2, width = "9%"),
+            list(targets = 3, width = "14%"),
+            list(targets = 4, width = "20%"),
+            list(targets = 5, width = "9%"),
+            list(targets = 6, width = "6%", className = "dt-center"),
+            list(targets = 7, width = "10%", className = "dt-center"),
+            list(targets = 8, width = "23%", className = "dt-center")
           ),
           escape = FALSE
         )
 
-        add_button_handlers(dt, handlers = list(
-          list(selector = ".btn-edit", input_id = ns("edit_concept_set")),
-          list(selector = ".btn-delete", input_id = ns("delete_concept_set"))
-        ))
+        add_button_handlers(
+          dt,
+          handlers = list(
+            list(selector = ".btn-view", input_id = ns("view_concept_set")),
+            list(selector = ".btn-edit", input_id = ns("edit_concept_set")),
+            list(selector = ".btn-export", input_id = ns("export_concept_set")),
+            list(selector = ".btn-delete", input_id = ns("delete_concept_set"))
+          ),
+          dblclick_input_id = ns("view_concept_set"),
+          id_column_index = 0
+        )
       })
     }, ignoreInit = FALSE)
 
@@ -694,14 +748,17 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       cs <- get_concept_set(concept_set_id)
       if (is.null(cs)) return()
 
+      # Helper to convert NA/NULL to empty string
+      na_to_empty <- function(x) if (is.null(x) || is.na(x)) "" else x
+
       # Populate form fields
       updateTextInput(session, "editing_concept_set_id", value = as.character(concept_set_id))
-      updateTextInput(session, "concept_set_name", value = cs$name %||% "")
-      updateTextInput(session, "concept_set_description", value = cs$description %||% "")
+      updateTextInput(session, "concept_set_name", value = na_to_empty(cs$name))
+      updateTextInput(session, "concept_set_description", value = na_to_empty(cs$description))
 
       # Update category choices and select current
       categories <- get_categories()
-      current_category <- cs$category %||% ""
+      current_category <- na_to_empty(cs$category)
       if (current_category != "" && !(current_category %in% categories)) {
         categories <- c(categories, current_category)
       }
@@ -716,7 +773,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
       # Update subcategory choices and select current
       subcategories <- get_subcategories(current_category)
-      current_subcategory <- cs$subcategory %||% ""
+      current_subcategory <- na_to_empty(cs$subcategory)
       if (current_subcategory != "" && !(current_subcategory %in% subcategories)) {
         subcategories <- c(subcategories, current_subcategory)
       }
@@ -732,8 +789,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Update tags choices and select current
       all_tags <- tags_data()
       tag_choices <- if (!is.null(all_tags) && nrow(all_tags) > 0) all_tags$name else character(0)
-      current_tags <- if (!is.null(cs$tags) && cs$tags != "") {
-        trimws(strsplit(cs$tags, ",")[[1]])
+      tags_value <- na_to_empty(cs$tags)
+      current_tags <- if (tags_value != "") {
+        trimws(strsplit(tags_value, ",")[[1]])
       } else {
         character(0)
       }
@@ -790,7 +848,12 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       shinyjs::hide("name_error")
 
       # Get other fields
-      description <- trimws(input$concept_set_description)
+      description_raw <- input$concept_set_description
+      description <- if (is.null(description_raw) || length(description_raw) == 0 || trimws(description_raw) == "") {
+        NULL
+      } else {
+        trimws(description_raw)
+      }
 
       # Get category (from select or text input)
       category_select <- input$concept_set_category
@@ -818,9 +881,6 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Get tags (multiple selection)
       selected_tags <- input$concept_set_tags
       tags <- if (length(selected_tags) > 0) paste(selected_tags, collapse = ",") else NULL
-
-      # Convert empty strings to NULL
-      description <- if (length(description) == 0 || description == "") NULL else description
 
       # Get current user login
       created_by <- NULL
@@ -884,15 +944,20 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       show_modal(ns("manage_tags_modal"))
 
       # Trigger table render after delay to allow modal to become visible
-      # Then force DataTable to recalculate columns
-      shinyjs::delay(100, {
+      shinyjs::delay(500, {
         tags_trigger(tags_trigger() + 1)
-        shinyjs::delay(200, {
-          shinyjs::runjs(sprintf("
-            var table = $('#%s').DataTable();
-            if (table) table.columns.adjust().draw();
-          ", ns("tags_table")))
-        })
+      })
+
+      # Force Shiny to detect the output is now visible and render it
+      shinyjs::delay(600, {
+        shinyjs::runjs(sprintf("
+          $(window).trigger('resize');
+          var $el = $('#%s');
+          if ($el.length) {
+            $el.trigger('shown');
+            Shiny.bindAll($el.parent());
+          }
+        ", ns("tags_table")))
       })
     }, ignoreInit = TRUE)
 
@@ -1186,7 +1251,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Update confirmation message
       updateTextInput(session, "deleting_concept_set_id", value = as.character(concept_set_id))
       shinyjs::html("delete_confirmation_message", paste0(
-        as.character(i18n$t("confirm_delete_concept_set")), " <strong>", cs_name, "</strong>?"
+        as.character(i18n$t("confirm_delete_concept_set")), "<br><strong>", cs_name, "</strong>?"
       ))
 
       show_modal(ns("delete_concept_set_modal"))
