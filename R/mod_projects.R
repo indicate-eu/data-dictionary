@@ -556,7 +556,6 @@ mod_projects_server <- function(id, i18n, current_user = NULL) {
           display_data,
           selection = "multiple",
           col_names = c(
-            "ID",
             as.character(i18n$t("name")),
             as.character(i18n$t("category")),
             as.character(i18n$t("subcategory"))

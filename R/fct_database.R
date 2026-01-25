@@ -432,6 +432,45 @@ update_concept_set_review <- function(review_id, status = NULL, comments = NULL)
   TRUE
 }
 
+#' Update Concept Set Stats
+#'
+#' @description Update statistics JSON for a concept set
+#' @param concept_set_id Concept set ID
+#' @param stats_json JSON string with statistics
+#' @return TRUE if successful
+#' @noRd
+update_concept_set_stats <- function(concept_set_id, stats_json) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  timestamp <- format(Sys.time(), "%Y-%m-%dT%H:%M:%S")
+
+  # Check if stats exist
+  existing <- DBI::dbGetQuery(
+    con,
+    "SELECT concept_set_id FROM concept_set_stats WHERE concept_set_id = ?",
+    params = list(concept_set_id)
+  )
+
+  if (nrow(existing) > 0) {
+    # Update
+    DBI::dbExecute(
+      con,
+      "UPDATE concept_set_stats SET stats = ?, updated_at = ? WHERE concept_set_id = ?",
+      params = list(stats_json, timestamp, concept_set_id)
+    )
+  } else {
+    # Insert
+    DBI::dbExecute(
+      con,
+      "INSERT INTO concept_set_stats (concept_set_id, stats, updated_at) VALUES (?, ?, ?)",
+      params = list(concept_set_id, stats_json, timestamp)
+    )
+  }
+
+  TRUE
+}
+
 #' Add Changelog Entry
 #'
 #' @description Add a changelog entry for a concept set version change
@@ -1380,6 +1419,19 @@ init_database <- function(con) {
         changes_json TEXT,
         FOREIGN KEY (concept_set_id) REFERENCES concept_sets(id),
         FOREIGN KEY (changed_by_user_id) REFERENCES users(user_id)
+      )"
+    )
+  }
+
+  # Concept Set Stats table
+  if (!DBI::dbExistsTable(con, "concept_set_stats")) {
+    DBI::dbExecute(
+      con,
+      "CREATE TABLE concept_set_stats (
+        concept_set_id INTEGER PRIMARY KEY,
+        stats TEXT,
+        updated_at TEXT,
+        FOREIGN KEY (concept_set_id) REFERENCES concept_sets(id)
       )"
     )
   }

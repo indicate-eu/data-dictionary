@@ -362,20 +362,63 @@ mod_data_dictionary_ui <- function(id, i18n) {
                       class = "detail-tab-panel",
                       tags$div(
                         class = "settings-backup-container",
+                        # View mode section
                         tags$div(
+                          id = ns("comments_view_section"),
                           class = "settings-section settings-backup-section",
                           style = "width: 100%; max-width: 100%;",
                           tags$h4(
                             class = "settings-section-title",
                             tags$i(class = "fas fa-comment", style = "margin-right: 8px; color: #0f60af;"),
-                            i18n$t("comments"),
-                            tags$span(
-                              class = "info-icon",
-                              `data-tooltip` = as.character(i18n$t("comments_stats_tooltip")),
-                              HTML("&#x3f;")
-                            )
+                            i18n$t("comments")
                           ),
                           uiOutput(ns("comments_display"))
+                        ),
+                        # Edit mode sections
+                        tags$div(
+                          id = ns("comments_edit_section"),
+                          class = "settings-backup-container concepts-layout",
+                          style = "display: none;",
+                          # Left: Markdown editor
+                          tags$div(
+                            class = "settings-section settings-backup-section expandable-section",
+                            tags$h4(
+                              class = "settings-section-title",
+                              tags$i(class = "fas fa-edit", style = "margin-right: 8px; color: #0f60af;"),
+                              i18n$t("markdown_editor")
+                            ),
+                            tags$div(
+                              style = "position: relative; flex: 1; display: flex; flex-direction: column; min-height: 0;",
+                              tags$div(
+                                style = "flex: 1; overflow: hidden;",
+                                shinyAce::aceEditor(
+                                  ns("comments_editor"),
+                                  mode = "markdown",
+                                  theme = "chrome",
+                                  height = "100%",
+                                  fontSize = 12,
+                                  debounce = 100,
+                                  autoScrollEditorIntoView = TRUE
+                                )
+                              )
+                            )
+                          ),
+                          # Right: Preview
+                          tags$div(
+                            class = "settings-section settings-backup-section expandable-section",
+                            tags$h4(
+                              class = "settings-section-title",
+                              tags$i(class = "fas fa-eye", style = "margin-right: 8px; color: #0f60af;"),
+                              "Preview"
+                            ),
+                            tags$div(
+                              style = "position: relative; flex: 1; display: flex; flex-direction: column; min-height: 0;",
+                              tags$div(
+                                style = "flex: 1; overflow: auto; padding: 10px;",
+                                uiOutput(ns("comments_preview"))
+                              )
+                            )
+                          )
                         )
                       )
                     ),
@@ -384,22 +427,91 @@ mod_data_dictionary_ui <- function(id, i18n) {
                     tags$div(
                       id = ns("panel_stats"),
                       class = "detail-tab-panel",
+                      # View mode section - Grid layout (3 panels)
                       tags$div(
-                        class = "settings-backup-container",
+                        id = ns("stats_view_section"),
+                        class = "settings-backup-container statistics-layout",
+
+                        # Top-left: Distribution (boxplot + stats)
                         tags$div(
-                          class = "settings-section settings-backup-section",
-                          style = "width: 100%; max-width: 100%;",
+                          id = ns("stats_distribution_panel"),
+                          class = "settings-section settings-backup-section expandable-section",
                           tags$h4(
                             class = "settings-section-title",
                             tags$i(class = "fas fa-chart-bar", style = "margin-right: 8px; color: #0f60af;"),
-                            i18n$t("statistics"),
-                            tags$span(
-                              class = "info-icon",
-                              `data-tooltip` = as.character(i18n$t("statistics_desc")),
-                              HTML("&#x3f;")
-                            )
+                            "Distribution",
+                            # Profile selector (will be populated dynamically)
+                            uiOutput(ns("stats_profile_selector"), inline = TRUE)
                           ),
-                          uiOutput(ns("stats_display"))
+                          tags$div(
+                            style = "flex: 1; overflow: auto;",
+                            uiOutput(ns("stats_distribution_content"))
+                          )
+                        ),
+
+                        # Top-right: Histogram
+                        tags$div(
+                          id = ns("stats_histogram_panel"),
+                          class = "settings-section settings-backup-section expandable-section",
+                          tags$h4(
+                            class = "settings-section-title",
+                            tags$i(class = "fas fa-chart-area", style = "margin-right: 8px; color: #0f60af;"),
+                            "Histogram"
+                          ),
+                          tags$div(
+                            style = "flex: 1; overflow: auto;",
+                            uiOutput(ns("stats_histogram_content"))
+                          )
+                        ),
+
+                        # Bottom-left: Other information (formerly Summary)
+                        tags$div(
+                          id = ns("stats_info_panel"),
+                          class = "settings-section settings-backup-section expandable-section",
+                          tags$h4(
+                            class = "settings-section-title",
+                            tags$i(class = "fas fa-info-circle", style = "margin-right: 8px; color: #0f60af;"),
+                            "Other information"
+                          ),
+                          tags$div(
+                            style = "flex: 1; overflow: auto;",
+                            uiOutput(ns("stats_info_content"))
+                          )
+                        )
+                      ),
+                      # Edit mode section
+                      tags$div(
+                        id = ns("stats_edit_section"),
+                        class = "settings-backup-container",
+                        style = "display: none;",
+                        # Error message
+                        tags$div(
+                          id = ns("stats_json_error"),
+                          class = "input-error-message",
+                          style = "display: none; margin-bottom: 10px;"
+                        ),
+                        # JSON editor
+                        tags$div(
+                          class = "settings-section settings-backup-section expandable-section",
+                          tags$h4(
+                            class = "settings-section-title",
+                            tags$i(class = "fas fa-code", style = "margin-right: 8px; color: #0f60af;"),
+                            "JSON Editor"
+                          ),
+                          tags$div(
+                            style = "position: relative; flex: 1; display: flex; flex-direction: column; min-height: 0;",
+                            tags$div(
+                              style = "flex: 1; overflow: hidden;",
+                              shinyAce::aceEditor(
+                                ns("stats_editor"),
+                                mode = "json",
+                                theme = "chrome",
+                                height = "100%",
+                                fontSize = 12,
+                                autoScrollEditorIntoView = TRUE
+                              )
+                            )
+                          )
                         )
                       )
                     ),
@@ -841,24 +953,27 @@ mod_data_dictionary_ui <- function(id, i18n) {
               tags$div(
                 class = "flex-center-gap-8",
                 tags$label(
-                  class = "toggle-switch toggle-small toggle-blue",
-                  tags$input(type = "checkbox", id = ns("add_modal_multiple_select")),
-                  tags$span(class = "toggle-slider")
-                ),
-                tags$span(i18n$t("multiple_selection"), style = "font-size: 13px; color: #666;")
+                  class = "toggle-with-label",
+                  tags$span(
+                    class = "toggle-switch toggle-small toggle-blue",
+                    tags$input(type = "checkbox", id = ns("add_modal_multiple_select")),
+                    tags$span(class = "toggle-slider")
+                  ),
+                  tags$span(i18n$t("multiple_selection"), class = "toggle-label-text")
+                )
               ),
               # Right side: Toggles and Add button
               tags$div(
                 class = "flex-center-gap-8",
                 # Exclude toggle
-                tags$div(
-                  class = "flex-center-gap-8",
-                  tags$label(
+                tags$label(
+                  class = "toggle-with-label",
+                  tags$span(
                     class = "toggle-switch toggle-small toggle-exclude",
                     tags$input(type = "checkbox", id = ns("add_modal_is_excluded")),
                     tags$span(class = "toggle-slider")
                   ),
-                  tags$span(i18n$t("exclude"), style = "font-size: 13px; color: #666;")
+                  tags$span(i18n$t("exclude"), class = "toggle-label-text")
                 ),
                 # Descendants toggle
                 tags$label(
@@ -1539,6 +1654,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     deleting_tag_id <- reactiveVal(NULL)
     concepts_edit_mode <- reactiveVal(FALSE)
 
+    ## Statistics State ----
+    selected_stats_profile <- reactiveVal(NULL)
+
     ## Fuzzy Search ----
     fuzzy <- fuzzy_search_server("fuzzy_search", input, session, trigger_rv = table_trigger, ns = ns)
 
@@ -1549,6 +1667,17 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       status = character(0),
       tags = character(0)
     ))
+
+    ## Selected Concept Set (for parent modules) ----
+    selected_concept_set <- reactive({
+      rows <- input$concept_sets_table_rows_selected
+      if (is.null(rows) || length(rows) == 0) return(list(selected_id = NULL))
+
+      data <- concept_sets_data()
+      if (is.null(data)) return(list(selected_id = NULL))
+
+      list(selected_id = data$id[rows])
+    })
 
     # 2) DATA LOADING ====
 
@@ -3734,6 +3863,37 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         }
       }
 
+      # Track what was saved
+      comments_saved <- FALSE
+      stats_saved <- FALSE
+
+      # Save comments if changed
+      comments_text <- input$comments_editor
+      if (!is.null(comments_text)) {
+        update_concept_set(cs_id, etl_comment = comments_text)
+        comments_saved <- TRUE
+      }
+
+      # Save statistics if changed
+      stats_text <- input$stats_editor
+      if (!is.null(stats_text)) {
+        # Validate JSON
+        is_valid <- tryCatch({
+          jsonlite::fromJSON(stats_text)
+          TRUE
+        }, error = function(e) {
+          shinyjs::html("stats_json_error", paste("Invalid JSON:", e$message))
+          shinyjs::show("stats_json_error")
+          FALSE
+        })
+
+        if (is_valid) {
+          update_concept_set_stats(cs_id, stats_text)
+          shinyjs::hide("stats_json_error")
+          stats_saved <- TRUE
+        }
+      }
+
       # Clear pending changes
       pending_additions(list())
       pending_deletions(character(0))
@@ -3762,12 +3922,26 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       ))
 
       # Show notification if changes were made
-      if (length(additions) > 0 || length(deletions) > 0) {
-        showNotification(
-          as.character(i18n$t("changes_saved")),
-          type = "message",
-          duration = 3
-        )
+      if (length(additions) > 0 || length(deletions) > 0 || comments_saved || stats_saved) {
+        if (comments_saved) {
+          showNotification(
+            as.character(i18n$t("comments_saved")),
+            type = "message",
+            duration = 3
+          )
+        } else if (stats_saved) {
+          showNotification(
+            as.character(i18n$t("stats_saved")),
+            type = "message",
+            duration = 3
+          )
+        } else {
+          showNotification(
+            as.character(i18n$t("changes_saved")),
+            type = "message",
+            duration = 3
+          )
+        }
       }
 
       # Refresh concepts table
@@ -5136,15 +5310,347 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       hide_modal(ns("filters_modal"))
     }, ignoreInit = TRUE)
 
-    # Return selected concept set for use by parent
-    reactive({
-      rows <- input$concept_sets_table_rows_selected
-      if (is.null(rows) || length(rows) == 0) return(list(selected_id = NULL))
+  # ===================================================================
+  # COMMENTS PAGE LOGIC
+  # ===================================================================
 
-      data <- concept_sets_data()
-      if (is.null(data)) return(list(selected_id = NULL))
+  ## Render Comments Display ----
+  observe_event(c(viewing_concept_set_id(), table_trigger()), {
+    cs_id <- viewing_concept_set_id()
 
-      list(selected_id = data$id[rows])
+    output$comments_display <- renderUI({
+      if (is.null(cs_id)) return(tags$p(style = "color: #999; font-style: italic;", i18n$t("no_concept_set_selected")))
+
+      cs <- get_concept_set(cs_id)
+      if (is.null(cs)) return(NULL)
+
+      comments_text <- if (!is.null(cs$etl_comment) && !is.na(cs$etl_comment) && nchar(cs$etl_comment) > 0) {
+        cs$etl_comment
+      } else {
+        i18n$t("no_comments_yet")
+      }
+
+      if (comments_text == as.character(i18n$t("no_comments_yet"))) {
+        return(tags$p(style = "color: #999; font-style: italic;", comments_text))
+      }
+
+      # Render markdown
+      html_content <- tryCatch({
+        markdown::markdownToHTML(
+          text = comments_text,
+          fragment.only = TRUE,
+          options = c("use_xhtml", "smartypants", "base64_images", "mathjax", "highlight_code")
+        )
+      }, error = function(e) {
+        paste0("<p style='color: red;'>Error rendering markdown: ", e$message, "</p>")
+      })
+
+      tags$div(class = "markdown-body", HTML(html_content))
     })
+  }, ignoreInit = FALSE)
+
+  ## Render Comments Preview ----
+  output$comments_preview <- renderUI({
+    markdown_text <- input$comments_editor
+    if (is.null(markdown_text) || nchar(trimws(markdown_text)) == 0) {
+      return(NULL)
+    }
+
+    html_content <- tryCatch({
+      markdown::markdownToHTML(
+        text = markdown_text,
+        fragment.only = TRUE,
+        options = c("use_xhtml", "smartypants", "base64_images", "mathjax", "highlight_code")
+      )
+    }, error = function(e) {
+      paste0("<p style='color: red;'>Error rendering markdown: ", e$message, "</p>")
+    })
+
+    tags$div(class = "markdown-body", HTML(html_content))
+  })
+
+  outputOptions(output, "comments_preview", suspendWhenHidden = FALSE)
+
+  ## Toggle Comments Edit Mode ----
+  observe_event(concepts_edit_mode(), {
+    is_edit <- concepts_edit_mode()
+
+    if (is_edit) {
+      # Load current comments into editor
+      cs_id <- viewing_concept_set_id()
+      if (!is.null(cs_id)) {
+        cs <- get_concept_set(cs_id)
+        if (!is.null(cs)) {
+          comments_text <- if (!is.null(cs$etl_comment) && !is.na(cs$etl_comment)) cs$etl_comment else ""
+          shinyAce::updateAceEditor(session, "comments_editor", value = comments_text)
+        }
+      }
+
+      # Show edit mode
+      shinyjs::hide("comments_view_section")
+      shinyjs::show("comments_edit_section")
+    } else {
+      # Show view mode
+      shinyjs::show("comments_view_section")
+      shinyjs::hide("comments_edit_section")
+    }
+  }, ignoreInit = FALSE)
+
+
+  # ===================================================================
+  # STATISTICS PAGE LOGIC
+  # ===================================================================
+
+  ## Helper: Get Statistics Data ----
+  get_stats_data <- reactive({
+    cs_id <- viewing_concept_set_id()
+    # Trigger dependency on table_trigger to force refresh
+    table_trigger()
+
+    if (is.null(cs_id)) return(NULL)
+
+    con <- get_db_connection()
+    on.exit(DBI::dbDisconnect(con))
+
+    stats_data <- DBI::dbGetQuery(
+      con,
+      "SELECT stats FROM concept_set_stats WHERE concept_set_id = ?",
+      params = list(cs_id)
+    )
+
+    if (nrow(stats_data) == 0 || is.na(stats_data$stats[1]) || nchar(trimws(stats_data$stats[1])) == 0) {
+      return(NULL)
+    }
+
+    # Parse JSON with simplifyDataFrame = FALSE to keep list structure
+    stats_json <- tryCatch({
+      jsonlite::fromJSON(stats_data$stats[1], simplifyDataFrame = FALSE)
+    }, error = function(e) {
+      return(NULL)
+    })
+
+    stats_json
+  })
+
+  ## Render Profile Selector ----
+  observe_event(get_stats_data(), {
+    output$stats_profile_selector <- renderUI({
+      stats_json <- get_stats_data()
+      if (is.null(stats_json)) return(NULL)
+
+      profiles <- stats_json$profiles
+      if (is.null(profiles) || length(profiles) == 0) return(NULL)
+
+      profile_names <- sapply(profiles, function(p) p$name_en)
+      if (length(profile_names) <= 1) return(NULL)  # Don't show selector if only one profile
+
+      # Get current selected profile or default
+      current_profile <- selected_stats_profile()
+      if (is.null(current_profile) || !(current_profile %in% profile_names)) {
+        current_profile <- stats_json$default_profile
+        if (is.null(current_profile) || !(current_profile %in% profile_names)) {
+          current_profile <- profile_names[1]
+        }
+        selected_stats_profile(current_profile)
+      }
+
+      tags$span(
+        style = "float: right; display: flex; align-items: center; gap: 8px;",
+        tags$span(style = "font-size: 11px; color: #666;", "Profile:"),
+        tags$select(
+          id = ns("stats_profile_select"),
+          style = "font-size: 11px; padding: 2px 6px; border: 1px solid #ccc; border-radius: 4px;",
+          onchange = sprintf("Shiny.setInputValue('%s', this.value, {priority: 'event'})", ns("stats_profile_change")),
+          lapply(profile_names, function(pn) {
+            is_selected <- !is.na(pn) && !is.na(current_profile) && pn == current_profile
+            tags$option(value = pn, selected = if (is_selected) "selected" else NULL, pn)
+          })
+        )
+      )
+    })
+  }, ignoreInit = FALSE)
+
+  ## Render Other Information Content ----
+  observe_event(c(get_stats_data(), selected_stats_profile()), {
+    output$stats_info_content <- renderUI({
+      stats_json <- get_stats_data()
+      if (is.null(stats_json)) {
+        return(tags$p(style = "color: #999; font-style: italic;", i18n$t("no_stats_yet")))
+      }
+
+      profiles <- stats_json$profiles
+      if (is.null(profiles) || length(profiles) == 0) {
+        return(tags$p(style = "color: #999; font-style: italic;", "No profiles found."))
+      }
+
+      # Get current profile
+      current_profile <- selected_stats_profile()
+      profile_names <- sapply(profiles, function(p) p$name_en)
+
+      if (is.null(current_profile) || !(current_profile %in% profile_names)) {
+        current_profile <- stats_json$default_profile
+        if (is.null(current_profile) || !(current_profile %in% profile_names)) {
+          current_profile <- profile_names[1]
+        }
+        selected_stats_profile(current_profile)
+      }
+
+      # Find profile data
+      profile_data <- NULL
+      for (p in profiles) {
+        if (!is.null(p$name_en) && p$name_en == current_profile) {
+          profile_data <- p
+          break
+        }
+      }
+
+      if (is.null(profile_data)) {
+        profile_data <- profiles[[1]]
+      }
+
+      render_stats_summary_panel(profile_data)
+    })
+  }, ignoreInit = FALSE)
+
+  ## Render Distribution Content (boxplot + stats) ----
+  observe_event(c(get_stats_data(), selected_stats_profile()), {
+    output$stats_distribution_content <- renderUI({
+      stats_json <- get_stats_data()
+      if (is.null(stats_json)) {
+        return(tags$p(style = "color: #999; font-style: italic;", i18n$t("no_stats_yet")))
+      }
+
+      profiles <- stats_json$profiles
+      if (is.null(profiles) || length(profiles) == 0) {
+        return(tags$p(style = "color: #999; font-style: italic;", "No profiles found."))
+      }
+
+      # Get current profile
+      current_profile <- selected_stats_profile()
+      profile_names <- sapply(profiles, function(p) p$name_en)
+
+      if (is.null(current_profile) || !(current_profile %in% profile_names)) {
+        current_profile <- stats_json$default_profile
+        if (is.null(current_profile) || !(current_profile %in% profile_names)) {
+          current_profile <- profile_names[1]
+        }
+        selected_stats_profile(current_profile)
+      }
+
+      # Find profile data
+      profile_data <- NULL
+      for (p in profiles) {
+        if (!is.null(p$name_en) && p$name_en == current_profile) {
+          profile_data <- p
+          break
+        }
+      }
+
+      if (is.null(profile_data)) {
+        profile_data <- profiles[[1]]
+      }
+
+      # Render only boxplot section (without histogram)
+      render_stats_boxplot_section(profile_data)
+    })
+  }, ignoreInit = FALSE)
+
+  ## Render Histogram Content ----
+  observe_event(c(get_stats_data(), selected_stats_profile()), {
+    output$stats_histogram_content <- renderUI({
+      stats_json <- get_stats_data()
+      if (is.null(stats_json)) {
+        return(tags$p(style = "color: #999; font-style: italic;", i18n$t("no_stats_yet")))
+      }
+
+      profiles <- stats_json$profiles
+      if (is.null(profiles) || length(profiles) == 0) {
+        return(tags$p(style = "color: #999; font-style: italic;", "No profiles found."))
+      }
+
+      # Get current profile
+      current_profile <- selected_stats_profile()
+      profile_names <- sapply(profiles, function(p) p$name_en)
+
+      if (is.null(current_profile) || !(current_profile %in% profile_names)) {
+        current_profile <- stats_json$default_profile
+        if (is.null(current_profile) || !(current_profile %in% profile_names)) {
+          current_profile <- profile_names[1]
+        }
+        selected_stats_profile(current_profile)
+      }
+
+      # Find profile data
+      profile_data <- NULL
+      for (p in profiles) {
+        if (!is.null(p$name_en) && p$name_en == current_profile) {
+          profile_data <- p
+          break
+        }
+      }
+
+      if (is.null(profile_data)) {
+        profile_data <- profiles[[1]]
+      }
+
+      # Render only histogram section
+      render_stats_histogram_section(profile_data)
+    })
+  }, ignoreInit = FALSE)
+
+  ## Toggle Statistics Edit Mode ----
+  observe_event(concepts_edit_mode(), {
+    is_edit <- concepts_edit_mode()
+
+    if (is_edit) {
+      # Load current stats into editor
+      cs_id <- viewing_concept_set_id()
+      if (!is.null(cs_id)) {
+        con <- get_db_connection()
+        on.exit(DBI::dbDisconnect(con))
+
+        stats_data <- DBI::dbGetQuery(
+          con,
+          "SELECT stats FROM concept_set_stats WHERE concept_set_id = ?",
+          params = list(cs_id)
+        )
+
+        stats_text <- if (nrow(stats_data) > 0 && !is.na(stats_data$stats[1])) {
+          # Pretty print the JSON
+          tryCatch({
+            parsed <- jsonlite::fromJSON(stats_data$stats[1])
+            jsonlite::toJSON(parsed, auto_unbox = TRUE, pretty = TRUE)
+          }, error = function(e) {
+            stats_data$stats[1]
+          })
+        } else {
+          "{}"
+        }
+
+        shinyAce::updateAceEditor(session, "stats_editor", value = stats_text)
+      }
+
+      # Show edit mode
+      shinyjs::hide("stats_view_section")
+      shinyjs::show("stats_edit_section")
+      shinyjs::hide("stats_json_error")
+    } else {
+      # Show view mode
+      shinyjs::show("stats_view_section")
+      shinyjs::hide("stats_edit_section")
+    }
+  }, ignoreInit = FALSE)
+
+  ## Handle Statistics Profile Change ----
+  observe_event(input$stats_profile_change, {
+    new_profile <- input$stats_profile_change
+    if (!is.null(new_profile)) {
+      selected_stats_profile(new_profile)
+      # Observers will react to selected_stats_profile() change automatically
+    }
+  }, ignoreInit = TRUE)
+
+    # Return selected concept set for use by parent
+    selected_concept_set
   })
 }

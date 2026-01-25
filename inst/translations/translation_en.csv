@@ -335,3 +335,8 @@ create_new_version,Create New Version
 version_created,New version created successfully
 status_changed,Status changed successfully
 change_summary,Change Summary
+no_comments_yet,No comments yet
+comments_saved,Comments saved successfully
+no_stats_yet,No statistics yet
+stats_saved,Statistics saved successfully
+markdown_editor,Markdown Editor
