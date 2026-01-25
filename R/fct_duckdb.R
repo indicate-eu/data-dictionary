@@ -828,3 +828,231 @@ resolve_concept_set <- function(concepts) {
     return(concepts[!concepts$is_excluded, ])
   })
 }
+
+#' Export concept set to OHDSI JSON format
+#'
+#' @description Export a concept set to OHDSI-compliant JSON format
+#'              Based on https://ohdsi.github.io/TAB/Concept-Set-Specification.html
+#'
+#' @param concept_set_id Concept set ID
+#' @param concepts_data Data frame with concept set items (optional, if not provided will be fetched)
+#'
+#' @return JSON string in OHDSI format
+#' @noRd
+export_concept_set_to_json <- function(concept_set_id, concepts_data = NULL) {
+  tryCatch({
+    # Get concept set metadata
+    con <- get_db_connection()
+    on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+    cs <- DBI::dbGetQuery(
+      con,
+      "SELECT * FROM concept_sets WHERE id = ?",
+      params = list(concept_set_id)
+    )
+
+    if (nrow(cs) == 0) {
+      stop("Concept set not found")
+    }
+
+    # Get concepts if not provided
+    if (is.null(concepts_data)) {
+      concepts_data <- DBI::dbGetQuery(
+        con,
+        "SELECT * FROM concept_set_items WHERE concept_set_id = ?",
+        params = list(concept_set_id)
+      )
+    }
+
+    # Build OHDSI JSON structure - expression items
+    items <- lapply(seq_len(nrow(concepts_data)), function(i) {
+      concept <- concepts_data[i, ]
+
+      # Safely extract values
+      std_concept <- if (length(concept$standard_concept) == 0 || is.na(concept$standard_concept)) NULL else as.character(concept$standard_concept)
+      invalid_reason <- if (length(concept$invalid_reason) == 0 || is.na(concept$invalid_reason)) NULL else as.character(concept$invalid_reason)
+
+      list(
+        concept = list(
+          conceptId = as.integer(concept$concept_id),
+          conceptName = as.character(concept$concept_name),
+          standardConcept = std_concept,
+          standardConceptCaption = if (is.null(std_concept)) "Unknown" else if (std_concept == "S") "Standard" else "Non-Standard",
+          invalidReason = invalid_reason,
+          invalidReasonCaption = if (is.null(invalid_reason)) "Valid" else "Invalid",
+          conceptCode = as.character(concept$concept_code),
+          domainId = as.character(concept$domain_id),
+          vocabularyId = as.character(concept$vocabulary_id),
+          conceptClassId = as.character(concept$concept_class_id),
+          validStartDate = "1970-01-01",
+          validEndDate = "2099-12-31"
+        ),
+        isExcluded = isTRUE(concept$is_excluded),
+        includeDescendants = isTRUE(concept$include_descendants),
+        includeMapped = isTRUE(concept$include_mapped)
+      )
+    })
+
+    # Parse tags if present
+    tags <- if (!is.null(cs$tags) && !is.na(cs$tags) && nchar(cs$tags) > 0) {
+      strsplit(cs$tags, ",")[[1]]
+    } else {
+      character(0)
+    }
+
+    # Build complete OHDSI-compliant JSON structure
+    result <- list(
+      id = as.integer(cs$id),
+      name = as.character(cs$name),
+      description = if (!is.null(cs$description) && !is.na(cs$description)) as.character(cs$description) else NULL,
+      version = if (!is.null(cs$version) && !is.na(cs$version)) as.character(cs$version) else "1.0.0",
+      createdBy = if (!is.null(cs$created_by) && !is.na(cs$created_by)) as.character(cs$created_by) else NULL,
+      createdDate = if (!is.null(cs$created_date) && !is.na(cs$created_date)) as.character(cs$created_date) else NULL,
+      modifiedBy = if (!is.null(cs$modified_by) && !is.na(cs$modified_by)) as.character(cs$modified_by) else NULL,
+      modifiedDate = if (!is.null(cs$modified_date) && !is.na(cs$modified_date)) as.character(cs$modified_date) else NULL,
+      createdByTool = "INDICATE Data Dictionary",
+      expression = list(
+        items = items
+      ),
+      tags = tags,
+      metadata = list(
+        category = if (!is.null(cs$category) && !is.na(cs$category)) as.character(cs$category) else NULL,
+        subcategory = if (!is.null(cs$subcategory) && !is.na(cs$subcategory)) as.character(cs$subcategory) else NULL,
+        mappingGuidance = if (!is.null(cs$etl_comment) && !is.na(cs$etl_comment)) as.character(cs$etl_comment) else NULL
+      )
+    )
+
+    return(jsonlite::toJSON(result, auto_unbox = TRUE, pretty = TRUE, null = "null"))
+
+  }, error = function(e) {
+    warning("Error exporting to JSON: ", e$message)
+    return(NULL)
+  })
+}
+
+#' Export resolved concept IDs as comma-separated list
+#'
+#' @description Export concept set as comma-separated list of concept IDs (for PHOEBE)
+#'
+#' @param concepts_data Data frame with concept set items
+#'
+#' @return Character string with comma-separated concept IDs
+#' @noRd
+export_concept_list <- function(concepts_data) {
+  # Resolve the concept set
+  resolved <- resolve_concept_set(concepts_data)
+
+  if (nrow(resolved) == 0) {
+    return("")
+  }
+
+  # Return comma-separated list of concept IDs
+  return(paste(resolved$concept_id, collapse = ", "))
+}
+
+#' Generate SQL query for concept set
+#'
+#' @description Generate SQL query to retrieve all records matching the resolved concepts
+#'              Groups by domain_id to query appropriate CDM tables
+#'
+#' @param concept_set_name Name of the concept set (for comment)
+#' @param concepts_data Data frame with concept set items
+#' @param include_names Logical, if TRUE includes concept names as comments (default: TRUE)
+#'
+#' @return SQL query string
+#' @noRd
+export_concept_set_to_sql <- function(concept_set_name, concepts_data, include_names = TRUE) {
+  # Resolve the concept set
+  resolved <- resolve_concept_set(concepts_data)
+
+  if (nrow(resolved) == 0) {
+    return("-- No concepts to query")
+  }
+
+  # Group concepts by domain_id
+  domains <- split(resolved, resolved$domain_id)
+
+  # Map domain_id to CDM table names
+  domain_table_map <- list(
+    "Condition" = "condition_occurrence",
+    "Drug" = "drug_exposure",
+    "Procedure" = "procedure_occurrence",
+    "Measurement" = "measurement",
+    "Observation" = "observation",
+    "Device" = "device_exposure",
+    "Specimen" = "specimen",
+    "Visit" = "visit_occurrence"
+  )
+
+  # Build SQL queries for each domain
+  queries <- character()
+
+  for (domain in names(domains)) {
+    table_name <- domain_table_map[[domain]]
+
+    if (is.null(table_name)) {
+      # Skip domains without a clear CDM table mapping
+      next
+    }
+
+    concepts_in_domain <- domains[[domain]]
+
+    # Build concept IDs list with optional names
+    if (include_names) {
+      # Create list with comments
+      concept_lines <- sapply(seq_len(nrow(concepts_in_domain)), function(i) {
+        concept <- concepts_in_domain[i, ]
+        # Clean concept name for comment (remove special characters that might break SQL)
+        clean_name <- gsub("'", "''", concept$concept_name)
+        sprintf("  %s%s-- %s",
+                concept$concept_id,
+                if (i < nrow(concepts_in_domain)) "," else "",
+                clean_name)
+      })
+      concept_ids_str <- paste(concept_lines, collapse = "\n")
+    } else {
+      # Simple comma-separated list
+      concept_ids_str <- paste(concepts_in_domain$concept_id, collapse = ", ")
+    }
+
+    # Determine concept_id column name based on table
+    concept_col <- paste0(gsub("_occurrence|_exposure", "", table_name), "_concept_id")
+
+    if (include_names) {
+      query <- sprintf(
+        "-- %s domain\nSELECT *\nFROM %s\nWHERE %s IN (\n%s\n)",
+        domain,
+        table_name,
+        concept_col,
+        concept_ids_str
+      )
+    } else {
+      query <- sprintf(
+        "-- %s domain\nSELECT *\nFROM %s\nWHERE %s IN (%s)",
+        domain,
+        table_name,
+        concept_col,
+        concept_ids_str
+      )
+    }
+
+    queries <- c(queries, query)
+  }
+
+  # Combine all queries with UNION ALL
+  if (length(queries) == 0) {
+    return("-- No queryable domains found")
+  }
+
+  header <- sprintf("-- SQL query for concept set: %s\n-- Generated on: %s\n\n",
+                    concept_set_name,
+                    format(Sys.time(), "%Y-%m-%d %H:%M:%S"))
+
+  if (length(queries) == 1) {
+    return(paste0(header, queries[1]))
+  }
+
+  # For multiple tables, we can't use UNION ALL (different schemas)
+  # So we return each query separately
+  return(paste0(header, paste(queries, collapse = "\n\n")))
+}

@@ -295,3 +295,17 @@ ancestors,Ancestors
 confirm_delete_selected_concepts,Are you sure you want to delete the selected concepts?
 concepts_deleted,concepts deleted successfully
 no_concepts_selected,No concepts selected
+export_concept_set,Export Concept Set
+export_json_clipboard,Copy OHDSI JSON to Clipboard
+export_json_clipboard_desc,Copy the concept set in OHDSI-compliant JSON format to clipboard
+export_json_file,Download OHDSI JSON File
+export_json_file_desc,Download the concept set as a JSON file following OHDSI specification
+export_concept_list,Concept List (comma-separated)
+export_concept_list_desc,Copy resolved concept IDs as comma-separated list (for PHOEBE)
+export_sql,SQL Query
+export_sql_desc,Generate SQL query to retrieve all records matching the resolved concepts
+json_copied,JSON copied to clipboard successfully
+concept_list_copied,Concept list copied to clipboard successfully
+sql_copied,SQL query copied to clipboard successfully
+copy_failed,Failed to copy to clipboard
+download_failed,Failed to download file

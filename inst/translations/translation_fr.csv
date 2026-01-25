@@ -295,3 +295,17 @@ ancestors,Ancetres
 confirm_delete_selected_concepts,Voulez-vous vraiment supprimer les concepts selectionnes ?
 concepts_deleted,concepts supprimes avec succes
 no_concepts_selected,Aucun concept selectionne
+export_concept_set,Exporter le jeu de concepts
+export_json_clipboard,Copier le JSON OHDSI dans le presse-papiers
+export_json_clipboard_desc,Copier le jeu de concepts au format JSON conforme OHDSI dans le presse-papiers
+export_json_file,Télécharger le fichier JSON OHDSI
+export_json_file_desc,Télécharger le jeu de concepts en tant que fichier JSON suivant la specification OHDSI
+export_concept_list,Liste de concepts (separee par des virgules)
+export_concept_list_desc,Copier les IDs de concepts resolus sous forme de liste separee par des virgules (pour PHOEBE)
+export_sql,Requete SQL
+export_sql_desc,Generer une requete SQL pour recuperer tous les enregistrements correspondant aux concepts resolus
+json_copied,JSON copie dans le presse-papiers avec succes
+concept_list_copied,Liste de concepts copiee dans le presse-papiers avec succes
+sql_copied,Requete SQL copiee dans le presse-papiers avec succes
+copy_failed,Echec de la copie dans le presse-papiers
+download_failed,Echec du telechargement du fichier

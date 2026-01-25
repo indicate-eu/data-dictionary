@@ -106,6 +106,15 @@ mod_data_dictionary_ui <- function(id, i18n) {
                         title = "",
                         ""
                       ),
+                      # Export button (visible by default in view mode)
+                      shinyjs::hidden(
+                        actionButton(
+                          ns("export_concept_set_btn"),
+                          i18n$t("export"),
+                          icon = icon("download"),
+                          class = "btn-primary-custom"
+                        )
+                      ),
                       # Edit button (visible by default in view mode)
                       shinyjs::hidden(
                         actionButton(
@@ -901,6 +910,83 @@ mod_data_dictionary_ui <- function(id, i18n) {
           ),
           size = "small",
           icon = "fas fa-exclamation-triangle",
+          ns = ns
+        ),
+
+        ### Modal - Export Concept Set ----
+        create_modal(
+          id = "export_concept_set_modal",
+          title = i18n$t("export_concept_set"),
+          body = tagList(
+            tags$div(
+              class = "export-options-container",
+
+              # Option 1: OHDSI JSON (clipboard)
+              tags$div(
+                class = "export-option",
+                onclick = sprintf("Shiny.setInputValue('%s', 'json_clipboard', {priority: 'event'});", ns("export_action")),
+                tags$div(
+                  class = "export-option-icon",
+                  tags$i(class = "fas fa-clipboard", style = "color: #0f60af;")
+                ),
+                tags$div(
+                  class = "export-option-content",
+                  tags$h5(class = "export-option-title", i18n$t("export_json_clipboard")),
+                  tags$p(class = "export-option-subtitle", i18n$t("export_json_clipboard_desc"))
+                )
+              ),
+
+              # Option 2: OHDSI JSON (file)
+              tags$div(
+                class = "export-option",
+                onclick = sprintf("Shiny.setInputValue('%s', 'json_file', {priority: 'event'});", ns("export_action")),
+                tags$div(
+                  class = "export-option-icon",
+                  tags$i(class = "fas fa-file-download", style = "color: #28a745;")
+                ),
+                tags$div(
+                  class = "export-option-content",
+                  tags$h5(class = "export-option-title", i18n$t("export_json_file")),
+                  tags$p(class = "export-option-subtitle", i18n$t("export_json_file_desc"))
+                )
+              ),
+
+              # Option 3: Concept list (comma separated)
+              tags$div(
+                class = "export-option",
+                onclick = sprintf("Shiny.setInputValue('%s', 'concept_list', {priority: 'event'});", ns("export_action")),
+                tags$div(
+                  class = "export-option-icon",
+                  tags$i(class = "fas fa-list", style = "color: #7c3aed;")
+                ),
+                tags$div(
+                  class = "export-option-content",
+                  tags$h5(class = "export-option-title", i18n$t("export_concept_list")),
+                  tags$p(class = "export-option-subtitle", i18n$t("export_concept_list_desc"))
+                )
+              ),
+
+              # Option 4: SQL query
+              tags$div(
+                class = "export-option",
+                onclick = sprintf("Shiny.setInputValue('%s', 'sql_query', {priority: 'event'});", ns("export_action")),
+                tags$div(
+                  class = "export-option-icon",
+                  tags$i(class = "fas fa-database", style = "color: #ffc107;")
+                ),
+                tags$div(
+                  class = "export-option-content",
+                  tags$h5(class = "export-option-title", i18n$t("export_sql")),
+                  tags$p(class = "export-option-subtitle", i18n$t("export_sql_desc"))
+                )
+              )
+            )
+          ),
+          footer = tagList(
+            actionButton(ns("cancel_export"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times"))
+          ),
+          size = "medium",
+          icon = "fas fa-download",
           ns = ns
         ),
 
@@ -1935,7 +2021,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         ns("concepts_section_left")
       ))
 
-      # Show edit button if user can edit
+      # Show export and edit buttons if user can edit
+      shinyjs::show("export_concept_set_btn")
       if (can_edit()) {
         shinyjs::show("edit_concepts_btn")
       }
@@ -2691,6 +2778,167 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       omop_filters$show()
     }, ignoreInit = TRUE)
 
+    ## Export Concept Set ----
+
+    ### Open export modal
+    observe_event(input$export_concept_set_btn, {
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      show_modal(ns("export_concept_set_modal"))
+    }, ignoreInit = TRUE)
+
+    ### Cancel export
+    observe_event(input$cancel_export, {
+      hide_modal(ns("export_concept_set_modal"))
+    }, ignoreInit = TRUE)
+
+    ### Handle export actions
+    observe_event(input$export_action, {
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      action <- input$export_action
+
+      # Get concept set data
+      con <- get_db_connection()
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+      cs <- DBI::dbGetQuery(
+        con,
+        "SELECT * FROM concept_sets WHERE id = ?",
+        params = list(cs_id)
+      )
+
+      concepts_data <- DBI::dbGetQuery(
+        con,
+        "SELECT * FROM concept_set_items WHERE concept_set_id = ?",
+        params = list(cs_id)
+      )
+
+      if (nrow(concepts_data) == 0) {
+        showNotification(
+          as.character(i18n$t("no_concepts")),
+          type = "warning",
+          duration = 3
+        )
+        return()
+      }
+
+      # Perform export based on action type
+      if (action == "json_clipboard") {
+        json_output <- export_concept_set_to_json(cs_id, concepts_data)
+        if (!is.null(json_output)) {
+          # Copy to clipboard using JavaScript
+          shinyjs::runjs(sprintf(
+            "navigator.clipboard.writeText(`%s`).then(function() {
+              Shiny.setInputValue('%s', Date.now(), {priority: 'event'});
+            }).catch(function() {
+              Shiny.setInputValue('%s', Date.now(), {priority: 'event'});
+            });",
+            gsub("`", "\\\\`", json_output),
+            ns("json_copy_success"),
+            ns("copy_failed_event")
+          ))
+        }
+
+      } else if (action == "json_file") {
+        json_output <- export_concept_set_to_json(cs_id, concepts_data)
+        if (!is.null(json_output)) {
+          # Create download file with INDICATE_ prefix and version
+          version <- if (!is.null(cs$version) && !is.na(cs$version)) cs$version else "1.0.0"
+          clean_name <- gsub("[^a-zA-Z0-9_-]", "_", cs$name)
+          filename <- paste0("INDICATE_", clean_name, "_v", version, ".json")
+          filepath <- file.path(tempdir(), filename)
+          writeLines(json_output, filepath)
+
+          # Trigger download via JavaScript
+          shinyjs::runjs(sprintf(
+            "var link = document.createElement('a');
+             link.download = '%s';
+             link.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(`%s`);
+             link.click();",
+            filename,
+            gsub("`", "\\\\`", json_output)
+          ))
+
+          showNotification(
+            paste(as.character(i18n$t("export")), ":", filename),
+            type = "message",
+            duration = 3
+          )
+        }
+
+      } else if (action == "concept_list") {
+        concept_list <- export_concept_list(concepts_data)
+        if (nchar(concept_list) > 0) {
+          # Copy to clipboard using JavaScript
+          shinyjs::runjs(sprintf(
+            "navigator.clipboard.writeText(`%s`).then(function() {
+              Shiny.setInputValue('%s', Date.now(), {priority: 'event'});
+            }).catch(function() {
+              Shiny.setInputValue('%s', Date.now(), {priority: 'event'});
+            });",
+            concept_list,
+            ns("concept_list_copy_success"),
+            ns("copy_failed_event")
+          ))
+        }
+
+      } else if (action == "sql_query") {
+        sql_output <- export_concept_set_to_sql(cs$name, concepts_data)
+        if (!is.null(sql_output)) {
+          # Copy to clipboard using JavaScript
+          shinyjs::runjs(sprintf(
+            "navigator.clipboard.writeText(`%s`).then(function() {
+              Shiny.setInputValue('%s', Date.now(), {priority: 'event'});
+            }).catch(function() {
+              Shiny.setInputValue('%s', Date.now(), {priority: 'event'});
+            });",
+            gsub("`", "\\\\`", sql_output),
+            ns("sql_copy_success"),
+            ns("copy_failed_event")
+          ))
+        }
+      }
+
+      # Close modal
+      hide_modal(ns("export_concept_set_modal"))
+    }, ignoreInit = TRUE)
+
+    ### Export success notifications
+    observe_event(input$json_copy_success, {
+      showNotification(
+        as.character(i18n$t("json_copied")),
+        type = "message",
+        duration = 3
+      )
+    }, ignoreInit = TRUE)
+
+    observe_event(input$concept_list_copy_success, {
+      showNotification(
+        as.character(i18n$t("concept_list_copied")),
+        type = "message",
+        duration = 3
+      )
+    }, ignoreInit = TRUE)
+
+    observe_event(input$sql_copy_success, {
+      showNotification(
+        as.character(i18n$t("sql_copied")),
+        type = "message",
+        duration = 3
+      )
+    }, ignoreInit = TRUE)
+
+    observe_event(input$copy_failed_event, {
+      showNotification(
+        as.character(i18n$t("copy_failed")),
+        type = "error",
+        duration = 5
+      )
+    }, ignoreInit = TRUE)
+
     ## Enter Edit Mode for Concepts ----
     observe_event(input$edit_concepts_btn, {
       if (!can_edit()) return()
@@ -2701,7 +2949,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Enter edit mode
       concepts_edit_mode(TRUE)
 
-      # Update UI: hide edit button, show save/cancel buttons
+      # Update UI: hide export and edit buttons, show save/cancel buttons
+      shinyjs::hide("export_concept_set_btn")
       shinyjs::hide("edit_concepts_btn")
       shinyjs::show("edit_mode_buttons")
 
@@ -2733,7 +2982,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Exit edit mode
       concepts_edit_mode(FALSE)
 
-      # Update UI: show edit button, hide save/cancel buttons
+      # Update UI: show export and edit buttons, hide save/cancel buttons
+      shinyjs::show("export_concept_set_btn")
       shinyjs::show("edit_concepts_btn")
       shinyjs::hide("edit_mode_buttons")
 
@@ -2798,7 +3048,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Exit edit mode
       concepts_edit_mode(FALSE)
 
-      # Update UI: show edit button, hide save/cancel buttons
+      # Update UI: show export and edit buttons, hide save/cancel buttons
+      shinyjs::show("export_concept_set_btn")
       shinyjs::show("edit_concepts_btn")
       shinyjs::hide("edit_mode_buttons")
 
