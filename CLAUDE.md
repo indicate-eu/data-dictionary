@@ -176,8 +176,20 @@ Standardized DataTable creation:
 - `add_button_handlers()`: Add click handlers to DataTable buttons
 - `create_datatable_actions()`: Generate action buttons HTML
 - `create_empty_datatable()`: Create empty table with message
-- `create_standard_datatable()`: Factory for consistent DataTables
+- `create_standard_datatable()`: Factory for consistent DataTables (includes Columns button by default)
+- `datatable_select_rows()`: Select or unselect all rows in a DataTable
 - `get_datatable_language()`: Get language options for DataTables
+- `style_standard_concept_column()`: Apply color styling to standard_concept columns
+
+**DataTable Row Selection Helper**:
+```r
+# Select all rows
+proxy <- DT::dataTableProxy("my_table", session = session)
+datatable_select_rows(proxy, select = TRUE, data = my_data)
+
+# Unselect all rows
+datatable_select_rows(proxy, select = FALSE)
+```
 
 #### `utils_ui.R` - UI Refactoring Functions
 

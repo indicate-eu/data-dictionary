@@ -407,15 +407,15 @@ render_concept_details <- function(concept, i18n, empty_message = NULL,
   }
 
   # Build details grid - 2 columns
-  # Left column: vocabulary_id, concept_name, concept_code, domain_id, concept_class_id
+  # Left column: concept_name, vocabulary_id, concept_code, domain_id, concept_class_id
   # Right column: omop_concept_id (Athena), fhir_resource, standard, validity
   details_ui <- tags$div(
     class = "concept-details-grid",
-    # Row 1: vocabulary_id | omop_concept_id (with Athena link)
-    create_detail_item(as.character(i18n$t("vocabulary_id")), concept$vocabulary_id),
-    create_detail_item(as.character(i18n$t("view_in_athena")), concept$concept_id, url = athena_url),
-    # Row 2: concept_name | fhir_resource
+    # Row 1: concept_name | omop_concept_id (with Athena link)
     create_detail_item(as.character(i18n$t("concept_name")), concept$concept_name),
+    create_detail_item(as.character(i18n$t("view_in_athena")), concept$concept_id, url = athena_url),
+    # Row 2: vocabulary_id | fhir_resource
+    create_detail_item(as.character(i18n$t("vocabulary_id")), concept$vocabulary_id),
     create_detail_item(
       as.character(i18n$t("fhir_resource")),
       if (!is.null(fhir_url)) concept$vocabulary_id else as.character(i18n$t("no_link_available")),

@@ -176,7 +176,7 @@ mod_data_dictionary_ui <- function(id, i18n) {
                         # Left: Concepts section
                         tags$div(
                           id = ns("concepts_section_left"),
-                          class = "settings-section settings-backup-section",
+                          class = "settings-section settings-backup-section expandable-section",
                           # Section header with title and action buttons
                           tags$h4(
                             class = "settings-section-title",
@@ -189,8 +189,22 @@ mod_data_dictionary_ui <- function(id, i18n) {
                                 class = "flex-gap-8",
                                 style = "float: right;",
                                 actionButton(
-                                  ns("delete_all_concepts"),
-                                  i18n$t("delete_all"),
+                                  ns("select_all_concepts"),
+                                  NULL,
+                                  class = "btn-secondary-custom btn-sm",
+                                  icon = icon("check-square"),
+                                  title = "Select all"
+                                ),
+                                actionButton(
+                                  ns("unselect_all_concepts"),
+                                  NULL,
+                                  class = "btn-secondary-custom btn-sm",
+                                  icon = icon("square"),
+                                  title = "Unselect all"
+                                ),
+                                actionButton(
+                                  ns("delete_selected_concepts"),
+                                  i18n$t("delete"),
                                   class = "btn-danger-custom btn-sm",
                                   icon = icon("trash")
                                 ),
@@ -201,6 +215,13 @@ mod_data_dictionary_ui <- function(id, i18n) {
                                   icon = icon("plus")
                                 )
                               )
+                            ),
+                            # Fullscreen toggle button
+                            tags$button(
+                              id = ns("expand_concepts"),
+                              class = "btn-expand-section",
+                              title = "Expand",
+                              tags$i(class = "fas fa-expand")
                             )
                           ),
                           tags$p(
@@ -220,7 +241,7 @@ mod_data_dictionary_ui <- function(id, i18n) {
                         # Top-right: Selected concept details
                         tags$div(
                           id = ns("concepts_section_details"),
-                          class = "settings-section settings-backup-section",
+                          class = "settings-section settings-backup-section expandable-section",
                           tags$h4(
                             class = "settings-section-title settings-section-title-success",
                             tags$i(class = "fas fa-info-circle", style = "margin-right: 8px; color: #28a745;"),
@@ -229,6 +250,13 @@ mod_data_dictionary_ui <- function(id, i18n) {
                               class = "info-icon",
                               `data-tooltip` = as.character(i18n$t("selected_concept_details_tooltip")),
                               HTML("&#x3f;")
+                            ),
+                            # Fullscreen toggle button
+                            tags$button(
+                              id = ns("expand_details"),
+                              class = "btn-expand-section",
+                              title = "Expand",
+                              tags$i(class = "fas fa-expand")
                             )
                           ),
                           tags$div(
@@ -240,7 +268,7 @@ mod_data_dictionary_ui <- function(id, i18n) {
                         # Bottom-right: Related concepts with sub-tabs
                         tags$div(
                           id = ns("concepts_section_related"),
-                          class = "settings-section settings-backup-section",
+                          class = "settings-section settings-backup-section expandable-section",
                           tags$h4(
                             class = "settings-section-title",
                             tags$i(class = "fas fa-link", style = "margin-right: 8px; color: #0f60af;"),
@@ -266,6 +294,13 @@ mod_data_dictionary_ui <- function(id, i18n) {
                                 ns("subtab_synonyms"),
                                 i18n$t("synonyms"),
                                 class = "tab-btn-blue"
+                              ),
+                              # Fullscreen toggle button (inside section-tabs)
+                              tags$button(
+                                id = ns("expand_related"),
+                                class = "btn-expand-section",
+                                title = "Expand",
+                                tags$i(class = "fas fa-expand")
                               )
                             )
                           ),
@@ -279,7 +314,7 @@ mod_data_dictionary_ui <- function(id, i18n) {
                           shinyjs::hidden(
                             tags$div(
                               id = ns("hierarchy_tab_content"),
-                              style = "flex: 1; overflow: auto;",
+                              style = "flex: 1; overflow: visible;",
                               uiOutput(ns("hierarchy_display"))
                             )
                           ),
@@ -852,21 +887,63 @@ mod_data_dictionary_ui <- function(id, i18n) {
           ns = ns
         ),
 
-        ### Modal - Delete All Concepts Confirmation ----
+        ### Modal - Delete Selected Concepts Confirmation ----
         create_modal(
-          id = "delete_all_concepts_modal",
+          id = "delete_selected_concepts_modal",
           title = i18n$t("confirm_deletion"),
           body = tagList(
-            tags$p(i18n$t("confirm_delete_all_concepts"))
+            tags$p(id = ns("delete_concepts_message_text"), i18n$t("confirm_delete_selected_concepts"))
           ),
           footer = tagList(
-            actionButton(ns("cancel_delete_all_concepts"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
-            actionButton(ns("confirm_delete_all_concepts"), i18n$t("delete_all"), class = "btn-danger-custom", icon = icon("trash"))
+            actionButton(ns("cancel_delete_selected_concepts"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
+            actionButton(ns("confirm_delete_selected_concepts"), i18n$t("delete"), class = "btn-danger-custom", icon = icon("trash"))
           ),
           size = "small",
           icon = "fas fa-exclamation-triangle",
           ns = ns
-        )
+        ),
+
+        # JavaScript for expand section buttons
+        tags$script(HTML(sprintf("
+          $(document).ready(function() {
+            // Generic handler for all expand buttons
+            $('.btn-expand-section').on('click', function() {
+              var container = $(this).closest('.settings-backup-container');
+              var section = $(this).closest('.expandable-section');
+              var buttonId = $(this).attr('id');
+
+              if (section.hasClass('expanded')) {
+                // Collapse
+                section.removeClass('expanded');
+                container.removeClass('has-expanded');
+                $(this).removeClass('expanded');
+                $(this).attr('title', 'Expand');
+
+                // Notify Shiny if this is the related section (contains hierarchy graph)
+                if (buttonId === '%s') {
+                  setTimeout(function() {
+                    Shiny.setInputValue('%s', {expanded: false, time: Date.now()}, {priority: 'event'});
+                  }, 100);
+                }
+              } else {
+                // Expand - hide others
+                container.find('.expandable-section').removeClass('expanded');
+                container.find('.btn-expand-section').removeClass('expanded');
+                section.addClass('expanded');
+                container.addClass('has-expanded');
+                $(this).addClass('expanded');
+                $(this).attr('title', 'Collapse');
+
+                // Notify Shiny if this is the related section (contains hierarchy graph)
+                if (buttonId === '%s') {
+                  setTimeout(function() {
+                    Shiny.setInputValue('%s', {expanded: true, time: Date.now()}, {priority: 'event'});
+                  }, 100);
+                }
+              }
+            });
+          });
+        ", ns("expand_related"), ns("related_expanded_toggle"), ns("expand_related"), ns("related_expanded_toggle"))))
       )
     )
   )
@@ -901,6 +978,10 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     ## Triggers ----
     table_trigger <- reactiveVal(0)
     tags_trigger <- reactiveVal(0)
+    hierarchy_graph_trigger <- reactiveVal(0)
+
+    ## Fullscreen State ----
+    related_section_expanded <- reactiveVal(FALSE)
 
     ## Edit State ----
     editing_id <- reactiveVal(NULL)
@@ -1964,77 +2045,38 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
         if (is.null(concepts) || nrow(concepts) == 0) return(NULL)
 
-        # Prepare display data
+        # Transform standard_concept to readable text
+        standard_display <- dplyr::case_when(
+          is.na(concepts$standard_concept) | concepts$standard_concept == "" ~ "Non-standard",
+          concepts$standard_concept == "S" ~ "Standard",
+          concepts$standard_concept == "C" ~ "Classification",
+          TRUE ~ "Non-standard"
+        )
+
+        # Prepare display data - vocabulary_id before concept_name
         display_data <- data.frame(
           concept_id = concepts$concept_id,
+          vocabulary_id = factor(concepts$vocabulary_id),
           concept_name = concepts$concept_name,
-          vocabulary_id = concepts$vocabulary_id,
           concept_code = concepts$concept_code,
-          domain_id = ifelse(is.na(concepts$domain_id), "", concepts$domain_id),
-          concept_class_id = ifelse(is.na(concepts$concept_class_id), "", concepts$concept_class_id),
-          standard_concept = ifelse(
-            is.na(concepts$standard_concept) | concepts$standard_concept == "",
-            "",
-            concepts$standard_concept
-          ),
+          domain_id = factor(ifelse(is.na(concepts$domain_id), "", concepts$domain_id)),
+          concept_class_id = factor(ifelse(is.na(concepts$concept_class_id), "", concepts$concept_class_id)),
+          standard_concept = factor(standard_display, levels = c("Standard", "Classification", "Non-standard")),
           stringsAsFactors = FALSE
         )
 
         # Check if in edit mode
         is_edit_mode <- concepts_edit_mode()
 
-        # Add actions column only if user can edit AND in edit mode
+        # In edit mode, use multiple selection for bulk operations
         if (can_edit() && is_edit_mode) {
-          display_data$actions <- sapply(display_data$concept_id, function(cid) {
-            create_datatable_actions(list(
-              list(
-                label = NULL,
-                icon = "trash",
-                type = "danger",
-                class = "btn-remove-concept",
-                data_attr = list(id = cid)
-              )
-            ))
-          })
-
           dt <- create_standard_datatable(
             display_data,
-            selection = "single",
+            selection = "multiple",
             col_names = c(
               as.character(i18n$t("omop_concept_id")),
-              as.character(i18n$t("omop_concept_name")),
               "Vocabulary",
-              "Code",
-              as.character(i18n$t("domain_id")),
-              as.character(i18n$t("concept_class_id")),
-              as.character(i18n$t("standard")),
-              ""
-            ),
-            col_defs = list(
-              list(targets = 0, width = "8%"),
-              list(targets = 1, width = "28%"),
-              list(targets = 2, width = "10%"),
-              list(targets = 3, width = "12%"),
-              list(targets = 4, width = "10%"),
-              list(targets = 5, width = "12%"),
-              list(targets = 6, width = "10%", className = "dt-center"),
-              list(targets = 7, width = "10%", className = "dt-center", orderable = FALSE)
-            ),
-            escape = FALSE,
-            show_colvis = TRUE
-          )
-
-          dt <- add_button_handlers(dt, handlers = list(
-            list(selector = ".btn-remove-concept", input_id = ns("remove_concept"))
-          ))
-        } else {
-          dt <- create_standard_datatable(
-            display_data,
-            selection = "single",
-            col_names = c(
-              as.character(i18n$t("omop_concept_id")),
               as.character(i18n$t("omop_concept_name")),
-              "Vocabulary",
               "Code",
               as.character(i18n$t("domain_id")),
               as.character(i18n$t("concept_class_id")),
@@ -2042,16 +2084,47 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
             ),
             col_defs = list(
               list(targets = 0, width = "9%"),
-              list(targets = 1, width = "30%"),
-              list(targets = 2, width = "11%"),
-              list(targets = 3, width = "14%"),
-              list(targets = 4, width = "11%"),
-              list(targets = 5, width = "14%"),
-              list(targets = 6, width = "11%", className = "dt-center")
+              list(targets = 1, width = "11%"),
+              list(targets = 2, width = "30%"),
+              list(targets = 3, width = "12%"),
+              list(targets = 4, width = "11%", visible = FALSE),
+              list(targets = 5, width = "11%", visible = FALSE),
+              list(targets = 6, width = "13%", className = "dt-center")
             ),
             escape = TRUE,
             show_colvis = TRUE
           )
+
+          # Apply standard concept column styling
+          dt <- style_standard_concept_column(dt, "standard_concept")
+        } else {
+          dt <- create_standard_datatable(
+            display_data,
+            selection = "single",
+            col_names = c(
+              as.character(i18n$t("omop_concept_id")),
+              "Vocabulary",
+              as.character(i18n$t("omop_concept_name")),
+              "Code",
+              as.character(i18n$t("domain_id")),
+              as.character(i18n$t("concept_class_id")),
+              as.character(i18n$t("standard"))
+            ),
+            col_defs = list(
+              list(targets = 0, width = "9%"),
+              list(targets = 1, width = "11%"),
+              list(targets = 2, width = "30%"),
+              list(targets = 3, width = "12%"),
+              list(targets = 4, width = "11%", visible = FALSE),
+              list(targets = 5, width = "11%", visible = FALSE),
+              list(targets = 6, width = "13%", className = "dt-center")
+            ),
+            escape = TRUE,
+            show_colvis = TRUE
+          )
+
+          # Apply standard concept column styling
+          dt <- style_standard_concept_column(dt, "standard_concept")
         }
 
         dt
@@ -2251,6 +2324,15 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       ", ns("subtab_related"), ns("subtab_hierarchy"), ns("subtab_synonyms")))
     }, ignoreInit = TRUE)
 
+    ## Handle Related Section Fullscreen Toggle ----
+    observe_event(input$related_expanded_toggle, {
+      expanded <- input$related_expanded_toggle$expanded
+      related_section_expanded(expanded)
+
+      # Trigger hierarchy graph regeneration with appropriate height
+      hierarchy_graph_trigger(hierarchy_graph_trigger() + 1)
+    }, ignoreInit = TRUE)
+
     ## Related Concepts Display (sub-tab in related concepts section) ----
     output$related_display <- renderUI({
       concept_id <- selected_concept_id()
@@ -2353,13 +2435,19 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
             tags$span(style = "color: #666; font-size: 13px;", tolower(as.character(i18n$t("descendants"))))
           )
         ),
-        # visNetwork graph
-        visNetwork::visNetworkOutput(ns("hierarchy_graph"), height = "300px")
+        # visNetwork graph container - height managed via CSS
+        tags$div(
+          class = "hierarchy-graph-container",
+          visNetwork::visNetworkOutput(ns("hierarchy_graph"), height = "100%")
+        )
       )
     })
 
     # Hierarchy visNetwork graph
     output$hierarchy_graph <- visNetwork::renderVisNetwork({
+      # Depend on trigger for fullscreen toggle
+      hierarchy_graph_trigger()
+
       concept_id <- selected_concept_id()
       if (is.null(concept_id)) return(NULL)
 
@@ -2530,6 +2618,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       shinyjs::hide("edit_concepts_btn")
       shinyjs::show("edit_mode_buttons")
 
+      # Hide fullscreen button (not needed in edit mode - already fullscreen)
+      shinyjs::hide("expand_concepts")
+
       # Show concepts edit action buttons
       shinyjs::show("concepts_edit_buttons")
 
@@ -2555,6 +2646,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Update UI: show edit button, hide save/cancel buttons
       shinyjs::show("edit_concepts_btn")
       shinyjs::hide("edit_mode_buttons")
+
+      # Show fullscreen button again
+      shinyjs::show("expand_concepts")
 
       # Hide concepts edit action buttons
       shinyjs::hide("concepts_edit_buttons")
@@ -2614,6 +2708,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Update UI: show edit button, hide save/cancel buttons
       shinyjs::show("edit_concepts_btn")
       shinyjs::hide("edit_mode_buttons")
+
+      # Show fullscreen button again
+      shinyjs::show("expand_concepts")
 
       # Hide concepts edit action buttons
       shinyjs::hide("concepts_edit_buttons")
@@ -2773,7 +2870,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
       # Prepare display data
       display_concepts <- concepts %>%
-        dplyr::select(concept_id, vocabulary_id, concept_name, concept_code, domain_id, concept_class_id, standard_concept)
+        dplyr::select(concept_id, vocabulary_id, concept_name, concept_code, domain_id, concept_class_id, standard_concept, invalid_reason)
 
       display_concepts$concept_id <- as.character(display_concepts$concept_id)
       display_concepts$vocabulary_id <- as.factor(display_concepts$vocabulary_id)
@@ -2789,32 +2886,52 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
               TRUE ~ "Non-standard"
             ),
             levels = c("Standard", "Classification", "Non-standard")
+          ),
+          validity = factor(
+            dplyr::case_when(
+              is.na(invalid_reason) | invalid_reason == "" ~ "Valid",
+              TRUE ~ "Invalid"
+            ),
+            levels = c("Valid", "Invalid")
           )
-        )
+        ) %>%
+        dplyr::select(-invalid_reason)
 
       # Selection mode
       is_multiple <- isTRUE(input$add_modal_multiple_select)
       selection_mode <- if (is_multiple) "multiple" else "single"
 
       output$omop_concepts_table <- DT::renderDT({
-        dt <- DT::datatable(
+        dt <- create_standard_datatable(
           display_concepts,
-          rownames = FALSE,
           selection = selection_mode,
-          filter = "top",
-          options = list(
-            pageLength = 10,
-            lengthMenu = list(c(10, 25, 50, 100), c("10", "25", "50", "100")),
-            dom = "ltip",
-            language = get_datatable_language(),
-            ordering = TRUE,
-            autoWidth = FALSE,
-            columnDefs = list(
-              list(targets = 6, width = "100px", className = "dt-center")
-            )
+          page_length = 10,
+          col_names = c(
+            as.character(i18n$t("omop_concept_id")),
+            "Vocabulary",
+            as.character(i18n$t("omop_concept_name")),
+            "Code",
+            as.character(i18n$t("domain_id")),
+            as.character(i18n$t("concept_class_id")),
+            as.character(i18n$t("standard")),
+            as.character(i18n$t("validity"))
           ),
-          colnames = c("Concept ID", "Vocabulary", "Concept Name", "Concept Code", "Domain", "Concept Class", "Standard")
+          col_defs = list(
+            list(targets = 0, width = "9%"),
+            list(targets = 1, width = "10%"),
+            list(targets = 2, width = "26%"),
+            list(targets = 3, width = "10%"),
+            list(targets = 4, width = "10%", visible = FALSE),
+            list(targets = 5, width = "10%", visible = FALSE),
+            list(targets = 6, width = "11%", className = "dt-center"),
+            list(targets = 7, width = "9%", className = "dt-center")
+          ),
+          escape = TRUE
         )
+
+        # Apply standard concept column styling
+        dt <- style_standard_concept_column(dt, "standard_concept")
+        dt <- style_validity_column(dt, "validity")
 
         dt
       }, server = TRUE)
@@ -3086,56 +3203,101 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       concepts_trigger(concepts_trigger() + 1)
     }, ignoreInit = TRUE)
 
-    ## Delete All Concepts - Show confirmation ----
-    observe_event(input$delete_all_concepts, {
+    ## Select All Concepts ----
+    observe_event(input$select_all_concepts, {
       if (!can_edit()) return()
       if (!concepts_edit_mode()) return()
 
       cs_id <- viewing_concept_set_id()
       if (is.null(cs_id)) return()
 
-      # Check if there are concepts to delete
       concepts <- get_concept_set_items(cs_id)
       if (is.null(concepts) || nrow(concepts) == 0) return()
 
-      show_modal(ns("delete_all_concepts_modal"))
+      proxy <- DT::dataTableProxy("concepts_table", session = session)
+      datatable_select_rows(proxy, select = TRUE, data = concepts)
     }, ignoreInit = TRUE)
 
-    ## Cancel Delete All Concepts ----
-    observe_event(input$cancel_delete_all_concepts, {
-      hide_modal(ns("delete_all_concepts_modal"))
+    ## Unselect All Concepts ----
+    observe_event(input$unselect_all_concepts, {
+      if (!can_edit()) return()
+      if (!concepts_edit_mode()) return()
+
+      proxy <- DT::dataTableProxy("concepts_table", session = session)
+      datatable_select_rows(proxy, select = FALSE)
     }, ignoreInit = TRUE)
 
-    ## Confirm Delete All Concepts (staging - not saved until Save is clicked) ----
-    observe_event(input$confirm_delete_all_concepts, {
+    ## Delete Selected Concepts - Show confirmation ----
+    observe_event(input$delete_selected_concepts, {
+      if (!can_edit()) return()
+      if (!concepts_edit_mode()) return()
+
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      # Check if there are selected rows
+      selected_rows <- input$concepts_table_rows_selected
+      if (is.null(selected_rows) || length(selected_rows) == 0) {
+        showNotification(
+          as.character(i18n$t("no_concepts_selected")),
+          type = "warning",
+          duration = 3
+        )
+        return()
+      }
+
+      # Update message with count
+      count <- length(selected_rows)
+      message <- paste0(as.character(i18n$t("confirm_delete_selected_concepts")), " (", count, " ", tolower(as.character(i18n$t("concepts"))), ")")
+      shinyjs::runjs(sprintf("$('#%s').text('%s');", ns("delete_concepts_message_text"), message))
+
+      show_modal(ns("delete_selected_concepts_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Cancel Delete Selected Concepts ----
+    observe_event(input$cancel_delete_selected_concepts, {
+      hide_modal(ns("delete_selected_concepts_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Confirm Delete Selected Concepts (staging - not saved until Save is clicked) ----
+    observe_event(input$confirm_delete_selected_concepts, {
       if (!can_edit()) return()
 
       cs_id <- viewing_concept_set_id()
       if (is.null(cs_id)) return()
 
-      # Get all concepts from database
+      selected_rows <- input$concepts_table_rows_selected
+      if (is.null(selected_rows) || length(selected_rows) == 0) return()
+
+      # Get concepts from database
       concepts <- get_concept_set_items(cs_id)
+      if (is.null(concepts) || nrow(concepts) == 0) return()
 
-      # Clear pending additions (all new concepts will be discarded)
-      pending_additions(list())
+      # Get selected concept IDs
+      selected_ids <- as.character(concepts$concept_id[selected_rows])
 
-      # Mark all existing concepts for deletion
-      if (!is.null(concepts) && nrow(concepts) > 0) {
-        all_ids <- as.character(concepts$concept_id)
-        pending_deletions(all_ids)
-      }
+      # Update pending deletions
+      current_deletions <- pending_deletions()
+      pending_deletions(unique(c(current_deletions, selected_ids)))
+
+      # Also remove from pending additions if present
+      current_additions <- pending_additions()
+      current_additions <- current_additions[!sapply(current_additions, function(x) as.character(x$concept_id) %in% selected_ids)]
+      pending_additions(current_additions)
 
       # Hide modal
-      hide_modal(ns("delete_all_concepts_modal"))
+      hide_modal(ns("delete_selected_concepts_modal"))
 
       # Show notification
       showNotification(
-        as.character(i18n$t("all_concepts_deleted")),
+        paste0(length(selected_ids), " ", as.character(i18n$t("concepts_deleted"))),
         type = "message",
         duration = 3
       )
 
-      # Refresh concepts table to show staged changes
+      # Clear selection and refresh concepts table
+      proxy <- DT::dataTableProxy("concepts_table", session = session)
+      datatable_select_rows(proxy, select = FALSE)
       concepts_trigger(concepts_trigger() + 1)
     }, ignoreInit = TRUE)
 

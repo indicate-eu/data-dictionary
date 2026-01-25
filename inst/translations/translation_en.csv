@@ -292,3 +292,6 @@ no_link_available,No link available
 no_synonyms_found,No synonyms found
 language,Language
 ancestors,Ancestors
+confirm_delete_selected_concepts,Are you sure you want to delete the selected concepts?
+concepts_deleted,concepts deleted successfully
+no_concepts_selected,No concepts selected

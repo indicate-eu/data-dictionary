@@ -79,6 +79,7 @@ create_empty_datatable <- function(message, column_name = "Message") {
 #' Create Standard DataTable
 #'
 #' @description Factory function to create DataTables with consistent defaults.
+#' By default includes: paging, length menu, info, and column visibility button.
 #'
 #' @param data Data frame to display
 #' @param selection Selection mode: "single", "multiple", or "none"
@@ -91,7 +92,7 @@ create_empty_datatable <- function(message, column_name = "Message") {
 #' @param callback JavaScript callback (optional)
 #' @param class CSS class for table
 #' @param fuzzy_search Logical: Enable fuzzy search (default: FALSE)
-#' @param show_colvis Logical: Show column visibility button (default: FALSE)
+#' @param show_colvis Logical: Show column visibility button (default: TRUE)
 #' @param extensions Character vector of DataTables extensions to use
 #'
 #' @return DT datatable object
@@ -108,14 +109,23 @@ create_standard_datatable <- function(
     callback = NULL,
     class = "cell-border stripe hover",
     fuzzy_search = FALSE,
-    show_colvis = FALSE,
+    show_colvis = TRUE,
     extensions = character(0)
 ) {
+  # Wrap ip (info + pagination) in a flex-row container to keep them on the same line
+  # DataTables dom syntax: <"class"...> wraps elements in a div with that class
+  if (grepl("ip", dom)) {
+    dom <- sub("ip", '<"dt-bottom-row"ip>', dom)
+  }
+
   # If show_colvis is TRUE, add Buttons extension and modify dom
   if (show_colvis) {
     extensions <- unique(c(extensions, "Buttons"))
-    # Add 'B' to dom if not already present
-    if (!grepl("B", dom)) {
+    # Wrap B and l in a flex-row container to keep them on the same line
+    if (grepl("^l", dom)) {
+      # Replace leading 'l' with '<"dt-top-row"Bl>'
+      dom <- sub("^l", '<"dt-top-row"Bl>', dom)
+    } else if (!grepl("B", dom)) {
       dom <- paste0("B", dom)
     }
   }
@@ -181,6 +191,29 @@ create_standard_datatable <- function(
   }
 
   do.call(DT::datatable, dt_args)
+}
+
+#' Select or Unselect All Rows in DataTable
+#'
+#' @description Helper function to select or unselect all rows in a DataTable.
+#' Uses the DT proxy to manipulate row selection.
+#'
+#' @param proxy DT proxy object created with DT::dataTableProxy()
+#' @param select Logical: TRUE to select all rows, FALSE to unselect all
+#' @param data Optional data frame to determine row count (needed for select = TRUE)
+#'
+#' @return Invisible NULL (side effect: modifies table selection)
+#' @noRd
+datatable_select_rows <- function(proxy, select = TRUE, data = NULL) {
+
+  if (select && !is.null(data)) {
+    # Select all rows
+    DT::selectRows(proxy, seq_len(nrow(data)))
+  } else {
+    # Unselect all rows
+    DT::selectRows(proxy, NULL)
+  }
+  invisible(NULL)
 }
 
 #' Add Button Click Handlers to DataTable
@@ -292,4 +325,62 @@ get_datatable_language <- function(language = NULL) {
       )
     )
   }
+}
+
+#' Apply Standard Concept Column Styling
+#'
+#' @description Apply consistent styling to standard_concept columns in DataTables.
+#' Colors: Standard (green), Classification (gray), Non-standard (red).
+#'
+#' @param dt DT datatable object to modify
+#' @param column Character: Column name to style
+#'
+#' @return DT datatable with styling applied
+#' @noRd
+style_standard_concept_column <- function(dt, column) {
+  dt %>%
+    DT::formatStyle(
+      column,
+      backgroundColor = DT::styleEqual(
+        c("Standard", "Classification", "Non-standard"),
+        c("#d4edda", "#e2e3e5", "#f8d7da")
+      ),
+      fontWeight = DT::styleEqual(
+        c("Standard", "Classification", "Non-standard"),
+        c("bold", "bold", "bold")
+      ),
+      color = DT::styleEqual(
+        c("Standard", "Classification", "Non-standard"),
+        c("#155724", "#383d41", "#721c24")
+      )
+    )
+}
+
+#' Apply Validity Column Styling
+#'
+#' @description Apply consistent styling to validity columns in DataTables.
+#' Colors: Valid (green), Invalid (red).
+#'
+#' @param dt DT datatable object to modify
+#' @param column Character: Column name to style
+#'
+#' @return DT datatable with styling applied
+#' @noRd
+style_validity_column <- function(dt, column) {
+  dt %>%
+    DT::formatStyle(
+      column,
+      backgroundColor = DT::styleEqual(
+        c("Valid", "Invalid"),
+        c("#d4edda", "#f8d7da")
+      ),
+      fontWeight = DT::styleEqual(
+        c("Valid", "Invalid"),
+        c("bold", "bold")
+      ),
+      color = DT::styleEqual(
+        c("Valid", "Invalid"),
+        c("#155724", "#721c24")
+      )
+    )
 }
