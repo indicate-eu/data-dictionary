@@ -614,6 +614,24 @@ outputOptions(output, "my_table", suspendWhenHidden = FALSE)
 - `.dt-action-btn-warning` - Edit button (yellow)
 - `.dt-action-btn-danger` - Delete button (red)
 
+**Info Icons with Tooltips**:
+Use `.info-icon` with `data-tooltip` attribute for custom CSS tooltips:
+
+```r
+# In UI - info icon with tooltip
+tags$span(
+  class = "info-icon",
+  `data-tooltip` = as.character(i18n$t("tooltip_text_key")),
+  HTML("&#x3f;")  # Question mark character
+)
+```
+
+The tooltip appears on hover using CSS ::after pseudo-element. Features:
+- Uses `data-tooltip` attribute (not `title`) for custom styling
+- Content is the `?` character using `HTML("&#x3f;")`
+- Tooltip appears below the icon with a small arrow
+- Semi-transparent delay (0.5s) before showing
+
 ---
 
 ## Internationalization (i18n)

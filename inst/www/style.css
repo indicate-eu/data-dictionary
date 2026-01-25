@@ -1051,7 +1051,7 @@ hr {
 
 .dataTable tbody tr td {
   height: 8px !important;
-  padding: 4px 8px !important;
+  padding: 1px 8px !important;
   border-top: 1px solid #e9ecef !important;
   font-size: 12px !important;
 }
@@ -1351,10 +1351,26 @@ table.dataTable thead tr td .selectize-dropdown .option {
 }
 
 /* DataTables Buttons - Column Visibility */
-.dt-buttons {
-  margin-bottom: 8px;
-  display: inline-block;
-  padding-left: 5px;
+/* Put buttons on same line as length menu and info/paging on same line */
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dt-buttons {
+  display: inline-block !important;
+  vertical-align: middle !important;
+  margin-bottom: 8px !important;
+}
+
+.dataTables_wrapper .dt-buttons {
+  margin-left: 10px !important;
+}
+
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+  display: inline-block !important;
+  vertical-align: middle !important;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+  float: right !important;
 }
 
 .dt-button.buttons-collection.buttons-colvis {
@@ -1362,21 +1378,31 @@ table.dataTable thead tr td .selectize-dropdown .option {
   color: #333333 !important;
   border: 1px solid #ced4da !important;
   border-radius: 3px !important;
-  font-size: 10px !important;
+  font-size: 12px !important;
   font-weight: normal !important;
-  padding: 0 16px 0 4px !important;
-  height: 18px !important;
-  line-height: 16px !important;
+  padding: 4px 24px 4px 8px !important;
+  height: auto !important;
+  line-height: 1.4 !important;
   cursor: pointer !important;
   display: inline-flex !important;
   align-items: center !important;
-  gap: 3px !important;
-  appearance: menulist !important;
-  -webkit-appearance: menulist !important;
-  -moz-appearance: menulist !important;
+  position: relative !important;
+}
+
+/* Arrow indicator for dropdown */
+.dt-button.buttons-collection.buttons-colvis::after {
+  content: "" !important;
+  position: absolute !important;
+  right: 8px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  border-left: 4px solid transparent !important;
+  border-right: 4px solid transparent !important;
+  border-top: 5px solid #666 !important;
 }
 
 .dt-button.buttons-collection.buttons-colvis:hover {
+  background-color: #f8f9fa !important;
   border-color: #ced4da !important;
   outline: 0 !important;
   box-shadow: none !important;

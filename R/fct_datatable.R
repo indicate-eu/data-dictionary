@@ -91,6 +91,8 @@ create_empty_datatable <- function(message, column_name = "Message") {
 #' @param callback JavaScript callback (optional)
 #' @param class CSS class for table
 #' @param fuzzy_search Logical: Enable fuzzy search (default: FALSE)
+#' @param show_colvis Logical: Show column visibility button (default: FALSE)
+#' @param extensions Character vector of DataTables extensions to use
 #'
 #' @return DT datatable object
 #' @noRd
@@ -105,8 +107,19 @@ create_standard_datatable <- function(
     escape = TRUE,
     callback = NULL,
     class = "cell-border stripe hover",
-    fuzzy_search = FALSE
+    fuzzy_search = FALSE,
+    show_colvis = FALSE,
+    extensions = character(0)
 ) {
+  # If show_colvis is TRUE, add Buttons extension and modify dom
+  if (show_colvis) {
+    extensions <- unique(c(extensions, "Buttons"))
+    # Add 'B' to dom if not already present
+    if (!grepl("B", dom)) {
+      dom <- paste0("B", dom)
+    }
+  }
+
   options <- list(
     pageLength = page_length,
     lengthMenu = list(c(10, 15, 25, 50, 100), c("10", "15", "25", "50", "100")),
@@ -126,6 +139,17 @@ create_standard_datatable <- function(
     )
   }
 
+  # Add colvis button configuration
+  if (show_colvis) {
+    options$buttons <- list(
+      list(
+        extend = "colvis",
+        text = "Columns",
+        className = "btn-colvis"
+      )
+    )
+  }
+
   if (!is.null(col_defs)) {
     options$columnDefs <- col_defs
   }
@@ -138,6 +162,11 @@ create_standard_datatable <- function(
     class = class,
     options = options
   )
+
+  # Add extensions if any
+  if (length(extensions) > 0) {
+    dt_args$extensions <- extensions
+  }
 
   if (filter != "none") {
     dt_args$filter <- filter

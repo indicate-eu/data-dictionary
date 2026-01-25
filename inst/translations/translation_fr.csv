@@ -289,3 +289,6 @@ validity,Validite
 view_in_athena,Voir dans ATHENA
 fhir_resource,Ressource FHIR
 no_link_available,Aucun lien disponible
+no_synonyms_found,Aucun synonyme trouve
+language,Langue
+ancestors,Ancetres

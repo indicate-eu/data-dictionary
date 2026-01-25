@@ -428,11 +428,10 @@ get_related_concepts <- function(concept_id, limit = 100) {
 #' @description Get descendant concepts from the concept_ancestor table
 #'
 #' @param concept_id OMOP Concept ID
-#' @param limit Maximum number of results (default 100)
 #'
-#' @return Data frame with descendant concepts
+#' @return Data frame with descendant concepts (no limit)
 #' @noRd
-get_concept_descendants <- function(concept_id, limit = 100) {
+get_concept_descendants <- function(concept_id) {
   con <- get_duckdb_connection()
   if (is.null(con)) {
     return(data.frame())
@@ -452,13 +451,218 @@ get_concept_descendants <- function(concept_id, limit = 100) {
       JOIN concept c ON ca.descendant_concept_id = c.concept_id
       WHERE ca.ancestor_concept_id = ?
         AND ca.min_levels_of_separation > 0
-      ORDER BY ca.min_levels_of_separation, c.concept_name
-      LIMIT ?",
-      params = list(as.integer(concept_id), as.integer(limit))
+      ORDER BY ca.min_levels_of_separation, c.concept_name",
+      params = list(as.integer(concept_id))
     )
   }, error = function(e) {
     warning("Error getting concept descendants: ", e$message)
     data.frame()
+  })
+}
+
+#' Get Concept Synonyms
+#'
+#' @description Get synonyms for a concept from the concept_synonym table
+#'
+#' @param concept_id OMOP Concept ID
+#' @param limit Maximum number of results (default 100)
+#'
+#' @return Data frame with synonyms
+#' @noRd
+get_concept_synonyms <- function(concept_id, limit = 100) {
+  con <- get_duckdb_connection()
+  if (is.null(con)) {
+    return(data.frame())
+  }
+  on.exit(DBI::dbDisconnect(con, shutdown = TRUE))
+
+  tryCatch({
+    # Check if concept_synonym table exists
+    tables <- DBI::dbListTables(con)
+    if (!"concept_synonym" %in% tables) {
+      return(data.frame())
+    }
+
+    DBI::dbGetQuery(
+      con,
+      "SELECT
+        cs.concept_synonym_name AS synonym,
+        COALESCE(c.concept_name, 'Unknown') AS language,
+        cs.language_concept_id
+      FROM concept_synonym cs
+      LEFT JOIN concept c ON cs.language_concept_id = c.concept_id
+      WHERE cs.concept_id = ?
+      ORDER BY cs.concept_synonym_name
+      LIMIT ?",
+      params = list(as.integer(concept_id), as.integer(limit))
+    )
+  }, error = function(e) {
+    warning("Error getting concept synonyms: ", e$message)
+    data.frame()
+  })
+}
+
+#' Get Concept Hierarchy Graph Data
+#'
+#' @description Build hierarchy graph data for visNetwork visualization.
+#' Gets ancestors and descendants for a concept.
+#'
+#' @param concept_id OMOP Concept ID
+#' @param max_levels_up Maximum ancestor levels to include (default: 5)
+#' @param max_levels_down Maximum descendant levels to include (default: 5)
+#'
+#' @return List with nodes and edges data frames for visNetwork
+#' @noRd
+get_concept_hierarchy_graph <- function(concept_id, max_levels_up = 5, max_levels_down = 5) {
+  con <- get_duckdb_connection()
+  if (is.null(con)) {
+    return(list(nodes = data.frame(), edges = data.frame(), stats = NULL))
+  }
+  on.exit(DBI::dbDisconnect(con, shutdown = TRUE))
+
+  tryCatch({
+    # Get selected concept details
+    selected_concept <- DBI::dbGetQuery(
+      con,
+      "SELECT concept_id, concept_name, vocabulary_id, concept_code,
+              domain_id, concept_class_id, standard_concept
+       FROM concept WHERE concept_id = ?",
+      params = list(as.integer(concept_id))
+    )
+
+    if (nrow(selected_concept) == 0) {
+      return(list(nodes = data.frame(), edges = data.frame(), stats = NULL))
+    }
+
+    # Get ancestors (concepts where the selected concept is a descendant)
+    ancestors <- DBI::dbGetQuery(
+      con,
+      "SELECT ca.ancestor_concept_id AS concept_id,
+              c.concept_name, c.vocabulary_id, c.concept_code,
+              c.domain_id, c.concept_class_id, c.standard_concept,
+              -ca.min_levels_of_separation AS hierarchy_level
+       FROM concept_ancestor ca
+       JOIN concept c ON ca.ancestor_concept_id = c.concept_id
+       WHERE ca.descendant_concept_id = ?
+         AND ca.min_levels_of_separation > 0
+         AND ca.min_levels_of_separation <= ?
+       ORDER BY ca.min_levels_of_separation",
+      params = list(as.integer(concept_id), as.integer(max_levels_up))
+    )
+
+    # Get descendants
+    descendants <- DBI::dbGetQuery(
+      con,
+      "SELECT ca.descendant_concept_id AS concept_id,
+              c.concept_name, c.vocabulary_id, c.concept_code,
+              c.domain_id, c.concept_class_id, c.standard_concept,
+              ca.min_levels_of_separation AS hierarchy_level
+       FROM concept_ancestor ca
+       JOIN concept c ON ca.descendant_concept_id = c.concept_id
+       WHERE ca.ancestor_concept_id = ?
+         AND ca.min_levels_of_separation > 0
+         AND ca.min_levels_of_separation <= ?
+       ORDER BY ca.min_levels_of_separation",
+      params = list(as.integer(concept_id), as.integer(max_levels_down))
+    )
+
+    # Combine all concepts
+    selected_concept$hierarchy_level <- 0
+    all_concepts <- rbind(
+      selected_concept,
+      if (nrow(ancestors) > 0) ancestors else data.frame(),
+      if (nrow(descendants) > 0) descendants else data.frame()
+    )
+
+    if (nrow(all_concepts) == 0) {
+      return(list(nodes = data.frame(), edges = data.frame(), stats = NULL))
+    }
+
+    # Build nodes data frame for visNetwork
+    nodes <- data.frame(
+      id = all_concepts$concept_id,
+      label = ifelse(
+        nchar(all_concepts$concept_name) > 50,
+        paste0(substr(all_concepts$concept_name, 1, 47), "..."),
+        all_concepts$concept_name
+      ),
+      level = all_concepts$hierarchy_level,
+      color = ifelse(
+        all_concepts$concept_id == concept_id,
+        "#0f60af",  # Selected concept: blue
+        ifelse(
+          all_concepts$hierarchy_level < 0,
+          "#6c757d",  # Ancestors: gray
+          "#28a745"   # Descendants: green
+        )
+      ),
+      shape = "box",
+      borderWidth = ifelse(all_concepts$concept_id == concept_id, 4, 2),
+      font.size = ifelse(all_concepts$concept_id == concept_id, 16, 13),
+      font.color = "white",
+      stringsAsFactors = FALSE
+    )
+
+    # Build title (tooltip) for nodes
+    nodes$title <- paste0(
+      "<div style='font-family: Arial; padding: 10px; max-width: 400px;'>",
+      "<b style='color: #0f60af;'>", all_concepts$concept_name, "</b><br><br>",
+      "<table style='font-size: 12px;'>",
+      "<tr><td style='color: #666;'>OMOP ID:</td><td><b>", all_concepts$concept_id, "</b></td></tr>",
+      "<tr><td style='color: #666;'>Vocabulary:</td><td>", all_concepts$vocabulary_id, "</td></tr>",
+      "<tr><td style='color: #666;'>Code:</td><td>", all_concepts$concept_code, "</td></tr>",
+      "<tr><td style='color: #666;'>Domain:</td><td>", all_concepts$domain_id, "</td></tr>",
+      "<tr><td style='color: #666;'>Class:</td><td>", all_concepts$concept_class_id, "</td></tr>",
+      "</table></div>"
+    )
+
+    # Get direct parent-child relationships (min_levels_of_separation = 1)
+    all_concept_ids <- all_concepts$concept_id
+    edges <- DBI::dbGetQuery(
+      con,
+      sprintf(
+        "SELECT ancestor_concept_id AS from_id, descendant_concept_id AS to_id
+         FROM concept_ancestor
+         WHERE min_levels_of_separation = 1
+           AND ancestor_concept_id IN (%s)
+           AND descendant_concept_id IN (%s)",
+        paste(all_concept_ids, collapse = ","),
+        paste(all_concept_ids, collapse = ",")
+      )
+    )
+
+    if (nrow(edges) > 0) {
+      edges <- data.frame(
+        from = edges$from_id,
+        to = edges$to_id,
+        arrows = "to",
+        color = "#999",
+        width = 2,
+        stringsAsFactors = FALSE
+      )
+    } else {
+      edges <- data.frame(
+        from = integer(0),
+        to = integer(0),
+        arrows = character(0),
+        color = character(0),
+        width = numeric(0)
+      )
+    }
+
+    # Calculate stats
+    stats <- list(
+      total_ancestors = nrow(ancestors),
+      total_descendants = nrow(descendants),
+      displayed_ancestors = nrow(ancestors),
+      displayed_descendants = nrow(descendants)
+    )
+
+    return(list(nodes = nodes, edges = edges, stats = stats))
+
+  }, error = function(e) {
+    warning("Error getting concept hierarchy graph: ", e$message)
+    return(list(nodes = data.frame(), edges = data.frame(), stats = NULL))
   })
 }
 

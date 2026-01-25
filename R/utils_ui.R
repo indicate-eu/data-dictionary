@@ -394,9 +394,9 @@ render_concept_details <- function(concept, i18n, empty_message = NULL,
     "Non-standard"
   }
   standard_color <- switch(standard_text,
-    "Standard" = "#28a745",
-    "Classification" = "#17a2b8",
-    "#6c757d"
+    "Standard" = "#28a745",      # Green for standard
+    "Classification" = "#6c757d", # Gray for classification
+    "#dc3545"                     # Red for non-standard
   )
 
   # FHIR resource display
@@ -406,29 +406,29 @@ render_concept_details <- function(concept, i18n, empty_message = NULL,
     NULL
   }
 
-  # Build details grid - 2 columns, logical order
-  # Left column: vocabulary_id, domain_id, validity, concept_code, fhir_resource
-  # Right column: concept_name, concept_class_id, standard, omop_concept_id
+  # Build details grid - 2 columns
+  # Left column: vocabulary_id, concept_name, concept_code, domain_id, concept_class_id
+  # Right column: omop_concept_id (Athena), fhir_resource, standard, validity
   details_ui <- tags$div(
     class = "concept-details-grid",
-    # Row 1: vocabulary_id | concept_name
+    # Row 1: vocabulary_id | omop_concept_id (with Athena link)
     create_detail_item(as.character(i18n$t("vocabulary_id")), concept$vocabulary_id),
-    create_detail_item(as.character(i18n$t("concept_name")), concept$concept_name),
-    # Row 2: domain_id | concept_class_id
-    create_detail_item(as.character(i18n$t("domain_id")), concept$domain_id),
-    create_detail_item(as.character(i18n$t("concept_class_id")), concept$concept_class_id),
-    # Row 3: validity | standard
-    create_detail_item(as.character(i18n$t("validity")), validity_text, color = validity_color),
-    create_detail_item(as.character(i18n$t("standard")), standard_text, color = standard_color),
-    # Row 4: concept_code | omop_concept_id (with Athena link)
-    create_detail_item(as.character(i18n$t("concept_code")), concept$concept_code),
     create_detail_item(as.character(i18n$t("view_in_athena")), concept$concept_id, url = athena_url),
-    # Row 5: fhir_resource
+    # Row 2: concept_name | fhir_resource
+    create_detail_item(as.character(i18n$t("concept_name")), concept$concept_name),
     create_detail_item(
       as.character(i18n$t("fhir_resource")),
       if (!is.null(fhir_url)) concept$vocabulary_id else as.character(i18n$t("no_link_available")),
       url = fhir_url
     ),
+    # Row 3: concept_code | standard
+    create_detail_item(as.character(i18n$t("concept_code")), concept$concept_code),
+    create_detail_item(as.character(i18n$t("standard")), standard_text, color = standard_color),
+    # Row 4: domain_id | validity
+    create_detail_item(as.character(i18n$t("domain_id")), concept$domain_id),
+    create_detail_item(as.character(i18n$t("validity")), validity_text, color = validity_color),
+    # Row 5: concept_class_id | empty
+    create_detail_item(as.character(i18n$t("concept_class_id")), concept$concept_class_id),
     tags$div()
   )
 

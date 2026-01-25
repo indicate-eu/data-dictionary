@@ -195,6 +195,8 @@ get_concept_set <- function(concept_set_id, language = NULL) {
 #' @param concept_name Concept name
 #' @param vocabulary_id Vocabulary ID
 #' @param concept_code Concept code
+#' @param domain_id Domain ID
+#' @param concept_class_id Concept class ID
 #' @param standard_concept Standard concept flag (S, C, or NULL)
 #' @param is_excluded Whether concept is excluded (default FALSE)
 #' @param include_descendants Whether to include descendants (default TRUE)
@@ -203,6 +205,7 @@ get_concept_set <- function(concept_set_id, language = NULL) {
 #' @noRd
 add_concept_set_item <- function(concept_set_id, concept_id, concept_name,
                                   vocabulary_id = NULL, concept_code = NULL,
+                                  domain_id = NULL, concept_class_id = NULL,
                                   standard_concept = NULL, is_excluded = FALSE,
                                   include_descendants = TRUE, include_mapped = TRUE) {
   con <- get_db_connection()
@@ -225,14 +228,17 @@ add_concept_set_item <- function(concept_set_id, concept_id, concept_name,
   DBI::dbExecute(
     con,
     "INSERT INTO concept_set_items (concept_set_id, concept_id, concept_name, vocabulary_id,
-     concept_code, standard_concept, is_excluded, include_descendants, include_mapped, created_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+     concept_code, domain_id, concept_class_id, standard_concept, is_excluded,
+     include_descendants, include_mapped, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     params = list(
       concept_set_id,
       concept_id,
       concept_name,
       null_to_na(vocabulary_id),
       null_to_na(concept_code),
+      null_to_na(domain_id),
+      null_to_na(concept_class_id),
       null_to_na(standard_concept),
       as.integer(is_excluded),
       as.integer(include_descendants),
@@ -295,6 +301,8 @@ get_concept_set_items <- function(concept_set_id) {
       concept_name,
       vocabulary_id,
       concept_code,
+      domain_id,
+      concept_class_id,
       standard_concept,
       is_excluded,
       include_descendants,
@@ -1017,6 +1025,8 @@ init_database <- function(con) {
         concept_name TEXT,
         vocabulary_id TEXT,
         concept_code TEXT,
+        domain_id TEXT,
+        concept_class_id TEXT,
         standard_concept TEXT,
         is_excluded INTEGER DEFAULT 0,
         include_descendants INTEGER DEFAULT 1,
@@ -1026,6 +1036,15 @@ init_database <- function(con) {
         FOREIGN KEY (concept_set_id) REFERENCES concept_sets(id)
       )"
     )
+  } else {
+    # Add missing columns to existing table (migration)
+    existing_cols <- DBI::dbGetQuery(con, "PRAGMA table_info(concept_set_items)")$name
+    if (!"domain_id" %in% existing_cols) {
+      DBI::dbExecute(con, "ALTER TABLE concept_set_items ADD COLUMN domain_id TEXT")
+    }
+    if (!"concept_class_id" %in% existing_cols) {
+      DBI::dbExecute(con, "ALTER TABLE concept_set_items ADD COLUMN concept_class_id TEXT")
+    }
   }
 
   invisible(NULL)

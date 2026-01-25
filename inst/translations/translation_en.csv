@@ -289,3 +289,6 @@ validity,Validity
 view_in_athena,View in ATHENA
 fhir_resource,FHIR Resource
 no_link_available,No link available
+no_synonyms_found,No synonyms found
+language,Language
+ancestors,Ancestors

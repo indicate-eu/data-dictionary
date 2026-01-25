@@ -224,11 +224,12 @@ mod_data_dictionary_ui <- function(id, i18n) {
                           tags$h4(
                             class = "settings-section-title settings-section-title-success",
                             tags$i(class = "fas fa-info-circle", style = "margin-right: 8px; color: #28a745;"),
-                            i18n$t("selected_concept_details")
-                          ),
-                          tags$p(
-                            class = "settings-section-desc",
-                            i18n$t("selected_concept_details_tooltip")
+                            i18n$t("selected_concept_details"),
+                            tags$span(
+                              class = "info-icon",
+                              `data-tooltip` = as.character(i18n$t("selected_concept_details_tooltip")),
+                              HTML("&#x3f;")
+                            )
                           ),
                           tags$div(
                             style = "flex: 1; overflow: auto;",
@@ -244,6 +245,11 @@ mod_data_dictionary_ui <- function(id, i18n) {
                             class = "settings-section-title",
                             tags$i(class = "fas fa-link", style = "margin-right: 8px; color: #0f60af;"),
                             i18n$t("related_concepts"),
+                            tags$span(
+                              class = "info-icon",
+                              `data-tooltip` = as.character(i18n$t("related_concepts_tooltip")),
+                              HTML("&#x3f;")
+                            ),
                             tags$span(
                               class = "section-tabs",
                               actionButton(
@@ -262,10 +268,6 @@ mod_data_dictionary_ui <- function(id, i18n) {
                                 class = "tab-btn-blue"
                               )
                             )
-                          ),
-                          tags$p(
-                            class = "settings-section-desc",
-                            i18n$t("related_concepts_tooltip")
                           ),
                           # Related tab content
                           tags$div(
@@ -936,12 +938,21 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     })
     outputOptions(output, "omop_concepts_table", suspendWhenHidden = FALSE)
 
-    # Initialize add modal outputs (required for outputOptions)
-    output$add_modal_concept_details <- renderUI({ NULL })
+    # Initialize add modal descendants table (required for outputOptions)
     output$add_modal_descendants_table <- DT::renderDT({
       create_empty_datatable("")
     })
     outputOptions(output, "add_modal_descendants_table", suspendWhenHidden = FALSE)
+
+    # Initialize add modal concept details (force render when hidden in modal)
+    output$add_modal_concept_details <- renderUI({
+      render_concept_details(
+        concept = NULL,
+        i18n = i18n,
+        empty_message = as.character(i18n$t("no_concept_selected"))
+      )
+    })
+    outputOptions(output, "add_modal_concept_details", suspendWhenHidden = FALSE)
 
     # 3) TABLE RENDERING ====
 
@@ -1076,7 +1087,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
             list(targets = 5, width = "9%"),
             list(targets = 6, width = "6%", className = "dt-center"),
             list(targets = 7, width = "10%", className = "dt-center"),
-            list(targets = 8, width = "23%", className = "dt-center")
+            list(targets = 8, width = "20%", className = "dt-center")
           ),
           escape = FALSE
         )
@@ -1937,6 +1948,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
               concept_name = x$concept_name,
               vocabulary_id = x$vocabulary_id,
               concept_code = x$concept_code,
+              domain_id = if (!is.null(x$domain_id)) x$domain_id else NA_character_,
+              concept_class_id = if (!is.null(x$concept_class_id)) x$concept_class_id else NA_character_,
               standard_concept = x$standard_concept,
               stringsAsFactors = FALSE
             )
@@ -1957,6 +1970,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           concept_name = concepts$concept_name,
           vocabulary_id = concepts$vocabulary_id,
           concept_code = concepts$concept_code,
+          domain_id = ifelse(is.na(concepts$domain_id), "", concepts$domain_id),
+          concept_class_id = ifelse(is.na(concepts$concept_class_id), "", concepts$concept_class_id),
           standard_concept = ifelse(
             is.na(concepts$standard_concept) | concepts$standard_concept == "",
             "",
@@ -1990,18 +2005,23 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
               as.character(i18n$t("omop_concept_name")),
               "Vocabulary",
               "Code",
+              as.character(i18n$t("domain_id")),
+              as.character(i18n$t("concept_class_id")),
               as.character(i18n$t("standard")),
               ""
             ),
             col_defs = list(
-              list(targets = 0, width = "10%"),
-              list(targets = 1, width = "38%"),
-              list(targets = 2, width = "14%"),
-              list(targets = 3, width = "14%"),
-              list(targets = 4, width = "12%", className = "dt-center"),
-              list(targets = 5, width = "12%", className = "dt-center", orderable = FALSE)
+              list(targets = 0, width = "8%"),
+              list(targets = 1, width = "28%"),
+              list(targets = 2, width = "10%"),
+              list(targets = 3, width = "12%"),
+              list(targets = 4, width = "10%"),
+              list(targets = 5, width = "12%"),
+              list(targets = 6, width = "10%", className = "dt-center"),
+              list(targets = 7, width = "10%", className = "dt-center", orderable = FALSE)
             ),
-            escape = FALSE
+            escape = FALSE,
+            show_colvis = TRUE
           )
 
           dt <- add_button_handlers(dt, handlers = list(
@@ -2016,16 +2036,21 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
               as.character(i18n$t("omop_concept_name")),
               "Vocabulary",
               "Code",
+              as.character(i18n$t("domain_id")),
+              as.character(i18n$t("concept_class_id")),
               as.character(i18n$t("standard"))
             ),
             col_defs = list(
-              list(targets = 0, width = "12%"),
-              list(targets = 1, width = "45%"),
-              list(targets = 2, width = "15%"),
-              list(targets = 3, width = "15%"),
-              list(targets = 4, width = "13%", className = "dt-center")
+              list(targets = 0, width = "9%"),
+              list(targets = 1, width = "30%"),
+              list(targets = 2, width = "11%"),
+              list(targets = 3, width = "14%"),
+              list(targets = 4, width = "11%"),
+              list(targets = 5, width = "14%"),
+              list(targets = 6, width = "11%", className = "dt-center")
             ),
-            escape = TRUE
+            escape = TRUE,
+            show_colvis = TRUE
           )
         }
 
@@ -2055,60 +2080,20 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       concept_id <- selected_concept_id()
 
       if (is.null(concept_id)) {
-        return(tags$div(
-          class = "no-selection-message",
-          tags$p(i18n$t("no_concept_selected"))
+        return(render_concept_details(
+          concept = NULL,
+          i18n = i18n,
+          empty_message = as.character(i18n$t("no_concept_selected"))
         ))
       }
 
       # Get concept details from vocabulary database
       concept <- get_concept_by_id(concept_id)
 
-      if (is.null(concept) || nrow(concept) == 0) {
-        return(tags$div(
-          class = "no-selection-message",
-          tags$p(i18n$t("no_concept_selected"))
-        ))
-      }
-
-      # Build details display
-      tags$div(
-        class = "concept-details-card",
-        tags$div(
-          class = "detail-row",
-          tags$span(class = "detail-label", "Concept ID:"),
-          tags$span(class = "detail-value", concept$concept_id[1])
-        ),
-        tags$div(
-          class = "detail-row",
-          tags$span(class = "detail-label", "Concept Name:"),
-          tags$span(class = "detail-value", concept$concept_name[1])
-        ),
-        tags$div(
-          class = "detail-row",
-          tags$span(class = "detail-label", "Domain:"),
-          tags$span(class = "detail-value", ifelse(is.na(concept$domain_id[1]), "-", concept$domain_id[1]))
-        ),
-        tags$div(
-          class = "detail-row",
-          tags$span(class = "detail-label", "Vocabulary:"),
-          tags$span(class = "detail-value", ifelse(is.na(concept$vocabulary_id[1]), "-", concept$vocabulary_id[1]))
-        ),
-        tags$div(
-          class = "detail-row",
-          tags$span(class = "detail-label", "Concept Class:"),
-          tags$span(class = "detail-value", ifelse(is.na(concept$concept_class_id[1]), "-", concept$concept_class_id[1]))
-        ),
-        tags$div(
-          class = "detail-row",
-          tags$span(class = "detail-label", "Concept Code:"),
-          tags$span(class = "detail-value", ifelse(is.na(concept$concept_code[1]), "-", concept$concept_code[1]))
-        ),
-        tags$div(
-          class = "detail-row",
-          tags$span(class = "detail-label", "Standard Concept:"),
-          tags$span(class = "detail-value", ifelse(is.na(concept$standard_concept[1]) || concept$standard_concept[1] == "", "Non-Standard", concept$standard_concept[1]))
-        )
+      render_concept_details(
+        concept = concept,
+        i18n = i18n,
+        empty_message = as.character(i18n$t("no_concept_selected"))
       )
     })
 
@@ -2287,30 +2272,41 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         ))
       }
 
-      # Build HTML table manually for simple display
-      tags$div(
-        class = "simple-table-container",
-        style = "overflow: auto; max-height: 100%;",
-        tags$table(
-          class = "table table-striped table-sm",
-          style = "width: 100%; font-size: 13px;",
-          tags$thead(
-            tags$tr(
-              tags$th(style = "width: 12%;", i18n$t("omop_concept_id")),
-              tags$th(style = "width: 45%;", i18n$t("omop_concept_name")),
-              tags$th(style = "width: 23%;", "Relationship"),
-              tags$th(style = "width: 20%;", "Vocabulary")
-            )
-          ),
-          tags$tbody(
-            lapply(seq_len(nrow(related)), function(i) {
-              tags$tr(
-                tags$td(related$concept_id[i]),
-                tags$td(related$concept_name[i]),
-                tags$td(related$relationship_id[i]),
-                tags$td(related$vocabulary_id[i])
-              )
-            })
+      # Return DataTable output
+      DT::DTOutput(ns("related_concepts_table"))
+    })
+
+    # Related concepts DataTable
+    output$related_concepts_table <- DT::renderDT({
+      concept_id <- selected_concept_id()
+      if (is.null(concept_id)) return(NULL)
+
+      related <- get_related_concepts(concept_id)
+      if (is.null(related) || nrow(related) == 0) return(NULL)
+
+      # Reorder columns: relationship_id, concept_name, vocabulary_id, concept_id (hidden)
+      display_data <- data.frame(
+        relationship_id = related$relationship_id,
+        concept_name = related$concept_name,
+        vocabulary_id = related$vocabulary_id,
+        concept_id = related$concept_id,
+        stringsAsFactors = FALSE
+      )
+
+      DT::datatable(
+        display_data,
+        selection = "none",
+        rownames = FALSE,
+        colnames = c("Relationship", as.character(i18n$t("omop_concept_name")), "Vocabulary", "OMOP ID"),
+        options = list(
+          pageLength = 8,
+          dom = "tip",
+          language = get_datatable_language(),
+          columnDefs = list(
+            list(targets = 3, visible = FALSE),  # OMOP ID hidden
+            list(targets = 0, width = "25%"),
+            list(targets = 1, width = "45%"),
+            list(targets = 2, width = "30%")
           )
         )
       )
@@ -2327,11 +2323,80 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         ))
       }
 
-      # Placeholder for hierarchy visualization
-      tags$div(
-        class = "no-content-message",
-        tags$p(i18n$t("coming_soon"))
+      # Get hierarchy graph data
+      hierarchy_data <- get_concept_hierarchy_graph(concept_id)
+
+      if (is.null(hierarchy_data$stats) ||
+          (hierarchy_data$stats$total_ancestors == 0 && hierarchy_data$stats$total_descendants == 0)) {
+        return(tags$div(
+          class = "no-content-message",
+          tags$p(i18n$t("no_related_concepts"))
+        ))
+      }
+
+      # Show stats and visNetwork graph
+      tagList(
+        # Stats widget
+        tags$div(
+          class = "hierarchy-stats-widget",
+          style = "padding: 10px; margin-bottom: 10px; background: #f8f9fa; border-radius: 6px; display: flex; gap: 20px;",
+          tags$div(
+            class = "flex-center-gap-8",
+            tags$span(style = "font-size: 18px; color: #6c757d;", HTML("&#8593;")),
+            tags$span(style = "font-weight: bold; color: #333;", hierarchy_data$stats$total_ancestors),
+            tags$span(style = "color: #666; font-size: 13px;", "ancestors")
+          ),
+          tags$div(
+            class = "flex-center-gap-8",
+            tags$span(style = "font-size: 18px; color: #28a745;", HTML("&#8595;")),
+            tags$span(style = "font-weight: bold; color: #333;", hierarchy_data$stats$total_descendants),
+            tags$span(style = "color: #666; font-size: 13px;", tolower(as.character(i18n$t("descendants"))))
+          )
+        ),
+        # visNetwork graph
+        visNetwork::visNetworkOutput(ns("hierarchy_graph"), height = "300px")
       )
+    })
+
+    # Hierarchy visNetwork graph
+    output$hierarchy_graph <- visNetwork::renderVisNetwork({
+      concept_id <- selected_concept_id()
+      if (is.null(concept_id)) return(NULL)
+
+      hierarchy_data <- get_concept_hierarchy_graph(concept_id)
+
+      if (nrow(hierarchy_data$nodes) == 0) {
+        return(NULL)
+      }
+
+      visNetwork::visNetwork(
+        hierarchy_data$nodes,
+        hierarchy_data$edges,
+        height = "100%",
+        width = "100%"
+      ) %>%
+        visNetwork::visHierarchicalLayout(
+          direction = "UD",
+          sortMethod = "directed",
+          levelSeparation = 80,
+          nodeSpacing = 120
+        ) %>%
+        visNetwork::visNodes(
+          font = list(color = "white", face = "Arial")
+        ) %>%
+        visNetwork::visEdges(
+          smooth = list(type = "cubicBezier", roundness = 0.5)
+        ) %>%
+        visNetwork::visInteraction(
+          navigationButtons = TRUE,
+          zoomView = TRUE,
+          dragView = TRUE
+        ) %>%
+        visNetwork::visOptions(
+          highlightNearest = list(enabled = TRUE, degree = 1, hover = TRUE)
+        ) %>%
+        visNetwork::visPhysics(enabled = FALSE) %>%
+        visNetwork::visLayout(randomSeed = 123)
     })
 
     ## Synonyms Display (sub-tab in related concepts section) ----
@@ -2345,10 +2410,49 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         ))
       }
 
-      # Placeholder for synonyms
-      tags$div(
-        class = "no-content-message",
-        tags$p(i18n$t("coming_soon"))
+      # Get synonyms from vocabulary database
+      synonyms <- get_concept_synonyms(concept_id)
+
+      if (is.null(synonyms) || nrow(synonyms) == 0) {
+        return(tags$div(
+          class = "no-content-message",
+          tags$p(i18n$t("no_synonyms_found"))
+        ))
+      }
+
+      # Return DataTable output
+      DT::DTOutput(ns("synonyms_table"))
+    })
+
+    # Synonyms DataTable
+    output$synonyms_table <- DT::renderDT({
+      concept_id <- selected_concept_id()
+      if (is.null(concept_id)) return(NULL)
+
+      synonyms <- get_concept_synonyms(concept_id)
+      if (is.null(synonyms) || nrow(synonyms) == 0) return(NULL)
+
+      # Select only synonym and language columns
+      display_data <- data.frame(
+        synonym = synonyms$synonym,
+        language = synonyms$language,
+        stringsAsFactors = FALSE
+      )
+
+      DT::datatable(
+        display_data,
+        selection = "none",
+        rownames = FALSE,
+        colnames = c(as.character(i18n$t("synonyms")), as.character(i18n$t("language"))),
+        options = list(
+          pageLength = 8,
+          dom = "tip",
+          language = get_datatable_language(),
+          columnDefs = list(
+            list(targets = 0, width = "70%"),
+            list(targets = 1, width = "30%")
+          )
+        )
       )
     })
 
@@ -2490,6 +2594,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
             concept_name = concept_data$concept_name,
             vocabulary_id = concept_data$vocabulary_id,
             concept_code = concept_data$concept_code,
+            domain_id = concept_data$domain_id,
+            concept_class_id = concept_data$concept_class_id,
             standard_concept = concept_data$standard_concept,
             is_excluded = concept_data$is_excluded,
             include_descendants = concept_data$include_descendants,
@@ -2730,15 +2836,18 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     }, ignoreInit = TRUE)
 
     ## Concept Details in Add Modal ----
-    output$add_modal_concept_details <- renderUI({
+    observe_event(add_modal_selected_concept(), {
       concept_id <- add_modal_selected_concept()
 
       if (is.null(concept_id)) {
-        return(render_concept_details(
-          concept = NULL,
-          i18n = i18n,
-          empty_message = as.character(i18n$t("no_concept_selected"))
-        ))
+        output$add_modal_concept_details <- renderUI({
+          render_concept_details(
+            concept = NULL,
+            i18n = i18n,
+            empty_message = as.character(i18n$t("no_concept_selected"))
+          )
+        })
+        return()
       }
 
       concept <- get_concept_by_id(concept_id)
@@ -2758,13 +2867,15 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         }
       }
 
-      render_concept_details(
-        concept = concept,
-        i18n = i18n,
-        show_already_added = TRUE,
-        is_already_added = is_already_added
-      )
-    })
+      output$add_modal_concept_details <- renderUI({
+        render_concept_details(
+          concept = concept,
+          i18n = i18n,
+          show_already_added = TRUE,
+          is_already_added = is_already_added
+        )
+      })
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
     ## Descendants Container in Add Modal ----
     output$add_modal_descendants_container <- renderUI({
@@ -2866,6 +2977,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
               concept_name = concept$concept_name,
               vocabulary_id = concept$vocabulary_id,
               concept_code = concept$concept_code,
+              domain_id = concept$domain_id,
+              concept_class_id = concept$concept_class_id,
               standard_concept = concept$standard_concept,
               is_excluded = is_excluded,
               include_descendants = include_descendants,
