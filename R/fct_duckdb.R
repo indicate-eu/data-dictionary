@@ -970,6 +970,42 @@ export_concept_set_to_json <- function(concept_set_id, concepts_data = NULL) {
       NULL
     }
 
+    # Get all translations
+    translations_data <- DBI::dbGetQuery(
+      con,
+      "SELECT language, field, value FROM concept_set_translations WHERE concept_set_id = ?",
+      params = list(concept_set_id)
+    )
+
+    # Organize translations by language
+    translations <- list()
+    if (nrow(translations_data) > 0) {
+      languages <- unique(translations_data$language)
+      for (lang in languages) {
+        lang_data <- translations_data[translations_data$language == lang, ]
+
+        # Create named list with correct field order
+        lang_translations <- list()
+
+        # Add fields in order: name, description, category, subcategory, mappingGuidance
+        field_order <- c("name", "description", "category", "subcategory", "etl_comment")
+        field_names <- c("name", "description", "category", "subcategory", "mappingGuidance")
+
+        for (i in seq_along(field_order)) {
+          field <- field_order[i]
+          field_name <- field_names[i]
+          value <- lang_data$value[lang_data$field == field]
+          if (length(value) > 0 && !is.na(value)) {
+            lang_translations[[field_name]] <- value
+          }
+        }
+
+        if (length(lang_translations) > 0) {
+          translations[[lang]] <- lang_translations
+        }
+      }
+    }
+
     # Build complete OHDSI-compliant JSON structure
     result <- list(
       id = as.integer(cs$id),
@@ -989,6 +1025,7 @@ export_concept_set_to_json <- function(concept_set_id, concepts_data = NULL) {
         category = if (!is.null(cs$category) && !is.na(cs$category)) as.character(cs$category) else NULL,
         subcategory = if (!is.null(cs$subcategory) && !is.na(cs$subcategory)) as.character(cs$subcategory) else NULL,
         mappingGuidance = if (!is.null(cs$etl_comment) && !is.na(cs$etl_comment)) as.character(cs$etl_comment) else NULL,
+        translations = if (length(translations) > 0) translations else NULL,
         reviews = reviews,
         versions = versions,
         distributionStats = distribution_stats

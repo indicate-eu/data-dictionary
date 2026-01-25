@@ -1690,7 +1690,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       shinyjs::show("filter_concept_sets")
 
       # Load concept sets data
-      data <- get_all_concept_sets()
+      current_language <- i18n$get_translation_language()
+      data <- get_all_concept_sets(language = current_language)
       concept_sets_data(data)
       table_trigger(table_trigger() + 1)
 
@@ -2150,6 +2151,20 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     observe_event(input$add_concept_set, {
       editing_id(NULL)
 
+      # Reset modal title via JS
+      shinyjs::runjs(sprintf(
+        "document.querySelector('#%s .modal-header h3').innerHTML = '<i class=\"fas fa-folder-open\" style=\"margin-right: 8px;\"></i>%s';",
+        ns("concept_set_modal"),
+        as.character(i18n$t("add_concept_set"))
+      ))
+
+      # Reset button text to "Add"
+      shinyjs::runjs(sprintf(
+        "document.querySelector('#%s').innerHTML = '<i class=\"fa fa-plus\" role=\"presentation\" aria-label=\"plus icon\"></i> %s';",
+        ns("save_concept_set"),
+        as.character(i18n$t("add"))
+      ))
+
       # Reset form fields
       updateTextInput(session, "editing_concept_set_id", value = "")
       updateTextInput(session, "concept_set_name", value = "")
@@ -2222,7 +2237,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       editing_id(concept_set_id)
 
       # Load concept set data
-      cs <- get_concept_set(concept_set_id)
+      current_language <- i18n$get_translation_language()
+      cs <- get_concept_set(concept_set_id, language = current_language)
       if (is.null(cs)) return()
 
       # Helper to convert NA/NULL to empty string
@@ -2301,6 +2317,13 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         as.character(i18n$t("edit_concept_set"))
       ))
 
+      # Update button text to "Save"
+      shinyjs::runjs(sprintf(
+        "document.querySelector('#%s').innerHTML = '<i class=\"fa fa-save\" role=\"presentation\" aria-label=\"save icon\"></i> %s';",
+        ns("save_concept_set"),
+        as.character(i18n$t("save"))
+      ))
+
       # Hide error messages
       shinyjs::hide("name_error")
 
@@ -2376,6 +2399,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         }
       }
 
+      # Get current language
+      current_language <- i18n$get_translation_language()
+
       # Add or update
       current_editing_id <- editing_id()
       if (is.null(current_editing_id)) {
@@ -2390,7 +2416,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           created_by_last_name = user_last_name,
           created_by_profession = user_profession,
           created_by_affiliation = user_affiliation,
-          created_by_orcid = user_orcid
+          created_by_orcid = user_orcid,
+          language = current_language
         )
         showNotification(as.character(i18n$t("concept_set_added")), type = "message")
       } else {
@@ -2406,7 +2433,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           modified_by_last_name = user_last_name,
           modified_by_profession = user_profession,
           modified_by_affiliation = user_affiliation,
-          modified_by_orcid = user_orcid
+          modified_by_orcid = user_orcid,
+          language = current_language
         )
         showNotification(as.character(i18n$t("concept_set_updated")), type = "message")
       }
@@ -2416,7 +2444,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       editing_id(NULL)
 
       # Reload data
-      data <- get_all_concept_sets()
+      current_language <- i18n$get_translation_language()
+      data <- get_all_concept_sets(language = current_language)
       concept_sets_data(data)
       table_trigger(table_trigger() + 1)
     }, ignoreInit = TRUE)
@@ -2773,7 +2802,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       deleting_id(NULL)
 
       # Reload data
-      data <- get_all_concept_sets()
+      current_language <- i18n$get_translation_language()
+      data <- get_all_concept_sets(language = current_language)
       concept_sets_data(data)
       table_trigger(table_trigger() + 1)
     }, ignoreInit = TRUE)
@@ -2794,7 +2824,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       viewing_concept_set_id(concept_set_id)
 
       # Load concept set data
-      cs <- get_concept_set(concept_set_id)
+      current_language <- i18n$get_translation_language()
+      cs <- get_concept_set(concept_set_id, language = current_language)
       if (is.null(cs)) return()
 
       # Update the title with status and version badges
@@ -3171,7 +3202,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       }
 
       # Get concept set data
-      cs <- get_concept_set(cs_id)
+      current_language <- i18n$get_translation_language()
+      cs <- get_concept_set(cs_id, language = current_language)
 
       if (is.null(cs) || is.na(cs$etl_comment) || cs$etl_comment == "") {
         return(tags$div(
@@ -3870,7 +3902,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Save comments if changed
       comments_text <- input$comments_editor
       if (!is.null(comments_text)) {
-        update_concept_set(cs_id, etl_comment = comments_text)
+        current_language <- i18n$get_translation_language()
+        update_concept_set(cs_id, etl_comment = comments_text, language = current_language)
         comments_saved <- TRUE
       }
 
@@ -3948,7 +3981,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       concepts_trigger(concepts_trigger() + 1)
 
       # Refresh main table to update item count
-      data <- get_all_concept_sets()
+      current_language <- i18n$get_translation_language()
+      data <- get_all_concept_sets(language = current_language)
       concept_sets_data(data)
       table_trigger(table_trigger() + 1)
     }, ignoreInit = TRUE)
@@ -4521,7 +4555,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       if (is.null(cs_id)) return()
 
       # Get current concept set to get version
-      cs <- get_concept_set(cs_id)
+      current_language <- i18n$get_translation_language()
+      cs <- get_concept_set(cs_id, language = current_language)
       if (is.null(cs)) return()
 
       version <- if (is.null(cs$version) || is.na(cs$version)) "1.0.0" else cs$version
@@ -4545,7 +4580,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         update_concept_set(cs_id, review_status = status)
 
         # Refresh concept sets data to update badges
-        data <- get_all_concept_sets()
+        current_language <- i18n$get_translation_language()
+        data <- get_all_concept_sets(language = current_language)
         concept_sets_data(data)
         table_trigger(table_trigger() + 1)
 
@@ -4664,7 +4700,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       if (is.null(cs_id)) return()
 
       # Get current concept set to get version
-      cs <- get_concept_set(cs_id)
+      current_language <- i18n$get_translation_language()
+      cs <- get_concept_set(cs_id, language = current_language)
       if (is.null(cs)) return()
 
       version <- if (is.null(cs$version) || is.na(cs$version)) "1.0.0" else cs$version
@@ -4902,7 +4939,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       cs_id <- viewing_concept_set_id()
       if (is.null(cs_id)) return()
 
-      cs <- get_concept_set(cs_id)
+      current_language <- i18n$get_translation_language()
+      cs <- get_concept_set(cs_id, language = current_language)
       if (is.null(cs)) return()
 
       # Populate status dropdown with all status options
@@ -4932,12 +4970,13 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       update_concept_set(cs_id, review_status = new_status)
 
       # Refresh concept sets data
-      data <- get_all_concept_sets()
+      current_language <- i18n$get_translation_language()
+      data <- get_all_concept_sets(language = current_language)
       concept_sets_data(data)
       table_trigger(table_trigger() + 1)
 
       # Update detail page badges
-      cs <- get_concept_set(cs_id)
+      cs <- get_concept_set(cs_id, language = current_language)
       version <- if (is.null(cs$version) || is.na(cs$version)) "1.0.0" else cs$version
       status_key <- paste0("status_", new_status)
       status_label <- as.character(i18n$t(status_key))
@@ -4973,7 +5012,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       cs_id <- viewing_concept_set_id()
       if (is.null(cs_id)) return()
 
-      cs <- get_concept_set(cs_id)
+      current_language <- i18n$get_translation_language()
+      cs <- get_concept_set(cs_id, language = current_language)
       if (is.null(cs)) return()
 
       current_version <- if (is.null(cs$version) || is.na(cs$version)) "1.0.0" else cs$version
@@ -5074,7 +5114,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       }
 
       # Get current version
-      cs <- get_concept_set(cs_id)
+      current_language <- i18n$get_translation_language()
+      cs <- get_concept_set(cs_id, language = current_language)
       old_version <- if (is.null(cs$version) || is.na(cs$version)) "1.0.0" else cs$version
 
       # Get current user ID
@@ -5100,12 +5141,13 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       )
 
       # Refresh concept sets data
-      data <- get_all_concept_sets()
+      current_language <- i18n$get_translation_language()
+      data <- get_all_concept_sets(language = current_language)
       concept_sets_data(data)
       table_trigger(table_trigger() + 1)
 
       # Update detail page badges
-      cs <- get_concept_set(cs_id)
+      cs <- get_concept_set(cs_id, language = current_language)
       status <- if (is.null(cs$review_status) || is.na(cs$review_status)) "draft" else cs$review_status
       status_key <- paste0("status_", status)
       status_label <- as.character(i18n$t(status_key))
@@ -5321,7 +5363,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     output$comments_display <- renderUI({
       if (is.null(cs_id)) return(tags$p(style = "color: #999; font-style: italic;", i18n$t("no_concept_set_selected")))
 
-      cs <- get_concept_set(cs_id)
+      current_language <- i18n$get_translation_language()
+      cs <- get_concept_set(cs_id, language = current_language)
       if (is.null(cs)) return(NULL)
 
       comments_text <- if (!is.null(cs$etl_comment) && !is.na(cs$etl_comment) && nchar(cs$etl_comment) > 0) {
@@ -5379,7 +5422,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Load current comments into editor
       cs_id <- viewing_concept_set_id()
       if (!is.null(cs_id)) {
-        cs <- get_concept_set(cs_id)
+        current_language <- i18n$get_translation_language()
+        cs <- get_concept_set(cs_id, language = current_language)
         if (!is.null(cs)) {
           comments_text <- if (!is.null(cs$etl_comment) && !is.na(cs$etl_comment)) cs$etl_comment else ""
           shinyAce::updateAceEditor(session, "comments_editor", value = comments_text)

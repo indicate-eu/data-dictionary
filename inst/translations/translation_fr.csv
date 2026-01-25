@@ -335,3 +335,9 @@ create_new_version,Creer une Nouvelle Version
 version_created,Nouvelle version creee avec succes
 status_changed,Statut modifie avec succes
 change_summary,Resume des Modifications
+no_comments_yet,Pas encore de commentaires
+comments_saved,Commentaires sauvegardes avec succes
+no_stats_yet,Pas encore de statistiques
+stats_saved,Statistiques sauvegardees avec succes
+markdown_editor,Editeur Markdown
+no_concept_set_selected,Aucun concept set selectionne

@@ -84,7 +84,7 @@ add_concept_set <- function(id = NULL, name, description = NULL, category = NULL
                             subcategory = NULL, etl_comment = NULL, tags = NULL,
                             created_by_first_name = NULL, created_by_last_name = NULL,
                             created_by_profession = NULL, created_by_affiliation = NULL,
-                            created_by_orcid = NULL) {
+                            created_by_orcid = NULL, language = "en") {
   con <- get_db_connection()
   on.exit(DBI::dbDisconnect(con))
 
@@ -98,6 +98,7 @@ add_concept_set <- function(id = NULL, name, description = NULL, category = NULL
   # Convert NULL to NA for RSQLite compatibility
   null_to_na <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else x
 
+  # Insert into main table (always uses provided values as defaults)
   DBI::dbExecute(
     con,
     "INSERT INTO concept_sets (id, name, description, category, subcategory, etl_comment, tags,
@@ -121,6 +122,22 @@ add_concept_set <- function(id = NULL, name, description = NULL, category = NULL
       timestamp
     )
   )
+
+  # Create translations for the current language
+  translatable_fields <- list(
+    name = name,
+    description = description,
+    category = category,
+    subcategory = subcategory,
+    etl_comment = etl_comment
+  )
+
+  for (field_name in names(translatable_fields)) {
+    field_value <- translatable_fields[[field_name]]
+    if (!is.null(field_value) && !is.na(field_value) && nchar(field_value) > 0) {
+      set_concept_set_translation(id, language, field_name, field_value)
+    }
+  }
 
   id
 }
@@ -146,13 +163,47 @@ delete_concept_set <- function(concept_set_id) {
 #' @param language Language code for translations (not used yet)
 #' @return Data frame with concept sets
 #' @noRd
-get_all_concept_sets <- function(language = NULL) {
+get_all_concept_sets <- function(language = "en") {
   con <- get_db_connection()
   on.exit(DBI::dbDisconnect(con))
 
-  DBI::dbGetQuery(
-    con,
-    "SELECT
+  # If language is provided, use translations with fallback to default values
+  if (!is.null(language) && language != "en") {
+    query <- sprintf("SELECT
+      cs.id,
+      COALESCE(t_name.value, cs.name) AS name,
+      COALESCE(t_desc.value, cs.description) AS description,
+      COALESCE(t_cat.value, cs.category) AS category,
+      COALESCE(t_subcat.value, cs.subcategory) AS subcategory,
+      cs.tags,
+      cs.version,
+      cs.review_status,
+      cs.created_by_first_name,
+      cs.created_by_last_name,
+      cs.created_by_profession,
+      cs.created_by_affiliation,
+      cs.created_by_orcid,
+      cs.created_date,
+      cs.modified_by_first_name,
+      cs.modified_by_last_name,
+      cs.modified_by_profession,
+      cs.modified_by_affiliation,
+      cs.modified_by_orcid,
+      cs.modified_date,
+      COALESCE(item_counts.item_count, 0) AS item_count
+    FROM concept_sets cs
+    LEFT JOIN concept_set_translations t_name ON cs.id = t_name.concept_set_id AND t_name.language = '%s' AND t_name.field = 'name'
+    LEFT JOIN concept_set_translations t_desc ON cs.id = t_desc.concept_set_id AND t_desc.language = '%s' AND t_desc.field = 'description'
+    LEFT JOIN concept_set_translations t_cat ON cs.id = t_cat.concept_set_id AND t_cat.language = '%s' AND t_cat.field = 'category'
+    LEFT JOIN concept_set_translations t_subcat ON cs.id = t_subcat.concept_set_id AND t_subcat.language = '%s' AND t_subcat.field = 'subcategory'
+    LEFT JOIN (
+      SELECT concept_set_id, COUNT(*) AS item_count
+      FROM concept_set_items
+      GROUP BY concept_set_id
+    ) item_counts ON cs.id = item_counts.concept_set_id
+    ORDER BY COALESCE(t_cat.value, cs.category), COALESCE(t_subcat.value, cs.subcategory), COALESCE(t_name.value, cs.name)", language, language, language, language)
+  } else {
+    query <- "SELECT
       cs.id,
       cs.name,
       cs.description,
@@ -181,17 +232,19 @@ get_all_concept_sets <- function(language = NULL) {
       GROUP BY concept_set_id
     ) item_counts ON cs.id = item_counts.concept_set_id
     ORDER BY cs.category, cs.subcategory, cs.name"
-  )
+  }
+
+  DBI::dbGetQuery(con, query)
 }
 
 #' Get Concept Set by ID
 #'
 #' @description Retrieve a specific concept set
 #' @param concept_set_id Concept set ID
-#' @param language Language code (not used yet)
+#' @param language Language code for translations
 #' @return List with concept set data, or NULL if not found
 #' @noRd
-get_concept_set <- function(concept_set_id, language = NULL) {
+get_concept_set <- function(concept_set_id, language = "en") {
   con <- get_db_connection()
   on.exit(DBI::dbDisconnect(con))
 
@@ -203,7 +256,20 @@ get_concept_set <- function(concept_set_id, language = NULL) {
 
   if (nrow(cs) == 0) return(NULL)
 
-  as.list(cs[1, ])
+  result <- as.list(cs[1, ])
+
+  # If language is not EN, overlay with translations
+  if (!is.null(language) && language != "en") {
+    translatable_fields <- c("name", "description", "category", "subcategory", "etl_comment")
+    for (field in translatable_fields) {
+      translation <- get_concept_set_translation(concept_set_id, language, field)
+      if (!is.null(translation) && !is.na(translation)) {
+        result[[field]] <- translation
+      }
+    }
+  }
+
+  result
 }
 
 #' Get Concept Set Reviews
@@ -663,7 +729,7 @@ update_concept_set_item <- function(concept_set_id, concept_id,
 #' @param ... Fields to update
 #' @return TRUE if successful
 #' @noRd
-update_concept_set <- function(concept_set_id, ...) {
+update_concept_set <- function(concept_set_id, ..., language = "en") {
   con <- get_db_connection()
   on.exit(DBI::dbDisconnect(con))
 
@@ -672,19 +738,50 @@ update_concept_set <- function(concept_set_id, ...) {
 
   # Convert NULL to NA for RSQLite compatibility
   null_to_na <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else x
-  updates <- lapply(updates, null_to_na)
 
-  set_clauses <- paste0(names(updates), " = ?", collapse = ", ")
-  set_clauses <- paste0(set_clauses, ", modified_date = ?")
+  # Separate translatable fields from non-translatable fields
+  translatable_fields <- c("name", "description", "category", "subcategory", "etl_comment")
+  translatable_updates <- updates[names(updates) %in% translatable_fields]
+  non_translatable_updates <- updates[!names(updates) %in% translatable_fields]
 
-  timestamp <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
-  params <- c(unname(updates), timestamp, concept_set_id)
+  # Update translations for translatable fields
+  for (field_name in names(translatable_updates)) {
+    field_value <- translatable_updates[[field_name]]
+    set_concept_set_translation(concept_set_id, language, field_name, field_value)
+  }
 
-  DBI::dbExecute(
-    con,
-    paste0("UPDATE concept_sets SET ", set_clauses, " WHERE id = ?"),
-    params = params
-  )
+  # Update main table for non-translatable fields (and always update modified_date)
+  if (length(non_translatable_updates) > 0 || language == "en") {
+    # If language is EN, also update the main table columns
+    if (language == "en") {
+      all_updates <- c(translatable_updates, non_translatable_updates)
+    } else {
+      all_updates <- non_translatable_updates
+    }
+
+    if (length(all_updates) > 0) {
+      all_updates <- lapply(all_updates, null_to_na)
+      set_clauses <- paste0(names(all_updates), " = ?", collapse = ", ")
+      set_clauses <- paste0(set_clauses, ", modified_date = ?")
+
+      timestamp <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
+      params <- c(unname(all_updates), timestamp, concept_set_id)
+
+      DBI::dbExecute(
+        con,
+        paste0("UPDATE concept_sets SET ", set_clauses, " WHERE id = ?"),
+        params = params
+      )
+    } else {
+      # Just update modified_date
+      timestamp <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
+      DBI::dbExecute(
+        con,
+        "UPDATE concept_sets SET modified_date = ? WHERE id = ?",
+        params = list(timestamp, concept_set_id)
+      )
+    }
+  }
 
   TRUE
 }
@@ -1208,6 +1305,22 @@ init_database <- function(con) {
     )
   }
 
+  # Concept set translations table
+  if (!DBI::dbExistsTable(con, "concept_set_translations")) {
+    DBI::dbExecute(
+      con,
+      "CREATE TABLE concept_set_translations (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        concept_set_id INTEGER NOT NULL,
+        language TEXT NOT NULL,
+        field TEXT NOT NULL,
+        value TEXT,
+        FOREIGN KEY (concept_set_id) REFERENCES concept_sets(id) ON DELETE CASCADE,
+        UNIQUE(concept_set_id, language, field)
+      )"
+    )
+  }
+
   # Tags table
   if (!DBI::dbExistsTable(con, "tags")) {
     DBI::dbExecute(
@@ -1437,4 +1550,94 @@ init_database <- function(con) {
   }
 
   invisible(NULL)
+}
+
+
+#' Get All Translations for a Concept Set
+#'
+#' @description Retrieves all translations for a given concept set
+#'
+#' @param concept_set_id Concept set ID
+#' @return Data frame with translations or NULL
+#' @noRd
+get_all_concept_set_translations <- function(concept_set_id) {
+  tryCatch({
+    con <- get_db_connection()
+    on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+    translations <- DBI::dbGetQuery(
+      con,
+      "SELECT language, field, value FROM concept_set_translations WHERE concept_set_id = ?",
+      params = list(concept_set_id)
+    )
+
+    if (nrow(translations) == 0) return(NULL)
+    translations
+  }, error = function(e) {
+    message("Error getting translations: ", e$message)
+    NULL
+  })
+}
+
+
+#' Get Concept Set Translation for Specific Language and Field
+#'
+#' @description Retrieves a specific translation value
+#'
+#' @param concept_set_id Concept set ID
+#' @param language Language code (e.g., 'en', 'fr')
+#' @param field Field name (e.g., 'name', 'description', 'category', 'subcategory', 'etl_comment')
+#' @return Translation value or NULL
+#' @noRd
+get_concept_set_translation <- function(concept_set_id, language, field) {
+  tryCatch({
+    con <- get_db_connection()
+    on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+    result <- DBI::dbGetQuery(
+      con,
+      "SELECT value FROM concept_set_translations WHERE concept_set_id = ? AND language = ? AND field = ?",
+      params = list(concept_set_id, language, field)
+    )
+
+    if (nrow(result) == 0) return(NULL)
+    result$value[1]
+  }, error = function(e) {
+    message("Error getting translation: ", e$message)
+    NULL
+  })
+}
+
+
+#' Set Concept Set Translation
+#'
+#' @description Sets or updates a translation value
+#'
+#' @param concept_set_id Concept set ID
+#' @param language Language code (e.g., 'en', 'fr')
+#' @param field Field name (e.g., 'name', 'description', 'category', 'subcategory', 'etl_comment')
+#' @param value Translation value
+#' @return TRUE on success, FALSE on failure
+#' @noRd
+set_concept_set_translation <- function(concept_set_id, language, field, value) {
+  tryCatch({
+    con <- get_db_connection()
+    on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+    # Convert NULL to NA for RSQLite compatibility
+    value <- if (is.null(value) || length(value) == 0) NA_character_ else value
+
+    # Use INSERT OR REPLACE for upsert functionality
+    DBI::dbExecute(
+      con,
+      "INSERT OR REPLACE INTO concept_set_translations (concept_set_id, language, field, value)
+       VALUES (?, ?, ?, ?)",
+      params = list(concept_set_id, language, field, value)
+    )
+
+    TRUE
+  }, error = function(e) {
+    message("Error setting translation: ", e$message)
+    FALSE
+  })
 }
