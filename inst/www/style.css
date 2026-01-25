@@ -370,6 +370,11 @@ div:has(> #dictionary_settings-global_comment_input) {
   background-color: #dc3545;
 }
 
+/* Blue toggle */
+.toggle-switch.toggle-blue input:checked + .toggle-slider {
+  background-color: #0f60af;
+}
+
 /* Toggle count display next to toggle */
 .toggle-count {
   font-size: 11px;
@@ -1960,11 +1965,14 @@ div.dt-button-background {
 .btn-primary-custom {
   background: #0f60af !important;
   border: none !important;
-  padding: 6px 16px !important;
+  padding: 4px 10px !important;
   border-radius: 4px !important;
   color: white !important;
   cursor: pointer !important;
-  font-size: 14px !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+  height: auto !important;
+  min-height: unset !important;
   transition: background-color 0.2s ease !important;
 }
 
@@ -1975,11 +1983,14 @@ div.dt-button-background {
 .btn-purple-custom {
   background: #7c3aed !important;
   border: none !important;
-  padding: 6px 16px !important;
+  padding: 4px 10px !important;
   border-radius: 4px !important;
   color: white !important;
   cursor: pointer !important;
-  font-size: 14px !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+  height: auto !important;
+  min-height: unset !important;
   transition: background-color 0.2s ease !important;
 }
 
@@ -1990,11 +2001,14 @@ div.dt-button-background {
 .btn-success-custom {
   background: #28a745 !important;
   border: none !important;
-  padding: 6px 16px !important;
+  padding: 4px 10px !important;
   border-radius: 4px !important;
   color: white !important;
   cursor: pointer !important;
-  font-size: 14px !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+  height: auto !important;
+  min-height: unset !important;
   transition: background-color 0.2s ease !important;
 }
 
@@ -2007,11 +2021,14 @@ a.btn-success-custom:hover {
 .btn-secondary-custom {
   background: #6c757d !important;
   border: none !important;
-  padding: 6px 16px !important;
+  padding: 4px 10px !important;
   border-radius: 4px !important;
   color: white !important;
   cursor: pointer !important;
-  font-size: 14px !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+  height: auto !important;
+  min-height: unset !important;
   transition: background-color 0.2s ease !important;
 }
 
@@ -2019,33 +2036,17 @@ a.btn-success-custom:hover {
   background: #5a6268 !important;
 }
 
-/* Small button modifier - matches project-name-badge height */
-.btn-sm,
-.btn-primary-custom.btn-sm,
-.btn-secondary-custom.btn-sm,
-.btn-success-custom.btn-sm,
-.btn-danger-custom.btn-sm,
-.btn-warning-custom.btn-sm,
-.btn.btn-sm,
-.btn.btn-default.btn-sm,
-.btn.btn-default.action-button.btn-sm,
-button.btn-sm,
-button.btn.btn-sm {
+.btn-danger-custom {
+  background: #dc3545 !important;
+  border: none !important;
   padding: 4px 10px !important;
+  border-radius: 4px !important;
+  color: white !important;
+  cursor: pointer !important;
   font-size: 13px !important;
   line-height: 1.4 !important;
   height: auto !important;
   min-height: unset !important;
-}
-
-.btn-danger-custom {
-  background: #dc3545 !important;
-  border: none !important;
-  padding: 6px 16px !important;
-  border-radius: 4px !important;
-  color: white !important;
-  cursor: pointer !important;
-  font-size: 14px !important;
   transition: background-color 0.2s ease !important;
 }
 
@@ -2056,9 +2057,12 @@ button.btn.btn-sm {
 .btn-warning-custom {
   background: #fd7e14 !important;
   border: none !important;
-  padding: 6px 16px !important;
+  padding: 4px 10px !important;
   border-radius: 4px !important;
-  font-size: 14px !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+  height: auto !important;
+  min-height: unset !important;
   color: white !important;
   cursor: pointer !important;
   transition: background-color 0.2s ease !important;
@@ -2402,7 +2406,7 @@ button.btn.btn-sm {
 .tab-content-panel {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 170px);
+  height: calc(100% - 42px);
   padding: 5px 0;
 }
 
@@ -2423,10 +2427,28 @@ button.btn.btn-sm {
 /* Tabs with action buttons on the right */
 .tabs-with-actions {
   position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .tabs-with-actions > .tabs-wrapper {
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs-with-actions > .tabs-wrapper > .nav-tabs-custom,
+.tabs-with-actions > .tabs-wrapper > .tabbable {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs-with-actions > .tabs-wrapper > .tabbable > .tab-content {
+  flex: 1;
+  min-height: 0;
 }
 
 .tabs-with-actions > .tabs-actions {
@@ -3093,18 +3115,25 @@ button.btn-icon-only:hover {
 /* Hierarchy Graph Modal - Fullscreen
 -------------------------------------------------- */
 .modal-fullscreen {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  background: white !important;
-  z-index: 9999 !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  overflow: hidden !important;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  z-index: 9999;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.modal-fullscreen[style*="display: flex"] {
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 .modal-fullscreen-content {
@@ -3169,6 +3198,128 @@ button.btn-icon-only:hover {
 
 .modal-fullscreen-close:active {
   transform: scale(0.95);
+}
+
+/* Fullscreen Modal Base */
+.modal-fs {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  z-index: 9999;
+  flex-direction: column;
+}
+
+.modal-fs[style*="display: flex"] {
+  display: flex !important;
+}
+
+/* Fullscreen Modal Header */
+.modal-fs-header {
+  padding: 6px 15px;
+  border-bottom: 1px solid #ddd;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-fs-header h3 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.modal-fs-close {
+  width: 28px;
+  height: 28px;
+  font-size: 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  border-radius: 4px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.modal-fs-close:hover {
+  background-color: #e9ecef;
+  color: #333;
+}
+
+/* Fullscreen Modal Body */
+.modal-fs-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 10px 10px 10px;
+  min-height: 0;
+  gap: 10px;
+}
+
+/* Fullscreen Modal Sections - equal height split */
+.modal-fs-section {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-fs-section-inner {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.modal-fs-section-row {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 10px;
+}
+
+.modal-fs-panel {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Override settings-section styles when used as modal-fs-panel */
+.modal-fs-panel.settings-section {
+  padding: 10px;
+  overflow: hidden;
+}
+
+.modal-fs-panel.settings-section .settings-section-title {
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  font-size: 13px;
+}
+
+.modal-fs-panel h5 {
+  margin: 0 0 8px 0;
+  font-size: 13px;
+}
+
+.modal-fs-panel-content {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.modal-fs-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 /* Global Comment Button in Fullscreen Modal */
@@ -4277,6 +4428,9 @@ button.btn-icon-only:hover {
   margin-bottom: 10px;
   padding-bottom: 6px;
   border-bottom: 2px solid #0f60af;
+  height: 32px;
+  min-height: 32px;
+  max-height: 32px;
 }
 
 .settings-section-header .settings-section-title {

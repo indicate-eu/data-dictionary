@@ -50,21 +50,25 @@ mod_data_dictionary_ui <- function(id, i18n) {
         ### Concept Sets List Container ----
         tags$div(
           id = ns("concept_sets_list_container"),
+          style = "height: 100%;",
           create_page_layout(
             "full",
             create_panel(
               title = i18n$t("concept_sets"),
               content = tags$div(
                 style = "position: relative;",
-                fuzzy_search_ui("fuzzy_search", ns = ns, i18n = i18n),
-                DT::DTOutput(ns("concept_sets_table"))
+                tags$div(
+                  id = ns("concept_sets_fuzzy_search_container"),
+                  fuzzy_search_ui("fuzzy_search", ns = ns, i18n = i18n)
+                ),
+                uiOutput(ns("concept_sets_table_container"))
               ),
               tooltip = i18n$t("concept_sets_tooltip"),
               header_extra = shinyjs::hidden(
                 actionButton(
                   ns("add_concept_set"),
                   i18n$t("add_concept_set"),
-                  class = "btn-success-custom btn-sm",
+                  class = "btn-success-custom ",
                   icon = icon("plus")
                 )
               )
@@ -120,13 +124,13 @@ mod_data_dictionary_ui <- function(id, i18n) {
                           actionButton(
                             ns("cancel_edit_concepts"),
                             i18n$t("cancel"),
-                            class = "btn-secondary-custom btn-sm",
+                            class = "btn-secondary-custom ",
                             icon = icon("times")
                           ),
                           actionButton(
                             ns("save_edit_concepts"),
                             i18n$t("save"),
-                            class = "btn-primary-custom btn-sm",
+                            class = "btn-primary-custom ",
                             icon = icon("save")
                           )
                         )
@@ -191,13 +195,13 @@ mod_data_dictionary_ui <- function(id, i18n) {
                                 actionButton(
                                   ns("delete_all_concepts"),
                                   i18n$t("delete_all"),
-                                  class = "btn-danger-custom btn-sm",
+                                  class = "btn-danger-custom ",
                                   icon = icon("trash")
                                 ),
                                 actionButton(
                                   ns("add_concepts_btn"),
                                   i18n$t("add_concepts"),
-                                  class = "btn-success-custom btn-sm",
+                                  class = "btn-success-custom ",
                                   icon = icon("plus")
                                 )
                               )
@@ -689,32 +693,29 @@ mod_data_dictionary_ui <- function(id, i18n) {
         ### Modal - Add Concepts to Concept Set ----
         tags$div(
           id = ns("add_concepts_modal"),
-          class = "modal-fullscreen",
-          style = "display: none;",
+          class = "modal-fs",
 
           # Header
           tags$div(
-            class = "modal-header",
-            style = "padding: 15px 20px; border-bottom: 1px solid #ddd; background: #f8f9fa; display: flex; align-items: center; gap: 10px;",
+            class = "modal-fs-header",
+            tags$h3(i18n$t("add_concepts_to_set")),
             tags$button(
-              class = "modal-fullscreen-close",
-              style = "position: static; font-size: 24px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;",
+              id = ns("close_add_concepts_modal"),
+              class = "modal-fs-close",
               onclick = sprintf("document.getElementById('%s').style.display = 'none';", ns("add_concepts_modal")),
               HTML("&times;")
-            ),
-            tags$h3(class = "modal-title", style = "margin: 0; font-size: 16px;", i18n$t("add_concepts_to_set"))
+            )
           ),
 
-          # Content
+          # Body
           tags$div(
-            class = "modal-body",
-            style = "flex: 1; display: flex; flex-direction: column; padding: 20px; overflow: hidden;",
+            class = "modal-fs-body",
 
-            # Search section (top)
+            # Top section - Search & DataTable
             tags$div(
-              style = "flex: 2; min-height: 0; display: flex; flex-direction: column; overflow: hidden;",
+              class = "modal-fs-section",
               tags$div(
-                style = "position: relative; flex: 1; min-height: 0; overflow: auto;",
+                class = "modal-fs-section-inner",
                 fuzzy_search_ui(
                   "omop_fuzzy_search",
                   ns = ns,
@@ -728,50 +729,43 @@ mod_data_dictionary_ui <- function(id, i18n) {
               )
             ),
 
-            # Bottom section: Concept Details (left) and Descendants (right)
+            # Bottom section - Details & Descendants
             tags$div(
-              style = "flex: 1; min-height: 200px; display: flex; gap: 15px;",
+              class = "modal-fs-section-row",
 
               # Concept Details (left)
               tags$div(
-                style = "flex: 1; min-height: 0; display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 4px; padding: 15px; background: white;",
-                tags$h5(i18n$t("selected_concept_details_modal"), style = "margin-top: 0; margin-bottom: 10px;"),
+                class = "modal-fs-panel settings-section",
+                tags$h4(class = "settings-section-title", i18n$t("selected_concept_details_modal")),
                 tags$div(
-                  style = "flex: 1; min-height: 0; overflow: auto;",
+                  class = "modal-fs-panel-content",
                   uiOutput(ns("add_modal_concept_details"))
                 )
               ),
 
               # Descendants (right)
               tags$div(
-                style = "flex: 1; min-height: 0; display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 4px; padding: 15px; background: white;",
-                tags$h5(i18n$t("descendants"), style = "margin-top: 0; margin-bottom: 10px;"),
+                class = "modal-fs-panel settings-section",
+                tags$h4(class = "settings-section-title", i18n$t("descendants")),
                 tags$div(
-                  style = "flex: 1; min-height: 0; overflow: auto;",
+                  class = "modal-fs-panel-content",
                   DT::DTOutput(ns("add_modal_descendants_table"))
                 )
               )
             ),
 
-            # Bottom buttons
+            # Footer - Buttons
             tags$div(
-              style = "display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; padding-top: 10px;",
-              # Left side: Multiple selection checkbox
+              class = "modal-fs-footer",
+              # Left side: Multiple selection toggle
               tags$div(
-                class = "checkbox",
-                style = "display: flex; align-items: center; margin: 0;",
+                class = "flex-center-gap-8",
                 tags$label(
-                  style = "display: flex; align-items: center; margin: 0; cursor: pointer;",
-                  tags$input(
-                    id = ns("add_modal_multiple_select"),
-                    type = "checkbox",
-                    class = "shiny-input-checkbox"
-                  ),
-                  tags$span(
-                    style = "margin-left: 5px;",
-                    i18n$t("multiple_selection")
-                  )
-                )
+                  class = "toggle-switch toggle-small toggle-blue",
+                  tags$input(type = "checkbox", id = ns("add_modal_multiple_select")),
+                  tags$span(class = "toggle-slider")
+                ),
+                tags$span(i18n$t("multiple_selection"), style = "font-size: 13px; color: #666;")
               ),
               # Right side: Toggles and Add button
               tags$div(
@@ -779,43 +773,31 @@ mod_data_dictionary_ui <- function(id, i18n) {
                 # Exclude toggle
                 tags$div(
                   class = "flex-center-gap-8",
-                  tags$span(i18n$t("exclude"), style = "font-size: 13px; color: #666;"),
                   tags$label(
                     class = "toggle-switch toggle-small toggle-exclude",
-                    tags$input(
-                      type = "checkbox",
-                      id = ns("add_modal_is_excluded")
-                    ),
+                    tags$input(type = "checkbox", id = ns("add_modal_is_excluded")),
                     tags$span(class = "toggle-slider")
-                  )
+                  ),
+                  tags$span(i18n$t("exclude"), style = "font-size: 13px; color: #666;")
                 ),
                 # Descendants toggle
                 tags$div(
                   class = "flex-center-gap-8",
                   style = "margin-left: 15px;",
-                  tags$span(i18n$t("include_descendants"), style = "font-size: 13px; color: #666;"),
                   tags$label(
                     class = "toggle-switch toggle-small",
-                    tags$input(
-                      type = "checkbox",
-                      id = ns("add_modal_include_descendants"),
-                      checked = "checked"
-                    ),
+                    tags$input(type = "checkbox", id = ns("add_modal_include_descendants"), checked = "checked"),
                     tags$span(class = "toggle-slider")
-                  )
+                  ),
+                  tags$span(i18n$t("include_descendants"), style = "font-size: 13px; color: #666;")
                 ),
                 # Mapped toggle
                 tags$div(
                   class = "flex-center-gap-8",
                   style = "margin-left: 15px;",
-                  tags$span(i18n$t("include_mapped"), style = "font-size: 13px; color: #666;"),
                   tags$label(
                     class = "toggle-switch toggle-small",
-                    tags$input(
-                      type = "checkbox",
-                      id = ns("add_modal_include_mapped"),
-                      checked = "checked"
-                    ),
+                    tags$input(type = "checkbox", id = ns("add_modal_include_mapped"), checked = "checked"),
                     tags$span(class = "toggle-slider")
                   )
                 ),
@@ -930,25 +912,48 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       tags_trigger(tags_trigger() + 1)
     }, ignoreInit = FALSE, once = TRUE)
 
+    # Initialize OMOP concepts table (required for outputOptions)
+    output$omop_concepts_table <- DT::renderDT({
+      create_empty_datatable("")
+    })
+    outputOptions(output, "omop_concepts_table", suspendWhenHidden = FALSE)
+
     # 3) TABLE RENDERING ====
 
-    ## Concept Sets Table ----
+    ## Concept Sets Table Container ----
     observe_event(table_trigger(), {
-      output$concept_sets_table <- DT::renderDT({
+      output$concept_sets_table_container <- renderUI({
         data <- concept_sets_data()
-
-        if (is.null(data) || nrow(data) == 0) {
-          return(create_empty_datatable(as.character(i18n$t("no_concept_sets"))))
-        }
 
         # Apply fuzzy search filter on name column
         query <- fuzzy$query()
-        if (!is.null(query) && query != "") {
+        if (!is.null(query) && query != "" && !is.null(data) && nrow(data) > 0) {
           data <- fuzzy_search_df(data, query, "name", max_dist = 3)
-          if (nrow(data) == 0) {
-            return(create_empty_datatable(as.character(i18n$t("no_concept_sets"))))
-          }
         }
+
+        if (is.null(data) || nrow(data) == 0) {
+          shinyjs::hide("concept_sets_fuzzy_search_container")
+          return(tags$div(
+            class = "no-content-message",
+            tags$p(i18n$t("no_concept_sets"))
+          ))
+        }
+
+        shinyjs::show("concept_sets_fuzzy_search_container")
+        DT::DTOutput(ns("concept_sets_table"))
+      })
+
+      ## Concept Sets Table ----
+      output$concept_sets_table <- DT::renderDT({
+        data <- concept_sets_data()
+
+        # Apply fuzzy search filter on name column
+        query <- fuzzy$query()
+        if (!is.null(query) && query != "" && !is.null(data) && nrow(data) > 0) {
+          data <- fuzzy_search_df(data, query, "name", max_dist = 3)
+        }
+
+        if (is.null(data) || nrow(data) == 0) return(NULL)
 
         # Format last update date (show date and time HH:MM, or empty if NA)
         format_date <- function(dt_str) {
@@ -978,10 +983,11 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
             is.na(data$description), "",
             ifelse(nchar(data$description) > 100, paste0(substr(data$description, 1, 100), "..."), data$description)
           ),
-          tags = sapply(data$tags, format_tags),
-          item_count = data$item_count,
-          last_update = sapply(data$modified_date, format_date),
-          stringsAsFactors = FALSE
+          tags = vapply(data$tags, format_tags, character(1), USE.NAMES = FALSE),
+          item_count = ifelse(is.na(data$item_count), 0L, data$item_count),
+          last_update = vapply(data$modified_date, format_date, character(1), USE.NAMES = FALSE),
+          stringsAsFactors = FALSE,
+          row.names = NULL
         )
 
         # Convert to factors for dropdown filters (except tags - keep as text)
@@ -1800,8 +1806,10 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       shinyjs::hide("concept_sets_list_container")
       shinyjs::show("concept_set_details_container")
 
-      # Reset edit mode
+      # Reset edit mode and clear any pending changes
       concepts_edit_mode(FALSE)
+      pending_additions(list())
+      pending_deletions(character(0))
       shinyjs::hide("edit_mode_buttons")
       shinyjs::hide("concepts_edit_buttons")
       shinyjs::runjs(sprintf(
@@ -1826,8 +1834,10 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       viewing_concept_set_id(NULL)
       selected_concept_id(NULL)
 
-      # Reset edit mode
+      # Reset edit mode and discard any pending changes
       concepts_edit_mode(FALSE)
+      pending_additions(list())
+      pending_deletions(character(0))
       shinyjs::hide("edit_mode_buttons")
       shinyjs::hide("concepts_edit_buttons")
 
@@ -1851,7 +1861,19 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         # Get concepts for this concept set
         concepts <- get_concept_set_items(cs_id)
 
-        if (is.null(concepts) || nrow(concepts) == 0) {
+        # Get pending changes to check total count
+        additions <- pending_additions()
+        deletions <- pending_deletions()
+
+        # Calculate effective concept count
+        saved_count <- if (!is.null(concepts)) nrow(concepts) else 0
+        deleted_count <- if (!is.null(concepts) && length(deletions) > 0) {
+          sum(as.character(concepts$concept_id) %in% deletions)
+        } else 0
+        added_count <- length(additions)
+        effective_count <- saved_count - deleted_count + added_count
+
+        if (effective_count == 0) {
           shinyjs::hide("concepts_fuzzy_search_container")
           return(tags$div(
             class = "no-content-message",
@@ -1872,6 +1894,36 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         if (is.null(cs_id)) return(NULL)
 
         concepts <- get_concept_set_items(cs_id)
+
+        # Get pending changes
+        additions <- pending_additions()
+        deletions <- pending_deletions()
+
+        # Filter out pending deletions from saved concepts
+        if (!is.null(concepts) && nrow(concepts) > 0 && length(deletions) > 0) {
+          concepts <- concepts[!as.character(concepts$concept_id) %in% deletions, ]
+        }
+
+        # Add pending additions
+        if (length(additions) > 0) {
+          additions_df <- dplyr::bind_rows(lapply(additions, function(x) {
+            data.frame(
+              concept_id = x$concept_id,
+              concept_name = x$concept_name,
+              vocabulary_id = x$vocabulary_id,
+              concept_code = x$concept_code,
+              standard_concept = x$standard_concept,
+              stringsAsFactors = FALSE
+            )
+          }))
+
+          if (is.null(concepts) || nrow(concepts) == 0) {
+            concepts <- additions_df
+          } else {
+            concepts <- dplyr::bind_rows(concepts, additions_df)
+          }
+        }
+
         if (is.null(concepts) || nrow(concepts) == 0) return(NULL)
 
         # Prepare display data
@@ -2283,6 +2335,14 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     omop_table_trigger <- reactiveVal(0)
     removing_concept_id <- reactiveVal(NULL)
 
+    ## Staging for edit mode (pending changes until Save/Cancel) ----
+    # Store concepts to be added (list keyed by concept_id)
+    pending_additions <- reactiveVal(list())
+    # Store concept IDs to be deleted (vector of concept_ids)
+    pending_deletions <- reactiveVal(character(0))
+    # Store original concepts data when entering edit mode (for cancel)
+    original_concepts_data <- reactiveVal(NULL)
+
     ## Fuzzy search for OMOP concepts ----
     omop_fuzzy <- fuzzy_search_server(
       "omop_fuzzy_search",
@@ -2319,8 +2379,12 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       concepts_trigger(concepts_trigger() + 1)
     }, ignoreInit = TRUE)
 
-    ## Cancel Edit Mode for Concepts ----
+    ## Cancel Edit Mode for Concepts - Discard all staged changes ----
     observe_event(input$cancel_edit_concepts, {
+      # Discard all pending changes
+      pending_additions(list())
+      pending_deletions(character(0))
+
       # Exit edit mode
       concepts_edit_mode(FALSE)
 
@@ -2337,13 +2401,48 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         ns("concepts_section_left")
       ))
 
-      # Refresh concepts table to hide delete buttons
+      # Refresh concepts table to show original data (without staged changes)
       concepts_trigger(concepts_trigger() + 1)
     }, ignoreInit = TRUE)
 
-    ## Save Edit Mode for Concepts ----
+    ## Save Edit Mode for Concepts - Commit all staged changes to database ----
     observe_event(input$save_edit_concepts, {
-      # Exit edit mode (changes are already saved individually)
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      # Get pending changes
+      additions <- pending_additions()
+      deletions <- pending_deletions()
+
+      # Commit deletions to database
+      if (length(deletions) > 0) {
+        for (concept_id in deletions) {
+          delete_concept_set_item(cs_id, as.integer(concept_id))
+        }
+      }
+
+      # Commit additions to database
+      if (length(additions) > 0) {
+        for (concept_data in additions) {
+          add_concept_set_item(
+            concept_set_id = cs_id,
+            concept_id = concept_data$concept_id,
+            concept_name = concept_data$concept_name,
+            vocabulary_id = concept_data$vocabulary_id,
+            concept_code = concept_data$concept_code,
+            standard_concept = concept_data$standard_concept,
+            is_excluded = concept_data$is_excluded,
+            include_descendants = concept_data$include_descendants,
+            include_mapped = concept_data$include_mapped
+          )
+        }
+      }
+
+      # Clear pending changes
+      pending_additions(list())
+      pending_deletions(character(0))
+
+      # Exit edit mode
       concepts_edit_mode(FALSE)
 
       # Update UI: show edit button, hide save/cancel buttons
@@ -2359,8 +2458,22 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         ns("concepts_section_left")
       ))
 
+      # Show notification if changes were made
+      if (length(additions) > 0 || length(deletions) > 0) {
+        showNotification(
+          as.character(i18n$t("changes_saved")),
+          type = "message",
+          duration = 3
+        )
+      }
+
       # Refresh concepts table
       concepts_trigger(concepts_trigger() + 1)
+
+      # Refresh main table to update item count
+      data <- get_all_concept_sets()
+      concept_sets_data(data)
+      table_trigger(table_trigger() + 1)
     }, ignoreInit = TRUE)
 
     ## Open Add Concepts Modal ----
@@ -2573,7 +2686,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       dt
     })
 
-    ## Add OMOP Concepts to Concept Set ----
+    ## Add OMOP Concepts to Concept Set (staging - not saved until Save is clicked) ----
     observe_event(input$add_omop_concepts, {
       if (!can_edit()) return()
 
@@ -2591,31 +2704,53 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       include_descendants <- isTRUE(input$add_modal_include_descendants)
       include_mapped <- isTRUE(input$add_modal_include_mapped)
 
+      # Get existing concepts from database
+      existing_concepts <- get_concept_set_items(cs_id)
+      existing_ids <- if (!is.null(existing_concepts)) as.character(existing_concepts$concept_id) else character(0)
+
+      # Get current pending additions and deletions
+      current_additions <- pending_additions()
+      current_deletions <- pending_deletions()
+
       # Count added concepts
       num_added <- 0
       num_already_present <- 0
 
       for (row_idx in selected_rows) {
         concept <- all_concepts[row_idx, ]
+        concept_id_str <- as.character(concept$concept_id)
 
-        result <- add_concept_set_item(
-          concept_set_id = cs_id,
-          concept_id = concept$concept_id,
-          concept_name = concept$concept_name,
-          vocabulary_id = concept$vocabulary_id,
-          concept_code = concept$concept_code,
-          standard_concept = concept$standard_concept,
-          is_excluded = is_excluded,
-          include_descendants = include_descendants,
-          include_mapped = include_mapped
-        )
+        # Check if already in database (and not pending deletion)
+        in_db <- concept_id_str %in% existing_ids && !(concept_id_str %in% current_deletions)
+        # Check if already in pending additions
+        in_pending <- concept_id_str %in% names(current_additions)
 
-        if (result) {
-          num_added <- num_added + 1
-        } else {
+        if (in_db || in_pending) {
           num_already_present <- num_already_present + 1
+        } else {
+          # If it was marked for deletion, remove from deletions instead
+          if (concept_id_str %in% current_deletions) {
+            current_deletions <- setdiff(current_deletions, concept_id_str)
+          } else {
+            # Add to pending additions
+            current_additions[[concept_id_str]] <- list(
+              concept_id = concept$concept_id,
+              concept_name = concept$concept_name,
+              vocabulary_id = concept$vocabulary_id,
+              concept_code = concept$concept_code,
+              standard_concept = concept$standard_concept,
+              is_excluded = is_excluded,
+              include_descendants = include_descendants,
+              include_mapped = include_mapped
+            )
+          }
+          num_added <- num_added + 1
         }
       }
+
+      # Update reactive values
+      pending_additions(current_additions)
+      pending_deletions(current_deletions)
 
       # Show notification
       if (num_added > 0 && num_already_present > 0) {
@@ -2642,13 +2777,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         )
       }
 
-      # Refresh concepts table
+      # Refresh concepts table to show staged changes
       concepts_trigger(concepts_trigger() + 1)
-
-      # Refresh main table to update item count
-      data <- get_all_concept_sets()
-      concept_sets_data(data)
-      table_trigger(table_trigger() + 1)
 
       # Clear selection
       DT::dataTableProxy("omop_concepts_table", session = session) %>%
@@ -2672,7 +2802,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       hide_modal(ns("remove_concept_modal"))
     }, ignoreInit = TRUE)
 
-    ## Confirm Remove Concept ----
+    ## Confirm Remove Concept (staging - not saved until Save is clicked) ----
     observe_event(input$confirm_remove_concept, {
       if (!can_edit()) return()
 
@@ -2681,8 +2811,24 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
       if (is.null(cs_id) || is.null(concept_id)) return()
 
-      # Delete from database
-      delete_concept_set_item(cs_id, concept_id)
+      concept_id_str <- as.character(concept_id)
+
+      # Get current pending state
+      current_additions <- pending_additions()
+      current_deletions <- pending_deletions()
+
+      # Check if this concept is a pending addition (not yet saved)
+      if (concept_id_str %in% names(current_additions)) {
+        # Just remove from pending additions
+        current_additions[[concept_id_str]] <- NULL
+        pending_additions(current_additions)
+      } else {
+        # Mark for deletion (it's an existing concept in the database)
+        if (!(concept_id_str %in% current_deletions)) {
+          current_deletions <- c(current_deletions, concept_id_str)
+          pending_deletions(current_deletions)
+        }
+      }
 
       # Hide modal
       hide_modal(ns("remove_concept_modal"))
@@ -2695,13 +2841,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         duration = 3
       )
 
-      # Refresh concepts table
+      # Refresh concepts table to show staged changes
       concepts_trigger(concepts_trigger() + 1)
-
-      # Refresh main table to update item count
-      data <- get_all_concept_sets()
-      concept_sets_data(data)
-      table_trigger(table_trigger() + 1)
     }, ignoreInit = TRUE)
 
     ## Delete All Concepts - Show confirmation ----
@@ -2724,19 +2865,23 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       hide_modal(ns("delete_all_concepts_modal"))
     }, ignoreInit = TRUE)
 
-    ## Confirm Delete All Concepts ----
+    ## Confirm Delete All Concepts (staging - not saved until Save is clicked) ----
     observe_event(input$confirm_delete_all_concepts, {
       if (!can_edit()) return()
 
       cs_id <- viewing_concept_set_id()
       if (is.null(cs_id)) return()
 
-      # Get all concepts and delete them
+      # Get all concepts from database
       concepts <- get_concept_set_items(cs_id)
+
+      # Clear pending additions (all new concepts will be discarded)
+      pending_additions(list())
+
+      # Mark all existing concepts for deletion
       if (!is.null(concepts) && nrow(concepts) > 0) {
-        for (cid in concepts$concept_id) {
-          delete_concept_set_item(cs_id, cid)
-        }
+        all_ids <- as.character(concepts$concept_id)
+        pending_deletions(all_ids)
       }
 
       # Hide modal
@@ -2749,13 +2894,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         duration = 3
       )
 
-      # Refresh concepts table
+      # Refresh concepts table to show staged changes
       concepts_trigger(concepts_trigger() + 1)
-
-      # Refresh main table to update item count
-      data <- get_all_concept_sets()
-      concept_sets_data(data)
-      table_trigger(table_trigger() + 1)
     }, ignoreInit = TRUE)
 
     # Return selected concept set for use by parent
