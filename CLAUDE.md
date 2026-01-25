@@ -556,6 +556,37 @@ observe_event(data_trigger(), {
 }, ignoreInit = FALSE)
 ```
 
+### DataTables in Hidden Divs (Tabs, Panels)
+
+**Problem**: When a DataTable is inside a hidden element (like a tab panel that's not initially visible), Shiny's lazy evaluation means `renderDT` won't execute until the element becomes visible. This can cause tables to not render when switching tabs.
+
+**Solution**: Use `outputOptions()` with `suspendWhenHidden = FALSE` to force rendering even when hidden. You must also initialize the output first before calling `outputOptions()`.
+
+```r
+# 1. Initialize empty table first (required for outputOptions to work)
+output$my_table <- DT::renderDT({
+  create_empty_datatable("")
+})
+
+# 2. Observer to update table when trigger fires
+observe_event(table_trigger(), {
+  if (is.null(selected_item())) return()
+
+  output$my_table <- DT::renderDT({
+    data <- get_data(selected_item()$id)
+    # ... create datatable
+  })
+}, ignoreInit = TRUE)
+
+# 3. Force render even when hidden
+outputOptions(output, "my_table", suspendWhenHidden = FALSE)
+```
+
+**Key points**:
+- `outputOptions()` must be called AFTER the output is created (not before)
+- Initialize with an empty table first, then update via observer
+- Use `ignoreInit = TRUE` on the update observer to avoid double rendering
+
 ### CSS Classes
 
 **Layout**:

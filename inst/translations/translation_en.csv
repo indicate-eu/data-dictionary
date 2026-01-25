@@ -212,7 +212,8 @@ justification,Justification
 enter_justification,Enter scientific justification
 bibliography,Bibliography
 enter_bibliography,Enter bibliographic references
-save_context,Save Context
+save_context,Save Updates
+auto_save_enabled,Changes are saved automatically
 context_saved,Context saved successfully
 name_already_exists,This name already exists
 delete_project_confirm,Are you sure you want to delete this project?
@@ -220,3 +221,55 @@ delete_project_note,This will remove all concept set associations
 export,Export
 fuzzy_search,Fuzzy Search
 fuzzy_search_placeholder,Search by name...
+back,Back
+concepts_in_set_tooltip,Concepts included in this concept set
+edit_concepts,Edit concepts
+comments_and_stats,Comments & Statistics
+comments_stats_tooltip,ETL guidance comments and statistical distribution
+comments,Comments
+statistics,Statistics
+selected_concept_details,Selected Concept Details
+selected_concept_details_tooltip,Details of the currently selected concept
+related_concepts,Related Concepts
+related_concepts_tooltip,Concepts related to the selected concept
+related,Related
+hierarchy,Hierarchy
+synonyms,Synonyms
+no_concept_selected,Select a concept to view details
+no_concepts,No concepts in this concept set
+no_comments,No comments available
+no_stats,No statistics available
+no_related_concepts,No related concepts found
+add_concepts_to_set,Add Concepts
+search_omop_concepts,Search OMOP Concepts
+add_custom_concept,Add Custom Concept
+vocabulary_id,Vocabulary ID
+concept_code,Concept Code
+concept_name,Concept Name
+enter_concept_name,Enter concept name
+vocabulary_id_required,Vocabulary ID is required
+concept_name_required,Concept name is required
+add_concept,Add Concept
+remove_concept,Remove Concept
+concept_added,Concept added successfully
+concept_removed,Concept removed successfully
+concepts_added,concepts added
+already_present,already present
+all_concepts_already_present,All concepts already present
+multiple_selection,Multiple selection
+exclude,Exclude
+include_descendants,Include Descendants
+include_mapped,Include Mapped
+optional,Optional
+selected_concept_details_modal,Selected Concept Details
+descendants,Descendants
+no_descendants,No descendants found
+loading_vocabularies,Loading OMOP vocabularies...
+no_matching_concepts,No matching concepts found
+no_omop_concepts,No OMOP concepts found in vocabularies
+confirm_remove_concept,Are you sure you want to remove this concept from the set?
+hierarchy_tooltip,Hierarchical view showing ancestors and descendants of the selected concept
+statistics_desc,Statistical distribution and usage metrics for this concept set
+review,Review
+review_desc,Review process and validation status for this concept set
+edit_page,Edit page

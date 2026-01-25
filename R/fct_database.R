@@ -182,6 +182,197 @@ get_concept_set <- function(concept_set_id, language = NULL) {
   as.list(cs[1, ])
 }
 
+#' Add Concept Set Item
+#'
+#' @description Add a concept to a concept set
+#' @param concept_set_id Concept set ID
+#' @param concept_id OMOP concept ID (or negative for custom concepts)
+#' @param concept_name Concept name
+#' @param vocabulary_id Vocabulary ID
+#' @param concept_code Concept code
+#' @param standard_concept Standard concept flag (S, C, or NULL)
+#' @param is_excluded Whether concept is excluded (default FALSE)
+#' @param include_descendants Whether to include descendants (default TRUE)
+#' @param include_mapped Whether to include mapped concepts (default TRUE)
+#' @return TRUE if successful
+#' @noRd
+add_concept_set_item <- function(concept_set_id, concept_id, concept_name,
+                                  vocabulary_id = NULL, concept_code = NULL,
+                                  standard_concept = NULL, is_excluded = FALSE,
+                                  include_descendants = TRUE, include_mapped = TRUE) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  # Check if already exists
+  existing <- DBI::dbGetQuery(
+    con,
+    "SELECT 1 FROM concept_set_items WHERE concept_set_id = ? AND concept_id = ?",
+    params = list(concept_set_id, concept_id)
+  )
+
+  if (nrow(existing) > 0) return(FALSE)
+
+  timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+
+  # Convert NULL to NA for RSQLite compatibility
+  null_to_na <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else x
+
+  DBI::dbExecute(
+    con,
+    "INSERT INTO concept_set_items (concept_set_id, concept_id, concept_name, vocabulary_id,
+     concept_code, standard_concept, is_excluded, include_descendants, include_mapped, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    params = list(
+      concept_set_id,
+      concept_id,
+      concept_name,
+      null_to_na(vocabulary_id),
+      null_to_na(concept_code),
+      null_to_na(standard_concept),
+      as.integer(is_excluded),
+      as.integer(include_descendants),
+      as.integer(include_mapped),
+      timestamp
+    )
+  )
+
+  # Update concept set modified_date
+  DBI::dbExecute(
+    con,
+    "UPDATE concept_sets SET modified_date = ? WHERE id = ?",
+    params = list(format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ"), concept_set_id)
+  )
+
+  TRUE
+}
+
+#' Delete Concept Set Item
+#'
+#' @description Remove a concept from a concept set
+#' @param concept_set_id Concept set ID
+#' @param concept_id Concept ID
+#' @return TRUE if successful
+#' @noRd
+delete_concept_set_item <- function(concept_set_id, concept_id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbExecute(
+    con,
+    "DELETE FROM concept_set_items WHERE concept_set_id = ? AND concept_id = ?",
+    params = list(concept_set_id, concept_id)
+  )
+
+  # Update concept set modified_date
+  DBI::dbExecute(
+    con,
+    "UPDATE concept_sets SET modified_date = ? WHERE id = ?",
+    params = list(format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ"), concept_set_id)
+  )
+
+  TRUE
+}
+
+#' Get Concept Set Items
+#'
+#' @description Retrieve all concepts in a concept set
+#' @param concept_set_id Concept set ID
+#' @return Data frame with concept set items
+#' @noRd
+get_concept_set_items <- function(concept_set_id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbGetQuery(
+    con,
+    "SELECT
+      concept_id,
+      concept_name,
+      vocabulary_id,
+      concept_code,
+      standard_concept,
+      is_excluded,
+      include_descendants,
+      include_mapped
+    FROM concept_set_items
+    WHERE concept_set_id = ?
+    ORDER BY concept_name",
+    params = list(concept_set_id)
+  )
+}
+
+#' Get Next Custom Concept ID
+#'
+#' @description Get the next available custom concept ID (negative numbers)
+#' @param concept_set_id Optional concept set ID to scope the search
+#' @return Integer (negative) for the next custom concept ID
+#' @noRd
+get_next_custom_concept_id <- function(concept_set_id = NULL) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  if (!is.null(concept_set_id)) {
+    result <- DBI::dbGetQuery(
+      con,
+      "SELECT COALESCE(MIN(concept_id), 0) - 1 AS next_id
+       FROM concept_set_items
+       WHERE concept_set_id = ? AND concept_id < 0",
+      params = list(concept_set_id)
+    )
+  } else {
+    result <- DBI::dbGetQuery(
+      con,
+      "SELECT COALESCE(MIN(concept_id), 0) - 1 AS next_id
+       FROM concept_set_items
+       WHERE concept_id < 0"
+    )
+  }
+
+  result$next_id[1]
+}
+
+#' Update Concept Set Item
+#'
+#' @description Update flags for a concept in a concept set
+#' @param concept_set_id Concept set ID
+#' @param concept_id Concept ID
+#' @param is_excluded Whether concept is excluded
+#' @param include_descendants Whether to include descendants
+#' @param include_mapped Whether to include mapped concepts
+#' @return TRUE if successful
+#' @noRd
+update_concept_set_item <- function(concept_set_id, concept_id,
+                                     is_excluded = NULL, include_descendants = NULL,
+                                     include_mapped = NULL) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  updates <- list()
+  if (!is.null(is_excluded)) updates$is_excluded <- as.integer(is_excluded)
+  if (!is.null(include_descendants)) updates$include_descendants <- as.integer(include_descendants)
+  if (!is.null(include_mapped)) updates$include_mapped <- as.integer(include_mapped)
+
+  if (length(updates) == 0) return(TRUE)
+
+  set_clauses <- paste0(names(updates), " = ?", collapse = ", ")
+  params <- c(unname(updates), concept_set_id, concept_id)
+
+  DBI::dbExecute(
+    con,
+    paste0("UPDATE concept_set_items SET ", set_clauses, " WHERE concept_set_id = ? AND concept_id = ?"),
+    params = params
+  )
+
+  # Update concept set modified_date
+  DBI::dbExecute(
+    con,
+    "UPDATE concept_sets SET modified_date = ? WHERE id = ?",
+    params = list(format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ"), concept_set_id)
+  )
+
+  TRUE
+}
+
 #' Update Concept Set
 #'
 #' @description Update an existing concept set
@@ -836,6 +1027,27 @@ init_database <- function(con) {
         created_at TEXT,
         PRIMARY KEY (project_id, concept_set_id),
         FOREIGN KEY (project_id) REFERENCES projects(project_id),
+        FOREIGN KEY (concept_set_id) REFERENCES concept_sets(id)
+      )"
+    )
+  }
+
+  # Concept Set Items table (concepts in a concept set)
+  if (!DBI::dbExistsTable(con, "concept_set_items")) {
+    DBI::dbExecute(
+      con,
+      "CREATE TABLE concept_set_items (
+        concept_set_id INTEGER NOT NULL,
+        concept_id INTEGER NOT NULL,
+        concept_name TEXT,
+        vocabulary_id TEXT,
+        concept_code TEXT,
+        standard_concept TEXT,
+        is_excluded INTEGER DEFAULT 0,
+        include_descendants INTEGER DEFAULT 1,
+        include_mapped INTEGER DEFAULT 1,
+        created_at TEXT,
+        PRIMARY KEY (concept_set_id, concept_id),
         FOREIGN KEY (concept_set_id) REFERENCES concept_sets(id)
       )"
     )

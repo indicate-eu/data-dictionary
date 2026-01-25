@@ -81,169 +81,182 @@ mod_projects_ui <- function(id, i18n) {
               create_panel(
                 title = NULL,
                 content = tagList(
-                  # Header with back button and project name
+                  # Header with back button + project name on left, custom tabs on right
                   tags$div(
-                    class = "tabs-with-actions",
-                    style = "margin-bottom: 15px;",
+                    class = "detail-header",
+
+                    # Left side: back button + project name + save button
                     tags$div(
-                      style = "display: flex; align-items: center; gap: 15px;",
+                      class = "detail-header-left",
                       actionButton(
                         ns("back_to_list"),
                         label = NULL,
                         icon = icon("arrow-left"),
-                        class = "btn-secondary-custom",
+                        class = "btn-back-discrete",
                         title = i18n$t("projects")
                       ),
                       tags$span(
                         id = ns("detail_project_name"),
-                        class = "section-title",
-                        style = "margin: 0;",
+                        class = "project-name-badge",
+                        title = "",
                         ""
-                      )
-                    ),
-                    tags$div(
-                      style = "display: flex; gap: 10px;",
-                      actionButton(
-                        ns("edit_current_project"),
-                        i18n$t("edit"),
-                        class = "btn-warning-custom",
-                        icon = icon("edit")
                       ),
                       actionButton(
-                        ns("delete_current_project"),
-                        i18n$t("delete"),
-                        class = "btn-danger-custom",
-                        icon = icon("trash")
+                        ns("save_context"),
+                        label = NULL,
+                        icon = icon("save"),
+                        class = "btn-save-icon has-tooltip",
+                        `data-tooltip` = i18n$t("save_context")
+                      )
+                    ),
+
+                    # Right side: custom tabs
+                    tags$div(
+                      class = "detail-header-tabs",
+                      actionButton(
+                        ns("tab_context"),
+                        label = tagList(tags$i(class = "fas fa-file-alt"), i18n$t("context")),
+                        class = "tab-btn-blue active"
+                      ),
+                      actionButton(
+                        ns("tab_variables"),
+                        label = tagList(tags$i(class = "fas fa-list"), i18n$t("variables")),
+                        class = "tab-btn-blue"
                       )
                     )
                   ),
 
-                  # Tabs
-                  tabsetPanel(
-                    id = ns("project_tabs"),
+                  # Tab content panels
+                  tags$div(
+                    class = "detail-tab-content",
 
-                    # Context Tab
-                    tabPanel(
-                      i18n$t("context"),
-                      value = "context",
-                      icon = icon("file-alt"),
+                    # Context Tab Panel
+                    tags$div(
+                      id = ns("panel_context"),
+                      class = "detail-tab-panel active",
                       tags$div(
-                        style = "padding: 15px 0;",
+                        class = "settings-backup-container",
+
+                        # Justification Section
                         tags$div(
-                          class = "settings-backup-container",
-
-                          # Justification Section
-                          tags$div(
-                            class = "settings-section settings-backup-section",
-                            tags$h4(
-                              class = "settings-section-title",
-                              tags$i(class = "fas fa-flask", style = "margin-right: 8px; color: #0f60af;"),
-                              i18n$t("justification")
-                            ),
-                            tags$p(
-                              class = "settings-section-desc",
-                              "Scientific rationale and objectives of the study"
-                            ),
-                            textAreaInput(
-                              ns("context_justification"),
-                              label = NULL,
-                              placeholder = as.character(i18n$t("enter_justification")),
-                              width = "100%",
-                              rows = 10
-                            )
+                          class = "settings-section settings-backup-section",
+                          tags$h4(
+                            class = "settings-section-title",
+                            tags$i(class = "fas fa-flask", style = "margin-right: 8px; color: #0f60af;"),
+                            i18n$t("justification")
                           ),
-
-                          # Bibliography Section
-                          tags$div(
-                            class = "settings-section settings-backup-section",
-                            tags$h4(
-                              class = "settings-section-title settings-section-title-success",
-                              tags$i(class = "fas fa-book", style = "margin-right: 8px; color: #28a745;"),
-                              i18n$t("bibliography")
-                            ),
-                            tags$p(
-                              class = "settings-section-desc",
-                              "Key references and citations"
-                            ),
-                            textAreaInput(
-                              ns("context_bibliography"),
-                              label = NULL,
-                              placeholder = as.character(i18n$t("enter_bibliography")),
-                              width = "100%",
-                              rows = 10
-                            )
+                          tags$p(
+                            class = "settings-section-desc",
+                            "Scientific rationale and objectives of the study"
+                          ),
+                          textAreaInput(
+                            ns("context_justification"),
+                            label = NULL,
+                            placeholder = as.character(i18n$t("enter_justification")),
+                            width = "100%",
+                            height = "100%"
                           )
                         ),
 
-                        # Save button
+                        # Bibliography Section
                         tags$div(
-                          style = "display: flex; justify-content: flex-end; margin-top: 15px;",
-                          actionButton(
-                            ns("save_context"),
-                            i18n$t("save_context"),
-                            class = "btn-primary-custom",
-                            icon = icon("save")
+                          class = "settings-section settings-backup-section",
+                          tags$h4(
+                            class = "settings-section-title settings-section-title-success",
+                            tags$i(class = "fas fa-book", style = "margin-right: 8px; color: #28a745;"),
+                            i18n$t("bibliography")
+                          ),
+                          tags$p(
+                            class = "settings-section-desc",
+                            "Key references and citations"
+                          ),
+                          textAreaInput(
+                            ns("context_bibliography"),
+                            label = NULL,
+                            placeholder = as.character(i18n$t("enter_bibliography")),
+                            width = "100%",
+                            height = "100%"
                           )
                         )
                       )
                     ),
 
-                    # Variables Tab
-                    tabPanel(
-                      i18n$t("variables"),
-                      value = "variables",
-                      icon = icon("list"),
+                    # Variables Tab Panel
+                    tags$div(
+                      id = ns("panel_variables"),
+                      class = "detail-tab-panel",
                       tags$div(
-                        style = "padding: 15px 0;",
-                        tags$div(
-                          class = "settings-backup-container",
+                        class = "settings-backup-container",
 
-                          # Available Concept Sets Section
+                        # Available Concept Sets Section
+                        tags$div(
+                          class = "settings-section settings-backup-section",
+                          tags$h4(
+                            class = "settings-section-title",
+                            tags$i(class = "fas fa-list", style = "margin-right: 8px; color: #0f60af;"),
+                            i18n$t("available_concept_sets")
+                          ),
                           tags$div(
-                            class = "settings-section settings-backup-section",
-                            tags$h4(
-                              class = "settings-section-title",
-                              tags$i(class = "fas fa-list", style = "margin-right: 8px; color: #0f60af;"),
-                              i18n$t("available_concept_sets")
-                            ),
+                            style = "display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;",
                             tags$p(
                               class = "settings-section-desc",
+                              style = "margin: 0;",
                               i18n$t("available_concept_sets_tooltip")
                             ),
-                            tags$div(
-                              style = "margin-bottom: 10px;",
-                              actionButton(
-                                ns("add_concept_sets_btn"),
-                                i18n$t("add_selected"),
-                                class = "btn-success-custom",
-                                icon = icon("arrow-right")
-                              )
-                            ),
-                            DT::DTOutput(ns("available_concept_sets_table"))
+                            actionButton(
+                              ns("add_concept_sets_btn"),
+                              i18n$t("add_selected"),
+                              class = "btn-success-custom btn-xs",
+                              icon = icon("arrow-right")
+                            )
                           ),
-
-                          # Selected Concept Sets Section
                           tags$div(
-                            class = "settings-section settings-backup-section",
-                            tags$h4(
-                              class = "settings-section-title settings-section-title-success",
-                              tags$i(class = "fas fa-check-circle", style = "margin-right: 8px; color: #28a745;"),
-                              i18n$t("selected_concept_sets")
-                            ),
+                            id = ns("available_concept_sets_empty"),
+                            class = "no-content-message",
+                            style = "display: none;",
+                            i18n$t("all_concept_sets_added")
+                          ),
+                          shinyjs::hidden(
+                            tags$div(
+                              id = ns("available_concept_sets_table_container"),
+                              DT::DTOutput(ns("available_concept_sets_table"))
+                            )
+                          )
+                        ),
+
+                        # Selected Concept Sets Section
+                        tags$div(
+                          class = "settings-section settings-backup-section",
+                          tags$h4(
+                            class = "settings-section-title settings-section-title-success",
+                            tags$i(class = "fas fa-check-circle", style = "margin-right: 8px; color: #28a745;"),
+                            i18n$t("selected_concept_sets")
+                          ),
+                          tags$div(
+                            style = "display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;",
                             tags$p(
                               class = "settings-section-desc",
+                              style = "margin: 0;",
                               i18n$t("selected_concept_sets_tooltip")
                             ),
+                            actionButton(
+                              ns("remove_concept_sets_btn"),
+                              i18n$t("remove_selected"),
+                              class = "btn-danger-custom btn-xs",
+                              icon = icon("times")
+                            )
+                          ),
+                          tags$div(
+                            id = ns("selected_concept_sets_empty"),
+                            class = "no-content-message",
+                            style = "display: none;",
+                            i18n$t("no_concept_sets_assigned")
+                          ),
+                          shinyjs::hidden(
                             tags$div(
-                              style = "margin-bottom: 10px;",
-                              actionButton(
-                                ns("remove_concept_sets_btn"),
-                                i18n$t("remove_selected"),
-                                class = "btn-danger-custom",
-                                icon = icon("times")
-                              )
-                            ),
-                            DT::DTOutput(ns("selected_concept_sets_table"))
+                              id = ns("selected_concept_sets_table_container"),
+                              DT::DTOutput(ns("selected_concept_sets_table"))
+                            )
                           )
                         )
                       )
@@ -352,19 +365,20 @@ mod_projects_server <- function(id, i18n, current_user = NULL) {
 
     # 2) DATA LOADING ====
 
-    ## Load Projects ----
-    observe_event(TRUE, {
-      data <- get_all_projects()
-      projects_data(data)
+    ## Load Projects (initialization) ----
+    projects_data(get_all_projects())
 
-      # Show add button if can edit
+    # Initial table render
+    projects_table_trigger(1)
+
+    ## Show Add Button (based on permissions) ----
+    observe_event(can_edit(), {
       if (can_edit()) {
         shinyjs::show("add_project")
+      } else {
+        shinyjs::hide("add_project")
       }
-
-      # Initial table render
-      projects_table_trigger(projects_table_trigger() + 1)
-    }, ignoreInit = FALSE, once = TRUE)
+    }, ignoreNULL = FALSE, ignoreInit = FALSE)
 
     # 3) UI RENDERING ====
 
@@ -450,30 +464,73 @@ mod_projects_server <- function(id, i18n, current_user = NULL) {
           id_column_index = 0
         )
       })
+    }, ignoreInit = FALSE)
+
+    ## Custom Tab Handlers ----
+    observe_event(input$tab_context, {
+      # Switch to context tab
+      shinyjs::runjs(sprintf("
+        document.querySelectorAll('#%s .tab-btn-blue').forEach(function(btn) { btn.classList.remove('active'); });
+        document.getElementById('%s').classList.add('active');
+        document.querySelectorAll('#%s .detail-tab-panel').forEach(function(panel) { panel.classList.remove('active'); });
+        document.getElementById('%s').classList.add('active');
+      ", ns("detail_view"), ns("tab_context"), ns("detail_view"), ns("panel_context")))
+
+      # Enable save button and restore tooltip for context tab
+      shinyjs::enable("save_context")
+      shinyjs::runjs(sprintf("
+        var btn = document.getElementById('%s');
+        btn.setAttribute('data-tooltip', '%s');
+        btn.classList.remove('btn-disabled');
+      ", ns("save_context"), i18n$t("save_context")))
     }, ignoreInit = TRUE)
 
-    ## Tab Change Handler ----
-    observe_event(input$project_tabs, {
-      if (input$project_tabs == "variables") {
-        available_table_trigger(available_table_trigger() + 1)
-        selected_table_trigger(selected_table_trigger() + 1)
-      }
+    observe_event(input$tab_variables, {
+      # Switch to variables tab
+      shinyjs::runjs(sprintf("
+        document.querySelectorAll('#%s .tab-btn-blue').forEach(function(btn) { btn.classList.remove('active'); });
+        document.getElementById('%s').classList.add('active');
+        document.querySelectorAll('#%s .detail-tab-panel').forEach(function(panel) { panel.classList.remove('active'); });
+        document.getElementById('%s').classList.add('active');
+      ", ns("detail_view"), ns("tab_variables"), ns("detail_view"), ns("panel_variables")))
+
+      # Disable save button and update tooltip to show auto-save message
+      shinyjs::disable("save_context")
+      shinyjs::runjs(sprintf("
+        var btn = document.getElementById('%s');
+        btn.setAttribute('data-tooltip', '%s');
+        btn.classList.add('btn-disabled');
+      ", ns("save_context"), i18n$t("auto_save_enabled")))
+
+      # Trigger table renders
+      available_table_trigger(available_table_trigger() + 1)
+      selected_table_trigger(selected_table_trigger() + 1)
     }, ignoreInit = TRUE)
 
     ## Available Concept Sets Table ----
+    # Initialize empty table (required for outputOptions to work)
+    output$available_concept_sets_table <- DT::renderDT({
+      create_empty_datatable("")
+    })
+
     observe_event(available_table_trigger(), {
+      project <- selected_project()
+      if (is.null(project)) return()
+
+      data <- get_available_concept_sets_for_project(project$project_id)
+
+      if (is.null(data) || nrow(data) == 0) {
+        # Show empty message, hide table
+        shinyjs::show("available_concept_sets_empty")
+        shinyjs::hide("available_concept_sets_table_container")
+        return()
+      }
+
+      # Hide empty message, show table
+      shinyjs::hide("available_concept_sets_empty")
+      shinyjs::show("available_concept_sets_table_container")
+
       output$available_concept_sets_table <- DT::renderDT({
-        project <- selected_project()
-        if (is.null(project)) {
-          return(create_empty_datatable(as.character(i18n$t("no_concept_sets"))))
-        }
-
-        data <- get_available_concept_sets_for_project(project$project_id)
-
-        if (is.null(data) || nrow(data) == 0) {
-          return(create_empty_datatable(as.character(i18n$t("all_concept_sets_added"))))
-        }
-
         # Prepare display data
         display_data <- data.frame(
           id = data$id,
@@ -504,19 +561,29 @@ mod_projects_server <- function(id, i18n, current_user = NULL) {
     }, ignoreInit = TRUE)
 
     ## Selected Concept Sets Table ----
+    # Initialize empty table (required for outputOptions to work)
+    output$selected_concept_sets_table <- DT::renderDT({
+      create_empty_datatable("")
+    })
+
     observe_event(selected_table_trigger(), {
+      project <- selected_project()
+      if (is.null(project)) return()
+
+      data <- get_project_concept_sets(project$project_id)
+
+      if (is.null(data) || nrow(data) == 0) {
+        # Show empty message, hide table
+        shinyjs::show("selected_concept_sets_empty")
+        shinyjs::hide("selected_concept_sets_table_container")
+        return()
+      }
+
+      # Hide empty message, show table
+      shinyjs::hide("selected_concept_sets_empty")
+      shinyjs::show("selected_concept_sets_table_container")
+
       output$selected_concept_sets_table <- DT::renderDT({
-        project <- selected_project()
-        if (is.null(project)) {
-          return(create_empty_datatable(as.character(i18n$t("no_concept_sets_assigned"))))
-        }
-
-        data <- get_project_concept_sets(project$project_id)
-
-        if (is.null(data) || nrow(data) == 0) {
-          return(create_empty_datatable(as.character(i18n$t("no_concept_sets_assigned"))))
-        }
-
         # Prepare display data
         display_data <- data.frame(
           id = data$id,
@@ -546,6 +613,10 @@ mod_projects_server <- function(id, i18n, current_user = NULL) {
       })
     }, ignoreInit = TRUE)
 
+    # Force render even when hidden (tables are in hidden tab initially)
+    outputOptions(output, "available_concept_sets_table", suspendWhenHidden = FALSE)
+    outputOptions(output, "selected_concept_sets_table", suspendWhenHidden = FALSE)
+
     # 4) CRUD OPERATIONS ====
 
     ## Navigation ----
@@ -568,11 +639,13 @@ mod_projects_server <- function(id, i18n, current_user = NULL) {
         selected_project(project)
         current_view("detail")
 
-        # Update project name in header
+        # Update project name in header (text content and tooltip)
+        escaped_name <- gsub("'", "\\\\'", project$name)
         shinyjs::runjs(sprintf(
-          "document.getElementById('%s').textContent = '%s';",
+          "var el = document.getElementById('%s'); el.textContent = '%s'; el.title = '%s';",
           ns("detail_project_name"),
-          gsub("'", "\\\\'", project$name)
+          escaped_name,
+          escaped_name
         ))
 
         # Populate context fields
@@ -585,8 +658,14 @@ mod_projects_server <- function(id, i18n, current_user = NULL) {
         shinyjs::hide("list_view")
         shinyjs::show("detail_view")
 
-        # Reset to context tab
-        updateTabsetPanel(session, "project_tabs", selected = "context")
+        # Reset to context tab and show save button
+        shinyjs::runjs(sprintf("
+          document.querySelectorAll('#%s .tab-btn-blue').forEach(function(btn) { btn.classList.remove('active'); });
+          document.getElementById('%s').classList.add('active');
+          document.querySelectorAll('#%s .detail-tab-panel').forEach(function(panel) { panel.classList.remove('active'); });
+          document.getElementById('%s').classList.add('active');
+        ", ns("detail_view"), ns("tab_context"), ns("detail_view"), ns("panel_context")))
+        shinyjs::show("save_context")
       }
     }, ignoreInit = TRUE)
 
@@ -616,13 +695,6 @@ mod_projects_server <- function(id, i18n, current_user = NULL) {
       project_id <- input$edit_project
       if (is.null(project_id)) return()
       open_edit_modal(project_id)
-    }, ignoreInit = TRUE)
-
-    ## Edit Project (from detail view) ----
-    observe_event(input$edit_current_project, {
-      project <- selected_project()
-      if (is.null(project)) return()
-      open_edit_modal(project$project_id)
     }, ignoreInit = TRUE)
 
     # Helper to open edit modal
@@ -707,10 +779,12 @@ mod_projects_server <- function(id, i18n, current_user = NULL) {
         # Update selected project and header if in detail view
         if (current_view() == "detail") {
           selected_project(get_project(edit_id))
+          escaped_name <- gsub("'", "\\\\'", name)
           shinyjs::runjs(sprintf(
-            "document.getElementById('%s').textContent = '%s';",
+            "var el = document.getElementById('%s'); el.textContent = '%s'; el.title = '%s';",
             ns("detail_project_name"),
-            gsub("'", "\\\\'", name)
+            escaped_name,
+            escaped_name
           ))
         }
       }
@@ -733,13 +807,6 @@ mod_projects_server <- function(id, i18n, current_user = NULL) {
       project_id <- input$delete_project
       if (is.null(project_id)) return()
       open_delete_modal(project_id)
-    }, ignoreInit = TRUE)
-
-    ## Delete Project (from detail view) ----
-    observe_event(input$delete_current_project, {
-      project <- selected_project()
-      if (is.null(project)) return()
-      open_delete_modal(project$project_id)
     }, ignoreInit = TRUE)
 
     # Helper to open delete modal

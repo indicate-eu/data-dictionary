@@ -325,6 +325,143 @@ load_vocabularies_from_duckdb <- function() {
   })
 }
 
+#' Get DuckDB connection
+#'
+#' @description Get a read-only connection to DuckDB database
+#'
+#' @return DuckDB connection or NULL if database doesn't exist
+#' @noRd
+get_duckdb_connection <- function() {
+  db_path <- get_duckdb_path()
+
+  if (!file.exists(db_path)) {
+    return(NULL)
+  }
+
+  tryCatch({
+    drv <- duckdb::duckdb(dbdir = db_path, read_only = TRUE)
+    DBI::dbConnect(drv)
+  }, error = function(e) {
+    warning("Error connecting to DuckDB: ", e$message)
+    return(NULL)
+  })
+}
+
+#' Get Concept by ID
+#'
+#' @description Get concept details from vocabulary database
+#'
+#' @param concept_id OMOP Concept ID
+#'
+#' @return Data frame with concept details or empty data frame
+#' @noRd
+get_concept_by_id <- function(concept_id) {
+  con <- get_duckdb_connection()
+  if (is.null(con)) {
+    return(data.frame())
+  }
+  on.exit(DBI::dbDisconnect(con, shutdown = TRUE))
+
+  tryCatch({
+    DBI::dbGetQuery(
+      con,
+      "SELECT
+        concept_id,
+        concept_name,
+        domain_id,
+        vocabulary_id,
+        concept_class_id,
+        standard_concept,
+        concept_code,
+        valid_start_date,
+        valid_end_date
+      FROM concept
+      WHERE concept_id = ?",
+      params = list(as.integer(concept_id))
+    )
+  }, error = function(e) {
+    warning("Error getting concept: ", e$message)
+    data.frame()
+  })
+}
+
+#' Get Related Concepts
+#'
+#' @description Get concepts related to a given concept
+#'
+#' @param concept_id OMOP Concept ID
+#' @param limit Maximum number of results (default 100)
+#'
+#' @return Data frame with related concepts
+#' @noRd
+get_related_concepts <- function(concept_id, limit = 100) {
+  con <- get_duckdb_connection()
+  if (is.null(con)) {
+    return(data.frame())
+  }
+  on.exit(DBI::dbDisconnect(con, shutdown = TRUE))
+
+  tryCatch({
+    DBI::dbGetQuery(
+      con,
+      "SELECT
+        c.concept_id,
+        c.concept_name,
+        cr.relationship_id,
+        c.vocabulary_id
+      FROM concept_relationship cr
+      JOIN concept c ON cr.concept_id_2 = c.concept_id
+      WHERE cr.concept_id_1 = ?
+        AND cr.invalid_reason IS NULL
+      ORDER BY cr.relationship_id, c.concept_name
+      LIMIT ?",
+      params = list(as.integer(concept_id), as.integer(limit))
+    )
+  }, error = function(e) {
+    warning("Error getting related concepts: ", e$message)
+    data.frame()
+  })
+}
+
+#' Get Concept Descendants
+#'
+#' @description Get descendant concepts from the concept_ancestor table
+#'
+#' @param concept_id OMOP Concept ID
+#' @param limit Maximum number of results (default 100)
+#'
+#' @return Data frame with descendant concepts
+#' @noRd
+get_concept_descendants <- function(concept_id, limit = 100) {
+  con <- get_duckdb_connection()
+  if (is.null(con)) {
+    return(data.frame())
+  }
+  on.exit(DBI::dbDisconnect(con, shutdown = TRUE))
+
+  tryCatch({
+    DBI::dbGetQuery(
+      con,
+      "SELECT
+        c.concept_id,
+        c.concept_name,
+        c.vocabulary_id,
+        ca.min_levels_of_separation,
+        ca.max_levels_of_separation
+      FROM concept_ancestor ca
+      JOIN concept c ON ca.descendant_concept_id = c.concept_id
+      WHERE ca.ancestor_concept_id = ?
+        AND ca.min_levels_of_separation > 0
+      ORDER BY ca.min_levels_of_separation, c.concept_name
+      LIMIT ?",
+      params = list(as.integer(concept_id), as.integer(limit))
+    )
+  }, error = function(e) {
+    warning("Error getting concept descendants: ", e$message)
+    data.frame()
+  })
+}
+
 #' Delete DuckDB database
 #'
 #' @description Delete the DuckDB database file

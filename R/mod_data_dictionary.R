@@ -46,22 +46,282 @@ mod_data_dictionary_ui <- function(id, i18n) {
         class = "main-content",
 
         ## UI - Main Layout ----
-        create_page_layout(
-          "full",
-          create_panel(
-            title = i18n$t("concept_sets"),
-            content = tags$div(
-              style = "position: relative;",
-              fuzzy_search_ui("fuzzy_search", ns = ns, i18n = i18n),
-              DT::DTOutput(ns("concept_sets_table"))
-            ),
-            tooltip = i18n$t("concept_sets_tooltip"),
-            header_extra = shinyjs::hidden(
-              actionButton(
-                ns("add_concept_set"),
-                i18n$t("add_concept_set"),
-                class = "btn-success-custom",
-                icon = icon("plus")
+
+        ### Concept Sets List Container ----
+        tags$div(
+          id = ns("concept_sets_list_container"),
+          create_page_layout(
+            "full",
+            create_panel(
+              title = i18n$t("concept_sets"),
+              content = tags$div(
+                style = "position: relative;",
+                fuzzy_search_ui("fuzzy_search", ns = ns, i18n = i18n),
+                DT::DTOutput(ns("concept_sets_table"))
+              ),
+              tooltip = i18n$t("concept_sets_tooltip"),
+              header_extra = shinyjs::hidden(
+                actionButton(
+                  ns("add_concept_set"),
+                  i18n$t("add_concept_set"),
+                  class = "btn-success-custom",
+                  icon = icon("plus")
+                )
+              )
+            )
+          )
+        ),
+
+        ### Concept Set Details Container ----
+        shinyjs::hidden(
+          tags$div(
+            id = ns("concept_set_details_container"),
+            style = "height: 100%;",
+            create_page_layout(
+              "full",
+              create_panel(
+                title = NULL,
+                content = tagList(
+                  # Header with back button + concept set name on left, tabs on right
+                  tags$div(
+                    class = "detail-header",
+
+                    # Left side: back button + concept set name + edit button
+                    tags$div(
+                      class = "detail-header-left",
+                      actionButton(
+                        ns("back_to_list"),
+                        label = NULL,
+                        icon = icon("arrow-left"),
+                        class = "btn-back-discrete",
+                        title = i18n$t("concept_sets")
+                      ),
+                      tags$span(
+                        id = ns("concept_set_detail_title"),
+                        class = "project-name-badge",
+                        title = "",
+                        ""
+                      ),
+                      shinyjs::hidden(
+                        actionButton(
+                          ns("edit_concepts_btn"),
+                          label = NULL,
+                          icon = icon("edit"),
+                          class = "btn-save-icon has-tooltip",
+                          `data-tooltip` = as.character(i18n$t("edit_page"))
+                        )
+                      )
+                    ),
+
+                    # Right side: custom tabs (blue style)
+                    tags$div(
+                      class = "detail-header-tabs",
+                      actionButton(
+                        ns("tab_concepts"),
+                        label = tagList(tags$i(class = "fas fa-list"), i18n$t("concepts")),
+                        class = "tab-btn-blue active"
+                      ),
+                      actionButton(
+                        ns("tab_comments"),
+                        label = tagList(tags$i(class = "fas fa-comment"), i18n$t("comments")),
+                        class = "tab-btn-blue"
+                      ),
+                      actionButton(
+                        ns("tab_stats"),
+                        label = tagList(tags$i(class = "fas fa-chart-bar"), i18n$t("statistics")),
+                        class = "tab-btn-blue"
+                      ),
+                      actionButton(
+                        ns("tab_review"),
+                        label = tagList(tags$i(class = "fas fa-clipboard-check"), i18n$t("review")),
+                        class = "tab-btn-blue"
+                      )
+                    )
+                  ),
+
+                  # Tab content panels
+                  tags$div(
+                    class = "detail-tab-content",
+
+                    # Concepts Tab Panel (active by default)
+                    tags$div(
+                      id = ns("panel_concepts"),
+                      class = "detail-tab-panel active",
+                      tags$div(
+                        class = "settings-backup-container layout-left-full",
+
+                        # Left column: Concepts (full height)
+                        tags$div(
+                          class = "settings-section settings-backup-section settings-section-left",
+                          tags$h4(
+                            class = "settings-section-title",
+                            tags$i(class = "fas fa-list", style = "margin-right: 8px; color: #0f60af;"),
+                            i18n$t("concepts")
+                          ),
+                          tags$p(
+                            class = "settings-section-desc",
+                            i18n$t("concepts_in_set_tooltip")
+                          ),
+                          tags$div(
+                            style = "position: relative; flex: 1; display: flex; flex-direction: column;",
+                            fuzzy_search_ui("concepts_fuzzy_search", ns = ns, i18n = i18n),
+                            DT::DTOutput(ns("concepts_table"))
+                          )
+                        ),
+
+                        # Right column: stacked sections
+                        tags$div(
+                          class = "settings-section-right",
+
+                          # Top-right: Selected concept details (50%)
+                          tags$div(
+                            class = "settings-section settings-backup-section",
+                            tags$h4(
+                              class = "settings-section-title settings-section-title-success",
+                              tags$i(class = "fas fa-info-circle", style = "margin-right: 8px; color: #28a745;"),
+                              i18n$t("selected_concept_details")
+                            ),
+                            tags$p(
+                              class = "settings-section-desc",
+                              i18n$t("selected_concept_details_tooltip")
+                            ),
+                            tags$div(
+                              style = "flex: 1; overflow: auto;",
+                              uiOutput(ns("selected_concept_details"))
+                            )
+                          ),
+
+                          # Bottom-right: Related concepts with sub-tabs (50%)
+                          tags$div(
+                            class = "settings-section settings-backup-section",
+                            tags$div(
+                              style = "display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;",
+                              tags$h4(
+                                class = "settings-section-title",
+                                style = "margin: 0;",
+                                tags$i(class = "fas fa-link", style = "margin-right: 8px; color: #0f60af;"),
+                                i18n$t("related_concepts")
+                              ),
+                              tags$div(
+                                class = "section-tabs",
+                                actionButton(
+                                  ns("subtab_related"),
+                                  i18n$t("related"),
+                                  class = "tab-btn-blue active"
+                                ),
+                                actionButton(
+                                  ns("subtab_hierarchy"),
+                                  i18n$t("hierarchy"),
+                                  class = "tab-btn-blue"
+                                ),
+                                actionButton(
+                                  ns("subtab_synonyms"),
+                                  i18n$t("synonyms"),
+                                  class = "tab-btn-blue"
+                                )
+                              )
+                            ),
+                            tags$p(
+                              class = "settings-section-desc",
+                              i18n$t("related_concepts_tooltip")
+                            ),
+                            # Related tab content
+                            tags$div(
+                              id = ns("related_tab_content"),
+                              style = "flex: 1; overflow: auto;",
+                              uiOutput(ns("related_display"))
+                            ),
+                            # Hierarchy tab content (hidden by default)
+                            shinyjs::hidden(
+                              tags$div(
+                                id = ns("hierarchy_tab_content"),
+                                style = "flex: 1; overflow: auto;",
+                                uiOutput(ns("hierarchy_display"))
+                              )
+                            ),
+                            # Synonyms tab content (hidden by default)
+                            shinyjs::hidden(
+                              tags$div(
+                                id = ns("synonyms_tab_content"),
+                                style = "flex: 1; overflow: auto;",
+                                uiOutput(ns("synonyms_display"))
+                              )
+                            )
+                          )
+                        )
+                      )
+                    ),
+
+                    # Comments Tab Panel
+                    tags$div(
+                      id = ns("panel_comments"),
+                      class = "detail-tab-panel",
+                      tags$div(
+                        class = "settings-backup-container",
+                        tags$div(
+                          class = "settings-section settings-backup-section",
+                          style = "width: 100%; max-width: 100%;",
+                          tags$h4(
+                            class = "settings-section-title",
+                            tags$i(class = "fas fa-comment", style = "margin-right: 8px; color: #0f60af;"),
+                            i18n$t("comments")
+                          ),
+                          tags$p(
+                            class = "settings-section-desc",
+                            i18n$t("comments_stats_tooltip")
+                          ),
+                          uiOutput(ns("comments_display"))
+                        )
+                      )
+                    ),
+
+                    # Statistics Tab Panel
+                    tags$div(
+                      id = ns("panel_stats"),
+                      class = "detail-tab-panel",
+                      tags$div(
+                        class = "settings-backup-container",
+                        tags$div(
+                          class = "settings-section settings-backup-section",
+                          style = "width: 100%; max-width: 100%;",
+                          tags$h4(
+                            class = "settings-section-title",
+                            tags$i(class = "fas fa-chart-bar", style = "margin-right: 8px; color: #0f60af;"),
+                            i18n$t("statistics")
+                          ),
+                          tags$p(
+                            class = "settings-section-desc",
+                            i18n$t("statistics_desc")
+                          ),
+                          uiOutput(ns("stats_display"))
+                        )
+                      )
+                    ),
+
+                    # Review Tab Panel
+                    tags$div(
+                      id = ns("panel_review"),
+                      class = "detail-tab-panel",
+                      tags$div(
+                        class = "settings-backup-container",
+                        tags$div(
+                          class = "settings-section settings-backup-section",
+                          style = "width: 100%; max-width: 100%;",
+                          tags$h4(
+                            class = "settings-section-title",
+                            tags$i(class = "fas fa-clipboard-check", style = "margin-right: 8px; color: #0f60af;"),
+                            i18n$t("review")
+                          ),
+                          tags$p(
+                            class = "settings-section-desc",
+                            i18n$t("review_desc")
+                          ),
+                          uiOutput(ns("review_display"))
+                        )
+                      )
+                    )
+                  )
+                )
               )
             )
           )
@@ -379,6 +639,312 @@ mod_data_dictionary_ui <- function(id, i18n) {
           size = "small",
           icon = "fas fa-exclamation-triangle",
           ns = ns
+        ),
+
+        ### Modal - Add Concepts to Concept Set ----
+        tags$div(
+          id = ns("add_concepts_modal"),
+          class = "modal-fullscreen",
+          style = "display: none;",
+
+          # Header
+          tags$div(
+            class = "modal-header",
+            style = "padding: 15px 20px; border-bottom: 1px solid #ddd; background: #f8f9fa; display: flex; align-items: center; justify-content: space-between;",
+            tags$h3(class = "modal-title", style = "margin: 0;", i18n$t("add_concepts_to_set")),
+            tags$button(
+              class = "modal-fullscreen-close",
+              onclick = sprintf("document.getElementById('%s').style.display = 'none';", ns("add_concepts_modal")),
+              HTML("&times;")
+            )
+          ),
+
+          # Body with tabs
+          tags$div(
+            class = "modal-body",
+            style = "flex: 1; display: flex; flex-direction: column; padding: 20px; overflow: hidden;",
+
+            # Tabs navigation
+            tags$ul(
+              class = "nav nav-tabs",
+              role = "tablist",
+              style = "margin-bottom: 0; flex-shrink: 0;",
+              tags$li(
+                class = "active",
+                role = "presentation",
+                tags$a(
+                  href = "#",
+                  onclick = sprintf("
+                    document.getElementById('%s').style.display = 'flex';
+                    document.getElementById('%s').style.display = 'none';
+                    this.parentElement.classList.add('active');
+                    this.parentElement.nextElementSibling.classList.remove('active');
+                    return false;
+                  ", ns("omop_tab_content"), ns("custom_tab_content")),
+                  i18n$t("search_omop_concepts")
+                )
+              ),
+              tags$li(
+                role = "presentation",
+                tags$a(
+                  href = "#",
+                  onclick = sprintf("
+                    document.getElementById('%s').style.display = 'none';
+                    document.getElementById('%s').style.display = 'flex';
+                    this.parentElement.classList.remove('active');
+                    this.parentElement.previousElementSibling.classList.add('active');
+                    this.parentElement.classList.add('active');
+                    this.parentElement.previousElementSibling.classList.remove('active');
+                    return false;
+                  ", ns("omop_tab_content"), ns("custom_tab_content")),
+                  i18n$t("add_custom_concept")
+                )
+              )
+            ),
+
+            # Tab content container
+            tags$div(
+              class = "tab-content",
+              style = "flex: 1; min-height: 0; display: flex; flex-direction: column;",
+
+              # OMOP Concepts Tab
+              tags$div(
+                id = ns("omop_tab_content"),
+                class = "tab-pane",
+                style = "margin-top: 15px; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 15px;",
+
+                # Search section (top)
+                tags$div(
+                  style = "flex: 2; min-height: 0; display: flex; flex-direction: column; overflow: hidden;",
+                  tags$div(
+                    style = "position: relative; flex: 1; min-height: 0; overflow: auto;",
+                    fuzzy_search_ui(
+                      "omop_fuzzy_search",
+                      ns = ns,
+                      i18n = i18n,
+                      limit_checkbox = TRUE,
+                      limit_checkbox_id = "omop_limit_10k",
+                      settings_btn = TRUE,
+                      settings_btn_id = "omop_filters_btn"
+                    ),
+                    DT::DTOutput(ns("omop_concepts_table"))
+                  )
+                ),
+
+                # Bottom section: Concept Details (left) and Descendants (right)
+                tags$div(
+                  style = "flex: 1; min-height: 200px; display: flex; gap: 15px;",
+
+                  # Concept Details (left)
+                  tags$div(
+                    style = "flex: 1; min-height: 0; display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 4px; padding: 15px; background: white;",
+                    tags$h5(i18n$t("selected_concept_details_modal"), style = "margin-top: 0; margin-bottom: 10px;"),
+                    tags$div(
+                      style = "flex: 1; min-height: 0; overflow: auto;",
+                      uiOutput(ns("add_modal_concept_details"))
+                    )
+                  ),
+
+                  # Descendants (right)
+                  tags$div(
+                    style = "flex: 1; min-height: 0; display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 4px; padding: 15px; background: white;",
+                    tags$h5(i18n$t("descendants"), style = "margin-top: 0; margin-bottom: 10px;"),
+                    tags$div(
+                      style = "flex: 1; min-height: 0; overflow: auto;",
+                      DT::DTOutput(ns("add_modal_descendants_table"))
+                    )
+                  )
+                ),
+
+                # Bottom buttons for OMOP mode
+                tags$div(
+                  style = "display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; padding-top: 10px;",
+                  # Left side: Multiple selection checkbox
+                  tags$div(
+                    class = "checkbox",
+                    style = "display: flex; align-items: center; margin: 0;",
+                    tags$label(
+                      style = "display: flex; align-items: center; margin: 0; cursor: pointer;",
+                      tags$input(
+                        id = ns("add_modal_multiple_select"),
+                        type = "checkbox",
+                        class = "shiny-input-checkbox"
+                      ),
+                      tags$span(
+                        style = "margin-left: 5px;",
+                        i18n$t("multiple_selection")
+                      )
+                    )
+                  ),
+                  # Right side: Toggles and Add button
+                  tags$div(
+                    class = "flex-center-gap-8",
+                    # Exclude toggle
+                    tags$div(
+                      class = "flex-center-gap-8",
+                      tags$span(i18n$t("exclude"), style = "font-size: 13px; color: #666;"),
+                      tags$label(
+                        class = "toggle-switch toggle-small toggle-exclude",
+                        tags$input(
+                          type = "checkbox",
+                          id = ns("add_modal_is_excluded")
+                        ),
+                        tags$span(class = "toggle-slider")
+                      )
+                    ),
+                    # Descendants toggle
+                    tags$div(
+                      class = "flex-center-gap-8",
+                      style = "margin-left: 15px;",
+                      tags$span(i18n$t("include_descendants"), style = "font-size: 13px; color: #666;"),
+                      tags$label(
+                        class = "toggle-switch toggle-small",
+                        tags$input(
+                          type = "checkbox",
+                          id = ns("add_modal_include_descendants"),
+                          checked = "checked"
+                        ),
+                        tags$span(class = "toggle-slider")
+                      )
+                    ),
+                    # Mapped toggle
+                    tags$div(
+                      class = "flex-center-gap-8",
+                      style = "margin-left: 15px;",
+                      tags$span(i18n$t("include_mapped"), style = "font-size: 13px; color: #666;"),
+                      tags$label(
+                        class = "toggle-switch toggle-small",
+                        tags$input(
+                          type = "checkbox",
+                          id = ns("add_modal_include_mapped"),
+                          checked = "checked"
+                        ),
+                        tags$span(class = "toggle-slider")
+                      )
+                    ),
+                    actionButton(
+                      ns("add_omop_concepts"),
+                      i18n$t("add_concept"),
+                      class = "btn-success-custom",
+                      style = "margin-left: 15px;",
+                      icon = icon("plus")
+                    )
+                  )
+                )
+              ),
+
+              # Custom Concept Tab
+              tags$div(
+                id = ns("custom_tab_content"),
+                class = "tab-pane",
+                style = "display: none; margin-top: 15px; flex: 1; flex-direction: column; gap: 15px;",
+
+                # Custom concept form
+                tags$div(
+                  style = "flex: 1; padding: 40px; border: 1px solid #ddd; border-radius: 4px; background: white;",
+
+                  tags$div(
+                    class = "mb-20",
+                    tags$label(
+                      class = "form-label",
+                      i18n$t("vocabulary_id"), " ",
+                      tags$span(style = "color: #dc3545;", "*")
+                    ),
+                    textInput(
+                      ns("custom_vocabulary_id"),
+                      label = NULL,
+                      placeholder = "e.g., Custom, Local, Institution-specific",
+                      width = "300px"
+                    ),
+                    shinyjs::hidden(
+                      tags$span(
+                        id = ns("custom_vocabulary_id_error"),
+                        style = "color: #dc3545; font-size: 12px;",
+                        i18n$t("vocabulary_id_required")
+                      )
+                    )
+                  ),
+
+                  tags$div(
+                    class = "mb-20",
+                    tags$label(class = "form-label", i18n$t("concept_code")),
+                    textInput(
+                      ns("custom_concept_code"),
+                      label = NULL,
+                      placeholder = as.character(i18n$t("optional")),
+                      width = "300px"
+                    )
+                  ),
+
+                  tags$div(
+                    class = "mb-20",
+                    tags$label(
+                      class = "form-label",
+                      i18n$t("concept_name"), " ",
+                      tags$span(style = "color: #dc3545;", "*")
+                    ),
+                    textInput(
+                      ns("custom_concept_name"),
+                      label = NULL,
+                      placeholder = as.character(i18n$t("enter_concept_name")),
+                      width = "300px"
+                    ),
+                    shinyjs::hidden(
+                      tags$span(
+                        id = ns("custom_concept_name_error"),
+                        style = "color: #dc3545; font-size: 12px;",
+                        i18n$t("concept_name_required")
+                      )
+                    )
+                  )
+                ),
+
+                # Bottom buttons for custom mode
+                tags$div(
+                  style = "display: flex; justify-content: flex-end; align-items: center; flex-shrink: 0; padding-top: 10px;",
+                  # Exclude toggle
+                  tags$div(
+                    class = "flex-center-gap-8",
+                    tags$span(i18n$t("exclude"), style = "font-size: 13px; color: #666;"),
+                    tags$label(
+                      class = "toggle-switch toggle-small toggle-exclude",
+                      tags$input(
+                        type = "checkbox",
+                        id = ns("add_custom_is_excluded")
+                      ),
+                      tags$span(class = "toggle-slider")
+                    )
+                  ),
+                  actionButton(
+                    ns("add_custom_concept_btn"),
+                    i18n$t("add_custom_concept"),
+                    class = "btn-success-custom",
+                    style = "margin-left: 15px;",
+                    icon = icon("plus")
+                  )
+                )
+              )
+            )
+          )
+        ),
+
+        ### Modal - Remove Concept Confirmation ----
+        create_modal(
+          id = "remove_concept_modal",
+          title = i18n$t("confirm_deletion"),
+          body = tagList(
+            shinyjs::hidden(
+              textInput(ns("removing_concept_id"), label = NULL, value = "")
+            ),
+            tags$p(i18n$t("confirm_remove_concept"))
+          ),
+          footer = tagList(
+            actionButton(ns("cancel_remove_concept"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
+            actionButton(ns("confirm_remove_concept"), i18n$t("remove_concept"), class = "btn-danger-custom", icon = icon("trash"))
+          ),
+          size = "small",
+          icon = "fas fa-exclamation-triangle",
+          ns = ns
         )
       )
     )
@@ -469,9 +1035,17 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           if (is.na(dt_str) || dt_str == "") return("")
           tryCatch({
             # Parse ISO format and return date + time (HH:MM)
-            # Format: "YYYY-MM-DD HH:MM"
-            substr(dt_str, 1, 16)
+            # Format: "YYYY-MM-DD HH:MM" (replace T with space)
+            gsub("T", " ", substr(dt_str, 1, 16))
           }, error = function(e) "")
+        }
+
+        # Format tags with space after comma
+        format_tags <- function(tags_str) {
+          if (is.na(tags_str) || tags_str == "") return("")
+          # Split by comma, trim whitespace, rejoin with ", "
+          tags_list <- trimws(strsplit(tags_str, ",")[[1]])
+          paste(tags_list, collapse = ", ")
         }
 
         # Prepare display data - order: category, subcategory, name, description, tags, concepts, last_update
@@ -484,16 +1058,15 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
             is.na(data$description), "",
             ifelse(nchar(data$description) > 100, paste0(substr(data$description, 1, 100), "..."), data$description)
           ),
-          tags = ifelse(is.na(data$tags), "", data$tags),
+          tags = sapply(data$tags, format_tags),
           item_count = data$item_count,
           last_update = sapply(data$modified_date, format_date),
           stringsAsFactors = FALSE
         )
 
-        # Convert to factors for dropdown filters
+        # Convert to factors for dropdown filters (except tags - keep as text)
         display_data$category <- factor(display_data$category)
         display_data$subcategory <- factor(display_data$subcategory)
-        display_data$tags <- factor(display_data$tags)
 
         # Add action buttons
         display_data$actions <- sapply(display_data$id, function(row_id) {
@@ -1277,6 +1850,896 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       deleting_id(NULL)
 
       # Reload data
+      data <- get_all_concept_sets()
+      concept_sets_data(data)
+      table_trigger(table_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    # 6) CONCEPT SET DETAILS VIEW ====
+
+    ## State for details view ----
+    viewing_concept_set_id <- reactiveVal(NULL)
+    selected_concept_id <- reactiveVal(NULL)
+    concepts_trigger <- reactiveVal(0)
+
+    ## View Concept Set (open details page) ----
+    observe_event(input$view_concept_set, {
+      concept_set_id <- input$view_concept_set
+      if (is.null(concept_set_id)) return()
+
+      viewing_concept_set_id(concept_set_id)
+
+      # Load concept set data
+      cs <- get_concept_set(concept_set_id)
+      if (is.null(cs)) return()
+
+      # Update the title
+      shinyjs::html("concept_set_detail_title", htmltools::htmlEscape(cs$name))
+
+      # Switch to details view
+      shinyjs::hide("concept_sets_list_container")
+      shinyjs::show("concept_set_details_container")
+
+      # Show edit button if user can edit
+      if (can_edit()) {
+        shinyjs::show("edit_concepts_btn")
+      }
+
+      # Reset selected concept
+      selected_concept_id(NULL)
+
+      # Trigger concepts table render
+      concepts_trigger(concepts_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    ## Back to list ----
+    observe_event(input$back_to_list, {
+      viewing_concept_set_id(NULL)
+      selected_concept_id(NULL)
+
+      # Switch back to list view
+      shinyjs::hide("concept_set_details_container")
+      shinyjs::show("concept_sets_list_container")
+    }, ignoreInit = TRUE)
+
+    ## Concepts Table (top-left quadrant) ----
+    observe_event(concepts_trigger(), {
+      output$concepts_table <- DT::renderDT({
+        cs_id <- viewing_concept_set_id()
+        if (is.null(cs_id)) {
+          return(create_empty_datatable(as.character(i18n$t("no_concept_sets"))))
+        }
+
+        # Get concepts for this concept set
+        concepts <- get_concept_set_items(cs_id)
+
+        if (is.null(concepts) || nrow(concepts) == 0) {
+          return(create_empty_datatable(as.character(i18n$t("no_concepts"))))
+        }
+
+        # Prepare display data
+        display_data <- data.frame(
+          concept_id = concepts$concept_id,
+          concept_name = concepts$concept_name,
+          vocabulary_id = concepts$vocabulary_id,
+          concept_code = concepts$concept_code,
+          standard_concept = ifelse(
+            is.na(concepts$standard_concept) | concepts$standard_concept == "",
+            "",
+            concepts$standard_concept
+          ),
+          stringsAsFactors = FALSE
+        )
+
+        # Add actions column if user can edit
+        if (can_edit()) {
+          display_data$actions <- sapply(display_data$concept_id, function(cid) {
+            create_datatable_actions(list(
+              list(
+                label = NULL,
+                icon = "trash",
+                type = "danger",
+                class = "btn-remove-concept",
+                data_attr = list(id = cid)
+              )
+            ))
+          })
+
+          dt <- create_standard_datatable(
+            display_data,
+            selection = "single",
+            col_names = c(
+              as.character(i18n$t("omop_concept_id")),
+              as.character(i18n$t("omop_concept_name")),
+              "Vocabulary",
+              "Code",
+              as.character(i18n$t("standard")),
+              ""
+            ),
+            col_defs = list(
+              list(targets = 0, width = "10%"),
+              list(targets = 1, width = "38%"),
+              list(targets = 2, width = "14%"),
+              list(targets = 3, width = "14%"),
+              list(targets = 4, width = "12%", className = "dt-center"),
+              list(targets = 5, width = "12%", className = "dt-center", orderable = FALSE)
+            ),
+            escape = FALSE
+          )
+
+          dt <- add_button_handlers(dt, handlers = list(
+            list(selector = ".btn-remove-concept", input_id = ns("remove_concept"))
+          ))
+        } else {
+          dt <- create_standard_datatable(
+            display_data,
+            selection = "single",
+            col_names = c(
+              as.character(i18n$t("omop_concept_id")),
+              as.character(i18n$t("omop_concept_name")),
+              "Vocabulary",
+              "Code",
+              as.character(i18n$t("standard"))
+            ),
+            col_defs = list(
+              list(targets = 0, width = "12%"),
+              list(targets = 1, width = "45%"),
+              list(targets = 2, width = "15%"),
+              list(targets = 3, width = "15%"),
+              list(targets = 4, width = "13%", className = "dt-center")
+            ),
+            escape = TRUE
+          )
+        }
+
+        dt
+      })
+    }, ignoreInit = FALSE)
+
+    ## Handle concept selection in concepts table ----
+    observe_event(input$concepts_table_rows_selected, {
+      rows <- input$concepts_table_rows_selected
+      if (is.null(rows) || length(rows) == 0) {
+        selected_concept_id(NULL)
+        return()
+      }
+
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      concepts <- get_concept_set_items(cs_id)
+      if (is.null(concepts) || nrow(concepts) == 0) return()
+
+      selected_concept_id(concepts$concept_id[rows])
+    }, ignoreInit = TRUE)
+
+    ## Selected Concept Details (bottom-left quadrant) ----
+    output$selected_concept_details <- renderUI({
+      concept_id <- selected_concept_id()
+
+      if (is.null(concept_id)) {
+        return(tags$div(
+          class = "no-selection-message",
+          tags$p(i18n$t("no_concept_selected"))
+        ))
+      }
+
+      # Get concept details from vocabulary database
+      concept <- get_concept_by_id(concept_id)
+
+      if (is.null(concept) || nrow(concept) == 0) {
+        return(tags$div(
+          class = "no-selection-message",
+          tags$p(i18n$t("no_concept_selected"))
+        ))
+      }
+
+      # Build details display
+      tags$div(
+        class = "concept-details-card",
+        tags$div(
+          class = "detail-row",
+          tags$span(class = "detail-label", "Concept ID:"),
+          tags$span(class = "detail-value", concept$concept_id[1])
+        ),
+        tags$div(
+          class = "detail-row",
+          tags$span(class = "detail-label", "Concept Name:"),
+          tags$span(class = "detail-value", concept$concept_name[1])
+        ),
+        tags$div(
+          class = "detail-row",
+          tags$span(class = "detail-label", "Domain:"),
+          tags$span(class = "detail-value", ifelse(is.na(concept$domain_id[1]), "-", concept$domain_id[1]))
+        ),
+        tags$div(
+          class = "detail-row",
+          tags$span(class = "detail-label", "Vocabulary:"),
+          tags$span(class = "detail-value", ifelse(is.na(concept$vocabulary_id[1]), "-", concept$vocabulary_id[1]))
+        ),
+        tags$div(
+          class = "detail-row",
+          tags$span(class = "detail-label", "Concept Class:"),
+          tags$span(class = "detail-value", ifelse(is.na(concept$concept_class_id[1]), "-", concept$concept_class_id[1]))
+        ),
+        tags$div(
+          class = "detail-row",
+          tags$span(class = "detail-label", "Concept Code:"),
+          tags$span(class = "detail-value", ifelse(is.na(concept$concept_code[1]), "-", concept$concept_code[1]))
+        ),
+        tags$div(
+          class = "detail-row",
+          tags$span(class = "detail-label", "Standard Concept:"),
+          tags$span(class = "detail-value", ifelse(is.na(concept$standard_concept[1]) || concept$standard_concept[1] == "", "Non-Standard", concept$standard_concept[1]))
+        )
+      )
+    })
+
+    ## Comments Display (top-right quadrant, comments tab) ----
+    output$comments_display <- renderUI({
+      cs_id <- viewing_concept_set_id()
+
+      if (is.null(cs_id)) {
+        return(tags$div(
+          class = "no-content-message",
+          tags$p(i18n$t("no_comments"))
+        ))
+      }
+
+      # Get concept set data
+      cs <- get_concept_set(cs_id)
+
+      if (is.null(cs) || is.na(cs$etl_comment) || cs$etl_comment == "") {
+        return(tags$div(
+          class = "no-content-message",
+          tags$p(i18n$t("no_comments"))
+        ))
+      }
+
+      tags$div(
+        class = "comments-content",
+        tags$pre(
+          class = "etl-comment-text",
+          cs$etl_comment
+        )
+      )
+    })
+
+    ## Stats Display (statistics tab) ----
+    output$stats_display <- renderUI({
+      tags$div(
+        class = "no-content-message",
+        tags$p(i18n$t("no_stats"))
+      )
+    })
+
+    ## Review Display (review tab) ----
+    output$review_display <- renderUI({
+      tags$div(
+        class = "no-content-message",
+        tags$p(i18n$t("coming_soon"))
+      )
+    })
+
+    ## Main tab switching (Concepts, Comments, Statistics, Review) ----
+    observe_event(input$tab_concepts, {
+      # Show concepts panel, hide others
+      shinyjs::show("panel_concepts")
+      shinyjs::hide("panel_comments")
+      shinyjs::hide("panel_stats")
+      shinyjs::hide("panel_review")
+
+      # Update active state on tab buttons
+      shinyjs::runjs(sprintf("
+        document.getElementById('%s').classList.add('active');
+        document.getElementById('%s').classList.remove('active');
+        document.getElementById('%s').classList.remove('active');
+        document.getElementById('%s').classList.remove('active');
+      ", ns("tab_concepts"), ns("tab_comments"), ns("tab_stats"), ns("tab_review")))
+    }, ignoreInit = TRUE)
+
+    observe_event(input$tab_comments, {
+      # Show comments panel, hide others
+      shinyjs::hide("panel_concepts")
+      shinyjs::show("panel_comments")
+      shinyjs::hide("panel_stats")
+      shinyjs::hide("panel_review")
+
+      # Update active state on tab buttons
+      shinyjs::runjs(sprintf("
+        document.getElementById('%s').classList.remove('active');
+        document.getElementById('%s').classList.add('active');
+        document.getElementById('%s').classList.remove('active');
+        document.getElementById('%s').classList.remove('active');
+      ", ns("tab_concepts"), ns("tab_comments"), ns("tab_stats"), ns("tab_review")))
+    }, ignoreInit = TRUE)
+
+    observe_event(input$tab_stats, {
+      # Show stats panel, hide others
+      shinyjs::hide("panel_concepts")
+      shinyjs::hide("panel_comments")
+      shinyjs::show("panel_stats")
+      shinyjs::hide("panel_review")
+
+      # Update active state on tab buttons
+      shinyjs::runjs(sprintf("
+        document.getElementById('%s').classList.remove('active');
+        document.getElementById('%s').classList.remove('active');
+        document.getElementById('%s').classList.add('active');
+        document.getElementById('%s').classList.remove('active');
+      ", ns("tab_concepts"), ns("tab_comments"), ns("tab_stats"), ns("tab_review")))
+    }, ignoreInit = TRUE)
+
+    observe_event(input$tab_review, {
+      # Show review panel, hide others
+      shinyjs::hide("panel_concepts")
+      shinyjs::hide("panel_comments")
+      shinyjs::hide("panel_stats")
+      shinyjs::show("panel_review")
+
+      # Update active state on tab buttons
+      shinyjs::runjs(sprintf("
+        document.getElementById('%s').classList.remove('active');
+        document.getElementById('%s').classList.remove('active');
+        document.getElementById('%s').classList.remove('active');
+        document.getElementById('%s').classList.add('active');
+      ", ns("tab_concepts"), ns("tab_comments"), ns("tab_stats"), ns("tab_review")))
+    }, ignoreInit = TRUE)
+
+    ## Sub-tab switching for Related Concepts section ----
+    observe_event(input$subtab_related, {
+      # Show related content, hide others
+      shinyjs::show("related_tab_content")
+      shinyjs::hide("hierarchy_tab_content")
+      shinyjs::hide("synonyms_tab_content")
+
+      # Update active state on sub-tab buttons
+      shinyjs::runjs(sprintf("
+        document.getElementById('%s').classList.add('active');
+        document.getElementById('%s').classList.remove('active');
+        document.getElementById('%s').classList.remove('active');
+      ", ns("subtab_related"), ns("subtab_hierarchy"), ns("subtab_synonyms")))
+    }, ignoreInit = TRUE)
+
+    observe_event(input$subtab_hierarchy, {
+      # Show hierarchy content, hide others
+      shinyjs::hide("related_tab_content")
+      shinyjs::show("hierarchy_tab_content")
+      shinyjs::hide("synonyms_tab_content")
+
+      # Update active state on sub-tab buttons
+      shinyjs::runjs(sprintf("
+        document.getElementById('%s').classList.remove('active');
+        document.getElementById('%s').classList.add('active');
+        document.getElementById('%s').classList.remove('active');
+      ", ns("subtab_related"), ns("subtab_hierarchy"), ns("subtab_synonyms")))
+    }, ignoreInit = TRUE)
+
+    observe_event(input$subtab_synonyms, {
+      # Show synonyms content, hide others
+      shinyjs::hide("related_tab_content")
+      shinyjs::hide("hierarchy_tab_content")
+      shinyjs::show("synonyms_tab_content")
+
+      # Update active state on sub-tab buttons
+      shinyjs::runjs(sprintf("
+        document.getElementById('%s').classList.remove('active');
+        document.getElementById('%s').classList.remove('active');
+        document.getElementById('%s').classList.add('active');
+      ", ns("subtab_related"), ns("subtab_hierarchy"), ns("subtab_synonyms")))
+    }, ignoreInit = TRUE)
+
+    ## Related Concepts Display (sub-tab in related concepts section) ----
+    output$related_display <- renderUI({
+      concept_id <- selected_concept_id()
+
+      if (is.null(concept_id)) {
+        return(tags$div(
+          class = "no-content-message",
+          tags$p(i18n$t("no_concept_selected"))
+        ))
+      }
+
+      # Get related concepts from vocabulary database
+      related <- get_related_concepts(concept_id)
+
+      if (is.null(related) || nrow(related) == 0) {
+        return(tags$div(
+          class = "no-content-message",
+          tags$p(i18n$t("no_related_concepts"))
+        ))
+      }
+
+      # Build HTML table manually for simple display
+      tags$div(
+        class = "simple-table-container",
+        style = "overflow: auto; max-height: 100%;",
+        tags$table(
+          class = "table table-striped table-sm",
+          style = "width: 100%; font-size: 13px;",
+          tags$thead(
+            tags$tr(
+              tags$th(style = "width: 12%;", i18n$t("omop_concept_id")),
+              tags$th(style = "width: 45%;", i18n$t("omop_concept_name")),
+              tags$th(style = "width: 23%;", "Relationship"),
+              tags$th(style = "width: 20%;", "Vocabulary")
+            )
+          ),
+          tags$tbody(
+            lapply(seq_len(nrow(related)), function(i) {
+              tags$tr(
+                tags$td(related$concept_id[i]),
+                tags$td(related$concept_name[i]),
+                tags$td(related$relationship_id[i]),
+                tags$td(related$vocabulary_id[i])
+              )
+            })
+          )
+        )
+      )
+    })
+
+    ## Hierarchy Display (sub-tab in related concepts section) ----
+    output$hierarchy_display <- renderUI({
+      concept_id <- selected_concept_id()
+
+      if (is.null(concept_id)) {
+        return(tags$div(
+          class = "no-content-message",
+          tags$p(i18n$t("no_concept_selected"))
+        ))
+      }
+
+      # Placeholder for hierarchy visualization
+      tags$div(
+        class = "no-content-message",
+        tags$p(i18n$t("coming_soon"))
+      )
+    })
+
+    ## Synonyms Display (sub-tab in related concepts section) ----
+    output$synonyms_display <- renderUI({
+      concept_id <- selected_concept_id()
+
+      if (is.null(concept_id)) {
+        return(tags$div(
+          class = "no-content-message",
+          tags$p(i18n$t("no_concept_selected"))
+        ))
+      }
+
+      # Placeholder for synonyms
+      tags$div(
+        class = "no-content-message",
+        tags$p(i18n$t("coming_soon"))
+      )
+    })
+
+    # 7) CONCEPT SET ITEMS MANAGEMENT ====
+
+    ## State for add concepts modal ----
+    omop_concepts_cache <- reactiveVal(NULL)
+    add_modal_selected_concept <- reactiveVal(NULL)
+    omop_table_trigger <- reactiveVal(0)
+    removing_concept_id <- reactiveVal(NULL)
+
+    ## Fuzzy search for OMOP concepts ----
+    omop_fuzzy <- fuzzy_search_server(
+      "omop_fuzzy_search",
+      input,
+      session,
+      trigger_rv = omop_table_trigger,
+      ns = ns
+    )
+
+    ## Open Add Concepts Modal ----
+    observe_event(input$edit_concepts_btn, {
+      if (!can_edit()) return()
+
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      # Reset modal state
+      add_modal_selected_concept(NULL)
+      omop_table_trigger(omop_table_trigger() + 1)
+
+      # Show modal
+      show_modal(ns("add_concepts_modal"))
+    }, ignoreInit = TRUE)
+
+    ## OMOP Concepts Table in Modal ----
+    observe_event(list(omop_table_trigger(), input$add_modal_multiple_select), {
+      # Try to load vocabularies from DuckDB
+      vocabs <- load_vocabularies_from_duckdb()
+
+      if (is.null(vocabs)) {
+        output$omop_concepts_table <- DT::renderDT({
+          create_empty_datatable(as.character(i18n$t("vocabularies_not_loaded")))
+        })
+        return()
+      }
+
+      # Get fuzzy query
+      fuzzy_query <- omop_fuzzy$query()
+      fuzzy_active <- !is.null(fuzzy_query) && fuzzy_query != ""
+
+      # Build query
+      base_query <- vocabs$concept %>%
+        dplyr::select(
+          concept_id,
+          concept_name,
+          vocabulary_id,
+          domain_id,
+          concept_class_id,
+          concept_code,
+          standard_concept
+        )
+
+      # Apply fuzzy search if active
+      if (fuzzy_active) {
+        query_escaped <- gsub("'", "''", tolower(fuzzy_query))
+
+        concepts <- base_query %>%
+          dplyr::mutate(
+            fuzzy_score = dplyr::sql(sprintf(
+              "jaro_winkler_similarity(lower(concept_name), '%s')",
+              query_escaped
+            ))
+          ) %>%
+          dplyr::filter(fuzzy_score > 0.75) %>%
+          dplyr::arrange(dplyr::desc(fuzzy_score)) %>%
+          utils::head(10000) %>%
+          dplyr::collect()
+      } else {
+        concepts <- base_query %>%
+          dplyr::arrange(concept_name) %>%
+          utils::head(10000) %>%
+          dplyr::collect() %>%
+          dplyr::mutate(fuzzy_score = NA_real_)
+      }
+
+      # Cache concepts for selection
+      omop_concepts_cache(concepts)
+
+      if (nrow(concepts) == 0) {
+        output$omop_concepts_table <- DT::renderDT({
+          msg <- if (fuzzy_active) {
+            as.character(i18n$t("no_matching_concepts"))
+          } else {
+            as.character(i18n$t("no_omop_concepts"))
+          }
+          create_empty_datatable(msg)
+        })
+        return()
+      }
+
+      # Prepare display data
+      display_concepts <- concepts %>%
+        dplyr::select(concept_id, vocabulary_id, concept_name, concept_code, domain_id, concept_class_id, standard_concept)
+
+      display_concepts$concept_id <- as.character(display_concepts$concept_id)
+      display_concepts$vocabulary_id <- as.factor(display_concepts$vocabulary_id)
+      display_concepts$domain_id <- as.factor(display_concepts$domain_id)
+      display_concepts$concept_class_id <- as.factor(display_concepts$concept_class_id)
+
+      display_concepts <- display_concepts %>%
+        dplyr::mutate(
+          standard_concept = factor(
+            dplyr::case_when(
+              standard_concept == "S" ~ "Standard",
+              standard_concept == "C" ~ "Classification",
+              TRUE ~ "Non-standard"
+            ),
+            levels = c("Standard", "Classification", "Non-standard")
+          )
+        )
+
+      # Selection mode
+      is_multiple <- isTRUE(input$add_modal_multiple_select)
+      selection_mode <- if (is_multiple) "multiple" else "single"
+
+      output$omop_concepts_table <- DT::renderDT({
+        dt <- DT::datatable(
+          display_concepts,
+          rownames = FALSE,
+          selection = selection_mode,
+          filter = "top",
+          options = list(
+            pageLength = 10,
+            lengthMenu = list(c(10, 25, 50, 100), c("10", "25", "50", "100")),
+            dom = "ltip",
+            language = get_datatable_language(),
+            ordering = TRUE,
+            autoWidth = FALSE,
+            columnDefs = list(
+              list(targets = 6, width = "100px", className = "dt-center")
+            )
+          ),
+          colnames = c("Concept ID", "Vocabulary", "Concept Name", "Concept Code", "Domain", "Concept Class", "Standard")
+        )
+
+        dt
+      }, server = TRUE)
+    }, ignoreInit = FALSE)
+
+    ## Handle OMOP concept selection in modal ----
+    observe_event(input$omop_concepts_table_rows_selected, {
+      rows <- input$omop_concepts_table_rows_selected
+      if (is.null(rows) || length(rows) == 0) {
+        add_modal_selected_concept(NULL)
+        return()
+      }
+
+      concepts <- omop_concepts_cache()
+      if (is.null(concepts)) return()
+
+      # Take the first selected concept for details display
+      add_modal_selected_concept(concepts$concept_id[rows[1]])
+    }, ignoreInit = TRUE)
+
+    ## Concept Details in Add Modal ----
+    output$add_modal_concept_details <- renderUI({
+      concept_id <- add_modal_selected_concept()
+
+      if (is.null(concept_id)) {
+        return(tags$div(
+          class = "no-selection-message",
+          tags$p(i18n$t("no_concept_selected"))
+        ))
+      }
+
+      concept <- get_concept_by_id(concept_id)
+
+      if (is.null(concept) || nrow(concept) == 0) {
+        return(tags$div(
+          class = "no-selection-message",
+          tags$p(i18n$t("no_concept_selected"))
+        ))
+      }
+
+      tags$div(
+        class = "concept-details-card",
+        tags$div(class = "detail-row", tags$span(class = "detail-label", "Concept ID:"), tags$span(class = "detail-value", concept$concept_id[1])),
+        tags$div(class = "detail-row", tags$span(class = "detail-label", "Concept Name:"), tags$span(class = "detail-value", concept$concept_name[1])),
+        tags$div(class = "detail-row", tags$span(class = "detail-label", "Domain:"), tags$span(class = "detail-value", ifelse(is.na(concept$domain_id[1]), "-", concept$domain_id[1]))),
+        tags$div(class = "detail-row", tags$span(class = "detail-label", "Vocabulary:"), tags$span(class = "detail-value", ifelse(is.na(concept$vocabulary_id[1]), "-", concept$vocabulary_id[1]))),
+        tags$div(class = "detail-row", tags$span(class = "detail-label", "Concept Class:"), tags$span(class = "detail-value", ifelse(is.na(concept$concept_class_id[1]), "-", concept$concept_class_id[1]))),
+        tags$div(class = "detail-row", tags$span(class = "detail-label", "Concept Code:"), tags$span(class = "detail-value", ifelse(is.na(concept$concept_code[1]), "-", concept$concept_code[1]))),
+        tags$div(class = "detail-row", tags$span(class = "detail-label", "Standard:"), tags$span(class = "detail-value", ifelse(is.na(concept$standard_concept[1]) || concept$standard_concept[1] == "", "Non-Standard", concept$standard_concept[1])))
+      )
+    })
+
+    ## Descendants Table in Add Modal ----
+    output$add_modal_descendants_table <- DT::renderDT({
+      concept_id <- add_modal_selected_concept()
+
+      if (is.null(concept_id)) {
+        return(create_empty_datatable(as.character(i18n$t("no_concept_selected"))))
+      }
+
+      # Get descendants from vocabulary database
+      descendants <- get_concept_descendants(concept_id)
+
+      if (is.null(descendants) || nrow(descendants) == 0) {
+        return(create_empty_datatable(as.character(i18n$t("no_descendants"))))
+      }
+
+      dt <- create_standard_datatable(
+        descendants,
+        selection = "none",
+        col_names = c("Concept ID", "Concept Name", "Vocabulary", "Min Sep", "Max Sep"),
+        col_defs = list(
+          list(targets = 0, width = "15%"),
+          list(targets = 1, width = "45%"),
+          list(targets = 2, width = "20%"),
+          list(targets = 3, width = "10%", className = "dt-center"),
+          list(targets = 4, width = "10%", className = "dt-center")
+        ),
+        escape = TRUE
+      )
+
+      dt
+    })
+
+    ## Add OMOP Concepts to Concept Set ----
+    observe_event(input$add_omop_concepts, {
+      if (!can_edit()) return()
+
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      selected_rows <- input$omop_concepts_table_rows_selected
+      if (is.null(selected_rows) || length(selected_rows) == 0) return()
+
+      all_concepts <- omop_concepts_cache()
+      if (is.null(all_concepts)) return()
+
+      # Get toggle values
+      is_excluded <- isTRUE(input$add_modal_is_excluded)
+      include_descendants <- isTRUE(input$add_modal_include_descendants)
+      include_mapped <- isTRUE(input$add_modal_include_mapped)
+
+      # Count added concepts
+      num_added <- 0
+      num_already_present <- 0
+
+      for (row_idx in selected_rows) {
+        concept <- all_concepts[row_idx, ]
+
+        result <- add_concept_set_item(
+          concept_set_id = cs_id,
+          concept_id = concept$concept_id,
+          concept_name = concept$concept_name,
+          vocabulary_id = concept$vocabulary_id,
+          concept_code = concept$concept_code,
+          standard_concept = concept$standard_concept,
+          is_excluded = is_excluded,
+          include_descendants = include_descendants,
+          include_mapped = include_mapped
+        )
+
+        if (result) {
+          num_added <- num_added + 1
+        } else {
+          num_already_present <- num_already_present + 1
+        }
+      }
+
+      # Show notification
+      if (num_added > 0 && num_already_present > 0) {
+        showNotification(
+          sprintf("%d %s | %d %s",
+                  num_added,
+                  as.character(i18n$t("concepts_added")),
+                  num_already_present,
+                  as.character(i18n$t("already_present"))),
+          type = "message",
+          duration = 4
+        )
+      } else if (num_added > 0) {
+        showNotification(
+          sprintf("%d %s", num_added, as.character(i18n$t("concepts_added"))),
+          type = "message",
+          duration = 3
+        )
+      } else if (num_already_present > 0) {
+        showNotification(
+          as.character(i18n$t("all_concepts_already_present")),
+          type = "warning",
+          duration = 3
+        )
+      }
+
+      # Refresh concepts table
+      concepts_trigger(concepts_trigger() + 1)
+
+      # Refresh main table to update item count
+      data <- get_all_concept_sets()
+      concept_sets_data(data)
+      table_trigger(table_trigger() + 1)
+
+      # Clear selection
+      DT::dataTableProxy("omop_concepts_table", session = session) %>%
+        DT::selectRows(NULL)
+    }, ignoreInit = TRUE)
+
+    ## Add Custom Concept ----
+    observe_event(input$add_custom_concept_btn, {
+      if (!can_edit()) return()
+
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      # Validate inputs
+      vocabulary_id <- trimws(input$custom_vocabulary_id)
+      concept_name <- trimws(input$custom_concept_name)
+
+      valid <- TRUE
+
+      if (vocabulary_id == "") {
+        shinyjs::show("custom_vocabulary_id_error")
+        valid <- FALSE
+      } else {
+        shinyjs::hide("custom_vocabulary_id_error")
+      }
+
+      if (concept_name == "") {
+        shinyjs::show("custom_concept_name_error")
+        valid <- FALSE
+      } else {
+        shinyjs::hide("custom_concept_name_error")
+      }
+
+      if (!valid) return()
+
+      # Get next custom concept ID (negative number)
+      new_id <- get_next_custom_concept_id()
+
+      # Get concept code
+      concept_code <- trimws(input$custom_concept_code)
+      if (concept_code == "") concept_code <- NULL
+
+      # Get exclude toggle
+      is_excluded <- isTRUE(input$add_custom_is_excluded)
+
+      # Add to database
+      add_concept_set_item(
+        concept_set_id = cs_id,
+        concept_id = new_id,
+        concept_name = concept_name,
+        vocabulary_id = vocabulary_id,
+        concept_code = concept_code,
+        standard_concept = NULL,
+        is_excluded = is_excluded,
+        include_descendants = FALSE,
+        include_mapped = FALSE
+      )
+
+      # Show notification
+      showNotification(
+        as.character(i18n$t("concept_added")),
+        type = "message",
+        duration = 3
+      )
+
+      # Clear form
+      updateTextInput(session, "custom_vocabulary_id", value = "")
+      updateTextInput(session, "custom_concept_code", value = "")
+      updateTextInput(session, "custom_concept_name", value = "")
+
+      # Refresh concepts table
+      concepts_trigger(concepts_trigger() + 1)
+
+      # Refresh main table to update item count
+      data <- get_all_concept_sets()
+      concept_sets_data(data)
+      table_trigger(table_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    ## Remove Concept - Show confirmation ----
+    observe_event(input$remove_concept, {
+      if (!can_edit()) return()
+
+      concept_id <- input$remove_concept
+      if (is.null(concept_id)) return()
+
+      removing_concept_id(concept_id)
+      show_modal(ns("remove_concept_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Cancel Remove Concept ----
+    observe_event(input$cancel_remove_concept, {
+      removing_concept_id(NULL)
+      hide_modal(ns("remove_concept_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Confirm Remove Concept ----
+    observe_event(input$confirm_remove_concept, {
+      if (!can_edit()) return()
+
+      cs_id <- viewing_concept_set_id()
+      concept_id <- removing_concept_id()
+
+      if (is.null(cs_id) || is.null(concept_id)) return()
+
+      # Delete from database
+      delete_concept_set_item(cs_id, concept_id)
+
+      # Hide modal
+      hide_modal(ns("remove_concept_modal"))
+      removing_concept_id(NULL)
+
+      # Show notification
+      showNotification(
+        as.character(i18n$t("concept_removed")),
+        type = "message",
+        duration = 3
+      )
+
+      # Refresh concepts table
+      concepts_trigger(concepts_trigger() + 1)
+
+      # Refresh main table to update item count
       data <- get_all_concept_sets()
       concept_sets_data(data)
       table_trigger(table_trigger() + 1)

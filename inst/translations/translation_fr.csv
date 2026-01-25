@@ -212,7 +212,8 @@ justification,Justification
 enter_justification,Entrez la justification scientifique
 bibliography,Bibliographie
 enter_bibliography,Entrez les references bibliographiques
-save_context,Enregistrer le Contexte
+save_context,Enregistrer
+auto_save_enabled,Les modifications sont enregistrees automatiquement
 context_saved,Contexte enregistre avec succes
 name_already_exists,Ce nom existe deja
 delete_project_confirm,Voulez-vous vraiment supprimer ce projet ?
@@ -220,3 +221,55 @@ delete_project_note,Cela supprimera toutes les associations avec les ensembles d
 export,Exporter
 fuzzy_search,Recherche Fuzzy
 fuzzy_search_placeholder,Rechercher par nom...
+back,Retour
+concepts_in_set_tooltip,Concepts inclus dans cet ensemble de concepts
+edit_concepts,Modifier les concepts
+comments_and_stats,Commentaires & Statistiques
+comments_stats_tooltip,Commentaires de guidage ETL et distribution statistique
+comments,Commentaires
+statistics,Statistiques
+selected_concept_details,Details du Concept Selectionne
+selected_concept_details_tooltip,Details du concept actuellement selectionne
+related_concepts,Concepts Relies
+related_concepts_tooltip,Concepts relies au concept selectionne
+related,Relies
+hierarchy,Hierarchie
+synonyms,Synonymes
+no_concept_selected,Selectionnez un concept pour voir les details
+no_concepts,Aucun concept dans cet ensemble de concepts
+no_comments,Aucun commentaire disponible
+no_stats,Aucune statistique disponible
+no_related_concepts,Aucun concept relie trouve
+add_concepts_to_set,Ajouter des Concepts
+search_omop_concepts,Rechercher Concepts OMOP
+add_custom_concept,Ajouter Concept Personnalise
+vocabulary_id,ID Vocabulaire
+concept_code,Code Concept
+concept_name,Nom du Concept
+enter_concept_name,Entrez le nom du concept
+vocabulary_id_required,L'ID vocabulaire est requis
+concept_name_required,Le nom du concept est requis
+add_concept,Ajouter Concept
+remove_concept,Retirer Concept
+concept_added,Concept ajoute avec succes
+concept_removed,Concept retire avec succes
+concepts_added,concepts ajoutes
+already_present,deja present(s)
+all_concepts_already_present,Tous les concepts sont deja presents
+multiple_selection,Selection multiple
+exclude,Exclure
+include_descendants,Inclure Descendants
+include_mapped,Inclure Mappes
+optional,Optionnel
+selected_concept_details_modal,Details du Concept Selectionne
+descendants,Descendants
+no_descendants,Aucun descendant trouve
+loading_vocabularies,Chargement des vocabulaires OMOP...
+no_matching_concepts,Aucun concept correspondant trouve
+no_omop_concepts,Aucun concept OMOP trouve dans les vocabulaires
+confirm_remove_concept,Voulez-vous vraiment retirer ce concept de l'ensemble ?
+hierarchy_tooltip,Vue hierarchique montrant les ancetres et descendants du concept selectionne
+statistics_desc,Distribution statistique et metriques d'utilisation pour cet ensemble de concepts
+review,Revue
+review_desc,Processus de revue et statut de validation pour cet ensemble de concepts
+edit_page,Modifier la page
