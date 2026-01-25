@@ -278,7 +278,7 @@ mod_general_settings_ui <- function(id, i18n) {
             actionButton(
               ns("go_home"),
               label = tags$i(class = "fas fa-home"),
-              class = "btn-secondary-custom btn-sm"
+              class = "btn-secondary-custom "
             )
           ),
 

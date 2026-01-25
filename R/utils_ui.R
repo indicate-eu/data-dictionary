@@ -303,6 +303,149 @@ create_detail_item <- function(label, value, format_number = FALSE, url = NULL, 
   )
 }
 
+#' Build FHIR URL for a concept
+#'
+#' @description Builds a FHIR terminology server URL based on vocabulary.
+#'
+#' @param vocabulary_id Character: Vocabulary ID (SNOMED, LOINC, etc.)
+#' @param concept_code Character: Concept code
+#'
+#' @return Character: FHIR URL or NULL if not available
+#' @noRd
+build_fhir_url <- function(vocabulary_id, concept_code) {
+
+  if (is.null(vocabulary_id) || is.null(concept_code) ||
+      is.na(vocabulary_id) || is.na(concept_code)) {
+    return(NULL)
+  }
+
+  # FHIR system identifiers
+  fhir_systems <- list(
+    SNOMED = "http://snomed.info/sct",
+    LOINC = "http://loinc.org",
+    ICD10 = "http://hl7.org/fhir/sid/icd-10",
+    ICD10CM = "http://hl7.org/fhir/sid/icd-10-cm",
+    UCUM = "http://unitsofmeasure.org",
+    RxNorm = "http://www.nlm.nih.gov/research/umls/rxnorm"
+  )
+
+  # Vocabularies without FHIR links
+  no_link_vocabs <- c("RxNorm Extension", "OMOP Extension")
+
+  if (vocabulary_id %in% no_link_vocabs) {
+    return(NULL)
+  }
+
+  system_url <- fhir_systems[[vocabulary_id]]
+  if (is.null(system_url)) {
+    return(NULL)
+  }
+
+  # Build URL to tx.fhir.org
+
+  paste0("https://tx.fhir.org/r4/CodeSystem/$lookup?system=",
+         utils::URLencode(system_url, reserved = TRUE),
+         "&code=", utils::URLencode(as.character(concept_code), reserved = TRUE))
+}
+
+#' Render OMOP Concept Details UI
+#'
+#' @description Creates a standardized UI for displaying OMOP concept details.
+#' This function is reusable across different parts of the application.
+#' Fields are organized in 2 columns with logical ordering.
+#'
+#' @param concept Data frame row or list containing concept information
+#' @param i18n Translation object for labels
+#' @param empty_message Character: Message to show when no concept is selected
+#' @param show_already_added Logical: Whether to show "already added" badge
+#' @param is_already_added Logical: Whether concept is already added
+#'
+#' @return A shiny.tag div element
+#' @noRd
+render_concept_details <- function(concept, i18n, empty_message = NULL,
+                                   show_already_added = FALSE, is_already_added = FALSE) {
+  # Handle empty/NULL concept
+  if (is.null(concept) || (is.data.frame(concept) && nrow(concept) == 0)) {
+    msg <- if (!is.null(empty_message)) empty_message else as.character(i18n$t("no_concept_selected"))
+    return(tags$div(
+      class = "concept-details-empty",
+      tags$p(class = "text-muted-italic", msg)
+    ))
+  }
+
+  # Build URLs
+
+  athena_url <- paste0("https://athena.ohdsi.org/search-terms/terms/", concept$concept_id)
+  fhir_url <- build_fhir_url(concept$vocabulary_id, concept$concept_code)
+
+  # Determine validity
+  is_valid <- is.null(concept$invalid_reason) || is.na(concept$invalid_reason) || concept$invalid_reason == ""
+  validity_text <- if (is_valid) "Valid" else paste0("Invalid (", concept$invalid_reason, ")")
+  validity_color <- if (is_valid) "#28a745" else "#dc3545"
+
+  # Determine standard concept display
+  standard_text <- if (!is.null(concept$standard_concept) && !is.na(concept$standard_concept) && concept$standard_concept != "") {
+    switch(concept$standard_concept,
+      "S" = "Standard",
+      "C" = "Classification",
+      "Non-standard"
+    )
+  } else {
+    "Non-standard"
+  }
+  standard_color <- switch(standard_text,
+    "Standard" = "#28a745",
+    "Classification" = "#17a2b8",
+    "#6c757d"
+  )
+
+  # FHIR resource display
+  fhir_display <- if (!is.null(fhir_url)) {
+    fhir_url
+  } else {
+    NULL
+  }
+
+  # Build details grid - 2 columns, logical order
+  # Left column: vocabulary_id, domain_id, validity, concept_code, fhir_resource
+  # Right column: concept_name, concept_class_id, standard, omop_concept_id
+  details_ui <- tags$div(
+    class = "concept-details-grid",
+    # Row 1: vocabulary_id | concept_name
+    create_detail_item(as.character(i18n$t("vocabulary_id")), concept$vocabulary_id),
+    create_detail_item(as.character(i18n$t("concept_name")), concept$concept_name),
+    # Row 2: domain_id | concept_class_id
+    create_detail_item(as.character(i18n$t("domain_id")), concept$domain_id),
+    create_detail_item(as.character(i18n$t("concept_class_id")), concept$concept_class_id),
+    # Row 3: validity | standard
+    create_detail_item(as.character(i18n$t("validity")), validity_text, color = validity_color),
+    create_detail_item(as.character(i18n$t("standard")), standard_text, color = standard_color),
+    # Row 4: concept_code | omop_concept_id (with Athena link)
+    create_detail_item(as.character(i18n$t("concept_code")), concept$concept_code),
+    create_detail_item(as.character(i18n$t("view_in_athena")), concept$concept_id, url = athena_url),
+    # Row 5: fhir_resource
+    create_detail_item(
+      as.character(i18n$t("fhir_resource")),
+      if (!is.null(fhir_url)) concept$vocabulary_id else as.character(i18n$t("no_link_available")),
+      url = fhir_url
+    ),
+    tags$div()
+  )
+
+  # Add "already added" badge if needed
+  if (show_already_added && is_already_added) {
+    details_ui <- tagList(
+      details_ui,
+      tags$div(
+        class = "concept-already-added-badge",
+        paste0("\u2713 ", as.character(i18n$t("already_added")))
+      )
+    )
+  }
+
+  tags$div(class = "concept-details-container", details_ui)
+}
+
 # MODAL FUNCTIONS ====
 
 #' Create a Modal Dialog

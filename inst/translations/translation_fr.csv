@@ -178,8 +178,8 @@ mrdef_table,Definitions UMLS
 mrsab_table,Vocabulaires sources UMLS
 general_concept,Concept General
 general_concept_name,Nom du Concept General
-omop_concept_name,Nom du Concept OMOP
-omop_concept_id,ID Concept OMOP
+omop_concept_name,Nom du Concept
+omop_concept_id,ID Concept
 standard,Standard
 color,Couleur
 add_project,Ajouter un Projet
@@ -273,3 +273,19 @@ delete_all,Tout Supprimer
 add_concepts,Ajouter des Concepts
 confirm_delete_all_concepts,Voulez-vous vraiment supprimer tous les concepts de cet ensemble ?
 all_concepts_deleted,Tous les concepts ont ete supprimes avec succes
+changes_saved,Modifications enregistrees avec succes
+confirm_action,Confirmer l'action
+limit_10k_warning,Le chargement des 4M+ concepts peut ralentir significativement l'application.
+limit_10k_warning_details,Cette operation peut prendre plusieurs secondes. L'application ne sera pas reactive pendant ce temps.
+continue,Continuer
+advanced_filters,Filtres avances
+select_or_type,Selectionner ou saisir...
+clear_all,Tout effacer
+apply_filters,Appliquer les filtres
+already_added,Deja ajoute
+domain_id,Domaine
+concept_class_id,Classe de Concept
+validity,Validite
+view_in_athena,Voir dans ATHENA
+fhir_resource,Ressource FHIR
+no_link_available,Aucun lien disponible

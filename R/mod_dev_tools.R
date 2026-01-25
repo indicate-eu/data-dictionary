@@ -64,82 +64,83 @@ mod_dev_tools_ui <- function(id, i18n) {
                       icon = icon("terminal"),
                       tags$div(
                         class = "tab-content-panel",
-                        style = "display: flex; flex-direction: row; gap: 15px;",
-
-                        # Left: Editor (fixed 50% width)
+                        style = "display: flex; flex-direction: column; height: 100%;",
                         tags$div(
-                          style = "flex: 0 0 50%; min-width: 0; display: flex; flex-direction: column;",
+                          class = "settings-backup-container",
+                          style = "display: flex; flex-direction: row; flex: 1; gap: 15px; min-height: 0;",
+
+                          # R Code Section
                           tags$div(
-                            class = "section-header",
-                            tags$h4(i18n$t("r_code"))
-                          ),
-                          tags$div(
-                            style = "flex: 1; border: 1px solid #dee2e6; border-radius: 6px; overflow: hidden;",
-                            shinyAce::aceEditor(
-                              ns("r_editor"),
-                              mode = "r",
-                              theme = "chrome",
-                              height = "100%",
-                              fontSize = 11,
-                              debounce = 10,
-                              autoScrollEditorIntoView = TRUE,
-                              value = paste(
-                                "# Query OHDSI vocabularies using dplyr",
-                                "# Example:",
-                                "concept %>%",
-                                "  filter(concept_id == 3004249)",
-                                sep = "\n"
+                            class = "settings-section settings-backup-section",
+                            style = "display: flex; flex-direction: column; flex: 1; min-height: 0;",
+                            tags$h4(
+                              class = "settings-section-title",
+                              tags$i(class = "fas fa-code", style = "margin-right: 8px; color: #0f60af;"),
+                              i18n$t("r_code")
+                            ),
+                            tags$div(
+                              style = "display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;",
+                              tags$div(
+                                class = "settings-info-box",
+                                style = "font-size: 11px; margin: 0;",
+                                tags$strong("OHDSI Vocabularies: "),
+                                tags$code("concept"), ", ",
+                                tags$code("concept_relationship"), ", ",
+                                tags$code("concept_ancestor")
                               ),
-                              hotkeys = list(
-                                runAllKey = list(
-                                  win = "Ctrl-Shift-Enter",
-                                  mac = "Command-Shift-Enter"
+                              actionButton(
+                                ns("run_code"),
+                                i18n$t("run_code"),
+                                class = "btn-primary-custom btn-xs",
+                                icon = icon("play")
+                              )
+                            ),
+                            tags$div(
+                              style = "border: 1px solid #dee2e6; border-radius: 6px; overflow: hidden; flex: 1; min-height: 100px;",
+                              shinyAce::aceEditor(
+                                ns("r_editor"),
+                                mode = "r",
+                                theme = "chrome",
+                                height = "100%",
+                                fontSize = 11,
+                                debounce = 10,
+                                autoScrollEditorIntoView = TRUE,
+                                value = paste(
+                                  "# Query OHDSI vocabularies using dplyr",
+                                  "# Example:",
+                                  "concept %>%",
+                                  "  filter(concept_id == 3004249)",
+                                  sep = "\n"
                                 ),
-                                runSelectionKey = list(
-                                  win = "Ctrl-Enter",
-                                  mac = "Command-Enter"
-                                )
-                              ),
-                              cursorId = ns("r_editor_cursor")
+                                hotkeys = list(
+                                  runAllKey = list(
+                                    win = "Ctrl-Shift-Enter",
+                                    mac = "Command-Shift-Enter"
+                                  ),
+                                  runSelectionKey = list(
+                                    win = "Ctrl-Enter",
+                                    mac = "Command-Enter"
+                                  )
+                                ),
+                                cursorId = ns("r_editor_cursor")
+                              )
                             )
                           ),
 
-                          # OHDSI help box
+                          # Results Section
                           tags$div(
-                            class = "settings-info-box",
-                            style = "margin-top: 10px; font-size: 11px;",
-                            tags$strong("OHDSI Vocabularies:"),
-                            tags$br(),
-                            tags$code("concept"), " - ", i18n$t("concept_table"),
-                            tags$br(),
-                            tags$code("concept_relationship"), " - ", i18n$t("concept_relationship_table"),
-                            tags$br(),
-                            tags$code("concept_ancestor"), " - ", i18n$t("concept_ancestor_table")
-                          ),
-
-                          # Run button
-                          tags$div(
-                            style = "margin-top: 10px;",
-                            actionButton(
-                              ns("run_code"),
-                              i18n$t("run_code"),
-                              class = "btn-primary-custom",
-                              icon = icon("play")
+                            class = "settings-section settings-backup-section",
+                            style = "display: flex; flex-direction: column; flex: 1; min-height: 0;",
+                            tags$h4(
+                              class = "settings-section-title",
+                              tags$i(class = "fas fa-terminal", style = "margin-right: 8px; color: #0f60af;"),
+                              i18n$t("results")
+                            ),
+                            tags$div(
+                              class = "code-results-container",
+                              style = "overflow: auto; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; padding: 10px; flex: 1; min-height: 100px;",
+                              verbatimTextOutput(ns("code_results"))
                             )
-                          )
-                        ),
-
-                        # Right: Results (fixed 50% width)
-                        tags$div(
-                          style = "flex: 0 0 calc(50% - 15px); min-width: 0; display: flex; flex-direction: column;",
-                          tags$div(
-                            class = "section-header",
-                            tags$h4(i18n$t("results"))
-                          ),
-                          tags$div(
-                            class = "code-results-container",
-                            style = "flex: 1; overflow: auto; background: white; border: 1px solid #dee2e6; border-radius: 6px; padding: 10px;",
-                            verbatimTextOutput(ns("code_results"))
                           )
                         )
                       )

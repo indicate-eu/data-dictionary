@@ -122,13 +122,13 @@ html, body {
 
 .shiny-notification {
   position: fixed !important;
-  top: 64px !important;
+  top: 68px !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
   width: auto !important;
   max-width: fit-content !important;
   min-width: auto !important;
-  padding: 10px 20px !important;
+  padding: 6px 16px !important;
   white-space: nowrap !important;
   pointer-events: auto !important; /* Re-enable pointer events on the notification itself */
 }
@@ -2389,6 +2389,14 @@ a.btn-success-custom:hover {
 .panel-content > .shiny-html-output,
 .panel-content > .shiny-bound-output {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure no-content-message fills the shiny output container */
+.panel-content > .shiny-html-output > .no-content-message,
+.panel-content > .shiny-bound-output > .no-content-message {
+  flex: 1;
 }
 
 .panel-content .dataTables_wrapper {
@@ -2587,6 +2595,30 @@ a.btn-success-custom:hover {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  font-size: 12px;
+}
+
+.concept-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 10px;
+}
+
+.concept-details-empty {
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.concept-already-added-badge {
+  margin-top: 10px;
+  padding: 6px 10px;
+  background: #28a745;
+  color: white;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 600;
   font-size: 12px;
 }
 
@@ -2816,6 +2848,23 @@ a.btn-success-custom:hover {
   padding: 20px;
 }
 
+/* Colored section variants */
+.section-blue .settings-section-title {
+  color: #0f60af;
+}
+
+.section-blue .settings-section-title i {
+  color: #0f60af;
+}
+
+.section-green .settings-section-title {
+  color: #28a745;
+}
+
+.section-green .settings-section-title i {
+  color: #28a745;
+}
+
 .comments-content {
   padding: 5px;
 }
@@ -2860,31 +2909,36 @@ a.btn-success-custom:hover {
 
 .modal-header {
   position: relative;
-  padding: 20px 25px;
+  padding: 12px 20px;
   border-bottom: 2px solid #0f60af;
   background: #f8f9fa;
+  border-radius: 8px 8px 0 0;
 }
 
 .modal-header h3 {
   margin: 0;
   color: #0f60af;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
-  padding-right: 40px;
+  padding-right: 30px;
+}
+
+.modal-header h3 i {
+  font-size: 14px;
 }
 
 .modal-close {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 10px;
+  right: 12px;
   background: none;
   border: none;
-  font-size: 28px;
+  font-size: 20px;
   color: #666;
   cursor: pointer;
   padding: 0;
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4446,6 +4500,14 @@ button.btn-icon-only:hover {
   padding-bottom: 6px;
   font-size: 14px;
   font-weight: 600;
+  position: relative;
+}
+
+.settings-section-title .section-tabs {
+  position: absolute;
+  right: 0;
+  top: 6px;
+  transform: translateY(-50%);
 }
 
 /* Edit mode: left section takes full width */
@@ -4981,7 +5043,7 @@ button.btn-icon-only:hover {
 }
 
 #data_dictionary-concept_set_modal .input-with-toggle:has([id$="concept_set_tags"]) .input-container {
-  width: 675px;
+  width: 635px;
   flex-shrink: 0;
 }
 
@@ -5238,4 +5300,18 @@ button.btn-icon-only:hover {
   border-radius: 3px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   flex-shrink: 0;
+}
+
+/* OMOP Advanced Filters Modal
+-------------------------------------------------- */
+#data_dictionary-omop_filters_modal .form-group.shiny-input-container {
+  width: 100%;
+}
+
+#data_dictionary-omop_filters_modal .selectize-dropdown {
+  min-width: 100% !important;
+}
+
+#data_dictionary-omop_filters_modal .modal-footer {
+  justify-content: space-between !important;
 }

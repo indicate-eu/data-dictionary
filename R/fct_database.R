@@ -145,18 +145,23 @@ get_all_concept_sets <- function(language = NULL) {
   DBI::dbGetQuery(
     con,
     "SELECT
-      id,
-      name,
-      description,
-      category,
-      subcategory,
-      tags,
-      version,
-      created_date,
-      modified_date,
-      0 AS item_count
-    FROM concept_sets
-    ORDER BY category, subcategory, name"
+      cs.id,
+      cs.name,
+      cs.description,
+      cs.category,
+      cs.subcategory,
+      cs.tags,
+      cs.version,
+      cs.created_date,
+      cs.modified_date,
+      COALESCE(item_counts.item_count, 0) AS item_count
+    FROM concept_sets cs
+    LEFT JOIN (
+      SELECT concept_set_id, COUNT(*) AS item_count
+      FROM concept_set_items
+      GROUP BY concept_set_id
+    ) item_counts ON cs.id = item_counts.concept_set_id
+    ORDER BY cs.category, cs.subcategory, cs.name"
   )
 }
 

@@ -56,12 +56,12 @@ mod_data_dictionary_ui <- function(id, i18n) {
             create_panel(
               title = i18n$t("concept_sets"),
               content = tags$div(
-                style = "position: relative;",
+                style = "position: relative; height: 100%; display: flex; flex-direction: column;",
                 tags$div(
                   id = ns("concept_sets_fuzzy_search_container"),
                   fuzzy_search_ui("fuzzy_search", ns = ns, i18n = i18n)
                 ),
-                uiOutput(ns("concept_sets_table_container"))
+                uiOutput(ns("concept_sets_table_container"), style = "flex: 1;")
               ),
               tooltip = i18n$t("concept_sets_tooltip"),
               header_extra = shinyjs::hidden(
@@ -110,10 +110,9 @@ mod_data_dictionary_ui <- function(id, i18n) {
                       shinyjs::hidden(
                         actionButton(
                           ns("edit_concepts_btn"),
-                          label = NULL,
+                          i18n$t("edit_page"),
                           icon = icon("edit"),
-                          class = "btn-save-icon has-tooltip",
-                          `data-tooltip` = as.character(i18n$t("edit_page"))
+                          class = "btn-secondary-custom"
                         )
                       ),
                       # Save and Cancel buttons (hidden by default, shown in edit mode)
@@ -179,29 +178,26 @@ mod_data_dictionary_ui <- function(id, i18n) {
                           id = ns("concepts_section_left"),
                           class = "settings-section settings-backup-section",
                           # Section header with title and action buttons
-                          tags$div(
-                            class = "settings-section-header",
-                            tags$h4(
-                              class = "settings-section-title",
-                              style = "margin: 0;",
-                              tags$i(class = "fas fa-list", style = "margin-right: 8px; color: #0f60af;"),
-                              i18n$t("concepts")
-                            ),
+                          tags$h4(
+                            class = "settings-section-title",
+                            tags$i(class = "fas fa-list", style = "margin-right: 8px; color: #0f60af;"),
+                            i18n$t("concepts"),
                             # Action buttons (hidden by default, shown in edit mode)
                             shinyjs::hidden(
-                              tags$div(
+                              tags$span(
                                 id = ns("concepts_edit_buttons"),
                                 class = "flex-gap-8",
+                                style = "float: right;",
                                 actionButton(
                                   ns("delete_all_concepts"),
                                   i18n$t("delete_all"),
-                                  class = "btn-danger-custom ",
+                                  class = "btn-danger-custom btn-sm",
                                   icon = icon("trash")
                                 ),
                                 actionButton(
                                   ns("add_concepts_btn"),
                                   i18n$t("add_concepts"),
-                                  class = "btn-success-custom ",
+                                  class = "btn-success-custom btn-sm",
                                   icon = icon("plus")
                                 )
                               )
@@ -244,15 +240,11 @@ mod_data_dictionary_ui <- function(id, i18n) {
                         tags$div(
                           id = ns("concepts_section_related"),
                           class = "settings-section settings-backup-section",
-                          tags$div(
-                            style = "display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;",
-                            tags$h4(
-                              class = "settings-section-title",
-                              style = "margin: 0;",
-                              tags$i(class = "fas fa-link", style = "margin-right: 8px; color: #0f60af;"),
-                              i18n$t("related_concepts")
-                            ),
-                            tags$div(
+                          tags$h4(
+                            class = "settings-section-title",
+                            tags$i(class = "fas fa-link", style = "margin-right: 8px; color: #0f60af;"),
+                            i18n$t("related_concepts"),
+                            tags$span(
                               class = "section-tabs",
                               actionButton(
                                 ns("subtab_related"),
@@ -574,7 +566,7 @@ mod_data_dictionary_ui <- function(id, i18n) {
           ),
           footer = tagList(
             actionButton(ns("cancel_concept_set"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
-            actionButton(ns("save_concept_set"), i18n$t("save"), class = "btn-primary-custom", icon = icon("save"))
+            actionButton(ns("save_concept_set"), i18n$t("add"), class = "btn-primary-custom", icon = icon("plus"))
           ),
           size = "medium",
           icon = "fas fa-folder-open",
@@ -731,12 +723,17 @@ mod_data_dictionary_ui <- function(id, i18n) {
 
             # Bottom section - Details & Descendants
             tags$div(
+              id = ns("add_modal_details_section"),
               class = "modal-fs-section-row",
 
               # Concept Details (left)
               tags$div(
-                class = "modal-fs-panel settings-section",
-                tags$h4(class = "settings-section-title", i18n$t("selected_concept_details_modal")),
+                class = "modal-fs-panel settings-section section-blue",
+                tags$h4(
+                  class = "settings-section-title",
+                  tags$i(class = "fas fa-info-circle", style = "margin-right: 8px;"),
+                  i18n$t("selected_concept_details_modal")
+                ),
                 tags$div(
                   class = "modal-fs-panel-content",
                   uiOutput(ns("add_modal_concept_details"))
@@ -745,11 +742,15 @@ mod_data_dictionary_ui <- function(id, i18n) {
 
               # Descendants (right)
               tags$div(
-                class = "modal-fs-panel settings-section",
-                tags$h4(class = "settings-section-title", i18n$t("descendants")),
+                class = "modal-fs-panel settings-section section-green",
+                tags$h4(
+                  class = "settings-section-title",
+                  tags$i(class = "fas fa-sitemap", style = "margin-right: 8px;"),
+                  i18n$t("descendants")
+                ),
                 tags$div(
                   class = "modal-fs-panel-content",
-                  DT::DTOutput(ns("add_modal_descendants_table"))
+                  uiOutput(ns("add_modal_descendants_container"))
                 )
               )
             ),
@@ -799,7 +800,8 @@ mod_data_dictionary_ui <- function(id, i18n) {
                     class = "toggle-switch toggle-small",
                     tags$input(type = "checkbox", id = ns("add_modal_include_mapped"), checked = "checked"),
                     tags$span(class = "toggle-slider")
-                  )
+                  ),
+                  tags$span(i18n$t("include_mapped"), style = "font-size: 13px; color: #666;")
                 ),
                 actionButton(
                   ns("add_omop_concepts"),
@@ -811,6 +813,22 @@ mod_data_dictionary_ui <- function(id, i18n) {
               )
             )
           )
+        ),
+
+        ### Modal - Limit 10K Confirmation ----
+        limit_10k_modal_ui(
+          modal_id = "omop_limit_10k_confirmation_modal",
+          checkbox_id = "omop_limit_10k",
+          confirm_btn_id = "confirm_omop_limit_10k",
+          ns = ns,
+          i18n = i18n
+        ),
+
+        ### Modal - OMOP Advanced Filters ----
+        omop_filters_modal_ui(
+          prefix = "omop_filters",
+          ns = ns,
+          i18n = i18n
         ),
 
         ### Modal - Remove Concept Confirmation ----
@@ -917,6 +935,13 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       create_empty_datatable("")
     })
     outputOptions(output, "omop_concepts_table", suspendWhenHidden = FALSE)
+
+    # Initialize add modal outputs (required for outputOptions)
+    output$add_modal_concept_details <- renderUI({ NULL })
+    output$add_modal_descendants_table <- DT::renderDT({
+      create_empty_datatable("")
+    })
+    outputOptions(output, "add_modal_descendants_table", suspendWhenHidden = FALSE)
 
     # 3) TABLE RENDERING ====
 
@@ -2352,6 +2377,41 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       ns = ns
     )
 
+    ## Limit 10K for OMOP concepts ----
+    omop_limit_10k <- limit_10k_server(
+      checkbox_id = "omop_limit_10k",
+      modal_id = "omop_limit_10k_confirmation_modal",
+      confirm_btn_id = "confirm_omop_limit_10k",
+      input = input,
+      session = session,
+      on_change = function(limit) {
+        omop_table_trigger(omop_table_trigger() + 1)
+      },
+      ns = ns
+    )
+
+    ## OMOP Filters ----
+    omop_filters <- omop_filters_server(
+      prefix = "omop_filters",
+      input = input,
+      session = session,
+      vocabularies = function() load_vocabularies_from_duckdb(),
+      settings_btn_id = "omop_filters_btn",
+      limit_checkbox_id = "omop_limit_10k",
+      on_apply = function(filters) {
+        omop_table_trigger(omop_table_trigger() + 1)
+      },
+      on_clear = function() {
+        omop_table_trigger(omop_table_trigger() + 1)
+      },
+      ns = ns
+    )
+
+    ## Show OMOP Filters Modal ----
+    observe_event(input$omop_filters_btn, {
+      omop_filters$show()
+    }, ignoreInit = TRUE)
+
     ## Enter Edit Mode for Concepts ----
     observe_event(input$edit_concepts_btn, {
       if (!can_edit()) return()
@@ -2492,6 +2552,15 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       show_modal(ns("add_concepts_modal"))
     }, ignoreInit = TRUE)
 
+    ## Toggle Details/Descendants section based on Multiple Selection ----
+    observe_event(input$add_modal_multiple_select, {
+      if (isTRUE(input$add_modal_multiple_select)) {
+        shinyjs::hide("add_modal_details_section")
+      } else {
+        shinyjs::show("add_modal_details_section")
+      }
+    }, ignoreInit = TRUE)
+
     ## OMOP Concepts Table in Modal ----
     observe_event(list(omop_table_trigger(), input$add_modal_multiple_select), {
       # Try to load vocabularies from DuckDB
@@ -2508,6 +2577,13 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       fuzzy_query <- omop_fuzzy$query()
       fuzzy_active <- !is.null(fuzzy_query) && fuzzy_query != ""
 
+      # Get filters
+      filters <- omop_filters$filters()
+
+      # Get limit setting
+      use_limit <- isTRUE(omop_limit_10k())
+      row_limit <- if (use_limit) 10000 else 1000000
+
       # Build query
       base_query <- vocabs$concept %>%
         dplyr::select(
@@ -2517,8 +2593,39 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           domain_id,
           concept_class_id,
           concept_code,
-          standard_concept
+          standard_concept,
+          invalid_reason
         )
+
+      # Apply filters
+      if (length(filters$vocabulary_id) > 0) {
+        base_query <- base_query %>%
+          dplyr::filter(vocabulary_id %in% !!filters$vocabulary_id)
+      }
+      if (length(filters$domain_id) > 0) {
+        base_query <- base_query %>%
+          dplyr::filter(domain_id %in% !!filters$domain_id)
+      }
+      if (length(filters$concept_class_id) > 0) {
+        base_query <- base_query %>%
+          dplyr::filter(concept_class_id %in% !!filters$concept_class_id)
+      }
+      if (length(filters$standard_concept) > 0) {
+        # Map filter values to DB values
+        std_values <- filters$standard_concept
+        std_values <- gsub("NS", "", std_values)  # Non-standard is empty/NA in DB
+        base_query <- base_query %>%
+          dplyr::filter(standard_concept %in% !!std_values | (is.na(standard_concept) & "" %in% !!std_values))
+      }
+      if (length(filters$validity) > 0) {
+        if ("Valid" %in% filters$validity && !"Invalid" %in% filters$validity) {
+          base_query <- base_query %>%
+            dplyr::filter(is.na(invalid_reason) | invalid_reason == "")
+        } else if ("Invalid" %in% filters$validity && !"Valid" %in% filters$validity) {
+          base_query <- base_query %>%
+            dplyr::filter(!is.na(invalid_reason) & invalid_reason != "")
+        }
+      }
 
       # Apply fuzzy search if active
       if (fuzzy_active) {
@@ -2533,12 +2640,12 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           ) %>%
           dplyr::filter(fuzzy_score > 0.75) %>%
           dplyr::arrange(dplyr::desc(fuzzy_score)) %>%
-          utils::head(10000) %>%
+          utils::head(row_limit) %>%
           dplyr::collect()
       } else {
         concepts <- base_query %>%
           dplyr::arrange(concept_name) %>%
-          utils::head(10000) %>%
+          utils::head(row_limit) %>%
           dplyr::collect() %>%
           dplyr::mutate(fuzzy_score = NA_real_)
       }
@@ -2627,49 +2734,72 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       concept_id <- add_modal_selected_concept()
 
       if (is.null(concept_id)) {
-        return(tags$div(
-          class = "no-selection-message",
-          tags$p(i18n$t("no_concept_selected"))
+        return(render_concept_details(
+          concept = NULL,
+          i18n = i18n,
+          empty_message = as.character(i18n$t("no_concept_selected"))
         ))
       }
 
       concept <- get_concept_by_id(concept_id)
 
-      if (is.null(concept) || nrow(concept) == 0) {
-        return(tags$div(
-          class = "no-selection-message",
-          tags$p(i18n$t("no_concept_selected"))
-        ))
+      # Check if concept is already added to the current concept set
+      cs_id <- viewing_concept_set_id()
+      is_already_added <- FALSE
+      if (!is.null(cs_id) && !is.null(concept) && nrow(concept) > 0) {
+        existing_concepts <- get_concept_set_items(cs_id)
+        if (!is.null(existing_concepts)) {
+          is_already_added <- concept$concept_id[1] %in% existing_concepts$concept_id
+        }
+        # Also check pending additions
+        if (!is_already_added) {
+          additions <- pending_additions()
+          is_already_added <- as.character(concept$concept_id[1]) %in% names(additions)
+        }
       }
 
-      tags$div(
-        class = "concept-details-card",
-        tags$div(class = "detail-row", tags$span(class = "detail-label", "Concept ID:"), tags$span(class = "detail-value", concept$concept_id[1])),
-        tags$div(class = "detail-row", tags$span(class = "detail-label", "Concept Name:"), tags$span(class = "detail-value", concept$concept_name[1])),
-        tags$div(class = "detail-row", tags$span(class = "detail-label", "Domain:"), tags$span(class = "detail-value", ifelse(is.na(concept$domain_id[1]), "-", concept$domain_id[1]))),
-        tags$div(class = "detail-row", tags$span(class = "detail-label", "Vocabulary:"), tags$span(class = "detail-value", ifelse(is.na(concept$vocabulary_id[1]), "-", concept$vocabulary_id[1]))),
-        tags$div(class = "detail-row", tags$span(class = "detail-label", "Concept Class:"), tags$span(class = "detail-value", ifelse(is.na(concept$concept_class_id[1]), "-", concept$concept_class_id[1]))),
-        tags$div(class = "detail-row", tags$span(class = "detail-label", "Concept Code:"), tags$span(class = "detail-value", ifelse(is.na(concept$concept_code[1]), "-", concept$concept_code[1]))),
-        tags$div(class = "detail-row", tags$span(class = "detail-label", "Standard:"), tags$span(class = "detail-value", ifelse(is.na(concept$standard_concept[1]) || concept$standard_concept[1] == "", "Non-Standard", concept$standard_concept[1])))
+      render_concept_details(
+        concept = concept,
+        i18n = i18n,
+        show_already_added = TRUE,
+        is_already_added = is_already_added
       )
     })
 
-    ## Descendants Table in Add Modal ----
-    output$add_modal_descendants_table <- DT::renderDT({
+    ## Descendants Container in Add Modal ----
+    output$add_modal_descendants_container <- renderUI({
       concept_id <- add_modal_selected_concept()
 
       if (is.null(concept_id)) {
-        return(create_empty_datatable(as.character(i18n$t("no_concept_selected"))))
+        return(tags$div(
+          class = "no-content-message",
+          tags$p(i18n$t("no_concept_selected"))
+        ))
       }
 
       # Get descendants from vocabulary database
       descendants <- get_concept_descendants(concept_id)
 
       if (is.null(descendants) || nrow(descendants) == 0) {
-        return(create_empty_datatable(as.character(i18n$t("no_descendants"))))
+        return(tags$div(
+          class = "no-content-message",
+          tags$p(i18n$t("no_descendants"))
+        ))
       }
 
-      dt <- create_standard_datatable(
+      # Return DataTable output
+      DT::DTOutput(ns("add_modal_descendants_table"))
+    })
+
+    ## Descendants Table in Add Modal ----
+    output$add_modal_descendants_table <- DT::renderDT({
+      concept_id <- add_modal_selected_concept()
+      if (is.null(concept_id)) return(NULL)
+
+      descendants <- get_concept_descendants(concept_id)
+      if (is.null(descendants) || nrow(descendants) == 0) return(NULL)
+
+      create_standard_datatable(
         descendants,
         selection = "none",
         col_names = c("Concept ID", "Concept Name", "Vocabulary", "Min Sep", "Max Sep"),
@@ -2682,8 +2812,6 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         ),
         escape = TRUE
       )
-
-      dt
     })
 
     ## Add OMOP Concepts to Concept Set (staging - not saved until Save is clicked) ----

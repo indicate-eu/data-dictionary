@@ -57,7 +57,7 @@ mod_projects_ui <- function(id, i18n) {
             "full",
             create_panel(
               title = i18n$t("projects"),
-              content = DT::DTOutput(ns("projects_table")),
+              content = uiOutput(ns("projects_table_container")),
               tooltip = i18n$t("projects_tooltip"),
               header_extra = shinyjs::hidden(
                 actionButton(
@@ -382,14 +382,26 @@ mod_projects_server <- function(id, i18n, current_user = NULL) {
 
     # 3) UI RENDERING ====
 
-    ## Projects Table ----
+    ## Projects Table Container ----
     observe_event(projects_table_trigger(), {
-      output$projects_table <- DT::renderDT({
+      output$projects_table_container <- renderUI({
         data <- projects_data()
 
         if (is.null(data) || nrow(data) == 0) {
-          return(create_empty_datatable(as.character(i18n$t("no_projects"))))
+          return(tags$div(
+            class = "no-content-message",
+            tags$p(i18n$t("no_projects"))
+          ))
         }
+
+        DT::DTOutput(ns("projects_table"))
+      })
+
+      ## Projects Table ----
+      output$projects_table <- DT::renderDT({
+        data <- projects_data()
+
+        if (is.null(data) || nrow(data) == 0) return(NULL)
 
         # Prepare display data
         display_data <- data.frame(
