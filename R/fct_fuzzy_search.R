@@ -481,9 +481,8 @@ omop_filters_modal_ui <- function(prefix, ns = NULL, i18n = NULL) {
   # Translation helpers
   title <- if (!is.null(i18n)) i18n$t("advanced_filters") else "Advanced Filters"
   select_placeholder <- if (!is.null(i18n)) i18n$t("select_or_type") else "Select or type..."
-  clear_text <- if (!is.null(i18n)) i18n$t("clear_all") else "Clear All"
-  cancel_text <- if (!is.null(i18n)) i18n$t("cancel") else "Cancel"
-  apply_text <- if (!is.null(i18n)) i18n$t("apply_filters") else "Apply Filters"
+  reset_text <- if (!is.null(i18n)) i18n$t("reset_filters") else "Reset Filters"
+  apply_text <- if (!is.null(i18n)) i18n$t("apply") else "Apply"
 
   tags$div(
     id = modal_id,
@@ -564,26 +563,17 @@ omop_filters_modal_ui <- function(prefix, ns = NULL, i18n = NULL) {
       ),
       tags$div(
         class = "modal-footer",
-        style = "display: flex; justify-content: space-between; gap: 10px;",
         actionButton(
           ns_id("clear"),
-          clear_text,
-          class = "btn btn-secondary",
-          icon = icon("times")
+          reset_text,
+          class = "btn-secondary-custom",
+          icon = icon("eraser")
         ),
-        tags$div(
-          style = "display: flex; gap: 10px;",
-          tags$button(
-            class = "btn btn-secondary",
-            onclick = sprintf("$('#%s').hide();", modal_id),
-            cancel_text
-          ),
-          actionButton(
-            ns_id("apply"),
-            apply_text,
-            class = "btn btn-primary-custom",
-            icon = icon("check")
-          )
+        actionButton(
+          ns_id("apply"),
+          apply_text,
+          class = "btn-primary-custom",
+          icon = icon("check")
         )
       )
     )

@@ -415,52 +415,27 @@ mod_data_dictionary_ui <- function(id, i18n) {
                           style = "width: 100%; max-width: 100%;",
                           tags$h4(
                             class = "settings-section-title",
-                            tags$i(class = "fas fa-clipboard-check", style = "margin-right: 8px; color: #0f60af;"),
-                            i18n$t("review"),
+                            style = "display: flex; align-items: center; justify-content: space-between;",
                             tags$span(
-                              class = "info-icon",
-                              `data-tooltip` = as.character(i18n$t("review_desc")),
-                              HTML("&#x3f;")
+                              style = "display: flex; align-items: center;",
+                              tags$i(class = "fas fa-clipboard-check", style = "margin-right: 8px; color: #0f60af;"),
+                              i18n$t("review"),
+                              tags$span(
+                                class = "info-icon",
+                                `data-tooltip` = as.character(i18n$t("review_desc")),
+                                HTML("&#x3f;")
+                              )
+                            ),
+                            actionButton(
+                              ns("add_review_btn"),
+                              i18n$t("add_review"),
+                              class = "tab-btn-green",
+                              icon = icon("plus")
                             )
                           ),
                           # Review list
                           tags$div(
-                            style = "margin-bottom: 20px;",
-                            DT::DTOutput(ns("reviews_table"))
-                          ),
-                          # Add review form (only for users with permissions)
-                          tags$div(
-                            style = "border-top: 1px solid #dee2e6; padding-top: 20px;",
-                            tags$h5(
-                              style = "margin-bottom: 15px; color: #0f60af;",
-                              tags$i(class = "fas fa-plus-circle", style = "margin-right: 8px;"),
-                              "Add Review"
-                            ),
-                            tags$div(
-                              class = "mb-15",
-                              tags$label(class = "form-label", i18n$t("review_status")),
-                              selectInput(
-                                ns("review_status_input"),
-                                label = NULL,
-                                choices = character(0)
-                              )
-                            ),
-                            tags$div(
-                              class = "mb-15",
-                              tags$label(class = "form-label", i18n$t("comments")),
-                              textAreaInput(
-                                ns("review_comments_input"),
-                                label = NULL,
-                                rows = 4,
-                                placeholder = "Enter review comments..."
-                              )
-                            ),
-                            actionButton(
-                              ns("submit_review"),
-                              "Submit Review",
-                              class = "btn-primary-custom",
-                              icon = icon("check")
-                            )
+                            uiOutput(ns("reviews_table_container"))
                           )
                         )
                       )
@@ -886,26 +861,26 @@ mod_data_dictionary_ui <- function(id, i18n) {
                   tags$span(i18n$t("exclude"), style = "font-size: 13px; color: #666;")
                 ),
                 # Descendants toggle
-                tags$div(
-                  class = "flex-center-gap-8",
+                tags$label(
+                  class = "toggle-with-label",
                   style = "margin-left: 15px;",
-                  tags$label(
+                  tags$span(
                     class = "toggle-switch toggle-small",
                     tags$input(type = "checkbox", id = ns("add_modal_include_descendants"), checked = "checked"),
                     tags$span(class = "toggle-slider")
                   ),
-                  tags$span(i18n$t("include_descendants"), style = "font-size: 13px; color: #666;")
+                  tags$span(i18n$t("include_descendants"), class = "toggle-label-text")
                 ),
                 # Mapped toggle
-                tags$div(
-                  class = "flex-center-gap-8",
+                tags$label(
+                  class = "toggle-with-label",
                   style = "margin-left: 15px;",
-                  tags$label(
+                  tags$span(
                     class = "toggle-switch toggle-small",
                     tags$input(type = "checkbox", id = ns("add_modal_include_mapped"), checked = "checked"),
                     tags$span(class = "toggle-slider")
                   ),
-                  tags$span(i18n$t("include_mapped"), style = "font-size: 13px; color: #666;")
+                  tags$span(i18n$t("include_mapped"), class = "toggle-label-text")
                 ),
                 actionButton(
                   ns("add_omop_concepts"),
@@ -1155,7 +1130,8 @@ mod_data_dictionary_ui <- function(id, i18n) {
                 ns("version_change_summary"),
                 label = NULL,
                 placeholder = as.character(i18n$t("enter_description")),
-                rows = 3
+                rows = 3,
+                width = "100%"
               )
             ),
             tags$div(
@@ -1173,6 +1149,304 @@ mod_data_dictionary_ui <- function(id, i18n) {
           ),
           size = "medium",
           icon = "fas fa-code-branch",
+          ns = ns
+        ),
+
+        ### Modal - Add Review (Fullscreen with Markdown Editor) ----
+        tags$div(
+          id = ns("add_review_modal"),
+          class = "modal-fs",
+
+          # Header with buttons
+          tags$div(
+            class = "modal-fs-header",
+            tags$h3(i18n$t("add_review")),
+            tags$div(
+              style = "display: flex; gap: 10px; align-items: center;",
+              tags$div(
+                style = "display: flex; gap: 8px; align-items: center;",
+                tags$label(
+                  style = "margin: 0; font-size: 13px; color: #666; white-space: nowrap;",
+                  "Review Status:"
+                ),
+                tags$div(
+                  style = "height: 32px;",
+                  selectInput(
+                    ns("review_status_modal"),
+                    label = NULL,
+                    choices = c(
+                      "Select status..." = "",
+                      "Approved" = "approved",
+                      "Needs Revision" = "needs_revision"
+                    ),
+                    selected = "",
+                    width = "180px"
+                  )
+                )
+              ),
+              actionButton(ns("submit_add_review"), i18n$t("submit_review"), class = "btn-success-custom btn-sm", icon = icon("check")),
+              tags$button(
+                id = ns("close_add_review_modal"),
+                class = "modal-fs-close",
+                onclick = sprintf("document.getElementById('%s').style.display = 'none';", ns("add_review_modal")),
+                HTML("&times;")
+              )
+            )
+          ),
+
+          # Body - Two columns side by side
+          tags$div(
+            class = "modal-fs-body",
+            style = "display: flex; flex-direction: row; gap: 0; padding: 0; height: 100%;",
+
+            # Left: Markdown editor
+            tags$div(
+              class = "settings-section settings-backup-section expandable-section",
+              style = "flex: 1; display: flex; flex-direction: column; border-right: 1px solid #dee2e6; margin: 5px;",
+              tags$h4(
+                class = "settings-section-title",
+                tags$i(class = "fas fa-edit", style = "margin-right: 8px; color: #0f60af;"),
+                "Markdown Editor"
+              ),
+              tags$div(
+                style = "position: relative; flex: 1; display: flex; flex-direction: column; min-height: 0;",
+                tags$div(
+                  style = "flex: 1; overflow: hidden;",
+                  shinyAce::aceEditor(
+                    ns("review_markdown_editor"),
+                    mode = "markdown",
+                    theme = "chrome",
+                    height = "100%",
+                    fontSize = 12,
+                    debounce = 100,
+                    autoScrollEditorIntoView = TRUE,
+                    value = "# Review Comments\n\nEnter your review comments here using Markdown syntax.\n\n## Suggestions\n\n- Item 1\n- Item 2\n"
+                  )
+                )
+              )
+            ),
+
+            # Right: Markdown preview
+            tags$div(
+              class = "settings-section settings-backup-section expandable-section",
+              style = "flex: 1; display: flex; flex-direction: column; margin: 5px;",
+              tags$h4(
+                class = "settings-section-title",
+                tags$i(class = "fas fa-eye", style = "margin-right: 8px; color: #0f60af;"),
+                "Preview"
+              ),
+              tags$div(
+                style = "position: relative; flex: 1; display: flex; flex-direction: column; min-height: 0;",
+                tags$div(
+                  style = "flex: 1; overflow: auto;",
+                  uiOutput(ns("review_markdown_preview"))
+                )
+              )
+            )
+          )
+        ),
+
+        ### Modal - Edit Version Summary ----
+        create_modal(
+          id = "edit_version_summary_modal",
+          title = "Edit Change Summary",
+          body = tagList(
+            tags$div(
+              class = "mb-15",
+              tags$label(class = "form-label", i18n$t("change_summary")),
+              textAreaInput(
+                ns("edit_version_summary_input"),
+                label = NULL,
+                rows = 4,
+                placeholder = as.character(i18n$t("enter_description")),
+                width = "100%"
+              )
+            ),
+            # Hidden input to store the change_id being edited
+            shinyjs::hidden(textInput(ns("editing_change_id"), label = NULL, value = ""))
+          ),
+          footer = tagList(
+            actionButton(ns("cancel_edit_version_summary"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
+            actionButton(ns("save_edit_version_summary"), i18n$t("save"), class = "btn-primary-custom", icon = icon("check"))
+          ),
+          size = "medium",
+          icon = "fas fa-edit",
+          ns = ns
+        ),
+
+        ### Modal - Delete Version Confirmation ----
+        create_modal(
+          id = "delete_version_modal",
+          title = "Confirm Deletion",
+          body = tagList(
+            tags$p("Are you sure you want to delete this version entry?"),
+            tags$p(
+              style = "color: #dc3545; font-weight: 600;",
+              "This action cannot be undone."
+            ),
+            # Hidden input to store the change_id being deleted
+            shinyjs::hidden(textInput(ns("deleting_change_id"), label = NULL, value = ""))
+          ),
+          footer = tagList(
+            actionButton(ns("cancel_delete_version"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
+            actionButton(ns("confirm_delete_version_final"), i18n$t("delete"), class = "btn-danger-custom", icon = icon("trash"))
+          ),
+          size = "small",
+          icon = "fas fa-exclamation-triangle",
+          ns = ns
+        ),
+
+        ### Modal - Edit Review (Fullscreen) ----
+        tags$div(
+          id = ns("edit_review_modal"),
+          class = "modal-fs",
+
+          # Header with buttons
+          tags$div(
+            class = "modal-fs-header",
+            tags$h3("Edit Review"),
+            tags$div(
+              style = "display: flex; gap: 10px; align-items: center;",
+              tags$div(
+                style = "display: flex; gap: 8px; align-items: center;",
+                tags$label(
+                  style = "margin: 0; font-size: 13px; color: #666; white-space: nowrap;",
+                  "Review Status:"
+                ),
+                tags$div(
+                  style = "height: 32px;",
+                  selectInput(
+                    ns("edit_review_status_input"),
+                    label = NULL,
+                    choices = c(
+                      "Select status..." = "",
+                      "Approved" = "approved",
+                      "Needs Revision" = "needs_revision"
+                    ),
+                    selected = "",
+                    width = "180px"
+                  )
+                )
+              ),
+              actionButton(ns("confirm_edit_review"), i18n$t("save"), class = "btn-primary-custom btn-sm", icon = icon("save")),
+              tags$button(
+                id = ns("close_edit_review_modal"),
+                class = "modal-fs-close",
+                onclick = sprintf("document.getElementById('%s').style.display = 'none';", ns("edit_review_modal")),
+                HTML("&times;")
+              )
+            )
+          ),
+
+          # Body - Two columns side by side
+          tags$div(
+            class = "modal-fs-body",
+            style = "display: flex; flex-direction: row; gap: 0; padding: 0; height: 100%;",
+
+            # Left: Markdown editor
+            tags$div(
+              class = "settings-section settings-backup-section expandable-section",
+              style = "flex: 1; display: flex; flex-direction: column; border-right: 1px solid #dee2e6; margin: 5px;",
+              tags$h4(
+                class = "settings-section-title",
+                tags$i(class = "fas fa-edit", style = "margin-right: 8px; color: #0f60af;"),
+                "Markdown Editor"
+              ),
+              tags$div(
+                style = "position: relative; flex: 1; display: flex; flex-direction: column; min-height: 0;",
+                tags$div(
+                  style = "flex: 1; overflow: hidden;",
+                  shinyAce::aceEditor(
+                    ns("edit_review_markdown_editor"),
+                    mode = "markdown",
+                    theme = "chrome",
+                    height = "100%",
+                    fontSize = 12,
+                    debounce = 100,
+                    autoScrollEditorIntoView = TRUE,
+                    value = ""
+                  )
+                )
+              )
+            ),
+
+            # Right: Markdown preview
+            tags$div(
+              class = "settings-section settings-backup-section expandable-section",
+              style = "flex: 1; display: flex; flex-direction: column; margin: 5px;",
+              tags$h4(
+                class = "settings-section-title",
+                tags$i(class = "fas fa-eye", style = "margin-right: 8px; color: #0f60af;"),
+                "Preview"
+              ),
+              tags$div(
+                style = "position: relative; flex: 1; display: flex; flex-direction: column; min-height: 0;",
+                tags$div(
+                  style = "flex: 1; overflow: auto;",
+                  uiOutput(ns("edit_review_markdown_preview"))
+                )
+              )
+            )
+          ),
+
+          # Hidden input to store the review_id being edited
+          shinyjs::hidden(textInput(ns("editing_review_id"), label = NULL, value = ""))
+        ),
+
+        ### Modal - View Review (Fullscreen) ----
+        tags$div(
+          id = ns("view_review_modal"),
+          class = "modal-fs",
+
+          # Header with review metadata
+          tags$div(
+            class = "modal-fs-header",
+            tags$h3("Review Details"),
+            tags$div(
+              style = "display: flex; gap: 15px; align-items: center;",
+              tags$div(
+                id = ns("view_review_header_info"),
+                style = "display: flex; gap: 15px; align-items: center; font-size: 13px; color: #666;"
+              ),
+              tags$button(
+                id = ns("close_view_review_modal"),
+                class = "modal-fs-close",
+                onclick = sprintf("document.getElementById('%s').style.display = 'none';", ns("view_review_modal")),
+                HTML("&times;")
+              )
+            )
+          ),
+
+          # Body - Rendered markdown
+          tags$div(
+            class = "modal-fs-body",
+            style = "padding: 0; height: 100%; overflow: hidden;",
+            tags$div(
+              style = "height: 100%; overflow: auto; padding: 0 20px 20px 20px;",
+              uiOutput(ns("view_review_content"))
+            )
+          )
+        ),
+
+        ### Modal - Delete Review Confirmation ----
+        create_modal(
+          id = "delete_review_modal",
+          title = "Confirm Deletion",
+          body = tagList(
+            tags$p("Are you sure you want to delete this review?"),
+            tags$p(
+              style = "color: #dc3545; font-weight: 600;",
+              "This action cannot be undone."
+            ),
+            # Hidden input to store the review_id being deleted
+            shinyjs::hidden(textInput(ns("deleting_review_id"), label = NULL, value = ""))
+          ),
+          footer = tagList(
+            actionButton(ns("cancel_delete_review"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
+            actionButton(ns("confirm_delete_review_final"), i18n$t("delete"), class = "btn-danger-custom", icon = icon("trash"))
+          ),
+          size = "small",
+          icon = "fas fa-exclamation-triangle",
           ns = ns
         ),
 
@@ -1319,11 +1593,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     })
     outputOptions(output, "add_modal_concept_details", suspendWhenHidden = FALSE)
 
-    # Initialize reviews table (required for outputOptions)
-    output$reviews_table <- DT::renderDT({
-      create_empty_datatable(as.character(i18n$t("no_reviews")))
-    })
-    outputOptions(output, "reviews_table", suspendWhenHidden = FALSE)
+    # No initialization needed for reviews_table_container (renderUI)
 
     # Initialize version history table (required for outputOptions)
     output$version_history_table <- DT::renderDT({
@@ -1556,11 +1826,14 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
     ## Reviews Table ----
     observe_event(reviews_trigger(), {
-      output$reviews_table <- DT::renderDT({
+      output$reviews_table_container <- renderUI({
         reviews <- reviews_data()
 
         if (is.null(reviews) || nrow(reviews) == 0) {
-          return(create_empty_datatable(as.character(i18n$t("no_reviews"))))
+          return(tags$div(
+            class = "no-content-message",
+            tags$p(i18n$t("no_reviews"))
+          ))
         }
 
         # Format date
@@ -1579,6 +1852,15 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           sprintf('<span class="status-badge %s">%s</span>', status, htmltools::htmlEscape(status_label))
         })
 
+        # Add action buttons
+        reviews$Actions <- sapply(reviews$review_id, function(id) {
+          create_datatable_actions(list(
+            list(label = as.character(i18n$t("view")), icon = "eye", type = "primary", class = "btn-view-review", data_attr = list(id = id)),
+            list(label = as.character(i18n$t("edit")), icon = "edit", type = "warning", class = "btn-edit-review", data_attr = list(id = id)),
+            list(label = as.character(i18n$t("delete")), icon = "trash", type = "danger", class = "btn-delete-review", data_attr = list(id = id))
+          ))
+        })
+
         # Select columns to display
         display_data <- data.frame(
           review_id = reviews$review_id,
@@ -1591,6 +1873,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
             "",
             ifelse(nchar(reviews$comments) > 100, paste0(substr(reviews$comments, 1, 100), "..."), reviews$comments)
           ),
+          Actions = reviews$Actions,
           stringsAsFactors = FALSE
         )
 
@@ -1603,7 +1886,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
             as.character(i18n$t("review_date")),
             as.character(i18n$t("review_status")),
             as.character(i18n$t("version")),
-            as.character(i18n$t("comments"))
+            as.character(i18n$t("comments")),
+            as.character(i18n$t("actions"))
           ),
           col_defs = list(
             list(targets = 0, visible = FALSE),
@@ -1611,12 +1895,27 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
             list(targets = 2, width = "15%", className = "dt-center"),
             list(targets = 3, width = "15%", className = "dt-center"),
             list(targets = 4, width = "10%", className = "dt-center"),
-            list(targets = 5, width = "45%")
+            list(targets = 5, width = "30%"),
+            list(targets = 6, width = "15%", className = "dt-center")
           ),
           escape = FALSE
         )
 
-        dt
+        dt <- add_button_handlers(
+          dt,
+          handlers = list(
+            list(selector = ".btn-view-review", input_id = ns("view_review")),
+            list(selector = ".btn-edit-review", input_id = ns("edit_review")),
+            list(selector = ".btn-delete-review", input_id = ns("delete_review"))
+          ),
+          dblclick_input_id = ns("view_review"),
+          id_column_index = 0
+        )
+
+        tags$div(
+          style = "overflow-x: auto;",
+          dt
+        )
       })
     }, ignoreInit = FALSE)
 
@@ -2356,6 +2655,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     viewing_concept_set_id <- reactiveVal(NULL)
     selected_concept_id <- reactiveVal(NULL)
     concepts_trigger <- reactiveVal(0)
+    viewing_review_id <- reactiveVal(NULL)
 
     ## View Concept Set (open details page) ----
     observe_event(input$view_concept_set, {
@@ -3218,16 +3518,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         params = list(cs_id)
       )
 
-      if (nrow(concepts_data) == 0) {
-        showNotification(
-          as.character(i18n$t("no_concepts")),
-          type = "warning",
-          duration = 3
-        )
-        return()
-      }
-
-      # Perform export based on action type
+      # Perform export based on action type (allow export even with no concepts)
       if (action == "json_clipboard") {
         json_output <- export_concept_set_to_json(cs_id, concepts_data)
         if (!is.null(json_output)) {
@@ -4117,6 +4408,321 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       )
     }, ignoreInit = TRUE)
 
+    ## Add Review Button ----
+    observe_event(input$add_review_btn, {
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      # Reset modal inputs with default markdown
+      default_markdown <- "# Review Comments\n\nEnter your review comments here using Markdown syntax.\n\n## Suggestions\n\n- Item 1\n- Item 2\n"
+      shinyAce::updateAceEditor(session, "review_markdown_editor", value = default_markdown)
+      updateSelectInput(session, "review_status_modal", selected = "")
+
+      # Open the fullscreen Add Review modal
+      show_modal(ns("add_review_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Update Markdown Preview (Add Review) ----
+    output$review_markdown_preview <- renderUI({
+      markdown_text <- input$review_markdown_editor
+
+      # If no text, show placeholder
+      if (is.null(markdown_text) || nchar(trimws(markdown_text)) == 0) {
+        return(tags$div(
+          class = "markdown-preview-placeholder",
+          "Preview will appear here..."
+        ))
+      }
+
+      # Convert markdown to HTML
+      html_content <- tryCatch({
+        markdown::markdownToHTML(
+          text = markdown_text,
+          fragment.only = TRUE,
+          options = c("use_xhtml", "smartypants", "base64_images", "mathjax", "highlight_code")
+        )
+      }, error = function(e) {
+        paste0("<p style='color: red;'>Error rendering markdown: ", e$message, "</p>")
+      })
+
+      tags$div(
+        class = "markdown-body markdown-preview-container",
+        HTML(html_content)
+      )
+    })
+
+    ## Update Markdown Preview (Edit Review) ----
+    output$edit_review_markdown_preview <- renderUI({
+      markdown_text <- input$edit_review_markdown_editor
+
+      # If no text, show placeholder
+      if (is.null(markdown_text) || nchar(trimws(markdown_text)) == 0) {
+        return(tags$div(
+          class = "markdown-preview-placeholder",
+          "Preview will appear here..."
+        ))
+      }
+
+      # Convert markdown to HTML
+      html_content <- tryCatch({
+        markdown::markdownToHTML(
+          text = markdown_text,
+          fragment.only = TRUE,
+          options = c("use_xhtml", "smartypants", "base64_images", "mathjax", "highlight_code")
+        )
+      }, error = function(e) {
+        paste0("<p style='color: red;'>Error rendering markdown: ", e$message, "</p>")
+      })
+
+      tags$div(
+        class = "markdown-body markdown-preview-container",
+        HTML(html_content)
+      )
+    })
+
+    # Force render even when hidden
+    outputOptions(output, "review_markdown_preview", suspendWhenHidden = FALSE)
+    outputOptions(output, "edit_review_markdown_preview", suspendWhenHidden = FALSE)
+
+    ## Submit Add Review ----
+    observe_event(input$submit_add_review, {
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      # Get current concept set to get version
+      cs <- get_concept_set(cs_id)
+      if (is.null(cs)) return()
+
+      version <- if (is.null(cs$version) || is.na(cs$version)) "1.0.0" else cs$version
+      status <- input$review_status_modal
+      comments <- trimws(input$review_markdown_editor)
+
+      # Validation - both status and comments are required
+      if (is.null(status) || status == "") {
+        showNotification("Please select a review status", type = "error", duration = 3)
+        return()
+      }
+
+      if (is.null(comments) || comments == "") {
+        showNotification("Review comments are required", type = "error", duration = 3)
+        return()
+      }
+
+      # Get current user ID
+      user <- current_user()
+      reviewer_user_id <- if (!is.null(user)) user$user_id else 1
+
+      # Add review
+      review_id <- add_concept_set_review(cs_id, version, reviewer_user_id, status, comments)
+
+      # Refresh reviews table
+      reviews <- get_concept_set_reviews(cs_id)
+      reviews_data(reviews)
+      reviews_trigger(reviews_trigger() + 1)
+
+      # Close modal
+      hide_modal(ns("add_review_modal"))
+
+      # Show notification
+      showNotification(
+        as.character(i18n$t("review_submitted")),
+        type = "message",
+        duration = 3
+      )
+    }, ignoreInit = TRUE)
+
+    ## Edit Review Button ----
+    observe_event(input$edit_review, {
+      review_id <- input$edit_review
+      if (is.null(review_id)) return()
+
+      # Get review data
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      reviews <- get_concept_set_reviews(cs_id)
+      review <- reviews[reviews$review_id == review_id, ]
+
+      if (nrow(review) == 0) return()
+
+      # Populate form
+      updateSelectInput(session, "edit_review_status_input", selected = review$status)
+      comments_text <- if (is.na(review$comments)) "" else review$comments
+      shinyAce::updateAceEditor(session, "edit_review_markdown_editor", value = comments_text)
+      updateTextInput(session, "editing_review_id", value = as.character(review_id))
+
+      # Show fullscreen modal
+      shinyjs::runjs(sprintf("document.getElementById('%s').style.display = 'flex';", ns("edit_review_modal")))
+    }, ignoreInit = TRUE)
+
+    ## Confirm Edit Review ----
+    observe_event(input$confirm_edit_review, {
+      review_id <- as.integer(input$editing_review_id)
+      if (is.null(review_id) || is.na(review_id)) return()
+
+      status <- input$edit_review_status_input
+      comments <- trimws(input$edit_review_markdown_editor)
+
+      # Validation
+      if (is.null(status) || status == "") {
+        showNotification("Please select a review status", type = "error", duration = 3)
+        return()
+      }
+
+      if (is.null(comments) || comments == "") {
+        showNotification("Review comments are required", type = "error", duration = 3)
+        return()
+      }
+
+      # Update review
+      update_concept_set_review(review_id, status = status, comments = comments)
+
+      # Refresh reviews table
+      cs_id <- viewing_concept_set_id()
+      if (!is.null(cs_id)) {
+        reviews <- get_concept_set_reviews(cs_id)
+        reviews_data(reviews)
+        reviews_trigger(reviews_trigger() + 1)
+      }
+
+      # Close modal
+      shinyjs::runjs(sprintf("document.getElementById('%s').style.display = 'none';", ns("edit_review_modal")))
+
+      # Show notification
+      showNotification("Review updated successfully", type = "message", duration = 3)
+    }, ignoreInit = TRUE)
+
+    ## Delete Review Button ----
+    observe_event(input$delete_review, {
+      review_id <- input$delete_review
+      if (is.null(review_id)) return()
+
+      # Store review_id
+      updateTextInput(session, "deleting_review_id", value = as.character(review_id))
+
+      # Show confirmation modal
+      show_modal(ns("delete_review_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Confirm Delete Review ----
+    observe_event(input$confirm_delete_review_final, {
+      review_id <- as.integer(input$deleting_review_id)
+      if (is.null(review_id) || is.na(review_id)) return()
+
+      # Delete review
+      delete_concept_set_review(review_id)
+
+      # Refresh reviews table
+      cs_id <- viewing_concept_set_id()
+      if (!is.null(cs_id)) {
+        reviews <- get_concept_set_reviews(cs_id)
+        reviews_data(reviews)
+        reviews_trigger(reviews_trigger() + 1)
+      }
+
+      # Close modal
+      hide_modal(ns("delete_review_modal"))
+
+      # Show notification
+      showNotification("Review deleted successfully", type = "message", duration = 3)
+    }, ignoreInit = TRUE)
+
+    ## Cancel Delete Review ----
+    observe_event(input$cancel_delete_review, {
+      hide_modal(ns("delete_review_modal"))
+    }, ignoreInit = TRUE)
+
+    ## View Review Button / Double Click ----
+    observe_event(input$view_review, {
+      review_id <- input$view_review
+      if (is.null(review_id)) return()
+
+      # Store the review_id to trigger renderUI
+      viewing_review_id(review_id)
+
+      # Get review data
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      reviews <- get_concept_set_reviews(cs_id)
+      review <- reviews[reviews$review_id == review_id, ]
+
+      if (nrow(review) == 0) return()
+
+      # Build header info HTML with reviewer, date, version and status
+      reviewer_name <- if (is.na(review$reviewer_name)) "Unknown" else review$reviewer_name
+      review_date <- gsub("T", " ", substr(review$review_date, 1, 16))
+      version <- if (is.na(review$version)) "N/A" else review$version
+
+      status <- if (is.na(review$status)) "draft" else review$status
+      status_key <- paste0("status_", status)
+      status_label <- as.character(i18n$t(status_key))
+
+      header_html <- sprintf(
+        '<span style="margin-right: 10px;"><strong>Reviewer:</strong> %s</span><span style="margin-right: 10px;"><strong>Date:</strong> %s</span><span style="margin-right: 10px;"><strong>Version:</strong> %s</span><span class="status-badge %s">%s</span>',
+        htmltools::htmlEscape(reviewer_name),
+        htmltools::htmlEscape(review_date),
+        htmltools::htmlEscape(version),
+        status,
+        htmltools::htmlEscape(status_label)
+      )
+      shinyjs::html("view_review_header_info", header_html)
+
+      # Show fullscreen modal
+      shinyjs::runjs(sprintf(
+        "document.getElementById('%s').style.display = 'flex';",
+        ns("view_review_modal")
+      ))
+    }, ignoreInit = TRUE)
+
+    ## Render View Review Content ----
+    output$view_review_content <- renderUI({
+      review_id <- viewing_review_id()
+      if (is.null(review_id)) return(NULL)
+
+      # Get review data
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return(NULL)
+
+      reviews <- get_concept_set_reviews(cs_id)
+      review <- reviews[reviews$review_id == review_id, ]
+
+      if (nrow(review) == 0) return(NULL)
+
+      # Get markdown content
+      markdown_text <- if (is.na(review$comments)) "" else review$comments
+
+      # Convert markdown to HTML
+      html_content <- tryCatch({
+        markdown::markdownToHTML(
+          text = markdown_text,
+          fragment.only = TRUE,
+          options = c(
+            "use_xhtml",
+            "smartypants",
+            "base64_images",
+            "mathjax",
+            "highlight_code"
+          )
+        )
+      }, error = function(e) {
+        paste0(
+          "<p style='color: red;'>Error rendering markdown: ",
+          e$message,
+          "</p>"
+        )
+      })
+
+      # Display only the rendered markdown
+      tags$div(
+        class = "markdown-body",
+        HTML(html_content)
+      )
+    })
+
+    # Force render even when hidden
+    outputOptions(output, "view_review_content", suspendWhenHidden = FALSE)
+
     ## Open Status Modal ----
     observe_event(input$open_status_modal, {
       cs_id <- viewing_concept_set_id()
@@ -4354,6 +4960,101 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     ## Cancel New Version ----
     observe_event(input$cancel_new_version, {
       hide_modal(ns("new_version_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Edit Version Entry ----
+    observe_event(input$edit_version_entry, {
+      change_id <- input$edit_version_entry
+      if (is.null(change_id)) return()
+
+      # Get the changelog entry
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      history <- get_version_history(cs_id)
+      entry <- history[history$change_id == change_id, ]
+      if (nrow(entry) == 0) return()
+
+      # Populate modal and show it
+      current_summary <- if (is.na(entry$change_summary)) "" else entry$change_summary
+      updateTextAreaInput(session, "edit_version_summary_input", value = current_summary)
+      updateTextInput(session, "editing_change_id", value = as.character(change_id))
+
+      show_modal(ns("edit_version_summary_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Cancel Edit Version Summary ----
+    observe_event(input$cancel_edit_version_summary, {
+      hide_modal(ns("edit_version_summary_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Save Edit Version Summary ----
+    observe_event(input$save_edit_version_summary, {
+      change_id <- as.integer(input$editing_change_id)
+      if (is.null(change_id) || is.na(change_id)) return()
+
+      new_summary <- trimws(input$edit_version_summary_input)
+
+      # Update the changelog entry
+      update_changelog_entry(change_id, new_summary)
+
+      showNotification(
+        "Change summary updated successfully",
+        type = "message",
+        duration = 3
+      )
+
+      hide_modal(ns("edit_version_summary_modal"))
+
+      # Refresh version history table
+      cs_id <- viewing_concept_set_id()
+      if (!is.null(cs_id)) {
+        # Re-trigger the modal to refresh
+        shinyjs::runjs(sprintf("
+          Shiny.setInputValue('%s', Date.now(), {priority: 'event'});
+        ", ns("open_version_modal")))
+      }
+    }, ignoreInit = TRUE)
+
+    ## Delete Version Entry ----
+    observe_event(input$delete_version_entry, {
+      change_id <- input$delete_version_entry
+      if (is.null(change_id)) return()
+
+      # Show delete confirmation modal
+      updateTextInput(session, "deleting_change_id", value = as.character(change_id))
+      show_modal(ns("delete_version_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Cancel Delete Version ----
+    observe_event(input$cancel_delete_version, {
+      hide_modal(ns("delete_version_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Confirm Delete Version (Final) ----
+    observe_event(input$confirm_delete_version_final, {
+      change_id <- as.integer(input$deleting_change_id)
+      if (is.null(change_id) || is.na(change_id)) return()
+
+      # Delete the changelog entry
+      delete_changelog_entry(change_id)
+
+      showNotification(
+        "Version entry deleted successfully",
+        type = "message",
+        duration = 3
+      )
+
+      hide_modal(ns("delete_version_modal"))
+
+      # Refresh version history table
+      cs_id <- viewing_concept_set_id()
+      if (!is.null(cs_id)) {
+        # Re-trigger the modal to refresh
+        shinyjs::runjs(sprintf("
+          Shiny.setInputValue('%s', Date.now(), {priority: 'event'});
+        ", ns("open_version_modal")))
+      }
     }, ignoreInit = TRUE)
 
     # 5) FILTERS ====

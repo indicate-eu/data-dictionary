@@ -900,6 +900,76 @@ export_concept_set_to_json <- function(concept_set_id, concepts_data = NULL) {
       character(0)
     }
 
+    # Get reviews with full user information
+    reviews_data <- DBI::dbGetQuery(
+      con,
+      "SELECT r.review_id, r.status, r.comments, r.review_date, r.concept_set_version,
+              u.first_name, u.last_name, u.affiliation, u.profession, u.orcid
+       FROM concept_set_reviews r
+       LEFT JOIN users u ON r.reviewer_user_id = u.user_id
+       WHERE r.concept_set_id = ?
+       ORDER BY r.review_date DESC",
+      params = list(concept_set_id)
+    )
+
+    reviews <- if (nrow(reviews_data) > 0) {
+      lapply(seq_len(nrow(reviews_data)), function(i) {
+        r <- reviews_data[i, ]
+        list(
+          reviewId = as.integer(r$review_id),
+          reviewer = list(
+            firstName = if (!is.na(r$first_name)) as.character(r$first_name) else NULL,
+            lastName = if (!is.na(r$last_name)) as.character(r$last_name) else NULL,
+            affiliation = if (!is.na(r$affiliation)) as.character(r$affiliation) else NULL,
+            profession = if (!is.na(r$profession)) as.character(r$profession) else NULL,
+            orcid = if (!is.na(r$orcid)) as.character(r$orcid) else NULL
+          ),
+          reviewDate = as.character(r$review_date),
+          status = as.character(r$status),
+          comments = if (!is.na(r$comments)) as.character(r$comments) else NULL,
+          version = as.character(r$concept_set_version)
+        )
+      })
+    } else {
+      list()
+    }
+
+    # Get version history
+    versions_data <- DBI::dbGetQuery(
+      con,
+      "SELECT version_to AS version, change_date AS version_date, change_summary
+       FROM concept_set_changelog
+       WHERE concept_set_id = ?
+       ORDER BY change_date DESC",
+      params = list(concept_set_id)
+    )
+
+    versions <- if (nrow(versions_data) > 0) {
+      lapply(seq_len(nrow(versions_data)), function(i) {
+        v <- versions_data[i, ]
+        list(
+          version = as.character(v$version),
+          versionDate = as.character(v$version_date),
+          changeSummary = if (!is.na(v$change_summary)) as.character(v$change_summary) else NULL
+        )
+      })
+    } else {
+      list()
+    }
+
+    # Get distribution stats
+    stats_data <- DBI::dbGetQuery(
+      con,
+      "SELECT stats FROM concept_set_stats WHERE concept_set_id = ?",
+      params = list(concept_set_id)
+    )
+
+    distribution_stats <- if (nrow(stats_data) > 0 && !is.na(stats_data$stats[1])) {
+      jsonlite::fromJSON(stats_data$stats[1])
+    } else {
+      NULL
+    }
+
     # Build complete OHDSI-compliant JSON structure
     result <- list(
       id = as.integer(cs$id),
@@ -910,7 +980,7 @@ export_concept_set_to_json <- function(concept_set_id, concepts_data = NULL) {
       createdDate = if (!is.null(cs$created_date) && !is.na(cs$created_date)) as.character(cs$created_date) else NULL,
       modifiedBy = if (!is.null(cs$modified_by) && !is.na(cs$modified_by)) as.character(cs$modified_by) else NULL,
       modifiedDate = if (!is.null(cs$modified_date) && !is.na(cs$modified_date)) as.character(cs$modified_date) else NULL,
-      createdByTool = "INDICATE Data Dictionary",
+      createdByTool = "INDICATE Data Dictionary v0.2.0.9001",
       expression = list(
         items = items
       ),
@@ -918,7 +988,10 @@ export_concept_set_to_json <- function(concept_set_id, concepts_data = NULL) {
       metadata = list(
         category = if (!is.null(cs$category) && !is.na(cs$category)) as.character(cs$category) else NULL,
         subcategory = if (!is.null(cs$subcategory) && !is.na(cs$subcategory)) as.character(cs$subcategory) else NULL,
-        mappingGuidance = if (!is.null(cs$etl_comment) && !is.na(cs$etl_comment)) as.character(cs$etl_comment) else NULL
+        mappingGuidance = if (!is.null(cs$etl_comment) && !is.na(cs$etl_comment)) as.character(cs$etl_comment) else NULL,
+        reviews = reviews,
+        versions = versions,
+        distributionStats = distribution_stats
       )
     )
 

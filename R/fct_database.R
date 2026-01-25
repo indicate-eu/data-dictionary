@@ -367,6 +367,71 @@ add_concept_set_review <- function(concept_set_id, version, reviewer_user_id, st
   review_id
 }
 
+#' Delete Concept Set Review
+#'
+#' @description Delete a review for a concept set
+#' @param review_id Review ID to delete
+#' @return TRUE if successful
+#' @noRd
+delete_concept_set_review <- function(review_id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbExecute(
+    con,
+    "DELETE FROM concept_set_reviews WHERE review_id = ?",
+    params = list(review_id)
+  )
+
+  TRUE
+}
+
+#' Update Concept Set Review
+#'
+#' @description Update a review for a concept set
+#' @param review_id Review ID to update
+#' @param status Review status (approved, needs_revision)
+#' @param comments Review comments (markdown)
+#' @return TRUE if successful
+#' @noRd
+update_concept_set_review <- function(review_id, status = NULL, comments = NULL) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  # Helper to convert NULL to NA
+  null_to_na <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else x
+
+  # Build dynamic update query
+  updates <- list()
+  params <- list()
+
+  if (!is.null(status)) {
+    updates <- append(updates, "status = ?")
+    params <- append(params, status)
+  }
+
+  if (!is.null(comments)) {
+    updates <- append(updates, "comments = ?")
+    params <- append(params, null_to_na(comments))
+  }
+
+  if (length(updates) == 0) {
+    return(TRUE)
+  }
+
+  # Add review_id as last parameter
+  params <- append(params, review_id)
+
+  query <- sprintf(
+    "UPDATE concept_set_reviews SET %s WHERE review_id = ?",
+    paste(updates, collapse = ", ")
+  )
+
+  DBI::dbExecute(con, query, params = params)
+
+  TRUE
+}
+
 #' Add Changelog Entry
 #'
 #' @description Add a changelog entry for a concept set version change
@@ -409,6 +474,48 @@ add_changelog_entry <- function(concept_set_id, version_from = NULL, version_to,
   change_id <- DBI::dbGetQuery(con, "SELECT last_insert_rowid() AS id")$id
 
   change_id
+}
+
+#' Delete Changelog Entry
+#'
+#' @description Delete a changelog entry
+#' @param change_id Changelog entry ID
+#' @return TRUE if successful
+#' @noRd
+delete_changelog_entry <- function(change_id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbExecute(
+    con,
+    "DELETE FROM concept_set_changelog WHERE change_id = ?",
+    params = list(change_id)
+  )
+
+  TRUE
+}
+
+#' Update Changelog Entry
+#'
+#' @description Update a changelog entry's summary
+#' @param change_id Changelog entry ID
+#' @param change_summary New summary text
+#' @return TRUE if successful
+#' @noRd
+update_changelog_entry <- function(change_id, change_summary) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  # Helper to convert NULL to NA
+  null_to_na <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else x
+
+  DBI::dbExecute(
+    con,
+    "UPDATE concept_set_changelog SET change_summary = ? WHERE change_id = ?",
+    params = list(null_to_na(change_summary), change_id)
+  )
+
+  TRUE
 }
 
 #' Delete Concept Set Item

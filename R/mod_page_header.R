@@ -161,8 +161,17 @@ mod_page_header_server <- function(id, i18n, current_user = NULL) {
 
     ## Get current route ----
     current_route <- reactive({
-      page <- shiny.router::get_page(session)
+      # Check if router is initialized
+      if (is.null(session$userData$shiny.router.page)) return("")
+
+      page <- tryCatch({
+        shiny.router::get_page(session)
+      }, error = function(e) {
+        return("")
+      })
+
       if (is.logical(page) && !page) return("")
+      if (is.null(page)) return("")
       sub("^/", "", page)
     })
 
@@ -241,13 +250,24 @@ mod_page_header_server <- function(id, i18n, current_user = NULL) {
         ))
       }
 
-      user_name <- if (!is.null(user$first_name) && nchar(user$first_name) > 0) {
+      # Build user name - check for NA and empty values
+      has_first <- !is.null(user$first_name) && !is.na(user$first_name) && nchar(trimws(user$first_name)) > 0
+      has_last <- !is.null(user$last_name) && !is.na(user$last_name) && nchar(trimws(user$last_name)) > 0
+
+      user_name <- if (has_first && has_last) {
         paste(user$first_name, user$last_name)
+      } else if (has_first) {
+        user$first_name
       } else {
         user$login
       }
 
-      user_icon <- if (user$role == "Admin") "user-shield" else "user-circle"
+      # Determine icon based on user_access_id (1 = Admin)
+      user_icon <- if (!is.null(user$user_access_id) && user$user_access_id == 1) {
+        "user-shield"
+      } else {
+        "user-circle"
+      }
 
       tags$div(
         class = "current-user-badge",

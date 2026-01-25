@@ -382,6 +382,19 @@ div:has(> #dictionary_settings-global_comment_input) {
   margin-left: 4px;
 }
 
+/* Toggle with clickable label */
+.toggle-with-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.toggle-label-text {
+  font-size: 13px;
+  color: #666;
+}
+
 /* Multiple selection label with hover effect */
 .multiple-selection-label {
   transition: color 0.2s ease;
@@ -2947,6 +2960,26 @@ a.btn-success-custom:hover {
   overflow: auto;
 }
 
+/* Fullscreen modal variant */
+.modal-fullscreen {
+  max-width: 95vw !important;
+  width: 95vw !important;
+  max-height: 95vh !important;
+  height: 95vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+.modal-fullscreen .modal-body {
+  flex: 1 !important;
+  overflow: hidden !important;
+}
+
+.modal-fullscreen .modal-footer {
+  flex-shrink: 0 !important;
+}
+
 .modal-header {
   position: relative;
   padding: 12px 20px;
@@ -3326,6 +3359,36 @@ button.btn-icon-only:hover {
   font-size: 15px;
 }
 
+.modal-fs-header .form-group {
+  margin-bottom: 0;
+}
+
+.modal-fs-header .form-control {
+  height: 32px;
+  padding: 4px 8px;
+  font-size: 13px;
+}
+
+/* Markdown preview container */
+.markdown-preview-container {
+  height: 100%;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 0 15px;
+  overflow-y: auto;
+  background: white;
+}
+
+.markdown-preview-placeholder {
+  color: #999;
+  font-style: italic;
+  padding: 0 15px;
+  height: 100%;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  background: white;
+}
+
 .modal-fs-close {
   width: 28px;
   height: 28px;
@@ -3635,6 +3698,43 @@ button.btn-icon-only:hover {
 }
 
 .tab-btn-blue i {
+  font-size: 12px;
+}
+
+/* Green variant for action buttons (e.g., Add Review) */
+.tab-btn-green {
+  background: #d4edda !important;
+  border: none !important;
+  color: #155724 !important;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.tab-btn-green:hover {
+  background: #c3e6cb !important;
+  color: #0f4c18 !important;
+}
+
+.tab-btn-green.active {
+  background: #28a745 !important;
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+.tab-btn-green.active:hover {
+  background: #218838 !important;
+  color: #ffffff !important;
+}
+
+.tab-btn-green i {
   font-size: 12px;
 }
 
@@ -5405,8 +5505,17 @@ button.btn-icon-only:hover {
   max-width: 750px;
 }
 
-#data_dictionary-new_version_modal #data_dictionary-version_change_summary {
+#data_dictionary-new_version_modal .mb-15:has(#data_dictionary-version_change_summary) {
   width: 100%;
+}
+
+#data_dictionary-new_version_modal .mb-15:has(#data_dictionary-version_change_summary) .form-group {
+  width: 100%;
+}
+
+#data_dictionary-new_version_modal #data_dictionary-version_change_summary {
+  width: 100% !important;
+  box-sizing: border-box;
 }
 
 /* OMOP Advanced Filters Modal
@@ -5417,10 +5526,6 @@ button.btn-icon-only:hover {
 
 #data_dictionary-omop_filters_modal .selectize-dropdown {
   min-width: 100% !important;
-}
-
-#data_dictionary-omop_filters_modal .modal-footer {
-  justify-content: space-between !important;
 }
 
 /* Expandable Section Buttons
@@ -5682,4 +5787,72 @@ table.dataTable .tag-badge {
   margin-right: 4px;
   margin-bottom: 2px;
   white-space: nowrap;
+}
+
+/* Markdown preview styling
+-------------------------------------------------- */
+.markdown-body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #24292e;
+}
+
+.markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4, .markdown-body h5, .markdown-body h6 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.markdown-body h1 {
+  font-size: 2em;
+  border-bottom: 1px solid #eaecef;
+  padding-bottom: 0.3em;
+}
+
+.markdown-body h2 {
+  font-size: 1.5em;
+  border-bottom: 1px solid #eaecef;
+  padding-bottom: 0.3em;
+}
+
+.markdown-body h3 {
+  font-size: 1.25em;
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.markdown-body ul, .markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 16px;
+  padding-left: 2em;
+}
+
+.markdown-body code {
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(27,31,35,0.05);
+  border-radius: 3px;
+}
+
+.markdown-body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f6f8fa;
+  border-radius: 3px;
+  margin-bottom: 16px;
+}
+
+.markdown-body blockquote {
+  padding: 0 1em;
+  color: #6a737d;
+  border-left: 0.25em solid #dfe2e5;
+  margin-bottom: 16px;
 }

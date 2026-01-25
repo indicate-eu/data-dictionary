@@ -54,10 +54,17 @@ app_ui <- function() {
       "))
     ),
 
-    # Main application container
+    # Login page (initially visible)
+    tags$div(
+      id = "login_page",
+      mod_login_ui("login", i18n)
+    ),
+
+    # Main application (initially hidden)
     tags$div(
       id = "main_app",
       class = "app-container",
+      style = "display: none;",
 
       # Header with navigation
       mod_page_header_ui("page_header", i18n),

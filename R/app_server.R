@@ -25,21 +25,32 @@ app_server <- function(input, output, session) {
   )
   i18n$set_translation_language(language)
 
-  # Initialize router
-  shiny.router::router_server(root_page = "/")
+  # Initialize login module
+  login_result <- mod_login_server("login", i18n)
+  current_user <- login_result$user
 
-  # Current user (for now, a simple guest user)
-  current_user <- reactiveVal(list(
-    login = "guest",
-    first_name = "Guest",
-    last_name = "User",
-    role = "User"
-  ))
+  # Show/hide main app based on login state
+  observe_event(current_user(), {
+    user <- current_user()
+
+    if (!is.null(user)) {
+      # User logged in - show main app, hide login
+      shinyjs::hide("login_page")
+      shinyjs::show("main_app")
+    } else {
+      # User logged out - show login, hide main app
+      shinyjs::show("login_page")
+      shinyjs::hide("main_app")
+    }
+  }, ignoreNULL = FALSE)
 
   # Load OHDSI vocabularies from DuckDB (if available)
   vocabularies <- reactive({
     load_vocabularies_from_duckdb()
   })
+
+  # Initialize router - must be called once at app startup
+  shiny.router::router_server(root_page = "/")
 
   # Initialize header module
   header_result <- mod_page_header_server(
@@ -50,11 +61,11 @@ app_server <- function(input, output, session) {
 
   # Handle logout
   observe_event(header_result$logout(), {
-    # TODO: Implement logout logic
-    showNotification("Logout not implemented yet", type = "message")
+    current_user(NULL)
+    session$reload()
   }, ignoreInit = TRUE)
 
-  # Initialize page modules
+  # Initialize all page modules
   mod_data_dictionary_server(
     "data_dictionary",
     i18n = i18n,
