@@ -186,7 +186,7 @@ get_concept_set <- function(concept_set_id, language = NULL) {
 #'
 #' @description Add a concept to a concept set
 #' @param concept_set_id Concept set ID
-#' @param concept_id OMOP concept ID (or negative for custom concepts)
+#' @param concept_id OMOP concept ID
 #' @param concept_name Concept name
 #' @param vocabulary_id Vocabulary ID
 #' @param concept_code Concept code
@@ -299,36 +299,6 @@ get_concept_set_items <- function(concept_set_id) {
     ORDER BY concept_name",
     params = list(concept_set_id)
   )
-}
-
-#' Get Next Custom Concept ID
-#'
-#' @description Get the next available custom concept ID (negative numbers)
-#' @param concept_set_id Optional concept set ID to scope the search
-#' @return Integer (negative) for the next custom concept ID
-#' @noRd
-get_next_custom_concept_id <- function(concept_set_id = NULL) {
-  con <- get_db_connection()
-  on.exit(DBI::dbDisconnect(con))
-
-  if (!is.null(concept_set_id)) {
-    result <- DBI::dbGetQuery(
-      con,
-      "SELECT COALESCE(MIN(concept_id), 0) - 1 AS next_id
-       FROM concept_set_items
-       WHERE concept_set_id = ? AND concept_id < 0",
-      params = list(concept_set_id)
-    )
-  } else {
-    result <- DBI::dbGetQuery(
-      con,
-      "SELECT COALESCE(MIN(concept_id), 0) - 1 AS next_id
-       FROM concept_set_items
-       WHERE concept_id < 0"
-    )
-  }
-
-  result$next_id[1]
 }
 
 #' Update Concept Set Item

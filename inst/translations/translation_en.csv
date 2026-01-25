@@ -242,13 +242,9 @@ no_stats,No statistics available
 no_related_concepts,No related concepts found
 add_concepts_to_set,Add Concepts
 search_omop_concepts,Search OMOP Concepts
-add_custom_concept,Add Custom Concept
 vocabulary_id,Vocabulary ID
 concept_code,Concept Code
 concept_name,Concept Name
-enter_concept_name,Enter concept name
-vocabulary_id_required,Vocabulary ID is required
-concept_name_required,Concept name is required
 add_concept,Add Concept
 remove_concept,Remove Concept
 concept_added,Concept added successfully
@@ -273,3 +269,7 @@ statistics_desc,Statistical distribution and usage metrics for this concept set
 review,Review
 review_desc,Review process and validation status for this concept set
 edit_page,Edit page
+delete_all,Delete All
+add_concepts,Add Concepts
+confirm_delete_all_concepts,Are you sure you want to delete all concepts from this set?
+all_concepts_deleted,All concepts deleted successfully

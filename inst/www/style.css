@@ -1454,6 +1454,12 @@ div.dt-button-background {
   gap: var(--gap-default);
 }
 
+.flex-gap-8 {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
 .flex-gap-10 {
   display: flex;
   gap: var(--gap-default);
@@ -2011,6 +2017,25 @@ a.btn-success-custom:hover {
 
 .btn-secondary-custom:hover {
   background: #5a6268 !important;
+}
+
+/* Small button modifier - matches project-name-badge height */
+.btn-sm,
+.btn-primary-custom.btn-sm,
+.btn-secondary-custom.btn-sm,
+.btn-success-custom.btn-sm,
+.btn-danger-custom.btn-sm,
+.btn-warning-custom.btn-sm,
+.btn.btn-sm,
+.btn.btn-default.btn-sm,
+.btn.btn-default.action-button.btn-sm,
+button.btn-sm,
+button.btn.btn-sm {
+  padding: 4px 10px !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+  height: auto !important;
+  min-height: unset !important;
 }
 
 .btn-danger-custom {
@@ -3414,40 +3439,40 @@ button.btn-icon-only:hover {
   box-sizing: border-box;
 }
 
-/* Layout variant: left column full height, right column stacked (2 sections) */
-.detail-tab-panel .settings-backup-container.layout-left-full {
-  flex-wrap: nowrap;
-  overflow: hidden;
-  height: 100%;
-  min-height: 0;
-}
-
-.detail-tab-panel .settings-backup-container.layout-left-full > .settings-section-left {
-  flex: 1 1 50%;
-  min-width: 50%;
-  max-width: 50%;
-  height: 100%;
-  min-height: 0;
-  overflow: hidden;
-}
-
-.detail-tab-panel .settings-backup-container.layout-left-full > .settings-section-right {
-  flex: 1 1 50%;
-  min-width: 50%;
-  max-width: 50%;
-  display: flex;
-  flex-direction: column;
+/* Concepts layout: left column full height, right column stacked (2 sections) */
+.detail-tab-panel .settings-backup-container.concepts-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   gap: 10px;
   height: 100%;
-  min-height: 0;
 }
 
-.detail-tab-panel .settings-backup-container.layout-left-full > .settings-section-right > .settings-section {
-  flex: 1;
+.detail-tab-panel .settings-backup-container.concepts-layout > .settings-section:first-child {
+  grid-row: 1 / 3;
+  max-width: none;
+  min-width: 0;
   min-height: 0;
-  /* Override the 50% width constraint from .settings-backup-section */
-  min-width: 100% !important;
-  max-width: 100% !important;
+  overflow: auto;
+}
+
+.detail-tab-panel .settings-backup-container.concepts-layout > .settings-section:nth-child(2),
+.detail-tab-panel .settings-backup-container.concepts-layout > .settings-section:nth-child(3) {
+  max-width: none;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+}
+
+/* Edit mode: concepts section takes full width */
+.detail-tab-panel .settings-backup-container.concepts-layout.edit-mode {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.detail-tab-panel .settings-backup-container.concepts-layout.edit-mode > .settings-section:nth-child(2),
+.detail-tab-panel .settings-backup-container.concepts-layout.edit-mode > .settings-section:nth-child(3) {
+  display: none;
 }
 
 .detail-tab-panel .settings-backup-section .shiny-input-container {
@@ -4245,6 +4270,21 @@ button.btn-icon-only:hover {
 
 /* General Settings Page Styles
 -------------------------------------------------- */
+.settings-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #0f60af;
+}
+
+.settings-section-header .settings-section-title {
+  margin: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
 .settings-section-title {
   margin: 0 0 10px 0;
   color: #333;
@@ -4252,6 +4292,17 @@ button.btn-icon-only:hover {
   padding-bottom: 6px;
   font-size: 14px;
   font-weight: 600;
+}
+
+/* Edit mode: left section takes full width */
+.detail-tab-panel .settings-backup-container.layout-left-full.edit-mode > .settings-section-left {
+  flex: 1 1 100%;
+  min-width: 100%;
+  max-width: 100%;
+}
+
+.detail-tab-panel .settings-backup-container.layout-left-full.edit-mode > .settings-section-right {
+  display: none;
 }
 
 .settings-section-title-success {
@@ -4392,7 +4443,6 @@ button.btn-icon-only:hover {
 
 .settings-backup-section.settings-section {
   border: 1px solid #e8e8e8;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.12);
 }
 
 .settings-warning-box {

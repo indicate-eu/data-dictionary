@@ -242,13 +242,9 @@ no_stats,Aucune statistique disponible
 no_related_concepts,Aucun concept relie trouve
 add_concepts_to_set,Ajouter des Concepts
 search_omop_concepts,Rechercher Concepts OMOP
-add_custom_concept,Ajouter Concept Personnalise
 vocabulary_id,ID Vocabulaire
 concept_code,Code Concept
 concept_name,Nom du Concept
-enter_concept_name,Entrez le nom du concept
-vocabulary_id_required,L'ID vocabulaire est requis
-concept_name_required,Le nom du concept est requis
 add_concept,Ajouter Concept
 remove_concept,Retirer Concept
 concept_added,Concept ajoute avec succes
@@ -273,3 +269,7 @@ statistics_desc,Distribution statistique et metriques d'utilisation pour cet ens
 review,Revue
 review_desc,Processus de revue et statut de validation pour cet ensemble de concepts
 edit_page,Modifier la page
+delete_all,Tout Supprimer
+add_concepts,Ajouter des Concepts
+confirm_delete_all_concepts,Voulez-vous vraiment supprimer tous les concepts de cet ensemble ?
+all_concepts_deleted,Tous les concepts ont ete supprimes avec succes
