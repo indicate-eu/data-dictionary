@@ -327,6 +327,94 @@ get_datatable_language <- function(language = NULL) {
   }
 }
 
+#' Create Toggle HTML for Concept Set Options
+#'
+#' @description Creates HTML toggle switches for is_excluded, include_descendants,
+#' and include_mapped flags in concept set DataTables.
+#'
+#' @param concept_id The concept ID for this row
+#' @param field The field name (is_excluded, include_descendants, include_mapped)
+#' @param checked Whether the toggle is checked
+#' @param ns Shiny namespace function
+#' @param input_id Input ID for the toggle change event
+#' @param is_exclude Whether this is the exclude toggle (uses different styling)
+#'
+#' @return HTML string for the toggle
+#' @noRd
+create_concept_toggle <- function(concept_id, field, checked, ns, input_id, is_exclude = FALSE) {
+  toggle_class <- if (is_exclude) "toggle-switch toggle-small toggle-exclude" else "toggle-switch toggle-small"
+  checked_attr <- if (isTRUE(checked)) "checked" else ""
+
+
+  sprintf(
+    '<label class="%s"><input type="checkbox" data-concept-id="%s" data-field="%s" %s onchange="Shiny.setInputValue(\'%s\', {concept_id: %s, field: \'%s\', value: this.checked}, {priority: \'event\'})"><span class="toggle-slider"></span></label>',
+    toggle_class, concept_id, field, checked_attr, ns(input_id), concept_id, field
+  )
+}
+
+#' Prepare Concept Set Data for DataTable Display
+#'
+#' @description Prepares concept set data with HTML toggle switches for
+#' is_excluded, include_descendants, and include_mapped columns. Used for
+#' consistent display in concept set DataTables in edit mode.
+#'
+#' @param data Data frame with concept set items containing columns:
+#'   concept_id, concept_name, vocabulary_id, etc., and optionally
+#'   is_excluded, include_descendants, include_mapped
+#' @param ns Shiny namespace function
+#' @param toggle_input_id Character: Input ID for toggle change events
+#'
+#' @return Data frame with additional toggle HTML columns
+#' @noRd
+prepare_concept_set_toggles <- function(data, ns, toggle_input_id = "toggle_concept_option") {
+  if (nrow(data) == 0) return(data)
+
+  # Ensure boolean columns exist with defaults
+  if (!"is_excluded" %in% names(data)) data$is_excluded <- FALSE
+  if (!"include_descendants" %in% names(data)) data$include_descendants <- TRUE
+  if (!"include_mapped" %in% names(data)) data$include_mapped <- TRUE
+
+  # Convert to logical
+  data$is_excluded <- as.logical(data$is_excluded)
+  data$include_descendants <- as.logical(data$include_descendants)
+  data$include_mapped <- as.logical(data$include_mapped)
+
+  # Replace NA with defaults
+  data$is_excluded[is.na(data$is_excluded)] <- FALSE
+  data$include_descendants[is.na(data$include_descendants)] <- TRUE
+  data$include_mapped[is.na(data$include_mapped)] <- TRUE
+
+  # Create toggle HTML columns
+  data$exclude_toggle <- mapply(
+    create_concept_toggle,
+    concept_id = data$concept_id,
+    field = "is_excluded",
+    checked = data$is_excluded,
+    MoreArgs = list(ns = ns, input_id = toggle_input_id, is_exclude = TRUE),
+    SIMPLIFY = TRUE
+  )
+
+  data$descendants_toggle <- mapply(
+    create_concept_toggle,
+    concept_id = data$concept_id,
+    field = "include_descendants",
+    checked = data$include_descendants,
+    MoreArgs = list(ns = ns, input_id = toggle_input_id, is_exclude = FALSE),
+    SIMPLIFY = TRUE
+  )
+
+  data$mapped_toggle <- mapply(
+    create_concept_toggle,
+    concept_id = data$concept_id,
+    field = "include_mapped",
+    checked = data$include_mapped,
+    MoreArgs = list(ns = ns, input_id = toggle_input_id, is_exclude = FALSE),
+    SIMPLIFY = TRUE
+  )
+
+  data
+}
+
 #' Apply Standard Concept Column Styling
 #'
 #' @description Apply consistent styling to standard_concept columns in DataTables.

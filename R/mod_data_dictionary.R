@@ -186,7 +186,7 @@ mod_data_dictionary_ui <- function(id, i18n) {
                             shinyjs::hidden(
                               tags$span(
                                 id = ns("concepts_edit_buttons"),
-                                class = "flex-gap-8",
+                                class = "flex-gap-5",
                                 style = "float: right;",
                                 actionButton(
                                   ns("select_all_concepts"),
@@ -225,6 +225,7 @@ mod_data_dictionary_ui <- function(id, i18n) {
                             )
                           ),
                           tags$p(
+                            id = ns("concepts_desc_text"),
                             class = "settings-section-desc",
                             i18n$t("concepts_in_set_tooltip")
                           ),
@@ -2032,6 +2033,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
               domain_id = if (!is.null(x$domain_id)) x$domain_id else NA_character_,
               concept_class_id = if (!is.null(x$concept_class_id)) x$concept_class_id else NA_character_,
               standard_concept = x$standard_concept,
+              is_excluded = if (!is.null(x$is_excluded)) x$is_excluded else FALSE,
+              include_descendants = if (!is.null(x$include_descendants)) x$include_descendants else TRUE,
+              include_mapped = if (!is.null(x$include_mapped)) x$include_mapped else TRUE,
               stringsAsFactors = FALSE
             )
           }))
@@ -2045,31 +2049,75 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
         if (is.null(concepts) || nrow(concepts) == 0) return(NULL)
 
-        # Transform standard_concept to readable text
-        standard_display <- dplyr::case_when(
-          is.na(concepts$standard_concept) | concepts$standard_concept == "" ~ "Non-standard",
-          concepts$standard_concept == "S" ~ "Standard",
-          concepts$standard_concept == "C" ~ "Classification",
-          TRUE ~ "Non-standard"
-        )
-
-        # Prepare display data - vocabulary_id before concept_name
-        display_data <- data.frame(
-          concept_id = concepts$concept_id,
-          vocabulary_id = factor(concepts$vocabulary_id),
-          concept_name = concepts$concept_name,
-          concept_code = concepts$concept_code,
-          domain_id = factor(ifelse(is.na(concepts$domain_id), "", concepts$domain_id)),
-          concept_class_id = factor(ifelse(is.na(concepts$concept_class_id), "", concepts$concept_class_id)),
-          standard_concept = factor(standard_display, levels = c("Standard", "Classification", "Non-standard")),
-          stringsAsFactors = FALSE
-        )
-
         # Check if in edit mode
         is_edit_mode <- concepts_edit_mode()
 
-        # In edit mode, use multiple selection for bulk operations
+        # In view mode, resolve the concept set (apply exclude/descendants/mapped rules)
+        # In edit mode, show the raw items with toggles
+        if (!is_edit_mode) {
+          # Resolve concept set - this will include descendants and mapped, exclude is_excluded
+          resolved <- resolve_concept_set(concepts)
+
+          if (is.null(resolved) || nrow(resolved) == 0) return(NULL)
+
+          # Transform standard_concept to readable text
+          standard_display <- dplyr::case_when(
+            is.na(resolved$standard_concept) | resolved$standard_concept == "" ~ "Non-standard",
+            resolved$standard_concept == "S" ~ "Standard",
+            resolved$standard_concept == "C" ~ "Classification",
+            TRUE ~ "Non-standard"
+          )
+
+          # Prepare display data for view mode
+          display_data <- data.frame(
+            concept_id = resolved$concept_id,
+            vocabulary_id = factor(resolved$vocabulary_id),
+            concept_name = resolved$concept_name,
+            concept_code = resolved$concept_code,
+            domain_id = factor(ifelse(is.na(resolved$domain_id), "", resolved$domain_id)),
+            concept_class_id = factor(ifelse(is.na(resolved$concept_class_id), "", resolved$concept_class_id)),
+            standard_concept = factor(standard_display, levels = c("Standard", "Classification", "Non-standard")),
+            stringsAsFactors = FALSE
+          )
+        } else {
+          # Edit mode: show raw items with toggles
+
+          # Transform standard_concept to readable text
+          standard_display <- dplyr::case_when(
+            is.na(concepts$standard_concept) | concepts$standard_concept == "" ~ "Non-standard",
+            concepts$standard_concept == "S" ~ "Standard",
+            concepts$standard_concept == "C" ~ "Classification",
+            TRUE ~ "Non-standard"
+          )
+
+          # Prepare display data - vocabulary_id before concept_name
+          display_data <- data.frame(
+            concept_id = concepts$concept_id,
+            vocabulary_id = factor(concepts$vocabulary_id),
+            concept_name = concepts$concept_name,
+            concept_code = concepts$concept_code,
+            domain_id = factor(ifelse(is.na(concepts$domain_id), "", concepts$domain_id)),
+            concept_class_id = factor(ifelse(is.na(concepts$concept_class_id), "", concepts$concept_class_id)),
+            standard_concept = factor(standard_display, levels = c("Standard", "Classification", "Non-standard")),
+            stringsAsFactors = FALSE
+          )
+        }
+
+        # In edit mode, add toggle columns for is_excluded, include_descendants, include_mapped
         if (can_edit() && is_edit_mode) {
+          # Add toggle data from concepts
+          display_data$is_excluded <- if ("is_excluded" %in% names(concepts)) concepts$is_excluded else FALSE
+          display_data$include_descendants <- if ("include_descendants" %in% names(concepts)) concepts$include_descendants else TRUE
+          display_data$include_mapped <- if ("include_mapped" %in% names(concepts)) concepts$include_mapped else TRUE
+
+          # Prepare toggles
+          display_data <- prepare_concept_set_toggles(display_data, ns, "toggle_concept_option")
+
+          # Select columns for edit mode display (with toggles)
+          display_data <- display_data[, c("concept_id", "vocabulary_id", "concept_name", "concept_code",
+                                           "domain_id", "concept_class_id", "standard_concept",
+                                           "exclude_toggle", "descendants_toggle", "mapped_toggle")]
+
           dt <- create_standard_datatable(
             display_data,
             selection = "multiple",
@@ -2080,18 +2128,24 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
               "Code",
               as.character(i18n$t("domain_id")),
               as.character(i18n$t("concept_class_id")),
-              as.character(i18n$t("standard"))
+              as.character(i18n$t("standard")),
+              as.character(i18n$t("exclude")),
+              as.character(i18n$t("include_descendants")),
+              as.character(i18n$t("include_mapped"))
             ),
             col_defs = list(
-              list(targets = 0, width = "9%"),
-              list(targets = 1, width = "11%"),
-              list(targets = 2, width = "30%"),
-              list(targets = 3, width = "12%"),
-              list(targets = 4, width = "11%", visible = FALSE),
-              list(targets = 5, width = "11%", visible = FALSE),
-              list(targets = 6, width = "13%", className = "dt-center")
+              list(targets = 0, width = "8%"),
+              list(targets = 1, width = "9%"),
+              list(targets = 2, width = "22%"),
+              list(targets = 3, width = "9%"),
+              list(targets = 4, width = "9%", visible = FALSE),
+              list(targets = 5, width = "9%", visible = FALSE),
+              list(targets = 6, width = "10%", className = "dt-center"),
+              list(targets = 7, width = "7%", className = "dt-center"),
+              list(targets = 8, width = "9%", className = "dt-center"),
+              list(targets = 9, width = "7%", className = "dt-center")
             ),
-            escape = TRUE,
+            escape = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE),
             show_colvis = TRUE
           )
 
@@ -2145,7 +2199,40 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       concepts <- get_concept_set_items(cs_id)
       if (is.null(concepts) || nrow(concepts) == 0) return()
 
-      selected_concept_id(concepts$concept_id[rows])
+      # In view mode, we display resolved concepts, so get them for selection
+      is_edit_mode <- concepts_edit_mode()
+      if (!is_edit_mode) {
+        resolved <- resolve_concept_set(concepts)
+        if (!is.null(resolved) && nrow(resolved) > 0) {
+          selected_concept_id(resolved$concept_id[rows])
+        }
+      } else {
+        selected_concept_id(concepts$concept_id[rows])
+      }
+    }, ignoreInit = TRUE)
+
+    ## Handle toggle changes for concept options ----
+    observe_event(input$toggle_concept_option, {
+      toggle_data <- input$toggle_concept_option
+      if (is.null(toggle_data)) return()
+
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      concept_id <- toggle_data$concept_id
+      field <- toggle_data$field
+      value <- toggle_data$value
+
+      if (is.null(concept_id) || is.null(field)) return()
+
+      # Update the database immediately
+      if (field == "is_excluded") {
+        update_concept_set_item(cs_id, concept_id, is_excluded = value)
+      } else if (field == "include_descendants") {
+        update_concept_set_item(cs_id, concept_id, include_descendants = value)
+      } else if (field == "include_mapped") {
+        update_concept_set_item(cs_id, concept_id, include_mapped = value)
+      }
     }, ignoreInit = TRUE)
 
     ## Selected Concept Details (bottom-left quadrant) ----
@@ -2621,6 +2708,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Hide fullscreen button (not needed in edit mode - already fullscreen)
       shinyjs::hide("expand_concepts")
 
+      # Hide description text in edit mode
+      shinyjs::hide("concepts_desc_text")
+
       # Show concepts edit action buttons
       shinyjs::show("concepts_edit_buttons")
 
@@ -2649,6 +2739,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
       # Show fullscreen button again
       shinyjs::show("expand_concepts")
+
+      # Show description text again
+      shinyjs::show("concepts_desc_text")
 
       # Hide concepts edit action buttons
       shinyjs::hide("concepts_edit_buttons")
@@ -2711,6 +2804,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
       # Show fullscreen button again
       shinyjs::show("expand_concepts")
+
+      # Show description text again
+      shinyjs::show("concepts_desc_text")
 
       # Hide concepts edit action buttons
       shinyjs::hide("concepts_edit_buttons")

@@ -1500,6 +1500,12 @@ div.dt-button-background {
   gap: var(--gap-default);
 }
 
+.flex-gap-5 {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
 .flex-gap-8 {
   display: flex;
   gap: 8px;
@@ -4549,6 +4555,16 @@ button.btn-icon-only:hover {
   right: 0;
   top: 6px;
   transform: translateY(-50%);
+}
+
+/* Edit buttons in concepts header - position absolutely to not affect height */
+.settings-section-title .flex-gap-5,
+.settings-section-title .flex-gap-8 {
+  position: absolute;
+  right: 0;
+  top: 8px;
+  transform: translateY(-50%);
+  float: none !important;
 }
 
 /* Edit mode: left section takes full width */

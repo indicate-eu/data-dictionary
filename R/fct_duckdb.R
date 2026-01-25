@@ -698,3 +698,133 @@ delete_duckdb_database <- function() {
     ))
   })
 }
+
+#' Resolve Concept Set
+#'
+#' @description Resolve a concept set by including descendants and mapped concepts
+#' based on the include_descendants and include_mapped flags, and excluding
+#' concepts marked as is_excluded.
+#'
+#' @param concepts Data frame with concept set items. Must contain columns:
+#'   concept_id, is_excluded, include_descendants, include_mapped
+#'
+#' @return Data frame with resolved concepts (unique, sorted by concept_name)
+#' @noRd
+resolve_concept_set <- function(concepts) {
+  if (is.null(concepts) || nrow(concepts) == 0) {
+    return(data.frame())
+  }
+
+  # Ensure required columns exist with default values
+  if (!"is_excluded" %in% names(concepts)) {
+    concepts$is_excluded <- FALSE
+  }
+  if (!"include_descendants" %in% names(concepts)) {
+    concepts$include_descendants <- TRUE
+  }
+  if (!"include_mapped" %in% names(concepts)) {
+    concepts$include_mapped <- TRUE
+  }
+
+  # Convert to logical if needed
+  concepts$is_excluded <- as.logical(concepts$is_excluded)
+  concepts$include_descendants <- as.logical(concepts$include_descendants)
+  concepts$include_mapped <- as.logical(concepts$include_mapped)
+
+  # Replace NA with defaults
+  concepts$is_excluded[is.na(concepts$is_excluded)] <- FALSE
+  concepts$include_descendants[is.na(concepts$include_descendants)] <- TRUE
+  concepts$include_mapped[is.na(concepts$include_mapped)] <- TRUE
+
+  # Check if DuckDB is available
+  db_path <- get_duckdb_path()
+  if (!file.exists(db_path)) {
+    # No vocabulary database - just filter out excluded concepts
+    return(concepts[!concepts$is_excluded, ])
+  }
+
+  # Filter out excluded concepts for resolution
+  non_excluded <- concepts[!concepts$is_excluded, ]
+
+  if (nrow(non_excluded) == 0) {
+    return(data.frame())
+  }
+
+  # Start with base concept IDs
+  resolved_ids <- non_excluded$concept_id
+
+  tryCatch({
+    con <- DBI::dbConnect(duckdb::duckdb(), dbdir = db_path, read_only = TRUE)
+    on.exit(DBI::dbDisconnect(con, shutdown = TRUE))
+
+    # Add descendants where include_descendants is TRUE
+    concepts_with_descendants <- non_excluded[non_excluded$include_descendants == TRUE, ]
+
+    if (nrow(concepts_with_descendants) > 0) {
+      ancestor_ids <- paste(concepts_with_descendants$concept_id, collapse = ",")
+      descendants <- DBI::dbGetQuery(
+        con,
+        sprintf(
+          "SELECT DISTINCT descendant_concept_id
+           FROM concept_ancestor
+           WHERE ancestor_concept_id IN (%s)
+             AND descendant_concept_id != ancestor_concept_id",
+          ancestor_ids
+        )
+      )
+
+      if (nrow(descendants) > 0) {
+        resolved_ids <- c(resolved_ids, descendants$descendant_concept_id)
+      }
+    }
+
+    # Add mapped concepts where include_mapped is TRUE
+    concepts_with_mapped <- non_excluded[non_excluded$include_mapped == TRUE, ]
+
+    if (nrow(concepts_with_mapped) > 0) {
+      source_ids <- paste(concepts_with_mapped$concept_id, collapse = ",")
+      mapped <- DBI::dbGetQuery(
+        con,
+        sprintf(
+          "SELECT DISTINCT concept_id_2
+           FROM concept_relationship
+           WHERE concept_id_1 IN (%s)
+             AND relationship_id IN ('Maps to', 'Mapped from')",
+          source_ids
+        )
+      )
+
+      if (nrow(mapped) > 0) {
+        resolved_ids <- c(resolved_ids, mapped$concept_id_2)
+      }
+    }
+
+    # Get unique concept IDs
+    resolved_ids <- unique(resolved_ids)
+
+    # Get concept details for all resolved IDs
+    if (length(resolved_ids) > 0) {
+      ids_str <- paste(resolved_ids, collapse = ",")
+      resolved_concepts <- DBI::dbGetQuery(
+        con,
+        sprintf(
+          "SELECT concept_id, concept_name, vocabulary_id, domain_id,
+                  concept_class_id, concept_code, standard_concept
+           FROM concept
+           WHERE concept_id IN (%s)
+           ORDER BY concept_name",
+          ids_str
+        )
+      )
+
+      return(resolved_concepts)
+    }
+
+    return(data.frame())
+
+  }, error = function(e) {
+    warning("Error resolving concept set: ", e$message)
+    # Fallback: return non-excluded concepts
+    return(concepts[!concepts$is_excluded, ])
+  })
+}
