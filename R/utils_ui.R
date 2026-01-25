@@ -368,8 +368,8 @@ render_concept_details <- function(concept, i18n, empty_message = NULL,
   if (is.null(concept) || (is.data.frame(concept) && nrow(concept) == 0)) {
     msg <- if (!is.null(empty_message)) empty_message else as.character(i18n$t("no_concept_selected"))
     return(tags$div(
-      class = "concept-details-empty",
-      tags$p(class = "text-muted-italic", msg)
+      class = "no-content-message",
+      msg
     ))
   }
 
@@ -550,4 +550,132 @@ show_modal <- function(modal_id) {
 #' @noRd
 hide_modal <- function(modal_id) {
   shinyjs::runjs(sprintf("document.getElementById('%s').style.display = 'none';", modal_id))
+}
+
+# COLOR PICKER ====
+
+#' Get Text Color for Background
+#'
+#' @description Calculates whether white or black text should be used based on background color luminance
+#'
+#' @param bg_color Character: Background color in hex format (e.g., "#ff0000")
+#'
+#' @return Character: "#ffffff" (white) or "#000000" (black)
+#' @noRd
+get_text_color_for_bg <- function(bg_color) {
+  # Remove # if present
+  color <- gsub("#", "", bg_color)
+
+  # Convert to RGB
+  r <- strtoi(substr(color, 1, 2), base = 16)
+  g <- strtoi(substr(color, 3, 4), base = 16)
+  b <- strtoi(substr(color, 5, 6), base = 16)
+
+  # Calculate relative luminance (perceived brightness)
+  # Formula from WCAG 2.0
+  luminance <- (0.299 * r + 0.587 * g + 0.114 * b) / 255
+
+  # Return white text for dark backgrounds, black for light backgrounds
+  if (luminance > 0.5) "#000000" else "#ffffff"
+}
+
+#' Create Color Picker with Predefined Palette
+#'
+#' @description Creates a color picker with predefined palette and automatic text color
+#'
+#' @param id Character: Input ID (will be namespaced)
+#' @param value Character: Initial color value (hex code)
+#' @param ns Function: Namespace function from module
+#'
+#' @return A shiny.tag div element
+#' @noRd
+create_color_picker <- function(id, value = "#6c757d", ns) {
+  # Predefined color palette with text colors
+  # Format: c(bg_color, text_color)
+  colors <- list(
+    # Light colors (dark text)
+    c("#e3f2fd", "#000000"), # Light Blue
+    c("#f3e5f5", "#000000"), # Light Purple
+    c("#e8f5e9", "#000000"), # Light Green
+    c("#fff3e0", "#000000"), # Light Orange
+    c("#fce4ec", "#000000"), # Light Pink
+    c("#f1f8e9", "#000000"), # Light Lime
+    c("#e0f7fa", "#000000"), # Light Cyan
+    c("#fff9c4", "#000000"), # Light Yellow
+
+    # Medium colors (dark text)
+    c("#90caf9", "#000000"), # Medium Blue
+    c("#ce93d8", "#000000"), # Medium Purple
+    c("#a5d6a7", "#000000"), # Medium Green
+    c("#ffcc80", "#000000"), # Medium Orange
+    c("#f48fb1", "#000000"), # Medium Pink
+    c("#dce775", "#000000"), # Medium Lime
+    c("#80deea", "#000000"), # Medium Cyan
+    c("#fff59d", "#000000"), # Medium Yellow
+
+    # Dark colors (white text)
+    c("#42a5f5", "#ffffff"), # Dark Blue
+    c("#ab47bc", "#ffffff"), # Dark Purple
+    c("#66bb6a", "#ffffff"), # Dark Green
+    c("#ffa726", "#ffffff"), # Dark Orange
+    c("#ec407a", "#ffffff"), # Dark Pink
+    c("#d4e157", "#000000"), # Dark Lime
+    c("#26c6da", "#ffffff"), # Dark Cyan
+    c("#ffee58", "#000000"), # Dark Yellow
+
+    # Very dark colors (white text)
+    c("#1e88e5", "#ffffff"), # Very Dark Blue
+    c("#8e24aa", "#ffffff"), # Very Dark Purple
+    c("#43a047", "#ffffff"), # Very Dark Green
+    c("#fb8c00", "#ffffff"), # Very Dark Orange
+    c("#d81b60", "#ffffff"), # Very Dark Pink
+    c("#9e9d24", "#ffffff"), # Very Dark Lime
+    c("#00acc1", "#ffffff"), # Very Dark Cyan
+    c("#fdd835", "#000000"), # Very Dark Yellow
+
+    # Grays
+    c("#f5f5f5", "#000000"), # Very Light Gray
+    c("#e0e0e0", "#000000"), # Light Gray
+    c("#bdbdbd", "#000000"), # Gray
+    c("#9e9e9e", "#ffffff"), # Medium Gray
+    c("#757575", "#ffffff"), # Dark Gray
+    c("#616161", "#ffffff"), # Very Dark Gray
+    c("#424242", "#ffffff"), # Almost Black
+    c("#212121", "#ffffff")  # Black
+  )
+
+  # Generate color swatches
+  swatches <- lapply(colors, function(color_pair) {
+    bg_color <- color_pair[1]
+    is_selected <- (bg_color == value)
+    swatch_class <- if (is_selected) "color-swatch selected" else "color-swatch"
+
+    tags$div(
+      class = swatch_class,
+      `data-color` = bg_color,
+      style = sprintf("background-color: %s;", bg_color),
+      onclick = sprintf("
+        var container = this.closest('.color-picker');
+        container.querySelectorAll('.color-swatch').forEach(function(el) {
+          el.classList.remove('selected');
+        });
+        this.classList.add('selected');
+        Shiny.setInputValue('%s', '%s', {priority: 'event'});
+      ", ns(id), bg_color)
+    )
+  })
+
+  tags$div(
+    class = "color-picker",
+    tags$div(
+      class = "color-swatches",
+      swatches
+    ),
+    # Hidden input to store the selected color
+    tags$input(
+      type = "hidden",
+      id = ns(id),
+      value = value
+    )
+  )
 }

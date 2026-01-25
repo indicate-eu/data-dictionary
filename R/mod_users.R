@@ -210,14 +210,21 @@ mod_users_ui <- function(id, i18n) {
             style = "display: flex; gap: 15px;",
             tags$div(
               style = "flex: 1;",
-              tags$label(i18n$t("role"), class = "form-label"),
-              selectInput(
-                ns("user_role"),
-                label = NULL,
-                choices = stats::setNames(
-                  c("Clinician", "Data scientist", "Engineer"),
-                  c(as.character(i18n$t("clinician")), as.character(i18n$t("data_scientist")), as.character(i18n$t("engineer")))
+              tags$label(
+                tagList(
+                  i18n$t("profession"),
+                  tags$span(
+                    class = "info-icon",
+                    `data-tooltip` = as.character(i18n$t("profession_tooltip")),
+                    HTML("&#x3f;")
+                  )
                 ),
+                class = "form-label"
+              ),
+              textInput(
+                ns("user_profession"),
+                label = NULL,
+                placeholder = "e.g., Data Scientist, Cardiologist, Software Engineer",
                 width = "100%"
               )
             ),
@@ -238,6 +245,19 @@ mod_users_ui <- function(id, i18n) {
               placeholder = as.character(i18n$t("enter_affiliation")),
               style = "width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 14px; resize: vertical; min-height: 60px;"
             )
+          ),
+
+          # ORCiD
+          tags$div(
+            class = "mb-15",
+            tags$label("ORCiD", class = "form-label"),
+            textInput(
+              ns("user_orcid"),
+              label = NULL,
+              placeholder = "0000-0000-0000-0000",
+              width = "100%"
+            ),
+            tags$div(id = ns("orcid_error"), class = "input-error-message")
           )
         ),
 
@@ -445,16 +465,16 @@ mod_users_server <- function(id, i18n, current_user = NULL) {
           create_datatable_actions(actions)
         })
 
-        # Select display columns
-        display_data <- users[, c("user_id", "login", "first_name", "last_name", "user_access_name", "role", "affiliation", "Actions")]
+        # Select display columns (without user_id, with orcid)
+        display_data <- users[, c("login", "first_name", "last_name", "user_access_name", "profession", "affiliation", "orcid", "Actions")]
         colnames(display_data) <- c(
-          "user_id",
           as.character(i18n$t("login_label")),
           as.character(i18n$t("first_name")),
           as.character(i18n$t("last_name")),
           as.character(i18n$t("user_access")),
-          as.character(i18n$t("role")),
+          as.character(i18n$t("profession")),
           as.character(i18n$t("affiliation")),
+          "ORCiD",
           as.character(i18n$t("actions"))
         )
 
@@ -464,7 +484,7 @@ mod_users_server <- function(id, i18n, current_user = NULL) {
           filter = "top",
           escape = FALSE,
           col_defs = list(
-            list(visible = FALSE, targets = 0),
+            list(visible = FALSE, targets = c(5, 6)),  # Hide affiliation and orcid by default
             list(width = "180px", targets = 7),
             list(searchable = FALSE, targets = 7),
             list(className = "dt-center", targets = 7)
@@ -490,8 +510,9 @@ mod_users_server <- function(id, i18n, current_user = NULL) {
       updateTextInput(session, "user_password_confirm", value = "")
       updateTextInput(session, "user_first_name", value = "")
       updateTextInput(session, "user_last_name", value = "")
-      updateSelectInput(session, "user_role", selected = "Data scientist")
+      updateTextInput(session, "user_profession", value = "")
       shinyjs::runjs(sprintf("$('#%s').val('');", ns("user_affiliation")))
+      updateTextInput(session, "user_orcid", value = "")
 
       # Set default user access to "Read only" if available
       user_accesses <- user_accesses_data()
@@ -511,6 +532,7 @@ mod_users_server <- function(id, i18n, current_user = NULL) {
       shinyjs::hide("first_name_error")
       shinyjs::hide("last_name_error")
       shinyjs::hide("user_access_error")
+      shinyjs::hide("orcid_error")
 
       shinyjs::show("user_modal")
     }, ignoreInit = TRUE)
@@ -537,7 +559,7 @@ mod_users_server <- function(id, i18n, current_user = NULL) {
       updateTextInput(session, "user_password_confirm", value = "")
       updateTextInput(session, "user_first_name", value = edit_user$first_name)
       updateTextInput(session, "user_last_name", value = edit_user$last_name)
-      updateSelectInput(session, "user_role", selected = edit_user$role)
+      updateTextInput(session, "user_profession", value = edit_user$profession)
 
       if (!is.na(edit_user$user_access_id)) {
         updateSelectInput(session, "user_user_access", selected = edit_user$user_access_id)
@@ -546,6 +568,9 @@ mod_users_server <- function(id, i18n, current_user = NULL) {
       affiliation_value <- if (!is.na(edit_user$affiliation)) edit_user$affiliation else ""
       shinyjs::runjs(sprintf("$('#%s').val('%s');", ns("user_affiliation"), gsub("'", "\\\\'", affiliation_value)))
 
+      orcid_value <- if (!is.na(edit_user$orcid)) edit_user$orcid else ""
+      updateTextInput(session, "user_orcid", value = orcid_value)
+
       # Hide error messages
       shinyjs::hide("login_error")
       shinyjs::hide("password_error")
@@ -553,6 +578,7 @@ mod_users_server <- function(id, i18n, current_user = NULL) {
       shinyjs::hide("first_name_error")
       shinyjs::hide("last_name_error")
       shinyjs::hide("user_access_error")
+      shinyjs::hide("orcid_error")
 
       shinyjs::show("user_modal")
     }, ignoreInit = TRUE)
@@ -596,6 +622,7 @@ mod_users_server <- function(id, i18n, current_user = NULL) {
       shinyjs::hide("first_name_error")
       shinyjs::hide("last_name_error")
       shinyjs::hide("user_access_error")
+      shinyjs::hide("orcid_error")
 
       has_errors <- FALSE
 
@@ -648,6 +675,16 @@ mod_users_server <- function(id, i18n, current_user = NULL) {
         }
       }
 
+      # Validate ORCiD format (if provided)
+      if (!is.null(input$user_orcid) && nchar(trimws(input$user_orcid)) > 0) {
+        orcid_pattern <- "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[0-9X]$"
+        if (!grepl(orcid_pattern, trimws(input$user_orcid))) {
+          shinyjs::html("orcid_error", as.character(i18n$t("invalid_orcid_format")))
+          shinyjs::show("orcid_error")
+          has_errors <- TRUE
+        }
+      }
+
       if (has_errors) return()
 
       # Check for duplicate login
@@ -667,8 +704,9 @@ mod_users_server <- function(id, i18n, current_user = NULL) {
           password = input$user_password,
           first_name = input$user_first_name,
           last_name = input$user_last_name,
-          role = input$user_role,
+          profession = input$user_profession,
           affiliation = input$user_affiliation,
+          orcid = input$user_orcid,
           user_access_id = as.integer(input$user_user_access)
         )
 
@@ -691,8 +729,9 @@ mod_users_server <- function(id, i18n, current_user = NULL) {
           login = login_to_check,
           first_name = input$user_first_name,
           last_name = input$user_last_name,
-          role = input$user_role,
+          profession = input$user_profession,
           affiliation = input$user_affiliation,
+          orcid = input$user_orcid,
           user_access_id = as.integer(input$user_user_access)
         )
 

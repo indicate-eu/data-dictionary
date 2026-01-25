@@ -47,10 +47,13 @@ last_name,Last Name
 enter_first_name,Enter first name
 enter_last_name,Enter last name
 role,Role
+profession,Profession
+profession_tooltip,"User's profession or specialty (e.g. Data Scientist, Cardiologist, Software Engineer). For clinicians, please specify the medical specialty."
 clinician,Clinician
 data_scientist,Data Scientist
 engineer,Engineer
 user_access,User Access
+invalid_orcid_format,Invalid ORCiD format. Expected format: 0000-0000-0000-0000
 affiliation,Affiliation
 enter_affiliation,Enter affiliation
 enter_name,Enter name
@@ -309,3 +312,26 @@ concept_list_copied,Concept list copied to clipboard successfully
 sql_copied,SQL query copied to clipboard successfully
 copy_failed,Failed to copy to clipboard
 download_failed,Failed to download file
+review_status,Review Status
+version,Version
+status_draft,Draft
+status_pending_review,Pending Review
+status_approved,Approved
+status_needs_revision,Needs Revision
+status_deprecated,Deprecated
+filters,Filters
+apply,Apply
+reset_filters,Reset Filters
+submit_review,Submit Review
+add_review,Add Review
+reviewer,Reviewer
+review_date,Review Date
+no_reviews,No reviews yet
+review_submitted,Review submitted successfully
+review_comments_required,Review comments are required
+change_status,Change Status
+new_version,New Version
+create_new_version,Create New Version
+version_created,New version created successfully
+status_changed,Status changed successfully
+change_summary,Change Summary

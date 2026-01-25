@@ -47,10 +47,13 @@ last_name,Nom
 enter_first_name,Entrez le prenom
 enter_last_name,Entrez le nom
 role,Role
+profession,Profession
+profession_tooltip,"Profession ou specialite de l'utilisateur (ex. Data Scientist, Cardiologue, Ingenieur Logiciel). Pour les cliniciens, veuillez specifier la specialite medicale."
 clinician,Clinicien
 data_scientist,Data Scientist
 engineer,Ingenieur
 user_access,Niveau d'Acces
+invalid_orcid_format,Format ORCiD invalide. Format attendu : 0000-0000-0000-0000
 affiliation,Affiliation
 enter_affiliation,Entrez l'affiliation
 enter_name,Entrez le nom
@@ -309,3 +312,26 @@ concept_list_copied,Liste de concepts copiee dans le presse-papiers avec succes
 sql_copied,Requete SQL copiee dans le presse-papiers avec succes
 copy_failed,Echec de la copie dans le presse-papiers
 download_failed,Echec du telechargement du fichier
+review_status,Statut de Revue
+version,Version
+status_draft,Brouillon
+status_pending_review,En Attente de Revue
+status_approved,Approuve
+status_needs_revision,Revision Necessaire
+status_deprecated,Obsolete
+filters,Filtres
+apply,Appliquer
+reset_filters,Reinitialiser les Filtres
+submit_review,Soumettre la Revue
+add_review,Ajouter une Revue
+reviewer,Reviseur
+review_date,Date de Revue
+no_reviews,Aucune revue pour le moment
+review_submitted,Revue soumise avec succes
+review_comments_required,Les commentaires de revue sont requis
+change_status,Changer le Statut
+new_version,Nouvelle Version
+create_new_version,Creer une Nouvelle Version
+version_created,Nouvelle version creee avec succes
+status_changed,Statut modifie avec succes
+change_summary,Resume des Modifications

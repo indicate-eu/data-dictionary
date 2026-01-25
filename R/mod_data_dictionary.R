@@ -64,12 +64,22 @@ mod_data_dictionary_ui <- function(id, i18n) {
                 uiOutput(ns("concept_sets_table_container"), style = "flex: 1;")
               ),
               tooltip = i18n$t("concept_sets_tooltip"),
-              header_extra = shinyjs::hidden(
-                actionButton(
-                  ns("add_concept_set"),
-                  i18n$t("add_concept_set"),
-                  class = "btn-success-custom ",
-                  icon = icon("plus")
+              header_extra = tagList(
+                shinyjs::hidden(
+                  actionButton(
+                    ns("filter_concept_sets"),
+                    i18n$t("filters"),
+                    class = "btn-secondary-custom",
+                    icon = icon("filter")
+                  )
+                ),
+                shinyjs::hidden(
+                  actionButton(
+                    ns("add_concept_set"),
+                    i18n$t("add_concept_set"),
+                    class = "btn-success-custom ",
+                    icon = icon("plus")
+                  )
                 )
               )
             )
@@ -104,6 +114,12 @@ mod_data_dictionary_ui <- function(id, i18n) {
                         id = ns("concept_set_detail_title"),
                         class = "project-name-badge",
                         title = "",
+                        ""
+                      ),
+                      # Version and status badges (next to title)
+                      tags$span(
+                        id = ns("concept_set_badges"),
+                        class = "concept-set-badges",
                         ""
                       ),
                       # Export button (visible by default in view mode)
@@ -191,6 +207,11 @@ mod_data_dictionary_ui <- function(id, i18n) {
                             class = "settings-section-title",
                             tags$i(class = "fas fa-list", style = "margin-right: 8px; color: #0f60af;"),
                             i18n$t("concepts"),
+                            tags$span(
+                              class = "info-icon",
+                              `data-tooltip` = as.character(i18n$t("concepts_in_set_tooltip")),
+                              HTML("&#x3f;")
+                            ),
                             # Action buttons (hidden by default, shown in edit mode)
                             shinyjs::hidden(
                               tags$span(
@@ -232,11 +253,6 @@ mod_data_dictionary_ui <- function(id, i18n) {
                               title = "Expand",
                               tags$i(class = "fas fa-expand")
                             )
-                          ),
-                          tags$p(
-                            id = ns("concepts_desc_text"),
-                            class = "settings-section-desc",
-                            i18n$t("concepts_in_set_tooltip")
                           ),
                           tags$div(
                             style = "position: relative; flex: 1; display: flex; flex-direction: column; min-height: 0;",
@@ -352,11 +368,12 @@ mod_data_dictionary_ui <- function(id, i18n) {
                           tags$h4(
                             class = "settings-section-title",
                             tags$i(class = "fas fa-comment", style = "margin-right: 8px; color: #0f60af;"),
-                            i18n$t("comments")
-                          ),
-                          tags$p(
-                            class = "settings-section-desc",
-                            i18n$t("comments_stats_tooltip")
+                            i18n$t("comments"),
+                            tags$span(
+                              class = "info-icon",
+                              `data-tooltip` = as.character(i18n$t("comments_stats_tooltip")),
+                              HTML("&#x3f;")
+                            )
                           ),
                           uiOutput(ns("comments_display"))
                         )
@@ -375,11 +392,12 @@ mod_data_dictionary_ui <- function(id, i18n) {
                           tags$h4(
                             class = "settings-section-title",
                             tags$i(class = "fas fa-chart-bar", style = "margin-right: 8px; color: #0f60af;"),
-                            i18n$t("statistics")
-                          ),
-                          tags$p(
-                            class = "settings-section-desc",
-                            i18n$t("statistics_desc")
+                            i18n$t("statistics"),
+                            tags$span(
+                              class = "info-icon",
+                              `data-tooltip` = as.character(i18n$t("statistics_desc")),
+                              HTML("&#x3f;")
+                            )
                           ),
                           uiOutput(ns("stats_display"))
                         )
@@ -398,13 +416,52 @@ mod_data_dictionary_ui <- function(id, i18n) {
                           tags$h4(
                             class = "settings-section-title",
                             tags$i(class = "fas fa-clipboard-check", style = "margin-right: 8px; color: #0f60af;"),
-                            i18n$t("review")
+                            i18n$t("review"),
+                            tags$span(
+                              class = "info-icon",
+                              `data-tooltip` = as.character(i18n$t("review_desc")),
+                              HTML("&#x3f;")
+                            )
                           ),
-                          tags$p(
-                            class = "settings-section-desc",
-                            i18n$t("review_desc")
+                          # Review list
+                          tags$div(
+                            style = "margin-bottom: 20px;",
+                            DT::DTOutput(ns("reviews_table"))
                           ),
-                          uiOutput(ns("review_display"))
+                          # Add review form (only for users with permissions)
+                          tags$div(
+                            style = "border-top: 1px solid #dee2e6; padding-top: 20px;",
+                            tags$h5(
+                              style = "margin-bottom: 15px; color: #0f60af;",
+                              tags$i(class = "fas fa-plus-circle", style = "margin-right: 8px;"),
+                              "Add Review"
+                            ),
+                            tags$div(
+                              class = "mb-15",
+                              tags$label(class = "form-label", i18n$t("review_status")),
+                              selectInput(
+                                ns("review_status_input"),
+                                label = NULL,
+                                choices = character(0)
+                              )
+                            ),
+                            tags$div(
+                              class = "mb-15",
+                              tags$label(class = "form-label", i18n$t("comments")),
+                              textAreaInput(
+                                ns("review_comments_input"),
+                                label = NULL,
+                                rows = 4,
+                                placeholder = "Enter review comments..."
+                              )
+                            ),
+                            actionButton(
+                              ns("submit_review"),
+                              "Submit Review",
+                              class = "btn-primary-custom",
+                              icon = icon("check")
+                            )
+                          )
                         )
                       )
                     )
@@ -990,6 +1047,135 @@ mod_data_dictionary_ui <- function(id, i18n) {
           ns = ns
         ),
 
+        ### Modal - Filter Concept Sets ----
+        create_modal(
+          id = "filters_modal",
+          title = i18n$t("filters"),
+          body = tagList(
+            # Category filter
+            tags$div(
+              class = "mb-15",
+              tags$label(class = "form-label", i18n$t("category")),
+              selectizeInput(
+                ns("filter_category"),
+                label = NULL,
+                choices = character(0),
+                multiple = TRUE,
+                options = list(placeholder = as.character(i18n$t("select_or_type")))
+              )
+            ),
+            # Subcategory filter
+            tags$div(
+              class = "mb-15",
+              tags$label(class = "form-label", i18n$t("subcategory")),
+              selectizeInput(
+                ns("filter_subcategory"),
+                label = NULL,
+                choices = character(0),
+                multiple = TRUE,
+                options = list(placeholder = as.character(i18n$t("select_or_type")))
+              )
+            ),
+            # Status filter
+            tags$div(
+              class = "mb-15",
+              tags$label(class = "form-label", i18n$t("review_status")),
+              selectizeInput(
+                ns("filter_status"),
+                label = NULL,
+                choices = character(0),
+                multiple = TRUE,
+                options = list(placeholder = as.character(i18n$t("select_or_type")))
+              )
+            ),
+            # Tags filter
+            tags$div(
+              class = "mb-15",
+              tags$label(class = "form-label", i18n$t("tags")),
+              selectizeInput(
+                ns("filter_tags"),
+                label = NULL,
+                choices = character(0),
+                multiple = TRUE,
+                options = list(placeholder = as.character(i18n$t("select_or_type")))
+              )
+            )
+          ),
+          footer = tagList(
+            actionButton(ns("reset_filters"), i18n$t("reset_filters"), class = "btn-secondary-custom", icon = icon("eraser")),
+            actionButton(ns("apply_filters"), i18n$t("apply"), class = "btn-primary-custom", icon = icon("check"))
+          ),
+          size = "medium",
+          icon = "fas fa-filter",
+          ns = ns
+        ),
+
+        ### Modal - Change Status ----
+        create_modal(
+          id = "change_status_modal",
+          title = "Change Status",
+          body = tagList(
+            tags$div(
+              class = "mb-15",
+              tags$label(class = "form-label", i18n$t("review_status")),
+              selectInput(
+                ns("new_status_input"),
+                label = NULL,
+                choices = character(0)
+              )
+            )
+          ),
+          footer = tagList(
+            actionButton(ns("cancel_change_status"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
+            actionButton(ns("confirm_change_status"), i18n$t("save"), class = "btn-primary-custom", icon = icon("check"))
+          ),
+          size = "small",
+          icon = "fas fa-exchange-alt",
+          ns = ns
+        ),
+
+        ### Modal - New Version ----
+        create_modal(
+          id = "new_version_modal",
+          title = "Create New Version",
+          body = tagList(
+            tags$div(
+              class = "mb-15",
+              tags$label(class = "form-label", i18n$t("version")),
+              textInput(
+                ns("new_version_number"),
+                label = NULL,
+                placeholder = "e.g., 1.1.0"
+              )
+            ),
+            tags$div(
+              class = "mb-15",
+              tags$label(class = "form-label", i18n$t("change_summary")),
+              textAreaInput(
+                ns("version_change_summary"),
+                label = NULL,
+                placeholder = as.character(i18n$t("enter_description")),
+                rows = 3
+              )
+            ),
+            tags$div(
+              style = "margin-top: 20px;",
+              tags$h4(
+                style = "margin-bottom: 10px; font-size: 14px; font-weight: 600;",
+                "Version History"
+              ),
+              DT::DTOutput(ns("version_history_table"))
+            )
+          ),
+          footer = tagList(
+            actionButton(ns("cancel_new_version"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
+            actionButton(ns("confirm_new_version"), i18n$t("create"), class = "btn-primary-custom", icon = icon("check"))
+          ),
+          size = "medium",
+          icon = "fas fa-code-branch",
+          ns = ns
+        ),
+
         # JavaScript for expand section buttons
         tags$script(HTML(sprintf("
           $(document).ready(function() {
@@ -1061,11 +1247,13 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     ## Data ----
     concept_sets_data <- reactiveVal(NULL)
     tags_data <- reactiveVal(NULL)
+    reviews_data <- reactiveVal(NULL)
 
     ## Triggers ----
     table_trigger <- reactiveVal(0)
     tags_trigger <- reactiveVal(0)
     hierarchy_graph_trigger <- reactiveVal(0)
+    reviews_trigger <- reactiveVal(0)
 
     ## Fullscreen State ----
     related_section_expanded <- reactiveVal(FALSE)
@@ -1080,6 +1268,14 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     ## Fuzzy Search ----
     fuzzy <- fuzzy_search_server("fuzzy_search", input, session, trigger_rv = table_trigger, ns = ns)
 
+    ## Filters ----
+    active_filters <- reactiveVal(list(
+      category = character(0),
+      subcategory = character(0),
+      status = character(0),
+      tags = character(0)
+    ))
+
     # 2) DATA LOADING ====
 
     ## Load Concept Sets and Tags ----
@@ -1088,6 +1284,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       if (can_edit()) {
         shinyjs::show("add_concept_set")
       }
+      shinyjs::show("filter_concept_sets")
 
       # Load concept sets data
       data <- get_all_concept_sets()
@@ -1121,6 +1318,18 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       )
     })
     outputOptions(output, "add_modal_concept_details", suspendWhenHidden = FALSE)
+
+    # Initialize reviews table (required for outputOptions)
+    output$reviews_table <- DT::renderDT({
+      create_empty_datatable(as.character(i18n$t("no_reviews")))
+    })
+    outputOptions(output, "reviews_table", suspendWhenHidden = FALSE)
+
+    # Initialize version history table (required for outputOptions)
+    output$version_history_table <- DT::renderDT({
+      create_empty_datatable("No version history")
+    })
+    outputOptions(output, "version_history_table", suspendWhenHidden = FALSE)
 
     # 3) TABLE RENDERING ====
 
@@ -1159,6 +1368,37 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
         if (is.null(data) || nrow(data) == 0) return(NULL)
 
+        # Apply active filters
+        filters <- active_filters()
+
+        # Filter by category
+        if (length(filters$category) > 0) {
+          data <- data[!is.na(data$category) & data$category %in% filters$category, ]
+        }
+
+        # Filter by subcategory
+        if (length(filters$subcategory) > 0) {
+          data <- data[!is.na(data$subcategory) & data$subcategory %in% filters$subcategory, ]
+        }
+
+        # Filter by status
+        if (length(filters$status) > 0) {
+          status_col <- ifelse(is.na(data$review_status) | data$review_status == "", "draft", data$review_status)
+          data <- data[status_col %in% filters$status, ]
+        }
+
+        # Filter by tags (any tag match)
+        if (length(filters$tags) > 0) {
+          data <- data[sapply(seq_len(nrow(data)), function(i) {
+            row_tags <- data$tags[i]
+            if (is.na(row_tags) || row_tags == "") return(FALSE)
+            row_tags_list <- trimws(strsplit(row_tags, ",")[[1]])
+            any(row_tags_list %in% filters$tags)
+          }), ]
+        }
+
+        if (nrow(data) == 0) return(NULL)
+
         # Format last update date (show date and time HH:MM, or empty if NA)
         format_date <- function(dt_str) {
           if (is.na(dt_str) || dt_str == "") return("")
@@ -1169,15 +1409,34 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           }, error = function(e) "")
         }
 
-        # Format tags with space after comma
+        # Format tags as badges with colors
+        all_tags <- get_all_tags()
+        tag_colors <- setNames(all_tags$color, all_tags$name)
+
         format_tags <- function(tags_str) {
           if (is.na(tags_str) || tags_str == "") return("")
-          # Split by comma, trim whitespace, rejoin with ", "
+          # Split by comma, trim whitespace
           tags_list <- trimws(strsplit(tags_str, ",")[[1]])
-          paste(tags_list, collapse = ", ")
+          # Create badge for each tag with its color and appropriate text color
+          badges <- sapply(tags_list, function(tag) {
+            bg_color <- tag_colors[tag]
+            if (is.na(bg_color)) bg_color <- "#6c757d"
+            text_color <- get_text_color_for_bg(bg_color)
+            sprintf('<span class="tag-badge" style="background-color: %s; color: %s;">%s</span>',
+                    htmltools::htmlEscape(bg_color), text_color, htmltools::htmlEscape(tag))
+          })
+          paste(badges, collapse = " ")
         }
 
-        # Prepare display data - order: category, subcategory, name, description, tags, concepts, last_update
+        # Format status with colored badge
+        format_status <- function(status) {
+          if (is.na(status) || status == "") status <- "draft"
+          status_key <- paste0("status_", status)
+          status_label <- as.character(i18n$t(status_key))
+          sprintf('<span class="status-badge %s">%s</span>', status, htmltools::htmlEscape(status_label))
+        }
+
+        # Prepare display data - order: category, subcategory, name, description, tags, version, status, author, last_update, concepts
         display_data <- data.frame(
           id = data$id,
           category = ifelse(is.na(data$category), "", data$category),
@@ -1188,8 +1447,23 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
             ifelse(nchar(data$description) > 100, paste0(substr(data$description, 1, 100), "..."), data$description)
           ),
           tags = vapply(data$tags, format_tags, character(1), USE.NAMES = FALSE),
-          item_count = ifelse(is.na(data$item_count), 0L, data$item_count),
+          version = ifelse(is.na(data$version) | data$version == "", "1.0.0", data$version),
+          status = vapply(
+            ifelse(is.na(data$review_status) | data$review_status == "", "draft", data$review_status),
+            format_status,
+            character(1),
+            USE.NAMES = FALSE
+          ),
+          author = ifelse(
+            is.na(data$created_by_first_name) & is.na(data$created_by_last_name),
+            "",
+            paste(
+              ifelse(is.na(data$created_by_first_name), "", data$created_by_first_name),
+              ifelse(is.na(data$created_by_last_name), "", data$created_by_last_name)
+            )
+          ),
           last_update = vapply(data$modified_date, format_date, character(1), USE.NAMES = FALSE),
+          item_count = ifelse(is.na(data$item_count), 0L, data$item_count),
           stringsAsFactors = FALSE,
           row.names = NULL
         )
@@ -1242,20 +1516,26 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
             as.character(i18n$t("name")),
             as.character(i18n$t("description")),
             as.character(i18n$t("tags")),
-            as.character(i18n$t("concepts")),
+            as.character(i18n$t("version")),
+            as.character(i18n$t("review_status")),
+            as.character(i18n$t("created_by")),
             as.character(i18n$t("last_update")),
+            as.character(i18n$t("concepts")),
             as.character(i18n$t("actions"))
           ),
           col_defs = list(
-            list(targets = 0, visible = FALSE),
-            list(targets = 1, width = "9%"),
-            list(targets = 2, width = "9%"),
-            list(targets = 3, width = "14%"),
-            list(targets = 4, width = "20%"),
-            list(targets = 5, width = "9%"),
-            list(targets = 6, width = "6%", className = "dt-center"),
-            list(targets = 7, width = "10%", className = "dt-center"),
-            list(targets = 8, width = "20%", className = "dt-center")
+            list(targets = 0, visible = FALSE),  # ID
+            list(targets = 1, width = "10%"),    # Category
+            list(targets = 2, width = "10%"),    # Subcategory
+            list(targets = 3, width = "15%"),    # Name
+            list(targets = 4, width = "25%"),    # Description
+            list(targets = 5, width = "10%", visible = FALSE),    # Tags (hidden)
+            list(targets = 6, width = "6%", className = "dt-center"),   # Version
+            list(targets = 7, width = "10%", className = "dt-center"),  # Status (with badge)
+            list(targets = 8, width = "8%", visible = FALSE),    # Author (hidden)
+            list(targets = 9, width = "8%", className = "dt-center", visible = FALSE),   # Last Update (hidden)
+            list(targets = 10, width = "5%", className = "dt-center", visible = FALSE),  # Concepts count (hidden)
+            list(targets = 11, width = "280px", className = "dt-center")  # Actions
           ),
           escape = FALSE
         )
@@ -1271,6 +1551,72 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           dblclick_input_id = ns("view_concept_set"),
           id_column_index = 0
         )
+      })
+    }, ignoreInit = FALSE)
+
+    ## Reviews Table ----
+    observe_event(reviews_trigger(), {
+      output$reviews_table <- DT::renderDT({
+        reviews <- reviews_data()
+
+        if (is.null(reviews) || nrow(reviews) == 0) {
+          return(create_empty_datatable(as.character(i18n$t("no_reviews"))))
+        }
+
+        # Format date
+        reviews$review_date_formatted <- vapply(reviews$review_date, function(dt_str) {
+          if (is.na(dt_str) || dt_str == "") return("")
+          tryCatch({
+            gsub("T", " ", substr(dt_str, 1, 16))
+          }, error = function(e) "")
+        }, character(1), USE.NAMES = FALSE)
+
+        # Format status with badge
+        reviews$status_formatted <- sapply(reviews$status, function(status) {
+          if (is.na(status) || status == "") status <- "draft"
+          status_key <- paste0("status_", status)
+          status_label <- as.character(i18n$t(status_key))
+          sprintf('<span class="status-badge %s">%s</span>', status, htmltools::htmlEscape(status_label))
+        })
+
+        # Select columns to display
+        display_data <- data.frame(
+          review_id = reviews$review_id,
+          reviewer = reviews$reviewer_name,
+          date = reviews$review_date_formatted,
+          status = reviews$status_formatted,
+          version = reviews$version,
+          comments = ifelse(
+            is.na(reviews$comments) | reviews$comments == "",
+            "",
+            ifelse(nchar(reviews$comments) > 100, paste0(substr(reviews$comments, 1, 100), "..."), reviews$comments)
+          ),
+          stringsAsFactors = FALSE
+        )
+
+        dt <- create_standard_datatable(
+          display_data,
+          selection = "none",
+          col_names = c(
+            "ID",
+            as.character(i18n$t("reviewer")),
+            as.character(i18n$t("review_date")),
+            as.character(i18n$t("review_status")),
+            as.character(i18n$t("version")),
+            as.character(i18n$t("comments"))
+          ),
+          col_defs = list(
+            list(targets = 0, visible = FALSE),
+            list(targets = 1, width = "15%"),
+            list(targets = 2, width = "15%", className = "dt-center"),
+            list(targets = 3, width = "15%", className = "dt-center"),
+            list(targets = 4, width = "10%", className = "dt-center"),
+            list(targets = 5, width = "45%")
+          ),
+          escape = FALSE
+        )
+
+        dt
       })
     }, ignoreInit = FALSE)
 
@@ -1585,12 +1931,20 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       selected_tags <- input$concept_set_tags
       tags <- if (length(selected_tags) > 0) paste(selected_tags, collapse = ",") else NULL
 
-      # Get current user login
-      created_by <- NULL
+      # Get current user information
+      user_first_name <- NULL
+      user_last_name <- NULL
+      user_profession <- NULL
+      user_affiliation <- NULL
+      user_orcid <- NULL
       if (!is.null(current_user) && is.reactive(current_user)) {
         user <- current_user()
-        if (!is.null(user) && !is.null(user$login)) {
-          created_by <- user$login
+        if (!is.null(user)) {
+          user_first_name <- user$first_name
+          user_last_name <- user$last_name
+          user_profession <- user$profession
+          user_affiliation <- user$affiliation
+          user_orcid <- user$orcid
         }
       }
 
@@ -1604,7 +1958,11 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           category = category,
           subcategory = subcategory,
           tags = tags,
-          created_by = created_by
+          created_by_first_name = user_first_name,
+          created_by_last_name = user_last_name,
+          created_by_profession = user_profession,
+          created_by_affiliation = user_affiliation,
+          created_by_orcid = user_orcid
         )
         showNotification(as.character(i18n$t("concept_set_added")), type = "message")
       } else {
@@ -1616,7 +1974,11 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           category = category,
           subcategory = subcategory,
           tags = tags,
-          modified_by = created_by
+          modified_by_first_name = user_first_name,
+          modified_by_last_name = user_last_name,
+          modified_by_profession = user_profession,
+          modified_by_affiliation = user_affiliation,
+          modified_by_orcid = user_orcid
         )
         showNotification(as.character(i18n$t("concept_set_updated")), type = "message")
       }
@@ -1794,13 +2156,15 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       updateTextInput(session, "new_tag_name", value = "")
       # Reset color picker
       shinyjs::runjs(sprintf("
-        var container = document.getElementById('%s').closest('.color-picker-container');
-        if (container) {
-          container.querySelector('.color-picker-value').value = '#6c757d';
-          container.querySelector('.color-picker-preview').style.backgroundColor = '#6c757d';
-          container.querySelector('.color-picker-custom-input').value = '#6c757d';
-          container.querySelectorAll('.color-preset').forEach(function(el) { el.classList.remove('selected'); });
-          container.querySelector('.color-preset[data-color=\"#6c757d\"]').classList.add('selected');
+        var picker = document.getElementById('%s').closest('.color-picker');
+        if (picker) {
+          picker.querySelectorAll('.color-swatch').forEach(function(el) {
+            el.classList.remove('selected');
+          });
+          var defaultSwatch = picker.querySelector('.color-swatch[data-color=\"#6c757d\"]');
+          if (defaultSwatch) {
+            defaultSwatch.classList.add('selected');
+          }
         }
         Shiny.setInputValue('%s', '#6c757d', {priority: 'event'});
       ", ns("new_tag_color"), ns("new_tag_color")))
@@ -1827,17 +2191,18 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Set color picker value
       tag_color <- if (!is.null(tag$color[1]) && tag$color[1] != "") tag$color[1] else "#6c757d"
       shinyjs::runjs(sprintf("
-        var container = document.getElementById('%s').closest('.color-picker-container');
-        if (container) {
-          container.querySelector('.color-picker-value').value = '%s';
-          container.querySelector('.color-picker-preview').style.backgroundColor = '%s';
-          container.querySelector('.color-picker-custom-input').value = '%s';
-          container.querySelectorAll('.color-preset').forEach(function(el) { el.classList.remove('selected'); });
-          var matchingPreset = container.querySelector('.color-preset[data-color=\"%s\"]');
-          if (matchingPreset) matchingPreset.classList.add('selected');
+        var picker = document.getElementById('%s').closest('.color-picker');
+        if (picker) {
+          picker.querySelectorAll('.color-swatch').forEach(function(el) {
+            el.classList.remove('selected');
+          });
+          var matchingSwatch = picker.querySelector('.color-swatch[data-color=\"%s\"]');
+          if (matchingSwatch) {
+            matchingSwatch.classList.add('selected');
+          }
         }
         Shiny.setInputValue('%s', '%s', {priority: 'event'});
-      ", ns("edit_tag_color"), tag_color, tag_color, tag_color, tag_color, ns("edit_tag_color"), tag_color))
+      ", ns("edit_tag_color"), tag_color, ns("edit_tag_color"), tag_color))
 
       shinyjs::hide("edit_tag_error")
 
@@ -2003,8 +2368,29 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       cs <- get_concept_set(concept_set_id)
       if (is.null(cs)) return()
 
-      # Update the title
+      # Update the title with status and version badges
+      version <- if (is.null(cs$version) || is.na(cs$version)) "1.0.0" else cs$version
+      status <- if (is.null(cs$review_status) || is.na(cs$review_status)) "draft" else cs$review_status
+
+      # Get status translation key
+      status_key <- paste0("status_", status)
+      status_label <- as.character(i18n$t(status_key))
+
+      # Update title (name only)
       shinyjs::html("concept_set_detail_title", htmltools::htmlEscape(cs$name))
+
+      # Update badges (separate span next to title)
+      badges_html <- sprintf(
+        '<span class="version-badge" style="cursor: pointer;" onclick="Shiny.setInputValue(\'%s\', Date.now(), {priority: \'event\'});" title="%s">v%s</span><span class="status-badge %s" style="cursor: pointer;" onclick="Shiny.setInputValue(\'%s\', Date.now(), {priority: \'event\'});" title="%s">%s</span>',
+        ns("open_version_modal"),
+        as.character(i18n$t("new_version")),
+        htmltools::htmlEscape(version),
+        status,
+        ns("open_status_modal"),
+        as.character(i18n$t("change_status")),
+        htmltools::htmlEscape(status_label)
+      )
+      shinyjs::html("concept_set_badges", badges_html)
 
       # Switch to details view
       shinyjs::hide("concept_sets_list_container")
@@ -2453,6 +2839,22 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         document.getElementById('%s').classList.remove('active');
         document.getElementById('%s').classList.add('active');
       ", ns("tab_concepts"), ns("tab_comments"), ns("tab_stats"), ns("tab_review")))
+
+      # Load reviews for this concept set
+      cs_id <- viewing_concept_set_id()
+      if (!is.null(cs_id)) {
+        reviews <- get_concept_set_reviews(cs_id)
+        reviews_data(reviews)
+        reviews_trigger(reviews_trigger() + 1)
+
+        # Update review status dropdown
+        status_choices <- c("pending_review", "approved", "needs_revision")
+        status_labels <- sapply(status_choices, function(s) {
+          as.character(i18n$t(paste0("status_", s)))
+        })
+        names(status_choices) <- status_labels
+        updateSelectInput(session, "review_status_input", choices = status_choices, selected = "pending_review")
+      }
     }, ignoreInit = TRUE)
 
     ## Sub-tab switching for Related Concepts section ----
@@ -3646,6 +4048,391 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       proxy <- DT::dataTableProxy("concepts_table", session = session)
       datatable_select_rows(proxy, select = FALSE)
       concepts_trigger(concepts_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    ## Submit Review ----
+    observe_event(input$submit_review, {
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      # Get current concept set to get version
+      cs <- get_concept_set(cs_id)
+      if (is.null(cs)) return()
+
+      version <- if (is.null(cs$version) || is.na(cs$version)) "1.0.0" else cs$version
+      status <- input$review_status_input
+      comments <- trimws(input$review_comments_input)
+
+      # Validation
+      if (is.null(status) || status == "") {
+        showNotification("Please select a review status", type = "error", duration = 3)
+        return()
+      }
+
+      # Get current user ID (for now use 1, later use current_user()$user_id)
+      reviewer_user_id <- 1  # TODO: use current_user()$user_id
+
+      # Add review
+      review_id <- add_concept_set_review(cs_id, version, reviewer_user_id, status, comments)
+
+      # Update concept set review_status if approved or needs_revision
+      if (status %in% c("approved", "needs_revision")) {
+        update_concept_set(cs_id, review_status = status)
+
+        # Refresh concept sets data to update badges
+        data <- get_all_concept_sets()
+        concept_sets_data(data)
+        table_trigger(table_trigger() + 1)
+
+        # Update detail page badges
+        status_key <- paste0("status_", status)
+        status_label <- as.character(i18n$t(status_key))
+
+        badges_html <- sprintf(
+          '<span class="version-badge" style="cursor: pointer;" onclick="Shiny.setInputValue(\'%s\', Date.now(), {priority: \'event\'});" title="%s">v%s</span><span class="status-badge %s" style="cursor: pointer;" onclick="Shiny.setInputValue(\'%s\', Date.now(), {priority: \'event\'});" title="%s">%s</span>',
+          ns("open_version_modal"),
+          as.character(i18n$t("new_version")),
+          htmltools::htmlEscape(version),
+          status,
+          ns("open_status_modal"),
+          as.character(i18n$t("change_status")),
+          htmltools::htmlEscape(status_label)
+        )
+        shinyjs::html("concept_set_badges", badges_html)
+      }
+
+      # Clear form
+      updateTextAreaInput(session, "review_comments_input", value = "")
+
+      # Refresh reviews table
+      reviews <- get_concept_set_reviews(cs_id)
+      reviews_data(reviews)
+      reviews_trigger(reviews_trigger() + 1)
+
+      # Show notification
+      showNotification(
+        as.character(i18n$t("review_submitted")),
+        type = "message",
+        duration = 3
+      )
+    }, ignoreInit = TRUE)
+
+    ## Open Status Modal ----
+    observe_event(input$open_status_modal, {
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      cs <- get_concept_set(cs_id)
+      if (is.null(cs)) return()
+
+      # Populate status dropdown with all status options
+      status_choices <- c("draft", "pending_review", "approved", "needs_revision", "deprecated")
+      status_labels <- sapply(status_choices, function(s) {
+        as.character(i18n$t(paste0("status_", s)))
+      })
+      names(status_choices) <- status_labels
+
+      current_status <- if (is.null(cs$review_status) || is.na(cs$review_status)) "draft" else cs$review_status
+
+      updateSelectInput(session, "new_status_input", choices = status_choices, selected = current_status)
+
+      show_modal(ns("change_status_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Confirm Change Status ----
+    observe_event(input$confirm_change_status, {
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      new_status <- input$new_status_input
+
+      if (is.null(new_status) || new_status == "") return()
+
+      # Update concept set status
+      update_concept_set(cs_id, review_status = new_status)
+
+      # Refresh concept sets data
+      data <- get_all_concept_sets()
+      concept_sets_data(data)
+      table_trigger(table_trigger() + 1)
+
+      # Update detail page badges
+      cs <- get_concept_set(cs_id)
+      version <- if (is.null(cs$version) || is.na(cs$version)) "1.0.0" else cs$version
+      status_key <- paste0("status_", new_status)
+      status_label <- as.character(i18n$t(status_key))
+
+      badges_html <- sprintf(
+        '<span class="version-badge" style="cursor: pointer;" onclick="Shiny.setInputValue(\'%s\', Date.now(), {priority: \'event\'});" title="%s">v%s</span><span class="status-badge %s" style="cursor: pointer;" onclick="Shiny.setInputValue(\'%s\', Date.now(), {priority: \'event\'});" title="%s">%s</span>',
+        ns("open_version_modal"),
+        as.character(i18n$t("new_version")),
+        htmltools::htmlEscape(version),
+        new_status,
+        ns("open_status_modal"),
+        as.character(i18n$t("change_status")),
+        htmltools::htmlEscape(status_label)
+      )
+      shinyjs::html("concept_set_badges", badges_html)
+
+      hide_modal(ns("change_status_modal"))
+
+      showNotification(
+        as.character(i18n$t("status_changed")),
+        type = "message",
+        duration = 3
+      )
+    }, ignoreInit = TRUE)
+
+    ## Cancel Change Status ----
+    observe_event(input$cancel_change_status, {
+      hide_modal(ns("change_status_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Open Version Modal ----
+    observe_event(input$open_version_modal, {
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      cs <- get_concept_set(cs_id)
+      if (is.null(cs)) return()
+
+      current_version <- if (is.null(cs$version) || is.na(cs$version)) "1.0.0" else cs$version
+
+      # Suggest next patch version
+      version_parts <- strsplit(current_version, "\\.")[[1]]
+      if (length(version_parts) == 3) {
+        patch <- as.integer(version_parts[3]) + 1
+        suggested_version <- paste(version_parts[1], version_parts[2], patch, sep = ".")
+      } else {
+        suggested_version <- paste0(current_version, ".1")
+      }
+
+      updateTextInput(session, "new_version_number", value = suggested_version)
+      updateTextAreaInput(session, "version_change_summary", value = "")
+
+      # Load version history
+      history <- get_version_history(cs_id)
+
+      # Render version history table
+      output$version_history_table <- DT::renderDT({
+        if (is.null(history) || nrow(history) == 0) {
+          return(create_empty_datatable("No version history"))
+        }
+
+        # Format display data (no ID column)
+        display_data <- data.frame(
+          version = history$version_to,
+          summary = ifelse(is.na(history$change_summary), "", history$change_summary),
+          changed_by = ifelse(is.na(history$changed_by_name), "", history$changed_by_name),
+          date = vapply(history$change_date, function(dt_str) {
+            if (is.na(dt_str) || dt_str == "") return("")
+            tryCatch(gsub("T", " ", substr(dt_str, 1, 16)), error = function(e) "")
+          }, character(1), USE.NAMES = FALSE),
+          stringsAsFactors = FALSE
+        )
+
+        # Add action buttons (storing change_id in data attribute)
+        display_data$actions <- sapply(history$change_id, function(id) {
+          create_datatable_actions(list(
+            list(
+              label = as.character(i18n$t("edit")),
+              icon = "edit",
+              type = "warning",
+              class = "btn-edit-version",
+              data_attr = list(id = id)
+            ),
+            list(
+              label = as.character(i18n$t("delete")),
+              icon = "trash",
+              type = "danger",
+              class = "btn-delete-version",
+              data_attr = list(id = id)
+            )
+          ))
+        })
+
+        dt <- DT::datatable(
+          display_data,
+          selection = "none",
+          colnames = c("Version", "Summary", "Changed By", "Date", "Actions"),
+          options = list(
+            dom = "t",  # Only table, no search/pagination/column visibility
+            pageLength = 5,
+            ordering = FALSE,
+            columnDefs = list(
+              list(targets = 0, width = "80px"),
+              list(targets = 1, width = "250px"),
+              list(targets = 2, width = "120px"),
+              list(targets = 3, width = "130px"),
+              list(targets = 4, width = "180px", className = "dt-center")
+            )
+          ),
+          escape = FALSE,
+          rownames = FALSE
+        )
+
+        add_button_handlers(dt, handlers = list(
+          list(selector = ".btn-edit-version", input_id = ns("edit_version_entry")),
+          list(selector = ".btn-delete-version", input_id = ns("delete_version_entry"))
+        ))
+      })
+
+      show_modal(ns("new_version_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Confirm New Version ----
+    observe_event(input$confirm_new_version, {
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      new_version <- trimws(input$new_version_number)
+      change_summary <- trimws(input$version_change_summary)
+
+      if (is.null(new_version) || new_version == "") {
+        showNotification("Please enter a version number", type = "error", duration = 3)
+        return()
+      }
+
+      # Get current version
+      cs <- get_concept_set(cs_id)
+      old_version <- if (is.null(cs$version) || is.na(cs$version)) "1.0.0" else cs$version
+
+      # Get current user ID
+      user_id <- NULL
+      if (!is.null(current_user) && is.reactive(current_user)) {
+        user <- current_user()
+        if (!is.null(user) && !is.null(user$user_id)) {
+          user_id <- user$user_id
+        }
+      }
+
+      # Update concept set version
+      update_concept_set(cs_id, version = new_version)
+
+      # Add changelog entry
+      add_changelog_entry(
+        concept_set_id = cs_id,
+        version_from = old_version,
+        version_to = new_version,
+        changed_by_user_id = user_id,
+        change_type = "version_change",
+        change_summary = if (change_summary == "") NULL else change_summary
+      )
+
+      # Refresh concept sets data
+      data <- get_all_concept_sets()
+      concept_sets_data(data)
+      table_trigger(table_trigger() + 1)
+
+      # Update detail page badges
+      cs <- get_concept_set(cs_id)
+      status <- if (is.null(cs$review_status) || is.na(cs$review_status)) "draft" else cs$review_status
+      status_key <- paste0("status_", status)
+      status_label <- as.character(i18n$t(status_key))
+
+      badges_html <- sprintf(
+        '<span class="version-badge" style="cursor: pointer;" onclick="Shiny.setInputValue(\'%s\', Date.now(), {priority: \'event\'});" title="%s">v%s</span><span class="status-badge %s" style="cursor: pointer;" onclick="Shiny.setInputValue(\'%s\', Date.now(), {priority: \'event\'});" title="%s">%s</span>',
+        ns("open_version_modal"),
+        as.character(i18n$t("new_version")),
+        htmltools::htmlEscape(new_version),
+        status,
+        ns("open_status_modal"),
+        as.character(i18n$t("change_status")),
+        htmltools::htmlEscape(status_label)
+      )
+      shinyjs::html("concept_set_badges", badges_html)
+
+      hide_modal(ns("new_version_modal"))
+
+      showNotification(
+        as.character(i18n$t("version_created")),
+        type = "message",
+        duration = 3
+      )
+    }, ignoreInit = TRUE)
+
+    ## Cancel New Version ----
+    observe_event(input$cancel_new_version, {
+      hide_modal(ns("new_version_modal"))
+    }, ignoreInit = TRUE)
+
+    # 5) FILTERS ====
+
+    ## Open Filters Modal ----
+    observe_event(input$filter_concept_sets, {
+      # Get unique values for filter options
+      data <- concept_sets_data()
+      if (is.null(data) || nrow(data) == 0) return()
+
+      # Categories
+      categories <- sort(unique(data$category[!is.na(data$category) & data$category != ""]))
+      updateSelectizeInput(session, "filter_category", choices = categories, selected = active_filters()$category)
+
+      # Subcategories
+      subcategories <- sort(unique(data$subcategory[!is.na(data$subcategory) & data$subcategory != ""]))
+      updateSelectizeInput(session, "filter_subcategory", choices = subcategories, selected = active_filters()$subcategory)
+
+      # Statuses - use translation keys
+      status_choices <- c("draft", "pending_review", "approved", "needs_revision", "deprecated")
+      status_labels <- sapply(status_choices, function(s) {
+        as.character(i18n$t(paste0("status_", s)))
+      })
+      names(status_choices) <- status_labels
+      updateSelectizeInput(session, "filter_status", choices = status_choices, selected = active_filters()$status)
+
+      # Tags - parse all tags from data
+      all_tags_list <- character(0)
+      if (!is.null(data$tags)) {
+        tags_vec <- data$tags[!is.na(data$tags) & data$tags != ""]
+        if (length(tags_vec) > 0) {
+          all_tags_list <- unique(unlist(lapply(tags_vec, function(t) trimws(strsplit(t, ",")[[1]]))))
+          all_tags_list <- sort(all_tags_list)
+        }
+      }
+      updateSelectizeInput(session, "filter_tags", choices = all_tags_list, selected = active_filters()$tags)
+
+      # Show modal
+      show_modal(ns("filters_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Apply Filters ----
+    observe_event(input$apply_filters, {
+      # Store filter values
+      active_filters(list(
+        category = if (is.null(input$filter_category)) character(0) else input$filter_category,
+        subcategory = if (is.null(input$filter_subcategory)) character(0) else input$filter_subcategory,
+        status = if (is.null(input$filter_status)) character(0) else input$filter_status,
+        tags = if (is.null(input$filter_tags)) character(0) else input$filter_tags
+      ))
+
+      # Refresh table
+      table_trigger(table_trigger() + 1)
+
+      # Hide modal
+      hide_modal(ns("filters_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Reset Filters ----
+    observe_event(input$reset_filters, {
+      # Clear all filters
+      active_filters(list(
+        category = character(0),
+        subcategory = character(0),
+        status = character(0),
+        tags = character(0)
+      ))
+
+      # Clear filter inputs
+      updateSelectizeInput(session, "filter_category", selected = character(0))
+      updateSelectizeInput(session, "filter_subcategory", selected = character(0))
+      updateSelectizeInput(session, "filter_status", selected = character(0))
+      updateSelectizeInput(session, "filter_tags", selected = character(0))
+
+      # Refresh table
+      table_trigger(table_trigger() + 1)
+
+      # Hide modal
+      hide_modal(ns("filters_modal"))
     }, ignoreInit = TRUE)
 
     # Return selected concept set for use by parent

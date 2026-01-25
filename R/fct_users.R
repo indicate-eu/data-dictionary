@@ -14,13 +14,14 @@
 #' @param password User password
 #' @param first_name First name
 #' @param last_name Last name
-#' @param role User role
+#' @param profession User profession
 #' @param affiliation User affiliation
+#' @param orcid User ORCID identifier
 #' @param user_access_id User access profile ID
 #' @return User ID of newly created user, or NULL if login exists
 #' @noRd
 add_user <- function(login, password, first_name = "", last_name = "",
-                     role = "", affiliation = "", user_access_id = NULL) {
+                     profession = "", affiliation = "", orcid = "", user_access_id = NULL) {
   con <- get_db_connection()
   on.exit(DBI::dbDisconnect(con))
 
@@ -38,10 +39,10 @@ add_user <- function(login, password, first_name = "", last_name = "",
   DBI::dbExecute(
     con,
     "INSERT INTO users (login, password_hash, first_name, last_name,
-                        role, affiliation, user_access_id, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        profession, affiliation, orcid, user_access_id, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     params = list(login, password_hash, first_name, last_name,
-                  role, affiliation, user_access_id, timestamp, timestamp)
+                  profession, affiliation, orcid, user_access_id, timestamp, timestamp)
   )
 
   result <- DBI::dbGetQuery(con, "SELECT last_insert_rowid() as id")
@@ -62,7 +63,7 @@ authenticate_user <- function(login, password) {
   result <- DBI::dbGetQuery(
     con,
     "SELECT u.user_id, u.login, u.password_hash, u.first_name, u.last_name,
-            u.role, u.affiliation, u.user_access_id, ua.name as user_access_name
+            u.profession, u.affiliation, u.orcid, u.user_access_id, ua.name as user_access_name
      FROM users u
      LEFT JOIN user_accesses ua ON u.user_access_id = ua.user_access_id
      WHERE u.login = ?",
@@ -110,7 +111,7 @@ get_all_users <- function() {
 
   DBI::dbGetQuery(
     con,
-    "SELECT u.user_id, u.login, u.first_name, u.last_name, u.role, u.affiliation,
+    "SELECT u.user_id, u.login, u.first_name, u.last_name, u.profession, u.affiliation, u.orcid,
             u.user_access_id, ua.name as user_access_name, u.created_at, u.updated_at
      FROM users u
      LEFT JOIN user_accesses ua ON u.user_access_id = ua.user_access_id
@@ -126,14 +127,15 @@ get_all_users <- function() {
 #' @param password User password (if NULL, password not changed)
 #' @param first_name First name
 #' @param last_name Last name
-#' @param role User role
+#' @param profession User profession
 #' @param affiliation User affiliation
+#' @param orcid User ORCID identifier
 #' @param user_access_id User access profile ID
 #' @return TRUE if successful
 #' @noRd
 update_user <- function(user_id, login = NULL, password = NULL,
-                        first_name = NULL, last_name = NULL, role = NULL,
-                        affiliation = NULL, user_access_id = NULL) {
+                        first_name = NULL, last_name = NULL, profession = NULL,
+                        affiliation = NULL, orcid = NULL, user_access_id = NULL) {
   con <- get_db_connection()
   on.exit(DBI::dbDisconnect(con))
 
@@ -163,14 +165,19 @@ update_user <- function(user_id, login = NULL, password = NULL,
     params <- c(params, last_name)
   }
 
-  if (!is.null(role)) {
-    updates <- c(updates, "role = ?")
-    params <- c(params, role)
+  if (!is.null(profession)) {
+    updates <- c(updates, "profession = ?")
+    params <- c(params, profession)
   }
 
   if (!is.null(affiliation)) {
     updates <- c(updates, "affiliation = ?")
     params <- c(params, affiliation)
+  }
+
+  if (!is.null(orcid)) {
+    updates <- c(updates, "orcid = ?")
+    params <- c(params, orcid)
   }
 
   if (!is.null(user_access_id)) {

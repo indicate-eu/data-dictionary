@@ -2518,7 +2518,7 @@ a.btn-success-custom:hover {
 }
 
 .tabs-action-btn {
-  padding: 6px 12px !important;
+  padding: 4px 12px !important;
   font-size: 13px !important;
 }
 
@@ -2649,13 +2649,6 @@ a.btn-success-custom:hover {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4px 10px;
-}
-
-.concept-details-empty {
-  padding: 15px;
-  background: #f8f9fa;
-  border-radius: 4px;
-  text-align: center;
 }
 
 .concept-already-added-badge {
@@ -3030,20 +3023,19 @@ a.btn-success-custom:hover {
 .info-icon::after {
   content: attr(data-tooltip);
   position: absolute;
-  left: 0;
-  top: 125%;
-  margin-left: 10px;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
   background: #333;
   color: white;
   padding: 8px 12px;
   border-radius: 6px;
   font-size: 12px;
   font-weight: normal;
-  white-space: nowrap;
-  width: auto;
-  max-width: 300px;
+  white-space: normal;
+  width: 400px;
   text-align: left;
-  z-index: 10000;
+  z-index: 100000;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   line-height: 1.4;
   pointer-events: none;
@@ -3058,12 +3050,12 @@ a.btn-success-custom:hover {
 .info-icon::before {
   content: '';
   position: absolute;
-  left: 10px;
-  top: 115%;
-  margin-left: 10px;
+  left: calc(100% + 4px);
+  top: 50%;
+  transform: translateY(-50%);
   border: 6px solid transparent;
-  border-bottom-color: #333;
-  z-index: 10000;
+  border-right-color: #333;
+  z-index: 100000;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.3s ease 0.5s;
@@ -3167,7 +3159,8 @@ button.btn-icon-only:hover {
   border-radius: 6px;
   font-size: 12px;
   font-weight: normal;
-  white-space: nowrap;
+  white-space: normal;
+  max-width: 400px;
   text-align: left;
   z-index: 10000;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -5023,6 +5016,40 @@ button.btn-icon-only:hover {
   font-size: 11px;
 }
 
+/* Color Picker
+-------------------------------------------------- */
+.color-picker {
+  margin-top: 10px;
+}
+
+.color-swatches {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 8px;
+  max-width: 400px;
+}
+
+.color-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.color-swatch:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.color-swatch.selected {
+  border-color: #0f60af;
+  box-shadow: 0 0 0 2px rgba(15, 96, 175, 0.3);
+  transform: scale(1.05);
+}
+
 /* Toggle button for add new category/subcategory */
 .btn-toggle-input {
   display: flex;
@@ -5056,7 +5083,7 @@ button.btn-icon-only:hover {
 
 /* Make concept set modal wider */
 #data_dictionary-concept_set_modal .modal-content {
-  max-width: 800px;
+  max-width: 730px;
 }
 
 /* Name and Description inputs - fixed width 300px */
@@ -5187,28 +5214,35 @@ button.btn-icon-only:hover {
 /* Add tag row layout */
 .add-tag-row {
   display: flex;
-  gap: 8px;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .add-tag-name {
-  min-width: 200px;
+  width: 100%;
 }
 
 .add-tag-color {
-  display: flex;
-  align-items: center;
+  width: 100%;
 }
 
 .add-tag-row > .btn-success-custom {
-  margin-top: 1px;
+  align-self: flex-end;
 }
 
 /* Edit tag row layout */
 .edit-tag-row {
   display: flex;
-  gap: 15px;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.edit-tag-name {
+  width: 100%;
+}
+
+.edit-tag-color {
+  width: 100%;
 }
 
 .edit-tag-name {
@@ -5357,6 +5391,22 @@ button.btn-icon-only:hover {
   border-radius: 3px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   flex-shrink: 0;
+}
+
+/* Concept Sets Filters Modal
+-------------------------------------------------- */
+#data_dictionary-filters_modal .modal-content {
+  max-width: 380px;
+}
+
+/* New Version Modal
+-------------------------------------------------- */
+#data_dictionary-new_version_modal .modal-content {
+  max-width: 750px;
+}
+
+#data_dictionary-new_version_modal #data_dictionary-version_change_summary {
+  width: 100%;
 }
 
 /* OMOP Advanced Filters Modal
@@ -5555,4 +5605,81 @@ button.btn-icon-only:hover {
   font-size: 12px;
   color: #666;
   line-height: 1.4;
+}
+
+/* Review Status and Version Badges */
+.concept-set-badges {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.status-badge,
+.version-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  vertical-align: middle;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.concept-set-badges .status-badge:hover,
+.concept-set-badges .version-badge:hover {
+  filter: brightness(1.15);
+  transform: scale(1.05);
+}
+
+.version-badge {
+  background-color: #6c757d;
+  color: white;
+}
+
+.status-badge.draft {
+  background-color: #6c757d;
+  color: white;
+}
+
+.status-badge.pending_review {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.status-badge.approved {
+  background-color: #28a745;
+  color: white;
+}
+
+.status-badge.needs_revision {
+  background-color: #dc3545;
+  color: white;
+}
+
+.status-badge.deprecated {
+  background-color: #495057;
+  color: white;
+}
+
+/* Badges in DataTable - fixed height */
+table.dataTable .status-badge,
+table.dataTable .version-badge,
+table.dataTable .tag-badge {
+  height: 22px;
+  line-height: 14px;
+  box-sizing: border-box;
+}
+
+/* Tag Badges */
+.tag-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  background-color: #e9ecef;
+  color: #495057;
+  margin-right: 4px;
+  margin-bottom: 2px;
+  white-space: nowrap;
 }

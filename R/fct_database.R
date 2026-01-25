@@ -82,7 +82,9 @@ set_config_value <- function(key, value) {
 #' @noRd
 add_concept_set <- function(id = NULL, name, description = NULL, category = NULL,
                             subcategory = NULL, etl_comment = NULL, tags = NULL,
-                            created_by = NULL) {
+                            created_by_first_name = NULL, created_by_last_name = NULL,
+                            created_by_profession = NULL, created_by_affiliation = NULL,
+                            created_by_orcid = NULL) {
   con <- get_db_connection()
   on.exit(DBI::dbDisconnect(con))
 
@@ -98,8 +100,10 @@ add_concept_set <- function(id = NULL, name, description = NULL, category = NULL
 
   DBI::dbExecute(
     con,
-    "INSERT INTO concept_sets (id, name, description, category, subcategory, etl_comment, tags, created_by, created_date, modified_date)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    "INSERT INTO concept_sets (id, name, description, category, subcategory, etl_comment, tags,
+     created_by_first_name, created_by_last_name, created_by_profession, created_by_affiliation, created_by_orcid,
+     created_date, modified_date)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     params = list(
       id,
       name,
@@ -108,7 +112,11 @@ add_concept_set <- function(id = NULL, name, description = NULL, category = NULL
       null_to_na(subcategory),
       null_to_na(etl_comment),
       null_to_na(tags),
-      null_to_na(created_by),
+      null_to_na(created_by_first_name),
+      null_to_na(created_by_last_name),
+      null_to_na(created_by_profession),
+      null_to_na(created_by_affiliation),
+      null_to_na(created_by_orcid),
       timestamp,
       timestamp
     )
@@ -152,7 +160,18 @@ get_all_concept_sets <- function(language = NULL) {
       cs.subcategory,
       cs.tags,
       cs.version,
+      cs.review_status,
+      cs.created_by_first_name,
+      cs.created_by_last_name,
+      cs.created_by_profession,
+      cs.created_by_affiliation,
+      cs.created_by_orcid,
       cs.created_date,
+      cs.modified_by_first_name,
+      cs.modified_by_last_name,
+      cs.modified_by_profession,
+      cs.modified_by_affiliation,
+      cs.modified_by_orcid,
       cs.modified_date,
       COALESCE(item_counts.item_count, 0) AS item_count
     FROM concept_sets cs
@@ -185,6 +204,65 @@ get_concept_set <- function(concept_set_id, language = NULL) {
   if (nrow(cs) == 0) return(NULL)
 
   as.list(cs[1, ])
+}
+
+#' Get Concept Set Reviews
+#'
+#' @description Retrieve all reviews for a concept set
+#' @param concept_set_id Concept set ID
+#' @return Data frame of reviews with reviewer information
+#' @noRd
+get_concept_set_reviews <- function(concept_set_id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbGetQuery(
+    con,
+    "SELECT
+      r.review_id,
+      r.concept_set_id,
+      r.concept_set_version AS version,
+      r.reviewer_user_id,
+      r.status,
+      r.comments,
+      r.review_date,
+      u.first_name || ' ' || u.last_name AS reviewer_name
+    FROM concept_set_reviews r
+    LEFT JOIN users u ON r.reviewer_user_id = u.user_id
+    WHERE r.concept_set_id = ?
+    ORDER BY r.review_date DESC",
+    params = list(concept_set_id)
+  )
+}
+
+#' Get Version History
+#'
+#' @description Retrieve version history for a concept set from changelog
+#' @param concept_set_id Concept set ID
+#' @return Data frame of version changes
+#' @noRd
+get_version_history <- function(concept_set_id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbGetQuery(
+    con,
+    "SELECT
+      c.change_id,
+      c.concept_set_id,
+      c.version_from,
+      c.version_to,
+      c.changed_by_user_id,
+      c.change_date,
+      c.change_type,
+      c.change_summary,
+      u.first_name || ' ' || u.last_name AS changed_by_name
+    FROM concept_set_changelog c
+    LEFT JOIN users u ON c.changed_by_user_id = u.user_id
+    WHERE c.concept_set_id = ? AND c.change_type = 'version_change'
+    ORDER BY c.change_date DESC",
+    params = list(concept_set_id)
+  )
 }
 
 #' Add Concept Set Item
@@ -255,6 +333,82 @@ add_concept_set_item <- function(concept_set_id, concept_id, concept_name,
   )
 
   TRUE
+}
+
+#' Add Concept Set Review
+#'
+#' @description Add a review for a concept set
+#' @param concept_set_id Concept set ID
+#' @param version Version being reviewed
+#' @param reviewer_user_id User ID of reviewer
+#' @param status Review status (pending_review, approved, needs_revision)
+#' @param comments Review comments
+#' @return Review ID
+#' @noRd
+add_concept_set_review <- function(concept_set_id, version, reviewer_user_id, status, comments = NULL) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  timestamp <- format(Sys.time(), "%Y-%m-%dT%H:%M:%S")
+
+  # Helper to convert NULL to NA
+  null_to_na <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else x
+
+  DBI::dbExecute(
+    con,
+    "INSERT INTO concept_set_reviews (concept_set_id, concept_set_version, reviewer_user_id, status, comments, review_date)
+     VALUES (?, ?, ?, ?, ?, ?)",
+    params = list(concept_set_id, version, reviewer_user_id, status, null_to_na(comments), timestamp)
+  )
+
+  # Get the last inserted ID
+  review_id <- DBI::dbGetQuery(con, "SELECT last_insert_rowid() AS id")$id
+
+  review_id
+}
+
+#' Add Changelog Entry
+#'
+#' @description Add a changelog entry for a concept set version change
+#' @param concept_set_id Concept set ID
+#' @param version_from Previous version (NULL for initial version)
+#' @param version_to New version
+#' @param changed_by_user_id User ID who made the change
+#' @param change_type Type of change (created, updated, version_change, status_change)
+#' @param change_summary Summary of changes
+#' @param changes_json JSON blob with detailed changes (optional)
+#' @return Changelog ID
+#' @noRd
+add_changelog_entry <- function(concept_set_id, version_from = NULL, version_to, changed_by_user_id = NULL,
+                                change_type = "version_change", change_summary = NULL, changes_json = NULL) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  timestamp <- format(Sys.time(), "%Y-%m-%dT%H:%M:%S")
+
+  # Helper to convert NULL to NA
+  null_to_na <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else x
+
+  DBI::dbExecute(
+    con,
+    "INSERT INTO concept_set_changelog (concept_set_id, version_from, version_to, changed_by_user_id, change_date, change_type, change_summary, changes_json)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+    params = list(
+      concept_set_id,
+      null_to_na(version_from),
+      version_to,
+      null_to_na(changed_by_user_id),
+      timestamp,
+      change_type,
+      null_to_na(change_summary),
+      null_to_na(changes_json)
+    )
+  )
+
+  # Get the last inserted ID
+  change_id <- DBI::dbGetQuery(con, "SELECT last_insert_rowid() AS id")$id
+
+  change_id
 }
 
 #' Delete Concept Set Item
@@ -887,13 +1041,22 @@ init_database <- function(con) {
         name TEXT NOT NULL,
         description TEXT,
         version TEXT DEFAULT '1.0.0',
+        review_status TEXT DEFAULT 'draft',
         category TEXT,
         subcategory TEXT,
         etl_comment TEXT,
         tags TEXT,
-        created_by TEXT,
+        created_by_first_name TEXT,
+        created_by_last_name TEXT,
+        created_by_profession TEXT,
+        created_by_affiliation TEXT,
+        created_by_orcid TEXT,
         created_date TEXT,
-        modified_by TEXT,
+        modified_by_first_name TEXT,
+        modified_by_last_name TEXT,
+        modified_by_profession TEXT,
+        modified_by_affiliation TEXT,
+        modified_by_orcid TEXT,
         modified_date TEXT
       )"
     )
@@ -954,8 +1117,9 @@ init_database <- function(con) {
         password_hash TEXT NOT NULL,
         first_name TEXT,
         last_name TEXT,
-        role TEXT,
+        profession TEXT,
         affiliation TEXT,
+        orcid TEXT,
         user_access_id INTEGER,
         created_at TEXT,
         updated_at TEXT,
@@ -968,10 +1132,38 @@ init_database <- function(con) {
     admin_hash <- bcrypt::hashpw("admin", bcrypt::gensalt(12))
     DBI::dbExecute(
       con,
-      "INSERT INTO users (login, password_hash, first_name, last_name, role, user_access_id, created_at, updated_at)
-       VALUES ('admin', ?, 'Admin', 'User', 'Admin', 1, ?, ?)",
+      "INSERT INTO users (login, password_hash, first_name, last_name, profession, user_access_id, created_at, updated_at)
+       VALUES ('admin', ?, 'Admin', 'User', 'Administrator', 1, ?, ?)",
       params = list(admin_hash, timestamp, timestamp)
     )
+  } else {
+    # Migration: rename role to profession and add orcid if needed
+    cols <- DBI::dbGetQuery(con, "PRAGMA table_info(users)")
+    if ("role" %in% cols$name && !("profession" %in% cols$name)) {
+      # Create new table with correct schema
+      DBI::dbExecute(con, "ALTER TABLE users RENAME TO users_old")
+      DBI::dbExecute(
+        con,
+        "CREATE TABLE users (
+          user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+          login TEXT NOT NULL UNIQUE,
+          password_hash TEXT NOT NULL,
+          first_name TEXT,
+          last_name TEXT,
+          profession TEXT,
+          affiliation TEXT,
+          orcid TEXT,
+          user_access_id INTEGER,
+          created_at TEXT,
+          updated_at TEXT,
+          FOREIGN KEY (user_access_id) REFERENCES user_accesses(user_access_id)
+        )"
+      )
+      DBI::dbExecute(con, "INSERT INTO users SELECT user_id, login, password_hash, first_name, last_name, role, affiliation, NULL, user_access_id, created_at, updated_at FROM users_old")
+      DBI::dbExecute(con, "DROP TABLE users_old")
+    } else if (!("orcid" %in% cols$name)) {
+      DBI::dbExecute(con, "ALTER TABLE users ADD COLUMN orcid TEXT")
+    }
   }
 
   # Projects table
@@ -1045,6 +1237,44 @@ init_database <- function(con) {
     if (!"concept_class_id" %in% existing_cols) {
       DBI::dbExecute(con, "ALTER TABLE concept_set_items ADD COLUMN concept_class_id TEXT")
     }
+  }
+
+  # Concept Set Reviews table
+  if (!DBI::dbExistsTable(con, "concept_set_reviews")) {
+    DBI::dbExecute(
+      con,
+      "CREATE TABLE concept_set_reviews (
+        review_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        concept_set_id INTEGER NOT NULL,
+        concept_set_version TEXT,
+        reviewer_user_id INTEGER NOT NULL,
+        status TEXT NOT NULL,
+        comments TEXT,
+        review_date TEXT,
+        FOREIGN KEY (concept_set_id) REFERENCES concept_sets(id),
+        FOREIGN KEY (reviewer_user_id) REFERENCES users(user_id)
+      )"
+    )
+  }
+
+  # Concept Set Changelog table
+  if (!DBI::dbExistsTable(con, "concept_set_changelog")) {
+    DBI::dbExecute(
+      con,
+      "CREATE TABLE concept_set_changelog (
+        change_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        concept_set_id INTEGER NOT NULL,
+        version_from TEXT,
+        version_to TEXT,
+        changed_by_user_id INTEGER,
+        change_date TEXT,
+        change_type TEXT,
+        change_summary TEXT,
+        changes_json TEXT,
+        FOREIGN KEY (concept_set_id) REFERENCES concept_sets(id),
+        FOREIGN KEY (changed_by_user_id) REFERENCES users(user_id)
+      )"
+    )
   }
 
   invisible(NULL)
