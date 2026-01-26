@@ -171,13 +171,13 @@ mod_data_dictionary_ui <- function(id, i18n) {
                           actionButton(
                             ns("cancel_edit_concepts"),
                             i18n$t("cancel"),
-                            class = "btn-secondary-custom ",
+                            class = "btn-secondary-custom",
                             icon = icon("times")
                           ),
                           actionButton(
                             ns("save_edit_concepts"),
                             i18n$t("save"),
-                            class = "btn-primary-custom ",
+                            class = "btn-primary-custom",
                             icon = icon("save")
                           )
                         )
@@ -260,6 +260,20 @@ mod_data_dictionary_ui <- function(id, i18n) {
                                   i18n$t("delete"),
                                   class = "btn-danger-custom btn-sm",
                                   icon = icon("trash")
+                                ),
+                                actionButton(
+                                  ns("preview_concepts"),
+                                  i18n$t("preview"),
+                                  class = "btn-secondary-custom btn-sm",
+                                  icon = icon("eye")
+                                ),
+                                shinyjs::hidden(
+                                  actionButton(
+                                    ns("return_from_preview"),
+                                    i18n$t("return"),
+                                    class = "btn-secondary-custom btn-sm",
+                                    icon = icon("arrow-left")
+                                  )
                                 ),
                                 actionButton(
                                   ns("add_concepts_btn"),
@@ -1768,6 +1782,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     editing_tag_id <- reactiveVal(NULL)
     deleting_tag_id <- reactiveVal(NULL)
     concepts_edit_mode <- reactiveVal(FALSE)
+    concepts_preview_mode <- reactiveVal(FALSE)
 
     ## Statistics State ----
     selected_stats_profile <- reactiveVal(NULL)
@@ -3130,12 +3145,35 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
         if (is.null(concepts) || nrow(concepts) == 0) return(NULL)
 
-        # Check if in edit mode
+        # Check if in edit mode and preview mode
         is_edit_mode <- concepts_edit_mode()
+        is_preview_mode <- concepts_preview_mode()
 
-        # In view mode, resolve the concept set (apply exclude/descendants/mapped rules)
-        # In edit mode, show the raw items with toggles
-        if (!is_edit_mode) {
+        # In view mode OR preview mode, resolve the concept set (apply exclude/descendants/mapped rules)
+        # In edit mode (but not preview), show the raw items with toggles
+        if (!is_edit_mode || is_preview_mode) {
+          # In preview mode, apply pending toggle changes before resolving
+          if (is_preview_mode) {
+            toggle_changes <- isolate(pending_toggle_changes())
+            if (length(toggle_changes) > 0) {
+              for (concept_id in names(toggle_changes)) {
+                row_idx <- which(as.character(concepts$concept_id) == concept_id)
+                if (length(row_idx) > 0) {
+                  changes <- toggle_changes[[concept_id]]
+                  if ("is_excluded" %in% names(changes)) {
+                    concepts$is_excluded[row_idx] <- changes$is_excluded
+                  }
+                  if ("include_descendants" %in% names(changes)) {
+                    concepts$include_descendants[row_idx] <- changes$include_descendants
+                  }
+                  if ("include_mapped" %in% names(changes)) {
+                    concepts$include_mapped[row_idx] <- changes$include_mapped
+                  }
+                }
+              }
+            }
+          }
+
           # Resolve concept set - this will include descendants and mapped, exclude is_excluded
           resolved <- resolve_concept_set(concepts)
 
@@ -3184,12 +3222,32 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           )
         }
 
-        # In edit mode, add toggle columns for is_excluded, include_descendants, include_mapped
-        if (can_edit() && is_edit_mode) {
+        # In edit mode (but not preview mode), add toggle columns for is_excluded, include_descendants, include_mapped
+        if (can_edit() && is_edit_mode && !is_preview_mode) {
           # Add toggle data from concepts
           display_data$is_excluded <- if ("is_excluded" %in% names(concepts)) concepts$is_excluded else FALSE
           display_data$include_descendants <- if ("include_descendants" %in% names(concepts)) concepts$include_descendants else TRUE
           display_data$include_mapped <- if ("include_mapped" %in% names(concepts)) concepts$include_mapped else TRUE
+
+          # Apply pending toggle changes (isolate to avoid reactive dependency)
+          toggle_changes <- isolate(pending_toggle_changes())
+          if (length(toggle_changes) > 0) {
+            for (concept_id in names(toggle_changes)) {
+              row_idx <- which(as.character(display_data$concept_id) == concept_id)
+              if (length(row_idx) > 0) {
+                changes <- toggle_changes[[concept_id]]
+                if ("is_excluded" %in% names(changes)) {
+                  display_data$is_excluded[row_idx] <- changes$is_excluded
+                }
+                if ("include_descendants" %in% names(changes)) {
+                  display_data$include_descendants[row_idx] <- changes$include_descendants
+                }
+                if ("include_mapped" %in% names(changes)) {
+                  display_data$include_mapped[row_idx] <- changes$include_mapped
+                }
+              }
+            }
+          }
 
           # Prepare toggles
           display_data <- prepare_concept_set_toggles(display_data, ns, "toggle_concept_option")
@@ -3228,12 +3286,6 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
             ),
             escape = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE),
             show_colvis = TRUE
-          )
-
-          # Add option to prevent row selection when clicking on toggles
-          dt$x$options$select <- list(
-            style = "multi",
-            selector = "td:not(:has(.toggle-switch))"
           )
 
           # Apply standard concept column styling
@@ -3300,26 +3352,27 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
     ## Handle toggle changes for concept options ----
     observe_event(input$toggle_concept_option, {
+      if (!concepts_edit_mode()) return()
+
       toggle_data <- input$toggle_concept_option
       if (is.null(toggle_data)) return()
 
       cs_id <- viewing_concept_set_id()
       if (is.null(cs_id)) return()
 
-      concept_id <- toggle_data$concept_id
+      concept_id <- as.character(toggle_data$concept_id)
       field <- toggle_data$field
       value <- toggle_data$value
 
       if (is.null(concept_id) || is.null(field)) return()
 
-      # Update the database immediately
-      if (field == "is_excluded") {
-        update_concept_set_item(cs_id, concept_id, is_excluded = value)
-      } else if (field == "include_descendants") {
-        update_concept_set_item(cs_id, concept_id, include_descendants = value)
-      } else if (field == "include_mapped") {
-        update_concept_set_item(cs_id, concept_id, include_mapped = value)
+      # Store toggle change for later save (instead of updating DB immediately)
+      current_changes <- pending_toggle_changes()
+      if (!concept_id %in% names(current_changes)) {
+        current_changes[[concept_id]] <- list()
       }
+      current_changes[[concept_id]][[field]] <- value
+      pending_toggle_changes(current_changes)
     }, ignoreInit = TRUE)
 
     ## Selected Concept Details (bottom-left quadrant) ----
@@ -3748,6 +3801,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     pending_additions <- reactiveVal(list())
     # Store concept IDs to be deleted (vector of concept_ids)
     pending_deletions <- reactiveVal(character(0))
+    # Store toggle changes (list keyed by concept_id, containing field: value pairs)
+    pending_toggle_changes <- reactiveVal(list())
     # Store original concepts data when entering edit mode (for cancel)
     original_concepts_data <- reactiveVal(NULL)
 
@@ -3981,11 +4036,13 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       concepts_trigger(concepts_trigger() + 1)
     }, ignoreInit = TRUE)
 
+
     ## Cancel Edit Mode for Concepts - Discard all staged changes ----
     observe_event(input$cancel_edit_concepts, {
       # Discard all pending changes
       pending_additions(list())
       pending_deletions(character(0))
+      pending_toggle_changes(list())
 
       # Exit edit mode
       concepts_edit_mode(FALSE)
@@ -4014,6 +4071,36 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       concepts_trigger(concepts_trigger() + 1)
     }, ignoreInit = TRUE)
 
+    ## Preview Resolved Concepts ----
+    observe_event(input$preview_concepts, {
+      if (!concepts_edit_mode()) return()
+
+      # Enter preview mode
+      concepts_preview_mode(TRUE)
+
+      # Hide preview button, show return button
+      shinyjs::hide("preview_concepts")
+      shinyjs::show("return_from_preview")
+
+      # Refresh concepts table to show resolved data
+      concepts_trigger(concepts_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    ## Return from Preview ----
+    observe_event(input$return_from_preview, {
+      if (!concepts_edit_mode()) return()
+
+      # Exit preview mode
+      concepts_preview_mode(FALSE)
+
+      # Show preview button, hide return button
+      shinyjs::show("preview_concepts")
+      shinyjs::hide("return_from_preview")
+
+      # Refresh concepts table to show edit mode data
+      concepts_trigger(concepts_trigger() + 1)
+    }, ignoreInit = TRUE)
+
     ## Save Edit Mode for Concepts - Commit all staged changes to database ----
     observe_event(input$save_edit_concepts, {
       cs_id <- viewing_concept_set_id()
@@ -4022,6 +4109,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Get pending changes
       additions <- pending_additions()
       deletions <- pending_deletions()
+      toggle_changes <- pending_toggle_changes()
 
       # Commit deletions to database
       if (length(deletions) > 0) {
@@ -4045,6 +4133,24 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
             is_excluded = concept_data$is_excluded,
             include_descendants = concept_data$include_descendants,
             include_mapped = concept_data$include_mapped
+          )
+        }
+      }
+
+      # Commit toggle changes to database
+      if (length(toggle_changes) > 0) {
+        for (concept_id in names(toggle_changes)) {
+          changes <- toggle_changes[[concept_id]]
+          is_excluded_val <- if ("is_excluded" %in% names(changes)) changes$is_excluded else NULL
+          include_descendants_val <- if ("include_descendants" %in% names(changes)) changes$include_descendants else NULL
+          include_mapped_val <- if ("include_mapped" %in% names(changes)) changes$include_mapped else NULL
+
+          update_concept_set_item(
+            cs_id,
+            as.integer(concept_id),
+            is_excluded = is_excluded_val,
+            include_descendants = include_descendants_val,
+            include_mapped = include_mapped_val
           )
         }
       }
@@ -4084,6 +4190,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Clear pending changes
       pending_additions(list())
       pending_deletions(character(0))
+      pending_toggle_changes(list())
 
       # Exit edit mode
       concepts_edit_mode(FALSE)
@@ -5484,20 +5591,6 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Get import mode (default to "add" if not set)
       import_mode <- if (is.null(input$import_mode) || length(input$import_mode) == 0) "add" else input$import_mode
 
-      # If mode is "replace", show confirmation
-      if (import_mode == "replace") {
-        # Show confirmation in modal
-        shinyjs::html("import_status_message", as.character(i18n$t("confirm_replace_all")))
-        shinyjs::runjs(sprintf("$('#%s').css({'background': '#fff3cd', 'border': '1px solid #ffc107', 'color': '#856404', 'display': 'block'});", ns("import_status_message")))
-
-        # Add a confirmation button
-        shinyjs::runjs(sprintf("
-          $('#%s').append('<button id=\"%s\" class=\"btn btn-danger\" style=\"margin-top: 10px;\">%s</button>');
-        ", ns("import_status_message"), ns("confirm_replace_btn"), as.character(i18n$t("confirm"))))
-
-        return()
-      }
-
       # Show processing message
       shinyjs::html("import_status_message", as.character(i18n$t("processing_import")))
       shinyjs::runjs(sprintf("$('#%s').css({'background': '#d1ecf1', 'border': '1px solid #bee5eb', 'color': '#0c5460', 'display': 'block'});", ns("import_status_message")))
@@ -5510,16 +5603,19 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       result <- import_concept_sets_from_zip(zip_path, mode = import_mode, language = current_language)
 
       if (result$success) {
-        # Success message
-        message_text <- gsub("\\{count\\}", as.character(result$count), as.character(i18n$t("import_success")))
+        # Success message - use the detailed message from the import function
+        message_text <- result$message
         shinyjs::html("import_status_message", message_text)
         shinyjs::runjs(sprintf("$('#%s').css({'background': '#d4edda', 'border': '1px solid #c3e6cb', 'color': '#155724', 'display': 'block'});", ns("import_status_message")))
 
-        # Reload concept sets
-        table_trigger(table_trigger() + 1)
+        # Close modal
+        hide_modal(ns("import_concept_sets_modal"))
 
-        # Close modal after 2 seconds
-        shinyjs::delay(2000, hide_modal(ns("import_concept_sets_modal")))
+        # Reload concept sets data
+        current_language <- i18n$get_translation_language()
+        data <- get_all_concept_sets(language = current_language)
+        concept_sets_data(data)
+        table_trigger(table_trigger() + 1)
       } else {
         # Error message
         error_message <- if (result$message == "no_json_files_found") {

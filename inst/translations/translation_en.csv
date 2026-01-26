@@ -349,10 +349,10 @@ import_zip_tooltip,Import concept sets from a ZIP file
 import_concept_sets,Import Concept Sets
 select_zip_file,Select ZIP File
 import_mode,Import Mode
-import_mode_add,Add to existing concept sets
-import_mode_replace,Replace all concept sets
-import_mode_add_desc,Import concept sets will be added to existing ones. Conflicts will be resolved.
-import_mode_replace_desc,All existing concept sets will be deleted and replaced with imported ones.
+import_mode_add,Add new only
+import_mode_replace,Update existing
+import_mode_add_desc,Add new concept sets only. Existing concept sets with the same ID will be skipped.
+import_mode_replace_desc,Update existing concept sets and add new ones. Concept sets with matching IDs will be replaced.
 confirm_replace_all,Are you sure you want to delete all existing concept sets and replace them with the imported ones? This action cannot be undone.
 import_success,Successfully imported {count} concept sets
 import_failed,Failed to import concept sets
@@ -364,3 +364,7 @@ load_default_count,There are {count} default concept sets available to load.
 loading_default,Loading default concept sets...
 load_default_success,Successfully loaded {count} concept sets
 load_default_failed,Failed to load default concept sets
+preview,Preview
+preview_resolved_concepts,Preview Resolved Concepts
+preview_resolved_concepts_desc,This preview shows how the concept set will look after applying all pending changes (additions, deletions, and toggle settings).
+return,Return

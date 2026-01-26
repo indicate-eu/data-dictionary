@@ -1383,6 +1383,7 @@ import_concept_set_from_json <- function(json_file, language = "en") {
     json_data <- jsonlite::fromJSON(json_file, simplifyVector = FALSE)
 
     # Extract basic concept set information
+    concept_set_id <- json_data$id  # Get ID from JSON to preserve it
     name <- json_data$name
     description <- json_data$description
     version <- if (!is.null(json_data$version)) json_data$version else "1.0.0"
@@ -1413,8 +1414,9 @@ import_concept_set_from_json <- function(json_file, language = "en") {
       }
     }
 
-    # Create concept set in database
+    # Create concept set in database with the ID from JSON
     concept_set_id <- add_concept_set(
+      id = concept_set_id,  # Pass the ID from JSON to preserve it
       name = name,
       description = description,
       category = category,

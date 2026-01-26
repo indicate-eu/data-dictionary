@@ -350,10 +350,10 @@ import_zip_tooltip,Importer des concept sets depuis un fichier ZIP
 import_concept_sets,Importer des Concept Sets
 select_zip_file,Selectionner un fichier ZIP
 import_mode,Mode d'Importation
-import_mode_add,Ajouter aux concept sets existants
-import_mode_replace,Remplacer tous les concept sets
-import_mode_add_desc,Les concept sets importes seront ajoutes aux existants. Les conflits seront resolus.
-import_mode_replace_desc,Tous les concept sets existants seront supprimes et remplaces par ceux importes.
+import_mode_add,Ajouter nouveaux uniquement
+import_mode_replace,Mettre à jour existants
+import_mode_add_desc,Ajouter uniquement les nouveaux concept sets. Les concept sets existants avec le même ID seront ignorés.
+import_mode_replace_desc,Mettre à jour les concept sets existants et ajouter les nouveaux. Les concept sets avec des IDs correspondants seront remplacés.
 confirm_replace_all,Etes-vous sur de vouloir supprimer tous les concept sets existants et les remplacer par ceux importes ? Cette action est irreversible.
 import_success,{count} concept sets importes avec succes
 import_failed,Echec de l'importation des concept sets
@@ -365,3 +365,7 @@ load_default_count,Il y a {count} concept sets par defaut disponibles.
 loading_default,Chargement des concept sets par defaut...
 load_default_success,{count} concept sets charges avec succes
 load_default_failed,Echec du chargement des concept sets par defaut
+preview,Aperçu
+preview_resolved_concepts,Aperçu des concepts résolus
+preview_resolved_concepts_desc,Cet aperçu montre à quoi ressemblera le concept set après application de tous les changements en attente (ajouts, suppressions et paramètres des toggles).
+return,Retour

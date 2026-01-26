@@ -315,7 +315,12 @@ create_detail_item <- function(label, value, format_number = FALSE, url = NULL, 
 build_fhir_url <- function(vocabulary_id, concept_code) {
 
   if (is.null(vocabulary_id) || is.null(concept_code) ||
-      is.na(vocabulary_id) || is.na(concept_code)) {
+      length(vocabulary_id) == 0 || length(concept_code) == 0 ||
+      length(vocabulary_id) > 1 || length(concept_code) > 1) {
+    return(NULL)
+  }
+
+  if (any(is.na(vocabulary_id)) || any(is.na(concept_code))) {
     return(NULL)
   }
 
