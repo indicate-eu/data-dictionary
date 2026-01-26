@@ -59,7 +59,13 @@ mod_data_dictionary_ui <- function(id, i18n) {
                 style = "position: relative; height: 100%; display: flex; flex-direction: column;",
                 tags$div(
                   id = ns("concept_sets_fuzzy_search_container"),
-                  fuzzy_search_ui("fuzzy_search", ns = ns, i18n = i18n)
+                  fuzzy_search_ui(
+                    "fuzzy_search",
+                    ns = ns,
+                    i18n = i18n,
+                    settings_btn = TRUE,
+                    settings_btn_id = "concept_sets_filters_btn"
+                  )
                 ),
                 uiOutput(ns("concept_sets_table_container"), style = "flex: 1;"),
                 # Hidden download link for export all
@@ -1083,7 +1089,7 @@ mod_data_dictionary_ui <- function(id, i18n) {
                 ),
                 actionButton(
                   ns("add_omop_concepts"),
-                  i18n$t("add_concept"),
+                  i18n$t("add_concept_s"),
                   class = "btn-success-custom",
                   style = "margin-left: 15px;",
                   icon = icon("plus")
@@ -6141,7 +6147,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     # 6) FILTERS ====
 
     ## Open Filters Modal ----
-    observe_event(input$filter_concept_sets, {
+    ## Open Filters Modal (from button) ----
+    open_filters_modal <- function() {
       # Get unique values for filter options
       data <- concept_sets_data()
       if (is.null(data) || nrow(data) == 0) return()
@@ -6175,6 +6182,14 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
       # Show modal
       show_modal(ns("filters_modal"))
+    }
+
+    observe_event(input$filter_concept_sets, {
+      open_filters_modal()
+    }, ignoreInit = TRUE)
+
+    observe_event(input$concept_sets_filters_btn, {
+      open_filters_modal()
     }, ignoreInit = TRUE)
 
     ## Apply Filters ----

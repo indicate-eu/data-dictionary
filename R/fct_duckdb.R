@@ -1121,30 +1121,93 @@ export_all_concept_sets <- function(language = "en") {
     concept_sets_dir <- file.path(temp_dir, "concept_sets")
     dir.create(concept_sets_dir)
 
-    # Generate README content
+    # Generate README content with Table of Contents
     readme_lines <- c(
       "# INDICATE Data Dictionary - Concept Sets Export",
       "",
       sprintf("Export date: %s", Sys.time()),
       sprintf("Number of concept sets: %d", nrow(concept_sets)),
       "",
-      "## Concept Sets by Category",
+      "## Table of Contents",
       ""
     )
 
-    # Group by category and subcategory
+    # Build TOC structure first
+    toc_lines <- c()
     categories <- unique(concept_sets$category[!is.na(concept_sets$category)])
 
     for (category in sort(categories)) {
-      readme_lines <- c(readme_lines, sprintf("### %s", category))
-      readme_lines <- c(readme_lines, "")
+      # Sanitize category for anchor link
+      category_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", category))
+      toc_lines <- c(toc_lines, sprintf("- [%s](#%s)", category, category_anchor))
+
+      # Get concept sets for this category
+      category_sets <- concept_sets[!is.na(concept_sets$category) & concept_sets$category == category, ]
 
       # Get subcategories for this category
-      category_sets <- concept_sets[!is.na(concept_sets$category) & concept_sets$category == category, ]
       subcategories <- unique(category_sets$subcategory[!is.na(category_sets$subcategory)])
 
       if (length(subcategories) > 0) {
         for (subcategory in sort(subcategories)) {
+          # Sanitize subcategory for anchor link
+          subcat_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(category, "-", subcategory)))
+          toc_lines <- c(toc_lines, sprintf("  - [%s](#%s)", subcategory, subcat_anchor))
+
+          # Get concept sets for this subcategory
+          subcat_sets <- category_sets[!is.na(category_sets$subcategory) & category_sets$subcategory == subcategory, ]
+
+          for (i in seq_len(nrow(subcat_sets))) {
+            cs <- subcat_sets[i, ]
+            cs_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(cs$id, "-", cs$name)))
+            toc_lines <- c(toc_lines, sprintf("    - [%d - %s](#%s)", cs$id, cs$name, cs_anchor))
+          }
+        }
+      }
+
+      # Concept sets without subcategory in this category
+      no_subcat_sets <- category_sets[is.na(category_sets$subcategory), ]
+      if (nrow(no_subcat_sets) > 0) {
+        for (i in seq_len(nrow(no_subcat_sets))) {
+          cs <- no_subcat_sets[i, ]
+          cs_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(cs$id, "-", cs$name)))
+          toc_lines <- c(toc_lines, sprintf("  - [%d - %s](#%s)", cs$id, cs$name, cs_anchor))
+        }
+      }
+    }
+
+    # Handle uncategorized in TOC
+    no_cat_sets <- concept_sets[is.na(concept_sets$category), ]
+    if (nrow(no_cat_sets) > 0) {
+      toc_lines <- c(toc_lines, "- [Uncategorized](#uncategorized)")
+      for (i in seq_len(nrow(no_cat_sets))) {
+        cs <- no_cat_sets[i, ]
+        cs_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(cs$id, "-", cs$name)))
+        toc_lines <- c(toc_lines, sprintf("  - [%d - %s](#%s)", cs$id, cs$name, cs_anchor))
+      }
+    }
+
+    # Add TOC to README
+    readme_lines <- c(readme_lines, toc_lines, "", "---", "", "## Concept Sets by Category", "")
+
+    # Now generate the detailed sections
+    for (category in sort(categories)) {
+      # Add category header with anchor
+      category_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", category))
+      readme_lines <- c(readme_lines, sprintf('<a id="%s"></a>', category_anchor))
+      readme_lines <- c(readme_lines, sprintf("### %s", category))
+      readme_lines <- c(readme_lines, "")
+
+      # Get concept sets for this category
+      category_sets <- concept_sets[!is.na(concept_sets$category) & concept_sets$category == category, ]
+
+      # Get subcategories for this category
+      subcategories <- unique(category_sets$subcategory[!is.na(category_sets$subcategory)])
+
+      if (length(subcategories) > 0) {
+        for (subcategory in sort(subcategories)) {
+          # Add subcategory header with anchor
+          subcat_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(category, "-", subcategory)))
+          readme_lines <- c(readme_lines, sprintf('<a id="%s"></a>', subcat_anchor))
           readme_lines <- c(readme_lines, sprintf("#### %s", subcategory))
           readme_lines <- c(readme_lines, "")
 
@@ -1161,6 +1224,10 @@ export_all_concept_sets <- function(language = "en") {
               params = list(cs$id)
             )
             concept_count <- concepts$count[1]
+
+            # Add anchor for this concept set
+            cs_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(cs$id, "-", cs$name)))
+            readme_lines <- c(readme_lines, sprintf('<a id="%s"></a>', cs_anchor))
 
             # Format entry
             entry <- sprintf(
@@ -1184,7 +1251,7 @@ export_all_concept_sets <- function(language = "en") {
         }
       }
 
-      # Handle concept sets without subcategory
+      # Handle concept sets without subcategory in this category
       no_subcat_sets <- category_sets[is.na(category_sets$subcategory), ]
       if (nrow(no_subcat_sets) > 0) {
         for (i in seq_len(nrow(no_subcat_sets))) {
@@ -1197,6 +1264,10 @@ export_all_concept_sets <- function(language = "en") {
             params = list(cs$id)
           )
           concept_count <- concepts$count[1]
+
+          # Add anchor for this concept set
+          cs_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(cs$id, "-", cs$name)))
+          readme_lines <- c(readme_lines, sprintf('<a id="%s"></a>', cs_anchor))
 
           # Format entry
           entry <- sprintf(
@@ -1223,6 +1294,7 @@ export_all_concept_sets <- function(language = "en") {
     # Handle concept sets without category
     no_cat_sets <- concept_sets[is.na(concept_sets$category), ]
     if (nrow(no_cat_sets) > 0) {
+      readme_lines <- c(readme_lines, '<a id="uncategorized"></a>')
       readme_lines <- c(readme_lines, "### Uncategorized", "")
 
       for (i in seq_len(nrow(no_cat_sets))) {
@@ -1235,6 +1307,10 @@ export_all_concept_sets <- function(language = "en") {
           params = list(cs$id)
         )
         concept_count <- concepts$count[1]
+
+        # Add anchor for this concept set
+        cs_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(cs$id, "-", cs$name)))
+        readme_lines <- c(readme_lines, sprintf('<a id="%s"></a>', cs_anchor))
 
         # Format entry
         entry <- sprintf(

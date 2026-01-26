@@ -250,6 +250,7 @@ vocabulary_id,Vocabulary ID
 concept_code,Concept Code
 concept_name,Concept Name
 add_concept,Add Concept
+add_concept_s,Add Concept(s)
 remove_concept,Remove Concept
 concept_added,Concept added successfully
 concept_removed,Concept removed successfully
