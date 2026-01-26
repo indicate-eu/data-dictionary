@@ -1,0 +1,404 @@
+{
+  "id": 124,
+  "name": "Insulin Degludec",
+  "description": null,
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2025-01-26",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2025-01-26",
+  "createdByTool": "INDICATE Data Dictionary v0.2.0.9001",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 42479644,
+          "conceptName": "Concept 42479644",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42482554,
+          "conceptName": "Concept 42482554",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42963016,
+          "conceptName": "Concept 42963016",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 44097224,
+          "conceptName": "Concept 44097224",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 44124065,
+          "conceptName": "Concept 44124065",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 35147082,
+          "conceptName": "Concept 35147082",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36404310,
+          "conceptName": "Concept 36404310",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36408864,
+          "conceptName": "Concept 36408864",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 2911259,
+          "conceptName": "Concept 2911259",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 2911826,
+          "conceptName": "Concept 2911826",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 2911830,
+          "conceptName": "Concept 2911830",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 35602725,
+          "conceptName": "Concept 35602725",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 35602732,
+          "conceptName": "Concept 35602732",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1718712,
+          "conceptName": "Concept 1718712",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 793498,
+          "conceptName": "Concept 793498",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1356057,
+          "conceptName": "Concept 1356057",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21144564,
+          "conceptName": "Concept 21144564",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 2038328,
+          "conceptName": "Concept 2038328",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 2038333,
+          "conceptName": "Concept 2038333",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "category": "Drug",
+    "subcategory": "Other drugs",
+    "mappingGuidance": null,
+    "translations": {
+      "en": {
+        "name": "Insulin Degludec",
+        "category": "Drug",
+        "subcategory": "Other drugs"
+      },
+      "fr": {
+        "name": "Insulin Degludec",
+        "category": "Traitements",
+        "subcategory": "Autres m<c3><a9>dicaments"
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

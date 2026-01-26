@@ -32,6 +32,7 @@ edit_user,Edit User
 edit,Edit
 delete,Delete
 cancel,Cancel
+no,No
 save,Save
 confirm_deletion,Confirm Deletion
 user_accesses,User Accesses
@@ -340,3 +341,26 @@ comments_saved,Comments saved successfully
 no_stats_yet,No statistics yet
 stats_saved,Statistics saved successfully
 markdown_editor,Markdown Editor
+export_all,Export All
+export_all_tooltip,Export all concept sets as a ZIP file with JSON files and README
+import,Import
+import_zip,Import
+import_zip_tooltip,Import concept sets from a ZIP file
+import_concept_sets,Import Concept Sets
+select_zip_file,Select ZIP File
+import_mode,Import Mode
+import_mode_add,Add to existing concept sets
+import_mode_replace,Replace all concept sets
+import_mode_add_desc,Import concept sets will be added to existing ones. Conflicts will be resolved.
+import_mode_replace_desc,All existing concept sets will be deleted and replaced with imported ones.
+confirm_replace_all,Are you sure you want to delete all existing concept sets and replace them with the imported ones? This action cannot be undone.
+import_success,Successfully imported {count} concept sets
+import_failed,Failed to import concept sets
+no_json_files_found,No JSON files found in ZIP
+processing_import,Processing import...
+load_default_question,Would you like to load the default concept sets?
+yes_load,Yes load them
+load_default_count,There are {count} default concept sets available to load.
+loading_default,Loading default concept sets...
+load_default_success,Successfully loaded {count} concept sets
+load_default_failed,Failed to load default concept sets

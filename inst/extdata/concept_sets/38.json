@@ -1,0 +1,176 @@
+{
+  "id": 38,
+  "name": "Bivalirudin",
+  "description": null,
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2025-01-26",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2025-01-26",
+  "createdByTool": "INDICATE Data Dictionary v0.2.0.9001",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 793488,
+          "conceptName": "Concept 793488",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 19074279,
+          "conceptName": "Concept 19074279",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36888705,
+          "conceptName": "Concept 36888705",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 43023767,
+          "conceptName": "Concept 43023767",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 44059183,
+          "conceptName": "Concept 44059183",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 41212596,
+          "conceptName": "Concept 41212596",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 2912580,
+          "conceptName": "Concept 2912580",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "category": "Drug",
+    "subcategory": "Anticoagulants",
+    "mappingGuidance": null,
+    "translations": {
+      "en": {
+        "name": "Bivalirudin",
+        "category": "Drug",
+        "subcategory": "Anticoagulants"
+      },
+      "fr": {
+        "name": "Bivalirudin",
+        "category": "Traitements",
+        "subcategory": "Anticoagulants"
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

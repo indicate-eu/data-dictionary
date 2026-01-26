@@ -1,0 +1,157 @@
+{
+  "id": 45,
+  "name": "Edoxaban",
+  "description": null,
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2025-01-26",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2025-01-26",
+  "createdByTool": "INDICATE Data Dictionary v0.2.0.9001",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 36787907,
+          "conceptName": "Concept 36787907",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36787912,
+          "conceptName": "Concept 36787912",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36787920,
+          "conceptName": "Concept 36787920",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 35137111,
+          "conceptName": "Concept 35137111",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 35137677,
+          "conceptName": "Concept 35137677",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 35141149,
+          "conceptName": "Concept 35141149",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "category": "Drug",
+    "subcategory": "Anticoagulants",
+    "mappingGuidance": null,
+    "translations": {
+      "en": {
+        "name": "Edoxaban",
+        "category": "Drug",
+        "subcategory": "Anticoagulants"
+      },
+      "fr": {
+        "name": "Edoxaban",
+        "category": "Traitements",
+        "subcategory": "Anticoagulants"
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

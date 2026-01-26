@@ -1,0 +1,518 @@
+{
+  "id": 329,
+  "name": "Systolic arterial pressure",
+  "description": null,
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2025-01-26",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2025-01-26",
+  "createdByTool": "INDICATE Data Dictionary v0.2.0.9001",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 4217013,
+          "conceptName": "Concept 4217013",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4353843,
+          "conceptName": "Concept 4353843",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4354252,
+          "conceptName": "Concept 4354252",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3006962,
+          "conceptName": "Concept 3006962",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3006633,
+          "conceptName": "Concept 3006633",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3020524,
+          "conceptName": "Concept 3020524",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21490853,
+          "conceptName": "Concept 21490853",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37394652,
+          "conceptName": "Concept 37394652",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3012979,
+          "conceptName": "Concept 3012979",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3010693,
+          "conceptName": "Concept 3010693",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3005659,
+          "conceptName": "Concept 3005659",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3004249,
+          "conceptName": "Concept 3004249",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4152194,
+          "conceptName": "Concept 4152194",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21492239,
+          "conceptName": "Concept 21492239",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21490779,
+          "conceptName": "Concept 21490779",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3028737,
+          "conceptName": "Concept 3028737",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3000605,
+          "conceptName": "Concept 3000605",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3033616,
+          "conceptName": "Concept 3033616",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36303812,
+          "conceptName": "Concept 36303812",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36303525,
+          "conceptName": "Concept 36303525",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3018586,
+          "conceptName": "Concept 3018586",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3035856,
+          "conceptName": "Concept 3035856",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3009395,
+          "conceptName": "Concept 3009395",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36305059,
+          "conceptName": "Concept 36305059",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36304016,
+          "conceptName": "Concept 36304016",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid",
+          "conceptCode": "",
+          "domainId": "",
+          "vocabularyId": "",
+          "conceptClassId": "",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "category": "Vitals",
+    "subcategory": "Haemodynamics",
+    "mappingGuidance": null,
+    "translations": {
+      "en": {
+        "name": "Systolic arterial pressure",
+        "category": "Vitals",
+        "subcategory": "Haemodynamics"
+      },
+      "fr": {
+        "name": "Pression art<c3><a9>rielle systolique",
+        "category": "Param<c3><a8>tres vitaux",
+        "subcategory": "H<c3><a9>modynamique"
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

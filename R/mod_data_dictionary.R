@@ -61,10 +61,33 @@ mod_data_dictionary_ui <- function(id, i18n) {
                   id = ns("concept_sets_fuzzy_search_container"),
                   fuzzy_search_ui("fuzzy_search", ns = ns, i18n = i18n)
                 ),
-                uiOutput(ns("concept_sets_table_container"), style = "flex: 1;")
+                uiOutput(ns("concept_sets_table_container"), style = "flex: 1;"),
+                # Hidden download link for export all
+                tags$div(
+                  style = "position: absolute; left: -9999px;",
+                  downloadLink(ns("download_all_concept_sets"), "Download")
+                )
               ),
               tooltip = i18n$t("concept_sets_tooltip"),
               header_extra = tagList(
+                shinyjs::hidden(
+                  actionButton(
+                    ns("import_concept_sets"),
+                    i18n$t("import_zip"),
+                    class = "btn-purple-custom",
+                    icon = icon("upload"),
+                    title = i18n$t("import_zip_tooltip")
+                  )
+                ),
+                shinyjs::hidden(
+                  actionButton(
+                    ns("export_all_concept_sets"),
+                    i18n$t("export_all"),
+                    class = "btn-primary-custom",
+                    icon = icon("download"),
+                    title = i18n$t("export_all_tooltip")
+                  )
+                ),
                 shinyjs::hidden(
                   actionButton(
                     ns("filter_concept_sets"),
@@ -873,6 +896,29 @@ mod_data_dictionary_ui <- function(id, i18n) {
           ns = ns
         ),
 
+        ### Modal - Load Default Concept Sets ----
+        create_modal(
+          id = "load_default_modal",
+          title = i18n$t("no_concept_sets"),
+          body = tagList(
+            tags$p(
+              id = ns("load_default_message"),
+              style = "margin-bottom: 15px;"
+            ),
+            tags$p(
+              i18n$t("load_default_question"),
+              style = "font-weight: 600; margin-top: 10px;"
+            )
+          ),
+          footer = tagList(
+            actionButton(ns("cancel_load_default"), i18n$t("no"), class = "btn-secondary-custom", icon = icon("times")),
+            actionButton(ns("confirm_load_default"), i18n$t("yes_load"), class = "btn-primary-custom", icon = icon("download"))
+          ),
+          size = "medium",
+          icon = "fas fa-info-circle",
+          ns = ns
+        ),
+
         ### Modal - Add Concepts to Concept Set ----
         tags$div(
           id = ns("add_concepts_modal"),
@@ -1134,6 +1180,75 @@ mod_data_dictionary_ui <- function(id, i18n) {
           ),
           size = "medium",
           icon = "fas fa-download",
+          ns = ns
+        ),
+
+        ### Modal - Import Concept Sets ----
+        create_modal(
+          id = "import_concept_sets_modal",
+          title = i18n$t("import_concept_sets"),
+          body = tagList(
+            # File upload
+            tags$div(
+              class = "mb-15",
+              tags$label(class = "form-label", i18n$t("select_zip_file")),
+              tags$div(
+                style = "width: 100%;",
+                fileInput(
+                  ns("import_zip_file"),
+                  label = NULL,
+                  accept = ".zip",
+                  buttonLabel = i18n$t("browse"),
+                  placeholder = "No file selected",
+                  width = "100%"
+                )
+              )
+            ),
+            # Import mode
+            tags$div(
+              class = "mb-15",
+              tags$div(
+                class = "import-options-container",
+                # Add mode
+                tags$div(
+                  class = "import-option selected",
+                  id = ns("import_option_add"),
+                  onclick = sprintf("$('.import-option').removeClass('selected'); $(this).addClass('selected'); Shiny.setInputValue('%s', 'add', {priority: 'event'});", ns("import_mode")),
+                  tags$div(
+                    class = "import-option-content",
+                    tags$h5(class = "import-option-title", i18n$t("import_mode_add")),
+                    tags$p(class = "import-option-subtitle", i18n$t("import_mode_add_desc"))
+                  )
+                ),
+                # Replace mode
+                tags$div(
+                  class = "import-option",
+                  id = ns("import_option_replace"),
+                  onclick = sprintf("$('.import-option').removeClass('selected'); $(this).addClass('selected'); Shiny.setInputValue('%s', 'replace', {priority: 'event'});", ns("import_mode")),
+                  tags$div(
+                    class = "import-option-content",
+                    tags$h5(class = "import-option-title", i18n$t("import_mode_replace")),
+                    tags$p(
+                      class = "import-option-subtitle text-danger",
+                      style = "font-weight: 600;",
+                      i18n$t("import_mode_replace_desc")
+                    )
+                  )
+                )
+              )
+            ),
+            # Progress/status message
+            tags$div(
+              id = ns("import_status_message"),
+              style = "display: none; padding: 10px; border-radius: 4px; margin-top: 15px;"
+            )
+          ),
+          footer = tagList(
+            actionButton(ns("cancel_import"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
+            actionButton(ns("confirm_import"), i18n$t("import"), class = "btn-primary-custom", icon = icon("upload"))
+          ),
+          size = "medium",
+          icon = "fas fa-upload",
           ns = ns
         ),
 
@@ -1657,6 +1772,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     ## Statistics State ----
     selected_stats_profile <- reactiveVal(NULL)
 
+    ## Export State ----
+    export_zip_path <- reactiveVal(NULL)
+
     ## Fuzzy Search ----
     fuzzy <- fuzzy_search_server("fuzzy_search", input, session, trigger_rv = table_trigger, ns = ns)
 
@@ -1686,7 +1804,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Show/hide buttons based on permissions
       if (can_edit()) {
         shinyjs::show("add_concept_set")
+        shinyjs::show("import_concept_sets")
       }
+      shinyjs::show("export_all_concept_sets")
       shinyjs::show("filter_concept_sets")
 
       # Load concept sets data
@@ -1699,6 +1819,29 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       all_tags <- get_all_tags()
       tags_data(all_tags)
       tags_trigger(tags_trigger() + 1)
+
+      # Check if database is empty and offer to load defaults
+      if (is.null(data) || nrow(data) == 0) {
+        # Find default concept sets
+        concept_sets_dir <- system.file("extdata/concept_sets", package = "indicate")
+        if (concept_sets_dir == "" || !dir.exists(concept_sets_dir)) {
+          concept_sets_dir <- "inst/extdata/concept_sets"
+        }
+
+        if (dir.exists(concept_sets_dir)) {
+          json_files <- list.files(concept_sets_dir, pattern = "\\.json$", full.names = TRUE)
+          json_files <- json_files[!grepl("README", basename(json_files), ignore.case = TRUE)]
+
+          if (length(json_files) > 0) {
+            # Update message with count
+            message_text <- gsub("\\{count\\}", as.character(length(json_files)), as.character(i18n$t("load_default_count")))
+            shinyjs::html("load_default_message", message_text)
+
+            # Show modal
+            show_modal(ns("load_default_modal"))
+          }
+        }
+      }
     }, ignoreInit = FALSE, once = TRUE)
 
     # Initialize OMOP concepts table (required for outputOptions)
@@ -1712,6 +1855,19 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       create_empty_datatable("")
     })
     outputOptions(output, "add_modal_descendants_table", suspendWhenHidden = FALSE)
+
+    # Download handler for export all
+    output$download_all_concept_sets <- downloadHandler(
+      filename = function() {
+        sprintf("indicate_concept_sets_%s.zip", format(Sys.time(), "%Y-%m-%d_%H-%M-%S"))
+      },
+      content = function(file) {
+        zip_path <- export_zip_path()
+        if (!is.null(zip_path) && file.exists(zip_path)) {
+          file.copy(zip_path, file)
+        }
+      }
+    )
 
     # Initialize add modal concept details (force render when hidden in modal)
     output$add_modal_concept_details <- renderUI({
@@ -1890,13 +2046,6 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
               data_attr = list(id = row_id)
             ),
             list(
-              label = as.character(i18n$t("export")),
-              icon = "download",
-              type = "success",
-              class = "btn-export",
-              data_attr = list(id = row_id)
-            ),
-            list(
               label = as.character(i18n$t("delete")),
               icon = "trash",
               type = "danger",
@@ -1935,7 +2084,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
             list(targets = 8, width = "8%", visible = FALSE),    # Author (hidden)
             list(targets = 9, width = "8%", className = "dt-center", visible = FALSE),   # Last Update (hidden)
             list(targets = 10, width = "5%", className = "dt-center", visible = FALSE),  # Concepts count (hidden)
-            list(targets = 11, width = "280px", className = "dt-center")  # Actions
+            list(targets = 11, width = "210px", className = "dt-center")  # Actions
           ),
           escape = FALSE
         )
@@ -1945,7 +2094,6 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           handlers = list(
             list(selector = ".btn-view", input_id = ns("view_concept_set")),
             list(selector = ".btn-edit", input_id = ns("edit_concept_set")),
-            list(selector = ".btn-export", input_id = ns("export_concept_set")),
             list(selector = ".btn-delete", input_id = ns("delete_concept_set"))
           ),
           dblclick_input_id = ns("view_concept_set"),
@@ -3080,6 +3228,12 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
             ),
             escape = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE),
             show_colvis = TRUE
+          )
+
+          # Add option to prevent row selection when clicking on toggles
+          dt$x$options$select <- list(
+            style = "multi",
+            selector = "td:not(:has(.toggle-switch))"
           )
 
           # Apply standard concept column styling
@@ -5273,7 +5427,173 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       }
     }, ignoreInit = TRUE)
 
-    # 5) FILTERS ====
+    # 5) EXPORT ALL ====
+
+    ## Export All Concept Sets ----
+    observe_event(input$export_all_concept_sets, {
+      current_language <- i18n$get_translation_language()
+
+      # Generate ZIP file
+      zip_file <- export_all_concept_sets(language = current_language)
+
+      if (!is.null(zip_file) && file.exists(zip_file)) {
+        # Store path in reactive value
+        export_zip_path(zip_file)
+
+        # Trigger the download
+        shinyjs::delay(100, {
+          shinyjs::runjs(sprintf("$('#%s')[0].click();", session$ns("download_all_concept_sets")))
+        })
+      } else {
+        showNotification(
+          "Failed to create export file",
+          type = "error",
+          duration = 5
+        )
+      }
+    }, ignoreInit = TRUE)
+
+    # 5.1) IMPORT ====
+
+    ## Open Import Modal ----
+    observe_event(input$import_concept_sets, {
+      # Reset file input
+      shinyjs::reset("import_zip_file")
+      # Reset import mode
+      updateRadioButtons(session, "import_mode", selected = "add")
+      # Show/hide mode descriptions
+      shinyjs::show("import_mode_desc_add")
+      shinyjs::hide("import_mode_desc_replace")
+      # Hide status message
+      shinyjs::hide("import_status_message")
+      # Show modal
+      show_modal(ns("import_concept_sets_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Confirm Import ----
+    observe_event(input$confirm_import, {
+      # Validate file selection
+      if (is.null(input$import_zip_file)) {
+        shinyjs::html("import_status_message", as.character(i18n$t("select_zip_file")))
+        shinyjs::runjs(sprintf("$('#%s').css({'background': '#fee', 'border': '1px solid #fcc', 'color': '#c33', 'display': 'block'});", ns("import_status_message")))
+        return()
+      }
+
+      zip_path <- input$import_zip_file$datapath
+
+      # Get import mode (default to "add" if not set)
+      import_mode <- if (is.null(input$import_mode) || length(input$import_mode) == 0) "add" else input$import_mode
+
+      # If mode is "replace", show confirmation
+      if (import_mode == "replace") {
+        # Show confirmation in modal
+        shinyjs::html("import_status_message", as.character(i18n$t("confirm_replace_all")))
+        shinyjs::runjs(sprintf("$('#%s').css({'background': '#fff3cd', 'border': '1px solid #ffc107', 'color': '#856404', 'display': 'block'});", ns("import_status_message")))
+
+        # Add a confirmation button
+        shinyjs::runjs(sprintf("
+          $('#%s').append('<button id=\"%s\" class=\"btn btn-danger\" style=\"margin-top: 10px;\">%s</button>');
+        ", ns("import_status_message"), ns("confirm_replace_btn"), as.character(i18n$t("confirm"))))
+
+        return()
+      }
+
+      # Show processing message
+      shinyjs::html("import_status_message", as.character(i18n$t("processing_import")))
+      shinyjs::runjs(sprintf("$('#%s').css({'background': '#d1ecf1', 'border': '1px solid #bee5eb', 'color': '#0c5460', 'display': 'block'});", ns("import_status_message")))
+
+      # Disable button during import
+      shinyjs::disable("confirm_import")
+
+      # Perform import
+      current_language <- i18n$get_translation_language()
+      result <- import_concept_sets_from_zip(zip_path, mode = import_mode, language = current_language)
+
+      if (result$success) {
+        # Success message
+        message_text <- gsub("\\{count\\}", as.character(result$count), as.character(i18n$t("import_success")))
+        shinyjs::html("import_status_message", message_text)
+        shinyjs::runjs(sprintf("$('#%s').css({'background': '#d4edda', 'border': '1px solid #c3e6cb', 'color': '#155724', 'display': 'block'});", ns("import_status_message")))
+
+        # Reload concept sets
+        table_trigger(table_trigger() + 1)
+
+        # Close modal after 2 seconds
+        shinyjs::delay(2000, hide_modal(ns("import_concept_sets_modal")))
+      } else {
+        # Error message
+        error_message <- if (result$message == "no_json_files_found") {
+          as.character(i18n$t("no_json_files_found"))
+        } else {
+          paste(as.character(i18n$t("import_failed")), result$message, sep = ": ")
+        }
+        shinyjs::html("import_status_message", error_message)
+        shinyjs::runjs(sprintf("$('#%s').css({'background': '#f8d7da', 'border': '1px solid #f5c6cb', 'color': '#721c24', 'display': 'block'});", ns("import_status_message")))
+      }
+
+      # Re-enable button
+      shinyjs::enable("confirm_import")
+    }, ignoreInit = TRUE)
+
+    ## Cancel Import ----
+    observe_event(input$cancel_import, {
+      hide_modal(ns("import_concept_sets_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Confirm Load Default Concept Sets ----
+    observe_event(input$confirm_load_default, {
+      # Find default concept sets
+      concept_sets_dir <- system.file("extdata/concept_sets", package = "indicate")
+      if (concept_sets_dir == "" || !dir.exists(concept_sets_dir)) {
+        concept_sets_dir <- "inst/extdata/concept_sets"
+      }
+
+      if (dir.exists(concept_sets_dir)) {
+        # Load Heart rate concept set (327.json) as test
+        heart_rate_file <- file.path(concept_sets_dir, "327.json")
+
+        if (file.exists(heart_rate_file)) {
+          current_language <- i18n$get_translation_language()
+          message(sprintf("[mod_data_dictionary] Loading Heart rate concept set: %s", heart_rate_file))
+
+          result <- import_concept_set_from_json(heart_rate_file, language = current_language)
+
+          if (!is.null(result)) {
+            message("[mod_data_dictionary] Successfully loaded first concept set")
+
+            # Reload data
+            data <- get_all_concept_sets(language = current_language)
+            concept_sets_data(data)
+            table_trigger(table_trigger() + 1)
+
+            # Show success notification with count
+            message_text <- gsub("\\{count\\}", "1", as.character(i18n$t("load_default_success")))
+            showNotification(
+              message_text,
+              type = "message",
+              duration = 5
+            )
+          } else {
+            message("[mod_data_dictionary] Failed to load first concept set")
+            showNotification(
+              as.character(i18n$t("load_default_failed")),
+              type = "error",
+              duration = 5
+            )
+          }
+        }
+      }
+
+      # Hide modal
+      hide_modal(ns("load_default_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Cancel Load Default ----
+    observe_event(input$cancel_load_default, {
+      hide_modal(ns("load_default_modal"))
+    }, ignoreInit = TRUE)
+
+    # 6) FILTERS ====
 
     ## Open Filters Modal ----
     observe_event(input$filter_concept_sets, {

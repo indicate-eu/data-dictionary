@@ -345,9 +345,8 @@ create_concept_toggle <- function(concept_id, field, checked, ns, input_id, is_e
   toggle_class <- if (is_exclude) "toggle-switch toggle-small toggle-exclude" else "toggle-switch toggle-small"
   checked_attr <- if (isTRUE(checked)) "checked" else ""
 
-
   sprintf(
-    '<label class="%s"><input type="checkbox" data-concept-id="%s" data-field="%s" %s onchange="Shiny.setInputValue(\'%s\', {concept_id: %s, field: \'%s\', value: this.checked}, {priority: \'event\'})"><span class="toggle-slider"></span></label>',
+    '<label class="%s" onclick="event.stopPropagation();"><input type="checkbox" data-concept-id="%s" data-field="%s" %s onclick="event.stopPropagation();" onchange="Shiny.setInputValue(\'%s\', {concept_id: %s, field: \'%s\', value: this.checked}, {priority: \'event\'})"><span class="toggle-slider" onclick="event.stopPropagation();"></span></label>',
     toggle_class, concept_id, field, checked_attr, ns(input_id), concept_id, field
   )
 }

@@ -32,6 +32,7 @@ edit_user,Modifier l'Utilisateur
 edit,Modifier
 delete,Supprimer
 cancel,Annuler
+no,Non
 save,Enregistrer
 confirm_deletion,Confirmer la Suppression
 user_accesses,Niveaux d'Acces
@@ -341,3 +342,26 @@ no_stats_yet,Pas encore de statistiques
 stats_saved,Statistiques sauvegardees avec succes
 markdown_editor,Editeur Markdown
 no_concept_set_selected,Aucun concept set selectionne
+export_all,Exporter Tout
+export_all_tooltip,Exporter tous les concept sets dans un fichier ZIP avec fichiers JSON et README
+import,Importer
+import_zip,Importer
+import_zip_tooltip,Importer des concept sets depuis un fichier ZIP
+import_concept_sets,Importer des Concept Sets
+select_zip_file,Selectionner un fichier ZIP
+import_mode,Mode d'Importation
+import_mode_add,Ajouter aux concept sets existants
+import_mode_replace,Remplacer tous les concept sets
+import_mode_add_desc,Les concept sets importes seront ajoutes aux existants. Les conflits seront resolus.
+import_mode_replace_desc,Tous les concept sets existants seront supprimes et remplaces par ceux importes.
+confirm_replace_all,Etes-vous sur de vouloir supprimer tous les concept sets existants et les remplacer par ceux importes ? Cette action est irreversible.
+import_success,{count} concept sets importes avec succes
+import_failed,Echec de l'importation des concept sets
+no_json_files_found,Aucun fichier JSON trouve dans le ZIP
+processing_import,Traitement de l'importation...
+load_default_question,Voulez-vous charger les concept sets par defaut ?
+yes_load,Oui charger
+load_default_count,Il y a {count} concept sets par defaut disponibles.
+loading_default,Chargement des concept sets par defaut...
+load_default_success,{count} concept sets charges avec succes
+load_default_failed,Echec du chargement des concept sets par defaut

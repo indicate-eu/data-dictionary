@@ -3065,8 +3065,8 @@ a.btn-success-custom:hover {
   border-radius: 6px;
   font-size: 12px;
   font-weight: normal;
-  white-space: normal;
-  width: 400px;
+  white-space: nowrap;
+  max-width: 400px;
   text-align: left;
   z-index: 100000;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -5772,6 +5772,69 @@ button.btn-icon-only:hover {
   line-height: 1.4;
 }
 
+/* Import Modal Options
+-------------------------------------------------- */
+.import-options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.import-option {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: var(--border-radius-default);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #fff;
+}
+
+.import-option:hover {
+  border-color: #0f60af;
+  background-color: #f2f7fd;
+  box-shadow: 0 2px 8px rgba(15, 96, 175, 0.1);
+  transform: translateY(-1px);
+}
+
+.import-option.selected {
+  border-color: #28a745;
+  background-color: #d4edda;
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2);
+}
+
+.import-option input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.import-option-content {
+  flex: 1;
+}
+
+.import-option-title {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.import-option-subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.import-option.selected .import-option-subtitle {
+  color: #155724;
+}
+
 /* Review Status and Version Badges */
 .concept-set-badges {
   display: inline-flex;
@@ -5963,3 +6026,59 @@ table.dataTable .tag-badge {
   border-left: 4px solid #e2e8f0;
   margin-bottom: 12px;
 }
+
+/* Radio buttons custom styling */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.radio-option {
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 12px;
+  transition: all 0.2s;
+}
+
+.radio-option:hover {
+  background-color: #f8f9fa;
+  border-color: #0f60af;
+}
+
+.radio-label {
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+  margin: 0;
+  gap: 12px;
+}
+
+.radio-label input[type='radio'] {
+  margin-top: 2px;
+  cursor: pointer;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.radio-label-text {
+  flex: 1;
+}
+
+.radio-label-text strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #2c3e50;
+}
+
+.radio-label-text small {
+  color: #6c757d;
+  line-height: 1.4;
+}
+
+.radio-option:has(input:checked) {
+  background-color: #e7f3ff;
+  border-color: #0f60af;
+}
+

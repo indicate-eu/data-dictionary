@@ -1040,6 +1040,206 @@ export_concept_set_to_json <- function(concept_set_id, concepts_data = NULL) {
   })
 }
 
+#' Export all concept sets to ZIP file
+#'
+#' @description Creates a ZIP file containing all concept sets as JSON files
+#'              plus a README with summary information
+#'
+#' @param language Language code for translations (default: "en")
+#'
+#' @return Path to the generated ZIP file, or NULL on error
+#' @noRd
+export_all_concept_sets <- function(language = "en") {
+  tryCatch({
+    con <- get_db_connection()
+    on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+    # Get all concept sets with translations
+    concept_sets <- get_all_concept_sets(language = language)
+
+    if (is.null(concept_sets) || nrow(concept_sets) == 0) {
+      return(NULL)
+    }
+
+    # Create temporary directory for export
+    temp_dir <- tempfile()
+    dir.create(temp_dir)
+    concept_sets_dir <- file.path(temp_dir, "concept_sets")
+    dir.create(concept_sets_dir)
+
+    # Generate README content
+    readme_lines <- c(
+      "# INDICATE Data Dictionary - Concept Sets Export",
+      "",
+      sprintf("Export date: %s", Sys.time()),
+      sprintf("Number of concept sets: %d", nrow(concept_sets)),
+      "",
+      "## Concept Sets by Category",
+      ""
+    )
+
+    # Group by category and subcategory
+    categories <- unique(concept_sets$category[!is.na(concept_sets$category)])
+
+    for (category in sort(categories)) {
+      readme_lines <- c(readme_lines, sprintf("### %s", category))
+      readme_lines <- c(readme_lines, "")
+
+      # Get subcategories for this category
+      category_sets <- concept_sets[!is.na(concept_sets$category) & concept_sets$category == category, ]
+      subcategories <- unique(category_sets$subcategory[!is.na(category_sets$subcategory)])
+
+      if (length(subcategories) > 0) {
+        for (subcategory in sort(subcategories)) {
+          readme_lines <- c(readme_lines, sprintf("#### %s", subcategory))
+          readme_lines <- c(readme_lines, "")
+
+          # Get concept sets for this subcategory
+          subcat_sets <- category_sets[!is.na(category_sets$subcategory) & category_sets$subcategory == subcategory, ]
+
+          for (i in seq_len(nrow(subcat_sets))) {
+            cs <- subcat_sets[i, ]
+
+            # Get concept count
+            concepts <- DBI::dbGetQuery(
+              con,
+              "SELECT COUNT(*) as count FROM concept_set_items WHERE concept_set_id = ?",
+              params = list(cs$id)
+            )
+            concept_count <- concepts$count[1]
+
+            # Format entry
+            entry <- sprintf(
+              "- **%s** (ID: %d, File: %d.json)\n  - Description: %s\n  - Version: %s | Status: %s | Concepts: %d\n  - Author: %s %s (%s)\n  - Created: %s | Modified: %s",
+              cs$name,
+              cs$id,
+              cs$id,
+              if (!is.na(cs$description)) cs$description else "N/A",
+              if (!is.na(cs$version)) cs$version else "1.0.0",
+              if (!is.na(cs$review_status)) cs$review_status else "Draft",
+              concept_count,
+              if (!is.na(cs$created_by_first_name)) cs$created_by_first_name else "",
+              if (!is.na(cs$created_by_last_name)) cs$created_by_last_name else "",
+              if (!is.na(cs$created_by_profession)) cs$created_by_profession else "N/A",
+              if (!is.na(cs$created_date)) gsub("[TZ]", " ", cs$created_date) else "N/A",
+              if (!is.na(cs$modified_date)) gsub("[TZ]", " ", cs$modified_date) else "N/A"
+            )
+
+            readme_lines <- c(readme_lines, entry, "")
+          }
+        }
+      }
+
+      # Handle concept sets without subcategory
+      no_subcat_sets <- category_sets[is.na(category_sets$subcategory), ]
+      if (nrow(no_subcat_sets) > 0) {
+        for (i in seq_len(nrow(no_subcat_sets))) {
+          cs <- no_subcat_sets[i, ]
+
+          # Get concept count
+          concepts <- DBI::dbGetQuery(
+            con,
+            "SELECT COUNT(*) as count FROM concept_set_items WHERE concept_set_id = ?",
+            params = list(cs$id)
+          )
+          concept_count <- concepts$count[1]
+
+          # Format entry
+          entry <- sprintf(
+            "- **%s** (ID: %d, File: %d.json)\n  - Description: %s\n  - Version: %s | Status: %s | Concepts: %d\n  - Author: %s %s (%s)\n  - Created: %s | Modified: %s",
+            cs$name,
+            cs$id,
+            cs$id,
+            if (!is.na(cs$description)) cs$description else "N/A",
+            if (!is.na(cs$version)) cs$version else "1.0.0",
+            if (!is.na(cs$review_status)) cs$review_status else "Draft",
+            concept_count,
+            if (!is.na(cs$created_by_first_name)) cs$created_by_first_name else "",
+            if (!is.na(cs$created_by_last_name)) cs$created_by_last_name else "",
+            if (!is.na(cs$created_by_profession)) cs$created_by_profession else "N/A",
+            if (!is.na(cs$created_date)) gsub("[TZ]", " ", cs$created_date) else "N/A",
+            if (!is.na(cs$modified_date)) gsub("[TZ]", " ", cs$modified_date) else "N/A"
+          )
+
+          readme_lines <- c(readme_lines, entry, "")
+        }
+      }
+    }
+
+    # Handle concept sets without category
+    no_cat_sets <- concept_sets[is.na(concept_sets$category), ]
+    if (nrow(no_cat_sets) > 0) {
+      readme_lines <- c(readme_lines, "### Uncategorized", "")
+
+      for (i in seq_len(nrow(no_cat_sets))) {
+        cs <- no_cat_sets[i, ]
+
+        # Get concept count
+        concepts <- DBI::dbGetQuery(
+          con,
+          "SELECT COUNT(*) as count FROM concept_set_items WHERE concept_set_id = ?",
+          params = list(cs$id)
+        )
+        concept_count <- concepts$count[1]
+
+        # Format entry
+        entry <- sprintf(
+          "- **%s** (ID: %d, File: %d.json)\n  - Description: %s\n  - Version: %s | Status: %s | Concepts: %d\n  - Author: %s %s (%s)\n  - Created: %s | Modified: %s",
+          cs$name,
+          cs$id,
+          cs$id,
+          if (!is.na(cs$description)) cs$description else "N/A",
+          if (!is.na(cs$version)) cs$version else "1.0.0",
+          if (!is.na(cs$review_status)) cs$review_status else "Draft",
+          concept_count,
+          if (!is.na(cs$created_by_first_name)) cs$created_by_first_name else "",
+          if (!is.na(cs$created_by_last_name)) cs$created_by_last_name else "",
+          if (!is.na(cs$created_by_profession)) cs$created_by_profession else "N/A",
+          if (!is.na(cs$created_date)) gsub("[TZ]", " ", cs$created_date) else "N/A",
+          if (!is.na(cs$modified_date)) gsub("[TZ]", " ", cs$modified_date) else "N/A"
+        )
+
+        readme_lines <- c(readme_lines, entry, "")
+      }
+    }
+
+    # Write README
+    writeLines(readme_lines, file.path(concept_sets_dir, "README.md"))
+
+    # Export each concept set as JSON
+    for (i in seq_len(nrow(concept_sets))) {
+      cs <- concept_sets[i, ]
+      json <- export_concept_set_to_json(cs$id)
+
+      if (!is.null(json)) {
+        json_path <- file.path(concept_sets_dir, sprintf("%d.json", cs$id))
+        writeLines(json, json_path)
+      }
+    }
+
+    # Create ZIP file
+    zip_file <- tempfile(fileext = ".zip")
+    current_dir <- getwd()
+    setwd(temp_dir)
+    utils::zip(zip_file, "concept_sets", flags = "-r9Xq")
+    setwd(current_dir)
+
+    # Check if ZIP was created
+    if (!file.exists(zip_file)) {
+      return(NULL)
+    }
+
+    # Clean up temp directory
+    unlink(temp_dir, recursive = TRUE)
+
+    return(zip_file)
+
+  }, error = function(e) {
+    warning("Error exporting all concept sets: ", e$message)
+    return(NULL)
+  })
+}
+
 #' Export resolved concept IDs as comma-separated list
 #'
 #' @description Export concept set as comma-separated list of concept IDs (for PHOEBE)
@@ -1165,4 +1365,183 @@ export_concept_set_to_sql <- function(concept_set_name, concepts_data, include_n
   # For multiple tables, we can't use UNION ALL (different schemas)
   # So we return each query separately
   return(paste0(header, paste(queries, collapse = "\n\n")))
+}
+
+#' Import concept set from JSON file
+#'
+#' @description Imports a concept set from an OHDSI-compliant JSON file
+#'              Fetches complete concept details from vocabulary database
+#'
+#' @param json_file Path to JSON file
+#' @param language Language code for default language (default: "en")
+#'
+#' @return Concept set ID if successful, NULL on error
+#' @noRd
+import_concept_set_from_json <- function(json_file, language = "en") {
+  tryCatch({
+    # Read JSON file
+    json_data <- jsonlite::fromJSON(json_file, simplifyVector = FALSE)
+
+    # Extract basic concept set information
+    name <- json_data$name
+    description <- json_data$description
+    version <- if (!is.null(json_data$version)) json_data$version else "1.0.0"
+    category <- if (!is.null(json_data$metadata$category)) json_data$metadata$category else NULL
+    subcategory <- if (!is.null(json_data$metadata$subcategory)) json_data$metadata$subcategory else NULL
+    etl_comment <- if (!is.null(json_data$metadata$mappingGuidance)) json_data$metadata$mappingGuidance else NULL
+    tags <- if (!is.null(json_data$tags) && length(json_data$tags) > 0) paste(unlist(json_data$tags), collapse = ",") else NULL
+
+    # Extract author information
+    created_by_first_name <- NULL
+    created_by_last_name <- NULL
+    created_by_profession <- NULL
+    created_by_affiliation <- NULL
+    created_by_orcid <- NULL
+
+    if (!is.null(json_data$metadata$createdByDetails)) {
+      created_by_first_name <- json_data$metadata$createdByDetails$firstName
+      created_by_last_name <- json_data$metadata$createdByDetails$lastName
+      created_by_profession <- json_data$metadata$createdByDetails$profession
+      created_by_affiliation <- json_data$metadata$createdByDetails$affiliation
+      created_by_orcid <- json_data$metadata$createdByDetails$orcid
+    } else if (!is.null(json_data$createdBy)) {
+      # Parse "FirstName LastName" format
+      parts <- strsplit(json_data$createdBy, " ")[[1]]
+      if (length(parts) >= 2) {
+        created_by_first_name <- parts[1]
+        created_by_last_name <- paste(parts[-1], collapse = " ")
+      }
+    }
+
+    # Create concept set in database
+    concept_set_id <- add_concept_set(
+      name = name,
+      description = description,
+      category = category,
+      subcategory = subcategory,
+      tags = tags,
+      etl_comment = etl_comment,
+      created_by_first_name = created_by_first_name,
+      created_by_last_name = created_by_last_name,
+      created_by_profession = created_by_profession,
+      created_by_affiliation = created_by_affiliation,
+      created_by_orcid = created_by_orcid,
+      language = language
+    )
+
+    # Add translations if present
+    if (!is.null(json_data$metadata$translations)) {
+      translations <- json_data$metadata$translations
+
+      for (lang in names(translations)) {
+        lang_data <- translations[[lang]]
+
+        # Set translations for this language
+        if (!is.null(lang_data$name)) {
+          set_concept_set_translation(concept_set_id, lang, "name", lang_data$name)
+        }
+        if (!is.null(lang_data$description)) {
+          set_concept_set_translation(concept_set_id, lang, "description", lang_data$description)
+        }
+        if (!is.null(lang_data$category)) {
+          set_concept_set_translation(concept_set_id, lang, "category", lang_data$category)
+        }
+        if (!is.null(lang_data$subcategory)) {
+          set_concept_set_translation(concept_set_id, lang, "subcategory", lang_data$subcategory)
+        }
+        if (!is.null(lang_data$mappingGuidance)) {
+          set_concept_set_translation(concept_set_id, lang, "etl_comment", lang_data$mappingGuidance)
+        }
+      }
+    }
+
+    # Update version if different from default
+    if (!is.null(version) && version != "1.0.0") {
+      update_concept_set(concept_set_id, version = version, language = language)
+    }
+
+    # Import concept set items if present
+    if (!is.null(json_data$expression$items) && length(json_data$expression$items) > 0) {
+      # Get DuckDB connection to fetch concept details
+      if (duckdb_exists()) {
+        con_vocab <- get_duckdb_connection()
+        on.exit(DBI::dbDisconnect(con_vocab, shutdown = TRUE), add = TRUE)
+
+        for (item in json_data$expression$items) {
+          concept_id <- item$concept$conceptId
+          is_excluded <- isTRUE(item$isExcluded)
+          include_descendants <- isTRUE(item$includeDescendants)
+          include_mapped <- isTRUE(item$includeMapped)
+
+          # Fetch concept details from vocabulary
+          concept_details <- DBI::dbGetQuery(
+            con_vocab,
+            "SELECT concept_id, concept_name, domain_id, vocabulary_id, concept_class_id,
+                    standard_concept, concept_code
+             FROM concept
+             WHERE concept_id = ?",
+            params = list(concept_id)
+          )
+
+          if (nrow(concept_details) > 0) {
+            concept <- concept_details[1, ]
+
+            # Add concept to concept set
+            add_concept_set_item(
+              concept_set_id = concept_set_id,
+              concept_id = concept$concept_id,
+              concept_name = concept$concept_name,
+              vocabulary_id = concept$vocabulary_id,
+              concept_code = concept$concept_code,
+              domain_id = concept$domain_id,
+              concept_class_id = concept$concept_class_id,
+              standard_concept = concept$standard_concept,
+              is_excluded = is_excluded,
+              include_descendants = include_descendants,
+              include_mapped = include_mapped
+            )
+          } else {
+            # Concept not found in vocabulary - add with placeholder values
+            warning(sprintf("Concept %d not found in vocabulary database", concept_id))
+            add_concept_set_item(
+              concept_set_id = concept_set_id,
+              concept_id = concept_id,
+              concept_name = if (!is.null(item$concept$conceptName)) item$concept$conceptName else paste0("Concept ", concept_id),
+              vocabulary_id = if (!is.null(item$concept$vocabularyId)) item$concept$vocabularyId else "Unknown",
+              concept_code = if (!is.null(item$concept$conceptCode)) item$concept$conceptCode else "",
+              domain_id = if (!is.null(item$concept$domainId)) item$concept$domainId else "Unknown",
+              concept_class_id = if (!is.null(item$concept$conceptClassId)) item$concept$conceptClassId else "Unknown",
+              standard_concept = if (!is.null(item$concept$standardConcept)) item$concept$standardConcept else NULL,
+              is_excluded = is_excluded,
+              include_descendants = include_descendants,
+              include_mapped = include_mapped
+            )
+          }
+        }
+      } else {
+        # No vocabulary database - add with placeholder values from JSON
+        for (item in json_data$expression$items) {
+          add_concept_set_item(
+            concept_set_id = concept_set_id,
+            concept_id = item$concept$conceptId,
+            concept_name = if (!is.null(item$concept$conceptName)) item$concept$conceptName else paste0("Concept ", item$concept$conceptId),
+            vocabulary_id = if (!is.null(item$concept$vocabularyId)) item$concept$vocabularyId else "Unknown",
+            concept_code = if (!is.null(item$concept$conceptCode)) item$concept$conceptCode else "",
+            domain_id = if (!is.null(item$concept$domainId)) item$concept$domainId else "Unknown",
+            concept_class_id = if (!is.null(item$concept$conceptClassId)) item$concept$conceptClassId else "Unknown",
+            standard_concept = if (!is.null(item$concept$standardConcept)) item$concept$standardConcept else NULL,
+            is_excluded = isTRUE(item$isExcluded),
+            include_descendants = isTRUE(item$includeDescendants),
+            include_mapped = isTRUE(item$includeMapped)
+          )
+        }
+      }
+    }
+
+    return(concept_set_id)
+
+  }, error = function(e) {
+    warning("Error importing concept set from JSON: ", e$message)
+    return(NULL)
+  })
 }
