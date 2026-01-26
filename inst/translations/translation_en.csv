@@ -368,3 +368,9 @@ preview,Preview
 preview_resolved_concepts,Preview Resolved Concepts
 preview_resolved_concepts_desc,This preview shows how the concept set will look after applying all pending changes (additions, deletions, and toggle settings).
 return,Return
+optimize,Optimize
+optimizing,Optimizing...
+back_to_previous_concept,Back to previous concept
+large_hierarchy_warning_title,Large Hierarchy Warning
+large_hierarchy_warning_text,This concept has a large hierarchy with %d total concepts (%d ancestors and %d descendants). Loading this may take a moment and could affect performance. Do you want to continue?
+continue_anyway,Continue Anyway

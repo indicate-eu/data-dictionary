@@ -666,6 +666,59 @@ get_concept_hierarchy_graph <- function(concept_id, max_levels_up = 5, max_level
   })
 }
 
+#' Count Concept Hierarchy Size (Fast)
+#'
+#' @description Quickly count the number of ancestors and descendants
+#' for a concept without building the full graph.
+#'
+#' @param concept_id OMOP Concept ID
+#' @param max_levels_up Maximum ancestor levels to count (default: 5)
+#' @param max_levels_down Maximum descendant levels to count (default: 5)
+#'
+#' @return List with ancestors_count, descendants_count, and total_count
+#' @noRd
+count_hierarchy_concepts <- function(concept_id, max_levels_up = 5, max_levels_down = 5) {
+  con <- get_duckdb_connection()
+  if (is.null(con)) {
+    return(list(ancestors_count = 0, descendants_count = 0, total_count = 1))
+  }
+  on.exit(DBI::dbDisconnect(con, shutdown = TRUE))
+
+  tryCatch({
+    # Count ancestors
+    ancestors_count <- DBI::dbGetQuery(
+      con,
+      "SELECT COUNT(*) as cnt
+       FROM concept_ancestor
+       WHERE descendant_concept_id = ?
+         AND min_levels_of_separation > 0
+         AND min_levels_of_separation <= ?",
+      params = list(as.integer(concept_id), as.integer(max_levels_up))
+    )$cnt
+
+    # Count descendants
+    descendants_count <- DBI::dbGetQuery(
+      con,
+      "SELECT COUNT(*) as cnt
+       FROM concept_ancestor
+       WHERE ancestor_concept_id = ?
+         AND min_levels_of_separation > 0
+         AND min_levels_of_separation <= ?",
+      params = list(as.integer(concept_id), as.integer(max_levels_down))
+    )$cnt
+
+    return(list(
+      ancestors_count = ancestors_count,
+      descendants_count = descendants_count,
+      total_count = ancestors_count + descendants_count + 1
+    ))
+
+  }, error = function(e) {
+    warning("Error counting hierarchy concepts: ", e$message)
+    return(list(ancestors_count = 0, descendants_count = 0, total_count = 1))
+  })
+}
+
 #' Delete DuckDB database
 #'
 #' @description Delete the DuckDB database file
@@ -812,6 +865,7 @@ resolve_concept_set <- function(concepts) {
                   concept_class_id, concept_code, standard_concept
            FROM concept
            WHERE concept_id IN (%s)
+             AND concept_class_id NOT LIKE '%%Hierarchy%%'
            ORDER BY concept_name",
           ids_str
         )

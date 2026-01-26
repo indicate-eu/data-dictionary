@@ -152,6 +152,13 @@ delete_concept_set <- function(concept_set_id) {
   con <- get_db_connection()
   on.exit(DBI::dbDisconnect(con))
 
+  # Delete associated concept set items first
+  DBI::dbExecute(con, "DELETE FROM concept_set_items WHERE concept_set_id = ?", params = list(concept_set_id))
+
+  # Delete translations
+  DBI::dbExecute(con, "DELETE FROM concept_set_translations WHERE concept_set_id = ?", params = list(concept_set_id))
+
+  # Delete the concept set
   DBI::dbExecute(con, "DELETE FROM concept_sets WHERE id = ?", params = list(concept_set_id))
 
   TRUE

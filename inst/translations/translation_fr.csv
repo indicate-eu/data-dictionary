@@ -369,3 +369,9 @@ preview,Aperçu
 preview_resolved_concepts,Aperçu des concepts résolus
 preview_resolved_concepts_desc,Cet aperçu montre à quoi ressemblera le concept set après application de tous les changements en attente (ajouts, suppressions et paramètres des toggles).
 return,Retour
+optimize,Optimiser
+optimizing,Optimisation...
+back_to_previous_concept,Retour au concept précédent
+large_hierarchy_warning_title,Avertissement hiérarchie importante
+large_hierarchy_warning_text,Ce concept a une hiérarchie importante avec %d concepts au total (%d ancêtres et %d descendants). Le chargement peut prendre un moment et affecter les performances. Voulez-vous continuer ?
+continue_anyway,Continuer quand même

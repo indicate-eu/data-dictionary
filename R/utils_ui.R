@@ -384,12 +384,18 @@ render_concept_details <- function(concept, i18n, empty_message = NULL,
   fhir_url <- build_fhir_url(concept$vocabulary_id, concept$concept_code)
 
   # Determine validity
-  is_valid <- is.null(concept$invalid_reason) || is.na(concept$invalid_reason) || concept$invalid_reason == ""
-  validity_text <- if (is_valid) "Valid" else paste0("Invalid (", concept$invalid_reason, ")")
+  is_valid <- is.null(concept$invalid_reason) ||
+              length(concept$invalid_reason) == 0 ||
+              all(is.na(concept$invalid_reason)) ||
+              all(concept$invalid_reason == "")
+  validity_text <- if (is_valid) "Valid" else paste0("Invalid (", concept$invalid_reason[1], ")")
   validity_color <- if (is_valid) "#28a745" else "#dc3545"
 
   # Determine standard concept display
-  standard_text <- if (!is.null(concept$standard_concept) && !is.na(concept$standard_concept) && concept$standard_concept != "") {
+  standard_text <- if (!is.null(concept$standard_concept) &&
+                       length(concept$standard_concept) > 0 &&
+                       !all(is.na(concept$standard_concept)) &&
+                       all(concept$standard_concept != "")) {
     switch(concept$standard_concept,
       "S" = "Standard",
       "C" = "Classification",

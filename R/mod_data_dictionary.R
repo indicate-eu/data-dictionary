@@ -262,6 +262,12 @@ mod_data_dictionary_ui <- function(id, i18n) {
                                   icon = icon("trash")
                                 ),
                                 actionButton(
+                                  ns("optimize_concepts"),
+                                  i18n$t("optimize"),
+                                  class = "btn-primary-custom btn-sm",
+                                  icon = icon("magic")
+                                ),
+                                actionButton(
                                   ns("preview_concepts"),
                                   i18n$t("preview"),
                                   class = "btn-secondary-custom btn-sm",
@@ -1694,6 +1700,31 @@ mod_data_dictionary_ui <- function(id, i18n) {
           ns = ns
         ),
 
+        ### Modal - Large Hierarchy Warning ----
+        create_modal(
+          id = "large_hierarchy_warning_modal",
+          title = i18n$t("large_hierarchy_warning_title"),
+          body = tagList(
+            tags$div(
+              style = "display: flex; align-items: flex-start; gap: 15px;",
+              tags$span(style = "font-size: 40px; color: #ffc107;", HTML("&#9888;")),
+              tags$div(
+                tags$p(
+                  id = ns("large_hierarchy_warning_text"),
+                  style = "font-size: 15px; color: #555; line-height: 1.6;"
+                )
+              )
+            )
+          ),
+          footer = tagList(
+            actionButton(ns("cancel_large_hierarchy"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
+            actionButton(ns("confirm_large_hierarchy"), i18n$t("continue_anyway"), class = "btn-primary-custom", icon = icon("check"))
+          ),
+          size = "small",
+          icon = "fas fa-exclamation-triangle",
+          ns = ns
+        ),
+
         # JavaScript for expand section buttons
         tags$script(HTML(sprintf("
           $(document).ready(function() {
@@ -1776,6 +1807,12 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     ## Fullscreen State ----
     related_section_expanded <- reactiveVal(FALSE)
 
+    ## Hierarchy Graph Navigation State ----
+    hierarchy_graph_concept_id <- reactiveVal(NULL)  # Current concept displayed in hierarchy graph
+    hierarchy_graph_previous_id <- reactiveVal(NULL)  # Previous concept for orange highlight
+    hierarchy_graph_history <- reactiveVal(list())  # Navigation history stack for back button
+    hierarchy_graph_pending_id <- reactiveVal(NULL)  # Pending concept ID when confirmation needed
+
     ## Edit State ----
     editing_id <- reactiveVal(NULL)
     deleting_id <- reactiveVal(NULL)
@@ -1783,6 +1820,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     deleting_tag_id <- reactiveVal(NULL)
     concepts_edit_mode <- reactiveVal(FALSE)
     concepts_preview_mode <- reactiveVal(FALSE)
+    optimized_concepts <- reactiveVal(NULL)  # Stores optimized concept set
+    is_optimized <- reactiveVal(FALSE)  # Whether current view shows optimized version
 
     ## Statistics State ----
     selected_stats_profile <- reactiveVal(NULL)
@@ -3148,6 +3187,12 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         # Check if in edit mode and preview mode
         is_edit_mode <- concepts_edit_mode()
         is_preview_mode <- concepts_preview_mode()
+        is_optimized_view <- is_optimized()
+
+        # If optimized, replace concepts with optimized version
+        if (is_optimized_view && !is.null(optimized_concepts())) {
+          concepts <- optimized_concepts()
+        }
 
         # In view mode OR preview mode, resolve the concept set (apply exclude/descendants/mapped rules)
         # In edit mode (but not preview), show the raw items with toggles
@@ -3577,6 +3622,16 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       hierarchy_graph_trigger(hierarchy_graph_trigger() + 1)
     }, ignoreInit = TRUE)
 
+    ## Initialize hierarchy graph concept when selected concept changes ----
+    observe_event(selected_concept_id(), {
+      concept_id <- selected_concept_id()
+      if (!is.null(concept_id)) {
+        hierarchy_graph_concept_id(concept_id)
+        hierarchy_graph_previous_id(NULL)
+        hierarchy_graph_history(list())
+      }
+    }, ignoreInit = TRUE)
+
     ## Related Concepts Display (sub-tab in related concepts section) ----
     output$related_display <- renderUI({
       concept_id <- selected_concept_id()
@@ -3640,17 +3695,17 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
     ## Hierarchy Display (sub-tab in related concepts section) ----
     output$hierarchy_display <- renderUI({
-      concept_id <- selected_concept_id()
+      base_concept_id <- selected_concept_id()
 
-      if (is.null(concept_id)) {
+      if (is.null(base_concept_id)) {
         return(tags$div(
           class = "no-content-message",
           tags$p(i18n$t("no_concept_selected"))
         ))
       }
 
-      # Get hierarchy graph data
-      hierarchy_data <- get_concept_hierarchy_graph(concept_id)
+      # Get hierarchy graph data to check if there are related concepts
+      hierarchy_data <- get_concept_hierarchy_graph(base_concept_id)
 
       if (is.null(hierarchy_data$stats) ||
           (hierarchy_data$stats$total_ancestors == 0 && hierarchy_data$stats$total_descendants == 0)) {
@@ -3660,29 +3715,60 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         ))
       }
 
-      # Show stats and visNetwork graph
+      # Show navigation header and visNetwork graph
       tagList(
-        # Stats widget
-        tags$div(
-          class = "hierarchy-stats-widget",
-          style = "padding: 10px; margin-bottom: 10px; background: #f8f9fa; border-radius: 6px; display: flex; gap: 20px;",
-          tags$div(
-            class = "flex-center-gap-8",
-            tags$span(style = "font-size: 18px; color: #6c757d;", HTML("&#8593;")),
-            tags$span(style = "font-weight: bold; color: #333;", hierarchy_data$stats$total_ancestors),
-            tags$span(style = "color: #666; font-size: 13px;", "ancestors")
-          ),
-          tags$div(
-            class = "flex-center-gap-8",
-            tags$span(style = "font-size: 18px; color: #28a745;", HTML("&#8595;")),
-            tags$span(style = "font-weight: bold; color: #333;", hierarchy_data$stats$total_descendants),
-            tags$span(style = "color: #666; font-size: 13px;", tolower(as.character(i18n$t("descendants"))))
-          )
-        ),
+        # Navigation header with back button and concept name
+        uiOutput(ns("hierarchy_nav_header")),
         # visNetwork graph container - height managed via CSS
         tags$div(
           class = "hierarchy-graph-container",
           visNetwork::visNetworkOutput(ns("hierarchy_graph"), height = "100%")
+        )
+      )
+    })
+
+    ## Hierarchy Navigation Header ----
+    output$hierarchy_nav_header <- renderUI({
+      # Depend on hierarchy_graph_concept_id to update when navigation occurs
+      current_id <- hierarchy_graph_concept_id()
+      history <- hierarchy_graph_history()
+
+      if (is.null(current_id)) return(NULL)
+
+      # Get concept info for current concept from the hierarchy graph nodes
+      hierarchy_data <- get_concept_hierarchy_graph(current_id)
+      # Find the central node (level = 0 or id = current_id)
+      concept_name <- if (!is.null(hierarchy_data$nodes) && nrow(hierarchy_data$nodes) > 0) {
+        central_node <- hierarchy_data$nodes[hierarchy_data$nodes$id == current_id, ]
+        if (nrow(central_node) > 0) central_node$label[1] else paste("Concept", current_id)
+      } else {
+        paste("Concept", current_id)
+      }
+
+      tags$div(
+        class = "hierarchy-nav-header",
+        style = "padding: 10px; margin-bottom: 10px; background: #f8f9fa; border-radius: 6px; display: flex; align-items: center; gap: 15px;",
+        # Back button (hidden when no history)
+        if (length(history) > 0) {
+          actionButton(
+            ns("hierarchy_graph_back"),
+            label = HTML("&#8592;"),
+            class = "btn-secondary-custom",
+            style = "padding: 6px 14px; font-size: 18px; line-height: 1;",
+            title = as.character(i18n$t("back_to_previous_concept"))
+          )
+        },
+        # Current concept name
+        tags$div(
+          style = "flex: 1;",
+          tags$span(
+            style = "font-weight: 600; color: #333; font-size: 14px;",
+            concept_name
+          ),
+          tags$span(
+            style = "color: #666; font-size: 12px; margin-left: 10px;",
+            paste0("(", current_id, ")")
+          )
         )
       )
     })
@@ -3692,7 +3778,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Depend on trigger for fullscreen toggle
       hierarchy_graph_trigger()
 
-      concept_id <- selected_concept_id()
+      # Use hierarchy_graph_concept_id for navigation support
+      concept_id <- hierarchy_graph_concept_id()
+      previous_id <- hierarchy_graph_previous_id()
       if (is.null(concept_id)) return(NULL)
 
       hierarchy_data <- get_concept_hierarchy_graph(concept_id)
@@ -3701,8 +3789,14 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         return(NULL)
       }
 
+      # Modify node colors to highlight previous concept in orange
+      nodes <- hierarchy_data$nodes
+      if (!is.null(previous_id) && previous_id %in% nodes$id) {
+        nodes$color[nodes$id == previous_id] <- "#ff9800"  # Orange for previous
+      }
+
       visNetwork::visNetwork(
-        hierarchy_data$nodes,
+        nodes,
         hierarchy_data$edges,
         height = "100%",
         width = "100%"
@@ -3728,8 +3822,130 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           highlightNearest = list(enabled = TRUE, degree = 1, hover = TRUE)
         ) %>%
         visNetwork::visPhysics(enabled = FALSE) %>%
-        visNetwork::visLayout(randomSeed = 123)
+        visNetwork::visLayout(randomSeed = 123) %>%
+        visNetwork::visEvents(
+          doubleClick = sprintf(
+            "function(params) {
+              if (params.nodes.length > 0) {
+                Shiny.setInputValue('%s', {id: params.nodes[0], rand: Math.random()}, {priority: 'event'});
+              }
+            }",
+            ns("hierarchy_graph_navigate")
+          )
+        )
     })
+
+    ## Hierarchy Graph Navigation - Double-click on node ----
+    observe_event(input$hierarchy_graph_navigate, {
+      clicked_id <- input$hierarchy_graph_navigate$id
+      if (is.null(clicked_id)) return()
+
+      current_id <- hierarchy_graph_concept_id()
+      # Don't navigate if clicking on the current central concept
+      if (!is.null(current_id) && clicked_id == current_id) return()
+
+      # Quick count of concepts before loading the full graph
+      concept_count <- count_hierarchy_concepts(clicked_id)
+
+      # If more than 100 concepts, show confirmation modal
+      if (concept_count$total_count > 100) {
+        hierarchy_graph_pending_id(clicked_id)
+
+        # Update warning text using runjs for immediate update with namespaced ID
+        warning_text <- sprintf(
+          as.character(i18n$t("large_hierarchy_warning_text")),
+          concept_count$total_count,
+          concept_count$ancestors_count,
+          concept_count$descendants_count
+        )
+        shinyjs::runjs(sprintf(
+          "document.getElementById('%s').textContent = '%s';",
+          ns("large_hierarchy_warning_text"),
+          gsub("'", "\\\\'", warning_text)
+        ))
+
+        show_modal(ns("large_hierarchy_warning_modal"))
+        return()
+      }
+
+      # Add current concept to history before changing
+      if (!is.null(current_id)) {
+        current_history <- hierarchy_graph_history()
+        hierarchy_graph_history(c(current_history, list(current_id)))
+      }
+
+      # Store current as previous for orange highlight
+      hierarchy_graph_previous_id(current_id)
+
+      # Update to new concept
+      hierarchy_graph_concept_id(clicked_id)
+
+      # Trigger graph and header re-render
+      hierarchy_graph_trigger(hierarchy_graph_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    ## Hierarchy Graph Navigation - Back button ----
+    observe_event(input$hierarchy_graph_back, {
+      current_history <- hierarchy_graph_history()
+      if (length(current_history) == 0) return()
+
+      # Get the last concept from history
+      previous_concept_id <- current_history[[length(current_history)]]
+
+      # Remove the last entry from history
+      new_history <- if (length(current_history) > 1) {
+        current_history[1:(length(current_history) - 1)]
+      } else {
+        list()
+      }
+      hierarchy_graph_history(new_history)
+
+      # Store current concept as "next" (will be orange in the graph)
+      current_id <- hierarchy_graph_concept_id()
+      hierarchy_graph_previous_id(current_id)
+
+      # Navigate to previous concept
+      hierarchy_graph_concept_id(previous_concept_id)
+
+      # Trigger graph and header re-render
+      hierarchy_graph_trigger(hierarchy_graph_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    ## Hierarchy Graph Navigation - Confirm large hierarchy ----
+    observe_event(input$confirm_large_hierarchy, {
+      pending_id <- hierarchy_graph_pending_id()
+      if (is.null(pending_id)) return()
+
+      # Hide the warning modal
+      hide_modal(ns("large_hierarchy_warning_modal"))
+
+      # Get current concept for history and previous highlight
+      current_id <- hierarchy_graph_concept_id()
+
+      # Add current concept to history before changing
+      if (!is.null(current_id)) {
+        current_history <- hierarchy_graph_history()
+        hierarchy_graph_history(c(current_history, list(current_id)))
+      }
+
+      # Store current as previous for orange highlight
+      hierarchy_graph_previous_id(current_id)
+
+      # Update to new concept
+      hierarchy_graph_concept_id(pending_id)
+
+      # Clear pending state
+      hierarchy_graph_pending_id(NULL)
+
+      # Trigger graph and header re-render
+      hierarchy_graph_trigger(hierarchy_graph_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    ## Hierarchy Graph Navigation - Cancel large hierarchy ----
+    observe_event(input$cancel_large_hierarchy, {
+      hide_modal(ns("large_hierarchy_warning_modal"))
+      hierarchy_graph_pending_id(NULL)
+    }, ignoreInit = TRUE)
 
     ## Synonyms Display (sub-tab in related concepts section) ----
     output$synonyms_display <- renderUI({
@@ -4043,6 +4259,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       pending_additions(list())
       pending_deletions(character(0))
       pending_toggle_changes(list())
+      optimized_concepts(NULL)
+      is_optimized(FALSE)
 
       # Exit edit mode
       concepts_edit_mode(FALSE)
@@ -4068,6 +4286,113 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       ))
 
       # Refresh concepts table to show original data (without staged changes)
+      concepts_trigger(concepts_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    ## Optimize Concept Set ----
+    observe_event(input$optimize_concepts, {
+      if (!concepts_edit_mode()) return()
+
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      # Get current concepts (with pending changes applied)
+      concepts <- get_concept_set_items(cs_id)
+
+      # Apply pending deletions
+      deletions <- pending_deletions()
+      if (!is.null(concepts) && nrow(concepts) > 0 && length(deletions) > 0) {
+        concepts <- concepts[!as.character(concepts$concept_id) %in% deletions, ]
+      }
+
+      # Add pending additions
+      additions <- pending_additions()
+      if (length(additions) > 0) {
+        additions_df <- dplyr::bind_rows(lapply(additions, function(x) {
+          data.frame(
+            concept_id = x$concept_id,
+            concept_name = x$concept_name,
+            vocabulary_id = x$vocabulary_id,
+            concept_code = x$concept_code,
+            domain_id = if (!is.null(x$domain_id)) x$domain_id else NA_character_,
+            concept_class_id = if (!is.null(x$concept_class_id)) x$concept_class_id else NA_character_,
+            standard_concept = x$standard_concept,
+            is_excluded = if (!is.null(x$is_excluded)) x$is_excluded else FALSE,
+            include_descendants = if (!is.null(x$include_descendants)) x$include_descendants else TRUE,
+            include_mapped = if (!is.null(x$include_mapped)) x$include_mapped else TRUE,
+            stringsAsFactors = FALSE
+          )
+        }))
+
+        if (is.null(concepts) || nrow(concepts) == 0) {
+          concepts <- additions_df
+        } else {
+          concepts <- dplyr::bind_rows(concepts, additions_df)
+        }
+      }
+
+      # Apply pending toggle changes
+      toggle_changes <- pending_toggle_changes()
+      if (length(toggle_changes) > 0) {
+        for (concept_id in names(toggle_changes)) {
+          row_idx <- which(as.character(concepts$concept_id) == concept_id)
+          if (length(row_idx) > 0) {
+            changes <- toggle_changes[[concept_id]]
+            if ("is_excluded" %in% names(changes)) {
+              concepts$is_excluded[row_idx] <- changes$is_excluded
+            }
+            if ("include_descendants" %in% names(changes)) {
+              concepts$include_descendants[row_idx] <- changes$include_descendants
+            }
+            if ("include_mapped" %in% names(changes)) {
+              concepts$include_mapped[row_idx] <- changes$include_mapped
+            }
+          }
+        }
+      }
+
+      # Show loading notification
+      notif_id <- showNotification(
+        as.character(i18n$t("optimizing")),
+        duration = NULL,
+        type = "message"
+      )
+
+      # Run optimization
+      result <- optimize_concept_set(concepts)
+
+      removeNotification(notif_id)
+
+      if (!is.null(result$error)) {
+        showNotification(
+          result$error,
+          type = "error",
+          duration = 5
+        )
+        return()
+      }
+
+      if (is.null(result$removed_concepts) || nrow(result$removed_concepts) == 0) {
+        showNotification(
+          "No optimization possible - concept set is already optimal",
+          type = "message",
+          duration = 3
+        )
+        return()
+      }
+
+      # Store optimized concepts
+      optimized_concepts(result$optimized_concepts)
+      is_optimized(TRUE)
+
+      # Show notification
+      showNotification(
+        sprintf("Optimized: %d redundant concepts removed", result$removed_count),
+        type = "message",
+        duration = 5
+      )
+
+      # Refresh table to show optimized version
       concepts_trigger(concepts_trigger() + 1)
     }, ignoreInit = TRUE)
 
@@ -4106,6 +4431,74 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       cs_id <- viewing_concept_set_id()
       if (is.null(cs_id)) return()
 
+      # Check if we're saving an optimized version
+      if (is_optimized()) {
+        # Delete all existing concepts
+        existing_concepts <- get_concept_set_items(cs_id)
+        if (!is.null(existing_concepts) && nrow(existing_concepts) > 0) {
+          for (i in 1:nrow(existing_concepts)) {
+            delete_concept_set_item(cs_id, existing_concepts$concept_id[i])
+          }
+        }
+
+        # Add all optimized concepts
+        optimized <- optimized_concepts()
+        if (!is.null(optimized) && nrow(optimized) > 0) {
+          for (i in 1:nrow(optimized)) {
+            concept <- optimized[i, ]
+            add_concept_set_item(
+              concept_set_id = cs_id,
+              concept_id = concept$concept_id,
+              concept_name = concept$concept_name,
+              vocabulary_id = concept$vocabulary_id,
+              concept_code = concept$concept_code,
+              domain_id = concept$domain_id,
+              concept_class_id = concept$concept_class_id,
+              standard_concept = concept$standard_concept,
+              is_excluded = concept$is_excluded,
+              include_descendants = concept$include_descendants,
+              include_mapped = concept$include_mapped
+            )
+          }
+        }
+
+        # Clear optimization state
+        optimized_concepts(NULL)
+        is_optimized(FALSE)
+
+        # Clear other pending changes
+        pending_additions(list())
+        pending_deletions(character(0))
+        pending_toggle_changes(list())
+
+        # Exit edit mode
+        concepts_edit_mode(FALSE)
+
+        # Update UI
+        shinyjs::show("export_concept_set_btn")
+        shinyjs::show("edit_concepts_btn")
+        shinyjs::hide("edit_mode_buttons")
+        shinyjs::show("expand_concepts")
+        shinyjs::show("concepts_desc_text")
+        shinyjs::hide("concepts_edit_buttons")
+        shinyjs::runjs(sprintf(
+          "$('#%s').closest('.settings-backup-container').removeClass('edit-mode');",
+          ns("concepts_section_left")
+        ))
+
+        # Refresh display
+        concepts_trigger(concepts_trigger() + 1)
+
+        showNotification(
+          "Optimized concept set saved",
+          type = "message",
+          duration = 3
+        )
+
+        return()
+      }
+
+      # Normal save flow (not optimized)
       # Get pending changes
       additions <- pending_additions()
       deletions <- pending_deletions()
