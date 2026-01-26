@@ -921,18 +921,36 @@ mod_data_dictionary_ui <- function(id, i18n) {
           id = "load_default_modal",
           title = i18n$t("no_concept_sets"),
           body = tagList(
-            tags$p(
-              id = ns("load_default_message"),
-              style = "margin-bottom: 15px;"
+            tags$div(
+              id = ns("load_default_initial_content"),
+              tags$p(
+                id = ns("load_default_message"),
+                style = "margin-bottom: 15px;"
+              ),
+              tags$p(
+                i18n$t("load_default_question"),
+                style = "font-weight: 600; margin-top: 10px;"
+              )
             ),
-            tags$p(
-              i18n$t("load_default_question"),
-              style = "font-weight: 600; margin-top: 10px;"
+            tags$div(
+              id = ns("load_default_loading_content"),
+              style = "display: none; text-align: center; padding: 20px;",
+              tags$div(
+                style = "font-size: 18px; font-weight: 600; margin-bottom: 10px;",
+                i18n$t("loading_concept_sets")
+              ),
+              tags$div(
+                style = "color: #666;",
+                i18n$t("please_wait")
+              )
             )
           ),
           footer = tagList(
-            actionButton(ns("cancel_load_default"), i18n$t("no"), class = "btn-secondary-custom", icon = icon("times")),
-            actionButton(ns("confirm_load_default"), i18n$t("yes_load"), class = "btn-primary-custom", icon = icon("download"))
+            tags$div(
+              id = ns("load_default_buttons"),
+              actionButton(ns("cancel_load_default"), i18n$t("no"), class = "btn-secondary-custom", icon = icon("times")),
+              actionButton(ns("confirm_load_default"), i18n$t("yes_load"), class = "btn-primary-custom", icon = icon("download"))
+            )
           ),
           size = "medium",
           icon = "fas fa-info-circle",
@@ -6031,6 +6049,14 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
     ## Confirm Load Default Concept Sets ----
     observe_event(input$confirm_load_default, {
+      # Hide buttons and show loading message
+      shinyjs::hide("load_default_buttons")
+      shinyjs::hide("load_default_initial_content")
+      shinyjs::show("load_default_loading_content")
+
+      # Add small delay to ensure UI updates
+      Sys.sleep(0.3)
+
       # Find default concept sets
       concept_sets_dir <- system.file("extdata/concept_sets", package = "indicate")
       if (concept_sets_dir == "" || !dir.exists(concept_sets_dir)) {
@@ -6038,43 +6064,73 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       }
 
       if (dir.exists(concept_sets_dir)) {
-        # Load Heart rate concept set (327.json) as test
-        heart_rate_file <- file.path(concept_sets_dir, "327.json")
+        # Find all JSON files
+        json_files <- list.files(concept_sets_dir, pattern = "\\.json$", full.names = TRUE)
+        json_files <- json_files[!grepl("README", basename(json_files), ignore.case = TRUE)]
 
-        if (file.exists(heart_rate_file)) {
+        if (length(json_files) > 0) {
           current_language <- i18n$get_translation_language()
-          message(sprintf("[mod_data_dictionary] Loading Heart rate concept set: %s", heart_rate_file))
+          total_files <- length(json_files)
 
-          result <- import_concept_set_from_json(heart_rate_file, language = current_language)
+          success_count <- 0
+          failed_count <- 0
 
-          if (!is.null(result)) {
-            message("[mod_data_dictionary] Successfully loaded first concept set")
+          for (i in seq_along(json_files)) {
+            json_file <- json_files[i]
 
-            # Reload data
-            data <- get_all_concept_sets(language = current_language)
-            concept_sets_data(data)
-            table_trigger(table_trigger() + 1)
+            # Update progress every 10 files or on first/last
+            if (i == 1 || i == total_files || i %% 10 == 0) {
+              progress_text <- gsub("\\{current\\}", as.character(i), gsub("\\{total\\}", as.character(total_files), as.character(i18n$t("loading_progress"))))
+              shinyjs::html("load_default_loading_content", sprintf('<div style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">%s</div><div style="color: #666;">%s</div>', progress_text, as.character(i18n$t("please_wait"))))
+              Sys.sleep(0.1)  # Small delay to show progress
+            }
 
-            # Show success notification with count
-            message_text <- gsub("\\{count\\}", "1", as.character(i18n$t("load_default_success")))
+            result <- import_concept_set_from_json(json_file, language = current_language)
+            if (!is.null(result)) {
+              success_count <- success_count + 1
+            } else {
+              failed_count <- failed_count + 1
+            }
+          }
+
+          # Reload data
+          data <- get_all_concept_sets(language = current_language)
+          concept_sets_data(data)
+          table_trigger(table_trigger() + 1)
+
+          # Show success notification
+          if (success_count > 0) {
+            message_text <- gsub("\\{count\\}", as.character(success_count), as.character(i18n$t("load_default_success")))
             showNotification(
               message_text,
               type = "message",
               duration = 5
             )
-          } else {
-            message("[mod_data_dictionary] Failed to load first concept set")
+          }
+
+          if (failed_count > 0) {
             showNotification(
-              as.character(i18n$t("load_default_failed")),
-              type = "error",
+              sprintf("%d concept sets failed to load", failed_count),
+              type = "warning",
               duration = 5
             )
           }
+        } else {
+          showNotification(
+            as.character(i18n$t("load_default_failed")),
+            type = "error",
+            duration = 5
+          )
         }
       }
 
       # Hide modal
       hide_modal(ns("load_default_modal"))
+
+      # Reset modal content for next time
+      shinyjs::show("load_default_buttons")
+      shinyjs::show("load_default_initial_content")
+      shinyjs::hide("load_default_loading_content")
     }, ignoreInit = TRUE)
 
     ## Cancel Load Default ----

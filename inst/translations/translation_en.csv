@@ -374,3 +374,6 @@ back_to_previous_concept,Back to previous concept
 large_hierarchy_warning_title,Large Hierarchy Warning
 large_hierarchy_warning_text,This concept has a large hierarchy with %d total concepts (%d ancestors and %d descendants). Loading this may take a moment and could affect performance. Do you want to continue?
 continue_anyway,Continue Anyway
+loading_concept_sets,Loading concept sets...
+please_wait,Please wait
+loading_progress,Loading {current}/{total} concept sets...

@@ -1523,24 +1523,36 @@ import_concept_set_from_json <- function(json_file, language = "en") {
         con_vocab <- get_duckdb_connection()
         on.exit(DBI::dbDisconnect(con_vocab, shutdown = TRUE), add = TRUE)
 
+        # PERFORMANCE OPTIMIZATION: Batch query all concept IDs at once
+        # Extract all concept IDs from items
+        all_concept_ids <- sapply(json_data$expression$items, function(item) item$concept$conceptId)
+
+        # Fetch all concept details in a single query
+        concept_ids_string <- paste(all_concept_ids, collapse = ",")
+        all_concept_details <- DBI::dbGetQuery(
+          con_vocab,
+          sprintf("SELECT concept_id, concept_name, domain_id, vocabulary_id, concept_class_id,
+                          standard_concept, concept_code
+                   FROM concept
+                   WHERE concept_id IN (%s)", concept_ids_string)
+        )
+
+        # Create a lookup map for fast access
+        concepts_map <- setNames(
+          split(all_concept_details, seq(nrow(all_concept_details))),
+          all_concept_details$concept_id
+        )
+
+        # Now loop through items and use the lookup map
         for (item in json_data$expression$items) {
           concept_id <- item$concept$conceptId
           is_excluded <- isTRUE(item$isExcluded)
           include_descendants <- isTRUE(item$includeDescendants)
           include_mapped <- isTRUE(item$includeMapped)
 
-          # Fetch concept details from vocabulary
-          concept_details <- DBI::dbGetQuery(
-            con_vocab,
-            "SELECT concept_id, concept_name, domain_id, vocabulary_id, concept_class_id,
-                    standard_concept, concept_code
-             FROM concept
-             WHERE concept_id = ?",
-            params = list(concept_id)
-          )
-
-          if (nrow(concept_details) > 0) {
-            concept <- concept_details[1, ]
+          # Look up concept details from the map
+          if (as.character(concept_id) %in% names(concepts_map)) {
+            concept <- concepts_map[[as.character(concept_id)]]
 
             # Add concept to concept set
             add_concept_set_item(
