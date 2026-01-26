@@ -3719,17 +3719,17 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
     ## Hierarchy Display (sub-tab in related concepts section) ----
     output$hierarchy_display <- renderUI({
-      base_concept_id <- selected_concept_id()
+      concept_id <- selected_concept_id()
 
-      if (is.null(base_concept_id)) {
+      if (is.null(concept_id)) {
         return(tags$div(
           class = "no-content-message",
           tags$p(i18n$t("no_concept_selected"))
         ))
       }
 
-      # Get hierarchy graph data to check if there are related concepts
-      hierarchy_data <- get_concept_hierarchy_graph(base_concept_id)
+      # Get hierarchy graph data
+      hierarchy_data <- get_concept_hierarchy_graph(concept_id)
 
       if (is.null(hierarchy_data$stats) ||
           (hierarchy_data$stats$total_ancestors == 0 && hierarchy_data$stats$total_descendants == 0)) {
@@ -3741,8 +3741,11 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
       # Show navigation header and visNetwork graph
       tagList(
-        # Navigation header with back button and concept name
-        uiOutput(ns("hierarchy_nav_header")),
+        # Navigation header wrapper with class to prevent flex expansion
+        tags$div(
+          class = "hierarchy-nav-wrapper",
+          uiOutput(ns("hierarchy_nav_header"))
+        ),
         # visNetwork graph container - height managed via CSS
         tags$div(
           class = "hierarchy-graph-container",
@@ -3753,15 +3756,13 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
     ## Hierarchy Navigation Header ----
     output$hierarchy_nav_header <- renderUI({
-      # Depend on hierarchy_graph_concept_id to update when navigation occurs
       current_id <- hierarchy_graph_concept_id()
       history <- hierarchy_graph_history()
 
       if (is.null(current_id)) return(NULL)
 
-      # Get concept info for current concept from the hierarchy graph nodes
+      # Get concept info for current concept
       hierarchy_data <- get_concept_hierarchy_graph(current_id)
-      # Find the central node (level = 0 or id = current_id)
       concept_name <- if (!is.null(hierarchy_data$nodes) && nrow(hierarchy_data$nodes) > 0) {
         central_node <- hierarchy_data$nodes[hierarchy_data$nodes$id == current_id, ]
         if (nrow(central_node) > 0) central_node$label[1] else paste("Concept", current_id)
@@ -3771,8 +3772,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
       tags$div(
         class = "hierarchy-nav-header",
-        style = "padding: 10px; margin-bottom: 10px; background: #f8f9fa; border-radius: 6px; display: flex; align-items: center; gap: 15px;",
-        # Back button (hidden when no history)
+        style = "padding: 10px; background: #f8f9fa; border-radius: 6px; display: flex; align-items: center; gap: 15px;",
+        # Back button (only shown when there's history)
         if (length(history) > 0) {
           actionButton(
             ns("hierarchy_graph_back"),
@@ -6015,13 +6016,123 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Disable button during import
       shinyjs::disable("confirm_import")
 
-      # Perform import
+      # Perform import with progress tracking
       current_language <- i18n$get_translation_language()
-      result <- import_concept_sets_from_zip(zip_path, mode = import_mode, language = current_language)
 
-      if (result$success) {
-        # Success message - use the detailed message from the import function
-        message_text <- result$message
+      tryCatch({
+        # Create temporary directory for extraction
+        temp_dir <- tempfile()
+        dir.create(temp_dir)
+        on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
+
+        # Extract ZIP
+        utils::unzip(zip_path, exdir = temp_dir)
+
+        # Find JSON files
+        json_files <- list.files(temp_dir, pattern = "\\.json$", full.names = TRUE, recursive = FALSE)
+
+        # If no JSON at root, check for concept_sets/ folder
+        if (length(json_files) == 0) {
+          concept_sets_dir <- file.path(temp_dir, "concept_sets")
+          if (dir.exists(concept_sets_dir)) {
+            json_files <- list.files(concept_sets_dir, pattern = "\\.json$", full.names = TRUE, recursive = FALSE)
+          }
+        }
+
+        # Filter out README files
+        json_files <- json_files[!grepl("README", basename(json_files), ignore.case = TRUE)]
+
+        if (length(json_files) == 0) {
+          shinyjs::html("import_status_message", as.character(i18n$t("no_json_files_found")))
+          shinyjs::runjs(sprintf("$('#%s').css({'background': '#f8d7da', 'border': '1px solid #f5c6cb', 'color': '#721c24', 'display': 'block'});", ns("import_status_message")))
+          shinyjs::enable("confirm_import")
+          return()
+        }
+
+        # Import with progress updates
+        total_files <- length(json_files)
+        imported_count <- 0
+        updated_count <- 0
+        skipped_count <- 0
+        errors <- character()
+
+        con <- get_db_connection()
+        on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+        for (i in seq_along(json_files)) {
+          json_file <- json_files[i]
+
+          # Update progress every 10 files or on first/last
+          if (i == 1 || i == total_files || i %% 10 == 0) {
+            progress_text <- sprintf("Importing %d/%d concept sets...", i, total_files)
+            shinyjs::html("import_status_message", progress_text)
+            Sys.sleep(0.1)  # Small delay to show progress
+          }
+
+          # Read JSON to get the concept set ID
+          json_data <- tryCatch({
+            jsonlite::fromJSON(json_file)
+          }, error = function(e) {
+            errors <- c(errors, basename(json_file))
+            return(NULL)
+          })
+
+          if (is.null(json_data)) next
+
+          concept_set_id <- json_data$id
+
+          # Check if concept set already exists
+          existing <- DBI::dbGetQuery(
+            con,
+            "SELECT id FROM concept_sets WHERE id = ?",
+            params = list(concept_set_id)
+          )
+
+          is_update <- FALSE
+
+          if (import_mode == "add") {
+            # Add mode: skip if exists
+            if (nrow(existing) > 0) {
+              skipped_count <- skipped_count + 1
+              next
+            }
+          } else if (import_mode == "replace") {
+            # Replace mode: delete existing before importing
+            if (nrow(existing) > 0) {
+              DBI::dbExecute(
+                con,
+                "DELETE FROM concept_sets WHERE id = ?",
+                params = list(concept_set_id)
+              )
+              is_update <- TRUE
+            }
+          }
+
+          # Import the concept set
+          result <- import_concept_set_from_json(json_file, language = current_language)
+
+          if (!is.null(result)) {
+            if (is_update) {
+              updated_count <- updated_count + 1
+            } else {
+              imported_count <- imported_count + 1
+            }
+          } else {
+            errors <- c(errors, basename(json_file))
+          }
+        }
+
+        # Build success message
+        if (import_mode == "add") {
+          message_text <- sprintf("Imported %d new concept sets, %d skipped (already exist)", imported_count, skipped_count)
+        } else {
+          message_text <- sprintf("Imported %d new concept sets, %d updated", imported_count, updated_count)
+        }
+
+        if (length(errors) > 0) {
+          message_text <- sprintf("%s, %d failed", message_text, length(errors))
+        }
+
         shinyjs::html("import_status_message", message_text)
         shinyjs::runjs(sprintf("$('#%s').css({'background': '#d4edda', 'border': '1px solid #c3e6cb', 'color': '#155724', 'display': 'block'});", ns("import_status_message")))
 
@@ -6029,20 +6140,15 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         hide_modal(ns("import_concept_sets_modal"))
 
         # Reload concept sets data
-        current_language <- i18n$get_translation_language()
         data <- get_all_concept_sets(language = current_language)
         concept_sets_data(data)
         table_trigger(table_trigger() + 1)
-      } else {
-        # Error message
-        error_message <- if (result$message == "no_json_files_found") {
-          as.character(i18n$t("no_json_files_found"))
-        } else {
-          paste(as.character(i18n$t("import_failed")), result$message, sep = ": ")
-        }
+
+      }, error = function(e) {
+        error_message <- paste(as.character(i18n$t("import_failed")), e$message, sep = ": ")
         shinyjs::html("import_status_message", error_message)
         shinyjs::runjs(sprintf("$('#%s').css({'background': '#f8d7da', 'border': '1px solid #f5c6cb', 'color': '#721c24', 'display': 'block'});", ns("import_status_message")))
-      }
+      })
 
       # Re-enable button
       shinyjs::enable("confirm_import")

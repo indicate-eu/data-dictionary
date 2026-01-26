@@ -5720,6 +5720,14 @@ button.btn-icon-only:hover {
   flex-direction: column !important;
 }
 
+/* Hierarchy nav wrapper - fixed height, don't expand */
+.expandable-section.expanded .hierarchy-nav-wrapper,
+.expandable-section.expanded .hierarchy-nav-wrapper .shiny-html-output {
+  flex: 0 0 auto !important;
+  height: auto !important;
+  display: block !important;
+}
+
 /* Export Modal Options
 -------------------------------------------------- */
 .export-options-container {
