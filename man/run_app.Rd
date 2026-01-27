@@ -5,24 +5,29 @@
 \title{Run the INDICATE Shiny Application}
 \usage{
 run_app(
+  language = "en",
   app_folder = NULL,
-  debug_mode = c("event", "error"),
-  ...,
-  options = list()
+  debug_mode = "error",
+  port = 3838,
+  host = "0.0.0.0",
+  ...
 )
 }
 \arguments{
+\item{language}{Language to use in the app ("en" or "fr"). Default is "en".}
+
 \item{app_folder}{Path to the folder where application files will be stored.
 If NULL (default), uses the user's home directory.}
 
 \item{debug_mode}{Character vector specifying debug output level.
 Can include "event" to log all observer events, "error" to log errors,
-or both c("event", "error"). Default is NULL (no debug output).}
+or both c("event", "error"). Default is "error" (only log errors).}
+
+\item{port}{Port used to run the Shiny app. Default is 3838.}
+
+\item{host}{Host address to run the app on. Default is "0.0.0.0".}
 
 \item{...}{Additional arguments passed to \code{\link[shiny]{shinyApp}}}
-
-\item{options}{A named list of options to pass to \code{\link[shiny]{shinyApp}}.
-By default, the browser is launched automatically.}
 }
 \value{
 A Shiny app object
@@ -33,8 +38,10 @@ Launch the INDICATE Minimal Data Dictionary Explorer application
 \examples{
 \dontrun{
 run_app()
+run_app(language = "fr")
 run_app(app_folder = "~/Documents/my_indicate_data")
 run_app(debug_mode = "error")
 run_app(debug_mode = c("event", "error"))
+run_app(port = 8080, host = "127.0.0.1")
 }
 }

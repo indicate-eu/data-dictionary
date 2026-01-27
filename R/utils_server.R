@@ -1,8 +1,5 @@
-#' Server Utilities
-#'
-#' @description Utility functions for server-side operations including
-#' enhanced observe_event wrapper and error handling
-#' @noRd
+# Server Utilities - Utility functions for server-side operations including
+# enhanced observe_event wrapper and error handling
 
 #' Enhanced observeEvent with error handling and logging
 #'

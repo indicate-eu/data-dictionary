@@ -1,14 +1,10 @@
-#' DuckDB Functions
-#'
-#' @description Functions to manage DuckDB database for OHDSI vocabularies
-#'
-#' @noRd
-#'
 #' @importFrom duckdb duckdb
 #' @importFrom DBI dbConnect dbDisconnect dbWriteTable dbExistsTable dbListTables dbGetQuery dbExecute
 #' @importFrom readr read_tsv cols col_integer col_character col_date
 #' @importFrom arrow read_parquet
 #' @importFrom dplyr tbl
+#' @importFrom magrittr %>%
+NULL
 
 #' Check if DuckDB database exists
 #'

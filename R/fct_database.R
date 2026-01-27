@@ -1,9 +1,5 @@
-#' Database Functions
-#'
-#' @description Core database functions for SQLite connection and schema
-#' @noRd
-#'
 #' @importFrom DBI dbConnect dbDisconnect dbExecute dbGetQuery dbExistsTable
+NULL
 
 # CONFIG CRUD ====
 

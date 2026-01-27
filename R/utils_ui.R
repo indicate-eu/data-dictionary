@@ -1,7 +1,4 @@
-#' UI Helper Functions
-#'
-#' @description Reusable UI utility functions for layouts and components
-#' @noRd
+# UI Helper Functions - Reusable UI utility functions for layouts and components
 
 # LAYOUT FUNCTIONS ====
 #

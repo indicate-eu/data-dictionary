@@ -1,9 +1,5 @@
-#' User Management Functions
-#'
-#' @description Functions to manage users, authentication, and password hashing
-#' @noRd
-#'
 #' @importFrom bcrypt hashpw gensalt checkpw
+NULL
 
 # USER CRUD ====
 

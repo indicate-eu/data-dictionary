@@ -1,7 +1,4 @@
-#' DataTable Functions
-#'
-#' @description Helper functions for creating standardized DataTables
-#' @noRd
+# DataTable Functions - Helper functions for creating standardized DataTables
 
 #' Null coalescing operator
 #' @noRd
