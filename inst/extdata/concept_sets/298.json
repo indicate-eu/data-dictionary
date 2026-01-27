@@ -128,9 +128,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Procedure",
-    "subcategory": "Renal replacement therapy",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Renal replacement therapy",
@@ -140,7 +137,7 @@
       "fr": {
         "name": "Renal replacement therapy",
         "category": "Actes",
-        "subcategory": "<c3><89>puration extra-r<c3><a9>nale"
+        "subcategory": "Épuration extra-rénale"
       }
     },
     "createdByDetails": {

@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Other",
-    "subcategory": "Demographic data",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "ICU discharge datetime",
@@ -43,9 +40,9 @@
         "subcategory": "Demographic data"
       },
       "fr": {
-        "name": "Date et heure sortie r<c3><a9>animation",
+        "name": "Date et heure sortie réanimation",
         "category": "Autres",
-        "subcategory": "Donn<c3><a9>es d<c3><a9>mographiques"
+        "subcategory": "Données démographiques"
       }
     },
     "createdByDetails": {

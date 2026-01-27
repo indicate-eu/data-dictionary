@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Procedure",
-    "subcategory": "Patient position",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Prone positioning",
@@ -43,7 +40,7 @@
         "subcategory": "Patient position"
       },
       "fr": {
-        "name": "D<c3><a9>cubitus ventral",
+        "name": "Décubitus ventral",
         "category": "Actes",
         "subcategory": "Position du patient"
       }

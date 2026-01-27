@@ -13,9 +13,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Clinical observation",
-    "subcategory": "Neurological assessment",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Behavior pain scale",
@@ -23,9 +20,9 @@
         "subcategory": "Neurological assessment"
       },
       "fr": {
-        "name": "<c3><89>chelle comportementale de douleur",
+        "name": "Échelle comportementale de douleur",
         "category": "Observations cliniques",
-        "subcategory": "<c3><89>valuation neurologique"
+        "subcategory": "Évaluation neurologique"
       }
     },
     "createdByDetails": {

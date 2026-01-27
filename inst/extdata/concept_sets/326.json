@@ -489,9 +489,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Vitals",
-    "subcategory": "Haemodynamics",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Diastolic arterial pressure",
@@ -499,9 +496,9 @@
         "subcategory": "Haemodynamics"
       },
       "fr": {
-        "name": "Pression art<c3><a9>rielle diastolique",
-        "category": "Param<c3><a8>tres vitaux",
-        "subcategory": "H<c3><a9>modynamique"
+        "name": "Pression artérielle diastolique",
+        "category": "Paramètres vitaux",
+        "subcategory": "Hémodynamique"
       }
     },
     "createdByDetails": {

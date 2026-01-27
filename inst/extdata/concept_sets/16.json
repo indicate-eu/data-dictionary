@@ -1420,9 +1420,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Condition",
-    "subcategory": "APACHE IV - Chronic health conditions",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "AIDS",
@@ -1431,7 +1428,7 @@
       },
       "fr": {
         "name": "AIDS",
-        "category": "Ant<c3><a9>c<c3><a9>dents",
+        "category": "Antécédents",
         "subcategory": "APACHE IV - Pathologies chroniques"
       }
     },

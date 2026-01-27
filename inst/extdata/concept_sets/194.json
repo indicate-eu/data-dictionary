@@ -185,9 +185,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Labs",
-    "subcategory": "Plasma blood count",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Plasma hemoglobin",
@@ -195,9 +192,9 @@
         "subcategory": "Plasma blood count"
       },
       "fr": {
-        "name": "H<c3><a9>moglobine plasmatique",
+        "name": "Hémoglobine plasmatique",
         "category": "Biologie",
-        "subcategory": "Num<c3><a9>ration sanguine"
+        "subcategory": "Numération sanguine"
       }
     },
     "createdByDetails": {

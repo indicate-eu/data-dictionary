@@ -109,9 +109,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Labs",
-    "subcategory": "Blood specimen type",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Whole blood specimen",
@@ -119,9 +116,9 @@
         "subcategory": "Blood specimen type"
       },
       "fr": {
-        "name": "Pr<c3><a9>l<c3><a8>vement de sang total",
+        "name": "Prélèvement de sang total",
         "category": "Biologie",
-        "subcategory": "Type de pr<c3><a9>l<c3><a8>vement sanguin"
+        "subcategory": "Type de prélèvement sanguin"
       }
     },
     "createdByDetails": {

@@ -90,9 +90,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Labs",
-    "subcategory": "Plasma ionogram",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Plasma magnesium",
@@ -100,7 +97,7 @@
         "subcategory": "Plasma ionogram"
       },
       "fr": {
-        "name": "Magn<c3><a9>sium plasmatique",
+        "name": "Magnésium plasmatique",
         "category": "Biologie",
         "subcategory": "Ionogramme plasmatique"
       }

@@ -109,9 +109,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Ventilation",
-    "subcategory": "Oxygenation",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Fraction of inspired oxygen (FiO2)",
@@ -119,9 +116,9 @@
         "subcategory": "Oxygenation"
       },
       "fr": {
-        "name": "Fraction inspir<c3><a9>e en oxyg<c3><a8>ne (FiO2)",
+        "name": "Fraction inspirée en oxygène (FiO2)",
         "category": "Ventilation",
-        "subcategory": "Oxyg<c3><a9>nation"
+        "subcategory": "Oxygénation"
       }
     },
     "createdByDetails": {

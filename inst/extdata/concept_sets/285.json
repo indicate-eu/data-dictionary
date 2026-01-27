@@ -52,9 +52,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Other",
-    "subcategory": "Nutrition",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Contraindication to enteral feeding",
@@ -62,7 +59,7 @@
         "subcategory": "Nutrition"
       },
       "fr": {
-        "name": "Contre-indication <c3><a0> la nutrition ent<c3><a9>rale",
+        "name": "Contre-indication à la nutrition entérale",
         "category": "Autres",
         "subcategory": "Nutrition"
       }

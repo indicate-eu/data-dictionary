@@ -13,9 +13,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Condition",
-    "subcategory": "General conditions",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Diabetes mellitus",
@@ -23,9 +20,9 @@
         "subcategory": "General conditions"
       },
       "fr": {
-        "name": "Diab<c3><a8>te",
-        "category": "Ant<c3><a9>c<c3><a9>dents",
-        "subcategory": "Pathologies g<c3><a9>n<c3><a9>rales"
+        "name": "Diabète",
+        "category": "Antécédents",
+        "subcategory": "Pathologies générales"
       }
     },
     "createdByDetails": {

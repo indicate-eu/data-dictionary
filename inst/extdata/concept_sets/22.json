@@ -13,9 +13,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Condition",
-    "subcategory": "APACHE IV - Chronic health conditions",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Leukemia",
@@ -23,8 +20,8 @@
         "subcategory": "APACHE IV - Chronic health conditions"
       },
       "fr": {
-        "name": "Leuc<c3><a9>mie",
-        "category": "Ant<c3><a9>c<c3><a9>dents",
+        "name": "Leucémie",
+        "category": "Antécédents",
         "subcategory": "APACHE IV - Pathologies chroniques"
       }
     },

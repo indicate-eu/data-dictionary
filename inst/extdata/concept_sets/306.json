@@ -432,9 +432,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Ventilation",
-    "subcategory": "Ventilation device",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Invasive mechanical ventilation",
@@ -442,7 +439,7 @@
         "subcategory": "Ventilation device"
       },
       "fr": {
-        "name": "Ventilation m<c3><a9>canique invasive",
+        "name": "Ventilation mécanique invasive",
         "category": "Ventilation",
         "subcategory": "Dispositif de ventilation"
       }

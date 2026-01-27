@@ -1,371 +1,371 @@
 base,fr
-app_title,Dictionnaire de Donnees INDICATE
-data_dictionary,Dictionnaire de Donnees
-concept_sets,Ensembles de Concepts
-concept_sets_tooltip,Parcourir et gerer les ensembles de concepts OHDSI
-add_concept_set,Ajouter un Ensemble de Concepts
+app_title,Dictionnaire de données INDICATE
+data_dictionary,Dictionnaire de données
+concept_sets,Ensembles de concepts
+concept_sets_tooltip,Parcourir et gérer les ensembles de concepts OHDSI
+add_concept_set,Ajouter un ensemble de concepts
 no_concept_sets,Aucun ensemble de concepts disponible
 view,Voir
 name,Nom
-category,Categorie
-subcategory,Sous-categorie
+category,Catégorie
+subcategory,Sous-catégorie
 description,Description
 tags,Tags
 concepts,Concepts
 actions,Actions
 projects,Projets
-concept_mapping,Mapping de Concepts
-general_settings,Parametres Generaux
-dictionary_settings,Parametres du Dictionnaire
+concept_mapping,Mapping de concepts
+general_settings,Paramètres généraux
+dictionary_settings,Paramètres du dictionnaire
 users,Utilisateurs
-dev_tools,Outils Dev
-logout,Deconnexion
-coming_soon,Bientot disponible...
+dev_tools,Outils dev
+logout,Déconnexion
+coming_soon,Bientôt disponible...
 login,Connexion
 username,Nom d'utilisateur
 password,Mot de passe
 login_button,Se connecter
 login_error,Nom d'utilisateur ou mot de passe invalide
 welcome,Bienvenue
-add_user,Ajouter un Utilisateur
-edit_user,Modifier l'Utilisateur
+add_user,Ajouter un utilisateur
+edit_user,Modifier l'utilisateur
 edit,Modifier
 delete,Supprimer
 cancel,Annuler
 no,Non
 save,Enregistrer
-confirm_deletion,Confirmer la Suppression
-user_accesses,Niveaux d'Acces
-add_user_access,Ajouter un Niveau d'Acces
-edit_user_access,Modifier le Niveau d'Acces
+confirm_deletion,Confirmer la suppression
+user_accesses,Niveaux d'accès
+add_user_access,Ajouter un niveau d'accès
+edit_user_access,Modifier le niveau d'accès
 login_label,Identifiant
 password_label,Mot de passe
 confirm_password,Confirmer le mot de passe
 enter_login,Entrez l'identifiant
 enter_password,Entrez le mot de passe
-first_name,Prenom
+first_name,Prénom
 last_name,Nom
-enter_first_name,Entrez le prenom
+enter_first_name,Entrez le prénom
 enter_last_name,Entrez le nom
 role,Role
 profession,Profession
-profession_tooltip,"Profession ou specialite de l'utilisateur (ex. Data Scientist, Cardiologue, Ingenieur Logiciel). Pour les cliniciens, veuillez specifier la specialite medicale."
+profession_tooltip,"Profession ou specialite de l'utilisateur (ex. Data scientist, Cardiologue, Ingenieur Logiciel). Pour les cliniciens, veuillez spécifier la specialite medicale."
 clinician,Clinicien
-data_scientist,Data Scientist
+data_scientist,Data scientist
 engineer,Ingenieur
-user_access,Niveau d'Acces
+user_access,Niveau d'accès
 invalid_orcid_format,Format ORCiD invalide. Format attendu : 0000-0000-0000-0000
 affiliation,Affiliation
 enter_affiliation,Entrez l'affiliation
 enter_name,Entrez le nom
 enter_description,Entrez la description
 leave_empty_password,Laissez vide pour conserver le mot de passe actuel
-no_users_found,Aucun utilisateur trouve
-no_user_accesses_found,Aucun niveau d'acces trouve
+no_users_found,Aucun utilisateur trouvé
+no_user_accesses_found,Aucun niveau d'accès trouvé
 login_required,L'identifiant est requis
 password_required,Le mot de passe est requis
-first_name_required,Le prenom est requis
+first_name_required,Le prénom est requis
 last_name_required,Le nom est requis
-user_access_required,Le niveau d'acces est requis
+user_access_required,Le niveau d'accès est requis
 name_required,Le nom est requis
 passwords_do_not_match,Les mots de passe ne correspondent pas
-login_exists,Cet identifiant existe deja
-name_exists,Ce nom existe deja
+login_exists,Cet identifiant existe déjà
+name_exists,Ce nom existe déjà
 confirm_delete_user,Voulez-vous vraiment supprimer l'utilisateur
-confirm_delete_user_access,Voulez-vous vraiment supprimer le niveau d'acces
-cannot_delete_assigned_user_access,Vous ne pouvez pas supprimer un niveau d'acces encore attribue a des utilisateurs
-cannot_delete_users_assigned,Impossible de supprimer ce niveau d'acces car des utilisateurs y sont encore attribues
+confirm_delete_user_access,Voulez-vous vraiment supprimer le niveau d'accès
+cannot_delete_assigned_user_access,Vous ne pouvez pas supprimer un niveau d'accès encore attribué a des utilisateurs
+cannot_delete_users_assigned,Impossible de supprimer ce niveau d'accès car des utilisateurs y sont encore attribués
 terminologies,Terminologies
 ohdsi_vocabularies,Vocabulaires OHDSI
-ohdsi_vocabularies_desc,Selectionnez le dossier contenant les fichiers CSV des vocabulaires OHDSI (CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, etc.)
+ohdsi_vocabularies_desc,Sélectionnez le dossier contenant les fichiers CSV des vocabulaires OHDSI (CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, etc.)
 browse,Parcourir
-athena_note,Telechargez les fichiers de vocabulaire depuis ATHENA (athena.ohdsi.org)
-database_status,Statut de la Base de Donnees
-database_status_desc,Statut de la base de donnees des vocabulaires
-no_folder_selected,Aucun dossier selectionne
-no_vocabulary_folder_selected,Aucun dossier de vocabulaire selectionne. Veuillez selectionner un dossier contenant les fichiers de vocabulaire OHDSI.
+athena_note,Téléchargez les fichiers de vocabulaire depuis ATHENA (athena.ohdsi.org)
+database_status,Statut de la base de données
+database_status_desc,Statut de la base de données des vocabulaires
+no_folder_selected,Aucun dossier sélectionné
+no_vocabulary_folder_selected,Aucun dossier de vocabulaire sélectionné. Veuillez sélectionnér un dossier contenant les fichiers de vocabulaire OHDSI.
 missing_vocabulary_files,Fichiers de vocabulaire requis manquants
-vocabulary_files_found,Fichiers de vocabulaire trouves et prets a l'emploi
-select_vocabulary_folder,Selectionner le Dossier de Vocabulaire
+vocabulary_files_found,Fichiers de vocabulaire trouvés et prets a l'emploi
+select_vocabulary_folder,Sélectionner le dossier de vocabulaire
 search_folders,Rechercher des dossiers et fichiers...
-select,Selectionner
+select,Sélectionner
 folder_not_found,Dossier introuvable
 empty_folder,Dossier vide
-no_items_match,Aucun element ne correspond a votre recherche
-backup_restore,Sauvegarde & Restauration
-download_backup,Telecharger la Sauvegarde
-download_backup_desc,Telechargez une sauvegarde complete de vos donnees applicatives au format ZIP.
-download_backup_zip,Telecharger le ZIP de Sauvegarde
-restore_from_backup,Restaurer depuis une Sauvegarde
-restore_warning,La restauration depuis une sauvegarde remplacera vos donnees actuelles. Cette action est irreversible.
-select_backup_file,Selectionnez un fichier ZIP de sauvegarde...
-select_what_to_import,Selectionnez ce que vous souhaitez importer :
-configuration_users,Configuration & Utilisateurs
+no_items_match,Aucun élément ne correspond a votre recherche
+backup_restore,Sauvegarde et restauration
+download_backup,Télécharger la sauvegarde
+download_backup_desc,Téléchargez une sauvegarde complete de vos données applicatives au format ZIP.
+download_backup_zip,Télécharger le ZIP de sauvegarde
+restore_from_backup,Restaurer depuis une sauvegarde
+restore_warning,La restauration depuis une sauvegarde remplacera vos données actuelles. Cette action est irreversible.
+select_backup_file,Sélectionnez un fichier ZIP de sauvegarde...
+select_what_to_import,Sélectionnez ce que vous souhaitez importer :
+configuration_users,Configuration et utilisateurs
 dictionary,Dictionnaire
-confirm_restore,Confirmer la Restauration
+confirm_restore,Confirmer la restauration
 backup_empty_or_invalid,Le fichier de sauvegarde semble vide ou invalide.
 error_reading_backup,Erreur lors de la lecture du fichier de sauvegarde :
-no_backup_to_restore,Aucun fichier de sauvegarde a restaurer. Veuillez d'abord telecharger une sauvegarde.
-select_at_least_one_category,Veuillez selectionner au moins une categorie a importer.
-successfully_restored,Restauration reussie
-reload_to_apply_changes,Veuillez recharger l'application pour appliquer les modifications.
+no_backup_to_restore,Aucun fichier de sauvegarde a restaurer. Veuillez d'abord télécharger une sauvegarde.
+select_at_least_one_category,Veuillez sélectionnér au moins une catégorie a importer.
+successfully_restored,Restauration réussie
+reload_to_apply_changes,Veuillez recharger l'application pour appliquér les modifications.
 error_restoring_backup,Erreur lors de la restauration de la sauvegarde :
-reload_application,Recharger l'Application
+reload_application,Recharger l'application
 umls_vocabularies,Vocabulaires UMLS
-umls_vocabularies_desc,Selectionnez le dossier contenant les fichiers RRF UMLS (MRCONSO.RRF, MRREL.RRF, etc.)
-umls_note,Telechargez les fichiers de vocabulaire depuis UMLS (uts.nlm.nih.gov)
-umls_database_status,Statut de la Base UMLS
-umls_database_status_desc,Statut de la base de donnees des vocabulaires UMLS
-no_umls_folder_selected,Aucun dossier UMLS selectionne. Veuillez selectionner un dossier contenant les fichiers RRF UMLS.
+umls_vocabularies_desc,Sélectionnez le dossier contenant les fichiers RRF UMLS (MRCONSO.RRF, MRREL.RRF, etc.)
+umls_note,Téléchargez les fichiers de vocabulaire depuis UMLS (uts.nlm.nih.gov)
+umls_database_status,Statut de la base UMLS
+umls_database_status_desc,Statut de la base de données des vocabulaires UMLS
+no_umls_folder_selected,Aucun dossier UMLS sélectionné. Veuillez sélectionnér un dossier contenant les fichiers RRF UMLS.
 missing_umls_files,Fichiers UMLS requis manquants
-umls_files_found,Fichiers UMLS trouves et prets a l'emploi
-select_umls_folder,Selectionner le Dossier UMLS
-edit_concept_set,Modifier l'Ensemble de Concepts
-enter_category,Entrez la categorie
-enter_subcategory,Entrez la sous-categorie
-enter_tags,Entrez les tags (separes par des virgules)
-etl_comment,Commentaire ETL
-enter_etl_comment,Entrez les instructions ETL
-concept_set_added,Ensemble de concepts cree avec succes
-concept_set_updated,Ensemble de concepts mis a jour avec succes
-concept_set_deleted,Ensemble de concepts supprime avec succes
+umls_files_found,Fichiers UMLS trouvés et prets a l'emploi
+select_umls_folder,Sélectionner le dossier UMLS
+edit_concept_set,Modifier l'ensemble de concepts
+enter_category,Entrez la catégorie
+enter_subcategory,Entrez la sous-catégorie
+enter_tags,Entrez les tags (séparés par des virgules)
+long_description,Description longue
+enter_long_description,Entrez la description longue
+concept_set_added,Ensemble de concepts créé avec succès
+concept_set_updated,Ensemble de concepts mis a jour avec succès
+concept_set_deleted,Ensemble de concepts supprimé avec succès
 confirm_delete_concept_set,Voulez-vous vraiment supprimer l'ensemble de concepts
-select_category,Selectionner une categorie
-select_subcategory,Selectionner une sous-categorie
-first_select_category,Selectionnez d'abord une categorie
-enter_new_category,Entrez une nouvelle categorie
-enter_new_subcategory,Entrez une nouvelle sous-categorie
-select_tags,Selectionner des tags
-manage_tags,Gerer les Tags
-add_new_tag,Ajouter un Nouveau Tag
+select_category,Sélectionner une catégorie
+select_subcategory,Sélectionner une sous-catégorie
+first_select_category,Sélectionnez d'abord une catégorie
+enter_new_category,Entrez une nouvelle catégorie
+enter_new_subcategory,Entrez une nouvelle sous-catégorie
+select_tags,Sélectionner des tags
+manage_tags,Gérer les tags
+add_new_tag,Ajouter un nouveau tag
 enter_tag_name,Entrez le nom du tag
-existing_tags,Tags Existants
+existing_tags,Tags existants
 no_tags,Aucun tag disponible
-tag_name,Nom du Tag
+tag_name,Nom du tag
 usage,Utilisation
 tag_name_required,Le nom du tag est requis
-tag_already_exists,Ce tag existe deja
-tag_added,Tag ajoute avec succes
-edit_tag,Modifier le Tag
-tag_updated,Tag mis a jour avec succes
+tag_already_exists,Ce tag existe déjà
+tag_added,Tag ajouté avec succès
+edit_tag,Modifier le tag
+tag_updated,Tag mis a jour avec succès
 confirm_delete_tag,Voulez-vous vraiment supprimer le tag
-tag_deleted,Tag supprime avec succes
+tag_deleted,Tag supprimé avec succès
 cannot_delete_tag_in_use,Impossible de supprimer un tag utilise par des ensembles de concepts
 close,Fermer
 add,Ajouter
 creating_duckdb_database,Creation de la base DuckDB en cours... Cela peut prendre quelques minutes.
-database_exists,Base de donnees existante :
-database_does_not_exist,Base de donnees inexistante
-recreate,Recreer
-create,Creer
-select_vocabulary_folder_first,Selectionnez d'abord un dossier de vocabulaire
-recreate_database_tooltip,Recreer la base de donnees a partir des fichiers de vocabulaire
+database_exists,Base de données existante :
+database_does_not_exist,Base de données inexistante
+recreate,Recréer
+create,Créer
+select_vocabulary_folder_first,Sélectionnez d'abord un dossier de vocabulaire
+recreate_database_tooltip,Recréer la base de données a partir des fichiers de vocabulaire
 error_creating_duckdb,Erreur lors de la creation de la base DuckDB :
 r_console,Console R
 r_code,Code R
-results,Resultats
-run_code,Executer le Code
-run_code_results,Cliquez sur 'Executer le Code' ou appuyez sur Ctrl+Shift+Enter pour executer le code.
-enter_r_code,Veuillez entrer du code R a executer.
-data_quality,Qualite des Donnees
-missing_comments,Commentaires Manquants
-non_standard_concepts,Concepts Non Standards
-non_standard,Non Standard
-vocabularies_not_loaded,Vocabulaires non charges. Veuillez configurer les vocabulaires OHDSI dans les Parametres Generaux.
-missing_data_details,Details des Donnees Manquantes
+results,Résultats
+run_code,Exécuter le code
+run_code_results,Cliquez sur 'Exécuter le code' ou appuyez sur Ctrl+Shift+Enter pour exécuter le code.
+enter_r_code,Veuillez entrer du code R a exécuter.
+data_quality,Qualité des données
+missing_comments,Commentaires manquants
+non_standard_concepts,Concepts non standards
+non_standard,Non standard
+vocabularies_not_loaded,Vocabulaires non chargés. Veuillez configurer les vocabulaires OHDSI dans les Paramètres généraux.
+missing_data_details,Détails des données manquantes
 concept_table,Table concept OHDSI
 concept_relationship_table,Relations entre concepts OHDSI
-concept_ancestor_table,Ancetres de concepts OHDSI
+concept_ancestor_table,Ancêtres de concepts OHDSI
 mrconso_table,Noms de concepts et atomes UMLS
-mrsty_table,Types semantiques UMLS
+mrsty_table,Types sémantiques UMLS
 mrdef_table,Definitions UMLS
 mrsab_table,Vocabulaires sources UMLS
-general_concept,Concept General
-general_concept_name,Nom du Concept General
-omop_concept_name,Nom du Concept
-omop_concept_id,ID Concept
+general_concept,Concept général
+general_concept_name,Nom du concept général
+omop_concept_name,Nom du concept
+omop_concept_id,ID concept
 standard,Standard
 color,Couleur
-add_project,Ajouter un Projet
-edit_project,Modifier le Projet
+add_project,Ajouter un projet
+edit_project,Modifier le projet
 no_projects,Aucun projet disponible
 confirm_delete_project,Voulez-vous vraiment supprimer le projet
-project_added,Projet cree avec succes
-project_updated,Projet mis a jour avec succes
-project_deleted,Projet supprime avec succes
-projects_tooltip,Parcourir et gerer les projets
-available_concept_sets,Ensembles de Concepts Disponibles
-selected_concept_sets,Ensembles de Concepts Selectionnes
-available_concept_sets_tooltip,Selectionnez des ensembles de concepts a ajouter a ce projet
-selected_concept_sets_tooltip,Ensembles de concepts assignes a ce projet
-add_selected,Ajouter la Selection
-remove_selected,Retirer la Selection
-all_concept_sets_added,Tous les ensembles de concepts ont ete ajoutes a ce projet
-no_concept_sets_assigned,Aucun ensemble de concepts assigne a ce projet
-concept_sets_added,Ensembles de concepts ajoutes avec succes
-concept_sets_removed,Ensembles de concepts retires avec succes
-created_by,Cree Par
-created_at,Cree Le
-last_update,Derniere Maj
+project_added,Projet créé avec succès
+project_updated,Projet mis a jour avec succès
+project_deleted,Projet supprimé avec succès
+projects_tooltip,Parcourir et gérer les projets
+available_concept_sets,Ensembles de concepts disponibles
+selected_concept_sets,Ensembles de concepts sélectionnés
+available_concept_sets_tooltip,Sélectionnez des ensembles de concepts a ajouter a ce projet
+selected_concept_sets_tooltip,Ensembles de concepts assignés a ce projet
+add_selected,Ajouter la sélection
+remove_selected,Retirer la sélection
+all_concept_sets_added,Tous les ensembles de concepts ont été ajoutés a ce projet
+no_concept_sets_assigned,Aucun ensemble de concepts assigné a ce projet
+concept_sets_added,Ensembles de concepts ajoutés avec succès
+concept_sets_removed,Ensembles de concepts retires avec succès
+created_by,Créé par
+created_at,Créé le
+last_update,Dernière maj
 context,Contexte
 variables,Variables
-short_description,Description Courte
+short_description,Description courte
 enter_short_description,Entrez une description courte
 short_description_required,La description courte est requise
 justification,Justification
 enter_justification,Entrez la justification scientifique
 bibliography,Bibliographie
-enter_bibliography,Entrez les references bibliographiques
+enter_bibliography,Entrez les références bibliographiques
 save_context,Enregistrer
-auto_save_enabled,Les modifications sont enregistrees automatiquement
-context_saved,Contexte enregistre avec succes
-name_already_exists,Ce nom existe deja
+auto_save_enabled,Les modifications sont enregistrées automatiquement
+context_saved,Contexte enregistré avec succès
+name_already_exists,Ce nom existe déjà
 delete_project_confirm,Voulez-vous vraiment supprimer ce projet ?
 delete_project_note,Cela supprimera toutes les associations avec les ensembles de concepts
 export,Exporter
-fuzzy_search,Recherche Fuzzy
+fuzzy_search,Recherche fuzzy
 fuzzy_search_placeholder,Rechercher par nom...
 back,Retour
 concepts_in_set_tooltip,Concepts inclus dans cet ensemble de concepts
 edit_concepts,Modifier les concepts
-comments_and_stats,Commentaires & Statistiques
+comments_and_stats,Commentaires et statistiques
 comments_stats_tooltip,Commentaires de guidage ETL et distribution statistique
 comments,Commentaires
 statistics,Statistiques
-selected_concept_details,Details du Concept Selectionne
-selected_concept_details_tooltip,Details du concept actuellement selectionne
-related_concepts,Concepts Relies
-related_concepts_tooltip,Concepts relies au concept selectionne
-related,Relies
-hierarchy,Hierarchie
+selected_concept_details,Détails du concept sélectionné
+selected_concept_details_tooltip,Détails du concept actuellement sélectionné
+related_concepts,Concepts reliés
+related_concepts_tooltip,Concepts reliés au concept sélectionné
+related,Reliés
+hierarchy,Hiérarchie
 synonyms,Synonymes
-no_concept_selected,Selectionnez un concept pour voir les details
+no_concept_selected,Sélectionnez un concept pour voir les détails
+no_concept_set_selected,Aucun ensemble de concepts sélectionné
 no_concepts,Aucun concept dans cet ensemble de concepts
 no_comments,Aucun commentaire disponible
 no_stats,Aucune statistique disponible
-no_related_concepts,Aucun concept relie trouve
-add_concepts_to_set,Ajouter des Concepts
-search_omop_concepts,Rechercher Concepts OMOP
-vocabulary_id,ID Vocabulaire
-concept_code,Code Concept
-concept_name,Nom du Concept
-add_concept,Ajouter Concept
-add_concept_s,Ajouter Concept(s)
-remove_concept,Retirer Concept
-concept_added,Concept ajoute avec succes
-concept_removed,Concept retire avec succes
-concepts_added,concepts ajoutes
-already_present,deja present(s)
-all_concepts_already_present,Tous les concepts sont deja presents
-multiple_selection,Selection multiple
+no_related_concepts,Aucun concept relié trouvé
+add_concepts_to_set,Ajouter des concepts
+search_omop_concepts,Rechercher concepts OMOP
+vocabulary_id,ID vocabulaire
+concept_code,Code concept
+concept_name,Nom du concept
+add_concept,Ajouter concept
+add_concept_s,Ajouter concept(s)
+remove_concept,Retirer concept
+concept_added,Concept ajouté avec succès
+concept_removed,Concept retire avec succès
+concepts_added,concepts ajoutés
+already_present,déjà present(s)
+all_concepts_already_present,Tous les concepts sont déjà presents
+multiple_selection,Sélection multiple
 exclude,Exclure
-include_descendants,Inclure Descendants
-include_mapped,Inclure Mappes
+include_descendants,Inclure descendants
+include_mapped,Inclure mappés
 optional,Optionnel
-selected_concept_details_modal,Details du Concept Selectionne
+selected_concept_details_modal,Détails du concept sélectionné
 descendants,Descendants
-no_descendants,Aucun descendant trouve
+no_descendants,Aucun descendant trouvé
 loading_vocabularies,Chargement des vocabulaires OMOP...
-no_matching_concepts,Aucun concept correspondant trouve
-no_omop_concepts,Aucun concept OMOP trouve dans les vocabulaires
+no_matching_concepts,Aucun concept correspondant trouvé
+no_omop_concepts,Aucun concept OMOP trouvé dans les vocabulaires
 confirm_remove_concept,Voulez-vous vraiment retirer ce concept de l'ensemble ?
-hierarchy_tooltip,Vue hierarchique montrant les ancetres et descendants du concept selectionne
+hierarchy_tooltip,Vue hierarchique montrant les ancetres et descendants du concept sélectionné
 statistics_desc,Distribution statistique et metriques d'utilisation pour cet ensemble de concepts
 review,Revue
 review_desc,Processus de revue et statut de validation pour cet ensemble de concepts
 edit_page,Modifier la page
-delete_all,Tout Supprimer
-add_concepts,Ajouter des Concepts
+delete_all,Tout supprimer
+add_concepts,Ajouter des concepts
 confirm_delete_all_concepts,Voulez-vous vraiment supprimer tous les concepts de cet ensemble ?
-all_concepts_deleted,Tous les concepts ont ete supprimes avec succes
-changes_saved,Modifications enregistrees avec succes
+all_concepts_deleted,Tous les concepts ont été supprimés avec succès
+changes_saved,Modifications enregistrées avec succès
 confirm_action,Confirmer l'action
 limit_10k_warning,Le chargement des 4M+ concepts peut ralentir significativement l'application.
-limit_10k_warning_details,Cette operation peut prendre plusieurs secondes. L'application ne sera pas reactive pendant ce temps.
+limit_10k_warning_details,Cette operation peut prendre plusieurs secondes. L'application ne sera pas reactivé pendant ce temps.
 continue,Continuer
-advanced_filters,Filtres avances
-select_or_type,Selectionner ou saisir...
+advanced_filters,Filtres avancés
+select_or_type,Sélectionner ou saisir...
 clear_all,Tout effacer
 apply_filters,Appliquer les filtres
-already_added,Deja ajoute
+already_added,Déjà ajouté
 domain_id,Domaine
-concept_class_id,Classe de Concept
-validity,Validite
+concept_class_id,Classe de concept
+validity,Validité
 view_in_athena,Voir dans ATHENA
 fhir_resource,Ressource FHIR
 no_link_available,Aucun lien disponible
-no_synonyms_found,Aucun synonyme trouve
+no_synonyms_found,Aucun synonyme trouvé
 language,Langue
-ancestors,Ancetres
-confirm_delete_selected_concepts,Voulez-vous vraiment supprimer les concepts selectionnes ?
-concepts_deleted,concepts supprimes avec succes
-no_concepts_selected,Aucun concept selectionne
+ancestors,Ancêtres
+confirm_delete_selected_concepts,Voulez-vous vraiment supprimer les concepts sélectionnés ?
+concepts_deleted,concepts supprimés avec succès
+no_concepts_selected,Aucun concept sélectionné
 export_concept_set,Exporter le jeu de concepts
 export_json_clipboard,Copier le JSON OHDSI dans le presse-papiers
 export_json_clipboard_desc,Copier le jeu de concepts au format JSON conforme OHDSI dans le presse-papiers
 export_json_file,Télécharger le fichier JSON OHDSI
 export_json_file_desc,Télécharger le jeu de concepts en tant que fichier JSON suivant la specification OHDSI
-export_concept_list,Liste de concepts (separee par des virgules)
-export_concept_list_desc,Copier les IDs de concepts resolus sous forme de liste separee par des virgules (pour PHOEBE)
-export_sql,Requete SQL
-export_sql_desc,Generer une requete SQL pour recuperer tous les enregistrements correspondant aux concepts resolus
-json_copied,JSON copie dans le presse-papiers avec succes
-concept_list_copied,Liste de concepts copiee dans le presse-papiers avec succes
-sql_copied,Requete SQL copiee dans le presse-papiers avec succes
-copy_failed,Echec de la copie dans le presse-papiers
-download_failed,Echec du telechargement du fichier
-review_status,Statut de Revue
+export_concept_list,Liste de concepts (séparée par des virgules)
+export_concept_list_desc,Copier les IDs de concepts resolus sous forme de liste séparée par des virgules (pour PHOEBE)
+export_sql,Requête SQL
+export_sql_desc,Générér une requête SQL pour récupérér tous les enregistréments correspondant aux concepts resolus
+json_copied,JSON copié dans le presse-papiers avec succès
+concept_list_copied,Liste de concepts copiée dans le presse-papiers avec succès
+sql_copied,Requête SQL copiée dans le presse-papiers avec succès
+copy_failed,Echec de la copié dans le presse-papiers
+download_failed,Echec du téléchargement du fichier
+review_status,Statut de revue
 version,Version
 status_draft,Brouillon
-status_pending_review,En Attente de Revue
-status_approved,Approuve
-status_needs_revision,Revision Necessaire
+status_pending_review,En attente de revue
+status_approved,Approuvé
+status_needs_revision,Révision nécessaire
 status_deprecated,Obsolete
 filters,Filtres
 apply,Appliquer
-reset_filters,Reinitialiser les Filtres
-submit_review,Soumettre la Revue
-add_review,Ajouter une Revue
-reviewer,Reviseur
-review_date,Date de Revue
+reset_filters,Réinitialiser les filtres
+submit_review,Soumettre la revue
+add_review,Ajouter une revue
+reviewer,Réviseur
+review_date,Date de revue
 no_reviews,Aucune revue pour le moment
-review_submitted,Revue soumise avec succes
+review_submitted,Revue soumise avec succès
 review_comments_required,Les commentaires de revue sont requis
-change_status,Changer le Statut
-new_version,Nouvelle Version
-create_new_version,Creer une Nouvelle Version
-version_created,Nouvelle version creee avec succes
-status_changed,Statut modifie avec succes
-change_summary,Resume des Modifications
+change_status,Changer le statut
+new_version,Nouvelle version
+create_new_version,Créer une Nouvelle version
+version_created,Nouvelle version créée avec succès
+status_changed,Statut modifié avec succès
+change_summary,Résumé des modifications
 no_comments_yet,Pas encore de commentaires
-comments_saved,Commentaires sauvegardes avec succes
+comments_saved,Commentaires sauvegardes avec succès
 no_stats_yet,Pas encore de statistiques
-stats_saved,Statistiques sauvegardees avec succes
-markdown_editor,Editeur Markdown
-no_concept_set_selected,Aucun concept set selectionne
-export_all,Exporter Tout
+stats_saved,Statistiques sauvegardees avec succès
+markdown_editor,Éditeur Markdown
+export_all,Exporter tout
 export_all_tooltip,Exporter tous les concept sets dans un fichier ZIP avec fichiers JSON et README
 import,Importer
 import_zip,Importer
 import_zip_tooltip,Importer des concept sets depuis un fichier ZIP
-import_concept_sets,Importer des Concept Sets
-select_zip_file,Selectionner un fichier ZIP
-import_mode,Mode d'Importation
+import_concept_sets,Importer des concept sets
+select_zip_file,Sélectionner un fichier ZIP
+import_mode,Mode d'importation
 import_mode_add,Ajouter nouveaux uniquement
 import_mode_replace,Mettre à jour existants
 import_mode_add_desc,Ajouter uniquement les nouveaux concept sets. Les concept sets existants avec le même ID seront ignorés.
 import_mode_replace_desc,Mettre à jour les concept sets existants et ajouter les nouveaux. Les concept sets avec des IDs correspondants seront remplacés.
-confirm_replace_all,Etes-vous sur de vouloir supprimer tous les concept sets existants et les remplacer par ceux importes ? Cette action est irreversible.
-import_success,{count} concept sets importes avec succes
+confirm_replace_all,Êtes-vous sûr de vouloir supprimer tous les concept sets existants et les remplacer par ceux importés ? Cette action est irreversible.
+import_success,{count} concept sets importés avec succès
 import_failed,Echec de l'importation des concept sets
-no_json_files_found,Aucun fichier JSON trouve dans le ZIP
+no_json_files_found,Aucun fichier JSON trouvé dans le ZIP
 processing_import,Traitement de l'importation...
-load_default_question,Voulez-vous charger les concept sets par defaut ?
+load_default_question,Voulez-vous charger les concept sets par défaut ?
 yes_load,Oui charger
-load_default_count,Il y a {count} concept sets par defaut disponibles.
-loading_default,Chargement des concept sets par defaut...
-load_default_success,{count} concept sets charges avec succes
-load_default_failed,Echec du chargement des concept sets par defaut
+load_default_count,Il y a {count} concept sets par défaut disponibles.
+loading_default,Chargement des concept sets par défaut...
+load_default_success,{count} concept sets chargés avec succès
+load_default_failed,Echec du chargement des concept sets par défaut
 preview,Aperçu
 preview_resolved_concepts,Aperçu des concepts résolus
 preview_resolved_concepts_desc,Cet aperçu montre à quoi ressemblera le concept set après application de tous les changements en attente (ajouts, suppressions et paramètres des toggles).
@@ -379,3 +379,44 @@ continue_anyway,Continuer quand même
 loading_concept_sets,Chargement des concept sets...
 please_wait,Veuillez patienter
 loading_progress,Chargement {current}/{total} concept sets...
+select_all,Tout sélectionner
+unselect_all,Tout désélectionner
+delete_selected,Supprimer la sélection
+no_rows_selected,Aucune ligne sélectionnée
+confirm_delete_multiple_concept_sets,Êtes-vous sûr de vouloir supprimer
+concept_sets_lowercase,concept sets
+concept_sets_deleted,concept sets supprimés
+export_tooltip,Exporter les concept sets
+export_all_desc,Exporter tous les concept sets en fichier ZIP
+export_by_category,Filtrer par catégorie
+export_by_category_desc,Sélectionner des catégories spécifiques à exporter
+export_reviewed_by_me,Reviewés par moi
+export_reviewed_by_me_desc,Exporter les concept sets que vous avez reviewés
+select_categories,Sélectionner les catégories
+all_reviews,Tous les reviews
+all_reviews_desc,Exporter tous les concept sets que vous avez reviewés
+last_x_days,Derniers X jours
+last_x_days_desc,Exporter les concept sets reviewés dans les X derniers jours
+number_of_days,Nombre de jours
+no_reviews_found,Aucun review trouvé
+no_concept_sets_to_export,Aucun concept set à exporter
+export_selected,Exporter la sélection
+export_selected_count,Exporter la sélection (%s)
+export_selected_desc,Exporter les concept sets actuellement sélectionnés dans le tableau
+import_concepts,Importer des concepts
+paste_json,Coller le JSON
+paste_json_desc,Coller le JSON OHDSI directement depuis le presse-papiers
+upload_json_file,Importer un fichier JSON
+upload_json_file_desc,Sélectionner un fichier JSON depuis votre ordinateur
+paste_json_here,Coller le JSON ici
+select_json_file,Sélectionner le fichier JSON
+paste_json_first,Veuillez coller le contenu JSON
+select_file_first,Veuillez sélectionner un fichier
+failed_to_read_file,Échec de la lecture du fichier
+invalid_json,Format JSON invalide
+no_concepts_found_in_json,Aucun concept trouvé dans le JSON
+all_concepts_already_exist,Tous les concepts existent déjà dans le concept set
+no_valid_concepts_found,Aucun concept validé trouvé dans le vocabulaire
+concepts_imported_pending,%d concepts ajoutés (en attente de sauvegarde)
+select_status,Sélectionner un statut...
+edit_review,Modifier la revue

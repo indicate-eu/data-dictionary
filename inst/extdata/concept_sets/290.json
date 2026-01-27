@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Other",
-    "subcategory": "Other",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Surrogate decision maker documented",
@@ -43,7 +40,7 @@
         "subcategory": "Other"
       },
       "fr": {
-        "name": "Personne de confiance document<c3><a9>e",
+        "name": "Personne de confiance documentée",
         "category": "Autres",
         "subcategory": "Autres"
       }

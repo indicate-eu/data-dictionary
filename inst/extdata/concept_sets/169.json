@@ -71,9 +71,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Labs",
-    "subcategory": "Hemostasis",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Fibrinogen",
@@ -81,9 +78,9 @@
         "subcategory": "Hemostasis"
       },
       "fr": {
-        "name": "Fibrinog<c3><a8>ne",
+        "name": "Fibrinogène",
         "category": "Biologie",
-        "subcategory": "H<c3><a9>mostase"
+        "subcategory": "Hémostase"
       }
     },
     "createdByDetails": {

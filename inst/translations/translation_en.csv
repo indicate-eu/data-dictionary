@@ -124,8 +124,8 @@ edit_concept_set,Edit Concept Set
 enter_category,Enter category
 enter_subcategory,Enter subcategory
 enter_tags,Enter tags (comma-separated)
-etl_comment,ETL Comment
-enter_etl_comment,Enter ETL guidance comment
+long_description,Long Description
+enter_long_description,Enter long description
 concept_set_added,Concept set created successfully
 concept_set_updated,Concept set updated successfully
 concept_set_deleted,Concept set deleted successfully
@@ -240,6 +240,7 @@ related,Related
 hierarchy,Hierarchy
 synonyms,Synonyms
 no_concept_selected,Select a concept to view details
+no_concept_set_selected,No concept set selected
 no_concepts,No concepts in this concept set
 no_comments,No comments available
 no_stats,No statistics available
@@ -378,3 +379,44 @@ continue_anyway,Continue Anyway
 loading_concept_sets,Loading concept sets...
 please_wait,Please wait
 loading_progress,Loading {current}/{total} concept sets...
+select_all,Select All
+unselect_all,Unselect All
+delete_selected,Delete Selected
+no_rows_selected,No rows selected
+confirm_delete_multiple_concept_sets,Are you sure you want to delete
+concept_sets_lowercase,concept sets
+concept_sets_deleted,concept sets deleted
+export_tooltip,Export concept sets
+export_all_desc,Export all concept sets as ZIP file
+export_by_category,Filter by category
+export_by_category_desc,Select specific categories to export
+export_reviewed_by_me,Reviewed by me
+export_reviewed_by_me_desc,Export concept sets you have reviewed
+select_categories,Select categories
+all_reviews,All reviews
+all_reviews_desc,Export all concept sets you have ever reviewed
+last_x_days,Last X days
+last_x_days_desc,Export concept sets reviewed in the last X days
+number_of_days,Number of days
+no_reviews_found,No reviews found
+no_concept_sets_to_export,No concept sets to export
+export_selected,Export selected
+export_selected_count,Export selected (%s)
+export_selected_desc,Export the concept sets currently selected in the table
+import_concepts,Import Concepts
+paste_json,Paste JSON
+paste_json_desc,Paste OHDSI JSON directly from clipboard
+upload_json_file,Upload JSON File
+upload_json_file_desc,Select a JSON file from your computer
+paste_json_here,Paste JSON here
+select_json_file,Select JSON file
+paste_json_first,Please paste JSON content first
+select_file_first,Please select a file first
+failed_to_read_file,Failed to read file
+invalid_json,Invalid JSON format
+no_concepts_found_in_json,No concepts found in JSON
+all_concepts_already_exist,All concepts already exist in the concept set
+no_valid_concepts_found,No valid concepts found in vocabulary
+concepts_imported_pending,%d concepts added (pending save)
+select_status,Select status...
+edit_review,Edit Review

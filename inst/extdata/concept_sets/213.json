@@ -90,9 +90,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Labs",
-    "subcategory": "Plasma ionogram",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Plasma urea",
@@ -100,7 +97,7 @@
         "subcategory": "Plasma ionogram"
       },
       "fr": {
-        "name": "Ur<c3><a9>e plasmatique",
+        "name": "Urée plasmatique",
         "category": "Biologie",
         "subcategory": "Ionogramme plasmatique"
       }

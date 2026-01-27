@@ -698,9 +698,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Procedure",
-    "subcategory": "Catheter",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Central venous catheter",
@@ -708,9 +705,9 @@
         "subcategory": "Catheter"
       },
       "fr": {
-        "name": "Cath<c3><a9>ter veineux central",
+        "name": "Cathéter veineux central",
         "category": "Actes",
-        "subcategory": "Cath<c3><a9>ter"
+        "subcategory": "Cathéter"
       }
     },
     "createdByDetails": {

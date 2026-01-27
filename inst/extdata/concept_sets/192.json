@@ -71,9 +71,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Labs",
-    "subcategory": "Plasma blood count",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Plasma eosinophils",
@@ -81,9 +78,9 @@
         "subcategory": "Plasma blood count"
       },
       "fr": {
-        "name": "<c3><89>osinophiles plasmatiques",
+        "name": "Éosinophiles plasmatiques",
         "category": "Biologie",
-        "subcategory": "Num<c3><a9>ration sanguine"
+        "subcategory": "Numération sanguine"
       }
     },
     "createdByDetails": {

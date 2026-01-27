@@ -13,9 +13,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Clinical observation",
-    "subcategory": "Neurological assessment",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "4 A's Test for Delirium Screening score",
@@ -25,7 +22,7 @@
       "fr": {
         "name": "4 A's Test for Delirium Screening score",
         "category": "Observations cliniques",
-        "subcategory": "<c3><89>valuation neurologique"
+        "subcategory": "Évaluation neurologique"
       }
     },
     "createdByDetails": {

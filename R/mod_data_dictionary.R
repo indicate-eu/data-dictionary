@@ -56,18 +56,24 @@ mod_data_dictionary_ui <- function(id, i18n) {
             create_panel(
               title = i18n$t("concept_sets"),
               content = tags$div(
-                style = "position: relative; height: 100%; display: flex; flex-direction: column;",
+                style = "height: 100%; display: flex; flex-direction: column;",
+                # Category badges filter (above table)
+                uiOutput(ns("category_badges_container")),
+                # Table and fuzzy search container - fuzzy search is positioned absolute within this
                 tags$div(
-                  id = ns("concept_sets_fuzzy_search_container"),
-                  fuzzy_search_ui(
-                    "fuzzy_search",
-                    ns = ns,
-                    i18n = i18n,
-                    settings_btn = TRUE,
-                    settings_btn_id = "concept_sets_filters_btn"
-                  )
+                  style = "position: relative; flex: 1; min-height: 0;",
+                  tags$div(
+                    id = ns("concept_sets_fuzzy_search_container"),
+                    fuzzy_search_ui(
+                      "fuzzy_search",
+                      ns = ns,
+                      i18n = i18n,
+                      settings_btn = TRUE,
+                      settings_btn_id = "concept_sets_filters_btn"
+                    )
+                  ),
+                  uiOutput(ns("concept_sets_table_container"), style = "height: 100%;")
                 ),
-                uiOutput(ns("concept_sets_table_container"), style = "flex: 1;"),
                 # Hidden download link for export all
                 tags$div(
                   style = "position: absolute; left: -9999px;",
@@ -76,6 +82,33 @@ mod_data_dictionary_ui <- function(id, i18n) {
               ),
               tooltip = i18n$t("concept_sets_tooltip"),
               header_extra = tagList(
+                shinyjs::hidden(
+                  actionButton(
+                    ns("select_all_concept_sets"),
+                    NULL,
+                    class = "btn-secondary-custom btn-sm",
+                    icon = icon("check-square"),
+                    title = as.character(i18n$t("select_all"))
+                  )
+                ),
+                shinyjs::hidden(
+                  actionButton(
+                    ns("unselect_all_concept_sets"),
+                    NULL,
+                    class = "btn-secondary-custom btn-sm",
+                    icon = icon("square"),
+                    title = as.character(i18n$t("unselect_all"))
+                  )
+                ),
+                shinyjs::hidden(
+                  actionButton(
+                    ns("delete_selected_concept_sets"),
+                    NULL,
+                    class = "btn-danger-custom btn-sm",
+                    icon = icon("trash"),
+                    title = as.character(i18n$t("delete_selected"))
+                  )
+                ),
                 shinyjs::hidden(
                   actionButton(
                     ns("import_concept_sets"),
@@ -88,18 +121,10 @@ mod_data_dictionary_ui <- function(id, i18n) {
                 shinyjs::hidden(
                   actionButton(
                     ns("export_all_concept_sets"),
-                    i18n$t("export_all"),
+                    i18n$t("export"),
                     class = "btn-primary-custom",
                     icon = icon("download"),
-                    title = i18n$t("export_all_tooltip")
-                  )
-                ),
-                shinyjs::hidden(
-                  actionButton(
-                    ns("filter_concept_sets"),
-                    i18n$t("filters"),
-                    class = "btn-secondary-custom",
-                    icon = icon("filter")
+                    title = i18n$t("export_tooltip")
                   )
                 ),
                 shinyjs::hidden(
@@ -139,11 +164,18 @@ mod_data_dictionary_ui <- function(id, i18n) {
                         class = "btn-back-discrete",
                         title = i18n$t("concept_sets")
                       ),
-                      tags$span(
-                        id = ns("concept_set_detail_title"),
-                        class = "project-name-badge",
-                        title = "",
-                        ""
+                      tags$div(
+                        class = "tooltip-wrapper",
+                        tags$span(
+                          id = ns("concept_set_detail_title"),
+                          class = "project-name-badge",
+                          ""
+                        ),
+                        tags$span(
+                          id = ns("concept_set_detail_title_tooltip"),
+                          class = "custom-tooltip",
+                          ""
+                        )
                       ),
                       # Version and status badges (next to title)
                       tags$span(
@@ -158,6 +190,15 @@ mod_data_dictionary_ui <- function(id, i18n) {
                           i18n$t("export"),
                           icon = icon("download"),
                           class = "btn-primary-custom"
+                        )
+                      ),
+                      # Import button (visible only in edit mode)
+                      shinyjs::hidden(
+                        actionButton(
+                          ns("import_concepts_btn"),
+                          i18n$t("import"),
+                          icon = icon("upload"),
+                          class = "btn-purple-custom"
                         )
                       ),
                       # Edit button (visible by default in view mode)
@@ -263,9 +304,10 @@ mod_data_dictionary_ui <- function(id, i18n) {
                                 ),
                                 actionButton(
                                   ns("delete_selected_concepts"),
-                                  i18n$t("delete"),
+                                  NULL,
                                   class = "btn-danger-custom btn-sm",
-                                  icon = icon("trash")
+                                  icon = icon("trash"),
+                                  title = as.character(i18n$t("delete_selected"))
                                 ),
                                 actionButton(
                                   ns("optimize_concepts"),
@@ -922,6 +964,22 @@ mod_data_dictionary_ui <- function(id, i18n) {
           ns = ns
         ),
 
+        ### Modal - Delete Multiple Confirmation ----
+        create_modal(
+          id = "delete_multiple_concept_sets_modal",
+          title = i18n$t("confirm_deletion"),
+          body = tagList(
+            tags$p(id = ns("delete_multiple_confirmation_message"))
+          ),
+          footer = tagList(
+            actionButton(ns("cancel_delete_multiple"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
+            actionButton(ns("confirm_delete_multiple"), i18n$t("delete"), class = "btn-danger-custom", icon = icon("trash"))
+          ),
+          size = "small",
+          icon = "fas fa-exclamation-triangle",
+          ns = ns
+        ),
+
         ### Modal - Load Default Concept Sets ----
         create_modal(
           id = "load_default_modal",
@@ -960,6 +1018,85 @@ mod_data_dictionary_ui <- function(id, i18n) {
           ),
           size = "medium",
           icon = "fas fa-info-circle",
+          ns = ns
+        ),
+
+        ### Modal - Import Concepts (JSON) ----
+        create_modal(
+          id = "import_concepts_modal",
+          title = i18n$t("import_concepts"),
+          body = tagList(
+            tags$div(
+              class = "import-options-container",
+
+              # Option 1: Paste JSON
+              tags$div(
+                class = "import-option selected",
+                id = ns("import_concepts_option_paste"),
+                onclick = sprintf("$('.import-option', '#%s').removeClass('selected'); $(this).addClass('selected'); Shiny.setInputValue('%s', 'paste', {priority: 'event'}); $('#%s').show(); $('#%s').hide();", ns("import_concepts_modal"), ns("import_concepts_mode"), ns("import_concepts_paste_container"), ns("import_concepts_file_container")),
+                tags$div(
+                  class = "import-option-content",
+                  tags$h5(class = "import-option-title", i18n$t("paste_json")),
+                  tags$p(class = "import-option-subtitle", i18n$t("paste_json_desc"))
+                )
+              ),
+
+              # Option 2: Upload file
+              tags$div(
+                class = "import-option",
+                id = ns("import_concepts_option_file"),
+                onclick = sprintf("$('.import-option', '#%s').removeClass('selected'); $(this).addClass('selected'); Shiny.setInputValue('%s', 'file', {priority: 'event'}); $('#%s').hide(); $('#%s').show();", ns("import_concepts_modal"), ns("import_concepts_mode"), ns("import_concepts_paste_container"), ns("import_concepts_file_container")),
+                tags$div(
+                  class = "import-option-content",
+                  tags$h5(class = "import-option-title", i18n$t("upload_json_file")),
+                  tags$p(class = "import-option-subtitle", i18n$t("upload_json_file_desc"))
+                )
+              )
+            ),
+
+            # Paste JSON container (shown by default)
+            tags$div(
+              id = ns("import_concepts_paste_container"),
+              class = "mt-15",
+              tags$label(class = "form-label", i18n$t("paste_json_here")),
+              shinyAce::aceEditor(
+                ns("import_concepts_json"),
+                mode = "json",
+                theme = "github",
+                height = "250px",
+                value = ""
+              )
+            ),
+
+            # File upload container (hidden by default)
+            shinyjs::hidden(
+              tags$div(
+                id = ns("import_concepts_file_container"),
+                class = "mt-15",
+                tags$label(class = "form-label", i18n$t("select_json_file")),
+                fileInput(
+                  ns("import_concepts_file"),
+                  label = NULL,
+                  accept = ".json",
+                  buttonLabel = i18n$t("browse"),
+                  placeholder = "No file selected",
+                  width = "100%"
+                )
+              )
+            ),
+
+            # Status message
+            tags$div(
+              id = ns("import_concepts_status"),
+              style = "display: none; padding: 10px; border-radius: 4px; margin-top: 15px;"
+            )
+          ),
+          footer = tagList(
+            actionButton(ns("cancel_import_concepts"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
+            actionButton(ns("confirm_import_concepts"), i18n$t("import"), class = "btn-primary-custom", icon = icon("upload"))
+          ),
+          size = "large",
+          icon = "fas fa-upload",
           ns = ns
         ),
 
@@ -1259,6 +1396,10 @@ mod_data_dictionary_ui <- function(id, i18n) {
                   id = ns("import_option_add"),
                   onclick = sprintf("$('.import-option').removeClass('selected'); $(this).addClass('selected'); Shiny.setInputValue('%s', 'add', {priority: 'event'});", ns("import_mode")),
                   tags$div(
+                    class = "import-option-icon",
+                    icon("plus-circle")
+                  ),
+                  tags$div(
                     class = "import-option-content",
                     tags$h5(class = "import-option-title", i18n$t("import_mode_add")),
                     tags$p(class = "import-option-subtitle", i18n$t("import_mode_add_desc"))
@@ -1269,6 +1410,10 @@ mod_data_dictionary_ui <- function(id, i18n) {
                   class = "import-option",
                   id = ns("import_option_replace"),
                   onclick = sprintf("$('.import-option').removeClass('selected'); $(this).addClass('selected'); Shiny.setInputValue('%s', 'replace', {priority: 'event'});", ns("import_mode")),
+                  tags$div(
+                    class = "import-option-icon",
+                    icon("sync-alt")
+                  ),
                   tags$div(
                     class = "import-option-content",
                     tags$h5(class = "import-option-title", i18n$t("import_mode_replace")),
@@ -1293,6 +1438,151 @@ mod_data_dictionary_ui <- function(id, i18n) {
           ),
           size = "medium",
           icon = "fas fa-upload",
+          ns = ns
+        ),
+
+        ### Modal - Export All Concept Sets ----
+        create_modal(
+          id = "export_all_modal",
+          title = i18n$t("export"),
+          body = tagList(
+            tags$div(
+              class = "export-options-container",
+
+              # Option 1: Export All
+              tags$div(
+                class = "export-option selected",
+                id = ns("export_all_option_all"),
+                onclick = sprintf("$('.export-option', '#%s').removeClass('selected'); $(this).addClass('selected'); Shiny.setInputValue('%s', 'all', {priority: 'event'}); $('#%s').hide(); $('#%s').hide();", ns("export_all_modal"), ns("export_all_mode"), ns("export_category_container"), ns("export_reviewed_container")),
+                tags$div(
+                  class = "export-option-icon",
+                  tags$i(class = "fas fa-file-archive", style = "color: #0f60af;")
+                ),
+                tags$div(
+                  class = "export-option-content",
+                  tags$h5(class = "export-option-title", i18n$t("export_all")),
+                  tags$p(class = "export-option-subtitle", i18n$t("export_all_desc"))
+                )
+              ),
+
+              # Option 2: Filter by Category
+              tags$div(
+                class = "export-option",
+                id = ns("export_all_option_category"),
+                onclick = sprintf("$('.export-option', '#%s').removeClass('selected'); $(this).addClass('selected'); Shiny.setInputValue('%s', 'category', {priority: 'event'}); $('#%s').show(); $('#%s').hide();", ns("export_all_modal"), ns("export_all_mode"), ns("export_category_container"), ns("export_reviewed_container")),
+                tags$div(
+                  class = "export-option-icon",
+                  tags$i(class = "fas fa-folder", style = "color: #28a745;")
+                ),
+                tags$div(
+                  class = "export-option-content",
+                  tags$h5(class = "export-option-title", i18n$t("export_by_category")),
+                  tags$p(class = "export-option-subtitle", i18n$t("export_by_category_desc"))
+                )
+              ),
+
+              # Option 3: Export Selected (hidden by default, shown when rows are selected)
+              shinyjs::hidden(
+                tags$div(
+                  class = "export-option",
+                  id = ns("export_all_option_selected"),
+                  onclick = sprintf("$('.export-option', '#%s').removeClass('selected'); $(this).addClass('selected'); Shiny.setInputValue('%s', 'selected', {priority: 'event'}); $('#%s').hide(); $('#%s').hide();", ns("export_all_modal"), ns("export_all_mode"), ns("export_category_container"), ns("export_reviewed_container")),
+                  tags$div(
+                    class = "export-option-icon",
+                    tags$i(class = "fas fa-check-square", style = "color: #ff8c00;")
+                  ),
+                  tags$div(
+                    class = "export-option-content",
+                    tags$h5(class = "export-option-title", i18n$t("export_selected")),
+                    tags$p(class = "export-option-subtitle", i18n$t("export_selected_desc"))
+                  )
+                )
+              ),
+
+              # Option 4: Reviewed by me (last)
+              tags$div(
+                class = "export-option",
+                id = ns("export_all_option_reviewed"),
+                onclick = sprintf("$('.export-option', '#%s').removeClass('selected'); $(this).addClass('selected'); Shiny.setInputValue('%s', 'reviewed', {priority: 'event'}); $('#%s').hide(); $('#%s').show();", ns("export_all_modal"), ns("export_all_mode"), ns("export_category_container"), ns("export_reviewed_container")),
+                tags$div(
+                  class = "export-option-icon",
+                  tags$i(class = "fas fa-user-check", style = "color: #7c3aed;")
+                ),
+                tags$div(
+                  class = "export-option-content",
+                  tags$h5(class = "export-option-title", i18n$t("export_reviewed_by_me")),
+                  tags$p(class = "export-option-subtitle", i18n$t("export_reviewed_by_me_desc"))
+                )
+              )
+            ),
+
+            # Category selection (hidden by default)
+            shinyjs::hidden(
+              tags$div(
+                id = ns("export_category_container"),
+                class = "mt-15",
+                tags$label(class = "form-label", i18n$t("select_categories")),
+                selectizeInput(
+                  ns("export_categories"),
+                  label = NULL,
+                  choices = character(0),
+                  multiple = TRUE,
+                  options = list(placeholder = as.character(i18n$t("select_or_type")))
+                )
+              )
+            ),
+
+            # Reviewed options (hidden by default)
+            shinyjs::hidden(
+              tags$div(
+                id = ns("export_reviewed_container"),
+                class = "mt-15",
+                tags$div(
+                  class = "import-options-container",
+                  tags$div(
+                    class = "import-option selected blue-highlight",
+                    id = ns("export_reviewed_all"),
+                    onclick = sprintf("$('.import-option', '#%s').removeClass('selected blue-highlight'); $(this).addClass('selected blue-highlight'); Shiny.setInputValue('%s', 'all', {priority: 'event'}); $('#%s').hide();", ns("export_reviewed_container"), ns("export_reviewed_range"), ns("export_days_container")),
+                    tags$div(
+                      class = "import-option-content",
+                      tags$h5(class = "import-option-title", i18n$t("all_reviews")),
+                      tags$p(class = "import-option-subtitle", i18n$t("all_reviews_desc"))
+                    )
+                  ),
+                  tags$div(
+                    class = "import-option",
+                    id = ns("export_reviewed_days"),
+                    onclick = sprintf("$('.import-option', '#%s').removeClass('selected blue-highlight'); $(this).addClass('selected blue-highlight'); Shiny.setInputValue('%s', 'days', {priority: 'event'}); $('#%s').show();", ns("export_reviewed_container"), ns("export_reviewed_range"), ns("export_days_container")),
+                    tags$div(
+                      class = "import-option-content",
+                      tags$h5(class = "import-option-title", i18n$t("last_x_days")),
+                      tags$p(class = "import-option-subtitle", i18n$t("last_x_days_desc"))
+                    )
+                  )
+                ),
+                shinyjs::hidden(
+                  tags$div(
+                    id = ns("export_days_container"),
+                    class = "mt-15",
+                    numericInput(
+                      ns("export_days"),
+                      label = i18n$t("number_of_days"),
+                      value = 7,
+                      min = 1,
+                      max = 365,
+                      width = "150px"
+                    )
+                  )
+                )
+              )
+            )
+          ),
+          footer = tagList(
+            actionButton(ns("cancel_export_all"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
+            actionButton(ns("confirm_export_all"), i18n$t("export"), class = "btn-primary-custom", icon = icon("download"))
+          ),
+          size = "medium",
+          icon = "fas fa-download",
           ns = ns
         ),
 
@@ -1438,23 +1728,24 @@ mod_data_dictionary_ui <- function(id, i18n) {
             tags$div(
               style = "display: flex; gap: 10px; align-items: center;",
               tags$div(
-                style = "display: flex; gap: 8px; align-items: center;",
+                style = "display: flex; gap: 8px; align-items: center; flex: 1;",
                 tags$label(
                   style = "margin: 0; font-size: 13px; color: #666; white-space: nowrap;",
-                  "Review Status:"
+                  paste0(i18n$t("review_status"), "\u00A0:")
                 ),
                 tags$div(
-                  style = "height: 32px;",
+                  style = "flex: 1;",
                   selectInput(
                     ns("review_status_modal"),
                     label = NULL,
-                    choices = c(
-                      "Select status..." = "",
-                      "Approved" = "approved",
-                      "Needs Revision" = "needs_revision"
+                    choices = setNames(
+                      c("", "approved", "needs_revision"),
+                      c(as.character(i18n$t("select_status")),
+                        as.character(i18n$t("status_approved")),
+                        as.character(i18n$t("status_needs_revision")))
                     ),
                     selected = "",
-                    width = "180px"
+                    width = "100%"
                   )
                 )
               ),
@@ -1578,27 +1869,28 @@ mod_data_dictionary_ui <- function(id, i18n) {
           # Header with buttons
           tags$div(
             class = "modal-fs-header",
-            tags$h3("Edit Review"),
+            tags$h3(i18n$t("edit_review")),
             tags$div(
               style = "display: flex; gap: 10px; align-items: center;",
               tags$div(
-                style = "display: flex; gap: 8px; align-items: center;",
+                style = "display: flex; gap: 8px; align-items: center; flex: 1;",
                 tags$label(
                   style = "margin: 0; font-size: 13px; color: #666; white-space: nowrap;",
-                  "Review Status:"
+                  paste0(i18n$t("review_status"), "\u00A0:")
                 ),
                 tags$div(
-                  style = "height: 32px;",
+                  style = "flex: 1;",
                   selectInput(
                     ns("edit_review_status_input"),
                     label = NULL,
-                    choices = c(
-                      "Select status..." = "",
-                      "Approved" = "approved",
-                      "Needs Revision" = "needs_revision"
+                    choices = setNames(
+                      c("", "approved", "needs_revision"),
+                      c(as.character(i18n$t("select_status")),
+                        as.character(i18n$t("status_approved")),
+                        as.character(i18n$t("status_needs_revision")))
                     ),
                     selected = "",
-                    width = "180px"
+                    width = "100%"
                   )
                 )
               ),
@@ -1821,6 +2113,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     concept_sets_data <- reactiveVal(NULL)
     tags_data <- reactiveVal(NULL)
     reviews_data <- reactiveVal(NULL)
+    selected_badge_categories <- reactiveVal(character(0))
 
     ## Triggers ----
     table_trigger <- reactiveVal(0)
@@ -1840,6 +2133,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     ## Edit State ----
     editing_id <- reactiveVal(NULL)
     deleting_id <- reactiveVal(NULL)
+    loading_edit_form <- reactiveVal(FALSE)  # Flag to prevent subcategory reset during edit form load
     editing_tag_id <- reactiveVal(NULL)
     deleting_tag_id <- reactiveVal(NULL)
     concepts_edit_mode <- reactiveVal(FALSE)
@@ -1883,9 +2177,11 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       if (can_edit()) {
         shinyjs::show("add_concept_set")
         shinyjs::show("import_concept_sets")
+        shinyjs::show("select_all_concept_sets")
+        shinyjs::show("unselect_all_concept_sets")
+        shinyjs::show("delete_selected_concept_sets")
       }
       shinyjs::show("export_all_concept_sets")
-      shinyjs::show("filter_concept_sets")
 
       # Load concept sets data
       current_language <- i18n$get_translation_language()
@@ -1967,6 +2263,73 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
     # 3) TABLE RENDERING ====
 
+    ## Category Badges ----
+    observe_event(list(concept_sets_data(), selected_badge_categories()), {
+      output$category_badges_container <- renderUI({
+        data <- concept_sets_data()
+        if (is.null(data) || nrow(data) == 0) return(NULL)
+
+        # Get unique categories
+        categories <- unique(data$category[!is.na(data$category) & data$category != ""])
+        if (length(categories) == 0) return(NULL)
+
+        categories <- sort(categories)
+        # Move "Other" / "Autres" to the end
+        if ("Other" %in% categories) {
+          categories <- c(setdiff(categories, "Other"), "Other")
+        } else if ("Autres" %in% categories) {
+          categories <- c(setdiff(categories, "Autres"), "Autres")
+        }
+        selected <- selected_badge_categories()
+
+        tags$div(
+          class = "category-filters",
+          style = "display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 0;",
+          lapply(categories, function(cat) {
+            is_selected <- cat %in% selected
+            tags$span(
+              class = if (is_selected) "category-badge selected" else "category-badge",
+              onclick = sprintf("Shiny.setInputValue('%s', '%s', {priority: 'event'})", ns("toggle_category_badge"), cat),
+              cat
+            )
+          })
+        )
+      })
+    }, ignoreInit = FALSE)
+
+    ## Toggle Category Badge ----
+    observe_event(input$toggle_category_badge, {
+      category <- input$toggle_category_badge
+      current_selected <- selected_badge_categories()
+
+      if (category %in% current_selected) {
+        # Remove category
+        selected_badge_categories(setdiff(current_selected, category))
+      } else {
+        # Add category
+        selected_badge_categories(c(current_selected, category))
+      }
+
+      # Apply category filter via DataTable proxy (column search on category column - index 1)
+      updated_categories <- selected_badge_categories()
+      proxy <- DT::dataTableProxy("concept_sets_table", session = session)
+
+      if (length(updated_categories) > 0) {
+        # Build search string for DataTable column filter (JSON array format)
+        search_string <- jsonlite::toJSON(updated_categories, auto_unbox = FALSE)
+        DT::updateSearch(proxy, keywords = list(
+          global = NULL,
+          columns = list(NULL, as.character(search_string))  # Index 1 = category column
+        ))
+      } else {
+        # Clear column filter
+        DT::updateSearch(proxy, keywords = list(
+          global = NULL,
+          columns = list(NULL, "")
+        ))
+      }
+    }, ignoreInit = TRUE)
+
     ## Concept Sets Table Container ----
     observe_event(table_trigger(), {
       output$concept_sets_table_container <- renderUI({
@@ -2002,10 +2365,13 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
         if (is.null(data) || nrow(data) == 0) return(NULL)
 
+        # Note: Badge filtering is handled via DT::updateSearch on the DataTable proxy
+        # This allows instant filtering without re-rendering the table
+
         # Apply active filters
         filters <- active_filters()
 
-        # Filter by category
+        # Filter by category (from modal filters - additional to badge filter)
         if (length(filters$category) > 0) {
           data <- data[!is.na(data$category) & data$category %in% filters$category, ]
         }
@@ -2135,7 +2501,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
         dt <- create_standard_datatable(
           display_data,
-          selection = "none",
+          selection = "multiple",
           col_names = c(
             "ID",
             as.character(i18n$t("category")),
@@ -2179,6 +2545,24 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         )
       })
     }, ignoreInit = FALSE)
+
+    ## Restore Category Badge Filters After Table Re-render ----
+    observe_event(table_trigger(), {
+      categories <- selected_badge_categories()
+
+      if (length(categories) > 0) {
+        # Use delayed execution to ensure DataTable is fully rendered
+        shinyjs::delay(200, {
+          proxy <- DT::dataTableProxy("concept_sets_table", session = session)
+          search_string <- jsonlite::toJSON(categories, auto_unbox = FALSE)
+
+          DT::updateSearch(proxy, keywords = list(
+            global = NULL,
+            columns = list(NULL, as.character(search_string))  # Index 1 = category column
+          ))
+        })
+      }
+    }, ignoreInit = TRUE)
 
     ## Reviews Table ----
     observe_event(reviews_trigger(), {
@@ -2294,6 +2678,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
     ## Update subcategories when category changes ----
     observe_event(input$concept_set_category, {
+      # Skip reset if we're loading an edit form (subcategory will be set after category)
+      if (loading_edit_form()) return()
+
       selected_category <- input$concept_set_category
       subcategories <- get_subcategories(selected_category)
 
@@ -2470,6 +2857,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Helper to convert NA/NULL to empty string
       na_to_empty <- function(x) if (is.null(x) || is.na(x)) "" else x
 
+      # Set flag to prevent subcategory reset when category is updated
+      loading_edit_form(TRUE)
+
       # Populate form fields
       updateTextInput(session, "editing_concept_set_id", value = as.character(concept_set_id))
       updateTextInput(session, "concept_set_name", value = na_to_empty(cs$name))
@@ -2504,6 +2894,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         options = list(placeholder = as.character(i18n$t("select_subcategory")))
       )
       updateTextInput(session, "concept_set_subcategory_new", value = "")
+
+      # Reset the loading flag after a short delay to allow form updates to complete
+      shinyjs::delay(100, loading_edit_form(FALSE))
 
       # Update tags choices and select current
       all_tags <- tags_data()
@@ -3034,6 +3427,117 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       table_trigger(table_trigger() + 1)
     }, ignoreInit = TRUE)
 
+    ## Select All Concept Sets ----
+    observe_event(input$select_all_concept_sets, {
+      if (!can_edit()) return()
+
+      data <- concept_sets_data()
+      if (is.null(data) || nrow(data) == 0) return()
+
+      proxy <- DT::dataTableProxy("concept_sets_table", session = session)
+      datatable_select_rows(proxy, select = TRUE, data = data)
+    }, ignoreInit = TRUE)
+
+    ## Unselect All Concept Sets ----
+    observe_event(input$unselect_all_concept_sets, {
+      if (!can_edit()) return()
+
+      proxy <- DT::dataTableProxy("concept_sets_table", session = session)
+      datatable_select_rows(proxy, select = FALSE)
+    }, ignoreInit = TRUE)
+
+    ## Delete Selected Concept Sets (open confirmation modal) ----
+    observe_event(input$delete_selected_concept_sets, {
+      if (!can_edit()) return()
+
+      selected_rows <- input$concept_sets_table_rows_selected
+      if (is.null(selected_rows) || length(selected_rows) == 0) {
+        showNotification(as.character(i18n$t("no_rows_selected")), type = "warning")
+        return()
+      }
+
+      # Update confirmation message
+      shinyjs::html("delete_multiple_confirmation_message", sprintf(
+        "%s <strong>%d</strong> %s?",
+        as.character(i18n$t("confirm_delete_multiple_concept_sets")),
+        length(selected_rows),
+        as.character(i18n$t("concept_sets_lowercase"))
+      ))
+
+      show_modal(ns("delete_multiple_concept_sets_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Cancel Delete Multiple ----
+    observe_event(input$cancel_delete_multiple, {
+      hide_modal(ns("delete_multiple_concept_sets_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Confirm Delete Multiple ----
+    observe_event(input$confirm_delete_multiple, {
+      if (!can_edit()) return()
+
+      selected_rows <- input$concept_sets_table_rows_selected
+      if (is.null(selected_rows) || length(selected_rows) == 0) return()
+
+      # Get the displayed data (with filters applied)
+      data <- concept_sets_data()
+      query <- fuzzy$query()
+      if (!is.null(query) && query != "" && !is.null(data) && nrow(data) > 0) {
+        data <- fuzzy_search_df(data, query, "name", max_dist = 3)
+      }
+
+      # Apply active filters
+      filters <- active_filters()
+      if (length(filters$category) > 0) {
+        data <- data[!is.na(data$category) & data$category %in% filters$category, ]
+      }
+      if (length(filters$subcategory) > 0) {
+        data <- data[!is.na(data$subcategory) & data$subcategory %in% filters$subcategory, ]
+      }
+      if (length(filters$status) > 0) {
+        status_col <- ifelse(is.na(data$review_status) | data$review_status == "", "draft", data$review_status)
+        data <- data[status_col %in% filters$status, ]
+      }
+      if (length(filters$tags) > 0) {
+        data <- data[sapply(seq_len(nrow(data)), function(i) {
+          row_tags <- data$tags[i]
+          if (is.na(row_tags) || row_tags == "") return(FALSE)
+          row_tags_list <- trimws(strsplit(row_tags, ",")[[1]])
+          any(row_tags_list %in% filters$tags)
+        }), ]
+      }
+
+      if (nrow(data) == 0) return()
+
+      # Get IDs of selected concept sets
+      ids_to_delete <- data$id[selected_rows]
+
+      # Delete each concept set
+      deleted_count <- 0
+      for (cs_id in ids_to_delete) {
+        tryCatch({
+          delete_concept_set(cs_id)
+          deleted_count <- deleted_count + 1
+        }, error = function(e) {
+          # Continue with other deletions
+        })
+      }
+
+      showNotification(
+        sprintf("%d %s", deleted_count, as.character(i18n$t("concept_sets_deleted"))),
+        type = "message"
+      )
+
+      # Hide modal
+      hide_modal(ns("delete_multiple_concept_sets_modal"))
+
+      # Reload data
+      current_language <- i18n$get_translation_language()
+      data <- get_all_concept_sets(language = current_language)
+      concept_sets_data(data)
+      table_trigger(table_trigger() + 1)
+    }, ignoreInit = TRUE)
+
     # 6) CONCEPT SET DETAILS VIEW ====
 
     ## State for details view ----
@@ -3062,8 +3566,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       status_key <- paste0("status_", status)
       status_label <- as.character(i18n$t(status_key))
 
-      # Update title (name only)
+      # Update title (name only) and tooltip
       shinyjs::html("concept_set_detail_title", htmltools::htmlEscape(cs$name))
+      shinyjs::html("concept_set_detail_title_tooltip", htmltools::htmlEscape(cs$name))
 
       # Update badges (separate span next to title)
       badges_html <- sprintf(
@@ -3088,6 +3593,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       pending_deletions(character(0))
       shinyjs::hide("edit_mode_buttons")
       shinyjs::hide("concepts_edit_buttons")
+      shinyjs::hide("import_concepts_btn")
       shinyjs::runjs(sprintf(
         "$('#%s').closest('.settings-backup-container').removeClass('edit-mode');",
         ns("concepts_section_left")
@@ -3481,7 +3987,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       current_language <- i18n$get_translation_language()
       cs <- get_concept_set(cs_id, language = current_language)
 
-      if (is.null(cs) || is.na(cs$etl_comment) || cs$etl_comment == "") {
+      if (is.null(cs) || is.na(cs$long_description) || cs$long_description == "") {
         return(tags$div(
           class = "no-content-message",
           tags$p(i18n$t("no_comments"))
@@ -3492,7 +3998,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         class = "comments-content",
         tags$pre(
           class = "etl-comment-text",
-          cs$etl_comment
+          cs$long_description
         )
       )
     })
@@ -3521,6 +4027,11 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       shinyjs::hide("panel_stats")
       shinyjs::hide("panel_review")
 
+      # Show import button only if in edit mode (import only available on Concepts tab)
+      if (concepts_edit_mode()) {
+        shinyjs::show("import_concepts_btn")
+      }
+
       # Update active state on tab buttons
       shinyjs::runjs(sprintf("
         document.getElementById('%s').classList.add('active');
@@ -3536,6 +4047,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       shinyjs::show("panel_comments")
       shinyjs::hide("panel_stats")
       shinyjs::hide("panel_review")
+
+      # Hide import button (only available on Concepts tab)
+      shinyjs::hide("import_concepts_btn")
 
       # Update active state on tab buttons
       shinyjs::runjs(sprintf("
@@ -3553,6 +4067,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       shinyjs::show("panel_stats")
       shinyjs::hide("panel_review")
 
+      # Hide import button (only available on Concepts tab)
+      shinyjs::hide("import_concepts_btn")
+
       # Update active state on tab buttons
       shinyjs::runjs(sprintf("
         document.getElementById('%s').classList.remove('active');
@@ -3568,6 +4085,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       shinyjs::hide("panel_comments")
       shinyjs::hide("panel_stats")
       shinyjs::show("panel_review")
+
+      # Hide import button (only available on Concepts tab)
+      shinyjs::hide("import_concepts_btn")
 
       # Update active state on tab buttons
       shinyjs::runjs(sprintf("
@@ -4154,7 +4674,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           clean_name <- gsub("[^a-zA-Z0-9_-]", "_", cs$name)
           filename <- paste0("INDICATE_", clean_name, "_v", version, ".json")
           filepath <- file.path(tempdir(), filename)
-          writeLines(json_output, filepath)
+          writeLines(json_output, filepath, useBytes = TRUE)
 
           # Trigger download via JavaScript
           shinyjs::runjs(sprintf(
@@ -4253,10 +4773,11 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Enter edit mode
       concepts_edit_mode(TRUE)
 
-      # Update UI: hide export and edit buttons, show save/cancel buttons
+      # Update UI: hide export and edit buttons, show save/cancel and import buttons
       shinyjs::hide("export_concept_set_btn")
       shinyjs::hide("edit_concepts_btn")
       shinyjs::show("edit_mode_buttons")
+      shinyjs::show("import_concepts_btn")
 
       # Hide fullscreen button (not needed in edit mode - already fullscreen)
       shinyjs::hide("expand_concepts")
@@ -4290,10 +4811,11 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Exit edit mode
       concepts_edit_mode(FALSE)
 
-      # Update UI: show export and edit buttons, hide save/cancel buttons
+      # Update UI: show export and edit buttons, hide save/cancel and import buttons
       shinyjs::show("export_concept_set_btn")
       shinyjs::show("edit_concepts_btn")
       shinyjs::hide("edit_mode_buttons")
+      shinyjs::hide("import_concepts_btn")
 
       # Show fullscreen button again
       shinyjs::show("expand_concepts")
@@ -4503,6 +5025,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         shinyjs::show("export_concept_set_btn")
         shinyjs::show("edit_concepts_btn")
         shinyjs::hide("edit_mode_buttons")
+        shinyjs::hide("import_concepts_btn")
         shinyjs::show("expand_concepts")
         shinyjs::show("concepts_desc_text")
         shinyjs::hide("concepts_edit_buttons")
@@ -4581,7 +5104,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       comments_text <- input$comments_editor
       if (!is.null(comments_text)) {
         current_language <- i18n$get_translation_language()
-        update_concept_set(cs_id, etl_comment = comments_text, language = current_language)
+        update_concept_set(cs_id, long_description = comments_text, language = current_language)
         comments_saved <- TRUE
       }
 
@@ -4613,10 +5136,11 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Exit edit mode
       concepts_edit_mode(FALSE)
 
-      # Update UI: show export and edit buttons, hide save/cancel buttons
+      # Update UI: show export and edit buttons, hide save/cancel and import buttons
       shinyjs::show("export_concept_set_btn")
       shinyjs::show("edit_concepts_btn")
       shinyjs::hide("edit_mode_buttons")
+      shinyjs::hide("import_concepts_btn")
 
       # Show fullscreen button again
       shinyjs::show("expand_concepts")
@@ -4664,6 +5188,210 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       data <- get_all_concept_sets(language = current_language)
       concept_sets_data(data)
       table_trigger(table_trigger() + 1)
+    }, ignoreInit = TRUE)
+
+    ## Open Import Concepts Modal ----
+    observe_event(input$import_concepts_btn, {
+      if (!can_edit()) return()
+      if (!concepts_edit_mode()) return()
+
+      # Reset modal state
+      shinyjs::runjs(sprintf("$('.import-option', '#%s').removeClass('selected'); $('#%s').addClass('selected');", ns("import_concepts_modal"), ns("import_concepts_option_paste")))
+      shinyjs::show("import_concepts_paste_container")
+      shinyjs::hide("import_concepts_file_container")
+      shinyjs::hide("import_concepts_status")
+      shinyAce::updateAceEditor(session, "import_concepts_json", value = "")
+      shinyjs::reset("import_concepts_file")
+
+      show_modal(ns("import_concepts_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Cancel Import Concepts ----
+    observe_event(input$cancel_import_concepts, {
+      hide_modal(ns("import_concepts_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Confirm Import Concepts ----
+    observe_event(input$confirm_import_concepts, {
+      if (!can_edit()) return()
+      if (!concepts_edit_mode()) return()
+
+      import_mode <- input$import_concepts_mode
+      if (is.null(import_mode)) import_mode <- "paste"
+
+      json_text <- NULL
+
+      if (import_mode == "paste") {
+        json_text <- input$import_concepts_json
+        if (is.null(json_text) || trimws(json_text) == "") {
+          shinyjs::html("import_concepts_status", as.character(i18n$t("paste_json_first")))
+          shinyjs::runjs(sprintf("$('#%s').css({'background': '#f8d7da', 'border': '1px solid #f5c6cb', 'color': '#721c24', 'display': 'block'});", ns("import_concepts_status")))
+          return()
+        }
+      } else {
+        if (is.null(input$import_concepts_file)) {
+          shinyjs::html("import_concepts_status", as.character(i18n$t("select_file_first")))
+          shinyjs::runjs(sprintf("$('#%s').css({'background': '#f8d7da', 'border': '1px solid #f5c6cb', 'color': '#721c24', 'display': 'block'});", ns("import_concepts_status")))
+          return()
+        }
+        json_text <- tryCatch({
+          paste(readLines(input$import_concepts_file$datapath, warn = FALSE), collapse = "\n")
+        }, error = function(e) NULL)
+
+        if (is.null(json_text)) {
+          shinyjs::html("import_concepts_status", as.character(i18n$t("failed_to_read_file")))
+          shinyjs::runjs(sprintf("$('#%s').css({'background': '#f8d7da', 'border': '1px solid #f5c6cb', 'color': '#721c24', 'display': 'block'});", ns("import_concepts_status")))
+          return()
+        }
+      }
+
+      # Parse JSON
+      json_data <- tryCatch({
+        jsonlite::fromJSON(json_text)
+      }, error = function(e) {
+        shinyjs::html("import_concepts_status", paste(as.character(i18n$t("invalid_json")), e$message))
+        shinyjs::runjs(sprintf("$('#%s').css({'background': '#f8d7da', 'border': '1px solid #f5c6cb', 'color': '#721c24', 'display': 'block'});", ns("import_concepts_status")))
+        return(NULL)
+      })
+
+      if (is.null(json_data)) return()
+
+      # Extract concept IDs from various JSON formats
+      concept_ids <- NULL
+
+      # Helper function to extract concept ID from a concept object (handles various naming conventions)
+      extract_concept_id <- function(concept) {
+        if (is.null(concept)) return(NA)
+        # Try all possible field names for concept ID
+        id <- concept$CONCEPT_ID %||% concept$conceptId %||% concept$concept_id %||%
+              concept[["CONCEPT_ID"]] %||% concept[["conceptId"]] %||% concept[["concept_id"]]
+        if (!is.null(id) && length(id) == 1) return(as.integer(id))
+        return(NA)
+      }
+
+      # Check for INDICATE full format: expression.items
+      items_list <- NULL
+      if (!is.null(json_data$expression) && !is.null(json_data$expression$items)) {
+        items_list <- json_data$expression$items
+      } else if (!is.null(json_data$items)) {
+        # ATLAS format or simple items format
+        items_list <- json_data$items
+      }
+
+      if (!is.null(items_list) && length(items_list) > 0) {
+        if (is.data.frame(items_list)) {
+          # Items is a data frame (auto-converted by jsonlite for uniform arrays)
+          if ("concept" %in% names(items_list)) {
+            concept_col <- items_list$concept
+            if (is.data.frame(concept_col)) {
+              # Concept column is also a data frame - extract IDs from each row
+              id_col <- concept_col$CONCEPT_ID %||% concept_col$conceptId %||% concept_col$concept_id
+              if (!is.null(id_col)) {
+                concept_ids <- as.integer(id_col)
+              }
+            } else if (is.list(concept_col)) {
+              # Concept column is a list of objects
+              concept_ids <- vapply(concept_col, function(c) {
+                id <- extract_concept_id(c)
+                if (is.na(id)) NA_integer_ else as.integer(id)
+              }, FUN.VALUE = integer(1))
+            }
+          }
+        } else if (is.list(items_list)) {
+          # Items is a list of objects (typical for non-uniform arrays or simplify=FALSE)
+          concept_ids <- vapply(items_list, function(item) {
+            if (is.null(item$concept)) return(NA_integer_)
+            id <- extract_concept_id(item$concept)
+            if (is.na(id)) NA_integer_ else as.integer(id)
+          }, FUN.VALUE = integer(1))
+        }
+        concept_ids <- concept_ids[!is.na(concept_ids)]
+      }
+
+      # Fallback: simple formats
+      if (is.null(concept_ids) || length(concept_ids) == 0) {
+        if (!is.null(json_data$concept_ids)) {
+          # Simple format with concept_ids array
+          concept_ids <- as.integer(json_data$concept_ids)
+        } else if (is.numeric(json_data) || is.integer(json_data)) {
+          # Direct array of IDs
+          concept_ids <- as.integer(json_data)
+        }
+      }
+
+      if (is.null(concept_ids) || length(concept_ids) == 0) {
+        shinyjs::html("import_concepts_status", as.character(i18n$t("no_concepts_found_in_json")))
+        shinyjs::runjs(sprintf("$('#%s').css({'background': '#f8d7da', 'border': '1px solid #f5c6cb', 'color': '#721c24', 'display': 'block'});", ns("import_concepts_status")))
+        return()
+      }
+
+      concept_ids <- unique(as.integer(concept_ids))
+
+      # Get existing pending additions
+      existing_additions <- pending_additions()
+      existing_ids <- sapply(existing_additions, function(x) x$concept_id)
+
+      # Get existing concepts in database for this concept set
+      cs_id <- viewing_concept_set_id()
+      db_concepts <- get_concept_set_items(cs_id)
+      db_ids <- if (!is.null(db_concepts) && nrow(db_concepts) > 0) db_concepts$concept_id else integer(0)
+
+      # Filter out already existing concepts
+      new_ids <- setdiff(concept_ids, c(existing_ids, db_ids))
+
+      if (length(new_ids) == 0) {
+        shinyjs::html("import_concepts_status", as.character(i18n$t("all_concepts_already_exist")))
+        shinyjs::runjs(sprintf("$('#%s').css({'background': '#fff3cd', 'border': '1px solid #ffc107', 'color': '#856404', 'display': 'block'});", ns("import_concepts_status")))
+        return()
+      }
+
+      # Load vocabulary info for new concepts
+      vocabs <- load_vocabularies_from_duckdb()
+      if (is.null(vocabs)) {
+        shinyjs::html("import_concepts_status", as.character(i18n$t("vocabularies_not_loaded")))
+        shinyjs::runjs(sprintf("$('#%s').css({'background': '#f8d7da', 'border': '1px solid #f5c6cb', 'color': '#721c24', 'display': 'block'});", ns("import_concepts_status")))
+        return()
+      }
+
+      # Query concept info
+      concepts_info <- vocabs$concept %>%
+        dplyr::filter(concept_id %in% new_ids) %>%
+        dplyr::collect()
+
+      if (nrow(concepts_info) == 0) {
+        shinyjs::html("import_concepts_status", as.character(i18n$t("no_valid_concepts_found")))
+        shinyjs::runjs(sprintf("$('#%s').css({'background': '#f8d7da', 'border': '1px solid #f5c6cb', 'color': '#721c24', 'display': 'block'});", ns("import_concepts_status")))
+        return()
+      }
+
+      # Add to pending additions
+      new_additions <- lapply(seq_len(nrow(concepts_info)), function(i) {
+        row <- concepts_info[i, ]
+        list(
+          concept_id = row$concept_id,
+          concept_name = row$concept_name,
+          vocabulary_id = row$vocabulary_id,
+          domain_id = row$domain_id,
+          concept_class_id = row$concept_class_id,
+          concept_code = row$concept_code,
+          standard_concept = row$standard_concept,
+          is_excluded = FALSE,
+          include_descendants = FALSE,
+          include_mapped = FALSE
+        )
+      })
+
+      pending_additions(c(existing_additions, new_additions))
+
+      # Show success message
+      shinyjs::html("import_concepts_status", sprintf(as.character(i18n$t("concepts_imported_pending")), length(new_additions)))
+      shinyjs::runjs(sprintf("$('#%s').css({'background': '#d4edda', 'border': '1px solid #c3e6cb', 'color': '#155724', 'display': 'block'});", ns("import_concepts_status")))
+
+      # Hide modal after delay and refresh table
+      shinyjs::delay(1500, {
+        hide_modal(ns("import_concepts_modal"))
+        concepts_trigger(concepts_trigger() + 1)
+      })
     }, ignoreInit = TRUE)
 
     ## Open Add Concepts Modal ----
@@ -5954,18 +6682,134 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
     # 5) EXPORT ALL ====
 
-    ## Export All Concept Sets ----
+    ## Open Export All Modal ----
     observe_event(input$export_all_concept_sets, {
+      # Reset modal state - select "Export All" option
+      shinyjs::runjs(sprintf("$('.export-option', '#%s').removeClass('selected'); $('#%s').addClass('selected');", ns("export_all_modal"), ns("export_all_option_all")))
+      shinyjs::hide("export_category_container")
+      shinyjs::hide("export_reviewed_container")
+
+      # Reset reviewed options state - select "All reviews" and hide days input
+      shinyjs::runjs(sprintf("$('.import-option', '#%s').removeClass('selected'); $('#%s').addClass('selected');", ns("export_reviewed_container"), ns("export_reviewed_all")))
+      shinyjs::hide("export_days_container")
+
+      # Reset Shiny input values for export mode
+      shinyjs::runjs(sprintf("Shiny.setInputValue('%s', 'all', {priority: 'event'});", ns("export_all_mode")))
+      shinyjs::runjs(sprintf("Shiny.setInputValue('%s', 'all', {priority: 'event'});", ns("export_reviewed_range")))
+
+      # Show/hide Export Selected option based on row selection
+      selected_rows <- isolate(input$concept_sets_table_rows_selected)
+      if (!is.null(selected_rows) && length(selected_rows) > 0) {
+        shinyjs::show("export_all_option_selected")
+      } else {
+        shinyjs::hide("export_all_option_selected")
+      }
+
+      # Update category choices
+      data <- concept_sets_data()
+      if (!is.null(data) && nrow(data) > 0) {
+        categories <- unique(data$category[!is.na(data$category) & data$category != ""])
+        categories <- sort(categories)
+        updateSelectizeInput(session, "export_categories", choices = categories, selected = NULL)
+      }
+
+      show_modal(ns("export_all_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Cancel Export All ----
+    observe_event(input$cancel_export_all, {
+      hide_modal(ns("export_all_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Confirm Export All ----
+    observe_event(input$confirm_export_all, {
       current_language <- i18n$get_translation_language()
+      export_mode <- input$export_all_mode
+      if (is.null(export_mode)) export_mode <- "all"
+
+      # Get concept set IDs to export based on mode
+      data <- concept_sets_data()
+      if (is.null(data) || nrow(data) == 0) {
+        showNotification(as.character(i18n$t("no_concept_sets")), type = "warning")
+        return()
+      }
+
+      ids_to_export <- NULL
+
+      if (export_mode == "all") {
+        ids_to_export <- data$id
+      } else if (export_mode == "selected") {
+        # Export selected rows from DataTable
+        selected_rows <- input$concept_sets_table_rows_selected
+        if (is.null(selected_rows) || length(selected_rows) == 0) {
+          showNotification(as.character(i18n$t("no_rows_selected")), type = "warning")
+          return()
+        }
+        ids_to_export <- data$id[selected_rows]
+      } else if (export_mode == "category") {
+        selected_cats <- input$export_categories
+        if (is.null(selected_cats) || length(selected_cats) == 0) {
+          showNotification(as.character(i18n$t("select_at_least_one_category")), type = "warning")
+          return()
+        }
+        ids_to_export <- data$id[!is.na(data$category) & data$category %in% selected_cats]
+      } else if (export_mode == "reviewed") {
+        # Get current user
+        user <- current_user()
+        if (is.null(user)) {
+          showNotification("User not logged in", type = "error")
+          return()
+        }
+
+        reviewed_range <- input$export_reviewed_range
+        if (is.null(reviewed_range)) reviewed_range <- "all"
+
+        # Get reviews by current user (join with users table to match by login)
+        con <- get_db_connection()
+        on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+        if (reviewed_range == "all") {
+          reviews <- DBI::dbGetQuery(
+            con,
+            "SELECT DISTINCT r.concept_set_id
+             FROM concept_set_reviews r
+             INNER JOIN users u ON r.reviewer_user_id = u.user_id
+             WHERE u.login = ?",
+            params = list(user$login)
+          )
+        } else {
+          days <- input$export_days
+          if (is.null(days) || is.na(days)) days <- 7
+          cutoff_date <- format(Sys.time() - days * 24 * 60 * 60, "%Y-%m-%dT%H:%M:%S")
+          reviews <- DBI::dbGetQuery(
+            con,
+            "SELECT DISTINCT r.concept_set_id
+             FROM concept_set_reviews r
+             INNER JOIN users u ON r.reviewer_user_id = u.user_id
+             WHERE u.login = ? AND r.review_date >= ?",
+            params = list(user$login, cutoff_date)
+          )
+        }
+
+        if (nrow(reviews) == 0) {
+          showNotification(as.character(i18n$t("no_reviews_found")), type = "warning")
+          return()
+        }
+
+        ids_to_export <- reviews$concept_set_id
+      }
+
+      if (is.null(ids_to_export) || length(ids_to_export) == 0) {
+        showNotification(as.character(i18n$t("no_concept_sets_to_export")), type = "warning")
+        return()
+      }
 
       # Generate ZIP file
-      zip_file <- export_all_concept_sets(language = current_language)
+      zip_file <- export_all_concept_sets(language = current_language, concept_set_ids = ids_to_export)
 
       if (!is.null(zip_file) && file.exists(zip_file)) {
-        # Store path in reactive value
         export_zip_path(zip_file)
-
-        # Trigger the download
+        hide_modal(ns("export_all_modal"))
         shinyjs::delay(100, {
           shinyjs::runjs(sprintf("$('#%s')[0].click();", session$ns("download_all_concept_sets")))
         })
@@ -6069,9 +6913,10 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
             Sys.sleep(0.1)  # Small delay to show progress
           }
 
-          # Read JSON to get the concept set ID
+          # Read JSON to get the concept set ID (with UTF-8 encoding)
           json_data <- tryCatch({
-            jsonlite::fromJSON(json_file)
+            json_text <- readLines(json_file, encoding = "UTF-8", warn = FALSE)
+            jsonlite::fromJSON(paste(json_text, collapse = "\n"))
           }, error = function(e) {
             errors <- c(errors, basename(json_file))
             return(NULL)
@@ -6290,10 +7135,6 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       show_modal(ns("filters_modal"))
     }
 
-    observe_event(input$filter_concept_sets, {
-      open_filters_modal()
-    }, ignoreInit = TRUE)
-
     observe_event(input$concept_sets_filters_btn, {
       open_filters_modal()
     }, ignoreInit = TRUE)
@@ -6353,8 +7194,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       cs <- get_concept_set(cs_id, language = current_language)
       if (is.null(cs)) return(NULL)
 
-      comments_text <- if (!is.null(cs$etl_comment) && !is.na(cs$etl_comment) && nchar(cs$etl_comment) > 0) {
-        cs$etl_comment
+      comments_text <- if (!is.null(cs$long_description) && !is.na(cs$long_description) && nchar(cs$long_description) > 0) {
+        cs$long_description
       } else {
         i18n$t("no_comments_yet")
       }
@@ -6411,7 +7252,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         current_language <- i18n$get_translation_language()
         cs <- get_concept_set(cs_id, language = current_language)
         if (!is.null(cs)) {
-          comments_text <- if (!is.null(cs$etl_comment) && !is.na(cs$etl_comment)) cs$etl_comment else ""
+          comments_text <- if (!is.null(cs$long_description) && !is.na(cs$long_description)) cs$long_description else ""
           shinyAce::updateAceEditor(session, "comments_editor", value = comments_text)
         }
       }

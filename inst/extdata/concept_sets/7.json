@@ -13,9 +13,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Clinical observation",
-    "subcategory": "Neurological assessment",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Delirium Rating Scale (DRS) score",
@@ -25,7 +22,7 @@
       "fr": {
         "name": "Delirium Rating Scale (DRS) score",
         "category": "Observations cliniques",
-        "subcategory": "<c3><89>valuation neurologique"
+        "subcategory": "Évaluation neurologique"
       }
     },
     "createdByDetails": {

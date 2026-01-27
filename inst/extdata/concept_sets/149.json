@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Labs",
-    "subcategory": "Arterial blood gases",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "ABG Base excess",
@@ -43,9 +40,9 @@
         "subcategory": "Arterial blood gases"
       },
       "fr": {
-        "name": "Gaz du sang - Exc<c3><a8>s de base",
+        "name": "Gaz du sang - Excès de base",
         "category": "Biologie",
-        "subcategory": "Gaz du sang art<c3><a9>riel"
+        "subcategory": "Gaz du sang artériel"
       }
     },
     "createdByDetails": {

@@ -204,9 +204,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Ventilation",
-    "subcategory": "Ventilation device",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Humidification Therapy",
@@ -214,7 +211,7 @@
         "subcategory": "Ventilation device"
       },
       "fr": {
-        "name": "Oxyg<c3><a9>noth<c3><a9>rapie humidifi<c3><a9>e",
+        "name": "Oxygénothérapie humidifiée",
         "category": "Ventilation",
         "subcategory": "Dispositif de ventilation"
       }

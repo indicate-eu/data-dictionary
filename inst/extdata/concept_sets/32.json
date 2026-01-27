@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Condition",
-    "subcategory": "Hospitalization complications",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Ventilator-associated pneumonia",
@@ -43,9 +40,9 @@
         "subcategory": "Hospitalization complications"
       },
       "fr": {
-        "name": "Pneumonie acquise sous ventilation m<c3><a9>canique",
-        "category": "Ant<c3><a9>c<c3><a9>dents",
-        "subcategory": "Complications hospitali<c3><a8>res"
+        "name": "Pneumonie acquise sous ventilation mécanique",
+        "category": "Antécédents",
+        "subcategory": "Complications hospitalières"
       }
     },
     "createdByDetails": {

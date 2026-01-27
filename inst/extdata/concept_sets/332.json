@@ -489,9 +489,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Vitals",
-    "subcategory": "Ventilatory",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Respiratory rate",
@@ -499,8 +496,8 @@
         "subcategory": "Ventilatory"
       },
       "fr": {
-        "name": "Fr<c3><a9>quence respiratoire",
-        "category": "Param<c3><a8>tres vitaux",
+        "name": "Fréquence respiratoire",
+        "category": "Paramètres vitaux",
         "subcategory": "Ventilatoire"
       }
     },

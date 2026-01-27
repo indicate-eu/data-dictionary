@@ -8564,9 +8564,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Drug",
-    "subcategory": "Corticosteroids",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Betamethasone",
@@ -8576,7 +8573,7 @@
       "fr": {
         "name": "Betamethasone",
         "category": "Traitements",
-        "subcategory": "Corticost<c3><a9>ro<c3><af>des"
+        "subcategory": "Corticostéroïdes"
       }
     },
     "createdByDetails": {

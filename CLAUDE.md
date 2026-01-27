@@ -33,7 +33,7 @@ CREATE TABLE concept_sets (
   version TEXT DEFAULT '1.0.0',
   category TEXT,
   subcategory TEXT,
-  etl_comment TEXT,
+  long_description TEXT,
   tags TEXT,
   created_by TEXT,
   created_date TEXT,

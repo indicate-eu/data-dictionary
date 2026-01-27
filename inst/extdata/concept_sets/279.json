@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Other",
-    "subcategory": "Demographic data",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Gestational age at birth",
@@ -43,9 +40,9 @@
         "subcategory": "Demographic data"
       },
       "fr": {
-        "name": "<c3><82>ge gestationnel a la naissance",
+        "name": "Âge gestationnel a la naissance",
         "category": "Autres",
-        "subcategory": "Donn<c3><a9>es d<c3><a9>mographiques"
+        "subcategory": "Données démographiques"
       }
     },
     "createdByDetails": {

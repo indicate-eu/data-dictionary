@@ -223,9 +223,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Ventilation",
-    "subcategory": "Ventilation parameters",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Minute volume",
@@ -235,7 +232,7 @@
       "fr": {
         "name": "Volume minute",
         "category": "Ventilation",
-        "subcategory": "Param<c3><a8>tres ventilatoires"
+        "subcategory": "Paramètres ventilatoires"
       }
     },
     "createdByDetails": {

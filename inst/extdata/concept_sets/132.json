@@ -4517,9 +4517,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Drug",
-    "subcategory": "Sedative drugs",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Fentanyl",
@@ -4529,7 +4526,7 @@
       "fr": {
         "name": "Fentanyl",
         "category": "Traitements",
-        "subcategory": "S<c3><a9>datifs"
+        "subcategory": "Sédatifs"
       }
     },
     "createdByDetails": {

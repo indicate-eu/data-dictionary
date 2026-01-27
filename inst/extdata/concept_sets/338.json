@@ -71,9 +71,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Ventilation",
-    "subcategory": "Airway device",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Airway device change",
@@ -83,7 +80,7 @@
       "fr": {
         "name": "Changement de dispositif des voies aeriennes",
         "category": "Ventilation",
-        "subcategory": "Dispositif des voies a<c3><a9>riennes"
+        "subcategory": "Dispositif des voies aériennes"
       }
     },
     "createdByDetails": {

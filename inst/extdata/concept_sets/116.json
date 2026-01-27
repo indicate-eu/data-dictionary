@@ -10882,9 +10882,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Drug",
-    "subcategory": "Corticosteroids",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Dexamethasone",
@@ -10894,7 +10891,7 @@
       "fr": {
         "name": "Dexamethasone",
         "category": "Traitements",
-        "subcategory": "Corticost<c3><a9>ro<c3><af>des"
+        "subcategory": "Corticostéroïdes"
       }
     },
     "createdByDetails": {

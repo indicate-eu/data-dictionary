@@ -90,9 +90,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Other",
-    "subcategory": "Nutrition",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Energy requirement",
@@ -100,7 +97,7 @@
         "subcategory": "Nutrition"
       },
       "fr": {
-        "name": "Besoin <c3><a9>nerg<c3><a9>tique",
+        "name": "Besoin énergétique",
         "category": "Autres",
         "subcategory": "Nutrition"
       }

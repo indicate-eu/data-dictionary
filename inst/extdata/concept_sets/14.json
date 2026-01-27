@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Clinical observation",
-    "subcategory": "Neurological assessment",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Richmond agitation-sedation scale",
@@ -45,7 +42,7 @@
       "fr": {
         "name": "Richmond agitation-sedation scale",
         "category": "Observations cliniques",
-        "subcategory": "<c3><89>valuation neurologique"
+        "subcategory": "Évaluation neurologique"
       }
     },
     "createdByDetails": {

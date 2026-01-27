@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Ventilation",
-    "subcategory": "Ventilation device",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Trial of spontaneous breathing",
@@ -43,7 +40,7 @@
         "subcategory": "Ventilation device"
       },
       "fr": {
-        "name": "<c3><89>preuve de ventilation spontan<c3><a9>e",
+        "name": "Épreuve de ventilation spontanée",
         "category": "Ventilation",
         "subcategory": "Dispositif de ventilation"
       }

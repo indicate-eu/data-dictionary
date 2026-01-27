@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Other",
-    "subcategory": "Demographic data",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Gender",
@@ -45,7 +42,7 @@
       "fr": {
         "name": "Sexe",
         "category": "Autres",
-        "subcategory": "Donn<c3><a9>es d<c3><a9>mographiques"
+        "subcategory": "Données démographiques"
       }
     },
     "createdByDetails": {

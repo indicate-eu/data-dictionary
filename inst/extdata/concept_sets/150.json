@@ -52,9 +52,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Labs",
-    "subcategory": "Arterial blood gases",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "ABG Hematocrit",
@@ -62,9 +59,9 @@
         "subcategory": "Arterial blood gases"
       },
       "fr": {
-        "name": "Gaz du sang - H<c3><a9>matocrite",
+        "name": "Gaz du sang - Hématocrite",
         "category": "Biologie",
-        "subcategory": "Gaz du sang art<c3><a9>riel"
+        "subcategory": "Gaz du sang artériel"
       }
     },
     "createdByDetails": {

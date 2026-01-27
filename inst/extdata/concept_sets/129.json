@@ -1762,9 +1762,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Drug",
-    "subcategory": "Sedative drugs",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Clonidine",
@@ -1774,7 +1771,7 @@
       "fr": {
         "name": "Clonidine",
         "category": "Traitements",
-        "subcategory": "S<c3><a9>datifs"
+        "subcategory": "Sédatifs"
       }
     },
     "createdByDetails": {

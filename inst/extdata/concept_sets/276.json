@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Other",
-    "subcategory": "Demographic data",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Death datetime",
@@ -43,9 +40,9 @@
         "subcategory": "Demographic data"
       },
       "fr": {
-        "name": "Date et heure de d<c3><a9>c<c3><a8>s",
+        "name": "Date et heure de décès",
         "category": "Autres",
-        "subcategory": "Donn<c3><a9>es d<c3><a9>mographiques"
+        "subcategory": "Données démographiques"
       }
     },
     "createdByDetails": {

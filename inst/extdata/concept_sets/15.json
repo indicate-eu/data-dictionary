@@ -71,9 +71,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Clinical observation",
-    "subcategory": "Neurological assessment",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Visual analog pain scale",
@@ -83,7 +80,7 @@
       "fr": {
         "name": "Visual analog pain scale",
         "category": "Observations cliniques",
-        "subcategory": "<c3><89>valuation neurologique"
+        "subcategory": "Évaluation neurologique"
       }
     },
     "createdByDetails": {

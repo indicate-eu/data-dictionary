@@ -128,9 +128,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Ventilation",
-    "subcategory": "Ventilation parameters",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Positive End-Expiratory Pressure (PEEP)",
@@ -140,7 +137,7 @@
       "fr": {
         "name": "Pression expiratoire positive (PEP)",
         "category": "Ventilation",
-        "subcategory": "Param<c3><a8>tres ventilatoires"
+        "subcategory": "Paramètres ventilatoires"
       }
     },
     "createdByDetails": {

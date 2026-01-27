@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Labs",
-    "subcategory": "Hemostasis",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Coagulation factor V",
@@ -45,7 +42,7 @@
       "fr": {
         "name": "Facteur V de coagulation",
         "category": "Biologie",
-        "subcategory": "H<c3><a9>mostase"
+        "subcategory": "Hémostase"
       }
     },
     "createdByDetails": {

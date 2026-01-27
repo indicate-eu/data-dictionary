@@ -3056,7 +3056,7 @@ a.btn-success-custom:hover {
 .info-icon::after {
   content: attr(data-tooltip);
   position: absolute;
-  left: calc(100% + 10px);
+  left: calc(100% + 6px);
   top: 50%;
   transform: translateY(-50%);
   background: #333;
@@ -3083,7 +3083,7 @@ a.btn-success-custom:hover {
 .info-icon::before {
   content: '';
   position: absolute;
-  left: calc(100% + 4px);
+  left: 100%;
   top: 50%;
   transform: translateY(-50%);
   border: 6px solid transparent;
@@ -3361,6 +3361,8 @@ button.btn-icon-only:hover {
 
 .modal-fs-header .form-group {
   margin-bottom: 0;
+  display: flex;
+  align-items: center;
 }
 
 .modal-fs-header .form-control {
@@ -3369,12 +3371,41 @@ button.btn-icon-only:hover {
   font-size: 13px;
 }
 
+.modal-fs-header select.form-control {
+  height: 32px !important;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* Selectize input in modal header */
+.modal-fs-header .selectize-control {
+  height: 32px !important;
+}
+
+.modal-fs-header .selectize-input {
+  height: 32px !important;
+  min-height: 32px !important;
+  padding: 4px 8px !important;
+  line-height: 22px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.modal-fs-header .selectize-input > input {
+  height: auto !important;
+  padding: 0 !important;
+}
+
+.modal-fs-header .selectize-input .item {
+  line-height: 22px !important;
+}
+
 /* Markdown preview container */
 .markdown-preview-container {
   height: 100%;
   border: 1px solid #dee2e6;
   border-radius: 4px;
-  padding: 0 15px;
+  padding: 10px 15px 0 15px;
   overflow-y: auto;
   background: white;
 }
@@ -3580,6 +3611,101 @@ button.btn-icon-only:hover {
 
 .project-name-badge:hover {
   background: #ea580c;
+}
+
+/* Tooltip wrapper for project name badge */
+.tooltip-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.tooltip-wrapper .custom-tooltip {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 6px);
+  background: #333;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: normal;
+  white-space: normal;
+  max-width: 350px;
+  z-index: 100000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  line-height: 1.4;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0s 0.2s;
+}
+
+.tooltip-wrapper:hover .custom-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s ease 0.5s, visibility 0s 0.5s;
+}
+
+/* Tooltip arrow pointing up */
+.tooltip-wrapper .custom-tooltip::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: -10px;
+  border: 5px solid transparent;
+  border-bottom: 5px solid #333;
+}
+
+/* Truncate with tooltip - legacy support */
+.truncate-with-tooltip {
+  position: relative;
+  cursor: default;
+}
+
+/* Custom tooltip that appears below the element */
+.truncate-with-tooltip[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  background: #333;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: normal;
+  white-space: normal;
+  max-width: 350px;
+  z-index: 100000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  line-height: 1.4;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0s 0.2s;
+}
+
+.truncate-with-tooltip[data-tooltip]:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s ease 1s, visibility 0s 1s;
+}
+
+/* Arrow pointing up */
+.truncate-with-tooltip[data-tooltip]::before {
+  content: '';
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0s 0.2s;
+  position: absolute;
+  left: 20px;
+  top: calc(100% + 2px);
+  border: 6px solid transparent;
+  border-bottom-color: #333;
+  z-index: 100000;
+  pointer-events: none;
 }
 
 /* Save icon button - discrete style */
@@ -5742,7 +5868,7 @@ button.btn-icon-only:hover {
   align-items: center;
   gap: 15px;
   padding: 15px;
-  border: 1px solid #e0e0e0;
+  border: 2px solid #e0e0e0;
   border-radius: var(--border-radius-default);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -5754,6 +5880,16 @@ button.btn-icon-only:hover {
   background-color: #f2f7fd;
   box-shadow: 0 2px 8px rgba(15, 96, 175, 0.1);
   transform: translateY(-1px);
+}
+
+.export-option.selected {
+  border-color: #28a745;
+  background-color: #d4edda;
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2);
+}
+
+.export-option.selected .export-option-subtitle {
+  color: #155724;
 }
 
 .export-option-icon {
@@ -5814,6 +5950,16 @@ button.btn-icon-only:hover {
   box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2);
 }
 
+.import-option.selected.blue-highlight {
+  border-color: #0f60af;
+  background-color: #e3f2fd;
+  box-shadow: 0 2px 8px rgba(15, 96, 175, 0.2);
+}
+
+.import-option.selected.blue-highlight .import-option-subtitle {
+  color: #0d47a1;
+}
+
 .import-option input[type="radio"] {
   width: 20px;
   height: 20px;
@@ -5841,6 +5987,30 @@ button.btn-icon-only:hover {
 
 .import-option.selected .import-option-subtitle {
   color: #155724;
+}
+
+.import-option-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background-color: #e9ecef;
+  color: #6c757d;
+  font-size: 18px;
+  transition: all 0.2s ease;
+}
+
+.import-option:hover .import-option-icon {
+  background-color: #cce5ff;
+  color: #0f60af;
+}
+
+.import-option.selected .import-option-icon {
+  background-color: #28a745;
+  color: #fff;
 }
 
 /* Review Status and Version Badges */
@@ -6090,3 +6260,37 @@ table.dataTable .tag-badge {
   border-color: #0f60af;
 }
 
+
+/* Review Status Dropdown - Reduce height and adjust width
+-------------------------------------------------- */
+.modal-fs-header .selectize-control {
+  margin-bottom: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.modal-fs-header .selectize-input,
+.modal-fs-header .selectize-input.items {
+  min-height: 28px !important;
+  height: 28px !important;
+  padding: 3px 8px !important;
+  line-height: 22px !important;
+  min-width: 220px !important;
+  vertical-align: middle !important;
+}
+
+.modal-fs-header .selectize-input > input {
+  line-height: 22px !important;
+  min-height: 22px !important;
+  padding: 0 !important;
+}
+
+.modal-fs-header .selectize-input .item {
+  line-height: 20px !important;
+  padding: 1px 6px !important;
+  font-size: 13px !important;
+}
+
+.modal-fs-header .selectize-dropdown {
+  min-width: 220px !important;
+}

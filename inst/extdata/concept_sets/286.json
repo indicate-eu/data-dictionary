@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Other",
-    "subcategory": "Nutrition",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Energy intake",
@@ -43,7 +40,7 @@
         "subcategory": "Nutrition"
       },
       "fr": {
-        "name": "Apport <c3><a9>nerg<c3><a9>tique",
+        "name": "Apport énergétique",
         "category": "Autres",
         "subcategory": "Nutrition"
       }

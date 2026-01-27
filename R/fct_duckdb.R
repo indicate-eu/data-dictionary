@@ -1041,9 +1041,9 @@ export_concept_set_to_json <- function(concept_set_id, concepts_data = NULL) {
         # Create named list with correct field order
         lang_translations <- list()
 
-        # Add fields in order: name, description, category, subcategory, mappingGuidance
-        field_order <- c("name", "description", "category", "subcategory", "etl_comment")
-        field_names <- c("name", "description", "category", "subcategory", "mappingGuidance")
+        # Add fields in order: name, description, category, subcategory, longDescription
+        field_order <- c("name", "description", "category", "subcategory", "long_description")
+        field_names <- c("name", "description", "category", "subcategory", "longDescription")
 
         for (i in seq_along(field_order)) {
           field <- field_order[i]
@@ -1059,6 +1059,15 @@ export_concept_set_to_json <- function(concept_set_id, concepts_data = NULL) {
         }
       }
     }
+
+    # Build createdByDetails
+    created_by_details <- list(
+      firstName = if (!is.null(cs$created_by_first_name) && !is.na(cs$created_by_first_name)) as.character(cs$created_by_first_name) else NULL,
+      lastName = if (!is.null(cs$created_by_last_name) && !is.na(cs$created_by_last_name)) as.character(cs$created_by_last_name) else NULL,
+      affiliation = if (!is.null(cs$created_by_affiliation) && !is.na(cs$created_by_affiliation)) as.character(cs$created_by_affiliation) else NULL,
+      profession = if (!is.null(cs$created_by_profession) && !is.na(cs$created_by_profession)) as.character(cs$created_by_profession) else NULL,
+      orcid = if (!is.null(cs$created_by_orcid) && !is.na(cs$created_by_orcid)) as.character(cs$created_by_orcid) else NULL
+    )
 
     # Build complete OHDSI-compliant JSON structure
     result <- list(
@@ -1076,10 +1085,8 @@ export_concept_set_to_json <- function(concept_set_id, concepts_data = NULL) {
       ),
       tags = tags,
       metadata = list(
-        category = if (!is.null(cs$category) && !is.na(cs$category)) as.character(cs$category) else NULL,
-        subcategory = if (!is.null(cs$subcategory) && !is.na(cs$subcategory)) as.character(cs$subcategory) else NULL,
-        mappingGuidance = if (!is.null(cs$etl_comment) && !is.na(cs$etl_comment)) as.character(cs$etl_comment) else NULL,
         translations = if (length(translations) > 0) translations else NULL,
+        createdByDetails = created_by_details,
         reviews = reviews,
         versions = versions,
         distributionStats = distribution_stats
@@ -1100,10 +1107,11 @@ export_concept_set_to_json <- function(concept_set_id, concepts_data = NULL) {
 #'              plus a README with summary information
 #'
 #' @param language Language code for translations (default: "en")
+#' @param concept_set_ids Optional vector of concept set IDs to export (default: NULL = all)
 #'
 #' @return Path to the generated ZIP file, or NULL on error
 #' @noRd
-export_all_concept_sets <- function(language = "en") {
+export_all_concept_sets <- function(language = "en", concept_set_ids = NULL) {
   tryCatch({
     con <- get_db_connection()
     on.exit(DBI::dbDisconnect(con), add = TRUE)
@@ -1113,6 +1121,14 @@ export_all_concept_sets <- function(language = "en") {
 
     if (is.null(concept_sets) || nrow(concept_sets) == 0) {
       return(NULL)
+    }
+
+    # Filter by concept_set_ids if provided
+    if (!is.null(concept_set_ids) && length(concept_set_ids) > 0) {
+      concept_sets <- concept_sets[concept_sets$id %in% concept_set_ids, ]
+      if (nrow(concept_sets) == 0) {
+        return(NULL)
+      }
     }
 
     # Create temporary directory for export
@@ -1343,7 +1359,7 @@ export_all_concept_sets <- function(language = "en") {
 
       if (!is.null(json)) {
         json_path <- file.path(concept_sets_dir, sprintf("%d.json", cs$id))
-        writeLines(json, json_path)
+        writeLines(json, json_path, useBytes = TRUE)
       }
     }
 
@@ -1509,18 +1525,29 @@ export_concept_set_to_sql <- function(concept_set_name, concepts_data, include_n
 #' @noRd
 import_concept_set_from_json <- function(json_file, language = "en") {
   tryCatch({
-    # Read JSON file
-    json_data <- jsonlite::fromJSON(json_file, simplifyVector = FALSE)
+    # Read JSON file with UTF-8 encoding
+    json_text <- readLines(json_file, encoding = "UTF-8", warn = FALSE)
+    json_data <- jsonlite::fromJSON(paste(json_text, collapse = "\n"), simplifyVector = FALSE)
 
     # Extract basic concept set information
     concept_set_id <- json_data$id  # Get ID from JSON to preserve it
     name <- json_data$name
     description <- json_data$description
     version <- if (!is.null(json_data$version)) json_data$version else "1.0.0"
-    category <- if (!is.null(json_data$metadata$category)) json_data$metadata$category else NULL
-    subcategory <- if (!is.null(json_data$metadata$subcategory)) json_data$metadata$subcategory else NULL
-    etl_comment <- if (!is.null(json_data$metadata$mappingGuidance)) json_data$metadata$mappingGuidance else NULL
     tags <- if (!is.null(json_data$tags) && length(json_data$tags) > 0) paste(unlist(json_data$tags), collapse = ",") else NULL
+
+    # Extract translatable fields from translations
+    # IMPORTANT: category and subcategory should ALWAYS use English values (as translation keys)
+    # Only longDescription uses the specified language
+    translations <- json_data$metadata$translations
+    en_data <- if (!is.null(translations[["en"]])) translations[["en"]] else NULL
+    lang_data <- if (!is.null(translations[[language]])) translations[[language]] else translations[["en"]]
+
+    # Always use English values for category/subcategory (translation keys)
+    category <- if (!is.null(en_data$category)) en_data$category else NULL
+    subcategory <- if (!is.null(en_data$subcategory)) en_data$subcategory else NULL
+    # Use specified language for long description
+    long_description <- if (!is.null(lang_data$longDescription)) lang_data$longDescription else NULL
 
     # Extract author information
     created_by_first_name <- NULL
@@ -1552,7 +1579,7 @@ import_concept_set_from_json <- function(json_file, language = "en") {
       category = category,
       subcategory = subcategory,
       tags = tags,
-      etl_comment = etl_comment,
+      long_description = long_description,
       created_by_first_name = created_by_first_name,
       created_by_last_name = created_by_last_name,
       created_by_profession = created_by_profession,
@@ -1581,8 +1608,8 @@ import_concept_set_from_json <- function(json_file, language = "en") {
         if (!is.null(lang_data$subcategory)) {
           set_concept_set_translation(concept_set_id, lang, "subcategory", lang_data$subcategory)
         }
-        if (!is.null(lang_data$mappingGuidance)) {
-          set_concept_set_translation(concept_set_id, lang, "etl_comment", lang_data$mappingGuidance)
+        if (!is.null(lang_data$longDescription)) {
+          set_concept_set_translation(concept_set_id, lang, "long_description", lang_data$longDescription)
         }
       }
     }

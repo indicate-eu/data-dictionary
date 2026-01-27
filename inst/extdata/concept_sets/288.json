@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Other",
-    "subcategory": "Other",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Advance care plan agreed",
@@ -43,7 +40,7 @@
         "subcategory": "Other"
       },
       "fr": {
-        "name": "Directives anticip<c3><a9>es <c3><a9>tablies",
+        "name": "Directives anticipées établies",
         "category": "Autres",
         "subcategory": "Autres"
       }

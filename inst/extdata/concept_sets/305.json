@@ -432,9 +432,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Ventilation",
-    "subcategory": "Ventilation device",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Endotracheal intubation",
@@ -442,7 +439,7 @@
         "subcategory": "Ventilation device"
       },
       "fr": {
-        "name": "Intubation endotrach<c3><a9>ale",
+        "name": "Intubation endotrachéale",
         "category": "Ventilation",
         "subcategory": "Dispositif de ventilation"
       }

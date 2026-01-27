@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Ventilation",
-    "subcategory": "Ventilation parameters",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Inspiratory pressure setting",
@@ -43,9 +40,9 @@
         "subcategory": "Ventilation parameters"
       },
       "fr": {
-        "name": "R<c3><a9>glage de la pression inspiratoire",
+        "name": "Réglage de la pression inspiratoire",
         "category": "Ventilation",
-        "subcategory": "Param<c3><a8>tres ventilatoires"
+        "subcategory": "Paramètres ventilatoires"
       }
     },
     "createdByDetails": {

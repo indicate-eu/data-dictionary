@@ -261,9 +261,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Drug",
-    "subcategory": "Other drugs",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Insulin Glulisine, Human",
@@ -273,7 +270,7 @@
       "fr": {
         "name": "Insulin Glulisine, Human",
         "category": "Traitements",
-        "subcategory": "Autres m<c3><a9>dicaments"
+        "subcategory": "Autres médicaments"
       }
     },
     "createdByDetails": {

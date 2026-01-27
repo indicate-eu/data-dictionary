@@ -90,9 +90,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Clinical observation",
-    "subcategory": "Neurological assessment",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Pupillary response",
@@ -100,9 +97,9 @@
         "subcategory": "Neurological assessment"
       },
       "fr": {
-        "name": "R<c3><a9>ponse pupillaire",
+        "name": "Réponse pupillaire",
         "category": "Observations cliniques",
-        "subcategory": "<c3><89>valuation neurologique"
+        "subcategory": "Évaluation neurologique"
       }
     },
     "createdByDetails": {

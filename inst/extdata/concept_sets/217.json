@@ -52,9 +52,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Labs",
-    "subcategory": "Urinary ionogram",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Urinary creatinine",
@@ -62,7 +59,7 @@
         "subcategory": "Urinary ionogram"
       },
       "fr": {
-        "name": "Cr<c3><a9>atinine urinaire",
+        "name": "Créatinine urinaire",
         "category": "Biologie",
         "subcategory": "Ionogramme urinaire"
       }

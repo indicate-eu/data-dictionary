@@ -356,9 +356,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Other",
-    "subcategory": "Demographic data",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Body weight",
@@ -368,7 +365,7 @@
       "fr": {
         "name": "Poids corporel",
         "category": "Autres",
-        "subcategory": "Donn<c3><a9>es d<c3><a9>mographiques"
+        "subcategory": "Données démographiques"
       }
     },
     "createdByDetails": {

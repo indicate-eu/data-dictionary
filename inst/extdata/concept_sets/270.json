@@ -166,9 +166,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Microbiology",
-    "subcategory": "Specimen",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Blood culture",
@@ -176,9 +173,9 @@
         "subcategory": "Specimen"
       },
       "fr": {
-        "name": "H<c3><a9>moculture",
+        "name": "Hémoculture",
         "category": "Microbiologie",
-        "subcategory": "Pr<c3><a9>l<c3><a8>vement"
+        "subcategory": "Prélèvement"
       }
     },
     "createdByDetails": {

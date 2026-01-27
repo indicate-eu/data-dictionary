@@ -109,9 +109,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Labs",
-    "subcategory": "Hemostasis",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Fibrin D-dimer",
@@ -121,7 +118,7 @@
       "fr": {
         "name": "Fibrin D-dimer",
         "category": "Biologie",
-        "subcategory": "H<c3><a9>mostase"
+        "subcategory": "Hémostase"
       }
     },
     "createdByDetails": {

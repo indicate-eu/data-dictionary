@@ -71,9 +71,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Ventilation",
-    "subcategory": "Ventilation parameters",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Breath cycle timing",
@@ -81,9 +78,9 @@
         "subcategory": "Ventilation parameters"
       },
       "fr": {
-        "name": "Dur<c3><a9>e du cycle respiratoire",
+        "name": "Durée du cycle respiratoire",
         "category": "Ventilation",
-        "subcategory": "Param<c3><a8>tres ventilatoires"
+        "subcategory": "Paramètres ventilatoires"
       }
     },
     "createdByDetails": {

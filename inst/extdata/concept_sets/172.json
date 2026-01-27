@@ -147,9 +147,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Labs",
-    "subcategory": "Hemostasis",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "aPTT",
@@ -159,7 +156,7 @@
       "fr": {
         "name": "aPTT",
         "category": "Biologie",
-        "subcategory": "H<c3><a9>mostase"
+        "subcategory": "Hémostase"
       }
     },
     "createdByDetails": {

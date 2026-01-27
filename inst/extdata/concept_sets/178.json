@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Labs",
-    "subcategory": "Liver test",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "GGT",
@@ -45,7 +42,7 @@
       "fr": {
         "name": "GGT",
         "category": "Biologie",
-        "subcategory": "Bilan h<c3><a9>patique"
+        "subcategory": "Bilan hépatique"
       }
     },
     "createdByDetails": {

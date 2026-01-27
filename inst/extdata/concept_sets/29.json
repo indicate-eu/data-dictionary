@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Condition",
-    "subcategory": "General conditions",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Dependence on home ventilator",
@@ -43,9 +40,9 @@
         "subcategory": "General conditions"
       },
       "fr": {
-        "name": "D<c3><a9>pendance <c3><a0> la ventilation <c3><a0> domicile",
-        "category": "Ant<c3><a9>c<c3><a9>dents",
-        "subcategory": "Pathologies g<c3><a9>n<c3><a9>rales"
+        "name": "Dépendance à la ventilation à domicile",
+        "category": "Antécédents",
+        "subcategory": "Pathologies générales"
       }
     },
     "createdByDetails": {

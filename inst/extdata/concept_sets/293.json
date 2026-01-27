@@ -318,9 +318,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Procedure",
-    "subcategory": "Nutrition",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Enteral feeding",
@@ -328,7 +325,7 @@
         "subcategory": "Nutrition"
       },
       "fr": {
-        "name": "Nutrition ent<c3><a9>rale",
+        "name": "Nutrition entérale",
         "category": "Actes",
         "subcategory": "Nutrition"
       }

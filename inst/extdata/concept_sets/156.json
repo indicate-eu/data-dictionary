@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Labs",
-    "subcategory": "Arterial blood gases",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "ABG chloride",
@@ -45,7 +42,7 @@
       "fr": {
         "name": "Gaz du sang - Chlore",
         "category": "Biologie",
-        "subcategory": "Gaz du sang art<c3><a9>riel"
+        "subcategory": "Gaz du sang artériel"
       }
     },
     "createdByDetails": {

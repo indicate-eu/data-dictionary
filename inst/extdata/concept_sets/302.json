@@ -90,9 +90,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Ventilation",
-    "subcategory": "Oxygenation",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Oxygen flow rate",
@@ -100,9 +97,9 @@
         "subcategory": "Oxygenation"
       },
       "fr": {
-        "name": "D<c3><a9>bit oxyg<c3><a8>ne",
+        "name": "Débit oxygène",
         "category": "Ventilation",
-        "subcategory": "Oxyg<c3><a9>nation"
+        "subcategory": "Oxygénation"
       }
     },
     "createdByDetails": {

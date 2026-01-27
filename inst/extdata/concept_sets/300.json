@@ -128,9 +128,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Ventilation",
-    "subcategory": "Airway device",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Tracheostomy tube",
@@ -138,9 +135,9 @@
         "subcategory": "Airway device"
       },
       "fr": {
-        "name": "Canule de trach<c3><a9>otomie",
+        "name": "Canule de trachéotomie",
         "category": "Ventilation",
-        "subcategory": "Dispositif des voies a<c3><a9>riennes"
+        "subcategory": "Dispositif des voies aériennes"
       }
     },
     "createdByDetails": {

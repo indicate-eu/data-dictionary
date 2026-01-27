@@ -204,9 +204,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Ventilation",
-    "subcategory": "Ventilation device",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Oxygen device",
@@ -214,7 +211,7 @@
         "subcategory": "Ventilation device"
       },
       "fr": {
-        "name": "Dispositif oxyg<c3><a9>noth<c3><a9>rapie",
+        "name": "Dispositif oxygénothérapie",
         "category": "Ventilation",
         "subcategory": "Dispositif de ventilation"
       }

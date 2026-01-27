@@ -1021,9 +1021,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Vitals",
-    "subcategory": "Other vitals",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Body temperature",
@@ -1031,9 +1028,9 @@
         "subcategory": "Other vitals"
       },
       "fr": {
-        "name": "Temp<c3><a9>rature corporelle",
-        "category": "Param<c3><a8>tres vitaux",
-        "subcategory": "Autres param<c3><a8>tres vitaux"
+        "name": "Température corporelle",
+        "category": "Paramètres vitaux",
+        "subcategory": "Autres paramètres vitaux"
       }
     },
     "createdByDetails": {

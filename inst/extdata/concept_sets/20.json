@@ -13,9 +13,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Condition",
-    "subcategory": "APACHE IV - Chronic health conditions",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Hepatic failure, not elsewhere classified",
@@ -23,8 +20,8 @@
         "subcategory": "APACHE IV - Chronic health conditions"
       },
       "fr": {
-        "name": "Insuffisance h<c3><a9>patique, non class<c3><a9>e ailleurs",
-        "category": "Ant<c3><a9>c<c3><a9>dents",
+        "name": "Insuffisance hépatique, non classée ailleurs",
+        "category": "Antécédents",
         "subcategory": "APACHE IV - Pathologies chroniques"
       }
     },

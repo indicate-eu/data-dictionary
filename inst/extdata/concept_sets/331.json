@@ -280,9 +280,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Vitals",
-    "subcategory": "Other vitals",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Urine output",
@@ -290,9 +287,9 @@
         "subcategory": "Other vitals"
       },
       "fr": {
-        "name": "Diur<c3><a8>se",
-        "category": "Param<c3><a8>tres vitaux",
-        "subcategory": "Autres param<c3><a8>tres vitaux"
+        "name": "Diurèse",
+        "category": "Paramètres vitaux",
+        "subcategory": "Autres paramètres vitaux"
       }
     },
     "createdByDetails": {

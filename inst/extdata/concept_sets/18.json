@@ -13,9 +13,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Condition",
-    "subcategory": "APACHE IV - Chronic health conditions",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Chronic kidney disease",
@@ -23,8 +20,8 @@
         "subcategory": "APACHE IV - Chronic health conditions"
       },
       "fr": {
-        "name": "Insuffisance r<c3><a9>nale chronique",
-        "category": "Ant<c3><a9>c<c3><a9>dents",
+        "name": "Insuffisance rénale chronique",
+        "category": "Antécédents",
         "subcategory": "APACHE IV - Pathologies chroniques"
       }
     },

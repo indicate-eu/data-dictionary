@@ -2636,9 +2636,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Procedure",
-    "subcategory": "Patient position",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Order to not mobilize",

@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Other",
-    "subcategory": "Demographic data",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Birth height",
@@ -43,9 +40,9 @@
         "subcategory": "Demographic data"
       },
       "fr": {
-        "name": "Taille <c3><a0> la naissance",
+        "name": "Taille à la naissance",
         "category": "Autres",
-        "subcategory": "Donn<c3><a9>es d<c3><a9>mographiques"
+        "subcategory": "Données démographiques"
       }
     },
     "createdByDetails": {

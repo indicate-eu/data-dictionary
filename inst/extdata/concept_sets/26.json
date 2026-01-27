@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Condition",
-    "subcategory": "General conditions",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Adult Respiratory Distress Syndrome (ARDS)",
@@ -44,8 +41,8 @@
       },
       "fr": {
         "name": "ARDS",
-        "category": "Ant<c3><a9>c<c3><a9>dents",
-        "subcategory": "Pathologies g<c3><a9>n<c3><a9>rales"
+        "category": "Antécédents",
+        "subcategory": "Pathologies générales"
       }
     },
     "createdByDetails": {

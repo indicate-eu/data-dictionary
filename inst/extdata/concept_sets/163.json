@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Labs",
-    "subcategory": "Blood specimen type",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Arterial blood specimen",
@@ -43,9 +40,9 @@
         "subcategory": "Blood specimen type"
       },
       "fr": {
-        "name": "Pr<c3><a9>l<c3><a8>vement sanguin art<c3><a9>riel",
+        "name": "Prélèvement sanguin artériel",
         "category": "Biologie",
-        "subcategory": "Type de pr<c3><a9>l<c3><a8>vement sanguin"
+        "subcategory": "Type de prélèvement sanguin"
       }
     },
     "createdByDetails": {

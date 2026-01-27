@@ -128,9 +128,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Condition",
-    "subcategory": "Hospitalization complications",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Catheter infection",
@@ -138,9 +135,9 @@
         "subcategory": "Hospitalization complications"
       },
       "fr": {
-        "name": "Infection de cath<c3><a9>ter",
-        "category": "Ant<c3><a9>c<c3><a9>dents",
-        "subcategory": "Complications hospitali<c3><a8>res"
+        "name": "Infection de cathéter",
+        "category": "Antécédents",
+        "subcategory": "Complications hospitalières"
       }
     },
     "createdByDetails": {

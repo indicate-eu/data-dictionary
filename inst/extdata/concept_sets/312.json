@@ -33,9 +33,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Ventilation",
-    "subcategory": "Ventilation parameters",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "End tidal carbone dioxyde concentration",
@@ -45,7 +42,7 @@
       "fr": {
         "name": "Concentration de CO2 en fin expiration",
         "category": "Ventilation",
-        "subcategory": "Param<c3><a8>tres ventilatoires"
+        "subcategory": "Paramètres ventilatoires"
       }
     },
     "createdByDetails": {

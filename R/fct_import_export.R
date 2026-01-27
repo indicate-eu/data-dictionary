@@ -57,9 +57,10 @@ import_concept_sets_from_zip <- function(zip_file, mode = "add", language = "en"
     on.exit(DBI::dbDisconnect(con), add = TRUE)
 
     for (json_file in json_files) {
-      # Read JSON to get the concept set ID
+      # Read JSON to get the concept set ID (with UTF-8 encoding)
       json_data <- tryCatch({
-        jsonlite::fromJSON(json_file)
+        json_text <- readLines(json_file, encoding = "UTF-8", warn = FALSE)
+        jsonlite::fromJSON(paste(json_text, collapse = "\n"))
       }, error = function(e) {
         errors <- c(errors, basename(json_file))
         return(NULL)

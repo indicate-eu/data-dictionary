@@ -470,9 +470,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Vitals",
-    "subcategory": "Ventilatory",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Oxygen saturation (SpO2)",
@@ -480,8 +477,8 @@
         "subcategory": "Ventilatory"
       },
       "fr": {
-        "name": "Saturation en oxyg<c3><a8>ne (SpO2)",
-        "category": "Param<c3><a8>tres vitaux",
+        "name": "Saturation en oxygène (SpO2)",
+        "category": "Paramètres vitaux",
         "subcategory": "Ventilatoire"
       }
     },

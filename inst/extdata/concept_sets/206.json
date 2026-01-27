@@ -128,9 +128,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Labs",
-    "subcategory": "Plasma ionogram",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Plasma creatinine",
@@ -138,7 +135,7 @@
         "subcategory": "Plasma ionogram"
       },
       "fr": {
-        "name": "Cr<c3><a9>atinine plasmatique",
+        "name": "Créatinine plasmatique",
         "category": "Biologie",
         "subcategory": "Ionogramme plasmatique"
       }

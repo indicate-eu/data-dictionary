@@ -52,9 +52,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Labs",
-    "subcategory": "Blood specimen type",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Venous blood specimen",
@@ -62,9 +59,9 @@
         "subcategory": "Blood specimen type"
       },
       "fr": {
-        "name": "Pr<c3><a9>l<c3><a8>vement sanguin veineux",
+        "name": "Prélèvement sanguin veineux",
         "category": "Biologie",
-        "subcategory": "Type de pr<c3><a9>l<c3><a8>vement sanguin"
+        "subcategory": "Type de prélèvement sanguin"
       }
     },
     "createdByDetails": {

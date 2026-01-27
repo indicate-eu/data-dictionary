@@ -52,9 +52,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Other",
-    "subcategory": "Demographic data",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Ideal body weight",
@@ -62,9 +59,9 @@
         "subcategory": "Demographic data"
       },
       "fr": {
-        "name": "Poids id<c3><a9>al th<c3><a9>orique",
+        "name": "Poids idéal théorique",
         "category": "Autres",
-        "subcategory": "Donn<c3><a9>es d<c3><a9>mographiques"
+        "subcategory": "Données démographiques"
       }
     },
     "createdByDetails": {

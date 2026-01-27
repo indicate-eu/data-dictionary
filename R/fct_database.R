@@ -75,13 +75,13 @@ set_config_value <- function(key, value) {
 #' @param description Description
 #' @param category Category
 #' @param subcategory Subcategory
-#' @param etl_comment ETL guidance comment
+#' @param long_description Long description
 #' @param tags Comma-separated tags
 #' @param created_by Username
 #' @return Concept set ID
 #' @noRd
 add_concept_set <- function(id = NULL, name, description = NULL, category = NULL,
-                            subcategory = NULL, etl_comment = NULL, tags = NULL,
+                            subcategory = NULL, long_description = NULL, tags = NULL,
                             created_by_first_name = NULL, created_by_last_name = NULL,
                             created_by_profession = NULL, created_by_affiliation = NULL,
                             created_by_orcid = NULL, language = "en") {
@@ -101,7 +101,7 @@ add_concept_set <- function(id = NULL, name, description = NULL, category = NULL
   # Insert into main table (always uses provided values as defaults)
   DBI::dbExecute(
     con,
-    "INSERT INTO concept_sets (id, name, description, category, subcategory, etl_comment, tags,
+    "INSERT INTO concept_sets (id, name, description, category, subcategory, long_description, tags,
      created_by_first_name, created_by_last_name, created_by_profession, created_by_affiliation, created_by_orcid,
      created_date, modified_date)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -111,7 +111,7 @@ add_concept_set <- function(id = NULL, name, description = NULL, category = NULL
       null_to_na(description),
       null_to_na(category),
       null_to_na(subcategory),
-      null_to_na(etl_comment),
+      null_to_na(long_description),
       null_to_na(tags),
       null_to_na(created_by_first_name),
       null_to_na(created_by_last_name),
@@ -129,7 +129,7 @@ add_concept_set <- function(id = NULL, name, description = NULL, category = NULL
     description = description,
     category = category,
     subcategory = subcategory,
-    etl_comment = etl_comment
+    long_description = long_description
   )
 
   for (field_name in names(translatable_fields)) {
@@ -267,7 +267,7 @@ get_concept_set <- function(concept_set_id, language = "en") {
 
   # If language is not EN, overlay with translations
   if (!is.null(language) && language != "en") {
-    translatable_fields <- c("name", "description", "category", "subcategory", "etl_comment")
+    translatable_fields <- c("name", "description", "category", "subcategory", "long_description")
     for (field in translatable_fields) {
       translation <- get_concept_set_translation(concept_set_id, language, field)
       if (!is.null(translation) && !is.na(translation)) {
@@ -747,7 +747,7 @@ update_concept_set <- function(concept_set_id, ..., language = "en") {
   null_to_na <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else x
 
   # Separate translatable fields from non-translatable fields
-  translatable_fields <- c("name", "description", "category", "subcategory", "etl_comment")
+  translatable_fields <- c("name", "description", "category", "subcategory", "long_description")
   translatable_updates <- updates[names(updates) %in% translatable_fields]
   non_translatable_updates <- updates[!names(updates) %in% translatable_fields]
 
@@ -1294,7 +1294,7 @@ init_database <- function(con) {
         review_status TEXT DEFAULT 'draft',
         category TEXT,
         subcategory TEXT,
-        etl_comment TEXT,
+        long_description TEXT,
         tags TEXT,
         created_by_first_name TEXT,
         created_by_last_name TEXT,
@@ -1593,7 +1593,7 @@ get_all_concept_set_translations <- function(concept_set_id) {
 #'
 #' @param concept_set_id Concept set ID
 #' @param language Language code (e.g., 'en', 'fr')
-#' @param field Field name (e.g., 'name', 'description', 'category', 'subcategory', 'etl_comment')
+#' @param field Field name (e.g., 'name', 'description', 'category', 'subcategory', 'long_description')
 #' @return Translation value or NULL
 #' @noRd
 get_concept_set_translation <- function(concept_set_id, language, field) {
@@ -1622,7 +1622,7 @@ get_concept_set_translation <- function(concept_set_id, language, field) {
 #'
 #' @param concept_set_id Concept set ID
 #' @param language Language code (e.g., 'en', 'fr')
-#' @param field Field name (e.g., 'name', 'description', 'category', 'subcategory', 'etl_comment')
+#' @param field Field name (e.g., 'name', 'description', 'category', 'subcategory', 'long_description')
 #' @param value Translation value
 #' @return TRUE on success, FALSE on failure
 #' @noRd

@@ -90,9 +90,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Labs",
-    "subcategory": "Plasma blood count",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Plasma leukocytes",
@@ -102,7 +99,7 @@
       "fr": {
         "name": "Leucocytes plasmatiques",
         "category": "Biologie",
-        "subcategory": "Num<c3><a9>ration sanguine"
+        "subcategory": "Numération sanguine"
       }
     },
     "createdByDetails": {

@@ -71,9 +71,6 @@
   },
   "tags": [],
   "metadata": {
-    "category": "Procedure",
-    "subcategory": "Plasmapheresis",
-    "mappingGuidance": null,
     "translations": {
       "en": {
         "name": "Plasmapheresis",
@@ -83,7 +80,7 @@
       "fr": {
         "name": "Plasmapheresis",
         "category": "Actes",
-        "subcategory": "Plasmaph<c3><a9>r<c3><a8>se"
+        "subcategory": "Plasmaphérèse"
       }
     },
     "createdByDetails": {
