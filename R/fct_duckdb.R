@@ -861,7 +861,6 @@ resolve_concept_set <- function(concepts) {
                   concept_class_id, concept_code, standard_concept
            FROM concept
            WHERE concept_id IN (%s)
-             AND concept_class_id NOT LIKE '%%Hierarchy%%'
            ORDER BY concept_name",
           ids_str
         )
