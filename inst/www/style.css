@@ -3025,6 +3025,16 @@ a.btn-success-custom:hover {
   color: #333;
 }
 
+.modal-locked .modal-close {
+  display: none;
+}
+
+.modal-locked .export-option,
+.modal-locked .import-option {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 .modal-body {
   padding: 25px;
 }

@@ -510,7 +510,7 @@ create_modal <- function(id, title, body, footer = NULL, size = "medium",
     id = modal_id,
     class = "modal-overlay",
     style = "display: none;",
-    onclick = sprintf("if(event.target === event.currentTarget) document.getElementById('%s').style.display = 'none';", modal_id),
+    onclick = sprintf("if(event.target === event.currentTarget && !this.classList.contains('modal-locked')) document.getElementById('%s').style.display = 'none';", modal_id),
     tags$div(
       class = paste("modal-content", size_class),
       tags$div(
@@ -518,7 +518,7 @@ create_modal <- function(id, title, body, footer = NULL, size = "medium",
         title_content,
         tags$button(
           class = "modal-close",
-          onclick = sprintf("document.getElementById('%s').style.display = 'none';", modal_id),
+          onclick = sprintf("if(!document.getElementById('%s').classList.contains('modal-locked')) document.getElementById('%s').style.display = 'none';", modal_id, modal_id),
           "\u00D7"
         )
       ),

@@ -348,8 +348,18 @@ export_all,Exporter tout
 export_all_tooltip,Exporter tous les concept sets dans un fichier ZIP avec fichiers JSON et README
 import,Importer
 import_zip,Importer
-import_zip_tooltip,Importer des concept sets depuis un fichier ZIP
+import_zip_tooltip,Importer des concept sets
 import_concept_sets,Importer des concept sets
+import_source_git,Depuis un depot Git
+import_source_git_desc,Verifier les mises a jour depuis le depot GitHub configure
+import_source_zip,Depuis un fichier ZIP
+import_source_zip_desc,Importer des concept sets depuis un fichier ZIP local
+import_git_last_check,Derniere verification : {date}
+import_git_never_checked,Jamais verifie
+import_git_checking,Verification des mises a jour...
+import_git_no_repo,Aucun depot configure. Veuillez configurer l'URL du depot lors de la configuration initiale.
+import_git_up_to_date,Tous les concept sets sont a jour.
+import_back,Retour
 select_zip_file,Sélectionner un fichier ZIP
 import_mode,Mode d'importation
 import_mode_add,Ajouter nouveaux uniquement
@@ -389,6 +399,7 @@ concept_sets_lowercase,concept sets
 concept_sets_deleted,concept sets supprimés
 export_tooltip,Exporter les concept sets
 export_all_desc,Exporter tous les concept sets en fichier ZIP
+exporting,Export en cours...
 export_by_category,Filtrer par catégorie
 export_by_category_desc,Sélectionner des catégories spécifiques à exporter
 export_reviewed_by_me,Reviewés par moi
@@ -482,13 +493,9 @@ concept_sets_repo_url_help,URL du depot GitHub contenant les concept sets
 downloading_from_github,Telechargement des concept sets depuis GitHub...
 download_failed_fallback,Echec du telechargement. Chargement depuis les fichiers locaux.
 download_failed_github,Echec du telechargement des concept sets depuis le depot
-check_updates,Verifier les mises a jour
-checking_updates,Verification des mises a jour...
-updates_available,Mises a jour disponibles
 new_concept_sets,{count} nouveau(x) concept set(s)
 updated_concept_sets,{count} concept set(s) mis a jour
 unchanged_concept_sets,{count} concept set(s) inchange(s)
-no_updates_available,Tous les concept sets sont a jour
 apply_updates,Appliquer les mises a jour
 applying_updates,Application des mises a jour...
 updates_applied_success,{count} mise(s) a jour appliquee(s) avec succes

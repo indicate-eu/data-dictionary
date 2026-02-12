@@ -348,8 +348,18 @@ export_all,Export All
 export_all_tooltip,Export all concept sets as a ZIP file with JSON files and README
 import,Import
 import_zip,Import
-import_zip_tooltip,Import concept sets from a ZIP file
+import_zip_tooltip,Import concept sets
 import_concept_sets,Import Concept Sets
+import_source_git,From Git repository
+import_source_git_desc,Check for updates from the configured GitHub repository
+import_source_zip,From ZIP file
+import_source_zip_desc,Import concept sets from a local ZIP file
+import_git_last_check,Last check: {date}
+import_git_never_checked,Never checked for updates
+import_git_checking,Checking for updates...
+import_git_no_repo,No repository configured. Please configure a repository URL in the initial setup.
+import_git_up_to_date,All concept sets are up to date.
+import_back,Back
 select_zip_file,Select ZIP File
 import_mode,Import Mode
 import_mode_add,Add new only
@@ -389,6 +399,7 @@ concept_sets_lowercase,concept sets
 concept_sets_deleted,concept sets deleted
 export_tooltip,Export concept sets
 export_all_desc,Export all concept sets as ZIP file
+exporting,Exporting...
 export_by_category,Filter by category
 export_by_category_desc,Select specific categories to export
 export_reviewed_by_me,Reviewed by me
@@ -482,13 +493,9 @@ concept_sets_repo_url_help,GitHub repository URL containing concept sets
 downloading_from_github,Downloading concept sets from GitHub...
 download_failed_fallback,Download failed. Loading from local files instead.
 download_failed_github,Failed to download concept sets from the repository
-check_updates,Check for updates
-checking_updates,Checking for updates...
-updates_available,Updates available
 new_concept_sets,{count} new concept set(s)
 updated_concept_sets,{count} updated concept set(s)
 unchanged_concept_sets,{count} unchanged concept set(s)
-no_updates_available,All concept sets are up to date
 apply_updates,Apply updates
 applying_updates,Applying updates...
 updates_applied_success,Successfully applied {count} update(s)

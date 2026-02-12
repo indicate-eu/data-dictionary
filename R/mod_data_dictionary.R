@@ -111,14 +111,6 @@ mod_data_dictionary_ui <- function(id, i18n) {
                 ),
                 shinyjs::hidden(
                   actionButton(
-                    ns("check_updates"),
-                    i18n$t("check_updates"),
-                    class = "btn-purple-custom",
-                    icon = icon("sync")
-                  )
-                ),
-                shinyjs::hidden(
-                  actionButton(
                     ns("import_concept_sets"),
                     i18n$t("import_zip"),
                     class = "btn-purple-custom",
@@ -1047,45 +1039,6 @@ mod_data_dictionary_ui <- function(id, i18n) {
           ns = ns
         ),
 
-        ### Modal - Updates Available ----
-        create_modal(
-          id = "updates_modal",
-          title = i18n$t("updates_available"),
-          body = tagList(
-            tags$div(
-              id = ns("updates_initial_content"),
-              tags$div(
-                id = ns("updates_summary"),
-                style = "margin-bottom: 15px;"
-              ),
-              DT::DTOutput(ns("updates_table"))
-            ),
-            tags$div(
-              id = ns("updates_loading_content"),
-              style = "display: none; text-align: center; padding: 20px;",
-              tags$div(
-                style = "font-size: 18px; font-weight: 600; margin-bottom: 10px;",
-                i18n$t("applying_updates")
-              ),
-              tags$div(
-                id = ns("updates_progress"),
-                style = "color: #666;",
-                i18n$t("please_wait")
-              )
-            )
-          ),
-          footer = tagList(
-            tags$div(
-              id = ns("updates_buttons"),
-              actionButton(ns("cancel_updates"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
-              actionButton(ns("apply_updates"), i18n$t("apply_updates"), class = "btn-primary-custom", icon = icon("download"))
-            )
-          ),
-          size = "large",
-          icon = "fas fa-sync",
-          ns = ns
-        ),
-
         ### Modal - Import Concepts (JSON) ----
         create_modal(
           id = "import_concepts_modal",
@@ -1434,74 +1387,231 @@ mod_data_dictionary_ui <- function(id, i18n) {
           id = "import_concept_sets_modal",
           title = i18n$t("import_concept_sets"),
           body = tagList(
-            # File upload
+            # Step 1: Choose source (Git or ZIP)
             tags$div(
-              class = "mb-15",
-              tags$label(class = "form-label", i18n$t("select_zip_file")),
+              id = ns("import_step_choose"),
               tags$div(
-                style = "width: 100%;",
-                fileInput(
-                  ns("import_zip_file"),
-                  label = NULL,
-                  accept = ".zip",
-                  buttonLabel = i18n$t("browse"),
-                  placeholder = "No file selected",
-                  width = "100%"
+                class = "import-options-container",
+                # Git repository option
+                tags$div(
+                  class = "import-option",
+                  id = ns("import_source_git"),
+                  onclick = sprintf("Shiny.setInputValue('%s', 'git', {priority: 'event'});", ns("import_source_choice")),
+                  tags$div(
+                    class = "import-option-icon",
+                    icon("code-branch")
+                  ),
+                  tags$div(
+                    class = "import-option-content",
+                    tags$h5(class = "import-option-title", i18n$t("import_source_git")),
+                    tags$p(class = "import-option-subtitle", i18n$t("import_source_git_desc"))
+                  )
+                ),
+                # ZIP file option
+                tags$div(
+                  class = "import-option",
+                  id = ns("import_source_zip"),
+                  onclick = sprintf("Shiny.setInputValue('%s', 'zip', {priority: 'event'});", ns("import_source_choice")),
+                  tags$div(
+                    class = "import-option-icon",
+                    icon("file-archive")
+                  ),
+                  tags$div(
+                    class = "import-option-content",
+                    tags$h5(class = "import-option-title", i18n$t("import_source_zip")),
+                    tags$p(class = "import-option-subtitle", i18n$t("import_source_zip_desc"))
+                  )
                 )
               )
             ),
-            # Import mode
+
+            # Step 2a: Git - checking / results
             tags$div(
-              class = "mb-15",
+              id = ns("import_step_git"),
+              style = "display: none;",
+              # Last check info
               tags$div(
-                class = "import-options-container",
-                # Add mode
+                id = ns("import_git_last_check_info"),
+                style = "color: #666; margin-bottom: 15px; font-size: 13px;"
+              ),
+              # Repo URL display
+              tags$div(
+                id = ns("import_git_repo_info"),
+                style = "margin-bottom: 15px; padding: 10px; background: #f8f9fa; border-radius: 4px; font-size: 13px;"
+              ),
+              # Loading state
+              tags$div(
+                id = ns("import_git_loading"),
+                style = "display: none; text-align: center; padding: 20px;",
                 tags$div(
-                  class = "import-option selected",
-                  id = ns("import_option_add"),
-                  onclick = sprintf("$('.import-option').removeClass('selected'); $(this).addClass('selected'); Shiny.setInputValue('%s', 'add', {priority: 'event'});", ns("import_mode")),
+                  style = "font-size: 16px; font-weight: 600; margin-bottom: 10px;",
+                  i18n$t("import_git_checking")
+                ),
+                tags$div(
+                  class = "spinner-container",
+                  tags$div(class = "spinner")
+                )
+              ),
+              # No repo configured
+              tags$div(
+                id = ns("import_git_no_repo"),
+                style = "display: none; padding: 15px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 4px; color: #856404;",
+                i18n$t("import_git_no_repo")
+              ),
+              # Up to date message
+              tags$div(
+                id = ns("import_git_up_to_date"),
+                style = "display: none; padding: 15px; background: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px; color: #155724;",
+                i18n$t("import_git_up_to_date")
+              ),
+              # Updates found - summary + table
+              tags$div(
+                id = ns("import_git_updates_content"),
+                style = "display: none;",
+                tags$div(
+                  id = ns("import_git_updates_summary"),
+                  style = "margin-bottom: 15px;"
+                ),
+                # Import mode for git updates
+                tags$div(
+                  class = "mb-15",
                   tags$div(
-                    class = "import-option-icon",
-                    icon("plus-circle")
-                  ),
-                  tags$div(
-                    class = "import-option-content",
-                    tags$h5(class = "import-option-title", i18n$t("import_mode_add")),
-                    tags$p(class = "import-option-subtitle", i18n$t("import_mode_add_desc"))
+                    class = "import-options-container",
+                    # Add new only
+                    tags$div(
+                      class = "import-option selected",
+                      id = ns("import_git_option_add"),
+                      onclick = sprintf("$('#%s .import-option').removeClass('selected'); $(this).addClass('selected'); Shiny.setInputValue('%s', 'add', {priority: 'event'});", ns("import_step_git"), ns("import_git_mode")),
+                      tags$div(
+                        class = "import-option-icon",
+                        icon("plus-circle")
+                      ),
+                      tags$div(
+                        class = "import-option-content",
+                        tags$h5(class = "import-option-title", i18n$t("import_mode_add")),
+                        tags$p(class = "import-option-subtitle", i18n$t("import_mode_add_desc"))
+                      )
+                    ),
+                    # Update existing
+                    tags$div(
+                      class = "import-option",
+                      id = ns("import_git_option_replace"),
+                      onclick = sprintf("$('#%s .import-option').removeClass('selected'); $(this).addClass('selected'); Shiny.setInputValue('%s', 'replace', {priority: 'event'});", ns("import_step_git"), ns("import_git_mode")),
+                      tags$div(
+                        class = "import-option-icon",
+                        icon("sync-alt")
+                      ),
+                      tags$div(
+                        class = "import-option-content",
+                        tags$h5(class = "import-option-title", i18n$t("import_mode_replace")),
+                        tags$p(
+                          class = "import-option-subtitle text-danger",
+                          style = "font-weight: 600;",
+                          i18n$t("import_mode_replace_desc")
+                        )
+                      )
+                    )
                   )
                 ),
-                # Replace mode
+                DT::DTOutput(ns("import_git_updates_table"))
+              ),
+              # Applying updates loading
+              tags$div(
+                id = ns("import_git_applying"),
+                style = "display: none; text-align: center; padding: 20px;",
                 tags$div(
-                  class = "import-option",
-                  id = ns("import_option_replace"),
-                  onclick = sprintf("$('.import-option').removeClass('selected'); $(this).addClass('selected'); Shiny.setInputValue('%s', 'replace', {priority: 'event'});", ns("import_mode")),
+                  style = "font-size: 16px; font-weight: 600; margin-bottom: 10px;",
+                  i18n$t("applying_updates")
+                ),
+                tags$div(
+                  id = ns("import_git_progress"),
+                  style = "color: #666;",
+                  i18n$t("please_wait")
+                )
+              )
+            ),
+
+            # Step 2b: ZIP file import
+            tags$div(
+              id = ns("import_step_zip"),
+              style = "display: none;",
+              # File upload
+              tags$div(
+                class = "mb-15",
+                tags$label(class = "form-label", i18n$t("select_zip_file")),
+                tags$div(
+                  style = "width: 100%;",
+                  fileInput(
+                    ns("import_zip_file"),
+                    label = NULL,
+                    accept = ".zip",
+                    buttonLabel = i18n$t("browse"),
+                    placeholder = "No file selected",
+                    width = "100%"
+                  )
+                )
+              ),
+              # Import mode
+              tags$div(
+                class = "mb-15",
+                tags$div(
+                  class = "import-options-container",
+                  # Add mode
                   tags$div(
-                    class = "import-option-icon",
-                    icon("sync-alt")
+                    class = "import-option selected",
+                    id = ns("import_option_add"),
+                    onclick = sprintf("$('#%s .import-option').removeClass('selected'); $(this).addClass('selected'); Shiny.setInputValue('%s', 'add', {priority: 'event'});", ns("import_step_zip"), ns("import_mode")),
+                    tags$div(
+                      class = "import-option-icon",
+                      icon("plus-circle")
+                    ),
+                    tags$div(
+                      class = "import-option-content",
+                      tags$h5(class = "import-option-title", i18n$t("import_mode_add")),
+                      tags$p(class = "import-option-subtitle", i18n$t("import_mode_add_desc"))
+                    )
                   ),
+                  # Replace mode
                   tags$div(
-                    class = "import-option-content",
-                    tags$h5(class = "import-option-title", i18n$t("import_mode_replace")),
-                    tags$p(
-                      class = "import-option-subtitle text-danger",
-                      style = "font-weight: 600;",
-                      i18n$t("import_mode_replace_desc")
+                    class = "import-option",
+                    id = ns("import_option_replace"),
+                    onclick = sprintf("$('#%s .import-option').removeClass('selected'); $(this).addClass('selected'); Shiny.setInputValue('%s', 'replace', {priority: 'event'});", ns("import_step_zip"), ns("import_mode")),
+                    tags$div(
+                      class = "import-option-icon",
+                      icon("sync-alt")
+                    ),
+                    tags$div(
+                      class = "import-option-content",
+                      tags$h5(class = "import-option-title", i18n$t("import_mode_replace")),
+                      tags$p(
+                        class = "import-option-subtitle text-danger",
+                        style = "font-weight: 600;",
+                        i18n$t("import_mode_replace_desc")
+                      )
                     )
                   )
                 )
+              ),
+              # Progress/status message
+              tags$div(
+                id = ns("import_status_message"),
+                style = "display: none; padding: 10px; border-radius: 4px; margin-top: 15px;"
               )
-            ),
-            # Progress/status message
-            tags$div(
-              id = ns("import_status_message"),
-              style = "display: none; padding: 10px; border-radius: 4px; margin-top: 15px;"
             )
           ),
           footer = tagList(
+            shinyjs::hidden(
+              actionButton(ns("import_back"), i18n$t("import_back"), class = "btn-secondary-custom", icon = icon("arrow-left"))
+            ),
             actionButton(ns("cancel_import"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
-            actionButton(ns("confirm_import"), i18n$t("import"), class = "btn-primary-custom", icon = icon("upload"))
+            shinyjs::hidden(
+              actionButton(ns("confirm_import_zip"), i18n$t("import"), class = "btn-primary-custom", icon = icon("upload"))
+            ),
+            shinyjs::hidden(
+              actionButton(ns("confirm_import_git"), i18n$t("apply_updates"), class = "btn-primary-custom", icon = icon("download"))
+            )
           ),
-          size = "medium",
+          size = "large",
           icon = "fas fa-upload",
           ns = ns
         ),
@@ -1639,6 +1749,20 @@ mod_data_dictionary_ui <- function(id, i18n) {
                     )
                   )
                 )
+              )
+            ),
+
+            # Loading spinner (hidden by default)
+            shinyjs::hidden(
+              tags$div(
+                id = ns("export_all_loading"),
+                style = paste0(
+                  "background: #e3f2fd; border: 1px solid #90caf9; ",
+                  "color: #1565c0; padding: 10px; border-radius: 4px; ",
+                  "margin-top: 15px; text-align: center; font-size: 14px;"
+                ),
+                tags$i(class = "fas fa-spinner fa-spin", style = "margin-right: 10px;"),
+                tags$span(i18n$t("exporting"))
               )
             )
           ),
@@ -2212,9 +2336,10 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     ## Export State ----
     export_zip_path <- reactiveVal(NULL)
 
-    ## Updates State ----
-    update_check_result <- reactiveVal(NULL)
-    update_extracted_dir <- reactiveVal(NULL)
+    ## Import State ----
+    import_git_updates <- reactiveVal(NULL)
+    import_git_extracted_dir <- reactiveVal(NULL)
+    import_git_remote_sha <- reactiveVal(NULL)
 
     ## Fuzzy Search ----
     fuzzy <- fuzzy_search_server("fuzzy_search", input, session, trigger_rv = table_trigger, ns = ns)
@@ -2249,7 +2374,6 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         shinyjs::show("select_all_concept_sets")
         shinyjs::show("unselect_all_concept_sets")
         shinyjs::show("delete_selected_concept_sets")
-        shinyjs::show("check_updates")
       }
       shinyjs::show("export_all_concept_sets")
 
@@ -6907,8 +7031,29 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         return()
       }
 
+      # Show loading state, disable buttons, and lock modal
+      shinyjs::show("export_all_loading")
+      shinyjs::disable("confirm_export_all")
+      shinyjs::disable("cancel_export_all")
+      shinyjs::runjs(sprintf(
+        "$('#%s').addClass('modal-locked');",
+        ns("export_all_modal")
+      ))
+
       # Generate ZIP file
-      zip_file <- export_all_concept_sets(language = current_language, concept_set_ids = ids_to_export)
+      zip_file <- export_all_concept_sets(
+        language = current_language,
+        concept_set_ids = ids_to_export
+      )
+
+      # Hide loading state, re-enable buttons, and unlock modal
+      shinyjs::hide("export_all_loading")
+      shinyjs::enable("confirm_export_all")
+      shinyjs::enable("cancel_export_all")
+      shinyjs::runjs(sprintf(
+        "$('#%s').removeClass('modal-locked');",
+        ns("export_all_modal")
+      ))
 
       if (!is.null(zip_file) && file.exists(zip_file)) {
         export_zip_path(zip_file)
@@ -6929,21 +7074,277 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
     ## Open Import Modal ----
     observe_event(input$import_concept_sets, {
-      # Reset file input
+      # Reset to step 1 (choose source)
+      shinyjs::show("import_step_choose")
+      shinyjs::hide("import_step_git")
+      shinyjs::hide("import_step_zip")
+      shinyjs::hide("import_back")
+      shinyjs::hide("confirm_import_zip")
+      shinyjs::hide("confirm_import_git")
+      # Reset ZIP state
       shinyjs::reset("import_zip_file")
-      # Reset import mode
-      updateRadioButtons(session, "import_mode", selected = "add")
-      # Show/hide mode descriptions
-      shinyjs::show("import_mode_desc_add")
-      shinyjs::hide("import_mode_desc_replace")
-      # Hide status message
       shinyjs::hide("import_status_message")
+      # Reset Git state
+      shinyjs::hide("import_git_loading")
+      shinyjs::hide("import_git_no_repo")
+      shinyjs::hide("import_git_up_to_date")
+      shinyjs::hide("import_git_updates_content")
+      shinyjs::hide("import_git_applying")
+      import_git_updates(NULL)
+      import_git_extracted_dir(NULL)
+      import_git_remote_sha(NULL)
       # Show modal
       show_modal(ns("import_concept_sets_modal"))
     }, ignoreInit = TRUE)
 
-    ## Confirm Import ----
-    observe_event(input$confirm_import, {
+    ## Import Source Choice ----
+    observe_event(input$import_source_choice, {
+      # Hide step 1
+      shinyjs::hide("import_step_choose")
+      shinyjs::show("import_back")
+
+      if (input$import_source_choice == "git") {
+        # Show Git step
+        shinyjs::show("import_step_git")
+        shinyjs::hide("import_step_zip")
+        shinyjs::hide("confirm_import_zip")
+
+        # Get repo URL from config
+        repo_url <- get_config_value("concept_sets_repo_url")
+
+        if (is.null(repo_url) || nchar(repo_url) == 0) {
+          shinyjs::show("import_git_no_repo")
+          shinyjs::hide("import_git_loading")
+          shinyjs::html("import_git_last_check_info", "")
+          shinyjs::html("import_git_repo_info", "")
+          return()
+        }
+
+        # Show repo URL
+        shinyjs::html("import_git_repo_info", sprintf(
+          '<strong>%s</strong> %s',
+          as.character(i18n$t("concept_sets_repo_url")),
+          repo_url
+        ))
+
+        # Show last check date
+        last_check <- get_config_value("concept_sets_last_check_date")
+        if (!is.null(last_check) && nchar(last_check) > 0) {
+          last_check_text <- gsub("\\{date\\}", last_check, as.character(i18n$t("import_git_last_check")))
+        } else {
+          last_check_text <- as.character(i18n$t("import_git_never_checked"))
+        }
+        shinyjs::html("import_git_last_check_info", last_check_text)
+
+        # Start checking for updates
+        shinyjs::show("import_git_loading")
+        shinyjs::hide("import_git_no_repo")
+        shinyjs::hide("import_git_up_to_date")
+        shinyjs::hide("import_git_updates_content")
+        shinyjs::hide("confirm_import_git")
+        Sys.sleep(0.2)
+
+        # Store last check date
+        set_config_value("concept_sets_last_check_date", format(Sys.time(), "%Y-%m-%d %H:%M"))
+
+        # Check latest commit SHA
+        stored_sha <- get_config_value("concept_sets_last_commit_sha")
+        remote_sha <- get_github_latest_commit(repo_url)
+
+        if (is.null(remote_sha)) {
+          shinyjs::hide("import_git_loading")
+          showNotification(as.character(i18n$t("download_failed_github")), type = "error", duration = 5)
+          return()
+        }
+
+        if (!is.null(stored_sha) && identical(stored_sha, remote_sha)) {
+          # Up to date
+          shinyjs::hide("import_git_loading")
+          shinyjs::show("import_git_up_to_date")
+          return()
+        }
+
+        # SHA differs - download and compare
+        extracted_dir <- download_github_concept_sets(repo_url)
+        if (is.null(extracted_dir)) {
+          shinyjs::hide("import_git_loading")
+          showNotification(as.character(i18n$t("download_failed_github")), type = "error", duration = 5)
+          return()
+        }
+
+        current_language <- i18n$get_translation_language()
+        updates <- check_concept_sets_updates(extracted_dir, language = current_language)
+
+        if (length(updates$new) == 0 && length(updates$updated) == 0) {
+          # No actual changes - update SHA and notify
+          set_config_value("concept_sets_last_commit_sha", remote_sha)
+          shinyjs::hide("import_git_loading")
+          shinyjs::show("import_git_up_to_date")
+          return()
+        }
+
+        # Store results for apply step
+        import_git_updates(updates)
+        import_git_extracted_dir(extracted_dir)
+        import_git_remote_sha(remote_sha)
+
+        # Build summary HTML
+        summary_parts <- character()
+        if (length(updates$new) > 0) {
+          summary_parts <- c(summary_parts,
+            gsub("\\{count\\}", as.character(length(updates$new)), as.character(i18n$t("new_concept_sets"))))
+        }
+        if (length(updates$updated) > 0) {
+          summary_parts <- c(summary_parts,
+            gsub("\\{count\\}", as.character(length(updates$updated)), as.character(i18n$t("updated_concept_sets"))))
+        }
+        if (length(updates$unchanged) > 0) {
+          summary_parts <- c(summary_parts,
+            gsub("\\{count\\}", as.character(length(updates$unchanged)), as.character(i18n$t("unchanged_concept_sets"))))
+        }
+        shinyjs::html("import_git_updates_summary", paste(summary_parts, collapse = " &bull; "))
+
+        # Build updates table
+        items <- c(updates$new, updates$updated)
+        if (length(items) > 0) {
+          table_data <- data.frame(
+            Name = sapply(items, function(x) x$name),
+            Status = sapply(items, function(x) {
+              if (x$status == "new") as.character(i18n$t("update_status_new"))
+              else as.character(i18n$t("update_status_updated"))
+            }),
+            `Local Version` = sapply(items, function(x) if (is.na(x$local_version)) "/" else x$local_version),
+            `Remote Version` = sapply(items, function(x) x$remote_version),
+            stringsAsFactors = FALSE,
+            check.names = FALSE
+          )
+
+          output$import_git_updates_table <- DT::renderDT({
+            create_standard_datatable(
+              table_data,
+              selection = "none",
+              filter = "none",
+              col_defs = list(
+                list(className = "dt-center", targets = 1:3)
+              )
+            )
+          })
+        }
+
+        shinyjs::hide("import_git_loading")
+        shinyjs::show("import_git_updates_content")
+        shinyjs::show("confirm_import_git")
+
+      } else {
+        # Show ZIP step
+        shinyjs::show("import_step_zip")
+        shinyjs::hide("import_step_git")
+        shinyjs::show("confirm_import_zip")
+        shinyjs::hide("confirm_import_git")
+      }
+    }, ignoreInit = TRUE)
+
+    ## Import Back Button ----
+    observe_event(input$import_back, {
+      # Go back to step 1
+      shinyjs::show("import_step_choose")
+      shinyjs::hide("import_step_git")
+      shinyjs::hide("import_step_zip")
+      shinyjs::hide("import_back")
+      shinyjs::hide("confirm_import_zip")
+      shinyjs::hide("confirm_import_git")
+      # Reset Git state
+      shinyjs::hide("import_git_loading")
+      shinyjs::hide("import_git_no_repo")
+      shinyjs::hide("import_git_up_to_date")
+      shinyjs::hide("import_git_updates_content")
+      shinyjs::hide("import_git_applying")
+      import_git_updates(NULL)
+      import_git_extracted_dir(NULL)
+      import_git_remote_sha(NULL)
+    }, ignoreInit = TRUE)
+
+    ## Confirm Import Git (Apply Updates) ----
+    observe_event(input$confirm_import_git, {
+      updates <- import_git_updates()
+      extracted_dir <- import_git_extracted_dir()
+      if (is.null(updates) || is.null(extracted_dir)) return()
+
+      # Get import mode (default to "add")
+      git_mode <- if (is.null(input$import_git_mode) || length(input$import_git_mode) == 0) "add" else input$import_git_mode
+
+      # Show loading state and lock modal
+      shinyjs::hide("import_git_updates_content")
+      shinyjs::show("import_git_applying")
+      shinyjs::hide("confirm_import_git")
+      shinyjs::hide("import_back")
+      shinyjs::runjs(sprintf("$('#%s').addClass('modal-locked');", ns("import_concept_sets_modal")))
+      Sys.sleep(0.3)
+
+      current_language <- i18n$get_translation_language()
+
+      # Filter updates based on mode
+      if (git_mode == "add") {
+        # Only import new items
+        filtered_updates <- list(new = updates$new, updated = list(), unchanged = updates$unchanged)
+      } else {
+        # Import new + updated items
+        filtered_updates <- updates
+      }
+
+      progress_callback <- function(current, total) {
+        if (current == 1 || current == total || current %% 5 == 0) {
+          progress_text <- gsub("\\{current\\}", as.character(current),
+            gsub("\\{total\\}", as.character(total), as.character(i18n$t("loading_progress"))))
+          shinyjs::html("import_git_progress", progress_text)
+          Sys.sleep(0.1)
+        }
+      }
+
+      result <- apply_concept_sets_updates(
+        updates = filtered_updates,
+        extracted_dir = extracted_dir,
+        language = current_language,
+        progress_callback = progress_callback
+      )
+
+      # Update stored SHA
+      remote_sha <- import_git_remote_sha()
+      if (!is.null(remote_sha)) {
+        set_config_value("concept_sets_last_commit_sha", remote_sha)
+      }
+
+      # Reload data
+      data <- get_all_concept_sets(language = current_language)
+      concept_sets_data(data)
+      table_trigger(table_trigger() + 1)
+
+      # Clean up
+      import_git_updates(NULL)
+      import_git_extracted_dir(NULL)
+      import_git_remote_sha(NULL)
+
+      # Unlock and hide modal
+      shinyjs::runjs(sprintf("$('#%s').removeClass('modal-locked');", ns("import_concept_sets_modal")))
+      hide_modal(ns("import_concept_sets_modal"))
+
+      # Notify
+      if (result$success_count > 0) {
+        message_text <- gsub("\\{count\\}", as.character(result$success_count),
+          as.character(i18n$t("updates_applied_success")))
+        showNotification(message_text, type = "message", duration = 5)
+      }
+
+      if (result$failed_count > 0) {
+        showNotification(
+          sprintf("%d updates failed", result$failed_count),
+          type = "warning", duration = 5
+        )
+      }
+    }, ignoreInit = TRUE)
+
+    ## Confirm Import ZIP ----
+    observe_event(input$confirm_import_zip, {
       # Validate file selection
       if (is.null(input$import_zip_file)) {
         shinyjs::html("import_status_message", as.character(i18n$t("select_zip_file")))
@@ -6960,8 +7361,10 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       shinyjs::html("import_status_message", as.character(i18n$t("processing_import")))
       shinyjs::runjs(sprintf("$('#%s').css({'background': '#d1ecf1', 'border': '1px solid #bee5eb', 'color': '#0c5460', 'display': 'block'});", ns("import_status_message")))
 
-      # Disable button during import
-      shinyjs::disable("confirm_import")
+      # Disable button and lock modal during import
+      shinyjs::disable("confirm_import_zip")
+      shinyjs::hide("import_back")
+      shinyjs::runjs(sprintf("$('#%s').addClass('modal-locked');", ns("import_concept_sets_modal")))
 
       # Perform import with progress tracking
       current_language <- i18n$get_translation_language()
@@ -6992,7 +7395,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         if (length(json_files) == 0) {
           shinyjs::html("import_status_message", as.character(i18n$t("no_json_files_found")))
           shinyjs::runjs(sprintf("$('#%s').css({'background': '#f8d7da', 'border': '1px solid #f5c6cb', 'color': '#721c24', 'display': 'block'});", ns("import_status_message")))
-          shinyjs::enable("confirm_import")
+          shinyjs::enable("confirm_import_zip")
+          shinyjs::show("import_back")
+          shinyjs::runjs(sprintf("$('#%s').removeClass('modal-locked');", ns("import_concept_sets_modal")))
           return()
         }
 
@@ -7013,7 +7418,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           if (i == 1 || i == total_files || i %% 10 == 0) {
             progress_text <- sprintf("Importing %d/%d concept sets...", i, total_files)
             shinyjs::html("import_status_message", progress_text)
-            Sys.sleep(0.1)  # Small delay to show progress
+            Sys.sleep(0.1)
           }
 
           # Read JSON to get the concept set ID (with UTF-8 encoding)
@@ -7039,13 +7444,11 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           is_update <- FALSE
 
           if (import_mode == "add") {
-            # Add mode: skip if exists
             if (nrow(existing) > 0) {
               skipped_count <- skipped_count + 1
               next
             }
           } else if (import_mode == "replace") {
-            # Replace mode: delete existing before importing
             if (nrow(existing) > 0) {
               DBI::dbExecute(
                 con,
@@ -7084,7 +7487,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         shinyjs::html("import_status_message", message_text)
         shinyjs::runjs(sprintf("$('#%s').css({'background': '#d4edda', 'border': '1px solid #c3e6cb', 'color': '#155724', 'display': 'block'});", ns("import_status_message")))
 
-        # Close modal
+        # Unlock and close modal
+        shinyjs::runjs(sprintf("$('#%s').removeClass('modal-locked');", ns("import_concept_sets_modal")))
         hide_modal(ns("import_concept_sets_modal"))
 
         # Reload concept sets data
@@ -7098,12 +7502,17 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         shinyjs::runjs(sprintf("$('#%s').css({'background': '#f8d7da', 'border': '1px solid #f5c6cb', 'color': '#721c24', 'display': 'block'});", ns("import_status_message")))
       })
 
-      # Re-enable button
-      shinyjs::enable("confirm_import")
+      # Re-enable buttons and unlock
+      shinyjs::enable("confirm_import_zip")
+      shinyjs::show("import_back")
+      shinyjs::runjs(sprintf("$('#%s').removeClass('modal-locked');", ns("import_concept_sets_modal")))
     }, ignoreInit = TRUE)
 
     ## Cancel Import ----
     observe_event(input$cancel_import, {
+      import_git_updates(NULL)
+      import_git_extracted_dir(NULL)
+      import_git_remote_sha(NULL)
       hide_modal(ns("import_concept_sets_modal"))
     }, ignoreInit = TRUE)
 
@@ -7235,175 +7644,6 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     ## Cancel Load Default ----
     observe_event(input$cancel_load_default, {
       hide_modal(ns("load_default_modal"))
-    }, ignoreInit = TRUE)
-
-    ## Check for Updates ----
-    observe_event(input$check_updates, {
-      repo_url <- get_config_value("concept_sets_repo_url")
-      if (is.null(repo_url) || nchar(repo_url) == 0) {
-        showNotification(as.character(i18n$t("download_failed_github")), type = "error", duration = 5)
-        return()
-      }
-
-      showNotification(as.character(i18n$t("checking_updates")), type = "message", duration = 3)
-
-      # Check latest commit SHA
-      stored_sha <- get_config_value("concept_sets_last_commit_sha")
-      remote_sha <- get_github_latest_commit(repo_url)
-
-      if (is.null(remote_sha)) {
-        showNotification(as.character(i18n$t("download_failed_github")), type = "error", duration = 5)
-        return()
-      }
-
-      if (!is.null(stored_sha) && identical(stored_sha, remote_sha)) {
-        showNotification(as.character(i18n$t("no_updates_available")), type = "message", duration = 5)
-        return()
-      }
-
-      # SHA differs - download and compare
-      extracted_dir <- download_github_concept_sets(repo_url)
-      if (is.null(extracted_dir)) {
-        showNotification(as.character(i18n$t("download_failed_github")), type = "error", duration = 5)
-        return()
-      }
-
-      current_language <- i18n$get_translation_language()
-      updates <- check_concept_sets_updates(extracted_dir, language = current_language)
-
-      if (length(updates$new) == 0 && length(updates$updated) == 0) {
-        # No actual changes - update SHA and notify
-        set_config_value("concept_sets_last_commit_sha", remote_sha)
-        showNotification(as.character(i18n$t("no_updates_available")), type = "message", duration = 5)
-        return()
-      }
-
-      # Store results for apply step
-      update_check_result(updates)
-      update_extracted_dir(extracted_dir)
-
-      # Build summary HTML
-      summary_parts <- character()
-      if (length(updates$new) > 0) {
-        summary_parts <- c(summary_parts,
-          gsub("\\{count\\}", as.character(length(updates$new)), as.character(i18n$t("new_concept_sets"))))
-      }
-      if (length(updates$updated) > 0) {
-        summary_parts <- c(summary_parts,
-          gsub("\\{count\\}", as.character(length(updates$updated)), as.character(i18n$t("updated_concept_sets"))))
-      }
-      if (length(updates$unchanged) > 0) {
-        summary_parts <- c(summary_parts,
-          gsub("\\{count\\}", as.character(length(updates$unchanged)), as.character(i18n$t("unchanged_concept_sets"))))
-      }
-      shinyjs::html("updates_summary", paste(summary_parts, collapse = " &bull; "))
-
-      # Build updates table
-      items <- c(updates$new, updates$updated)
-      if (length(items) > 0) {
-        table_data <- data.frame(
-          Name = sapply(items, function(x) x$name),
-          Status = sapply(items, function(x) {
-            if (x$status == "new") as.character(i18n$t("update_status_new"))
-            else as.character(i18n$t("update_status_updated"))
-          }),
-          `Local Version` = sapply(items, function(x) if (is.na(x$local_version)) "/" else x$local_version),
-          `Remote Version` = sapply(items, function(x) x$remote_version),
-          stringsAsFactors = FALSE,
-          check.names = FALSE
-        )
-
-        output$updates_table <- DT::renderDT({
-          create_standard_datatable(
-            table_data,
-            selection = "none",
-            filter = "none",
-            col_defs = list(
-              list(className = "dt-center", targets = 1:3)
-            )
-          )
-        })
-      }
-
-      show_modal(ns("updates_modal"))
-    }, ignoreInit = TRUE)
-
-    ## Apply Updates ----
-    observe_event(input$apply_updates, {
-      updates <- update_check_result()
-      extracted_dir <- update_extracted_dir()
-      if (is.null(updates) || is.null(extracted_dir)) return()
-
-      # Show loading state
-      shinyjs::hide("updates_buttons")
-      shinyjs::hide("updates_initial_content")
-      shinyjs::show("updates_loading_content")
-      Sys.sleep(0.3)
-
-      current_language <- i18n$get_translation_language()
-
-      progress_callback <- function(current, total) {
-        if (current == 1 || current == total || current %% 5 == 0) {
-          progress_text <- gsub("\\{current\\}", as.character(current),
-            gsub("\\{total\\}", as.character(total), as.character(i18n$t("loading_progress"))))
-          shinyjs::html("updates_progress", progress_text)
-          Sys.sleep(0.1)
-        }
-      }
-
-      result <- apply_concept_sets_updates(
-        updates = updates,
-        extracted_dir = extracted_dir,
-        language = current_language,
-        progress_callback = progress_callback
-      )
-
-      # Update stored SHA
-      repo_url <- get_config_value("concept_sets_repo_url")
-      if (!is.null(repo_url)) {
-        sha <- get_github_latest_commit(repo_url)
-        if (!is.null(sha)) {
-          set_config_value("concept_sets_last_commit_sha", sha)
-        }
-      }
-
-      # Reload data
-      data <- get_all_concept_sets(language = current_language)
-      concept_sets_data(data)
-      table_trigger(table_trigger() + 1)
-
-      # Clean up
-      update_check_result(NULL)
-      update_extracted_dir(NULL)
-
-      # Hide modal
-      hide_modal(ns("updates_modal"))
-
-      # Reset modal state
-      shinyjs::show("updates_buttons")
-      shinyjs::show("updates_initial_content")
-      shinyjs::hide("updates_loading_content")
-
-      # Notify
-      if (result$success_count > 0) {
-        message_text <- gsub("\\{count\\}", as.character(result$success_count),
-          as.character(i18n$t("updates_applied_success")))
-        showNotification(message_text, type = "message", duration = 5)
-      }
-
-      if (result$failed_count > 0) {
-        showNotification(
-          sprintf("%d updates failed", result$failed_count),
-          type = "warning", duration = 5
-        )
-      }
-    }, ignoreInit = TRUE)
-
-    ## Cancel Updates ----
-    observe_event(input$cancel_updates, {
-      update_check_result(NULL)
-      update_extracted_dir(NULL)
-      hide_modal(ns("updates_modal"))
     }, ignoreInit = TRUE)
 
     # 6) FILTERS ====
