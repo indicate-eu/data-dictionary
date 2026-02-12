@@ -45,8 +45,17 @@ mod_login_ui <- function(id, i18n) {
             icon.removeClass('fa-eye-slash').addClass('fa-eye');
           }
         });
+
+        // Show loading state on login button click
+        $('#%s').on('click', function(e) {
+          $('#%s').hide();
+          $('#%s').show();
+          $('#%s').prop('disabled', true);
+          $('#%s').prop('disabled', true);
+          $(this).prop('disabled', true);
+        });
       });
-    ", ns("login"), ns("login"), ns("password"), ns("login"), ns("password"), ns("login_btn"), ns("toggle_password"), ns("password"), ns("password_icon")))),
+    ", ns("login"), ns("login"), ns("password"), ns("login"), ns("password"), ns("login_btn"), ns("toggle_password"), ns("password"), ns("password_icon"), ns("login_btn"), ns("login_error"), ns("login_loading"), ns("login"), ns("password")))),
     div(
       class = "login-container",
       style = paste0(
@@ -81,6 +90,18 @@ mod_login_ui <- function(id, i18n) {
             "color: #c33; padding: 10px; border-radius: 4px; ",
             "margin-bottom: 20px; text-align: center; font-size: 14px;"
           )
+        ),
+
+        # Loading spinner
+        div(
+          id = ns("login_loading"),
+          style = paste0(
+            "display: none; background: #e3f2fd; border: 1px solid #90caf9; ",
+            "color: #1565c0; padding: 10px; border-radius: 4px; ",
+            "margin-bottom: 20px; text-align: center; font-size: 14px;"
+          ),
+          tags$i(class = "fas fa-spinner fa-spin", style = "margin-right: 10px;"),
+          tags$span(i18n$t("loading"))
         ),
 
         # Login form
@@ -167,6 +188,14 @@ mod_login_server <- function(id, i18n) {
     # Reactive value to store current user
     current_user <- reactiveVal(NULL)
 
+    # Helper to reset login form to interactive state
+    reset_login_form <- function() {
+      shinyjs::hide("login_loading")
+      shinyjs::enable("login")
+      shinyjs::enable("password")
+      shinyjs::enable("login_btn")
+    }
+
     # Handle login button
     observe_event(input$login_btn, {
       # Hide previous error
@@ -177,12 +206,14 @@ mod_login_server <- function(id, i18n) {
       password_value <- input$password
 
       if (is.null(login_value) || login_value == "") {
+        reset_login_form()
         shinyjs::html("login_error", as.character(i18n$t("login_required")))
         shinyjs::show("login_error")
         return()
       }
 
       if (is.null(password_value) || password_value == "") {
+        reset_login_form()
         shinyjs::html("login_error", as.character(i18n$t("password_required")))
         shinyjs::show("login_error")
         return()
@@ -196,6 +227,7 @@ mod_login_server <- function(id, i18n) {
         current_user(user)
       } else {
         # Failed login
+        reset_login_form()
         shinyjs::html("login_error", as.character(i18n$t("login_error")))
         shinyjs::show("login_error")
       }

@@ -266,6 +266,7 @@ optional,Optional
 selected_concept_details_modal,Selected Concept Details
 descendants,Descendants
 no_descendants,No descendants found
+loading,Loading...
 loading_vocabularies,Loading OMOP vocabularies...
 no_matching_concepts,No matching concepts found
 no_omop_concepts,No OMOP concepts found in vocabularies

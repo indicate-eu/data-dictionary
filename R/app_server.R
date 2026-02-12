@@ -61,7 +61,7 @@ app_server <- function(input, output, session) {
 
   # Handle logout
   observe_event(header_result$logout(), {
-    current_user(NULL)
+    login_result$logout()
     session$reload()
   }, ignoreInit = TRUE)
 
