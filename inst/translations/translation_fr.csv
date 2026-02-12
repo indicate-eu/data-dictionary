@@ -436,6 +436,7 @@ concept_name_2,Concept 2
 unit_2,Unite 2
 test,Tester
 test_conversion,Tester la conversion
+swap_direction,Inverser la direction
 confirm_delete_conversion,Voulez-vous vraiment supprimer cette conversion ?
 invalid_conversion_factor,Facteur de conversion invalide. Doit etre un nombre positif.
 conversion_factor_updated,Facteur de conversion mis a jour avec succes

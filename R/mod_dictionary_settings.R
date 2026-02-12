@@ -283,10 +283,21 @@ mod_dictionary_settings_ui <- function(id, i18n) {
       size = "small",
       ns = ns,
       body = tagList(
+        # Swap direction button (centered)
+        tags$div(
+          style = "text-align: center; margin-bottom: 15px;",
+          actionButton(
+            ns("test_swap_direction"),
+            label = tagList(tags$i(class = "fa fa-exchange-alt"), i18n$t("swap_direction")),
+            class = "btn-secondary-custom",
+            style = "font-size: 12px; padding: 4px 12px;"
+          )
+        ),
+
         # Conversion info display
         uiOutput(ns("test_conversion_info")),
 
-        # Input for Concept 1 value with unit on the right
+        # Input for source value with unit on the right
         tags$div(
           style = "margin-top: 20px;",
           tags$label(
@@ -324,7 +335,7 @@ mod_dictionary_settings_ui <- function(id, i18n) {
           )
         ),
 
-        # Result for Concept 2 value
+        # Result for target value
         tags$div(
           tags$label(
             id = ns("test_value_2_label"),
@@ -437,11 +448,11 @@ mod_dictionary_settings_ui <- function(id, i18n) {
           class = "modal-fs-section",
           style = "flex: 0 0 auto;",
           tags$div(
-            class = "modal-fs-input-row-narrow",
+            style = "display: flex; justify-content: center; gap: 20px;",
 
             # Concept ID (measurement)
             tags$div(
-              class = "flex-input-field",
+              style = "width: 300px;",
               tags$label(i18n$t("concept_id_field"), class = "form-label"),
               textInput(ns("new_ru_concept_id"), label = NULL, value = "", width = "100%"),
               tags$div(class = "input-error-placeholder",
@@ -451,7 +462,7 @@ mod_dictionary_settings_ui <- function(id, i18n) {
 
             # Unit Concept ID
             tags$div(
-              class = "flex-input-field",
+              style = "width: 300px;",
               tags$label(i18n$t("unit_concept_id_field"), class = "form-label"),
               textInput(ns("new_ru_unit_concept_id"), label = NULL, value = "", width = "100%"),
               tags$div(class = "input-error-placeholder",
@@ -475,18 +486,17 @@ mod_dictionary_settings_ui <- function(id, i18n) {
           class = "modal-fs-section",
           tags$div(
             class = "modal-fs-section-inner",
-            fuzzy_search_ui(
-              "ru_omop_fuzzy_search",
-              ns = ns,
-              i18n = i18n,
-              limit_checkbox = TRUE,
-              limit_checkbox_id = "ru_omop_limit_10k",
-              settings_btn = TRUE,
-              settings_btn_id = "ru_omop_filters_btn"
-            ),
             tags$div(
-              style = "display: flex; justify-content: flex-end; align-items: center; margin-bottom: 10px;",
-
+              style = "position: absolute; top: 0; right: 0; z-index: 10; display: flex; align-items: center; gap: 8px;",
+              fuzzy_search_ui(
+                "ru_omop_fuzzy_search",
+                ns = ns,
+                i18n = i18n,
+                limit_checkbox = TRUE,
+                limit_checkbox_id = "ru_omop_limit_10k",
+                settings_btn = TRUE,
+                settings_btn_id = "ru_omop_filters_btn"
+              ),
               # Add as dropdown button
               tags$div(
                 class = "dropdown",
@@ -495,7 +505,7 @@ mod_dictionary_settings_ui <- function(id, i18n) {
                 tags$button(
                   id = ns("ru_add_as_btn"),
                   class = "btn-primary-custom",
-                  style = "display: flex; align-items: center; gap: 6px;",
+                  style = "display: flex; align-items: center; gap: 6px; height: 26px; font-size: 12px; padding: 0 10px; white-space: nowrap;",
                   onclick = sprintf("event.stopPropagation(); $('#%s').toggle();", ns("ru_add_as_dropdown")),
                   tags$i(class = "fa fa-plus"),
                   i18n$t("add_as"),
@@ -592,7 +602,7 @@ mod_dictionary_settings_ui <- function(id, i18n) {
 
             # Conversion Factor
             tags$div(
-              class = "flex-input-field",
+              class = "flex-input-field flex-input-field-narrow",
               tags$label(i18n$t("conversion_factor"), class = "form-label"),
               numericInput(ns("new_conversion_factor"), label = NULL, value = 1, min = 0, step = 1, width = "100%"),
               tags$div(class = "input-error-placeholder",
@@ -643,18 +653,17 @@ mod_dictionary_settings_ui <- function(id, i18n) {
           class = "modal-fs-section",
           tags$div(
             class = "modal-fs-section-inner",
-            fuzzy_search_ui(
-              "conv_omop_fuzzy_search",
-              ns = ns,
-              i18n = i18n,
-              limit_checkbox = TRUE,
-              limit_checkbox_id = "conv_omop_limit_10k",
-              settings_btn = TRUE,
-              settings_btn_id = "conv_omop_filters_btn"
-            ),
             tags$div(
-              style = "display: flex; justify-content: flex-end; align-items: center; margin-bottom: 10px;",
-
+              style = "position: absolute; top: 0; right: 0; z-index: 10; display: flex; align-items: center; gap: 8px;",
+              fuzzy_search_ui(
+                "conv_omop_fuzzy_search",
+                ns = ns,
+                i18n = i18n,
+                limit_checkbox = TRUE,
+                limit_checkbox_id = "conv_omop_limit_10k",
+                settings_btn = TRUE,
+                settings_btn_id = "conv_omop_filters_btn"
+              ),
               # Add as dropdown button
               tags$div(
                 class = "dropdown",
@@ -663,7 +672,7 @@ mod_dictionary_settings_ui <- function(id, i18n) {
                 tags$button(
                   id = ns("add_as_btn"),
                   class = "btn-primary-custom",
-                  style = "display: flex; align-items: center; gap: 6px;",
+                  style = "display: flex; align-items: center; gap: 6px; height: 26px; font-size: 12px; padding: 0 10px; white-space: nowrap;",
                   onclick = sprintf("event.stopPropagation(); $('#%s').toggle();", ns("add_as_dropdown")),
                   tags$i(class = "fa fa-plus"),
                   i18n$t("add_as"),
@@ -794,6 +803,8 @@ mod_dictionary_settings_server <- function(id, i18n, current_user = NULL, vocabu
     ### Test Conversion State ----
     test_conversion_row <- reactiveVal(NULL)
     test_unit_code_2 <- reactiveVal("")
+    test_reversed <- reactiveVal(FALSE)
+    test_display_trigger <- reactiveVal(0)
 
     ### Delete State ----
     delete_row_index <- reactiveVal(NULL)
@@ -1203,15 +1214,25 @@ mod_dictionary_settings_server <- function(id, i18n, current_user = NULL, vocabu
 
       conversions <- unit_conversions_data()
       if (!is.null(conversions) && row_index <= nrow(conversions)) {
+        test_reversed(FALSE)
         test_conversion_row(conversions[row_index, ])
+        test_display_trigger(test_display_trigger() + 1)
         show_modal(ns("test_conversion_modal"))
       }
     }, ignoreInit = TRUE)
 
+    # Swap direction
+    observe_event(input$test_swap_direction, {
+      test_reversed(!test_reversed())
+      test_display_trigger(test_display_trigger() + 1)
+    }, ignoreInit = TRUE)
+
     # Display conversion info
-    observe_event(test_conversion_row(), {
+    observe_event(test_display_trigger(), {
       conv <- test_conversion_row()
       if (is.null(conv)) return()
+
+      reversed <- test_reversed()
 
       # Get concept names and unit codes from vocabulary
       vocab_data <- if (!is.null(vocabularies)) vocabularies() else NULL
@@ -1237,7 +1258,16 @@ mod_dictionary_settings_server <- function(id, i18n, current_user = NULL, vocabu
         if (nrow(u2) > 0) unit_code_2 <- u2$concept_code[1]
       }
 
-      # Store unit 2 for result display
+      # Swap names/units if reversed
+      if (reversed) {
+        tmp_name <- concept_name_1; concept_name_1 <- concept_name_2; concept_name_2 <- tmp_name
+        tmp_unit <- unit_code_1; unit_code_1 <- unit_code_2; unit_code_2 <- tmp_unit
+      }
+
+      # Effective factor: original or 1/x
+      effective_factor <- if (reversed) 1 / conv$conversion_factor else conv$conversion_factor
+
+      # Store unit for result display
       test_unit_code_2(unit_code_2)
 
       output$test_conversion_info <- renderUI({
@@ -1256,13 +1286,13 @@ mod_dictionary_settings_server <- function(id, i18n, current_user = NULL, vocabu
       shinyjs::runjs(sprintf("$('#%s').text('%s');", ns("test_value_1_label"), concept_name_1))
       shinyjs::runjs(sprintf("$('#%s').text('%s');", ns("test_value_2_label"), concept_name_2))
       shinyjs::runjs(sprintf("$('#%s').text('%s');", ns("test_unit_1_display"), unit_code_1))
-      shinyjs::runjs(sprintf("$('#%s').text('%s');", ns("test_factor_display"), conv$conversion_factor))
+      shinyjs::runjs(sprintf("$('#%s').text('%s');", ns("test_factor_display"), round(effective_factor, 2)))
 
       # Trigger initial calculation
       input_val <- input$test_value_1
       if (is.null(input_val) || is.na(input_val)) input_val <- 1
-      result <- input_val * conv$conversion_factor
-      result_text <- paste0(round(result, 6), " ", unit_code_2)
+      result <- input_val * effective_factor
+      result_text <- paste0(round(result, 2), " ", unit_code_2)
       shinyjs::runjs(sprintf("$('#%s').text('%s');", ns("test_result_display"), result_text))
     }, ignoreInit = TRUE)
 
@@ -1271,12 +1301,15 @@ mod_dictionary_settings_server <- function(id, i18n, current_user = NULL, vocabu
       conv <- test_conversion_row()
       if (is.null(conv)) return()
 
+      reversed <- test_reversed()
+      effective_factor <- if (reversed) 1 / conv$conversion_factor else conv$conversion_factor
+
       input_val <- input$test_value_1
       if (is.null(input_val) || is.na(input_val)) input_val <- 0
 
-      result <- input_val * conv$conversion_factor
+      result <- input_val * effective_factor
       unit_code_2 <- test_unit_code_2()
-      result_text <- paste0(round(result, 6), " ", unit_code_2)
+      result_text <- paste0(round(result, 2), " ", unit_code_2)
       shinyjs::runjs(sprintf("$('#%s').text('%s');", ns("test_result_display"), result_text))
     }, ignoreInit = FALSE)
 

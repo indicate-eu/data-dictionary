@@ -6325,7 +6325,10 @@ table.dataTable .tag-badge {
   min-height: 0;
 }
 
-/* Dictionary Settings - fuzzy search inside absolute-positioned wrapper */
+/* Dictionary Settings - fuzzy search inside absolute-positioned wrapper:
+   When .fuzzy-search-container is inside a flex wrapper that handles positioning,
+   reset its absolute position so it participates in the flex layout. */
+.modal-fs-section-inner > div > .fuzzy-search-container,
 #dictionary_settings-conversions_fuzzy_search_container .fuzzy-search-container,
 #dictionary_settings-recommended_units_fuzzy_search_container .fuzzy-search-container {
   position: relative;
@@ -6343,12 +6346,12 @@ table.dataTable .tag-badge {
 }
 
 .modal-fs-input-row-narrow .flex-input-field {
-  flex: 0 1 200px;
+  flex: 1 1 0;
   min-width: 140px;
 }
 
-.modal-fs-input-row-narrow > div[style*="flex: 0.5"] {
-  flex: 0 1 120px !important;
+.modal-fs-input-row-narrow .flex-input-field-narrow {
+  flex: 0 0 120px;
   min-width: 100px;
 }
 
