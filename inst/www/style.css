@@ -2474,7 +2474,7 @@ a.btn-success-custom:hover {
 .tab-content-panel {
   display: flex;
   flex-direction: column;
-  height: calc(100% - 42px);
+  height: 100%;
   padding: 5px 0;
 }
 
@@ -6293,4 +6293,70 @@ table.dataTable .tag-badge {
 
 .modal-fs-header .selectize-dropdown {
   min-width: 220px !important;
+}
+
+/* Dictionary Settings - ETL Guidelines
+-------------------------------------------------- */
+.tab-content-panel .settings-backup-container.concepts-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 10px;
+  height: 100%;
+  min-height: 0;
+}
+
+.tab-content-panel .settings-backup-container.concepts-layout > .settings-section {
+  max-width: none;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.tab-content-panel .settings-backup-container.concepts-layout .settings-section-title {
+  flex-shrink: 0;
+}
+
+.tab-content-panel .settings-backup-container.concepts-layout .ace_editor {
+  height: 100% !important;
+  min-height: 0;
+}
+
+/* Dictionary Settings - fuzzy search inside absolute-positioned wrapper */
+#dictionary_settings-conversions_fuzzy_search_container .fuzzy-search-container,
+#dictionary_settings-recommended_units_fuzzy_search_container .fuzzy-search-container {
+  position: relative;
+  top: auto;
+  right: auto;
+}
+
+/* Dictionary Settings - Constrained modal input fields */
+.modal-fs-input-row-narrow {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  min-height: 80px;
+}
+
+.modal-fs-input-row-narrow .flex-input-field {
+  flex: 0 1 200px;
+  min-width: 140px;
+}
+
+.modal-fs-input-row-narrow > div[style*="flex: 0.5"] {
+  flex: 0 1 120px !important;
+  min-width: 100px;
+}
+
+/* Fixed-height error message placeholder to prevent layout shift */
+.input-error-placeholder {
+  height: 22px;
+}
+
+.input-error-placeholder .input-error-message {
+  margin-top: 5px;
 }

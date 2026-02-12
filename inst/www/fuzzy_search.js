@@ -20,7 +20,7 @@ $(document).ready(function() {
       var inputId = $(this).attr('id');
       // Send to Shiny with "_query" suffix
       Shiny.setInputValue(inputId + '_query', val, {priority: 'event'});
-    }, 300)
+    }, 500)
   );
 
   // Listen for changes on limit checkbox
