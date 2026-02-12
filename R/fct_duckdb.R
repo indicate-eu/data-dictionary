@@ -908,33 +908,68 @@ export_concept_set_to_json <- function(concept_set_id, concepts_data = NULL) {
     if (is.null(concepts_data)) {
       concepts_data <- DBI::dbGetQuery(
         con,
-        "SELECT * FROM concept_set_items WHERE concept_set_id = ?",
+        "SELECT * FROM concept_set_items WHERE concept_set_id = ? ORDER BY concept_id",
         params = list(concept_set_id)
       )
+    } else {
+      concepts_data <- concepts_data[order(concepts_data$concept_id), ]
+    }
+
+    # Enrich concepts with DuckDB vocabulary data (valid dates, standard_concept, invalid_reason)
+    vocab_lookup <- NULL
+    if (duckdb_exists() && nrow(concepts_data) > 0) {
+      tryCatch({
+        con_vocab <- get_duckdb_connection()
+        on.exit(DBI::dbDisconnect(con_vocab, shutdown = TRUE), add = TRUE)
+        ids <- paste(concepts_data$concept_id, collapse = ",")
+        vocab_lookup <- DBI::dbGetQuery(
+          con_vocab,
+          paste0("SELECT concept_id, standard_concept, invalid_reason,
+                  valid_start_date, valid_end_date FROM concept WHERE concept_id IN (", ids, ")")
+        )
+      }, error = function(e) NULL)
     }
 
     # Build OHDSI JSON structure - expression items
     items <- lapply(seq_len(nrow(concepts_data)), function(i) {
       concept <- concepts_data[i, ]
+      cid <- as.integer(concept$concept_id)
 
-      # Safely extract values
-      std_concept <- if (length(concept$standard_concept) == 0 || is.na(concept$standard_concept)) NULL else as.character(concept$standard_concept)
-      invalid_reason <- if (length(concept$invalid_reason) == 0 || is.na(concept$invalid_reason)) NULL else as.character(concept$invalid_reason)
+      # Use DuckDB data if available, fallback to SQLite data
+      vocab_row <- if (!is.null(vocab_lookup)) vocab_lookup[vocab_lookup$concept_id == cid, ] else NULL
+      has_vocab <- !is.null(vocab_row) && nrow(vocab_row) > 0
+
+      std_concept <- if (has_vocab) {
+        v <- vocab_row$standard_concept[1]
+        if (is.na(v) || v == "") NULL else as.character(v)
+      } else {
+        if (length(concept$standard_concept) == 0 || is.na(concept$standard_concept)) NULL else as.character(concept$standard_concept)
+      }
+
+      invalid_reason <- if (has_vocab) {
+        v <- vocab_row$invalid_reason[1]
+        if (is.na(v) || v == "") NULL else as.character(v)
+      } else {
+        if (length(concept$invalid_reason) == 0 || is.na(concept$invalid_reason)) NULL else as.character(concept$invalid_reason)
+      }
+
+      valid_start <- if (has_vocab) as.character(vocab_row$valid_start_date[1]) else "1970-01-01"
+      valid_end <- if (has_vocab) as.character(vocab_row$valid_end_date[1]) else "2099-12-31"
 
       list(
         concept = list(
-          conceptId = as.integer(concept$concept_id),
+          conceptId = cid,
           conceptName = as.character(concept$concept_name),
-          standardConcept = std_concept,
-          standardConceptCaption = if (is.null(std_concept)) "Unknown" else if (std_concept == "S") "Standard" else "Non-Standard",
-          invalidReason = invalid_reason,
-          invalidReasonCaption = if (is.null(invalid_reason)) "Valid" else "Invalid",
-          conceptCode = as.character(concept$concept_code),
           domainId = as.character(concept$domain_id),
           vocabularyId = as.character(concept$vocabulary_id),
           conceptClassId = as.character(concept$concept_class_id),
-          validStartDate = "1970-01-01",
-          validEndDate = "2099-12-31"
+          standardConcept = std_concept,
+          standardConceptCaption = if (is.null(std_concept)) "Unknown" else if (std_concept == "S") "Standard" else "Non-Standard",
+          conceptCode = as.character(concept$concept_code),
+          validStartDate = valid_start,
+          validEndDate = valid_end,
+          invalidReason = invalid_reason,
+          invalidReasonCaption = if (is.null(invalid_reason)) "Valid" else "Invalid"
         ),
         isExcluded = isTRUE(concept$is_excluded),
         includeDescendants = isTRUE(concept$include_descendants),
@@ -1064,17 +1099,35 @@ export_concept_set_to_json <- function(concept_set_id, concepts_data = NULL) {
       orcid = if (!is.null(cs$created_by_orcid) && !is.na(cs$created_by_orcid)) as.character(cs$created_by_orcid) else NULL
     )
 
+    # Build author display names from first/last name fields
+    build_author_name <- function(first, last) {
+      first <- if (!is.null(first) && !is.na(first) && nchar(first) > 0) first else NULL
+      last <- if (!is.null(last) && !is.na(last) && nchar(last) > 0) last else NULL
+      if (!is.null(first) && !is.null(last)) paste(first, last)
+      else if (!is.null(first)) first
+      else if (!is.null(last)) last
+      else NULL
+    }
+    created_by_name <- build_author_name(cs$created_by_first_name, cs$created_by_last_name)
+    modified_by_name <- build_author_name(cs$modified_by_first_name, cs$modified_by_last_name)
+
+    # Convert timestamps (2026-02-12T16:03:49Z) to date-only (2026-02-12)
+    to_date_only <- function(x) {
+      if (is.null(x) || is.na(x)) return(NULL)
+      substr(as.character(x), 1, 10)
+    }
+
     # Build complete OHDSI-compliant JSON structure
     result <- list(
       id = as.integer(cs$id),
       name = as.character(cs$name),
       description = if (!is.null(cs$description) && !is.na(cs$description)) as.character(cs$description) else NULL,
       version = if (!is.null(cs$version) && !is.na(cs$version)) as.character(cs$version) else "1.0.0",
-      createdBy = if (!is.null(cs$created_by) && !is.na(cs$created_by)) as.character(cs$created_by) else NULL,
-      createdDate = if (!is.null(cs$created_date) && !is.na(cs$created_date)) as.character(cs$created_date) else NULL,
-      modifiedBy = if (!is.null(cs$modified_by) && !is.na(cs$modified_by)) as.character(cs$modified_by) else NULL,
-      modifiedDate = if (!is.null(cs$modified_date) && !is.na(cs$modified_date)) as.character(cs$modified_date) else NULL,
-      createdByTool = "INDICATE Data Dictionary v0.2.0.9001",
+      createdBy = created_by_name,
+      createdDate = to_date_only(cs$created_date),
+      modifiedBy = if (!is.null(modified_by_name)) modified_by_name else created_by_name,
+      modifiedDate = to_date_only(cs$modified_date),
+      createdByTool = "INDICATE Data Dictionary v0.2.0.9002",
       expression = list(
         items = items
       ),
@@ -1100,7 +1153,6 @@ export_concept_set_to_json <- function(concept_set_id, concepts_data = NULL) {
 #' Export all concept sets to ZIP file
 #'
 #' @description Creates a ZIP file containing all concept sets as JSON files
-#'              plus a README with summary information
 #'
 #' @param language Language code for translations (default: "en")
 #' @param concept_set_ids Optional vector of concept set IDs to export (default: NULL = all)
@@ -1109,44 +1161,6 @@ export_concept_set_to_json <- function(concept_set_id, concepts_data = NULL) {
 #' @noRd
 export_all_concept_sets <- function(language = "en", concept_set_ids = NULL) {
   tryCatch({
-    con <- get_db_connection()
-    on.exit(DBI::dbDisconnect(con), add = TRUE)
-
-    # Helper: generate shields.io badge for review status
-    format_status_badge <- function(status) {
-      status <- if (!is.na(status)) status else "draft"
-      color <- switch(tolower(status),
-        "draft" = "grey",
-        "pending_review" = "yellow",
-        "approved" = "brightgreen",
-        "needs_revision" = "red",
-        "deprecated" = "darkgrey",
-        "grey"
-      )
-      label <- gsub("_", " ", tools::toTitleCase(tolower(status)))
-      sprintf("![%s](https://img.shields.io/badge/status-%s-%s)", label, utils::URLencode(label, reserved = TRUE), color)
-    }
-
-    # Helper: format a concept set entry for README
-    format_cs_entry <- function(cs, concept_count) {
-      status_badge <- format_status_badge(cs$review_status)
-      sprintf(
-        "- **%s** (ID: %d, File: %d.json)\n  - Description: %s\n  - Version: %s | %s | Concepts: %d\n  - Author: %s %s (%s)\n  - Created: %s | Modified: %s",
-        cs$name,
-        cs$id,
-        cs$id,
-        if (!is.na(cs$description)) cs$description else "N/A",
-        if (!is.na(cs$version)) cs$version else "1.0.0",
-        status_badge,
-        concept_count,
-        if (!is.na(cs$created_by_first_name)) cs$created_by_first_name else "",
-        if (!is.na(cs$created_by_last_name)) cs$created_by_last_name else "",
-        if (!is.na(cs$created_by_profession)) cs$created_by_profession else "N/A",
-        if (!is.na(cs$created_date)) gsub("[TZ]", " ", cs$created_date) else "N/A",
-        if (!is.na(cs$modified_date)) gsub("[TZ]", " ", cs$modified_date) else "N/A"
-      )
-    }
-
     # Get all concept sets with translations
     concept_sets <- get_all_concept_sets(language = language)
 
@@ -1167,172 +1181,6 @@ export_all_concept_sets <- function(language = "en", concept_set_ids = NULL) {
     dir.create(temp_dir)
     concept_sets_dir <- file.path(temp_dir, "concept_sets")
     dir.create(concept_sets_dir)
-
-    # Generate README content with Table of Contents
-    readme_lines <- c(
-      "# INDICATE Data Dictionary - Concept Sets Export",
-      "",
-      sprintf("**Export date:** %s", Sys.time()),
-      sprintf("**Number of concept sets:** %d", nrow(concept_sets)),
-      "",
-      "---",
-      "",
-      "## Table of Contents",
-      ""
-    )
-
-    # Build TOC structure first
-    toc_lines <- c()
-    categories <- unique(concept_sets$category[!is.na(concept_sets$category)])
-
-    for (category in sort(categories)) {
-      # Sanitize category for anchor link
-      category_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", category))
-      toc_lines <- c(toc_lines, sprintf("- [%s](#%s)", category, category_anchor))
-
-      # Get concept sets for this category
-      category_sets <- concept_sets[!is.na(concept_sets$category) & concept_sets$category == category, ]
-
-      # Get subcategories for this category
-      subcategories <- unique(category_sets$subcategory[!is.na(category_sets$subcategory)])
-
-      if (length(subcategories) > 0) {
-        for (subcategory in sort(subcategories)) {
-          # Sanitize subcategory for anchor link
-          subcat_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(category, "-", subcategory)))
-          toc_lines <- c(toc_lines, sprintf("  - [%s](#%s)", subcategory, subcat_anchor))
-
-          # Get concept sets for this subcategory
-          subcat_sets <- category_sets[!is.na(category_sets$subcategory) & category_sets$subcategory == subcategory, ]
-
-          for (i in seq_len(nrow(subcat_sets))) {
-            cs <- subcat_sets[i, ]
-            cs_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(cs$id, "-", cs$name)))
-            toc_lines <- c(toc_lines, sprintf("    - [%d - %s](#%s)", cs$id, cs$name, cs_anchor))
-          }
-        }
-      }
-
-      # Concept sets without subcategory in this category
-      no_subcat_sets <- category_sets[is.na(category_sets$subcategory), ]
-      if (nrow(no_subcat_sets) > 0) {
-        for (i in seq_len(nrow(no_subcat_sets))) {
-          cs <- no_subcat_sets[i, ]
-          cs_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(cs$id, "-", cs$name)))
-          toc_lines <- c(toc_lines, sprintf("  - [%d - %s](#%s)", cs$id, cs$name, cs_anchor))
-        }
-      }
-    }
-
-    # Handle uncategorized in TOC
-    no_cat_sets <- concept_sets[is.na(concept_sets$category), ]
-    if (nrow(no_cat_sets) > 0) {
-      toc_lines <- c(toc_lines, "- [Uncategorized](#uncategorized)")
-      for (i in seq_len(nrow(no_cat_sets))) {
-        cs <- no_cat_sets[i, ]
-        cs_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(cs$id, "-", cs$name)))
-        toc_lines <- c(toc_lines, sprintf("  - [%d - %s](#%s)", cs$id, cs$name, cs_anchor))
-      }
-    }
-
-    # Add TOC to README
-    readme_lines <- c(readme_lines, toc_lines, "", "---", "", "## Concept Sets by Category", "")
-
-    # Now generate the detailed sections
-    for (category in sort(categories)) {
-      # Add category header with anchor
-      category_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", category))
-      readme_lines <- c(readme_lines, sprintf('<a id="%s"></a>', category_anchor))
-      readme_lines <- c(readme_lines, sprintf("### %s", category))
-      readme_lines <- c(readme_lines, "")
-
-      # Get concept sets for this category
-      category_sets <- concept_sets[!is.na(concept_sets$category) & concept_sets$category == category, ]
-
-      # Get subcategories for this category
-      subcategories <- unique(category_sets$subcategory[!is.na(category_sets$subcategory)])
-
-      if (length(subcategories) > 0) {
-        for (subcategory in sort(subcategories)) {
-          # Add subcategory header with anchor
-          subcat_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(category, "-", subcategory)))
-          readme_lines <- c(readme_lines, sprintf('<a id="%s"></a>', subcat_anchor))
-          readme_lines <- c(readme_lines, sprintf("#### %s", subcategory))
-          readme_lines <- c(readme_lines, "")
-
-          # Get concept sets for this subcategory
-          subcat_sets <- category_sets[!is.na(category_sets$subcategory) & category_sets$subcategory == subcategory, ]
-
-          for (i in seq_len(nrow(subcat_sets))) {
-            cs <- subcat_sets[i, ]
-
-            # Get concept count
-            concepts <- DBI::dbGetQuery(
-              con,
-              "SELECT COUNT(*) as count FROM concept_set_items WHERE concept_set_id = ?",
-              params = list(cs$id)
-            )
-            concept_count <- concepts$count[1]
-
-            # Add anchor for this concept set
-            cs_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(cs$id, "-", cs$name)))
-            readme_lines <- c(readme_lines, sprintf('<a id="%s"></a>', cs_anchor))
-
-            readme_lines <- c(readme_lines, format_cs_entry(cs, concept_count), "")
-          }
-        }
-      }
-
-      # Handle concept sets without subcategory in this category
-      no_subcat_sets <- category_sets[is.na(category_sets$subcategory), ]
-      if (nrow(no_subcat_sets) > 0) {
-        for (i in seq_len(nrow(no_subcat_sets))) {
-          cs <- no_subcat_sets[i, ]
-
-          # Get concept count
-          concepts <- DBI::dbGetQuery(
-            con,
-            "SELECT COUNT(*) as count FROM concept_set_items WHERE concept_set_id = ?",
-            params = list(cs$id)
-          )
-          concept_count <- concepts$count[1]
-
-          # Add anchor for this concept set
-          cs_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(cs$id, "-", cs$name)))
-          readme_lines <- c(readme_lines, sprintf('<a id="%s"></a>', cs_anchor))
-
-          readme_lines <- c(readme_lines, format_cs_entry(cs, concept_count), "")
-        }
-      }
-    }
-
-    # Handle concept sets without category
-    no_cat_sets <- concept_sets[is.na(concept_sets$category), ]
-    if (nrow(no_cat_sets) > 0) {
-      readme_lines <- c(readme_lines, '<a id="uncategorized"></a>')
-      readme_lines <- c(readme_lines, "### Uncategorized", "")
-
-      for (i in seq_len(nrow(no_cat_sets))) {
-        cs <- no_cat_sets[i, ]
-
-        # Get concept count
-        concepts <- DBI::dbGetQuery(
-          con,
-          "SELECT COUNT(*) as count FROM concept_set_items WHERE concept_set_id = ?",
-          params = list(cs$id)
-        )
-        concept_count <- concepts$count[1]
-
-        # Add anchor for this concept set
-        cs_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(cs$id, "-", cs$name)))
-        readme_lines <- c(readme_lines, sprintf('<a id="%s"></a>', cs_anchor))
-
-        readme_lines <- c(readme_lines, format_cs_entry(cs, concept_count), "")
-      }
-    }
-
-    # Write README
-    writeLines(readme_lines, file.path(concept_sets_dir, "README.md"))
 
     # Export each concept set as JSON
     for (i in seq_len(nrow(concept_sets))) {

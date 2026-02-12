@@ -1,8 +1,8 @@
 # INDICATE Minimal Data Dictionary
 
-[![License: EUPL-1.2](https://img.shields.io/badge/License-EUPL--1.2-blue.svg)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12)
-[![R >= 4.0.0](https://img.shields.io/badge/R-%3E%3D%204.0.0-blue.svg)](https://cran.r-project.org/)
-[![Funded by EU](https://img.shields.io/badge/Funded%20by-EU%20Digital%20Europe-003399.svg)](https://indicate-europe.eu/)
+[![Funded by EU](https://img.shields.io/badge/Funded%20by-EU%20Digital%20Europe-003399?style=for-the-badge)](https://indicate-europe.eu/)
+[![License: EUPL-1.2](https://img.shields.io/badge/License-EUPL--1.2-blue?style=for-the-badge)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12)
+[![R >= 4.0.0](https://img.shields.io/badge/R-%3E%3D%204.0.0-blue?style=for-the-badge)](https://cran.r-project.org/)
 
 ![Application Interface](man/figures/web_interface.png)
 
