@@ -4,9 +4,13 @@ This file provides development guidelines for Claude Code when working on the IN
 
 ## Project Overview
 
-**INDICATE Data Dictionary** is an R Shiny application for managing OHDSI-compliant concept sets. It provides a user interface for browsing, creating, and managing clinical concept sets following the OMOP Common Data Model standards.
+**INDICATE Data Dictionary** is an R Shiny application for managing OHDSI-compliant concept sets for the INDICATE project (EU Digital Europe Programme, grant 101167778). It provides a web-based interface for browsing, creating, reviewing, and exporting clinical concept sets following the OMOP Common Data Model standards. The application supports 332 concept sets across 9 clinical domains for ICU data harmonization across 15 European data providers from 12 countries.
 
-**Technologies**: R (>= 4.0.0), Shiny (>= 1.7.0), DT, DBI, RSQLite, bcrypt, shiny.i18n, shiny.router, shinyjs, jQuery, DataTables
+**Version**: 0.2.0.9002
+
+**Technologies**: R (>= 4.0.0), Shiny (>= 1.7.0), DT, DBI, RSQLite, DuckDB, Arrow, bcrypt, shiny.i18n, shiny.router, shinyjs, visNetwork, jsonlite, stringdist, jQuery, DataTables
+
+**License**: EUPL-1.2
 
 **Author**: Boris Delange (boris.delange@univ-rennes.fr)
 
@@ -14,33 +18,99 @@ This file provides development guidelines for Claude Code when working on the IN
 
 ## Architecture Overview
 
-### Database Architecture
+### Dual Database Architecture
 
-The application uses **SQLite** as the primary data store:
+The application uses two databases:
 
-- Database location: `rappdirs::user_data_dir("indicate", "indicate")/indicate.db`
-- Can be overridden with `INDICATE_DATA_DIR` environment variable
-- Auto-initializes tables on first connection
+1. **SQLite** (`indicate.db`) - Primary data store for application data
+   - Location: `~/indicate_files/indicate.db` (default)
+   - Can be overridden with `INDICATE_APP_FOLDER` environment variable
+   - Auto-initializes tables on first connection via `init_database()`
 
-### Core Tables
+2. **DuckDB** (`ohdsi_vocabularies.duckdb`) - Read-only OHDSI vocabulary store
+   - Location: `~/indicate_files/ohdsi_vocabularies.duckdb`
+   - Created from ATHENA CSV or Parquet files via General Settings
+   - Contains tables: `concept`, `concept_relationship`, `concept_ancestor`, `concept_synonym`, `relationship`
+   - Used for vocabulary lookups, hierarchy graphs, concept resolution
 
-**`concept_sets`**: OHDSI-compliant concept sets
+### SQLite Tables
+
+**`concept_sets`**: OHDSI-compliant concept sets (extended with lifecycle metadata)
 ```sql
 CREATE TABLE concept_sets (
   id INTEGER PRIMARY KEY,
   name TEXT NOT NULL,
   description TEXT,
   version TEXT DEFAULT '1.0.0',
+  review_status TEXT DEFAULT 'draft',
   category TEXT,
   subcategory TEXT,
   long_description TEXT,
   tags TEXT,
-  created_by TEXT,
+  created_by_first_name TEXT, created_by_last_name TEXT,
+  created_by_profession TEXT, created_by_affiliation TEXT, created_by_orcid TEXT,
   created_date TEXT,
-  modified_by TEXT,
+  modified_by_first_name TEXT, modified_by_last_name TEXT,
+  modified_by_profession TEXT, modified_by_affiliation TEXT, modified_by_orcid TEXT,
   modified_date TEXT
 )
 ```
+
+**`concept_set_items`**: Concepts within a concept set (follows OHDSI Concept Set Specification)
+```sql
+CREATE TABLE concept_set_items (
+  concept_set_id INTEGER NOT NULL,
+  concept_id INTEGER NOT NULL,
+  concept_name TEXT, vocabulary_id TEXT, concept_code TEXT,
+  domain_id TEXT, concept_class_id TEXT, standard_concept TEXT,
+  is_excluded INTEGER DEFAULT 0,
+  include_descendants INTEGER DEFAULT 1,
+  include_mapped INTEGER DEFAULT 1,
+  created_at TEXT,
+  PRIMARY KEY (concept_set_id, concept_id)
+)
+```
+
+**`concept_set_translations`**: Multilingual translations for concept set fields
+```sql
+CREATE TABLE concept_set_translations (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  concept_set_id INTEGER NOT NULL,
+  language TEXT NOT NULL,
+  field TEXT NOT NULL,  -- 'name', 'description', 'category', 'subcategory', 'long_description'
+  value TEXT,
+  UNIQUE(concept_set_id, language, field)
+)
+```
+
+**`concept_set_reviews`**: Review workflow with status tracking
+```sql
+CREATE TABLE concept_set_reviews (
+  review_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  concept_set_id INTEGER NOT NULL,
+  concept_set_version TEXT,
+  reviewer_user_id INTEGER NOT NULL,
+  status TEXT NOT NULL,  -- 'pending_review', 'approved', 'needs_revision'
+  comments TEXT,
+  review_date TEXT
+)
+```
+
+**`concept_set_changelog`**: Version history and change tracking
+```sql
+CREATE TABLE concept_set_changelog (
+  change_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  concept_set_id INTEGER NOT NULL,
+  version_from TEXT, version_to TEXT,
+  changed_by_user_id INTEGER,
+  change_date TEXT,
+  change_type TEXT,  -- 'created', 'updated', 'version_change', 'status_change'
+  change_summary TEXT,
+  changes_json TEXT
+)
+```
+
+**`concept_set_stats`**: Distribution statistics (JSON blob per concept set)
 
 **`users`**: Application users
 ```sql
@@ -48,30 +118,28 @@ CREATE TABLE users (
   user_id INTEGER PRIMARY KEY AUTOINCREMENT,
   login TEXT NOT NULL UNIQUE,
   password_hash TEXT NOT NULL,
-  first_name TEXT,
-  last_name TEXT,
-  role TEXT,
-  affiliation TEXT,
+  first_name TEXT, last_name TEXT,
+  profession TEXT, affiliation TEXT, orcid TEXT,
   user_access_id INTEGER,
-  created_at TEXT,
-  updated_at TEXT,
-  FOREIGN KEY (user_access_id) REFERENCES user_accesses(user_access_id)
+  created_at TEXT, updated_at TEXT
 )
 ```
 
-**`user_accesses`**: User permission levels
-```sql
-CREATE TABLE user_accesses (
-  user_access_id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT NOT NULL UNIQUE,
-  description TEXT,
-  created_at TEXT,
-  updated_at TEXT
-)
-```
+**`user_accesses`**: Permission levels (Admin, Editor, Read only)
 
-Default user accesses: Admin, Editor, Read only
-Default user: admin (password: admin)
+**`projects`**: Project definitions with justification and bibliography
+
+**`project_concept_sets`**: Many-to-many association between projects and concept sets
+
+**`tags`**: Reusable tags with color codes
+
+**`recommended_units`**: Recommended UCUM units per concept
+
+**`unit_conversions`**: Unit conversion factors between measurement concepts
+
+**`config`**: Key-value configuration store
+
+Default user: admin / admin
 
 ---
 
@@ -81,162 +149,133 @@ Default user: admin (password: admin)
 
 ```
 indicate-data-dictionary/
-├── R/                              # R source code
-│   ├── run_app.R                  # Application entry point
-│   ├── app_ui.R                   # Main UI function
-│   ├── app_server.R               # Main server logic
-│   ├── mod_data_dictionary.R      # Data dictionary module (main page)
-│   ├── mod_concept_mapping.R      # Concept mapping module
-│   ├── mod_projects.R             # Projects management module
-│   ├── mod_general_settings.R     # General settings module
-│   ├── mod_dictionary_settings.R  # Dictionary settings module
-│   ├── mod_users.R                # User management module
-│   ├── mod_dev_tools.R            # Development tools module
-│   ├── mod_page_header.R          # Page header with navigation
-│   ├── fct_database.R             # Database operations (SQLite)
-│   ├── fct_datatable.R            # DataTable helper functions
-│   ├── fct_users.R                # User management functions
-│   ├── utils_ui.R                 # UI helpers (create_page_layout, create_panel, create_modal, show_modal, hide_modal)
-│   └── utils_server.R             # Server utilities
+├── R/                                # R source code (23,028 lines total)
+│   ├── run_app.R                    # Application entry point (78 lines)
+│   ├── app_ui.R                     # Main UI with router (107 lines)
+│   ├── app_server.R                 # Main server, module init (112 lines)
+│   ├── mod_data_dictionary.R        # Dictionary explorer module (8,113 lines)
+│   ├── mod_concept_mapping.R        # Concept mapping - IN PROGRESS (56 lines)
+│   ├── mod_projects.R               # Projects management (1,091 lines)
+│   ├── mod_general_settings.R       # General settings (1,077 lines)
+│   ├── mod_dictionary_settings.R    # Dictionary settings, tags, units (2,138 lines)
+│   ├── mod_users.R                  # User management (974 lines)
+│   ├── mod_dev_tools.R              # Development tools (706 lines)
+│   ├── mod_page_header.R            # Navigation header (300 lines)
+│   ├── mod_login.R                  # Login/authentication (244 lines)
+│   ├── fct_database.R               # SQLite CRUD operations (2,006 lines)
+│   ├── fct_duckdb.R                 # DuckDB vocabulary queries (1,706 lines)
+│   ├── fct_import_export.R          # ZIP/GitHub import, JSON export (584 lines)
+│   ├── fct_datatable.R              # DataTable helpers (470 lines)
+│   ├── fct_users.R                  # User auth functions (346 lines)
+│   ├── fct_fuzzy_search.R           # Fuzzy search engine (746 lines)
+│   ├── fct_statistics_display.R     # Statistics display helpers (1,088 lines)
+│   ├── fct_optimize.R               # Performance optimization (249 lines)
+│   ├── utils_ui.R                   # UI helpers (689 lines)
+│   └── utils_server.R               # Server utilities (148 lines)
 ├── inst/
-│   ├── translations/              # Internationalization files
-│   │   ├── translation_en.csv     # English translations
-│   │   └── translation_fr.csv     # French translations
-│   └── www/                       # Web assets (CSS, JS, images)
-│       ├── style.css              # Main stylesheet
-│       ├── logo.png               # INDICATE logo
-│       └── favicon.png            # Application favicon
-├── old/                           # Archived code (reference only)
-├── DESCRIPTION                    # Package metadata
-└── NAMESPACE                      # R namespace definitions
+│   ├── translations/                # i18n files (CSV: base,en / base,fr)
+│   └── www/                         # Web assets (style.css, fuzzy_search.js, logo.png, favicon.png)
+├── man/figures/                      # README screenshots
+├── Dockerfile                        # Docker deployment (rocker/tidyverse:4.4.2)
+├── DESCRIPTION                       # Package metadata
+├── NAMESPACE                         # R namespace
+└── LICENSE                           # EUPL-1.2
 ```
 
 ### Function Libraries
 
-#### `fct_database.R` - Database Operations
+#### `fct_database.R` - SQLite Operations (2,006 lines)
 
-CRUD operations for concept sets and database initialization:
-- `add_concept_set()`: Create a new concept set
-- `delete_concept_set()`: Delete a concept set
-- `get_all_concept_sets()`: Retrieve all concept sets
-- `get_app_dir()`: Get application data directory
-- `get_concept_set()`: Retrieve a specific concept set
-- `get_db_connection()`: Create SQLite connection
-- `init_database()`: Initialize database tables
-- `update_concept_set()`: Update an existing concept set
+Config CRUD: `get_config_value()`, `set_config_value()`
+
+Concept Sets CRUD: `add_concept_set()`, `delete_concept_set()`, `get_all_concept_sets()`, `get_concept_set()`, `update_concept_set()`
+
+Concept Set Items CRUD: `add_concept_set_item()`, `delete_concept_set_item()`, `get_concept_set_items()`, `update_concept_set_item()`
+
+Reviews & Changelog: `add_concept_set_review()`, `delete_concept_set_review()`, `update_concept_set_review()`, `get_concept_set_reviews()`, `add_changelog_entry()`, `delete_changelog_entry()`, `update_changelog_entry()`, `get_version_history()`
+
+Statistics: `update_concept_set_stats()`
+
+Tags CRUD: `add_tag()`, `delete_tag()`, `get_all_tags()`, `get_tag_usage_count()`, `update_tag()`
+
+Projects CRUD: `add_project()`, `delete_project()`, `get_all_projects()`, `get_project()`, `update_project()`
+
+Project-Concept Sets: `add_project_concept_set()`, `remove_project_concept_set()`, `get_project_concept_sets()`, `get_available_concept_sets_for_project()`, `get_concept_set_ids_for_projects()`
+
+Recommended Units: `add_recommended_unit()`, `delete_recommended_unit()`, `get_all_recommended_units()`, `load_default_recommended_units()`
+
+Unit Conversions: `add_unit_conversion()`, `delete_unit_conversion()`, `get_all_unit_conversions()`, `load_default_unit_conversions()`, `update_unit_conversion()`
+
+Translations: `get_all_concept_set_translations()`, `get_concept_set_translation()`, `set_concept_set_translation()`
+
+Database: `get_app_dir()`, `get_db_connection()`, `init_database()`
 
 **CRITICAL: RSQLite NULL Handling**
 
-RSQLite does NOT accept `NULL` values in parameterized queries. Using `NULL` causes the error:
-```
-Error: Parameter X does not have length 1.
-```
-
-**Solution**: Always convert `NULL` to `NA` before passing to `DBI::dbExecute()`:
-
+RSQLite does NOT accept `NULL` values in parameterized queries. Always use:
 ```r
-# Helper function to convert NULL to NA
 null_to_na <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else x
-
-# Use in INSERT statements
-DBI::dbExecute(
-  con,
-  "INSERT INTO table (col1, col2, col3) VALUES (?, ?, ?)",
-  params = list(value1, null_to_na(optional_value), null_to_na(another_optional))
-)
-
-# Use in UPDATE statements with dynamic parameters
-updates <- list(...)
-updates <- lapply(updates, null_to_na)  # Convert all NULL values
 ```
 
-**When to apply**:
-- Any optional parameter that could be `NULL`
-- Values from user input that might be empty strings converted to `NULL`
-- Default parameter values like `description = NULL`
+#### `fct_duckdb.R` - Vocabulary Operations (1,706 lines)
 
-#### `fct_users.R` - User Management
+Database management: `duckdb_exists()`, `get_duckdb_path()`, `get_duckdb_connection()`, `create_duckdb_database()`, `delete_duckdb_database()`, `load_vocabularies_from_duckdb()`
 
-User authentication and CRUD operations:
-- `add_user()`: Create a new user
-- `add_user_access()`: Create a new user access profile
-- `authenticate_user()`: Verify credentials and return user
-- `delete_user()`: Delete a user
-- `delete_user_access()`: Delete a user access profile
-- `get_all_user_accesses()`: Retrieve all user access profiles
-- `get_all_users()`: Retrieve all users
-- `hash_password()`: Create bcrypt hash
-- `update_user()`: Update an existing user
-- `update_user_access()`: Update a user access profile
-- `verify_password()`: Check password against hash
+File handling: `detect_vocab_format()`, `read_vocab_file()`, `load_parquet_to_duckdb()`
 
-#### `fct_datatable.R` - DataTable Helpers
+Concept queries: `get_concept_by_id()`, `get_related_concepts()`, `get_concept_descendants()`, `get_concept_synonyms()`
 
-Standardized DataTable creation:
-- `add_button_handlers()`: Add click handlers to DataTable buttons
-- `create_datatable_actions()`: Generate action buttons HTML
-- `create_empty_datatable()`: Create empty table with message
-- `create_standard_datatable()`: Factory for consistent DataTables (includes Columns button by default)
-- `datatable_select_rows()`: Select or unselect all rows in a DataTable
-- `get_datatable_language()`: Get language options for DataTables
-- `style_standard_concept_column()`: Apply color styling to standard_concept columns
+Hierarchy: `get_concept_hierarchy_graph()`, `count_hierarchy_concepts()`
 
-**DataTable Row Selection Helper**:
-```r
-# Select all rows
-proxy <- DT::dataTableProxy("my_table", session = session)
-datatable_select_rows(proxy, select = TRUE, data = my_data)
+Concept set resolution: `resolve_concept_set()`
 
-# Unselect all rows
-datatable_select_rows(proxy, select = FALSE)
-```
+Export: `export_concept_set_to_json()`, `export_all_concept_sets()`, `export_concept_list()`, `export_concept_set_to_sql()`
 
-#### `utils_ui.R` - UI Refactoring Functions
+Import: `import_concept_set_from_json()`
 
-**IMPORTANT**: Always use these functions to maintain consistent UI across the application.
+#### `fct_import_export.R` - Import/Export (584 lines)
 
-**Layout Functions**:
-- `create_page_layout(layout, ..., splitter)`: Create page layouts
-  - Layouts: `"full"`, `"left-right"`, `"top-bottom"`, `"left-wide"`, `"right-wide"`, `"quadrant"`
-  - Pass panel contents as `...` arguments (number depends on layout type)
-  - `splitter = TRUE` adds resizable splitters between panels
+GitHub integration: `parse_github_url()`, `download_github_concept_sets()`, `download_github_folder()`, `get_github_latest_commit()`, `import_concept_sets_from_github()`, `import_projects_from_github()`, `import_project_from_json()`
 
-- `create_panel(title, content, header_extra, class, id, tooltip)`: Create a panel with optional header
-  - `title`: Panel title (NULL for no header)
-  - `content`: Panel content (tagList or tags)
-  - `header_extra`: Extra content in header (e.g., buttons)
-  - `tooltip`: Tooltip text for info icon
+Update workflow: `check_concept_sets_updates()`, `apply_concept_sets_updates()`
 
-**Modal Functions**:
-- `create_modal(id, title, body, footer, size, icon, ns)`: Create modal dialogs
-  - `size`: `"small"`, `"medium"`, `"large"`, `"fullscreen"`
-  - `icon`: FontAwesome class (e.g., `"fas fa-folder-open"`)
-  - `ns`: Namespace function from module
+ZIP import: `import_concept_sets_from_zip()`
 
-- `show_modal(modal_id)`: Show a modal by ID
-- `hide_modal(modal_id)`: Hide a modal by ID
+Config keys for GitHub: `concept_sets_repo_url`, `concept_sets_last_commit_sha`
 
-**Display Functions**:
-- `create_detail_item(label, value, format_number, url, color)`: Create label-value pairs
-  - Handles NULL/NA values automatically (displays "/")
-  - `format_number = TRUE`: Format numbers with separators
-  - `url`: Make value a clickable link
-  - `color`: Custom text color
+#### `fct_fuzzy_search.R` - Fuzzy Search Engine (746 lines)
 
-#### `utils_server.R` - Server Refactoring Functions
+Server-side fuzzy search with stringdist matching. Used for concept search across the dictionary.
 
-**Observer Functions**:
-- `observe_event(eventExpr, handlerExpr, log, ...)`: Enhanced observeEvent with error handling
-  - Automatically wraps code in try-catch
-  - Logs events and errors based on `log_level` variable
-  - **ALWAYS use this instead of `observeEvent()`**
+#### `fct_statistics_display.R` - Statistics Helpers (1,088 lines)
 
-- `try_catch(trigger, code, log)`: Error handling wrapper (used internally by observe_event)
+Functions for rendering concept set statistics and distribution data.
 
-**Validation Functions**:
-- `validate_required_inputs(input, fields)`: Validate required form fields
-  - `fields`: Named list where names are input IDs and values are error element IDs
-  - Returns TRUE if all valid, FALSE if any errors
+#### `fct_datatable.R` - DataTable Helpers (470 lines)
+
+`add_button_handlers()`, `create_datatable_actions()`, `create_empty_datatable()`, `create_standard_datatable()`, `datatable_select_rows()`, `get_datatable_language()`, `style_standard_concept_column()`
+
+#### `fct_users.R` - User Management (346 lines)
+
+`add_user()`, `add_user_access()`, `authenticate_user()`, `delete_user()`, `delete_user_access()`, `get_all_user_accesses()`, `get_all_users()`, `hash_password()`, `update_user()`, `update_user_access()`, `verify_password()`
+
+#### `utils_ui.R` - UI Helpers (689 lines)
+
+Layout: `create_page_layout(layout, ..., splitter)` - Layouts: `"full"`, `"left-right"`, `"top-bottom"`, `"left-wide"`, `"right-wide"`, `"quadrant"`
+
+Panels: `create_panel(title, content, header_extra, class, id, tooltip)`
+
+Modals: `create_modal(id, title, body, footer, size, icon, ns)`, `show_modal()`, `hide_modal()`
+
+Display: `create_detail_item(label, value, format_number, url, color)`
+
+#### `utils_server.R` - Server Helpers (148 lines)
+
+`observe_event(eventExpr, handlerExpr, log, ...)` - **ALWAYS use this instead of `observeEvent()`**
+
+`try_catch(trigger, code, log)` - Error handling wrapper
+
+`validate_required_inputs(input, fields)` - Form validation
 
 **IMPORTANT**: Functions within `fct_*.R` files must be in **alphabetical order**.
 
@@ -244,29 +283,25 @@ datatable_select_rows(proxy, select = FALSE)
 
 ## Module Pattern
 
-This project follows the **Shiny module pattern**:
-
 ### Module Structure
 
 ```r
-# UI function - receives i18n for translations
 mod_example_ui <- function(id, i18n) {
   ns <- NS(id)
   tagList(
     tags$div(
       class = "main-panel",
-      tags$div(
-        class = "main-content",
+      tags$div(class = "main-content",
         # Module content here
       )
     )
   )
 }
 
-# Server function - receives i18n and optional parameters
 mod_example_server <- function(id, i18n, current_user = NULL) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
+    log_level <- strsplit(Sys.getenv("INDICATE_DEBUG_MODE", "error"), ",")[[1]]
     # Module logic here
   })
 }
@@ -274,49 +309,7 @@ mod_example_server <- function(id, i18n, current_user = NULL) {
 
 ### Module File Structure
 
-Every module file must include a structural outline:
-
-```r
-# MODULE STRUCTURE OVERVIEW ====
-#
-# This module provides [description]
-#
-# UI STRUCTURE:
-#   ## UI - Main Layout
-#      ### Section 1
-#      ### Section 2
-#   ## UI - Modals
-#      ### Modal - Add/Edit Form
-#      ### Modal - Delete Confirmation
-#
-# SERVER STRUCTURE:
-#   ## 1) Server - Reactive Values & State
-#      ### State Variables
-#      ### Triggers
-#
-#   ## 2) Server - Data Loading
-#      ### Load Data
-#
-#   ## 3) Server - Table Rendering
-#      ### Render Table
-#
-#   ## 4) Server - CRUD Operations
-#      ### Add
-#      ### Edit
-#      ### Delete
-
-# UI SECTION ====
-
-mod_example_ui <- function(id, i18n) {
-  # ...
-}
-
-# SERVER SECTION ====
-
-mod_example_server <- function(id, i18n, current_user = NULL) {
-  # ...
-}
-```
+Every module file must include a structural outline at the top (see existing modules for examples).
 
 ---
 
@@ -324,156 +317,32 @@ mod_example_server <- function(id, i18n, current_user = NULL) {
 
 ### CRITICAL SHINY REACTIVITY RULES
 
-These rules MUST be followed throughout the application:
-
-#### 1. Observer Naming
-
-**ALWAYS use `observe_event()` (with underscore), NEVER `observeEvent()` or `observe()`**
-
-```r
-# CORRECT
-observe_event(input$button, {
-  # Handler code
-}, ignoreInit = TRUE)
-
-# WRONG
-observeEvent(input$button, { ... })
-observe({ ... })
-```
+#### 1. ALWAYS use `observe_event()` (with underscore), NEVER `observeEvent()` or `observe()`
 
 #### 2. Key Parameters
-
 - `ignoreInit = TRUE`: For user-triggered actions (button clicks)
 - `ignoreInit = FALSE`: For initial state setup (table rendering)
 - `ignoreNULL = FALSE`: Execute even when reactive value is NULL
 
-#### 3. Output Rendering
-
-**Always wrap outputs in `observe_event()`**
+#### 3. Output Rendering - Always wrap outputs in `observe_event()`
 
 ```r
-# CORRECT
 observe_event(data_trigger(), {
-  output$my_table <- DT::renderDT({
-    data()
-  })
-}, ignoreInit = FALSE)
-
-# WRONG - standalone output assignment
-output$my_table <- DT::renderDT({ data() })
-```
-
-#### 4. Validation Pattern
-
-**Use `if()... return()` instead of `req()`**
-
-```r
-# CORRECT
-observe_event(input$button, {
-  if (is.null(input$value)) return()
-  if (is.null(data())) return()
-  # Process data
-}, ignoreInit = TRUE)
-
-# WRONG
-observe_event(input$button, {
-  req(input$value)
-  req(data())
-  # Process data
-})
-```
-
-#### 5. Trigger-Based Updates
-
-Use triggers to coordinate UI updates:
-
-```r
-# Reactive values
-data <- reactiveVal(NULL)
-table_trigger <- reactiveVal(0)
-
-# When data changes, increment trigger
-observe_event(data(), {
-  table_trigger(table_trigger() + 1)
-}, ignoreNULL = FALSE)
-
-# Render table when trigger fires
-observe_event(table_trigger(), {
-  output$my_table <- DT::renderDT({
-    # ...
-  })
+  output$my_table <- DT::renderDT({ data() })
 }, ignoreInit = FALSE)
 ```
 
-#### 6. No Nested Observers
+#### 4. Validation - Use `if()... return()` instead of `req()`
 
-**NEVER nest `observe_event()` inside another `observe_event()`**
+#### 5. Trigger-Based Updates for coordinating UI updates
 
-```r
-# WRONG
-observe_event(input$button1, {
-  observe_event(input$button2, {
-    # Nested observer - BAD
-  })
-})
+#### 6. No Nested Observers - NEVER nest `observe_event()` inside another
 
-# CORRECT - use separate observers
-observe_event(input$button1, { ... }, ignoreInit = TRUE)
-observe_event(input$button2, { ... }, ignoreInit = TRUE)
-```
+#### 7. No Error Handling in Observers - NEVER add `tryCatch()` inside `observe_event()`
 
-#### 7. No Error Handling in Observers
+#### 8. No Shiny Package Prefix - NEVER use `shiny::`
 
-**NEVER add `tryCatch()` inside `observe_event()`**
-
-The application uses a custom wrapper that handles errors.
-
-#### 8. No Shiny Package Prefix
-
-**NEVER use `shiny::` prefix**
-
-```r
-# CORRECT
-observe_event(...)
-reactive(...)
-updateTextInput(...)
-
-# WRONG
-shiny::observeEvent(...)
-shiny::reactive(...)
-```
-
-#### 9. No observe_event(TRUE, ...)
-
-**NEVER use `observe_event(TRUE, ...)` for initialization**
-
-Put initialization code directly in the moduleServer body, outside of any observer.
-
-```r
-# WRONG - observe_event(TRUE, ...) is an anti-pattern
-observe_event(TRUE, {
-  saved_path <- get_config_value("vocab_folder")
-  if (!is.null(saved_path)) {
-    selected_folder(saved_path)
-  }
-}, once = TRUE)
-
-# CORRECT - direct initialization in moduleServer
-mod_example_server <- function(id, i18n) {
-  moduleServer(id, function(input, output, session) {
-    # Reactive values
-    selected_folder <- reactiveVal(NULL)
-
-    # Direct initialization - runs once when module loads
-    saved_path <- get_config_value("vocab_folder")
-    if (!is.null(saved_path)) {
-      selected_folder(saved_path)
-    }
-
-    # Rest of server logic...
-  })
-}
-```
+#### 9. No `observe_event(TRUE, ...)` - Put initialization directly in `moduleServer` body
 
 ---
 
@@ -481,11 +350,9 @@ mod_example_server <- function(id, i18n) {
 
 ### Navigation System
 
-The application uses **`shiny.router`** for client-side routing:
-
-**Available Routes**:
+Uses **`shiny.router`** for client-side routing:
 - `/`: Data Dictionary (main page)
-- `/mapping`: Concept Mapping
+- `/mapping`: Concept Mapping (in progress)
 - `/projects`: Projects
 - `/general-settings`: General Settings
 - `/dictionary-settings`: Dictionary Settings
@@ -494,224 +361,98 @@ The application uses **`shiny.router`** for client-side routing:
 
 ### UI Best Practices
 
-**Static vs Dynamic UI**:
 - **ALWAYS place static UI in `mod_*_ui()`**, not server
 - Only use `uiOutput()`/`renderUI()` when content truly changes dynamically
 - Use `shinyjs::show()`/`shinyjs::hide()` for visibility
-
-**Modal Pattern** (use `create_modal()` from `utils_ui.R`):
-```r
-# In UI - use the create_modal() helper function
-create_modal(
-  id = "confirm_modal",
-  title = "Confirm Action",
-  body = tags$p("Are you sure you want to proceed?"),
-  footer = tagList(
-    actionButton(ns("cancel"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
-    actionButton(ns("confirm"), i18n$t("confirm"), class = "btn-primary-custom", icon = icon("check"))
-  ),
-  size = "medium",  # "small", "medium", "large", "fullscreen"
-  icon = "fas fa-question-circle",
-  ns = ns
-)
-
-# In server - show modal
-show_modal(ns("confirm_modal"))
-
-# In server - hide modal
-hide_modal(ns("confirm_modal"))
-```
-
-The `create_modal()` function automatically handles:
-- Click outside to close (on overlay)
-- Close button (×) in header
-- Proper namespacing
-- Consistent styling
+- Use `create_modal()` from `utils_ui.R` for modals
+- Use `create_page_layout()` and `create_panel()` for consistent layouts
+- Use `create_detail_item()` for label-value pairs
 
 ### DataTable Pattern
 
-Use the factorized helper functions:
+Use factorized helpers: `create_standard_datatable()`, `create_empty_datatable()`, `create_datatable_actions()`, `add_button_handlers()`
 
-```r
-observe_event(data_trigger(), {
-  output$my_table <- DT::renderDT({
-    data <- my_data()
-    if (is.null(data) || nrow(data) == 0) {
-      return(create_empty_datatable(as.character(i18n$t("no_data"))))
-    }
+### DataTables in Hidden Divs
 
-    # Add action buttons
-    data$Actions <- sapply(data$id, function(id) {
-      create_datatable_actions(list(
-        list(label = as.character(i18n$t("edit")), icon = "edit", type = "warning", class = "btn-edit", data_attr = list(id = id)),
-        list(label = as.character(i18n$t("delete")), icon = "trash", type = "danger", class = "btn-delete", data_attr = list(id = id))
-      ))
-    })
-
-    dt <- create_standard_datatable(
-      data,
-      selection = "none",
-      filter = "top",
-      escape = FALSE,
-      col_defs = list(
-        list(visible = FALSE, targets = 0),  # Hide ID column
-        list(width = "150px", targets = ncol(data)),  # Actions column
-        list(className = "dt-center", targets = ncol(data))
-      )
-    )
-
-    add_button_handlers(dt, handlers = list(
-      list(selector = ".btn-edit", input_id = ns("edit_item")),
-      list(selector = ".btn-delete", input_id = ns("delete_item"))
-    ))
-  })
-}, ignoreInit = FALSE)
-```
-
-### DataTables in Hidden Divs (Tabs, Panels)
-
-**Problem**: When a DataTable is inside a hidden element (like a tab panel that's not initially visible), Shiny's lazy evaluation means `renderDT` won't execute until the element becomes visible. This can cause tables to not render when switching tabs.
-
-**Solution**: Use `outputOptions()` with `suspendWhenHidden = FALSE` to force rendering even when hidden. You must also initialize the output first before calling `outputOptions()`.
-
-```r
-# 1. Initialize empty table first (required for outputOptions to work)
-output$my_table <- DT::renderDT({
-  create_empty_datatable("")
-})
-
-# 2. Observer to update table when trigger fires
-observe_event(table_trigger(), {
-  if (is.null(selected_item())) return()
-
-  output$my_table <- DT::renderDT({
-    data <- get_data(selected_item()$id)
-    # ... create datatable
-  })
-}, ignoreInit = TRUE)
-
-# 3. Force render even when hidden
-outputOptions(output, "my_table", suspendWhenHidden = FALSE)
-```
-
-**Key points**:
-- `outputOptions()` must be called AFTER the output is created (not before)
-- Initialize with an empty table first, then update via observer
-- Use `ignoreInit = TRUE` on the update observer to avoid double rendering
+Use `outputOptions(output, "my_table", suspendWhenHidden = FALSE)` after initializing with empty table.
 
 ### CSS Classes
 
-**Layout**:
-- `.main-panel` - Main content wrapper
-- `.main-content` - Content container
-- `.modal-overlay` - Full-screen modal backdrop
-- `.modal-content` - Modal dialog container
-- `.modal-header`, `.modal-body`, `.modal-footer` - Modal sections
-- `.modal-close` - Close button (×)
+**Buttons**: `.btn-primary-custom` (blue), `.btn-success-custom` (green), `.btn-secondary-custom` (gray), `.btn-danger-custom` (red), `.btn-purple-custom` (violet)
 
-**Buttons**:
-- `.btn-primary-custom` - Primary action (blue #0f60af)
-- `.btn-success-custom` - Success action (green #28a745)
-- `.btn-secondary-custom` - Secondary action (gray #6c757d)
-- `.btn-danger-custom` - Danger action (red #dc3545)
-- `.btn-purple-custom` - Purple action (violet #7c3aed)
+**Layout**: `.main-panel`, `.main-content`, `.modal-overlay`, `.modal-content`
 
-**Forms**:
-- `.form-label` - Form field label
-- `.input-error-message` - Validation error text
-- `.mb-15` - Margin bottom 15px
-
-**DataTables**:
-- `.dt-action-btn` - Action button base
-- `.dt-action-btn-warning` - Edit button (yellow)
-- `.dt-action-btn-danger` - Delete button (red)
-
-**Info Icons with Tooltips**:
-Use `.info-icon` with `data-tooltip` attribute for custom CSS tooltips:
-
-```r
-# In UI - info icon with tooltip
-tags$span(
-  class = "info-icon",
-  `data-tooltip` = as.character(i18n$t("tooltip_text_key")),
-  HTML("&#x3f;")  # Question mark character
-)
-```
-
-The tooltip appears on hover using CSS ::after pseudo-element. Features:
-- Uses `data-tooltip` attribute (not `title`) for custom styling
-- Content is the `?` character using `HTML("&#x3f;")`
-- Tooltip appears below the icon with a small arrow
-- Semi-transparent delay (0.5s) before showing
+**Info Icons**: `.info-icon` with `data-tooltip` attribute, content `HTML("&#x3f;")`
 
 ---
 
 ## Internationalization (i18n)
 
-Translation files are in `inst/translations/`:
+Translation files in `inst/translations/` (CSV with columns `base,<language_code>`):
 - `translation_en.csv` - English
 - `translation_fr.csv` - French
 
-**Format**: CSV with columns `base,<language_code>`
+Usage: `i18n$t("key")` in UI, `as.character(i18n$t("key"))` in server
 
-**Usage**:
-```r
-# In UI
-i18n$t("translation_key")
+---
 
-# In server (as character for JS)
-as.character(i18n$t("translation_key"))
+## JSON Format
+
+Concept sets follow the OHDSI Concept Set Specification with INDICATE extensions:
+
+```json
+{
+  "id": 42,
+  "name": "Heart rate",
+  "description": "...",
+  "version": "1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": { "conceptId": 3027018, "conceptName": "Heart rate", ... },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": true
+      }
+    ]
+  },
+  "tags": ["vitals"],
+  "reviewStatus": "approved",
+  "metadata": {
+    "translations": { "en": {...}, "fr": {...} },
+    "createdByDetails": { "firstName": "...", "orcid": "..." },
+    "reviews": [...],
+    "versions": [...],
+    "distributionStats": {...}
+  }
+}
 ```
 
 ---
 
 ## Naming Conventions
 
-### R Code
-
-**Functions**:
-- `mod_*_ui()`, `mod_*_server()` - Module pattern
-- `get_*()` - Data retrieval
-- `add_*()`, `update_*()`, `delete_*()` - CRUD operations
-- `create_*()` - Factory functions
-- `hash_*()`, `verify_*()` - Security functions
-
-**Variables**:
-- Use **snake_case** for all R variables and function names
-- Reactive values: `editing_id`, `deleting_id`, `data_trigger`
-- Module parameters: `id`, `i18n`, `current_user`
-
-**Files**:
-- `mod_<name>.R` - Module files
-- `fct_<domain>.R` - Function libraries (alphabetical order!)
-- `utils_<purpose>.R` - Utility functions
-- `app_<component>.R` - Main app components
-
-### CSS
-
-- `.component-name` - Component class
-- `.component-name-variant` - Variant modifier
-
-### JavaScript
-
-- Use **camelCase** for functions and variables
+- **Functions**: `mod_*_ui()`, `mod_*_server()`, `get_*()`, `add_*()`, `update_*()`, `delete_*()`, `create_*()`, `export_*()`, `import_*()`
+- **Variables**: snake_case, reactive values: `editing_id`, `data_trigger`
+- **Files**: `mod_<name>.R`, `fct_<domain>.R` (alphabetical!), `utils_<purpose>.R`, `app_<component>.R`
+- **CSS**: `.component-name`, `.component-name-variant`
+- **JavaScript**: camelCase
 
 ---
 
 ## Development Checklist
-
-Before submitting code, verify:
 
 - [ ] All observers use `observe_event()` (with underscore)
 - [ ] All observers have explicit `ignoreInit` parameter
 - [ ] No `tryCatch()` inside `observe_event()`
 - [ ] No `shiny::` prefixes
 - [ ] No nested `observe_event()` blocks
-- [ ] All `output$...` assignments are inside `observe_event()`
+- [ ] All `output$...` assignments inside `observe_event()`
 - [ ] Validation uses `if()... return()` instead of `req()`
-- [ ] Static UI elements are in `mod_*_ui()`, not `renderUI()`
-- [ ] Functions in `fct_*.R` files are in alphabetical order
+- [ ] Static UI in `mod_*_ui()`, not `renderUI()`
+- [ ] Functions in `fct_*.R` files in alphabetical order
 - [ ] Translations added for new UI text
+- [ ] NULL values converted to NA for RSQLite queries
 
 ---
 
@@ -719,4 +460,4 @@ Before submitting code, verify:
 
 **Author**: Boris Delange (boris.delange@univ-rennes.fr)
 
-**License**: GPL (>= 3)
+**License**: EUPL-1.2

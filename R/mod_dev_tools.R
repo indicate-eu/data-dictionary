@@ -108,6 +108,9 @@ mod_dev_tools_ui <- function(id, i18n) {
                                 value = paste(
                                   "# Query OHDSI vocabularies using dplyr",
                                   "# Example:",
+                                  "",
+                                  "library(dplyr)",
+                                  "",
                                   "concept %>%",
                                   "  filter(concept_id == 3004249)",
                                   sep = "\n"

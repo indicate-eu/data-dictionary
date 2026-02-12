@@ -1,5 +1,9 @@
 # INDICATE Minimal Data Dictionary
 
+[![License: EUPL-1.2](https://img.shields.io/badge/License-EUPL--1.2-blue.svg)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12)
+[![R >= 4.0.0](https://img.shields.io/badge/R-%3E%3D%204.0.0-blue.svg)](https://cran.r-project.org/)
+[![Funded by EU](https://img.shields.io/badge/Funded%20by-EU%20Digital%20Europe-003399.svg)](https://indicate-europe.eu/)
+
 ![Application Interface](man/figures/web_interface.png)
 
 ## Table of Contents
@@ -10,18 +14,13 @@
   - [The Minimal Data Dictionary](#the-minimal-data-dictionary)
   - [Standard Terminologies](#standard-terminologies)
   - [Clinical Use Cases](#clinical-use-cases)
+- [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
   - [Running the Application](#running-the-application)
   - [First Connection](#first-connection)
-    - [Login](#login)
-    - [Setting up ATHENA vocabularies](#setting-up-athena-vocabularies)
   - [Usage Guide](#usage-guide)
-    - [1. Dictionary Explorer](#1-dictionary-explorer)
-    - [2. Concept Mapping](#2-concept-mapping)
-    - [3. Projects Management](#3-projects-management)
-    - [4. Settings](#4-settings)
-    - [5. Development Tools](#5-development-tools)
+- [Deployment](#deployment)
 - [Governance and Versioning](#governance-and-versioning)
 - [Alignment with European Health Data Space (EHDS)](#alignment-with-european-health-data-space-ehds)
 - [License](#license)
@@ -33,35 +32,38 @@
 
 The `indicate` R package provides an interactive Shiny application to explore the **INDICATE Minimal Data Dictionary**, a consensus-based collection of standardized clinical concepts designed to harmonize intensive care unit (ICU) data across Europe. The dictionary addresses semantic interoperability challenges in federated healthcare data infrastructures by providing explicit recommendations for terminology selection across diverse European ICU settings.
 
+Built on the **OHDSI Concept Set Specification** (extended with lifecycle metadata), the application enables clinical experts and data engineers to browse, review, and manage concept sets aligned with the OMOP Common Data Model.
+
 ## Context
 
 ### The INDICATE Project
 
-The INDICATE project, launched in December 2024 and funded by the European Union's Digital Europe Programme (grant 101167778), aims to establish a secure federated infrastructure for standardized ICU data across Europe. The project addresses critical challenges in collaborative research, AI model development, and data sharing for clinical decision-making and quality improvement.
+The [INDICATE project](https://indicate-europe.eu/), launched in December 2024 and funded by the European Union's Digital Europe Programme (grant 101167778), aims to establish a secure federated infrastructure for standardized ICU data across Europe. The consortium comprises partners from **12 European countries**, with **15 data providers** implementing a pan-European federated infrastructure for collaborative research, AI model development, and data sharing.
 
 ### The Minimal Data Dictionary
 
-The INDICATE Minimal Data Dictionary comprises **332 general concepts** linked to **23,241 standard concepts** from international terminologies, organized into nine categories:
+The INDICATE Minimal Data Dictionary comprises **332 concept sets** organized into nine categories:
 
-| Category | Description | General Concepts | Standard Concepts |
-|----------|-------------|------------------|-------------------|
-| Clinical Observations | Non-numeric clinical assessments (e.g., Glasgow Coma Scale) | 15 | 16 |
-| Conditions | Diagnoses and medical conditions (e.g., ARDS, sepsis) | 17 | 315 |
-| Demographics, Encounters & Other | Patient demographics, admissions and other data (e.g., age, gender, dates) | 20 | 51 |
-| Drugs | Medications with dose and form (e.g., Norepinephrine 2 MG/ML Injection) | 112 | 9,153 |
-| Labs | Blood and urine tests (e.g., lactate, creatinine, sodium) | 76 | 265 |
-| Microbiology | Culture results and pathogens (e.g., Pseudomonas aeruginosa) | 48 | 12,628 |
-| Procedures | Medical interventions (e.g., intubation, dialysis, ECMO) | 8 | 344 |
-| Ventilation | Mechanical ventilation parameters (e.g., FiO₂, PEEP) | 26 | 207 |
-| Vitals | Basic physiological measurements (e.g., heart rate) | 10 | 262 |
+| Category | Concept Sets | Description |
+|----------|:------------:|-------------|
+| Demographics and Encounters | 14 | Patient demographics and admissions (e.g., age, gender, dates) |
+| Conditions | 17 | Diagnoses and medical conditions (e.g., ARDS, sepsis) |
+| Clinical Observations | 21 | Non-numeric clinical assessments (e.g., Glasgow Coma Scale) |
+| Vital Signs | 10 | Basic physiological measurements (e.g., heart rate) |
+| Laboratory Measurements | 76 | Results from biological samples (e.g., lactate, creatinine, sodium) |
+| Microbiology | 48 | Culture results and pathogens (e.g., Pseudomonas aeruginosa) |
+| Ventilation | 26 | Mechanical ventilation parameters (e.g., FiO2, PEEP) |
+| Drugs | 112 | Medications (dose and form) (e.g., Norepinephrine 2 MG/ML Injection) |
+| Procedures | 8 | Medical interventions (e.g., intubation, dialysis, ECMO) |
+
+All concept sets and project definitions are versioned on GitHub: [indicate-eu/data-dictionary-content](https://github.com/indicate-eu/data-dictionary-content/).
 
 ### Standard Terminologies
 
-The dictionary uses internationally recognized standard terminologies:
+The dictionary uses internationally recognized standard terminologies mapped to the OMOP Common Data Model:
 - **SNOMED CT** for clinical concepts and ventilation parameters
 - **LOINC** for laboratory measurements
 - **RxNorm** for medications (Clinical Drug level)
-- **ICD-10** for diagnoses
 - **UCUM** for units of measure
 
 ### Clinical Use Cases
@@ -74,24 +76,56 @@ The dictionary was developed to support six clinical use cases:
 5. **Quality Benchmarking Dashboards**
 6. **Grand Rounds Workspace**
 
+## Features
+
+- **Dictionary Explorer** - Browse, search, and filter 332 concept sets across 9 clinical categories
+- **Concept Detail View** - Four-panel layout with concept metadata, standard mappings, ATHENA/FHIR links, and expert comments
+- **Concept Relationships** - Interactive hierarchy visualization (parent/child relationships, concept graph)
+- **Review Workflow** - Structured review process with status tracking (draft, pending review, approved, needs revision, deprecated)
+- **Version History** - Changelog tracking for all concept set modifications
+- **Projects Management** - Define clinical projects and assign relevant concept sets
+- **JSON Import/Export** - OHDSI-compliant JSON format with INDICATE metadata extensions
+- **GitHub Integration** - Import concept sets from GitHub repositories with automatic update detection
+- **Multilingual Support** - English and French translations
+- **User Management** - Role-based access control (Admin, Editor, Read-only)
+- **OHDSI Vocabulary Integration** - DuckDB-powered ATHENA vocabulary browser with Parquet/CSV support
+- **Concept Mapping** - Align local concepts to the INDICATE dictionary *(in development)*
+
 ## Installation
 
 ```r
-# Install the indicate package from GitLab
-devtools::install_git("https://gitlab.com/ricdc/outils/indicate-data-dictionary.git")
+# Install devtools if you don't have it
+install.packages("devtools")
+
+# Install the indicate package
+devtools::install_github("indicate-eu/data-dictionary")
 ```
+
+### Prerequisites
+
+- R >= 4.0.0
+- The following system libraries may be required depending on your OS:
+  - `libsodium-dev` (for bcrypt)
+  - `libxml2-dev` (for XML parsing)
+  - `libcurl4-openssl-dev` (for HTTP requests)
 
 ## Usage
 
 ### Running the Application
-
-To launch the INDICATE application:
 
 ```r
 indicate::run_app()
 ```
 
 The application will open in your default web browser.
+
+Optional arguments:
+```r
+indicate::run_app(
+  app_folder = "~/my_indicate_data",  # Custom data directory (default: ~/indicate_files)
+  port = 3838                          # Custom port
+)
+```
 
 ### First Connection
 
@@ -107,30 +141,23 @@ When you first launch the application, you will see the login screen.
 - **Username**: `admin`
 - **Password**: `admin`
 
-**Important**: For security reasons, you should change the default password immediately after your first login:
-1. Click the **Settings icon** (cog) in the top-right corner
-2. Navigate to **Users**
-3. Update the admin password
+**Important**: Change the default password immediately after your first login via **Users** in the settings.
 
-**Anonymous access**:
-- You can also log in as **Anonymous** for read-only access
-- Anonymous users can browse the dictionary but cannot make modifications
-- No editing, creating, or deleting of concepts is allowed in anonymous mode
+#### Importing Concept Sets
 
-#### Setting up ATHENA vocabularies
+On first connection, the dictionary is empty. The application will prompt you to download the concept sets from the [indicate-eu/data-dictionary-content](https://github.com/indicate-eu/data-dictionary-content/) GitHub repository. Click **Download** to import all concept sets and project definitions automatically.
 
-After logging in, you need to import ATHENA vocabulary data to enable full functionality.
+<!-- Screenshot placeholder: first connection import prompt -->
+<!-- ![Import Concept Sets](man/figures/import_concept_sets.png) -->
+
+#### Setting up ATHENA Vocabularies
+
+After logging in, you need to import ATHENA vocabulary data to enable full functionality (concept lookups, relationships, hierarchy navigation).
 
 **Step 1: Download vocabularies from ATHENA**
 
 1. Go to [https://athena.ohdsi.org](https://athena.ohdsi.org)
-2. Select the following vocabularies:
-   - **LOINC**
-   - **SNOMED**
-   - **RxNorm**
-   - **RxNorm Extension**
-   - **ATC**
-   - **ICD10**
+2. Select the following vocabularies: **LOINC**, **SNOMED**, **RxNorm**, **RxNorm Extension**, **ATC**, **ICD10**
 3. Click **Download Vocabularies**
 4. Extract the downloaded ZIP file to a folder on your computer
 
@@ -140,128 +167,108 @@ After logging in, you need to import ATHENA vocabulary data to enable full funct
 
 1. Click the **Settings icon** (cog) in the top-right corner
 2. Navigate to **General Settings**
-3. In the **OHDSI Vocabularies** section, click **Browse**
-4. Select the folder containing the extracted CSV files from ATHENA
-5. The application will create a DuckDB database from the CSV files
-   - This database will be saved in the `app_folder` directory (specified with the `app_folder` argument of `run_app()`, or your home directory by default)
-   - Future connections will load concepts faster from this database
-6. Wait for the import to complete
-   - The application will process all CSV files
-   - A progress indicator shows the import status
-   - Once complete, all features will be available
+3. In the **OHDSI Vocabularies** section, click **Browse** and select the folder containing the extracted CSV/Parquet files
+4. The application will create a DuckDB database for fast concept lookups
+5. Wait for the import to complete (a progress indicator shows the status)
 
-![ATHENA Import Settings](man/figures/athena_import.png)
+<p align="center">
+  <img src="man/figures/athena_import.png" alt="ATHENA Import Settings" width="600"/>
+</p>
 
 ### Usage Guide
 
 #### 1. Dictionary Explorer
 
-The Dictionary Explorer allows you to browse the INDICATE Minimal Data Dictionary. General concepts are high-level clinical concepts used in study definitions, such as "Heart rate" or "Type 2 diabetes", without detailed coding information.
+The Dictionary Explorer is the main view for browsing the INDICATE Minimal Data Dictionary. Concept sets are high-level clinical concepts used in study definitions, such as "Heart rate" or "Tidal volume".
 
-**Browsing General Concepts**:
+**Browsing Concept Sets**:
 
-The main view displays a single table listing all general concepts organized by category and subcategory. Use column filters to search for specific concepts (e.g., "lactate", "sepsis"). Double-click any row to view detailed information.
+The main view displays all concept sets organized by category and subcategory. Use column filters to search for specific concepts. Double-click any row to view detailed information.
 
 ![Dictionary Explorer Interface](man/figures/dictionary_explorer.png)
 
-**Viewing General Concept Details**:
+**Viewing Concept Set Details**:
 
-After selecting a general concept, a four-panel layout displays detailed information:
-- **Top-left**: General concept information (category, subcategory, name)
-- **Bottom-left**: All terminology mappings to standard vocabularies (SNOMED, LOINC, RxNorm, ICD-10)
-- **Top-right**: Selected mapping details with links to ATHENA and FHIR resources
-- **Bottom-right**: Expert comments and ETL guidance
+After selecting a concept set, a detail page opens with four tabs: **Concepts**, **Comments**, **Statistics**, and **Review**.
 
-The "Standard" column indicates standard OMOP concepts (S) vs non-standard or classification concepts. Click on a mapping to see full details in the right panels.
+The **Concepts** tab uses a three-panel layout:
+- **Left**: list of concepts in the concept set
+- **Top-right**: details of the selected concept (ATHENA and FHIR links)
+- **Bottom-right**: related concepts, hierarchy, and synonyms
 
-![Concept Details View](man/figures/concept_details.png)
+The other tabs provide expert comments and ETL guidance (Comments), distribution charts and summary statistics (Statistics), and review workflow with status tracking (Review).
+
+![Concept Details View](man/figures/web_interface.png)
 
 **Exploring Concept Relationships**:
 
-View the hierarchical structure of concepts with the relationships tree. See parent and child concepts in the hierarchy and understand relationship types (Is a, Has ingredient, Subsumes, etc.).
+View the hierarchical structure of concepts with the interactive relationships graph. See parent and child concepts in the hierarchy and understand relationship types (Is a, Has ingredient, Subsumes, etc.).
 
 <p align="center">
   <img src="man/figures/concept_relationships.png" alt="Concept Relationships" width="750"/>
 </p>
 
 **Using External Links**:
-- **OMOP Concept ID**: Click to open ATHENA vocabulary browser
-- **FHIR Resource**: Click to open FHIR Terminology Server
-- These facilitate ETL processes and data transformation
+- **OMOP Concept ID**: Click to open the ATHENA vocabulary browser
+- **FHIR Resource**: Click to open the FHIR Terminology Server
 
 #### 2. Concept Mapping
 
-The Concept Mapping module allows you to align your custom concepts with the INDICATE dictionary.
+> **Note**: This module is currently in development.
 
-**Managing Alignments**:
-1. Navigate to the **Concepts Mapping** tab
-2. View the list of all alignments in the data table
-3. Each alignment represents a project or institution's set of concepts (e.g., "CHU Rennes alignment")
-4. Browse and search through your existing alignments
+The Concept Mapping module will allow you to align your local institution's concepts with the INDICATE dictionary through an interactive mapping workflow.
 
-![Concept Mapping Overview](man/figures/concept_mapping.png)
-
-**Creating a New Alignment**:
-1. Click the **Add Alignment** button to create a new alignment project
-2. Import a CSV file containing the list of concepts you want to align to the INDICATE Data Dictionary
-3. The CSV should include your custom concept names and any relevant metadata
-4. This creates an alignment containing all concepts from your institution or project
-
-![Add Alignment Interface](man/figures/add_alignment_interface.png)
-
-**Mapping Individual Concepts**:
-
-Once your alignment is created, you can map each concept individually:
-
-1. **Left panel**: Select the general concept from the INDICATE dictionary that matches your custom concept
-2. **Right panel**: Choose specific OMOP mappings for this concept (you can select multiple)
-   - Use "Add descendants" to automatically include child concepts
-   - Search ATHENA vocabulary for additional concepts
-3. Review and save the mapping for this concept
-
-![Alignment Wizard](man/figures/alignment_wizard.png)
+<!-- Screenshot placeholder: concept mapping interface -->
+<!-- ![Concept Mapping](man/figures/concept_mapping_new.png) -->
 
 #### 3. Projects Management
 
-Define and manage projects with assigned concepts.
+Define clinical projects and assign relevant concept sets from the dictionary.
 
-![Projects Overview](man/figures/use_cases.png)
+![Projects Overview](man/figures/projects.png)
 
-**Defining Projects**:
+**Managing Projects**:
 1. Navigate to the **Projects** tab
-2. Click **Add Project** to create a new project
-3. Enter name, description, and short name
-4. Save the project
+2. Click **Add Project** to create a new project with name, description, short name, justification, and bibliography
+3. Assign concept sets to the project
+4. Import projects from a GitHub repository
 
-**Assigning Concepts**:
-1. Select a project from the list
-2. View assigned concepts in the table
-3. Add or remove concept assignments as needed
-4. Mark concepts as required or optional
+<!-- Screenshot placeholder: project detail view -->
+<!-- ![Project Detail View](man/figures/project_detail.png) -->
 
 #### 4. Settings
 
-**Backup & Restore**:
-1. Navigate to the **Settings** tab > **Backup & Restore**
-2. Click **Download backup (ZIP)** to save your application data (database, concept mappings, alignments)
-3. To restore, upload a previously downloaded backup ZIP file
-4. After restore, click **Reload application** to apply changes
+**General Settings**:
+- Configure OHDSI vocabulary folder (CSV or Parquet)
+- Backup and restore application data (ZIP export/import)
 
-**OHDSI Vocabularies**:
-1. Navigate to the **Settings** tab > **OHDSI Vocabularies**
-2. Browse and select your OHDSI vocabulary folder (or upload CSV files in container mode)
-3. The application will create a DuckDB database for fast concept lookups
+**Dictionary Settings**:
+- Configure recommended units and unit conversions
+- Manage ETL guidelines (markdown instructions for concept mapping)
 
-#### 5. Development Tools
+**User Management**:
+- Create and manage user accounts
+- Assign access levels (Admin, Editor, Read-only)
+- User profiles with profession, affiliation, and ORCID
 
-![Development Tools](man/figures/dev_tools.png)
+## Deployment
+
+### Docker
+
+The application includes a Dockerfile for containerized deployment:
+
+```bash
+docker build -t indicate .
+docker run -p 3838:3838 indicate
+```
 
 ## Governance and Versioning
 
-The INDICATE consortium has established a governance framework allowing members to propose modifications. All changes are tracked in version-controlled repositories to ensure:
-- Transparency in dictionary evolution
-- Accommodation of diverse requirements
-- Preservation of semantic harmonization across the network
+The INDICATE consortium has established a governance framework allowing members to propose modifications through the built-in review workflow. All changes are tracked via:
+- **Version history** with semantic versioning per concept set
+- **Changelog** recording who changed what and when
+- **Review status** tracking (draft, pending review, approved, needs revision, deprecated)
+- **JSON export** for version-controlled repositories
 
 ## Alignment with European Health Data Space (EHDS)
 
@@ -273,63 +280,21 @@ Future development includes alignment with **HealthDCAT-AP**, the European metad
 
 ## License
 
-This project is licensed under the **GNU General Public License v3.0 (GPLv3)** - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **European Union Public Licence v1.2 (EUPL-1.2)** - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
-This work is funded by the European Union's Digital Europe Programme under grant 101167778.
+This work is funded by the **European Union's Digital Europe Programme** under grant **101167778**.
 
-The INDICATE consortium comprises partners from 12 European countries, with 15 data providers implementing a pan-European federated infrastructure.
+The INDICATE consortium comprises partners from 12 European countries, with 15 data providers implementing a pan-European federated infrastructure for intensive care research.
 
 ## Contact
-
-For questions or feedback about this package:
 
 **Boris Delange**
 Email: boris.delange@univ-rennes.fr
 
-For information about the INDICATE project:
-Visit: [INDICATE Project Website](https://indicate-europe.eu/)
+For information about the INDICATE project: [https://indicate-europe.eu/](https://indicate-europe.eu/)
 
 ## Contributing
 
-Contributions to improve the package are welcome. Please contact the author for collaboration opportunities.
-
-## Deployment on Hugging Face Spaces
-
-The application can be deployed on [Hugging Face Spaces](https://huggingface.co/spaces) using Docker.
-
-### Quick Start
-
-1. Create a new Space at [huggingface.co/new-space](https://huggingface.co/new-space) with **Docker** SDK
-2. Clone the Space repository and copy all application files
-3. Ensure the README.md has the YAML header:
-   ```yaml
-   ---
-   title: INDICATE Data Dictionary
-   sdk: docker
-   ---
-   ```
-4. Push to deploy
-
-### Configuration
-
-See the [Spaces configuration reference](https://huggingface.co/docs/hub/spaces-config-reference) for README header options.
-
-**Important notes**:
-- The application listens on port **7860** (Hugging Face default)
-- First build takes ~15-20 minutes (R package compilation)
-- Use Git LFS for binary files (images): `git lfs track "*.png"`
-
-### Data Persistence
-
-**Warning**: Hugging Face Spaces are ephemeral. When the Space is redeployed or restarted, all local files (database, alignments, uploaded vocabularies) are lost.
-
-**Before redeploying**:
-1. Go to **Settings** > **Backup & Restore**
-2. Click **Download backup (ZIP)** to save your data locally
-
-**After redeploying**:
-1. Go to **Settings** > **Backup & Restore**
-2. Upload your backup ZIP file to restore your data
-3. Go to **Settings** > **OHDSI Vocabularies** to re-upload vocabulary files if needed
+Contributions are welcome. Please open an issue or contact the author for collaboration opportunities.

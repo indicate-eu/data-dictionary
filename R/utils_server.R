@@ -77,16 +77,20 @@ observe_event <- function(eventExpr, handlerExpr, log = TRUE, ...) {
 try_catch <- function(trigger = character(), code, log = TRUE) {
 
   # Import variables from parent environment
+  # Use inherits = FALSE to avoid finding base::id (a closure)
+  id <- NULL
+  log_level <- NULL
   for (obj_name in c("id", "log_level")) {
-    if (exists(obj_name, envir = parent.frame())) {
-      assign(obj_name, get(obj_name, envir = parent.frame()))
+    pf <- parent.frame()
+    if (exists(obj_name, envir = pf, inherits = FALSE)) {
+      assign(obj_name, get(obj_name, envir = pf, inherits = FALSE))
     }
   }
 
-  # Create log messages with formatted timestamp (without milliseconds)
+  # Create log messages with formatted timestamp
   timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
 
-  if (exists("id")) {
+  if (is.character(id)) {
     event_message <- paste0("\n[", timestamp, "] [EVENT] [module_id = ", id, "] event triggered by ", trigger)
     error_message <- paste0("\n[", timestamp, "] [ERROR] [module_id = ", id, "] error with trigger ", trigger, " - error = ")
   } else {
