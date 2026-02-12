@@ -1079,6 +1079,7 @@ export_concept_set_to_json <- function(concept_set_id, concepts_data = NULL) {
         items = items
       ),
       tags = tags,
+      reviewStatus = if (!is.null(cs$review_status) && !is.na(cs$review_status) && cs$review_status != "") as.character(cs$review_status) else "draft",
       metadata = list(
         translations = if (length(translations) > 0) translations else NULL,
         createdByDetails = created_by_details,
@@ -1598,6 +1599,12 @@ import_concept_set_from_json <- function(json_file, language = "en") {
     # Update version if different from default
     if (!is.null(version) && version != "1.0.0") {
       update_concept_set(concept_set_id, version = version, language = language)
+    }
+
+    # Update review status if present
+    review_status <- json_data$reviewStatus
+    if (!is.null(review_status) && review_status != "draft") {
+      update_concept_set(concept_set_id, review_status = review_status, language = language)
     }
 
     # Import concept set items if present

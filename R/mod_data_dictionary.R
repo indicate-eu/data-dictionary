@@ -1827,6 +1827,18 @@ mod_data_dictionary_ui <- function(id, i18n) {
                 multiple = TRUE,
                 options = list(placeholder = as.character(i18n$t("select_or_type")))
               )
+            ),
+            # Project filter
+            tags$div(
+              class = "mb-15",
+              tags$label(class = "form-label", i18n$t("project")),
+              selectizeInput(
+                ns("filter_project"),
+                label = NULL,
+                choices = character(0),
+                multiple = TRUE,
+                options = list(placeholder = as.character(i18n$t("select_or_type")))
+              )
             )
           ),
           footer = tagList(
@@ -2349,7 +2361,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       category = character(0),
       subcategory = character(0),
       status = character(0),
-      tags = character(0)
+      tags = character(0),
+      project = character(0)
     ))
 
     ## Selected Concept Set (for parent modules) ----
@@ -2577,6 +2590,12 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
             row_tags_list <- trimws(strsplit(row_tags, ",")[[1]])
             any(row_tags_list %in% filters$tags)
           }), ]
+        }
+
+        # Filter by project (concept sets belonging to selected projects)
+        if (length(filters$project) > 0) {
+          cs_ids <- get_concept_set_ids_for_projects(as.integer(filters$project))
+          data <- data[data$id %in% cs_ids, ]
         }
 
         # If no data after filtering, build empty display_data and skip formatting
@@ -3732,6 +3751,10 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           row_tags_list <- trimws(strsplit(row_tags, ",")[[1]])
           any(row_tags_list %in% filters$tags)
         }), ]
+      }
+      if (length(filters$project) > 0) {
+        cs_ids <- get_concept_set_ids_for_projects(as.integer(filters$project))
+        data <- data[data$id %in% cs_ids, ]
       }
 
       if (nrow(data) == 0) return()
@@ -7682,6 +7705,15 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       }
       updateSelectizeInput(session, "filter_tags", choices = all_tags_list, selected = active_filters()$tags)
 
+      # Projects
+      projects <- get_all_projects()
+      if (!is.null(projects) && nrow(projects) > 0) {
+        project_choices <- stats::setNames(as.character(projects$project_id), projects$name)
+      } else {
+        project_choices <- character(0)
+      }
+      updateSelectizeInput(session, "filter_project", choices = project_choices, selected = active_filters()$project)
+
       # Show modal
       show_modal(ns("filters_modal"))
     }
@@ -7697,7 +7729,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         category = if (is.null(input$filter_category)) character(0) else input$filter_category,
         subcategory = if (is.null(input$filter_subcategory)) character(0) else input$filter_subcategory,
         status = if (is.null(input$filter_status)) character(0) else input$filter_status,
-        tags = if (is.null(input$filter_tags)) character(0) else input$filter_tags
+        tags = if (is.null(input$filter_tags)) character(0) else input$filter_tags,
+        project = if (is.null(input$filter_project)) character(0) else input$filter_project
       ))
 
       # Refresh table
@@ -7714,7 +7747,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         category = character(0),
         subcategory = character(0),
         status = character(0),
-        tags = character(0)
+        tags = character(0),
+        project = character(0)
       ))
 
       # Clear filter inputs
@@ -7722,6 +7756,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       updateSelectizeInput(session, "filter_subcategory", selected = character(0))
       updateSelectizeInput(session, "filter_status", selected = character(0))
       updateSelectizeInput(session, "filter_tags", selected = character(0))
+      updateSelectizeInput(session, "filter_project", selected = character(0))
 
       # Refresh table
       table_trigger(table_trigger() + 1)

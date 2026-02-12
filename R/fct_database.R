@@ -683,6 +683,27 @@ get_concept_set_items <- function(concept_set_id) {
   )
 }
 
+#' Get Concept Set IDs for Projects
+#'
+#' @description Get unique concept set IDs associated with given project IDs
+#' @param project_ids Vector of project IDs
+#' @return Integer vector of concept set IDs
+#' @noRd
+get_concept_set_ids_for_projects <- function(project_ids) {
+  if (length(project_ids) == 0) return(integer(0))
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  placeholders <- paste(rep("?", length(project_ids)), collapse = ", ")
+  query <- sprintf(
+    "SELECT DISTINCT concept_set_id FROM project_concept_sets WHERE project_id IN (%s)",
+    placeholders
+  )
+  result <- DBI::dbGetQuery(con, query, params = as.list(project_ids))
+  if (nrow(result) == 0) return(integer(0))
+  result$concept_set_id
+}
+
 #' Update Concept Set Item
 #'
 #' @description Update flags for a concept in a concept set
