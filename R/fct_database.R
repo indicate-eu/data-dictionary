@@ -1200,6 +1200,266 @@ get_available_concept_sets_for_project <- function(project_id) {
   )
 }
 
+# RECOMMENDED UNITS CRUD ====
+
+#' Add Recommended Unit
+#'
+#' @description Create a new recommended unit mapping
+#' @param concept_id OMOP concept ID
+#' @param recommended_unit_concept_id Recommended unit concept ID
+#' @return Inserted row ID, or FALSE if duplicate
+#' @noRd
+add_recommended_unit <- function(concept_id, recommended_unit_concept_id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+
+  existing <- DBI::dbGetQuery(
+    con,
+    "SELECT id FROM recommended_units WHERE concept_id = ? AND recommended_unit_concept_id = ?",
+    params = list(as.integer(concept_id), as.integer(recommended_unit_concept_id))
+  )
+
+  if (nrow(existing) > 0) return(FALSE)
+
+  DBI::dbExecute(
+    con,
+    "INSERT INTO recommended_units (concept_id, recommended_unit_concept_id, created_at)
+     VALUES (?, ?, ?)",
+    params = list(as.integer(concept_id), as.integer(recommended_unit_concept_id), timestamp)
+  )
+
+  result <- DBI::dbGetQuery(con, "SELECT last_insert_rowid() AS id")
+  result$id[1]
+}
+
+#' Delete Recommended Unit
+#'
+#' @description Delete a recommended unit mapping by ID
+#' @param id Row ID
+#' @return TRUE if successful
+#' @noRd
+delete_recommended_unit <- function(id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbExecute(
+    con,
+    "DELETE FROM recommended_units WHERE id = ?",
+    params = list(id)
+  )
+
+  TRUE
+}
+
+#' Get All Recommended Units
+#'
+#' @description Retrieve all recommended unit mappings
+#' @return Data frame with recommended units
+#' @noRd
+get_all_recommended_units <- function() {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbGetQuery(
+    con,
+    "SELECT id, concept_id, recommended_unit_concept_id, created_at
+     FROM recommended_units
+     ORDER BY concept_id"
+  )
+}
+
+#' Load Default Recommended Units
+#'
+#' @description Load default recommended units from bundled CSV into the database.
+#'   Replaces all existing recommended units.
+#' @return Number of rows loaded, or FALSE on failure
+#' @noRd
+load_default_recommended_units <- function() {
+  default_csv <- system.file("extdata/concept_sets/recommended_units.csv", package = "indicate")
+  if (default_csv == "" || !file.exists(default_csv)) {
+    default_csv <- "inst/extdata/concept_sets/recommended_units.csv"
+  }
+  if (!file.exists(default_csv)) return(FALSE)
+
+  data <- read.csv(default_csv, stringsAsFactors = FALSE)
+  if (nrow(data) == 0) return(0L)
+
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+
+  DBI::dbExecute(con, "DELETE FROM recommended_units")
+
+  for (i in seq_len(nrow(data))) {
+    DBI::dbExecute(
+      con,
+      "INSERT INTO recommended_units (concept_id, recommended_unit_concept_id, created_at)
+       VALUES (?, ?, ?)",
+      params = list(
+        as.integer(data$concept_id[i]),
+        as.integer(data$recommended_unit_concept_id[i]),
+        timestamp
+      )
+    )
+  }
+
+  nrow(data)
+}
+
+# UNIT CONVERSIONS CRUD ====
+
+#' Add Unit Conversion
+#'
+#' @description Create a new unit conversion
+#' @param omop_concept_id_1 OMOP concept ID for first measurement
+#' @param unit_concept_id_1 Unit concept ID for first measurement
+#' @param conversion_factor Numeric conversion factor
+#' @param omop_concept_id_2 OMOP concept ID for second measurement
+#' @param unit_concept_id_2 Unit concept ID for second measurement
+#' @return Inserted row ID, or FALSE if duplicate
+#' @noRd
+add_unit_conversion <- function(omop_concept_id_1, unit_concept_id_1, conversion_factor,
+                                omop_concept_id_2, unit_concept_id_2) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+
+  existing <- DBI::dbGetQuery(
+    con,
+    "SELECT id FROM unit_conversions
+     WHERE omop_concept_id_1 = ? AND unit_concept_id_1 = ?
+       AND omop_concept_id_2 = ? AND unit_concept_id_2 = ?",
+    params = list(
+      as.integer(omop_concept_id_1), as.integer(unit_concept_id_1),
+      as.integer(omop_concept_id_2), as.integer(unit_concept_id_2)
+    )
+  )
+
+  if (nrow(existing) > 0) return(FALSE)
+
+  DBI::dbExecute(
+    con,
+    "INSERT INTO unit_conversions (omop_concept_id_1, unit_concept_id_1, conversion_factor,
+       omop_concept_id_2, unit_concept_id_2, created_at)
+     VALUES (?, ?, ?, ?, ?, ?)",
+    params = list(
+      as.integer(omop_concept_id_1),
+      as.integer(unit_concept_id_1),
+      as.numeric(conversion_factor),
+      as.integer(omop_concept_id_2),
+      as.integer(unit_concept_id_2),
+      timestamp
+    )
+  )
+
+  result <- DBI::dbGetQuery(con, "SELECT last_insert_rowid() AS id")
+  result$id[1]
+}
+
+#' Delete Unit Conversion
+#'
+#' @description Delete a unit conversion by ID
+#' @param id Row ID
+#' @return TRUE if successful
+#' @noRd
+delete_unit_conversion <- function(id) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbExecute(
+    con,
+    "DELETE FROM unit_conversions WHERE id = ?",
+    params = list(id)
+  )
+
+  TRUE
+}
+
+#' Get All Unit Conversions
+#'
+#' @description Retrieve all unit conversions
+#' @return Data frame with unit conversions
+#' @noRd
+get_all_unit_conversions <- function() {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbGetQuery(
+    con,
+    "SELECT id, omop_concept_id_1, unit_concept_id_1, conversion_factor,
+       omop_concept_id_2, unit_concept_id_2, created_at
+     FROM unit_conversions
+     ORDER BY omop_concept_id_1, unit_concept_id_1"
+  )
+}
+
+#' Load Default Unit Conversions
+#'
+#' @description Load default unit conversions from bundled CSV into the database.
+#'   Replaces all existing unit conversions.
+#' @return Number of rows loaded, or FALSE on failure
+#' @noRd
+load_default_unit_conversions <- function() {
+  default_csv <- system.file("extdata/concept_sets/unit_conversions.csv", package = "indicate")
+  if (default_csv == "" || !file.exists(default_csv)) {
+    default_csv <- "inst/extdata/concept_sets/unit_conversions.csv"
+  }
+  if (!file.exists(default_csv)) return(FALSE)
+
+  data <- read.csv(default_csv, stringsAsFactors = FALSE)
+  if (nrow(data) == 0) return(0L)
+
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+
+  DBI::dbExecute(con, "DELETE FROM unit_conversions")
+
+  for (i in seq_len(nrow(data))) {
+    DBI::dbExecute(
+      con,
+      "INSERT INTO unit_conversions (omop_concept_id_1, unit_concept_id_1, conversion_factor,
+         omop_concept_id_2, unit_concept_id_2, created_at)
+       VALUES (?, ?, ?, ?, ?, ?)",
+      params = list(
+        as.integer(data$omop_concept_id_1[i]),
+        as.integer(data$unit_concept_id_1[i]),
+        as.numeric(data$conversion_factor[i]),
+        as.integer(data$omop_concept_id_2[i]),
+        as.integer(data$unit_concept_id_2[i]),
+        timestamp
+      )
+    )
+  }
+
+  nrow(data)
+}
+
+#' Update Unit Conversion Factor
+#'
+#' @description Update the conversion factor for an existing unit conversion
+#' @param id Row ID
+#' @param conversion_factor New conversion factor
+#' @return TRUE if successful
+#' @noRd
+update_unit_conversion <- function(id, conversion_factor) {
+  con <- get_db_connection()
+  on.exit(DBI::dbDisconnect(con))
+
+  DBI::dbExecute(
+    con,
+    "UPDATE unit_conversions SET conversion_factor = ? WHERE id = ?",
+    params = list(as.numeric(conversion_factor), id)
+  )
+
+  TRUE
+}
+
 # DATABASE CONNECTION ====
 
 #' Get Application Directory Path
@@ -1550,6 +1810,85 @@ init_database <- function(con) {
         FOREIGN KEY (concept_set_id) REFERENCES concept_sets(id)
       )"
     )
+  }
+
+  # Recommended Units table
+  if (!DBI::dbExistsTable(con, "recommended_units")) {
+    DBI::dbExecute(
+      con,
+      "CREATE TABLE recommended_units (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        concept_id INTEGER NOT NULL,
+        recommended_unit_concept_id INTEGER NOT NULL,
+        created_at TEXT,
+        UNIQUE(concept_id, recommended_unit_concept_id)
+      )"
+    )
+
+    # Auto-migrate from CSV if it exists
+    app_dir <- get_app_dir(create = FALSE)
+    if (!is.null(app_dir)) {
+      csv_path <- file.path(app_dir, "recommended_units.csv")
+      if (file.exists(csv_path)) {
+        data <- read.csv(csv_path, stringsAsFactors = FALSE)
+        timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+        for (i in seq_len(nrow(data))) {
+          DBI::dbExecute(
+            con,
+            "INSERT OR IGNORE INTO recommended_units (concept_id, recommended_unit_concept_id, created_at)
+             VALUES (?, ?, ?)",
+            params = list(
+              as.integer(data$concept_id[i]),
+              as.integer(data$recommended_unit_concept_id[i]),
+              timestamp
+            )
+          )
+        }
+      }
+    }
+  }
+
+  # Unit Conversions table
+  if (!DBI::dbExistsTable(con, "unit_conversions")) {
+    DBI::dbExecute(
+      con,
+      "CREATE TABLE unit_conversions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        omop_concept_id_1 INTEGER NOT NULL,
+        unit_concept_id_1 INTEGER NOT NULL,
+        conversion_factor REAL NOT NULL,
+        omop_concept_id_2 INTEGER NOT NULL,
+        unit_concept_id_2 INTEGER NOT NULL,
+        created_at TEXT,
+        UNIQUE(omop_concept_id_1, unit_concept_id_1, omop_concept_id_2, unit_concept_id_2)
+      )"
+    )
+
+    # Auto-migrate from CSV if it exists
+    app_dir <- get_app_dir(create = FALSE)
+    if (!is.null(app_dir)) {
+      csv_path <- file.path(app_dir, "unit_conversions.csv")
+      if (file.exists(csv_path)) {
+        data <- read.csv(csv_path, stringsAsFactors = FALSE)
+        timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+        for (i in seq_len(nrow(data))) {
+          DBI::dbExecute(
+            con,
+            "INSERT OR IGNORE INTO unit_conversions (omop_concept_id_1, unit_concept_id_1,
+               conversion_factor, omop_concept_id_2, unit_concept_id_2, created_at)
+             VALUES (?, ?, ?, ?, ?, ?)",
+            params = list(
+              as.integer(data$omop_concept_id_1[i]),
+              as.integer(data$unit_concept_id_1[i]),
+              as.numeric(data$conversion_factor[i]),
+              as.integer(data$omop_concept_id_2[i]),
+              as.integer(data$unit_concept_id_2[i]),
+              timestamp
+            )
+          )
+        }
+      }
+    }
   }
 
   invisible(NULL)

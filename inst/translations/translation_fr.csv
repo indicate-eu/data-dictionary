@@ -420,3 +420,58 @@ no_valid_concepts_found,Aucun concept validé trouvé dans le vocabulaire
 concepts_imported_pending,%d concepts ajoutés (en attente de sauvegarde)
 select_status,Sélectionner un statut...
 edit_review,Modifier la revue
+etl_guidelines,Directives ETL
+etl_guidelines_saved,Directives ETL enregistrees avec succes
+preview_placeholder,L'apercu apparaitra ici au fur et a mesure de la saisie...
+unit_conversions,Conversions d'unites
+unit_conversions_desc,Gerez les facteurs de conversion d'unites entre les concepts de mesure.
+add_conversion,Ajouter une conversion
+no_unit_conversions,Aucune conversion d'unite definie
+concept_id_1,ID concept 1
+concept_name_1,Concept 1
+unit_1,Unite 1
+conversion_factor,Facteur
+concept_id_2,ID concept 2
+concept_name_2,Concept 2
+unit_2,Unite 2
+test,Tester
+test_conversion,Tester la conversion
+confirm_delete_conversion,Voulez-vous vraiment supprimer cette conversion ?
+invalid_conversion_factor,Facteur de conversion invalide. Doit etre un nombre positif.
+conversion_factor_updated,Facteur de conversion mis a jour avec succes
+conversion_deleted,Conversion supprimee avec succes
+conversion_added,Conversion ajoutee avec succes
+select_concept_first,Veuillez d'abord selectionner un concept
+concept_not_found,Concept non trouve
+field_required,Ce champ est requis
+concept_id,ID concept
+vocabulary,Vocabulaire
+domain,Domaine
+concept_class,Classe de concept
+code,Code
+columns,Colonnes
+add_as,Ajouter comme
+unit_concept_id_1,ID unite 1
+unit_concept_id_2,ID unite 2
+load_default_conversions_count,Des conversions d'unites par defaut sont disponibles.
+load_default_conversions_question,Voulez-vous charger les conversions d'unites par defaut ?
+load_default_conversions_success,{count} conversions d'unites chargees avec succes
+load_default_conversions_failed,Echec du chargement des conversions d'unites par defaut
+recommended_units,Unites recommandees
+no_recommended_units,Aucune unite recommandee definie
+measurement,Mesure
+unit,Unite
+unit_code,Code unite
+unit_concept_id,ID unite
+load_default_recommended_units_count,Des unites recommandees par defaut sont disponibles.
+load_default_recommended_units_question,Voulez-vous charger les unites recommandees par defaut ?
+load_default_recommended_units_success,{count} unites recommandees chargees avec succes
+load_default_recommended_units_failed,Echec du chargement des unites recommandees par defaut
+add_recommended_unit,Ajouter une unite recommandee
+confirm_delete_recommended_unit,Etes-vous sur de vouloir supprimer cette unite recommandee ?
+recommended_unit_added,Unite recommandee ajoutee avec succes
+recommended_unit_deleted,Unite recommandee supprimee avec succes
+concept_id_field,Concept ID
+unit_concept_id_field,Unit Concept ID
+conversion_already_exists,Cette conversion existe deja
+recommended_unit_already_exists,Cette unite recommandee existe deja

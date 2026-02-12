@@ -129,7 +129,7 @@ create_standard_datatable <- function(
 
   options <- list(
     pageLength = page_length,
-    lengthMenu = list(c(10, 15, 25, 50, 100), c("10", "15", "25", "50", "100")),
+    lengthMenu = list(c(10, 15, 20, 25, 50, 100), c("10", "15", "20", "25", "50", "100")),
     dom = dom,
     language = get_datatable_language(),
     ordering = TRUE,

@@ -420,3 +420,58 @@ no_valid_concepts_found,No valid concepts found in vocabulary
 concepts_imported_pending,%d concepts added (pending save)
 select_status,Select status...
 edit_review,Edit Review
+etl_guidelines,ETL Guidelines
+etl_guidelines_saved,ETL guidelines saved successfully
+preview_placeholder,Preview will appear here as you type...
+unit_conversions,Unit Conversions
+unit_conversions_desc,Manage unit conversion factors between measurement concepts.
+add_conversion,Add Conversion
+no_unit_conversions,No unit conversions defined
+concept_id_1,Concept ID 1
+concept_name_1,Concept 1
+unit_1,Unit 1
+conversion_factor,Factor
+concept_id_2,Concept ID 2
+concept_name_2,Concept 2
+unit_2,Unit 2
+test,Test
+test_conversion,Test Conversion
+confirm_delete_conversion,Are you sure you want to delete this conversion?
+invalid_conversion_factor,Invalid conversion factor. Must be a positive number.
+conversion_factor_updated,Conversion factor updated successfully
+conversion_deleted,Conversion deleted successfully
+conversion_added,Conversion added successfully
+select_concept_first,Please select a concept first
+concept_not_found,Concept not found
+field_required,This field is required
+concept_id,Concept ID
+vocabulary,Vocabulary
+domain,Domain
+concept_class,Concept Class
+code,Code
+columns,Columns
+add_as,Add as
+unit_concept_id_1,Unit ID 1
+unit_concept_id_2,Unit ID 2
+load_default_conversions_count,Default unit conversions are available to load.
+load_default_conversions_question,Would you like to load the default unit conversions?
+load_default_conversions_success,Successfully loaded {count} unit conversions
+load_default_conversions_failed,Failed to load default unit conversions
+recommended_units,Recommended Units
+no_recommended_units,No recommended units defined
+measurement,Measurement
+unit,Unit
+unit_code,Unit Code
+unit_concept_id,Unit ID
+load_default_recommended_units_count,Default recommended units are available to load.
+load_default_recommended_units_question,Would you like to load the default recommended units?
+load_default_recommended_units_success,Successfully loaded {count} recommended units
+load_default_recommended_units_failed,Failed to load default recommended units
+add_recommended_unit,Add Recommended Unit
+confirm_delete_recommended_unit,Are you sure you want to delete this recommended unit?
+recommended_unit_added,Recommended unit added successfully
+recommended_unit_deleted,Recommended unit deleted successfully
+concept_id_field,Concept ID
+unit_concept_id_field,Unit Concept ID
+conversion_already_exists,This conversion already exists
+recommended_unit_already_exists,This recommended unit already exists

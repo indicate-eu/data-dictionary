@@ -93,7 +93,8 @@ app_server <- function(input, output, session) {
   mod_dictionary_settings_server(
     "dictionary_settings",
     i18n = i18n,
-    current_user = current_user
+    current_user = current_user,
+    vocabularies = vocabularies
   )
 
   mod_users_server(
