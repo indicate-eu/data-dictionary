@@ -1,8 +1,8 @@
 # INDICATE Data Dictionary Content
 
-[![GitHub Pages Catalog](https://img.shields.io/badge/Browse%20Catalog-GitHub%20Pages-2ea44f?style=for-the-badge)](https://indicate-eu.github.io/data-dictionary-content/)
-[![Funded by EU](https://img.shields.io/badge/Funded%20by-EU%20Digital%20Europe-003399.svg)](https://indicate-europe.eu/)
-[![License: EUPL-1.2](https://img.shields.io/badge/License-EUPL--1.2-blue.svg)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12)
+[![Browse Catalog](https://img.shields.io/badge/Browse%20Catalog-GitHub%20Pages-2ea44f?style=for-the-badge)](https://indicate-eu.github.io/data-dictionary-content/)
+[![Funded by EU](https://img.shields.io/badge/Funded%20by-EU%20Digital%20Europe-003399?style=for-the-badge)](https://indicate-europe.eu/)
+[![License: EUPL-1.2](https://img.shields.io/badge/License-EUPL--1.2-blue?style=for-the-badge)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12)
 
 ![Catalog Screenshot](docs/data_dictionary.png)
 
