@@ -363,7 +363,7 @@ no_json_files_found,Aucun fichier JSON trouvé dans le ZIP
 processing_import,Traitement de l'importation...
 load_default_question,Voulez-vous charger les concept sets par défaut ?
 yes_load,Oui charger
-load_default_count,Il y a {count} concept sets par défaut disponibles.
+load_default_count,Les concept sets peuvent etre telecharges depuis un depot GitHub.
 loading_default,Chargement des concept sets par défaut...
 load_default_success,{count} concept sets chargés avec succès
 load_default_failed,Echec du chargement des concept sets par défaut
@@ -477,3 +477,20 @@ concept_id_field,Concept ID
 unit_concept_id_field,Unit Concept ID
 conversion_already_exists,Cette conversion existe deja
 recommended_unit_already_exists,Cette unite recommandee existe deja
+concept_sets_repo_url,URL du depot
+concept_sets_repo_url_help,URL du depot GitHub contenant les concept sets
+downloading_from_github,Telechargement des concept sets depuis GitHub...
+download_failed_fallback,Echec du telechargement. Chargement depuis les fichiers locaux.
+download_failed_github,Echec du telechargement des concept sets depuis le depot
+check_updates,Verifier les mises a jour
+checking_updates,Verification des mises a jour...
+updates_available,Mises a jour disponibles
+new_concept_sets,{count} nouveau(x) concept set(s)
+updated_concept_sets,{count} concept set(s) mis a jour
+unchanged_concept_sets,{count} concept set(s) inchange(s)
+no_updates_available,Tous les concept sets sont a jour
+apply_updates,Appliquer les mises a jour
+applying_updates,Application des mises a jour...
+updates_applied_success,{count} mise(s) a jour appliquee(s) avec succes
+update_status_new,Nouveau
+update_status_updated,Mis a jour

@@ -111,6 +111,14 @@ mod_data_dictionary_ui <- function(id, i18n) {
                 ),
                 shinyjs::hidden(
                   actionButton(
+                    ns("check_updates"),
+                    i18n$t("check_updates"),
+                    class = "btn-purple-custom",
+                    icon = icon("sync")
+                  )
+                ),
+                shinyjs::hidden(
+                  actionButton(
                     ns("import_concept_sets"),
                     i18n$t("import_zip"),
                     class = "btn-purple-custom",
@@ -991,6 +999,24 @@ mod_data_dictionary_ui <- function(id, i18n) {
                 id = ns("load_default_message"),
                 style = "margin-bottom: 15px;"
               ),
+              tags$div(
+                style = "margin-bottom: 15px;",
+                tags$label(
+                  class = "form-label",
+                  `for` = ns("load_default_repo_url"),
+                  i18n$t("concept_sets_repo_url")
+                ),
+                textInput(
+                  ns("load_default_repo_url"),
+                  label = NULL,
+                  value = "https://github.com/indicate-eu/data-dictionary-content",
+                  width = "100%"
+                ),
+                tags$small(
+                  style = "color: #666; display: block; margin-top: 4px;",
+                  i18n$t("concept_sets_repo_url_help")
+                )
+              ),
               tags$p(
                 i18n$t("load_default_question"),
                 style = "font-weight: 600; margin-top: 10px;"
@@ -1001,7 +1027,7 @@ mod_data_dictionary_ui <- function(id, i18n) {
               style = "display: none; text-align: center; padding: 20px;",
               tags$div(
                 style = "font-size: 18px; font-weight: 600; margin-bottom: 10px;",
-                i18n$t("loading_concept_sets")
+                i18n$t("downloading_from_github")
               ),
               tags$div(
                 style = "color: #666;",
@@ -1018,6 +1044,45 @@ mod_data_dictionary_ui <- function(id, i18n) {
           ),
           size = "medium",
           icon = "fas fa-info-circle",
+          ns = ns
+        ),
+
+        ### Modal - Updates Available ----
+        create_modal(
+          id = "updates_modal",
+          title = i18n$t("updates_available"),
+          body = tagList(
+            tags$div(
+              id = ns("updates_initial_content"),
+              tags$div(
+                id = ns("updates_summary"),
+                style = "margin-bottom: 15px;"
+              ),
+              DT::DTOutput(ns("updates_table"))
+            ),
+            tags$div(
+              id = ns("updates_loading_content"),
+              style = "display: none; text-align: center; padding: 20px;",
+              tags$div(
+                style = "font-size: 18px; font-weight: 600; margin-bottom: 10px;",
+                i18n$t("applying_updates")
+              ),
+              tags$div(
+                id = ns("updates_progress"),
+                style = "color: #666;",
+                i18n$t("please_wait")
+              )
+            )
+          ),
+          footer = tagList(
+            tags$div(
+              id = ns("updates_buttons"),
+              actionButton(ns("cancel_updates"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times")),
+              actionButton(ns("apply_updates"), i18n$t("apply_updates"), class = "btn-primary-custom", icon = icon("download"))
+            )
+          ),
+          size = "large",
+          icon = "fas fa-sync",
           ns = ns
         ),
 
@@ -2147,6 +2212,10 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     ## Export State ----
     export_zip_path <- reactiveVal(NULL)
 
+    ## Updates State ----
+    update_check_result <- reactiveVal(NULL)
+    update_extracted_dir <- reactiveVal(NULL)
+
     ## Fuzzy Search ----
     fuzzy <- fuzzy_search_server("fuzzy_search", input, session, trigger_rv = table_trigger, ns = ns)
 
@@ -2180,6 +2249,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         shinyjs::show("select_all_concept_sets")
         shinyjs::show("unselect_all_concept_sets")
         shinyjs::show("delete_selected_concept_sets")
+        shinyjs::show("check_updates")
       }
       shinyjs::show("export_all_concept_sets")
 
@@ -2196,25 +2266,17 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
       # Check if database is empty and offer to load defaults
       if (is.null(data) || nrow(data) == 0) {
-        # Find default concept sets
-        concept_sets_dir <- system.file("extdata/concept_sets", package = "indicate")
-        if (concept_sets_dir == "" || !dir.exists(concept_sets_dir)) {
-          concept_sets_dir <- "inst/extdata/concept_sets"
+        # Pre-fill repo URL from config if available
+        saved_url <- get_config_value("concept_sets_repo_url")
+        if (!is.null(saved_url) && nchar(saved_url) > 0) {
+          updateTextInput(session, "load_default_repo_url", value = saved_url)
         }
 
-        if (dir.exists(concept_sets_dir)) {
-          json_files <- list.files(concept_sets_dir, pattern = "\\.json$", full.names = TRUE)
-          json_files <- json_files[!grepl("README", basename(json_files), ignore.case = TRUE)]
+        # Update message
+        shinyjs::html("load_default_message", as.character(i18n$t("load_default_count")))
 
-          if (length(json_files) > 0) {
-            # Update message with count
-            message_text <- gsub("\\{count\\}", as.character(length(json_files)), as.character(i18n$t("load_default_count")))
-            shinyjs::html("load_default_message", message_text)
-
-            # Show modal
-            show_modal(ns("load_default_modal"))
-          }
-        }
+        # Show modal
+        show_modal(ns("load_default_modal"))
       }
     }, ignoreInit = FALSE, once = TRUE)
 
@@ -2335,12 +2397,8 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       output$concept_sets_table_container <- renderUI({
         data <- concept_sets_data()
 
-        # Apply fuzzy search filter on name column
-        query <- fuzzy$query()
-        if (!is.null(query) && query != "" && !is.null(data) && nrow(data) > 0) {
-          data <- fuzzy_search_df(data, query, "name", max_dist = 3)
-        }
-
+        # Show "no concept sets" message only when the database is truly empty
+        # (not when a search/filter returns no results)
         if (is.null(data) || nrow(data) == 0) {
           shinyjs::hide("concept_sets_fuzzy_search_container")
           return(tags$div(
@@ -2363,7 +2421,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           data <- fuzzy_search_df(data, query, "name", max_dist = 3)
         }
 
-        if (is.null(data) || nrow(data) == 0) return(NULL)
+        if (is.null(data)) data <- data.frame()
 
         # Note: Badge filtering is handled via DT::updateSearch on the DataTable proxy
         # This allows instant filtering without re-rendering the table
@@ -2397,7 +2455,52 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           }), ]
         }
 
-        if (nrow(data) == 0) return(NULL)
+        # If no data after filtering, build empty display_data and skip formatting
+        if (nrow(data) == 0) {
+          display_data <- data.frame(
+            id = integer(0), category = character(0), subcategory = character(0),
+            name = character(0), description = character(0), tags = character(0),
+            version = character(0), status = character(0), author = character(0),
+            last_update = character(0), item_count = integer(0), actions = character(0),
+            stringsAsFactors = FALSE
+          )
+
+          dt <- create_standard_datatable(
+            display_data,
+            selection = "multiple",
+            col_names = c(
+              "ID",
+              as.character(i18n$t("category")),
+              as.character(i18n$t("subcategory")),
+              as.character(i18n$t("name")),
+              as.character(i18n$t("description")),
+              as.character(i18n$t("tags")),
+              as.character(i18n$t("version")),
+              as.character(i18n$t("review_status")),
+              as.character(i18n$t("created_by")),
+              as.character(i18n$t("last_update")),
+              as.character(i18n$t("concepts")),
+              as.character(i18n$t("actions"))
+            ),
+            col_defs = list(
+              list(targets = 0, visible = FALSE),
+              list(targets = 1, width = "10%"),
+              list(targets = 2, width = "10%"),
+              list(targets = 3, width = "15%"),
+              list(targets = 4, width = "25%"),
+              list(targets = 5, width = "10%", visible = FALSE),
+              list(targets = 6, width = "6%", className = "dt-center"),
+              list(targets = 7, width = "10%", className = "dt-center"),
+              list(targets = 8, width = "8%", visible = FALSE),
+              list(targets = 9, width = "8%", className = "dt-center", visible = FALSE),
+              list(targets = 10, width = "5%", className = "dt-center", visible = FALSE),
+              list(targets = 11, width = "210px", className = "dt-center")
+            ),
+            escape = FALSE
+          )
+
+          return(dt)
+        }
 
         # Format last update date (show date and time HH:MM, or empty if NA)
         format_date <- function(dt_str) {
@@ -7014,70 +7117,109 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       # Add small delay to ensure UI updates
       Sys.sleep(0.3)
 
-      # Find default concept sets
-      concept_sets_dir <- system.file("extdata/concept_sets", package = "indicate")
-      if (concept_sets_dir == "" || !dir.exists(concept_sets_dir)) {
-        concept_sets_dir <- "inst/extdata/concept_sets"
-      }
+      repo_url <- input$load_default_repo_url
+      current_language <- i18n$get_translation_language()
+      github_success <- FALSE
 
-      if (dir.exists(concept_sets_dir)) {
-        # Find all JSON files
-        json_files <- list.files(concept_sets_dir, pattern = "\\.json$", full.names = TRUE)
-        json_files <- json_files[!grepl("README", basename(json_files), ignore.case = TRUE)]
-
-        if (length(json_files) > 0) {
-          current_language <- i18n$get_translation_language()
-          total_files <- length(json_files)
-
-          success_count <- 0
-          failed_count <- 0
-
-          for (i in seq_along(json_files)) {
-            json_file <- json_files[i]
-
-            # Update progress every 10 files or on first/last
-            if (i == 1 || i == total_files || i %% 10 == 0) {
-              progress_text <- gsub("\\{current\\}", as.character(i), gsub("\\{total\\}", as.character(total_files), as.character(i18n$t("loading_progress"))))
-              shinyjs::html("load_default_loading_content", sprintf('<div style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">%s</div><div style="color: #666;">%s</div>', progress_text, as.character(i18n$t("please_wait"))))
-              Sys.sleep(0.1)  # Small delay to show progress
-            }
-
-            result <- import_concept_set_from_json(json_file, language = current_language)
-            if (!is.null(result)) {
-              success_count <- success_count + 1
-            } else {
-              failed_count <- failed_count + 1
-            }
+      # Try GitHub download first
+      if (!is.null(repo_url) && nchar(trimws(repo_url)) > 0) {
+        progress_callback <- function(current, total) {
+          if (current == 1 || current == total || current %% 10 == 0) {
+            progress_text <- gsub("\\{current\\}", as.character(current),
+              gsub("\\{total\\}", as.character(total), as.character(i18n$t("loading_progress"))))
+            shinyjs::html("load_default_loading_content",
+              sprintf('<div style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">%s</div><div style="color: #666;">%s</div>',
+                progress_text, as.character(i18n$t("please_wait"))))
+            Sys.sleep(0.1)
           }
+        }
+
+        result <- import_concept_sets_from_github(
+          repo_url = trimws(repo_url),
+          language = current_language,
+          progress_callback = progress_callback
+        )
+
+        if (!is.null(result)) {
+          github_success <- TRUE
 
           # Reload data
           data <- get_all_concept_sets(language = current_language)
           concept_sets_data(data)
           table_trigger(table_trigger() + 1)
 
-          # Show success notification
-          if (success_count > 0) {
-            message_text <- gsub("\\{count\\}", as.character(success_count), as.character(i18n$t("load_default_success")))
-            showNotification(
-              message_text,
-              type = "message",
-              duration = 5
-            )
+          if (result$success_count > 0) {
+            message_text <- gsub("\\{count\\}", as.character(result$success_count),
+              as.character(i18n$t("load_default_success")))
+            showNotification(message_text, type = "message", duration = 5)
           }
 
-          if (failed_count > 0) {
+          if (result$failed_count > 0) {
             showNotification(
-              sprintf("%d concept sets failed to load", failed_count),
-              type = "warning",
-              duration = 5
+              sprintf("%d concept sets failed to load", result$failed_count),
+              type = "warning", duration = 5
             )
           }
+        }
+      }
+
+      # Fallback to local files if GitHub failed
+      if (!github_success) {
+        showNotification(as.character(i18n$t("download_failed_fallback")), type = "warning", duration = 5)
+
+        concept_sets_dir <- system.file("extdata/concept_sets", package = "indicate")
+        if (concept_sets_dir == "" || !dir.exists(concept_sets_dir)) {
+          concept_sets_dir <- "inst/extdata/concept_sets"
+        }
+
+        if (dir.exists(concept_sets_dir)) {
+          json_files <- list.files(concept_sets_dir, pattern = "\\.json$", full.names = TRUE)
+          json_files <- json_files[!grepl("README", basename(json_files), ignore.case = TRUE)]
+
+          if (length(json_files) > 0) {
+            total_files <- length(json_files)
+            success_count <- 0
+            failed_count <- 0
+
+            for (i in seq_along(json_files)) {
+              if (i == 1 || i == total_files || i %% 10 == 0) {
+                progress_text <- gsub("\\{current\\}", as.character(i),
+                  gsub("\\{total\\}", as.character(total_files), as.character(i18n$t("loading_progress"))))
+                shinyjs::html("load_default_loading_content",
+                  sprintf('<div style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">%s</div><div style="color: #666;">%s</div>',
+                    progress_text, as.character(i18n$t("please_wait"))))
+                Sys.sleep(0.1)
+              }
+
+              result <- import_concept_set_from_json(json_files[i], language = current_language)
+              if (!is.null(result)) {
+                success_count <- success_count + 1
+              } else {
+                failed_count <- failed_count + 1
+              }
+            }
+
+            data <- get_all_concept_sets(language = current_language)
+            concept_sets_data(data)
+            table_trigger(table_trigger() + 1)
+
+            if (success_count > 0) {
+              message_text <- gsub("\\{count\\}", as.character(success_count),
+                as.character(i18n$t("load_default_success")))
+              showNotification(message_text, type = "message", duration = 5)
+            }
+
+            if (failed_count > 0) {
+              showNotification(
+                sprintf("%d concept sets failed to load", failed_count),
+                type = "warning", duration = 5
+              )
+            }
+          } else {
+            showNotification(as.character(i18n$t("load_default_failed")), type = "error", duration = 5)
+          }
         } else {
-          showNotification(
-            as.character(i18n$t("load_default_failed")),
-            type = "error",
-            duration = 5
-          )
+          showNotification(as.character(i18n$t("load_default_failed")), type = "error", duration = 5)
         }
       }
 
@@ -7093,6 +7235,175 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
     ## Cancel Load Default ----
     observe_event(input$cancel_load_default, {
       hide_modal(ns("load_default_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Check for Updates ----
+    observe_event(input$check_updates, {
+      repo_url <- get_config_value("concept_sets_repo_url")
+      if (is.null(repo_url) || nchar(repo_url) == 0) {
+        showNotification(as.character(i18n$t("download_failed_github")), type = "error", duration = 5)
+        return()
+      }
+
+      showNotification(as.character(i18n$t("checking_updates")), type = "message", duration = 3)
+
+      # Check latest commit SHA
+      stored_sha <- get_config_value("concept_sets_last_commit_sha")
+      remote_sha <- get_github_latest_commit(repo_url)
+
+      if (is.null(remote_sha)) {
+        showNotification(as.character(i18n$t("download_failed_github")), type = "error", duration = 5)
+        return()
+      }
+
+      if (!is.null(stored_sha) && identical(stored_sha, remote_sha)) {
+        showNotification(as.character(i18n$t("no_updates_available")), type = "message", duration = 5)
+        return()
+      }
+
+      # SHA differs - download and compare
+      extracted_dir <- download_github_concept_sets(repo_url)
+      if (is.null(extracted_dir)) {
+        showNotification(as.character(i18n$t("download_failed_github")), type = "error", duration = 5)
+        return()
+      }
+
+      current_language <- i18n$get_translation_language()
+      updates <- check_concept_sets_updates(extracted_dir, language = current_language)
+
+      if (length(updates$new) == 0 && length(updates$updated) == 0) {
+        # No actual changes - update SHA and notify
+        set_config_value("concept_sets_last_commit_sha", remote_sha)
+        showNotification(as.character(i18n$t("no_updates_available")), type = "message", duration = 5)
+        return()
+      }
+
+      # Store results for apply step
+      update_check_result(updates)
+      update_extracted_dir(extracted_dir)
+
+      # Build summary HTML
+      summary_parts <- character()
+      if (length(updates$new) > 0) {
+        summary_parts <- c(summary_parts,
+          gsub("\\{count\\}", as.character(length(updates$new)), as.character(i18n$t("new_concept_sets"))))
+      }
+      if (length(updates$updated) > 0) {
+        summary_parts <- c(summary_parts,
+          gsub("\\{count\\}", as.character(length(updates$updated)), as.character(i18n$t("updated_concept_sets"))))
+      }
+      if (length(updates$unchanged) > 0) {
+        summary_parts <- c(summary_parts,
+          gsub("\\{count\\}", as.character(length(updates$unchanged)), as.character(i18n$t("unchanged_concept_sets"))))
+      }
+      shinyjs::html("updates_summary", paste(summary_parts, collapse = " &bull; "))
+
+      # Build updates table
+      items <- c(updates$new, updates$updated)
+      if (length(items) > 0) {
+        table_data <- data.frame(
+          Name = sapply(items, function(x) x$name),
+          Status = sapply(items, function(x) {
+            if (x$status == "new") as.character(i18n$t("update_status_new"))
+            else as.character(i18n$t("update_status_updated"))
+          }),
+          `Local Version` = sapply(items, function(x) if (is.na(x$local_version)) "/" else x$local_version),
+          `Remote Version` = sapply(items, function(x) x$remote_version),
+          stringsAsFactors = FALSE,
+          check.names = FALSE
+        )
+
+        output$updates_table <- DT::renderDT({
+          create_standard_datatable(
+            table_data,
+            selection = "none",
+            filter = "none",
+            col_defs = list(
+              list(className = "dt-center", targets = 1:3)
+            )
+          )
+        })
+      }
+
+      show_modal(ns("updates_modal"))
+    }, ignoreInit = TRUE)
+
+    ## Apply Updates ----
+    observe_event(input$apply_updates, {
+      updates <- update_check_result()
+      extracted_dir <- update_extracted_dir()
+      if (is.null(updates) || is.null(extracted_dir)) return()
+
+      # Show loading state
+      shinyjs::hide("updates_buttons")
+      shinyjs::hide("updates_initial_content")
+      shinyjs::show("updates_loading_content")
+      Sys.sleep(0.3)
+
+      current_language <- i18n$get_translation_language()
+
+      progress_callback <- function(current, total) {
+        if (current == 1 || current == total || current %% 5 == 0) {
+          progress_text <- gsub("\\{current\\}", as.character(current),
+            gsub("\\{total\\}", as.character(total), as.character(i18n$t("loading_progress"))))
+          shinyjs::html("updates_progress", progress_text)
+          Sys.sleep(0.1)
+        }
+      }
+
+      result <- apply_concept_sets_updates(
+        updates = updates,
+        extracted_dir = extracted_dir,
+        language = current_language,
+        progress_callback = progress_callback
+      )
+
+      # Update stored SHA
+      repo_url <- get_config_value("concept_sets_repo_url")
+      if (!is.null(repo_url)) {
+        sha <- get_github_latest_commit(repo_url)
+        if (!is.null(sha)) {
+          set_config_value("concept_sets_last_commit_sha", sha)
+        }
+      }
+
+      # Reload data
+      data <- get_all_concept_sets(language = current_language)
+      concept_sets_data(data)
+      table_trigger(table_trigger() + 1)
+
+      # Clean up
+      update_check_result(NULL)
+      update_extracted_dir(NULL)
+
+      # Hide modal
+      hide_modal(ns("updates_modal"))
+
+      # Reset modal state
+      shinyjs::show("updates_buttons")
+      shinyjs::show("updates_initial_content")
+      shinyjs::hide("updates_loading_content")
+
+      # Notify
+      if (result$success_count > 0) {
+        message_text <- gsub("\\{count\\}", as.character(result$success_count),
+          as.character(i18n$t("updates_applied_success")))
+        showNotification(message_text, type = "message", duration = 5)
+      }
+
+      if (result$failed_count > 0) {
+        showNotification(
+          sprintf("%d updates failed", result$failed_count),
+          type = "warning", duration = 5
+        )
+      }
+    }, ignoreInit = TRUE)
+
+    ## Cancel Updates ----
+    observe_event(input$cancel_updates, {
+      update_check_result(NULL)
+      update_extracted_dir(NULL)
+      hide_modal(ns("updates_modal"))
     }, ignoreInit = TRUE)
 
     # 6) FILTERS ====

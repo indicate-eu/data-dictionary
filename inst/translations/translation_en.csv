@@ -363,7 +363,7 @@ no_json_files_found,No JSON files found in ZIP
 processing_import,Processing import...
 load_default_question,Would you like to load the default concept sets?
 yes_load,Yes load them
-load_default_count,There are {count} default concept sets available to load.
+load_default_count,Concept sets can be downloaded from a GitHub repository.
 loading_default,Loading default concept sets...
 load_default_success,Successfully loaded {count} concept sets
 load_default_failed,Failed to load default concept sets
@@ -477,3 +477,20 @@ concept_id_field,Concept ID
 unit_concept_id_field,Unit Concept ID
 conversion_already_exists,This conversion already exists
 recommended_unit_already_exists,This recommended unit already exists
+concept_sets_repo_url,Repository URL
+concept_sets_repo_url_help,GitHub repository URL containing concept sets
+downloading_from_github,Downloading concept sets from GitHub...
+download_failed_fallback,Download failed. Loading from local files instead.
+download_failed_github,Failed to download concept sets from the repository
+check_updates,Check for updates
+checking_updates,Checking for updates...
+updates_available,Updates available
+new_concept_sets,{count} new concept set(s)
+updated_concept_sets,{count} updated concept set(s)
+unchanged_concept_sets,{count} unchanged concept set(s)
+no_updates_available,All concept sets are up to date
+apply_updates,Apply updates
+applying_updates,Applying updates...
+updates_applied_success,Successfully applied {count} update(s)
+update_status_new,New
+update_status_updated,Updated
