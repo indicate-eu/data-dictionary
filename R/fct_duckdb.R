@@ -1111,6 +1111,41 @@ export_all_concept_sets <- function(language = "en", concept_set_ids = NULL) {
     con <- get_db_connection()
     on.exit(DBI::dbDisconnect(con), add = TRUE)
 
+    # Helper: generate shields.io badge for review status
+    format_status_badge <- function(status) {
+      status <- if (!is.na(status)) status else "draft"
+      color <- switch(tolower(status),
+        "draft" = "grey",
+        "pending_review" = "yellow",
+        "approved" = "brightgreen",
+        "needs_revision" = "red",
+        "deprecated" = "darkgrey",
+        "grey"
+      )
+      label <- gsub("_", " ", tools::toTitleCase(tolower(status)))
+      sprintf("![%s](https://img.shields.io/badge/status-%s-%s)", label, utils::URLencode(label, reserved = TRUE), color)
+    }
+
+    # Helper: format a concept set entry for README
+    format_cs_entry <- function(cs, concept_count) {
+      status_badge <- format_status_badge(cs$review_status)
+      sprintf(
+        "- **%s** (ID: %d, File: %d.json)\n  - Description: %s\n  - Version: %s | %s | Concepts: %d\n  - Author: %s %s (%s)\n  - Created: %s | Modified: %s",
+        cs$name,
+        cs$id,
+        cs$id,
+        if (!is.na(cs$description)) cs$description else "N/A",
+        if (!is.na(cs$version)) cs$version else "1.0.0",
+        status_badge,
+        concept_count,
+        if (!is.na(cs$created_by_first_name)) cs$created_by_first_name else "",
+        if (!is.na(cs$created_by_last_name)) cs$created_by_last_name else "",
+        if (!is.na(cs$created_by_profession)) cs$created_by_profession else "N/A",
+        if (!is.na(cs$created_date)) gsub("[TZ]", " ", cs$created_date) else "N/A",
+        if (!is.na(cs$modified_date)) gsub("[TZ]", " ", cs$modified_date) else "N/A"
+      )
+    }
+
     # Get all concept sets with translations
     concept_sets <- get_all_concept_sets(language = language)
 
@@ -1136,8 +1171,10 @@ export_all_concept_sets <- function(language = "en", concept_set_ids = NULL) {
     readme_lines <- c(
       "# INDICATE Data Dictionary - Concept Sets Export",
       "",
-      sprintf("Export date: %s", Sys.time()),
-      sprintf("Number of concept sets: %d", nrow(concept_sets)),
+      sprintf("**Export date:** %s", Sys.time()),
+      sprintf("**Number of concept sets:** %d", nrow(concept_sets)),
+      "",
+      "---",
       "",
       "## Table of Contents",
       ""
@@ -1240,24 +1277,7 @@ export_all_concept_sets <- function(language = "en", concept_set_ids = NULL) {
             cs_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(cs$id, "-", cs$name)))
             readme_lines <- c(readme_lines, sprintf('<a id="%s"></a>', cs_anchor))
 
-            # Format entry
-            entry <- sprintf(
-              "- **%s** (ID: %d, File: %d.json)\n  - Description: %s\n  - Version: %s | Status: %s | Concepts: %d\n  - Author: %s %s (%s)\n  - Created: %s | Modified: %s",
-              cs$name,
-              cs$id,
-              cs$id,
-              if (!is.na(cs$description)) cs$description else "N/A",
-              if (!is.na(cs$version)) cs$version else "1.0.0",
-              if (!is.na(cs$review_status)) cs$review_status else "Draft",
-              concept_count,
-              if (!is.na(cs$created_by_first_name)) cs$created_by_first_name else "",
-              if (!is.na(cs$created_by_last_name)) cs$created_by_last_name else "",
-              if (!is.na(cs$created_by_profession)) cs$created_by_profession else "N/A",
-              if (!is.na(cs$created_date)) gsub("[TZ]", " ", cs$created_date) else "N/A",
-              if (!is.na(cs$modified_date)) gsub("[TZ]", " ", cs$modified_date) else "N/A"
-            )
-
-            readme_lines <- c(readme_lines, entry, "")
+            readme_lines <- c(readme_lines, format_cs_entry(cs, concept_count), "")
           }
         }
       }
@@ -1280,24 +1300,7 @@ export_all_concept_sets <- function(language = "en", concept_set_ids = NULL) {
           cs_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(cs$id, "-", cs$name)))
           readme_lines <- c(readme_lines, sprintf('<a id="%s"></a>', cs_anchor))
 
-          # Format entry
-          entry <- sprintf(
-            "- **%s** (ID: %d, File: %d.json)\n  - Description: %s\n  - Version: %s | Status: %s | Concepts: %d\n  - Author: %s %s (%s)\n  - Created: %s | Modified: %s",
-            cs$name,
-            cs$id,
-            cs$id,
-            if (!is.na(cs$description)) cs$description else "N/A",
-            if (!is.na(cs$version)) cs$version else "1.0.0",
-            if (!is.na(cs$review_status)) cs$review_status else "Draft",
-            concept_count,
-            if (!is.na(cs$created_by_first_name)) cs$created_by_first_name else "",
-            if (!is.na(cs$created_by_last_name)) cs$created_by_last_name else "",
-            if (!is.na(cs$created_by_profession)) cs$created_by_profession else "N/A",
-            if (!is.na(cs$created_date)) gsub("[TZ]", " ", cs$created_date) else "N/A",
-            if (!is.na(cs$modified_date)) gsub("[TZ]", " ", cs$modified_date) else "N/A"
-          )
-
-          readme_lines <- c(readme_lines, entry, "")
+          readme_lines <- c(readme_lines, format_cs_entry(cs, concept_count), "")
         }
       }
     }
@@ -1323,24 +1326,7 @@ export_all_concept_sets <- function(language = "en", concept_set_ids = NULL) {
         cs_anchor <- tolower(gsub("[^a-zA-Z0-9]+", "-", paste0(cs$id, "-", cs$name)))
         readme_lines <- c(readme_lines, sprintf('<a id="%s"></a>', cs_anchor))
 
-        # Format entry
-        entry <- sprintf(
-          "- **%s** (ID: %d, File: %d.json)\n  - Description: %s\n  - Version: %s | Status: %s | Concepts: %d\n  - Author: %s %s (%s)\n  - Created: %s | Modified: %s",
-          cs$name,
-          cs$id,
-          cs$id,
-          if (!is.na(cs$description)) cs$description else "N/A",
-          if (!is.na(cs$version)) cs$version else "1.0.0",
-          if (!is.na(cs$review_status)) cs$review_status else "Draft",
-          concept_count,
-          if (!is.na(cs$created_by_first_name)) cs$created_by_first_name else "",
-          if (!is.na(cs$created_by_last_name)) cs$created_by_last_name else "",
-          if (!is.na(cs$created_by_profession)) cs$created_by_profession else "N/A",
-          if (!is.na(cs$created_date)) gsub("[TZ]", " ", cs$created_date) else "N/A",
-          if (!is.na(cs$modified_date)) gsub("[TZ]", " ", cs$modified_date) else "N/A"
-        )
-
-        readme_lines <- c(readme_lines, entry, "")
+        readme_lines <- c(readme_lines, format_cs_entry(cs, concept_count), "")
       }
     }
 

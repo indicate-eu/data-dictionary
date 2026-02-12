@@ -202,6 +202,13 @@ add_selected,Add Selected
 remove_selected,Remove Selected
 all_concept_sets_added,All concept sets have been added to this project
 no_concept_sets_assigned,No concept sets assigned to this project
+no_projects_title,No Projects
+load_default_projects_message,Projects can be downloaded from a GitHub repository.
+load_default_projects_question,Would you like to load the default projects?
+downloading_projects_from_github,Downloading projects from GitHub...
+loading_projects_progress,Loading {current}/{total} projects...
+load_default_projects_success,Successfully loaded {count} projects
+load_default_projects_failed,Failed to load default projects
 concept_sets_added,Concept sets added successfully
 concept_sets_removed,Concept sets removed successfully
 created_by,Created By

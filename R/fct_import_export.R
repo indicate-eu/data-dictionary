@@ -161,6 +161,20 @@ check_concept_sets_updates <- function(extracted_dir, language = "en") {
 #' @return Path to extracted concept_sets folder, or NULL on failure
 #' @noRd
 download_github_concept_sets <- function(repo_url, branch = "main") {
+  download_github_folder(repo_url, folder = "concept_sets", branch = branch)
+}
+
+#' Download a folder from a GitHub repository
+#'
+#' @description Downloads a GitHub repository as ZIP and extracts a specific folder.
+#'
+#' @param repo_url GitHub repository URL (e.g. "https://github.com/owner/repo")
+#' @param folder Folder name within the repository (e.g. "concept_sets", "projects")
+#' @param branch Branch name (default: "main")
+#'
+#' @return Path to extracted folder, or NULL on failure
+#' @noRd
+download_github_folder <- function(repo_url, folder, branch = "main") {
   parsed <- parse_github_url(repo_url)
   if (is.null(parsed)) return(NULL)
 
@@ -183,11 +197,11 @@ download_github_concept_sets <- function(repo_url, branch = "main") {
     extracted_dirs <- list.dirs(temp_dir, recursive = FALSE)
     if (length(extracted_dirs) == 0) return(NULL)
 
-    # Find concept_sets folder
-    concept_sets_dir <- file.path(extracted_dirs[1], "concept_sets")
-    if (!dir.exists(concept_sets_dir)) return(NULL)
+    # Find requested folder
+    target_dir <- file.path(extracted_dirs[1], folder)
+    if (!dir.exists(target_dir)) return(NULL)
 
-    concept_sets_dir
+    target_dir
   }, error = function(e) {
     NULL
   }, finally = {
@@ -283,6 +297,110 @@ import_concept_sets_from_github <- function(repo_url, branch = "main", language 
     sha <- get_github_latest_commit(repo_url, branch = branch)
     if (!is.null(sha)) {
       set_config_value("concept_sets_last_commit_sha", sha)
+    }
+  }
+
+  list(success_count = success_count, failed_count = failed_count, total = total)
+}
+
+#' Import a project from a JSON file
+#'
+#' @description Reads a project JSON file and imports it into the database,
+#'              including concept set associations.
+#'
+#' @param json_file Path to JSON file
+#'
+#' @return Project ID if successful, NULL on failure
+#' @noRd
+import_project_from_json <- function(json_file) {
+  tryCatch({
+    json_text <- readLines(json_file, encoding = "UTF-8", warn = FALSE)
+    json_data <- jsonlite::fromJSON(paste(json_text, collapse = "\n"), simplifyVector = TRUE)
+
+    name <- json_data$name
+    description <- json_data$description
+    justification <- json_data$justification
+    bibliography <- json_data$bibliography
+    created_by <- json_data$createdBy
+
+    # Parse createdBy into first/last name
+    created_by_text <- NULL
+    if (!is.null(created_by) && nchar(created_by) > 0) {
+      parts <- strsplit(created_by, " ")[[1]]
+      if (length(parts) >= 2) {
+        created_by_text <- paste(parts[1], paste(parts[-1], collapse = " "))
+      } else {
+        created_by_text <- created_by
+      }
+    }
+
+    # Create project in database
+    project_id <- add_project(
+      name = name,
+      description = description,
+      created_by = created_by_text
+    )
+
+    # Update justification and bibliography if present
+    if (!is.null(justification) && nchar(justification) > 0) {
+      update_project(project_id, justification = justification)
+    }
+    if (!is.null(bibliography) && nchar(bibliography) > 0) {
+      update_project(project_id, bibliography = bibliography)
+    }
+
+    # Add concept set associations
+    concept_set_ids <- json_data$conceptSetIds
+    if (!is.null(concept_set_ids) && length(concept_set_ids) > 0) {
+      for (cs_id in concept_set_ids) {
+        tryCatch(
+          add_project_concept_set(project_id, cs_id),
+          error = function(e) NULL
+        )
+      }
+    }
+
+    project_id
+  }, error = function(e) {
+    NULL
+  })
+}
+
+#' Import projects from GitHub repository
+#'
+#' @description Downloads projects from a GitHub repository and imports them into the database.
+#'
+#' @param repo_url GitHub repository URL
+#' @param branch Branch name (default: "main")
+#' @param progress_callback Optional function(current, total) for progress reporting
+#'
+#' @return List with success_count, failed_count, total, or NULL on download failure
+#' @noRd
+import_projects_from_github <- function(repo_url, branch = "main", progress_callback = NULL) {
+  # Download and extract
+  projects_dir <- download_github_folder(repo_url, folder = "projects", branch = branch)
+  if (is.null(projects_dir)) return(NULL)
+
+  # Find JSON files
+  json_files <- list.files(projects_dir, pattern = "\\.json$", full.names = TRUE)
+  json_files <- json_files[!grepl("README", basename(json_files), ignore.case = TRUE)]
+
+  if (length(json_files) == 0) return(NULL)
+
+  total <- length(json_files)
+  success_count <- 0
+  failed_count <- 0
+
+  for (i in seq_along(json_files)) {
+    result <- import_project_from_json(json_files[i])
+    if (!is.null(result)) {
+      success_count <- success_count + 1
+    } else {
+      failed_count <- failed_count + 1
+    }
+
+    if (is.function(progress_callback)) {
+      progress_callback(i, total)
     }
   }
 

@@ -202,6 +202,13 @@ add_selected,Ajouter la sélection
 remove_selected,Retirer la sélection
 all_concept_sets_added,Tous les ensembles de concepts ont été ajoutés a ce projet
 no_concept_sets_assigned,Aucun ensemble de concepts assigné a ce projet
+no_projects_title,Aucun projet
+load_default_projects_message,Les projets peuvent être téléchargés depuis un dépôt GitHub.
+load_default_projects_question,Souhaitez-vous charger les projets par défaut ?
+downloading_projects_from_github,Téléchargement des projets depuis GitHub...
+loading_projects_progress,Chargement {current}/{total} projets...
+load_default_projects_success,{count} projets chargés avec succès
+load_default_projects_failed,Échec du chargement des projets par défaut
 concept_sets_added,Ensembles de concepts ajoutés avec succès
 concept_sets_removed,Ensembles de concepts retires avec succès
 created_by,Créé par

@@ -303,6 +303,65 @@ mod_projects_ui <- function(id, i18n) {
       ns = ns
     ),
 
+    ### Modal - Load Default Projects ----
+    create_modal(
+      id = "load_default_projects_modal",
+      title = i18n$t("no_projects_title"),
+      body = tagList(
+        tags$div(
+          id = ns("load_default_projects_initial"),
+          tags$p(
+            id = ns("load_default_projects_message"),
+            style = "margin-bottom: 15px;"
+          ),
+          tags$div(
+            style = "margin-bottom: 15px;",
+            tags$label(
+              class = "form-label",
+              `for` = ns("load_default_projects_repo_url"),
+              i18n$t("concept_sets_repo_url")
+            ),
+            textInput(
+              ns("load_default_projects_repo_url"),
+              label = NULL,
+              value = "https://github.com/indicate-eu/data-dictionary-content",
+              width = "100%"
+            ),
+            tags$small(
+              style = "color: #666; display: block; margin-top: 4px;",
+              i18n$t("concept_sets_repo_url_help")
+            )
+          ),
+          tags$p(
+            i18n$t("load_default_projects_question"),
+            style = "font-weight: 600; margin-top: 10px;"
+          )
+        ),
+        tags$div(
+          id = ns("load_default_projects_loading"),
+          style = "display: none; text-align: center; padding: 20px;",
+          tags$div(
+            style = "font-size: 18px; font-weight: 600; margin-bottom: 10px;",
+            i18n$t("downloading_projects_from_github")
+          ),
+          tags$div(
+            style = "color: #666;",
+            i18n$t("please_wait")
+          )
+        )
+      ),
+      footer = tagList(
+        tags$div(
+          id = ns("load_default_projects_buttons"),
+          actionButton(ns("cancel_load_default_projects"), i18n$t("no"), class = "btn-secondary-custom", icon = icon("times")),
+          actionButton(ns("confirm_load_default_projects"), i18n$t("yes_load"), class = "btn-primary-custom", icon = icon("download"))
+        )
+      ),
+      size = "medium",
+      icon = "fas fa-info-circle",
+      ns = ns
+    ),
+
     ### Modal - Delete Confirmation ----
     create_modal(
       id = "delete_project_modal",
@@ -370,6 +429,17 @@ mod_projects_server <- function(id, i18n, current_user = NULL) {
 
     # Initial table render
     projects_table_trigger(1)
+
+    # Check if database is empty and offer to load defaults
+    data <- get_all_projects()
+    if (is.null(data) || nrow(data) == 0) {
+      saved_url <- get_config_value("concept_sets_repo_url")
+      if (!is.null(saved_url) && nchar(saved_url) > 0) {
+        updateTextInput(session, "load_default_projects_repo_url", value = saved_url)
+      }
+      shinyjs::html("load_default_projects_message", as.character(i18n$t("load_default_projects_message")))
+      show_modal(ns("load_default_projects_modal"))
+    }
 
     ## Show Add Button (based on permissions) ----
     observe_event(can_edit(), {
@@ -942,6 +1012,61 @@ mod_projects_server <- function(id, i18n, current_user = NULL) {
       projects_data(get_all_projects())
 
       showNotification(i18n$t("concept_sets_removed"), type = "message")
+    }, ignoreInit = TRUE)
+
+    ## Load Default Projects ----
+
+    ### Confirm Load Default Projects ----
+    observe_event(input$confirm_load_default_projects, {
+      # Hide buttons and show loading
+      shinyjs::hide("load_default_projects_buttons")
+      shinyjs::hide("load_default_projects_initial")
+      shinyjs::show("load_default_projects_loading")
+
+      Sys.sleep(0.3)
+
+      repo_url <- input$load_default_projects_repo_url
+
+      progress_callback <- function(current, total) {
+        if (current == 1 || current == total || current %% 3 == 0) {
+          progress_text <- gsub("\\{current\\}", as.character(current),
+            gsub("\\{total\\}", as.character(total), as.character(i18n$t("loading_projects_progress"))))
+          shinyjs::html("load_default_projects_loading",
+            sprintf('<div style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">%s</div><div style="color: #666;">%s</div>',
+              progress_text, as.character(i18n$t("please_wait"))))
+          Sys.sleep(0.1)
+        }
+      }
+
+      result <- import_projects_from_github(
+        repo_url = trimws(repo_url),
+        progress_callback = progress_callback
+      )
+
+      if (!is.null(result) && result$success_count > 0) {
+        # Reload data
+        projects_data(get_all_projects())
+        projects_table_trigger(projects_table_trigger() + 1)
+
+        message_text <- gsub("\\{count\\}", as.character(result$success_count),
+          as.character(i18n$t("load_default_projects_success")))
+        showNotification(message_text, type = "message", duration = 5)
+      } else {
+        showNotification(as.character(i18n$t("load_default_projects_failed")), type = "error", duration = 5)
+      }
+
+      # Hide modal
+      hide_modal(ns("load_default_projects_modal"))
+
+      # Reset modal content for next time
+      shinyjs::show("load_default_projects_buttons")
+      shinyjs::show("load_default_projects_initial")
+      shinyjs::hide("load_default_projects_loading")
+    }, ignoreInit = TRUE)
+
+    ### Cancel Load Default Projects ----
+    observe_event(input$cancel_load_default_projects, {
+      hide_modal(ns("load_default_projects_modal"))
     }, ignoreInit = TRUE)
   })
 }
