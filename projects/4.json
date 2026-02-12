@@ -1,0 +1,11 @@
+{
+  "id": 4,
+  "name": "Prediction of Neonatal and Pediatric Sepsis [Minimal]",
+  "description": "Validates the federated infrastructure for pediatric data access, specifically focusing on sepsis prediction in neonatal and pediatric populations.",
+  "justification": "This use case aims to validate and demonstrate the utilisation of the federated infrastructure for the special case of data access to data of paediatric patients. The use case addresses sepsis prediction in children and newborns while establishing protocols for securely accessing pediatric datasets across federated networks. Machine learning-based prediction algorithms using electronic healthcare record (EHR) data are being developed to predict severe sepsis onset in pediatric populations. The work focuses on building bedside feedback tools to guide clinicians in personalized management of late-onset neonatal sepsis (LONS), with particular attention to prevention, early detection, and antibiotic therapy optimization. The use case leverages computational medicine and hypothesis-free omics approaches, utilizing routinely collected EHR data to recognize sepsis in infants hospitalized in the neonatal intensive care unit at least 4 hours prior to clinical suspicion. Led by Rob Taal at Erasmus MC.",
+  "bibliography": null,
+  "createdBy": "Boris Delange",
+  "createdDate": "2024-01-01",
+  "modifiedDate": "2024-01-01",
+  "conceptSetIds": [8, 12, 31, 63, 64, 66, 67, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 101, 102, 103, 105, 106, 107, 108, 109, 110, 111, 112, 116, 118, 140, 141, 142, 143, 144, 145, 146, 147, 152, 168, 169, 170, 183, 199, 207, 208, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 301, 306, 307, 325, 326, 327, 328, 329, 330, 332, 333]
+}

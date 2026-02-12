@@ -1,0 +1,11 @@
+{
+  "id": 5,
+  "name": "Quality Benchmarking Dashboards [Minimal]",
+  "description": "Demonstrates data sharing practices designed to support continuous improvement of clinical practice through quality benchmarking.",
+  "justification": "This use case will demonstrate a use case of data sharing for the continuous improvement of clinical practice. The initiative creates comparative dashboards enabling healthcare institutions to benchmark their performance metrics against peer organizations for quality enhancement. These dashboards provide real-time insights into key quality indicators, allowing ICUs to compare their outcomes, processes, and adherence to best practices with similar institutions across Europe. The use case emphasizes the importance of transparent data sharing for driving clinical excellence and fostering a culture of continuous improvement. Through the federated infrastructure, participating centers can contribute their data while maintaining patient privacy and institutional autonomy, receiving in return valuable benchmarking insights that can inform quality improvement initiatives and clinical decision-making processes. Led by Falk von Dincklage at Universitätsmedizin Greifswald.",
+  "bibliography": null,
+  "createdBy": "Boris Delange",
+  "createdDate": "2024-01-01",
+  "modifiedDate": "2024-01-01",
+  "conceptSetIds": [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 15, 26, 29, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 122, 123, 124, 125, 126, 127, 151, 152, 153, 157, 160, 207, 210, 271, 274, 275, 276, 277, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 293, 294, 295, 298, 301, 303, 305, 306, 307, 309, 311, 313, 318, 319, 320, 322]
+}

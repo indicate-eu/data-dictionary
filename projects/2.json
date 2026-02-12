@@ -1,0 +1,11 @@
+{
+  "id": 2,
+  "name": "Early Detection of Organ Failure [Minimal]",
+  "description": "Focuses on developing and deploying machine learning models that predict organ failure using time series data for clinical evaluation.",
+  "justification": "This use case aims to demonstrate the development and deployment for clinical evaluation of machine learning models to predict organ failure based on time series data. The focus is on building and testing predictive algorithms using continuous patient monitoring data to identify patients at risk of organ dysfunction before critical deterioration occurs. This work emphasizes the importance of early detection through biomarker-based approaches and the development of precision medicine tools in critical care settings. The use case leverages the federated infrastructure to access multi-center ICU data and develop robust predictive models that can be validated across different hospital settings. Led by Alexandre Mebazaa at AP-HP, Assistance Publique – Hôpitaux de Paris.",
+  "bibliography": null,
+  "createdBy": "Boris Delange",
+  "createdDate": "2024-01-01",
+  "modifiedDate": "2024-01-01",
+  "conceptSetIds": [8, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 271, 274, 275, 276, 277, 280, 281, 282, 283, 284, 301, 306, 307, 318, 319, 321, 322, 324, 325, 326, 327, 328, 329, 330, 331, 332, 333]
+}
