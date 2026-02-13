@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INDICATE Data Dictionary — Projects</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<div class="toast-container" id="toast-container"></div>
+
+<div class="loading-overlay" id="loading">
+  <div class="spinner"></div>
+  <div class="loading-text">Loading data dictionary...</div>
+</div>
+
+<header class="header">
+  <div class="header-left">
+    <img src="logo.png" class="header-logo" alt="INDICATE">
+    <span class="header-title">INDICATE Data Dictionary</span>
+  </div>
+  <nav class="header-nav">
+    <a class="nav-tab" href="index.html">
+      <i class="fas fa-book"></i>
+      <span>Data Dictionary</span>
+    </a>
+    <a class="nav-tab active" href="projects.html">
+      <i class="fas fa-list-check"></i>
+      <span>Projects</span>
+    </a>
+  </nav>
+  <div class="header-right">
+    <button class="current-user-badge" id="user-badge" title="Edit profile">
+      <i class="fas fa-user-circle"></i>
+      <span id="user-badge-name">Guest</span>
+    </button>
+    <button class="lang-toggle reset" id="reset-cache-btn" title="Reset local data">
+      <i class="fas fa-rotate-right" style="font-size:12px"></i> Reset
+    </button>
+    <button class="lang-toggle" id="lang-toggle" title="Switch language">EN</button>
+  </div>
+</header>
+
+<div class="main">
+  <!-- List view -->
+  <div class="list-view" id="proj-list-view">
+    <div class="toolbar">
+      <input type="text" class="search-input" id="proj-search" placeholder="Search projects...">
+    </div>
+    <div class="project-cards" id="proj-cards"></div>
+  </div>
+
+  <!-- Detail view -->
+  <div class="detail-view" id="proj-detail-view">
+    <div class="detail-header" style="align-items:center">
+      <button class="btn-back-discrete" id="proj-back" title="Projects">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <span class="project-name-badge" id="proj-detail-title"></span>
+      <div class="detail-meta" id="proj-detail-meta"></div>
+    </div>
+
+    <div class="panel-tabs" id="proj-tabs">
+      <button class="panel-tab active" data-tab="context">Context</button>
+      <button class="panel-tab" data-tab="variables">Concept Sets</button>
+    </div>
+
+    <!-- Context tab -->
+    <div class="panel" id="proj-tab-context" style="margin-top:16px">
+      <div class="panel-body">
+        <div class="project-detail-section" id="proj-description-section"></div>
+        <div class="project-detail-section" id="proj-justification-section"></div>
+        <div class="project-detail-section" id="proj-bibliography-section"></div>
+      </div>
+    </div>
+
+    <!-- Variables tab -->
+    <div class="panel" id="proj-tab-variables" style="margin-top:16px; display:none">
+      <div class="panel-header">
+        <h3>Concept Sets in this Project</h3>
+        <span class="badge badge-count" id="proj-cs-count">0</span>
+        <button class="export-btn" id="proj-export-csv" style="margin-left:auto" title="Export all concepts to CSV">
+          <i class="fas fa-download"></i> Export CSV
+        </button>
+      </div>
+      <div class="toolbar" style="padding:12px 16px 0">
+        <input type="text" class="search-input" id="proj-cs-search" placeholder="Search concept sets in project...">
+      </div>
+      <div class="panel-table-wrap">
+        <table id="proj-cs-table">
+          <thead>
+            <tr>
+              <th style="width:14%">Category</th>
+              <th style="width:14%">Subcategory</th>
+              <th style="width:20%">Name</th>
+              <th style="width:30%">Description</th>
+              <th style="width:10%" class="td-center">Status</th>
+              <th style="width:8%" class="td-center">Version</th>
+            </tr>
+          </thead>
+          <tbody id="proj-cs-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- User Profile Modal -->
+<div class="modal-overlay" id="profile-modal" style="display:none">
+  <div class="modal" style="width:700px">
+    <div class="modal-header">
+      <h3>Edit Profile</h3>
+      <button class="modal-close" id="profile-modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Select an existing author</label>
+        <select id="profile-select-author" class="form-input">
+          <option value="">— Custom —</option>
+        </select>
+      </div>
+      <hr style="border:none; border-top:1px solid var(--border); margin:12px 0">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name *</label>
+          <input type="text" id="profile-firstName" class="form-input">
+        </div>
+        <div class="form-group">
+          <label>Last Name *</label>
+          <input type="text" id="profile-lastName" class="form-input">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Affiliation</label>
+          <input type="text" id="profile-affiliation" class="form-input">
+        </div>
+        <div class="form-group">
+          <label>Profession</label>
+          <input type="text" id="profile-profession" class="form-input">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>ORCID</label>
+        <input type="text" id="profile-orcid" class="form-input" placeholder="0000-0000-0000-0000">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="profile-cancel">Cancel</button>
+      <button class="btn-submit" id="profile-save">
+        <i class="fas fa-check"></i> Save
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Reset Modal -->
+<div class="modal-overlay" id="confirm-reset-modal" style="display:none">
+  <div class="modal" style="width:400px">
+    <div class="modal-header">
+      <h3>Reset local data</h3>
+      <button class="modal-close" id="confirm-reset-close">&times;</button>
+    </div>
+    <div class="modal-body" style="text-align:center; padding:24px 20px">
+      <i class="fas fa-exclamation-triangle" style="font-size:32px; color:#e67700; margin-bottom:12px"></i>
+      <p style="font-size:14px; margin-bottom:4px">This will clear your saved profile and all local data.</p>
+      <p style="font-size:13px; color:var(--text-muted)">This action cannot be undone.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="confirm-reset-cancel">Cancel</button>
+      <button class="btn-submit" id="confirm-reset-ok" style="background:#dc3545">
+        <i class="fas fa-rotate-right"></i> Reset
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="data_inline.js"></script>
+<script src="app.js"></script>
+<script src="projects.js"></script>
+</body>
+</html>
