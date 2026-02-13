@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ace.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
   :root {
     --primary: #0f60af;
@@ -124,6 +126,8 @@
     transition: background .2s;
   }
   .lang-toggle:hover { background: #0d4d8f; }
+  .lang-toggle.reset { background: #6c757d; }
+  .lang-toggle.reset:hover { background: #545b62; }
 
   .current-user-badge {
     display: flex;
@@ -164,6 +168,40 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
   .loading-text { color: var(--text-muted); font-size: 14px; }
+
+  /* Toast notifications */
+  .toast-container {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+  }
+  .toast {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    font-size: 13px;
+    font-family: inherit;
+    color: white;
+    animation: toast-in .25s ease;
+    max-width: 380px;
+  }
+  .toast.toast-error { background: #dc3545; }
+  .toast.toast-success { background: #28a745; }
+  .toast.toast-warning { background: #e67700; }
+  .toast.toast-info { background: var(--primary); }
+  .toast i { font-size: 14px; flex-shrink: 0; }
+  .toast-fade-out { animation: toast-out .3s ease forwards; }
+  @keyframes toast-in { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes toast-out { from { opacity: 1; } to { opacity: 0; transform: translateX(40px); } }
 
   /* Main layout */
   .main { padding: 10px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
@@ -281,6 +319,11 @@
   .badge-valid { background: #d4edda; color: #155724; }
   .badge-invalid { background: #f8d7da; color: #721c24; }
   .badge-category {
+    background: #fff3e0;
+    color: #e65100;
+    font-weight: 500;
+  }
+  .badge-subcategory {
     background: var(--primary-light);
     color: var(--primary);
     font-weight: 500;
@@ -655,6 +698,50 @@
     width: 100%;
   }
   .column-filter:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(15,96,175,.1); }
+  .ms-container { position: relative; }
+  .ms-toggle {
+    padding: 5px 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 12px;
+    font-family: inherit;
+    background: white;
+    color: var(--text);
+    width: 100%;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+  }
+  .ms-toggle:hover { border-color: var(--primary); }
+  .ms-dropdown {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    z-index: 60;
+    min-width: 180px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 4px 0;
+  }
+  .ms-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .ms-option:hover { background: var(--gray-light); }
   .filter-row th {
     padding: 4px 12px 8px !important;
     background: var(--gray-light) !important;
@@ -906,6 +993,115 @@
   .markdown-preview p { margin-bottom: 8px; }
   .markdown-preview p:last-child { margin-bottom: 0; }
 
+  /* Fullscreen modal */
+  .modal-fs {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: white;
+    z-index: 9999;
+    flex-direction: column;
+  }
+  .modal-fs.visible { display: flex; }
+  .modal-fs-header {
+    padding: 6px 15px;
+    border-bottom: 1px solid #ddd;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .modal-fs-header h3 { font-size: 15px; font-weight: 600; margin: 0; }
+  .modal-fs-header select {
+    min-width: 200px;
+    height: 28px;
+    font-size: 12px;
+    font-family: inherit;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0 8px;
+  }
+  .modal-fs-close {
+    width: 28px; height: 28px;
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: #666;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+  }
+  .modal-fs-close:hover { background: #e9ecef; color: #333; }
+  .modal-fs-body {
+    flex: 1;
+    display: flex;
+    padding: 5px 10px 10px 10px;
+    min-height: 0;
+    gap: 0;
+  }
+  .modal-fs-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    margin: 5px;
+  }
+  .modal-fs-col-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    padding: 4px 0 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .modal-fs-col-title i { font-size: 11px; }
+  .modal-fs-col:first-child { border-right: 1px solid #dee2e6; padding-right: 10px; }
+  #review-ace-editor {
+    flex: 1;
+    min-height: 0;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  .markdown-body {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 12px 16px;
+    background: white;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #2d3748;
+  }
+  .markdown-body h1 { font-size: 18px; font-weight: 700; color: #1a202c; margin: 16px 0 8px; }
+  .markdown-body h2 { font-size: 16px; font-weight: 600; color: #2d3748; margin: 14px 0 6px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+  .markdown-body h3 { font-size: 14px; font-weight: 600; color: #4a5568; margin: 12px 0 4px; }
+  .markdown-body p { margin: 0 0 8px; }
+  .markdown-body ul, .markdown-body ol { margin: 0 0 8px; padding-left: 20px; }
+  .markdown-body li { margin-bottom: 2px; }
+  .markdown-body code { background: #f7f7f7; border: 1px solid #ddd; padding: 2px 6px; border-radius: 3px; font-size: 11px; }
+  .markdown-body pre { background: #f7f7f7; border-radius: 4px; padding: 12px; overflow: auto; margin: 0 0 8px; }
+  .markdown-body pre code { border: none; padding: 0; background: none; }
+  .markdown-body blockquote { border-left: 3px solid var(--primary); margin: 0 0 8px; padding: 4px 12px; color: #4a5568; }
+  .markdown-body table { border-collapse: collapse; margin: 0 0 8px; width: 100%; }
+  .markdown-body th, .markdown-body td { border: 1px solid #ddd; padding: 6px 10px; font-size: 12px; }
+  .markdown-body th { background: #f8f9fa; font-weight: 600; }
+  .markdown-preview-placeholder { color: #aaa; font-style: italic; padding: 20px; text-align: center; }
+  .btn-success-custom {
+    background: #28a745; color: white; border: none; border-radius: var(--radius);
+    padding: 4px 10px; font-size: 12px; font-family: inherit; font-weight: 500;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
+  }
+  .btn-success-custom:hover { background: #218838; }
+
   /* Modal buttons */
   .btn-cancel {
     padding: 8px 16px; background: white;
@@ -973,6 +1169,8 @@
 </head>
 <body>
 
+<div class="toast-container" id="toast-container"></div>
+
 <div class="loading-overlay" id="loading">
   <div class="spinner"></div>
   <div class="loading-text">Loading data dictionary...</div>
@@ -998,9 +1196,10 @@
       <i class="fas fa-user-circle"></i>
       <span id="user-badge-name">Guest</span>
     </button>
-    <button class="lang-toggle" id="lang-toggle" title="Switch language">
-      <i class="fas fa-globe"></i> EN
+    <button class="lang-toggle reset" id="reset-cache-btn" title="Reset local data">
+      <i class="fas fa-rotate-right" style="font-size:12px"></i> Reset
     </button>
+    <button class="lang-toggle" id="lang-toggle" title="Switch language">EN</button>
   </div>
 </header>
 
@@ -1010,9 +1209,6 @@
 
     <!-- List view -->
     <div class="list-view" id="cs-list-view">
-      <div class="toolbar">
-        <input type="text" class="search-input" id="cs-search" placeholder="Search concept sets...">
-      </div>
       <div class="category-badges" id="cs-categories"></div>
       <div class="table-container">
         <table id="cs-table">
@@ -1026,12 +1222,12 @@
               <th data-sort="reviewStatus" style="width:10%" class="td-center">Status <span class="sort-icon">&#9650;</span></th>
             </tr>
             <tr class="filter-row">
-              <th><select class="column-filter" id="filter-category"><option value="">All</option></select></th>
-              <th><select class="column-filter" id="filter-subcategory"><option value="">All</option></select></th>
+              <th><div class="ms-container" id="filter-category"></div></th>
+              <th><div class="ms-container" id="filter-subcategory"></div></th>
+              <th><input type="text" class="column-filter" id="filter-name" placeholder="Filter..."></th>
               <th></th>
               <th></th>
-              <th></th>
-              <th><select class="column-filter" id="filter-reviewStatus"><option value="">All</option></select></th>
+              <th><div class="ms-container" id="filter-reviewStatus"></div></th>
             </tr>
           </thead>
           <tbody id="cs-tbody"></tbody>
@@ -1097,11 +1293,11 @@
                     </tr>
                     <tr class="filter-row">
                       <th data-col="conceptId"><input type="text" class="column-filter" id="resolved-filter-conceptId" placeholder="Filter..."></th>
-                      <th data-col="vocabulary"><select class="column-filter" id="resolved-filter-vocabulary"><option value="">All</option></select></th>
+                      <th data-col="vocabulary"><div class="ms-container" id="resolved-filter-vocabulary"></div></th>
                       <th data-col="name"><input type="text" class="column-filter" id="resolved-filter-name" placeholder="Filter..."></th>
                       <th data-col="code"><input type="text" class="column-filter" id="resolved-filter-code" placeholder="Filter..."></th>
                       <th data-col="domain"><select class="column-filter" id="resolved-filter-domain"><option value="">All</option></select></th>
-                      <th data-col="standard"><select class="column-filter" id="resolved-filter-standard"><option value="">All</option></select></th>
+                      <th data-col="standard"><div class="ms-container" id="resolved-filter-standard"></div></th>
                       <th data-col="class"><select class="column-filter" id="resolved-filter-class"><option value="">All</option></select></th>
                     </tr>
                   </thead>
@@ -1248,7 +1444,7 @@
         <div class="toolbar" style="padding:12px 16px 0">
           <input type="text" class="search-input" id="proj-cs-search" placeholder="Search concept sets in project...">
         </div>
-        <div class="panel-table-wrap" style="max-height:600px">
+        <div class="panel-table-wrap">
           <table id="proj-cs-table">
             <thead>
               <tr>
@@ -1325,27 +1521,8 @@
       <button class="modal-close" id="export-modal-close">&times;</button>
     </div>
     <div class="modal-body">
-      <!-- Step 1: Choose format -->
-      <div id="export-step-format">
-        <div class="export-options-container">
-          <div class="export-option" data-format="indicate">
-            <div class="export-option-icon"><i class="fas fa-file-code" style="color:#0f60af"></i></div>
-            <div class="export-option-content">
-              <h5 class="export-option-title">Concept Set Specification</h5>
-              <p class="export-option-subtitle">Full OHDSI format with metadata and translations</p>
-            </div>
-          </div>
-          <div class="export-option" data-format="atlas">
-            <div class="export-option-icon"><i class="fas fa-globe" style="color:#28a745"></i></div>
-            <div class="export-option-content">
-              <h5 class="export-option-title">ATLAS</h5>
-              <p class="export-option-subtitle">ATLAS-compatible format (expression only)</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Step 2: Choose method -->
-      <div id="export-step-method" style="display:none">
+      <!-- Step 1: Choose method -->
+      <div id="export-step-method">
         <div class="export-options-container">
           <div class="export-option" data-method="clipboard">
             <div class="export-option-icon"><i class="fas fa-clipboard" style="color:#0f60af"></i></div>
@@ -1363,6 +1540,25 @@
           </div>
         </div>
       </div>
+      <!-- Step 2: Choose format -->
+      <div id="export-step-format" style="display:none">
+        <div class="export-options-container">
+          <div class="export-option" data-format="indicate">
+            <div class="export-option-icon"><i class="fas fa-file-code" style="color:#0f60af"></i></div>
+            <div class="export-option-content">
+              <h5 class="export-option-title">Concept Set Specification</h5>
+              <p class="export-option-subtitle">Full OHDSI format with metadata and translations</p>
+            </div>
+          </div>
+          <div class="export-option" data-format="atlas">
+            <div class="export-option-icon"><i class="fas fa-globe" style="color:#28a745"></i></div>
+            <div class="export-option-content">
+              <h5 class="export-option-title">ATLAS</h5>
+              <p class="export-option-subtitle">ATLAS-compatible format (expression only)</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="modal-footer">
       <button class="btn-cancel" id="export-back" style="display:none"><i class="fas fa-arrow-left"></i> Back</button>
@@ -1371,41 +1567,57 @@
   </div>
 </div>
 
-<!-- Review Modal -->
-<div class="modal-overlay" id="review-modal" style="display:none">
-  <div class="modal">
-    <div class="modal-header">
-      <h3>Add Review</h3>
-      <button class="modal-close" id="review-modal-close">&times;</button>
+<!-- Review Modal (fullscreen) -->
+<div class="modal-fs" id="review-modal">
+  <div class="modal-fs-header">
+    <h3>Add Review</h3>
+    <label style="font-size:12px; font-weight:600; color:var(--text-muted); margin-left:20px">Status:</label>
+    <select id="review-status">
+      <option value="">-- Select status --</option>
+      <option value="approved">Approved</option>
+      <option value="needs_revision">Needs Revision</option>
+    </select>
+    <button class="btn-success-custom" id="review-submit">
+      <i class="fas fa-check"></i> Submit Review
+    </button>
+    <button class="modal-fs-close" id="review-modal-close">&times;</button>
+  </div>
+  <div class="modal-fs-body">
+    <div class="modal-fs-col">
+      <div class="modal-fs-col-title"><i class="fas fa-pencil-alt"></i> Markdown Editor</div>
+      <div id="review-ace-editor"># Review Comments
+
+Enter your review comments here using Markdown syntax.
+
+## Suggestions
+
+- Item 1
+- Item 2
+</div>
     </div>
-    <div class="modal-body">
-      <div id="review-user-info" style="display:flex; align-items:center; gap:12px; padding:10px 14px; background:var(--gray-light); border-radius:var(--radius); margin-bottom:16px">
-        <i class="fas fa-user-circle" style="font-size:24px; color:var(--primary)"></i>
-        <div>
-          <div id="review-user-name" style="font-weight:600; font-size:14px"></div>
-          <div id="review-user-details" style="font-size:12px; color:var(--text-muted)"></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Status *</label>
-        <select id="review-status" class="form-input">
-          <option value="approved">Approved</option>
-          <option value="needs_revision">Needs Revision</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Comments (Markdown supported)</label>
-        <textarea id="review-comments" class="form-input" rows="5" placeholder="Write your review comments here..."></textarea>
-      </div>
-      <div class="form-group">
-        <label>Preview</label>
-        <div class="markdown-preview" id="review-preview"></div>
-      </div>
+    <div class="modal-fs-col">
+      <div class="modal-fs-col-title"><i class="fas fa-eye"></i> Preview</div>
+      <div class="markdown-body" id="review-preview"><div class="markdown-preview-placeholder">Preview will appear here...</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Reset Modal -->
+<div class="modal-overlay" id="confirm-reset-modal" style="display:none">
+  <div class="modal" style="width:400px">
+    <div class="modal-header">
+      <h3>Reset local data</h3>
+      <button class="modal-close" id="confirm-reset-close">&times;</button>
+    </div>
+    <div class="modal-body" style="text-align:center; padding:24px 20px">
+      <i class="fas fa-exclamation-triangle" style="font-size:32px; color:#e67700; margin-bottom:12px"></i>
+      <p style="font-size:14px; margin-bottom:4px">This will clear your saved profile and all local data.</p>
+      <p style="font-size:13px; color:var(--text-muted)">This action cannot be undone.</p>
     </div>
     <div class="modal-footer">
-      <button class="btn-cancel" id="review-cancel">Cancel</button>
-      <button class="btn-submit" id="review-submit">
-        <i class="fas fa-check"></i> Submit Review &amp; Export JSON
+      <button class="btn-cancel" id="confirm-reset-cancel">Cancel</button>
+      <button class="btn-submit" id="confirm-reset-ok" style="background:#dc3545">
+        <i class="fas fa-rotate-right"></i> Reset
       </button>
     </div>
   </div>
@@ -1423,11 +1635,10 @@
   let csPage = 1;
   const csPageSize = 25;
   let csSort = { key: 'category', asc: true };
-  let csFilter = '';
+  let csFilterName = '';
   let csCategories = new Set();
-  let csFilterCategory = '';
-  let csFilterSubcategory = '';
-  let csFilterReviewStatus = '';
+  let csSubcategories = new Set();
+  let csFilterReviewStatus = new Set();
   let selectedConceptSet = null;
   let selectedProject = null;
   let csDetailTab = 'concepts';
@@ -1458,6 +1669,21 @@
   function escapeHtml(s) {
     if (!s) return '';
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  var toastIcons = { error: 'fa-circle-exclamation', success: 'fa-circle-check', warning: 'fa-triangle-exclamation', info: 'fa-circle-info' };
+  function showToast(message, type, duration) {
+    type = type || 'info';
+    duration = duration || 3000;
+    var container = document.getElementById('toast-container');
+    var toast = document.createElement('div');
+    toast.className = 'toast toast-' + type;
+    toast.innerHTML = '<i class="fas ' + (toastIcons[type] || toastIcons.info) + '"></i><span>' + escapeHtml(message) + '</span>';
+    container.appendChild(toast);
+    setTimeout(function() {
+      toast.classList.add('toast-fade-out');
+      setTimeout(function() { toast.remove(); }, 300);
+    }, duration);
   }
 
   function renderMarkdown(s) {
@@ -1569,26 +1795,33 @@
 
   function getFilteredCS() {
     let data = getCSData();
-    // Category badge filter
+    // Category & subcategory filters (badges + dropdowns are unified)
     if (csCategories.size > 0) data = data.filter(d => csCategories.has(d.category));
-    // Column dropdown filters
-    if (csFilterCategory) data = data.filter(d => d.category === csFilterCategory);
-    if (csFilterSubcategory) data = data.filter(d => d.subcategory === csFilterSubcategory);
-    if (csFilterReviewStatus) data = data.filter(d => d.reviewStatus === csFilterReviewStatus);
-    // Fuzzy text search
-    if (csFilter) {
-      data = fuzzyFilter(data, csFilter, d => [d.name, d.category, d.subcategory, d.description]);
-    }
-    // Sort (only if no fuzzy search active, since fuzzy already sorts by relevance)
-    if (!csFilter) {
-      data.sort((a, b) => {
-        let va = a[csSort.key], vb = b[csSort.key];
-        va = (va || '').toString().toLowerCase(); vb = (vb || '').toString().toLowerCase();
-        if (va < vb) return csSort.asc ? -1 : 1;
-        if (va > vb) return csSort.asc ? 1 : -1;
-        return 0;
+    if (csSubcategories.size > 0) data = data.filter(d => csSubcategories.has(d.subcategory));
+    if (csFilterReviewStatus.size > 0) data = data.filter(d => csFilterReviewStatus.has(d.reviewStatus));
+    // Name filter (fuzzy: all query chars must appear in order)
+    if (csFilterName) {
+      const q = csFilterName.toLowerCase();
+      data = data.filter(d => {
+        const text = d.name.toLowerCase();
+        let ti = 0;
+        for (let qi = 0; qi < q.length; qi++) {
+          const ch = q[qi];
+          while (ti < text.length && text[ti] !== ch) ti++;
+          if (ti >= text.length) return false;
+          ti++;
+        }
+        return true;
       });
     }
+    // Sort
+    data.sort((a, b) => {
+      let va = a[csSort.key], vb = b[csSort.key];
+      va = (va || '').toString().toLowerCase(); vb = (vb || '').toString().toLowerCase();
+      if (va < vb) return csSort.asc ? -1 : 1;
+      if (va > vb) return csSort.asc ? 1 : -1;
+      return 0;
+    });
     return data;
   }
 
@@ -1613,7 +1846,45 @@
 
   const statusLabels = { draft: 'Draft', pending_review: 'Pending Review', approved: 'Approved', needs_revision: 'Needs Revision', deprecated: 'Deprecated' };
 
-  function populateColumnFilters() {
+  function buildMultiSelectDropdown(containerId, values, selectedSet, onChange, labelMap) {
+    var container = document.getElementById(containerId);
+    function getLabel(v) { return labelMap ? (labelMap[v] || v) : v; }
+    function toggleLabel() {
+      if (selectedSet.size === 0) return 'All';
+      if (selectedSet.size === 1) return escapeHtml(getLabel([...selectedSet][0]));
+      return selectedSet.size + ' selected';
+    }
+    container.innerHTML =
+      '<div class="ms-toggle" tabindex="0">' + toggleLabel() + ' <i class="fas fa-chevron-down" style="font-size:9px;margin-left:2px"></i></div>' +
+      '<div class="ms-dropdown" style="display:none">' +
+        values.map(function(v) {
+          return '<label class="ms-option"><input type="checkbox" value="' + escapeHtml(v) + '"' + (selectedSet.has(v) ? ' checked' : '') + '> ' + escapeHtml(getLabel(v) || '(empty)') + '</label>';
+        }).join('') +
+      '</div>';
+    var toggle = container.querySelector('.ms-toggle');
+    var dropdown = container.querySelector('.ms-dropdown');
+    toggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      // Close other open multi-selects
+      document.querySelectorAll('.ms-dropdown').forEach(function(d) { if (d !== dropdown) d.style.display = 'none'; });
+      dropdown.style.display = dropdown.style.display === 'none' ? '' : 'none';
+    });
+    dropdown.addEventListener('change', function(e) {
+      var cb = e.target;
+      if (cb.checked) selectedSet.add(cb.value); else selectedSet.delete(cb.value);
+      toggle.innerHTML = toggleLabel() + ' <i class="fas fa-chevron-down" style="font-size:9px;margin-left:2px"></i>';
+      onChange();
+    });
+  }
+
+  function updateMsToggleLabel(containerId, selectedSet) {
+    var toggle = document.getElementById(containerId).querySelector('.ms-toggle');
+    if (toggle) {
+      toggle.innerHTML = (selectedSet.size === 0 ? 'All' : selectedSet.size === 1 ? escapeHtml([...selectedSet][0]) : selectedSet.size + ' selected') + ' <i class="fas fa-chevron-down" style="font-size:9px;margin-left:2px"></i>';
+    }
+  }
+
+  function populateColumnFilters(skipId) {
     const data = getCSData();
     const categories = [...new Set(data.map(d => d.category))].sort((a, b) => {
       const aO = a.toLowerCase() === 'other' || a.toLowerCase() === 'autres';
@@ -1623,24 +1894,45 @@
       return a.localeCompare(b);
     });
 
-    // Subcategories: filter by selected category dropdown + active category badges
+    // Subcategories: filter by active categories
     let subData = data;
-    if (csFilterCategory) subData = subData.filter(d => d.category === csFilterCategory);
-    else if (csCategories.size > 0) subData = subData.filter(d => csCategories.has(d.category));
+    if (csCategories.size > 0) subData = subData.filter(d => csCategories.has(d.category));
     const subcategories = [...new Set(subData.map(d => d.subcategory))].filter(Boolean).sort();
+    // Remove subcategory selections no longer available
+    csSubcategories.forEach(function(s) { if (!subcategories.includes(s)) csSubcategories.delete(s); });
 
     const statuses = [...new Set(data.map(d => d.reviewStatus))].filter(Boolean).sort();
 
-    const catSel = document.getElementById('filter-category');
-    catSel.innerHTML = '<option value="">All</option>' + categories.map(c => '<option value="' + escapeHtml(c) + '"' + (csFilterCategory === c ? ' selected' : '') + '>' + escapeHtml(c) + '</option>').join('');
+    if (skipId !== 'filter-category') {
+      buildMultiSelectDropdown('filter-category', categories, csCategories, function() {
+        csPage = 1;
+        renderCSCategories();
+        populateColumnFilters('filter-category');
+        renderCSTable();
+      });
+    } else {
+      updateMsToggleLabel('filter-category', csCategories);
+    }
 
-    const subSel = document.getElementById('filter-subcategory');
-    // Reset subcategory if no longer available
-    if (csFilterSubcategory && !subcategories.includes(csFilterSubcategory)) csFilterSubcategory = '';
-    subSel.innerHTML = '<option value="">All</option>' + subcategories.map(c => '<option value="' + escapeHtml(c) + '"' + (csFilterSubcategory === c ? ' selected' : '') + '>' + escapeHtml(c) + '</option>').join('');
+    if (skipId !== 'filter-subcategory') {
+      buildMultiSelectDropdown('filter-subcategory', subcategories, csSubcategories, function() {
+        csPage = 1;
+        renderCSTable();
+      });
+    } else {
+      updateMsToggleLabel('filter-subcategory', csSubcategories);
+    }
 
-    const statusSel = document.getElementById('filter-reviewStatus');
-    statusSel.innerHTML = '<option value="">All</option>' + statuses.map(c => '<option value="' + escapeHtml(c) + '"' + (csFilterReviewStatus === c ? ' selected' : '') + '>' + escapeHtml(statusLabels[c] || c) + '</option>').join('');
+    var statusLabelMap = {};
+    statuses.forEach(function(s) { statusLabelMap[s] = statusLabels[s] || s; });
+    if (skipId !== 'filter-reviewStatus') {
+      buildMultiSelectDropdown('filter-reviewStatus', statuses, csFilterReviewStatus, function() {
+        csPage = 1;
+        renderCSTable();
+      }, statusLabelMap);
+    } else {
+      updateMsToggleLabel('filter-reviewStatus', csFilterReviewStatus);
+    }
   }
 
   function renderCSTable() {
@@ -1654,7 +1946,7 @@
     tbody.innerHTML = pageData.map(d =>
       '<tr data-id="' + d.id + '">' +
       '<td><span class="badge badge-category">' + escapeHtml(d.category) + '</span></td>' +
-      '<td>' + escapeHtml(d.subcategory) + '</td>' +
+      '<td><span class="badge badge-subcategory">' + escapeHtml(d.subcategory) + '</span></td>' +
       '<td><strong>' + escapeHtml(d.name) + '</strong></td>' +
       '<td class="desc-truncated">' + escapeHtml(truncate(d.description, 100)) + '</td>' +
       '<td class="td-center">' + escapeHtml(d.version) + '</td>' +
@@ -1737,6 +2029,8 @@
   }
 
   var resolvedFilterDefaults = { standard: 'S' };
+  var resolvedFilterVocab = new Set();
+  var resolvedFilterStandard = new Set(['S']);
 
   // Column visibility configs
   var resolvedColumns = {
@@ -1821,20 +2115,33 @@
       sel.value = cur;
     }
 
-    fillSelect('resolved-filter-vocabulary', vocabs);
+    // Multi-select for vocabulary
+    var vocabValues = Object.keys(vocabs).sort();
+    buildMultiSelectDropdown('resolved-filter-vocabulary', vocabValues, resolvedFilterVocab, function() {
+      renderResolvedTable(true);
+    });
+
     fillSelect('resolved-filter-domain', domains);
-    fillSelect('resolved-filter-standard', standards, standards);
+
+    // Multi-select for standard
+    var stdValues = Object.keys(standards).sort();
+    var stdLabels = {};
+    stdValues.forEach(function(v) { stdLabels[v] = standards[v]; });
+    buildMultiSelectDropdown('resolved-filter-standard', stdValues, resolvedFilterStandard, function() {
+      renderResolvedTable(true);
+    }, stdLabels);
+
     fillSelect('resolved-filter-class', classes);
   }
 
   function getResolvedFilters() {
     return {
       conceptId: document.getElementById('resolved-filter-conceptId').value.toLowerCase(),
-      vocabulary: document.getElementById('resolved-filter-vocabulary').value,
+      vocabulary: resolvedFilterVocab,
       name: document.getElementById('resolved-filter-name').value.toLowerCase(),
       code: document.getElementById('resolved-filter-code').value.toLowerCase(),
       domain: document.getElementById('resolved-filter-domain').value,
-      standard: document.getElementById('resolved-filter-standard').value,
+      standard: resolvedFilterStandard,
       conceptClass: document.getElementById('resolved-filter-class').value
     };
   }
@@ -1853,11 +2160,11 @@
   function filterResolvedConcepts(concepts, filters) {
     return concepts.filter(function(c) {
       if (filters.conceptId && String(c.conceptId).toLowerCase().indexOf(filters.conceptId) === -1) return false;
-      if (filters.vocabulary && (c.vocabularyId || '') !== filters.vocabulary) return false;
+      if (filters.vocabulary.size > 0 && !filters.vocabulary.has(c.vocabularyId || '')) return false;
       if (filters.name && !fuzzyMatch((c.conceptName || '').toLowerCase(), filters.name)) return false;
       if (filters.code && (c.conceptCode || '').toLowerCase().indexOf(filters.code) === -1) return false;
       if (filters.domain && (c.domainId || '') !== filters.domain) return false;
-      if (filters.standard && (c.standardConcept || '') !== filters.standard) return false;
+      if (filters.standard.size > 0 && !filters.standard.has(c.standardConcept || '')) return false;
       if (filters.conceptClass && (c.conceptClassId || '') !== filters.conceptClass) return false;
       return true;
     });
@@ -1873,19 +2180,16 @@
 
     if (!keepFilters) {
       document.getElementById('resolved-filter-conceptId').value = '';
-      document.getElementById('resolved-filter-vocabulary').value = '';
+      resolvedFilterVocab.clear();
       document.getElementById('resolved-filter-name').value = '';
       document.getElementById('resolved-filter-code').value = '';
       document.getElementById('resolved-filter-domain').value = '';
-      document.getElementById('resolved-filter-standard').value = resolvedFilterDefaults.standard;
+      resolvedFilterStandard.clear();
+      resolvedFilterStandard.add('S');
       document.getElementById('resolved-filter-class').value = '';
     }
 
     populateResolvedFilters(allConcepts);
-
-    if (!keepFilters) {
-      document.getElementById('resolved-filter-standard').value = resolvedFilterDefaults.standard;
-    }
 
     var filters = getResolvedFilters();
     var concepts = filterResolvedConcepts(allConcepts, filters);
@@ -2149,7 +2453,7 @@
     var firstName = document.getElementById('profile-firstName').value.trim();
     var lastName = document.getElementById('profile-lastName').value.trim();
     if (!firstName || !lastName) {
-      alert('First name and last name are required.');
+      showToast('First name and last name are required.', 'error');
       return;
     }
     saveUserProfile({
@@ -2162,34 +2466,61 @@
     closeProfileModal();
   }
 
-  // ==================== REVIEW MODAL ====================
+  // ==================== REVIEW MODAL (fullscreen with ace editor) ====================
+  var reviewAceEditor = null;
+
+  function initReviewAceEditor() {
+    if (reviewAceEditor) return;
+    reviewAceEditor = ace.edit('review-ace-editor');
+    reviewAceEditor.setTheme('ace/theme/chrome');
+    reviewAceEditor.session.setMode('ace/mode/markdown');
+    reviewAceEditor.setFontSize(12);
+    reviewAceEditor.setShowPrintMargin(false);
+    reviewAceEditor.session.setUseWrapMode(true);
+    // Live markdown preview
+    reviewAceEditor.session.on('change', function() {
+      var md = reviewAceEditor.getValue();
+      var preview = document.getElementById('review-preview');
+      if (!md.trim()) {
+        preview.innerHTML = '<div class="markdown-preview-placeholder">Preview will appear here...</div>';
+      } else {
+        preview.innerHTML = marked.parse(md);
+      }
+    });
+  }
+
   function openReviewModal() {
     var p = getUserProfile();
     var name = ((p.firstName || '') + ' ' + (p.lastName || '')).trim();
     if (!name) {
-      alert('Please set up your profile first (click on "Guest" in the header).');
+      showToast('Please set up your profile first (click on "Guest" in the header).', 'warning');
       openProfileModal();
       return;
     }
-    // Display user info read-only
-    document.getElementById('review-user-name').textContent = name;
-    var details = [];
-    if (p.affiliation) details.push(p.affiliation);
-    if (p.profession) details.push(p.profession);
-    if (p.orcid) details.push('ORCID: ' + p.orcid);
-    document.getElementById('review-user-details').textContent = details.join(' · ') || '';
-
-    document.getElementById('review-status').value = 'approved';
-    document.getElementById('review-comments').value = '';
-    document.getElementById('review-preview').innerHTML = '';
-    document.getElementById('review-modal').style.display = '';
+    initReviewAceEditor();
+    document.getElementById('review-status').value = '';
+    reviewAceEditor.setValue('# Review Comments\n\nEnter your review comments here using Markdown syntax.\n\n## Suggestions\n\n- Item 1\n- Item 2\n', -1);
+    document.getElementById('review-modal').classList.add('visible');
+    reviewAceEditor.resize();
+    reviewAceEditor.focus();
   }
 
   function closeReviewModal() {
-    document.getElementById('review-modal').style.display = 'none';
+    document.getElementById('review-modal').classList.remove('visible');
   }
 
   function submitReview() {
+    var status = document.getElementById('review-status').value;
+    if (!status) {
+      showToast('Please select a review status.', 'error');
+      return;
+    }
+    var comments = reviewAceEditor ? reviewAceEditor.getValue().trim() : '';
+    if (!comments) {
+      showToast('Review comments are required.', 'error');
+      return;
+    }
+
     var p = getUserProfile();
     var reviewerInfo = {
       firstName: p.firstName || '',
@@ -2205,8 +2536,8 @@
       reviewId: maxId + 1,
       reviewer: reviewerInfo,
       reviewDate: new Date().toISOString().split('T')[0],
-      status: document.getElementById('review-status').value,
-      comments: document.getElementById('review-comments').value,
+      status: status,
+      comments: comments,
       version: selectedConceptSet.version || '1.0.0'
     };
 
@@ -2219,13 +2550,13 @@
   }
 
   // ==================== JSON EXPORT ====================
-  var exportFormat = null; // 'indicate' or 'atlas'
+  var exportMethod = null; // 'clipboard' or 'file'
 
   function openExportModal() {
     if (!selectedConceptSet) return;
-    exportFormat = null;
-    document.getElementById('export-step-format').style.display = '';
-    document.getElementById('export-step-method').style.display = 'none';
+    exportMethod = null;
+    document.getElementById('export-step-method').style.display = '';
+    document.getElementById('export-step-format').style.display = 'none';
     document.getElementById('export-back').style.display = 'none';
     document.getElementById('export-modal').style.display = 'flex';
   }
@@ -2234,17 +2565,17 @@
     document.getElementById('export-modal').style.display = 'none';
   }
 
-  function exportStepFormat(format) {
-    exportFormat = format;
-    document.getElementById('export-step-format').style.display = 'none';
-    document.getElementById('export-step-method').style.display = '';
+  function exportStepMethod(method) {
+    exportMethod = method;
+    document.getElementById('export-step-method').style.display = 'none';
+    document.getElementById('export-step-format').style.display = '';
     document.getElementById('export-back').style.display = '';
   }
 
   function exportStepBack() {
-    exportFormat = null;
-    document.getElementById('export-step-format').style.display = '';
-    document.getElementById('export-step-method').style.display = 'none';
+    exportMethod = null;
+    document.getElementById('export-step-method').style.display = '';
+    document.getElementById('export-step-format').style.display = 'none';
     document.getElementById('export-back').style.display = 'none';
   }
 
@@ -2290,17 +2621,16 @@
     return JSON.stringify({ items: atlasItems }, null, 2);
   }
 
-  function executeExport(method) {
-    if (!selectedConceptSet || !exportFormat) return;
-    var json = (exportFormat === 'atlas') ? buildAtlasJSON() : buildIndicateJSON();
+  function executeExport(format) {
+    if (!selectedConceptSet || !exportMethod) return;
+    var json = (format === 'atlas') ? buildAtlasJSON() : buildIndicateJSON();
     var filename = selectedConceptSet.id + '.json';
 
-    if (method === 'clipboard') {
+    if (exportMethod === 'clipboard') {
       navigator.clipboard.writeText(json).then(function() {
-        alert('Copied to clipboard!');
+        showToast('Copied to clipboard!', 'success');
       }).catch(function() {
-        // Fallback: show in textarea
-        prompt('Copy the JSON below:', json);
+        showToast('Could not copy to clipboard. Try downloading the file instead.', 'error');
       });
     } else {
       var blob = new Blob([json], { type: 'application/json' });
@@ -2319,8 +2649,20 @@
     const filter = document.getElementById('proj-search').value.toLowerCase();
     const filtered = projects.filter(p => {
       if (!filter) return true;
-      return (p.name || '').toLowerCase().includes(filter) ||
-        (p.description || '').toLowerCase().includes(filter);
+      var name = (p.name || '').toLowerCase();
+      var desc = (p.description || '').toLowerCase();
+      // Fuzzy: all query chars must appear in order
+      function fuzzy(text) {
+        var ti = 0;
+        for (var qi = 0; qi < filter.length; qi++) {
+          var ch = filter[qi];
+          while (ti < text.length && text[ti] !== ch) ti++;
+          if (ti >= text.length) return false;
+          ti++;
+        }
+        return true;
+      }
+      return fuzzy(name) || fuzzy(desc);
     });
 
     const el = document.getElementById('proj-cards');
@@ -2405,7 +2747,7 @@
     tbody.innerHTML = filtered.map(d =>
       '<tr data-id="' + d.id + '" style="cursor:pointer">' +
       '<td><span class="badge badge-category">' + escapeHtml(d.category) + '</span></td>' +
-      '<td>' + escapeHtml(d.subcategory) + '</td>' +
+      '<td><span class="badge badge-subcategory">' + escapeHtml(d.subcategory) + '</span></td>' +
       '<td><strong>' + escapeHtml(d.name) + '</strong></td>' +
       '<td class="td-center"><span class="badge badge-count">' + d.concepts + '</span></td>' +
       '<td class="td-center">' + escapeHtml(d.version) + '</td>' +
@@ -2456,6 +2798,13 @@
   document.getElementById('lang-toggle').addEventListener('click', () => {
     lang = lang === 'en' ? 'fr' : 'en';
     document.getElementById('lang-toggle').textContent = lang.toUpperCase();
+    // Clear all filters when switching language
+    csCategories.clear();
+    csSubcategories.clear();
+    csFilterReviewStatus.clear();
+    csFilterName = '';
+    document.getElementById('filter-name').value = '';
+    csPage = 1;
     renderAll();
     // Re-render detail if open
     if (selectedConceptSet) showCSDetail(selectedConceptSet.id);
@@ -2464,9 +2813,9 @@
     }
   });
 
-  // CS search
-  document.getElementById('cs-search').addEventListener('input', e => {
-    csFilter = e.target.value;
+  // CS name fuzzy filter
+  document.getElementById('filter-name').addEventListener('input', e => {
+    csFilterName = e.target.value;
     csPage = 1;
     renderCSTable();
   });
@@ -2537,8 +2886,8 @@
     if (concepts[idx]) showResolvedConceptDetail(concepts[idx]);
   });
 
-  // Resolved table filters
-  ['resolved-filter-vocabulary', 'resolved-filter-domain', 'resolved-filter-standard', 'resolved-filter-class'].forEach(function(id) {
+  // Resolved table filters (vocabulary and standard are multi-select, handled by buildMultiSelectDropdown)
+  ['resolved-filter-domain', 'resolved-filter-class'].forEach(function(id) {
     document.getElementById(id).addEventListener('change', function() { renderResolvedTable(true); });
   });
   ['resolved-filter-conceptId', 'resolved-filter-name', 'resolved-filter-code'].forEach(function(id) {
@@ -2575,13 +2924,13 @@
   document.getElementById('export-modal').addEventListener('click', e => {
     if (e.target === document.getElementById('export-modal')) closeExportModal();
   });
-  document.getElementById('export-step-format').addEventListener('click', function(e) {
-    var opt = e.target.closest('.export-option[data-format]');
-    if (opt) exportStepFormat(opt.dataset.format);
-  });
   document.getElementById('export-step-method').addEventListener('click', function(e) {
     var opt = e.target.closest('.export-option[data-method]');
-    if (opt) executeExport(opt.dataset.method);
+    if (opt) exportStepMethod(opt.dataset.method);
+  });
+  document.getElementById('export-step-format').addEventListener('click', function(e) {
+    var opt = e.target.closest('.export-option[data-format]');
+    if (opt) executeExport(opt.dataset.format);
   });
 
   // Add Review button
@@ -2589,6 +2938,25 @@
 
   // User profile modal events
   document.getElementById('user-badge').addEventListener('click', openProfileModal);
+  document.getElementById('reset-cache-btn').addEventListener('click', function() {
+    document.getElementById('confirm-reset-modal').style.display = '';
+  });
+  document.getElementById('confirm-reset-close').addEventListener('click', function() {
+    document.getElementById('confirm-reset-modal').style.display = 'none';
+  });
+  document.getElementById('confirm-reset-cancel').addEventListener('click', function() {
+    document.getElementById('confirm-reset-modal').style.display = 'none';
+  });
+  document.getElementById('confirm-reset-ok').addEventListener('click', function() {
+    localStorage.clear();
+    document.getElementById('user-badge-name').textContent = 'Guest';
+    sessionReviews = {};
+    if (selectedConceptSet) renderReviewTab(selectedConceptSet);
+    document.getElementById('confirm-reset-modal').style.display = 'none';
+  });
+  document.getElementById('confirm-reset-modal').addEventListener('click', function(e) {
+    if (e.target === this) this.style.display = 'none';
+  });
   document.getElementById('profile-modal-close').addEventListener('click', closeProfileModal);
   document.getElementById('profile-cancel').addEventListener('click', closeProfileModal);
   document.getElementById('profile-save').addEventListener('click', saveProfileFromModal);
@@ -2610,14 +2978,7 @@
 
   // Review modal events
   document.getElementById('review-modal-close').addEventListener('click', closeReviewModal);
-  document.getElementById('review-cancel').addEventListener('click', closeReviewModal);
   document.getElementById('review-submit').addEventListener('click', submitReview);
-  document.getElementById('review-modal').addEventListener('click', e => {
-    if (e.target === document.getElementById('review-modal')) closeReviewModal();
-  });
-  document.getElementById('review-comments').addEventListener('input', e => {
-    document.getElementById('review-preview').innerHTML = renderMarkdown(e.target.value);
-  });
 
   // Project card click
   document.getElementById('proj-cards').addEventListener('click', e => {
@@ -2659,22 +3020,14 @@
   });
 
   // Column filter dropdowns
-  document.getElementById('filter-category').addEventListener('change', e => {
-    csFilterCategory = e.target.value;
-    csPage = 1;
-    populateColumnFilters();
-    renderCSTable();
+  // Category/subcategory multi-select events are handled inside buildMultiSelectDropdown
+  // Close multi-select dropdowns on outside click
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.ms-container')) {
+      document.querySelectorAll('.ms-dropdown').forEach(function(d) { d.style.display = 'none'; });
+    }
   });
-  document.getElementById('filter-subcategory').addEventListener('change', e => {
-    csFilterSubcategory = e.target.value;
-    csPage = 1;
-    renderCSTable();
-  });
-  document.getElementById('filter-reviewStatus').addEventListener('change', e => {
-    csFilterReviewStatus = e.target.value;
-    csPage = 1;
-    renderCSTable();
-  });
+  // Status multi-select events are handled inside buildMultiSelectDropdown
 
   // CSV export for project concepts
   document.getElementById('proj-export-csv').addEventListener('click', () => {
@@ -2729,9 +3082,10 @@
   // Keyboard: Escape to go back (modals have priority)
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
-      if (document.getElementById('export-modal').style.display !== 'none') closeExportModal();
+      if (document.getElementById('confirm-reset-modal').style.display !== 'none') document.getElementById('confirm-reset-modal').style.display = 'none';
+      else if (document.getElementById('export-modal').style.display !== 'none') closeExportModal();
       else if (document.getElementById('profile-modal').style.display !== 'none') closeProfileModal();
-      else if (document.getElementById('review-modal').style.display !== 'none') closeReviewModal();
+      else if (document.getElementById('review-modal').classList.contains('visible')) closeReviewModal();
       else if (selectedConceptSet) hideCSDetail();
       else if (selectedProject) hideProjectDetail();
     }
