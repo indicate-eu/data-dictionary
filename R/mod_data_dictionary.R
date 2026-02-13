@@ -5000,10 +5000,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           ns("copy_failed_event")
         ))
       } else if (method == "json_file") {
-        version <- if (!is.null(cs$version) && !is.na(cs$version)) cs$version else "1.0.0"
-        clean_name <- gsub("[^a-zA-Z0-9_-]", "_", cs$name)
-        prefix <- if (format == "atlas") "INDICATE_ATLAS" else "INDICATE"
-        filename <- paste0(prefix, "_", cs_id, "_", clean_name, "_v", version, ".json")
+        filename <- paste0(cs_id, ".json")
 
         shinyjs::runjs(sprintf(
           "var link = document.createElement('a');

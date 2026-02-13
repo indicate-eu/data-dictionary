@@ -29,20 +29,19 @@
 #      ### Save Handler - Save ETL guidelines to config
 #
 #   ## 3) Server - Unit Conversions
-#      ### Load Conversions - Load from CSV, offer defaults if empty
+#      ### Load Units on Init - Load both, offer GitHub download if empty
+#      ### Confirm Load Default Units - Download from GitHub and load CSVs
 #      ### DataTable Display - Show conversions with fuzzy search and actions
 #      ### Edit Handler - Update conversion factor on cell edit
 #      ### Delete Handler - Show confirmation modal
 #      ### Confirm Delete Handler - Remove selected conversion
-#      ### Confirm Load Default Conversions - Load defaults from CSV
 #      ### Test Conversion Modal - Display test modal and calculate result
 #      ### Add Conversion Modal - Open modal and handle OMOP search
 #      ### Save New Conversion - Validate and save new conversion
 #
 #   ## 4) Server - Recommended Units
-#      ### Load Recommended Units - Load from CSV, offer defaults if empty
+#      ### Load Recommended Units on Init
 #      ### DataTable Display - Show recommended units with fuzzy search and actions
-#      ### Confirm Load Default Recommended Units - Load defaults from CSV
 #      ### Delete Recommended Unit Handler - Show/confirm deletion
 #      ### Add Recommended Unit Modal - Open modal and handle OMOP search
 #      ### Save New Recommended Unit - Validate and save
@@ -252,23 +251,59 @@ mod_dictionary_settings_ui <- function(id, i18n) {
 
     ## UI - Modals ----
 
-    ### Modal - Load Default Conversions ----
+    ### Modal - Load Default Units (combined: conversions + recommended units) ----
     create_modal(
-      id = "load_default_conversions_modal",
-      title = i18n$t("no_unit_conversions"),
+      id = "load_default_units_modal",
+      title = i18n$t("no_units_data"),
       body = tagList(
-        tags$p(
-          i18n$t("load_default_conversions_count"),
-          style = "margin-bottom: 15px;"
+        tags$div(
+          id = ns("load_units_initial_content"),
+          tags$p(
+            i18n$t("load_default_units_message"),
+            style = "margin-bottom: 15px;"
+          ),
+          tags$div(
+            style = "margin-bottom: 15px;",
+            tags$label(
+              class = "form-label",
+              `for` = ns("load_units_repo_url"),
+              i18n$t("units_repo_url")
+            ),
+            textInput(
+              ns("load_units_repo_url"),
+              label = NULL,
+              value = "https://github.com/indicate-eu/data-dictionary-content",
+              width = "100%"
+            ),
+            tags$small(
+              style = "color: #666; display: block; margin-top: 4px;",
+              i18n$t("units_repo_url_help")
+            )
+          ),
+          tags$p(
+            i18n$t("load_default_units_question"),
+            style = "font-weight: 600; margin-top: 10px;"
+          )
         ),
-        tags$p(
-          i18n$t("load_default_conversions_question"),
-          style = "font-weight: 600; margin-top: 10px;"
+        tags$div(
+          id = ns("load_units_loading_content"),
+          style = "display: none; text-align: center; padding: 20px;",
+          tags$div(
+            style = "font-size: 18px; font-weight: 600; margin-bottom: 10px;",
+            i18n$t("downloading_units_from_github")
+          ),
+          tags$div(
+            style = "color: #666;",
+            i18n$t("please_wait")
+          )
         )
       ),
       footer = tagList(
-        actionButton(ns("cancel_load_default_conversions"), i18n$t("no"), class = "btn-secondary-custom", icon = icon("times")),
-        actionButton(ns("confirm_load_default_conversions"), i18n$t("yes_load"), class = "btn-primary-custom", icon = icon("download"))
+        tags$div(
+          id = ns("load_units_buttons"),
+          actionButton(ns("cancel_load_default_units"), i18n$t("no"), class = "btn-secondary-custom", icon = icon("times")),
+          actionButton(ns("confirm_load_default_units"), i18n$t("yes_load"), class = "btn-primary-custom", icon = icon("download"))
+        )
       ),
       size = "medium",
       icon = "fas fa-info-circle",
@@ -372,29 +407,6 @@ mod_dictionary_settings_ui <- function(id, i18n) {
           class = "btn-danger-custom"
         )
       )
-    ),
-
-    ### Modal - Load Default Recommended Units ----
-    create_modal(
-      id = "load_default_recommended_units_modal",
-      title = i18n$t("no_recommended_units"),
-      body = tagList(
-        tags$p(
-          i18n$t("load_default_recommended_units_count"),
-          style = "margin-bottom: 15px;"
-        ),
-        tags$p(
-          i18n$t("load_default_recommended_units_question"),
-          style = "font-weight: 600; margin-top: 10px;"
-        )
-      ),
-      footer = tagList(
-        actionButton(ns("cancel_load_default_recommended_units"), i18n$t("no"), class = "btn-secondary-custom", icon = icon("times")),
-        actionButton(ns("confirm_load_default_recommended_units"), i18n$t("yes_load"), class = "btn-primary-custom", icon = icon("download"))
-      ),
-      size = "medium",
-      icon = "fas fa-info-circle",
-      ns = ns
     ),
 
     ### Modal - Delete Recommended Unit Confirmation ----
@@ -945,19 +957,10 @@ mod_dictionary_settings_server <- function(id, i18n, current_user = NULL, vocabu
 
     ## 3) Server - Unit Conversions ----
 
-    ### Load Conversions on Init ----
+    ### Load Units on Init (combined check for conversions + recommended units) ----
     conversions <- get_all_unit_conversions()
     unit_conversions_data(conversions)
 
-    if (nrow(conversions) == 0) {
-      default_csv <- system.file("extdata/concept_sets/unit_conversions.csv", package = "indicate")
-      if (default_csv == "" || !file.exists(default_csv)) {
-        default_csv <- "inst/extdata/concept_sets/unit_conversions.csv"
-      }
-      if (file.exists(default_csv)) {
-        show_modal(ns("load_default_conversions_modal"))
-      }
-    }
     unit_conversions_trigger(1)
 
     ### DataTable Display ----
@@ -1184,27 +1187,71 @@ mod_dictionary_settings_server <- function(id, i18n, current_user = NULL, vocabu
       delete_row_index(NULL)
     }, ignoreInit = TRUE)
 
-    ### Confirm Load Default Conversions ----
-    observe_event(input$confirm_load_default_conversions, {
-      result <- load_default_unit_conversions()
+    ### Confirm Load Default Units (from GitHub) ----
+    observe_event(input$confirm_load_default_units, {
+      repo_url <- input$load_units_repo_url
+      if (is.null(repo_url) || trimws(repo_url) == "") return()
 
-      if (is.numeric(result) && result > 0) {
-        conversions <- get_all_unit_conversions()
-        unit_conversions_data(conversions)
-        unit_conversions_trigger(unit_conversions_trigger() + 1)
+      # Show loading state
+      shinyjs::hide("load_units_initial_content")
+      shinyjs::show("load_units_loading_content")
+      shinyjs::hide("load_units_buttons")
 
-        message_text <- gsub("\\{count\\}", as.character(result), as.character(i18n$t("load_default_conversions_success")))
-        showNotification(message_text, type = "message", duration = 5)
-      } else {
-        showNotification(as.character(i18n$t("load_default_conversions_failed")), type = "error", duration = 5)
+      # Save repo URL
+      set_config_value("units_repo_url", repo_url)
+
+      # Download units folder from GitHub
+      unit_files <- download_github_units(repo_url)
+
+      if (is.null(unit_files)) {
+        shinyjs::show("load_units_initial_content")
+        shinyjs::hide("load_units_loading_content")
+        shinyjs::show("load_units_buttons")
+        showNotification(as.character(i18n$t("load_default_units_failed")), type = "error", duration = 5)
+        return()
       }
 
-      hide_modal(ns("load_default_conversions_modal"))
+      # Load recommended units
+      ru_count <- 0
+      if (!is.null(unit_files$recommended_units)) {
+        ru_result <- load_default_recommended_units(unit_files$recommended_units)
+        if (is.numeric(ru_result)) ru_count <- ru_result
+      }
+
+      # Load unit conversions
+      uc_count <- 0
+      if (!is.null(unit_files$unit_conversions)) {
+        uc_result <- load_default_unit_conversions(unit_files$unit_conversions)
+        if (is.numeric(uc_result)) uc_count <- uc_result
+      }
+
+      # Refresh data
+      if (ru_count > 0) {
+        recommended_units_data(get_all_recommended_units())
+        recommended_units_trigger(recommended_units_trigger() + 1)
+      }
+      if (uc_count > 0) {
+        unit_conversions_data(get_all_unit_conversions())
+        unit_conversions_trigger(unit_conversions_trigger() + 1)
+      }
+
+      # Show result
+      message_text <- gsub("\\{ru_count\\}", as.character(ru_count),
+        gsub("\\{uc_count\\}", as.character(uc_count),
+          as.character(i18n$t("load_default_units_success"))))
+      showNotification(message_text, type = "message", duration = 5)
+
+      hide_modal(ns("load_default_units_modal"))
+
+      # Reset loading state for next time
+      shinyjs::show("load_units_initial_content")
+      shinyjs::hide("load_units_loading_content")
+      shinyjs::show("load_units_buttons")
     }, ignoreInit = TRUE)
 
-    ### Cancel Load Default Conversions ----
-    observe_event(input$cancel_load_default_conversions, {
-      hide_modal(ns("load_default_conversions_modal"))
+    ### Cancel Load Default Units ----
+    observe_event(input$cancel_load_default_units, {
+      hide_modal(ns("load_default_units_modal"))
     }, ignoreInit = TRUE)
 
     ### Test Conversion Modal ----
@@ -1666,17 +1713,16 @@ mod_dictionary_settings_server <- function(id, i18n, current_user = NULL, vocabu
     ### Load Recommended Units on Init ----
     ru_data <- get_all_recommended_units()
     recommended_units_data(ru_data)
-
-    if (nrow(ru_data) == 0) {
-      default_ru_csv <- system.file("extdata/concept_sets/recommended_units.csv", package = "indicate")
-      if (default_ru_csv == "" || !file.exists(default_ru_csv)) {
-        default_ru_csv <- "inst/extdata/concept_sets/recommended_units.csv"
-      }
-      if (file.exists(default_ru_csv)) {
-        show_modal(ns("load_default_recommended_units_modal"))
-      }
-    }
     recommended_units_trigger(1)
+
+    # Show combined download modal if both are empty
+    if (nrow(conversions) == 0 && nrow(ru_data) == 0) {
+      saved_url <- get_config_value("units_repo_url")
+      if (!is.null(saved_url) && nchar(saved_url) > 0) {
+        updateTextInput(session, "load_units_repo_url", value = saved_url)
+      }
+      show_modal(ns("load_default_units_modal"))
+    }
 
     ### Recommended Units DataTable Display ----
     observe_event(recommended_units_trigger(), {
@@ -1793,29 +1839,6 @@ mod_dictionary_settings_server <- function(id, i18n, current_user = NULL, vocabu
         ))
       })
     }, ignoreInit = FALSE)
-
-    ### Confirm Load Default Recommended Units ----
-    observe_event(input$confirm_load_default_recommended_units, {
-      result <- load_default_recommended_units()
-
-      if (is.numeric(result) && result > 0) {
-        ru <- get_all_recommended_units()
-        recommended_units_data(ru)
-        recommended_units_trigger(recommended_units_trigger() + 1)
-
-        message_text <- gsub("\\{count\\}", as.character(result), as.character(i18n$t("load_default_recommended_units_success")))
-        showNotification(message_text, type = "message", duration = 5)
-      } else {
-        showNotification(as.character(i18n$t("load_default_recommended_units_failed")), type = "error", duration = 5)
-      }
-
-      hide_modal(ns("load_default_recommended_units_modal"))
-    }, ignoreInit = TRUE)
-
-    ### Cancel Load Default Recommended Units ----
-    observe_event(input$cancel_load_default_recommended_units, {
-      hide_modal(ns("load_default_recommended_units_modal"))
-    }, ignoreInit = TRUE)
 
     ### Delete Recommended Unit Handler ----
     observe_event(input$delete_recommended_unit_click, {

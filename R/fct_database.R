@@ -1297,14 +1297,10 @@ get_all_recommended_units <- function() {
 #'   Replaces all existing recommended units.
 #' @return Number of rows loaded, or FALSE on failure
 #' @noRd
-load_default_recommended_units <- function() {
-  default_csv <- system.file("extdata/concept_sets/recommended_units.csv", package = "indicate")
-  if (default_csv == "" || !file.exists(default_csv)) {
-    default_csv <- "inst/extdata/concept_sets/recommended_units.csv"
-  }
-  if (!file.exists(default_csv)) return(FALSE)
+load_default_recommended_units <- function(csv_path = NULL) {
+  if (is.null(csv_path) || !file.exists(csv_path)) return(FALSE)
 
-  data <- read.csv(default_csv, stringsAsFactors = FALSE)
+  data <- read.csv(csv_path, stringsAsFactors = FALSE)
   if (nrow(data) == 0) return(0L)
 
   con <- get_db_connection()
@@ -1424,14 +1420,10 @@ get_all_unit_conversions <- function() {
 #'   Replaces all existing unit conversions.
 #' @return Number of rows loaded, or FALSE on failure
 #' @noRd
-load_default_unit_conversions <- function() {
-  default_csv <- system.file("extdata/concept_sets/unit_conversions.csv", package = "indicate")
-  if (default_csv == "" || !file.exists(default_csv)) {
-    default_csv <- "inst/extdata/concept_sets/unit_conversions.csv"
-  }
-  if (!file.exists(default_csv)) return(FALSE)
+load_default_unit_conversions <- function(csv_path = NULL) {
+  if (is.null(csv_path) || !file.exists(csv_path)) return(FALSE)
 
-  data <- read.csv(default_csv, stringsAsFactors = FALSE)
+  data <- read.csv(csv_path, stringsAsFactors = FALSE)
   if (nrow(data) == 0) return(0L)
 
   con <- get_db_connection()

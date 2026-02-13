@@ -513,3 +513,11 @@ export_format_indicate,Concept Set Specification
 export_format_indicate_desc,Full OHDSI format with metadata and translations
 export_format_atlas,ATLAS
 export_format_atlas_desc,ATLAS-compatible format (expression only)
+no_units_data,No units data
+load_default_units_message,Unit conversions and recommended units can be downloaded from a GitHub repository.
+units_repo_url,GitHub repository URL
+units_repo_url_help,The repository should contain a units/ folder with recommended_units.csv and unit_conversions.csv
+load_default_units_question,Would you like to download the units data?
+load_default_units_success,Loaded {ru_count} recommended units and {uc_count} unit conversions
+load_default_units_failed,Failed to download units from GitHub
+downloading_units_from_github,Downloading units from GitHub...

@@ -164,6 +164,28 @@ download_github_concept_sets <- function(repo_url, branch = "main") {
   download_github_folder(repo_url, folder = "concept_sets", branch = branch)
 }
 
+#' Download unit files from GitHub repository
+#'
+#' @description Downloads a GitHub repository as ZIP and extracts the units folder.
+#'
+#' @param repo_url GitHub repository URL
+#' @param branch Branch name (default: "main")
+#'
+#' @return Named list with paths to recommended_units.csv and unit_conversions.csv, or NULL on failure
+#' @noRd
+download_github_units <- function(repo_url, branch = "main") {
+  units_dir <- download_github_folder(repo_url, folder = "units", branch = branch)
+  if (is.null(units_dir)) return(NULL)
+
+  ru_path <- file.path(units_dir, "recommended_units.csv")
+  uc_path <- file.path(units_dir, "unit_conversions.csv")
+
+  list(
+    recommended_units = if (file.exists(ru_path)) ru_path else NULL,
+    unit_conversions = if (file.exists(uc_path)) uc_path else NULL
+  )
+}
+
 #' Download a folder from a GitHub repository
 #'
 #' @description Downloads a GitHub repository as ZIP and extracts a specific folder.
