@@ -121,10 +121,23 @@
   }
   .lang-toggle:hover { background: #0d4d8f; }
 
-  .stats-badge {
-    font-size: 12px;
-    color: var(--text-muted);
+  .current-user-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: var(--primary);
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background .2s;
   }
+  .current-user-badge:hover { background: #0d4d8f; }
+  .current-user-badge i { font-size: 16px; }
 
   /* Loading */
   .loading-overlay {
@@ -276,18 +289,7 @@
     text-align: center;
   }
 
-  /* Concept set flags */
-  .flag-icon {
-    display: inline-flex;
-    align-items: center;
-    gap: 2px;
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-right: 6px;
-  }
-  .flag-icon.excluded { color: var(--danger); }
-  .flag-icon.descendants { color: var(--primary); }
-  .flag-icon.mapped { color: var(--success); }
+  /* Concept set flags (legacy, kept for reference) */
 
   /* Detail view */
   .detail-view { display: none; }
@@ -610,6 +612,34 @@
   }
   .project-name-badge:hover { background: #ea580c; }
 
+
+  .author-link {
+    color: var(--primary);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .author-link:hover { text-decoration: underline; }
+
+  .author-detail-row {
+    display: flex;
+    gap: 8px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: baseline;
+  }
+  .author-detail-row:last-child { border-bottom: none; }
+  .author-detail-row label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    min-width: 100px;
+    flex-shrink: 0;
+  }
+  .author-detail-row .value {
+    font-size: 13px;
+    color: var(--text);
+  }
+
   .btn-back-discrete {
     display: inline-flex;
     align-items: center;
@@ -665,6 +695,124 @@
     visibility: visible;
     opacity: 1;
   }
+
+  /* Toggle bar for Expression/Resolved */
+  .toggle-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .toggle-group {
+    display: inline-flex;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .toggle-btn {
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    border: none;
+    background: white;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .toggle-btn:not(:last-child) { border-right: 1px solid var(--border); }
+  .toggle-btn:hover { background: var(--gray-light); color: var(--text); }
+  .toggle-btn.active { background: var(--primary); color: white; font-weight: 600; }
+
+  /* Flag badges for expression table */
+  .flag-yes { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; background: #d4edda; color: #155724; }
+  .flag-no { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; background: var(--gray-200); color: var(--text-muted); }
+  .flag-yes-danger { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; background: #f8d7da; color: #721c24; }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 500;
+  }
+  .modal {
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+    width: 600px;
+    max-width: 90vw;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  .modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .modal-header h3 { font-size: 16px; font-weight: 600; }
+  .modal-close {
+    background: none; border: none;
+    font-size: 24px; color: var(--text-muted);
+    cursor: pointer; padding: 0; line-height: 1;
+  }
+  .modal-close:hover { color: var(--text); }
+  .modal-body { padding: 20px; }
+  .modal-footer {
+    display: flex; justify-content: flex-end; gap: 10px;
+    padding: 16px 20px;
+    border-top: 1px solid var(--gray-200);
+  }
+
+  /* Form elements */
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .form-group { margin-bottom: 12px; }
+  .form-group label {
+    display: block; font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .5px;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+  .form-input {
+    width: 100%; padding: 8px 12px;
+    border: 1px solid var(--border); border-radius: var(--radius);
+    font-size: 14px; font-family: inherit; outline: none;
+    transition: border-color .15s;
+  }
+  .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(15,96,175,.1); }
+  textarea.form-input { resize: vertical; min-height: 100px; }
+  select.form-input { appearance: auto; }
+
+  /* Markdown preview */
+  .markdown-preview {
+    border: 1px solid var(--gray-200); border-radius: var(--radius);
+    padding: 12px; min-height: 60px;
+    font-size: 14px; line-height: 1.6;
+    background: var(--gray-light);
+  }
+  .markdown-preview p { margin-bottom: 8px; }
+  .markdown-preview p:last-child { margin-bottom: 0; }
+
+  /* Modal buttons */
+  .btn-cancel {
+    padding: 8px 16px; background: white;
+    border: 1px solid var(--border); border-radius: var(--radius);
+    cursor: pointer; font-size: 13px; font-weight: 500;
+    font-family: inherit; color: var(--text); transition: all .15s;
+  }
+  .btn-cancel:hover { border-color: var(--primary); color: var(--primary); }
+  .btn-submit {
+    padding: 8px 16px; background: var(--primary);
+    border: 1px solid var(--primary); border-radius: var(--radius);
+    cursor: pointer; font-size: 13px; font-weight: 600;
+    font-family: inherit; color: white; transition: all .15s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-submit:hover { background: var(--primary-hover); }
+
+  @media (max-width: 600px) {
+    .form-row { grid-template-columns: 1fr; }
+    .modal { width: 95vw; }
+  }
 </style>
 </head>
 <body>
@@ -690,7 +838,10 @@
     </button>
   </nav>
   <div class="header-right">
-    <span class="stats-badge" id="stats-badge"></span>
+    <button class="current-user-badge" id="user-badge" title="Edit profile">
+      <i class="fas fa-user-circle"></i>
+      <span id="user-badge-name">Guest</span>
+    </button>
     <button class="lang-toggle" id="lang-toggle" title="Switch language">
       <i class="fas fa-globe"></i> EN
     </button>
@@ -742,55 +893,151 @@
 
     <!-- Detail view -->
     <div class="detail-view" id="cs-detail-view">
-      <div class="detail-header">
-        <button class="btn-back" id="cs-back">&#8592; Back</button>
-        <span class="detail-title" id="cs-detail-title"></span>
+      <div class="detail-header" style="align-items:center">
+        <button class="btn-back-discrete" id="cs-back" title="Concept Sets">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <span class="project-name-badge" id="cs-detail-title"></span>
         <div class="detail-meta" id="cs-detail-meta"></div>
+        <button class="export-btn" id="cs-export-json" title="Export concept set as JSON">
+          <i class="fas fa-download"></i> Export JSON
+        </button>
       </div>
 
-      <!-- Concepts table + detail -->
-      <div class="panels panels-2">
-        <div class="panel">
-          <div class="panel-header">
-            <h3>Concepts</h3>
-            <span class="badge badge-count" id="cs-concept-count">0</span>
-            <span class="custom-tooltip" style="margin-left:6px">
-              <i class="fas fa-exclamation-triangle" style="color:#ffc107; font-size:14px;"></i>
-              <span class="tooltip-text">Only the concept set expression is shown here, not its full resolution. If a concept includes descendants, the descendants will not be listed. For full resolution, use the INDICATE Data Dictionary application directly.</span>
-            </span>
+      <!-- 4-tab bar -->
+      <div class="panel-tabs" id="cs-detail-tabs">
+        <button class="panel-tab active" data-tab="concepts"><i class="fas fa-list"></i> Concepts</button>
+        <button class="panel-tab" data-tab="comments"><i class="fas fa-comment-alt"></i> Comments</button>
+        <button class="panel-tab" data-tab="statistics"><i class="fas fa-chart-bar"></i> Statistics</button>
+        <button class="panel-tab" data-tab="review"><i class="fas fa-check-circle"></i> Review</button>
+      </div>
+
+      <!-- TAB 1: Concepts -->
+      <div class="cs-tab-content" id="cs-tab-concepts" style="margin-top:16px">
+        <!-- Resolved/Expression toggle -->
+        <div class="toggle-bar" id="cs-concept-toggle-bar">
+          <div class="toggle-group">
+            <button class="toggle-btn active" data-mode="resolved">Resolved</button>
+            <button class="toggle-btn" data-mode="expression">Expression</button>
           </div>
-          <div class="panel-table-wrap">
-            <table id="concepts-table">
-              <thead>
-                <tr>
-                  <th style="width:12%">Vocabulary</th>
-                  <th style="width:32%">Concept Name</th>
-                  <th style="width:14%">Concept Code</th>
-                  <th style="width:12%">Domain</th>
-                  <th style="width:12%" class="td-center">Standard</th>
-                  <th style="width:18%">Flags</th>
-                </tr>
-              </thead>
-              <tbody id="concepts-tbody"></tbody>
-            </table>
+          <span class="badge badge-count" id="cs-concept-count">0</span>
+        </div>
+
+        <!-- Resolved mode: 2-column layout (default) -->
+        <div id="cs-resolved-view">
+          <div class="panels panels-2">
+            <div class="panel">
+              <div class="panel-table-wrap">
+                <table id="resolved-table">
+                  <thead>
+                    <tr>
+                      <th style="width:14%">Vocabulary</th>
+                      <th style="width:28%">Concept Name</th>
+                      <th style="width:14%">Concept Code</th>
+                      <th style="width:14%">Domain</th>
+                      <th style="width:14%" class="td-center">Standard</th>
+                      <th style="width:16%">Concept Class</th>
+                    </tr>
+                  </thead>
+                  <tbody id="resolved-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-header"><h3>Concept Details</h3></div>
+              <div class="panel-body" id="resolved-concept-detail-body">
+                <div class="empty-state"><p>Select a concept to view details</p></div>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- Expression mode: full-width table -->
+        <div id="cs-expression-view" style="display:none">
+          <div class="panel">
+            <div class="panel-table-wrap">
+              <table id="expression-table">
+                <thead>
+                  <tr>
+                    <th style="width:12%">Vocabulary</th>
+                    <th style="width:24%">Concept Name</th>
+                    <th style="width:12%">Concept Code</th>
+                    <th style="width:12%">Domain</th>
+                    <th style="width:10%" class="td-center">Standard</th>
+                    <th style="width:10%" class="td-center">Exclude</th>
+                    <th style="width:10%" class="td-center">Descendants</th>
+                    <th style="width:10%" class="td-center">Mapped</th>
+                  </tr>
+                </thead>
+                <tbody id="expression-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Concept Set Information -->
+        <div class="panel" style="margin-top:20px">
+          <div class="panel-header"><h3>Concept Set Information</h3></div>
+          <div class="panel-body">
+            <div class="cs-info-grid" id="cs-info-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: Comments -->
+      <div class="cs-tab-content" id="cs-tab-comments" style="display:none; margin-top:16px">
         <div class="panel">
-          <div class="panel-header"><h3>Concept Details</h3></div>
-          <div class="panel-body" id="concept-detail-body">
+          <div class="panel-header"><h3>Description</h3></div>
+          <div class="panel-body" id="cs-comments-body">
+            <div class="empty-state"><p>No description available</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: Statistics -->
+      <div class="cs-tab-content" id="cs-tab-statistics" style="display:none; margin-top:16px">
+        <div class="panel">
+          <div class="panel-header"><h3>Distribution Statistics</h3></div>
+          <div class="panel-body" id="cs-statistics-body">
             <div class="empty-state">
-              <p>Select a concept to view details</p>
+              <i class="fas fa-chart-bar" style="font-size:32px; color:var(--gray-300); display:block; margin-bottom:12px"></i>
+              <p>No distribution statistics available for this concept set.</p>
+              <p style="font-size:12px; margin-top:8px">Statistics will appear here once computed via the INDICATE Data Dictionary application.</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Concept set info -->
-      <div class="panel" style="margin-top:20px">
-        <div class="panel-header"><h3>Concept Set Information</h3></div>
-        <div class="panel-body">
-          <div class="cs-info-grid" id="cs-info-grid"></div>
-          <div id="cs-description-block"></div>
+      <!-- TAB 4: Review -->
+      <div class="cs-tab-content" id="cs-tab-review" style="display:none; margin-top:16px">
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Reviews</h3>
+            <span class="badge badge-count" id="cs-review-count">0</span>
+            <button class="export-btn" id="cs-add-review-btn" style="margin-left:auto">
+              <i class="fas fa-plus"></i> Add Review
+            </button>
+          </div>
+          <div class="panel-body" id="cs-review-body">
+            <div class="empty-state" id="cs-review-empty">
+              <i class="fas fa-check-circle" style="font-size:32px; color:var(--gray-300); display:block; margin-bottom:12px"></i>
+              <p>No reviews yet. Click "Add Review" to submit the first review.</p>
+            </div>
+            <div class="panel-table-wrap" id="cs-review-table-wrap" style="display:none">
+              <table id="cs-review-table">
+                <thead>
+                  <tr>
+                    <th style="width:20%">Reviewer</th>
+                    <th style="width:12%">Date</th>
+                    <th style="width:12%" class="td-center">Status</th>
+                    <th style="width:10%">Version</th>
+                    <th style="width:46%">Comments</th>
+                  </tr>
+                </thead>
+                <tbody id="cs-review-tbody"></tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -862,6 +1109,109 @@
   </div>
 </div>
 
+<!-- Author Details Modal -->
+<div class="modal-overlay" id="author-modal" style="display:none">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <h3>Author Details</h3>
+      <button class="modal-close" id="author-modal-close">&times;</button>
+    </div>
+    <div class="modal-body" id="author-modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn-submit" id="author-modal-ok">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- User Profile Modal -->
+<div class="modal-overlay" id="profile-modal" style="display:none">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Edit Profile</h3>
+      <button class="modal-close" id="profile-modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Select an existing author</label>
+        <select id="profile-select-author" class="form-input">
+          <option value="">— Custom —</option>
+        </select>
+      </div>
+      <hr style="border:none; border-top:1px solid var(--border); margin:12px 0">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name *</label>
+          <input type="text" id="profile-firstName" class="form-input">
+        </div>
+        <div class="form-group">
+          <label>Last Name *</label>
+          <input type="text" id="profile-lastName" class="form-input">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Affiliation</label>
+          <input type="text" id="profile-affiliation" class="form-input">
+        </div>
+        <div class="form-group">
+          <label>Profession</label>
+          <input type="text" id="profile-profession" class="form-input">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>ORCID</label>
+        <input type="text" id="profile-orcid" class="form-input" placeholder="0000-0000-0000-0000">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="profile-cancel">Cancel</button>
+      <button class="btn-submit" id="profile-save">
+        <i class="fas fa-check"></i> Save
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Review Modal -->
+<div class="modal-overlay" id="review-modal" style="display:none">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Add Review</h3>
+      <button class="modal-close" id="review-modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div id="review-user-info" style="display:flex; align-items:center; gap:12px; padding:10px 14px; background:var(--gray-light); border-radius:var(--radius); margin-bottom:16px">
+        <i class="fas fa-user-circle" style="font-size:24px; color:var(--primary)"></i>
+        <div>
+          <div id="review-user-name" style="font-weight:600; font-size:14px"></div>
+          <div id="review-user-details" style="font-size:12px; color:var(--text-muted)"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Status *</label>
+        <select id="review-status" class="form-input">
+          <option value="approved">Approved</option>
+          <option value="needs_revision">Needs Revision</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Comments (Markdown supported)</label>
+        <textarea id="review-comments" class="form-input" rows="5" placeholder="Write your review comments here..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Preview</label>
+        <div class="markdown-preview" id="review-preview"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="review-cancel">Cancel</button>
+      <button class="btn-submit" id="review-submit">
+        <i class="fas fa-check"></i> Submit Review &amp; Export JSON
+      </button>
+    </div>
+  </div>
+</div>
+
 <script src="data_inline.js"></script>
 <script>
 (function() {
@@ -881,13 +1231,14 @@
   let csFilterReviewStatus = '';
   let selectedConceptSet = null;
   let selectedProject = null;
+  let csDetailTab = 'concepts';
+  let csConceptMode = 'resolved';
+  let sessionReviews = {};
 
   // ==================== DATA LOADING ====================
   function loadData() {
     conceptSets = DATA.conceptSets || [];
     projects = DATA.projects || [];
-    document.getElementById('stats-badge').textContent =
-      conceptSets.length + ' concept sets \u00b7 ' + projects.length + ' projects';
     document.getElementById('loading').classList.add('hidden');
     renderAll();
   }
@@ -989,14 +1340,6 @@
     const v = concept.invalidReasonCaption;
     if (v === 'Valid') return '<span class="badge badge-valid">Valid</span>';
     return '<span class="badge badge-invalid">' + escapeHtml(v) + '</span>';
-  }
-
-  function conceptFlags(item) {
-    let html = '';
-    if (item.isExcluded) html += '<span class="flag-icon excluded" title="Excluded">&#10005; Excl</span>';
-    if (item.includeDescendants) html += '<span class="flag-icon descendants" title="Include Descendants">&#8595; Desc</span>';
-    if (item.includeMapped) html += '<span class="flag-icon mapped" title="Include Mapped">&#8596; Map</span>';
-    return html || '<span style="color:var(--text-muted)">—</span>';
   }
 
   // ==================== CONCEPT SETS ====================
@@ -1141,11 +1484,172 @@
     });
   }
 
+  // ==================== CS DETAIL: TABS & TOGGLE ====================
+  function switchCSDetailTab(tabName) {
+    csDetailTab = tabName;
+    document.querySelectorAll('#cs-detail-tabs .panel-tab').forEach(btn =>
+      btn.classList.toggle('active', btn.dataset.tab === tabName)
+    );
+    ['concepts', 'comments', 'statistics', 'review'].forEach(function(t) {
+      var el = document.getElementById('cs-tab-' + t);
+      if (el) el.style.display = (t === tabName) ? '' : 'none';
+    });
+  }
+
+  function switchConceptMode(mode) {
+    csConceptMode = mode;
+    document.querySelectorAll('#cs-concept-toggle-bar .toggle-btn').forEach(btn =>
+      btn.classList.toggle('active', btn.dataset.mode === mode)
+    );
+    document.getElementById('cs-expression-view').style.display = (mode === 'expression') ? '' : 'none';
+    document.getElementById('cs-resolved-view').style.display = (mode === 'resolved') ? '' : 'none';
+    if (mode === 'expression') renderExpressionTable();
+    else renderResolvedTable();
+  }
+
+  function renderExpressionTable() {
+    if (!selectedConceptSet) return;
+    var items = (selectedConceptSet.expression && selectedConceptSet.expression.items) || [];
+    document.getElementById('cs-concept-count').textContent = items.length;
+    var tbody = document.getElementById('expression-tbody');
+    if (items.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="8" class="empty-state"><p>No concepts in this concept set</p></td></tr>';
+      return;
+    }
+    tbody.innerHTML = items.map(function(item, i) {
+      var c = item.concept;
+      return '<tr data-idx="' + i + '">' +
+        '<td>' + escapeHtml(c.vocabularyId) + '</td>' +
+        '<td>' + escapeHtml(c.conceptName) + '</td>' +
+        '<td>' + escapeHtml(c.conceptCode) + '</td>' +
+        '<td>' + escapeHtml(c.domainId) + '</td>' +
+        '<td class="td-center">' + standardBadge(c) + '</td>' +
+        '<td class="td-center">' + (item.isExcluded ? '<span class="flag-yes-danger">Yes</span>' : '<span class="flag-no">No</span>') + '</td>' +
+        '<td class="td-center">' + (item.includeDescendants ? '<span class="' + (item.isExcluded ? 'flag-yes-danger' : 'flag-yes') + '">Yes</span>' : '<span class="flag-no">No</span>') + '</td>' +
+        '<td class="td-center">' + (item.includeMapped ? '<span class="' + (item.isExcluded ? 'flag-yes-danger' : 'flag-yes') + '">Yes</span>' : '<span class="flag-no">No</span>') + '</td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  function renderResolvedTable() {
+    if (!selectedConceptSet) return;
+    var tbody = document.getElementById('resolved-tbody');
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">' +
+      '<p>Resolved concepts are not yet available.</p>' +
+      '<p style="font-size:12px; margin-top:4px; color:var(--text-muted)">Concept resolution requires the INDICATE Data Dictionary application with an OMOP vocabulary database.</p>' +
+      '</td></tr>';
+    document.getElementById('cs-concept-count').textContent = '0';
+    document.getElementById('resolved-concept-detail-body').innerHTML =
+      '<div class="empty-state"><p>Select a concept to view details</p></div>';
+  }
+
+  function showResolvedConceptDetail(concept) {
+    var el = document.getElementById('resolved-concept-detail-body');
+    var athenaUrl = 'https://athena.ohdsi.org/search-terms/terms/' + concept.conceptId;
+    el.innerHTML =
+      '<div class="concept-detail-grid">' +
+      '<div class="detail-item"><label>Concept Name</label><div class="value">' + escapeHtml(concept.conceptName) + '</div></div>' +
+      '<div class="detail-item"><label>Concept ID</label><div class="value"><a href="' + athenaUrl + '" target="_blank">' + concept.conceptId + ' &#8599;</a></div></div>' +
+      '<div class="detail-item"><label>Vocabulary</label><div class="value">' + escapeHtml(concept.vocabularyId) + '</div></div>' +
+      '<div class="detail-item"><label>Concept Code</label><div class="value">' + escapeHtml(concept.conceptCode) + '</div></div>' +
+      '<div class="detail-item"><label>Domain</label><div class="value">' + escapeHtml(concept.domainId) + '</div></div>' +
+      '<div class="detail-item"><label>Concept Class</label><div class="value">' + escapeHtml(concept.conceptClassId) + '</div></div>' +
+      '<div class="detail-item"><label>Standard</label><div class="value">' + standardBadge(concept) + '</div></div>' +
+      '<div class="detail-item"><label>Validity</label><div class="value">' + validBadge(concept) + '</div></div>' +
+      '<div class="detail-item"><label>Valid Start</label><div class="value">' + escapeHtml(concept.validStartDate) + '</div></div>' +
+      '<div class="detail-item"><label>Valid End</label><div class="value">' + escapeHtml(concept.validEndDate) + '</div></div>' +
+      '</div>';
+  }
+
+  function renderCSInfoGrid(cs) {
+    var info = document.getElementById('cs-info-grid');
+    var details = cs.metadata && cs.metadata.createdByDetails;
+    var rawUrl = 'https://raw.githubusercontent.com/indicate-eu/data-dictionary-content/main/concept_sets/' + cs.id + '.json';
+    var authorLink = details
+      ? '<a href="#" class="author-link" id="cs-author-link">' + escapeHtml(cs.createdBy || '') + '</a>'
+      : escapeHtml(cs.createdBy || '');
+    info.innerHTML =
+      '<div class="detail-item"><label>ID</label><div class="value">' + cs.id + ' &mdash; <a href="' + rawUrl + '" target="_blank">View JSON <i class="fas fa-external-link-alt" style="font-size:11px"></i></a></div></div>' +
+      '<div class="detail-item"><label>Version</label><div class="value">' + escapeHtml(cs.version) + '</div></div>' +
+      '<div class="detail-item"><label>Created By</label><div class="value">' + authorLink + '</div></div>' +
+      '<div class="detail-item"><label>Created Date</label><div class="value">' + escapeHtml(cs.createdDate || '') + '</div></div>' +
+      '<div class="detail-item"><label>Modified Date</label><div class="value">' + escapeHtml(cs.modifiedDate || '') + '</div></div>' +
+      '<div class="detail-item"><label>Tool</label><div class="value">' + escapeHtml(cs.createdByTool || '') + '</div></div>' +
+      '<div class="detail-item"><label>Status</label><div class="value">' + statusBadge(cs.reviewStatus) + '</div></div>';
+  }
+
+  function renderCommentsTab(cs) {
+    var el = document.getElementById('cs-comments-body');
+    var tr = t(cs);
+    var desc = cs.description || '';
+    var longDesc = (tr && tr.longDescription) || '';
+    if (!desc && !longDesc) {
+      el.innerHTML = '<div class="empty-state"><p>No description available for this concept set.</p></div>';
+      return;
+    }
+    var html = '';
+    if (desc) {
+      html += '<div style="margin-bottom:16px"><h4 style="font-size:14px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px">Description</h4>';
+      html += '<div style="line-height:1.7">' + renderMarkdown(desc) + '</div></div>';
+    }
+    if (longDesc) {
+      html += '<div><h4 style="font-size:14px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px">Detailed Description</h4>';
+      html += '<div style="line-height:1.7">' + renderMarkdown(longDesc) + '</div></div>';
+    }
+    el.innerHTML = html;
+  }
+
+  function renderStatisticsTab(cs) {
+    var el = document.getElementById('cs-statistics-body');
+    var stats = cs.metadata && cs.metadata.distributionStats;
+    if (!stats || Object.keys(stats).length === 0) {
+      el.innerHTML = '<div class="empty-state">' +
+        '<i class="fas fa-chart-bar" style="font-size:32px; color:var(--gray-300); display:block; margin-bottom:12px"></i>' +
+        '<p>No distribution statistics available for this concept set.</p>' +
+        '<p style="font-size:12px; margin-top:8px; color:var(--text-muted)">Statistics will appear here once computed via the INDICATE Data Dictionary application.</p>' +
+        '</div>';
+      return;
+    }
+    el.innerHTML = '<pre style="font-size:13px; overflow:auto; max-height:400px; background:var(--gray-light); padding:16px; border-radius:var(--radius)">' +
+      escapeHtml(JSON.stringify(stats, null, 2)) + '</pre>';
+  }
+
+  function getReviewsForCS(cs) {
+    var persisted = (cs.metadata && cs.metadata.reviews) || [];
+    var session = sessionReviews[cs.id] || [];
+    return persisted.concat(session);
+  }
+
+  function renderReviewTab(cs) {
+    var reviews = getReviewsForCS(cs);
+    document.getElementById('cs-review-count').textContent = reviews.length;
+    if (reviews.length === 0) {
+      document.getElementById('cs-review-empty').style.display = '';
+      document.getElementById('cs-review-table-wrap').style.display = 'none';
+      return;
+    }
+    document.getElementById('cs-review-empty').style.display = 'none';
+    document.getElementById('cs-review-table-wrap').style.display = '';
+    var tbody = document.getElementById('cs-review-tbody');
+    tbody.innerHTML = reviews.map(function(r) {
+      var reviewer = r.reviewer || {};
+      var name = ((reviewer.firstName || '') + ' ' + (reviewer.lastName || '')).trim();
+      return '<tr>' +
+        '<td>' + escapeHtml(name || 'Unknown') + '</td>' +
+        '<td>' + escapeHtml(r.reviewDate || '') + '</td>' +
+        '<td class="td-center">' + statusBadge(r.status) + '</td>' +
+        '<td>' + escapeHtml(r.version || '') + '</td>' +
+        '<td class="desc-truncated">' + escapeHtml(truncate(r.comments || '', 150)) + '</td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  // ==================== CS DETAIL: MAIN ====================
   function showCSDetail(id) {
-    const cs = conceptSets.find(c => c.id === id);
+    var cs = conceptSets.find(function(c) { return c.id === id; });
     if (!cs) return;
     selectedConceptSet = cs;
-    const tr = t(cs);
+    var tr = t(cs);
 
     document.getElementById('cs-list-view').classList.add('hidden');
     document.getElementById('cs-detail-view').classList.add('active');
@@ -1155,95 +1659,198 @@
       '<span class="badge badge-category">' + escapeHtml(tr.category || '') + '</span>' +
       '<span class="badge badge-category">' + escapeHtml(tr.subcategory || '') + '</span>';
 
-    // Info grid
-    const info = document.getElementById('cs-info-grid');
-    const details = cs.metadata && cs.metadata.createdByDetails;
-    const rawUrl = 'https://raw.githubusercontent.com/indicate-eu/data-dictionary-content/main/concept_sets/' + cs.id + '.json';
-    info.innerHTML =
-      '<div class="detail-item"><label>ID</label><div class="value">' + cs.id + ' &mdash; <a href="' + rawUrl + '" target="_blank">View JSON <i class="fas fa-external-link-alt" style="font-size:11px"></i></a></div></div>' +
-      '<div class="detail-item"><label>Version</label><div class="value">' + escapeHtml(cs.version) + '</div></div>' +
-      '<div class="detail-item"><label>Created By</label><div class="value">' + escapeHtml(cs.createdBy || '') +
-        (details && details.orcid ? ' <a href="https://orcid.org/' + details.orcid + '" target="_blank">ORCID</a>' : '') +
-      '</div></div>' +
-      (details ? '<div class="detail-item"><label>Affiliation</label><div class="value">' + escapeHtml(details.affiliation || '') + '</div></div>' : '') +
-      '<div class="detail-item"><label>Created Date</label><div class="value">' + escapeHtml(cs.createdDate || '') + '</div></div>' +
-      '<div class="detail-item"><label>Modified Date</label><div class="value">' + escapeHtml(cs.modifiedDate || '') + '</div></div>' +
-      '<div class="detail-item"><label>Tool</label><div class="value">' + escapeHtml(cs.createdByTool || '') + '</div></div>' +
-      '<div class="detail-item"><label>Status</label><div class="value">' + statusBadge(cs.reviewStatus) + '</div></div>';
+    // Reset to Concepts tab, Resolved mode
+    switchCSDetailTab('concepts');
+    switchConceptMode('resolved');
 
-    // Description
-    const descBlock = document.getElementById('cs-description-block');
-    if (cs.description) {
-      descBlock.innerHTML = '<div class="detail-item"><label>Description</label><div class="value">' + escapeHtml(cs.description) + '</div></div>';
-    } else {
-      descBlock.innerHTML = '';
-    }
-
-    // Concepts table
-    const items = (cs.expression && cs.expression.items) || [];
-    document.getElementById('cs-concept-count').textContent = items.length;
-    const ctbody = document.getElementById('concepts-tbody');
-    ctbody.innerHTML = items.map((item, i) => {
-      const c = item.concept;
-      return '<tr data-idx="' + i + '">' +
-        '<td>' + escapeHtml(c.vocabularyId) + '</td>' +
-        '<td>' + escapeHtml(c.conceptName) + '</td>' +
-        '<td>' + escapeHtml(c.conceptCode) + '</td>' +
-        '<td>' + escapeHtml(c.domainId) + '</td>' +
-        '<td class="td-center">' + standardBadge(c) + '</td>' +
-        '<td>' + conceptFlags(item) + '</td>' +
-        '</tr>';
-    }).join('');
-
-    if (items.length === 0) {
-      ctbody.innerHTML = '<tr><td colspan="6" class="empty-state"><p>No concepts in this concept set</p></td></tr>';
-    }
-
-    // Clear concept detail
-    document.getElementById('concept-detail-body').innerHTML =
-      '<div class="empty-state"><p>Select a concept to view details</p></div>';
-  }
-
-  function showConceptDetail(idx) {
-    if (!selectedConceptSet) return;
-    const items = selectedConceptSet.expression && selectedConceptSet.expression.items;
-    if (!items || !items[idx]) return;
-    const item = items[idx];
-    const c = item.concept;
-    const el = document.getElementById('concept-detail-body');
-
-    const athenaUrl = 'https://athena.ohdsi.org/search-terms/terms/' + c.conceptId;
-
-    el.innerHTML =
-      '<div class="concept-detail-grid">' +
-      '<div class="detail-item"><label>Concept Name</label><div class="value">' + escapeHtml(c.conceptName) + '</div></div>' +
-      '<div class="detail-item"><label>Concept ID</label><div class="value"><a href="' + athenaUrl + '" target="_blank">' + c.conceptId + ' &#8599;</a></div></div>' +
-      '<div class="detail-item"><label>Vocabulary</label><div class="value">' + escapeHtml(c.vocabularyId) + '</div></div>' +
-      '<div class="detail-item"><label>Concept Code</label><div class="value">' + escapeHtml(c.conceptCode) + '</div></div>' +
-      '<div class="detail-item"><label>Domain</label><div class="value">' + escapeHtml(c.domainId) + '</div></div>' +
-      '<div class="detail-item"><label>Concept Class</label><div class="value">' + escapeHtml(c.conceptClassId) + '</div></div>' +
-      '<div class="detail-item"><label>Standard</label><div class="value">' + standardBadge(c) + '</div></div>' +
-      '<div class="detail-item"><label>Validity</label><div class="value">' + validBadge(c) + '</div></div>' +
-      '<div class="detail-item"><label>Valid Start</label><div class="value">' + escapeHtml(c.validStartDate) + '</div></div>' +
-      '<div class="detail-item"><label>Valid End</label><div class="value">' + escapeHtml(c.validEndDate) + '</div></div>' +
-      '</div>' +
-      '<hr style="margin:16px 0; border:none; border-top:1px solid var(--gray-200)">' +
-      '<div style="display:flex; gap:24px; align-items:center; flex-wrap:wrap">' +
-      '<div class="detail-item"><label>Excluded</label><div class="value">' + (item.isExcluded ? '<span class="badge badge-invalid">Yes</span>' : '<span class="badge badge-valid">No</span>') + '</div></div>' +
-      '<div class="detail-item"><label>Include Descendants</label><div class="value">' + (item.includeDescendants ? '<span class="badge badge-standard">Yes</span>' : '<span class="badge badge-count">No</span>') + '</div></div>' +
-      '<div class="detail-item"><label>Include Mapped</label><div class="value">' + (item.includeMapped ? '<span class="badge badge-standard">Yes</span>' : '<span class="badge badge-count">No</span>') + '</div></div>' +
-      '</div>';
-
-    // Highlight row
-    document.querySelectorAll('#concepts-tbody tr').forEach(tr => tr.style.background = '');
-    const row = document.querySelector('#concepts-tbody tr[data-idx="' + idx + '"]');
-    if (row) row.style.background = 'var(--primary-light)';
+    // Render all tabs
+    renderCSInfoGrid(cs);
+    renderCommentsTab(cs);
+    renderStatisticsTab(cs);
+    renderReviewTab(cs);
   }
 
   function hideCSDetail() {
     document.getElementById('cs-detail-view').classList.remove('active');
     document.getElementById('cs-list-view').classList.remove('hidden');
     selectedConceptSet = null;
+    csDetailTab = 'concepts';
+    csConceptMode = 'resolved';
+  }
+
+  // ==================== USER PROFILE ====================
+  function getUserProfile() {
+    try { return JSON.parse(localStorage.getItem('indicate_reviewer') || '{}'); } catch(e) { return {}; }
+  }
+
+  function saveUserProfile(profile) {
+    try { localStorage.setItem('indicate_reviewer', JSON.stringify(profile)); } catch(e) {}
+    updateUserBadge();
+  }
+
+  function updateUserBadge() {
+    var p = getUserProfile();
+    var name = ((p.firstName || '') + ' ' + (p.lastName || '')).trim();
+    document.getElementById('user-badge-name').textContent = name || 'Guest';
+  }
+
+  function openAuthorModal(cs) {
+    var d = cs && cs.metadata && cs.metadata.createdByDetails;
+    if (!d) return;
+    var rows = '';
+    if (d.firstName || d.lastName) rows += '<div class="author-detail-row"><label>Name</label><div class="value">' + escapeHtml((d.firstName || '') + ' ' + (d.lastName || '')) + '</div></div>';
+    if (d.affiliation) rows += '<div class="author-detail-row"><label>Affiliation</label><div class="value">' + escapeHtml(d.affiliation) + '</div></div>';
+    if (d.profession) rows += '<div class="author-detail-row"><label>Profession</label><div class="value">' + escapeHtml(d.profession) + '</div></div>';
+    if (d.orcid) rows += '<div class="author-detail-row"><label>ORCID</label><div class="value"><a href="https://orcid.org/' + d.orcid + '" target="_blank">' + escapeHtml(d.orcid) + ' <i class="fas fa-external-link-alt" style="font-size:11px"></i></a></div></div>';
+    document.getElementById('author-modal-body').innerHTML = rows || '<p style="color:var(--text-muted)">No author details available.</p>';
+    document.getElementById('author-modal').style.display = 'flex';
+  }
+
+  function closeAuthorModal() {
+    document.getElementById('author-modal').style.display = 'none';
+  }
+
+  function getKnownAuthors() {
+    var seen = {};
+    var authors = [];
+    conceptSets.forEach(function(cs) {
+      var d = cs.metadata && cs.metadata.createdByDetails;
+      if (!d || !d.firstName || !d.lastName) return;
+      var key = (d.firstName + ' ' + d.lastName).toLowerCase();
+      if (seen[key]) return;
+      seen[key] = true;
+      authors.push({ firstName: d.firstName, lastName: d.lastName, affiliation: d.affiliation || '', profession: d.profession || '', orcid: d.orcid || '' });
+    });
+    authors.sort(function(a, b) { return (a.lastName + a.firstName).localeCompare(b.lastName + b.firstName); });
+    return authors;
+  }
+
+  function populateAuthorSelect(currentProfile) {
+    var select = document.getElementById('profile-select-author');
+    var authors = getKnownAuthors();
+    select.innerHTML = '<option value="">— Custom —</option>';
+    authors.forEach(function(a, i) {
+      var opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = a.firstName + ' ' + a.lastName + (a.affiliation ? ' — ' + a.affiliation : '');
+      select.appendChild(opt);
+    });
+    // Pre-select if current profile matches a known author
+    if (currentProfile && currentProfile.firstName && currentProfile.lastName) {
+      var key = (currentProfile.firstName + ' ' + currentProfile.lastName).toLowerCase();
+      authors.forEach(function(a, i) {
+        if ((a.firstName + ' ' + a.lastName).toLowerCase() === key) select.value = i;
+      });
+    }
+    select._authors = authors;
+  }
+
+  function openProfileModal() {
+    var p = getUserProfile();
+    populateAuthorSelect(p);
+    document.getElementById('profile-firstName').value = p.firstName || '';
+    document.getElementById('profile-lastName').value = p.lastName || '';
+    document.getElementById('profile-affiliation').value = p.affiliation || '';
+    document.getElementById('profile-profession').value = p.profession || '';
+    document.getElementById('profile-orcid').value = p.orcid || '';
+    document.getElementById('profile-modal').style.display = '';
+  }
+
+  function closeProfileModal() {
+    document.getElementById('profile-modal').style.display = 'none';
+  }
+
+  function saveProfileFromModal() {
+    var firstName = document.getElementById('profile-firstName').value.trim();
+    var lastName = document.getElementById('profile-lastName').value.trim();
+    if (!firstName || !lastName) {
+      alert('First name and last name are required.');
+      return;
+    }
+    saveUserProfile({
+      firstName: firstName,
+      lastName: lastName,
+      affiliation: document.getElementById('profile-affiliation').value.trim(),
+      profession: document.getElementById('profile-profession').value.trim(),
+      orcid: document.getElementById('profile-orcid').value.trim()
+    });
+    closeProfileModal();
+  }
+
+  // ==================== REVIEW MODAL ====================
+  function openReviewModal() {
+    var p = getUserProfile();
+    var name = ((p.firstName || '') + ' ' + (p.lastName || '')).trim();
+    if (!name) {
+      alert('Please set up your profile first (click on "Guest" in the header).');
+      openProfileModal();
+      return;
+    }
+    // Display user info read-only
+    document.getElementById('review-user-name').textContent = name;
+    var details = [];
+    if (p.affiliation) details.push(p.affiliation);
+    if (p.profession) details.push(p.profession);
+    if (p.orcid) details.push('ORCID: ' + p.orcid);
+    document.getElementById('review-user-details').textContent = details.join(' · ') || '';
+
+    document.getElementById('review-status').value = 'approved';
+    document.getElementById('review-comments').value = '';
+    document.getElementById('review-preview').innerHTML = '';
+    document.getElementById('review-modal').style.display = '';
+  }
+
+  function closeReviewModal() {
+    document.getElementById('review-modal').style.display = 'none';
+  }
+
+  function submitReview() {
+    var p = getUserProfile();
+    var reviewerInfo = {
+      firstName: p.firstName || '',
+      lastName: p.lastName || '',
+      affiliation: p.affiliation || '',
+      profession: p.profession || '',
+      orcid: p.orcid || ''
+    };
+
+    var existingReviews = getReviewsForCS(selectedConceptSet);
+    var maxId = existingReviews.reduce(function(max, r) { return Math.max(max, r.reviewId || 0); }, 0);
+    var review = {
+      reviewId: maxId + 1,
+      reviewer: reviewerInfo,
+      reviewDate: new Date().toISOString().split('T')[0],
+      status: document.getElementById('review-status').value,
+      comments: document.getElementById('review-comments').value,
+      version: selectedConceptSet.version || '1.0.0'
+    };
+
+    if (!sessionReviews[selectedConceptSet.id]) sessionReviews[selectedConceptSet.id] = [];
+    sessionReviews[selectedConceptSet.id].push(review);
+
+    closeReviewModal();
+    renderReviewTab(selectedConceptSet);
+    exportConceptSetJSON();
+  }
+
+  // ==================== JSON EXPORT ====================
+  function exportConceptSetJSON() {
+    if (!selectedConceptSet) return;
+    var cs = JSON.parse(JSON.stringify(selectedConceptSet));
+    var sessionRevs = sessionReviews[cs.id] || [];
+    if (sessionRevs.length > 0) {
+      if (!cs.metadata) cs.metadata = {};
+      if (!cs.metadata.reviews) cs.metadata.reviews = [];
+      cs.metadata.reviews = cs.metadata.reviews.concat(sessionRevs);
+    }
+    var json = JSON.stringify(cs, null, 2);
+    var blob = new Blob([json], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = cs.id + '.json';
+    a.click();
+    URL.revokeObjectURL(url);
   }
 
   // ==================== PROJECTS ====================
@@ -1446,11 +2053,74 @@
   // CS back button
   document.getElementById('cs-back').addEventListener('click', hideCSDetail);
 
-  // Concept row click -> concept detail
-  document.getElementById('concepts-tbody').addEventListener('click', e => {
+  // CS detail tabs
+  document.getElementById('cs-detail-tabs').addEventListener('click', e => {
+    const tab = e.target.closest('.panel-tab');
+    if (!tab) return;
+    switchCSDetailTab(tab.dataset.tab);
+  });
+
+  // Expression/Resolved toggle
+  document.getElementById('cs-concept-toggle-bar').addEventListener('click', e => {
+    const btn = e.target.closest('.toggle-btn');
+    if (!btn) return;
+    switchConceptMode(btn.dataset.mode);
+  });
+
+  // Resolved concept row click -> concept detail
+  document.getElementById('resolved-tbody').addEventListener('click', e => {
     const tr = e.target.closest('tr[data-idx]');
     if (!tr) return;
-    showConceptDetail(parseInt(tr.dataset.idx));
+    // Future: showResolvedConceptDetail when data exists
+  });
+
+  // Export JSON
+  document.getElementById('cs-export-json').addEventListener('click', exportConceptSetJSON);
+
+  // Add Review button
+  document.getElementById('cs-add-review-btn').addEventListener('click', openReviewModal);
+
+  // Author modal events
+  document.getElementById('cs-info-grid').addEventListener('click', function(e) {
+    var link = e.target.closest('#cs-author-link');
+    if (link) { e.preventDefault(); openAuthorModal(selectedConceptSet); }
+  });
+  document.getElementById('author-modal-close').addEventListener('click', closeAuthorModal);
+  document.getElementById('author-modal-ok').addEventListener('click', closeAuthorModal);
+  document.getElementById('author-modal').addEventListener('click', e => {
+    if (e.target === document.getElementById('author-modal')) closeAuthorModal();
+  });
+
+  // User profile modal events
+  document.getElementById('user-badge').addEventListener('click', openProfileModal);
+  document.getElementById('profile-modal-close').addEventListener('click', closeProfileModal);
+  document.getElementById('profile-cancel').addEventListener('click', closeProfileModal);
+  document.getElementById('profile-save').addEventListener('click', saveProfileFromModal);
+  document.getElementById('profile-select-author').addEventListener('change', function() {
+    var select = this;
+    var authors = select._authors;
+    if (select.value === '' || !authors) return;
+    var a = authors[parseInt(select.value)];
+    if (!a) return;
+    document.getElementById('profile-firstName').value = a.firstName;
+    document.getElementById('profile-lastName').value = a.lastName;
+    document.getElementById('profile-affiliation').value = a.affiliation;
+    document.getElementById('profile-profession').value = a.profession;
+    document.getElementById('profile-orcid').value = a.orcid;
+  });
+  document.getElementById('profile-modal').addEventListener('click', e => {
+    if (e.target === document.getElementById('profile-modal')) closeProfileModal();
+  });
+
+  // Review modal events
+  document.getElementById('review-modal-close').addEventListener('click', closeReviewModal);
+  document.getElementById('review-cancel').addEventListener('click', closeReviewModal);
+  document.getElementById('review-submit').addEventListener('click', submitReview);
+  document.getElementById('review-modal').addEventListener('click', e => {
+    if (e.target === document.getElementById('review-modal')) closeReviewModal();
+  });
+  document.getElementById('review-comments').addEventListener('input', e => {
+    document.getElementById('review-preview').innerHTML = renderMarkdown(e.target.value);
   });
 
   // Project card click
@@ -1560,15 +2230,19 @@
     URL.revokeObjectURL(url);
   });
 
-  // Keyboard: Escape to go back
+  // Keyboard: Escape to go back (modals have priority)
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
-      if (selectedConceptSet) hideCSDetail();
+      if (document.getElementById('author-modal').style.display !== 'none') closeAuthorModal();
+      else if (document.getElementById('profile-modal').style.display !== 'none') closeProfileModal();
+      else if (document.getElementById('review-modal').style.display !== 'none') closeReviewModal();
+      else if (selectedConceptSet) hideCSDetail();
       else if (selectedProject) hideProjectDetail();
     }
   });
 
   // ==================== INIT ====================
+  updateUserBadge();
   loadData();
 })();
 </script>
