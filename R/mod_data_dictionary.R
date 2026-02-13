@@ -1310,71 +1310,118 @@ mod_data_dictionary_ui <- function(id, i18n) {
           id = "export_concept_set_modal",
           title = i18n$t("export_concept_set"),
           body = tagList(
+            # Step 1: Choose export method
             tags$div(
-              class = "export-options-container",
-
-              # Option 1: OHDSI JSON (clipboard)
+              id = ns("export_step_method"),
               tags$div(
-                class = "export-option",
-                onclick = sprintf("Shiny.setInputValue('%s', 'json_clipboard', {priority: 'event'});", ns("export_action")),
+                class = "export-options-container",
+
+                # Option 1: OHDSI JSON (clipboard)
                 tags$div(
-                  class = "export-option-icon",
-                  tags$i(class = "fas fa-clipboard", style = "color: #0f60af;")
+                  class = "export-option",
+                  onclick = sprintf("Shiny.setInputValue('%s', 'json_clipboard', {priority: 'event'});", ns("export_method_choice")),
+                  tags$div(
+                    class = "export-option-icon",
+                    tags$i(class = "fas fa-clipboard", style = "color: #0f60af;")
+                  ),
+                  tags$div(
+                    class = "export-option-content",
+                    tags$h5(class = "export-option-title", i18n$t("export_json_clipboard")),
+                    tags$p(class = "export-option-subtitle", i18n$t("export_json_clipboard_desc"))
+                  )
                 ),
+
+                # Option 2: OHDSI JSON (file)
                 tags$div(
-                  class = "export-option-content",
-                  tags$h5(class = "export-option-title", i18n$t("export_json_clipboard")),
-                  tags$p(class = "export-option-subtitle", i18n$t("export_json_clipboard_desc"))
+                  class = "export-option",
+                  onclick = sprintf("Shiny.setInputValue('%s', 'json_file', {priority: 'event'});", ns("export_method_choice")),
+                  tags$div(
+                    class = "export-option-icon",
+                    tags$i(class = "fas fa-file-download", style = "color: #28a745;")
+                  ),
+                  tags$div(
+                    class = "export-option-content",
+                    tags$h5(class = "export-option-title", i18n$t("export_json_file")),
+                    tags$p(class = "export-option-subtitle", i18n$t("export_json_file_desc"))
+                  )
+                ),
+
+                # Option 3: Concept list (comma separated)
+                tags$div(
+                  class = "export-option",
+                  onclick = sprintf("Shiny.setInputValue('%s', 'concept_list', {priority: 'event'});", ns("export_action")),
+                  tags$div(
+                    class = "export-option-icon",
+                    tags$i(class = "fas fa-list", style = "color: #7c3aed;")
+                  ),
+                  tags$div(
+                    class = "export-option-content",
+                    tags$h5(class = "export-option-title", i18n$t("export_concept_list")),
+                    tags$p(class = "export-option-subtitle", i18n$t("export_concept_list_desc"))
+                  )
+                ),
+
+                # Option 4: SQL query
+                tags$div(
+                  class = "export-option",
+                  onclick = sprintf("Shiny.setInputValue('%s', 'sql_query', {priority: 'event'});", ns("export_action")),
+                  tags$div(
+                    class = "export-option-icon",
+                    tags$i(class = "fas fa-database", style = "color: #ffc107;")
+                  ),
+                  tags$div(
+                    class = "export-option-content",
+                    tags$h5(class = "export-option-title", i18n$t("export_sql")),
+                    tags$p(class = "export-option-subtitle", i18n$t("export_sql_desc"))
+                  )
                 )
-              ),
+              )
+            ),
 
-              # Option 2: OHDSI JSON (file)
+            # Step 2: Choose JSON format (for clipboard and file export)
+            shinyjs::hidden(
               tags$div(
-                class = "export-option",
-                onclick = sprintf("Shiny.setInputValue('%s', 'json_file', {priority: 'event'});", ns("export_action")),
+                id = ns("export_step_format"),
                 tags$div(
-                  class = "export-option-icon",
-                  tags$i(class = "fas fa-file-download", style = "color: #28a745;")
-                ),
-                tags$div(
-                  class = "export-option-content",
-                  tags$h5(class = "export-option-title", i18n$t("export_json_file")),
-                  tags$p(class = "export-option-subtitle", i18n$t("export_json_file_desc"))
-                )
-              ),
+                  class = "export-options-container",
 
-              # Option 3: Concept list (comma separated)
-              tags$div(
-                class = "export-option",
-                onclick = sprintf("Shiny.setInputValue('%s', 'concept_list', {priority: 'event'});", ns("export_action")),
-                tags$div(
-                  class = "export-option-icon",
-                  tags$i(class = "fas fa-list", style = "color: #7c3aed;")
-                ),
-                tags$div(
-                  class = "export-option-content",
-                  tags$h5(class = "export-option-title", i18n$t("export_concept_list")),
-                  tags$p(class = "export-option-subtitle", i18n$t("export_concept_list_desc"))
-                )
-              ),
+                  # Format 1: INDICATE (Concept Set Specification with metadata)
+                  tags$div(
+                    class = "export-option",
+                    onclick = sprintf("Shiny.setInputValue('%s', 'indicate', {priority: 'event'});", ns("export_format_choice")),
+                    tags$div(
+                      class = "export-option-icon",
+                      tags$i(class = "fas fa-file-code", style = "color: #0f60af;")
+                    ),
+                    tags$div(
+                      class = "export-option-content",
+                      tags$h5(class = "export-option-title", i18n$t("export_format_indicate")),
+                      tags$p(class = "export-option-subtitle", i18n$t("export_format_indicate_desc"))
+                    )
+                  ),
 
-              # Option 4: SQL query
-              tags$div(
-                class = "export-option",
-                onclick = sprintf("Shiny.setInputValue('%s', 'sql_query', {priority: 'event'});", ns("export_action")),
-                tags$div(
-                  class = "export-option-icon",
-                  tags$i(class = "fas fa-database", style = "color: #ffc107;")
-                ),
-                tags$div(
-                  class = "export-option-content",
-                  tags$h5(class = "export-option-title", i18n$t("export_sql")),
-                  tags$p(class = "export-option-subtitle", i18n$t("export_sql_desc"))
+                  # Format 2: ATLAS (expression only, UPPER_SNAKE_CASE fields)
+                  tags$div(
+                    class = "export-option",
+                    onclick = sprintf("Shiny.setInputValue('%s', 'atlas', {priority: 'event'});", ns("export_format_choice")),
+                    tags$div(
+                      class = "export-option-icon",
+                      tags$i(class = "fas fa-atlas", style = "color: #28a745;")
+                    ),
+                    tags$div(
+                      class = "export-option-content",
+                      tags$h5(class = "export-option-title", i18n$t("export_format_atlas")),
+                      tags$p(class = "export-option-subtitle", i18n$t("export_format_atlas_desc"))
+                    )
+                  )
                 )
               )
             )
           ),
           footer = tagList(
+            shinyjs::hidden(
+              actionButton(ns("export_back"), i18n$t("back"), class = "btn-secondary-custom", icon = icon("arrow-left"))
+            ),
             actionButton(ns("cancel_export"), i18n$t("cancel"), class = "btn-secondary-custom", icon = icon("times"))
           ),
           size = "medium",
@@ -2347,6 +2394,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
     ## Export State ----
     export_zip_path <- reactiveVal(NULL)
+    export_method <- reactiveVal(NULL)  # "json_clipboard" or "json_file"
 
     ## Import State ----
     import_git_updates <- reactiveVal(NULL)
@@ -4002,7 +4050,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           # Resolve concept set - this will include descendants and mapped, exclude is_excluded
           resolved <- resolve_concept_set(concepts)
 
-          if (is.null(resolved) || nrow(resolved) == 0) return(NULL)
+          if (is.null(resolved) || nrow(resolved) == 0) {
+            return(create_empty_datatable(as.character(i18n$t("no_concepts"))))
+          }
 
           # Transform standard_concept to readable text
           standard_display <- dplyr::case_when(
@@ -4014,7 +4064,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
           # Prepare display data for view mode
           display_data <- data.frame(
-            concept_id = resolved$concept_id,
+            concept_id = as.character(resolved$concept_id),
             vocabulary_id = factor(resolved$vocabulary_id),
             concept_name = resolved$concept_name,
             concept_code = resolved$concept_code,
@@ -4036,7 +4086,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
           # Prepare display data - vocabulary_id before concept_name
           display_data <- data.frame(
-            concept_id = concepts$concept_id,
+            concept_id = as.character(concepts$concept_id),
             vocabulary_id = factor(concepts$vocabulary_id),
             concept_name = concepts$concept_name,
             concept_code = concepts$concept_code,
@@ -4138,7 +4188,11 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
               list(targets = 6, width = "13%", className = "dt-center")
             ),
             escape = TRUE,
-            show_colvis = TRUE
+            show_colvis = TRUE,
+            search_columns = list(
+              NULL, NULL, NULL, NULL, NULL, NULL,
+              list(search = "[\"Standard\"]")
+            )
           )
 
           # Apply standard concept column styling
@@ -4868,6 +4922,11 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       cs_id <- viewing_concept_set_id()
       if (is.null(cs_id)) return()
 
+      # Reset modal to step 1
+      export_method(NULL)
+      shinyjs::show("export_step_method")
+      shinyjs::hide("export_step_format")
+      shinyjs::hide("export_back")
       show_modal(ns("export_concept_set_modal"))
     }, ignoreInit = TRUE)
 
@@ -4876,7 +4935,96 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       hide_modal(ns("export_concept_set_modal"))
     }, ignoreInit = TRUE)
 
-    ### Handle export actions
+    ### Export step 1 -> step 2: method chosen (clipboard or file)
+    observe_event(input$export_method_choice, {
+      export_method(input$export_method_choice)
+      shinyjs::hide("export_step_method")
+      shinyjs::show("export_step_format")
+      shinyjs::show("export_back")
+    }, ignoreInit = TRUE)
+
+    ### Export back button: step 2 -> step 1
+    observe_event(input$export_back, {
+      export_method(NULL)
+      shinyjs::show("export_step_method")
+      shinyjs::hide("export_step_format")
+      shinyjs::hide("export_back")
+    }, ignoreInit = TRUE)
+
+    ### Export step 2: format chosen -> perform export
+    observe_event(input$export_format_choice, {
+      cs_id <- viewing_concept_set_id()
+      if (is.null(cs_id)) return()
+
+      method <- export_method()
+      format <- input$export_format_choice
+      if (is.null(method) || is.null(format)) return()
+
+      # Get concept set data
+      con <- get_db_connection()
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+      cs <- DBI::dbGetQuery(
+        con,
+        "SELECT * FROM concept_sets WHERE id = ?",
+        params = list(cs_id)
+      )
+
+      concepts_data <- DBI::dbGetQuery(
+        con,
+        "SELECT * FROM concept_set_items WHERE concept_set_id = ?",
+        params = list(cs_id)
+      )
+
+      # Generate JSON based on format
+      json_output <- if (format == "atlas") {
+        export_concept_set_to_atlas_json(cs_id, concepts_data)
+      } else {
+        export_concept_set_to_json(cs_id, concepts_data)
+      }
+
+      if (is.null(json_output)) {
+        hide_modal(ns("export_concept_set_modal"))
+        return()
+      }
+
+      if (method == "json_clipboard") {
+        shinyjs::runjs(sprintf(
+          "navigator.clipboard.writeText(`%s`).then(function() {
+            Shiny.setInputValue('%s', Date.now(), {priority: 'event'});
+          }).catch(function() {
+            Shiny.setInputValue('%s', Date.now(), {priority: 'event'});
+          });",
+          gsub("`", "\\\\`", json_output),
+          ns("json_copy_success"),
+          ns("copy_failed_event")
+        ))
+      } else if (method == "json_file") {
+        version <- if (!is.null(cs$version) && !is.na(cs$version)) cs$version else "1.0.0"
+        clean_name <- gsub("[^a-zA-Z0-9_-]", "_", cs$name)
+        prefix <- if (format == "atlas") "INDICATE_ATLAS" else "INDICATE"
+        filename <- paste0(prefix, "_", cs_id, "_", clean_name, "_v", version, ".json")
+
+        shinyjs::runjs(sprintf(
+          "var link = document.createElement('a');
+           link.download = '%s';
+           link.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(`%s`);
+           link.click();",
+          filename,
+          gsub("`", "\\\\`", json_output)
+        ))
+
+        showNotification(
+          paste(as.character(i18n$t("export")), ":", filename),
+          type = "message",
+          duration = 3
+        )
+      }
+
+      hide_modal(ns("export_concept_set_modal"))
+    }, ignoreInit = TRUE)
+
+    ### Handle direct export actions (concept list, SQL)
     observe_event(input$export_action, {
       cs_id <- viewing_concept_set_id()
       if (is.null(cs_id)) return()
@@ -4899,54 +5047,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         params = list(cs_id)
       )
 
-      # Perform export based on action type (allow export even with no concepts)
-      if (action == "json_clipboard") {
-        json_output <- export_concept_set_to_json(cs_id, concepts_data)
-        if (!is.null(json_output)) {
-          # Copy to clipboard using JavaScript
-          shinyjs::runjs(sprintf(
-            "navigator.clipboard.writeText(`%s`).then(function() {
-              Shiny.setInputValue('%s', Date.now(), {priority: 'event'});
-            }).catch(function() {
-              Shiny.setInputValue('%s', Date.now(), {priority: 'event'});
-            });",
-            gsub("`", "\\\\`", json_output),
-            ns("json_copy_success"),
-            ns("copy_failed_event")
-          ))
-        }
-
-      } else if (action == "json_file") {
-        json_output <- export_concept_set_to_json(cs_id, concepts_data)
-        if (!is.null(json_output)) {
-          # Create download file with INDICATE_ prefix and version
-          version <- if (!is.null(cs$version) && !is.na(cs$version)) cs$version else "1.0.0"
-          clean_name <- gsub("[^a-zA-Z0-9_-]", "_", cs$name)
-          filename <- paste0("INDICATE_", clean_name, "_v", version, ".json")
-          filepath <- file.path(tempdir(), filename)
-          writeLines(json_output, filepath, useBytes = TRUE)
-
-          # Trigger download via JavaScript
-          shinyjs::runjs(sprintf(
-            "var link = document.createElement('a');
-             link.download = '%s';
-             link.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(`%s`);
-             link.click();",
-            filename,
-            gsub("`", "\\\\`", json_output)
-          ))
-
-          showNotification(
-            paste(as.character(i18n$t("export")), ":", filename),
-            type = "message",
-            duration = 3
-          )
-        }
-
-      } else if (action == "concept_list") {
+      if (action == "concept_list") {
         concept_list <- export_concept_list(concepts_data)
         if (nchar(concept_list) > 0) {
-          # Copy to clipboard using JavaScript
           shinyjs::runjs(sprintf(
             "navigator.clipboard.writeText(`%s`).then(function() {
               Shiny.setInputValue('%s', Date.now(), {priority: 'event'});
@@ -4958,11 +5061,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
             ns("copy_failed_event")
           ))
         }
-
       } else if (action == "sql_query") {
         sql_output <- export_concept_set_to_sql(cs$name, concepts_data)
         if (!is.null(sql_output)) {
-          # Copy to clipboard using JavaScript
           shinyjs::runjs(sprintf(
             "navigator.clipboard.writeText(`%s`).then(function() {
               Shiny.setInputValue('%s', Date.now(), {priority: 'event'});
@@ -4976,7 +5077,6 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         }
       }
 
-      # Close modal
       hide_modal(ns("export_concept_set_modal"))
     }, ignoreInit = TRUE)
 
@@ -5506,25 +5606,33 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
 
       if (is.null(json_data)) return()
 
-      # Extract concept IDs from various JSON formats
-      concept_ids <- NULL
+      # Extract concept IDs and flags from various JSON formats
+      # Supports: INDICATE (expression.items), ATLAS (items), simple arrays
+      imported_items <- NULL  # list of list(concept_id, is_excluded, include_descendants, include_mapped)
 
       # Helper function to extract concept ID from a concept object (handles various naming conventions)
       extract_concept_id <- function(concept) {
         if (is.null(concept)) return(NA)
-        # Try all possible field names for concept ID
         id <- concept$CONCEPT_ID %||% concept$conceptId %||% concept$concept_id %||%
               concept[["CONCEPT_ID"]] %||% concept[["conceptId"]] %||% concept[["concept_id"]]
         if (!is.null(id) && length(id) == 1) return(as.integer(id))
         return(NA)
       }
 
-      # Check for INDICATE full format: expression.items
+      # Helper to extract flags from an item
+      extract_item_flags <- function(item) {
+        list(
+          is_excluded = isTRUE(item$isExcluded),
+          include_descendants = isTRUE(item$includeDescendants),
+          include_mapped = isTRUE(item$includeMapped)
+        )
+      }
+
+      # Check for INDICATE full format (expression.items) then ATLAS format (items)
       items_list <- NULL
       if (!is.null(json_data$expression) && !is.null(json_data$expression$items)) {
         items_list <- json_data$expression$items
       } else if (!is.null(json_data$items)) {
-        # ATLAS format or simple items format
         items_list <- json_data$items
       }
 
@@ -5533,49 +5641,63 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           # Items is a data frame (auto-converted by jsonlite for uniform arrays)
           if ("concept" %in% names(items_list)) {
             concept_col <- items_list$concept
+            id_col <- NULL
             if (is.data.frame(concept_col)) {
-              # Concept column is also a data frame - extract IDs from each row
               id_col <- concept_col$CONCEPT_ID %||% concept_col$conceptId %||% concept_col$concept_id
-              if (!is.null(id_col)) {
-                concept_ids <- as.integer(id_col)
-              }
+            }
+            if (!is.null(id_col)) {
+              imported_items <- lapply(seq_along(id_col), function(i) {
+                list(
+                  concept_id = as.integer(id_col[i]),
+                  is_excluded = isTRUE(items_list$isExcluded[i]),
+                  include_descendants = isTRUE(items_list$includeDescendants[i]),
+                  include_mapped = isTRUE(items_list$includeMapped[i])
+                )
+              })
             } else if (is.list(concept_col)) {
-              # Concept column is a list of objects
-              concept_ids <- vapply(concept_col, function(c) {
-                id <- extract_concept_id(c)
-                if (is.na(id)) NA_integer_ else as.integer(id)
-              }, FUN.VALUE = integer(1))
+              imported_items <- lapply(seq_along(concept_col), function(i) {
+                id <- extract_concept_id(concept_col[[i]])
+                c(list(concept_id = as.integer(id)), extract_item_flags(items_list[i, ]))
+              })
             }
           }
         } else if (is.list(items_list)) {
-          # Items is a list of objects (typical for non-uniform arrays or simplify=FALSE)
-          concept_ids <- vapply(items_list, function(item) {
-            if (is.null(item$concept)) return(NA_integer_)
+          imported_items <- lapply(items_list, function(item) {
+            if (is.null(item$concept)) return(NULL)
             id <- extract_concept_id(item$concept)
-            if (is.na(id)) NA_integer_ else as.integer(id)
-          }, FUN.VALUE = integer(1))
+            if (is.na(id)) return(NULL)
+            c(list(concept_id = as.integer(id)), extract_item_flags(item))
+          })
+          imported_items <- Filter(Negate(is.null), imported_items)
         }
-        concept_ids <- concept_ids[!is.na(concept_ids)]
       }
 
-      # Fallback: simple formats
-      if (is.null(concept_ids) || length(concept_ids) == 0) {
+      # Fallback: simple formats (no flags available)
+      if (is.null(imported_items) || length(imported_items) == 0) {
+        simple_ids <- NULL
         if (!is.null(json_data$concept_ids)) {
-          # Simple format with concept_ids array
-          concept_ids <- as.integer(json_data$concept_ids)
+          simple_ids <- as.integer(json_data$concept_ids)
         } else if (is.numeric(json_data) || is.integer(json_data)) {
-          # Direct array of IDs
-          concept_ids <- as.integer(json_data)
+          simple_ids <- as.integer(json_data)
+        }
+        if (!is.null(simple_ids) && length(simple_ids) > 0) {
+          imported_items <- lapply(simple_ids, function(id) {
+            list(concept_id = id, is_excluded = FALSE, include_descendants = FALSE, include_mapped = FALSE)
+          })
         }
       }
 
-      if (is.null(concept_ids) || length(concept_ids) == 0) {
+      if (is.null(imported_items) || length(imported_items) == 0) {
         shinyjs::html("import_concepts_status", as.character(i18n$t("no_concepts_found_in_json")))
         shinyjs::runjs(sprintf("$('#%s').css({'background': '#f8d7da', 'border': '1px solid #f5c6cb', 'color': '#721c24', 'display': 'block'});", ns("import_concepts_status")))
         return()
       }
 
-      concept_ids <- unique(as.integer(concept_ids))
+      # Deduplicate by concept_id (keep first occurrence)
+      concept_ids <- vapply(imported_items, function(x) x$concept_id, FUN.VALUE = integer(1))
+      dup_mask <- !duplicated(concept_ids)
+      imported_items <- imported_items[dup_mask]
+      concept_ids <- concept_ids[dup_mask]
 
       # Get existing pending additions
       existing_additions <- pending_additions()
@@ -5594,6 +5716,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         shinyjs::runjs(sprintf("$('#%s').css({'background': '#fff3cd', 'border': '1px solid #ffc107', 'color': '#856404', 'display': 'block'});", ns("import_concepts_status")))
         return()
       }
+
+      # Build flags lookup from imported items
+      flags_lookup <- setNames(imported_items, vapply(imported_items, function(x) as.character(x$concept_id), character(1)))
 
       # Load vocabulary info for new concepts
       vocabs <- load_vocabularies_from_duckdb()
@@ -5614,9 +5739,10 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
         return()
       }
 
-      # Add to pending additions
+      # Add to pending additions with flags from JSON
       new_additions <- lapply(seq_len(nrow(concepts_info)), function(i) {
         row <- concepts_info[i, ]
+        flags <- flags_lookup[[as.character(row$concept_id)]]
         list(
           concept_id = row$concept_id,
           concept_name = row$concept_name,
@@ -5625,9 +5751,9 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
           concept_class_id = row$concept_class_id,
           concept_code = row$concept_code,
           standard_concept = row$standard_concept,
-          is_excluded = FALSE,
-          include_descendants = FALSE,
-          include_mapped = FALSE
+          is_excluded = if (!is.null(flags)) flags$is_excluded else FALSE,
+          include_descendants = if (!is.null(flags)) flags$include_descendants else FALSE,
+          include_mapped = if (!is.null(flags)) flags$include_mapped else FALSE
         )
       })
 
@@ -6174,11 +6300,43 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       selected_rows <- input$concepts_table_rows_selected
       if (is.null(selected_rows) || length(selected_rows) == 0) return()
 
-      # Get concepts from database
+      # Rebuild the same concept list as displayed in the datatable
       concepts <- get_concept_set_items(cs_id)
+      deletions <- pending_deletions()
+      additions <- pending_additions()
+
+      # Filter out pending deletions (same as renderDT)
+      if (!is.null(concepts) && nrow(concepts) > 0 && length(deletions) > 0) {
+        concepts <- concepts[!as.character(concepts$concept_id) %in% deletions, ]
+      }
+
+      # Add pending additions (same as renderDT)
+      if (length(additions) > 0) {
+        additions_df <- dplyr::bind_rows(lapply(additions, function(x) {
+          data.frame(
+            concept_id = x$concept_id,
+            concept_name = if (!is.null(x$concept_name)) x$concept_name else NA_character_,
+            vocabulary_id = if (!is.null(x$vocabulary_id)) x$vocabulary_id else NA_character_,
+            concept_code = if (!is.null(x$concept_code)) x$concept_code else NA_character_,
+            domain_id = if (!is.null(x$domain_id)) x$domain_id else NA_character_,
+            concept_class_id = if (!is.null(x$concept_class_id)) x$concept_class_id else NA_character_,
+            standard_concept = if (!is.null(x$standard_concept)) x$standard_concept else NA_character_,
+            is_excluded = if (!is.null(x$is_excluded)) x$is_excluded else FALSE,
+            include_descendants = if (!is.null(x$include_descendants)) x$include_descendants else TRUE,
+            include_mapped = if (!is.null(x$include_mapped)) x$include_mapped else TRUE,
+            stringsAsFactors = FALSE
+          )
+        }))
+        if (is.null(concepts) || nrow(concepts) == 0) {
+          concepts <- additions_df
+        } else {
+          concepts <- dplyr::bind_rows(concepts, additions_df)
+        }
+      }
+
       if (is.null(concepts) || nrow(concepts) == 0) return()
 
-      # Get selected concept IDs
+      # Get selected concept IDs from the displayed data
       selected_ids <- as.character(concepts$concept_id[selected_rows])
 
       # Update pending deletions
@@ -6201,6 +6359,7 @@ mod_data_dictionary_server <- function(id, i18n, current_user = NULL) {
       )
 
       # Clear selection and refresh concepts table
+      selected_concept_id(NULL)
       proxy <- DT::dataTableProxy("concepts_table", session = session)
       datatable_select_rows(proxy, select = FALSE)
       concepts_trigger(concepts_trigger() + 1)

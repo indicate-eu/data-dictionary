@@ -509,3 +509,7 @@ applying_updates,Application des mises a jour...
 updates_applied_success,{count} mise(s) a jour appliquee(s) avec succes
 update_status_new,Nouveau
 update_status_updated,Mis a jour
+export_format_indicate,Concept Set Specification
+export_format_indicate_desc,Format OHDSI complet avec metadonnees et traductions (INDICATE)
+export_format_atlas,ATLAS
+export_format_atlas_desc,Format compatible ATLAS (expression uniquement)

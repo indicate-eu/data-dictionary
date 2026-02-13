@@ -521,7 +521,7 @@ get_concept_hierarchy_graph <- function(concept_id, max_levels_up = 5, max_level
     selected_concept <- DBI::dbGetQuery(
       con,
       "SELECT concept_id, concept_name, vocabulary_id, concept_code,
-              domain_id, concept_class_id, standard_concept
+              domain_id, concept_class_id, standard_concept, invalid_reason
        FROM concept WHERE concept_id = ?",
       params = list(as.integer(concept_id))
     )
@@ -535,7 +535,7 @@ get_concept_hierarchy_graph <- function(concept_id, max_levels_up = 5, max_level
       con,
       "SELECT ca.ancestor_concept_id AS concept_id,
               c.concept_name, c.vocabulary_id, c.concept_code,
-              c.domain_id, c.concept_class_id, c.standard_concept,
+              c.domain_id, c.concept_class_id, c.standard_concept, c.invalid_reason,
               -ca.min_levels_of_separation AS hierarchy_level
        FROM concept_ancestor ca
        JOIN concept c ON ca.ancestor_concept_id = c.concept_id
@@ -551,7 +551,7 @@ get_concept_hierarchy_graph <- function(concept_id, max_levels_up = 5, max_level
       con,
       "SELECT ca.descendant_concept_id AS concept_id,
               c.concept_name, c.vocabulary_id, c.concept_code,
-              c.domain_id, c.concept_class_id, c.standard_concept,
+              c.domain_id, c.concept_class_id, c.standard_concept, c.invalid_reason,
               ca.min_levels_of_separation AS hierarchy_level
        FROM concept_ancestor ca
        JOIN concept c ON ca.descendant_concept_id = c.concept_id
@@ -600,15 +600,29 @@ get_concept_hierarchy_graph <- function(concept_id, max_levels_up = 5, max_level
     )
 
     # Build title (tooltip) for nodes
+    standard_display <- dplyr::case_when(
+      is.na(all_concepts$standard_concept) | all_concepts$standard_concept == "" ~ "Non-standard",
+      all_concepts$standard_concept == "S" ~ "Standard",
+      all_concepts$standard_concept == "C" ~ "Classification",
+      TRUE ~ "Non-standard"
+    )
+    validity_display <- ifelse(
+      is.na(all_concepts$invalid_reason) | all_concepts$invalid_reason == "",
+      "Valid",
+      all_concepts$invalid_reason
+    )
+
     nodes$title <- paste0(
       "<div style='font-family: Arial; padding: 10px; max-width: 400px;'>",
       "<b style='color: #0f60af;'>", all_concepts$concept_name, "</b><br><br>",
-      "<table style='font-size: 12px;'>",
-      "<tr><td style='color: #666;'>OMOP ID:</td><td><b>", all_concepts$concept_id, "</b></td></tr>",
-      "<tr><td style='color: #666;'>Vocabulary:</td><td>", all_concepts$vocabulary_id, "</td></tr>",
-      "<tr><td style='color: #666;'>Code:</td><td>", all_concepts$concept_code, "</td></tr>",
-      "<tr><td style='color: #666;'>Domain:</td><td>", all_concepts$domain_id, "</td></tr>",
-      "<tr><td style='color: #666;'>Class:</td><td>", all_concepts$concept_class_id, "</td></tr>",
+      "<table style='font-size: 12px; border-spacing: 8px 2px;'>",
+      "<tr><td style='color: #666; padding-right: 12px;'>OMOP ID:</td><td><b>", all_concepts$concept_id, "</b></td></tr>",
+      "<tr><td style='color: #666; padding-right: 12px;'>Vocabulary:</td><td>", all_concepts$vocabulary_id, "</td></tr>",
+      "<tr><td style='color: #666; padding-right: 12px;'>Code:</td><td>", all_concepts$concept_code, "</td></tr>",
+      "<tr><td style='color: #666; padding-right: 12px;'>Domain:</td><td>", all_concepts$domain_id, "</td></tr>",
+      "<tr><td style='color: #666; padding-right: 12px;'>Class:</td><td>", all_concepts$concept_class_id, "</td></tr>",
+      "<tr><td style='color: #666; padding-right: 12px;'>Standard:</td><td>", standard_display, "</td></tr>",
+      "<tr><td style='color: #666; padding-right: 12px;'>Validity:</td><td>", validity_display, "</td></tr>",
       "</table></div>"
     )
 
@@ -792,25 +806,27 @@ resolve_concept_set <- function(concepts) {
     return(concepts[!concepts$is_excluded, ])
   }
 
-  # Filter out excluded concepts for resolution
-  non_excluded <- concepts[!concepts$is_excluded, ]
+  # Partition into included and excluded items
+  included_items <- concepts[!concepts$is_excluded, ]
+  excluded_items <- concepts[concepts$is_excluded, ]
 
-  if (nrow(non_excluded) == 0) {
+  if (nrow(included_items) == 0) {
     return(data.frame())
   }
 
-  # Start with base concept IDs
-  resolved_ids <- non_excluded$concept_id
+  # Start with base concept IDs for included set
+  included_ids <- included_items$concept_id
 
   tryCatch({
     con <- DBI::dbConnect(duckdb::duckdb(), dbdir = db_path, read_only = TRUE)
     on.exit(DBI::dbDisconnect(con, shutdown = TRUE))
 
-    # Add descendants where include_descendants is TRUE
-    concepts_with_descendants <- non_excluded[non_excluded$include_descendants == TRUE, ]
+    # --- Build INCLUDED set ---
 
-    if (nrow(concepts_with_descendants) > 0) {
-      ancestor_ids <- paste(concepts_with_descendants$concept_id, collapse = ",")
+    # Add descendants where include_descendants is TRUE
+    incl_with_desc <- included_items[included_items$include_descendants == TRUE, ]
+    if (nrow(incl_with_desc) > 0) {
+      ancestor_ids <- paste(incl_with_desc$concept_id, collapse = ",")
       descendants <- DBI::dbGetQuery(
         con,
         sprintf(
@@ -821,17 +837,15 @@ resolve_concept_set <- function(concepts) {
           ancestor_ids
         )
       )
-
       if (nrow(descendants) > 0) {
-        resolved_ids <- c(resolved_ids, descendants$descendant_concept_id)
+        included_ids <- c(included_ids, descendants$descendant_concept_id)
       }
     }
 
     # Add mapped concepts where include_mapped is TRUE
-    concepts_with_mapped <- non_excluded[non_excluded$include_mapped == TRUE, ]
-
-    if (nrow(concepts_with_mapped) > 0) {
-      source_ids <- paste(concepts_with_mapped$concept_id, collapse = ",")
+    incl_with_mapped <- included_items[included_items$include_mapped == TRUE, ]
+    if (nrow(incl_with_mapped) > 0) {
+      source_ids <- paste(incl_with_mapped$concept_id, collapse = ",")
       mapped <- DBI::dbGetQuery(
         con,
         sprintf(
@@ -842,14 +856,64 @@ resolve_concept_set <- function(concepts) {
           source_ids
         )
       )
-
       if (nrow(mapped) > 0) {
-        resolved_ids <- c(resolved_ids, mapped$concept_id_2)
+        included_ids <- c(included_ids, mapped$concept_id_2)
       }
     }
 
-    # Get unique concept IDs
-    resolved_ids <- unique(resolved_ids)
+    included_ids <- unique(included_ids)
+
+    # --- Build EXCLUDED set ---
+
+    excluded_ids <- integer(0)
+    if (nrow(excluded_items) > 0) {
+      # Start with base excluded concept IDs
+      excluded_ids <- excluded_items$concept_id
+
+      # Add descendants where include_descendants is TRUE
+      excl_with_desc <- excluded_items[excluded_items$include_descendants == TRUE, ]
+      if (nrow(excl_with_desc) > 0) {
+        ancestor_ids <- paste(excl_with_desc$concept_id, collapse = ",")
+        descendants <- DBI::dbGetQuery(
+          con,
+          sprintf(
+            "SELECT DISTINCT descendant_concept_id
+             FROM concept_ancestor
+             WHERE ancestor_concept_id IN (%s)
+               AND descendant_concept_id != ancestor_concept_id",
+            ancestor_ids
+          )
+        )
+        if (nrow(descendants) > 0) {
+          excluded_ids <- c(excluded_ids, descendants$descendant_concept_id)
+        }
+      }
+
+      # Add mapped concepts where include_mapped is TRUE
+      excl_with_mapped <- excluded_items[excluded_items$include_mapped == TRUE, ]
+      if (nrow(excl_with_mapped) > 0) {
+        source_ids <- paste(excl_with_mapped$concept_id, collapse = ",")
+        mapped <- DBI::dbGetQuery(
+          con,
+          sprintf(
+            "SELECT DISTINCT concept_id_2
+             FROM concept_relationship
+             WHERE concept_id_1 IN (%s)
+               AND relationship_id IN ('Maps to', 'Mapped from')",
+            source_ids
+          )
+        )
+        if (nrow(mapped) > 0) {
+          excluded_ids <- c(excluded_ids, mapped$concept_id_2)
+        }
+      }
+
+      excluded_ids <- unique(excluded_ids)
+    }
+
+    # --- Final resolution: INCLUDED minus EXCLUDED ---
+
+    resolved_ids <- setdiff(included_ids, excluded_ids)
 
     # Get concept details for all resolved IDs
     if (length(resolved_ids) > 0) {
@@ -875,6 +939,109 @@ resolve_concept_set <- function(concepts) {
     warning("Error resolving concept set: ", e$message)
     # Fallback: return non-excluded concepts
     return(concepts[!concepts$is_excluded, ])
+  })
+}
+
+#' Export concept set to ATLAS JSON format
+#'
+#' @description Export a concept set in ATLAS-compatible format.
+#'              Outputs only the expression object with UPPER_SNAKE_CASE concept fields,
+#'              as expected by OHDSI ATLAS import.
+#'
+#' @param concept_set_id Concept set ID
+#' @param concepts_data Data frame with concept set items (optional, if not provided will be fetched)
+#'
+#' @return JSON string in ATLAS format
+#' @noRd
+export_concept_set_to_atlas_json <- function(concept_set_id, concepts_data = NULL) {
+  tryCatch({
+    # Get concepts if not provided
+    if (is.null(concepts_data)) {
+      con <- get_db_connection()
+      on.exit(DBI::dbDisconnect(con), add = TRUE)
+      concepts_data <- DBI::dbGetQuery(
+        con,
+        "SELECT * FROM concept_set_items WHERE concept_set_id = ? ORDER BY concept_id",
+        params = list(concept_set_id)
+      )
+    } else {
+      concepts_data <- concepts_data[order(concepts_data$concept_id), ]
+    }
+
+    # Enrich concepts with DuckDB vocabulary data
+    vocab_lookup <- NULL
+    if (duckdb_exists() && nrow(concepts_data) > 0) {
+      tryCatch({
+        con_vocab <- get_duckdb_connection()
+        on.exit(DBI::dbDisconnect(con_vocab, shutdown = TRUE), add = TRUE)
+        ids <- paste(concepts_data$concept_id, collapse = ",")
+        vocab_lookup <- DBI::dbGetQuery(
+          con_vocab,
+          paste0("SELECT concept_id, standard_concept, invalid_reason,
+                  valid_start_date, valid_end_date FROM concept WHERE concept_id IN (", ids, ")")
+        )
+      }, error = function(e) NULL)
+    }
+
+    # Build ATLAS-compatible items with UPPER_SNAKE_CASE concept fields
+    items <- lapply(seq_len(nrow(concepts_data)), function(i) {
+      concept <- concepts_data[i, ]
+      cid <- as.integer(concept$concept_id)
+
+      # Use DuckDB data if available, fallback to SQLite data
+      vocab_row <- if (!is.null(vocab_lookup)) vocab_lookup[vocab_lookup$concept_id == cid, ] else NULL
+      has_vocab <- !is.null(vocab_row) && nrow(vocab_row) > 0
+
+      std_concept <- if (has_vocab) {
+        v <- vocab_row$standard_concept[1]
+        if (is.na(v) || v == "") NULL else as.character(v)
+      } else {
+        if (length(concept$standard_concept) == 0 || is.na(concept$standard_concept)) NULL else as.character(concept$standard_concept)
+      }
+
+      invalid_reason <- if (has_vocab) {
+        v <- vocab_row$invalid_reason[1]
+        if (is.na(v) || v == "") NULL else as.character(v)
+      } else {
+        if (length(concept$invalid_reason) == 0 || is.na(concept$invalid_reason)) NULL else as.character(concept$invalid_reason)
+      }
+
+      valid_start <- if (has_vocab) as.character(vocab_row$valid_start_date[1]) else "19700101"
+      valid_end <- if (has_vocab) as.character(vocab_row$valid_end_date[1]) else "20991231"
+
+      # ATLAS expects YYYYMMDD format without dashes
+      valid_start <- gsub("-", "", valid_start)
+      valid_end <- gsub("-", "", valid_end)
+
+      list(
+        concept = list(
+          CONCEPT_ID = cid,
+          CONCEPT_NAME = as.character(concept$concept_name),
+          DOMAIN_ID = as.character(concept$domain_id),
+          VOCABULARY_ID = as.character(concept$vocabulary_id),
+          CONCEPT_CLASS_ID = as.character(concept$concept_class_id),
+          STANDARD_CONCEPT = if (is.null(std_concept)) "" else std_concept,
+          STANDARD_CONCEPT_CAPTION = if (is.null(std_concept)) "Unknown" else if (std_concept == "S") "Standard" else "Non-Standard",
+          CONCEPT_CODE = as.character(concept$concept_code),
+          VALID_START_DATE = valid_start,
+          VALID_END_DATE = valid_end,
+          INVALID_REASON = if (is.null(invalid_reason)) "V" else invalid_reason,
+          INVALID_REASON_CAPTION = if (is.null(invalid_reason)) "Valid" else "Invalid"
+        ),
+        isExcluded = as.logical(concept$is_excluded) %in% TRUE,
+        includeDescendants = as.logical(concept$include_descendants) %in% TRUE,
+        includeMapped = as.logical(concept$include_mapped) %in% TRUE
+      )
+    })
+
+    # ATLAS expects only the expression object: { "items": [...] }
+    result <- list(items = items)
+
+    return(jsonlite::toJSON(result, auto_unbox = TRUE, pretty = TRUE, null = "null"))
+
+  }, error = function(e) {
+    warning("Error exporting to ATLAS JSON: ", e$message)
+    return(NULL)
   })
 }
 
@@ -971,9 +1138,9 @@ export_concept_set_to_json <- function(concept_set_id, concepts_data = NULL) {
           invalidReason = invalid_reason,
           invalidReasonCaption = if (is.null(invalid_reason)) "Valid" else "Invalid"
         ),
-        isExcluded = isTRUE(concept$is_excluded),
-        includeDescendants = isTRUE(concept$include_descendants),
-        includeMapped = isTRUE(concept$include_mapped)
+        isExcluded = as.logical(concept$is_excluded) %in% TRUE,
+        includeDescendants = as.logical(concept$include_descendants) %in% TRUE,
+        includeMapped = as.logical(concept$include_mapped) %in% TRUE
       )
     })
 

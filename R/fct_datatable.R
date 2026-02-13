@@ -107,7 +107,8 @@ create_standard_datatable <- function(
     class = "cell-border stripe hover",
     fuzzy_search = FALSE,
     show_colvis = TRUE,
-    extensions = character(0)
+    extensions = character(0),
+    search_columns = NULL
 ) {
   # Wrap ip (info + pagination) in a flex-row container to keep them on the same line
   # DataTables dom syntax: <"class"...> wraps elements in a div with that class
@@ -155,6 +156,10 @@ create_standard_datatable <- function(
         className = "btn-colvis"
       )
     )
+  }
+
+  if (!is.null(search_columns)) {
+    options$searchCols <- search_columns
   }
 
   if (!is.null(col_defs)) {

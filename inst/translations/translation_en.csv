@@ -509,3 +509,7 @@ applying_updates,Applying updates...
 updates_applied_success,Successfully applied {count} update(s)
 update_status_new,New
 update_status_updated,Updated
+export_format_indicate,Concept Set Specification
+export_format_indicate_desc,Full OHDSI format with metadata and translations
+export_format_atlas,ATLAS
+export_format_atlas_desc,ATLAS-compatible format (expression only)
