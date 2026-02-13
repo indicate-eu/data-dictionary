@@ -1,4 +1,4 @@
-# INDICATE Minimal Data Dictionary
+# INDICATE Data Dictionary
 
 [![Funded by EU](https://img.shields.io/badge/Funded%20by-EU%20Digital%20Europe-003399?style=for-the-badge)](https://indicate-europe.eu/)
 [![License: EUPL-1.2](https://img.shields.io/badge/License-EUPL--1.2-blue?style=for-the-badge)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12)
@@ -11,7 +11,7 @@
 - [Overview](#overview)
 - [Context](#context)
   - [The INDICATE Project](#the-indicate-project)
-  - [The Minimal Data Dictionary](#the-minimal-data-dictionary)
+  - [The INDICATE Data Dictionary](#the-indicate-data-dictionary)
   - [Standard Terminologies](#standard-terminologies)
   - [Clinical Use Cases](#clinical-use-cases)
 - [Features](#features)
@@ -30,7 +30,7 @@
 
 ## Overview
 
-The `indicate` R package provides an interactive Shiny application to explore the **INDICATE Minimal Data Dictionary**, a consensus-based collection of standardized clinical concepts designed to harmonize intensive care unit (ICU) data across Europe. The dictionary addresses semantic interoperability challenges in federated healthcare data infrastructures by providing explicit recommendations for terminology selection across diverse European ICU settings.
+The `indicate` R package provides an interactive Shiny application to explore the **INDICATE Data Dictionary**, a consensus-based collection of standardized clinical concepts designed to harmonize intensive care unit (ICU) data across Europe. The dictionary addresses semantic interoperability challenges in federated healthcare data infrastructures by providing explicit recommendations for terminology selection across diverse European ICU settings.
 
 Built on the **OHDSI Concept Set Specification** (extended with lifecycle metadata), the application enables clinical experts and data engineers to browse, review, and manage concept sets aligned with the OMOP Common Data Model.
 
@@ -40,9 +40,9 @@ Built on the **OHDSI Concept Set Specification** (extended with lifecycle metada
 
 The [INDICATE project](https://indicate-europe.eu/), launched in December 2024 and funded by the European Union's Digital Europe Programme (grant 101167778), aims to establish a secure federated infrastructure for standardized ICU data across Europe. The consortium comprises partners from **12 European countries**, with **15 data providers** implementing a pan-European federated infrastructure for collaborative research, AI model development, and data sharing.
 
-### The Minimal Data Dictionary
+### The INDICATE Data Dictionary
 
-The INDICATE Minimal Data Dictionary comprises **332 concept sets** organized into nine categories:
+The INDICATE Data Dictionary comprises **332 concept sets** organized into nine categories:
 
 | Category | Concept Sets | Description |
 |----------|:------------:|-------------|
@@ -179,7 +179,7 @@ After logging in, you need to import ATHENA vocabulary data to enable full funct
 
 #### 1. Dictionary Explorer
 
-The Dictionary Explorer is the main view for browsing the INDICATE Minimal Data Dictionary. Concept sets are high-level clinical concepts used in study definitions, such as "Heart rate" or "Tidal volume".
+The Dictionary Explorer is the main view for browsing the INDICATE Data Dictionary. Concept sets are high-level clinical concepts used in study definitions, such as "Heart rate" or "Tidal volume".
 
 **Browsing Concept Sets**:
 
