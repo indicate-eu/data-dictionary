@@ -4,6 +4,13 @@
 
   var selectedProject = null;
 
+  // ==================== PROJECT CS TABLE STATE ====================
+  var projCsSort = { key: 'category', asc: true };
+  var projCsFilterName = '';
+  var projCsCategories = new Set();
+  var projCsSubcategories = new Set();
+  var projCsFilterReviewStatus = new Set();
+
   // ==================== PROJECT CARDS ====================
   function renderProjectCards() {
     var filter = document.getElementById('proj-search').value.toLowerCase();
@@ -75,6 +82,14 @@
       bibSec.style.display = 'none';
     }
 
+    // Reset filters
+    projCsSort = { key: 'category', asc: true };
+    projCsFilterName = '';
+    projCsCategories.clear();
+    projCsSubcategories.clear();
+    projCsFilterReviewStatus.clear();
+    document.getElementById('proj-filter-name').value = '';
+    populateProjColumnFilters();
     renderProjectCSTable();
 
     // Reset to context tab
@@ -83,28 +98,92 @@
     });
     document.getElementById('proj-tab-context').style.display = '';
     document.getElementById('proj-tab-variables').style.display = 'none';
+    document.getElementById('proj-export-csv').style.display = 'none';
+  }
+
+  function getProjectCSData() {
+    if (!selectedProject) return [];
+    var ids = new Set(selectedProject.conceptSetIds || []);
+    return App.getCSData().filter(function(d) { return ids.has(d.id); });
+  }
+
+  function populateProjColumnFilters(skipId) {
+    var data = getProjectCSData();
+    var categories = [...new Set(data.map(function(d) { return d.category; }))].sort(function(a, b) {
+      var aO = a.toLowerCase() === 'other' || a.toLowerCase() === 'autres';
+      var bO = b.toLowerCase() === 'other' || b.toLowerCase() === 'autres';
+      if (aO && !bO) return 1;
+      if (!aO && bO) return -1;
+      return a.localeCompare(b);
+    });
+
+    var subData = data;
+    if (projCsCategories.size > 0) subData = subData.filter(function(d) { return projCsCategories.has(d.category); });
+    var subcategories = [...new Set(subData.map(function(d) { return d.subcategory; }))].filter(Boolean).sort();
+    projCsSubcategories.forEach(function(s) { if (!subcategories.includes(s)) projCsSubcategories.delete(s); });
+
+    var statuses = [...new Set(data.map(function(d) { return d.reviewStatus; }))].filter(Boolean).sort();
+
+    if (skipId !== 'proj-filter-category') {
+      App.buildMultiSelectDropdown('proj-filter-category', categories, projCsCategories, function() {
+        populateProjColumnFilters('proj-filter-category');
+        renderProjectCSTable();
+      });
+    } else {
+      App.updateMsToggleLabel('proj-filter-category', projCsCategories);
+    }
+
+    if (skipId !== 'proj-filter-subcategory') {
+      App.buildMultiSelectDropdown('proj-filter-subcategory', subcategories, projCsSubcategories, function() {
+        renderProjectCSTable();
+      });
+    } else {
+      App.updateMsToggleLabel('proj-filter-subcategory', projCsSubcategories);
+    }
+
+    var statusLabelMap = {};
+    statuses.forEach(function(s) { statusLabelMap[s] = App.statusLabelsMap[s] || s; });
+    if (skipId !== 'proj-filter-reviewStatus') {
+      App.buildMultiSelectDropdown('proj-filter-reviewStatus', statuses, projCsFilterReviewStatus, function() {
+        renderProjectCSTable();
+      }, statusLabelMap);
+    } else {
+      App.updateMsToggleLabel('proj-filter-reviewStatus', projCsFilterReviewStatus);
+    }
   }
 
   function renderProjectCSTable() {
     if (!selectedProject) return;
-    var ids = new Set(selectedProject.conceptSetIds || []);
-    var csData = App.getCSData().filter(function(d) { return ids.has(d.id); });
-    var filter = document.getElementById('proj-cs-search').value.toLowerCase();
-    var filtered = filter ? csData.filter(function(d) {
-      return d.name.toLowerCase().includes(filter) ||
-        d.category.toLowerCase().includes(filter) ||
-        d.subcategory.toLowerCase().includes(filter);
-    }) : csData;
+    var data = getProjectCSData();
 
-    filtered.sort(function(a, b) {
-      var ca = a.category.localeCompare(b.category);
-      if (ca !== 0) return ca;
-      return a.name.localeCompare(b.name);
+    if (projCsCategories.size > 0) data = data.filter(function(d) { return projCsCategories.has(d.category); });
+    if (projCsSubcategories.size > 0) data = data.filter(function(d) { return projCsSubcategories.has(d.subcategory); });
+    if (projCsFilterReviewStatus.size > 0) data = data.filter(function(d) { return projCsFilterReviewStatus.has(d.reviewStatus); });
+    if (projCsFilterName) {
+      var q = projCsFilterName.toLowerCase();
+      data = data.filter(function(d) {
+        var text = d.name.toLowerCase();
+        var ti = 0;
+        for (var qi = 0; qi < q.length; qi++) {
+          var ch = q[qi];
+          while (ti < text.length && text[ti] !== ch) ti++;
+          if (ti >= text.length) return false;
+          ti++;
+        }
+        return true;
+      });
+    }
+
+    data.sort(function(a, b) {
+      var va = (a[projCsSort.key] || '').toString().toLowerCase();
+      var vb = (b[projCsSort.key] || '').toString().toLowerCase();
+      if (va < vb) return projCsSort.asc ? -1 : 1;
+      if (va > vb) return projCsSort.asc ? 1 : -1;
+      return 0;
     });
 
-    document.getElementById('proj-cs-count').textContent = filtered.length;
     var tbody = document.getElementById('proj-cs-tbody');
-    tbody.innerHTML = filtered.map(function(d) {
+    tbody.innerHTML = data.map(function(d) {
       return '<tr data-id="' + d.id + '" style="cursor:pointer">' +
         '<td><span class="badge badge-category">' + App.escapeHtml(d.category) + '</span></td>' +
         '<td><span class="badge badge-subcategory">' + App.escapeHtml(d.subcategory) + '</span></td>' +
@@ -114,6 +193,13 @@
         '<td class="td-center">' + App.escapeHtml(d.version) + '</td>' +
         '</tr>';
     }).join('');
+
+    // Sort indicators
+    document.querySelectorAll('#proj-cs-table thead th').forEach(function(th) {
+      th.classList.toggle('sorted', th.dataset.sort === projCsSort.key);
+      var icon = th.querySelector('.sort-icon');
+      if (icon) icon.textContent = (th.dataset.sort === projCsSort.key && !projCsSort.asc) ? '\u25BC' : '\u25B2';
+    });
   }
 
   function hideProjectDetail() {
@@ -149,8 +235,10 @@
       if (!tab) return;
       document.querySelectorAll('#proj-tabs .panel-tab').forEach(function(b) { b.classList.remove('active'); });
       tab.classList.add('active');
-      document.getElementById('proj-tab-context').style.display = tab.dataset.tab === 'context' ? '' : 'none';
-      document.getElementById('proj-tab-variables').style.display = tab.dataset.tab === 'variables' ? '' : 'none';
+      var isVars = tab.dataset.tab === 'variables';
+      document.getElementById('proj-tab-context').style.display = isVars ? 'none' : '';
+      document.getElementById('proj-tab-variables').style.display = isVars ? '' : 'none';
+      document.getElementById('proj-export-csv').style.display = isVars ? '' : 'none';
     });
 
     // Project concept set click -> navigate to Data Dictionary page
@@ -160,8 +248,21 @@
       window.location.href = 'index.html?cs=' + tr.dataset.id;
     });
 
-    // Project concept set search
-    document.getElementById('proj-cs-search').addEventListener('input', renderProjectCSTable);
+    // Project CS sort
+    document.getElementById('proj-cs-table').querySelector('thead').addEventListener('click', function(e) {
+      var th = e.target.closest('th[data-sort]');
+      if (!th) return;
+      var key = th.dataset.sort;
+      if (projCsSort.key === key) projCsSort.asc = !projCsSort.asc;
+      else { projCsSort.key = key; projCsSort.asc = true; }
+      renderProjectCSTable();
+    });
+
+    // Project CS name filter
+    document.getElementById('proj-filter-name').addEventListener('input', function(e) {
+      projCsFilterName = e.target.value;
+      renderProjectCSTable();
+    });
 
     // CSV export for project concepts
     document.getElementById('proj-export-csv').addEventListener('click', function() {

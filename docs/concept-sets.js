@@ -141,7 +141,8 @@
 
     var btnContainer = document.getElementById('cs-page-buttons');
     var btns = '';
-    btns += '<button ' + (csPage <= 1 ? 'disabled' : '') + ' data-page="prev">&laquo;</button>';
+    btns += '<button ' + (csPage <= 1 ? 'disabled' : '') + ' data-page="first">&laquo;</button>';
+    btns += '<button ' + (csPage <= 1 ? 'disabled' : '') + ' data-page="prev">&lsaquo;</button>';
     var maxButtons = 7;
     var startPage = Math.max(1, csPage - Math.floor(maxButtons / 2));
     var endPage = Math.min(totalPages, startPage + maxButtons - 1);
@@ -149,7 +150,8 @@
     for (var i = startPage; i <= endPage; i++) {
       btns += '<button ' + (i === csPage ? 'class="active"' : '') + ' data-page="' + i + '">' + i + '</button>';
     }
-    btns += '<button ' + (csPage >= totalPages ? 'disabled' : '') + ' data-page="next">&raquo;</button>';
+    btns += '<button ' + (csPage >= totalPages ? 'disabled' : '') + ' data-page="next">&rsaquo;</button>';
+    btns += '<button ' + (csPage >= totalPages ? 'disabled' : '') + ' data-page="last">&raquo;</button>';
     btnContainer.innerHTML = btns;
 
     // Sort indicators
@@ -801,8 +803,10 @@
       var btn = e.target.closest('button[data-page]');
       if (!btn || btn.disabled) return;
       var p = btn.dataset.page;
-      if (p === 'prev') csPage--;
+      if (p === 'first') csPage = 1;
+      else if (p === 'prev') csPage--;
       else if (p === 'next') csPage++;
+      else if (p === 'last') csPage = Math.ceil(getFilteredCS().length / csPageSize);
       else csPage = parseInt(p);
       renderCSTable();
     });
