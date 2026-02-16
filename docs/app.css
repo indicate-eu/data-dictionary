@@ -93,6 +93,79 @@ body {
 .nav-tab.active:hover { background: #0d4d8f !important; }
 .nav-tab i { font-size: 14px; }
 
+/* Header icon button (cog) */
+.header-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--gray);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all .2s;
+}
+.header-icon-btn:hover {
+  background: var(--gray-200);
+  color: var(--primary);
+}
+.header-icon-btn.active {
+  background: var(--primary);
+  color: #fff;
+}
+.header-icon-btn.active:hover {
+  background: var(--primary-hover);
+}
+
+/* Nav dropdown (Settings) */
+.nav-dropdown {
+  position: relative;
+  display: inline-flex;
+}
+.nav-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  min-width: 200px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  z-index: 200;
+  padding: 4px 0;
+}
+.nav-dropdown-menu-right {
+  left: auto;
+  right: 0;
+}
+.nav-dropdown-menu a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background .15s;
+}
+.nav-dropdown-menu a:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+.nav-dropdown-menu a i {
+  width: 16px;
+  text-align: center;
+  color: var(--gray);
+}
+.nav-dropdown-menu a:hover i {
+  color: var(--primary);
+}
+
 .header-right {
   display: flex;
   align-items: center;
@@ -1162,6 +1235,185 @@ select.form-input { appearance: auto; }
   margin: 0;
   font-size: 12px;
   color: var(--text-muted);
+}
+
+/* ==================== SETTINGS PAGE ==================== */
+.settings-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 0;
+  background: #fff;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.settings-tab {
+  padding: 12px 20px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all .2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.settings-tab:hover { color: var(--primary); }
+.settings-tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+.settings-content {
+  background: #fff;
+  border-radius: 0 0 var(--radius) var(--radius);
+  min-height: 400px;
+}
+
+/* ETL editor layout */
+.etl-editor-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  height: calc(100vh - 220px);
+  min-height: 400px;
+}
+.etl-editor-pane {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border);
+  overflow: hidden;
+}
+.etl-editor-pane:last-child { border-right: none; }
+.etl-pane-header {
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  border-bottom: 1px solid var(--border);
+  background: var(--gray-light);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.etl-pane-body {
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+}
+.etl-pane-body .markdown-body {
+  padding: 16px;
+}
+#etl-ace-editor {
+  width: 100%;
+  height: 100%;
+  font-size: 13px;
+}
+
+/* Settings toolbar */
+.settings-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--gray-light);
+}
+.settings-toolbar .search-input {
+  max-width: 300px;
+}
+
+/* Editable cell */
+.editable-cell {
+  cursor: pointer;
+  position: relative;
+}
+.editable-cell:hover {
+  background: var(--primary-light);
+}
+.editable-cell input {
+  width: 80px;
+  padding: 2px 6px;
+  font-size: 13px;
+  font-family: inherit;
+  border: 1px solid var(--primary);
+  border-radius: 3px;
+  outline: none;
+}
+
+/* Action buttons in tables */
+.btn-action {
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.btn-action-test { background: #fff3cd; color: #856404; }
+.btn-action-test:hover { background: #ffc107; color: #fff; }
+.btn-action-delete { background: #f8d7da; color: #721c24; }
+.btn-action-delete:hover { background: var(--danger); color: #fff; }
+
+/* Test conversion modal */
+.test-conv-info {
+  text-align: center;
+  padding: 12px;
+  background: var(--gray-light);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.test-conv-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.test-conv-row input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-family: inherit;
+}
+.test-conv-row .unit-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  min-width: 60px;
+}
+.test-conv-arrow {
+  text-align: center;
+  padding: 8px;
+  color: var(--primary);
+  font-size: 13px;
+}
+.test-conv-result {
+  background: var(--primary-light);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+@media (max-width: 900px) {
+  .etl-editor-layout { grid-template-columns: 1fr; height: auto; }
+  .etl-editor-pane { min-height: 300px; border-right: none; border-bottom: 1px solid var(--border); }
 }
 
 @media (max-width: 600px) {

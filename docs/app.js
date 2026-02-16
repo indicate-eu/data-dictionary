@@ -5,6 +5,9 @@ var App = (function() {
   // ==================== STATE ====================
   var conceptSets = [];
   var projects = [];
+  var unitConversions = [];
+  var recommendedUnits = [];
+  var etlGuidelines = '';
   var lang = localStorage.getItem('indicate_lang') || 'en';
   var resolvedIndex = {}; // conceptSetId -> resolvedConcepts[]
   var sessionReviews = JSON.parse(localStorage.getItem('indicate_reviews') || '{}');
@@ -13,6 +16,9 @@ var App = (function() {
   function loadData(callback) {
     conceptSets = DATA.conceptSets || [];
     projects = DATA.projects || [];
+    unitConversions = DATA.unitConversions || [];
+    recommendedUnits = DATA.recommendedUnits || [];
+    etlGuidelines = DATA.etlGuidelines || '';
     var resolved = DATA.resolvedConceptSets || [];
     resolved.forEach(function(r) {
       resolvedIndex[r.conceptSetId] = r.resolvedConcepts || [];
@@ -329,10 +335,24 @@ var App = (function() {
       });
     }
 
-    // Close multi-select dropdowns on outside click
+    // Settings dropdown
+    var navSettingsBtn = document.getElementById('nav-settings-btn');
+    var navSettingsMenu = document.getElementById('nav-settings-menu');
+    if (navSettingsBtn && navSettingsMenu) {
+      navSettingsBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navSettingsMenu.style.display = navSettingsMenu.style.display === 'none' ? '' : 'none';
+      });
+    }
+
+    // Close multi-select dropdowns and nav dropdown on outside click
     document.addEventListener('click', function(e) {
       if (!e.target.closest('.ms-container')) {
         document.querySelectorAll('.ms-dropdown').forEach(function(d) { d.style.display = 'none'; });
+      }
+      if (!e.target.closest('.nav-dropdown')) {
+        var menu = document.getElementById('nav-settings-menu');
+        if (menu) menu.style.display = 'none';
       }
     });
 
@@ -369,6 +389,9 @@ var App = (function() {
     // State getters/setters
     get conceptSets() { return conceptSets; },
     get projects() { return projects; },
+    get unitConversions() { return unitConversions; },
+    get recommendedUnits() { return recommendedUnits; },
+    get etlGuidelines() { return etlGuidelines; },
     get lang() { return lang; },
     set lang(v) { lang = v; },
     get resolvedIndex() { return resolvedIndex; },

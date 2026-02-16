@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INDICATE Data Dictionary — Settings</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<div class="toast-container" id="toast-container"></div>
+
+<div class="loading-overlay" id="loading">
+  <div class="spinner"></div>
+  <div class="loading-text">Loading data dictionary...</div>
+</div>
+
+<header class="header">
+  <div class="header-left">
+    <img src="logo.png" class="header-logo" alt="INDICATE">
+    <span class="header-title">INDICATE Data Dictionary</span>
+  </div>
+  <nav class="header-nav">
+    <a class="nav-tab" href="index.html">
+      <i class="fas fa-book"></i>
+      <span>Data Dictionary</span>
+    </a>
+    <a class="nav-tab" href="projects.html">
+      <i class="fas fa-list-check"></i>
+      <span>Projects</span>
+    </a>
+  </nav>
+  <div class="header-right">
+    <button class="current-user-badge" id="user-badge" title="Edit profile">
+      <i class="fas fa-user-circle"></i>
+      <span id="user-badge-name">Guest</span>
+    </button>
+    <button class="lang-toggle reset" id="reset-cache-btn" title="Reset local data">
+      <i class="fas fa-rotate-right" style="font-size:12px"></i> Reset
+    </button>
+    <button class="lang-toggle" id="lang-toggle" title="Switch language">EN</button>
+    <div class="nav-dropdown">
+      <button class="header-icon-btn active" id="nav-settings-btn" title="Settings">
+        <i class="fas fa-cog"></i>
+      </button>
+      <div class="nav-dropdown-menu nav-dropdown-menu-right" id="nav-settings-menu" style="display:none">
+        <a href="settings.html"><i class="fas fa-book-medical"></i> Dictionary Settings</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="main">
+  <!-- Settings tabs -->
+  <div class="settings-tabs" id="settings-tabs">
+    <button class="settings-tab active" data-tab="etl">
+      <i class="fas fa-comment-dots"></i> ETL Guidelines
+    </button>
+    <button class="settings-tab" data-tab="conversions">
+      <i class="fas fa-exchange-alt"></i> Unit Conversions
+    </button>
+    <button class="settings-tab" data-tab="units">
+      <i class="fas fa-balance-scale"></i> Recommended Units
+    </button>
+  </div>
+
+  <div class="settings-content">
+    <!-- TAB 1: ETL Guidelines -->
+    <div class="settings-tab-content" id="tab-etl">
+      <div class="settings-toolbar">
+        <button class="btn-primary-custom" id="etl-export-btn">
+          <i class="fas fa-download"></i> Export
+        </button>
+      </div>
+      <div class="etl-editor-layout">
+        <div class="etl-editor-pane">
+          <div class="etl-pane-header"><i class="fas fa-pencil-alt"></i> Markdown Editor</div>
+          <div class="etl-pane-body">
+            <div id="etl-ace-editor"></div>
+          </div>
+        </div>
+        <div class="etl-editor-pane">
+          <div class="etl-pane-header"><i class="fas fa-eye"></i> Preview</div>
+          <div class="etl-pane-body">
+            <div class="markdown-body" id="etl-preview">
+              <div class="markdown-preview-placeholder">Preview will appear here...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: Unit Conversions -->
+    <div class="settings-tab-content" id="tab-conversions" style="display:none">
+      <div class="settings-toolbar">
+        <input type="text" class="search-input" id="conv-search" placeholder="Search conversions...">
+        <button class="tab-btn-green" id="conv-add-btn" style="margin-left:auto">
+          <i class="fas fa-plus"></i> Add Conversion
+        </button>
+        <button class="btn-primary-custom" id="conv-export-btn">
+          <i class="fas fa-download"></i> Export
+        </button>
+      </div>
+      <div class="panel-table-wrap">
+        <table id="conv-table">
+          <thead>
+            <tr>
+              <th style="width:10%">Concept ID 1</th>
+              <th style="width:18%">Concept 1</th>
+              <th style="width:10%">Unit 1</th>
+              <th style="width:10%" class="td-center">Factor</th>
+              <th style="width:10%">Concept ID 2</th>
+              <th style="width:18%">Concept 2</th>
+              <th style="width:10%">Unit 2</th>
+              <th style="width:14%" class="td-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="conv-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 3: Recommended Units -->
+    <div class="settings-tab-content" id="tab-units" style="display:none">
+      <div class="settings-toolbar">
+        <input type="text" class="search-input" id="ru-search" placeholder="Search recommended units...">
+        <button class="tab-btn-green" id="ru-add-btn" style="margin-left:auto">
+          <i class="fas fa-plus"></i> Add Recommended Unit
+        </button>
+        <button class="btn-primary-custom" id="ru-export-btn">
+          <i class="fas fa-download"></i> Export
+        </button>
+      </div>
+      <div class="panel-table-wrap">
+        <table id="ru-table">
+          <thead>
+            <tr>
+              <th style="width:10%">Concept ID</th>
+              <th style="width:22%">Measurement</th>
+              <th style="width:12%">Code</th>
+              <th style="width:12%">Unit Concept ID</th>
+              <th style="width:18%">Unit</th>
+              <th style="width:12%">Unit Code</th>
+              <th style="width:14%" class="td-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="ru-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- User Profile Modal -->
+<div class="modal-overlay" id="profile-modal" style="display:none">
+  <div class="modal" style="width:700px">
+    <div class="modal-header">
+      <h3>Edit Profile</h3>
+      <button class="modal-close" id="profile-modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Select an existing author</label>
+        <select id="profile-select-author" class="form-input">
+          <option value="">— Custom —</option>
+        </select>
+      </div>
+      <hr style="border:none; border-top:1px solid var(--border); margin:12px 0">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name *</label>
+          <input type="text" id="profile-firstName" class="form-input">
+        </div>
+        <div class="form-group">
+          <label>Last Name *</label>
+          <input type="text" id="profile-lastName" class="form-input">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Affiliation</label>
+          <input type="text" id="profile-affiliation" class="form-input">
+        </div>
+        <div class="form-group">
+          <label>Profession</label>
+          <input type="text" id="profile-profession" class="form-input">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>ORCID</label>
+        <input type="text" id="profile-orcid" class="form-input" placeholder="0000-0000-0000-0000">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="profile-cancel">Cancel</button>
+      <button class="btn-submit" id="profile-save">
+        <i class="fas fa-check"></i> Save
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Reset Modal -->
+<div class="modal-overlay" id="confirm-reset-modal" style="display:none">
+  <div class="modal" style="width:400px">
+    <div class="modal-header">
+      <h3>Reset local data</h3>
+      <button class="modal-close" id="confirm-reset-close">&times;</button>
+    </div>
+    <div class="modal-body" style="text-align:center; padding:24px 20px">
+      <i class="fas fa-exclamation-triangle" style="font-size:32px; color:#e67700; margin-bottom:12px"></i>
+      <p style="font-size:14px; margin-bottom:4px">This will clear your saved profile and all local data.</p>
+      <p style="font-size:13px; color:var(--text-muted)">This action cannot be undone.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="confirm-reset-cancel">Cancel</button>
+      <button class="btn-submit" id="confirm-reset-ok" style="background:#dc3545">
+        <i class="fas fa-rotate-right"></i> Reset
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Export Modal (shared) -->
+<div class="modal-overlay" id="export-modal" style="display:none">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-header">
+      <h3><i class="fas fa-download"></i> Export</h3>
+      <button class="modal-close" id="export-modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="export-options-container">
+        <div class="export-option" data-method="clipboard">
+          <div class="export-option-icon"><i class="fas fa-clipboard" style="color:#0f60af"></i></div>
+          <div class="export-option-content">
+            <h5 class="export-option-title">Copy to Clipboard</h5>
+            <p class="export-option-subtitle" id="export-clipboard-desc">Copy the content to clipboard</p>
+          </div>
+        </div>
+        <div class="export-option" data-method="file">
+          <div class="export-option-icon"><i class="fas fa-file-download" style="color:#28a745"></i></div>
+          <div class="export-option-content">
+            <h5 class="export-option-title">Download File</h5>
+            <p class="export-option-subtitle" id="export-file-desc">Download as a file</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="export-cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Conversion Modal -->
+<div class="modal-overlay" id="conv-add-modal" style="display:none">
+  <div class="modal" style="width:700px">
+    <div class="modal-header">
+      <h3><i class="fas fa-plus"></i> Add Conversion</h3>
+      <button class="modal-close" id="conv-add-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Concept ID 1 *</label>
+          <input type="number" id="conv-add-cid1" class="form-input" placeholder="e.g. 3000483">
+        </div>
+        <div class="form-group">
+          <label>Concept Name 1</label>
+          <input type="text" id="conv-add-cname1" class="form-input" placeholder="e.g. Glucose">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Unit Concept ID 1 *</label>
+          <input type="number" id="conv-add-uid1" class="form-input" placeholder="e.g. 8636">
+        </div>
+        <div class="form-group">
+          <label>Unit Name 1</label>
+          <input type="text" id="conv-add-uname1" class="form-input" placeholder="e.g. mg/dL">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Conversion Factor *</label>
+        <input type="number" id="conv-add-factor" class="form-input" step="any" min="0" placeholder="e.g. 5.551">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Concept ID 2 *</label>
+          <input type="number" id="conv-add-cid2" class="form-input" placeholder="e.g. 3020491">
+        </div>
+        <div class="form-group">
+          <label>Concept Name 2</label>
+          <input type="text" id="conv-add-cname2" class="form-input" placeholder="e.g. Glucose">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Unit Concept ID 2 *</label>
+          <input type="number" id="conv-add-uid2" class="form-input" placeholder="e.g. 8753">
+        </div>
+        <div class="form-group">
+          <label>Unit Name 2</label>
+          <input type="text" id="conv-add-uname2" class="form-input" placeholder="e.g. mmol/L">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="conv-add-cancel">Cancel</button>
+      <button class="btn-submit" id="conv-add-submit">
+        <i class="fas fa-plus"></i> Add
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Test Conversion Modal -->
+<div class="modal-overlay" id="test-conv-modal" style="display:none">
+  <div class="modal" style="width:400px">
+    <div class="modal-header">
+      <h3><i class="fas fa-calculator"></i> Test Conversion</h3>
+      <button class="modal-close" id="test-conv-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="test-conv-info" id="test-conv-info"></div>
+      <button class="btn-outline-sm" id="test-conv-swap" style="margin-bottom:12px">
+        <i class="fas fa-exchange-alt"></i> Swap direction
+      </button>
+      <div class="test-conv-row">
+        <input type="number" id="test-conv-value" placeholder="Enter value" step="any">
+        <span class="unit-label" id="test-conv-unit-from"></span>
+      </div>
+      <div class="test-conv-arrow">
+        <i class="fas fa-arrow-down"></i>
+        <span id="test-conv-factor-label"></span>
+      </div>
+      <div class="test-conv-result" id="test-conv-result">—</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="test-conv-cancel">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal-overlay" id="delete-modal" style="display:none">
+  <div class="modal" style="width:400px">
+    <div class="modal-header">
+      <h3>Confirm Delete</h3>
+      <button class="modal-close" id="delete-modal-close">&times;</button>
+    </div>
+    <div class="modal-body" style="text-align:center; padding:24px 20px">
+      <i class="fas fa-exclamation-triangle" style="font-size:32px; color:var(--danger); margin-bottom:12px"></i>
+      <p style="font-size:14px" id="delete-modal-msg">Are you sure you want to delete this item?</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="delete-modal-cancel">Cancel</button>
+      <button class="btn-submit" id="delete-modal-ok" style="background:var(--danger)">
+        <i class="fas fa-trash"></i> Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Recommended Unit Modal -->
+<div class="modal-overlay" id="ru-add-modal" style="display:none">
+  <div class="modal" style="width:700px">
+    <div class="modal-header">
+      <h3><i class="fas fa-plus"></i> Add Recommended Unit</h3>
+      <button class="modal-close" id="ru-add-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Concept ID *</label>
+          <input type="number" id="ru-add-cid" class="form-input" placeholder="e.g. 3027018">
+        </div>
+        <div class="form-group">
+          <label>Concept Name</label>
+          <input type="text" id="ru-add-cname" class="form-input" placeholder="e.g. Heart rate">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Concept Code</label>
+          <input type="text" id="ru-add-ccode" class="form-input" placeholder="e.g. 8867-4">
+        </div>
+        <div class="form-group">
+          <label>Vocabulary ID</label>
+          <input type="text" id="ru-add-vocab" class="form-input" placeholder="e.g. LOINC">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Domain ID</label>
+        <input type="text" id="ru-add-domain" class="form-input" placeholder="e.g. Measurement">
+      </div>
+      <hr style="border:none; border-top:1px solid var(--border); margin:12px 0">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Unit Concept ID *</label>
+          <input type="number" id="ru-add-uid" class="form-input" placeholder="e.g. 8729">
+        </div>
+        <div class="form-group">
+          <label>Unit Name</label>
+          <input type="text" id="ru-add-uname" class="form-input" placeholder="e.g. /min">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Unit Code</label>
+          <input type="text" id="ru-add-ucode" class="form-input" placeholder="e.g. /min">
+        </div>
+        <div class="form-group">
+          <label>Unit Vocabulary ID</label>
+          <input type="text" id="ru-add-uvocab" class="form-input" placeholder="e.g. UCUM">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="ru-add-cancel">Cancel</button>
+      <button class="btn-submit" id="ru-add-submit">
+        <i class="fas fa-plus"></i> Add
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ace.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="data_inline.js"></script>
+<script src="app.js"></script>
+<script src="settings.js"></script>
+</body>
+</html>
