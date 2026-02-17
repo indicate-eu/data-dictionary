@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>INDICATE Data Dictionary — Projects</title>
+<title>INDICATE Data Dictionary — Dev Tools</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,7 +29,7 @@
       <i class="fas fa-book"></i>
       <span>Data Dictionary</span>
     </a>
-    <a class="nav-tab active" href="projects.html">
+    <a class="nav-tab" href="projects.html">
       <i class="fas fa-list-check"></i>
       <span>Projects</span>
     </a>
@@ -44,7 +44,7 @@
     </button>
     <button class="lang-toggle" id="lang-toggle" title="Switch language">EN</button>
     <div class="nav-dropdown">
-      <button class="header-icon-btn" id="nav-settings-btn" title="Settings">
+      <button class="header-icon-btn active" id="nav-settings-btn" title="Settings">
         <i class="fas fa-cog"></i>
       </button>
       <div class="nav-dropdown-menu nav-dropdown-menu-right" id="nav-settings-menu" style="display:none">
@@ -57,67 +57,87 @@
 </header>
 
 <div class="main">
-  <!-- List view -->
-  <div class="list-view" id="proj-list-view">
-    <div class="toolbar">
-      <input type="text" class="search-input" id="proj-search" placeholder="Search projects...">
-    </div>
-    <div class="project-cards" id="proj-cards"></div>
+  <!-- Tabs -->
+  <div class="settings-tabs" id="devtools-tabs">
+    <button class="settings-tab active" data-tab="sql">
+      <i class="fas fa-terminal"></i> SQL Editor
+    </button>
+    <button class="settings-tab" data-tab="erd">
+      <i class="fas fa-project-diagram"></i> Schema / ERD
+    </button>
   </div>
 
-  <!-- Detail view -->
-  <div class="detail-view" id="proj-detail-view">
-    <div class="detail-header" style="align-items:center">
-      <button class="btn-back-discrete" id="proj-back" title="Projects">
-        <i class="fas fa-arrow-left"></i>
-      </button>
-      <span class="project-name-badge" id="proj-detail-title"></span>
-      <div class="detail-meta" id="proj-detail-meta"></div>
-    </div>
+  <div class="settings-content">
 
-    <div class="panel-tabs" id="proj-tabs" style="align-items:center">
-      <button class="panel-tab active" data-tab="context">Context</button>
-      <button class="panel-tab" data-tab="variables">Concept Sets</button>
-      <button class="export-btn" id="proj-export-csv" style="margin-left:auto; display:none" title="Export all concepts to CSV">
-        <i class="fas fa-download"></i> Export CSV
-      </button>
-    </div>
+    <!-- TAB 1: SQL Editor -->
+    <div class="settings-tab-content" id="tab-sql">
+      <div class="devtools-db-status devtools-db-empty" id="devtools-db-status">
+        <i class="fas fa-database"></i>
+        <span id="devtools-db-msg">Checking database...</span>
+        <a href="general-settings.html" class="devtools-db-link" id="devtools-db-link" style="display:none">
+          Set up vocabularies
+        </a>
+      </div>
 
-    <!-- Context tab -->
-    <div class="panel" id="proj-tab-context">
-      <div class="panel-body">
-        <div class="project-detail-section" id="proj-description-section"></div>
-        <div class="project-detail-section" id="proj-justification-section"></div>
-        <div class="project-detail-section" id="proj-bibliography-section"></div>
+      <div class="devtools-sql-layout">
+        <!-- Left: editor -->
+        <div class="devtools-sql-left">
+          <div class="devtools-sql-toolbar">
+            <select id="sql-examples" class="form-input" style="max-width:280px">
+              <option value="">-- Example queries --</option>
+            </select>
+            <button class="btn-submit" id="sql-run-btn" disabled>
+              <i class="fas fa-play"></i> Run
+            </button>
+            <span class="devtools-shortcut-hint">Ctrl+Enter</span>
+          </div>
+          <textarea id="sql-editor" class="devtools-sql-textarea" spellcheck="false"
+            placeholder="Enter SQL query..."></textarea>
+        </div>
+
+        <!-- Right: results -->
+        <div class="devtools-sql-right">
+          <div class="devtools-sql-toolbar">
+            <div class="toggle-group" id="result-view-toggle">
+              <button class="toggle-btn active" data-mode="table">Table</button>
+              <button class="toggle-btn" data-mode="raw">Raw</button>
+            </div>
+            <span class="devtools-row-count" id="sql-row-count"></span>
+            <button class="btn-outline-sm" id="sql-export-csv" style="margin-left:auto" disabled>
+              <i class="fas fa-download"></i> CSV
+            </button>
+          </div>
+          <div class="devtools-sql-results" id="sql-results">
+            <div class="empty-state" style="padding:60px 20px">
+              <i class="fas fa-table" style="font-size:32px; color:var(--gray-300); display:block; margin-bottom:12px"></i>
+              <p>Run a query to see results</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Variables tab -->
-    <div class="panel" id="proj-tab-variables" style="display:none">
-      <div class="panel-table-wrap">
-        <table id="proj-cs-table">
-          <thead>
-            <tr>
-              <th data-sort="category" style="width:14%">Category <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="subcategory" style="width:14%">Subcategory <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="name" style="width:24%">Name <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="description" style="width:30%">Description <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="reviewStatus" style="width:10%" class="td-center">Status <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="version" style="width:8%" class="td-center">Version <span class="sort-icon">&#9650;</span></th>
-            </tr>
-            <tr class="filter-row">
-              <th><div class="ms-container" id="proj-filter-category"></div></th>
-              <th><div class="ms-container" id="proj-filter-subcategory"></div></th>
-              <th><input type="text" class="column-filter" id="proj-filter-name" placeholder="Filter..."></th>
-              <th></th>
-              <th><div class="ms-container" id="proj-filter-reviewStatus"></div></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="proj-cs-tbody"></tbody>
-        </table>
+    <!-- TAB 2: Schema / ERD -->
+    <div class="settings-tab-content" id="tab-erd" style="display:none">
+      <div class="devtools-erd-toolbar">
+        <button class="btn-outline-sm" id="erd-zoom-in" title="Zoom in">
+          <i class="fas fa-search-plus"></i>
+        </button>
+        <button class="btn-outline-sm" id="erd-zoom-out" title="Zoom out">
+          <i class="fas fa-search-minus"></i>
+        </button>
+        <button class="btn-outline-sm" id="erd-reset" title="Reset view">
+          <i class="fas fa-compress-arrows-alt"></i> Reset
+        </button>
+        <span class="devtools-erd-hint">Scroll to zoom, drag to pan</span>
+      </div>
+      <div class="devtools-erd-viewport" id="erd-viewport">
+        <div class="devtools-erd-canvas" id="erd-canvas">
+          <svg class="devtools-erd-svg" id="erd-svg"></svg>
+        </div>
       </div>
     </div>
+
   </div>
 </div>
 
@@ -193,6 +213,7 @@
 
 <script src="data_inline.js"></script>
 <script src="app.js"></script>
-<script src="projects.js"></script>
+<script src="duckdb-loader.js"></script>
+<script src="dev-tools.js"></script>
 </body>
 </html>

@@ -24,17 +24,31 @@
   var statsSection = document.getElementById('vocab-stats-section');
   var statsGrid    = document.getElementById('vocab-stats-grid');
 
-  var sqlSection = document.getElementById('vocab-sql-section');
-  var sqlInput   = document.getElementById('vocab-sql-input');
-  var sqlRunBtn  = document.getElementById('vocab-sql-run');
-  var sqlResult  = document.getElementById('vocab-sql-result');
-
   var deleteModal      = document.getElementById('confirm-delete-db-modal');
   var deleteModalClose = document.getElementById('confirm-delete-db-close');
   var deleteModalCancel = document.getElementById('confirm-delete-db-cancel');
   var deleteModalOk    = document.getElementById('confirm-delete-db-ok');
 
   var supportsDirectoryPicker = !!window.showDirectoryPicker;
+
+  /* ── Browser compatibility warning ──────────────────── */
+  (function () {
+    var warningEl = document.getElementById('vocab-browser-warning');
+    var msgEl = document.getElementById('vocab-browser-warning-msg');
+    if (!warningEl || !msgEl) return;
+
+    var ua = navigator.userAgent;
+    var isFirefox = /Firefox\//i.test(ua);
+    var isSafari = /Safari\//i.test(ua) && !/Chrome\//i.test(ua);
+
+    if (isFirefox) {
+      msgEl.textContent = 'Firefox does not support persistent file access. You will need to re-select the vocabulary folder each time you visit the site. For best experience, use Chrome or Edge.';
+      warningEl.style.display = '';
+    } else if (isSafari) {
+      msgEl.textContent = 'Safari has limited support for the File System Access API. Vocabulary features may not work correctly. For best experience, use Chrome or Edge.';
+      warningEl.style.display = '';
+    }
+  })();
 
   /* ── Status display helpers ────────────────────────── */
 
@@ -72,7 +86,7 @@
     for (var i = 0; i < tables.length; i++) {
       html += '<div class="vocab-stat-card">' +
         '<div class="vocab-stat-name">' + App.escapeHtml(tables[i]) + '</div>' +
-        '<div class="vocab-stat-count"><i class="fas fa-check-circle" style="color:var(--success)"></i> linked</div>' +
+        '<div class="vocab-stat-count"><i class="fas fa-check-circle" style="color:var(--success)"></i> Linked</div>' +
         '</div>';
     }
     statsGrid.innerHTML = html;
@@ -264,7 +278,6 @@
     showButtons(true, false, true);
     btnSelectFolder.innerHTML = '<i class="fas fa-folder-open"></i> Re-import Vocabularies';
     progressSection.style.display = 'none';
-    sqlSection.style.display = '';
     showStats(stats);
   }
 
@@ -272,7 +285,6 @@
     setStatus('empty', 'No vocabulary database found. Select a folder to import OHDSI vocabulary files.');
     showButtons(true, false, false);
     progressSection.style.display = 'none';
-    sqlSection.style.display = 'none';
     showStats(null);
   }
 
@@ -319,49 +331,6 @@
         console.warn('DuckDB init:', err.message);
       });
   }
-
-  /* ── SQL runner ──────────────────────────────────────── */
-
-  function runSqlQuery() {
-    var sql = sqlInput.value.trim();
-    if (!sql) return;
-    sqlResult.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Running...';
-    sqlRunBtn.disabled = true;
-
-    VocabDB.query(sql)
-      .then(function (rows) {
-        sqlRunBtn.disabled = false;
-        if (!rows || rows.length === 0) {
-          sqlResult.innerHTML = '<p style="color:var(--text-muted)">No results.</p>';
-          return;
-        }
-        var cols = Object.keys(rows[0]);
-        var html = '<table class="data-table" style="font-size:13px"><thead><tr>';
-        for (var c = 0; c < cols.length; c++) {
-          html += '<th>' + App.escapeHtml(cols[c]) + '</th>';
-        }
-        html += '</tr></thead><tbody>';
-        for (var r = 0; r < rows.length; r++) {
-          html += '<tr>';
-          for (var c2 = 0; c2 < cols.length; c2++) {
-            var val = rows[r][cols[c2]];
-            html += '<td>' + App.escapeHtml(val == null ? '' : String(val)) + '</td>';
-          }
-          html += '</tr>';
-        }
-        html += '</tbody></table>';
-        sqlResult.innerHTML = html;
-      })
-      .catch(function (err) {
-        sqlRunBtn.disabled = false;
-        sqlResult.innerHTML = '<p style="color:var(--error)">' + App.escapeHtml(err.message) + '</p>';
-      });
-  }
-
-  sqlRunBtn.addEventListener('click', runSqlQuery);
-  sqlInput.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') runSqlQuery();
-  });
 
   /* ── Event listeners ───────────────────────────────── */
 

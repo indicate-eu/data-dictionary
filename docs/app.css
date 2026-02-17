@@ -1472,6 +1472,14 @@ select.form-input { appearance: auto; }
   font-weight: 600;
   text-decoration: underline;
 }
+.vocab-info-warning {
+  background: #fff3cd;
+  border-color: #ffecb5;
+  color: #664d03;
+}
+.vocab-info-warning a {
+  color: #664d03;
+}
 
 .vocab-actions {
   display: flex;
@@ -1573,9 +1581,253 @@ select.form-input { appearance: auto; }
   color: var(--text);
 }
 
+/* ── Dev Tools ────────────────────────────────────────── */
+
+.devtools-db-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+  background: var(--gray-light);
+}
+.devtools-db-status i:first-child { font-size: 16px; flex-shrink: 0; }
+.devtools-db-loading { color: var(--primary); }
+.devtools-db-ready { color: var(--success); }
+.devtools-db-error { color: var(--danger); }
+.devtools-db-empty { color: var(--text-muted); }
+.devtools-db-warning { color: #664d03; background: #fff3cd; border-color: #ffecb5; }
+.devtools-db-link {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.devtools-sql-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: calc(100vh - 195px);
+  min-height: 400px;
+}
+.devtools-sql-left {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border);
+}
+.devtools-sql-right {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.devtools-sql-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--gray-light);
+  flex-shrink: 0;
+}
+.devtools-sql-toolbar .form-input {
+  padding: 5px 10px;
+  font-size: 13px;
+}
+.devtools-sql-toolbar .btn-submit {
+  padding: 5px 14px;
+  font-size: 13px;
+}
+.devtools-sql-toolbar .toggle-btn {
+  padding: 5px 14px;
+}
+.devtools-sql-toolbar .btn-outline-sm {
+  padding: 5px 10px;
+}
+.devtools-shortcut-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--gray-200);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+.devtools-sql-textarea {
+  flex: 1;
+  width: 100%;
+  resize: none;
+  border: none;
+  outline: none;
+  padding: 12px 16px;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text);
+  background: #fff;
+  tab-size: 2;
+}
+.devtools-sql-textarea::placeholder { color: var(--text-muted); }
+.devtools-sql-results {
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.devtools-sql-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 6px 12px;
+  border-top: 1px solid var(--border);
+  background: var(--gray-light);
+  flex-shrink: 0;
+}
+.devtools-pager-info {
+  font-size: 12px;
+  color: var(--text-muted);
+  min-width: 100px;
+  text-align: center;
+}
+.devtools-sql-results .data-table { font-size: 12px; }
+.devtools-sql-results .data-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.devtools-sql-raw {
+  padding: 12px 16px;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre;
+  overflow: auto;
+  margin: 0;
+  background: #fff;
+  color: var(--text);
+}
+.devtools-sql-error {
+  padding: 16px;
+  color: var(--danger);
+  font-size: 13px;
+  background: #fff5f5;
+  border-left: 3px solid var(--danger);
+  margin: 12px;
+  border-radius: var(--radius);
+}
+.devtools-sql-error i { margin-right: 6px; }
+.devtools-row-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ERD */
+.devtools-erd-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--gray-light);
+}
+.devtools-erd-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+.devtools-erd-viewport {
+  overflow: hidden;
+  position: relative;
+  cursor: grab;
+  background: #fafbfc;
+  height: calc(100vh - 195px);
+  min-height: 400px;
+}
+.devtools-erd-canvas {
+  position: relative;
+  transform-origin: 0 0;
+}
+.devtools-erd-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+.erd-card {
+  position: absolute;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  font-size: 12px;
+  z-index: 1;
+  border: 2px solid var(--border);
+}
+.erd-card-header {
+  padding: 6px 12px;
+  font-weight: 700;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.erd-card-body {
+  padding: 4px 0;
+  background: #fff;
+}
+.erd-card-row {
+  padding: 2px 12px;
+  font-size: 11px;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  color: #333;
+  white-space: nowrap;
+}
+.erd-card-row:hover { background: var(--gray-light); }
+
+.erd-card-yellow { border-color: #f0c040; }
+.erd-card-yellow .erd-card-header { background: #fef3cd; color: #856404; }
+.erd-card-green { border-color: #82c982; }
+.erd-card-green .erd-card-header { background: #d4edda; color: #155724; }
+.erd-card-red { border-color: #e0a0a0; }
+.erd-card-red .erd-card-header { background: #f8d7da; color: #721c24; }
+
+.erd-badge-pk {
+  display: inline-block;
+  padding: 0 4px;
+  font-size: 9px;
+  font-weight: 700;
+  border-radius: 2px;
+  background: #fef3cd;
+  color: #856404;
+  margin-right: 3px;
+  vertical-align: middle;
+}
+.erd-badge-fk {
+  display: inline-block;
+  padding: 0 4px;
+  font-size: 9px;
+  font-weight: 700;
+  border-radius: 2px;
+  background: var(--primary-light);
+  color: var(--primary);
+  margin-right: 3px;
+  vertical-align: middle;
+}
+.erd-line {
+  fill: none;
+  stroke-width: 1.5;
+  stroke-dasharray: 6 3;
+}
+.erd-line-green { stroke: #82c982; }
+.erd-line-red { stroke: #e0a0a0; }
+.erd-line-yellow { stroke: #f0c040; }
+
 @media (max-width: 900px) {
   .etl-editor-layout { grid-template-columns: 1fr; height: auto; }
   .etl-editor-pane { min-height: 300px; border-right: none; border-bottom: 1px solid var(--border); }
+  .devtools-sql-layout { grid-template-columns: 1fr; height: auto; }
+  .devtools-sql-left { border-right: none; border-bottom: 1px solid var(--border); min-height: 200px; }
+  .devtools-sql-right { min-height: 300px; }
 }
 
 @media (max-width: 600px) {

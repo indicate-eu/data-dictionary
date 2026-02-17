@@ -50,6 +50,7 @@
       <div class="nav-dropdown-menu nav-dropdown-menu-right" id="nav-settings-menu" style="display:none">
         <a href="general-settings.html"><i class="fas fa-cog"></i> General Settings</a>
         <a href="settings.html"><i class="fas fa-book-medical"></i> Dictionary Settings</a>
+        <a href="dev-tools.html"><i class="fas fa-code"></i> Dev Tools</a>
       </div>
     </div>
   </div>
@@ -78,6 +79,12 @@
         Download the desired vocabularies, then select the folder containing the CSV files below.
         The database will be stored locally in your browser and persists across sessions.
       </span>
+    </div>
+
+    <!-- Browser compatibility warning (hidden by default, shown by JS) -->
+    <div class="vocab-info-box vocab-info-warning" id="vocab-browser-warning" style="display:none">
+      <i class="fas fa-exclamation-triangle"></i>
+      <span id="vocab-browser-warning-msg"></span>
     </div>
 
     <!-- Actions -->
@@ -111,20 +118,6 @@
     <div class="vocab-stats-section" id="vocab-stats-section" style="display:none">
       <h3 class="vocab-section-title">Database Views</h3>
       <div class="vocab-stats-grid" id="vocab-stats-grid"></div>
-    </div>
-
-    <!-- SQL query test (shown when DB is ready) -->
-    <div class="vocab-sql-section" id="vocab-sql-section" style="display:none">
-      <h3 class="vocab-section-title">Test SQL Query</h3>
-      <div style="display:flex; gap:8px; margin-bottom:12px">
-        <input type="text" id="vocab-sql-input" class="form-input" style="flex:1"
-          value="SELECT concept_id, concept_name, vocabulary_id, domain_id FROM concept WHERE concept_id IN (4329847, 37151627, 3004249) LIMIT 10"
-          placeholder="Enter SQL query...">
-        <button class="btn-submit" id="vocab-sql-run">
-          <i class="fas fa-play"></i> Run
-        </button>
-      </div>
-      <div id="vocab-sql-result" style="overflow-x:auto"></div>
     </div>
 
   </div>
