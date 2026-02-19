@@ -54,6 +54,22 @@ def main():
         "recommendedUnits": recommended_units,
         "etlGuidelines": etl_guidelines
     }
+    # Extract unique concept IDs from resolved concept sets for DuckDB filtering
+    resolved_ids = set()
+    for rcs in resolved:
+        for c in rcs.get("resolvedConcepts", []):
+            resolved_ids.add(c["conceptId"])
+    # Also include concept IDs from expression items
+    for cs in concept_sets:
+        for item in cs.get("expression", {}).get("items", []):
+            cid = item.get("concept", {}).get("conceptId")
+            if cid:
+                resolved_ids.add(cid)
+    resolved_ids_list = sorted(resolved_ids)
+    with open(os.path.join(DOCS, "resolved_concept_ids.json"), "w", encoding="utf-8") as f:
+        json.dump(resolved_ids_list, f, separators=(",", ":"))
+    print(f"  -> docs/resolved_concept_ids.json ({len(resolved_ids_list)} unique concept IDs)")
+
     compact = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
 
     with open(os.path.join(DOCS, "data.json"), "w", encoding="utf-8") as f:

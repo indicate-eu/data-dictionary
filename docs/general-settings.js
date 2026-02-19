@@ -93,6 +93,9 @@ var GeneralSettingsPage = (function () {
   }
 
   function onProgress(info) {
+    if (info.step === 'filter_ids') {
+      progressLabel.textContent = 'Preparing concept ID filters...';
+    }
     if (info.step === 'importing' && info.file) {
       progressLabel.textContent = 'Importing ' + info.file + '...';
       updateFileStatus(info.file, 'importing');
@@ -102,6 +105,9 @@ var GeneralSettingsPage = (function () {
     }
     if (info.step === 'indexing') {
       progressLabel.textContent = 'Creating indexes...';
+    }
+    if (info.step === 'persisting') {
+      progressLabel.textContent = 'Saving database to browser storage...';
     }
     if (info.step === 'complete') {
       progressLabel.textContent = 'Import complete!';
@@ -243,21 +249,16 @@ var GeneralSettingsPage = (function () {
           });
         }
 
-        /* DB is empty — try remounting from stored file handles */
-        if (supportsDirectoryPicker) {
-          setStatus('loading', 'Trying to remount from stored file handles...');
-          return VocabDB.remountFromStoredHandles().then(function (success) {
-            if (success) {
-              return VocabDB.getStats().then(function (stats) {
-                showReadyState(stats);
-              });
-            }
-            /* No stored handles or permission denied */
-            showEmptyState();
-          });
-        }
-
-        showEmptyState();
+        /* DB is empty — try restoring from IndexedDB buffer or stored file handles */
+        setStatus('loading', 'Restoring database...');
+        return VocabDB.remountFromStoredHandles().then(function (success) {
+          if (success) {
+            return VocabDB.getStats().then(function (stats) {
+              showReadyState(stats);
+            });
+          }
+          showEmptyState();
+        });
       })
       .catch(function (err) {
         showEmptyState();

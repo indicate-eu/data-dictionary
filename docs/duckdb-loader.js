@@ -47,7 +47,7 @@
 
   function openHandleDB() {
     return new Promise(function (resolve, reject) {
-      var req = indexedDB.open('vocab_handles', 2);
+      var req = indexedDB.open('vocab_handles', 3);
       req.onupgradeneeded = function () {
         var idb = req.result;
         if (!idb.objectStoreNames.contains('handles')) {
@@ -55,6 +55,9 @@
         }
         if (!idb.objectStoreNames.contains('file_handles')) {
           idb.createObjectStore('file_handles');
+        }
+        if (!idb.objectStoreNames.contains('db_buffer')) {
+          idb.createObjectStore('db_buffer');
         }
       };
       req.onsuccess = function () { resolve(req.result); };
@@ -125,11 +128,35 @@
   function clearAllHandles() {
     return openHandleDB().then(function (idb) {
       return new Promise(function (resolve, reject) {
-        var tx = idb.transaction(['handles', 'file_handles'], 'readwrite');
-        tx.objectStore('handles').clear();
-        tx.objectStore('file_handles').clear();
+        var stores = ['handles', 'file_handles', 'db_buffer'];
+        var tx = idb.transaction(stores, 'readwrite');
+        stores.forEach(function (s) { tx.objectStore(s).clear(); });
         tx.oncomplete = function () { resolve(); };
         tx.onerror = function () { reject(tx.error); };
+      });
+    });
+  }
+
+  /* ── IndexedDB: persist DuckDB buffer ──────────────────── */
+
+  function storeDbBuffer(buffer) {
+    return openHandleDB().then(function (idb) {
+      return new Promise(function (resolve, reject) {
+        var tx = idb.transaction('db_buffer', 'readwrite');
+        tx.objectStore('db_buffer').put(buffer, 'vocab_db');
+        tx.oncomplete = function () { resolve(); };
+        tx.onerror = function () { reject(tx.error); };
+      });
+    });
+  }
+
+  function getStoredDbBuffer() {
+    return openHandleDB().then(function (idb) {
+      return new Promise(function (resolve, reject) {
+        var tx = idb.transaction('db_buffer', 'readonly');
+        var req = tx.objectStore('db_buffer').get('vocab_db');
+        req.onsuccess = function () { resolve(req.result || null); };
+        req.onerror = function () { reject(req.error); };
       });
     });
   }
@@ -151,15 +178,16 @@
     });
   }
 
+  var EXPORT_PATH = '/export';
+
   function initDuckDB() {
-    if (db) return Promise.resolve(db);
+    if (db && conn) return Promise.resolve(db);
 
     return loadDuckDBLib().then(function (lib) {
       var bundles = lib.getJsDelivrBundles();
       return lib.selectBundle(bundles);
     }).then(function (bundle) {
       var logger = new duckdbLib.ConsoleLogger();
-      /* Create worker via Blob URL to avoid cross-origin restrictions */
       var workerUrl = URL.createObjectURL(
         new Blob(['importScripts("' + bundle.mainWorker + '");'], { type: 'text/javascript' })
       );
@@ -170,16 +198,81 @@
         return asyncDb;
       });
     }).then(function (asyncDb) {
-      /* In-memory database — file data is streamed from handles on demand */
       return asyncDb.open({ path: ':memory:' }).then(function () {
-        return asyncDb;
+        db = asyncDb;
+        return db;
       });
-    }).then(function (asyncDb) {
-      db = asyncDb;
+    }).then(function () {
       return db.connect();
     }).then(function (c) {
       conn = c;
       return db;
+    });
+  }
+
+  /* ── Persist / restore DB via EXPORT/IMPORT DATABASE ───── */
+
+  /**
+   * Export all tables to Parquet in DuckDB's virtual FS,
+   * then copy those files to IndexedDB for persistence.
+   */
+  function exportDbToIndexedDB() {
+    if (!db || !conn) return Promise.resolve();
+    return conn.query("EXPORT DATABASE '" + EXPORT_PATH + "' (FORMAT PARQUET)")
+      .then(function () {
+        /* Build the list of exported files: schema.sql + one .parquet per table */
+        var allFiles = REQUIRED_FILES.concat(OPTIONAL_FILES);
+        var exportedFiles = [EXPORT_PATH + '/schema.sql', EXPORT_PATH + '/load.sql'];
+        allFiles.forEach(function (f) {
+          exportedFiles.push(EXPORT_PATH + '/' + tableName(f) + '.parquet');
+        });
+        /* Copy each file to a buffer (skip missing optional files) */
+        var buffers = {};
+        var chain = Promise.resolve();
+        exportedFiles.forEach(function (fpath) {
+          chain = chain.then(function () {
+            return db.copyFileToBuffer(fpath).then(function (buf) {
+              buffers[fpath] = buf;
+            }).catch(function () { /* skip missing */ });
+          });
+        });
+        return chain.then(function () { return buffers; });
+      })
+      .then(function (buffers) {
+        return storeDbBuffer(buffers);
+      })
+      .catch(function (err) {
+        console.warn('Could not persist DB to IndexedDB:', err.message);
+      });
+  }
+
+  /**
+   * Restore DB from stored Parquet buffers via IMPORT DATABASE.
+   * Returns true if successful.
+   */
+  function loadFromStoredBuffer() {
+    return getStoredDbBuffer().then(function (buffers) {
+      if (!buffers || typeof buffers !== 'object') return false;
+      var files = Object.keys(buffers);
+      if (files.length === 0) return false;
+
+      return initDuckDB().then(function () {
+        /* Register each exported file in DuckDB's virtual FS */
+        var chain = Promise.resolve();
+        files.forEach(function (fpath) {
+          chain = chain.then(function () {
+            return db.registerFileBuffer(fpath, new Uint8Array(buffers[fpath]));
+          });
+        });
+        return chain;
+      }).then(function () {
+        return conn.query("IMPORT DATABASE '" + EXPORT_PATH + "'");
+      }).then(function () {
+        return true;
+      });
+    }).catch(function (err) {
+      console.warn('Could not restore DB from IndexedDB:', err.message);
+      return false;
     });
   }
 
@@ -243,32 +336,141 @@
     return chain;
   }
 
-  /* ── Import: create tables from registered files ──────── */
+  /* ── Resolved concept IDs (for filtering large tables) ── */
+
+  var resolvedConceptIds = null;
+
+  function loadResolvedConceptIds() {
+    if (resolvedConceptIds) return Promise.resolve(resolvedConceptIds);
+    return fetch('resolved_concept_ids.json')
+      .then(function (r) { return r.json(); })
+      .then(function (ids) { resolvedConceptIds = ids; return ids; })
+      .catch(function () { resolvedConceptIds = []; return []; });
+  }
+
+  /* ── Vocabularies to keep for concept table ───────────── */
+
+  var CONCEPT_VOCABULARIES = ['SNOMED', 'LOINC', 'RxNorm', 'RxNorm Extension', 'UCUM', 'ICD10', 'ICD10CM'];
+
+  /* ── Import: create materialized tables with filtering ── */
+
+  var READ_CSV_OPTS = "delim='\\t', header=true, quote='', auto_detect=true, sample_size=100000";
 
   /**
-   * Create VIEWs (not tables) over the registered CSV files.
-   * Views are lazy — DuckDB reads the CSV on demand at query time,
-   * so nothing is materialized in memory.
+   * Tables that need filtering by resolved concept IDs.
+   * The filter SQL uses a temp table of IDs for efficient joining.
    */
-  function createViewsFromFiles(fileNames, onProgress) {
+  var FILTERED_TABLES = {
+    'CONCEPT_ANCESTOR.csv': function () {
+      return 'CREATE TABLE concept_ancestor AS ' +
+        'SELECT ca.* FROM read_csv(\'CONCEPT_ANCESTOR.csv\', ' + READ_CSV_OPTS + ') ca ' +
+        'WHERE ca.ancestor_concept_id IN (SELECT id FROM _filter_ids) ' +
+        'OR ca.descendant_concept_id IN (SELECT id FROM _filter_ids)';
+    },
+    'CONCEPT_RELATIONSHIP.csv': function () {
+      return 'CREATE TABLE concept_relationship AS ' +
+        'SELECT cr.* FROM read_csv(\'CONCEPT_RELATIONSHIP.csv\', ' + READ_CSV_OPTS + ') cr ' +
+        'WHERE cr.concept_id_1 IN (SELECT id FROM _filter_ids) ' +
+        'OR cr.concept_id_2 IN (SELECT id FROM _filter_ids)';
+    },
+    'CONCEPT_SYNONYM.csv': function () {
+      return 'CREATE TABLE concept_synonym AS ' +
+        'SELECT cs.* FROM read_csv(\'CONCEPT_SYNONYM.csv\', ' + READ_CSV_OPTS + ') cs ' +
+        'WHERE cs.concept_id IN (SELECT id FROM _filter_ids)';
+    },
+    'CONCEPT.csv': function () {
+      var vocabList = CONCEPT_VOCABULARIES.map(function (v) { return "'" + v + "'"; }).join(',');
+      return 'CREATE TABLE concept AS ' +
+        'SELECT * FROM read_csv(\'CONCEPT.csv\', ' + READ_CSV_OPTS + ') ' +
+        'WHERE vocabulary_id IN (' + vocabList + ')';
+    }
+  };
+
+  /**
+   * Indexes to create after tables are materialized.
+   * Matches the Shiny app (fct_duckdb.R).
+   */
+  var INDEXES = [
+    'CREATE INDEX idx_concept_id ON concept(concept_id)',
+    'CREATE INDEX idx_concept_vocab ON concept(vocabulary_id)',
+    'CREATE INDEX idx_ancestor ON concept_ancestor(ancestor_concept_id)',
+    'CREATE INDEX idx_descendant ON concept_ancestor(descendant_concept_id)',
+    'CREATE INDEX idx_concept_rel_1 ON concept_relationship(concept_id_1)',
+    'CREATE INDEX idx_concept_rel_2 ON concept_relationship(concept_id_2)',
+    'CREATE INDEX idx_synonym_cid ON concept_synonym(concept_id)'
+  ];
+
+  function createTablesFromFiles(fileNames, onProgress) {
     var done = 0;
-    var total = fileNames.length;
+    // +1 for indexing step, +1 for filter IDs setup
+    var total = fileNames.length + 2;
     var importChain = Promise.resolve();
 
+    // Step 0: Load resolved concept IDs and create temp filter table
+    importChain = importChain.then(function () {
+      onProgress({ file: null, table: null, step: 'filter_ids', done: 0, total: total });
+      return loadResolvedConceptIds().then(function (ids) {
+        if (ids.length === 0) return;
+        // Create a temp table with the IDs for efficient filtering
+        var batchSize = 500;
+        var chain = conn.query('CREATE TEMP TABLE _filter_ids (id INTEGER)');
+        for (var i = 0; i < ids.length; i += batchSize) {
+          (function (batch) {
+            chain = chain.then(function () {
+              return conn.query('INSERT INTO _filter_ids VALUES ' +
+                batch.map(function (id) { return '(' + id + ')'; }).join(','));
+            });
+          })(ids.slice(i, i + batchSize));
+        }
+        return chain.then(function () {
+          return conn.query('CREATE INDEX idx_filter ON _filter_ids(id)');
+        });
+      }).then(function () {
+        done++;
+        onProgress({ file: null, table: null, step: 'filter_ids_done', done: done, total: total });
+      });
+    });
+
+    // Step 1: Import each file as a materialized table
     fileNames.forEach(function (name) {
       importChain = importChain.then(function () {
         var tbl = tableName(name);
         onProgress({ file: name, table: tbl, step: 'importing', done: done, total: total });
 
-        return conn.query("DROP VIEW IF EXISTS " + tbl).then(function () {
-          return conn.query(
-            "CREATE VIEW " + tbl + " AS SELECT * FROM read_csv('" + name +
-            "', delim='\\t', header=true, quote='', auto_detect=true, sample_size=100000)"
-          );
+        var dropSql = 'DROP TABLE IF EXISTS ' + tbl + '; DROP VIEW IF EXISTS ' + tbl;
+
+        var createSql;
+        if (FILTERED_TABLES[name]) {
+          createSql = FILTERED_TABLES[name]();
+        } else {
+          // Small reference tables: import in full
+          createSql = 'CREATE TABLE ' + tbl + ' AS SELECT * FROM read_csv(\'' + name + '\', ' + READ_CSV_OPTS + ')';
+        }
+
+        return conn.query(dropSql).then(function () {
+          return conn.query(createSql);
         }).then(function () {
           done++;
           onProgress({ file: name, table: tbl, step: 'done', done: done, total: total });
         });
+      });
+    });
+
+    // Step 2: Create indexes
+    importChain = importChain.then(function () {
+      onProgress({ file: null, table: null, step: 'indexing', done: done, total: total });
+      var indexChain = Promise.resolve();
+      INDEXES.forEach(function (sql) {
+        indexChain = indexChain.then(function () {
+          return conn.query(sql).catch(function () { /* ignore if table missing */ });
+        });
+      });
+      return indexChain.then(function () {
+        // Clean up filter table
+        return conn.query('DROP TABLE IF EXISTS _filter_ids').catch(function () {});
+      }).then(function () {
+        done++;
+        onProgress({ file: null, table: null, step: 'indexing_done', done: done, total: total });
       });
     });
 
@@ -308,11 +510,15 @@
         return registerFileHandlesWithDuckDB(fileHandlesMap);
       })
       .then(function () {
-        return createViewsFromFiles(Object.keys(fileHandlesMap), onProgress);
+        return createTablesFromFiles(Object.keys(fileHandlesMap), onProgress);
       })
       .then(function (total) {
-        /* Store handles in IndexedDB for future sessions */
-        return storeDirectoryHandle(dirHandle).catch(function () {})
+        onProgress({ file: null, table: null, step: 'persisting', done: total, total: total });
+        /* Persist DB buffer + file handles to IndexedDB */
+        return exportDbToIndexedDB()
+          .then(function () {
+            return storeDirectoryHandle(dirHandle).catch(function () {});
+          })
           .then(function () {
             return storeFileHandles(fileHandlesMap).catch(function () {});
           })
@@ -360,50 +566,59 @@
       });
       return regChain;
     }).then(function () {
-      return createViewsFromFiles(filesToImport, onProgress);
+      return createTablesFromFiles(filesToImport, onProgress);
     }).then(function (total) {
-      onProgress({ file: null, table: null, step: 'complete', done: total, total: total });
+      onProgress({ file: null, table: null, step: 'persisting', done: total, total: total });
+      return exportDbToIndexedDB().then(function () {
+        onProgress({ file: null, table: null, step: 'complete', done: total, total: total });
+      });
     });
   }
 
-  /* ── Remount from stored handles (future sessions) ───── */
+  /* ── Restore from stored data (future sessions) ─────── */
 
   /**
-   * Try to remount CSV files from stored FileSystemFileHandles.
-   * Returns true if all required files were successfully mounted.
+   * Try to restore the database. Strategy:
+   * 1. Try IndexedDB buffer (works on all browsers, instant)
+   * 2. Fall back to stored FileSystemFileHandles (Chrome/Edge only, re-imports from CSV)
    */
   function remountFromStoredHandles() {
-    return getStoredFileHandles().then(function (handles) {
-      var names = Object.keys(handles);
-      if (names.length === 0) return false;
+    /* Strategy 1: IndexedDB buffer (all browsers) */
+    return loadFromStoredBuffer().then(function (success) {
+      if (success) return true;
 
-      /* Check we have all required files */
-      var required = REQUIRED_FILES.map(function (f) { return f; });
-      var missing = required.filter(function (n) { return !handles[n]; });
-      if (missing.length > 0) return false;
+      /* Strategy 2: FileSystemFileHandles (Chrome/Edge) */
+      return getStoredFileHandles().then(function (handles) {
+        var names = Object.keys(handles);
+        if (names.length === 0) return false;
 
-      /* Request permissions for all handles */
-      var permChain = Promise.resolve(true);
-      names.forEach(function (name) {
-        permChain = permChain.then(function (allGranted) {
-          if (!allGranted) return false;
-          return handles[name].queryPermission({ mode: 'read' }).then(function (status) {
-            if (status === 'granted') return true;
-            if (status === 'prompt') {
-              return handles[name].requestPermission({ mode: 'read' }).then(function (result) {
-                return result === 'granted';
-              });
-            }
-            return false;
+        var required = REQUIRED_FILES.map(function (f) { return f; });
+        var missing = required.filter(function (n) { return !handles[n]; });
+        if (missing.length > 0) return false;
+
+        var permChain = Promise.resolve(true);
+        names.forEach(function (name) {
+          permChain = permChain.then(function (allGranted) {
+            if (!allGranted) return false;
+            return handles[name].queryPermission({ mode: 'read' }).then(function (status) {
+              if (status === 'granted') return true;
+              if (status === 'prompt') {
+                return handles[name].requestPermission({ mode: 'read' }).then(function (result) {
+                  return result === 'granted';
+                });
+              }
+              return false;
+            });
           });
         });
-      });
 
-      return permChain.then(function (allGranted) {
-        if (!allGranted) return false;
-        return registerFileHandlesWithDuckDB(handles).then(function () {
-          return createViewsFromFiles(names, function () {}).then(function () {
-            return true;
+        return permChain.then(function (allGranted) {
+          if (!allGranted) return false;
+          return registerFileHandlesWithDuckDB(handles).then(function () {
+            return createTablesFromFiles(names, function () {}).then(function () {
+              /* Persist the buffer for next time */
+              return exportDbToIndexedDB().then(function () { return true; });
+            });
           });
         });
       });

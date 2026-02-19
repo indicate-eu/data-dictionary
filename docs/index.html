@@ -146,12 +146,14 @@
           <button class="toggle-btn active" data-mode="resolved">Resolved</button>
           <button class="toggle-btn" data-mode="expression">Expression</button>
         </div>
-        <div class="col-vis-wrapper" id="col-vis-wrapper" style="position:relative">
-          <button class="btn-outline-sm" id="col-vis-btn"><i class="fas fa-columns"></i> Columns</button>
-          <div class="col-vis-dropdown" id="col-vis-dropdown" style="display:none"></div>
+        <div class="toggle-bar-right">
+          <span class="badge badge-count" id="cs-concept-count">0</span>
+          <div class="col-vis-wrapper" id="col-vis-wrapper" style="position:relative">
+            <button class="btn-outline-sm" id="col-vis-btn"><i class="fas fa-columns"></i> Columns</button>
+            <div class="col-vis-dropdown" id="col-vis-dropdown" style="display:none"></div>
+          </div>
+          <a class="btn-outline-sm" id="cs-view-json" href="#" target="_blank" style="text-decoration:none"><i class="fas fa-code"></i> View JSON</a>
         </div>
-        <span class="badge badge-count" id="cs-concept-count">0</span>
-        <a class="btn-outline-sm" id="cs-view-json" href="#" target="_blank" style="text-decoration:none"><i class="fas fa-code"></i> View JSON</a>
       </div>
 
       <!-- Resolved mode: 2-column layout (default) -->

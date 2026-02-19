@@ -228,20 +228,17 @@ var DevToolsPage = (function () {
           runBtn.disabled = false;
           return;
         }
-        /* Try remounting stored handles */
-        if (window.showDirectoryPicker) {
-          return VocabDB.remountFromStoredHandles().then(function (success) {
-            if (success) {
-              statusEl.className = 'devtools-db-status devtools-db-ready';
-              msgEl.textContent = 'Database connected and ready.';
-              linkEl.style.display = 'none';
-              runBtn.disabled = false;
-            } else {
-              showDbEmpty(statusEl, msgEl, linkEl, runBtn);
-            }
-          });
-        }
-        showDbEmpty(statusEl, msgEl, linkEl, runBtn);
+        /* Try restoring from IndexedDB buffer or stored file handles */
+        return VocabDB.remountFromStoredHandles().then(function (success) {
+          if (success) {
+            statusEl.className = 'devtools-db-status devtools-db-ready';
+            msgEl.textContent = 'Database connected and ready.';
+            linkEl.style.display = 'none';
+            runBtn.disabled = false;
+          } else {
+            showDbEmpty(statusEl, msgEl, linkEl, runBtn);
+          }
+        });
       })
       .catch(function (err) {
         statusEl.className = 'devtools-db-status devtools-db-error';
@@ -615,6 +612,7 @@ var DevToolsPage = (function () {
 
   function show() {
     init();
+    checkDbStatus();
   }
 
   function hide() {

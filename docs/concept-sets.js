@@ -465,11 +465,19 @@ var ConceptSetsPage = (function() {
       '<div></div>' +
       '</div></div>';
 
-    // Append vocab tabs if DuckDB is ready
+    // Append vocab tabs if DuckDB is ready, or show a hint
     if (typeof VocabDB !== 'undefined') {
       VocabDB.isDatabaseReady().then(function(ready) {
-        if (!ready) return;
-        renderVocabTabs(concept, el);
+        if (ready) {
+          renderVocabTabs(concept, el);
+        } else {
+          var hint = document.createElement('div');
+          hint.style.cssText = 'margin-top:16px; padding:12px 16px; background:#f8f9fa; border:1px solid #e0e0e0; border-radius:6px; font-size:13px; color:#666';
+          hint.innerHTML = '<i class="fas fa-info-circle" style="color:var(--primary); margin-right:6px"></i>' +
+            'Load OHDSI vocabularies in <a href="#/general-settings" style="color:var(--primary); font-weight:600">General Settings</a> ' +
+            'to view related concepts, hierarchy, and synonyms.';
+          el.appendChild(hint);
+        }
       });
     }
   }
@@ -516,10 +524,19 @@ var ConceptSetsPage = (function() {
     loadRelatedConcepts(concept.conceptId, document.getElementById('vtab-related'));
   }
 
+  var relatedRows = null;
+  var relatedPage = 0;
+  var RELATED_PAGE_SIZE = 50;
+  var relatedEl = null;
+
   function loadRelatedConcepts(conceptId, el) {
+    relatedEl = el;
+    relatedRows = null;
+    relatedPage = 0;
     el.innerHTML = '<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
     VocabDB.query(
-      'SELECT cr.relationship_id, c.concept_id, c.concept_name, c.vocabulary_id ' +
+      'SELECT cr.relationship_id, c.concept_id, c.concept_name, c.vocabulary_id, ' +
+      'c.domain_id, c.concept_class_id, c.concept_code, c.standard_concept ' +
       'FROM concept_relationship cr ' +
       'JOIN concept c ON c.concept_id = cr.concept_id_2 ' +
       'WHERE cr.concept_id_1 = ' + conceptId + ' ' +
@@ -529,157 +546,161 @@ var ConceptSetsPage = (function() {
         el.innerHTML = '<div class="loading-inline">No related concepts found.</div>';
         return;
       }
-      var html = '<table class="concept-related-table"><thead><tr>' +
-        '<th>Relationship</th><th>Concept Name</th><th>Vocabulary</th>' +
-        '</tr></thead><tbody>';
-      rows.forEach(function(r) {
-        html += '<tr data-cid="' + r.concept_id + '">' +
-          '<td>' + App.escapeHtml(r.relationship_id) + '</td>' +
-          '<td>' + App.escapeHtml(r.concept_name) + '</td>' +
-          '<td>' + App.escapeHtml(r.vocabulary_id) + '</td>' +
-          '</tr>';
-      });
-      html += '</tbody></table>';
-      el.innerHTML = html;
-
-      // Click to navigate to concept
-      el.querySelector('tbody').addEventListener('click', function(e) {
-        var tr = e.target.closest('tr[data-cid]');
-        if (!tr) return;
-        var cid = parseInt(tr.getAttribute('data-cid'));
-        VocabDB.lookupConcepts([cid]).then(function(concepts) {
-          if (concepts.length > 0) {
-            var c = concepts[0];
-            showResolvedConceptDetail({
-              conceptId: c.concept_id, conceptName: c.concept_name,
-              vocabularyId: c.vocabulary_id, domainId: c.domain_id,
-              conceptClassId: c.concept_class_id, conceptCode: c.concept_code,
-              standardConcept: c.standard_concept
-            });
-          }
-        });
-      });
+      relatedRows = rows;
+      renderRelatedPage();
     }).catch(function(err) {
       el.innerHTML = '<div class="loading-inline" style="color:var(--danger)">Error: ' + App.escapeHtml(err.message) + '</div>';
     });
   }
 
+  function renderRelatedPage() {
+    if (!relatedRows || !relatedEl) return;
+    var total = relatedRows.length;
+    var totalPages = Math.ceil(total / RELATED_PAGE_SIZE);
+    if (relatedPage >= totalPages) relatedPage = totalPages - 1;
+    if (relatedPage < 0) relatedPage = 0;
+    var start = relatedPage * RELATED_PAGE_SIZE;
+    var end = Math.min(start + RELATED_PAGE_SIZE, total);
+
+    var html = '<table class="concept-related-table"><thead><tr>' +
+      '<th>Relationship</th><th>Concept ID</th><th>Concept Name</th><th>Vocabulary</th>' +
+      '</tr></thead><tbody>';
+    for (var i = start; i < end; i++) {
+      var r = relatedRows[i];
+      html += '<tr data-cid="' + r.concept_id + '" title="' +
+        App.escapeHtml(r.concept_name) + ' [' + r.vocabulary_id + ']\n' +
+        'Domain: ' + (r.domain_id || '') + ' | Class: ' + (r.concept_class_id || '') + '\n' +
+        'Code: ' + (r.concept_code || '') + ' | Standard: ' + (r.standard_concept === 'S' ? 'Standard' : r.standard_concept || 'Non-standard') + '">' +
+        '<td>' + App.escapeHtml(r.relationship_id) + '</td>' +
+        '<td>' + r.concept_id + '</td>' +
+        '<td>' + App.escapeHtml(r.concept_name) + '</td>' +
+        '<td>' + App.escapeHtml(r.vocabulary_id) + '</td>' +
+        '</tr>';
+    }
+    html += '</tbody></table>';
+
+    if (totalPages > 1) {
+      html += '<div class="related-pager">' +
+        '<button class="btn-outline-sm" id="rel-prev"' + (relatedPage === 0 ? ' disabled' : '') + '><i class="fas fa-chevron-left"></i></button>' +
+        '<span style="font-size:12px; color:var(--text-muted)">' + (start + 1) + '–' + end + ' of ' + total + '</span>' +
+        '<button class="btn-outline-sm" id="rel-next"' + (relatedPage >= totalPages - 1 ? ' disabled' : '') + '><i class="fas fa-chevron-right"></i></button>' +
+        '</div>';
+    }
+
+    relatedEl.innerHTML = html;
+
+    // Pager events
+    var prevBtn = document.getElementById('rel-prev');
+    var nextBtn = document.getElementById('rel-next');
+    if (prevBtn) prevBtn.addEventListener('click', function() { relatedPage--; renderRelatedPage(); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { relatedPage++; renderRelatedPage(); });
+
+    // Click row to navigate
+    relatedEl.querySelector('tbody').addEventListener('click', function(e) {
+      var tr = e.target.closest('tr[data-cid]');
+      if (!tr) return;
+      var cid = parseInt(tr.getAttribute('data-cid'));
+      VocabDB.lookupConcepts([cid]).then(function(concepts) {
+        if (concepts.length > 0) {
+          var c = concepts[0];
+          showResolvedConceptDetail({
+            conceptId: c.concept_id, conceptName: c.concept_name,
+            vocabularyId: c.vocabulary_id, domainId: c.domain_id,
+            conceptClassId: c.concept_class_id, conceptCode: c.concept_code,
+            standardConcept: c.standard_concept
+          });
+        }
+      });
+    });
+  }
+
+  var HIERARCHY_MAX_LEVELS = 5;
+  var HIERARCHY_WARN_THRESHOLD = 100;
+
   function loadHierarchyGraph(conceptId, el) {
     el.innerHTML = '<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> Loading hierarchy...</div>';
 
-    var parentsSql =
-      'SELECT c.concept_id, c.concept_name, c.vocabulary_id, c.standard_concept ' +
-      'FROM concept_ancestor ca JOIN concept c ON c.concept_id = ca.ancestor_concept_id ' +
-      'WHERE ca.descendant_concept_id = ' + conceptId + ' AND ca.min_levels_of_separation = 1';
-    var childrenSql =
-      'SELECT c.concept_id, c.concept_name, c.vocabulary_id, c.standard_concept ' +
-      'FROM concept_ancestor ca JOIN concept c ON c.concept_id = ca.descendant_concept_id ' +
-      'WHERE ca.ancestor_concept_id = ' + conceptId + ' AND ca.min_levels_of_separation = 1';
-    var selfSql =
-      'SELECT concept_id, concept_name, vocabulary_id, standard_concept FROM concept WHERE concept_id = ' + conceptId;
+    // Step 1: count nodes first
+    var countSql =
+      'SELECT ' +
+      '(SELECT COUNT(*) FROM concept_ancestor WHERE descendant_concept_id = ' + conceptId +
+      ' AND min_levels_of_separation > 0 AND min_levels_of_separation <= ' + HIERARCHY_MAX_LEVELS + ') AS ancestors, ' +
+      '(SELECT COUNT(*) FROM concept_ancestor WHERE ancestor_concept_id = ' + conceptId +
+      ' AND min_levels_of_separation > 0 AND min_levels_of_separation <= ' + HIERARCHY_MAX_LEVELS + ') AS descendants';
 
-    Promise.all([VocabDB.query(parentsSql), VocabDB.query(childrenSql), VocabDB.query(selfSql)])
+    VocabDB.query(countSql).then(function(countRows) {
+      var total = Number(countRows[0].ancestors) + Number(countRows[0].descendants) + 1;
+      if (total > HIERARCHY_WARN_THRESHOLD) {
+        el.innerHTML =
+          '<div class="loading-inline" style="text-align:left">' +
+          '<i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i> ' +
+          'This concept has <strong>' + total + '</strong> nodes in the hierarchy (' + HIERARCHY_MAX_LEVELS + ' levels). ' +
+          'Loading may be slow.' +
+          '<br><button class="btn-outline-sm" id="hierarchy-load-anyway" style="margin-top:8px">' +
+          '<i class="fas fa-project-diagram"></i> Load anyway</button></div>';
+        document.getElementById('hierarchy-load-anyway').addEventListener('click', function() {
+          el.innerHTML = '<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> Loading hierarchy...</div>';
+          buildHierarchyGraph(conceptId, el);
+        });
+        return;
+      }
+      buildHierarchyGraph(conceptId, el);
+    }).catch(function(err) {
+      el.innerHTML = '<div class="loading-inline" style="color:var(--danger)">Error: ' + App.escapeHtml(err.message) + '</div>';
+    });
+  }
+
+  function buildHierarchyGraph(conceptId, el) {
+    var ancestorsSql =
+      'SELECT c.concept_id, c.concept_name, c.vocabulary_id, c.domain_id, ' +
+      'c.concept_class_id, c.concept_code, c.standard_concept, ' +
+      '-ca.min_levels_of_separation AS hierarchy_level ' +
+      'FROM concept_ancestor ca JOIN concept c ON c.concept_id = ca.ancestor_concept_id ' +
+      'WHERE ca.descendant_concept_id = ' + conceptId +
+      ' AND ca.min_levels_of_separation > 0 AND ca.min_levels_of_separation <= ' + HIERARCHY_MAX_LEVELS +
+      ' ORDER BY ca.min_levels_of_separation';
+    var descendantsSql =
+      'SELECT c.concept_id, c.concept_name, c.vocabulary_id, c.domain_id, ' +
+      'c.concept_class_id, c.concept_code, c.standard_concept, ' +
+      'ca.min_levels_of_separation AS hierarchy_level ' +
+      'FROM concept_ancestor ca JOIN concept c ON c.concept_id = ca.descendant_concept_id ' +
+      'WHERE ca.ancestor_concept_id = ' + conceptId +
+      ' AND ca.min_levels_of_separation > 0 AND ca.min_levels_of_separation <= ' + HIERARCHY_MAX_LEVELS +
+      ' ORDER BY ca.min_levels_of_separation';
+    var selfSql =
+      'SELECT concept_id, concept_name, vocabulary_id, domain_id, concept_class_id, concept_code, standard_concept ' +
+      'FROM concept WHERE concept_id = ' + conceptId;
+
+    Promise.all([VocabDB.query(ancestorsSql), VocabDB.query(descendantsSql), VocabDB.query(selfSql)])
       .then(function(results) {
-        var parents = results[0] || [];
-        var children = results[1] || [];
+        var ancestors = results[0] || [];
+        var descendants = results[1] || [];
         var self = results[2] && results[2][0];
         if (!self) {
           el.innerHTML = '<div class="loading-inline">Concept not found in vocabulary database.</div>';
           return;
         }
 
-        el.innerHTML = '<div id="hierarchy-graph-container" style="height:400px; border:1px solid #eee; border-radius:6px"></div>';
+        // Collect all concept IDs for edges query
+        var allIds = [Number(self.concept_id)];
+        ancestors.forEach(function(a) { allIds.push(Number(a.concept_id)); });
+        descendants.forEach(function(d) { allIds.push(Number(d.concept_id)); });
 
-        var nodes = [];
-        var edges = [];
-
-        // Self node (level 1)
-        nodes.push({
-          id: self.concept_id,
-          label: self.concept_name + '\n[' + self.vocabulary_id + ']',
-          level: 1,
-          shape: 'box',
-          color: { background: '#4A90D9', border: '#3570a8' },
-          font: { color: '#fff', size: 12 },
-          widthConstraint: { minimum: 140, maximum: 220 }
-        });
-
-        // Parent nodes (level 0)
-        parents.forEach(function(p) {
-          nodes.push({
-            id: p.concept_id,
-            label: p.concept_name + '\n[' + p.vocabulary_id + ']',
-            level: 0,
-            shape: 'box',
-            color: { background: '#aaa', border: '#888' },
-            font: { color: '#fff', size: 11 },
-            widthConstraint: { minimum: 140, maximum: 220 }
-          });
-          edges.push({ from: p.concept_id, to: self.concept_id, arrows: 'to' });
-        });
-
-        // Children nodes (level 2)
-        children.forEach(function(c) {
-          nodes.push({
-            id: c.concept_id,
-            label: c.concept_name + '\n[' + c.vocabulary_id + ']',
-            level: 2,
-            shape: 'box',
-            color: { background: '#5CB85C', border: '#449d44' },
-            font: { color: '#fff', size: 11 },
-            widthConstraint: { minimum: 140, maximum: 220 }
-          });
-          edges.push({ from: self.concept_id, to: c.concept_id, arrows: 'to' });
-        });
-
-        if (nodes.length === 1 && parents.length === 0 && children.length === 0) {
+        if (allIds.length === 1) {
           el.innerHTML = '<div class="loading-inline">No hierarchy relationships found for this concept.</div>';
           return;
         }
 
-        var container = document.getElementById('hierarchy-graph-container');
-        var data = { nodes: new vis.DataSet(nodes), edges: new vis.DataSet(edges) };
-        var options = {
-          layout: {
-            hierarchical: {
-              direction: 'UD',
-              sortMethod: 'directed',
-              levelSeparation: 100,
-              nodeSpacing: 140
-            }
-          },
-          physics: false,
-          interaction: {
-            hover: true,
-            zoomView: true,
-            dragView: true,
-            navigationButtons: false
-          },
-          edges: {
-            color: { color: '#ccc', hover: '#999' },
-            smooth: { type: 'cubicBezier' }
-          }
-        };
+        // Get direct parent-child edges between all nodes in the graph
+        var edgesSql =
+          'SELECT ancestor_concept_id AS from_id, descendant_concept_id AS to_id ' +
+          'FROM concept_ancestor ' +
+          'WHERE min_levels_of_separation = 1 ' +
+          'AND ancestor_concept_id IN (' + allIds.join(',') + ') ' +
+          'AND descendant_concept_id IN (' + allIds.join(',') + ')';
 
-        if (vocabTabsHierarchyNetwork) vocabTabsHierarchyNetwork.destroy();
-        vocabTabsHierarchyNetwork = new vis.Network(container, data, options);
-
-        // Double-click to navigate
-        vocabTabsHierarchyNetwork.on('doubleClick', function(params) {
-          if (params.nodes.length === 1) {
-            var cid = params.nodes[0];
-            VocabDB.lookupConcepts([cid]).then(function(concepts) {
-              if (concepts.length > 0) {
-                var c2 = concepts[0];
-                showResolvedConceptDetail({
-                  conceptId: c2.concept_id, conceptName: c2.concept_name,
-                  vocabularyId: c2.vocabulary_id, domainId: c2.domain_id,
-                  conceptClassId: c2.concept_class_id, conceptCode: c2.concept_code,
-                  standardConcept: c2.standard_concept
-                });
-              }
-            });
-          }
+        return VocabDB.query(edgesSql).then(function(edgeRows) {
+          renderHierarchyNetwork(self, ancestors, descendants, edgeRows || [], el);
         });
       })
       .catch(function(err) {
@@ -687,19 +708,136 @@ var ConceptSetsPage = (function() {
       });
   }
 
+  function conceptTooltip(c) {
+    var std = c.standard_concept === 'S' ? 'Standard' : (c.standard_concept || 'Non-standard');
+    return c.concept_name + ' [' + c.vocabulary_id + ']\n' +
+      'ID: ' + c.concept_id + ' | Code: ' + (c.concept_code || '') + '\n' +
+      'Domain: ' + (c.domain_id || '') + ' | Class: ' + (c.concept_class_id || '') + '\n' +
+      'Standard: ' + std;
+  }
+
+  function renderHierarchyNetwork(self, ancestors, descendants, edgeRows, el) {
+    el.innerHTML = '<div id="hierarchy-graph-container" style="height:400px; border:1px solid #eee; border-radius:6px"></div>';
+
+    var nodes = [];
+    var edges = [];
+    var selfId = Number(self.concept_id);
+
+    // Self node (level 0)
+    nodes.push({
+      id: selfId,
+      label: self.concept_name + '\n[' + self.vocabulary_id + ']',
+      title: conceptTooltip(self),
+      level: 0,
+      shape: 'box',
+      color: { background: '#0f60af', border: '#0a4a8a' },
+      font: { color: '#fff', size: 12 },
+      widthConstraint: { minimum: 140, maximum: 220 }
+    });
+
+    // Ancestor nodes (negative levels)
+    ancestors.forEach(function(a) {
+      var aid = Number(a.concept_id);
+      nodes.push({
+        id: aid,
+        label: a.concept_name + '\n[' + a.vocabulary_id + ']',
+        title: conceptTooltip(a),
+        level: Number(a.hierarchy_level), // negative
+        shape: 'box',
+        color: { background: '#6c757d', border: '#555' },
+        font: { color: '#fff', size: 11 },
+        widthConstraint: { minimum: 140, maximum: 220 }
+      });
+    });
+
+    // Descendant nodes (positive levels)
+    descendants.forEach(function(d) {
+      var did = Number(d.concept_id);
+      nodes.push({
+        id: did,
+        label: d.concept_name + '\n[' + d.vocabulary_id + ']',
+        title: conceptTooltip(d),
+        level: Number(d.hierarchy_level), // positive
+        shape: 'box',
+        color: { background: '#28a745', border: '#1e7e34' },
+        font: { color: '#fff', size: 11 },
+        widthConstraint: { minimum: 140, maximum: 220 }
+      });
+    });
+
+    // Edges from the direct parent-child query
+    edgeRows.forEach(function(e) {
+      edges.push({ from: Number(e.from_id), to: Number(e.to_id), arrows: 'to' });
+    });
+
+    var container = document.getElementById('hierarchy-graph-container');
+    var data = { nodes: new vis.DataSet(nodes), edges: new vis.DataSet(edges) };
+    var options = {
+      layout: {
+        hierarchical: {
+          direction: 'UD',
+          sortMethod: 'directed',
+          levelSeparation: 80,
+          nodeSpacing: 120
+        }
+      },
+      physics: false,
+      interaction: {
+        hover: true,
+        zoomView: true,
+        dragView: true,
+        tooltipDelay: 200,
+        navigationButtons: false
+      },
+      edges: {
+        color: { color: '#ccc', hover: '#999' },
+        smooth: { type: 'cubicBezier', roundness: 0.5 }
+      }
+    };
+
+    if (vocabTabsHierarchyNetwork) vocabTabsHierarchyNetwork.destroy();
+    vocabTabsHierarchyNetwork = new vis.Network(container, data, options);
+
+    // Double-click to navigate
+    vocabTabsHierarchyNetwork.on('doubleClick', function(params) {
+      if (params.nodes.length === 1) {
+        var cid = params.nodes[0];
+        VocabDB.lookupConcepts([cid]).then(function(concepts) {
+          if (concepts.length > 0) {
+            var c2 = concepts[0];
+            showResolvedConceptDetail({
+              conceptId: c2.concept_id, conceptName: c2.concept_name,
+              vocabularyId: c2.vocabulary_id, domainId: c2.domain_id,
+              conceptClassId: c2.concept_class_id, conceptCode: c2.concept_code,
+              standardConcept: c2.standard_concept
+            });
+          }
+        });
+      }
+    });
+  }
+
   function loadSynonyms(conceptId, el) {
     el.innerHTML = '<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
-    VocabDB.query('SELECT concept_synonym_name FROM concept_synonym WHERE concept_id = ' + conceptId)
-      .then(function(rows) {
+    VocabDB.query(
+      'SELECT cs.concept_synonym_name, c.concept_name AS language ' +
+      'FROM concept_synonym cs ' +
+      'LEFT JOIN concept c ON c.concept_id = cs.language_concept_id ' +
+      'WHERE cs.concept_id = ' + conceptId + ' ' +
+      'ORDER BY c.concept_name, cs.concept_synonym_name'
+    ).then(function(rows) {
         if (!rows || rows.length === 0) {
           el.innerHTML = '<div class="loading-inline">No synonyms found.</div>';
           return;
         }
-        var html = '<ul class="concept-synonyms-list">';
+        var html = '<table class="concept-related-table"><thead><tr>' +
+          '<th>Synonym</th><th>Language</th>' +
+          '</tr></thead><tbody>';
         rows.forEach(function(r) {
-          html += '<li>' + App.escapeHtml(r.concept_synonym_name) + '</li>';
+          html += '<tr><td>' + App.escapeHtml(r.concept_synonym_name) + '</td>' +
+            '<td>' + App.escapeHtml(r.language || '') + '</td></tr>';
         });
-        html += '</ul>';
+        html += '</tbody></table>';
         el.innerHTML = html;
       })
       .catch(function(err) {
