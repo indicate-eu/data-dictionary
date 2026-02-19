@@ -198,6 +198,10 @@
                 </thead>
                 <tbody id="resolved-tbody"></tbody>
               </table>
+              <div class="pagination" id="resolved-pagination">
+                <span id="resolved-page-info"></span>
+                <div class="pagination-buttons" id="resolved-page-buttons"></div>
+              </div>
             </div>
           </div>
           <div class="panel">
@@ -230,6 +234,10 @@
               </thead>
               <tbody id="expression-tbody"></tbody>
             </table>
+            <div class="pagination" id="expression-pagination">
+              <span id="expression-page-info"></span>
+              <div class="pagination-buttons" id="expression-page-buttons"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -930,7 +938,7 @@ Enter your review comments here using Markdown syntax.
 <!-- Expression editor: Add Concepts fullscreen modal -->
 <div class="modal-fs" id="expr-add-modal">
   <div class="modal-fs-header">
-    <h3><i class="fas fa-search"></i> Add Concepts</h3>
+    <h3>Add Concepts</h3>
     <button class="modal-fs-close" id="expr-add-close">&times;</button>
   </div>
   <div class="modal-fs-body" style="flex:1; display:flex; flex-direction:column; min-height:0; padding:16px">
@@ -940,12 +948,50 @@ Enter your review comments here using Markdown syntax.
       Load OHDSI vocabularies in <a href="#/general-settings" style="color:var(--primary); font-weight:600">General Settings</a> to search concepts.
     </div>
     <!-- Search bar -->
-    <div id="expr-add-search-row" style="display:flex; gap:8px; margin-bottom:12px">
+    <div id="expr-add-search-row" style="display:flex; gap:8px; margin-bottom:12px; align-items:center; position:relative">
       <input type="text" class="form-input" id="expr-add-search" placeholder="Search concepts by name, code, or ID..." style="flex:1">
       <button class="btn-primary-custom" id="expr-add-search-btn"><i class="fas fa-search"></i> Search</button>
+      <div style="position:relative">
+        <button class="btn-primary-custom btn-gray" id="expr-add-filters-btn" title="Filters"><i class="fas fa-filter"></i> Filters</button>
+        <!-- Filters popup -->
+        <div id="expr-add-filters-popup" class="expr-add-filters-popup" style="display:none">
+          <div class="expr-add-filters-row">
+            <label>Vocabulary</label>
+            <div class="ms-container" id="expr-add-filter-vocab" style="flex:1"></div>
+          </div>
+          <div class="expr-add-filters-row">
+            <label>Domain</label>
+            <div class="ms-container" id="expr-add-filter-domain" style="flex:1"></div>
+          </div>
+          <div class="expr-add-filters-row">
+            <label>Class</label>
+            <div class="ms-container" id="expr-add-filter-class" style="flex:1"></div>
+          </div>
+          <div class="expr-add-filters-row">
+            <label>Standard</label>
+            <select class="form-input form-input-sm" id="expr-add-filter-standard">
+              <option value="">All</option>
+              <option value="S" selected>Standard</option>
+              <option value="C">Classification</option>
+              <option value="non">Non-standard</option>
+            </select>
+          </div>
+          <div class="expr-add-filters-row">
+            <label>Valid only</label>
+            <input type="checkbox" id="expr-add-filter-valid" checked>
+          </div>
+          <div style="display:flex; gap:6px; justify-content:flex-end; margin-top:8px">
+            <button class="btn-primary-custom btn-gray" id="expr-add-filters-clear" style="font-size:12px">Clear</button>
+            <button class="btn-primary-custom" id="expr-add-filters-apply" style="font-size:12px">Apply</button>
+          </div>
+        </div>
+      </div>
+      <label style="display:inline-flex; align-items:center; gap:4px; font-size:12px; color:var(--text-muted); white-space:nowrap; cursor:pointer">
+        <input type="checkbox" id="expr-add-limit" checked> Limit 10K
+      </label>
     </div>
     <!-- Top: Results table -->
-    <div id="expr-add-results-wrap" style="flex:1; overflow-y:auto; min-height:0">
+    <div id="expr-add-results-wrap" style="flex:1; overflow-y:auto; min-height:0; display:flex; flex-direction:column">
       <table class="concept-related-table" id="expr-add-results-table">
         <thead>
           <tr>
@@ -958,22 +1004,32 @@ Enter your review comments here using Markdown syntax.
             <th>Class</th>
             <th style="text-align:center">Standard</th>
           </tr>
+          <tr class="filter-row" id="expr-add-col-filter-row">
+            <th class="expr-add-check-col"></th>
+            <th><input type="text" class="column-filter" id="expr-add-cf-id" placeholder="Filter..."></th>
+            <th><input type="text" class="column-filter" id="expr-add-cf-name" placeholder="Filter..."></th>
+            <th><input type="text" class="column-filter" id="expr-add-cf-vocab" placeholder="Filter..."></th>
+            <th><input type="text" class="column-filter" id="expr-add-cf-code" placeholder="Filter..."></th>
+            <th><input type="text" class="column-filter" id="expr-add-cf-domain" placeholder="Filter..."></th>
+            <th><input type="text" class="column-filter" id="expr-add-cf-class" placeholder="Filter..."></th>
+            <th><input type="text" class="column-filter" id="expr-add-cf-standard" placeholder="Filter..."></th>
+          </tr>
         </thead>
         <tbody id="expr-add-results-tbody"></tbody>
       </table>
+      <div class="pagination" id="expr-add-pagination" style="display:none">
+        <span id="expr-add-page-info"></span>
+        <div class="pagination-buttons" id="expr-add-page-buttons"></div>
+      </div>
     </div>
-    <!-- Bottom: Details + Descendants panels -->
+    <!-- Resize bar -->
+    <div class="expr-add-resize-bar" id="expr-add-resize-bar"></div>
+    <!-- Bottom: Details + vocab tabs panels -->
     <div id="expr-add-bottom" class="expr-add-bottom">
       <div class="expr-add-detail-panel" id="expr-add-detail-panel">
         <div class="expr-add-panel-title">Selected Concept Details</div>
         <div id="expr-add-detail-body" class="expr-add-detail-body">
           <div class="empty-state"><p>Select a concept to view details</p></div>
-        </div>
-      </div>
-      <div class="expr-add-desc-panel" id="expr-add-desc-panel">
-        <div class="expr-add-panel-title">Descendants</div>
-        <div id="expr-add-desc-body" class="expr-add-desc-body">
-          <div class="empty-state"><p>Select a concept to view descendants</p></div>
         </div>
       </div>
     </div>
