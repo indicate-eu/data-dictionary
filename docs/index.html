@@ -129,6 +129,14 @@
         <button class="btn-primary-custom" id="cs-export-json" title="Export">
           <i class="fas fa-download"></i> Export
         </button>
+        <button class="btn-primary-custom btn-gray" id="cs-edit-btn" style="display:none" title="Edit">
+          <i class="fas fa-pen"></i> Edit
+        </button>
+        <button class="btn-primary-custom btn-purple" id="expr-import-btn" style="display:none" title="Import ATLAS JSON">
+          <i class="fas fa-file-import"></i> Import
+        </button>
+        <button class="btn-primary-custom btn-gray" id="cs-edit-cancel-btn" style="display:none"><i class="fas fa-times"></i> Cancel</button>
+        <button class="btn-primary-custom" id="cs-edit-save-btn" style="display:none"><i class="fas fa-save"></i> Save</button>
       </div>
       <div class="detail-header-tabs" id="cs-detail-tabs">
         <button class="tab-btn-blue active" data-tab="concepts"><i class="fas fa-list"></i> Concepts</button>
@@ -147,6 +155,12 @@
           <button class="toggle-btn" data-mode="expression">Expression</button>
         </div>
         <div class="toggle-bar-right">
+          <div id="expr-edit-actions" style="display:none">
+            <button class="btn-primary-custom btn-danger" id="expr-delete-sel-btn" style="display:none"><i class="fas fa-trash"></i> Delete Selected</button>
+            <span id="expr-selection-count" style="display:none; font-size:12px; color:var(--text-muted)">0 selected</span>
+            <button class="btn-primary-custom btn-gray" id="expr-select-btn"><i class="fas fa-check-square"></i> Select</button>
+            <button class="btn-success-custom" id="expr-add-btn"><i class="fas fa-plus"></i> Add Concepts</button>
+          </div>
           <span class="badge badge-count" id="cs-concept-count">0</span>
           <div class="col-vis-wrapper" id="col-vis-wrapper" style="position:relative">
             <button class="btn-outline-sm" id="col-vis-btn"><i class="fas fa-columns"></i> Columns</button>
@@ -202,14 +216,16 @@
             <table id="expression-table">
               <thead>
                 <tr>
+                  <th class="expr-select-col" style="width:36px"></th>
                   <th data-col="vocabulary" style="width:12%">Vocabulary</th>
-                  <th data-col="name" style="width:24%">Concept Name</th>
-                  <th data-col="code" style="width:12%">Concept Code</th>
-                  <th data-col="domain" style="width:12%">Domain</th>
-                  <th data-col="standard" style="width:10%" class="td-center">Standard</th>
-                  <th data-col="exclude" style="width:10%" class="td-center">Exclude</th>
-                  <th data-col="descendants" style="width:10%" class="td-center">Descendants</th>
-                  <th data-col="mapped" style="width:10%" class="td-center">Mapped</th>
+                  <th data-col="name" style="width:22%">Concept Name</th>
+                  <th data-col="code" style="width:10%">Concept Code</th>
+                  <th data-col="domain" style="width:10%">Domain</th>
+                  <th data-col="standard" style="width:9%" class="td-center">Standard</th>
+                  <th data-col="exclude" style="width:9%" class="td-center">Exclude</th>
+                  <th data-col="descendants" style="width:9%" class="td-center">Descendants</th>
+                  <th data-col="mapped" style="width:9%" class="td-center">Mapped</th>
+                  <th class="expr-action-col td-center" style="width:50px"></th>
                 </tr>
               </thead>
               <tbody id="expression-tbody"></tbody>
@@ -844,58 +860,121 @@ Enter your review comments here using Markdown syntax.
 
 <!-- Create Concept Set Modal -->
 <div class="modal-overlay" id="cs-create-modal" style="display:none">
-  <div class="modal" style="width:640px">
+  <div class="modal" style="width:520px">
     <div class="modal-header">
       <h3><i class="fas fa-plus"></i> New Concept Set</h3>
       <button class="modal-close" id="cs-create-close">&times;</button>
     </div>
     <div class="modal-body">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Name (EN) *</label>
-          <input type="text" id="cs-create-name-en" class="form-input" placeholder="e.g. Heart Rate">
+      <div class="form-group">
+        <label>Name *</label>
+        <input type="text" id="cs-create-name" class="form-input" placeholder="e.g. Heart Rate">
+      </div>
+      <div class="form-group">
+        <label>Category *</label>
+        <div class="input-with-add">
+          <select id="cs-create-cat" class="form-input">
+            <option value="">Select a category...</option>
+          </select>
+          <button class="btn-outline-sm" id="cs-create-cat-add" title="Add new category"><i class="fas fa-plus"></i></button>
         </div>
-        <div class="form-group">
-          <label>Name (FR)</label>
-          <input type="text" id="cs-create-name-fr" class="form-input" placeholder="e.g. Fréquence cardiaque">
+        <div id="cs-create-cat-new" style="display:none; margin-top:6px">
+          <input type="text" id="cs-create-cat-new-input" class="form-input" placeholder="New category name...">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Subcategory</label>
+        <div class="input-with-add">
+          <select id="cs-create-subcat" class="form-input">
+            <option value="">Select a subcategory...</option>
+          </select>
+          <button class="btn-outline-sm" id="cs-create-subcat-add" title="Add new subcategory"><i class="fas fa-plus"></i></button>
+        </div>
+        <div id="cs-create-subcat-new" style="display:none; margin-top:6px">
+          <input type="text" id="cs-create-subcat-new-input" class="form-input" placeholder="New subcategory name...">
         </div>
       </div>
       <div class="form-group">
         <label>Description</label>
         <textarea id="cs-create-desc" class="form-input" rows="3" placeholder="Brief description of the concept set..."></textarea>
       </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Category (EN) *</label>
-          <input type="text" id="cs-create-cat-en" class="form-input" list="cs-create-cat-en-list" placeholder="e.g. Clinical observation">
-          <datalist id="cs-create-cat-en-list"></datalist>
-        </div>
-        <div class="form-group">
-          <label>Category (FR)</label>
-          <input type="text" id="cs-create-cat-fr" class="form-input" list="cs-create-cat-fr-list" placeholder="e.g. Observation clinique">
-          <datalist id="cs-create-cat-fr-list"></datalist>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Subcategory (EN)</label>
-          <input type="text" id="cs-create-subcat-en" class="form-input" list="cs-create-subcat-en-list" placeholder="e.g. Vital signs">
-          <datalist id="cs-create-subcat-en-list"></datalist>
-        </div>
-        <div class="form-group">
-          <label>Subcategory (FR)</label>
-          <input type="text" id="cs-create-subcat-fr" class="form-input" list="cs-create-subcat-fr-list" placeholder="e.g. Signes vitaux">
-          <datalist id="cs-create-subcat-fr-list"></datalist>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Version</label>
-        <input type="text" id="cs-create-version" class="form-input" value="1.0.0" style="width:120px">
-      </div>
     </div>
     <div class="modal-footer">
       <button class="btn-cancel" id="cs-create-cancel">Cancel</button>
       <button class="btn-submit" id="cs-create-submit"><i class="fas fa-plus"></i> Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- Expression editor: Import ATLAS JSON modal -->
+<div class="modal-overlay" id="expr-import-modal" style="display:none">
+  <div class="modal" style="width:700px; max-height:85vh">
+    <div class="modal-header">
+      <h3><i class="fas fa-file-import"></i> Import ATLAS JSON</h3>
+      <button class="modal-close" id="expr-import-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13px; color:var(--text-muted); margin-bottom:8px">
+        Paste an ATLAS concept set expression JSON. Format: <code>{"items": [...]}</code>
+      </p>
+      <div id="expr-import-ace" style="height:350px; border:1px solid var(--border); border-radius:var(--radius)"></div>
+      <div id="expr-import-error" style="margin-top:8px; font-size:12px; color:var(--danger); display:none"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="expr-import-cancel">Cancel</button>
+      <button class="btn-submit" id="expr-import-submit"><i class="fas fa-file-import"></i> Import</button>
+    </div>
+  </div>
+</div>
+
+<!-- Expression editor: Add Concepts fullscreen modal -->
+<div class="modal-fs" id="expr-add-modal">
+  <div class="modal-fs-header">
+    <h3><i class="fas fa-search"></i> Add Concepts</h3>
+    <button class="modal-fs-close" id="expr-add-close">&times;</button>
+  </div>
+  <div class="modal-fs-body" style="flex:1; display:flex; flex-direction:column; min-height:0; padding:16px">
+    <div style="display:flex; gap:8px; margin-bottom:12px">
+      <input type="text" class="form-input" id="expr-add-search" placeholder="Search concepts by name, code, or ID..." style="flex:1">
+      <button class="btn-submit" id="expr-add-search-btn"><i class="fas fa-search"></i> Search</button>
+    </div>
+    <div id="expr-add-no-db" style="display:none; padding:20px; text-align:center; color:var(--text-muted); font-size:13px">
+      <i class="fas fa-info-circle" style="color:var(--primary); margin-right:6px"></i>
+      Load OHDSI vocabularies in <a href="#/general-settings" style="color:var(--primary); font-weight:600">General Settings</a> to search concepts.
+    </div>
+    <div id="expr-add-results-wrap" style="flex:1; overflow-y:auto; min-height:0">
+      <table class="concept-related-table" id="expr-add-results-table">
+        <thead>
+          <tr>
+            <th style="width:36px"><input type="checkbox" id="expr-add-select-all"></th>
+            <th>Concept ID</th>
+            <th>Concept Name</th>
+            <th>Vocabulary</th>
+            <th>Code</th>
+            <th>Domain</th>
+            <th>Class</th>
+            <th style="text-align:center">Standard</th>
+          </tr>
+        </thead>
+        <tbody id="expr-add-results-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal-fs-footer">
+    <div class="expr-add-toggles">
+      <label class="toggle-switch toggle-sm toggle-exclude">
+        <input type="checkbox" id="expr-add-exclude"><span class="toggle-slider"></span>
+      </label> <span>Exclude</span>
+      <label class="toggle-switch toggle-sm">
+        <input type="checkbox" id="expr-add-descendants"><span class="toggle-slider"></span>
+      </label> <span>Descendants</span>
+      <label class="toggle-switch toggle-sm">
+        <input type="checkbox" id="expr-add-mapped"><span class="toggle-slider"></span>
+      </label> <span>Mapped</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:10px">
+      <span id="expr-add-count" style="font-size:12px; color:var(--text-muted)">0 selected</span>
+      <button class="btn-submit" id="expr-add-submit" disabled><i class="fas fa-plus"></i> Add Concepts</button>
     </div>
   </div>
 </div>

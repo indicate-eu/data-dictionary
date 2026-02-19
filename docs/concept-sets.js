@@ -17,9 +17,18 @@ var ConceptSetsPage = (function() {
   var csDetailTab = 'concepts';
   var csConceptMode = 'resolved';
 
-  // Selection mode state
+  // Selection mode state (CS list)
   var selectionMode = false;
   var selectedIds = new Set();
+
+  // Expression editor state
+  var exprEditMode = false;
+  var exprEditItems = null;
+  var exprSelectMode = false;
+  var exprSelectedIdxs = new Set();
+  var exprImportEditor = null;
+  var addConceptResults = [];
+  var addConceptSelectedIds = new Set();
 
   // ==================== FILTERING ====================
   function getFilteredCS() {
@@ -197,34 +206,453 @@ var ConceptSetsPage = (function() {
     document.getElementById('cs-resolved-view').style.display = (mode === 'resolved') ? '' : 'none';
     buildColVisDropdown();
     updateViewJsonLink();
-    if (mode === 'expression') renderExpressionTable();
-    else renderResolvedTable();
+    if (mode === 'expression') {
+      renderExpressionTable();
+    } else {
+      renderResolvedTable();
+    }
+    updateExprToolbar();
   }
 
   // ==================== EXPRESSION TABLE ====================
   function renderExpressionTable() {
     if (!selectedConceptSet) return;
-    var items = (selectedConceptSet.expression && selectedConceptSet.expression.items) || [];
+    var items = exprEditMode ? exprEditItems : ((selectedConceptSet.expression && selectedConceptSet.expression.items) || []);
     document.getElementById('cs-concept-count').textContent = items.length;
+    var table = document.getElementById('expression-table');
     var tbody = document.getElementById('expression-tbody');
+    var colSpan = exprEditMode ? 10 : 8;
+
+    // Toggle table classes
+    table.classList.toggle('expr-edit-mode', exprEditMode);
+    table.classList.toggle('expr-select-mode', exprSelectMode);
+
     if (items.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="8" class="empty-state"><p>No concepts in this concept set</p></td></tr>';
+      tbody.innerHTML = '<tr><td colspan="' + colSpan + '" class="empty-state"><p>No concepts in this concept set</p></td></tr>';
       return;
     }
     tbody.innerHTML = items.map(function(item, i) {
       var c = item.concept;
-      return '<tr data-idx="' + i + '">' +
+      var isExcl = item.isExcluded;
+      var selChecked = exprSelectedIdxs.has(i) ? ' checked' : '';
+      var rowClass = exprSelectedIdxs.has(i) ? ' class="expr-selected"' : '';
+
+      var selectCol = '<td class="expr-select-col td-center"><input type="checkbox" class="expr-row-checkbox" data-idx="' + i + '"' + selChecked + '></td>';
+      var actionCol = '<td class="expr-action-col td-center"><i class="fas fa-trash expr-delete-icon" data-idx="' + i + '"></i></td>';
+
+      var excludeCell, descCell, mappedCell;
+      if (exprEditMode) {
+        var exclClass = isExcl ? ' toggle-exclude' : '';
+        excludeCell = '<td class="td-center"><label class="toggle-switch toggle-sm toggle-exclude"><input type="checkbox" data-idx="' + i + '" data-field="isExcluded"' + (isExcl ? ' checked' : '') + '><span class="toggle-slider"></span></label></td>';
+        descCell = '<td class="td-center"><label class="toggle-switch toggle-sm' + exclClass + '"><input type="checkbox" data-idx="' + i + '" data-field="includeDescendants"' + (item.includeDescendants ? ' checked' : '') + '><span class="toggle-slider"></span></label></td>';
+        mappedCell = '<td class="td-center"><label class="toggle-switch toggle-sm' + exclClass + '"><input type="checkbox" data-idx="' + i + '" data-field="includeMapped"' + (item.includeMapped ? ' checked' : '') + '><span class="toggle-slider"></span></label></td>';
+      } else {
+        excludeCell = '<td class="td-center">' + (isExcl ? '<span class="flag-yes-danger">Yes</span>' : '<span class="flag-no">No</span>') + '</td>';
+        descCell = '<td class="td-center">' + (item.includeDescendants ? '<span class="' + (isExcl ? 'flag-yes-danger' : 'flag-yes') + '">Yes</span>' : '<span class="flag-no">No</span>') + '</td>';
+        mappedCell = '<td class="td-center">' + (item.includeMapped ? '<span class="' + (isExcl ? 'flag-yes-danger' : 'flag-yes') + '">Yes</span>' : '<span class="flag-no">No</span>') + '</td>';
+      }
+
+      return '<tr data-idx="' + i + '"' + rowClass + '>' +
+        (exprEditMode ? selectCol : '') +
         '<td>' + App.escapeHtml(c.vocabularyId) + '</td>' +
         '<td>' + App.escapeHtml(c.conceptName) + '</td>' +
         '<td>' + App.escapeHtml(c.conceptCode) + '</td>' +
         '<td>' + App.escapeHtml(c.domainId) + '</td>' +
         '<td class="td-center">' + App.standardBadge(c) + '</td>' +
-        '<td class="td-center">' + (item.isExcluded ? '<span class="flag-yes-danger">Yes</span>' : '<span class="flag-no">No</span>') + '</td>' +
-        '<td class="td-center">' + (item.includeDescendants ? '<span class="' + (item.isExcluded ? 'flag-yes-danger' : 'flag-yes') + '">Yes</span>' : '<span class="flag-no">No</span>') + '</td>' +
-        '<td class="td-center">' + (item.includeMapped ? '<span class="' + (item.isExcluded ? 'flag-yes-danger' : 'flag-yes') + '">Yes</span>' : '<span class="flag-no">No</span>') + '</td>' +
+        excludeCell + descCell + mappedCell +
+        (exprEditMode ? actionCol : '') +
         '</tr>';
     }).join('');
     applyColumnVisibility();
+  }
+
+  // ==================== EXPRESSION EDIT MODE ====================
+  function enterExprEditMode() {
+    if (!selectedConceptSet) return;
+    exprEditMode = true;
+    exprSelectMode = false;
+    exprSelectedIdxs.clear();
+    // Deep clone items
+    var orig = (selectedConceptSet.expression && selectedConceptSet.expression.items) || [];
+    exprEditItems = JSON.parse(JSON.stringify(orig));
+    // Switch to expression tab if not already there
+    if (csConceptMode !== 'expression') {
+      switchConceptMode('expression');
+    } else {
+      renderExpressionTable();
+    }
+    updateExprToolbar();
+  }
+
+  function exitExprEditMode() {
+    exprEditMode = false;
+    exprSelectMode = false;
+    exprSelectedIdxs.clear();
+    exprEditItems = null;
+    updateExprToolbar();
+    if (csConceptMode === 'expression') renderExpressionTable();
+  }
+
+  function updateExprToolbar() {
+    // Header-level buttons
+    // Header-level buttons
+    var headerEditBtn = document.getElementById('cs-edit-btn');
+    var headerExportBtn = document.getElementById('cs-export-json');
+    var headerImportBtn = document.getElementById('expr-import-btn');
+    var headerCancelBtn = document.getElementById('cs-edit-cancel-btn');
+    var headerSaveBtn = document.getElementById('cs-edit-save-btn');
+
+    // Toggle-bar edit actions
+    var editActions = document.getElementById('expr-edit-actions');
+    var selectBtn = document.getElementById('expr-select-btn');
+    var deleteSelBtn = document.getElementById('expr-delete-sel-btn');
+    var selCount = document.getElementById('expr-selection-count');
+
+    if (exprEditMode) {
+      headerEditBtn.style.display = 'none';
+      headerExportBtn.style.display = 'none';
+      headerImportBtn.style.display = '';
+      headerCancelBtn.style.display = '';
+      headerSaveBtn.style.display = '';
+      // Show edit actions on toggle bar when on expression tab
+      editActions.style.display = (csConceptMode === 'expression') ? 'flex' : 'none';
+      selectBtn.classList.toggle('active', exprSelectMode);
+      deleteSelBtn.style.display = exprSelectMode ? '' : 'none';
+      selCount.style.display = exprSelectMode ? '' : 'none';
+      if (exprSelectMode) selCount.textContent = exprSelectedIdxs.size + ' selected';
+    } else {
+      headerEditBtn.style.display = '';
+      headerExportBtn.style.display = '';
+      headerImportBtn.style.display = 'none';
+      headerCancelBtn.style.display = 'none';
+      headerSaveBtn.style.display = 'none';
+      editActions.style.display = 'none';
+    }
+  }
+
+  function toggleExprSelectMode() {
+    exprSelectMode = !exprSelectMode;
+    if (!exprSelectMode) exprSelectedIdxs.clear();
+    updateExprToolbar();
+    renderExpressionTable();
+  }
+
+  function toggleExprRowSelection(idx) {
+    if (exprSelectedIdxs.has(idx)) exprSelectedIdxs.delete(idx);
+    else exprSelectedIdxs.add(idx);
+    updateExprToolbar();
+    // Update just the row visual + checkbox without full re-render
+    var tr = document.querySelector('#expression-tbody tr[data-idx="' + idx + '"]');
+    if (tr) {
+      tr.classList.toggle('expr-selected', exprSelectedIdxs.has(idx));
+      var cb = tr.querySelector('.expr-row-checkbox');
+      if (cb) cb.checked = exprSelectedIdxs.has(idx);
+    }
+  }
+
+  function deleteExprSelected() {
+    if (exprSelectedIdxs.size === 0) return;
+    // Sort descending so splice doesn't shift indices
+    var sorted = Array.from(exprSelectedIdxs).sort(function(a, b) { return b - a; });
+    sorted.forEach(function(idx) { exprEditItems.splice(idx, 1); });
+    exprSelectedIdxs.clear();
+    updateExprToolbar();
+    renderExpressionTable();
+  }
+
+  function deleteExprRow(idx) {
+    exprEditItems.splice(idx, 1);
+    exprSelectedIdxs.clear();
+    updateExprToolbar();
+    renderExpressionTable();
+  }
+
+  function saveExprEdits() {
+    if (!selectedConceptSet || !exprEditItems) return;
+    if (!selectedConceptSet.expression) selectedConceptSet.expression = {};
+    selectedConceptSet.expression.items = exprEditItems;
+    selectedConceptSet.modifiedDate = new Date().toISOString().slice(0, 10);
+    App.updateConceptSet(selectedConceptSet);
+    exitExprEditMode();
+    App.showToast('Expression saved');
+  }
+
+  function cancelExprEdits() {
+    exitExprEditMode();
+  }
+
+  // ==================== IMPORT ATLAS JSON ====================
+  function openImportModal() {
+    document.getElementById('expr-import-modal').style.display = 'flex';
+    document.getElementById('expr-import-error').style.display = 'none';
+    if (!exprImportEditor) {
+      exprImportEditor = ace.edit('expr-import-ace');
+      exprImportEditor.setTheme('ace/theme/chrome');
+      exprImportEditor.session.setMode('ace/mode/json');
+      exprImportEditor.setFontSize(13);
+      exprImportEditor.setShowPrintMargin(false);
+    }
+    exprImportEditor.setValue('', -1);
+    exprImportEditor.focus();
+  }
+
+  function closeImportModal() {
+    document.getElementById('expr-import-modal').style.display = 'none';
+  }
+
+  function submitImport() {
+    var errEl = document.getElementById('expr-import-error');
+    errEl.style.display = 'none';
+    var text = exprImportEditor.getValue().trim();
+    if (!text) {
+      errEl.textContent = 'Please paste JSON content.';
+      errEl.style.display = '';
+      return;
+    }
+    var parsed;
+    try { parsed = JSON.parse(text); } catch (e) {
+      errEl.textContent = 'Invalid JSON: ' + e.message;
+      errEl.style.display = '';
+      return;
+    }
+    var rawItems = parsed.items;
+    if (!rawItems || !Array.isArray(rawItems) || rawItems.length === 0) {
+      errEl.textContent = 'JSON must contain a non-empty "items" array.';
+      errEl.style.display = '';
+      return;
+    }
+    // Build set of existing conceptIds for dedup
+    var existingIds = {};
+    exprEditItems.forEach(function(it) { existingIds[it.concept.conceptId] = true; });
+    var added = 0;
+    var skipped = 0;
+    rawItems.forEach(function(raw) {
+      var rc = raw.concept || {};
+      // Support both ATLAS uppercase and our camelCase format
+      var cid = rc.CONCEPT_ID || rc.conceptId;
+      if (!cid) { skipped++; return; }
+      if (existingIds[cid]) { skipped++; return; }
+      existingIds[cid] = true;
+      exprEditItems.push({
+        concept: {
+          conceptId: cid,
+          conceptName: rc.CONCEPT_NAME || rc.conceptName || '',
+          domainId: rc.DOMAIN_ID || rc.domainId || '',
+          vocabularyId: rc.VOCABULARY_ID || rc.vocabularyId || '',
+          conceptClassId: rc.CONCEPT_CLASS_ID || rc.conceptClassId || '',
+          standardConcept: rc.STANDARD_CONCEPT || rc.standardConcept || '',
+          standardConceptCaption: rc.STANDARD_CONCEPT_CAPTION || rc.standardConceptCaption || '',
+          conceptCode: rc.CONCEPT_CODE || rc.conceptCode || '',
+          validStartDate: rc.VALID_START_DATE || rc.validStartDate || '',
+          validEndDate: rc.VALID_END_DATE || rc.validEndDate || '',
+          invalidReason: rc.INVALID_REASON || rc.invalidReason || null,
+          invalidReasonCaption: rc.INVALID_REASON_CAPTION || rc.invalidReasonCaption || 'Valid'
+        },
+        isExcluded: !!(raw.isExcluded),
+        includeDescendants: !!(raw.includeDescendants),
+        includeMapped: !!(raw.includeMapped)
+      });
+      added++;
+    });
+    closeImportModal();
+    renderExpressionTable();
+    var msg = added + ' concept' + (added !== 1 ? 's' : '') + ' imported';
+    if (skipped > 0) msg += ', ' + skipped + ' skipped (duplicate or invalid)';
+    App.showToast(msg);
+  }
+
+  // ==================== ADD CONCEPTS MODAL ====================
+  function openAddModal() {
+    var modal = document.getElementById('expr-add-modal');
+    var noDb = document.getElementById('expr-add-no-db');
+    var resultsWrap = document.getElementById('expr-add-results-wrap');
+    var footer = document.querySelector('.modal-fs-footer');
+    var searchRow = document.getElementById('expr-add-search').parentElement;
+
+    addConceptResults = [];
+    addConceptSelectedIds.clear();
+    document.getElementById('expr-add-results-tbody').innerHTML = '';
+    document.getElementById('expr-add-search').value = '';
+    document.getElementById('expr-add-select-all').checked = false;
+    document.getElementById('expr-add-exclude').checked = false;
+    document.getElementById('expr-add-descendants').checked = false;
+    document.getElementById('expr-add-mapped').checked = false;
+    updateAddCount();
+
+    function showReady() {
+      noDb.style.display = 'none';
+      resultsWrap.style.display = '';
+      footer.style.display = '';
+      searchRow.style.display = '';
+    }
+    function showNoDb() {
+      noDb.style.display = '';
+      resultsWrap.style.display = 'none';
+      footer.style.display = 'none';
+      searchRow.style.display = 'none';
+    }
+
+    if (typeof VocabDB === 'undefined') {
+      showNoDb();
+    } else {
+      VocabDB.isDatabaseReady().then(function(ready) {
+        if (ready) {
+          showReady();
+          return;
+        }
+        // Try to auto-remount from IndexedDB / stored handles
+        noDb.style.display = '';
+        noDb.innerHTML = '<i class="fas fa-spinner fa-spin" style="color:var(--primary); margin-right:6px"></i>' +
+          'Attempting to load vocabulary database...';
+        resultsWrap.style.display = 'none';
+        footer.style.display = 'none';
+        searchRow.style.display = 'none';
+
+        VocabDB.remountFromStoredHandles().then(function(ok) {
+          if (ok) {
+            showReady();
+          } else {
+            noDb.innerHTML = '<i class="fas fa-info-circle" style="color:var(--primary); margin-right:6px"></i>' +
+              'Load OHDSI vocabularies in <a href="#/general-settings" style="color:var(--primary); font-weight:600">General Settings</a> to search concepts.';
+            showNoDb();
+          }
+        }).catch(function() {
+          noDb.innerHTML = '<i class="fas fa-info-circle" style="color:var(--primary); margin-right:6px"></i>' +
+            'Load OHDSI vocabularies in <a href="#/general-settings" style="color:var(--primary); font-weight:600">General Settings</a> to search concepts.';
+          showNoDb();
+        });
+      });
+    }
+    modal.classList.add('visible');
+  }
+
+  function closeAddModal() {
+    document.getElementById('expr-add-modal').classList.remove('visible');
+  }
+
+  function searchAddConcepts() {
+    var q = document.getElementById('expr-add-search').value.trim();
+    if (!q) return;
+    var tbody = document.getElementById('expr-add-results-tbody');
+    tbody.innerHTML = '<tr><td colspan="8" class="td-center" style="padding:20px; color:var(--text-muted)"><i class="fas fa-spinner fa-spin"></i> Searching...</td></tr>';
+    addConceptResults = [];
+    addConceptSelectedIds.clear();
+    document.getElementById('expr-add-select-all').checked = false;
+    updateAddCount();
+
+    // Build SQL: search by name, code, or ID
+    var isNumeric = /^\d+$/.test(q);
+    var conditions = [];
+    if (isNumeric) {
+      conditions.push('concept_id = ' + q);
+    }
+    conditions.push('concept_name ILIKE \'%' + q.replace(/'/g, "''") + '%\'');
+    conditions.push('concept_code ILIKE \'%' + q.replace(/'/g, "''") + '%\'');
+    var sql = 'SELECT concept_id, concept_name, vocabulary_id, domain_id, concept_class_id, concept_code, standard_concept ' +
+      'FROM concept WHERE (' + conditions.join(' OR ') + ') ' +
+      'ORDER BY CASE WHEN standard_concept = \'S\' THEN 0 ELSE 1 END, concept_name LIMIT 500';
+
+    VocabDB.query(sql).then(function(rows) {
+      addConceptResults = rows || [];
+      renderAddResults();
+    }).catch(function(err) {
+      tbody.innerHTML = '<tr><td colspan="8" style="padding:20px; color:var(--danger)">' + App.escapeHtml(err.message) + '</td></tr>';
+    });
+  }
+
+  function renderAddResults() {
+    var tbody = document.getElementById('expr-add-results-tbody');
+    if (addConceptResults.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="8" class="td-center" style="padding:20px; color:var(--text-muted)">No results found.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = addConceptResults.map(function(r) {
+      var sel = addConceptSelectedIds.has(Number(r.concept_id));
+      var std = r.standard_concept === 'S' ? 'Standard' : (r.standard_concept === 'C' ? 'Classification' : 'Non-standard');
+      var stdClass = r.standard_concept === 'S' ? 'flag-yes' : (r.standard_concept === 'C' ? '' : 'flag-yes-danger');
+      return '<tr data-cid="' + r.concept_id + '"' + (sel ? ' class="expr-selected"' : '') + '>' +
+        '<td class="td-center"><input type="checkbox" class="add-row-checkbox" data-cid="' + r.concept_id + '"' + (sel ? ' checked' : '') + '></td>' +
+        '<td>' + r.concept_id + '</td>' +
+        '<td>' + App.escapeHtml(r.concept_name) + '</td>' +
+        '<td>' + App.escapeHtml(r.vocabulary_id) + '</td>' +
+        '<td>' + App.escapeHtml(r.concept_code || '') + '</td>' +
+        '<td>' + App.escapeHtml(r.domain_id || '') + '</td>' +
+        '<td>' + App.escapeHtml(r.concept_class_id || '') + '</td>' +
+        '<td class="td-center">' + (stdClass ? '<span class="' + stdClass + '">' + std + '</span>' : std) + '</td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  function toggleAddRow(cid) {
+    if (addConceptSelectedIds.has(cid)) addConceptSelectedIds.delete(cid);
+    else addConceptSelectedIds.add(cid);
+    var tr = document.querySelector('#expr-add-results-tbody tr[data-cid="' + cid + '"]');
+    if (tr) {
+      tr.classList.toggle('expr-selected', addConceptSelectedIds.has(cid));
+      var cb = tr.querySelector('.add-row-checkbox');
+      if (cb) cb.checked = addConceptSelectedIds.has(cid);
+    }
+    updateAddCount();
+  }
+
+  function toggleAddSelectAll() {
+    var allCb = document.getElementById('expr-add-select-all');
+    if (allCb.checked) {
+      addConceptResults.forEach(function(r) { addConceptSelectedIds.add(Number(r.concept_id)); });
+    } else {
+      addConceptSelectedIds.clear();
+    }
+    renderAddResults();
+    updateAddCount();
+  }
+
+  function updateAddCount() {
+    var n = addConceptSelectedIds.size;
+    document.getElementById('expr-add-count').textContent = n + ' selected';
+    document.getElementById('expr-add-submit').disabled = (n === 0);
+  }
+
+  function submitAddConcepts() {
+    if (addConceptSelectedIds.size === 0) return;
+    var existingIds = {};
+    exprEditItems.forEach(function(it) { existingIds[it.concept.conceptId] = true; });
+    var isExcluded = document.getElementById('expr-add-exclude').checked;
+    var includeDesc = document.getElementById('expr-add-descendants').checked;
+    var includeMapped = document.getElementById('expr-add-mapped').checked;
+    var added = 0;
+    var skipped = 0;
+    addConceptResults.forEach(function(r) {
+      var cid = Number(r.concept_id);
+      if (!addConceptSelectedIds.has(cid)) return;
+      if (existingIds[cid]) { skipped++; return; }
+      existingIds[cid] = true;
+      var std = r.standard_concept || '';
+      exprEditItems.push({
+        concept: {
+          conceptId: cid,
+          conceptName: r.concept_name || '',
+          domainId: r.domain_id || '',
+          vocabularyId: r.vocabulary_id || '',
+          conceptClassId: r.concept_class_id || '',
+          standardConcept: std,
+          standardConceptCaption: std === 'S' ? 'Standard' : (std === 'C' ? 'Classification' : 'Non-standard'),
+          conceptCode: r.concept_code || '',
+          validStartDate: '',
+          validEndDate: '',
+          invalidReason: null,
+          invalidReasonCaption: 'Valid'
+        },
+        isExcluded: isExcluded,
+        includeDescendants: includeDesc,
+        includeMapped: includeMapped
+      });
+      added++;
+    });
+    closeAddModal();
+    renderExpressionTable();
+    var msg = added + ' concept' + (added !== 1 ? 's' : '') + ' added';
+    if (skipped > 0) msg += ', ' + skipped + ' skipped (already in expression)';
+    App.showToast(msg);
   }
 
   // ==================== RESOLVED TABLE ====================
@@ -262,12 +690,14 @@ var ConceptSetsPage = (function() {
     var cols = getActiveColConfig();
     var table = document.getElementById(getActiveTableId());
     var keys = Object.keys(cols);
+    // In edit mode, tbody rows have extra select col at start → offset by 1
+    var offset = (csConceptMode === 'expression' && exprEditMode) ? 1 : 0;
     keys.forEach(function(col) {
       var vis = cols[col].visible;
       table.querySelectorAll('[data-col="' + col + '"]').forEach(function(el) {
         el.style.display = vis ? '' : 'none';
       });
-      var colIndex = keys.indexOf(col);
+      var colIndex = keys.indexOf(col) + offset;
       table.querySelectorAll('tbody tr').forEach(function(tr) {
         var td = tr.children[colIndex];
         if (td) td.style.display = vis ? '' : 'none';
@@ -1150,6 +1580,11 @@ var ConceptSetsPage = (function() {
       '<span class="version-badge">v' + App.escapeHtml(cs.version || '1.0.0') + '</span>' +
       '<span class="status-badge ' + statusClass + '">' + App.escapeHtml(statusLabel) + '</span>';
 
+    // Show Edit button for all concept sets
+    document.getElementById('cs-edit-btn').style.display = '';
+    document.getElementById('cs-edit-cancel-btn').style.display = 'none';
+    document.getElementById('cs-edit-save-btn').style.display = 'none';
+
     switchCSDetailTab('concepts');
     switchConceptMode('resolved');
     updateViewJsonLink();
@@ -1160,6 +1595,10 @@ var ConceptSetsPage = (function() {
   }
 
   function hideCSDetail() {
+    exitExprEditMode();
+    document.getElementById('cs-edit-btn').style.display = 'none';
+    document.getElementById('cs-edit-cancel-btn').style.display = 'none';
+    document.getElementById('cs-edit-save-btn').style.display = 'none';
     document.getElementById('cs-detail-view').classList.remove('active');
     document.getElementById('cs-list-view').classList.remove('hidden');
     selectedConceptSet = null;
@@ -1531,42 +1970,71 @@ var ConceptSetsPage = (function() {
   }
 
   // ==================== CREATE CONCEPT SET ====================
-  function openCreateModal() {
-    // Clear form
-    ['cs-create-name-en', 'cs-create-name-fr', 'cs-create-desc',
-     'cs-create-cat-en', 'cs-create-cat-fr',
-     'cs-create-subcat-en', 'cs-create-subcat-fr'].forEach(function(id) {
-      document.getElementById(id).value = '';
-    });
-    document.getElementById('cs-create-version').value = '1.0.0';
+  // Category → subcategories map (built per language pair: en+fr)
+  var createCatMap = {}; // { category: { en, fr, subcats: [{ en, fr }] } }
 
-    // Populate datalists with existing categories/subcategories
-    var catsEn = new Set(), catsFr = new Set(), subcatsEn = new Set(), subcatsFr = new Set();
+  function buildCategoryMap() {
+    createCatMap = {};
     App.conceptSets.forEach(function(cs) {
       var tr = cs.metadata && cs.metadata.translations;
-      if (tr && tr.en) {
-        if (tr.en.category) catsEn.add(tr.en.category);
-        if (tr.en.subcategory) subcatsEn.add(tr.en.subcategory);
-      }
-      if (tr && tr.fr) {
-        if (tr.fr.category) catsFr.add(tr.fr.category);
-        if (tr.fr.subcategory) subcatsFr.add(tr.fr.subcategory);
+      if (!tr || !tr.en) return;
+      var catEn = (tr.en.category || '').trim();
+      var catFr = (tr.fr && tr.fr.category || '').trim();
+      if (!catEn) return;
+      if (!createCatMap[catEn]) createCatMap[catEn] = { en: catEn, fr: catFr || catEn, subcats: {} };
+      var subcatEn = (tr.en.subcategory || '').trim();
+      var subcatFr = (tr.fr && tr.fr.subcategory || '').trim();
+      if (subcatEn && !createCatMap[catEn].subcats[subcatEn]) {
+        createCatMap[catEn].subcats[subcatEn] = { en: subcatEn, fr: subcatFr || subcatEn };
       }
     });
+  }
 
-    function fillDatalist(id, values) {
-      var dl = document.getElementById(id);
-      dl.innerHTML = '';
-      Array.from(values).sort().forEach(function(v) {
-        var opt = document.createElement('option');
-        opt.value = v;
-        dl.appendChild(opt);
-      });
-    }
-    fillDatalist('cs-create-cat-en-list', catsEn);
-    fillDatalist('cs-create-cat-fr-list', catsFr);
-    fillDatalist('cs-create-subcat-en-list', subcatsEn);
-    fillDatalist('cs-create-subcat-fr-list', subcatsFr);
+  function populateCatDropdown() {
+    var sel = document.getElementById('cs-create-cat');
+    var lang = App.lang || 'en';
+    sel.innerHTML = '<option value="">Select a category...</option>';
+    Object.keys(createCatMap).sort().forEach(function(key) {
+      var cat = createCatMap[key];
+      var label = lang === 'fr' ? cat.fr : cat.en;
+      var opt = document.createElement('option');
+      opt.value = key; // always store en key
+      opt.textContent = label;
+      sel.appendChild(opt);
+    });
+  }
+
+  function populateSubcatDropdown() {
+    var sel = document.getElementById('cs-create-subcat');
+    var lang = App.lang || 'en';
+    var catKey = document.getElementById('cs-create-cat').value;
+    sel.innerHTML = '<option value="">Select a subcategory...</option>';
+    if (!catKey || !createCatMap[catKey]) return;
+    var subcats = createCatMap[catKey].subcats;
+    Object.keys(subcats).sort().forEach(function(key) {
+      var sub = subcats[key];
+      var label = lang === 'fr' ? sub.fr : sub.en;
+      var opt = document.createElement('option');
+      opt.value = key;
+      opt.textContent = label;
+      sel.appendChild(opt);
+    });
+  }
+
+  function openCreateModal() {
+    // Clear form
+    document.getElementById('cs-create-name').value = '';
+    document.getElementById('cs-create-desc').value = '';
+    document.getElementById('cs-create-cat').value = '';
+    document.getElementById('cs-create-subcat').value = '';
+    document.getElementById('cs-create-cat-new').style.display = 'none';
+    document.getElementById('cs-create-cat-new-input').value = '';
+    document.getElementById('cs-create-subcat-new').style.display = 'none';
+    document.getElementById('cs-create-subcat-new-input').value = '';
+
+    buildCategoryMap();
+    populateCatDropdown();
+    populateSubcatDropdown();
 
     document.getElementById('cs-create-modal').style.display = 'flex';
   }
@@ -1576,17 +2044,41 @@ var ConceptSetsPage = (function() {
   }
 
   function submitCreateCS() {
-    var nameEn = document.getElementById('cs-create-name-en').value.trim();
-    var nameFr = document.getElementById('cs-create-name-fr').value.trim();
+    var name = document.getElementById('cs-create-name').value.trim();
     var desc = document.getElementById('cs-create-desc').value.trim();
-    var catEn = document.getElementById('cs-create-cat-en').value.trim();
-    var catFr = document.getElementById('cs-create-cat-fr').value.trim();
-    var subcatEn = document.getElementById('cs-create-subcat-en').value.trim();
-    var subcatFr = document.getElementById('cs-create-subcat-fr').value.trim();
-    var version = document.getElementById('cs-create-version').value.trim() || '1.0.0';
 
-    if (!nameEn) { App.showToast('Name (EN) is required.', 'error'); return; }
-    if (!catEn) { App.showToast('Category (EN) is required.', 'error'); return; }
+    // Category: from dropdown or new input
+    var catKey = document.getElementById('cs-create-cat').value;
+    var catNewInput = document.getElementById('cs-create-cat-new-input').value.trim();
+    var catEn, catFr;
+    if (catNewInput) {
+      catEn = catNewInput;
+      catFr = catNewInput;
+    } else if (catKey && createCatMap[catKey]) {
+      catEn = createCatMap[catKey].en;
+      catFr = createCatMap[catKey].fr;
+    } else {
+      catEn = '';
+      catFr = '';
+    }
+
+    // Subcategory: from dropdown or new input
+    var subcatKey = document.getElementById('cs-create-subcat').value;
+    var subcatNewInput = document.getElementById('cs-create-subcat-new-input').value.trim();
+    var subcatEn, subcatFr;
+    if (subcatNewInput) {
+      subcatEn = subcatNewInput;
+      subcatFr = subcatNewInput;
+    } else if (subcatKey && catKey && createCatMap[catKey] && createCatMap[catKey].subcats[subcatKey]) {
+      subcatEn = createCatMap[catKey].subcats[subcatKey].en;
+      subcatFr = createCatMap[catKey].subcats[subcatKey].fr;
+    } else {
+      subcatEn = '';
+      subcatFr = '';
+    }
+
+    if (!name) { App.showToast('Name is required.', 'error'); return; }
+    if (!catEn) { App.showToast('Category is required.', 'error'); return; }
 
     var profile = App.getUserProfile();
     var authorName = ((profile.firstName || '') + ' ' + (profile.lastName || '')).trim() || 'Anonymous';
@@ -1594,9 +2086,9 @@ var ConceptSetsPage = (function() {
 
     var cs = {
       id: App.nextConceptSetId(),
-      name: nameEn,
+      name: name,
       description: desc || null,
-      version: version,
+      version: '1.0.0',
       createdBy: authorName,
       createdDate: today,
       modifiedBy: authorName,
@@ -1607,8 +2099,8 @@ var ConceptSetsPage = (function() {
       reviewStatus: 'draft',
       metadata: {
         translations: {
-          en: { name: nameEn, category: catEn, subcategory: subcatEn },
-          fr: { name: nameFr || nameEn, category: catFr || catEn, subcategory: subcatFr || subcatEn }
+          en: { name: name, category: catEn, subcategory: subcatEn },
+          fr: { name: name, category: catFr, subcategory: subcatFr }
         },
         createdByDetails: {
           firstName: profile.firstName || '',
@@ -1627,7 +2119,7 @@ var ConceptSetsPage = (function() {
     closeCreateModal();
     renderAll();
     showCSDetail(cs.id);
-    App.showToast('Concept set "' + nameEn + '" created.', 'success');
+    App.showToast('Concept set "' + name + '" created.', 'success');
   }
 
   // ==================== EVENTS ====================
@@ -1737,6 +2229,70 @@ var ConceptSetsPage = (function() {
       switchConceptMode(btn.dataset.mode);
     });
 
+    // Header-level edit/cancel/save
+    document.getElementById('cs-edit-btn').addEventListener('click', enterExprEditMode);
+    document.getElementById('cs-edit-cancel-btn').addEventListener('click', cancelExprEdits);
+    document.getElementById('cs-edit-save-btn').addEventListener('click', saveExprEdits);
+
+    // Expression edit actions
+    document.getElementById('expr-import-btn').addEventListener('click', openImportModal);
+    document.getElementById('expr-add-btn').addEventListener('click', openAddModal);
+    document.getElementById('expr-select-btn').addEventListener('click', toggleExprSelectMode);
+    document.getElementById('expr-delete-sel-btn').addEventListener('click', deleteExprSelected);
+
+    // Expression table: toggle switches, delete icons, row selection
+    document.getElementById('expression-tbody').addEventListener('change', function(e) {
+      var input = e.target;
+      if (!exprEditMode || !exprEditItems) return;
+      var idx = parseInt(input.getAttribute('data-idx'));
+      var field = input.getAttribute('data-field');
+      if (field && !isNaN(idx) && exprEditItems[idx]) {
+        exprEditItems[idx][field] = input.checked;
+        // Re-render row when exclude changes so toggle colors update
+        if (field === 'isExcluded') renderExpressionTable();
+      }
+    });
+    document.getElementById('expression-tbody').addEventListener('click', function(e) {
+      // Trash icon
+      var trash = e.target.closest('.expr-delete-icon');
+      if (trash && exprEditMode) {
+        deleteExprRow(parseInt(trash.getAttribute('data-idx')));
+        return;
+      }
+      // Row checkbox in select mode
+      if (e.target.classList.contains('expr-row-checkbox')) {
+        toggleExprRowSelection(parseInt(e.target.getAttribute('data-idx')));
+        return;
+      }
+      // Row click in select mode
+      if (exprSelectMode) {
+        var tr = e.target.closest('tr[data-idx]');
+        if (tr) toggleExprRowSelection(parseInt(tr.getAttribute('data-idx')));
+      }
+    });
+
+    // Import modal
+    document.getElementById('expr-import-close').addEventListener('click', closeImportModal);
+    document.getElementById('expr-import-cancel').addEventListener('click', closeImportModal);
+    document.getElementById('expr-import-submit').addEventListener('click', submitImport);
+    document.getElementById('expr-import-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeImportModal();
+    });
+
+    // Add concepts modal
+    document.getElementById('expr-add-close').addEventListener('click', closeAddModal);
+    document.getElementById('expr-add-search-btn').addEventListener('click', searchAddConcepts);
+    document.getElementById('expr-add-search').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') searchAddConcepts();
+    });
+    document.getElementById('expr-add-select-all').addEventListener('change', toggleAddSelectAll);
+    document.getElementById('expr-add-results-tbody').addEventListener('click', function(e) {
+      var tr = e.target.closest('tr[data-cid]');
+      if (!tr) return;
+      toggleAddRow(parseInt(tr.getAttribute('data-cid')));
+    });
+    document.getElementById('expr-add-submit').addEventListener('click', submitAddConcepts);
+
     // Resolved concept row click -> concept detail (fresh navigation, reset history)
     document.getElementById('resolved-tbody').addEventListener('click', function(e) {
       var tr = e.target.closest('tr[data-idx]');
@@ -1808,6 +2364,35 @@ var ConceptSetsPage = (function() {
     document.getElementById('cs-create-modal').addEventListener('click', function(e) {
       if (e.target === document.getElementById('cs-create-modal')) closeCreateModal();
     });
+    // Category dropdown → filter subcategories
+    document.getElementById('cs-create-cat').addEventListener('change', function() {
+      document.getElementById('cs-create-subcat').value = '';
+      populateSubcatDropdown();
+    });
+    // "+" buttons for new category / subcategory
+    document.getElementById('cs-create-cat-add').addEventListener('click', function() {
+      var el = document.getElementById('cs-create-cat-new');
+      var visible = el.style.display !== 'none';
+      el.style.display = visible ? 'none' : '';
+      if (!visible) {
+        document.getElementById('cs-create-cat-new-input').focus();
+        document.getElementById('cs-create-cat').value = '';
+        populateSubcatDropdown();
+      } else {
+        document.getElementById('cs-create-cat-new-input').value = '';
+      }
+    });
+    document.getElementById('cs-create-subcat-add').addEventListener('click', function() {
+      var el = document.getElementById('cs-create-subcat-new');
+      var visible = el.style.display !== 'none';
+      el.style.display = visible ? 'none' : '';
+      if (!visible) {
+        document.getElementById('cs-create-subcat-new-input').focus();
+        document.getElementById('cs-create-subcat').value = '';
+      } else {
+        document.getElementById('cs-create-subcat-new-input').value = '';
+      }
+    });
   }
 
   // ==================== PAGE MODULE ====================
@@ -1831,6 +2416,8 @@ var ConceptSetsPage = (function() {
     closeCreateModal();
     closeBulkExportModal();
     closeDeleteConfirm();
+    closeImportModal();
+    closeAddModal();
   }
 
   function onLanguageChange() {
