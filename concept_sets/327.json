@@ -6,7 +6,7 @@
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-13",
+  "modifiedDate": "2026-02-24",
   "createdByTool": "INDICATE Data Dictionary v0.2.0.9002",
   "expression": {
     "items": [
@@ -614,7 +614,7 @@
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
         "includeDescendants": true,
         "includeMapped": true
       },
@@ -636,18 +636,113 @@
         "isExcluded": true,
         "includeDescendants": true,
         "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 40481601,
+          "conceptName": "Resting heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "444981005",
+          "validStartDate": "",
+          "validEndDate": "",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 4160327,
+          "conceptName": "Heart rate on admission",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "399017001",
+          "validStartDate": "",
+          "validEndDate": "",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 35610095,
+          "conceptName": "Heart rate at cardiac apex",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1089491000000108",
+          "validStartDate": "",
+          "validEndDate": "",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 4239408,
+          "conceptName": "Heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "",
+          "standardConceptCaption": "Non-standard",
+          "conceptCode": "364075005",
+          "validStartDate": "",
+          "validEndDate": "",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 4091643,
+          "conceptName": "Fetal heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "",
+          "standardConceptCaption": "Non-standard",
+          "conceptCode": "249043002",
+          "validStartDate": "",
+          "validEndDate": "",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
       }
     ]
   },
   "tags": [],
-  "reviewStatus": "draft",
+  "reviewStatus": "pending_review",
   "metadata": {
     "translations": {
       "en": {
         "name": "Heart rate",
         "category": "Vitals",
         "subcategory": "Haemodynamics",
-        "longDescription": ""
+        "longDescription": "## Definition & Clinical Context\n\nHeart rate is the number of heartbeats per unit of time, expressed in beats per minute (bpm). It is a vital sign and hemodynamic parameter. Normal ranges: 60–100 bpm in adults, 110–160 bpm in neonates [1]. Measurement methods include palpation, auscultation, ECG, pulse oximetry, arterial line, Doppler ultrasound, and transthoracic impedance. All concepts in this set are expressed in per minute (UCUM: /min, 8541 / /min, UCUM).\n\nThis concept set captures **numeric heart rate values only**. It excludes pulse waveform morphology, pulse intensity, heart rhythm classification, calculated differences (e.g., orthostatic delta), measurement duration, and fetal heart rate (covered by a dedicated concept set).\n\n## Included Concepts\n\nThis concept set contains 22 standard concepts (20 LOINC + 2 SNOMED) organised by clinical context. A concept may appear in more than one group when it combines attributes from multiple categories (e.g., method + condition). The most generic concept — *3027018 / 8867-4 (LOINC)* — should be used as the default when the source data does not specify a method, site, position, or clinical condition.\n\n### General heart rate (unspecified method and site)\n\n- *3027018 / 8867-4 — Heart rate (LOINC)*: The most generic heart rate concept, with no method, site, or condition specified. This is the default concept for mapping heart rate data when the source system does not provide additional detail. It is by far the most commonly used LOINC heart rate code.\n\n- *21490736 / 76477-9 — Heart rate by Noninvasive (LOINC)*: Heart rate measured by an unspecified non-invasive method. Use this when the source explicitly states a non-invasive measurement but does not specify the exact technique (e.g., pulse oximetry vs. palpation).\n\n### By measurement method\n\n- *3023233 / 8890-6 — Heart rate Cardiac apex by Auscultation (LOINC)*: Heart rate counted by listening at the cardiac apex with a stethoscope.\n\n- *3023766 / 8891-4 — Heart rate Cardiac apex by palpation (LOINC)*: Heart rate assessed by palpating the point of maximal impulse (PMI) at the cardiac apex. Less commonly documented than auscultation at the same site.\n\n- *35610095 / 1089491000000108 — Heart rate measured at cardiac apex (SNOMED)*: SNOMED concept for heart rate measured at the cardiac apex, without specifying the method (auscultation or palpation). Synonyms include \"Heart apex beat rate\".\n\n- *3003841 / 8893-0 — Heart rate Peripheral artery by palpation (LOINC)*: Heart rate measured by palpating a peripheral artery (typically radial). This corresponds to the traditional \"pulse check\" in routine clinical assessments.\n\n- *3000276 / 8892-2 — Heart rate Peripheral artery by US.doppler (LOINC)*: Heart rate derived from Doppler ultrasound of a peripheral artery. Used when a pulse is difficult to palpate (e.g., hypotension, peripheral vascular disease, neonates).\n\n- *3001376 / 8889-8 — Heart rate by Pulse oximetry (LOINC)*: Heart rate derived from the photoplethysmographic signal of a pulse oximeter (measured at the capillary bed). This is one of the most frequently recorded heart rate values in hospitalised patients, as pulse oximeters are near-ubiquitous at the bedside.\n\n- *21490670 / 60978-4 — Heart rate Intra arterial line by Invasive (LOINC)*: Heart rate derived from an invasive intra-arterial pressure waveform. Standard in ICU and operating room settings where an arterial line is in place for continuous blood pressure monitoring.\n\n- *42527141 / 76476-1 — Heart rate by Transthoracic impedance (LOINC)*: Heart rate derived from external transthoracic impedance measurements, where electrodes placed on the chest surface detect cardiac-related impedance changes. Used in some bedside cardiac monitors and wearable devices.\n\n- *21490872 / 76282-3 — Heart rate.beat-to-beat by EKG (LOINC)*: Instantaneous (beat-to-beat) heart rate derived from the R-R interval on an electrocardiogram. Unlike averaged heart rate values, this represents the rate calculated from a single cardiac cycle and is relevant for heart rate variability analysis.\n\n### By patient position\n\nThese concepts are used when the source explicitly documents the patient's body position at the time of measurement. If position is not documented, map to the generic concept Heart rate (3027018 / 8867-4, LOINC).\n\n- *40771525 / 69000-8 — Heart rate --sitting (LOINC)*: Heart rate measured with the patient in a sitting position.\n\n- *40771526 / 69001-6 — Heart rate --standing (LOINC)*: Heart rate measured with the patient standing. Often part of orthostatic vital signs assessment alongside blood pressure measurements in each position.\n\n- *40771524 / 68999-2 — Heart rate --supine (LOINC)*: Heart rate measured with the patient lying supine. Commonly used in orthostatic assessment protocols and in critical care where the patient is supine by default.\n\n### By clinical condition or context\n\n- *3040891 / 40443-4 — Heart rate --resting (LOINC)*: Heart rate measured at rest, with no recent physical exertion. This is the standard baseline heart rate used in many clinical documentation systems.\n\n- *40481601 / 444981005 — Resting heart rate (SNOMED)*: SNOMED concept equivalent to the LOINC resting heart rate. Included via the SNOMED hierarchy under Heart rate (364075005, SNOMED).\n\n- *36303943 / 89273-7 — Heart rate --W exercise (LOINC)*: Heart rate measured during active physical exercise, such as during a stress test or exercise tolerance test.\n\n- *3042292 / 40442-6 — Heart rate --post exercise (LOINC)*: Heart rate measured after completion of physical exercise. Heart rate recovery (the rate of decline after exercise) is an important prognostic indicator.\n\n- *36305351 / 89278-6 — Heart rate --during anesthesia (LOINC)*: Heart rate measured while the patient is under anaesthesia. Used in perioperative monitoring contexts.\n\n- *36303801 / 89282-8 — Heart rate --post bronchodilation (LOINC)*: Heart rate measured after administration of a bronchodilator. Relevant in pulmonary function testing, as beta-agonist bronchodilators commonly increase heart rate.\n\n- *40769763 / 67129-7 — Heart rate Peripheral artery by palpation --resting (LOINC)*: Heart rate measured at rest by palpating a peripheral artery. This concept combines both a method (palpation) and a condition (resting).\n\n### Neonatal screening (pre- and postductal)\n\nThese two concepts are specific to neonatal critical congenital heart disease (CCHD) screening, where pulse oximetry readings are taken at pre- and postductal sites (typically right hand and a foot) to detect oxygen saturation differences suggestive of a ductus-dependent cardiac lesion.\n\n- *43533822 / 73799-9 — Heart rate Blood Preductal Pulse oximetry (LOINC)*: Heart rate derived from pulse oximetry at a preductal site (typically the right hand, receiving blood from the aorta proximal to the ductus arteriosus).\n\n- *43533818 / 73795-7 — Heart rate Blood Postductal Pulse oximetry (LOINC)*: Heart rate derived from pulse oximetry at a postductal site (typically a foot, receiving blood from the aorta distal to the ductus arteriosus).\n\n## Excluded Concepts\n\nThe concept set expression starts from the LOINC hierarchy node \"Heart rate\" (1004025 / LP29713-2, LOINC) with descendants included, then excludes several branches and individual concepts to retain only the numeric heart rate measurements relevant to this data dictionary.\n\n### Pulse waveform and pulse intensity\n\nAll concepts under the \"Pulse wave form\" and \"Arterial pulse quality\" hierarchy branches are excluded (1003061 / LP415754-3, LOINC, and descendants, plus multiple site-specific pulse waveform nodes such as Dorsal pedal artery, Radial artery, Carotid artery, Brachial artery, Femoral artery, Popliteal artery, Posterior tibial artery, and Ulnar artery — both left and right). These capture the morphology or intensity of the arterial pulse waveform (an ordinal or narrative observation), not the numeric heart rate. The Pulse intensity assessment panel (21494979 / 80284-3, LOINC) is also excluded for the same reason.\n\n### Heart rate measurement duration\n\nThe \"Heart rate measure duration\" branch (1002511 / LP415757-6, LOINC) is excluded. These concepts record the time duration over which heart rate was measured (e.g., 10-second strips), not the rate itself.\n\n### Heart rate measurement site\n\nThe \"Heart rate measurement site\" branch (1002513 / LP415758-4, LOINC) is excluded. These concepts describe where on the body heart rate was assessed (a categorical qualifier), not the numeric result.\n\n### Heart rate special circumstances\n\nThe \"Heart rate special circumstances\" branch (1003265 / LP415762-6, LOINC) is excluded. This includes concepts such as target heart rate and maximum heart rate, which are clinical goals or derived values rather than measured heart rates.\n\n### Heart rate method and rhythm\n\nThe \"Heart rate method\" branches (1003333 / LP415759-2, LOINC; 1004019 / LP415760-0, LOINC) and \"Heart rate rhythm\" branch (1004152 / LP415761-8, LOINC) are excluded. Method concepts describe the measurement technique (a categorical qualifier), and rhythm concepts characterise the regularity of the heartbeat (e.g., regular, irregular) rather than a numeric rate.\n\n### Timed specific heart rate\n\nThe \"Timed specific heart rate\" branch (1002982 / LP415805-3, LOINC) is excluded. These concepts capture heart rate aggregated over fixed time windows (1h, 8h, 10h, 12h, 24h) from continuous monitoring (e.g., Holter, telemetry), including maximum, mean, and minimum values. They represent derived statistical summaries rather than point-in-time measurements and fall outside the scope of this general heart rate concept set.\n\n### Arterial system sub-tree\n\nThe \"Heart rate | Arterial system\" branch (1003968 / LP415780-8, LOINC) is excluded. Its descendants include encounter-level maximum heart rate (40758551 / 55422-0, LOINC) and pedometer-derived aggregated values (maximum, mean, minimum over unspecified time periods). These are derived or device-aggregated summaries rather than point-in-time clinical measurements.\n\n### Fetal heart rate\n\n- *40758412 / 55283-6 — Fetal Heart rate (LOINC)* and *4091643 / 249043002 — Fetal heart rate (SNOMED)*: The \"Heart rate | Fetus\" hierarchy branch (1003955 / LP415787-3, LOINC) and these two individual standard concepts are excluded because fetal heart rate is recorded at the maternal level (in the mother's obstetric record), which creates a risk of confusion with the mother's own heart rate. Separating it into a dedicated concept set prevents mixing fetal and maternal values during data alignment.\n\n### Individual excluded standard concepts\n\n- *3013883 / 11328-2 — Heart rate at First encounter (LOINC)*: Excluded because it encodes encounter timing as part of the observation. Encounter context should be captured as metadata, not within the measurement concept itself.\n\n- *40771925 / 69408-3 — Orthostatic heart rate [Difference in rate] (LOINC)*: Excluded because it represents a calculated difference between heart rate measurements in different positions, not an absolute heart rate value.\n\n- *4160327 / 399017001 — Heart rate on admission (SNOMED)*: Excluded because it encodes admission context as part of the observation. Like \"Heart rate at First encounter\", this timing information should be captured as encounter metadata.\n\n## Mapping Notes\n\n- *Default concept*: When the source data records \"heart rate\" or \"pulse\" without specifying method, site, position, or clinical context, map to Heart rate (3027018 / 8867-4, LOINC). Do not attempt to infer a more specific concept.\n\n- *Pulse oximetry heart rate*: Many electronic health records automatically record both SpO2 and heart rate from the pulse oximeter. If the source explicitly identifies the heart rate as coming from pulse oximetry, map to Heart rate by Pulse oximetry (3001376 / 8889-8, LOINC). Otherwise, map to Heart rate (3027018 / 8867-4, LOINC).\n\n- *ICU arterial line heart rate*: If the source identifies the heart rate as derived from an arterial line or invasive arterial waveform, map to Heart rate Intra arterial line by Invasive (21490670 / 60978-4, LOINC). If the source simply says \"heart rate\" even though an arterial line is present, use Heart rate (3027018 / 8867-4, LOINC) — do not assume the method.\n\n- *EKG-derived heart rate*: If the source specifies beat-to-beat heart rate from ECG, use Heart rate.beat-to-beat by EKG (21490872 / 76282-3, LOINC). Note this captures instantaneous (beat-to-beat) rate from the R-R interval.\n\n- *Positional measurements*: Only map to the positional concepts — Heart rate --supine (40771524 / 68999-2, LOINC), Heart rate --sitting (40771525 / 69000-8, LOINC), Heart rate --standing (40771526 / 69001-6, LOINC) — when the source explicitly records the patient's body position as part of the heart rate observation. If position is not documented, use Heart rate (3027018 / 8867-4, LOINC).\n\n- *Resting vs. generic heart rate*: Map to Heart rate --resting (3040891 / 40443-4, LOINC) when the source explicitly labels the measurement as \"resting heart rate\". A heart rate taken at the bedside without the \"resting\" label should use Heart rate (3027018 / 8867-4, LOINC).\n\n- *Exercise-related heart rate*: Distinguish between Heart rate --W exercise (36303943 / 89273-7, LOINC) during active physical exercise and Heart rate --post exercise (3042292 / 40442-6, LOINC) after completion of exercise. Heart rate recovery is typically the post-exercise measurement.\n\n- *Neonatal screening*: Heart rate Blood Postductal Pulse oximetry (43533818 / 73795-7, LOINC) and Heart rate Blood Preductal Pulse oximetry (43533822 / 73799-9, LOINC) are specifically for neonatal CCHD screening protocols. Do not use these for routine pulse oximetry in non-neonatal settings.\n\n- *Common source labels*: \"HR\", \"FC\" (fréquence cardiaque), \"Pulse\", \"Pols\" → Heart rate (3027018 / 8867-4, LOINC). \"SpO2 PR\", \"Pulse rate (SpO2)\", \"Pleth HR\" → Heart rate by Pulse oximetry (3001376 / 8889-8, LOINC). \"Apical HR\", \"Apical pulse\" → Heart rate Cardiac apex by Auscultation (3023233 / 8890-6, LOINC) or Heart rate Cardiac apex by palpation (3023766 / 8891-4, LOINC) depending on method. \"Art line HR\" → Heart rate Intra arterial line by Invasive (21490670 / 60978-4, LOINC).\n\n## References\n\n[1] Sapra A, Malik A, Bhandari P. Vital Sign Assessment. In: StatPearls. Treasure Island (FL): StatPearls Publishing; 2024. Available: <a href=\"https://www.ncbi.nlm.nih.gov/books/NBK553213/\" target=\"_blank\">https://www.ncbi.nlm.nih.gov/books/NBK553213/</a>"
       },
       "fr": {
         "name": "Fréquence cardiaque",

@@ -164,24 +164,6 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 40758412,
-      "conceptName": "Fetal Heart rate",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "55283-6",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4091643,
-      "conceptName": "Fetal heart rate",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "249043002",
-      "standardConcept": null
-    },
-    {
       "conceptId": 1003106,
       "conceptName": "General heart rate",
       "vocabularyId": "LOINC",
@@ -198,6 +180,15 @@
       "conceptClassId": "LOINC Hierarchy",
       "conceptCode": "LP29713-2",
       "standardConcept": "C"
+    },
+    {
+      "conceptId": 4239408,
+      "conceptName": "Heart rate",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "364075005",
+      "standardConcept": null
     },
     {
       "conceptId": 3027018,
@@ -350,6 +341,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "67129-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35610095,
+      "conceptName": "Heart rate at cardiac apex",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "1089491000000108",
       "standardConcept": "S"
     },
     {
@@ -531,6 +531,24 @@
       "conceptClassId": "LOINC Hierarchy",
       "conceptCode": "LP415804-6",
       "standardConcept": "C"
+    },
+    {
+      "conceptId": 40481601,
+      "conceptName": "Resting heart rate",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "444981005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3557049,
+      "conceptName": "Resting heart rate",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "511831000000106",
+      "standardConcept": null
     },
     {
       "conceptId": 1003302,
