@@ -256,23 +256,21 @@
     <!-- TAB 2: Comments -->
     <div class="cs-tab-content" id="cs-tab-comments" style="display:none;">
       <!-- View mode -->
-      <div id="cs-comments-view">
-        <div class="panel">
-          <div class="panel-header"><h3>Description</h3></div>
-          <div class="panel-body" id="cs-comments-body">
-            <div class="empty-state"><p>No description available</p></div>
-          </div>
+      <div id="cs-comments-view" class="markdown-body" style="overflow-y:auto; border:none; padding:16px">
+        <div id="cs-comments-body">
+          <div class="empty-state"><p>No description available</p></div>
         </div>
       </div>
       <!-- Edit mode -->
       <div id="cs-comments-edit" style="display:none;">
         <div class="panel" style="display:flex; flex-direction:column; flex:1; min-height:0">
-          <div class="panel-body" style="display:flex; flex:1; min-height:0; gap:0; padding:0">
-            <div class="comments-edit-col" style="flex:1; display:flex; flex-direction:column; min-width:0; border-right:1px solid var(--border)">
+          <div class="panel-body" id="cs-comments-split-container" style="display:flex; flex:1; min-height:0; gap:0; padding:0">
+            <div class="comments-edit-col" id="cs-comments-left-col" style="flex:1; display:flex; flex-direction:column; min-width:80px">
               <div class="modal-fs-col-title" style="padding:8px 12px"><i class="fas fa-pen"></i> Editor</div>
               <div id="cs-comments-ace-editor" style="flex:1; min-height:200px"></div>
             </div>
-            <div class="comments-edit-col" style="flex:1; display:flex; flex-direction:column; min-width:0">
+            <div class="comments-split-handle" id="cs-comments-split-handle"></div>
+            <div class="comments-edit-col" id="cs-comments-right-col" style="flex:1; display:flex; flex-direction:column; min-width:80px">
               <div class="modal-fs-col-title" style="padding:8px 12px"><i class="fas fa-eye"></i> Preview</div>
               <div class="markdown-body" id="cs-comments-preview" style="flex:1; overflow:auto; padding:12px 16px">
                 <div class="markdown-preview-placeholder">Preview will appear here...</div>

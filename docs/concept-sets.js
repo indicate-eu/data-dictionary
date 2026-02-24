@@ -463,6 +463,72 @@ var ConceptSetsPage = (function() {
   }
 
   // --- Comments edit ---
+  var commentsSplitInitialized = false;
+  var commentsSyncingScroll = false;
+
+  function initCommentsSplitHandle() {
+    if (commentsSplitInitialized) return;
+    commentsSplitInitialized = true;
+    var handle = document.getElementById('cs-comments-split-handle');
+    var container = document.getElementById('cs-comments-split-container');
+    var leftCol = document.getElementById('cs-comments-left-col');
+    var rightCol = document.getElementById('cs-comments-right-col');
+
+    handle.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      handle.classList.add('dragging');
+      var startX = e.clientX;
+      var containerRect = container.getBoundingClientRect();
+      var startLeftW = leftCol.getBoundingClientRect().width;
+      var handleW = handle.getBoundingClientRect().width;
+      var totalW = containerRect.width - handleW;
+
+      function onMove(ev) {
+        var dx = ev.clientX - startX;
+        var newLeftW = Math.max(80, Math.min(totalW - 80, startLeftW + dx));
+        var leftPct = (newLeftW / totalW) * 100;
+        leftCol.style.flex = 'none';
+        leftCol.style.width = leftPct + '%';
+        rightCol.style.flex = 'none';
+        rightCol.style.width = (100 - leftPct) + '%';
+        if (commentsAceEditor) commentsAceEditor.resize();
+      }
+      function onUp() {
+        handle.classList.remove('dragging');
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+      }
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+  }
+
+  function initCommentsSyncScroll() {
+    var preview = document.getElementById('cs-comments-preview');
+    // Ace editor scroll -> preview scroll
+    if (commentsAceEditor) {
+      commentsAceEditor.session.on('changeScrollTop', function(scrollTop) {
+        if (commentsSyncingScroll) return;
+        commentsSyncingScroll = true;
+        var maxScroll = commentsAceEditor.renderer.layerConfig.maxHeight - commentsAceEditor.renderer.$size.scrollerHeight;
+        var pct = maxScroll > 0 ? scrollTop / maxScroll : 0;
+        var previewMax = preview.scrollHeight - preview.clientHeight;
+        preview.scrollTop = pct * previewMax;
+        commentsSyncingScroll = false;
+      });
+    }
+    // Preview scroll -> ace editor scroll
+    preview.addEventListener('scroll', function() {
+      if (commentsSyncingScroll || !commentsAceEditor) return;
+      commentsSyncingScroll = true;
+      var previewMax = preview.scrollHeight - preview.clientHeight;
+      var pct = previewMax > 0 ? preview.scrollTop / previewMax : 0;
+      var maxScroll = commentsAceEditor.renderer.layerConfig.maxHeight - commentsAceEditor.renderer.$size.scrollerHeight;
+      commentsAceEditor.session.setScrollTop(pct * maxScroll);
+      commentsSyncingScroll = false;
+    });
+  }
+
   function initCommentsAceEditor() {
     if (commentsAceEditor) return;
     commentsAceEditor = ace.edit('cs-comments-ace-editor');
@@ -480,6 +546,14 @@ var ConceptSetsPage = (function() {
         preview.innerHTML = App.renderMarkdown(md);
       }
     });
+    // CMD/CTRL+S to save
+    commentsAceEditor.commands.addCommand({
+      name: 'saveComments',
+      bindKey: { win: 'Ctrl-S', mac: 'Cmd-S' },
+      exec: function() { saveCommentsEdits(); }
+    });
+    initCommentsSplitHandle();
+    initCommentsSyncScroll();
   }
 
   function enterCommentsEditMode() {
@@ -2027,7 +2101,7 @@ var ConceptSetsPage = (function() {
       return;
     }
     var content = longDesc || desc;
-    el.innerHTML = '<div class="markdown-body" style="padding:16px">' + App.renderMarkdown(content) + '</div>';
+    el.innerHTML = App.renderMarkdown(content);
   }
 
   function renderStatisticsTab(cs) {
@@ -3246,6 +3320,17 @@ var ConceptSetsPage = (function() {
       } else {
         document.getElementById('cs-create-subcat-new-input').value = '';
       }
+    });
+
+    // Header logo/title: warn if unsaved edits, then go to list
+    App.onBeforeNavigate(function() {
+      if (isAnyEditMode()) {
+        if (!confirm('You have unsaved changes. Discard and go back to the list?')) return false;
+        cancelEdits();
+      }
+    });
+    App.onHome(function() {
+      if (selectedConceptSet) hideCSDetail();
     });
   }
 

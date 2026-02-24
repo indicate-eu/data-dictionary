@@ -1377,6 +1377,21 @@ select.form-input { appearance: auto; }
 .markdown-body th, .markdown-body td { border: 1px solid #ddd; padding: 6px 10px; font-size: 12px; }
 .markdown-body th { background: #f8f9fa; font-weight: 600; }
 .markdown-preview-placeholder { color: #aaa; font-style: italic; padding: 20px; text-align: center; }
+
+/* Comments split handle (resizable editor/preview) */
+.comments-split-handle {
+  width: 5px;
+  background: var(--gray-200);
+  cursor: col-resize;
+  flex-shrink: 0;
+  transition: background .15s;
+  position: relative;
+}
+.comments-split-handle:hover,
+.comments-split-handle.dragging {
+  background: var(--primary);
+}
+
 .btn-success-custom {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 4px 12px; background: #28a745; color: #fff; border: none;
@@ -1539,6 +1554,7 @@ select.form-input { appearance: auto; }
   border: 1px solid #dee2e6; border-radius: 0;
 }
 #cs-tab-comments { display: flex; flex-direction: column; }
+#cs-comments-view { flex: 1; min-height: 0; }
 #cs-comments-edit { display: flex; flex-direction: column; flex: 1; min-height: 0; }
 #cs-tab-statistics { display: flex; flex-direction: column; }
 #cs-statistics-edit { display: flex; flex-direction: column; flex: 1; min-height: 0; }

@@ -12,6 +12,8 @@ var App = (function() {
   var resolvedIndex = {}; // conceptSetId -> resolvedConcepts[]
   var sessionReviews = JSON.parse(localStorage.getItem('indicate_reviews') || '{}');
   var languageChangeCallbacks = [];
+  var beforeNavigateCallbacks = [];
+  var homeCallbacks = [];
   var userConceptSets = JSON.parse(localStorage.getItem('indicate_user_cs') || '[]');
 
   // ==================== DATA LOADING ====================
@@ -369,11 +371,23 @@ var App = (function() {
       }
     });
 
-    // Header logo/title click -> go home
+    // Header logo/title click -> go home (with unsaved-changes check)
     var headerLeft = document.querySelector('.header-left');
     if (headerLeft && headerLeft.tagName !== 'A') {
       headerLeft.addEventListener('click', function() {
-        Router.navigate('/concept-sets');
+        for (var i = 0; i < beforeNavigateCallbacks.length; i++) {
+          if (beforeNavigateCallbacks[i]() === false) return;
+        }
+        // Navigate to concept sets list and force show even if already on that route
+        var current = Router.getCurrentRoute();
+        if (current && current.path === '/concept-sets' && !current.query.cs) {
+          // Already on list view, trigger homeCallbacks to close detail if open
+          for (var j = 0; j < homeCallbacks.length; j++) homeCallbacks[j]();
+        } else {
+          Router.navigate('/concept-sets');
+          // Also trigger homeCallbacks to ensure detail closes
+          for (var j = 0; j < homeCallbacks.length; j++) homeCallbacks[j]();
+        }
       });
     }
   }
@@ -492,6 +506,8 @@ var App = (function() {
     initSharedEvents: initSharedEvents,
     getCSData: getCSData,
     onLanguageChange: function(cb) { languageChangeCallbacks.push(cb); },
+    onBeforeNavigate: function(cb) { beforeNavigateCallbacks.push(cb); },
+    onHome: function(cb) { homeCallbacks.push(cb); },
     nextConceptSetId: nextConceptSetId,
     addConceptSet: addConceptSet,
     updateConceptSet: updateConceptSet,
