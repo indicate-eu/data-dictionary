@@ -174,6 +174,7 @@
             <span id="expr-selection-count" style="display:none; font-size:12px; color:var(--text-muted)">0 selected</span>
             <button class="btn-primary-custom btn-gray" id="expr-select-btn"><i class="fas fa-check-square"></i> Select</button>
             <button class="btn-success-custom" id="expr-add-btn"><i class="fas fa-plus"></i> Add Concepts</button>
+            <button class="btn-primary-custom" id="expr-optimize-btn" title="Remove redundant concepts covered by ancestors with Include Descendants"><i class="fas fa-magic"></i> Optimize</button>
           </div>
           <span class="badge badge-count" id="cs-concept-count">0</span>
           <div class="col-vis-wrapper" id="col-vis-wrapper" style="position:relative">
@@ -244,6 +245,18 @@
                   <th data-col="descendants" style="width:9%" class="td-center">Descendants</th>
                   <th data-col="mapped" style="width:9%" class="td-center">Mapped</th>
                   <th class="expr-action-col td-center" style="width:50px"></th>
+                </tr>
+                <tr class="filter-row" id="expression-filter-row">
+                  <th class="expr-select-col"></th>
+                  <th data-col="vocabulary"><div class="ms-container" id="expr-filter-vocabulary"></div></th>
+                  <th data-col="name"><input type="text" class="column-filter" id="expr-filter-name" placeholder="Filter..."></th>
+                  <th data-col="code"><input type="text" class="column-filter" id="expr-filter-code" placeholder="Filter..."></th>
+                  <th data-col="domain"><select class="column-filter" id="expr-filter-domain"><option value="">All</option></select></th>
+                  <th data-col="standard"><div class="ms-container" id="expr-filter-standard"></div></th>
+                  <th data-col="exclude"><select class="column-filter" id="expr-filter-exclude"><option value="">All</option><option value="yes">Yes</option><option value="no">No</option></select></th>
+                  <th data-col="descendants"><select class="column-filter" id="expr-filter-descendants"><option value="">All</option><option value="yes">Yes</option><option value="no">No</option></select></th>
+                  <th data-col="mapped"><select class="column-filter" id="expr-filter-mapped"><option value="">All</option><option value="yes">Yes</option><option value="no">No</option></select></th>
+                  <th class="expr-action-col"></th>
                 </tr>
               </thead>
               <tbody id="expression-tbody"></tbody>
@@ -365,6 +378,11 @@
   <div class="list-view" id="proj-list-view">
     <div class="toolbar">
       <input type="text" class="search-input" id="proj-search" placeholder="Search projects...">
+      <div style="display:flex; gap:8px; align-items:center">
+        <button class="btn-success-custom" id="proj-create-btn">
+          <i class="fas fa-plus"></i> Add Project
+        </button>
+      </div>
     </div>
     <div class="project-cards" id="proj-cards"></div>
   </div>
@@ -377,6 +395,11 @@
       </button>
       <span class="project-name-badge" id="proj-detail-title"></span>
       <div class="detail-meta" id="proj-detail-meta"></div>
+      <div style="margin-left:auto; display:flex; gap:6px; align-items:center">
+        <button class="btn-primary-custom btn-gray" id="proj-edit-btn" title="Edit"><i class="fas fa-pen"></i> Edit</button>
+        <button class="btn-primary-custom btn-gray" id="proj-edit-cancel-btn" style="display:none"><i class="fas fa-times"></i> Cancel</button>
+        <button class="btn-primary-custom" id="proj-edit-save-btn" style="display:none"><i class="fas fa-save"></i> Save</button>
+      </div>
     </div>
 
     <div class="panel-tabs" id="proj-tabs" style="align-items:center">
@@ -387,7 +410,7 @@
       </button>
     </div>
 
-    <!-- Context tab -->
+    <!-- Context tab (read mode) -->
     <div class="panel" id="proj-tab-context">
       <div class="panel-body">
         <div class="project-detail-section" id="proj-description-section"></div>
@@ -396,7 +419,31 @@
       </div>
     </div>
 
-    <!-- Variables tab -->
+    <!-- Context tab (edit mode) -->
+    <div class="panel" id="proj-tab-context-edit" style="display:none">
+      <div class="panel-body">
+        <div class="project-detail-section">
+          <h4>Description</h4>
+          <div class="md-editor-wrap">
+            <div class="md-editor-pane">
+              <textarea class="md-editor-textarea" id="proj-edit-description" placeholder="Enter description (Markdown supported)..."></textarea>
+            </div>
+            <div class="md-editor-pane md-preview" id="proj-edit-description-preview"></div>
+          </div>
+        </div>
+        <div class="project-detail-section">
+          <h4>Justification</h4>
+          <div class="md-editor-wrap">
+            <div class="md-editor-pane">
+              <textarea class="md-editor-textarea" id="proj-edit-justification" placeholder="Enter justification (Markdown supported)..."></textarea>
+            </div>
+            <div class="md-editor-pane md-preview" id="proj-edit-justification-preview"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Variables tab (read mode) -->
     <div class="panel" id="proj-tab-variables" style="display:none">
       <div class="panel-table-wrap">
         <table id="proj-cs-table">
@@ -421,6 +468,105 @@
           <tbody id="proj-cs-tbody"></tbody>
         </table>
       </div>
+    </div>
+
+    <!-- Variables tab (edit mode) -->
+    <div class="panel" id="proj-tab-variables-edit" style="display:none">
+      <div style="display:flex; gap:16px; flex:1; min-height:0">
+        <!-- Left: available concept sets -->
+        <div style="flex:1; display:flex; flex-direction:column; min-height:0">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px">
+            <h4 style="margin:0; font-size:14px; color:var(--text-muted)">AVAILABLE CONCEPT SETS</h4>
+          </div>
+          <div class="panel-table-wrap" style="flex:1; min-height:0">
+            <table class="concept-related-table" id="proj-cs-edit-right-table">
+              <thead>
+                <tr>
+                  <th style="width:25%">Category</th>
+                  <th style="width:25%">Subcategory</th>
+                  <th>Name</th>
+                  <th style="width:40px"></th>
+                </tr>
+                <tr class="filter-row">
+                  <th><div class="ms-container" id="proj-avail-filter-category"></div></th>
+                  <th><div class="ms-container" id="proj-avail-filter-subcategory"></div></th>
+                  <th><input type="text" class="column-filter" id="proj-avail-filter-name" placeholder="Filter..."></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="proj-cs-edit-right-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Right: project concept sets -->
+        <div style="flex:1; display:flex; flex-direction:column; min-height:0">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px">
+            <h4 style="margin:0; font-size:14px; color:var(--text-muted)">PROJECT CONCEPT SETS</h4>
+            <span id="proj-cs-edit-count" style="font-size:12px; color:var(--text-muted)"></span>
+          </div>
+          <div class="panel-table-wrap" style="flex:1; min-height:0">
+            <table class="concept-related-table" id="proj-cs-edit-left-table">
+              <thead>
+                <tr>
+                  <th style="width:40px"></th>
+                  <th style="width:25%">Category</th>
+                  <th style="width:25%">Subcategory</th>
+                  <th>Name</th>
+                </tr>
+                <tr class="filter-row">
+                  <th></th>
+                  <th><div class="ms-container" id="proj-proj-filter-category"></div></th>
+                  <th><div class="ms-container" id="proj-proj-filter-subcategory"></div></th>
+                  <th><input type="text" class="column-filter" id="proj-proj-filter-name" placeholder="Filter..."></th>
+                </tr>
+              </thead>
+              <tbody id="proj-cs-edit-left-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Project Create/Edit Modal -->
+<div class="modal-overlay" id="proj-modal" style="display:none">
+  <div class="modal-box" style="width:480px">
+    <div class="modal-header">
+      <h3 id="proj-modal-title"><i class="fas fa-plus"></i> New Project</h3>
+      <button class="modal-close" id="proj-modal-close">&times;</button>
+    </div>
+    <div class="modal-body" style="display:flex; flex-direction:column; gap:12px; padding:20px">
+      <div>
+        <label class="form-label" for="proj-modal-name">Name *</label>
+        <input type="text" class="form-input" id="proj-modal-name" placeholder="Project name">
+      </div>
+      <div>
+        <label class="form-label" for="proj-modal-author">Created By</label>
+        <input type="text" class="form-input" id="proj-modal-author" placeholder="Author name">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary-custom" id="proj-modal-cancel">Cancel</button>
+      <button class="btn-primary-custom" id="proj-modal-submit"><i class="fas fa-plus"></i> Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Delete Confirm Modal -->
+<div class="modal-overlay" id="proj-delete-modal" style="display:none">
+  <div class="modal-box" style="width:400px">
+    <div class="modal-header">
+      <h3><i class="fas fa-trash"></i> Delete Project</h3>
+      <button class="modal-close" id="proj-delete-close">&times;</button>
+    </div>
+    <div class="modal-body" style="padding:20px">
+      <p>Are you sure you want to delete this project?</p>
+      <p id="proj-delete-name" style="font-weight:600; margin-top:8px"></p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary-custom" id="proj-delete-cancel">Cancel</button>
+      <button class="btn-primary-custom btn-danger" id="proj-delete-confirm"><i class="fas fa-trash"></i> Delete</button>
     </div>
   </div>
 </div>
@@ -1101,6 +1247,23 @@ Enter your review comments here using Markdown syntax.
     <div class="modal-footer">
       <button class="btn-cancel" id="expr-import-cancel">Cancel</button>
       <button class="btn-submit" id="expr-import-submit"><i class="fas fa-file-import"></i> Import</button>
+    </div>
+  </div>
+</div>
+
+<!-- Expression editor: Optimize results modal -->
+<div class="modal-overlay" id="expr-optimize-modal" style="display:none">
+  <div class="modal" style="width:700px; max-height:85vh">
+    <div class="modal-header">
+      <h3><i class="fas fa-magic"></i> Optimize Expression</h3>
+      <button class="modal-close" id="expr-optimize-close">&times;</button>
+    </div>
+    <div class="modal-body" id="expr-optimize-body">
+      <div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> Analyzing hierarchy...</div>
+    </div>
+    <div class="modal-footer" id="expr-optimize-footer" style="display:none">
+      <button class="btn-cancel" id="expr-optimize-cancel">Cancel</button>
+      <button class="btn-submit" id="expr-optimize-apply"><i class="fas fa-check"></i> Apply Optimization</button>
     </div>
   </div>
 </div>

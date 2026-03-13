@@ -18,6 +18,7 @@ var App = (function() {
   var beforeNavigateCallbacks = [];
   var homeCallbacks = [];
   var userConceptSets = JSON.parse(localStorage.getItem('indicate_user_cs') || '[]');
+  var userProjects = JSON.parse(localStorage.getItem('indicate_user_proj') || '[]');
 
   // ==================== DATA LOADING ====================
   function loadData(callback) {
@@ -29,7 +30,14 @@ var App = (function() {
     userConceptSets.forEach(function(cs) { userIdSet[cs.id] = true; });
     var repoCS = (DATA.conceptSets || []).filter(function(cs) { return !hiddenSet[cs.id] && !userIdSet[cs.id]; });
     conceptSets = repoCS.concat(userConceptSets);
-    projects = DATA.projects || [];
+    // Merge user projects with repo projects (user overrides repo)
+    var hiddenProjIds = JSON.parse(localStorage.getItem('indicate_hidden_proj') || '[]');
+    var hiddenProjSet = {};
+    hiddenProjIds.forEach(function(id) { hiddenProjSet[id] = true; });
+    var userProjIdSet = {};
+    userProjects.forEach(function(p) { userProjIdSet[p.id] = true; });
+    var repoProj = (DATA.projects || []).filter(function(p) { return !hiddenProjSet[p.id] && !userProjIdSet[p.id]; });
+    projects = repoProj.concat(userProjects);
     unitConversions = DATA.unitConversions || [];
     recommendedUnits = DATA.recommendedUnits || [];
     etlGuidelines = DATA.etlGuidelines || '';
@@ -533,6 +541,44 @@ var App = (function() {
     saveUserConceptSets();
   }
 
+  // ==================== USER PROJECTS ====================
+  function nextProjectId() {
+    var maxId = 0;
+    projects.forEach(function(p) { if (p.id > maxId) maxId = p.id; });
+    return maxId + 1;
+  }
+
+  function saveUserProjects() {
+    localStorage.setItem('indicate_user_proj', JSON.stringify(userProjects));
+  }
+
+  function addProject(proj) {
+    projects.push(proj);
+    userProjects.push(proj);
+    saveUserProjects();
+  }
+
+  function updateProject(proj) {
+    for (var i = 0; i < projects.length; i++) {
+      if (projects[i].id === proj.id) { projects[i] = proj; break; }
+    }
+    var found = false;
+    for (var j = 0; j < userProjects.length; j++) {
+      if (userProjects[j].id === proj.id) { userProjects[j] = proj; found = true; break; }
+    }
+    if (!found) userProjects.push(proj);
+    saveUserProjects();
+  }
+
+  function deleteProject(id) {
+    userProjects = userProjects.filter(function(p) { return p.id !== id; });
+    projects = projects.filter(function(p) { return p.id !== id; });
+    var hidden = JSON.parse(localStorage.getItem('indicate_hidden_proj') || '[]');
+    if (hidden.indexOf(id) < 0) hidden.push(id);
+    localStorage.setItem('indicate_hidden_proj', JSON.stringify(hidden));
+    saveUserProjects();
+  }
+
   // ==================== GETCSDATA ====================
   function getCSData() {
     return conceptSets.map(function(cs) {
@@ -549,6 +595,71 @@ var App = (function() {
         modified: cs.modifiedDate || cs.createdDate || '',
         raw: cs
       };
+    });
+  }
+
+  // ==================== COLUMN RESIZE ====================
+  /**
+   * Make table columns resizable by adding drag handles to header cells.
+   * Call once per table. Handles are added to the first <tr> in <thead>.
+   * Widths are locked on first drag so hidden tables work correctly.
+   * @param {string} tableId - the table element id
+   */
+  function initColResize(tableId) {
+    var table = document.getElementById(tableId);
+    if (!table || table._colResizeInit) return;
+    table._colResizeInit = true;
+
+    var headerRow = table.querySelector('thead tr');
+    if (!headerRow) return;
+    var ths = Array.prototype.slice.call(headerRow.querySelectorAll('th'));
+
+    function lockWidths() {
+      if (table.classList.contains('col-resizable')) return;
+      table.classList.add('col-resizable');
+      ths.forEach(function(th) {
+        th.style.width = th.offsetWidth + 'px';
+      });
+    }
+
+    // Add resize handles
+    ths.forEach(function(th, idx) {
+      if (idx === ths.length - 1) return; // skip last column
+      var handle = document.createElement('div');
+      handle.className = 'col-resize-handle';
+      th.appendChild(handle);
+
+      handle.addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        lockWidths();
+        handle.classList.add('dragging');
+        document.body.style.cursor = 'col-resize';
+        document.body.style.userSelect = 'none';
+        var startX = e.clientX;
+        var startW = th.offsetWidth;
+        var nextTh = ths[idx + 1];
+        var nextStartW = nextTh ? nextTh.offsetWidth : 0;
+
+        function onMove(ev) {
+          var dx = ev.clientX - startX;
+          var newW = Math.max(40, startW + dx);
+          th.style.width = newW + 'px';
+          if (nextTh) {
+            var newNextW = Math.max(40, nextStartW - dx);
+            nextTh.style.width = newNextW + 'px';
+          }
+        }
+        function onUp() {
+          handle.classList.remove('dragging');
+          document.body.style.cursor = '';
+          document.body.style.userSelect = '';
+          document.removeEventListener('mousemove', onMove);
+          document.removeEventListener('mouseup', onUp);
+        }
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('mouseup', onUp);
+      });
     });
   }
 
@@ -603,6 +714,11 @@ var App = (function() {
     deleteConceptSets: deleteConceptSets,
     isUserConceptSet: isUserConceptSet,
     saveUserConceptSets: saveUserConceptSets,
-    restoreConceptSets: restoreConceptSets
+    restoreConceptSets: restoreConceptSets,
+    initColResize: initColResize,
+    nextProjectId: nextProjectId,
+    addProject: addProject,
+    updateProject: updateProject,
+    deleteProject: deleteProject
   };
 })();

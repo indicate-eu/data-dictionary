@@ -264,6 +264,7 @@ var ConceptSetsPage = (function() {
     updateViewJsonLink();
     if (mode === 'expression') {
       expressionPage = 1;
+      resetExpressionFilters();
       renderExpressionTable();
     } else {
       resolvedPage = 1;
@@ -325,8 +326,7 @@ var ConceptSetsPage = (function() {
   // ==================== EXPRESSION TABLE ====================
   function renderExpressionTable() {
     if (!selectedConceptSet) return;
-    var items = exprEditMode ? exprEditItems : ((selectedConceptSet.expression && selectedConceptSet.expression.items) || []);
-    document.getElementById('cs-concept-count').textContent = items.length;
+    var allItems = exprEditMode ? exprEditItems : ((selectedConceptSet.expression && selectedConceptSet.expression.items) || []);
     var table = document.getElementById('expression-table');
     var tbody = document.getElementById('expression-tbody');
     var colSpan = exprEditMode ? 10 : 8;
@@ -335,20 +335,51 @@ var ConceptSetsPage = (function() {
     table.classList.toggle('expr-edit-mode', exprEditMode);
     table.classList.toggle('expr-select-mode', exprSelectMode);
 
-    if (items.length === 0) {
+    // Populate filter dropdowns
+    populateExpressionFilters(allItems);
+
+    // Apply filters — build array of {item, origIdx} to preserve real indices
+    var filters = getExpressionFilters();
+    var indexed = allItems.map(function(item, idx) { return { item: item, origIdx: idx }; });
+    var filtered = indexed.filter(function(entry) {
+      var item = entry.item;
+      var c = item.concept;
+      if (filters.vocabulary.size > 0 && !filters.vocabulary.has(c.vocabularyId || '')) return false;
+      if (filters.name && !fuzzyMatchBool((c.conceptName || '').toLowerCase(), filters.name)) return false;
+      if (filters.code && (c.conceptCode || '').toLowerCase().indexOf(filters.code) === -1) return false;
+      if (filters.domain && (c.domainId || '') !== filters.domain) return false;
+      if (filters.standard.size > 0 && !filters.standard.has(c.standardConcept || '')) return false;
+      if (filters.exclude === 'yes' && !item.isExcluded) return false;
+      if (filters.exclude === 'no' && item.isExcluded) return false;
+      if (filters.descendants === 'yes' && !item.includeDescendants) return false;
+      if (filters.descendants === 'no' && item.includeDescendants) return false;
+      if (filters.mapped === 'yes' && !item.includeMapped) return false;
+      if (filters.mapped === 'no' && item.includeMapped) return false;
+      return true;
+    });
+
+    document.getElementById('cs-concept-count').textContent = filtered.length + (filtered.length !== allItems.length ? ' / ' + allItems.length : '');
+
+    if (allItems.length === 0) {
       tbody.innerHTML = '<tr><td colspan="' + colSpan + '" class="empty-state"><p>No concepts in this concept set</p></td></tr>';
+      renderPaginationControls('expression-pagination', 'expression-page-info', 'expression-page-buttons', 1, 0, expressionPageSize);
+      return;
+    }
+    if (filtered.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="' + colSpan + '" class="empty-state"><p>No concepts match the current filters.</p></td></tr>';
       renderPaginationControls('expression-pagination', 'expression-page-info', 'expression-page-buttons', 1, 0, expressionPageSize);
       return;
     }
 
     // Pagination
-    var totalPages = Math.ceil(items.length / expressionPageSize);
+    var totalPages = Math.ceil(filtered.length / expressionPageSize);
     if (expressionPage > totalPages) expressionPage = Math.max(1, totalPages);
     var start = (expressionPage - 1) * expressionPageSize;
-    var pageItems = items.slice(start, start + expressionPageSize);
+    var pageEntries = filtered.slice(start, start + expressionPageSize);
 
-    tbody.innerHTML = pageItems.map(function(item, pageIdx) {
-      var i = start + pageIdx; // real index in items array
+    tbody.innerHTML = pageEntries.map(function(entry) {
+      var i = entry.origIdx; // real index in items array
+      var item = entry.item;
       var c = item.concept;
       var isExcl = item.isExcluded;
       var selChecked = exprSelectedIdxs.has(i) ? ' checked' : '';
@@ -381,7 +412,7 @@ var ConceptSetsPage = (function() {
         '</tr>';
     }).join('');
     applyColumnVisibility();
-    renderPaginationControls('expression-pagination', 'expression-page-info', 'expression-page-buttons', expressionPage, items.length, expressionPageSize);
+    renderPaginationControls('expression-pagination', 'expression-page-info', 'expression-page-buttons', expressionPage, filtered.length, expressionPageSize);
   }
 
   // ==================== EDIT MODE (generalized) ====================
@@ -432,6 +463,7 @@ var ConceptSetsPage = (function() {
       headerSaveBtn.style.display = '';
       // Expression-specific toolbar
       editActions.style.display = (exprEditMode && csConceptMode === 'expression') ? 'flex' : 'none';
+      // Optimize button always visible in edit mode (checks VocabDB at click time)
       selectBtn.classList.toggle('active', exprSelectMode);
       deleteSelBtn.style.display = exprSelectMode ? '' : 'none';
       selCount.style.display = exprSelectMode ? '' : 'none';
@@ -481,6 +513,550 @@ var ConceptSetsPage = (function() {
     App.updateConceptSet(selectedConceptSet);
     exitExprEditMode();
     App.showToast('Expression saved');
+  }
+
+  // --- Optimize expression ---
+
+  /**
+   * Resolve a concept set expression using DuckDB in-memory tables.
+   * Returns a Set of resolved concept IDs.
+   * Uses recursive CTEs since concept_ancestor only has level=1 edges.
+   */
+  function resolveExpressionViaDuckDB(items) {
+    if (!items || items.length === 0) return Promise.resolve(new Set());
+
+    var included = items.filter(function(i) { return !i.isExcluded; });
+    var excluded = items.filter(function(i) { return i.isExcluded; });
+
+    if (included.length === 0) return Promise.resolve(new Set());
+
+    function getDescendants(conceptIds) {
+      if (conceptIds.length === 0) return Promise.resolve([]);
+      var idList = conceptIds.join(',');
+      var sql =
+        'WITH RECURSIVE desc_r AS (' +
+          'SELECT descendant_concept_id AS cid FROM concept_ancestor WHERE ancestor_concept_id IN (' + idList + ')' +
+          ' UNION ' +
+          'SELECT ca.descendant_concept_id FROM concept_ancestor ca JOIN desc_r ON ca.ancestor_concept_id = desc_r.cid' +
+        ') SELECT DISTINCT cid FROM desc_r WHERE cid NOT IN (' + idList + ')';
+      return VocabDB.query(sql).then(function(rows) {
+        return rows.map(function(r) { return Number(r.cid); });
+      });
+    }
+
+    function getMapped(conceptIds) {
+      if (conceptIds.length === 0) return Promise.resolve([]);
+      var idList = conceptIds.join(',');
+      var sql =
+        "SELECT DISTINCT concept_id_2 AS cid FROM concept_relationship " +
+        "WHERE concept_id_1 IN (" + idList + ") " +
+        "AND relationship_id IN ('Maps to', 'Mapped from')";
+      return VocabDB.query(sql).then(function(rows) {
+        return rows.map(function(r) { return Number(r.cid); });
+      }).catch(function() { return []; }); // table may not exist
+    }
+
+    function expandPartition(partItems) {
+      var baseIds = partItems.map(function(i) { return i.concept.conceptId; });
+      var descSources = partItems.filter(function(i) { return i.includeDescendants; })
+        .map(function(i) { return i.concept.conceptId; });
+      var mappedSources = partItems.filter(function(i) { return i.includeMapped; })
+        .map(function(i) { return i.concept.conceptId; });
+
+      return Promise.all([
+        getDescendants(descSources),
+        getMapped(mappedSources)
+      ]).then(function(results) {
+        var all = new Set(baseIds);
+        results[0].forEach(function(id) { all.add(id); });
+        results[1].forEach(function(id) { all.add(id); });
+        return all;
+      });
+    }
+
+    return expandPartition(included).then(function(includedIds) {
+      if (excluded.length === 0) return includedIds;
+      return expandPartition(excluded).then(function(excludedIds) {
+        excludedIds.forEach(function(id) { includedIds.delete(id); });
+        return includedIds;
+      });
+    });
+  }
+
+  /**
+   * Optimize the expression by:
+   * 1. Top-down: remove items that are already covered by an ancestor with includeDescendants
+   * 2. Bottom-up: find parent concepts that can replace groups of siblings
+   *    - Only propose if: fewer total items AND resolved set stays identical
+   */
+  /**
+   * Ensure VocabDB is loaded. Attempts init + remount if not ready.
+   * Returns a Promise that resolves to true if DB is ready, false otherwise.
+   */
+  function ensureVocabDB() {
+    if (!window.VocabDB) return Promise.resolve(false);
+    if (VocabDB.getImportMode()) return Promise.resolve(true);
+    return VocabDB.initDuckDB().then(function() {
+      return VocabDB.isDatabaseReady();
+    }).then(function(ready) {
+      if (ready) { return true; }
+      return VocabDB.remountFromStoredHandles();
+    }).catch(function() { return false; });
+  }
+
+  function optimizeExpression() {
+    if (!exprEditItems || exprEditItems.length === 0) {
+      App.showToast('Nothing to optimize', 'info');
+      return;
+    }
+
+    var modal = document.getElementById('expr-optimize-modal');
+    var body = document.getElementById('expr-optimize-body');
+    var footer = document.getElementById('expr-optimize-footer');
+    modal.style.display = 'flex';
+    footer.style.display = 'none';
+    body.innerHTML = '<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> Loading vocabulary database...</div>';
+
+    ensureVocabDB().then(function(ready) {
+      if (!ready) {
+        body.innerHTML = '<div class="empty-state"><p><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i> Vocabulary database required — import it in <strong>Settings</strong> first.</p></div>';
+        footer.style.display = 'none';
+        return;
+      }
+      doOptimizeExpression(modal, body, footer);
+    });
+  }
+
+  function doOptimizeExpression(modal, body, footer) {
+    body.innerHTML = '<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> Analyzing hierarchy...</div>';
+
+    var items = JSON.parse(JSON.stringify(exprEditItems));
+
+    // Step 1: Resolve current expression to get the reference set
+    resolveExpressionViaDuckDB(items).then(function(originalResolved) {
+      body.innerHTML = '<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> Finding optimization opportunities...</div>';
+
+      return runTopDownOptimization(items).then(function(afterTopDown) {
+        return runBottomUpOptimization(afterTopDown.items).then(function(afterBottomUp) {
+          var optimizedItems = afterBottomUp.items;
+          var changes = afterTopDown.changes.concat(afterBottomUp.changes);
+
+          if (changes.length === 0) {
+            body.innerHTML = '<div class="empty-state"><p><i class="fas fa-check-circle" style="color:var(--success)"></i> Expression is already optimal — no redundant items found.</p></div>';
+            footer.style.display = 'none';
+            return;
+          }
+
+          // Verify resolved set equality
+          return resolveExpressionViaDuckDB(optimizedItems).then(function(newResolved) {
+            var identical = originalResolved.size === newResolved.size;
+            if (identical) {
+              originalResolved.forEach(function(id) {
+                if (!newResolved.has(id)) identical = false;
+              });
+            }
+
+            if (!identical) {
+              // Diff info
+              var added = [];
+              var removed = [];
+              newResolved.forEach(function(id) { if (!originalResolved.has(id)) added.push(id); });
+              originalResolved.forEach(function(id) { if (!newResolved.has(id)) removed.push(id); });
+              console.warn('Optimize: resolved set mismatch', { added: added, removed: removed });
+
+              // Fetch concept names for the diff
+              var diffIds = added.concat(removed);
+              var diffPromise = diffIds.length > 0
+                ? VocabDB.query('SELECT concept_id, concept_name FROM concept WHERE concept_id IN (' + diffIds.join(',') + ')')
+                : Promise.resolve([]);
+
+              return diffPromise.then(function(diffRows) {
+                var nameMap = {};
+                (diffRows || []).forEach(function(r) { nameMap[Number(r.concept_id)] = r.concept_name; });
+
+                var html = '<div style="margin-bottom:12px">' +
+                  '<p><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i> ' +
+                  '<strong>Optimization would change the resolved set.</strong> ' +
+                  'The in-browser vocabulary may not have complete mapping data. ' +
+                  'You can still apply and verify with the full resolver.</p></div>';
+
+                // Show changes table
+                html += '<div style="margin-bottom:12px; font-size:13px">' +
+                  '<strong>' + changes.length + ' expression change' + (changes.length > 1 ? 's' : '') + '</strong> — ' +
+                  'from ' + items.length + ' items to ' + optimizedItems.length + ' items' +
+                  '</div>';
+
+                html += '<div style="max-height:200px; overflow:auto; font-size:12px; margin-bottom:12px">';
+                html += '<table class="data-table" style="width:100%"><thead><tr>' +
+                  '<th>Action</th><th>Concept</th><th>Flags</th></tr></thead><tbody>';
+                changes.forEach(function(ch) {
+                  var color = ch.action === 'removed' ? 'var(--danger)' : 'var(--success)';
+                  var icon = ch.action === 'removed' ? 'fa-minus-circle' : 'fa-plus-circle';
+                  var flags = [];
+                  if (ch.isExcluded) flags.push('Excluded');
+                  if (ch.includeDescendants) flags.push('Desc');
+                  if (ch.includeMapped) flags.push('Mapped');
+                  html += '<tr><td><i class="fas ' + icon + '" style="color:' + color + '"></i> ' + ch.action + '</td>' +
+                    '<td>' + App.escapeHtml(ch.name) + ' <span style="color:var(--text-muted)">#' + ch.id + '</span></td>' +
+                    '<td>' + flags.join(', ') + '</td></tr>';
+                });
+                html += '</tbody></table></div>';
+
+                // Show resolved set diff
+                if (removed.length > 0) {
+                  html += '<div style="font-size:12px; margin-bottom:8px; color:var(--danger)"><strong>Resolved concepts lost (' + removed.length + '):</strong></div>';
+                  html += '<div style="max-height:100px; overflow:auto; font-size:11px; margin-bottom:8px">';
+                  removed.forEach(function(id) {
+                    html += '<div style="color:var(--danger)"><i class="fas fa-minus-circle"></i> ' + App.escapeHtml(nameMap[id] || '') + ' <span style="color:var(--text-muted)">#' + id + '</span></div>';
+                  });
+                  html += '</div>';
+                }
+                if (added.length > 0) {
+                  html += '<div style="font-size:12px; margin-bottom:8px; color:var(--success)"><strong>Resolved concepts gained (' + added.length + '):</strong></div>';
+                  html += '<div style="max-height:100px; overflow:auto; font-size:11px; margin-bottom:8px">';
+                  added.forEach(function(id) {
+                    html += '<div style="color:var(--success)"><i class="fas fa-plus-circle"></i> ' + App.escapeHtml(nameMap[id] || '') + ' <span style="color:var(--text-muted)">#' + id + '</span></div>';
+                  });
+                  html += '</div>';
+                }
+
+                body.innerHTML = html;
+                footer.style.display = '';
+                modal._optimizedItems = optimizedItems;
+              });
+            }
+
+            // Show changes
+            var html = '<div style="margin-bottom:12px; font-size:13px">' +
+              '<strong>' + changes.length + ' change' + (changes.length > 1 ? 's' : '') + '</strong> — ' +
+              'from ' + items.length + ' items to ' + optimizedItems.length + ' items ' +
+              '(resolved set: ' + originalResolved.size + ' concepts, unchanged)' +
+              '</div>';
+
+            html += '<div style="max-height:350px; overflow:auto; font-size:12px">';
+            html += '<table class="data-table" style="width:100%"><thead><tr>' +
+              '<th>Action</th><th>Concept</th><th>Flags</th></tr></thead><tbody>';
+            changes.forEach(function(ch) {
+              var color = ch.action === 'removed' ? 'var(--danger)' : 'var(--success)';
+              var icon = ch.action === 'removed' ? 'fa-minus-circle' : 'fa-plus-circle';
+              var flags = [];
+              if (ch.isExcluded) flags.push('Excluded');
+              if (ch.includeDescendants) flags.push('Desc');
+              if (ch.includeMapped) flags.push('Mapped');
+              html += '<tr><td><i class="fas ' + icon + '" style="color:' + color + '"></i> ' + ch.action + '</td>' +
+                '<td>' + App.escapeHtml(ch.name) + ' <span style="color:var(--text-muted)">#' + ch.id + '</span></td>' +
+                '<td>' + flags.join(', ') + '</td></tr>';
+            });
+            html += '</tbody></table></div>';
+
+            body.innerHTML = html;
+            footer.style.display = '';
+
+            // Store optimized items for apply
+            modal._optimizedItems = optimizedItems;
+          });
+        });
+      });
+    }).catch(function(err) {
+      body.innerHTML = '<div class="empty-state"><p><i class="fas fa-times-circle" style="color:var(--danger)"></i> Error: ' + App.escapeHtml(err.message) + '</p></div>';
+      footer.style.display = 'none';
+    });
+  }
+
+  /**
+   * Top-down: Remove expression items that are descendants of another item with includeDescendants.
+   * Only within same partition (included or excluded).
+   */
+  function runTopDownOptimization(items) {
+    var included = [];
+    var excluded = [];
+    items.forEach(function(item, idx) {
+      var entry = { item: item, idx: idx, id: item.concept.conceptId };
+      if (item.isExcluded) excluded.push(entry);
+      else included.push(entry);
+    });
+
+    function findRedundant(partition) {
+      var withDesc = partition.filter(function(e) { return e.item.includeDescendants; });
+      if (withDesc.length === 0) return Promise.resolve([]);
+
+      // For each item with includeDescendants, check if other items in the partition are its descendants
+      var parentIds = withDesc.map(function(e) { return e.id; });
+      var allIds = partition.map(function(e) { return e.id; });
+
+      var sql =
+        'WITH RECURSIVE desc_r AS (' +
+          'SELECT ancestor_concept_id AS parent, descendant_concept_id AS cid FROM concept_ancestor WHERE ancestor_concept_id IN (' + parentIds.join(',') + ')' +
+          ' UNION ALL ' +
+          'SELECT desc_r.parent, ca.descendant_concept_id FROM concept_ancestor ca JOIN desc_r ON ca.ancestor_concept_id = desc_r.cid' +
+        ') SELECT DISTINCT parent, cid FROM desc_r WHERE cid IN (' + allIds.join(',') + ') AND cid != parent';
+
+      return VocabDB.query(sql).then(function(rows) {
+        var redundantIds = new Set();
+        rows.forEach(function(r) {
+          var parentId = Number(r.parent);
+          var childId = Number(r.cid);
+          // Only redundant if the child also has same or weaker flags
+          var parentEntry = partition.find(function(e) { return e.id === parentId; });
+          var childEntry = partition.find(function(e) { return e.id === childId; });
+          if (parentEntry && childEntry && parentEntry.id !== childEntry.id) {
+            // Child is covered by parent's includeDescendants — redundant if child doesn't add broader scope
+            if (!childEntry.item.includeMapped || parentEntry.item.includeMapped) {
+              redundantIds.add(childId);
+            }
+          }
+        });
+        return redundantIds;
+      });
+    }
+
+    return Promise.all([findRedundant(included), findRedundant(excluded)]).then(function(results) {
+      var allRedundant = new Set();
+      results[0].forEach(function(id) { allRedundant.add(id); });
+      results[1].forEach(function(id) { allRedundant.add(id); });
+
+      if (allRedundant.size === 0) return { items: items, changes: [] };
+
+      var changes = [];
+      var kept = items.filter(function(item) {
+        if (allRedundant.has(item.concept.conceptId)) {
+          changes.push({
+            action: 'removed',
+            name: item.concept.conceptName,
+            id: item.concept.conceptId,
+            isExcluded: item.isExcluded,
+            includeDescendants: item.includeDescendants,
+            includeMapped: item.includeMapped
+          });
+          return false;
+        }
+        return true;
+      });
+
+      return { items: kept, changes: changes };
+    });
+  }
+
+  /**
+   * Bottom-up: Find parent concepts that can replace groups of included items.
+   * For each candidate parent:
+   * - Get all its descendants
+   * - Check how many current included items it covers
+   * - Check what new unwanted descendants it would bring in
+   * - If (parent + excludes) has fewer items than current: propose it
+   */
+  function runBottomUpOptimization(items) {
+    var included = items.filter(function(i) { return !i.isExcluded; });
+    var excluded = items.filter(function(i) { return i.isExcluded; });
+
+    if (included.length < 2) return Promise.resolve({ items: items, changes: [] });
+
+    // Find direct parents of all included concept IDs
+    var includedIds = included.map(function(i) { return i.concept.conceptId; });
+
+    // Find ancestor concepts (any level) that cover 2+ included items
+    // Uses recursive CTE since concept_ancestor only has level=1 edges
+    var sql =
+      'WITH RECURSIVE anc AS (' +
+        'SELECT ancestor_concept_id AS aid, descendant_concept_id AS did, 1 AS depth ' +
+        'FROM concept_ancestor WHERE descendant_concept_id IN (' + includedIds.join(',') + ')' +
+        ' UNION ALL ' +
+        'SELECT ca.ancestor_concept_id, anc.did, anc.depth + 1 ' +
+        'FROM concept_ancestor ca JOIN anc ON ca.descendant_concept_id = anc.aid ' +
+        'WHERE anc.depth < 5' +
+      ') ' +
+      'SELECT anc.aid AS parent_id, ' +
+      'c.concept_name AS parent_name, c.vocabulary_id, c.domain_id, c.concept_class_id, c.concept_code, c.standard_concept, ' +
+      'COUNT(DISTINCT anc.did) AS children_in_set, MIN(anc.depth) AS min_depth ' +
+      'FROM anc ' +
+      'JOIN concept c ON anc.aid = c.concept_id ' +
+      'WHERE anc.aid NOT IN (' + includedIds.join(',') + ') ' +
+      'AND (c.invalid_reason IS NULL OR c.invalid_reason = \'\') ' +
+      'GROUP BY anc.aid, c.concept_name, c.vocabulary_id, c.domain_id, c.concept_class_id, c.concept_code, c.standard_concept ' +
+      'HAVING COUNT(DISTINCT anc.did) >= 2 ' +
+      'ORDER BY COUNT(DISTINCT anc.did) DESC, MIN(anc.depth) ASC ' +
+      'LIMIT 30';
+
+    return VocabDB.query(sql).then(function(parents) {
+      if (!parents || parents.length === 0) return { items: items, changes: [] };
+
+      // Evaluate each candidate parent — find the best one (highest netGain)
+      var chain = Promise.resolve(null);
+      var bestProposal = null;
+
+      parents.forEach(function(p) {
+        chain = chain.then(function() {
+          return evaluateParentCandidate(p, included, excluded);
+        }).then(function(proposal) {
+          if (proposal && (!bestProposal || proposal.netGain > bestProposal.netGain)) {
+            bestProposal = proposal;
+          }
+        });
+      });
+
+      return chain.then(function() {
+        if (!bestProposal) return { items: items, changes: [] };
+        return bestProposal;
+      });
+    }).catch(function() {
+      return { items: items, changes: [] };
+    });
+  }
+
+  /**
+   * Evaluate a candidate parent for bottom-up optimization.
+   * Returns { items, changes, netGain } or null.
+   */
+  function evaluateParentCandidate(parent, included, excluded) {
+    var parentId = Number(parent.parent_id);
+
+    // Get ALL descendants of this parent via recursive CTE
+    var descSql =
+      'WITH RECURSIVE desc_r AS (' +
+        'SELECT descendant_concept_id AS cid FROM concept_ancestor WHERE ancestor_concept_id = ' + parentId +
+        ' UNION ALL ' +
+        'SELECT ca.descendant_concept_id FROM concept_ancestor ca JOIN desc_r ON ca.ancestor_concept_id = desc_r.cid' +
+      ') SELECT DISTINCT cid FROM desc_r';
+
+    return VocabDB.query(descSql).then(function(descRows) {
+      var allDescendants = new Set(descRows.map(function(r) { return Number(r.cid); }));
+
+      // Which included items are covered by this parent?
+      var coveredIncluded = included.filter(function(i) {
+        return allDescendants.has(i.concept.conceptId);
+      });
+
+      if (coveredIncluded.length < 2) return null;
+
+      // Which excluded items are already descendants of this parent?
+      var coveredExcluded = excluded.filter(function(i) {
+        return allDescendants.has(i.concept.conceptId);
+      });
+
+      // Items NOT covered by this parent (keep as-is)
+      var uncoveredIncluded = included.filter(function(i) {
+        return !allDescendants.has(i.concept.conceptId);
+      });
+      var uncoveredExcluded = excluded.filter(function(i) {
+        return !allDescendants.has(i.concept.conceptId);
+      });
+
+      // With parent + includeDescendants, the parent brings in all its descendants.
+      // We need to resolve what the covered items currently resolve to,
+      // and check which descendants of the parent are NOT in that resolved set.
+      // Those need to be explicitly excluded.
+
+      // Resolve covered items only
+      var coveredItems = coveredIncluded.map(function(i) { return i; })
+        .concat(coveredExcluded.map(function(i) { return i; }));
+
+      return resolveExpressionViaDuckDB(coveredItems).then(function(coveredResolved) {
+        // What would the parent with includeDescendants resolve to?
+        // Parent + desc = parentId + all descendants
+        var parentResolvedIds = new Set([parentId]);
+        allDescendants.forEach(function(id) { parentResolvedIds.add(id); });
+
+        // What needs to be excluded from the parent's tree?
+        var needExclude = [];
+        parentResolvedIds.forEach(function(id) {
+          if (!coveredResolved.has(id)) needExclude.push(id);
+        });
+
+        // Net gain: replaced coveredIncluded.length items + coveredExcluded.length items
+        // with 1 parent + needExclude.length new excludes
+        // (uncoveredExcluded items that were already there stay)
+        var oldCount = coveredIncluded.length + coveredExcluded.length;
+        var newCount = 1 + needExclude.length;
+        var netGain = oldCount - newCount;
+
+        if (netGain < 1) return null; // Not worth it
+
+        // Build new items list
+        // Fetch concept details for excluded concepts
+        if (needExclude.length === 0) {
+          return buildProposal(parent, coveredIncluded, coveredExcluded, uncoveredIncluded, uncoveredExcluded, [], netGain);
+        }
+
+        var excludeSql =
+          'SELECT concept_id, concept_name, vocabulary_id, domain_id, concept_class_id, concept_code, standard_concept ' +
+          'FROM concept WHERE concept_id IN (' + needExclude.join(',') + ')';
+
+        return VocabDB.query(excludeSql).then(function(excludeConcepts) {
+          return buildProposal(parent, coveredIncluded, coveredExcluded, uncoveredIncluded, uncoveredExcluded, excludeConcepts, netGain);
+        });
+      });
+    });
+  }
+
+  function buildProposal(parent, coveredIncluded, coveredExcluded, uncoveredIncluded, uncoveredExcluded, newExcludes, netGain) {
+    var changes = [];
+
+    // Record removals
+    coveredIncluded.forEach(function(item) {
+      changes.push({
+        action: 'removed', name: item.concept.conceptName, id: item.concept.conceptId,
+        isExcluded: false, includeDescendants: item.includeDescendants, includeMapped: item.includeMapped
+      });
+    });
+    coveredExcluded.forEach(function(item) {
+      changes.push({
+        action: 'removed', name: item.concept.conceptName, id: item.concept.conceptId,
+        isExcluded: true, includeDescendants: item.includeDescendants, includeMapped: item.includeMapped
+      });
+    });
+
+    // Add parent
+    var parentItem = {
+      concept: {
+        conceptId: Number(parent.parent_id),
+        conceptName: parent.parent_name,
+        domainId: parent.domain_id || '',
+        vocabularyId: parent.vocabulary_id || '',
+        conceptClassId: parent.concept_class_id || '',
+        standardConcept: parent.standard_concept || '',
+        standardConceptCaption: parent.standard_concept === 'S' ? 'Standard' : (parent.standard_concept === 'C' ? 'Classification' : 'Non-Standard'),
+        conceptCode: parent.concept_code || '',
+        invalidReason: null,
+        invalidReasonCaption: 'Valid'
+      },
+      isExcluded: false,
+      includeDescendants: true,
+      includeMapped: false
+    };
+    changes.push({
+      action: 'added', name: parent.parent_name, id: Number(parent.parent_id),
+      isExcluded: false, includeDescendants: true, includeMapped: false
+    });
+
+    // New exclusions
+    var newExcludeItems = newExcludes.map(function(c) {
+      changes.push({
+        action: 'added', name: c.concept_name, id: Number(c.concept_id),
+        isExcluded: true, includeDescendants: false, includeMapped: false
+      });
+      return {
+        concept: {
+          conceptId: Number(c.concept_id),
+          conceptName: c.concept_name,
+          domainId: c.domain_id || '',
+          vocabularyId: c.vocabulary_id || '',
+          conceptClassId: c.concept_class_id || '',
+          standardConcept: c.standard_concept || '',
+          standardConceptCaption: c.standard_concept === 'S' ? 'Standard' : (c.standard_concept === 'C' ? 'Classification' : 'Non-Standard'),
+          conceptCode: c.concept_code || '',
+          invalidReason: null,
+          invalidReasonCaption: 'Valid'
+        },
+        isExcluded: true,
+        includeDescendants: false,
+        includeMapped: false
+      };
+    });
+
+    // Build final items: uncovered items + parent + new excludes
+    var newItems = uncoveredIncluded.concat(uncoveredExcluded).concat([parentItem]).concat(newExcludeItems);
+
+    return { items: newItems, changes: changes, netGain: netGain };
   }
 
   // --- Comments edit ---
@@ -1524,6 +2100,10 @@ var ConceptSetsPage = (function() {
   var resolvedFilterVocab = new Set();
   var resolvedFilterStandard = new Set(['S']);
 
+  // Expression table filters
+  var exprFilterVocab = new Set();
+  var exprFilterStandard = new Set();
+
   var resolvedColumns = {
     conceptId: { label: 'Concept ID', visible: true },
     vocabulary: { label: 'Vocabulary', visible: true },
@@ -1584,6 +2164,81 @@ var ConceptSetsPage = (function() {
     if (sc === 'S') return 'Standard';
     if (sc === 'C') return 'Classification';
     return 'Non-standard';
+  }
+
+  // ==================== EXPRESSION TABLE FILTERS ====================
+  function populateExpressionFilters(items) {
+    var vocabs = {}, domains = {}, standards = {};
+    items.forEach(function(item) {
+      var c = item.concept;
+      vocabs[c.vocabularyId || ''] = true;
+      domains[c.domainId || ''] = true;
+      var sc = c.standardConcept || '';
+      standards[sc] = standardLabel(sc);
+    });
+
+    var vocabValues = Object.keys(vocabs).sort();
+    App.buildMultiSelectDropdown('expr-filter-vocabulary', vocabValues, exprFilterVocab, function() {
+      expressionPage = 1; renderExpressionTable();
+    });
+
+    var sel = document.getElementById('expr-filter-domain');
+    var cur = sel.value;
+    var opts = '<option value="">All</option>';
+    Object.keys(domains).sort().forEach(function(v) {
+      opts += '<option value="' + App.escapeHtml(v) + '">' + App.escapeHtml(v || '(empty)') + '</option>';
+    });
+    sel.innerHTML = opts;
+    sel.value = cur;
+
+    var stdValues = Object.keys(standards).sort();
+    var stdLabels = {};
+    stdValues.forEach(function(v) { stdLabels[v] = standards[v]; });
+    App.buildMultiSelectDropdown('expr-filter-standard', stdValues, exprFilterStandard, function() {
+      expressionPage = 1; renderExpressionTable();
+    }, stdLabels);
+  }
+
+  function getExpressionFilters() {
+    return {
+      vocabulary: exprFilterVocab,
+      name: document.getElementById('expr-filter-name').value.toLowerCase(),
+      code: document.getElementById('expr-filter-code').value.toLowerCase(),
+      domain: document.getElementById('expr-filter-domain').value,
+      standard: exprFilterStandard,
+      exclude: document.getElementById('expr-filter-exclude').value,
+      descendants: document.getElementById('expr-filter-descendants').value,
+      mapped: document.getElementById('expr-filter-mapped').value
+    };
+  }
+
+  function filterExpressionItems(items, filters) {
+    return items.filter(function(item) {
+      var c = item.concept;
+      if (filters.vocabulary.size > 0 && !filters.vocabulary.has(c.vocabularyId || '')) return false;
+      if (filters.name && !fuzzyMatchBool((c.conceptName || '').toLowerCase(), filters.name)) return false;
+      if (filters.code && (c.conceptCode || '').toLowerCase().indexOf(filters.code) === -1) return false;
+      if (filters.domain && (c.domainId || '') !== filters.domain) return false;
+      if (filters.standard.size > 0 && !filters.standard.has(c.standardConcept || '')) return false;
+      if (filters.exclude === 'yes' && !item.isExcluded) return false;
+      if (filters.exclude === 'no' && item.isExcluded) return false;
+      if (filters.descendants === 'yes' && !item.includeDescendants) return false;
+      if (filters.descendants === 'no' && item.includeDescendants) return false;
+      if (filters.mapped === 'yes' && !item.includeMapped) return false;
+      if (filters.mapped === 'no' && item.includeMapped) return false;
+      return true;
+    });
+  }
+
+  function resetExpressionFilters() {
+    exprFilterVocab.clear();
+    exprFilterStandard.clear();
+    document.getElementById('expr-filter-name').value = '';
+    document.getElementById('expr-filter-code').value = '';
+    document.getElementById('expr-filter-domain').value = '';
+    document.getElementById('expr-filter-exclude').value = '';
+    document.getElementById('expr-filter-descendants').value = '';
+    document.getElementById('expr-filter-mapped').value = '';
   }
 
   function populateResolvedFilters(concepts) {
@@ -3573,6 +4228,27 @@ var ConceptSetsPage = (function() {
     document.getElementById('expr-add-btn').addEventListener('click', openAddModal);
     document.getElementById('expr-select-btn').addEventListener('click', toggleExprSelectMode);
     document.getElementById('expr-delete-sel-btn').addEventListener('click', deleteExprSelected);
+    document.getElementById('expr-optimize-btn').addEventListener('click', optimizeExpression);
+
+    // Optimize modal events
+    document.getElementById('expr-optimize-close').addEventListener('click', function() {
+      document.getElementById('expr-optimize-modal').style.display = 'none';
+    });
+    document.getElementById('expr-optimize-cancel').addEventListener('click', function() {
+      document.getElementById('expr-optimize-modal').style.display = 'none';
+    });
+    document.getElementById('expr-optimize-apply').addEventListener('click', function() {
+      var modal = document.getElementById('expr-optimize-modal');
+      if (modal._optimizedItems) {
+        exprEditItems = modal._optimizedItems;
+        renderExpressionTable();
+        App.showToast('Optimization applied — review and save', 'success');
+      }
+      modal.style.display = 'none';
+    });
+    document.getElementById('expr-optimize-modal').addEventListener('click', function(e) {
+      if (e.target === this) this.style.display = 'none';
+    });
 
     // Expression table: toggle switches, delete icons, row selection
     document.getElementById('expression-tbody').addEventListener('change', function(e) {
@@ -3755,6 +4431,14 @@ var ConceptSetsPage = (function() {
       document.getElementById(id).addEventListener('input', function() { resolvedPage = 1; renderResolvedTable(true); });
     });
 
+    // Expression table filters
+    ['expr-filter-domain', 'expr-filter-exclude', 'expr-filter-descendants', 'expr-filter-mapped'].forEach(function(id) {
+      document.getElementById(id).addEventListener('change', function() { expressionPage = 1; renderExpressionTable(); });
+    });
+    ['expr-filter-name', 'expr-filter-code'].forEach(function(id) {
+      document.getElementById(id).addEventListener('input', function() { expressionPage = 1; renderExpressionTable(); });
+    });
+
     // Resolved table pagination
     document.getElementById('resolved-page-buttons').addEventListener('click', function(e) {
       handlePageClick(e, (function() {
@@ -3769,8 +4453,10 @@ var ConceptSetsPage = (function() {
 
     // Expression table pagination
     document.getElementById('expression-page-buttons').addEventListener('click', function(e) {
-      var items = exprEditMode ? (exprEditItems || []) : ((selectedConceptSet && selectedConceptSet.expression && selectedConceptSet.expression.items) || []);
-      handlePageClick(e, items.length, expressionPageSize,
+      var allItems = exprEditMode ? (exprEditItems || []) : ((selectedConceptSet && selectedConceptSet.expression && selectedConceptSet.expression.items) || []);
+      var filters = getExpressionFilters();
+      var filteredCount = filterExpressionItems(allItems, filters).length;
+      handlePageClick(e, filteredCount, expressionPageSize,
       function() { return expressionPage; },
       function(p) { expressionPage = p; },
       function() { renderExpressionTable(); });
@@ -3883,6 +4569,10 @@ var ConceptSetsPage = (function() {
     App.onHome(function() {
       if (selectedConceptSet) hideCSDetail();
     });
+
+    // Column resizing for both tables
+    App.initColResize('resolved-table');
+    App.initColResize('expression-table');
   }
 
   // ==================== PAGE MODULE ====================
