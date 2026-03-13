@@ -290,7 +290,6 @@ var App = (function() {
     'This will load':                { fr: 'Cela va charger' },
     'concepts. This may be slow.':   { fr: 'concepts. Cela peut être lent.' },
     'Load all':                      { fr: 'Tout charger' },
-    'per page':                      { fr: 'par page' },
 
     // Confirm Delete
     'Confirm Delete':                { fr: 'Confirmer la suppression' },

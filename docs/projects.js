@@ -65,7 +65,7 @@ var ProjectsPage = (function() {
           '<button class="project-card-menu-item danger" data-action="delete" data-id="' + p.id + '"><i class="fas fa-trash"></i> ' + App.i18n('Delete') + '</button>' +
         '</div>' +
         '<h3>' + App.escapeHtml(tr.name || '') + '</h3>' +
-        '<p>' + App.escapeHtml(tr.short_description || App.i18n('No description')) + '</p>' +
+        '<p title="' + App.escapeHtml(tr.short_description || '') + '">' + App.escapeHtml(tr.short_description || App.i18n('No description')) + '</p>' +
         '<div class="project-card-footer">' +
           '<span><i class="fas fa-list"></i> ' + csCount + ' ' + App.i18n('concept sets') + '</span>' +
           '<span><i class="fas fa-user"></i> ' + App.escapeHtml(p.createdBy || '') + '</span>' +

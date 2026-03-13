@@ -53,7 +53,7 @@ var ConceptSetsPage = (function() {
   var addSelectedConcept = null; // currently focused row in single-select mode
   var addFiltersVisible = false;
   var addPage = 1;
-  var addPageSize = 20;
+  var addPageSize = 10;
   // Pre-query filters (from filters popup) — Sets for multi-select
   var addFilterVocab = new Set();
   var addFilterDomain = new Set();
@@ -1936,7 +1936,7 @@ var ConceptSetsPage = (function() {
       el.innerHTML = '';
       wrapper = document.createElement('div');
       wrapper.className = 'hierarchy-graph-container';
-      wrapper.style.cssText = 'height:100%; min-height:0';
+      wrapper.style.cssText = '';
       wrapper.innerHTML =
         '<div class="hierarchy-header">' +
           '<button class="hierarchy-btn amh-back-btn" title="Back" disabled><i class="fas fa-arrow-left"></i></button>' +
@@ -1948,7 +1948,7 @@ var ConceptSetsPage = (function() {
             '<button class="hierarchy-btn amh-fullscreen" title="Toggle fullscreen"><i class="fas fa-expand"></i></button>' +
           '</div>' +
         '</div>' +
-        '<div class="amh-canvas" style="height:100%;flex:1"></div>';
+        '<div class="amh-canvas"></div>';
       el.appendChild(wrapper);
       addModalHierarchyWrapper = wrapper;
 
@@ -2264,6 +2264,7 @@ var ConceptSetsPage = (function() {
     var domain = customDomainValue;
     var conceptClass = customClassValue;
     var code = document.getElementById('custom-concept-code').value.trim();
+    var vocab = document.getElementById('custom-concept-vocabulary').value.trim() || 'INDICATE';
     var isExcluded = document.getElementById('custom-concept-exclude').checked;
 
     // Validation
@@ -2279,7 +2280,7 @@ var ConceptSetsPage = (function() {
         conceptId: conceptId,
         conceptName: name,
         domainId: domain,
-        vocabularyId: 'INDICATE',
+        vocabularyId: vocab,
         conceptClassId: conceptClass,
         standardConcept: '',
         standardConceptCaption: 'Non-standard',
@@ -4589,11 +4590,6 @@ var ConceptSetsPage = (function() {
         function() { renderAddResults(); },
         'expr-add-table-scroll');
     });
-    document.getElementById('expr-add-page-size').addEventListener('change', function() {
-      addPageSize = parseInt(this.value) || 20;
-      addPage = 1;
-      renderAddResults();
-    });
 
     // Add concepts: filters popup
     document.getElementById('expr-add-filters-btn').addEventListener('click', function(e) {
@@ -4711,32 +4707,6 @@ var ConceptSetsPage = (function() {
         applyAddColumnFilters();
       });
     });
-
-    // Add concepts: resize bar drag
-    (function() {
-      var bar = document.getElementById('expr-add-resize-bar');
-      var bottom = document.getElementById('expr-add-bottom');
-      var body = document.querySelector('#expr-add-modal .modal-fs-body');
-      var startY, startH;
-      bar.addEventListener('mousedown', function(e) {
-        e.preventDefault();
-        startY = e.clientY;
-        startH = bottom.offsetHeight;
-        bar.classList.add('dragging');
-        function onMove(ev) {
-          var delta = startY - ev.clientY;
-          var newH = Math.max(120, Math.min(startH + delta, body.offsetHeight - 200));
-          bottom.style.height = newH + 'px';
-        }
-        function onUp() {
-          bar.classList.remove('dragging');
-          document.removeEventListener('mousemove', onMove);
-          document.removeEventListener('mouseup', onUp);
-        }
-        document.addEventListener('mousemove', onMove);
-        document.addEventListener('mouseup', onUp);
-      });
-    })();
 
     // Resolved concept row click -> concept detail (fresh navigation, reset history)
     document.getElementById('resolved-tbody').addEventListener('click', function(e) {

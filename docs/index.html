@@ -1290,14 +1290,14 @@ Enter your review comments here using Markdown syntax.
   </div>
   <div class="modal-fs-body" style="flex:1; display:flex; flex-direction:column; min-height:0; padding:16px">
     <!-- ── OHDSI Vocabularies tab panel ── -->
-    <div id="expr-add-panel-ohdsi" class="expr-add-panel" style="flex:1; display:flex; flex-direction:column; min-height:0">
+    <div id="expr-add-panel-ohdsi" class="expr-add-panel">
     <!-- No DB message -->
     <div id="expr-add-no-db" style="display:none; padding:20px; text-align:center; color:var(--text-muted); font-size:13px">
       <i class="fas fa-info-circle" style="color:var(--primary); margin-right:6px"></i>
       <span data-i18n="Load OHDSI vocabularies in General Settings to search concepts.">Load OHDSI vocabularies in General Settings to search concepts.</span>
     </div>
     <!-- Search bar -->
-    <div id="expr-add-search-row" style="display:flex; gap:8px; margin-bottom:12px; align-items:center; position:relative">
+    <div id="expr-add-search-row">
       <input type="text" class="form-input" id="expr-add-search" data-i18n-placeholder="Search concepts by name, code, or ID..." placeholder="Search concepts by name, code, or ID..." style="flex:1">
       <button class="btn-primary-custom" id="expr-add-search-btn"><i class="fas fa-search"></i> <span data-i18n="Search">Search</span></button>
       <div style="position:relative">
@@ -1340,8 +1340,8 @@ Enter your review comments here using Markdown syntax.
       </label>
     </div>
     <!-- Top: Results table -->
-    <div id="expr-add-results-wrap" style="flex:1; min-height:0; display:flex; flex-direction:column">
-      <div id="expr-add-table-scroll" style="flex:1; overflow-y:auto; min-height:0">
+    <div id="expr-add-results-wrap">
+      <div id="expr-add-table-scroll">
         <table class="concept-related-table" id="expr-add-results-table">
           <thead>
             <tr>
@@ -1370,20 +1370,9 @@ Enter your review comments here using Markdown syntax.
       </div>
       <div class="pagination" id="expr-add-pagination" style="display:none">
         <span id="expr-add-page-info"></span>
-        <label class="page-size-selector">
-          <span data-i18n="per page">per page</span>
-          <select id="expr-add-page-size">
-            <option value="10">10</option>
-            <option value="20" selected>20</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-          </select>
-        </label>
         <div class="pagination-buttons" id="expr-add-page-buttons"></div>
       </div>
     </div>
-    <!-- Resize bar -->
-    <div class="expr-add-resize-bar" id="expr-add-resize-bar"></div>
     <!-- Bottom: Details (left) + Hierarchy (right) -->
     <div id="expr-add-bottom" class="expr-add-bottom">
       <div class="expr-add-detail-panel" id="expr-add-detail-panel">
@@ -1419,7 +1408,7 @@ Enter your review comments here using Markdown syntax.
         </div>
         <div class="custom-concept-row">
           <label data-i18n="Vocabulary">Vocabulary</label>
-          <input type="text" class="form-input" id="custom-concept-vocabulary" value="INDICATE" readonly>
+          <input type="text" class="form-input" id="custom-concept-vocabulary" value="INDICATE">
           <span class="custom-concept-hint" data-i18n="Custom concepts use the INDICATE vocabulary">Custom concepts use the INDICATE vocabulary</span>
         </div>
         <div class="custom-concept-row">
