@@ -86,6 +86,7 @@
   App.updateUserBadge();
   App.updateOrgBadge();
   App.initSharedEvents();
+  App.translateDOM();
 
   // Footer
   var footer = document.getElementById('app-footer');

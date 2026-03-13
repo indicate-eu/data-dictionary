@@ -361,12 +361,12 @@ var ConceptSetsPage = (function() {
     document.getElementById('cs-concept-count').textContent = filtered.length + (filtered.length !== allItems.length ? ' / ' + allItems.length : '');
 
     if (allItems.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="' + colSpan + '" class="empty-state"><p>No concepts in this concept set</p></td></tr>';
+      tbody.innerHTML = '<tr><td colspan="' + colSpan + '" class="empty-state"><p>' + App.i18n('No concepts in this concept set') + '</p></td></tr>';
       renderPaginationControls('expression-pagination', 'expression-page-info', 'expression-page-buttons', 1, 0, expressionPageSize);
       return;
     }
     if (filtered.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="' + colSpan + '" class="empty-state"><p>No concepts match the current filters.</p></td></tr>';
+      tbody.innerHTML = '<tr><td colspan="' + colSpan + '" class="empty-state"><p>' + App.i18n('No concepts match the current filters.') + '</p></td></tr>';
       renderPaginationControls('expression-pagination', 'expression-page-info', 'expression-page-buttons', 1, 0, expressionPageSize);
       return;
     }
@@ -512,7 +512,7 @@ var ConceptSetsPage = (function() {
     selectedConceptSet.modifiedDate = new Date().toISOString().slice(0, 10);
     App.updateConceptSet(selectedConceptSet);
     exitExprEditMode();
-    App.showToast('Expression saved');
+    App.showToast(App.i18n('Expression saved'));
   }
 
   // --- Optimize expression ---
@@ -606,7 +606,7 @@ var ConceptSetsPage = (function() {
 
   function optimizeExpression() {
     if (!exprEditItems || exprEditItems.length === 0) {
-      App.showToast('Nothing to optimize', 'info');
+      App.showToast(App.i18n('Nothing to optimize'), 'info');
       return;
     }
 
@@ -615,7 +615,7 @@ var ConceptSetsPage = (function() {
     var footer = document.getElementById('expr-optimize-footer');
     modal.style.display = 'flex';
     footer.style.display = 'none';
-    body.innerHTML = '<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> Loading vocabulary database...</div>';
+    body.innerHTML = '<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> ' + App.i18n('Loading vocabulary database...') + '</div>';
 
     ensureVocabDB().then(function(ready) {
       if (!ready) {
@@ -1187,7 +1187,7 @@ var ConceptSetsPage = (function() {
     selectedConceptSet.modifiedDate = new Date().toISOString().slice(0, 10);
     App.updateConceptSet(selectedConceptSet);
     exitCommentsEditMode();
-    App.showToast('Comments saved');
+    App.showToast(App.i18n('Comments saved'));
   }
 
   // --- Statistics edit ---
@@ -1246,7 +1246,7 @@ var ConceptSetsPage = (function() {
     try {
       parsed = jsonStr ? JSON.parse(jsonStr) : null;
     } catch (e) {
-      App.showToast('Invalid JSON: ' + e.message, 'error');
+      App.showToast(App.i18n('Invalid JSON: ') + e.message, 'error');
       return;
     }
     if (!selectedConceptSet.metadata) selectedConceptSet.metadata = {};
@@ -1254,7 +1254,7 @@ var ConceptSetsPage = (function() {
     selectedConceptSet.modifiedDate = new Date().toISOString().slice(0, 10);
     App.updateConceptSet(selectedConceptSet);
     exitStatsEditMode();
-    App.showToast('Statistics saved');
+    App.showToast(App.i18n('Statistics saved'));
   }
 
   function resetStatsToTemplate() {
@@ -1322,7 +1322,7 @@ var ConceptSetsPage = (function() {
     errEl.style.display = 'none';
     var text = exprImportEditor.getValue().trim();
     if (!text) {
-      errEl.textContent = 'Please paste JSON content.';
+      errEl.textContent = App.i18n('Please paste JSON content.');
       errEl.style.display = '';
       return;
     }
@@ -1334,7 +1334,7 @@ var ConceptSetsPage = (function() {
     }
     var rawItems = parsed.items;
     if (!rawItems || !Array.isArray(rawItems) || rawItems.length === 0) {
-      errEl.textContent = 'JSON must contain a non-empty "items" array.';
+      errEl.textContent = App.i18n('JSON must contain a non-empty "items" array.');
       errEl.style.display = '';
       return;
     }
@@ -1373,8 +1373,8 @@ var ConceptSetsPage = (function() {
     });
     closeImportModal();
     renderExpressionTable();
-    var msg = added + ' concept' + (added !== 1 ? 's' : '') + ' imported';
-    if (skipped > 0) msg += ', ' + skipped + ' skipped (duplicate or invalid)';
+    var msg = added + App.i18n(added !== 1 ? ' concepts' : ' concept') + App.i18n(' imported');
+    if (skipped > 0) msg += ', ' + skipped + App.i18n(' skipped (duplicate or invalid)');
     App.showToast(msg);
   }
 
@@ -2091,8 +2091,8 @@ var ConceptSetsPage = (function() {
     updateAddCount();
     resetAddDetailPanels();
     renderAddResults();
-    var msg = added + ' concept' + (added !== 1 ? 's' : '') + ' added';
-    if (skipped > 0) msg += ', ' + skipped + ' skipped (already in expression)';
+    var msg = added + App.i18n(added !== 1 ? ' concepts' : ' concept') + App.i18n(' added');
+    if (skipped > 0) msg += ', ' + skipped + App.i18n(' skipped (already in expression)');
     App.showToast(msg);
   }
 
@@ -3168,7 +3168,7 @@ var ConceptSetsPage = (function() {
     var desc = cs.description || '';
     var longDesc = (tr && tr.longDescription) || '';
     if (!desc && !longDesc) {
-      el.innerHTML = '<div class="empty-state"><p>No description available for this concept set.</p></div>';
+      el.innerHTML = '<div class="empty-state"><p>' + App.i18n('No description available for this concept set.') + '</p></div>';
       return;
     }
     var content = longDesc || desc;
@@ -3184,8 +3184,8 @@ var ConceptSetsPage = (function() {
       profileWrap.style.display = 'none';
       el.innerHTML = '<div class="empty-state">' +
         '<i class="fas fa-chart-bar" style="font-size:32px; color:var(--gray-300); display:block; margin-bottom:12px"></i>' +
-        '<p>No distribution statistics available for this concept set.</p>' +
-        '<p style="font-size:12px; margin-top:8px; color:var(--text-muted)">Click <strong>Edit</strong> to add statistics, or compute them via the INDICATE Data Dictionary application.</p>' +
+        '<p>' + App.i18n('No distribution statistics available for this concept set.') + '</p>' +
+        '<p style="font-size:12px; margin-top:8px; color:var(--text-muted)">' + App.i18n('Click <strong>Edit</strong> to add statistics, or compute them via the INDICATE Data Dictionary application.') + '</p>' +
         '</div>';
       return;
     }
@@ -3403,7 +3403,7 @@ var ConceptSetsPage = (function() {
     var p = App.getUserProfile();
     var name = ((p.firstName || '') + ' ' + (p.lastName || '')).trim();
     if (!name) {
-      App.showToast('Please set up your profile first (click on "Guest" in the header).', 'warning');
+      App.showToast(App.i18n('Please set up your profile first (click on "Guest" in the header).'), 'warning');
       App.openProfileModal();
       return;
     }
@@ -3422,12 +3422,12 @@ var ConceptSetsPage = (function() {
   function submitReview() {
     var status = document.getElementById('review-status').value;
     if (!status) {
-      App.showToast('Please select a review status.', 'error');
+      App.showToast(App.i18n('Please select a review status.'), 'error');
       return;
     }
     var comments = reviewAceEditor ? reviewAceEditor.getValue().trim() : '';
     if (!comments) {
-      App.showToast('Review comments are required.', 'error');
+      App.showToast(App.i18n('Review comments are required.'), 'error');
       return;
     }
 
@@ -3457,7 +3457,7 @@ var ConceptSetsPage = (function() {
 
     closeReviewModal();
     renderReviewTab(selectedConceptSet);
-    App.showToast('Review submitted! Use "Propose on GitHub" to submit a pull request.', 'success', 5000);
+    App.showToast(App.i18n('Review submitted! Use "Propose on GitHub" to submit a pull request.'), 'success', 5000);
   }
 
   // ==================== GITHUB PROPOSE ====================
@@ -3465,7 +3465,7 @@ var ConceptSetsPage = (function() {
     if (!selectedConceptSet) return;
     var json = buildIndicateJSON();
     navigator.clipboard.writeText(json).then(function() {
-      App.showToast('JSON copied to clipboard! Paste it in the GitHub editor.', 'success', 5000);
+      App.showToast(App.i18n('JSON copied to clipboard! Paste it in the GitHub editor.'), 'success', 5000);
     }).catch(function() {});
     var url = 'https://github.com/' + GITHUB_REPO + '/edit/main/concept_sets/' + selectedConceptSet.id + '.json';
     window.open(url, '_blank');
@@ -3520,7 +3520,7 @@ var ConceptSetsPage = (function() {
     if (!selectedConceptSet) return;
     var newVersion = document.getElementById('cs-version-input').value.trim();
     if (!newVersion) {
-      App.showToast('Please enter a version number', 'error');
+      App.showToast(App.i18n('Please enter a version number'), 'error');
       return;
     }
     var summary = document.getElementById('cs-version-summary').value.trim();
@@ -3542,7 +3542,7 @@ var ConceptSetsPage = (function() {
     App.updateConceptSet(selectedConceptSet);
     refreshDetailBadges();
     closeVersionModal();
-    App.showToast('Version updated to v' + newVersion);
+    App.showToast(App.i18n('Version updated to v') + newVersion);
   }
 
   // ==================== STATUS MODAL ====================
@@ -3566,7 +3566,7 @@ var ConceptSetsPage = (function() {
     App.updateConceptSet(selectedConceptSet);
     refreshDetailBadges();
     closeStatusModal();
-    App.showToast('Status changed to ' + (App.statusLabelsMap[newStatus] || newStatus));
+    App.showToast(App.i18n('Status changed to ') + App.statusLabel(newStatus));
   }
 
   function refreshDetailBadges() {
@@ -3575,7 +3575,7 @@ var ConceptSetsPage = (function() {
     var meta = cs.metadata || {};
     var status = meta.reviewStatus || 'draft';
     var statusClass = status.replace(/\s+/g, '_').toLowerCase();
-    var statusLabel = App.statusLabelsMap[status] || 'Draft';
+    var statusLabel = App.statusLabel(status);
 
     document.getElementById('cs-detail-badges').innerHTML =
       '<span class="version-badge" id="cs-badge-version">v' + App.escapeHtml(cs.version || '1.0.0') + '</span>' +
@@ -3667,9 +3667,9 @@ var ConceptSetsPage = (function() {
 
     if (exportMethod === 'clipboard') {
       navigator.clipboard.writeText(json).then(function() {
-        App.showToast('Copied to clipboard!', 'success');
+        App.showToast(App.i18n('Copied to clipboard!'), 'success');
       }).catch(function() {
-        App.showToast('Could not copy to clipboard. Try downloading the file instead.', 'error');
+        App.showToast(App.i18n('Could not copy to clipboard. Try downloading the file instead.'), 'error');
       });
     } else {
       var blob = new Blob([json], { type: 'application/json' });
@@ -3712,7 +3712,7 @@ var ConceptSetsPage = (function() {
     selectedIds.clear();
     updateListEditToolbar();
     renderAll();
-    App.showToast('Changes saved');
+    App.showToast(App.i18n('Changes saved'));
   }
 
   function cancelListEdits() {
@@ -3777,11 +3777,11 @@ var ConceptSetsPage = (function() {
   // ==================== DELETE SELECTED ====================
   function openDeleteConfirm() {
     if (selectedIds.size === 0) {
-      App.showToast('No concept sets selected.', 'warning');
+      App.showToast(App.i18n('No concept sets selected.'), 'warning');
       return;
     }
     var n = selectedIds.size;
-    var msg = 'Delete ' + n + ' selected concept set' + (n > 1 ? 's' : '') + '?';
+    var msg = App.i18n('Delete ') + n + App.i18n(n > 1 ? ' selected concept sets' : ' selected concept set') + '?';
     document.getElementById('cs-delete-confirm-msg').textContent = msg;
     document.getElementById('cs-delete-confirm-modal').style.display = 'flex';
   }
@@ -3798,10 +3798,10 @@ var ConceptSetsPage = (function() {
     updateSelectionCount();
     renderAll();
     if (result.deleted > 0) {
-      App.showToast(result.deleted + ' concept set' + (result.deleted > 1 ? 's' : '') + ' deleted.', 'success');
+      App.showToast(result.deleted + App.i18n(result.deleted > 1 ? ' concept sets' : ' concept set') + App.i18n(' deleted.'), 'success');
     }
     if (result.skipped > 0) {
-      App.showToast(result.skipped + ' repository concept set' + (result.skipped > 1 ? 's' : '') + ' cannot be deleted.', 'warning');
+      App.showToast(result.skipped + ' ' + App.i18n('repository ') + App.i18n(result.skipped > 1 ? ' concept sets' : ' concept set') + App.i18n(' cannot be deleted.'), 'warning');
     }
   }
 
@@ -3812,7 +3812,7 @@ var ConceptSetsPage = (function() {
     if (selectionMode && selectedIds.size > 0) {
       selectedOption.style.display = '';
       document.getElementById('cs-bulk-export-selected-desc').textContent =
-        'Download ' + selectedIds.size + ' selected concept set' + (selectedIds.size > 1 ? 's' : '');
+        App.i18n('Download ') + selectedIds.size + App.i18n(selectedIds.size > 1 ? ' selected concept sets' : ' selected concept set');
     } else {
       selectedOption.style.display = 'none';
     }
@@ -3868,7 +3868,7 @@ var ConceptSetsPage = (function() {
     }
     downloadConceptSetsJson(list, filename);
     closeBulkExportModal();
-    App.showToast(list.length + ' concept set' + (list.length > 1 ? 's' : '') + ' exported.', 'success');
+    App.showToast(list.length + App.i18n(list.length > 1 ? ' concept sets' : ' concept set') + App.i18n(' exported.'), 'success');
   }
 
   function executeBulkExportByCategory() {
@@ -3880,7 +3880,7 @@ var ConceptSetsPage = (function() {
     var safeCat = cat.replace(/[^a-zA-Z0-9_-]/g, '_').toLowerCase();
     downloadConceptSetsJson(list, 'concept_sets_' + safeCat + '.json');
     closeBulkExportModal();
-    App.showToast(list.length + ' concept set' + (list.length > 1 ? 's' : '') + ' exported.', 'success');
+    App.showToast(list.length + App.i18n(list.length > 1 ? ' concept sets' : ' concept set') + App.i18n(' exported.'), 'success');
   }
 
   // ==================== CREATE CONCEPT SET ====================
@@ -4024,8 +4024,8 @@ var ConceptSetsPage = (function() {
     var desc = document.getElementById('cs-create-desc').value.trim();
     var r = resolveModalCatSubcat();
 
-    if (!name) { App.showToast('Name is required.', 'error'); return; }
-    if (!r.catEn) { App.showToast('Category is required.', 'error'); return; }
+    if (!name) { App.showToast(App.i18n('Name is required.'), 'error'); return; }
+    if (!r.catEn) { App.showToast(App.i18n('Category is required.'), 'error'); return; }
 
     // Edit mode
     if (csEditingId != null) {
@@ -4047,7 +4047,7 @@ var ConceptSetsPage = (function() {
       App.updateConceptSet(cs);
       closeCreateModal();
       renderAll();
-      App.showToast('Concept set "' + name + '" updated.', 'success');
+      App.showToast(App.i18n('Concept set updated.'), 'success');
       return;
     }
 
@@ -4094,7 +4094,7 @@ var ConceptSetsPage = (function() {
     closeCreateModal();
     renderAll();
     showCSDetail(cs.id);
-    App.showToast('Concept set "' + name + '" created.', 'success');
+    App.showToast(App.i18n('Concept set created.'), 'success');
   }
 
   // ==================== EVENTS ====================
@@ -4242,7 +4242,7 @@ var ConceptSetsPage = (function() {
       if (modal._optimizedItems) {
         exprEditItems = modal._optimizedItems;
         renderExpressionTable();
-        App.showToast('Optimization applied — review and save', 'success');
+        App.showToast(App.i18n('Optimization applied — review and save'), 'success');
       }
       modal.style.display = 'none';
     });

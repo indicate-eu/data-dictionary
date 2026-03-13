@@ -124,10 +124,18 @@ data-dictionary-content/
 ```json
 {
   "id": 1,
-  "name": "MIMIC-EU [Minimal]",
-  "description": "...",
-  "justification": "...",
-  "bibliography": null,
+  "translations": {
+    "en": {
+      "name": "MIMIC-EU [Minimal]",
+      "short_description": "Short summary of the project...",
+      "long_description": "Detailed description with Markdown support..."
+    },
+    "fr": {
+      "name": "MIMIC-EU [Minimal]",
+      "short_description": "Résumé court du projet...",
+      "long_description": "Description détaillée avec support Markdown..."
+    }
+  },
   "createdBy": "Boris Delange",
   "createdDate": "2024-01-01",
   "modifiedDate": "2024-01-01",

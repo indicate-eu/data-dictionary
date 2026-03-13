@@ -10,12 +10,11 @@ var ProjectsPage = (function() {
   var projCsFilterName = '';
   var projCsCategories = new Set();
   var projCsSubcategories = new Set();
-  var projCsFilterReviewStatus = new Set();
 
   // ==================== EDIT MODE STATE ====================
   var editMode = false;
-  var editDescription = '';
-  var editJustification = '';
+  var editLongDescEn = '';
+  var editLongDescFr = '';
   var editConceptSetIds = []; // working copy of concept set IDs
   var currentTab = 'context';
 
@@ -39,8 +38,9 @@ var ProjectsPage = (function() {
     var filter = document.getElementById('proj-search').value.toLowerCase();
     var filtered = App.projects.filter(function(p) {
       if (!filter) return true;
-      var name = (p.name || '').toLowerCase();
-      var desc = (p.description || '').toLowerCase();
+      var tr = App.tProj(p);
+      var name = (tr.name || '').toLowerCase();
+      var desc = (tr.short_description || '').toLowerCase();
       function fuzzy(text) {
         var ti = 0;
         for (var qi = 0; qi < filter.length; qi++) {
@@ -56,19 +56,20 @@ var ProjectsPage = (function() {
 
     var el = document.getElementById('proj-cards');
     el.innerHTML = filtered.map(function(p) {
+      var tr = App.tProj(p);
       var csCount = (p.conceptSetIds || []).length;
       return '<div class="project-card" data-id="' + p.id + '">' +
         '<button class="project-card-menu-btn" data-menu-id="' + p.id + '" title="Actions"><i class="fas fa-ellipsis-v"></i></button>' +
         '<div class="project-card-menu" id="proj-card-menu-' + p.id + '">' +
-          '<button class="project-card-menu-item" data-action="edit" data-id="' + p.id + '"><i class="fas fa-pen"></i> Edit</button>' +
-          '<button class="project-card-menu-item danger" data-action="delete" data-id="' + p.id + '"><i class="fas fa-trash"></i> Delete</button>' +
+          '<button class="project-card-menu-item" data-action="edit" data-id="' + p.id + '"><i class="fas fa-pen"></i> ' + App.i18n('Edit') + '</button>' +
+          '<button class="project-card-menu-item danger" data-action="delete" data-id="' + p.id + '"><i class="fas fa-trash"></i> ' + App.i18n('Delete') + '</button>' +
         '</div>' +
-        '<h3>' + App.escapeHtml(p.name) + '</h3>' +
-        '<p>' + App.escapeHtml(p.description || 'No description') + '</p>' +
+        '<h3>' + App.escapeHtml(tr.name || '') + '</h3>' +
+        '<p>' + App.escapeHtml(tr.short_description || App.i18n('No description')) + '</p>' +
         '<div class="project-card-footer">' +
-          '<span><i class="fas fa-list"></i> ' + csCount + ' concept sets</span>' +
+          '<span><i class="fas fa-list"></i> ' + csCount + ' ' + App.i18n('concept sets') + '</span>' +
           '<span><i class="fas fa-user"></i> ' + App.escapeHtml(p.createdBy || '') + '</span>' +
-          '<span><i class="fas fa-calendar-alt"></i> ' + App.escapeHtml(p.createdDate || '') + '</span>' +
+          '<span><i class="fas fa-calendar-alt"></i> ' + App.escapeHtml(App.formatDate(p.createdDate) || '') + '</span>' +
         '</div>' +
         '</div>';
     }).join('');
@@ -85,26 +86,34 @@ var ProjectsPage = (function() {
   // ==================== CREATE/EDIT MODAL ====================
   function openCreateModal() {
     modalEditingId = null;
-    document.getElementById('proj-modal-title').innerHTML = '<i class="fas fa-plus"></i> New Project';
-    document.getElementById('proj-modal-submit').innerHTML = '<i class="fas fa-plus"></i> Create';
-    document.getElementById('proj-modal-name').value = '';
+    document.getElementById('proj-modal-title').innerHTML = '<i class="fas fa-plus"></i> ' + App.i18n('New Project');
+    document.getElementById('proj-modal-submit').innerHTML = '<i class="fas fa-plus"></i> ' + App.i18n('Create');
+    document.getElementById('proj-modal-name-en').value = '';
+    document.getElementById('proj-modal-name-fr').value = '';
+    document.getElementById('proj-modal-short-desc-en').value = '';
+    document.getElementById('proj-modal-short-desc-fr').value = '';
     var profile = App.getUserProfile();
     var authorName = ((profile.firstName || '') + ' ' + (profile.lastName || '')).trim();
     document.getElementById('proj-modal-author').value = authorName || '';
     document.getElementById('proj-modal').style.display = '';
-    document.getElementById('proj-modal-name').focus();
+    document.getElementById('proj-modal-name-en').focus();
   }
 
   function openEditModal(id) {
     var proj = App.projects.find(function(p) { return p.id === id; });
     if (!proj) return;
     modalEditingId = id;
-    document.getElementById('proj-modal-title').innerHTML = '<i class="fas fa-pen"></i> Edit Project';
-    document.getElementById('proj-modal-submit').innerHTML = '<i class="fas fa-save"></i> Save';
-    document.getElementById('proj-modal-name').value = proj.name || '';
+    var trEn = (proj.translations && proj.translations.en) || {};
+    var trFr = (proj.translations && proj.translations.fr) || {};
+    document.getElementById('proj-modal-title').innerHTML = '<i class="fas fa-pen"></i> ' + App.i18n('Edit Project');
+    document.getElementById('proj-modal-submit').innerHTML = '<i class="fas fa-save"></i> ' + App.i18n('Save');
+    document.getElementById('proj-modal-name-en').value = trEn.name || '';
+    document.getElementById('proj-modal-name-fr').value = trFr.name || '';
+    document.getElementById('proj-modal-short-desc-en').value = trEn.short_description || '';
+    document.getElementById('proj-modal-short-desc-fr').value = trFr.short_description || '';
     document.getElementById('proj-modal-author').value = proj.createdBy || '';
     document.getElementById('proj-modal').style.display = '';
-    document.getElementById('proj-modal-name').focus();
+    document.getElementById('proj-modal-name-en').focus();
   }
 
   function closeCreateModal() {
@@ -112,15 +121,30 @@ var ProjectsPage = (function() {
   }
 
   function submitModal() {
-    var name = document.getElementById('proj-modal-name').value.trim();
+    var nameEn = document.getElementById('proj-modal-name-en').value.trim();
+    var nameFr = document.getElementById('proj-modal-name-fr').value.trim();
+    var shortDescEn = document.getElementById('proj-modal-short-desc-en').value.trim();
+    var shortDescFr = document.getElementById('proj-modal-short-desc-fr').value.trim();
     var author = document.getElementById('proj-modal-author').value.trim();
-    if (!name) { App.showToast('Project name is required.', 'error'); return; }
+    if (!nameEn && !nameFr) { App.showToast(App.i18n('Project name is required.'), 'error'); return; }
+
+    // Default: copy from one language to the other if empty
+    if (!nameFr) nameFr = nameEn;
+    if (!nameEn) nameEn = nameFr;
+    if (!shortDescFr) shortDescFr = shortDescEn;
+    if (!shortDescEn) shortDescEn = shortDescFr;
 
     if (modalEditingId != null) {
       // Edit existing project
       var proj = App.projects.find(function(p) { return p.id === modalEditingId; });
       if (!proj) return;
-      proj.name = name;
+      if (!proj.translations) proj.translations = { en: {}, fr: {} };
+      if (!proj.translations.en) proj.translations.en = {};
+      if (!proj.translations.fr) proj.translations.fr = {};
+      proj.translations.en.name = nameEn;
+      proj.translations.fr.name = nameFr;
+      proj.translations.en.short_description = shortDescEn;
+      proj.translations.fr.short_description = shortDescFr;
       proj.createdBy = author;
       proj.modifiedDate = new Date().toISOString().split('T')[0];
       App.updateProject(proj);
@@ -129,16 +153,16 @@ var ProjectsPage = (function() {
       if (selectedProject && selectedProject.id === modalEditingId) {
         showProjectDetail(modalEditingId);
       }
-      App.showToast('Project "' + name + '" updated.', 'success');
+      App.showToast(App.i18n('Project updated.'), 'success');
     } else {
       // Create new project
       var today = new Date().toISOString().split('T')[0];
       var proj = {
         id: App.nextProjectId(),
-        name: name,
-        description: '',
-        justification: '',
-        bibliography: null,
+        translations: {
+          en: { name: nameEn, short_description: shortDescEn, long_description: '' },
+          fr: { name: nameFr, short_description: shortDescFr, long_description: '' }
+        },
         createdBy: author,
         createdDate: today,
         modifiedDate: today,
@@ -148,7 +172,7 @@ var ProjectsPage = (function() {
       closeCreateModal();
       renderProjectCards();
       showProjectDetail(proj.id);
-      App.showToast('Project "' + name + '" created.', 'success');
+      App.showToast(App.i18n('Project created.'), 'success');
     }
   }
 
@@ -157,7 +181,8 @@ var ProjectsPage = (function() {
     var proj = App.projects.find(function(p) { return p.id === id; });
     if (!proj) return;
     deleteTargetId = id;
-    document.getElementById('proj-delete-name').textContent = proj.name;
+    var tr = App.tProj(proj);
+    document.getElementById('proj-delete-name').textContent = tr.name || '';
     document.getElementById('proj-delete-modal').style.display = '';
   }
 
@@ -170,14 +195,14 @@ var ProjectsPage = (function() {
     if (deleteTargetId == null) return;
     var name = '';
     var proj = App.projects.find(function(p) { return p.id === deleteTargetId; });
-    if (proj) name = proj.name;
+    if (proj) { var tr = App.tProj(proj); name = tr.name || ''; }
     App.deleteProject(deleteTargetId);
     closeDeleteModal();
     if (selectedProject && selectedProject.id === deleteTargetId) {
       hideProjectDetail();
     }
     renderProjectCards();
-    App.showToast('Project "' + name + '" deleted.', 'success');
+    App.showToast(App.i18n('Project deleted.'), 'success');
   }
 
   // ==================== DETAIL VIEW ====================
@@ -222,13 +247,15 @@ var ProjectsPage = (function() {
     editMode = false;
     updateEditButtons();
 
+    var tr = App.tProj(proj);
+
     document.getElementById('proj-list-view').classList.add('hidden');
     document.getElementById('proj-detail-view').classList.add('active');
 
-    document.getElementById('proj-detail-title').textContent = proj.name;
+    document.getElementById('proj-detail-title').textContent = tr.name || '';
     document.getElementById('proj-detail-meta').innerHTML =
-      '<span class="badge badge-count"><i class="fas fa-list"></i> ' + (proj.conceptSetIds || []).length + ' concept sets</span>' +
-      '<span style="color:var(--text-muted); font-size:13px"><i class="fas fa-user"></i> ' + App.escapeHtml(proj.createdBy || '') + ' <i class="fas fa-calendar-alt" style="margin-left:8px"></i> ' + App.escapeHtml(proj.createdDate || '') + '</span>';
+      '<span class="badge badge-count"><i class="fas fa-list"></i> ' + (proj.conceptSetIds || []).length + ' ' + App.i18n('concept sets') + '</span>' +
+      '<span style="color:var(--text-muted); font-size:13px"><i class="fas fa-user"></i> ' + App.escapeHtml(proj.createdBy || '') + ' <i class="fas fa-calendar-alt" style="margin-left:8px"></i> ' + App.escapeHtml(App.formatDate(proj.createdDate) || '') + '</span>';
 
     // Context tab (read mode)
     renderContextReadMode();
@@ -238,7 +265,6 @@ var ProjectsPage = (function() {
     projCsFilterName = '';
     projCsCategories.clear();
     projCsSubcategories.clear();
-    projCsFilterReviewStatus.clear();
     document.getElementById('proj-filter-name').value = '';
     populateProjColumnFilters();
     renderProjectCSTable();
@@ -249,28 +275,13 @@ var ProjectsPage = (function() {
 
   function renderContextReadMode() {
     if (!selectedProject) return;
-    var proj = selectedProject;
+    var tr = App.tProj(selectedProject);
 
-    var descSec = document.getElementById('proj-description-section');
-    descSec.innerHTML = '<h4>Description</h4>' + (proj.description ? App.renderMarkdown(proj.description) : '<p style="color:var(--text-muted); font-style:italic">No description</p>');
-
-    var justSec = document.getElementById('proj-justification-section');
-    if (proj.justification) {
-      justSec.innerHTML = '<h4>Justification</h4>' + App.renderMarkdown(proj.justification);
-      justSec.style.display = '';
+    var sec = document.getElementById('proj-long-description-section');
+    if (tr.long_description) {
+      sec.innerHTML = App.renderMarkdown(tr.long_description);
     } else {
-      justSec.innerHTML = '<h4>Justification</h4><p style="color:var(--text-muted); font-style:italic">No justification</p>';
-      justSec.style.display = '';
-    }
-
-    var bibSec = document.getElementById('proj-bibliography-section');
-    if (proj.bibliography) {
-      bibSec.innerHTML = '<h4>Bibliography</h4><p>' + App.escapeHtml(
-        Array.isArray(proj.bibliography) ? proj.bibliography.join('\n') : proj.bibliography
-      ) + '</p>';
-      bibSec.style.display = '';
-    } else {
-      bibSec.style.display = 'none';
+      sec.innerHTML = '<p style="color:var(--text-muted); font-style:italic">' + App.i18n('No description') + '</p>';
     }
   }
 
@@ -278,17 +289,19 @@ var ProjectsPage = (function() {
   function enterEditMode() {
     if (!selectedProject) return;
     editMode = true;
-    editDescription = selectedProject.description || '';
-    editJustification = selectedProject.justification || '';
+    var trEn = (selectedProject.translations && selectedProject.translations.en) || {};
+    var trFr = (selectedProject.translations && selectedProject.translations.fr) || {};
+    editLongDescEn = trEn.long_description || '';
+    editLongDescFr = trFr.long_description || '';
     editConceptSetIds = (selectedProject.conceptSetIds || []).slice();
 
     updateEditButtons();
 
     // Populate editors
-    document.getElementById('proj-edit-description').value = editDescription;
-    document.getElementById('proj-edit-justification').value = editJustification;
-    updateDescriptionPreview();
-    updateJustificationPreview();
+    document.getElementById('proj-edit-long-desc-en').value = editLongDescEn;
+    document.getElementById('proj-edit-long-desc-fr').value = editLongDescFr;
+    updateLongDescEnPreview();
+    updateLongDescFrPreview();
 
     // Reset CS edit filters
     availFilterCategories.clear();
@@ -318,8 +331,11 @@ var ProjectsPage = (function() {
 
   function saveEdit() {
     if (!selectedProject) return;
-    selectedProject.description = editDescription;
-    selectedProject.justification = editJustification;
+    if (!selectedProject.translations) selectedProject.translations = { en: {}, fr: {} };
+    if (!selectedProject.translations.en) selectedProject.translations.en = {};
+    if (!selectedProject.translations.fr) selectedProject.translations.fr = {};
+    selectedProject.translations.en.long_description = editLongDescEn;
+    selectedProject.translations.fr.long_description = editLongDescFr;
     selectedProject.conceptSetIds = editConceptSetIds.slice();
     selectedProject.modifiedDate = new Date().toISOString().split('T')[0];
     App.updateProject(selectedProject);
@@ -328,21 +344,22 @@ var ProjectsPage = (function() {
 
     // Refresh read views
     renderContextReadMode();
+    var tr = App.tProj(selectedProject);
     document.getElementById('proj-detail-meta').innerHTML =
-      '<span class="badge badge-count"><i class="fas fa-list"></i> ' + (selectedProject.conceptSetIds || []).length + ' concept sets</span>' +
-      '<span style="color:var(--text-muted); font-size:13px"><i class="fas fa-user"></i> ' + App.escapeHtml(selectedProject.createdBy || '') + ' <i class="fas fa-calendar-alt" style="margin-left:8px"></i> ' + App.escapeHtml(selectedProject.createdDate || '') + '</span>';
+      '<span class="badge badge-count"><i class="fas fa-list"></i> ' + (selectedProject.conceptSetIds || []).length + ' ' + App.i18n('concept sets') + '</span>' +
+      '<span style="color:var(--text-muted); font-size:13px"><i class="fas fa-user"></i> ' + App.escapeHtml(selectedProject.createdBy || '') + ' <i class="fas fa-calendar-alt" style="margin-left:8px"></i> ' + App.escapeHtml(App.formatDate(selectedProject.createdDate) || '') + '</span>';
     populateProjColumnFilters();
     renderProjectCSTable();
     renderProjectCards();
 
-    App.showToast('Project saved.', 'success');
+    App.showToast(App.i18n('Project saved.'), 'success');
   }
 
   // ==================== MARKDOWN PREVIEW ====================
-  function updateDescriptionPreview() {
-    var val = document.getElementById('proj-edit-description').value;
-    editDescription = val;
-    var preview = document.getElementById('proj-edit-description-preview');
+  function updateLongDescEnPreview() {
+    var val = document.getElementById('proj-edit-long-desc-en').value;
+    editLongDescEn = val;
+    var preview = document.getElementById('proj-edit-long-desc-en-preview');
     if (val.trim()) {
       preview.innerHTML = App.renderMarkdown(val);
     } else {
@@ -350,10 +367,10 @@ var ProjectsPage = (function() {
     }
   }
 
-  function updateJustificationPreview() {
-    var val = document.getElementById('proj-edit-justification').value;
-    editJustification = val;
-    var preview = document.getElementById('proj-edit-justification-preview');
+  function updateLongDescFrPreview() {
+    var val = document.getElementById('proj-edit-long-desc-fr').value;
+    editLongDescFr = val;
+    var preview = document.getElementById('proj-edit-long-desc-fr-preview');
     if (val.trim()) {
       preview.innerHTML = App.renderMarkdown(val);
     } else {
@@ -529,8 +546,6 @@ var ProjectsPage = (function() {
     var subcategories = [...new Set(subData.map(function(d) { return d.subcategory; }))].filter(Boolean).sort();
     projCsSubcategories.forEach(function(s) { if (!subcategories.includes(s)) projCsSubcategories.delete(s); });
 
-    var statuses = [...new Set(data.map(function(d) { return d.reviewStatus; }))].filter(Boolean).sort();
-
     if (skipId !== 'proj-filter-category') {
       App.buildMultiSelectDropdown('proj-filter-category', categories, projCsCategories, function() {
         populateProjColumnFilters('proj-filter-category');
@@ -548,15 +563,6 @@ var ProjectsPage = (function() {
       App.updateMsToggleLabel('proj-filter-subcategory', projCsSubcategories);
     }
 
-    var statusLabelMap = {};
-    statuses.forEach(function(s) { statusLabelMap[s] = App.statusLabelsMap[s] || s; });
-    if (skipId !== 'proj-filter-reviewStatus') {
-      App.buildMultiSelectDropdown('proj-filter-reviewStatus', statuses, projCsFilterReviewStatus, function() {
-        renderProjectCSTable();
-      }, statusLabelMap);
-    } else {
-      App.updateMsToggleLabel('proj-filter-reviewStatus', projCsFilterReviewStatus);
-    }
   }
 
   function renderProjectCSTable() {
@@ -565,7 +571,6 @@ var ProjectsPage = (function() {
 
     if (projCsCategories.size > 0) data = data.filter(function(d) { return projCsCategories.has(d.category); });
     if (projCsSubcategories.size > 0) data = data.filter(function(d) { return projCsSubcategories.has(d.subcategory); });
-    if (projCsFilterReviewStatus.size > 0) data = data.filter(function(d) { return projCsFilterReviewStatus.has(d.reviewStatus); });
     if (projCsFilterName) {
       var q = projCsFilterName.toLowerCase();
       data = data.filter(function(d) {
@@ -596,8 +601,6 @@ var ProjectsPage = (function() {
         '<td><span class="badge badge-subcategory">' + App.escapeHtml(d.subcategory) + '</span></td>' +
         '<td><strong>' + App.escapeHtml(d.name) + '</strong></td>' +
         '<td class="desc-truncated">' + App.escapeHtml(d.description) + '</td>' +
-        '<td class="td-center">' + App.statusBadge(d.reviewStatus) + '</td>' +
-        '<td class="td-center">' + App.escapeHtml(d.version) + '</td>' +
         '</tr>';
     }).join('');
 
@@ -740,7 +743,8 @@ var ProjectsPage = (function() {
       var url = URL.createObjectURL(blob);
       var a = document.createElement('a');
       a.href = url;
-      a.download = (selectedProject.name || 'project').replace(/[^a-zA-Z0-9]/g, '_') + '_concepts.csv';
+      var projTr = App.tProj(selectedProject);
+      a.download = (projTr.name || 'project').replace(/[^a-zA-Z0-9]/g, '_') + '_concepts.csv';
       a.click();
       URL.revokeObjectURL(url);
     });
@@ -751,8 +755,8 @@ var ProjectsPage = (function() {
     document.getElementById('proj-edit-save-btn').addEventListener('click', saveEdit);
 
     // Markdown editors — live preview
-    document.getElementById('proj-edit-description').addEventListener('input', updateDescriptionPreview);
-    document.getElementById('proj-edit-justification').addEventListener('input', updateJustificationPreview);
+    document.getElementById('proj-edit-long-desc-en').addEventListener('input', updateLongDescEnPreview);
+    document.getElementById('proj-edit-long-desc-fr').addEventListener('input', updateLongDescFrPreview);
 
     // CS edit name filters
     document.getElementById('proj-avail-filter-name').addEventListener('input', function(e) {
@@ -785,7 +789,7 @@ var ProjectsPage = (function() {
       if (e.target === document.getElementById('proj-modal')) closeCreateModal();
     });
     // Enter key in modal name field
-    document.getElementById('proj-modal-name').addEventListener('keydown', function(e) {
+    document.getElementById('proj-modal-name-en').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') { e.preventDefault(); submitModal(); }
     });
 

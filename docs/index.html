@@ -16,7 +16,7 @@
 
 <div class="loading-overlay" id="loading">
   <div class="spinner"></div>
-  <div class="loading-text">Loading data dictionary...</div>
+  <div class="loading-text" data-i18n="Loading...">Loading...</div>
 </div>
 
 <header class="header">
@@ -27,11 +27,11 @@
   <nav class="header-nav">
     <a class="nav-tab" href="#/concept-sets" data-page="concept-sets">
       <i class="fas fa-book"></i>
-      <span>Data Dictionary</span>
+      <span data-i18n="Data Dictionary">Data Dictionary</span>
     </a>
     <a class="nav-tab" href="#/projects" data-page="projects">
       <i class="fas fa-list-check"></i>
-      <span>Projects</span>
+      <span data-i18n="Projects">Projects</span>
     </a>
   </nav>
   <div class="header-right">
@@ -44,7 +44,7 @@
       <span id="user-badge-name">Guest</span>
     </button>
     <button class="lang-toggle reset" id="reset-cache-btn" title="Reset local data">
-      <i class="fas fa-rotate-right" style="font-size:12px"></i> Reset
+      <i class="fas fa-rotate-right" style="font-size:12px"></i> <span data-i18n="Reset">Reset</span>
     </button>
     <button class="lang-toggle" id="lang-toggle" title="Switch language">EN</button>
     <div class="nav-dropdown">
@@ -52,9 +52,9 @@
         <i class="fas fa-cog"></i>
       </button>
       <div class="nav-dropdown-menu nav-dropdown-menu-right" id="nav-settings-menu" style="display:none">
-        <a href="#/general-settings" data-page="general-settings"><i class="fas fa-cog"></i> General Settings</a>
-        <a href="#/settings" data-page="settings"><i class="fas fa-book-medical"></i> Dictionary Settings</a>
-        <a href="#/dev-tools" data-page="dev-tools"><i class="fas fa-code"></i> Dev Tools</a>
+        <a href="#/general-settings" data-page="general-settings"><i class="fas fa-cog"></i> <span data-i18n="General Settings">General Settings</span></a>
+        <a href="#/settings" data-page="settings"><i class="fas fa-book-medical"></i> <span data-i18n="Dictionary Settings">Dictionary Settings</span></a>
+        <a href="#/dev-tools" data-page="dev-tools"><i class="fas fa-code"></i> <span data-i18n="Dev Tools">Dev Tools</span></a>
       </div>
     </div>
   </div>
@@ -79,22 +79,22 @@
         <button class="btn-danger-custom btn-sm" id="cs-delete-selected-btn" title="Delete selected" style="display:none">
           <i class="fas fa-trash"></i>
         </button>
-        <span class="cs-selection-count" id="cs-selection-count" style="display:none">0 selected</span>
+        <span class="cs-selection-count" id="cs-selection-count" style="display:none" data-i18n="0 selected">0 selected</span>
         <button class="btn-primary-custom btn-gray" id="cs-list-cancel-btn" style="display:none">
-          <i class="fas fa-times"></i> Cancel
+          <i class="fas fa-times"></i> <span data-i18n="Cancel">Cancel</span>
         </button>
         <button class="btn-primary-custom" id="cs-list-save-btn" style="display:none">
-          <i class="fas fa-save"></i> Save
+          <i class="fas fa-save"></i> <span data-i18n="Save">Save</span>
         </button>
         <!-- Normal mode buttons -->
         <button class="btn-secondary-custom" id="cs-edit-list-btn" title="Edit concept sets">
-          <i class="fas fa-pen"></i> Edit
+          <i class="fas fa-pen"></i> <span data-i18n="Edit">Edit</span>
         </button>
         <button class="btn-primary-custom" id="cs-export-all-btn">
-          <i class="fas fa-download"></i> Export
+          <i class="fas fa-download"></i> <span data-i18n="Export">Export</span>
         </button>
         <button class="btn-success-custom" id="cs-create-btn">
-          <i class="fas fa-plus"></i> Add Concept Set
+          <i class="fas fa-plus"></i> <span data-i18n="Add Concept Set">Add Concept Set</span>
         </button>
       </div>
     </div>
@@ -104,19 +104,19 @@
           <tr>
             <th class="cs-select-col"></th>
             <th class="cs-edit-col"></th>
-            <th data-sort="category" style="width:14%">Category <span class="sort-icon">&#9650;</span></th>
-            <th data-sort="subcategory" style="width:14%">Subcategory <span class="sort-icon">&#9650;</span></th>
-            <th data-sort="name" style="width:24%">Name <span class="sort-icon">&#9650;</span></th>
-            <th data-sort="description" style="width:30%">Description <span class="sort-icon">&#9650;</span></th>
-            <th data-sort="version" style="width:8%" class="td-center">Version <span class="sort-icon">&#9650;</span></th>
-            <th data-sort="reviewStatus" style="width:10%" class="td-center">Status <span class="sort-icon">&#9650;</span></th>
+            <th data-sort="category" style="width:14%"><span data-i18n="Category">Category</span> <span class="sort-icon">&#9650;</span></th>
+            <th data-sort="subcategory" style="width:14%"><span data-i18n="Subcategory">Subcategory</span> <span class="sort-icon">&#9650;</span></th>
+            <th data-sort="name" style="width:24%"><span data-i18n="Name">Name</span> <span class="sort-icon">&#9650;</span></th>
+            <th data-sort="description" style="width:30%"><span data-i18n="Description">Description</span> <span class="sort-icon">&#9650;</span></th>
+            <th data-sort="version" style="width:8%" class="td-center"><span data-i18n="Version">Version</span> <span class="sort-icon">&#9650;</span></th>
+            <th data-sort="reviewStatus" style="width:10%" class="td-center"><span data-i18n="Status">Status</span> <span class="sort-icon">&#9650;</span></th>
           </tr>
           <tr class="filter-row">
             <th class="cs-select-col"></th>
             <th class="cs-edit-col"></th>
             <th><div class="ms-container" id="filter-category"></div></th>
             <th><div class="ms-container" id="filter-subcategory"></div></th>
-            <th><input type="text" class="column-filter" id="filter-name" placeholder="Filter..."></th>
+            <th><input type="text" class="column-filter" id="filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
             <th></th>
             <th></th>
             <th><div class="ms-container" id="filter-reviewStatus"></div></th>
@@ -141,22 +141,22 @@
         <span class="project-name-badge" id="cs-detail-title"></span>
         <span class="concept-set-badges" id="cs-detail-badges"></span>
         <button class="btn-primary-custom" id="cs-export-json" title="Export">
-          <i class="fas fa-download"></i> Export
+          <i class="fas fa-download"></i> <span data-i18n="Export">Export</span>
         </button>
         <button class="btn-primary-custom btn-gray" id="cs-edit-btn" style="display:none" title="Edit">
-          <i class="fas fa-pen"></i> Edit
+          <i class="fas fa-pen"></i> <span data-i18n="Edit">Edit</span>
         </button>
-        <button class="btn-primary-custom btn-purple" id="expr-import-btn" style="display:none" title="Import ATLAS JSON">
+        <button class="btn-primary-custom btn-purple" id="expr-import-btn" style="display:none" data-i18n-title="Import ATLAS JSON" title="Import ATLAS JSON">
           <i class="fas fa-file-import"></i> Import
         </button>
-        <button class="btn-primary-custom btn-gray" id="cs-edit-cancel-btn" style="display:none"><i class="fas fa-times"></i> Cancel</button>
-        <button class="btn-primary-custom" id="cs-edit-save-btn" style="display:none"><i class="fas fa-save"></i> Save</button>
+        <button class="btn-primary-custom btn-gray" id="cs-edit-cancel-btn" style="display:none"><i class="fas fa-times"></i> <span data-i18n="Cancel">Cancel</span></button>
+        <button class="btn-primary-custom" id="cs-edit-save-btn" style="display:none"><i class="fas fa-save"></i> <span data-i18n="Save">Save</span></button>
       </div>
       <div class="detail-header-tabs" id="cs-detail-tabs">
-        <button class="tab-btn-blue active" data-tab="concepts"><i class="fas fa-list"></i> Concepts</button>
-        <button class="tab-btn-blue" data-tab="comments"><i class="fas fa-comment"></i> Comments</button>
-        <button class="tab-btn-blue" data-tab="statistics"><i class="fas fa-chart-bar"></i> Statistics</button>
-        <button class="tab-btn-blue" data-tab="review"><i class="fas fa-clipboard-check"></i> Review</button>
+        <button class="tab-btn-blue active" data-tab="concepts"><i class="fas fa-list"></i> <span data-i18n="Concepts">Concepts</span></button>
+        <button class="tab-btn-blue" data-tab="comments"><i class="fas fa-comment"></i> <span data-i18n="Comments">Comments</span></button>
+        <button class="tab-btn-blue" data-tab="statistics"><i class="fas fa-chart-bar"></i> <span data-i18n="Statistics">Statistics</span></button>
+        <button class="tab-btn-blue" data-tab="review"><i class="fas fa-clipboard-check"></i> <span data-i18n="Review">Review</span></button>
       </div>
     </div>
 
@@ -165,23 +165,23 @@
       <!-- Resolved/Expression toggle -->
       <div class="toggle-bar" id="cs-concept-toggle-bar">
         <div class="toggle-group">
-          <button class="toggle-btn active" data-mode="resolved">Resolved</button>
-          <button class="toggle-btn" data-mode="expression">Expression</button>
+          <button class="toggle-btn active" data-mode="resolved" data-i18n="Resolved">Resolved</button>
+          <button class="toggle-btn" data-mode="expression" data-i18n="Expression">Expression</button>
         </div>
         <div class="toggle-bar-right">
           <div id="expr-edit-actions" style="display:none">
-            <button class="btn-primary-custom btn-danger" id="expr-delete-sel-btn" style="display:none"><i class="fas fa-trash"></i> Delete Selected</button>
+            <button class="btn-primary-custom btn-danger" id="expr-delete-sel-btn" style="display:none"><i class="fas fa-trash"></i> <span data-i18n="Delete Selected">Delete Selected</span></button>
             <span id="expr-selection-count" style="display:none; font-size:12px; color:var(--text-muted)">0 selected</span>
-            <button class="btn-primary-custom btn-gray" id="expr-select-btn"><i class="fas fa-check-square"></i> Select</button>
-            <button class="btn-success-custom" id="expr-add-btn"><i class="fas fa-plus"></i> Add Concepts</button>
-            <button class="btn-primary-custom" id="expr-optimize-btn" title="Remove redundant concepts covered by ancestors with Include Descendants"><i class="fas fa-magic"></i> Optimize</button>
+            <button class="btn-primary-custom btn-gray" id="expr-select-btn"><i class="fas fa-check-square"></i> <span data-i18n="Select">Select</span></button>
+            <button class="btn-success-custom" id="expr-add-btn"><i class="fas fa-plus"></i> <span data-i18n="Add Concepts">Add Concepts</span></button>
+            <button class="btn-primary-custom" id="expr-optimize-btn" title="Remove redundant concepts covered by ancestors with Include Descendants"><i class="fas fa-magic"></i> <span data-i18n="Optimize">Optimize</span></button>
           </div>
           <span class="badge badge-count" id="cs-concept-count">0</span>
           <div class="col-vis-wrapper" id="col-vis-wrapper" style="position:relative">
-            <button class="btn-outline-sm" id="col-vis-btn"><i class="fas fa-columns"></i> Columns</button>
+            <button class="btn-outline-sm" id="col-vis-btn"><i class="fas fa-columns"></i> <span data-i18n="Columns">Columns</span></button>
             <div class="col-vis-dropdown" id="col-vis-dropdown" style="display:none"></div>
           </div>
-          <a class="btn-outline-sm" id="cs-view-json" href="#" target="_blank" style="text-decoration:none"><i class="fas fa-code"></i> View JSON</a>
+          <a class="btn-outline-sm" id="cs-view-json" href="#" target="_blank" style="text-decoration:none"><i class="fas fa-code"></i> <span data-i18n="View JSON">View JSON</span></a>
         </div>
       </div>
 
@@ -193,22 +193,22 @@
               <table id="resolved-table">
                 <thead>
                   <tr>
-                    <th data-col="conceptId">Concept ID</th>
-                    <th data-col="vocabulary">Vocabulary</th>
-                    <th data-col="name">Concept Name</th>
-                    <th data-col="code">Concept Code</th>
-                    <th data-col="domain">Domain</th>
-                    <th data-col="standard" class="td-center">Standard</th>
-                    <th data-col="class">Concept Class</th>
+                    <th data-col="conceptId" data-i18n="Concept ID">Concept ID</th>
+                    <th data-col="vocabulary" data-i18n="Vocabulary">Vocabulary</th>
+                    <th data-col="name" data-i18n="Concept Name">Concept Name</th>
+                    <th data-col="code" data-i18n="Concept Code">Concept Code</th>
+                    <th data-col="domain" data-i18n="Domain">Domain</th>
+                    <th data-col="standard" class="td-center" data-i18n="Standard">Standard</th>
+                    <th data-col="class" data-i18n="Concept Class">Concept Class</th>
                   </tr>
                   <tr class="filter-row">
-                    <th data-col="conceptId"><input type="text" class="column-filter" id="resolved-filter-conceptId" placeholder="Filter..."></th>
+                    <th data-col="conceptId"><input type="text" class="column-filter" id="resolved-filter-conceptId" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
                     <th data-col="vocabulary"><div class="ms-container" id="resolved-filter-vocabulary"></div></th>
-                    <th data-col="name"><input type="text" class="column-filter" id="resolved-filter-name" placeholder="Filter..."></th>
-                    <th data-col="code"><input type="text" class="column-filter" id="resolved-filter-code" placeholder="Filter..."></th>
-                    <th data-col="domain"><select class="column-filter" id="resolved-filter-domain"><option value="">All</option></select></th>
+                    <th data-col="name"><input type="text" class="column-filter" id="resolved-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+                    <th data-col="code"><input type="text" class="column-filter" id="resolved-filter-code" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+                    <th data-col="domain"><select class="column-filter" id="resolved-filter-domain"><option value="" data-i18n="All">All</option></select></th>
                     <th data-col="standard"><div class="ms-container" id="resolved-filter-standard"></div></th>
-                    <th data-col="class"><select class="column-filter" id="resolved-filter-class"><option value="">All</option></select></th>
+                    <th data-col="class"><select class="column-filter" id="resolved-filter-class"><option value="" data-i18n="All">All</option></select></th>
                   </tr>
                 </thead>
                 <tbody id="resolved-tbody"></tbody>
@@ -220,9 +220,9 @@
             </div>
           </div>
           <div class="panel">
-            <div class="panel-header"><h3>Concept Details</h3></div>
+            <div class="panel-header"><h3 data-i18n="Concept Details">Concept Details</h3></div>
             <div class="panel-body" id="resolved-concept-detail-body" style="display:flex; flex-direction:column; flex:1; min-height:0; overflow:hidden">
-              <div class="empty-state"><p>Select a concept to view details</p></div>
+              <div class="empty-state"><p data-i18n="Select a concept to view details">Select a concept to view details</p></div>
             </div>
           </div>
         </div>
@@ -236,26 +236,26 @@
               <thead>
                 <tr>
                   <th class="expr-select-col" style="width:36px"></th>
-                  <th data-col="vocabulary" style="width:12%">Vocabulary</th>
-                  <th data-col="name" style="width:22%">Concept Name</th>
-                  <th data-col="code" style="width:10%">Concept Code</th>
-                  <th data-col="domain" style="width:10%">Domain</th>
-                  <th data-col="standard" style="width:9%" class="td-center">Standard</th>
-                  <th data-col="exclude" style="width:9%" class="td-center">Exclude</th>
-                  <th data-col="descendants" style="width:9%" class="td-center">Descendants</th>
-                  <th data-col="mapped" style="width:9%" class="td-center">Mapped</th>
+                  <th data-col="vocabulary" style="width:12%" data-i18n="Vocabulary">Vocabulary</th>
+                  <th data-col="name" style="width:22%" data-i18n="Concept Name">Concept Name</th>
+                  <th data-col="code" style="width:10%" data-i18n="Concept Code">Concept Code</th>
+                  <th data-col="domain" style="width:10%" data-i18n="Domain">Domain</th>
+                  <th data-col="standard" style="width:9%" class="td-center" data-i18n="Standard">Standard</th>
+                  <th data-col="exclude" style="width:9%" class="td-center" data-i18n="Exclude">Exclude</th>
+                  <th data-col="descendants" style="width:9%" class="td-center" data-i18n="Descendants">Descendants</th>
+                  <th data-col="mapped" style="width:9%" class="td-center" data-i18n="Mapped">Mapped</th>
                   <th class="expr-action-col td-center" style="width:50px"></th>
                 </tr>
                 <tr class="filter-row" id="expression-filter-row">
                   <th class="expr-select-col"></th>
                   <th data-col="vocabulary"><div class="ms-container" id="expr-filter-vocabulary"></div></th>
-                  <th data-col="name"><input type="text" class="column-filter" id="expr-filter-name" placeholder="Filter..."></th>
-                  <th data-col="code"><input type="text" class="column-filter" id="expr-filter-code" placeholder="Filter..."></th>
-                  <th data-col="domain"><select class="column-filter" id="expr-filter-domain"><option value="">All</option></select></th>
+                  <th data-col="name"><input type="text" class="column-filter" id="expr-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+                  <th data-col="code"><input type="text" class="column-filter" id="expr-filter-code" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+                  <th data-col="domain"><select class="column-filter" id="expr-filter-domain"><option value="" data-i18n="All">All</option></select></th>
                   <th data-col="standard"><div class="ms-container" id="expr-filter-standard"></div></th>
-                  <th data-col="exclude"><select class="column-filter" id="expr-filter-exclude"><option value="">All</option><option value="yes">Yes</option><option value="no">No</option></select></th>
-                  <th data-col="descendants"><select class="column-filter" id="expr-filter-descendants"><option value="">All</option><option value="yes">Yes</option><option value="no">No</option></select></th>
-                  <th data-col="mapped"><select class="column-filter" id="expr-filter-mapped"><option value="">All</option><option value="yes">Yes</option><option value="no">No</option></select></th>
+                  <th data-col="exclude"><select class="column-filter" id="expr-filter-exclude"><option value="" data-i18n="All">All</option><option value="yes">Yes</option><option value="no">No</option></select></th>
+                  <th data-col="descendants"><select class="column-filter" id="expr-filter-descendants"><option value="" data-i18n="All">All</option><option value="yes">Yes</option><option value="no">No</option></select></th>
+                  <th data-col="mapped"><select class="column-filter" id="expr-filter-mapped"><option value="" data-i18n="All">All</option><option value="yes">Yes</option><option value="no">No</option></select></th>
                   <th class="expr-action-col"></th>
                 </tr>
               </thead>
@@ -275,7 +275,7 @@
       <!-- View mode -->
       <div id="cs-comments-view" class="markdown-body" style="overflow-y:auto; border:none; padding:16px">
         <div id="cs-comments-body">
-          <div class="empty-state"><p>No description available</p></div>
+          <div class="empty-state"><p data-i18n="No description available">No description available</p></div>
         </div>
       </div>
       <!-- Edit mode -->
@@ -283,14 +283,14 @@
         <div class="panel" style="display:flex; flex-direction:column; flex:1; min-height:0">
           <div class="panel-body" id="cs-comments-split-container" style="display:flex; flex:1; min-height:0; gap:0; padding:0">
             <div class="comments-edit-col" id="cs-comments-left-col" style="flex:1; display:flex; flex-direction:column; min-width:80px">
-              <div class="modal-fs-col-title" style="padding:8px 12px"><i class="fas fa-pen"></i> Editor</div>
+              <div class="modal-fs-col-title" style="padding:8px 12px"><i class="fas fa-pen"></i> <span data-i18n="Editor">Editor</span></div>
               <div id="cs-comments-ace-editor" style="flex:1; min-height:200px"></div>
             </div>
             <div class="comments-split-handle" id="cs-comments-split-handle"></div>
             <div class="comments-edit-col" id="cs-comments-right-col" style="flex:1; display:flex; flex-direction:column; min-width:80px">
-              <div class="modal-fs-col-title" style="padding:8px 12px"><i class="fas fa-eye"></i> Preview</div>
+              <div class="modal-fs-col-title" style="padding:8px 12px"><i class="fas fa-eye"></i> <span data-i18n="Preview">Preview</span></div>
               <div class="markdown-body" id="cs-comments-preview" style="flex:1; overflow:auto; padding:12px 16px">
-                <div class="markdown-preview-placeholder">Preview will appear here...</div>
+                <div class="markdown-preview-placeholder" data-i18n="Preview will appear here...">Preview will appear here...</div>
               </div>
             </div>
           </div>
@@ -304,7 +304,7 @@
       <div id="cs-statistics-view">
         <div class="panel">
           <div class="panel-header">
-            <h3>Distribution Statistics</h3>
+            <h3 data-i18n="Distribution Statistics">Distribution Statistics</h3>
             <div id="cs-stats-profile-select-wrap" style="margin-left:auto; display:none">
               <select id="cs-stats-profile-select" class="form-select-sm"></select>
             </div>
@@ -322,8 +322,8 @@
       <div id="cs-statistics-edit" style="display:none;">
         <div class="panel" style="display:flex; flex-direction:column; flex:1; min-height:0">
           <div class="panel-header">
-            <h3>Distribution Statistics (JSON)</h3>
-            <button class="btn-outline-sm" id="cs-stats-reset-btn" style="margin-left:auto"><i class="fas fa-undo"></i> Reset to Template</button>
+            <h3 data-i18n="Distribution Statistics (JSON)">Distribution Statistics (JSON)</h3>
+            <button class="btn-outline-sm" id="cs-stats-reset-btn" style="margin-left:auto"><i class="fas fa-undo"></i> <span data-i18n="Reset to Template">Reset to Template</span></button>
           </div>
           <div class="panel-body" style="display:flex; flex:1; min-height:0; padding:0">
             <div id="cs-stats-ace-editor" style="flex:1; min-height:300px"></div>
@@ -336,29 +336,29 @@
     <div class="cs-tab-content" id="cs-tab-review" style="display:none;">
       <div class="panel">
         <div class="panel-header">
-          <h3>Reviews</h3>
+          <h3 data-i18n="Reviews">Reviews</h3>
           <span class="badge badge-count" id="cs-review-count">0</span>
           <button class="tab-btn-green" id="cs-propose-github" style="margin-left:auto; display:none">
-            <i class="fab fa-github"></i> Propose on GitHub
+            <i class="fab fa-github"></i> <span data-i18n="Propose on GitHub">Propose on GitHub</span>
           </button>
           <button class="tab-btn-green" id="cs-add-review-btn" style="margin-left:8px">
-            <i class="fas fa-plus"></i> Add Review
+            <i class="fas fa-plus"></i> <span data-i18n="Add Review">Add Review</span>
           </button>
         </div>
         <div class="panel-body" id="cs-review-body">
           <div class="empty-state" id="cs-review-empty">
             <i class="fas fa-check-circle" style="font-size:32px; color:var(--gray-300); display:block; margin-bottom:12px"></i>
-            <p>No reviews yet. Click "Add Review" to submit the first review.</p>
+            <p data-i18n='No reviews yet. Click "Add Review" to submit the first review.'>No reviews yet. Click "Add Review" to submit the first review.</p>
           </div>
           <div class="panel-table-wrap" id="cs-review-table-wrap" style="display:none">
             <table id="cs-review-table">
               <thead>
                 <tr>
-                  <th style="width:20%">Reviewer</th>
-                  <th style="width:12%">Date</th>
-                  <th style="width:12%" class="td-center">Status</th>
-                  <th style="width:10%">Version</th>
-                  <th style="width:46%">Comments</th>
+                  <th style="width:20%" data-i18n="Reviewer">Reviewer</th>
+                  <th style="width:12%" data-i18n="Date">Date</th>
+                  <th style="width:12%" class="td-center" data-i18n="Status">Status</th>
+                  <th style="width:10%" data-i18n="Version">Version</th>
+                  <th style="width:46%" data-i18n="Comments">Comments</th>
                 </tr>
               </thead>
               <tbody id="cs-review-tbody"></tbody>
@@ -377,10 +377,10 @@
   <!-- List view -->
   <div class="list-view" id="proj-list-view">
     <div class="toolbar">
-      <input type="text" class="search-input" id="proj-search" placeholder="Search projects...">
+      <input type="text" class="search-input" id="proj-search" placeholder="Search projects..." data-i18n-placeholder="Search projects...">
       <div style="display:flex; gap:8px; align-items:center">
         <button class="btn-success-custom" id="proj-create-btn">
-          <i class="fas fa-plus"></i> Add Project
+          <i class="fas fa-plus"></i> <span data-i18n="Add Project">Add Project</span>
         </button>
       </div>
     </div>
@@ -396,15 +396,15 @@
       <span class="project-name-badge" id="proj-detail-title"></span>
       <div class="detail-meta" id="proj-detail-meta"></div>
       <div style="margin-left:auto; display:flex; gap:6px; align-items:center">
-        <button class="btn-primary-custom btn-gray" id="proj-edit-btn" title="Edit"><i class="fas fa-pen"></i> Edit</button>
-        <button class="btn-primary-custom btn-gray" id="proj-edit-cancel-btn" style="display:none"><i class="fas fa-times"></i> Cancel</button>
-        <button class="btn-primary-custom" id="proj-edit-save-btn" style="display:none"><i class="fas fa-save"></i> Save</button>
+        <button class="btn-primary-custom btn-gray" id="proj-edit-btn" title="Edit"><i class="fas fa-pen"></i> <span data-i18n="Edit">Edit</span></button>
+        <button class="btn-primary-custom btn-gray" id="proj-edit-cancel-btn" style="display:none"><i class="fas fa-times"></i> <span data-i18n="Cancel">Cancel</span></button>
+        <button class="btn-primary-custom" id="proj-edit-save-btn" style="display:none"><i class="fas fa-save"></i> <span data-i18n="Save">Save</span></button>
       </div>
     </div>
 
     <div class="panel-tabs" id="proj-tabs" style="align-items:center">
-      <button class="panel-tab active" data-tab="context">Context</button>
-      <button class="panel-tab" data-tab="variables">Concept Sets</button>
+      <button class="panel-tab active" data-tab="context" data-i18n="Description">Description</button>
+      <button class="panel-tab" data-tab="variables" data-i18n="Concept Sets">Concept Sets</button>
       <button class="export-btn" id="proj-export-csv" style="margin-left:auto; display:none" title="Export all concepts to CSV">
         <i class="fas fa-download"></i> Export CSV
       </button>
@@ -413,9 +413,7 @@
     <!-- Context tab (read mode) -->
     <div class="panel" id="proj-tab-context">
       <div class="panel-body">
-        <div class="project-detail-section" id="proj-description-section"></div>
-        <div class="project-detail-section" id="proj-justification-section"></div>
-        <div class="project-detail-section" id="proj-bibliography-section"></div>
+        <div class="project-detail-section" id="proj-long-description-section"></div>
       </div>
     </div>
 
@@ -423,21 +421,21 @@
     <div class="panel" id="proj-tab-context-edit" style="display:none">
       <div class="panel-body">
         <div class="project-detail-section">
-          <h4>Description</h4>
+          <h4>Long description (EN)</h4>
           <div class="md-editor-wrap">
             <div class="md-editor-pane">
-              <textarea class="md-editor-textarea" id="proj-edit-description" placeholder="Enter description (Markdown supported)..."></textarea>
+              <textarea class="md-editor-textarea" id="proj-edit-long-desc-en" placeholder="Enter long description in English (Markdown supported)..."></textarea>
             </div>
-            <div class="md-editor-pane md-preview" id="proj-edit-description-preview"></div>
+            <div class="md-editor-pane md-preview" id="proj-edit-long-desc-en-preview"></div>
           </div>
         </div>
         <div class="project-detail-section">
-          <h4>Justification</h4>
+          <h4>Long description (FR)</h4>
           <div class="md-editor-wrap">
             <div class="md-editor-pane">
-              <textarea class="md-editor-textarea" id="proj-edit-justification" placeholder="Enter justification (Markdown supported)..."></textarea>
+              <textarea class="md-editor-textarea" id="proj-edit-long-desc-fr" placeholder="Entrez la description longue en français (Markdown supporté)..."></textarea>
             </div>
-            <div class="md-editor-pane md-preview" id="proj-edit-justification-preview"></div>
+            <div class="md-editor-pane md-preview" id="proj-edit-long-desc-fr-preview"></div>
           </div>
         </div>
       </div>
@@ -449,19 +447,15 @@
         <table id="proj-cs-table">
           <thead>
             <tr>
-              <th data-sort="category" style="width:14%">Category <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="subcategory" style="width:14%">Subcategory <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="name" style="width:24%">Name <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="description" style="width:30%">Description <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="reviewStatus" style="width:10%" class="td-center">Status <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="version" style="width:8%" class="td-center">Version <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="category" style="width:18%"><span data-i18n="Category">Category</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="subcategory" style="width:18%"><span data-i18n="Subcategory">Subcategory</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="name" style="width:28%"><span data-i18n="Name">Name</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="description" style="width:36%"><span data-i18n="Description">Description</span> <span class="sort-icon">&#9650;</span></th>
             </tr>
             <tr class="filter-row">
               <th><div class="ms-container" id="proj-filter-category"></div></th>
               <th><div class="ms-container" id="proj-filter-subcategory"></div></th>
-              <th><input type="text" class="column-filter" id="proj-filter-name" placeholder="Filter..."></th>
-              <th></th>
-              <th><div class="ms-container" id="proj-filter-reviewStatus"></div></th>
+              <th><input type="text" class="column-filter" id="proj-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
               <th></th>
             </tr>
           </thead>
@@ -476,21 +470,21 @@
         <!-- Left: available concept sets -->
         <div style="flex:1; display:flex; flex-direction:column; min-height:0">
           <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px">
-            <h4 style="margin:0; font-size:14px; color:var(--text-muted)">AVAILABLE CONCEPT SETS</h4>
+            <h4 style="margin:0; font-size:14px; color:var(--text-muted)" data-i18n="AVAILABLE CONCEPT SETS">AVAILABLE CONCEPT SETS</h4>
           </div>
           <div class="panel-table-wrap" style="flex:1; min-height:0">
             <table class="concept-related-table" id="proj-cs-edit-right-table">
               <thead>
                 <tr>
-                  <th style="width:25%">Category</th>
-                  <th style="width:25%">Subcategory</th>
-                  <th>Name</th>
+                  <th style="width:25%" data-i18n="Category">Category</th>
+                  <th style="width:25%" data-i18n="Subcategory">Subcategory</th>
+                  <th data-i18n="Name">Name</th>
                   <th style="width:40px"></th>
                 </tr>
                 <tr class="filter-row">
                   <th><div class="ms-container" id="proj-avail-filter-category"></div></th>
                   <th><div class="ms-container" id="proj-avail-filter-subcategory"></div></th>
-                  <th><input type="text" class="column-filter" id="proj-avail-filter-name" placeholder="Filter..."></th>
+                  <th><input type="text" class="column-filter" id="proj-avail-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
                   <th></th>
                 </tr>
               </thead>
@@ -501,7 +495,7 @@
         <!-- Right: project concept sets -->
         <div style="flex:1; display:flex; flex-direction:column; min-height:0">
           <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px">
-            <h4 style="margin:0; font-size:14px; color:var(--text-muted)">PROJECT CONCEPT SETS</h4>
+            <h4 style="margin:0; font-size:14px; color:var(--text-muted)" data-i18n="PROJECT CONCEPT SETS">PROJECT CONCEPT SETS</h4>
             <span id="proj-cs-edit-count" style="font-size:12px; color:var(--text-muted)"></span>
           </div>
           <div class="panel-table-wrap" style="flex:1; min-height:0">
@@ -509,15 +503,15 @@
               <thead>
                 <tr>
                   <th style="width:40px"></th>
-                  <th style="width:25%">Category</th>
-                  <th style="width:25%">Subcategory</th>
-                  <th>Name</th>
+                  <th style="width:25%" data-i18n="Category">Category</th>
+                  <th style="width:25%" data-i18n="Subcategory">Subcategory</th>
+                  <th data-i18n="Name">Name</th>
                 </tr>
                 <tr class="filter-row">
                   <th></th>
                   <th><div class="ms-container" id="proj-proj-filter-category"></div></th>
                   <th><div class="ms-container" id="proj-proj-filter-subcategory"></div></th>
-                  <th><input type="text" class="column-filter" id="proj-proj-filter-name" placeholder="Filter..."></th>
+                  <th><input type="text" class="column-filter" id="proj-proj-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
                 </tr>
               </thead>
               <tbody id="proj-cs-edit-left-tbody"></tbody>
@@ -531,24 +525,40 @@
 
 <!-- Project Create/Edit Modal -->
 <div class="modal-overlay" id="proj-modal" style="display:none">
-  <div class="modal-box" style="width:480px">
+  <div class="modal-box" style="width:600px">
     <div class="modal-header">
       <h3 id="proj-modal-title"><i class="fas fa-plus"></i> New Project</h3>
       <button class="modal-close" id="proj-modal-close">&times;</button>
     </div>
     <div class="modal-body" style="display:flex; flex-direction:column; gap:12px; padding:20px">
-      <div>
-        <label class="form-label" for="proj-modal-name">Name *</label>
-        <input type="text" class="form-input" id="proj-modal-name" placeholder="Project name">
+      <div style="display:flex; gap:12px">
+        <div style="flex:1">
+          <label class="form-label" for="proj-modal-name-en">Name (EN) *</label>
+          <input type="text" class="form-input" id="proj-modal-name-en" placeholder="Project name (English)">
+        </div>
+        <div style="flex:1">
+          <label class="form-label" for="proj-modal-name-fr">Name (FR)</label>
+          <input type="text" class="form-input" id="proj-modal-name-fr" placeholder="Nom du projet (Français)">
+        </div>
+      </div>
+      <div style="display:flex; gap:12px">
+        <div style="flex:1">
+          <label class="form-label" for="proj-modal-short-desc-en">Short description (EN)</label>
+          <input type="text" class="form-input" id="proj-modal-short-desc-en" placeholder="Short description (English)">
+        </div>
+        <div style="flex:1">
+          <label class="form-label" for="proj-modal-short-desc-fr">Short description (FR)</label>
+          <input type="text" class="form-input" id="proj-modal-short-desc-fr" placeholder="Description courte (Français)">
+        </div>
       </div>
       <div>
-        <label class="form-label" for="proj-modal-author">Created By</label>
-        <input type="text" class="form-input" id="proj-modal-author" placeholder="Author name">
+        <label class="form-label" for="proj-modal-author" data-i18n="Created By">Created By</label>
+        <input type="text" class="form-input" id="proj-modal-author" placeholder="Author name" data-i18n-placeholder="Author name">
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn-secondary-custom" id="proj-modal-cancel">Cancel</button>
-      <button class="btn-primary-custom" id="proj-modal-submit"><i class="fas fa-plus"></i> Create</button>
+      <button class="btn-secondary-custom" id="proj-modal-cancel" data-i18n="Cancel">Cancel</button>
+      <button class="btn-primary-custom" id="proj-modal-submit"><i class="fas fa-plus"></i> <span data-i18n="Create">Create</span></button>
     </div>
   </div>
 </div>
@@ -557,16 +567,16 @@
 <div class="modal-overlay" id="proj-delete-modal" style="display:none">
   <div class="modal-box" style="width:400px">
     <div class="modal-header">
-      <h3><i class="fas fa-trash"></i> Delete Project</h3>
+      <h3><i class="fas fa-trash"></i> <span data-i18n="Delete Project">Delete Project</span></h3>
       <button class="modal-close" id="proj-delete-close">&times;</button>
     </div>
     <div class="modal-body" style="padding:20px">
-      <p>Are you sure you want to delete this project?</p>
+      <p data-i18n="Are you sure you want to delete this project?">Are you sure you want to delete this project?</p>
       <p id="proj-delete-name" style="font-weight:600; margin-top:8px"></p>
     </div>
     <div class="modal-footer">
-      <button class="btn-secondary-custom" id="proj-delete-cancel">Cancel</button>
-      <button class="btn-primary-custom btn-danger" id="proj-delete-confirm"><i class="fas fa-trash"></i> Delete</button>
+      <button class="btn-secondary-custom" id="proj-delete-cancel" data-i18n="Cancel">Cancel</button>
+      <button class="btn-primary-custom btn-danger" id="proj-delete-confirm"><i class="fas fa-trash"></i> <span data-i18n="Delete">Delete</span></button>
     </div>
   </div>
 </div>
@@ -885,46 +895,46 @@ LIMIT 50</div>
 <div class="modal-overlay" id="profile-modal" style="display:none">
   <div class="modal" style="width:700px">
     <div class="modal-header">
-      <h3>Edit Profile</h3>
+      <h3 data-i18n="Edit Profile">Edit Profile</h3>
       <button class="modal-close" id="profile-modal-close">&times;</button>
     </div>
     <div class="modal-body">
       <div class="form-group">
-        <label>Select an existing author</label>
+        <label data-i18n="Select an existing author">Select an existing author</label>
         <select id="profile-select-author" class="form-input">
-          <option value="">— Custom —</option>
+          <option value="" data-i18n="— Custom —">— Custom —</option>
         </select>
       </div>
       <hr style="border:none; border-top:1px solid var(--border); margin:12px 0">
       <div class="form-row">
         <div class="form-group">
-          <label>First Name *</label>
+          <label data-i18n="First Name *">First Name *</label>
           <input type="text" id="profile-firstName" class="form-input">
         </div>
         <div class="form-group">
-          <label>Last Name *</label>
+          <label data-i18n="Last Name *">Last Name *</label>
           <input type="text" id="profile-lastName" class="form-input">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label>Affiliation</label>
+          <label data-i18n="Affiliation">Affiliation</label>
           <input type="text" id="profile-affiliation" class="form-input">
         </div>
         <div class="form-group">
-          <label>Profession</label>
+          <label data-i18n="Profession">Profession</label>
           <input type="text" id="profile-profession" class="form-input">
         </div>
       </div>
       <div class="form-group">
-        <label>ORCID</label>
+        <label data-i18n="ORCID">ORCID</label>
         <input type="text" id="profile-orcid" class="form-input" placeholder="0000-0000-0000-0000">
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn-cancel" id="profile-cancel">Cancel</button>
+      <button class="btn-cancel" id="profile-cancel" data-i18n="Cancel">Cancel</button>
       <button class="btn-submit" id="profile-save">
-        <i class="fas fa-check"></i> Save
+        <i class="fas fa-check"></i> <span data-i18n="Save">Save</span>
       </button>
     </div>
   </div>
@@ -934,22 +944,22 @@ LIMIT 50</div>
 <div class="modal-overlay" id="org-modal" style="display:none">
   <div class="modal" style="width:480px">
     <div class="modal-header">
-      <h3><i class="fas fa-building"></i> Edit Organization</h3>
+      <h3><i class="fas fa-building"></i> <span data-i18n="Edit Organization">Edit Organization</span></h3>
       <button class="modal-close" id="org-modal-close">&times;</button>
     </div>
     <div class="modal-body">
       <div class="form-group">
-        <label>Organization Name *</label>
+        <label data-i18n="Organization Name *">Organization Name *</label>
         <input type="text" id="org-name" class="form-input" placeholder="e.g., INDICATE Consortium">
       </div>
       <div class="form-group">
-        <label>URL</label>
+        <label data-i18n="URL">URL</label>
         <input type="text" id="org-url" class="form-input" placeholder="e.g., https://indicate-eu.org">
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn-cancel" id="org-cancel">Cancel</button>
-      <button class="btn-submit" id="org-save"><i class="fas fa-check"></i> Save</button>
+      <button class="btn-cancel" id="org-cancel" data-i18n="Cancel">Cancel</button>
+      <button class="btn-submit" id="org-save"><i class="fas fa-check"></i> <span data-i18n="Save">Save</span></button>
     </div>
   </div>
 </div>
@@ -958,18 +968,18 @@ LIMIT 50</div>
 <div class="modal-overlay" id="confirm-reset-modal" style="display:none">
   <div class="modal" style="width:400px">
     <div class="modal-header">
-      <h3>Reset local data</h3>
+      <h3 data-i18n="Reset local data">Reset local data</h3>
       <button class="modal-close" id="confirm-reset-close">&times;</button>
     </div>
     <div class="modal-body" style="text-align:center; padding:24px 20px">
       <i class="fas fa-exclamation-triangle" style="font-size:32px; color:#e67700; margin-bottom:12px"></i>
-      <p style="font-size:14px; margin-bottom:4px">This will clear your saved profile and all local data.</p>
-      <p style="font-size:13px; color:var(--text-muted)">This action cannot be undone.</p>
+      <p style="font-size:14px; margin-bottom:4px" data-i18n="This will clear your saved profile and all local data.">This will clear your saved profile and all local data.</p>
+      <p style="font-size:13px; color:var(--text-muted)" data-i18n="This action cannot be undone.">This action cannot be undone.</p>
     </div>
     <div class="modal-footer">
-      <button class="btn-cancel" id="confirm-reset-cancel">Cancel</button>
+      <button class="btn-cancel" id="confirm-reset-cancel" data-i18n="Cancel">Cancel</button>
       <button class="btn-submit" id="confirm-reset-ok" style="background:#dc3545">
-        <i class="fas fa-rotate-right"></i> Reset
+        <i class="fas fa-rotate-right"></i> <span data-i18n="Reset">Reset</span>
       </button>
     </div>
   </div>
@@ -983,7 +993,7 @@ LIMIT 50</div>
 <div class="modal-overlay" id="cs-export-modal" style="display:none">
   <div class="modal" style="max-width:500px">
     <div class="modal-header">
-      <h3><i class="fas fa-download"></i> Export Concept Set</h3>
+      <h3><i class="fas fa-download"></i> <span data-i18n="Export Concept Set">Export Concept Set</span></h3>
       <button class="modal-close" id="cs-export-modal-close">&times;</button>
     </div>
     <div class="modal-body">
@@ -993,15 +1003,15 @@ LIMIT 50</div>
           <div class="export-option" data-method="clipboard">
             <div class="export-option-icon"><i class="fas fa-clipboard" style="color:#0f60af"></i></div>
             <div class="export-option-content">
-              <h5 class="export-option-title">Copy OHDSI JSON to Clipboard</h5>
-              <p class="export-option-subtitle">Copy the concept set in OHDSI-compliant JSON format to clipboard</p>
+              <h5 class="export-option-title" data-i18n="Copy OHDSI JSON to Clipboard">Copy OHDSI JSON to Clipboard</h5>
+              <p class="export-option-subtitle" data-i18n="Copy the concept set in OHDSI-compliant JSON format to clipboard">Copy the concept set in OHDSI-compliant JSON format to clipboard</p>
             </div>
           </div>
           <div class="export-option" data-method="file">
             <div class="export-option-icon"><i class="fas fa-file-download" style="color:#28a745"></i></div>
             <div class="export-option-content">
-              <h5 class="export-option-title">Download OHDSI JSON File</h5>
-              <p class="export-option-subtitle">Download the concept set as a JSON file following OHDSI specification</p>
+              <h5 class="export-option-title" data-i18n="Download OHDSI JSON File">Download OHDSI JSON File</h5>
+              <p class="export-option-subtitle" data-i18n="Download the concept set as a JSON file following OHDSI specification">Download the concept set as a JSON file following OHDSI specification</p>
             </div>
           </div>
         </div>
@@ -1012,23 +1022,23 @@ LIMIT 50</div>
           <div class="export-option" data-format="indicate">
             <div class="export-option-icon"><i class="fas fa-file-code" style="color:#0f60af"></i></div>
             <div class="export-option-content">
-              <h5 class="export-option-title">Concept Set Specification</h5>
-              <p class="export-option-subtitle">Full OHDSI format with metadata and translations</p>
+              <h5 class="export-option-title" data-i18n="Concept Set Specification">Concept Set Specification</h5>
+              <p class="export-option-subtitle" data-i18n="Full OHDSI format with metadata and translations">Full OHDSI format with metadata and translations</p>
             </div>
           </div>
           <div class="export-option" data-format="atlas">
             <div class="export-option-icon"><i class="fas fa-globe" style="color:#28a745"></i></div>
             <div class="export-option-content">
-              <h5 class="export-option-title">ATLAS</h5>
-              <p class="export-option-subtitle">ATLAS-compatible format (expression only)</p>
+              <h5 class="export-option-title" data-i18n="ATLAS">ATLAS</h5>
+              <p class="export-option-subtitle" data-i18n="ATLAS-compatible format (expression only)">ATLAS-compatible format (expression only)</p>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn-cancel" id="cs-export-back" style="display:none"><i class="fas fa-arrow-left"></i> Back</button>
-      <button class="btn-cancel" id="cs-export-cancel">Cancel</button>
+      <button class="btn-cancel" id="cs-export-back" style="display:none"><i class="fas fa-arrow-left"></i> <span data-i18n="Back">Back</span></button>
+      <button class="btn-cancel" id="cs-export-cancel" data-i18n="Cancel">Cancel</button>
     </div>
   </div>
 </div>
