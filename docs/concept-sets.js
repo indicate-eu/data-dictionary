@@ -53,7 +53,7 @@ var ConceptSetsPage = (function() {
   var addSelectedConcept = null; // currently focused row in single-select mode
   var addFiltersVisible = false;
   var addPage = 1;
-  var addPageSize = 50;
+  var addPageSize = 20;
   // Pre-query filters (from filters popup) — Sets for multi-select
   var addFilterVocab = new Set();
   var addFilterDomain = new Set();
@@ -68,6 +68,9 @@ var ConceptSetsPage = (function() {
   var addSearchText = '';
   var addLimitChecked = true;
   var addColumnFilters = {}; // keyed by element id
+  var addActiveTab = 'ohdsi'; // 'ohdsi' or 'custom'
+  var CUSTOM_CONCEPT_BASE = 2100000000;
+  var ADD_LIMIT_WARN_THRESHOLD = 10000;
 
   // Comments & Statistics edit state
   var commentsEditMode = false;
@@ -1482,6 +1485,8 @@ var ConceptSetsPage = (function() {
         });
       });
     }
+    // Reset to OHDSI tab
+    switchAddTab('ohdsi');
     modal.classList.add('visible');
   }
 
@@ -1869,15 +1874,15 @@ var ConceptSetsPage = (function() {
       'WITH RECURSIVE anc AS (' +
         'SELECT ancestor_concept_id AS cid, 1 AS depth FROM concept_ancestor WHERE descendant_concept_id = ' + conceptId +
         ' UNION ALL SELECT ca.ancestor_concept_id, anc.depth + 1 FROM concept_ancestor ca JOIN anc ON ca.descendant_concept_id = anc.cid WHERE anc.depth < 20' +
-      ') SELECT DISTINCT c.concept_id, c.concept_name, c.vocabulary_id, -MIN(anc.depth) AS hierarchy_level ' +
-      'FROM anc JOIN concept c ON c.concept_id = anc.cid GROUP BY c.concept_id, c.concept_name, c.vocabulary_id ORDER BY MIN(anc.depth)';
+      ') SELECT DISTINCT c.concept_id, c.concept_name, c.vocabulary_id, c.domain_id, c.concept_class_id, c.concept_code, c.standard_concept, -MIN(anc.depth) AS hierarchy_level ' +
+      'FROM anc JOIN concept c ON c.concept_id = anc.cid GROUP BY c.concept_id, c.concept_name, c.vocabulary_id, c.domain_id, c.concept_class_id, c.concept_code, c.standard_concept ORDER BY MIN(anc.depth)';
     var descendantsSql =
       'WITH RECURSIVE desc_r AS (' +
         'SELECT descendant_concept_id AS cid, 1 AS depth FROM concept_ancestor WHERE ancestor_concept_id = ' + conceptId +
         ' UNION ALL SELECT ca.descendant_concept_id, desc_r.depth + 1 FROM concept_ancestor ca JOIN desc_r ON ca.ancestor_concept_id = desc_r.cid WHERE desc_r.depth < 20' +
-      ') SELECT DISTINCT c.concept_id, c.concept_name, c.vocabulary_id, MIN(desc_r.depth) AS hierarchy_level ' +
-      'FROM desc_r JOIN concept c ON c.concept_id = desc_r.cid GROUP BY c.concept_id, c.concept_name, c.vocabulary_id ORDER BY MIN(desc_r.depth)';
-    var selfSql = 'SELECT concept_id, concept_name, vocabulary_id FROM concept WHERE concept_id = ' + conceptId;
+      ') SELECT DISTINCT c.concept_id, c.concept_name, c.vocabulary_id, c.domain_id, c.concept_class_id, c.concept_code, c.standard_concept, MIN(desc_r.depth) AS hierarchy_level ' +
+      'FROM desc_r JOIN concept c ON c.concept_id = desc_r.cid GROUP BY c.concept_id, c.concept_name, c.vocabulary_id, c.domain_id, c.concept_class_id, c.concept_code, c.standard_concept ORDER BY MIN(desc_r.depth)';
+    var selfSql = 'SELECT concept_id, concept_name, vocabulary_id, domain_id, concept_class_id, concept_code, standard_concept FROM concept WHERE concept_id = ' + conceptId;
 
     Promise.all([
       VocabDB.query(ancestorsSql),
@@ -2094,6 +2099,252 @@ var ConceptSetsPage = (function() {
     var msg = added + App.i18n(added !== 1 ? ' concepts' : ' concept') + App.i18n(' added');
     if (skipped > 0) msg += ', ' + skipped + App.i18n(' skipped (already in expression)');
     App.showToast(msg);
+  }
+
+  // ==================== CUSTOM CONCEPTS ====================
+
+  var customDomainValue = '';
+  var customClassValue = '';
+  var customDropdownsBuilt = false;
+
+  function getNextCustomConceptId() {
+    var maxId = CUSTOM_CONCEPT_BASE - 1;
+    // Scan all concept sets for existing custom concept IDs
+    App.conceptSets.forEach(function(cs) {
+      if (cs.expression && cs.expression.items) {
+        cs.expression.items.forEach(function(it) {
+          if (it.concept && it.concept.conceptId >= CUSTOM_CONCEPT_BASE) {
+            maxId = Math.max(maxId, it.concept.conceptId);
+          }
+        });
+      }
+    });
+    // Also scan current edit items
+    if (exprEditItems) {
+      exprEditItems.forEach(function(it) {
+        if (it.concept && it.concept.conceptId >= CUSTOM_CONCEPT_BASE) {
+          maxId = Math.max(maxId, it.concept.conceptId);
+        }
+      });
+    }
+    return maxId + 1;
+  }
+
+  // Build a single-select searchable dropdown (reuses ms-container styling)
+  function buildSingleSelectDropdown(containerId, values, currentValue, onChange) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+    function toggleLabel() {
+      return currentValue ? App.escapeHtml(currentValue) : App.i18n('-- Select --');
+    }
+    container.innerHTML =
+      '<div class="ms-toggle" tabindex="0">' + toggleLabel() + ' <i class="fas fa-chevron-down" style="font-size:9px;margin-left:2px"></i></div>' +
+      '<div class="ms-dropdown" style="display:none">' +
+        '<div class="ms-search-wrap"><input type="text" class="ms-search" placeholder="' + App.escapeHtml(App.i18n('Search')) + '…"></div>' +
+        '<div class="ms-options">' +
+          values.map(function(v) {
+            return '<div class="ms-option ms-option-single' + (v === currentValue ? ' ms-option-selected' : '') + '" data-value="' + App.escapeHtml(v) + '">' + App.escapeHtml(v) + '</div>';
+          }).join('') +
+        '</div>' +
+      '</div>';
+    var toggle = container.querySelector('.ms-toggle');
+    var dropdown = container.querySelector('.ms-dropdown');
+    var searchInput = container.querySelector('.ms-search');
+    toggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      // Close other open dropdowns
+      document.querySelectorAll('.ms-dropdown').forEach(function(d) { if (d !== dropdown) d.style.display = 'none'; });
+      var wasHidden = dropdown.style.display === 'none';
+      dropdown.style.display = wasHidden ? '' : 'none';
+      if (wasHidden && searchInput) { searchInput.value = ''; searchInput.dispatchEvent(new Event('input')); searchInput.focus(); }
+    });
+    searchInput.addEventListener('input', function() {
+      var q = searchInput.value.toLowerCase();
+      container.querySelectorAll('.ms-option-single').forEach(function(opt) {
+        opt.style.display = opt.textContent.toLowerCase().indexOf(q) !== -1 ? '' : 'none';
+      });
+    });
+    searchInput.addEventListener('click', function(e) { e.stopPropagation(); });
+    dropdown.addEventListener('click', function(e) {
+      var opt = e.target.closest('.ms-option-single');
+      if (!opt) return;
+      var val = opt.getAttribute('data-value');
+      // Update selection highlight
+      container.querySelectorAll('.ms-option-single').forEach(function(o) { o.classList.remove('ms-option-selected'); });
+      opt.classList.add('ms-option-selected');
+      // Update toggle label & close
+      toggle.innerHTML = App.escapeHtml(val) + ' <i class="fas fa-chevron-down" style="font-size:9px;margin-left:2px"></i>';
+      dropdown.style.display = 'none';
+      onChange(val);
+    });
+  }
+
+  var FALLBACK_DOMAINS = [
+    'Condition', 'Device', 'Drug', 'Gender', 'Measurement', 'Metadata',
+    'Observation', 'Procedure', 'Provider', 'Race', 'Spec Anatomic Site',
+    'Specimen', 'Type Concept', 'Unit', 'Visit'
+  ];
+  var FALLBACK_CLASSES = [
+    'Clinical Finding', 'Clinical Observation', 'Context-dependent', 'Disorder',
+    'Lab Test', 'Observable Entity', 'Organism', 'Pharma/Biol Product',
+    'Physical Object', 'Procedure', 'Qualifier Value', 'Staging / Scales', 'Substance'
+  ];
+
+  var customDropdownsFromDb = false;
+
+  function buildCustomDropdownsWithValues(domains, classes, fromDb) {
+    buildSingleSelectDropdown('custom-concept-domain', domains, customDomainValue, function(val) { customDomainValue = val; });
+    buildSingleSelectDropdown('custom-concept-class', classes, customClassValue, function(val) { customClassValue = val; });
+    customDropdownsBuilt = true;
+    if (fromDb) customDropdownsFromDb = true;
+  }
+
+  function buildCustomDropdowns() {
+    // Already built from real DB data — skip
+    if (customDropdownsFromDb) return Promise.resolve();
+    if (typeof VocabDB === 'undefined') {
+      if (!customDropdownsBuilt) buildCustomDropdownsWithValues(FALLBACK_DOMAINS, FALLBACK_CLASSES, false);
+      return Promise.resolve();
+    }
+    return VocabDB.isDatabaseReady().then(function(ready) {
+      if (!ready) {
+        if (!customDropdownsBuilt) buildCustomDropdownsWithValues(FALLBACK_DOMAINS, FALLBACK_CLASSES, false);
+        return;
+      }
+      return Promise.all([
+        VocabDB.query("SELECT domain_id FROM domain ORDER BY domain_id").catch(function() { return null; }),
+        VocabDB.query("SELECT concept_class_id FROM concept_class ORDER BY concept_class_id").catch(function() { return null; })
+      ]).then(function(results) {
+        var domains = results[0] ? results[0].map(function(r) { return r.domain_id; }) : [];
+        var classes = results[1] ? results[1].map(function(r) { return r.concept_class_id; }) : [];
+        // Rebuild even if fallbacks were already shown — replace with real data
+        buildCustomDropdownsWithValues(
+          domains.length > 0 ? domains : FALLBACK_DOMAINS,
+          classes.length > 0 ? classes : FALLBACK_CLASSES,
+          domains.length > 0 || classes.length > 0
+        );
+      });
+    }).catch(function() {
+      if (!customDropdownsBuilt) buildCustomDropdownsWithValues(FALLBACK_DOMAINS, FALLBACK_CLASSES, false);
+    });
+  }
+
+  function switchAddTab(tab) {
+    addActiveTab = tab;
+    var ohdsiPanel = document.getElementById('expr-add-panel-ohdsi');
+    var customPanel = document.getElementById('expr-add-panel-custom');
+    var ohdsiFooter = document.getElementById('expr-add-footer-ohdsi');
+    var customFooter = document.getElementById('expr-add-footer-custom');
+    var tabOhdsi = document.getElementById('expr-add-tab-ohdsi');
+    var tabCustom = document.getElementById('expr-add-tab-custom');
+
+    if (tab === 'ohdsi') {
+      ohdsiPanel.style.display = '';
+      customPanel.style.display = 'none';
+      ohdsiFooter.style.display = '';
+      customFooter.style.display = 'none';
+      tabOhdsi.classList.add('active');
+      tabCustom.classList.remove('active');
+    } else {
+      ohdsiPanel.style.display = 'none';
+      customPanel.style.display = '';
+      ohdsiFooter.style.display = 'none';
+      customFooter.style.display = '';
+      tabOhdsi.classList.remove('active');
+      tabCustom.classList.add('active');
+      // Set next available ID
+      document.getElementById('custom-concept-id').value = getNextCustomConceptId();
+      buildCustomDropdowns();
+      renderCustomConceptList();
+    }
+  }
+
+  function submitCustomConcept() {
+    var name = document.getElementById('custom-concept-name').value.trim();
+    var domain = customDomainValue;
+    var conceptClass = customClassValue;
+    var code = document.getElementById('custom-concept-code').value.trim();
+    var isExcluded = document.getElementById('custom-concept-exclude').checked;
+
+    // Validation
+    if (!name) { App.showToast(App.i18n('Please enter a concept name.'), 'error'); return; }
+    if (!domain) { App.showToast(App.i18n('Please select a domain.'), 'error'); return; }
+    if (!conceptClass) { App.showToast(App.i18n('Please select a concept class.'), 'error'); return; }
+
+    var conceptId = getNextCustomConceptId();
+    var now = new Date().toISOString().slice(0, 10);
+
+    exprEditItems.push({
+      concept: {
+        conceptId: conceptId,
+        conceptName: name,
+        domainId: domain,
+        vocabularyId: 'INDICATE',
+        conceptClassId: conceptClass,
+        standardConcept: '',
+        standardConceptCaption: 'Non-standard',
+        conceptCode: code || 'INDICATE-' + conceptId,
+        validStartDate: now,
+        validEndDate: '2099-12-31',
+        invalidReason: null,
+        invalidReasonCaption: 'Valid'
+      },
+      isExcluded: isExcluded,
+      includeDescendants: false,
+      includeMapped: false
+    });
+
+    renderExpressionTable();
+    App.showToast('1' + App.i18n(' custom concept added'));
+
+    // Reset form for next entry
+    document.getElementById('custom-concept-name').value = '';
+    document.getElementById('custom-concept-code').value = '';
+    document.getElementById('custom-concept-id').value = getNextCustomConceptId();
+    renderCustomConceptList();
+  }
+
+  function renderCustomConceptList() {
+    var tbody = document.getElementById('custom-concept-list-tbody');
+    var emptyMsg = document.getElementById('custom-concept-list-empty');
+    var customs = [];
+    if (exprEditItems) {
+      exprEditItems.forEach(function(it, idx) {
+        if (it.concept && it.concept.conceptId >= CUSTOM_CONCEPT_BASE) {
+          customs.push({ item: it, idx: idx });
+        }
+      });
+    }
+    if (customs.length === 0) {
+      tbody.innerHTML = '';
+      emptyMsg.style.display = '';
+      return;
+    }
+    emptyMsg.style.display = 'none';
+    var html = '';
+    customs.forEach(function(entry) {
+      var c = entry.item.concept;
+      html += '<tr>' +
+        '<td>' + App.escapeHtml(String(c.conceptId)) + '</td>' +
+        '<td>' + App.escapeHtml(c.conceptName) + '</td>' +
+        '<td>' + App.escapeHtml(c.domainId) + '</td>' +
+        '<td>' + App.escapeHtml(c.conceptClassId) + '</td>' +
+        '<td><i class="fas fa-trash expr-delete-icon" data-idx="' + entry.idx + '" style="cursor:pointer; color:var(--danger); font-size:13px" title="Remove"></i></td>' +
+        '</tr>';
+    });
+    tbody.innerHTML = html;
+  }
+
+  function handleCustomConceptListClick(e) {
+    var trash = e.target.closest('.expr-delete-icon');
+    if (!trash || !exprEditMode) return;
+    var idx = parseInt(trash.getAttribute('data-idx'));
+    if (!isNaN(idx) && exprEditItems[idx]) {
+      exprEditItems.splice(idx, 1);
+      renderExpressionTable();
+      renderCustomConceptList();
+      document.getElementById('custom-concept-id').value = getNextCustomConceptId();
+    }
   }
 
   // ==================== RESOLVED TABLE ====================
@@ -4322,13 +4573,26 @@ var ConceptSetsPage = (function() {
     });
     document.getElementById('expr-add-submit').addEventListener('click', submitAddConcepts);
 
+    // Add concepts: tab switching
+    document.getElementById('expr-add-tab-ohdsi').addEventListener('click', function() { switchAddTab('ohdsi'); });
+    document.getElementById('expr-add-tab-custom').addEventListener('click', function() { switchAddTab('custom'); });
+
+    // Custom concept: submit & list interactions
+    document.getElementById('custom-concept-submit').addEventListener('click', submitCustomConcept);
+    document.getElementById('custom-concept-list-tbody').addEventListener('click', handleCustomConceptListClick);
+
     // Add concepts: pagination
     document.getElementById('expr-add-page-buttons').addEventListener('click', function(e) {
       handlePageClick(e, addConceptFiltered.length, addPageSize,
         function() { return addPage; },
         function(p) { addPage = p; },
         function() { renderAddResults(); },
-        'expr-add-results-wrap');
+        'expr-add-table-scroll');
+    });
+    document.getElementById('expr-add-page-size').addEventListener('change', function() {
+      addPageSize = parseInt(this.value) || 20;
+      addPage = 1;
+      renderAddResults();
     });
 
     // Add concepts: filters popup
@@ -4370,11 +4634,74 @@ var ConceptSetsPage = (function() {
       App.updateMsToggleLabel('expr-add-filter-domain', addFilterDomain);
       App.updateMsToggleLabel('expr-add-filter-class', addFilterClass);
     });
-    // Close filters popup on outside click
+    // Limit 10K checkbox: confirm before loading all concepts
+    document.getElementById('expr-add-limit').addEventListener('change', function() {
+      var cb = this;
+      if (cb.checked) {
+        // Re-enabling limit — just re-run
+        addLimitChecked = true;
+        if (document.getElementById('expr-add-search').value.trim()) searchAddConcepts(); else loadAddDefaults();
+        return;
+      }
+      // Unchecking: count total concepts first
+      var whereParts = buildAddFilterWhere();
+      var q = document.getElementById('expr-add-search').value.trim();
+      if (q) {
+        var esc = q.replace(/'/g, "''");
+        var isNumeric = /^\d+$/.test(q);
+        var searchConds = [];
+        if (isNumeric) searchConds.push('concept_id = ' + q);
+        var words = esc.split(/\s+/).filter(function(w) { return w.length > 0; });
+        if (words.length > 1) {
+          searchConds.push('(' + words.map(function(w) { return 'concept_name ILIKE \'%' + w + '%\''; }).join(' AND ') + ')');
+        } else {
+          searchConds.push('concept_name ILIKE \'%' + esc + '%\'');
+        }
+        searchConds.push('concept_code ILIKE \'%' + esc + '%\'');
+        whereParts.unshift('(' + searchConds.join(' OR ') + ')');
+      }
+      var whereStr = whereParts.length ? ' WHERE ' + whereParts.join(' AND ') : '';
+      VocabDB.query('SELECT COUNT(*) AS cnt FROM concept' + whereStr).then(function(rows) {
+        var total = Number(rows[0].cnt);
+        if (total > ADD_LIMIT_WARN_THRESHOLD) {
+          // Show confirmation modal
+          var overlay = document.createElement('div');
+          overlay.className = 'modal-overlay';
+          overlay.style.display = 'flex';
+          overlay.style.zIndex = '10100';
+          overlay.innerHTML =
+            '<div class="modal" style="max-width:400px;padding:24px;text-align:center">' +
+              '<i class="fas fa-exclamation-triangle" style="color:var(--warning);font-size:24px"></i>' +
+              '<p style="margin:12px 0">' + App.i18n('This will load') + ' <strong>' + total.toLocaleString() + '</strong> ' + App.i18n('concepts. This may be slow.') + '</p>' +
+              '<div style="display:flex;gap:8px;justify-content:center">' +
+                '<button class="btn-outline-sm" id="limit-warn-cancel"><i class="fas fa-times"></i> ' + App.i18n('Cancel') + '</button>' +
+                '<button class="btn-primary-custom" id="limit-warn-confirm"><i class="fas fa-check"></i> ' + App.i18n('Load all') + '</button>' +
+              '</div>' +
+            '</div>';
+          document.body.appendChild(overlay);
+          overlay.addEventListener('click', function(e) { if (e.target === overlay) { cb.checked = true; overlay.remove(); } });
+          document.getElementById('limit-warn-cancel').addEventListener('click', function() { cb.checked = true; overlay.remove(); });
+          document.getElementById('limit-warn-confirm').addEventListener('click', function() {
+            overlay.remove();
+            addLimitChecked = false;
+            if (q) searchAddConcepts(); else loadAddDefaults();
+          });
+        } else {
+          addLimitChecked = false;
+          if (q) searchAddConcepts(); else loadAddDefaults();
+        }
+      });
+    });
+
+    // Close filters popup and custom dropdowns on outside click
     document.getElementById('expr-add-modal').addEventListener('click', function(e) {
       if (addFiltersVisible && !e.target.closest('#expr-add-filters-popup') && !e.target.closest('#expr-add-filters-btn')) {
         addFiltersVisible = false;
         document.getElementById('expr-add-filters-popup').style.display = 'none';
+      }
+      // Close custom concept single-select dropdowns on outside click
+      if (!e.target.closest('.ms-toggle') && !e.target.closest('.ms-dropdown')) {
+        document.querySelectorAll('#expr-add-panel-custom .ms-dropdown').forEach(function(d) { d.style.display = 'none'; });
       }
     });
 

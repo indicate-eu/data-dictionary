@@ -287,6 +287,10 @@ var App = (function() {
     'Hierarchy':                     { fr: 'Hiérarchie' },
     'Select a concept to view hierarchy': { fr: 'Sélectionnez un concept pour voir la hiérarchie' },
     'Multiple Selection':            { fr: 'Sélection multiple' },
+    'This will load':                { fr: 'Cela va charger' },
+    'concepts. This may be slow.':   { fr: 'concepts. Cela peut être lent.' },
+    'Load all':                      { fr: 'Tout charger' },
+    'per page':                      { fr: 'par page' },
 
     // Confirm Delete
     'Confirm Delete':                { fr: 'Confirmer la suppression' },
@@ -370,7 +374,25 @@ var App = (function() {
     'Submit Review':                 { fr: 'Soumettre la relecture' },
     'Propose on GitHub':             { fr: 'Proposer sur GitHub' },
     '-- Select status --':           { fr: '-- Sélectionner un statut --' },
-    'Status:':                       { fr: 'Statut :' }
+    'Status:':                       { fr: 'Statut :' },
+
+    // Custom concepts
+    'OHDSI Vocabularies':            { fr: 'Vocabulaires OHDSI' },
+    'Custom Concept':                { fr: 'Concept personnalisé' },
+    'Add Custom Concept':            { fr: 'Ajouter un concept personnalisé' },
+    'Custom Concepts Added':         { fr: 'Concepts personnalisés ajoutés' },
+    'No custom concepts added yet.': { fr: 'Aucun concept personnalisé ajouté.' },
+    'Auto-assigned from 2,100,000,000': { fr: 'Auto-assigné à partir de 2 100 000 000' },
+    'Enter concept name...':         { fr: 'Saisir le nom du concept...' },
+    'Enter concept code (optional)...': { fr: 'Saisir le code du concept (optionnel)...' },
+    'Custom concepts use the INDICATE vocabulary': { fr: 'Les concepts personnalisés utilisent le vocabulaire INDICATE' },
+    '-- Select --':                  { fr: '-- Sélectionner --' },
+    'Standard Concept':              { fr: 'Concept standard' },
+    'Concept Class':                 { fr: 'Classe du concept' },
+    'Please enter a concept name.':  { fr: 'Veuillez saisir un nom de concept.' },
+    'Please select a domain.':       { fr: 'Veuillez sélectionner un domaine.' },
+    'Please select a concept class.': { fr: 'Veuillez sélectionner une classe.' },
+    ' custom concept added':         { fr: ' concept personnalisé ajouté' }
   };
 
   function i18n(key) {
@@ -532,20 +554,37 @@ var App = (function() {
       if (selectedSet.size === 1) return escapeHtml(getLabel([...selectedSet][0]));
       return selectedSet.size + ' ' + i18n('selected');
     }
+    var showSearch = values.length > 10;
     container.innerHTML =
       '<div class="ms-toggle" tabindex="0">' + toggleLabel() + ' <i class="fas fa-chevron-down" style="font-size:9px;margin-left:2px"></i></div>' +
       '<div class="ms-dropdown" style="display:none">' +
-        values.map(function(v) {
-          return '<label class="ms-option"><input type="checkbox" value="' + escapeHtml(v) + '"' + (selectedSet.has(v) ? ' checked' : '') + '> ' + escapeHtml(getLabel(v) || '(empty)') + '</label>';
-        }).join('') +
+        (showSearch ? '<div class="ms-search-wrap"><input type="text" class="ms-search" placeholder="' + escapeHtml(i18n('Search')) + '…"></div>' : '') +
+        '<div class="ms-options">' +
+          values.map(function(v) {
+            return '<label class="ms-option"><input type="checkbox" value="' + escapeHtml(v) + '"' + (selectedSet.has(v) ? ' checked' : '') + '> ' + escapeHtml(getLabel(v) || '(empty)') + '</label>';
+          }).join('') +
+        '</div>' +
       '</div>';
     var toggle = container.querySelector('.ms-toggle');
     var dropdown = container.querySelector('.ms-dropdown');
+    var searchInput = container.querySelector('.ms-search');
     toggle.addEventListener('click', function(e) {
       e.stopPropagation();
       document.querySelectorAll('.ms-dropdown').forEach(function(d) { if (d !== dropdown) d.style.display = 'none'; });
-      dropdown.style.display = dropdown.style.display === 'none' ? '' : 'none';
+      var wasHidden = dropdown.style.display === 'none';
+      dropdown.style.display = wasHidden ? '' : 'none';
+      if (wasHidden && searchInput) { searchInput.value = ''; searchInput.dispatchEvent(new Event('input')); searchInput.focus(); }
     });
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        var q = searchInput.value.toLowerCase();
+        container.querySelectorAll('.ms-option').forEach(function(opt) {
+          var label = opt.textContent.toLowerCase();
+          opt.style.display = label.indexOf(q) !== -1 ? '' : 'none';
+        });
+      });
+      searchInput.addEventListener('click', function(e) { e.stopPropagation(); });
+    }
     dropdown.addEventListener('change', function(e) {
       var cb = e.target;
       if (cb.checked) selectedSet.add(cb.value); else selectedSet.delete(cb.value);

@@ -815,6 +815,8 @@ tbody td {
   font-size: 13px;
   transition: all .15s;
 }
+.page-size-selector { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); }
+.page-size-selector select { padding: 2px 4px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 12px; font-family: inherit; background: white; cursor: pointer; }
 .pagination button:hover { border-color: var(--primary); color: var(--primary); }
 .pagination button:disabled { opacity: .4; cursor: default; }
 .pagination button.active { background: var(--primary); color: white; border-color: var(--primary); }
@@ -837,6 +839,9 @@ tbody td {
   cursor: pointer;
   transition: all .15s;
   border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  height: 180px;
 }
 .project-card:hover {
   box-shadow: var(--shadow-lg);
@@ -846,13 +851,16 @@ tbody td {
   font-size: 16px;
   margin-bottom: 8px;
   color: var(--primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .project-card p {
   font-size: 13px;
   color: var(--text-muted);
   margin-bottom: 12px;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -861,6 +869,7 @@ tbody td {
   gap: 12px;
   font-size: 12px;
   color: var(--text-muted);
+  margin-top: auto;
 }
 .project-card-footer span { display: flex; align-items: center; gap: 4px; }
 
@@ -1067,8 +1076,10 @@ tbody td {
   z-index: 60;
   min-width: 180px;
   max-height: 250px;
-  overflow-y: auto;
-  padding: 4px 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
 }
 .ms-option {
   display: flex;
@@ -1080,6 +1091,10 @@ tbody td {
   white-space: nowrap;
 }
 .ms-option:hover { background: var(--gray-light); }
+.ms-search-wrap { padding: 4px 6px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: white; z-index: 1; }
+.ms-search { width: 100%; padding: 4px 6px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 12px; font-family: inherit; outline: none; box-sizing: border-box; }
+.ms-search:focus { border-color: var(--primary); }
+.ms-options { max-height: 220px; overflow-y: auto; padding: 4px 0; }
 .filter-row th {
   padding: 4px 12px 8px !important;
   background: var(--gray-light) !important;
@@ -2296,6 +2311,34 @@ select.form-input { appearance: auto; }
 #expression-table tbody tr.expr-selected { background: #e8f0fe; }
 #expression-table tbody tr.expr-selected:hover { background: #d4e4fa; }
 
+/* Add concepts modal: tabs */
+.expr-add-tabs { display: flex; gap: 0; flex: 1; justify-content: center; }
+.expr-add-tab {
+  padding: 5px 16px; font-size: 13px; font-weight: 500; cursor: pointer;
+  border: 1px solid var(--border); background: var(--gray-light); color: var(--text-muted);
+  transition: all .15s;
+}
+.expr-add-tab:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+.expr-add-tab:last-child { border-radius: 0 var(--radius) var(--radius) 0; border-left: none; }
+.expr-add-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); font-weight: 600; }
+.expr-add-tab:not(.active):hover { background: #e9ecef; }
+
+/* Custom concept form */
+.custom-concept-form { max-width: 600px; margin: 0 auto; padding: 20px 0; }
+.custom-concept-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.custom-concept-row > label { min-width: 130px; font-size: 13px; font-weight: 600; color: var(--text); text-align: right; }
+.custom-concept-row > .form-input, .custom-concept-row > select.form-input, .custom-concept-row > .custom-concept-ms { width: 300px; min-width: 300px; flex: 0 0 300px; }
+.custom-concept-ms .ms-toggle { padding: 8px 12px; font-size: 14px; }
+.custom-concept-hint { font-size: 11px; color: var(--text-muted); font-style: italic; }
+.custom-concept-list-section { margin-top: 24px; border-top: 1px solid var(--border); padding-top: 16px; }
+.custom-concept-list-section h4 { font-size: 14px; font-weight: 600; margin: 0 0 10px; }
+#custom-concept-list-table { margin-bottom: 0; }
+#custom-concept-list-empty { font-size: 13px; color: var(--text-muted); text-align: center; padding: 16px; }
+.ms-option-single { padding: 5px 10px; font-size: 12px; cursor: pointer; }
+.ms-option-single:hover { background: var(--gray-light); }
+.ms-option-single.ms-option-selected { background: var(--primary); color: #fff; }
+.ms-option-single.ms-option-selected:hover { background: #0d4d8f; }
+
 /* Add concepts modal */
 .modal-fs-footer { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid var(--gray-200); background: var(--gray-light); flex-shrink: 0; }
 .expr-add-toggles { display: flex; align-items: center; gap: 12px; font-size: 13px; }
@@ -2333,9 +2376,8 @@ select.form-input { appearance: auto; }
 
 .expr-add-already-badge { background: #28a745; color: white; border-radius: 4px; text-align: center; padding: 4px 8px; font-size: 12px; font-weight: 500; margin-bottom: 8px; }
 
-/* Add concepts: results wrap pagination sticky */
-#expr-add-results-wrap > .pagination { position: sticky; bottom: 0; z-index: 2; flex-shrink: 0; }
-#expr-add-results-wrap > table { flex-shrink: 0; }
+/* Add concepts: results wrap pagination */
+#expr-add-results-wrap > .pagination { flex-shrink: 0; }
 
 /* Add concepts: filters popup */
 #expr-add-search-row { display: flex; flex-wrap: nowrap; }

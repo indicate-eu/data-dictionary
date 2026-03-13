@@ -1282,9 +1282,15 @@ Enter your review comments here using Markdown syntax.
 <div class="modal-fs" id="expr-add-modal">
   <div class="modal-fs-header">
     <h3 data-i18n="Add Concepts">Add Concepts</h3>
+    <div class="expr-add-tabs">
+      <button class="expr-add-tab active" id="expr-add-tab-ohdsi" data-tab="ohdsi" data-i18n="OHDSI Vocabularies">OHDSI Vocabularies</button>
+      <button class="expr-add-tab" id="expr-add-tab-custom" data-tab="custom" data-i18n="Custom Concept">Custom Concept</button>
+    </div>
     <button class="modal-fs-close" id="expr-add-close">&times;</button>
   </div>
   <div class="modal-fs-body" style="flex:1; display:flex; flex-direction:column; min-height:0; padding:16px">
+    <!-- ── OHDSI Vocabularies tab panel ── -->
+    <div id="expr-add-panel-ohdsi" class="expr-add-panel" style="flex:1; display:flex; flex-direction:column; min-height:0">
     <!-- No DB message -->
     <div id="expr-add-no-db" style="display:none; padding:20px; text-align:center; color:var(--text-muted); font-size:13px">
       <i class="fas fa-info-circle" style="color:var(--primary); margin-right:6px"></i>
@@ -1334,34 +1340,45 @@ Enter your review comments here using Markdown syntax.
       </label>
     </div>
     <!-- Top: Results table -->
-    <div id="expr-add-results-wrap" style="flex:1; overflow-y:auto; min-height:0; display:flex; flex-direction:column">
-      <table class="concept-related-table" id="expr-add-results-table">
-        <thead>
-          <tr>
-            <th class="expr-add-check-col" style="width:36px"><input type="checkbox" id="expr-add-select-all"></th>
-            <th data-i18n="Concept ID">Concept ID</th>
-            <th data-i18n="Concept Name">Concept Name</th>
-            <th data-i18n="Vocabulary">Vocabulary</th>
-            <th data-i18n="Concept Code">Code</th>
-            <th data-i18n="Domain">Domain</th>
-            <th data-i18n="Class">Class</th>
-            <th style="text-align:center" data-i18n="Standard">Standard</th>
-          </tr>
-          <tr class="filter-row" id="expr-add-col-filter-row">
-            <th class="expr-add-check-col"></th>
-            <th><input type="text" class="column-filter" id="expr-add-cf-id" placeholder="Filter..."></th>
-            <th><input type="text" class="column-filter" id="expr-add-cf-name" placeholder="Filter..."></th>
-            <th><input type="text" class="column-filter" id="expr-add-cf-vocab" placeholder="Filter..."></th>
-            <th><input type="text" class="column-filter" id="expr-add-cf-code" placeholder="Filter..."></th>
-            <th><input type="text" class="column-filter" id="expr-add-cf-domain" placeholder="Filter..."></th>
-            <th><input type="text" class="column-filter" id="expr-add-cf-class" placeholder="Filter..."></th>
-            <th><input type="text" class="column-filter" id="expr-add-cf-standard" placeholder="Filter..."></th>
-          </tr>
-        </thead>
-        <tbody id="expr-add-results-tbody"></tbody>
-      </table>
+    <div id="expr-add-results-wrap" style="flex:1; min-height:0; display:flex; flex-direction:column">
+      <div id="expr-add-table-scroll" style="flex:1; overflow-y:auto; min-height:0">
+        <table class="concept-related-table" id="expr-add-results-table">
+          <thead>
+            <tr>
+              <th class="expr-add-check-col" style="width:36px"><input type="checkbox" id="expr-add-select-all"></th>
+              <th data-i18n="Concept ID">Concept ID</th>
+              <th data-i18n="Concept Name">Concept Name</th>
+              <th data-i18n="Vocabulary">Vocabulary</th>
+              <th data-i18n="Concept Code">Code</th>
+              <th data-i18n="Domain">Domain</th>
+              <th data-i18n="Class">Class</th>
+              <th style="text-align:center" data-i18n="Standard">Standard</th>
+            </tr>
+            <tr class="filter-row" id="expr-add-col-filter-row">
+              <th class="expr-add-check-col"></th>
+              <th><input type="text" class="column-filter" id="expr-add-cf-id" placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="expr-add-cf-name" placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="expr-add-cf-vocab" placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="expr-add-cf-code" placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="expr-add-cf-domain" placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="expr-add-cf-class" placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="expr-add-cf-standard" placeholder="Filter..."></th>
+            </tr>
+          </thead>
+          <tbody id="expr-add-results-tbody"></tbody>
+        </table>
+      </div>
       <div class="pagination" id="expr-add-pagination" style="display:none">
         <span id="expr-add-page-info"></span>
+        <label class="page-size-selector">
+          <span data-i18n="per page">per page</span>
+          <select id="expr-add-page-size">
+            <option value="10">10</option>
+            <option value="20" selected>20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </label>
         <div class="pagination-buttons" id="expr-add-page-buttons"></div>
       </div>
     </div>
@@ -1382,8 +1399,64 @@ Enter your review comments here using Markdown syntax.
         </div>
       </div>
     </div>
+    </div><!-- /expr-add-panel-ohdsi -->
+
+    <!-- ── Custom Concept tab panel ── -->
+    <div id="expr-add-panel-custom" class="expr-add-panel" style="display:none; flex:1; overflow-y:auto; min-height:0">
+      <div class="custom-concept-form">
+        <div class="custom-concept-row">
+          <label data-i18n="Concept ID">Concept ID</label>
+          <input type="number" class="form-input" id="custom-concept-id" min="2100000000" readonly>
+          <span class="custom-concept-hint" data-i18n="Auto-assigned from 2,100,000,000">Auto-assigned from 2,100,000,000</span>
+        </div>
+        <div class="custom-concept-row">
+          <label data-i18n="Concept Name">Concept Name</label>
+          <input type="text" class="form-input" id="custom-concept-name" data-i18n-placeholder="Enter concept name..." placeholder="Enter concept name...">
+        </div>
+        <div class="custom-concept-row">
+          <label data-i18n="Domain">Domain</label>
+          <div class="ms-container custom-concept-ms" id="custom-concept-domain"></div>
+        </div>
+        <div class="custom-concept-row">
+          <label data-i18n="Vocabulary">Vocabulary</label>
+          <input type="text" class="form-input" id="custom-concept-vocabulary" value="INDICATE" readonly>
+          <span class="custom-concept-hint" data-i18n="Custom concepts use the INDICATE vocabulary">Custom concepts use the INDICATE vocabulary</span>
+        </div>
+        <div class="custom-concept-row">
+          <label data-i18n="Concept Class">Concept Class</label>
+          <div class="ms-container custom-concept-ms" id="custom-concept-class"></div>
+        </div>
+        <div class="custom-concept-row">
+          <label data-i18n="Concept Code">Concept Code</label>
+          <input type="text" class="form-input" id="custom-concept-code" data-i18n-placeholder="Enter concept code (optional)..." placeholder="Enter concept code (optional)...">
+        </div>
+        <div class="custom-concept-row">
+          <label data-i18n="Standard Concept">Standard Concept</label>
+          <input type="text" class="form-input" id="custom-concept-standard" value="Non-standard" readonly>
+        </div>
+        <!-- Previously added custom concepts list -->
+        <div class="custom-concept-list-section">
+          <h4 data-i18n="Custom Concepts Added">Custom Concepts Added</h4>
+          <table class="concept-related-table" id="custom-concept-list-table">
+            <thead>
+              <tr>
+                <th data-i18n="Concept ID">Concept ID</th>
+                <th data-i18n="Concept Name">Concept Name</th>
+                <th data-i18n="Domain">Domain</th>
+                <th data-i18n="Class">Class</th>
+                <th style="width:40px"></th>
+              </tr>
+            </thead>
+            <tbody id="custom-concept-list-tbody"></tbody>
+          </table>
+          <div class="empty-state" id="custom-concept-list-empty" data-i18n="No custom concepts added yet.">No custom concepts added yet.</div>
+        </div>
+      </div>
+    </div><!-- /expr-add-panel-custom -->
+
   </div>
-  <div class="modal-fs-footer">
+  <!-- OHDSI footer -->
+  <div class="modal-fs-footer" id="expr-add-footer-ohdsi">
     <div class="expr-add-toggles">
       <label style="display:inline-flex; align-items:center; gap:6px; font-size:13px; cursor:pointer">
         <input type="checkbox" id="expr-add-multiple"> <span data-i18n="Multiple Selection">Multiple Selection</span>
@@ -1401,6 +1474,16 @@ Enter your review comments here using Markdown syntax.
       </label> <span style="font-size:13px; font-weight:500" data-i18n="Mapped">Mapped</span>
       <span id="expr-add-count" style="font-size:12px; color:var(--text-muted)" data-i18n="0 selected">0 selected</span>
       <button class="btn-success-custom" id="expr-add-submit" disabled><i class="fas fa-plus"></i> <span data-i18n="Add Concepts">Add Concepts</span></button>
+    </div>
+  </div>
+  <!-- Custom concept footer -->
+  <div class="modal-fs-footer" id="expr-add-footer-custom" style="display:none">
+    <div></div>
+    <div style="display:flex; align-items:center; gap:12px">
+      <label class="toggle-switch toggle-sm toggle-exclude">
+        <input type="checkbox" id="custom-concept-exclude"><span class="toggle-slider"></span>
+      </label> <span style="font-size:13px; font-weight:500" data-i18n="Exclude">Exclude</span>
+      <button class="btn-success-custom" id="custom-concept-submit"><i class="fas fa-plus"></i> <span data-i18n="Add Custom Concept">Add Custom Concept</span></button>
     </div>
   </div>
 </div>
