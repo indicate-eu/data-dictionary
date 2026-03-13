@@ -2568,9 +2568,7 @@ var ConceptSetsPage = (function() {
     });
   }
 
-  function renderResolvedTable(keepFilters) {
-    if (!selectedConceptSet) return;
-    var allConcepts = App.resolvedIndex[selectedConceptSet.id] || [];
+  function renderResolvedTableWithData(allConcepts, keepFilters) {
     var tbody = document.getElementById('resolved-tbody');
     document.getElementById('resolved-concept-detail-body').innerHTML =
       '<div class="empty-state"><p>Select a concept to view details</p></div>';
@@ -2626,6 +2624,106 @@ var ConceptSetsPage = (function() {
     }).join('');
     applyColumnVisibility();
     renderPaginationControls('resolved-pagination', 'resolved-page-info', 'resolved-page-buttons', resolvedPage, concepts.length, resolvedPageSize);
+  }
+
+  /**
+   * Resolve a concept set expression live via DuckDB.
+   * Returns a Promise resolving to an array of concept detail objects.
+   * Custom concepts (>= CUSTOM_CONCEPT_BASE) are resolved from the expression items.
+   */
+  function resolveExpressionLive(items) {
+    return resolveExpressionViaDuckDB(items).then(function(resolvedIds) {
+      if (resolvedIds.size === 0) return [];
+
+      // Separate DB concepts from custom concepts
+      var dbIds = [];
+      var customIds = new Set();
+      resolvedIds.forEach(function(id) {
+        if (id >= CUSTOM_CONCEPT_BASE) {
+          customIds.add(id);
+        } else {
+          dbIds.push(id);
+        }
+      });
+
+      // Build custom concept details from expression items
+      var customConcepts = [];
+      if (customIds.size > 0 && items) {
+        items.forEach(function(it) {
+          if (it.concept && customIds.has(it.concept.conceptId)) {
+            customConcepts.push({
+              conceptId: it.concept.conceptId,
+              conceptName: it.concept.conceptName || '',
+              vocabularyId: it.concept.vocabularyId || '',
+              domainId: it.concept.domainId || '',
+              conceptClassId: it.concept.conceptClassId || '',
+              conceptCode: it.concept.conceptCode || '',
+              standardConcept: it.concept.standardConcept || null
+            });
+          }
+        });
+      }
+
+      // Lookup DB concepts
+      if (dbIds.length === 0) return customConcepts;
+      return VocabDB.lookupConcepts(dbIds).then(function(rows) {
+        var dbConcepts = rows.map(function(r) {
+          return {
+            conceptId: Number(r.concept_id),
+            conceptName: r.concept_name || '',
+            vocabularyId: r.vocabulary_id || '',
+            domainId: r.domain_id || '',
+            conceptClassId: r.concept_class_id || '',
+            conceptCode: r.concept_code || '',
+            standardConcept: r.standard_concept || null
+          };
+        });
+        return dbConcepts.concat(customConcepts).sort(function(a, b) {
+          return (a.conceptName || '').localeCompare(b.conceptName || '');
+        });
+      });
+    });
+  }
+
+  function renderResolvedTable(keepFilters) {
+    if (!selectedConceptSet) return;
+
+    // Use current expression items (edited or saved)
+    var items = exprEditMode && exprEditItems
+      ? exprEditItems
+      : (selectedConceptSet.expression || {}).items || [];
+
+    // If no items, nothing to resolve
+    if (items.length === 0) {
+      renderResolvedTableWithData([], keepFilters);
+      return;
+    }
+
+    // If no DuckDB, fall back to pre-resolved data
+    if (typeof VocabDB === 'undefined') {
+      var preResolved = App.resolvedIndex[selectedConceptSet.id] || [];
+      renderResolvedTableWithData(preResolved, keepFilters);
+      return;
+    }
+
+    // Show loading state
+    var tbody = document.getElementById('resolved-tbody');
+    var colCount = Object.keys(resolvedColumns).length;
+    tbody.innerHTML = '<tr><td colspan="' + colCount + '" class="empty-state"><p><i class="fas fa-spinner fa-spin"></i> ' + App.i18n('Resolving concepts...') + '</p></td></tr>';
+
+    VocabDB.isDatabaseReady().then(function(ready) {
+      if (!ready) {
+        var preResolved = App.resolvedIndex[selectedConceptSet.id] || [];
+        renderResolvedTableWithData(preResolved, keepFilters);
+        return;
+      }
+      resolveExpressionLive(items).then(function(concepts) {
+        renderResolvedTableWithData(concepts, keepFilters);
+      }).catch(function(err) {
+        console.error('Live resolve failed:', err);
+        renderResolvedTableWithData([], keepFilters);
+      });
+    });
   }
 
   // ==================== CONCEPT DETAIL ====================

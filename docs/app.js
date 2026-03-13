@@ -391,7 +391,8 @@ var App = (function() {
     'Please enter a concept name.':  { fr: 'Veuillez saisir un nom de concept.' },
     'Please select a domain.':       { fr: 'Veuillez sélectionner un domaine.' },
     'Please select a concept class.': { fr: 'Veuillez sélectionner une classe.' },
-    ' custom concept added':         { fr: ' concept personnalisé ajouté' }
+    ' custom concept added':         { fr: ' concept personnalisé ajouté' },
+    'Resolving concepts...':         { fr: 'Résolution des concepts...' }
   };
 
   function i18n(key) {

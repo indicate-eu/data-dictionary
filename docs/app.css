@@ -980,7 +980,8 @@ tbody td {
 .panel-table-wrap {
   flex: 1;
   min-height: 0;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
 }
