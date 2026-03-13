@@ -113,28 +113,57 @@ def resolve_concept_set(con, items):
     if not resolved_ids:
         return []
 
-    # Fetch concept details
-    ids_str = ",".join(str(i) for i in resolved_ids)
-    rows = con.execute(
-        f"SELECT concept_id, concept_name, vocabulary_id, domain_id, "
-        f"concept_class_id, concept_code, standard_concept "
-        f"FROM concept "
-        f"WHERE concept_id IN ({ids_str}) "
-        f"ORDER BY concept_name"
-    ).fetchall()
+    # Separate DB concepts from custom concepts (ID >= 2,100,000,000)
+    CUSTOM_CONCEPT_BASE = 2_100_000_000
+    db_ids = {i for i in resolved_ids if i < CUSTOM_CONCEPT_BASE}
+    custom_ids = {i for i in resolved_ids if i >= CUSTOM_CONCEPT_BASE}
 
-    return [
-        {
-            "conceptId": r[0],
-            "conceptName": r[1],
-            "vocabularyId": r[2],
-            "domainId": r[3],
-            "conceptClassId": r[4],
-            "conceptCode": r[5],
-            "standardConcept": r[6],
-        }
-        for r in rows
-    ]
+    # Fetch DB concept details
+    db_concepts = []
+    if db_ids:
+        ids_str = ",".join(str(i) for i in db_ids)
+        rows = con.execute(
+            f"SELECT concept_id, concept_name, vocabulary_id, domain_id, "
+            f"concept_class_id, concept_code, standard_concept "
+            f"FROM concept "
+            f"WHERE concept_id IN ({ids_str}) "
+            f"ORDER BY concept_name"
+        ).fetchall()
+
+        db_concepts = [
+            {
+                "conceptId": r[0],
+                "conceptName": r[1],
+                "vocabularyId": r[2],
+                "domainId": r[3],
+                "conceptClassId": r[4],
+                "conceptCode": r[5],
+                "standardConcept": r[6],
+            }
+            for r in rows
+        ]
+
+    # Build custom concept details from expression items
+    custom_concepts = []
+    if custom_ids:
+        all_items = included_items + excluded_items
+        for item in all_items:
+            c = item.get("concept", {})
+            cid = c.get("conceptId")
+            if cid in custom_ids:
+                custom_concepts.append({
+                    "conceptId": cid,
+                    "conceptName": c.get("conceptName", ""),
+                    "vocabularyId": c.get("vocabularyId", ""),
+                    "domainId": c.get("domainId", ""),
+                    "conceptClassId": c.get("conceptClassId", ""),
+                    "conceptCode": c.get("conceptCode", ""),
+                    "standardConcept": c.get("standardConcept", None),
+                })
+
+    result = db_concepts + custom_concepts
+    result.sort(key=lambda x: x.get("conceptName", ""))
+    return result
 
 
 def resolve_one(con, cs_id):

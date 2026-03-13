@@ -6,10 +6,30 @@
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
-  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "modifiedDate": "2026-03-13",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.1",
   "expression": {
-    "items": []
+    "items": [
+      {
+        "concept": {
+          "conceptId": 2100000000,
+          "conceptName": "3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM)",
+          "domainId": "Measurement",
+          "vocabularyId": "INDICATE",
+          "conceptClassId": "Staging / Scales",
+          "standardConcept": "",
+          "standardConceptCaption": "Non-standard",
+          "conceptCode": "3D-CAM",
+          "validStartDate": "2026-03-13",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
   },
   "tags": [],
   "metadata": {
@@ -18,18 +38,20 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM) score",
         "category": "Clinical observation",
-        "subcategory": "Neurological assessment"
+        "subcategory": "Neurological assessment",
+        "longDescription": "## Definition & Clinical Context\n\nThe 3D-CAM (3-Minute Diagnostic Assessment for CAM-defined Delirium) is a brief, structured bedside diagnostic instrument that operationalises the Confusion Assessment Method (CAM) algorithm for identifying delirium in hospitalised patients. It takes a median of 3 minutes to administer (IQR 2–5 minutes) and does not require special training [1].\n\nThe instrument comprises 20 items organised into the four CAM diagnostic features: (1) acute onset and fluctuating course, (2) inattention, (3) disorganised thinking, and (4) altered level of consciousness. A feature is considered present if any single item within that category is positive. Delirium is diagnosed when features 1 and 2 are both present, along with feature 3 and/or feature 4.\n\n## References\n\n[1] Marcantonio ER, Ngo LH, O'Connor M, et al. 3D-CAM: Derivation and Validation of a 3-Minute Diagnostic Interview for CAM-Defined Delirium. *Ann Intern Med*. 2014;161(8):554-561. doi:10.7326/M14-0865. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/25329203/\" target=\"_blank\">25329203</a>"
       },
       "fr": {
         "name": "3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM) score",
         "category": "Observations cliniques",
-        "subcategory": "Évaluation neurologique"
+        "subcategory": "Évaluation neurologique",
+        "longDescription": "## Définition et contexte clinique\n\nLe 3D-CAM (3-Minute Diagnostic Assessment for CAM-defined Delirium) est un instrument diagnostique structuré et bref, réalisable au lit du patient, basé sur l'algorithme de la Confusion Assessment Method (CAM) pour identifier le délirium chez les patients hospitalisés. Son administration prend en médiane 3 minutes (IQR 2–5 minutes) et ne nécessite pas de formation spécifique [1].\n\nL'instrument comprend 20 items organisés selon les quatre critères diagnostiques du CAM : (1) début aigu et évolution fluctuante, (2) inattention, (3) désorganisation de la pensée, et (4) altération du niveau de conscience. Un critère est considéré comme présent si au moins un item de cette catégorie est positif. Le délirium est diagnostiqué lorsque les critères 1 et 2 sont tous deux présents, accompagnés du critère 3 et/ou du critère 4.\n\n## Références\n\n[1] Marcantonio ER, Ngo LH, O'Connor M, et al. 3D-CAM: Derivation and Validation of a 3-Minute Diagnostic Interview for CAM-Defined Delirium. *Ann Intern Med*. 2014;161(8):554-561. doi:10.7326/M14-0865. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/25329203/\" target=\"_blank\">25329203</a>"
       }
     },
     "createdByDetails": {

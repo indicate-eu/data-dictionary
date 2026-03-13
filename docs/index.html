@@ -138,7 +138,7 @@
         <button class="btn-back-discrete" id="cs-back" title="Concept Sets">
           <i class="fas fa-arrow-left"></i>
         </button>
-        <span class="project-name-badge" id="cs-detail-title"></span>
+        <span class="project-name-badge has-title-tooltip" id="cs-detail-title"><span class="title-tooltip-text"></span><span class="title-tooltip-bubble"></span></span>
         <span class="concept-set-badges" id="cs-detail-badges"></span>
         <button class="btn-primary-custom" id="cs-export-json" title="Export">
           <i class="fas fa-download"></i> <span data-i18n="Export">Export</span>
@@ -1000,18 +1000,18 @@ LIMIT 50</div>
       <!-- Step 1: Choose method -->
       <div id="export-step-method">
         <div class="export-options-container">
-          <div class="export-option" data-method="clipboard">
-            <div class="export-option-icon"><i class="fas fa-clipboard" style="color:#0f60af"></i></div>
-            <div class="export-option-content">
-              <h5 class="export-option-title" data-i18n="Copy OHDSI JSON to Clipboard">Copy OHDSI JSON to Clipboard</h5>
-              <p class="export-option-subtitle" data-i18n="Copy the concept set in OHDSI-compliant JSON format to clipboard">Copy the concept set in OHDSI-compliant JSON format to clipboard</p>
-            </div>
-          </div>
           <div class="export-option" data-method="file">
-            <div class="export-option-icon"><i class="fas fa-file-download" style="color:#28a745"></i></div>
+            <div class="export-option-icon"><i class="fas fa-file-download" style="color:#0f60af"></i></div>
             <div class="export-option-content">
               <h5 class="export-option-title" data-i18n="Download OHDSI JSON File">Download OHDSI JSON File</h5>
               <p class="export-option-subtitle" data-i18n="Download the concept set as a JSON file following OHDSI specification">Download the concept set as a JSON file following OHDSI specification</p>
+            </div>
+          </div>
+          <div class="export-option" data-method="clipboard">
+            <div class="export-option-icon"><i class="fas fa-clipboard" style="color:#28a745"></i></div>
+            <div class="export-option-content">
+              <h5 class="export-option-title" data-i18n="Copy OHDSI JSON to Clipboard">Copy OHDSI JSON to Clipboard</h5>
+              <p class="export-option-subtitle" data-i18n="Copy the concept set in OHDSI-compliant JSON format to clipboard">Copy the concept set in OHDSI-compliant JSON format to clipboard</p>
             </div>
           </div>
         </div>
@@ -1395,8 +1395,10 @@ Enter your review comments here using Markdown syntax.
       <div class="custom-concept-form">
         <div class="custom-concept-row">
           <label data-i18n="Concept ID">Concept ID</label>
-          <input type="number" class="form-input" id="custom-concept-id" min="2100000000" readonly>
-          <span class="custom-concept-hint" data-i18n="Auto-assigned from 2,100,000,000">Auto-assigned from 2,100,000,000</span>
+          <div class="custom-concept-input-wrap">
+            <input type="number" class="form-input" id="custom-concept-id" min="2100000000" readonly>
+            <span class="custom-concept-hint" data-i18n="Auto-assigned from 2,100,000,000">Auto-assigned from 2,100,000,000</span>
+          </div>
         </div>
         <div class="custom-concept-row">
           <label data-i18n="Concept Name">Concept Name</label>
@@ -1408,8 +1410,10 @@ Enter your review comments here using Markdown syntax.
         </div>
         <div class="custom-concept-row">
           <label data-i18n="Vocabulary">Vocabulary</label>
-          <input type="text" class="form-input" id="custom-concept-vocabulary" value="INDICATE">
-          <span class="custom-concept-hint" data-i18n="Custom concepts use the INDICATE vocabulary">Custom concepts use the INDICATE vocabulary</span>
+          <div class="custom-concept-input-wrap">
+            <input type="text" class="form-input" id="custom-concept-vocabulary" value="INDICATE">
+            <span class="custom-concept-hint" data-i18n="Custom concepts use the INDICATE vocabulary">Custom concepts use the INDICATE vocabulary</span>
+          </div>
         </div>
         <div class="custom-concept-row">
           <label data-i18n="Concept Class">Concept Class</label>
@@ -1422,23 +1426,6 @@ Enter your review comments here using Markdown syntax.
         <div class="custom-concept-row">
           <label data-i18n="Standard Concept">Standard Concept</label>
           <input type="text" class="form-input" id="custom-concept-standard" value="Non-standard" readonly>
-        </div>
-        <!-- Previously added custom concepts list -->
-        <div class="custom-concept-list-section">
-          <h4 data-i18n="Custom Concepts Added">Custom Concepts Added</h4>
-          <table class="concept-related-table" id="custom-concept-list-table">
-            <thead>
-              <tr>
-                <th data-i18n="Concept ID">Concept ID</th>
-                <th data-i18n="Concept Name">Concept Name</th>
-                <th data-i18n="Domain">Domain</th>
-                <th data-i18n="Class">Class</th>
-                <th style="width:40px"></th>
-              </tr>
-            </thead>
-            <tbody id="custom-concept-list-tbody"></tbody>
-          </table>
-          <div class="empty-state" id="custom-concept-list-empty" data-i18n="No custom concepts added yet.">No custom concepts added yet.</div>
         </div>
       </div>
     </div><!-- /expr-add-panel-custom -->
@@ -1473,6 +1460,57 @@ Enter your review comments here using Markdown syntax.
         <input type="checkbox" id="custom-concept-exclude"><span class="toggle-slider"></span>
       </label> <span style="font-size:13px; font-weight:500" data-i18n="Exclude">Exclude</span>
       <button class="btn-success-custom" id="custom-concept-submit"><i class="fas fa-plus"></i> <span data-i18n="Add Custom Concept">Add Custom Concept</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     EDIT CUSTOM CONCEPT MODAL
+     ═══════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="edit-custom-concept-modal" style="display:none">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-header">
+      <h3><i class="fas fa-pen"></i> <span data-i18n="Edit Custom Concept">Edit Custom Concept</span></h3>
+      <button class="modal-close" id="edit-custom-concept-close">&times;</button>
+    </div>
+    <div class="modal-body" style="padding:20px">
+      <div class="custom-concept-form" style="max-width:100%; padding:0">
+        <div class="custom-concept-row">
+          <label data-i18n="Concept ID">Concept ID</label>
+          <input type="number" class="form-input" id="edit-cc-id" readonly>
+        </div>
+        <div class="custom-concept-row">
+          <label data-i18n="Concept Name">Concept Name</label>
+          <input type="text" class="form-input" id="edit-cc-name" data-i18n-placeholder="Enter concept name..." placeholder="Enter concept name...">
+        </div>
+        <div class="custom-concept-row">
+          <label data-i18n="Domain">Domain</label>
+          <div class="ms-container custom-concept-ms" id="edit-cc-domain"></div>
+        </div>
+        <div class="custom-concept-row">
+          <label data-i18n="Vocabulary">Vocabulary</label>
+          <div class="custom-concept-input-wrap">
+            <input type="text" class="form-input" id="edit-cc-vocabulary">
+            <span class="custom-concept-hint" data-i18n="Custom concepts use the INDICATE vocabulary">Custom concepts use the INDICATE vocabulary</span>
+          </div>
+        </div>
+        <div class="custom-concept-row">
+          <label data-i18n="Concept Class">Concept Class</label>
+          <div class="ms-container custom-concept-ms" id="edit-cc-class"></div>
+        </div>
+        <div class="custom-concept-row">
+          <label data-i18n="Concept Code">Concept Code</label>
+          <input type="text" class="form-input" id="edit-cc-code" data-i18n-placeholder="Enter concept code..." placeholder="Enter concept code...">
+        </div>
+        <div class="custom-concept-row">
+          <label data-i18n="Standard Concept">Standard Concept</label>
+          <input type="text" class="form-input" id="edit-cc-standard" value="Non-standard" readonly>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer" style="display:flex; justify-content:flex-end; gap:8px; padding:12px 20px; border-top:1px solid var(--border)">
+      <button class="btn-primary-custom btn-gray" id="edit-cc-cancel" data-i18n="Cancel">Cancel</button>
+      <button class="btn-success-custom" id="edit-cc-save"><i class="fas fa-check"></i> <span data-i18n="Save">Save</span></button>
     </div>
   </div>
 </div>

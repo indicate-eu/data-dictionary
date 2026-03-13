@@ -389,7 +389,9 @@ var ConceptSetsPage = (function() {
       var rowClass = exprSelectedIdxs.has(i) ? ' class="expr-selected"' : '';
 
       var selectCol = '<td class="expr-select-col td-center"><input type="checkbox" class="expr-row-checkbox" data-idx="' + i + '"' + selChecked + '></td>';
-      var actionCol = '<td class="expr-action-col td-center"><i class="fas fa-trash expr-delete-icon" data-idx="' + i + '"></i></td>';
+      var isCustom = c.conceptId >= CUSTOM_CONCEPT_BASE;
+      var editIcon = isCustom ? '<i class="fas fa-pen expr-edit-custom-icon" data-idx="' + i + '" title="' + App.i18n('Edit custom concept') + '"></i> ' : '';
+      var actionCol = '<td class="expr-action-col td-center">' + editIcon + '<i class="fas fa-trash expr-delete-icon" data-idx="' + i + '"></i></td>';
 
       var excludeCell, descCell, mappedCell;
       if (exprEditMode) {
@@ -475,7 +477,7 @@ var ConceptSetsPage = (function() {
       // Hide Edit button on review tab (has its own "Add Review")
       var showEdit = (csDetailTab !== 'review');
       headerEditBtn.style.display = showEdit ? '' : 'none';
-      headerExportBtn.style.display = (csDetailTab === 'concepts') ? '' : 'none';
+      headerExportBtn.style.display = '';
       headerImportBtn.style.display = 'none';
       headerCancelBtn.style.display = 'none';
       headerSaveBtn.style.display = 'none';
@@ -1134,7 +1136,7 @@ var ConceptSetsPage = (function() {
     commentsAceEditor = ace.edit('cs-comments-ace-editor');
     commentsAceEditor.setTheme('ace/theme/chrome');
     commentsAceEditor.session.setMode('ace/mode/markdown');
-    commentsAceEditor.setFontSize(13);
+    commentsAceEditor.setFontSize(12);
     commentsAceEditor.setShowPrintMargin(false);
     commentsAceEditor.session.setUseWrapMode(true);
     commentsAceEditor.session.on('change', function() {
@@ -1214,7 +1216,7 @@ var ConceptSetsPage = (function() {
     statsAceEditor = ace.edit('cs-stats-ace-editor');
     statsAceEditor.setTheme('ace/theme/chrome');
     statsAceEditor.session.setMode('ace/mode/json');
-    statsAceEditor.setFontSize(13);
+    statsAceEditor.setFontSize(12);
     statsAceEditor.setShowPrintMargin(false);
     statsAceEditor.session.setTabSize(2);
     statsAceEditor.setOption('showLineNumbers', true);
@@ -2255,7 +2257,6 @@ var ConceptSetsPage = (function() {
       // Set next available ID
       document.getElementById('custom-concept-id').value = getNextCustomConceptId();
       buildCustomDropdowns();
-      renderCustomConceptList();
     }
   }
 
@@ -2302,55 +2303,97 @@ var ConceptSetsPage = (function() {
     document.getElementById('custom-concept-name').value = '';
     document.getElementById('custom-concept-code').value = '';
     document.getElementById('custom-concept-id').value = getNextCustomConceptId();
-    renderCustomConceptList();
   }
 
-  function renderCustomConceptList() {
-    var tbody = document.getElementById('custom-concept-list-tbody');
-    var emptyMsg = document.getElementById('custom-concept-list-empty');
-    var customs = [];
-    if (exprEditItems) {
-      exprEditItems.forEach(function(it, idx) {
-        if (it.concept && it.concept.conceptId >= CUSTOM_CONCEPT_BASE) {
-          customs.push({ item: it, idx: idx });
+  // ==================== EDIT CUSTOM CONCEPT MODAL ====================
+
+  var editCcIdx = null; // index in exprEditItems being edited
+  var editCcDomainValue = '';
+  var editCcClassValue = '';
+
+  function openEditCustomConceptModal(idx) {
+    if (!exprEditItems || !exprEditItems[idx]) return;
+    var item = exprEditItems[idx];
+    var c = item.concept;
+    if (c.conceptId < CUSTOM_CONCEPT_BASE) return; // not a custom concept
+
+    editCcIdx = idx;
+    editCcDomainValue = c.domainId || '';
+    editCcClassValue = c.conceptClassId || '';
+
+    // Populate fields
+    document.getElementById('edit-cc-id').value = c.conceptId;
+    document.getElementById('edit-cc-name').value = c.conceptName || '';
+    document.getElementById('edit-cc-vocabulary').value = c.vocabularyId || 'INDICATE';
+    document.getElementById('edit-cc-code').value = c.conceptCode || '';
+    document.getElementById('edit-cc-standard').value = c.standardConceptCaption || 'Non-standard';
+
+    // Build domain & class dropdowns
+    // Reuse the same logic as the add form dropdowns
+    if (customDropdownsFromDb && typeof VocabDB !== 'undefined') {
+      VocabDB.isDatabaseReady().then(function(ready) {
+        if (!ready) {
+          buildEditCcDropdowns(FALLBACK_DOMAINS, FALLBACK_CLASSES);
+          return;
         }
+        return Promise.all([
+          VocabDB.query("SELECT domain_id FROM domain ORDER BY domain_id").catch(function() { return null; }),
+          VocabDB.query("SELECT concept_class_id FROM concept_class ORDER BY concept_class_id").catch(function() { return null; })
+        ]).then(function(results) {
+          var d = results[0] ? results[0].map(function(r) { return r.domain_id; }) : FALLBACK_DOMAINS;
+          var cl = results[1] ? results[1].map(function(r) { return r.concept_class_id; }) : FALLBACK_CLASSES;
+          buildEditCcDropdowns(d.length > 0 ? d : FALLBACK_DOMAINS, cl.length > 0 ? cl : FALLBACK_CLASSES);
+        });
+      }).catch(function() {
+        buildEditCcDropdowns(FALLBACK_DOMAINS, FALLBACK_CLASSES);
       });
+    } else {
+      buildEditCcDropdowns(FALLBACK_DOMAINS, FALLBACK_CLASSES);
     }
-    if (customs.length === 0) {
-      tbody.innerHTML = '';
-      emptyMsg.style.display = '';
-      return;
-    }
-    emptyMsg.style.display = 'none';
-    var html = '';
-    customs.forEach(function(entry) {
-      var c = entry.item.concept;
-      html += '<tr>' +
-        '<td>' + App.escapeHtml(String(c.conceptId)) + '</td>' +
-        '<td>' + App.escapeHtml(c.conceptName) + '</td>' +
-        '<td>' + App.escapeHtml(c.domainId) + '</td>' +
-        '<td>' + App.escapeHtml(c.conceptClassId) + '</td>' +
-        '<td><i class="fas fa-trash expr-delete-icon" data-idx="' + entry.idx + '" style="cursor:pointer; color:var(--danger); font-size:13px" title="Remove"></i></td>' +
-        '</tr>';
-    });
-    tbody.innerHTML = html;
+
+    document.getElementById('edit-custom-concept-modal').style.display = '';
   }
 
-  function handleCustomConceptListClick(e) {
-    var trash = e.target.closest('.expr-delete-icon');
-    if (!trash || !exprEditMode) return;
-    var idx = parseInt(trash.getAttribute('data-idx'));
-    if (!isNaN(idx) && exprEditItems[idx]) {
-      exprEditItems.splice(idx, 1);
-      renderExpressionTable();
-      renderCustomConceptList();
-      document.getElementById('custom-concept-id').value = getNextCustomConceptId();
-    }
+  function buildEditCcDropdowns(domains, classes) {
+    buildSingleSelectDropdown('edit-cc-domain', domains, editCcDomainValue, function(val) { editCcDomainValue = val; });
+    buildSingleSelectDropdown('edit-cc-class', classes, editCcClassValue, function(val) { editCcClassValue = val; });
   }
+
+  function saveEditCustomConcept() {
+    var name = document.getElementById('edit-cc-name').value.trim();
+    var domain = editCcDomainValue;
+    var conceptClass = editCcClassValue;
+    var code = document.getElementById('edit-cc-code').value.trim();
+    var vocab = document.getElementById('edit-cc-vocabulary').value.trim() || 'INDICATE';
+
+    // Validation
+    if (!name) { App.showToast(App.i18n('Please enter a concept name.'), 'error'); return; }
+    if (!domain) { App.showToast(App.i18n('Please select a domain.'), 'error'); return; }
+    if (!conceptClass) { App.showToast(App.i18n('Please select a concept class.'), 'error'); return; }
+
+    if (editCcIdx === null || !exprEditItems[editCcIdx]) return;
+
+    var c = exprEditItems[editCcIdx].concept;
+    c.conceptName = name;
+    c.domainId = domain;
+    c.vocabularyId = vocab;
+    c.conceptClassId = conceptClass;
+    c.conceptCode = code || ('INDICATE-' + c.conceptId);
+
+    renderExpressionTable();
+    closeEditCustomConceptModal();
+    App.showToast(App.i18n('Custom concept updated'));
+  }
+
+  function closeEditCustomConceptModal() {
+    document.getElementById('edit-custom-concept-modal').style.display = 'none';
+    editCcIdx = null;
+  }
+
 
   // ==================== RESOLVED TABLE ====================
   var resolvedFilterVocab = new Set();
-  var resolvedFilterStandard = new Set(['S']);
+  var resolvedFilterStandard = new Set();
 
   // Expression table filters
   var exprFilterVocab = new Set();
@@ -2581,7 +2624,6 @@ var ConceptSetsPage = (function() {
       document.getElementById('resolved-filter-code').value = '';
       document.getElementById('resolved-filter-domain').value = '';
       resolvedFilterStandard.clear();
-      resolvedFilterStandard.add('S');
       document.getElementById('resolved-filter-class').value = '';
     }
 
@@ -2685,6 +2727,36 @@ var ConceptSetsPage = (function() {
     });
   }
 
+  /**
+   * Append non-excluded custom concepts from expression items to a pre-resolved array.
+   * Avoids duplicates by checking existing concept IDs.
+   */
+  function appendCustomConcepts(resolved, items) {
+    if (!items || items.length === 0) return resolved;
+    var existingIds = new Set(resolved.map(function(r) { return r.conceptId; }));
+    var excludedIds = new Set();
+    items.forEach(function(it) {
+      if (it.isExcluded && it.concept) excludedIds.add(it.concept.conceptId);
+    });
+    var customs = [];
+    items.forEach(function(it) {
+      var c = it.concept;
+      if (!c || c.conceptId < CUSTOM_CONCEPT_BASE) return;
+      if (excludedIds.has(c.conceptId)) return;
+      if (existingIds.has(c.conceptId)) return;
+      customs.push({
+        conceptId: c.conceptId,
+        conceptName: c.conceptName || '',
+        vocabularyId: c.vocabularyId || '',
+        domainId: c.domainId || '',
+        conceptClassId: c.conceptClassId || '',
+        conceptCode: c.conceptCode || '',
+        standardConcept: c.standardConcept || null
+      });
+    });
+    return resolved.concat(customs);
+  }
+
   function renderResolvedTable(keepFilters) {
     if (!selectedConceptSet) return;
 
@@ -2699,10 +2771,10 @@ var ConceptSetsPage = (function() {
       return;
     }
 
-    // If no DuckDB, fall back to pre-resolved data
+    // If no DuckDB, fall back to pre-resolved data + custom concepts
     if (typeof VocabDB === 'undefined') {
       var preResolved = App.resolvedIndex[selectedConceptSet.id] || [];
-      renderResolvedTableWithData(preResolved, keepFilters);
+      renderResolvedTableWithData(appendCustomConcepts(preResolved, items), keepFilters);
       return;
     }
 
@@ -2713,7 +2785,7 @@ var ConceptSetsPage = (function() {
 
     VocabDB.isDatabaseReady().then(function(ready) {
       if (!ready) {
-        var preResolved = App.resolvedIndex[selectedConceptSet.id] || [];
+        var preResolved = appendCustomConcepts(App.resolvedIndex[selectedConceptSet.id] || [], items);
         renderResolvedTableWithData(preResolved, keepFilters);
         return;
       }
@@ -3686,7 +3758,10 @@ var ConceptSetsPage = (function() {
     document.getElementById('cs-list-view').classList.add('hidden');
     document.getElementById('cs-detail-view').classList.add('active');
 
-    document.getElementById('cs-detail-title').textContent = tr.name || cs.name;
+    var titleName = tr.name || cs.name;
+    var titleEl = document.getElementById('cs-detail-title');
+    titleEl.querySelector('.title-tooltip-text').textContent = titleName;
+    titleEl.querySelector('.title-tooltip-bubble').textContent = titleName;
     refreshDetailBadges();
 
     // Show Edit button for all concept sets
@@ -4600,6 +4675,14 @@ var ConceptSetsPage = (function() {
       if (e.target === this) this.style.display = 'none';
     });
 
+    // Edit custom concept modal
+    document.getElementById('edit-custom-concept-close').addEventListener('click', closeEditCustomConceptModal);
+    document.getElementById('edit-cc-cancel').addEventListener('click', closeEditCustomConceptModal);
+    document.getElementById('edit-cc-save').addEventListener('click', saveEditCustomConcept);
+    document.getElementById('edit-custom-concept-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeEditCustomConceptModal();
+    });
+
     // Expression table: toggle switches, delete icons, row selection
     document.getElementById('expression-tbody').addEventListener('change', function(e) {
       var input = e.target;
@@ -4613,6 +4696,12 @@ var ConceptSetsPage = (function() {
       }
     });
     document.getElementById('expression-tbody').addEventListener('click', function(e) {
+      // Edit custom concept icon
+      var editIcon = e.target.closest('.expr-edit-custom-icon');
+      if (editIcon && exprEditMode) {
+        openEditCustomConceptModal(parseInt(editIcon.getAttribute('data-idx')));
+        return;
+      }
       // Trash icon
       var trash = e.target.closest('.expr-delete-icon');
       if (trash && exprEditMode) {
@@ -4678,7 +4767,6 @@ var ConceptSetsPage = (function() {
 
     // Custom concept: submit & list interactions
     document.getElementById('custom-concept-submit').addEventListener('click', submitCustomConcept);
-    document.getElementById('custom-concept-list-tbody').addEventListener('click', handleCustomConceptListClick);
 
     // Add concepts: pagination
     document.getElementById('expr-add-page-buttons').addEventListener('click', function(e) {
@@ -5011,7 +5099,13 @@ var ConceptSetsPage = (function() {
     document.getElementById('filter-name').value = '';
     csPage = 1;
     renderAll();
-    if (selectedConceptSet) showCSDetail(selectedConceptSet.id);
+    if (selectedConceptSet) {
+      var savedTab = csDetailTab;
+      var savedMode = csConceptMode;
+      showCSDetail(selectedConceptSet.id);
+      switchCSDetailTab(savedTab);
+      switchConceptMode(savedMode);
+    }
   }
 
   return {
