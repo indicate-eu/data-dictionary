@@ -4397,7 +4397,8 @@ var ConceptSetsPage = (function() {
     // Pre-fill form
     var tr = cs.metadata && cs.metadata.translations;
     var trEn = (tr && tr.en) || {};
-    document.getElementById('cs-create-name').value = trEn.name || cs.name || '';
+    var trCur = (tr && tr[App.lang]) || trEn;
+    document.getElementById('cs-create-name').value = trCur.name || cs.name || '';
     document.getElementById('cs-create-desc').value = cs.description || '';
     document.getElementById('cs-create-cat-new').style.display = 'none';
     document.getElementById('cs-create-cat-new-input').value = '';
@@ -4457,17 +4458,22 @@ var ConceptSetsPage = (function() {
     if (csEditingId != null) {
       var cs = App.conceptSets.find(function(c) { return c.id === csEditingId; });
       if (!cs) return;
-      cs.name = name;
       cs.description = desc || null;
       cs.modifiedDate = new Date().toISOString().split('T')[0];
       if (!cs.metadata) cs.metadata = {};
       if (!cs.metadata.translations) cs.metadata.translations = {};
       if (!cs.metadata.translations.en) cs.metadata.translations.en = {};
       if (!cs.metadata.translations.fr) cs.metadata.translations.fr = {};
-      cs.metadata.translations.en.name = name;
+      if (App.lang === 'fr') {
+        cs.metadata.translations.fr.name = name;
+        cs.metadata.translations.en.name = cs.metadata.translations.en.name || name;
+      } else {
+        cs.metadata.translations.en.name = name;
+        cs.metadata.translations.fr.name = cs.metadata.translations.fr.name || name;
+      }
+      cs.name = cs.metadata.translations.en.name;
       cs.metadata.translations.en.category = r.catEn;
       cs.metadata.translations.en.subcategory = r.subcatEn;
-      cs.metadata.translations.fr.name = cs.metadata.translations.fr.name || name;
       cs.metadata.translations.fr.category = r.catFr;
       cs.metadata.translations.fr.subcategory = r.subcatFr;
       App.updateConceptSet(cs);
