@@ -1,15 +1,35 @@
 {
   "id": 7,
-  "name": "Delirium Rating Scale (DRS) score",
+  "name": "Delirium Rating Scale-revised-98 (DRS-R-98)",
   "description": null,
   "version": "1.0.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
-  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "modifiedDate": "2026-03-15",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.1",
   "expression": {
-    "items": []
+    "items": [
+      {
+        "concept": {
+          "conceptId": 2100000006,
+          "conceptName": "Delirium Rating Scale-revised-98 (DRS-R-98)",
+          "domainId": "Measurement",
+          "vocabularyId": "INDICATE",
+          "conceptClassId": "Staging / Scales",
+          "standardConcept": "",
+          "standardConceptCaption": "Non-standard",
+          "conceptCode": "DRS-R-98",
+          "validStartDate": "2026-03-15",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
   },
   "tags": [],
   "metadata": {
@@ -18,18 +38,20 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Delirium Rating Scale (DRS) score",
+        "name": "Delirium Rating Scale-revised-98 (DRS-R-98)",
         "category": "Clinical observation",
-        "subcategory": "Neurological assessment"
+        "subcategory": "Neurological assessment",
+        "longDescription": "## Definition & Clinical Context\n\nThe DRS-R-98 (Delirium Rating Scale – Revised-98) is a clinician-rated scale for assessing delirium severity and assisting in differential diagnosis. It is a substantial revision of the original DRS (Trzepacz et al., 1988), designed for repeated measurements and phenomenological research [1].\n\nThe instrument comprises 16 items divided into two sections. The 13-item severity section (scored 0–3 each, total 0–39) can be used separately for repeated measurements:\n- sleep-wake cycle disturbance\n- perceptual disturbances and hallucinations\n- delusions\n- lability of affect\n- language\n- thought process abnormalities\n- motor agitation\n- motor retardation\n- orientation\n- attention\n- short-term memory\n- long-term memory\n- visuospatial ability\n\nThree additional diagnostic items (temporal onset of symptoms, fluctuation of symptom severity, physical disorder) are added for the total scale score (0–46).\n\n## References\n\n[1] Trzepacz PT, Mittal D, Torres R, Kanary K, Norton J, Jimerson N. Validation of the Delirium Rating Scale-Revised-98: comparison with the Delirium Rating Scale and the Cognitive Test for Delirium. *J Neuropsychiatry Clin Neurosci*. 2001;13(2):229-242. doi:10.1176/jnp.13.2.229. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/11449030/\" target=\"_blank\">11449030</a>"
       },
       "fr": {
-        "name": "Delirium Rating Scale (DRS) score",
+        "name": "Delirium Rating Scale (DRS)",
         "category": "Observations cliniques",
-        "subcategory": "Évaluation neurologique"
+        "subcategory": "Évaluation neurologique",
+        "longDescription": "## Définition et contexte clinique\n\nLe DRS-R-98 (Delirium Rating Scale – Revised-98) est une échelle d'évaluation du délirium cotée par le clinicien, permettant d'en mesurer la sévérité et d'en établir le diagnostic. Il s'agit d'une révision substantielle de la Delirium Rating Scale originale (Trzepacz et al., 1988), conçue pour des mesures répétées et une utilisation élargie en contexte clinique et de recherche [1].\n\nL'instrument comprend 16 items répartis en deux sections :\n- échelle de sévérité (13 items, score 0–39) : perturbation du cycle veille-sommeil, troubles perceptifs et hallucinations, idées délirantes, labilité de l'affect, langage, anomalies du cours de la pensée, agitation motrice, ralentissement moteur, orientation, attention, mémoire à court terme, mémoire à long terme, capacités visuospatiales\n- échelle diagnostique (3 items, score 0–7) : début temporel des symptômes, fluctuation de la sévérité des symptômes, trouble physique\n\nLe score total (0–46) est utilisé pour l'évaluation initiale ; le score de sévérité seul est recommandé pour les mesures répétées.\n\n## Références\n\n[1] Trzepacz PT, Mittal D, Torres R, Kanary K, Norton J, Jimerson N. Validation of the Delirium Rating Scale–Revised-98: comparison with the Delirium Rating Scale and the Cognitive Test for Delirium. *J Neuropsychiatry Clin Neurosci*. 2001;13(2):229-242. doi:10.1176/jnp.13.2.229. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/11449030/\" target=\"_blank\">11449030</a>"
       }
     },
     "createdByDetails": {

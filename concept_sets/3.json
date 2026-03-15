@@ -1,15 +1,35 @@
 {
   "id": 3,
-  "name": "Behavior pain scale",
+  "name": "Behavioral Pain Scale (BPS)",
   "description": null,
   "version": "1.0.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
-  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "modifiedDate": "2026-03-15",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.1",
   "expression": {
-    "items": []
+    "items": [
+      {
+        "concept": {
+          "conceptId": 2100000007,
+          "conceptName": "Behavioral Pain Scale (BPS)",
+          "domainId": "Measurement",
+          "vocabularyId": "INDICATE",
+          "conceptClassId": "Staging / Scales",
+          "standardConcept": "",
+          "standardConceptCaption": "Non-standard",
+          "conceptCode": "BPS",
+          "validStartDate": "2026-03-15",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
   },
   "tags": [],
   "metadata": {
@@ -18,18 +38,20 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Behavior pain scale",
+        "name": "Behavioral Pain Scale (BPS)",
         "category": "Clinical observation",
-        "subcategory": "Neurological assessment"
+        "subcategory": "Neurological assessment",
+        "longDescription": "## Definition & Clinical Context\n\nThe BPS (Behavioral Pain Scale) is a bedside observational tool for assessing pain in sedated, mechanically ventilated patients who cannot self-report. It takes less than 2 minutes to administer and does not require special training [1].\n\nThe instrument comprises three items, each scored from 1 to 4:\n- facial expression\n- upper limb movements\n- compliance with mechanical ventilation\n\nThe total score ranges from 3 (no pain) to 12 (maximum pain). A score > 5 is generally considered indicative of unacceptable pain requiring analgesic adjustment.\n\n## References\n\n[1] Payen JF, Bru O, Bosson JL, et al. Assessing pain in critically ill sedated patients by using a behavioral pain scale. *Crit Care Med*. 2001;29(12):2258-2263. doi:10.1097/00003246-200112000-00004. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/11801819/\" target=\"_blank\">11801819</a>"
       },
       "fr": {
         "name": "Échelle comportementale de douleur",
         "category": "Observations cliniques",
-        "subcategory": "Évaluation neurologique"
+        "subcategory": "Évaluation neurologique",
+        "longDescription": "## Définition et contexte clinique\n\nLe BPS (Behavioral Pain Scale) est un outil d'évaluation comportementale de la douleur au lit du patient, destiné aux patients sédatés sous ventilation mécanique ne pouvant pas s'auto-évaluer. Son administration prend moins de 2 minutes et ne nécessite pas de formation spécifique [1].\n\nL'instrument comprend trois items, chacun coté de 1 à 4 :\n- expression faciale\n- mouvements des membres supérieurs\n- adaptation à la ventilation mécanique\n\nLe score total varie de 3 (absence de douleur) à 12 (douleur maximale). Un score > 5 est généralement considéré comme indicatif d'une douleur inacceptable nécessitant une adaptation de l'analgésie.\n\n## Références\n\n[1] Payen JF, Bru O, Bosson JL, et al. Assessing pain in critically ill sedated patients by using a behavioral pain scale. *Crit Care Med*. 2001;29(12):2258-2263. doi:10.1097/00003246-200112000-00004. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/11801819/\" target=\"_blank\">11801819</a>"
       }
     },
     "createdByDetails": {

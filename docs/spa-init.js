@@ -7,6 +7,7 @@
 
   var pages = {
     '/concept-sets':    { el: 'page-concept-sets',    mod: ConceptSetsPage },
+    '/etl-guidelines':  { el: 'page-etl-guidelines',  mod: EtlGuidelinesPage },
     '/projects':        { el: 'page-projects',        mod: ProjectsPage },
     '/settings':        { el: 'page-settings',        mod: SettingsPage },
     '/general-settings':{ el: 'page-general-settings', mod: GeneralSettingsPage },
@@ -85,7 +86,6 @@
   App.loadData();
   App.checkForDataUpdate();
   App.updateUserBadge();
-  App.updateOrgBadge();
   App.initSharedEvents();
   App.translateDOM();
 

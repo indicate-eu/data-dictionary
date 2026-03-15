@@ -978,6 +978,15 @@ var App = (function() {
     document.getElementById('profile-affiliation').value = p.affiliation || '';
     document.getElementById('profile-profession').value = p.profession || '';
     document.getElementById('profile-orcid').value = p.orcid || '';
+    // Organization fields
+    var org = getOrganization() || detectDefaultOrganization() || {};
+    document.getElementById('org-name').value = org.name || '';
+    document.getElementById('org-url').value = org.url || '';
+    // Reset to author tab
+    var tabs = document.querySelectorAll('.profile-modal-tab');
+    tabs.forEach(function(t) { t.classList.toggle('active', t.getAttribute('data-profile-tab') === 'author'); });
+    document.getElementById('profile-tab-author').style.display = '';
+    document.getElementById('profile-tab-organization').style.display = 'none';
     document.getElementById('profile-modal').style.display = '';
   }
 
@@ -986,19 +995,36 @@ var App = (function() {
   }
 
   function saveProfileFromModal() {
+    // Check which tab is active to validate accordingly
+    var authorTabVisible = document.getElementById('profile-tab-author').style.display !== 'none';
+    if (authorTabVisible) {
+      var firstName = document.getElementById('profile-firstName').value.trim();
+      var lastName = document.getElementById('profile-lastName').value.trim();
+      if (!firstName || !lastName) {
+        showToast(i18n('First name and last name are required.'), 'error');
+        return;
+      }
+    }
+    // Save author profile
     var firstName = document.getElementById('profile-firstName').value.trim();
     var lastName = document.getElementById('profile-lastName').value.trim();
-    if (!firstName || !lastName) {
-      showToast(i18n('First name and last name are required.'), 'error');
-      return;
+    if (firstName && lastName) {
+      saveUserProfile({
+        firstName: firstName,
+        lastName: lastName,
+        affiliation: document.getElementById('profile-affiliation').value.trim(),
+        profession: document.getElementById('profile-profession').value.trim(),
+        orcid: document.getElementById('profile-orcid').value.trim()
+      });
     }
-    saveUserProfile({
-      firstName: firstName,
-      lastName: lastName,
-      affiliation: document.getElementById('profile-affiliation').value.trim(),
-      profession: document.getElementById('profile-profession').value.trim(),
-      orcid: document.getElementById('profile-orcid').value.trim()
-    });
+    // Save organization
+    var orgName = document.getElementById('org-name').value.trim();
+    if (orgName) {
+      saveOrganization({
+        name: orgName,
+        url: document.getElementById('org-url').value.trim()
+      });
+    }
     closeProfileModal();
   }
 
@@ -1013,11 +1039,9 @@ var App = (function() {
 
   function saveOrganization(org) {
     try { localStorage.setItem('indicate_organization', JSON.stringify(org)); } catch(e) {}
-    updateOrgBadge();
   }
 
   function detectDefaultOrganization() {
-    // Scan concept sets for a unique organization; use it as default
     var orgs = {};
     conceptSets.forEach(function(cs) {
       var o = cs.metadata && cs.metadata.organization;
@@ -1031,37 +1055,35 @@ var App = (function() {
     return null;
   }
 
-  function updateOrgBadge() {
-    var org = getOrganization();
-    if (!org) org = detectDefaultOrganization();
-    var el = document.getElementById('org-badge-name');
-    if (el) el.textContent = (org && org.name) ? org.name : i18n('Organization');
+  // ==================== SHARED EXPORT ====================
+  var pendingExport = null;
+
+  function openExportModal(exportData) {
+    pendingExport = exportData;
+    document.getElementById('settings-export-clipboard-desc').textContent = exportData.clipboardDesc || 'Copy content to clipboard';
+    document.getElementById('settings-export-file-desc').textContent = exportData.fileDesc || ('Download as ' + exportData.filename);
+    document.getElementById('settings-export-modal').style.display = 'flex';
   }
 
-  function openOrgModal() {
-    var org = getOrganization();
-    if (!org) org = detectDefaultOrganization() || {};
-    document.getElementById('org-name').value = org.name || '';
-    document.getElementById('org-url').value = org.url || '';
-    document.getElementById('org-modal').style.display = '';
-  }
-
-  function closeOrgModal() {
-    document.getElementById('org-modal').style.display = 'none';
-  }
-
-  function saveOrgFromModal() {
-    var name = document.getElementById('org-name').value.trim();
-    if (!name) {
-      showToast(i18n('Organization name is required.'), 'error');
-      return;
+  function executeExport(method) {
+    if (!pendingExport) return;
+    if (method === 'clipboard') {
+      navigator.clipboard.writeText(pendingExport.content).then(function() {
+        showToast('Copied to clipboard!', 'success');
+      }).catch(function() {
+        showToast('Could not copy to clipboard.', 'error');
+      });
+    } else {
+      var blob = new Blob([pendingExport.content], { type: pendingExport.type });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = pendingExport.filename;
+      a.click();
+      URL.revokeObjectURL(url);
     }
-    saveOrganization({
-      name: name,
-      url: document.getElementById('org-url').value.trim()
-    });
-    closeOrgModal();
-    showToast(i18n('Organization saved'));
+    document.getElementById('settings-export-modal').style.display = 'none';
+    pendingExport = null;
   }
 
   // ==================== SHARED EVENTS ====================
@@ -1076,12 +1098,11 @@ var App = (function() {
         langBtn.textContent = lang.toUpperCase();
         translateDOM();
         updateUserBadge();
-        updateOrgBadge();
         languageChangeCallbacks.forEach(function(cb) { cb(); });
       });
     }
 
-    // User profile modal events
+    // User profile modal events (tabbed: author + organization)
     var userBadge = document.getElementById('user-badge');
     if (userBadge) userBadge.addEventListener('click', openProfileModal);
 
@@ -1110,6 +1131,17 @@ var App = (function() {
       });
     }
 
+    // Profile modal tab switching
+    var profileTabBtns = document.querySelectorAll('.profile-modal-tab');
+    profileTabBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var tab = btn.getAttribute('data-profile-tab');
+        profileTabBtns.forEach(function(b) { b.classList.toggle('active', b === btn); });
+        document.getElementById('profile-tab-author').style.display = (tab === 'author') ? '' : 'none';
+        document.getElementById('profile-tab-organization').style.display = (tab === 'organization') ? '' : 'none';
+      });
+    });
+
     var profileModal = document.getElementById('profile-modal');
     if (profileModal) {
       profileModal.addEventListener('click', function(e) {
@@ -1117,30 +1149,14 @@ var App = (function() {
       });
     }
 
-    // Organization modal events
-    var orgBadge = document.getElementById('org-badge');
-    if (orgBadge) orgBadge.addEventListener('click', openOrgModal);
-
-    var orgClose = document.getElementById('org-modal-close');
-    if (orgClose) orgClose.addEventListener('click', closeOrgModal);
-
-    var orgCancel = document.getElementById('org-cancel');
-    if (orgCancel) orgCancel.addEventListener('click', closeOrgModal);
-
-    var orgSave = document.getElementById('org-save');
-    if (orgSave) orgSave.addEventListener('click', saveOrgFromModal);
-
-    var orgModal = document.getElementById('org-modal');
-    if (orgModal) {
-      orgModal.addEventListener('click', function(e) {
-        if (e.target === orgModal) closeOrgModal();
-      });
-    }
-
-    // Reset cache
-    var resetBtn = document.getElementById('reset-cache-btn');
-    if (resetBtn) {
-      resetBtn.addEventListener('click', function() {
+    // Reset cache (now in settings dropdown)
+    var resetLink = document.getElementById('reset-cache-link');
+    if (resetLink) {
+      resetLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Close settings dropdown
+        var menu = document.getElementById('nav-settings-menu');
+        if (menu) menu.style.display = 'none';
         document.getElementById('confirm-reset-modal').style.display = '';
       });
     }
@@ -1214,6 +1230,25 @@ var App = (function() {
         if (menu) menu.style.display = 'none';
       }
     });
+
+    // Shared export modal
+    var exportModal = document.getElementById('settings-export-modal');
+    if (exportModal) {
+      document.getElementById('settings-export-modal-close').addEventListener('click', function() {
+        exportModal.style.display = 'none';
+      });
+      document.getElementById('settings-export-cancel').addEventListener('click', function() {
+        exportModal.style.display = 'none';
+      });
+      exportModal.addEventListener('click', function(e) {
+        if (e.target === exportModal) exportModal.style.display = 'none';
+      });
+      exportModal.querySelectorAll('.export-option').forEach(function(opt) {
+        opt.addEventListener('click', function() {
+          executeExport(opt.dataset.method);
+        });
+      });
+    }
 
     // Header logo/title click -> go home (with unsaved-changes check)
     var headerLeft = document.querySelector('.header-left');
@@ -1436,6 +1471,7 @@ var App = (function() {
     get unitConversions() { return unitConversions; },
     get recommendedUnits() { return recommendedUnits; },
     get etlGuidelines() { return etlGuidelines; },
+    set etlGuidelines(v) { etlGuidelines = v; },
     get lang() { return lang; },
     set lang(v) { lang = v; },
     get resolvedIndex() { return resolvedIndex; },
@@ -1467,7 +1503,7 @@ var App = (function() {
     openProfileModal: openProfileModal,
     closeProfileModal: closeProfileModal,
     getOrganization: getOrganization,
-    updateOrgBadge: updateOrgBadge,
+    openExportModal: openExportModal,
     initSharedEvents: initSharedEvents,
     getCSData: getCSData,
     onLanguageChange: function(cb) { languageChangeCallbacks.push(cb); },

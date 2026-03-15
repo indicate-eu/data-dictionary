@@ -1,4 +1,14 @@
 {
   "conceptSetId": 3,
-  "resolvedConcepts": []
+  "resolvedConcepts": [
+    {
+      "conceptId": 2100000007,
+      "conceptName": "Behavioral Pain Scale (BPS)",
+      "vocabularyId": "INDICATE",
+      "domainId": "Measurement",
+      "conceptClassId": "Staging / Scales",
+      "conceptCode": "BPS",
+      "standardConcept": ""
+    }
+  ]
 }

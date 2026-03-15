@@ -29,22 +29,19 @@
       <i class="fas fa-book"></i>
       <span data-i18n="Data Dictionary">Data Dictionary</span>
     </a>
+    <a class="nav-tab" href="#/etl-guidelines" data-page="etl-guidelines">
+      <i class="fas fa-comment-dots"></i>
+      <span data-i18n="ETL Guidelines">ETL Guidelines</span>
+    </a>
     <a class="nav-tab" href="#/projects" data-page="projects">
       <i class="fas fa-list-check"></i>
       <span data-i18n="Projects">Projects</span>
     </a>
   </nav>
   <div class="header-right">
-    <button class="current-user-badge" id="org-badge" title="Edit organization">
-      <i class="fas fa-building"></i>
-      <span id="org-badge-name">Organization</span>
-    </button>
     <button class="current-user-badge" id="user-badge" title="Edit profile">
       <i class="fas fa-user-circle"></i>
       <span id="user-badge-name">Guest</span>
-    </button>
-    <button class="lang-toggle reset" id="reset-cache-btn" title="Reset local data">
-      <i class="fas fa-rotate-right" style="font-size:12px"></i> <span data-i18n="Reset">Reset</span>
     </button>
     <button class="lang-toggle" id="lang-toggle" title="Switch language">EN</button>
     <div class="nav-dropdown">
@@ -55,6 +52,8 @@
         <a href="#/general-settings" data-page="general-settings"><i class="fas fa-cog"></i> <span data-i18n="General Settings">General Settings</span></a>
         <a href="#/settings" data-page="settings"><i class="fas fa-book-medical"></i> <span data-i18n="Dictionary Settings">Dictionary Settings</span></a>
         <a href="#/dev-tools" data-page="dev-tools"><i class="fas fa-code"></i> <span data-i18n="Dev Tools">Dev Tools</span></a>
+        <div class="nav-dropdown-divider"></div>
+        <a href="#" id="reset-cache-link" class="nav-dropdown-danger"><i class="fas fa-rotate-right"></i> <span data-i18n="Reset local data">Reset local data</span></a>
       </div>
     </div>
   </div>
@@ -582,15 +581,60 @@
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════
+     PAGE: ETL Guidelines (#/etl-guidelines)
+     ═══════════════════════════════════════════════════════════ -->
+<div class="main page-container" id="page-etl-guidelines" style="display:none">
+  <!-- Toolbar -->
+  <div class="etl-page-toolbar">
+    <!-- Normal mode -->
+    <button class="btn-primary-custom" id="etl-page-export-btn">
+      <i class="fas fa-download"></i> <span data-i18n="Export">Export</span>
+    </button>
+    <button class="btn-primary-custom btn-gray" id="etl-page-edit-btn">
+      <i class="fas fa-pen"></i> <span data-i18n="Edit">Edit</span>
+    </button>
+    <!-- Edit mode (hidden by default) -->
+    <button class="btn-primary-custom btn-gray" id="etl-page-cancel-btn" style="display:none">
+      <i class="fas fa-times"></i> <span data-i18n="Cancel">Cancel</span>
+    </button>
+    <button class="btn-primary-custom" id="etl-page-save-btn" style="display:none">
+      <i class="fas fa-save"></i> <span data-i18n="Save">Save</span>
+    </button>
+  </div>
+  <!-- View mode -->
+  <div class="etl-view-container" id="etl-view-container">
+    <div class="markdown-body" id="etl-view-content">
+      <div class="markdown-preview-placeholder" data-i18n="No ETL guidelines available.">No ETL guidelines available.</div>
+    </div>
+  </div>
+  <!-- Edit mode -->
+  <div class="etl-edit-container" id="etl-edit-container">
+    <div class="etl-editor-layout">
+      <div class="etl-editor-pane">
+        <div class="etl-pane-header"><i class="fas fa-pencil-alt"></i> Markdown Editor</div>
+        <div class="etl-pane-body">
+          <div id="etl-page-ace-editor"></div>
+        </div>
+      </div>
+      <div class="etl-editor-pane">
+        <div class="etl-pane-header"><i class="fas fa-eye"></i> Preview</div>
+        <div class="etl-pane-body">
+          <div class="markdown-body" id="etl-page-preview">
+            <div class="markdown-preview-placeholder">Preview will appear here...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
      PAGE: Dictionary Settings (#/settings)
      ═══════════════════════════════════════════════════════════ -->
 <div class="main page-container" id="page-settings">
   <!-- Settings tabs -->
   <div class="settings-tabs" id="settings-tabs">
-    <button class="settings-tab active" data-tab="etl">
-      <i class="fas fa-comment-dots"></i> ETL Guidelines
-    </button>
-    <button class="settings-tab" data-tab="conversions">
+    <button class="settings-tab active" data-tab="conversions">
       <i class="fas fa-exchange-alt"></i> Unit Conversions
     </button>
     <button class="settings-tab" data-tab="units">
@@ -599,33 +643,8 @@
   </div>
 
   <div class="settings-content">
-    <!-- TAB 1: ETL Guidelines -->
-    <div class="settings-tab-content" id="tab-etl">
-      <div class="settings-toolbar">
-        <button class="btn-primary-custom" id="etl-export-btn">
-          <i class="fas fa-download"></i> Export
-        </button>
-      </div>
-      <div class="etl-editor-layout">
-        <div class="etl-editor-pane">
-          <div class="etl-pane-header"><i class="fas fa-pencil-alt"></i> Markdown Editor</div>
-          <div class="etl-pane-body">
-            <div id="etl-ace-editor"></div>
-          </div>
-        </div>
-        <div class="etl-editor-pane">
-          <div class="etl-pane-header"><i class="fas fa-eye"></i> Preview</div>
-          <div class="etl-pane-body">
-            <div class="markdown-body" id="etl-preview">
-              <div class="markdown-preview-placeholder">Preview will appear here...</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 2: Unit Conversions -->
-    <div class="settings-tab-content" id="tab-conversions" style="display:none">
+    <!-- TAB 1: Unit Conversions -->
+    <div class="settings-tab-content" id="tab-conversions">
       <div class="settings-toolbar">
         <input type="text" class="search-input" id="conv-search" placeholder="Search conversions...">
         <button class="tab-btn-green" id="conv-add-btn" style="margin-left:auto">
@@ -891,14 +910,22 @@ LIMIT 50</div>
      SHARED MODALS
      ═══════════════════════════════════════════════════════════ -->
 
-<!-- User Profile Modal -->
+<!-- User Profile & Organization Modal (tabbed) -->
 <div class="modal-overlay" id="profile-modal" style="display:none">
   <div class="modal" style="width:700px">
     <div class="modal-header">
       <h3 data-i18n="Edit Profile">Edit Profile</h3>
       <button class="modal-close" id="profile-modal-close">&times;</button>
     </div>
-    <div class="modal-body">
+    <div class="profile-modal-tabs">
+      <button class="profile-modal-tab active" data-profile-tab="author">
+        <i class="fas fa-user-circle"></i> <span data-i18n="Author">Author</span>
+      </button>
+      <button class="profile-modal-tab" data-profile-tab="organization">
+        <i class="fas fa-building"></i> <span data-i18n="Organization">Organization</span>
+      </button>
+    </div>
+    <div class="modal-body" id="profile-tab-author">
       <div class="form-group">
         <label data-i18n="Select an existing author">Select an existing author</label>
         <select id="profile-select-author" class="form-input">
@@ -931,23 +958,7 @@ LIMIT 50</div>
         <input type="text" id="profile-orcid" class="form-input" placeholder="0000-0000-0000-0000">
       </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn-cancel" id="profile-cancel" data-i18n="Cancel">Cancel</button>
-      <button class="btn-submit" id="profile-save">
-        <i class="fas fa-check"></i> <span data-i18n="Save">Save</span>
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- Organization Modal -->
-<div class="modal-overlay" id="org-modal" style="display:none">
-  <div class="modal" style="width:480px">
-    <div class="modal-header">
-      <h3><i class="fas fa-building"></i> <span data-i18n="Edit Organization">Edit Organization</span></h3>
-      <button class="modal-close" id="org-modal-close">&times;</button>
-    </div>
-    <div class="modal-body">
+    <div class="modal-body" id="profile-tab-organization" style="display:none">
       <div class="form-group">
         <label data-i18n="Organization Name *">Organization Name *</label>
         <input type="text" id="org-name" class="form-input" placeholder="e.g., INDICATE Consortium">
@@ -958,8 +969,10 @@ LIMIT 50</div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn-cancel" id="org-cancel" data-i18n="Cancel">Cancel</button>
-      <button class="btn-submit" id="org-save"><i class="fas fa-check"></i> <span data-i18n="Save">Save</span></button>
+      <button class="btn-cancel" id="profile-cancel" data-i18n="Cancel">Cancel</button>
+      <button class="btn-submit" id="profile-save">
+        <i class="fas fa-check"></i> <span data-i18n="Save">Save</span>
+      </button>
     </div>
   </div>
 </div>
@@ -1546,18 +1559,18 @@ Enter your review comments here using Markdown syntax.
     </div>
     <div class="modal-body">
       <div class="export-options-container">
-        <div class="export-option" data-method="clipboard">
-          <div class="export-option-icon"><i class="fas fa-clipboard" style="color:#0f60af"></i></div>
-          <div class="export-option-content">
-            <h5 class="export-option-title">Copy to Clipboard</h5>
-            <p class="export-option-subtitle" id="settings-export-clipboard-desc">Copy the content to clipboard</p>
-          </div>
-        </div>
         <div class="export-option" data-method="file">
-          <div class="export-option-icon"><i class="fas fa-file-download" style="color:#28a745"></i></div>
+          <div class="export-option-icon"><i class="fas fa-file-download" style="color:#0f60af"></i></div>
           <div class="export-option-content">
             <h5 class="export-option-title">Download File</h5>
             <p class="export-option-subtitle" id="settings-export-file-desc">Download as a file</p>
+          </div>
+        </div>
+        <div class="export-option" data-method="clipboard">
+          <div class="export-option-icon"><i class="fas fa-clipboard" style="color:#28a745"></i></div>
+          <div class="export-option-content">
+            <h5 class="export-option-title">Copy to Clipboard</h5>
+            <p class="export-option-subtitle" id="settings-export-clipboard-desc">Copy the content to clipboard</p>
           </div>
         </div>
       </div>
@@ -1780,6 +1793,7 @@ Enter your review comments here using Markdown syntax.
 <script src="router.js"></script>
 <script src="concept-sets.js"></script>
 <script src="projects.js"></script>
+<script src="etl-guidelines.js"></script>
 <script src="settings.js"></script>
 <script src="general-settings.js"></script>
 <script src="dev-tools.js"></script>

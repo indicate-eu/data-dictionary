@@ -48,12 +48,20 @@ def main():
     recommended_units = load_json_file(os.path.join(ROOT, "units", "recommended_units.json"))
     etl_guidelines = load_text_file(os.path.join(ROOT, "etl_guidelines", "etl_guidelines.md"))
 
-    # Compute a content hash from concept set fingerprints (id + modifiedDate + version)
+    # Compute a content hash from all data sources
     cs_fingerprint = "|".join(
         str(cs["id"]) + ":" + cs.get("modifiedDate", "") + ":" + cs.get("version", "")
         for cs in concept_sets
     )
-    data_hash = hashlib.sha256(cs_fingerprint.encode()).hexdigest()[:16]
+    proj_fingerprint = "|".join(
+        str(p["id"]) + ":" + p.get("modifiedDate", "")
+        for p in projects
+    )
+    units_fingerprint = hashlib.sha256(json.dumps(unit_conversions, sort_keys=True).encode()).hexdigest()[:16]
+    rec_units_fingerprint = hashlib.sha256(json.dumps(recommended_units, sort_keys=True).encode()).hexdigest()[:16]
+    etl_fingerprint = hashlib.sha256(etl_guidelines.encode()).hexdigest()[:16] if etl_guidelines else ""
+    full_fingerprint = "\n".join([cs_fingerprint, proj_fingerprint, units_fingerprint, rec_units_fingerprint, etl_fingerprint])
+    data_hash = hashlib.sha256(full_fingerprint.encode()).hexdigest()[:16]
 
     data = {
         "dataVersion": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),

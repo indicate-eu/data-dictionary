@@ -5,8 +5,7 @@ var SettingsPage = (function() {
   var initialized = false;
 
   // ==================== STATE ====================
-  var activeTab = 'etl';
-  var etlEditor = null;
+  var activeTab = 'conversions';
 
   // Session-editable copies
   var convData = [];
@@ -15,9 +14,6 @@ var SettingsPage = (function() {
   // Search state
   var convSearch = '';
   var ruSearch = '';
-
-  // Export callback holder
-  var pendingExport = null;
 
   // Delete callback holder
   var pendingDelete = null;
@@ -58,45 +54,10 @@ var SettingsPage = (function() {
     document.querySelectorAll('#settings-tabs .settings-tab').forEach(function(btn) {
       btn.classList.toggle('active', btn.dataset.tab === tab);
     });
-    ['etl', 'conversions', 'units'].forEach(function(t) {
+    ['conversions', 'units'].forEach(function(t) {
       var el = document.getElementById('tab-' + t);
       if (el) el.style.display = (t === tab) ? '' : 'none';
     });
-    if (tab === 'etl') initEtlEditor();
-  }
-
-  // ==================== ETL GUIDELINES ====================
-  function initEtlEditor() {
-    if (etlEditor) { etlEditor.resize(); return; }
-    etlEditor = ace.edit('etl-ace-editor');
-    etlEditor.setTheme('ace/theme/chrome');
-    etlEditor.session.setMode('ace/mode/markdown');
-    etlEditor.setFontSize(13);
-    etlEditor.setShowPrintMargin(false);
-    etlEditor.session.setUseWrapMode(true);
-    etlEditor.setValue(App.etlGuidelines || '', -1);
-    etlEditor.session.on('change', function() {
-      var md = etlEditor.getValue();
-      var preview = document.getElementById('etl-preview');
-      if (!md.trim()) {
-        preview.innerHTML = '<div class="markdown-preview-placeholder">Preview will appear here...</div>';
-      } else {
-        preview.innerHTML = marked.parse(md);
-      }
-    });
-    // Trigger initial render
-    var initMd = etlEditor.getValue();
-    if (initMd.trim()) {
-      document.getElementById('etl-preview').innerHTML = marked.parse(initMd);
-    }
-  }
-
-  function exportEtl() {
-    var content = etlEditor ? etlEditor.getValue() : (App.etlGuidelines || '');
-    pendingExport = { content: content, filename: 'etl_guidelines.md', type: 'text/markdown' };
-    document.getElementById('settings-export-clipboard-desc').textContent = 'Copy Markdown content to clipboard';
-    document.getElementById('settings-export-file-desc').textContent = 'Download as etl_guidelines.md';
-    document.getElementById('settings-export-modal').style.display = 'flex';
   }
 
   // ==================== UNIT CONVERSIONS ====================
@@ -285,10 +246,7 @@ var SettingsPage = (function() {
 
   function exportConv() {
     var json = JSON.stringify(convData, null, 2);
-    pendingExport = { content: json, filename: 'unit_conversions.json', type: 'application/json' };
-    document.getElementById('settings-export-clipboard-desc').textContent = 'Copy JSON to clipboard';
-    document.getElementById('settings-export-file-desc').textContent = 'Download as unit_conversions.json';
-    document.getElementById('settings-export-modal').style.display = 'flex';
+    App.openExportModal({ content: json, filename: 'unit_conversions.json', type: 'application/json', clipboardDesc: 'Copy JSON to clipboard', fileDesc: 'Download as unit_conversions.json' });
   }
 
   // ==================== RECOMMENDED UNITS ====================
@@ -383,32 +341,7 @@ var SettingsPage = (function() {
 
   function exportRU() {
     var json = JSON.stringify(ruData, null, 2);
-    pendingExport = { content: json, filename: 'recommended_units.json', type: 'application/json' };
-    document.getElementById('settings-export-clipboard-desc').textContent = 'Copy JSON to clipboard';
-    document.getElementById('settings-export-file-desc').textContent = 'Download as recommended_units.json';
-    document.getElementById('settings-export-modal').style.display = 'flex';
-  }
-
-  // ==================== SHARED EXPORT MODAL ====================
-  function executeExport(method) {
-    if (!pendingExport) return;
-    if (method === 'clipboard') {
-      navigator.clipboard.writeText(pendingExport.content).then(function() {
-        App.showToast('Copied to clipboard!', 'success');
-      }).catch(function() {
-        App.showToast('Could not copy to clipboard.', 'error');
-      });
-    } else {
-      var blob = new Blob([pendingExport.content], { type: pendingExport.type });
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement('a');
-      a.href = url;
-      a.download = pendingExport.filename;
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-    document.getElementById('settings-export-modal').style.display = 'none';
-    pendingExport = null;
+    App.openExportModal({ content: json, filename: 'recommended_units.json', type: 'application/json', clipboardDesc: 'Copy JSON to clipboard', fileDesc: 'Download as recommended_units.json' });
   }
 
   // ==================== EVENTS ====================
@@ -418,9 +351,6 @@ var SettingsPage = (function() {
       var btn = e.target.closest('.settings-tab');
       if (btn) switchTab(btn.dataset.tab);
     });
-
-    // ETL export
-    document.getElementById('etl-export-btn').addEventListener('click', exportEtl);
 
     // Conversions: search
     document.getElementById('conv-search').addEventListener('input', function(e) {
@@ -498,22 +428,6 @@ var SettingsPage = (function() {
       if (e.target === this) this.style.display = 'none';
     });
 
-    // Settings export modal
-    document.getElementById('settings-export-modal-close').addEventListener('click', function() {
-      document.getElementById('settings-export-modal').style.display = 'none';
-    });
-    document.getElementById('settings-export-cancel').addEventListener('click', function() {
-      document.getElementById('settings-export-modal').style.display = 'none';
-    });
-    document.getElementById('settings-export-modal').addEventListener('click', function(e) {
-      if (e.target === this) this.style.display = 'none';
-    });
-    document.querySelectorAll('#settings-export-modal .export-option').forEach(function(opt) {
-      opt.addEventListener('click', function() {
-        executeExport(opt.dataset.method);
-      });
-    });
-
     // Delete confirmation modal
     document.getElementById('delete-modal-close').addEventListener('click', function() {
       document.getElementById('delete-modal').style.display = 'none';
@@ -538,15 +452,12 @@ var SettingsPage = (function() {
     // Deep copy data into session-editable arrays
     convData = JSON.parse(JSON.stringify(App.unitConversions));
     ruData = JSON.parse(JSON.stringify(App.recommendedUnits));
-    initEtlEditor();
     renderConvTable();
     renderRUTable();
   }
 
   function show() {
     init();
-    // Resize Ace editor when showing (may have been hidden)
-    if (etlEditor) etlEditor.resize();
   }
 
   function hide() {
