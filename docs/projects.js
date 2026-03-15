@@ -235,6 +235,7 @@ var ProjectsPage = (function() {
   }
 
   function updateEditButtons() {
+    document.getElementById('proj-export-json').style.display = editMode ? 'none' : '';
     document.getElementById('proj-edit-btn').style.display = editMode ? 'none' : '';
     document.getElementById('proj-edit-cancel-btn').style.display = editMode ? '' : 'none';
     document.getElementById('proj-edit-save-btn').style.display = editMode ? '' : 'none';
@@ -747,6 +748,21 @@ var ProjectsPage = (function() {
       a.download = (projTr.name || 'project').replace(/[^a-zA-Z0-9]/g, '_') + '_concepts.csv';
       a.click();
       URL.revokeObjectURL(url);
+    });
+
+    // Project JSON export
+    document.getElementById('proj-export-json').addEventListener('click', function() {
+      if (!selectedProject) return;
+      var json = JSON.stringify(selectedProject, null, 2);
+      App.openExportModal({
+        title: App.i18n('Export Project'),
+        content: json,
+        filename: selectedProject.id + '.json',
+        type: 'application/json',
+        clipboardDesc: App.i18n('Copy JSON to clipboard'),
+        fileDesc: App.i18n('Download as ' + selectedProject.id + '.json'),
+        githubUrl: 'https://github.com/indicate-eu/data-dictionary-content/edit/main/projects/' + selectedProject.id + '.json'
+      });
     });
 
     // ==================== EDIT MODE EVENTS ====================

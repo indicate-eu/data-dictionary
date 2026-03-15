@@ -4025,6 +4025,18 @@ var ConceptSetsPage = (function() {
   }
 
   function exportStepMethod(method) {
+    if (method === 'github') {
+      // GitHub always uses INDICATE JSON — skip format step
+      if (!selectedConceptSet) return;
+      var json = buildIndicateJSON();
+      navigator.clipboard.writeText(json).then(function() {
+        App.showToast(App.i18n('JSON copied to clipboard! Paste it in the GitHub editor.'), 'success', 5000);
+      }).catch(function() {});
+      var url = 'https://github.com/' + GITHUB_REPO + '/edit/main/concept_sets/' + selectedConceptSet.id + '.json';
+      window.open(url, '_blank');
+      closeExportModal();
+      return;
+    }
     exportMethod = method;
     document.getElementById('export-step-method').style.display = 'none';
     document.getElementById('export-step-format').style.display = '';

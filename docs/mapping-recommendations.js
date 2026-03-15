@@ -89,11 +89,13 @@ var MappingRecommendationsPage = (function() {
   function exportMapping() {
     var content = JSON.stringify(App.mappingRecommendations, null, 2);
     App.openExportModal({
+      title: App.i18n('Export Mapping Recommendations'),
       content: content,
       filename: 'mapping_recommendations.json',
       type: 'application/json',
-      clipboardDesc: 'Copy JSON to clipboard',
-      fileDesc: 'Download as mapping_recommendations.json'
+      clipboardDesc: App.i18n('Copy JSON to clipboard'),
+      fileDesc: App.i18n('Download as mapping_recommendations.json'),
+      githubUrl: 'https://github.com/indicate-eu/data-dictionary-content/edit/main/mapping_recommendations/mapping_recommendations.json'
     });
   }
 

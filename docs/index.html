@@ -396,6 +396,7 @@
       <span class="project-name-badge" id="proj-detail-title"></span>
       <div class="detail-meta" id="proj-detail-meta"></div>
       <div style="margin-left:auto; display:flex; gap:6px; align-items:center">
+        <button class="btn-primary-custom" id="proj-export-json" title="Export"><i class="fas fa-download"></i> <span data-i18n="Export">Export</span></button>
         <button class="btn-primary-custom btn-gray" id="proj-edit-btn" title="Edit"><i class="fas fa-pen"></i> <span data-i18n="Edit">Edit</span></button>
         <button class="btn-primary-custom btn-gray" id="proj-edit-cancel-btn" style="display:none"><i class="fas fa-times"></i> <span data-i18n="Cancel">Cancel</span></button>
         <button class="btn-primary-custom" id="proj-edit-save-btn" style="display:none"><i class="fas fa-save"></i> <span data-i18n="Save">Save</span></button>
@@ -1046,6 +1047,13 @@ LIMIT 50</div>
               <p class="export-option-subtitle" data-i18n="Copy the concept set in OHDSI-compliant JSON format to clipboard">Copy the concept set in OHDSI-compliant JSON format to clipboard</p>
             </div>
           </div>
+          <div class="export-option" data-method="github">
+            <div class="export-option-icon"><i class="fab fa-github" style="color:#6f42c1"></i></div>
+            <div class="export-option-content">
+              <h5 class="export-option-title" data-i18n="Propose on GitHub">Propose on GitHub</h5>
+              <p class="export-option-subtitle" data-i18n="Copy to clipboard and open GitHub editor">Copy to clipboard and open GitHub editor</p>
+            </div>
+          </div>
         </div>
       </div>
       <!-- Step 2: Choose format -->
@@ -1551,11 +1559,11 @@ Enter your review comments here using Markdown syntax.
      SETTINGS PAGE MODALS
      ═══════════════════════════════════════════════════════════ -->
 
-<!-- Settings Export Modal (simple: clipboard or file) -->
+<!-- Settings Export Modal (simple: clipboard or file, optional GitHub) -->
 <div class="modal-overlay" id="settings-export-modal" style="display:none">
   <div class="modal" style="max-width:500px">
     <div class="modal-header">
-      <h3><i class="fas fa-download"></i> Export</h3>
+      <h3><i class="fas fa-download"></i> <span id="settings-export-title">Export</span></h3>
       <button class="modal-close" id="settings-export-modal-close">&times;</button>
     </div>
     <div class="modal-body">
@@ -1563,21 +1571,28 @@ Enter your review comments here using Markdown syntax.
         <div class="export-option" data-method="file">
           <div class="export-option-icon"><i class="fas fa-file-download" style="color:#0f60af"></i></div>
           <div class="export-option-content">
-            <h5 class="export-option-title">Download File</h5>
+            <h5 class="export-option-title" data-i18n="Download File">Download File</h5>
             <p class="export-option-subtitle" id="settings-export-file-desc">Download as a file</p>
           </div>
         </div>
         <div class="export-option" data-method="clipboard">
           <div class="export-option-icon"><i class="fas fa-clipboard" style="color:#28a745"></i></div>
           <div class="export-option-content">
-            <h5 class="export-option-title">Copy to Clipboard</h5>
+            <h5 class="export-option-title" data-i18n="Copy to Clipboard">Copy to Clipboard</h5>
             <p class="export-option-subtitle" id="settings-export-clipboard-desc">Copy the content to clipboard</p>
+          </div>
+        </div>
+        <div class="export-option" data-method="github" id="settings-export-github-option" style="display:none">
+          <div class="export-option-icon"><i class="fab fa-github" style="color:#6f42c1"></i></div>
+          <div class="export-option-content">
+            <h5 class="export-option-title" data-i18n="Propose on GitHub">Propose on GitHub</h5>
+            <p class="export-option-subtitle" id="settings-export-github-desc" data-i18n="Copy to clipboard and open GitHub editor">Copy to clipboard and open GitHub editor</p>
           </div>
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn-cancel" id="settings-export-cancel">Cancel</button>
+      <button class="btn-cancel" id="settings-export-cancel" data-i18n="Cancel">Cancel</button>
     </div>
   </div>
 </div>

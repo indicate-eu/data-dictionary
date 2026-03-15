@@ -690,6 +690,16 @@ var App = (function() {
     // Review form
     'Submit Review':                 { fr: 'Soumettre la relecture' },
     'Propose on GitHub':             { fr: 'Proposer sur GitHub' },
+    'Copy to clipboard and open GitHub editor': { fr: 'Copier dans le presse-papiers et ouvrir l\'éditeur GitHub' },
+    'JSON copied to clipboard! Paste it in the GitHub editor.': { fr: 'JSON copié dans le presse-papiers ! Collez-le dans l\'éditeur GitHub.' },
+    'Download File':                 { fr: 'Télécharger le fichier' },
+    'Copy to Clipboard':             { fr: 'Copier dans le presse-papiers' },
+    'Export Concept Set':            { fr: 'Exporter le Concept Set' },
+    'Export Mapping Recommendations': { fr: 'Exporter les Recommandations de Mapping' },
+    'Export Project':                { fr: 'Exporter le Projet' },
+    'Copy JSON to clipboard':        { fr: 'Copier le JSON dans le presse-papiers' },
+    'Copied to clipboard!':          { fr: 'Copié dans le presse-papiers !' },
+    'Could not copy to clipboard.':  { fr: 'Impossible de copier dans le presse-papiers.' },
     '-- Select status --':           { fr: '-- Sélectionner un statut --' },
     'Status:':                       { fr: 'Statut :' },
 
@@ -1063,18 +1073,27 @@ var App = (function() {
 
   function openExportModal(exportData) {
     pendingExport = exportData;
+    var titleEl = document.getElementById('settings-export-title');
+    titleEl.textContent = exportData.title || 'Export';
     document.getElementById('settings-export-clipboard-desc').textContent = exportData.clipboardDesc || 'Copy content to clipboard';
     document.getElementById('settings-export-file-desc').textContent = exportData.fileDesc || ('Download as ' + exportData.filename);
+    var githubOption = document.getElementById('settings-export-github-option');
+    githubOption.style.display = exportData.githubUrl ? '' : 'none';
     document.getElementById('settings-export-modal').style.display = 'flex';
   }
 
   function executeExport(method) {
     if (!pendingExport) return;
-    if (method === 'clipboard') {
+    if (method === 'github') {
       navigator.clipboard.writeText(pendingExport.content).then(function() {
-        showToast('Copied to clipboard!', 'success');
+        showToast(i18n('JSON copied to clipboard! Paste it in the GitHub editor.'), 'success', 5000);
+      }).catch(function() {});
+      window.open(pendingExport.githubUrl, '_blank');
+    } else if (method === 'clipboard') {
+      navigator.clipboard.writeText(pendingExport.content).then(function() {
+        showToast(i18n('Copied to clipboard!'), 'success');
       }).catch(function() {
-        showToast('Could not copy to clipboard.', 'error');
+        showToast(i18n('Could not copy to clipboard.'), 'error');
       });
     } else {
       var blob = new Blob([pendingExport.content], { type: pendingExport.type });
