@@ -11,21 +11,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4188706,
-      "conceptName": "Axillary temperature",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "415882003",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 3025085,
       "conceptName": "Axillary temperature",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "8328-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4188706,
+      "conceptName": "Axillary temperature",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "415882003",
       "standardConcept": "S"
     },
     {
@@ -272,15 +272,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 44782834,
-      "conceptName": "Nasopharyngeal temperature",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "698831002",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 21490590,
       "conceptName": "Nasopharyngeal temperature",
       "vocabularyId": "LOINC",
@@ -290,12 +281,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4218834,
-      "conceptName": "Oral temperature",
+      "conceptId": 44782834,
+      "conceptName": "Nasopharyngeal temperature",
       "vocabularyId": "SNOMED",
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
-      "conceptCode": "415945006",
+      "conceptCode": "698831002",
       "standardConcept": "S"
     },
     {
@@ -305,6 +296,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "8331-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4218834,
+      "conceptName": "Oral temperature",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "415945006",
       "standardConcept": "S"
     },
     {

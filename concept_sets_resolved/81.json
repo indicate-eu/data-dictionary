@@ -119,21 +119,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40737581,
-      "conceptName": "Colistin 1000000 UNT/ML Oral Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4719629",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 21125345,
       "conceptName": "Colistin 1000000 UNT/ML Oral Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
       "conceptCode": "OMOP276163",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40737581,
+      "conceptName": "Colistin 1000000 UNT/ML Oral Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4719629",
       "standardConcept": "S"
     },
     {

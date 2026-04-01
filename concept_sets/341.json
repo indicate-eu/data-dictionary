@@ -5,8 +5,8 @@
   "version": "1.0.0",
   "createdBy": "Gregor Lichtner",
   "createdDate": "2026-03-23",
-  "modifiedBy": "Gregor Lichtner",
-  "modifiedDate": "2026-03-23",
+  "modifiedBy": "Jan Moringen",
+  "modifiedDate": "2026-04-01",
   "createdByTool": null,
   "expression": {
     "items": [
@@ -195,8 +195,13 @@
     "translations": {
       "en": {
         "name": "Certoparin",
-        "category": "Medication",
-        "subcategory": "Anticoagulant"
+        "category": "Drug",
+        "subcategory": "Anticoagulants"
+      },
+      "fr": {
+        "name": "Acenocoumarol",
+        "category": "Traitements",
+        "subcategory": "Anticoagulants"
       }
     },
     "createdByDetails": {

@@ -29,6 +29,33 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3034962,
+      "conceptName": "Glucose [Mass/volume] in Capillary blood by Glucometer",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "41653-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1092148,
+      "conceptName": "Glucose [Mass/volume] in Mixed venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "104655-6",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3004501,
+      "conceptName": "Glucose [Mass/volume] in Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "2345-7",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3033408,
       "conceptName": "Glucose [Mass/volume] in Venous blood",
       "vocabularyId": "LOINC",
@@ -80,33 +107,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "39480-9",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3004501,
-      "conceptName": "Glucose [Mass/volume] in Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "2345-7",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1092148,
-      "conceptName": "Glucose [Mass/volume] in Mixed venous blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "104655-6",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3034962,
-      "conceptName": "Glucose [Mass/volume] in Capillary blood by Glucometer",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "41653-7",
       "standardConcept": "S"
     }
   ]

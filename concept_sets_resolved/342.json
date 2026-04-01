@@ -8,7 +8,7 @@
       "domainId": "Observation",
       "conceptClassId": "LOINC Component",
       "conceptCode": "LP74704-5",
-      "standardConcept": ""
+      "standardConcept": null
     }
   ]
 }

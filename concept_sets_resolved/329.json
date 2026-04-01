@@ -101,21 +101,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4152194,
-      "conceptName": "Systolic blood pressure",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "271649006",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 3004249,
       "conceptName": "Systolic blood pressure",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "8480-6",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4152194,
+      "conceptName": "Systolic blood pressure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "271649006",
       "standardConcept": "S"
     },
     {
