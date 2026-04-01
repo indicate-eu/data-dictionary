@@ -1,0 +1,86 @@
+{
+  "conceptSetId": 341,
+  "resolvedConcepts": [
+    {
+      "conceptId": 19016075,
+      "conceptName": "certoparin 6000 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "152615",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41243163,
+      "conceptName": "certoparin 10 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2441125",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40868520,
+      "conceptName": "certoparin 10 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2066482",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43660807,
+      "conceptName": "certoparin 10000 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP700837",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41212204,
+      "conceptName": "certoparin 6 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2410166",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43714526,
+      "conceptName": "certoparin 83.3 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP700889",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42712720,
+      "conceptName": "certoparin 83.5 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2737671",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42902725,
+      "conceptName": "certoparin sodium 10000 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1359838",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41149738,
+      "conceptName": "certoparin 6000 UNT/ML / Dihydroergotamine 1 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2347700",
+      "standardConcept": "S"
+    }
+  ]
+}

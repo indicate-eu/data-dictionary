@@ -1,0 +1,137 @@
+{
+  "id": 340,
+  "name": "Ventilation mode - Volume driven (VCV)",
+  "description": null,
+  "version": "1.0.0",
+  "createdBy": "Gregor Lichtner",
+  "createdDate": "2026-03-23",
+  "modifiedBy": "Gregor Lichtner",
+  "modifiedDate": "2026-03-23",
+  "createdByTool": null,
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 37152409,
+          "conceptName": "Assist control ventilation volume-control inflation-type",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186745009",
+          "validStartDate": "2021-11-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4055375,
+          "conceptName": "Assisted controlled mandatory ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "243150007",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4245036,
+          "conceptName": "Synchronized intermittent mandatory ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "59427005",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152363,
+          "conceptName": "Synchronized intermittent mandatory ventilation - volume control pressure-support inflation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186621003",
+          "validStartDate": "2022-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152385,
+          "conceptName": "Synchronized intermittent mandatory ventilation volume control inflation and an assured constant airway pressure adjunct during expiratory phase",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186680000",
+          "validStartDate": "2022-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "d11e6964-52e0-4751-8069-d5d2778a8b61",
+    "organization": {
+      "name": "INDICATE Consortium",
+      "url": "https://indicate-eu.org"
+    },
+    "reviewStatus": "draft",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Ventilation mode - Volume driven (VCV)",
+        "category": "Ventilation",
+        "subcategory": "Ventilation mode"
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Gregor",
+      "lastName": "Lichtner",
+      "affiliation": "Universitätsmedizin Greifswald",
+      "profession": "Medical Informatics",
+      "orcid": null
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

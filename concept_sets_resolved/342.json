@@ -1,0 +1,14 @@
+{
+  "conceptSetId": 342,
+  "resolvedConcepts": [
+    {
+      "conceptId": 1032192,
+      "conceptName": "Decision authority documented",
+      "vocabularyId": "LOINC",
+      "domainId": "Observation",
+      "conceptClassId": "LOINC Component",
+      "conceptCode": "LP74704-5",
+      "standardConcept": ""
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "id": 342,
+  "name": "Decision authority documented",
+  "description": null,
+  "version": "1.0.0",
+  "createdBy": "Gregor Lichtner",
+  "createdDate": "2026-03-23",
+  "modifiedBy": "Gregor Lichtner",
+  "modifiedDate": "2026-03-23",
+  "createdByTool": null,
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 1032192,
+          "conceptName": "Decision authority documented",
+          "domainId": "Observation",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Component",
+          "standardConcept": "",
+          "standardConceptCaption": "Non-standard",
+          "conceptCode": "LP74704-5",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "636d7391-30a3-4ba4-b121-f062fab79c34",
+    "organization": {
+      "name": "INDICATE Consortium",
+      "url": "https://indicate-eu.org"
+    },
+    "reviewStatus": "draft",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Decision authority documented",
+        "category": "Clinical observation",
+        "subcategory": "Care planning"
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Gregor",
+      "lastName": "Lichtner",
+      "affiliation": "Universitätsmedizin Greifswald",
+      "profession": "Medical Informatics",
+      "orcid": null
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

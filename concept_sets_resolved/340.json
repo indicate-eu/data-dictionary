@@ -1,0 +1,50 @@
+{
+  "conceptSetId": 340,
+  "resolvedConcepts": [
+    {
+      "conceptId": 37152409,
+      "conceptName": "Assist control ventilation volume-control inflation-type",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186745009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4055375,
+      "conceptName": "Assisted controlled mandatory ventilation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "243150007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4245036,
+      "conceptName": "Synchronized intermittent mandatory ventilation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "59427005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152363,
+      "conceptName": "Synchronized intermittent mandatory ventilation - volume control pressure-support inflation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186621003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152385,
+      "conceptName": "Synchronized intermittent mandatory ventilation volume control inflation and an assured constant airway pressure adjunct during expiratory phase",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186680000",
+      "standardConcept": "S"
+    }
+  ]
+}
