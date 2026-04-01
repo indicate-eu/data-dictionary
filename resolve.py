@@ -162,7 +162,7 @@ def resolve_concept_set(con, items):
                 })
 
     result = db_concepts + custom_concepts
-    result.sort(key=lambda x: x.get("conceptName", ""))
+    result.sort(key=lambda x: x.get("conceptName", "").ljust(100) + str(x.get("conceptId")))
     return result
 
 
