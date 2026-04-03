@@ -2,6 +2,15 @@
   "conceptSetId": 339,
   "resolvedConcepts": [
     {
+      "conceptId": 4072515,
+      "conceptName": "Airway pressure release ventilation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "243143008",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 37152410,
       "conceptName": "Assist control ventilation pressure control inflation-type",
       "vocabularyId": "SNOMED",
@@ -17,42 +26,6 @@
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "1186748006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37152388,
-      "conceptName": "Synchronized intermittent mandatory ventilation with pressure-control, an assured constant airway pressure adjunct and pressure-support at the higher pressure level only",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1186683003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37152387,
-      "conceptName": "Synchronized intermittent mandatory ventilation with pressure-control, one level of pressure-support active during both phases and an assured constant airway pressure adjunct",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1186682008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37152386,
-      "conceptName": "Synchronized intermittent mandatory ventilation with pressure-control, two levels of pressure-support and an assured constant airway pressure adjunct",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1186681001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4072515,
-      "conceptName": "Airway pressure release ventilation",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "243143008",
       "standardConcept": "S"
     },
     {
@@ -98,6 +71,33 @@
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "1186679003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152388,
+      "conceptName": "Synchronized intermittent mandatory ventilation with pressure-control, an assured constant airway pressure adjunct and pressure-support at the higher pressure level only",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186683003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152387,
+      "conceptName": "Synchronized intermittent mandatory ventilation with pressure-control, one level of pressure-support active during both phases and an assured constant airway pressure adjunct",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186682008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152386,
+      "conceptName": "Synchronized intermittent mandatory ventilation with pressure-control, two levels of pressure-support and an assured constant airway pressure adjunct",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186681001",
       "standardConcept": "S"
     },
     {
