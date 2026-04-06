@@ -11,7 +11,8 @@
     '/projects':        { el: 'page-projects',        mod: ProjectsPage },
     '/settings':        { el: 'page-settings',        mod: SettingsPage },
     '/general-settings':{ el: 'page-general-settings', mod: GeneralSettingsPage },
-    '/dev-tools':       { el: 'page-dev-tools',       mod: DevToolsPage }
+    '/dev-tools':       { el: 'page-dev-tools',       mod: DevToolsPage },
+    '/documentation':   { el: 'page-documentation',   mod: DocumentationPage }
   };
 
   var currentPage = null;
@@ -55,6 +56,7 @@
   if (ConceptSetsPage.onLanguageChange) App.onLanguageChange(ConceptSetsPage.onLanguageChange);
   if (ProjectsPage.onLanguageChange) App.onLanguageChange(ProjectsPage.onLanguageChange);
   if (MappingRecommendationsPage.onLanguageChange) App.onLanguageChange(MappingRecommendationsPage.onLanguageChange);
+  if (DocumentationPage.onLanguageChange) App.onLanguageChange(DocumentationPage.onLanguageChange);
 
   // Centralized Escape key handler
   document.addEventListener('keydown', function (e) {
