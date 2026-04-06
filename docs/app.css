@@ -2894,6 +2894,41 @@ select.form-input { appearance: auto; }
 .doc-mock-modal .btn-cancel,
 .doc-mock-modal .btn-submit { opacity: 0.6; cursor: default; }
 
+/* Documentation draft sections */
+.doc-draft-badge {
+  display: inline-block;
+  background: #e67700;
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.doc-sidebar-nav li a.doc-draft { opacity: 0.7; }
+.doc-sidebar-nav li a.doc-draft:hover { opacity: 1; }
+.doc-draft-placeholder {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-muted);
+}
+.doc-draft-placeholder i {
+  font-size: 48px;
+  color: #e67700;
+  margin-bottom: 16px;
+  display: block;
+}
+.doc-draft-placeholder h2 {
+  border: none;
+  color: var(--text-muted);
+  margin: 0 0 8px 0;
+  padding: 0;
+}
+.doc-draft-placeholder p { font-size: 15px; }
+
 /* Documentation responsive */
 @media (max-width: 768px) {
   #page-documentation .doc-sidebar { display: none; }

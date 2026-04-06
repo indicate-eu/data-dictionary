@@ -5,6 +5,11 @@ var DocumentationPage = (function() {
   var initialized = false;
   var currentSection = 'introduction';
 
+  function isDev() {
+    var h = window.location.hostname;
+    return h === 'localhost' || h === '127.0.0.1' || h === '';
+  }
+
   // ==================== SIDEBAR STRUCTURE ====================
 
   function sections() {
@@ -23,28 +28,28 @@ var DocumentationPage = (function() {
           { id: 'what-are-concept-sets', label: en ? 'What are Concept Sets?' : 'Les jeux de concepts' },
           { id: 'browsing', label: en ? 'Browsing Concept Sets' : 'Parcourir les jeux de concepts' },
           { id: 'concept-set-details', label: en ? 'Concept Set Details' : 'D\u00e9tails d\u2019un jeu de concepts' },
-          { id: 'editing-concept-sets', label: en ? 'Editing Concept Sets' : 'Modifier un jeu de concepts' },
-          { id: 'reviewing', label: en ? 'Reviewing & GitHub' : 'Relecture & GitHub' },
-          { id: 'exporting', label: en ? 'Exporting' : 'Exporter' }
+          { id: 'editing-concept-sets', label: en ? 'Editing Concept Sets' : 'Modifier un jeu de concepts', draft: true },
+          { id: 'reviewing', label: en ? 'Reviewing & GitHub' : 'Relecture & GitHub', draft: true },
+          { id: 'exporting', label: en ? 'Exporting' : 'Exporter', draft: true }
         ]
       },
       {
         title: en ? 'Projects' : 'Projets',
         items: [
-          { id: 'projects', label: en ? 'Managing Projects' : 'G\u00e9rer les projets' }
+          { id: 'projects', label: en ? 'Managing Projects' : 'G\u00e9rer les projets', draft: true }
         ]
       },
       {
         title: en ? 'Mapping Recommendations' : 'Recommandations',
         items: [
-          { id: 'mapping-recommendations', label: en ? 'Mapping Recommendations' : 'Recommandations de mapping' }
+          { id: 'mapping-recommendations', label: en ? 'Mapping Recommendations' : 'Recommandations de mapping', draft: true }
         ]
       },
       {
         title: en ? 'Settings' : 'Param\u00e8tres',
         items: [
-          { id: 'ohdsi-vocabularies', label: en ? 'OHDSI Vocabularies' : 'Vocabulaires OHDSI' },
-          { id: 'dictionary-settings', label: en ? 'Dictionary Settings' : 'Param\u00e8tres du dictionnaire' }
+          { id: 'ohdsi-vocabularies', label: en ? 'OHDSI Vocabularies' : 'Vocabulaires OHDSI', draft: true },
+          { id: 'dictionary-settings', label: en ? 'Dictionary Settings' : 'Param\u00e8tres du dictionnaire', draft: true }
         ]
       }
     ];
@@ -1352,21 +1357,51 @@ var DocumentationPage = (function() {
 
   function renderSidebar() {
     var secs = sections();
+    var dev = isDev();
     var html = '';
     for (var i = 0; i < secs.length; i++) {
       var sec = secs[i];
+      // In prod, skip entire section if all items are draft
+      var visibleItems = sec.items.filter(function(item) { return dev || !item.draft; });
+      if (visibleItems.length === 0) continue;
       html += '<div class="doc-sidebar-section">';
       html += '<div class="doc-sidebar-title">' + App.escapeHtml(sec.title) + '</div>';
       html += '<ul class="doc-sidebar-nav">';
       for (var j = 0; j < sec.items.length; j++) {
         var item = sec.items[j];
-        var active = item.id === currentSection ? ' class="active"' : '';
-        html += '<li><a href="#/documentation?section=' + item.id + '"' + active + ' data-doc-section="' + item.id + '">'
-          + App.escapeHtml(item.label) + '</a></li>';
+        if (!dev && item.draft) continue;
+        var cls = item.id === currentSection ? 'active' : '';
+        if (item.draft) cls += (cls ? ' ' : '') + 'doc-draft';
+        var clsAttr = cls ? ' class="' + cls + '"' : '';
+        html += '<li><a href="#/documentation?section=' + item.id + '"' + clsAttr + ' data-doc-section="' + item.id + '">'
+          + App.escapeHtml(item.label)
+          + (item.draft ? ' <span class="doc-draft-badge">draft</span>' : '')
+          + '</a></li>';
       }
       html += '</ul></div>';
     }
     document.getElementById('doc-sidebar').innerHTML = html;
+  }
+
+  function isSectionDraft(sectionId) {
+    var secs = sections();
+    for (var i = 0; i < secs.length; i++) {
+      for (var j = 0; j < secs[i].items.length; j++) {
+        if (secs[i].items[j].id === sectionId) return !!secs[i].items[j].draft;
+      }
+    }
+    return false;
+  }
+
+  function draftPlaceholder() {
+    var en = App.lang === 'en';
+    return '<div class="doc-draft-placeholder">'
+      + '<i class="fas fa-hard-hat"></i>'
+      + '<h2>' + (en ? 'Under Construction' : 'En construction') + '</h2>'
+      + '<p>' + (en
+        ? 'This section is currently being written. Check back soon!'
+        : 'Cette section est en cours de r\u00e9daction. Revenez bient\u00f4t\u00a0!')
+      + '</p></div>';
   }
 
   function renderContent() {
@@ -1376,7 +1411,12 @@ var DocumentationPage = (function() {
       currentSection = 'introduction';
       section = c['introduction'];
     }
-    document.getElementById('doc-content-inner').innerHTML = section;
+    // In prod, show placeholder for draft sections
+    if (!isDev() && isSectionDraft(currentSection)) {
+      document.getElementById('doc-content-inner').innerHTML = draftPlaceholder();
+    } else {
+      document.getElementById('doc-content-inner').innerHTML = section;
+    }
   }
 
   function renderAll() {
