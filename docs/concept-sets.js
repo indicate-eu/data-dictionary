@@ -2621,6 +2621,8 @@ var ConceptSetsPage = (function() {
       document.getElementById('resolved-filter-code').value = '';
       document.getElementById('resolved-filter-domain').value = '';
       resolvedFilterStandard.clear();
+      resolvedFilterStandard.add('S');
+      resolvedFilterStandard.add('');
       document.getElementById('resolved-filter-class').value = '';
     }
 
@@ -3794,9 +3796,6 @@ var ConceptSetsPage = (function() {
     selectedConceptSet = null;
     csDetailTab = 'concepts';
     csConceptMode = 'resolved';
-
-    // Clear URL param
-    history.replaceState(null, '', '#/concept-sets');
   }
 
   // ==================== REVIEW MODAL ====================
@@ -4533,7 +4532,7 @@ var ConceptSetsPage = (function() {
     App.addConceptSet(cs);
     closeCreateModal();
     renderAll();
-    showCSDetail(cs.id);
+    Router.navigate('/concept-sets', { id: cs.id });
     App.showToast(App.i18n('Concept set created.'), 'success');
   }
 
@@ -4632,12 +4631,14 @@ var ConceptSetsPage = (function() {
         toggleRowSelection(id);
         return;
       }
-      // Normal mode: open detail
-      showCSDetail(id);
+      // Normal mode: open detail via router (creates history entry)
+      Router.navigate('/concept-sets', { id: id });
     });
 
     // CS back button
-    document.getElementById('cs-back').addEventListener('click', hideCSDetail);
+    document.getElementById('cs-back').addEventListener('click', function() {
+      history.back();
+    });
 
     // CS detail tabs
     document.getElementById('cs-detail-tabs').addEventListener('click', function(e) {
@@ -5068,7 +5069,7 @@ var ConceptSetsPage = (function() {
       }
     });
     App.onHome(function() {
-      if (selectedConceptSet) hideCSDetail();
+      if (selectedConceptSet) Router.navigate('/concept-sets');
     });
 
     // Column resizing for both tables
@@ -5093,6 +5094,19 @@ var ConceptSetsPage = (function() {
       if (tab && ['concepts', 'comments', 'statistics', 'review'].indexOf(tab) !== -1) {
         switchCSDetailTab(tab);
       }
+    } else if (selectedConceptSet) {
+      // Back to list view (e.g. browser back button)
+      if (exprEditMode) exitExprEditMode();
+      if (commentsEditMode) exitCommentsEditMode();
+      if (statsEditMode) exitStatsEditMode();
+      document.getElementById('cs-edit-btn').style.display = 'none';
+      document.getElementById('cs-edit-cancel-btn').style.display = 'none';
+      document.getElementById('cs-edit-save-btn').style.display = 'none';
+      document.getElementById('cs-detail-view').classList.remove('active');
+      document.getElementById('cs-list-view').classList.remove('hidden');
+      selectedConceptSet = null;
+      csDetailTab = 'concepts';
+      csConceptMode = 'resolved';
     }
   }
 

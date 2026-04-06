@@ -913,10 +913,17 @@ var App = (function() {
     var toggle = container.querySelector('.ms-toggle');
     var dropdown = container.querySelector('.ms-dropdown');
     var searchInput = container.querySelector('.ms-search');
+    var isInFilterRow = !!container.closest('.filter-row');
     toggle.addEventListener('click', function(e) {
       e.stopPropagation();
       document.querySelectorAll('.ms-dropdown').forEach(function(d) { if (d !== dropdown) d.style.display = 'none'; });
       var wasHidden = dropdown.style.display === 'none';
+      if (wasHidden && isInFilterRow) {
+        var rect = toggle.getBoundingClientRect();
+        dropdown.style.left = rect.left + 'px';
+        dropdown.style.top = rect.bottom + 'px';
+        dropdown.style.minWidth = Math.max(180, rect.width) + 'px';
+      }
       dropdown.style.display = wasHidden ? '' : 'none';
       if (wasHidden && searchInput) { searchInput.value = ''; searchInput.dispatchEvent(new Event('input')); searchInput.focus(); }
     });

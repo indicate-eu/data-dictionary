@@ -618,7 +618,6 @@ var ProjectsPage = (function() {
     document.getElementById('proj-detail-view').classList.remove('active');
     document.getElementById('proj-list-view').classList.remove('hidden');
     selectedProject = null;
-    history.replaceState(null, '', '#/projects');
   }
 
   // ==================== EVENTS ====================
@@ -657,14 +656,16 @@ var ProjectsPage = (function() {
       // Handle card click (navigate to detail)
       var card = e.target.closest('.project-card[data-id]');
       if (!card) return;
-      showProjectDetail(parseInt(card.dataset.id));
+      Router.navigate('/projects', { id: parseInt(card.dataset.id) });
     });
 
     // Close menus on outside click
     document.addEventListener('click', function() { closeAllMenus(); });
 
     // Project back button
-    document.getElementById('proj-back').addEventListener('click', hideProjectDetail);
+    document.getElementById('proj-back').addEventListener('click', function() {
+      history.back();
+    });
 
     // Project search
     document.getElementById('proj-search').addEventListener('input', renderProjectCards);
@@ -835,6 +836,12 @@ var ProjectsPage = (function() {
       if (tab && ['context', 'variables'].indexOf(tab) !== -1) {
         switchProjectTab(tab);
       }
+    } else if (selectedProject) {
+      // Back to list view (e.g. browser back button)
+      if (editMode) exitEditMode();
+      document.getElementById('proj-detail-view').classList.remove('active');
+      document.getElementById('proj-list-view').classList.remove('hidden');
+      selectedProject = null;
     }
   }
 

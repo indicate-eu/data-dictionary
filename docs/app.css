@@ -1127,8 +1127,10 @@ tbody td {
   border-bottom: none !important;
   box-shadow: 0 2px 0 0 var(--border) !important;
   cursor: default !important;
+  overflow: visible !important;
 }
 .filter-row th:hover { color: var(--text-muted) !important; }
+.filter-row .ms-dropdown { position: fixed; z-index: 9999; }
 
 /* Project detail header - matches Shiny app */
 .project-name-badge {
@@ -2732,8 +2734,9 @@ select.form-input { appearance: auto; }
   font-weight: 600;
   margin: 32px 0 12px 0;
   color: var(--text);
-  border-bottom: 1px solid var(--gray-200);
-  padding-bottom: 6px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(to right, var(--primary), transparent) 1;
 }
 .doc-content h3 {
   font-size: 16px;
