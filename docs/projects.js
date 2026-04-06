@@ -729,7 +729,7 @@ var ProjectsPage = (function() {
         type: 'application/json',
         clipboardDesc: App.i18n('Copy JSON to clipboard'),
         fileDesc: App.i18n('Download as ' + selectedProject.id + '.json'),
-        githubUrl: 'https://github.com/indicate-eu/data-dictionary-content/edit/main/projects/' + selectedProject.id + '.json'
+        githubUrl: 'https://github.com/indicate-eu/data-dictionary/edit/main/projects/' + selectedProject.id + '.json'
       });
     });
 

@@ -1,13 +1,13 @@
-# INDICATE Data Dictionary Content
+# INDICATE Data Dictionary
 
-[![Browse Catalog](https://img.shields.io/badge/Browse%20Catalog-GitHub%20Pages-2ea44f?style=for-the-badge)](https://indicate-eu.github.io/data-dictionary-content/)
-[![Documentation](https://img.shields.io/badge/Documentation-orange?style=for-the-badge)](https://indicate-eu.github.io/data-dictionary-content/#/documentation)
+[![Browse Catalog](https://img.shields.io/badge/Browse%20Catalog-GitHub%20Pages-2ea44f?style=for-the-badge)](https://indicate-eu.github.io/data-dictionary/)
+[![Documentation](https://img.shields.io/badge/Documentation-orange?style=for-the-badge)](https://indicate-eu.github.io/data-dictionary/#/documentation)
 [![Funded by EU](https://img.shields.io/badge/Funded%20by-EU%20Digital%20Europe-003399?style=for-the-badge)](https://indicate-europe.eu/)
 [![License: EUPL-1.2](https://img.shields.io/badge/License-EUPL--1.2-blue?style=for-the-badge)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12)
 
 ![Catalog Screenshot](docs/data_dictionary.png)
 
-This repository hosts the **INDICATE Minimal Data Dictionary** content as versioned JSON files, along with a [static catalog](https://indicate-eu.github.io/data-dictionary-content/) to browse concept sets, concepts, and projects.
+This repository hosts the **INDICATE Minimal Data Dictionary** content as versioned JSON files, along with a [static catalog](https://indicate-eu.github.io/data-dictionary/) to browse concept sets, concepts, and projects.
 
 ## Context
 
@@ -27,12 +27,12 @@ docs/                      # GitHub Pages static catalog (single-page app)
 ## Online Catalog
 
 <p align="center">
-  <a href="https://indicate-eu.github.io/data-dictionary-content/">
+  <a href="https://indicate-eu.github.io/data-dictionary/">
     <img src="https://img.shields.io/badge/Browse%20Catalog-GitHub%20Pages-2ea44f?style=for-the-badge" alt="Browse Catalog">
   </a>
 </p>
 
-The [GitHub Pages catalog](https://indicate-eu.github.io/data-dictionary-content/) provides a read-only interface with:
+The [GitHub Pages catalog](https://indicate-eu.github.io/data-dictionary/) provides a read-only interface with:
 
 - **Concept Sets** — Search, filter by category, and view OMOP concept details with Athena links
 - **Mapping Recommendations** — Multilingual mapping guidance for clinical concepts
@@ -41,7 +41,13 @@ The [GitHub Pages catalog](https://indicate-eu.github.io/data-dictionary-content
 
 ## Documentation
 
-Full documentation is available at **[indicate-eu.github.io/data-dictionary-content/#/documentation](https://indicate-eu.github.io/data-dictionary-content/#/documentation)**, covering concept set structure, review workflows, export options, and more.
+<p align="center">
+  <a href="https://indicate-eu.github.io/data-dictionary/#/documentation">
+    <img src="https://img.shields.io/badge/Documentation-orange?style=for-the-badge" alt="Documentation">
+  </a>
+</p>
+
+Full documentation is available [here](https://indicate-eu.github.io/data-dictionary/#/documentation), covering concept set structure, review workflows, export options, and more.
 
 ## License
 

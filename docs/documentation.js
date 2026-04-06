@@ -888,7 +888,7 @@ var DocumentationPage = (function() {
       + 'clinical experts, data scientists, and interoperability specialists.</p>'
       + '<p>The library currently comprises over 330 concept sets organized into nine categories. '
       + 'All content is open source on '
-      + '<a href="https://github.com/indicate-eu/data-dictionary-content" target="_blank">GitHub</a>. '
+      + '<a href="https://github.com/indicate-eu/data-dictionary" target="_blank">GitHub</a>. '
       + 'Learn more at <a href="https://indicate-europe.eu/" target="_blank">indicate-europe.eu</a>.</p>';
   }
 
@@ -1426,8 +1426,8 @@ var DocumentationPage = (function() {
     return '<h1>Reviewing & Proposing on GitHub</h1>'
       + '<p>The INDICATE Data Dictionary uses a GitHub-based workflow for contributing changes. '
       + 'All content is stored as JSON files in the '
-      + '<a href="https://github.com/indicate-eu/data-dictionary-content" target="_blank">'
-      + 'indicate-eu/data-dictionary-content</a> repository.</p>'
+      + '<a href="https://github.com/indicate-eu/data-dictionary" target="_blank">'
+      + 'indicate-eu/data-dictionary</a> repository.</p>'
 
       // ===== SUBMITTING A REVIEW =====
       + '<h2>Submitting a Review</h2>'
@@ -1509,13 +1509,13 @@ var DocumentationPage = (function() {
       + '<li><strong>Reviews</strong> \u2014 Approve or request revision of concept sets</li>'
       + '<li><strong>Translations</strong> \u2014 Improve or add translations</li>'
       + '<li><strong>Bug reports</strong> \u2014 '
-      + '<a href="https://github.com/indicate-eu/data-dictionary-content/issues" target="_blank">Open an issue</a></li>'
+      + '<a href="https://github.com/indicate-eu/data-dictionary/issues" target="_blank">Open an issue</a></li>'
       + '</ul>'
 
       // ===== REPOSITORY STRUCTURE =====
       + '<h2>Repository Structure</h2>'
-      + '<p>The <a href="https://github.com/indicate-eu/data-dictionary-content" target="_blank">'
-      + 'indicate-eu/data-dictionary-content</a> repository is organized as follows:</p>'
+      + '<p>The <a href="https://github.com/indicate-eu/data-dictionary" target="_blank">'
+      + 'indicate-eu/data-dictionary</a> repository is organized as follows:</p>'
       + '<div class="doc-mock-modal" style="max-width:100%; padding:12px 16px">'
       + '<table style="font-size:12px; font-family:monospace; margin:0; border-collapse:collapse">'
       + '<tr><td style="padding:3px 16px 3px 0; white-space:nowrap; color:var(--primary); font-weight:600; border:none">concept_sets/</td>'
@@ -2357,7 +2357,7 @@ var DocumentationPage = (function() {
       + 'cliniques, data scientists et sp\u00e9cialistes d\u2019interop\u00e9rabilit\u00e9.</p>'
       + '<p>La biblioth\u00e8que comprend actuellement plus de 330 jeux de concepts organis\u00e9s en '
       + 'neuf cat\u00e9gories. Tout le contenu est open source sur '
-      + '<a href="https://github.com/indicate-eu/data-dictionary-content" target="_blank">GitHub</a>. '
+      + '<a href="https://github.com/indicate-eu/data-dictionary" target="_blank">GitHub</a>. '
       + 'En savoir plus sur <a href="https://indicate-europe.eu/" target="_blank">indicate-europe.eu</a>.</p>';
   }
 
@@ -2804,8 +2804,8 @@ var DocumentationPage = (function() {
     return '<h1>Relecture & Proposition sur GitHub</h1>'
       + '<p>Le Dictionnaire de Donn\u00e9es INDICATE utilise un workflow GitHub pour contribuer des modifications. '
       + 'Tout le contenu est stock\u00e9 en fichiers JSON dans le d\u00e9p\u00f4t '
-      + '<a href="https://github.com/indicate-eu/data-dictionary-content" target="_blank">'
-      + 'indicate-eu/data-dictionary-content</a>.</p>'
+      + '<a href="https://github.com/indicate-eu/data-dictionary" target="_blank">'
+      + 'indicate-eu/data-dictionary</a>.</p>'
 
       // ===== SOUMETTRE UNE RELECTURE =====
       + '<h2>Soumettre une relecture</h2>'
@@ -2882,13 +2882,13 @@ var DocumentationPage = (function() {
       + '<li><strong>Relectures</strong> \u2014 Approuver ou demander la r\u00e9vision de jeux de concepts</li>'
       + '<li><strong>Traductions</strong> \u2014 Am\u00e9liorer ou ajouter des traductions</li>'
       + '<li><strong>Signalement de bugs</strong> \u2014 '
-      + '<a href="https://github.com/indicate-eu/data-dictionary-content/issues" target="_blank">Ouvrir un ticket</a></li>'
+      + '<a href="https://github.com/indicate-eu/data-dictionary/issues" target="_blank">Ouvrir un ticket</a></li>'
       + '</ul>'
 
       // ===== STRUCTURE DU D\u00c9P\u00d4T =====
       + '<h2>Structure du d\u00e9p\u00f4t</h2>'
-      + '<p>Le d\u00e9p\u00f4t <a href="https://github.com/indicate-eu/data-dictionary-content" target="_blank">'
-      + 'indicate-eu/data-dictionary-content</a> est organis\u00e9 comme suit\u00a0:</p>'
+      + '<p>Le d\u00e9p\u00f4t <a href="https://github.com/indicate-eu/data-dictionary" target="_blank">'
+      + 'indicate-eu/data-dictionary</a> est organis\u00e9 comme suit\u00a0:</p>'
       + '<div class="doc-mock-modal" style="max-width:100%; padding:12px 16px">'
       + '<table style="font-size:12px; font-family:monospace; margin:0; border-collapse:collapse">'
       + '<tr><td style="padding:3px 16px 3px 0; white-space:nowrap; color:var(--primary); font-weight:600; border:none">concept_sets/</td>'

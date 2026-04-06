@@ -1,4 +1,4 @@
-# INDICATE Data Dictionary Content
+# INDICATE Data Dictionary
 
 ## Project Purpose
 
@@ -7,7 +7,7 @@ This repository hosts the **INDICATE Data Dictionary** content as JSON files, an
 ## Repository Structure
 
 ```
-data-dictionary-content/
+data-dictionary/                   # (repo root)
 ├── concept_sets/              # JSON files (concept set definitions)
 │   ├── 1.json ... 338.json
 │   └── README.md              # Auto-generated table of contents
@@ -226,7 +226,7 @@ The Concept Sets page includes a review feature:
 2. Reviews are stored in `App.sessionReviews` (in-memory, per session)
 3. After submitting a review, a "Propose on GitHub" button appears, which:
    - Copies the full concept set JSON (with the review included) to the clipboard
-   - Opens `https://github.com/indicate-eu/data-dictionary-content/edit/main/concept_sets/{id}.json` in a new tab
+   - Opens `https://github.com/indicate-eu/data-dictionary/edit/main/concept_sets/{id}.json` in a new tab
    - The user can then paste the JSON, commit to a new branch, and open a PR
 
 ### Deployment

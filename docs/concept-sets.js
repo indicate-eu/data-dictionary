@@ -2,7 +2,7 @@
 var ConceptSetsPage = (function() {
   'use strict';
 
-  var GITHUB_REPO = 'indicate-eu/data-dictionary-content';
+  var GITHUB_REPO = 'indicate-eu/data-dictionary';
 
   /** Decode escaped UTF-8 hex bytes (e.g. <e5><bf><83>) to proper characters */
   function decodeEscapedUtf8(str) {

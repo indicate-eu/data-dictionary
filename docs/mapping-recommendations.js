@@ -101,7 +101,7 @@ var MappingRecommendationsPage = (function() {
       type: 'application/json',
       clipboardDesc: App.i18n('Copy JSON to clipboard'),
       fileDesc: App.i18n('Download as mapping_recommendations.json'),
-      githubUrl: 'https://github.com/indicate-eu/data-dictionary-content/edit/main/mapping_recommendations/mapping_recommendations.json'
+      githubUrl: 'https://github.com/indicate-eu/data-dictionary/edit/main/mapping_recommendations/mapping_recommendations.json'
     });
   }
 

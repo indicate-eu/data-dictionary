@@ -26,8 +26,8 @@ Ask the user for:
 4. **Language** for the output description (default: English)
 
 The GitHub URLs for the concept set files are:
-- OHDSI definition: `https://raw.githubusercontent.com/indicate-eu/data-dictionary-content/refs/heads/main/concept_sets/{id}.json`
-- Resolved concepts: `https://raw.githubusercontent.com/indicate-eu/data-dictionary-content/refs/heads/main/concept_sets_resolved/{id}.json`
+- OHDSI definition: `https://raw.githubusercontent.com/indicate-eu/data-dictionary/refs/heads/main/concept_sets/{id}.json`
+- Resolved concepts: `https://raw.githubusercontent.com/indicate-eu/data-dictionary/refs/heads/main/concept_sets_resolved/{id}.json`
 
 ### Step 2: Fetch Concept Set Data
 
@@ -132,8 +132,8 @@ The INDICATE data dictionary maintains two unit files that specify how measureme
 - `units/unit_conversions.csv` — Lists conversion factors between units for specific measurements (columns: `omop_concept_id_1`, `unit_concept_id_1`, `conversion_factor`, `omop_concept_id_2`, `unit_concept_id_2`)
 
 These files are available locally in the repository or via GitHub:
-- `https://raw.githubusercontent.com/indicate-eu/data-dictionary-content/refs/heads/main/units/recommended_units.csv`
-- `https://raw.githubusercontent.com/indicate-eu/data-dictionary-content/refs/heads/main/units/unit_conversions.csv`
+- `https://raw.githubusercontent.com/indicate-eu/data-dictionary/refs/heads/main/units/recommended_units.csv`
+- `https://raw.githubusercontent.com/indicate-eu/data-dictionary/refs/heads/main/units/unit_conversions.csv`
 
 **Lookup process**:
 
