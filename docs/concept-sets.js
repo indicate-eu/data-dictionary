@@ -407,8 +407,8 @@ var ConceptSetsPage = (function() {
 
       return '<tr data-idx="' + i + '"' + rowClass + '>' +
         (exprEditMode ? selectCol : '') +
-        '<td>' + App.escapeHtml(String(c.conceptId || '')) + '</td>' +
         '<td>' + App.escapeHtml(c.vocabularyId) + '</td>' +
+        '<td>' + App.escapeHtml(String(c.conceptId || '')) + '</td>' +
         '<td>' + App.escapeHtml(c.conceptName) + '</td>' +
         '<td>' + App.escapeHtml(c.conceptCode) + '</td>' +
         '<td>' + App.escapeHtml(c.domainId) + '</td>' +
@@ -2405,8 +2405,8 @@ var ConceptSetsPage = (function() {
   var exprFilterStandard = new Set();
 
   var resolvedColumns = {
-    conceptId: { label: 'Concept ID', visible: false },
     vocabulary: { label: 'Vocabulary', visible: true },
+    conceptId: { label: 'Concept ID', visible: false },
     name: { label: 'Concept Name', visible: true },
     code: { label: 'Concept Code', visible: true },
     domain: { label: 'Domain', visible: false },
@@ -2414,8 +2414,8 @@ var ConceptSetsPage = (function() {
     standard: { label: 'Standard', visible: true }
   };
   var expressionColumns = {
-    conceptId: { label: 'Concept ID', visible: false },
     vocabulary: { label: 'Vocabulary', visible: true },
+    conceptId: { label: 'Concept ID', visible: false },
     name: { label: 'Concept Name', visible: true },
     code: { label: 'Concept Code', visible: true },
     domain: { label: 'Domain', visible: true },
@@ -2673,8 +2673,8 @@ var ConceptSetsPage = (function() {
     tbody.innerHTML = pageConcepts.map(function(c) {
       var origIdx = allConcepts.indexOf(c);
       return '<tr data-idx="' + origIdx + '">' +
-        '<td>' + c.conceptId + '</td>' +
         '<td>' + App.escapeHtml(c.vocabularyId) + '</td>' +
+        '<td>' + c.conceptId + '</td>' +
         '<td>' + App.escapeHtml(c.conceptName) + '</td>' +
         '<td>' + App.escapeHtml(c.conceptCode) + '</td>' +
         '<td>' + App.escapeHtml(c.domainId) + '</td>' +

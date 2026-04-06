@@ -325,6 +325,77 @@ var DocumentationPage = (function() {
     return html;
   }
 
+  function mockReviewTable(lang) {
+    var en = lang === 'en';
+    var reviews = [
+      {
+        name: 'Jane Smith',
+        date: '2026-03-15',
+        status: 'approved',
+        statusLabel: en ? 'Approved' : 'Approuv\u00e9',
+        version: '1.0.1',
+        comment: en
+          ? 'Concept set is comprehensive. LOINC hierarchy coverage is good, and the exclusion of fetal heart rate concepts is appropriate for adult ICU use cases.'
+          : 'Jeu de concepts complet. La couverture de la hi\u00e9rarchie LOINC est bonne, et l\u2019exclusion des concepts de fr\u00e9quence cardiaque f\u0153tale est pertinente pour les cas d\u2019utilisation en r\u00e9animation adulte.'
+      },
+      {
+        name: 'Boris Delange',
+        date: '2026-02-28',
+        status: 'approved',
+        statusLabel: en ? 'Approved' : 'Approuv\u00e9',
+        version: '1.0.0',
+        comment: en
+          ? 'OK with initial concept set.'
+          : 'OK avec le jeu de concepts initial.'
+      },
+      {
+        name: 'John Doe',
+        date: '2026-01-10',
+        status: 'needs_revision',
+        statusLabel: en ? 'Needs Revision' : '\u00c0 r\u00e9viser',
+        version: '1.0.0',
+        comment: en
+          ? 'I would have removed concept "Heart rate \u2013\u2013W exercise" from the set, as exercise-related measurements are not relevant in the ICU context.'
+          : 'J\u2019aurais retir\u00e9 le concept \u00ab Heart rate \u2013\u2013W exercise \u00bb du jeu, car les mesures li\u00e9es \u00e0 l\u2019exercice ne sont pas pertinentes en r\u00e9animation.'
+      }
+    ];
+
+    // Panel header with count and buttons
+    var html = '<div class="doc-mock-modal" style="max-width:100%">'
+      + '<div style="display:flex; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid var(--gray-200)">'
+      + '<h3 style="margin:0; font-size:14px; font-weight:600">' + (en ? 'Reviews' : 'Relectures') + '</h3>'
+      + '<span class="badge badge-count">' + reviews.length + '</span>'
+      + '<span style="flex:1"></span>'
+      + '<button class="tab-btn-green" style="cursor:default"><i class="fab fa-github"></i> '
+      + (en ? 'Propose on GitHub' : 'Proposer sur GitHub') + '</button>'
+      + '<button class="tab-btn-green" style="cursor:default"><i class="fas fa-plus"></i> '
+      + (en ? 'Add Review' : 'Ajouter une relecture') + '</button>'
+      + '</div>';
+
+    // Table
+    html += '<div style="padding:0"><table style="margin:0"><thead><tr>'
+      + '<th style="width:18%">' + (en ? 'Reviewer' : 'Relecteur') + '</th>'
+      + '<th style="width:12%">' + (en ? 'Date' : 'Date') + '</th>'
+      + '<th style="width:12%" class="td-center">' + (en ? 'Status' : 'Statut') + '</th>'
+      + '<th style="width:10%">' + (en ? 'Version' : 'Version') + '</th>'
+      + '<th style="width:48%">' + (en ? 'Comments' : 'Commentaires') + '</th>'
+      + '</tr></thead><tbody>';
+
+    for (var i = 0; i < reviews.length; i++) {
+      var r = reviews[i];
+      html += '<tr style="cursor:default">'
+        + '<td>' + r.name + '</td>'
+        + '<td>' + r.date + '</td>'
+        + '<td class="td-center"><span class="status-badge ' + r.status + '" style="cursor:default; font-size:11px; padding:2px 8px">' + r.statusLabel + '</span></td>'
+        + '<td>' + r.version + '</td>'
+        + '<td style="font-size:12px">' + r.comment + '</td>'
+        + '</tr>';
+    }
+
+    html += '</tbody></table></div></div>';
+    return html;
+  }
+
   function docLink(sectionId, label) {
     return '<a href="#/documentation?section=' + sectionId + '">' + label + '</a>';
   }
@@ -576,6 +647,8 @@ var DocumentationPage = (function() {
       + '<li>Differences between similar concepts across vocabularies</li>'
       + '</ul>'
       + '<p>In edit mode, a dual-pane editor with live Markdown preview is available.</p>'
+      + '<p>For broader recommendations that apply across multiple concept sets (e.g. general ETL guidance, '
+      + 'mapping strategies), see the ' + docLink('mapping-recommendations', 'Mapping Recommendations') + ' page.</p>'
 
       + '<h2>Statistics Tab</h2>'
       + detailTabs('en', 'statistics')
@@ -593,8 +666,11 @@ var DocumentationPage = (function() {
 
       + '<h2>Review Tab</h2>'
       + detailTabs('en', 'review')
-      + '<p>Displays the review history for this concept set, with each reviewer\'s name, date, status, '
-      + 'version, and comments. See ' + docLink('reviewing', 'Reviewing & GitHub') + ' for the full workflow.</p>'
+      + '<p>Displays the review history for this concept set. Each review records the reviewer, date, '
+      + 'status, version reviewed, and comments.</p>'
+      + mockReviewTable('en')
+      + '<p>See ' + docLink('reviewing', 'Reviewing & GitHub') + ' for the full workflow on submitting '
+      + 'reviews and proposing changes on GitHub.</p>'
 
       + '<h2>Header Metadata</h2>'
       + '<p>The detail header shows:</p>'
@@ -1108,6 +1184,9 @@ var DocumentationPage = (function() {
       + '<h2>Onglet Commentaires</h2>'
       + detailTabs('fr', 'comments')
       + '<p>Recommandations d\u2019experts en Markdown. \u00c9diteur avec aper\u00e7u en direct en mode \u00e9dition.</p>'
+      + '<p>Pour les recommandations plus g\u00e9n\u00e9rales concernant plusieurs jeux de concepts '
+      + '(strat\u00e9gies de mapping, bonnes pratiques ETL), consultez la page '
+      + docLink('mapping-recommendations', 'Recommandations de mapping') + '.</p>'
 
       + '<h2>Onglet Statistiques</h2>'
       + detailTabs('fr', 'statistics')
@@ -1123,7 +1202,11 @@ var DocumentationPage = (function() {
 
       + '<h2>Onglet Relecture</h2>'
       + detailTabs('fr', 'review')
-      + '<p>Historique des relectures. Voir ' + docLink('reviewing', 'Relecture & GitHub') + '.</p>'
+      + '<p>Affiche l\u2019historique des relectures pour ce jeu de concepts. Chaque relecture enregistre '
+      + 'le relecteur, la date, le statut, la version relue et les commentaires.</p>'
+      + mockReviewTable('fr')
+      + '<p>Voir ' + docLink('reviewing', 'Relecture & GitHub') + ' pour le workflow complet de soumission '
+      + 'de relectures et de proposition de modifications sur GitHub.</p>'
 
       + '<h2>En-t\u00eate</h2>'
       + '<ul>'

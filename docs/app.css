@@ -1623,12 +1623,25 @@ select.form-input { appearance: auto; }
   flex: 1;
   min-height: 0;
   overflow-y: auto;
-  padding: 16px 24px;
+  padding: 32px 48px;
+  line-height: 1.7;
 }
-.mapping-view-container .markdown-body {
-  max-width: 960px;
-  margin: 0 auto;
-}
+/* Mapping content — mirrors .doc-content typography */
+.mapping-content { max-width: 800px; margin: 0 auto; }
+.mapping-content h1 { font-size: 28px; font-weight: 700; margin: 0 0 16px 0; color: var(--text); }
+.mapping-content h2 { font-size: 20px; font-weight: 600; margin: 32px 0 12px 0; color: var(--text); padding-bottom: 8px; border-bottom: 2px solid transparent; border-image: linear-gradient(to right, var(--primary), transparent) 1; }
+.mapping-content h3 { font-size: 16px; font-weight: 600; margin: 24px 0 8px 0; color: var(--text); }
+.mapping-content p { margin: 0 0 12px 0; font-size: 14px; color: var(--text); }
+.mapping-content ul, .mapping-content ol { margin: 0 0 16px 0; padding-left: 24px; font-size: 14px; }
+.mapping-content li { margin-bottom: 6px; }
+.mapping-content code { background: var(--gray-light); padding: 2px 6px; border-radius: 3px; font-size: 13px; color: #c7254e; }
+.mapping-content a { color: var(--primary); text-decoration: none; }
+.mapping-content a:hover { text-decoration: underline; }
+.mapping-content table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 13px; }
+.mapping-content th, .mapping-content td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.mapping-content th { background: var(--gray-light); font-weight: 600; }
+.mapping-content blockquote { border-left: 4px solid var(--primary); margin: 16px 0; padding: 8px 16px; background: var(--primary-light); color: var(--text); }
+.mapping-content hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
 .mapping-edit-container {
   flex: 1;
   min-height: 0;
@@ -1792,8 +1805,9 @@ select.form-input { appearance: auto; }
   overflow: auto;
   min-height: 0;
 }
-.mapping-pane-body .markdown-body {
+.mapping-pane-body .mapping-content {
   padding: 16px;
+  line-height: 1.7;
 }
 #mapping-ace-editor, #mapping-page-ace-editor {
   width: 100%;
@@ -2533,6 +2547,7 @@ select.form-input { appearance: auto; }
 #expr-add-results-tbody tr { cursor: pointer; }
 
 @media (max-width: 900px) {
+  .mapping-view-container { padding: 20px 16px; }
   .mapping-editor-layout { grid-template-columns: 1fr; height: auto; }
   .mapping-editor-pane { min-height: 300px; border-right: none; border-bottom: 1px solid var(--border); }
   .devtools-sql-layout { grid-template-columns: 1fr; height: auto; }
