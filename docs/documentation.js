@@ -92,8 +92,110 @@ var DocumentationPage = (function() {
       + '<p>' + body + '</p></div>';
   }
 
+  function profileMock(lang) {
+    var en = lang === 'en';
+    var idPrefix = 'doc-profile-' + lang;
+    var authorTab = idPrefix + '-author-tab';
+    var orgTab = idPrefix + '-org-tab';
+    var authorPane = idPrefix + '-author-pane';
+    var orgPane = idPrefix + '-org-pane';
+
+    return '<div class="doc-mock-modal">'
+      // Header
+      + '<div class="modal-header">'
+      + '<h3>' + (en ? 'Edit Profile' : 'Modifier le profil') + '</h3>'
+      + '<span class="modal-close" style="cursor:default">&times;</span>'
+      + '</div>'
+      // Tabs
+      + '<div class="profile-modal-tabs">'
+      + '<button class="profile-modal-tab active" id="' + authorTab + '" onclick="'
+      + 'document.getElementById(\'' + authorTab + '\').classList.add(\'active\');'
+      + 'document.getElementById(\'' + orgTab + '\').classList.remove(\'active\');'
+      + 'document.getElementById(\'' + authorPane + '\').style.display=\'\';'
+      + 'document.getElementById(\'' + orgPane + '\').style.display=\'none\';'
+      + '">'
+      + '<i class="fas fa-user-circle"></i> ' + (en ? 'Author' : 'Auteur')
+      + '</button>'
+      + '<button class="profile-modal-tab" id="' + orgTab + '" onclick="'
+      + 'document.getElementById(\'' + orgTab + '\').classList.add(\'active\');'
+      + 'document.getElementById(\'' + authorTab + '\').classList.remove(\'active\');'
+      + 'document.getElementById(\'' + orgPane + '\').style.display=\'\';'
+      + 'document.getElementById(\'' + authorPane + '\').style.display=\'none\';'
+      + '">'
+      + '<i class="fas fa-building"></i> ' + 'Organisation'
+      + '</button>'
+      + '</div>'
+      // Author pane
+      + '<div class="modal-body" id="' + authorPane + '">'
+      + '<div class="form-row">'
+      + '<div class="form-group"><label>' + (en ? 'First Name *' : 'Pr\u00e9nom *') + '</label>'
+      + '<input type="text" class="form-input" value="John" readonly></div>'
+      + '<div class="form-group"><label>' + (en ? 'Last Name *' : 'Nom *') + '</label>'
+      + '<input type="text" class="form-input" value="Doe" readonly></div>'
+      + '</div>'
+      + '<div class="form-row">'
+      + '<div class="form-group"><label>' + (en ? 'Affiliation' : 'Affiliation') + '</label>'
+      + '<input type="text" class="form-input" value="University Hospital" readonly></div>'
+      + '<div class="form-group"><label>' + (en ? 'Profession' : 'Profession') + '</label>'
+      + '<input type="text" class="form-input" value="Intensivist" readonly></div>'
+      + '</div>'
+      + '<div class="form-group"><label>ORCID</label>'
+      + '<input type="text" class="form-input" value="0000-0001-2345-6789" readonly></div>'
+      + '</div>'
+      // Organization pane
+      + '<div class="modal-body" id="' + orgPane + '" style="display:none">'
+      + '<div class="form-group"><label>' + (en ? 'Organization Name *' : 'Nom de l\u2019organisation *') + '</label>'
+      + '<input type="text" class="form-input" value="INDICATE Consortium" readonly></div>'
+      + '<div class="form-group"><label>URL</label>'
+      + '<input type="text" class="form-input" value="https://indicate-eu.org" readonly></div>'
+      + '</div>'
+      // Footer
+      + '<div class="modal-footer">'
+      + '<button class="btn-cancel" disabled>' + (en ? 'Cancel' : 'Annuler') + '</button>'
+      + '<button class="btn-submit" disabled><i class="fas fa-check"></i> ' + (en ? 'Save' : 'Enregistrer') + '</button>'
+      + '</div>'
+      + '</div>';
+  }
+
+  function mockConceptSetTable(lang) {
+    var en = lang === 'en';
+    var rows = [
+      { cat: en ? 'Vital Signs' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', name: en ? 'Heart rate' : 'Fr\u00e9quence cardiaque', ver: '1.0.1', status: 'approved', statusLabel: en ? 'Approved' : 'Approuv\u00e9' },
+      { cat: en ? 'Vital Signs' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', name: en ? 'Systolic blood pressure' : 'Pression art\u00e9rielle systolique', ver: '1.0.0', status: 'pending_review', statusLabel: en ? 'Pending Review' : 'En attente' },
+      { cat: en ? 'Laboratory' : 'Biologie', sub: en ? 'Chemistry' : 'Biochimie', name: en ? 'Serum Creatinine' : 'Cr\u00e9atinine s\u00e9rique', ver: '1.1.0', status: 'approved', statusLabel: en ? 'Approved' : 'Approuv\u00e9' },
+      { cat: en ? 'Laboratory' : 'Biologie', sub: en ? 'Haematology' : 'H\u00e9matologie', name: en ? 'Haemoglobin' : 'H\u00e9moglobine', ver: '1.0.0', status: 'draft', statusLabel: en ? 'Draft' : 'Brouillon' },
+      { cat: en ? 'Drugs' : 'M\u00e9dicaments', sub: en ? 'Vasopressors' : 'Vasopresseurs', name: en ? 'Norepinephrine' : 'Nor\u00e9pin\u00e9phrine', ver: '1.0.0', status: 'approved', statusLabel: en ? 'Approved' : 'Approuv\u00e9' }
+    ];
+    var fl = en ? 'Filter...' : 'Filtrer...';
+    var html = '<div class="doc-mock-table"><table><thead><tr>'
+      + '<th>' + (en ? 'Category' : 'Cat\u00e9gorie') + '</th>'
+      + '<th>' + (en ? 'Subcategory' : 'Sous-cat\u00e9gorie') + '</th>'
+      + '<th>' + (en ? 'Name' : 'Nom') + '</th>'
+      + '<th>' + (en ? 'Version' : 'Version') + '</th>'
+      + '<th>' + (en ? 'Status' : 'Statut') + '</th>'
+      + '</tr><tr class="doc-mock-filter-row">'
+      + '<th><input type="text" class="form-input" placeholder="' + fl + '" readonly></th>'
+      + '<th><input type="text" class="form-input" placeholder="' + fl + '" readonly></th>'
+      + '<th><input type="text" class="form-input" placeholder="' + fl + '" readonly></th>'
+      + '<th><input type="text" class="form-input" placeholder="' + fl + '" readonly></th>'
+      + '<th><input type="text" class="form-input" placeholder="' + fl + '" readonly></th>'
+      + '</tr></thead><tbody>';
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i];
+      html += '<tr>'
+        + '<td><span class="badge badge-category">' + r.cat + '</span></td>'
+        + '<td><span class="badge badge-subcategory">' + r.sub + '</span></td>'
+        + '<td><strong>' + r.name + '</strong></td>'
+        + '<td style="text-align:right">' + r.ver + '</td>'
+        + '<td><span class="status-badge ' + r.status + '" style="cursor:default; font-size:11px; padding:2px 8px">' + r.statusLabel + '</span></td>'
+        + '</tr>';
+    }
+    html += '</tbody></table></div>';
+    return html;
+  }
+
   function docLink(sectionId, label) {
-    return '<a href="javascript:void(0)" onclick="DocumentationPage.navigateTo(\'' + sectionId + '\')">' + label + '</a>';
+    return '<a href="#/documentation?section=' + sectionId + '">' + label + '</a>';
   }
 
   // ==================== ENGLISH CONTENT ====================
@@ -125,8 +227,8 @@ var DocumentationPage = (function() {
       + '<div class="doc-feature-grid">'
       + featureCard('fa-book', 'Concept Set Browser',
         'Browse concept sets organized by clinical category: vitals, labs, conditions, drugs, ventilation, and more.')
-      + featureCard('fa-layer-group', 'Expression & Resolution',
-        'View concept set expressions with Exclude/Descendants/Mapped flags, and their resolved expansion into standard concepts.')
+      + featureCard('fa-search', 'Concept Explorer',
+        'Navigate inside each concept set, view individual concept details with links to ATHENA and FHIR, and explore vocabulary hierarchies interactively.')
       + featureCard('fa-comment-dots', 'Expert Guidance',
         'Each concept set includes expert comments (Markdown) with clinical context and ETL recommendations.')
       + featureCard('fa-chart-bar', 'Reference Statistics',
@@ -139,10 +241,8 @@ var DocumentationPage = (function() {
 
       + '<h2>Who is this for?</h2>'
       + '<div class="doc-audience-grid">'
-      + audienceCard('fa-user-md', 'Clinicians',
-        'Provide expertise on concept definitions and review clinical relevance.')
-      + audienceCard('fa-flask', 'Researchers',
-        'Use curated concept sets for study design and cohort definition.')
+      + audienceCard('fa-user-md', 'Clinicians & Researchers',
+        'Provide expertise on concept definitions, review clinical relevance, and use curated concept sets for study design and cohort definition.')
       + audienceCard('fa-chart-line', 'Data Scientists',
         'Build ETL pipelines and federated queries with validated concept sets.')
       + audienceCard('fa-database', 'Data Engineers',
@@ -180,12 +280,14 @@ var DocumentationPage = (function() {
       + 'that runs in the browser. See ' + docLink('ohdsi-vocabularies', 'OHDSI Vocabularies') + '.</p>'
 
       + '<h2>User Profile</h2>'
-      + '<p>Click your name in the top-right corner to set your profile (name, affiliation, ORCID). '
+      + '<p>Click your name in the top-right corner to set your profile. '
       + 'This information is embedded in concept sets you create or review.</p>'
+      + profileMock('en')
 
       + '<h2>Language</h2>'
       + '<p>Toggle between English and French using the <strong>EN</strong>/<strong>FR</strong> '
-      + 'button in the header. Concept set names, categories, and descriptions are bilingual.</p>'
+      + 'button in the header. Concept set names, categories, and descriptions are bilingual. '
+      + 'Support for additional languages may be added in the future.</p>'
 
       + '<h2>Local Storage</h2>'
       + '<p>All your edits (concept sets, projects, reviews) are stored in your browser\'s local storage. '
@@ -226,7 +328,7 @@ var DocumentationPage = (function() {
       + '<li><strong>Version</strong> \u2014 Semantic versioning (e.g. 1.0.0) with a version history log</li>'
       + '<li><strong>Review status</strong> \u2014 Draft, Pending Review, Approved, Needs Revision, or Deprecated</li>'
       + '<li><strong>Author info</strong> \u2014 Creator name, affiliation, profession, ORCID</li>'
-      + '<li><strong>Bilingual translations</strong> \u2014 Name, category, and subcategory in English and French</li>'
+      + '<li><strong>Translations</strong> \u2014 Multilingual name, category, and subcategory (currently English and French, extensible to other languages)</li>'
       + '<li><strong>Expert comments</strong> \u2014 Markdown field for clinical guidance and ETL recommendations</li>'
       + '<li><strong>Statistical profiles</strong> \u2014 Expected distributions for data validation</li>'
       + '<li><strong>Review history</strong> \u2014 Reviewer name, date, status, and comments for each review</li>'
@@ -260,16 +362,20 @@ var DocumentationPage = (function() {
       + '<p>The <strong>Data Dictionary</strong> page displays all concept sets in a searchable, filterable table.</p>'
 
       + '<h2>Category Badges</h2>'
-      + '<p>At the top of the page, colored badges show each category with its concept set count. '
+      + '<p>At the top of the page, badges show each category with its concept set count. '
       + 'Click a badge to filter the table to that category. Click again to remove the filter. '
       + 'Multiple categories can be selected simultaneously.</p>'
+      + '<div class="category-badges" style="justify-content:center; margin:12px 0">'
+      + '<span class="category-badge">Vital Signs <span class="count">10</span></span>'
+      + '<span class="category-badge active">Laboratory <span class="count">76</span></span>'
+      + '<span class="category-badge">Drugs <span class="count">112</span></span>'
+      + '<span class="category-badge">Ventilation <span class="count">26</span></span>'
+      + '</div>'
 
-      + '<h2>Searching</h2>'
-      + '<p>The <strong>fuzzy search</strong> field (top right) searches concept set names with '
-      + 'approximate matching. For example, typing "kreatinin" will find "Creatinine" even with a typo. '
-      + 'This is a character-by-character subsequence match, not an exact search.</p>'
-
-      + '<h2>Column Filters</h2>'
+      + '<h2>Searching & Filtering</h2>'
+      + '<p>Each column header has a filter. Most columns use exact matching, but the '
+      + '<strong>Name</strong> column uses <strong>fuzzy search</strong> \u2014 for example, '
+      + 'typing "hart rate" will still find "Heart rate".</p>'
       + '<p>Additional multi-select dropdowns let you filter by:</p>'
       + '<ul>'
       + '<li><strong>Category</strong> \u2014 Same as clicking badges, with item counts</li>'
@@ -277,19 +383,10 @@ var DocumentationPage = (function() {
       + '<li><strong>Review Status</strong> \u2014 Filter by Draft, Approved, Pending Review, etc.</li>'
       + '</ul>'
 
-      + '<h2>Table Columns</h2>'
-      + '<p>The table shows:</p>'
-      + '<ul>'
-      + '<li><strong>Category</strong> and <strong>Subcategory</strong> (as badges)</li>'
-      + '<li><strong>Name</strong> \u2014 The concept set name (bilingual)</li>'
-      + '<li><strong>Description</strong> \u2014 Truncated to 100 characters</li>'
-      + '<li><strong>Version</strong> \u2014 Semantic version number</li>'
-      + '<li><strong>Review Status</strong> \u2014 Color-coded badge</li>'
-      + '</ul>'
-      + '<p>Click any column header to sort ascending/descending.</p>'
-
-      + '<h2>Opening a Concept Set</h2>'
-      + '<p>Click any row to open the ' + docLink('concept-set-details', 'detail view') + ' for that concept set.</p>';
+      + '<h2>Table</h2>'
+      + '<p>Click any column header to sort. Click any row to open the '
+      + docLink('concept-set-details', 'detail view') + '.</p>'
+      + mockConceptSetTable('en');
   }
 
   function conceptSetDetailsEN() {
@@ -654,8 +751,8 @@ var DocumentationPage = (function() {
       + '<div class="doc-feature-grid">'
       + featureCard('fa-book', 'Navigateur de jeux de concepts',
         'Parcourez les jeux de concepts par cat\u00e9gorie clinique\u00a0: signes vitaux, biologie, pathologies, m\u00e9dicaments, ventilation, etc.')
-      + featureCard('fa-layer-group', 'Expression & R\u00e9solution',
-        'Visualisez les expressions avec les options Exclure/Descendants/Mapp\u00e9 et leur r\u00e9solution en concepts standards.')
+      + featureCard('fa-search', 'Explorateur de concepts',
+        'Naviguez dans chaque jeu de concepts, consultez les d\u00e9tails de chaque concept avec des liens vers ATHENA et FHIR, et explorez les hi\u00e9rarchies de vocabulaires.')
       + featureCard('fa-comment-dots', 'Recommandations d\u2019experts',
         'Chaque jeu de concepts inclut des commentaires cliniques en Markdown pour guider l\u2019ETL.')
       + featureCard('fa-chart-bar', 'Statistiques de r\u00e9f\u00e9rence',
@@ -668,10 +765,8 @@ var DocumentationPage = (function() {
 
       + '<h2>\u00c0 qui s\u2019adresse cette application ?</h2>'
       + '<div class="doc-audience-grid">'
-      + audienceCard('fa-user-md', 'Cliniciens',
-        'Apportez votre expertise sur les d\u00e9finitions des concepts et relisez leur pertinence.')
-      + audienceCard('fa-flask', 'Chercheurs',
-        'Utilisez les jeux de concepts pour la conception d\u2019\u00e9tudes et la d\u00e9finition de cohortes.')
+      + audienceCard('fa-user-md', 'Cliniciens & Chercheurs',
+        'Apportez votre expertise sur les d\u00e9finitions des concepts, relisez leur pertinence, et utilisez les jeux de concepts pour la conception d\u2019\u00e9tudes et la d\u00e9finition de cohortes.')
       + audienceCard('fa-chart-line', 'Data Scientists',
         'Construisez des pipelines ETL et des requ\u00eates f\u00e9d\u00e9r\u00e9es avec des jeux valid\u00e9s.')
       + audienceCard('fa-database', 'Ing\u00e9nieurs de donn\u00e9es',
@@ -704,10 +799,14 @@ var DocumentationPage = (function() {
       + 'Voir ' + docLink('ohdsi-vocabularies', 'Vocabulaires OHDSI') + '.</p>'
 
       + '<h2>Profil utilisateur</h2>'
-      + '<p>Cliquez sur votre nom en haut \u00e0 droite pour configurer votre profil (nom, affiliation, ORCID).</p>'
+      + '<p>Cliquez sur votre nom en haut \u00e0 droite pour configurer votre profil. '
+      + 'Ces informations sont int\u00e9gr\u00e9es aux jeux de concepts que vous cr\u00e9ez ou relisez.</p>'
+      + profileMock('fr')
 
       + '<h2>Langue</h2>'
-      + '<p>Basculez entre anglais et fran\u00e7ais avec le bouton <strong>EN</strong>/<strong>FR</strong>.</p>'
+      + '<p>Basculez entre anglais et fran\u00e7ais avec le bouton <strong>EN</strong>/<strong>FR</strong>. '
+      + 'Les noms, cat\u00e9gories et descriptions des jeux de concepts sont bilingues. '
+      + 'Le support d\u2019autres langues pourra \u00eatre ajout\u00e9 \u00e0 l\u2019avenir.</p>'
 
       + '<h2>Stockage local</h2>'
       + '<p>Toutes vos modifications sont stock\u00e9es dans le navigateur (localStorage). '
@@ -742,7 +841,7 @@ var DocumentationPage = (function() {
       + '<li><strong>Version</strong> \u2014 Versioning s\u00e9mantique avec historique</li>'
       + '<li><strong>Statut de relecture</strong> \u2014 Brouillon, En attente, Approuv\u00e9, \u00c0 r\u00e9viser, Obsol\u00e8te</li>'
       + '<li><strong>Auteur</strong> \u2014 Nom, affiliation, profession, ORCID</li>'
-      + '<li><strong>Traductions</strong> \u2014 Noms et cat\u00e9gories bilingues (EN/FR)</li>'
+      + '<li><strong>Traductions</strong> \u2014 Noms et cat\u00e9gories multilingues (actuellement anglais et fran\u00e7ais, extensible \u00e0 d\u2019autres langues)</li>'
       + '<li><strong>Commentaires d\u2019experts</strong> \u2014 Champ Markdown pour recommandations</li>'
       + '<li><strong>Profils statistiques</strong> \u2014 Distributions pour la validation</li>'
       + '<li><strong>Historique de relectures</strong> \u2014 Nom, date, statut et commentaires</li>'
@@ -767,32 +866,31 @@ var DocumentationPage = (function() {
       + '<p>La page <strong>Dictionnaire de donn\u00e9es</strong> affiche tous les jeux dans un tableau filtrable.</p>'
 
       + '<h2>Badges de cat\u00e9gorie</h2>'
-      + '<p>En haut de page, des badges color\u00e9s indiquent chaque cat\u00e9gorie avec son nombre. '
+      + '<p>En haut de page, des badges indiquent chaque cat\u00e9gorie avec son nombre de jeux. '
       + 'Cliquez pour filtrer, re-cliquez pour retirer le filtre. S\u00e9lection multiple possible.</p>'
+      + '<div class="category-badges" style="justify-content:center; margin:12px 0">'
+      + '<span class="category-badge">Signes vitaux <span class="count">10</span></span>'
+      + '<span class="category-badge active">Biologie <span class="count">76</span></span>'
+      + '<span class="category-badge">M\u00e9dicaments <span class="count">112</span></span>'
+      + '<span class="category-badge">Ventilation <span class="count">26</span></span>'
+      + '</div>'
 
-      + '<h2>Recherche</h2>'
-      + '<p>Le champ de <strong>recherche floue</strong> cherche par nom avec correspondance approximative. '
-      + 'Par exemple, \u00ab kreatinin \u00bb trouvera \u00ab Cr\u00e9atinine \u00bb.</p>'
-
-      + '<h2>Filtres de colonnes</h2>'
+      + '<h2>Recherche & Filtres</h2>'
+      + '<p>Chaque en-t\u00eate de colonne dispose d\u2019un filtre. La plupart utilisent une '
+      + 'correspondance exacte, mais la colonne <strong>Nom</strong> utilise une '
+      + '<strong>recherche floue</strong> \u2014 par exemple, \u00ab hart rate \u00bb trouvera '
+      + '\u00ab Heart rate \u00bb.</p>'
+      + '<p>Des menus d\u00e9roulants multi-s\u00e9lection permettent aussi de filtrer par\u00a0:</p>'
       + '<ul>'
-      + '<li><strong>Cat\u00e9gorie</strong> \u2014 Multi-s\u00e9lection avec compteurs</li>'
+      + '<li><strong>Cat\u00e9gorie</strong> \u2014 Comme les badges, avec compteurs</li>'
       + '<li><strong>Sous-cat\u00e9gorie</strong> \u2014 Adapt\u00e9e aux cat\u00e9gories s\u00e9lectionn\u00e9es</li>'
       + '<li><strong>Statut de relecture</strong> \u2014 Brouillon, Approuv\u00e9, etc.</li>'
       + '</ul>'
 
-      + '<h2>Colonnes du tableau</h2>'
-      + '<ul>'
-      + '<li><strong>Cat\u00e9gorie</strong> et <strong>Sous-cat\u00e9gorie</strong></li>'
-      + '<li><strong>Nom</strong> (bilingue)</li>'
-      + '<li><strong>Description</strong> (tronqu\u00e9e)</li>'
-      + '<li><strong>Version</strong></li>'
-      + '<li><strong>Statut de relecture</strong></li>'
-      + '</ul>'
-      + '<p>Cliquez sur un en-t\u00eate pour trier.</p>'
-
-      + '<h2>Ouvrir un jeu</h2>'
-      + '<p>Cliquez sur une ligne pour ouvrir la ' + docLink('concept-set-details', 'vue d\u00e9taill\u00e9e') + '.</p>';
+      + '<h2>Tableau</h2>'
+      + '<p>Cliquez sur un en-t\u00eate de colonne pour trier. Cliquez sur une ligne pour ouvrir la '
+      + docLink('concept-set-details', 'vue d\u00e9taill\u00e9e') + '.</p>'
+      + mockConceptSetTable('fr');
   }
 
   function conceptSetDetailsFR() {
@@ -1041,7 +1139,7 @@ var DocumentationPage = (function() {
       for (var j = 0; j < sec.items.length; j++) {
         var item = sec.items[j];
         var active = item.id === currentSection ? ' class="active"' : '';
-        html += '<li><a href="javascript:void(0)"' + active + ' data-doc-section="' + item.id + '">'
+        html += '<li><a href="#/documentation?section=' + item.id + '"' + active + ' data-doc-section="' + item.id + '">'
           + App.escapeHtml(item.label) + '</a></li>';
       }
       html += '</ul></div>';
@@ -1067,19 +1165,11 @@ var DocumentationPage = (function() {
   // ==================== EVENTS ====================
 
   function initEvents() {
-    document.getElementById('doc-sidebar').addEventListener('click', function(e) {
-      var link = e.target.closest('[data-doc-section]');
-      if (!link) return;
-      e.preventDefault();
-      navigateTo(link.getAttribute('data-doc-section'));
-    });
+    // Sidebar clicks use href hash links, handled by the router calling show()
   }
 
   function navigateTo(id) {
-    currentSection = id;
-    renderAll();
-    var el = document.getElementById('doc-content');
-    if (el) el.scrollTop = 0;
+    Router.navigate('/documentation', { section: id });
   }
 
   // ==================== LIFECYCLE ====================
@@ -1092,8 +1182,14 @@ var DocumentationPage = (function() {
 
   function show(query) {
     init();
-    if (query && query.section) currentSection = query.section;
+    var newSection = (query && query.section) || 'introduction';
+    var changed = newSection !== currentSection;
+    currentSection = newSection;
     renderAll();
+    if (changed) {
+      var el = document.getElementById('doc-content');
+      if (el) el.scrollTop = 0;
+    }
   }
 
   function hide() {}

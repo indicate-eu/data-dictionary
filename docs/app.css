@@ -2843,6 +2843,44 @@ select.form-input { appearance: auto; }
 .doc-audience-card h4 { margin: 0 0 6px 0; font-size: 14px; font-weight: 600; }
 .doc-audience-card p { margin: 0; font-size: 12px; color: var(--text-muted); }
 
+/* Mock modal (inline UI demo in documentation) */
+.doc-mock-modal {
+  background: white;
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  margin: 4px auto;
+  max-width: 600px;
+  overflow: hidden;
+}
+.doc-mock-modal h3 { margin: 0; }
+.doc-mock-modal .form-input {
+  background: var(--gray-light);
+  cursor: default;
+}
+/* Mock datatable in documentation */
+.doc-mock-table {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 12px 0;
+}
+.doc-mock-table table { margin: 0; }
+.doc-mock-table tbody tr { cursor: pointer; }
+.doc-mock-filter-row th {
+  padding: 4px 6px;
+  background: var(--gray-light);
+  border-bottom: 1px solid var(--border);
+}
+.doc-mock-filter-row .form-input {
+  padding: 3px 8px;
+  font-size: 12px;
+  background: white;
+  cursor: default;
+}
+
+.doc-mock-modal .btn-cancel,
+.doc-mock-modal .btn-submit { opacity: 0.6; cursor: default; }
+
 /* Documentation responsive */
 @media (max-width: 768px) {
   #page-documentation .doc-sidebar { display: none; }
