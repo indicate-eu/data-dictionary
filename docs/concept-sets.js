@@ -4198,7 +4198,8 @@ var ConceptSetsPage = (function() {
     // Normal mode buttons
     document.getElementById('cs-edit-list-btn').style.display = selectionMode ? 'none' : '';
     document.getElementById('cs-export-all-btn').style.display = selectionMode ? 'none' : '';
-    document.getElementById('cs-create-btn').style.display = selectionMode ? 'none' : '';
+    // Add Concept Set only visible in edit mode
+    document.getElementById('cs-create-btn').style.display = selectionMode ? '' : 'none';
   }
 
   function updateSelectionCount() {
@@ -4555,7 +4556,6 @@ var ConceptSetsPage = (function() {
     App.addConceptSet(cs);
     closeCreateModal();
     renderAll();
-    Router.navigate('/concept-sets', { id: cs.id });
     App.showToast(App.i18n('Concept set created.'), 'success');
   }
 

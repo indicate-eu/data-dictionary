@@ -328,6 +328,72 @@ var DocumentationPage = (function() {
     return html;
   }
 
+  function mockEditModeTable(lang) {
+    var en = lang === 'en';
+    var rows = [
+      { name: en ? 'Heart rate' : 'Fr\u00e9quence cardiaque', cat: en ? 'Vital Signs' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', ver: '1.0.1', status: 'approved', statusLabel: en ? 'Approved' : 'Approuv\u00e9' },
+      { name: en ? 'Systolic blood pressure' : 'Pression art\u00e9rielle systolique', cat: en ? 'Vital Signs' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', ver: '1.0.0', status: 'approved', statusLabel: en ? 'Approved' : 'Approuv\u00e9' },
+      { name: en ? 'Mean arterial pressure' : 'Pression art\u00e9rielle moyenne', cat: en ? 'Vital Signs' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', ver: '1.0.0', status: 'draft', statusLabel: en ? 'Draft' : 'Brouillon' }
+    ];
+    var html = '<div class="doc-mock-table"><table><thead><tr>'
+      + '<th style="width:36px"></th>'
+      + '<th style="width:40px"></th>'
+      + '<th>' + (en ? 'Category' : 'Cat\u00e9gorie') + '</th>'
+      + '<th>' + (en ? 'Subcategory' : 'Sous-cat\u00e9gorie') + '</th>'
+      + '<th>' + (en ? 'Name' : 'Nom') + '</th>'
+      + '<th>' + (en ? 'Version' : 'Version') + '</th>'
+      + '<th>' + (en ? 'Status' : 'Statut') + '</th>'
+      + '</tr></thead><tbody>';
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i];
+      var checked = i === 1 ? ' checked' : '';
+      var selected = i === 1 ? ' style="background:#e8f0fe"' : '';
+      html += '<tr' + selected + '>'
+        + '<td class="td-center"><input type="checkbox"' + checked + ' onclick="return false" style="accent-color:var(--primary); width:15px; height:15px"></td>'
+        + '<td class="td-center"><button class="cs-row-edit-btn" style="cursor:default"><i class="fas fa-pen"></i></button></td>'
+        + '<td><span class="badge badge-category">' + r.cat + '</span></td>'
+        + '<td><span class="badge badge-subcategory">' + r.sub + '</span></td>'
+        + '<td><strong>' + r.name + '</strong></td>'
+        + '<td style="text-align:center">' + r.ver + '</td>'
+        + '<td class="td-center"><span class="status-badge ' + r.status + '" style="cursor:default; font-size:11px; padding:2px 8px">' + r.statusLabel + '</span></td>'
+        + '</tr>';
+    }
+    html += '</tbody></table></div>';
+    return html;
+  }
+
+  function mockNewConceptSetModal(lang) {
+    var en = lang === 'en';
+    return '<div class="doc-mock-modal">'
+      + '<div class="modal-header">'
+      + '<h3 style="margin:0"><i class="fas fa-plus"></i> ' + (en ? 'New Concept Set' : 'Nouveau jeu de concepts') + '</h3>'
+      + '<span class="modal-close" style="cursor:default">&times;</span>'
+      + '</div>'
+      + '<div class="modal-body">'
+      + '<div class="form-group"><label>' + (en ? 'Name *' : 'Nom *') + '</label>'
+      + '<input type="text" class="form-input" value="Heart rate" readonly></div>'
+      + '<div class="form-group"><label>' + (en ? 'Category *' : 'Cat\u00e9gorie *') + '</label>'
+      + '<div class="input-with-add">'
+      + '<select class="form-input" disabled><option>' + (en ? 'Vital Signs' : 'Signes vitaux') + '</option></select>'
+      + '<button class="btn-outline-sm" style="cursor:default"><i class="fas fa-plus"></i></button>'
+      + '</div></div>'
+      + '<div class="form-group"><label>' + (en ? 'Subcategory' : 'Sous-cat\u00e9gorie') + '</label>'
+      + '<div class="input-with-add">'
+      + '<select class="form-input" disabled><option>' + (en ? 'Haemodynamics' : 'H\u00e9modynamique') + '</option></select>'
+      + '<button class="btn-outline-sm" style="cursor:default"><i class="fas fa-plus"></i></button>'
+      + '</div></div>'
+      + '<div class="form-group"><label>Description</label>'
+      + '<textarea class="form-input" rows="2" readonly style="resize:none">'
+      + (en ? 'Number of heartbeats per minute (bpm).' : 'Nombre de battements cardiaques par minute (bpm).')
+      + '</textarea></div>'
+      + '</div>'
+      + '<div class="modal-footer">'
+      + '<button class="btn-cancel" disabled>' + (en ? 'Cancel' : 'Annuler') + '</button>'
+      + '<button class="btn-submit" disabled><i class="fas fa-plus"></i> ' + (en ? 'Create' : 'Cr\u00e9er') + '</button>'
+      + '</div>'
+      + '</div>';
+  }
+
   function mockCommentsPanel(lang) {
     var en = lang === 'en';
     var content = en
@@ -549,8 +615,11 @@ var DocumentationPage = (function() {
       + 'that runs in the browser. See ' + docLink('ohdsi-vocabularies', 'OHDSI Vocabularies') + '.</p>'
 
       + '<h2>User Profile</h2>'
-      + '<p>Click your name in the top-right corner to set your profile. '
-      + 'This information is embedded in concept sets you create or review.</p>'
+      + '<p>Click your name in the top-right corner to set your profile.</p>'
+      + '<p>The <strong>Author</strong> tab stores your name, affiliation, profession, and ORCID \u2014 '
+      + 'this information is embedded in concept sets you create or review.</p>'
+      + '<p>The <strong>Organisation</strong> tab lets you set the organisation name and URL that will '
+      + 'appear in concept set metadata.</p>'
       + profileMock('en')
 
       + '<h2>Language</h2>'
@@ -751,34 +820,90 @@ var DocumentationPage = (function() {
 
   function editingConceptSetsEN() {
     return '<h1>Editing Concept Sets</h1>'
-      + '<p>Click <strong>Edit page</strong> in the toolbar to enter edit mode. '
-      + 'Changes are saved to your browser\'s local storage.</p>'
+      + '<p>All edits are saved to your browser\u2019s local storage. They persist across sessions '
+      + 'but are tied to your browser.</p>'
+      + infoBox('Local storage warning',
+        'If you clear your browser data, local edits will be lost. '
+        + 'Remember to <strong>export</strong> your work as JSON and/or '
+        + '<strong>propose changes on GitHub</strong> via a pull request to preserve them. '
+        + 'See ' + docLink('exporting', 'Exporting') + ' and '
+        + docLink('reviewing', 'Reviewing & GitHub') + '.', 'warning')
 
-      + '<h2>List View Edit Mode</h2>'
+      + '<p>This section covers two levels of editing: first, managing the list of concept sets '
+      + '(adding, deleting, renaming); then, editing the details of an individual concept set '
+      + '(expression, comments, statistics).</p>'
+
+      // ===== PART 1: LIST EDITING =====
+      + '<h2>Editing the Concept Set List</h2>'
+      + '<p>These actions apply to the main Data Dictionary table.</p>'
+
+      + '<h3>Entering Edit Mode</h3>'
+      + '<p>Click the <strong>Edit</strong> button in the toolbar:</p>'
+      + '<div style="display:flex; gap:6px; justify-content:center; margin:12px 0; flex-wrap:wrap; align-items:center">'
+      + '<button class="btn-primary-custom btn-gray" style="cursor:default"><i class="fas fa-pen"></i> Edit</button>'
+      + '<button class="btn-primary-custom" style="cursor:default"><i class="fas fa-download"></i> Export</button>'
+      + '</div>'
+      + '<p>The toolbar changes to show selection, add, and save/cancel controls:</p>'
+      + '<div style="display:flex; gap:6px; justify-content:center; margin:12px 0; flex-wrap:wrap; align-items:center">'
+      + '<button class="btn-secondary-custom btn-sm" style="cursor:default"><i class="fas fa-check-square"></i></button>'
+      + '<button class="btn-secondary-custom btn-sm" style="cursor:default"><i class="far fa-square"></i></button>'
+      + '<button class="btn-danger-custom btn-sm" style="cursor:default"><i class="fas fa-trash"></i></button>'
+      + '<span style="font-size:12px; color:var(--text-muted)">0 selected</span>'
+      + '<button class="btn-primary-custom btn-gray" style="cursor:default"><i class="fas fa-times"></i> '
+      + (App.lang === 'en' ? 'Cancel' : 'Annuler') + '</button>'
+      + '<button class="btn-primary-custom" style="cursor:default"><i class="fas fa-save"></i> '
+      + (App.lang === 'en' ? 'Save' : 'Enregistrer') + '</button>'
+      + '<button class="btn-success-custom" style="cursor:default"><i class="fas fa-plus"></i> '
+      + (App.lang === 'en' ? 'Add Concept Set' : 'Ajouter un jeu de concepts') + '</button>'
+      + '</div>'
+
+      + '<h3>Adding a Concept Set</h3>'
+      + '<p>In edit mode, click <strong>Add Concept Set</strong> (green button). A modal opens where you '
+      + 'provide a name and category (required), and optionally a subcategory and description. '
+      + 'Use the <strong>+</strong> button next to category or subcategory to create a new one.</p>'
+      + mockNewConceptSetModal('en')
+
+      + '<h3>Selecting, Editing & Deleting</h3>'
+      + '<p>In edit mode, two extra columns appear on each row: a <strong>checkbox</strong> for selection '
+      + 'and a <strong>pen icon</strong> to edit that concept set.</p>'
+      + mockEditModeTable(App.lang)
       + '<ul>'
-      + '<li><strong>Add a concept set</strong> \u2014 Click the + button to create a new concept set</li>'
-      + '<li><strong>Select & delete</strong> \u2014 Use checkboxes to select concept sets, then delete in bulk</li>'
-      + '<li><strong>Inline edit</strong> \u2014 Double-click on Category, Subcategory, or Name cells to edit directly</li>'
+      + '<li><button class="cs-row-edit-btn" style="cursor:default"><i class="fas fa-pen"></i></button> '
+      + '<strong>' + (App.lang === 'en' ? 'Edit' : 'Modifier') + '</strong> \u2014 '
+      + (App.lang === 'en'
+        ? 'Opens the edit modal (same form as "New Concept Set", pre-filled with the existing values)'
+        : 'Ouvre le modal d\u2019\u00e9dition (m\u00eame formulaire que \u00ab Nouveau jeu de concepts \u00bb, pr\u00e9-rempli)')
+      + '</li>'
+      + '<li><button class="btn-secondary-custom btn-sm" style="cursor:default"><i class="fas fa-check-square"></i></button> '
+      + '<button class="btn-secondary-custom btn-sm" style="cursor:default"><i class="far fa-square"></i></button> '
+      + '<strong>' + (App.lang === 'en' ? 'Select All / Unselect All' : 'Tout s\u00e9lectionner / D\u00e9s\u00e9lectionner') + '</strong> \u2014 '
+      + (App.lang === 'en' ? 'Toggle selection on all rows' : 'Basculer la s\u00e9lection sur toutes les lignes')
+      + '</li>'
+      + '<li><button class="btn-danger-custom btn-sm" style="cursor:default"><i class="fas fa-trash"></i></button> '
+      + '<strong>' + (App.lang === 'en' ? 'Delete' : 'Supprimer') + '</strong> \u2014 '
+      + (App.lang === 'en' ? 'Remove all selected concept sets' : 'Supprimer les jeux de concepts s\u00e9lectionn\u00e9s')
+      + '</li>'
       + '</ul>'
 
-      + '<h2>Editing the Expression</h2>'
-      + '<p>In the Concepts tab (Expression mode), edit mode enables:</p>'
-
-      + '<h3>Adding Concepts</h3>'
-      + '<p>Click <strong>Add Concepts</strong> to open a modal with two tabs:</p>'
+      + '<h3>Saving & Cancelling</h3>'
+      + '<p>All changes made in edit mode (additions, edits, deletions) are pending until you explicitly act:</p>'
       + '<ul>'
-      + '<li><strong>OHDSI search</strong> \u2014 Search the local OHDSI vocabulary database by name, '
-      + 'concept ID, or code. Requires ' + docLink('ohdsi-vocabularies', 'importing vocabularies') + ' first. '
-      + 'Filter results by vocabulary, domain, concept class, standard status, and validity.</li>'
-      + '<li><strong>Custom concept</strong> \u2014 Create non-OMOP concepts (ID \u2265 2,100,000,000) '
-      + 'when no standard concept exists. Use sparingly \u2014 custom concepts break interoperability.</li>'
+      + '<li><strong>Save</strong> \u2014 Commits all pending changes to local storage</li>'
+      + '<li><strong>Cancel</strong> \u2014 Discards all pending changes, restoring the list to its state before '
+      + 'entering edit mode. This undoes everything: additions, edits, and deletions.</li>'
       + '</ul>'
-      + '<p>For each concept, set the Exclude, Descendants, and Mapped flags before adding.</p>'
 
-      + '<h3>Import JSON</h3>'
-      + '<p>Click <strong>Import JSON</strong> to paste an ATLAS-format or INDICATE-format concept set. '
-      + 'The importer accepts both UPPERCASE (ATLAS) and camelCase (INDICATE) field names, '
-      + 'deduplicates by concept ID, and reports added/skipped counts.</p>'
+      // ===== PART 2: DETAIL EDITING =====
+      + '<h2>Editing a Concept Set\u2019s Details</h2>'
+      + '<p>Open a concept set, then click <strong>Edit</strong> in the detail header. '
+      + 'The toolbar changes to show editing controls:</p>'
+      + '<div style="display:flex; gap:6px; justify-content:center; margin:12px 0; flex-wrap:wrap">'
+      + '<button class="btn-primary-custom" style="cursor:default"><i class="fas fa-download"></i> Export</button>'
+      + '<button class="btn-primary-custom btn-gray" style="cursor:default"><i class="fas fa-pen"></i> Edit</button>'
+      + '<button class="btn-primary-custom btn-purple" style="cursor:default"><i class="fas fa-file-import"></i> Import</button>'
+      + '<button class="btn-primary-custom btn-gray" style="cursor:default"><i class="fas fa-times"></i> Cancel</button>'
+      + '<button class="btn-primary-custom" style="cursor:default"><i class="fas fa-save"></i> Save</button>'
+      + '</div>'
 
       + '<h3>Expression Flags</h3>'
       + '<p>Each concept in the expression has three flags that you can toggle directly in the table. '
@@ -815,8 +940,34 @@ var DocumentationPage = (function() {
         + '(2) build the <strong>exclusion set</strong> from items where Exclude is checked, with the '
         + 'same expansion logic; (3) the final result is <strong>inclusion set minus exclusion set</strong>.')
 
+      + '<h3>Adding Concepts</h3>'
+      + '<p>In edit mode, the expression toolbar shows additional buttons:</p>'
+      + '<div style="display:flex; gap:6px; justify-content:center; margin:12px 0; flex-wrap:wrap; align-items:center">'
+      + '<button class="btn-secondary-custom btn-sm" style="cursor:default"><i class="fas fa-check-square"></i></button>'
+      + '<button class="btn-secondary-custom btn-sm" style="cursor:default"><i class="far fa-square"></i></button>'
+      + '<button class="btn-danger-custom btn-sm" style="cursor:default"><i class="fas fa-trash"></i></button>'
+      + '<span style="font-size:12px; color:var(--text-muted)">0 selected</span>'
+      + '<button class="btn-success-custom" style="cursor:default"><i class="fas fa-plus"></i> Add Concepts</button>'
+      + '<button class="btn-primary-custom" style="cursor:default"><i class="fas fa-magic"></i> Optimize</button>'
+      + '</div>'
+      + '<p>Click <strong>Add Concepts</strong> to open a modal with two tabs:</p>'
+      + '<ul>'
+      + '<li><strong>OHDSI search</strong> \u2014 Search the local OHDSI vocabulary database by name, '
+      + 'concept ID, or code. Requires ' + docLink('ohdsi-vocabularies', 'importing vocabularies') + ' first. '
+      + 'Filter results by vocabulary, domain, concept class, standard status, and validity.</li>'
+      + '<li><strong>Custom concept</strong> \u2014 Create non-OMOP concepts (ID \u2265 2,100,000,000) '
+      + 'when no standard concept exists. Use sparingly \u2014 custom concepts break interoperability.</li>'
+      + '</ul>'
+      + '<p>For each concept, set the Exclude, Descendants, and Mapped flags before adding.</p>'
+
+      + '<h3>Import JSON</h3>'
+      + '<p>Click <strong>Import</strong> (purple button) to paste an ATLAS-format or INDICATE-format '
+      + 'concept set expression. The importer accepts both UPPERCASE (ATLAS) and camelCase (INDICATE) '
+      + 'field names, deduplicates by concept ID, and reports added/skipped counts.</p>'
+
       + '<h3>Deleting Concepts</h3>'
-      + '<p>Use the delete icon on each row, or select multiple rows and click Delete Selected.</p>'
+      + '<p>Use the trash icon on each row, or select multiple rows with checkboxes and click the '
+      + 'red trash button in the toolbar.</p>'
 
       + '<h3>Optimizing the Expression</h3>'
       + '<p>Click <strong>Optimize</strong> to simplify the expression using vocabulary hierarchy analysis '
@@ -828,16 +979,16 @@ var DocumentationPage = (function() {
       + '<li>Warns if the optimization changes the resolved set</li>'
       + '</ul>'
 
-      + '<h2>Editing Comments</h2>'
+      + '<h3>Editing Comments</h3>'
       + '<p>In the Comments tab, edit mode opens an ACE editor with Markdown syntax highlighting '
       + 'and a live preview panel. Use Cmd/Ctrl+S to save. Comments are stored per language.</p>'
 
-      + '<h2>Editing Statistics</h2>'
+      + '<h3>Editing Statistics</h3>'
       + '<p>In the Statistics tab, edit mode opens a JSON editor. A template with the expected '
       + 'structure is provided. You can define numeric data (min, max, mean, median, SD, percentiles, '
       + 'histogram), categorical data, measurement frequency, and multiple population profiles.</p>'
 
-      + '<h2>Version & Status</h2>'
+      + '<h3>Version & Status</h3>'
       + '<p>When saving changes, you can update the version (suggested: patch increment) and add '
       + 'a version summary. The review status can be changed via the status badge in the header.</p>';
   }
@@ -1125,7 +1276,10 @@ var DocumentationPage = (function() {
 
       + '<h2>Profil utilisateur</h2>'
       + '<p>Cliquez sur votre nom en haut \u00e0 droite pour configurer votre profil. '
-      + 'Ces informations sont int\u00e9gr\u00e9es aux jeux de concepts que vous cr\u00e9ez ou relisez.</p>'
+      + 'L\u2019onglet <strong>Auteur</strong> contient votre nom, affiliation, profession et ORCID \u2014 '
+      + 'ces informations sont int\u00e9gr\u00e9es aux jeux de concepts que vous cr\u00e9ez ou relisez. '
+      + 'L\u2019onglet <strong>Organisation</strong> permet de d\u00e9finir le nom et l\u2019URL de '
+      + 'l\u2019organisation qui appara\u00eetront dans les m\u00e9tadonn\u00e9es.</p>'
       + profileMock('fr')
 
       + '<h2>Langue</h2>'
@@ -1513,21 +1667,17 @@ var DocumentationPage = (function() {
     var html = '';
     for (var i = 0; i < secs.length; i++) {
       var sec = secs[i];
-      // In prod, skip entire section if all items are draft
-      var visibleItems = sec.items.filter(function(item) { return dev || !item.draft; });
-      if (visibleItems.length === 0) continue;
       html += '<div class="doc-sidebar-section">';
       html += '<div class="doc-sidebar-title">' + App.escapeHtml(sec.title) + '</div>';
       html += '<ul class="doc-sidebar-nav">';
       for (var j = 0; j < sec.items.length; j++) {
         var item = sec.items[j];
-        if (!dev && item.draft) continue;
         var cls = item.id === currentSection ? 'active' : '';
-        if (item.draft) cls += (cls ? ' ' : '') + 'doc-draft';
+        if (item.draft && !dev) cls += (cls ? ' ' : '') + 'doc-draft';
         var clsAttr = cls ? ' class="' + cls + '"' : '';
         html += '<li><a href="#/documentation?section=' + item.id + '"' + clsAttr + ' data-doc-section="' + item.id + '">'
           + App.escapeHtml(item.label)
-          + (item.draft ? ' <span class="doc-draft-badge">draft</span>' : '')
+          + (item.draft && dev ? ' <span class="doc-draft-badge">draft</span>' : '')
           + '</a></li>';
       }
       html += '</ul></div>';

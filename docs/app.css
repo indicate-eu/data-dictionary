@@ -395,8 +395,8 @@ body {
 #cs-table tbody tr.selected { background: #e8f0fe; }
 #cs-table tbody tr.selected:hover { background: #d4e4fa; }
 .cs-row-checkbox { width: 16px; height: 16px; cursor: pointer; accent-color: var(--primary); }
-.cs-row-edit-btn { background: none; border: none; cursor: pointer; color: var(--gray-400); font-size: 14px; padding: 4px 8px; border-radius: var(--radius); transition: color .15s, background .15s; }
-.cs-row-edit-btn:hover { background: var(--primary-light, #e8e5ff); color: var(--primary); }
+.cs-row-edit-btn { display: inline-flex; align-items: center; justify-content: center; background: #6c757d; border: none; cursor: pointer; color: #fff; font-size: 11px; padding: 4px 8px; border-radius: var(--radius); transition: background .15s; }
+.cs-row-edit-btn:hover { background: #5a6268; }
 
 .category-badges {
   display: flex;

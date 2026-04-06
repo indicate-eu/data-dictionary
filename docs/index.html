@@ -89,15 +89,15 @@
         <button class="btn-primary-custom" id="cs-list-save-btn" style="display:none">
           <i class="fas fa-save"></i> <span data-i18n="Save">Save</span>
         </button>
+        <button class="btn-success-custom" id="cs-create-btn" style="display:none">
+          <i class="fas fa-plus"></i> <span data-i18n="Add Concept Set">Add Concept Set</span>
+        </button>
         <!-- Normal mode buttons -->
         <button class="btn-secondary-custom" id="cs-edit-list-btn" title="Edit concept sets">
           <i class="fas fa-pen"></i> <span data-i18n="Edit">Edit</span>
         </button>
         <button class="btn-primary-custom" id="cs-export-all-btn">
           <i class="fas fa-download"></i> <span data-i18n="Export">Export</span>
-        </button>
-        <button class="btn-success-custom" id="cs-create-btn">
-          <i class="fas fa-plus"></i> <span data-i18n="Add Concept Set">Add Concept Set</span>
         </button>
       </div>
     </div>
@@ -1089,6 +1089,13 @@ LIMIT 50</div>
             <div class="export-option-content">
               <h5 class="export-option-title" data-i18n="ATLAS">ATLAS</h5>
               <p class="export-option-subtitle" data-i18n="ATLAS-compatible format (expression only)">ATLAS-compatible format (expression only)</p>
+            </div>
+          </div>
+          <div class="export-option" data-format="sql">
+            <div class="export-option-icon"><i class="fas fa-database" style="color:#e67700"></i></div>
+            <div class="export-option-content">
+              <h5 class="export-option-title" data-i18n="OMOP SQL Query">OMOP SQL Query</h5>
+              <p class="export-option-subtitle" data-i18n="SQL query to extract data from OMOP CDM tables, with unit conversions">SQL query to extract data from OMOP CDM tables, with unit conversions</p>
             </div>
           </div>
         </div>
