@@ -28,7 +28,7 @@ var DocumentationPage = (function() {
           { id: 'what-are-concept-sets', label: en ? 'What are Concept Sets?' : 'Les jeux de concepts' },
           { id: 'browsing', label: en ? 'Browsing Concept Sets' : 'Parcourir les jeux de concepts' },
           { id: 'concept-set-details', label: en ? 'Concept Set Details' : 'D\u00e9tails d\u2019un jeu de concepts' },
-          { id: 'editing-concept-sets', label: en ? 'Editing Concept Sets' : 'Modifier un jeu de concepts', draft: true },
+          { id: 'editing-concept-sets', label: en ? 'Editing Concept Sets' : 'Modifier un jeu de concepts' },
           { id: 'reviewing', label: en ? 'Reviewing & GitHub' : 'Relecture & GitHub', draft: true },
           { id: 'exporting', label: en ? 'Exporting' : 'Exporter', draft: true }
         ]
@@ -325,6 +325,92 @@ var DocumentationPage = (function() {
       + (en ? '... 23 standard concepts resolved (63 total)' : '... 23 concepts standards r\u00e9solus (63 au total)')
       + '</td></tr>';
     html += '</tbody></table></div>';
+    return html;
+  }
+
+  function mockConceptDetailPanel(lang) {
+    var en = lang === 'en';
+    var p = 'doc-cdp-' + lang; // unique prefix
+
+    function detailItem(label, value, isLink) {
+      var val = isLink
+        ? '<a href="javascript:void(0)" style="color:var(--primary); text-decoration:underline">' + value + '</a>'
+        : value;
+      return '<div class="detail-item"><strong>' + label + ':</strong><span>' + val
+        + '</span></div>';
+    }
+
+    var html = '<div class="doc-mock-modal" style="max-width:100%">'
+      + '<div style="padding:12px 16px; border-bottom:1px solid var(--gray-200)">'
+      + '<h3 style="margin:0; font-size:14px">' + (en ? 'Concept Details' : 'D\u00e9tails du concept') + '</h3></div>'
+      + '<div style="padding:16px">'
+
+      // Details grid
+      + '<div class="concept-details-grid">'
+      + detailItem('Concept Name', 'Heart rate --W exercise')
+      + detailItem('OMOP Concept ID', '36303943', true)
+      + detailItem('Vocabulary ID', 'LOINC')
+      + detailItem('FHIR Resource', 'LOINC', true)
+      + detailItem('Concept Code', '89273-7')
+      + detailItem('Standard', '<span style="color:#28a745; font-weight:600">Standard</span>')
+      + detailItem('Domain', 'Measurement')
+      + detailItem('Validity', '<span style="color:#28a745; font-weight:600">Valid</span>')
+      + detailItem('Concept Class', 'Clinical Observation')
+      + '</div>'
+
+      // Tabs
+      + '<div class="concept-vocab-tab-bar" id="' + p + '-tabs">'
+      + '<button class="concept-vocab-tab active" data-vtab="related" onclick="DocumentationPage._switchVtab(\'' + p + '\',\'related\')">Related</button>'
+      + '<button class="concept-vocab-tab" data-vtab="hierarchy" onclick="DocumentationPage._switchVtab(\'' + p + '\',\'hierarchy\')">' + (en ? 'Hierarchy' : 'Hi\u00e9rarchie') + '</button>'
+      + '<button class="concept-vocab-tab" data-vtab="synonyms" onclick="DocumentationPage._switchVtab(\'' + p + '\',\'synonyms\')">' + (en ? 'Synonyms' : 'Synonymes') + '</button>'
+      + '</div>'
+
+      // Related panel
+      + '<div id="' + p + '-related" style="margin-top:8px">'
+      + '<table style="font-size:12px; margin:0"><thead><tr>'
+      + '<th>' + (en ? 'Relationship' : 'Relation') + '</th>'
+      + '<th>' + (en ? 'Concept Name' : 'Nom du concept') + '</th>'
+      + '<th>' + (en ? 'Vocabulary' : 'Vocabulaire') + '</th>'
+      + '<th>' + (en ? 'Class' : 'Classe') + '</th>'
+      + '</tr></thead><tbody>'
+      + '<tr><td>Is a</td><td>Heart rate | XXX | Heart rate taken in specific position</td><td>LOINC</td><td>LOINC Hierarchy</td></tr>'
+      + '<tr><td>Is a</td><td>Heart rate positional molecular</td><td>LOINC</td><td>LOINC Class</td></tr>'
+      + '<tr><td>Has component</td><td>Heart rate^W exercise</td><td>LOINC</td><td>LOINC Component</td></tr>'
+      + '<tr><td>Has property</td><td>Number Rate</td><td>LOINC</td><td>LOINC Property</td></tr>'
+      + '<tr><td>Maps to</td><td>Heart rate --W exercise</td><td>LOINC</td><td>Clinical Observation</td></tr>'
+      + '</tbody></table></div>'
+
+      // Hierarchy panel — real vis.js graph
+      + '<div id="' + p + '-hierarchy" style="display:none; margin-top:8px">'
+      + '<div style="border:1px solid var(--border); border-radius:var(--radius); overflow:hidden">'
+      // Header bar
+      + '<div class="hierarchy-header" style="display:flex; align-items:center; gap:8px; padding:8px 12px; background:var(--gray-light); border-bottom:1px solid var(--border)">'
+      + '<button class="hierarchy-btn" disabled style="cursor:default"><i class="fas fa-arrow-left"></i></button>'
+      + '<div style="flex:1"><strong style="font-size:13px">Heart rate --W exercise</strong> '
+      + '<span style="font-size:11px; color:var(--text-muted)">#36303943 \u00b7 LOINC</span></div>'
+      + '<div class="hierarchy-controls">'
+      + '<button class="hierarchy-btn" style="cursor:default"><i class="fas fa-search-plus"></i></button>'
+      + '<button class="hierarchy-btn" style="cursor:default"><i class="fas fa-search-minus"></i></button>'
+      + '<button class="hierarchy-btn" style="cursor:default"><i class="fas fa-compress-arrows-alt"></i></button>'
+      + '<button class="hierarchy-btn" style="cursor:default"><i class="fas fa-expand"></i></button>'
+      + '</div></div>'
+      // Graph container
+      + '<div id="' + p + '-hierarchy-graph" style="height:250px; background:white"></div>'
+      + '</div></div>'
+
+      // Synonyms panel — datatable
+      + '<div id="' + p + '-synonyms" style="display:none; margin-top:8px">'
+      + '<table style="font-size:12px; margin:0"><thead><tr>'
+      + '<th>' + (en ? 'Synonym' : 'Synonyme') + '</th>'
+      + '<th>' + (en ? 'Language' : 'Langue') + '</th>'
+      + '</tr></thead><tbody>'
+      + '<tr><td>Heart rate - W exercise</td><td>English</td></tr>'
+      + '<tr><td>Heart rate W exercise</td><td>English</td></tr>'
+      + '<tr><td style="font-size:11px">\u5FC3\u7387^\u91C7\u7528\u8FD0\u52A8:\u8BA1\u6570\u578B\u901F\u7387:\u65F6\u95F4\u70B9:XXX:\u5B9A\u91CF\u578B</td><td>Chinese</td></tr>'
+      + '</tbody></table></div>'
+
+      + '</div></div>';
+
     return html;
   }
 
@@ -974,13 +1060,43 @@ var DocumentationPage = (function() {
       + mockResolvedTable(App.lang)
 
       + '<h3>Concept Detail Panel</h3>'
-      + '<p>Click any concept row to display a detail panel on the right with:</p>'
+      + '<p>' + (App.lang === 'en'
+        ? 'Click any concept row to display a detail panel. It contains three sections:'
+        : 'Cliquez sur un concept pour afficher le panneau de d\u00e9tails. Il contient trois sections\u00a0:')
+      + '</p>'
+
+      + '<p style="font-size:12px; color:var(--text-muted); margin-bottom:4px"><i class="fas fa-info-circle"></i> '
+      + (App.lang === 'en'
+        ? 'Example: "Heart rate --W exercise" (LOINC 89273-7).'
+        : 'Exemple\u00a0: \u00ab Heart rate --W exercise \u00bb (LOINC 89273-7).')
+      + '</p>'
+      + mockConceptDetailPanel(App.lang)
+
+      + '<p style="margin-top:20px">' + (App.lang === 'en'
+        ? 'The <strong>Concept Details</strong> grid shows the full metadata '
+          + 'with links to <a href="https://athena.ohdsi.org/" target="_blank">ATHENA</a> (via Concept ID) '
+          + 'and the <a href="https://tx.fhir.org/r4/" target="_blank">FHIR Terminology Server</a> (via FHIR Resource).'
+        : 'La grille <strong>D\u00e9tails du concept</strong> affiche toutes les m\u00e9tadonn\u00e9es, '
+          + 'et des liens vers <a href="https://athena.ohdsi.org/" target="_blank">ATHENA</a> (via l\u2019ID) '
+          + 'et le <a href="https://tx.fhir.org/r4/" target="_blank">serveur de terminologie FHIR</a>.')
+      + '</p>'
+      + '<p>' + (App.lang === 'en'
+        ? 'Three tabs below the metadata provide additional information:'
+        : 'Trois onglets sous les m\u00e9tadonn\u00e9es fournissent des informations compl\u00e9mentaires\u00a0:')
+      + '</p>'
       + '<ul>'
-      + '<li>Full concept metadata (vocabulary, domain, class, validity, standard status)</li>'
-      + '<li>Links to <a href="https://athena.ohdsi.org/" target="_blank">ATHENA</a> and '
-      + '<a href="https://tx.fhir.org/r4/" target="_blank">FHIR Terminology Server</a></li>'
-      + '<li>Interactive hierarchy graph (ancestors, descendants, related concepts) using vis.js</li>'
-      + '</ul>'
+      + '<li><strong>Related</strong> \u2014 ' + (App.lang === 'en'
+        ? 'Relationships to other concepts (Is a, Has component, Maps to, etc.). Filterable by relationship type, vocabulary, and name.'
+        : 'Relations avec d\u2019autres concepts (Is a, Has component, Maps to, etc.). Filtrables par type de relation, vocabulaire et nom.')
+      + '</li>'
+      + '<li><strong>' + (App.lang === 'en' ? 'Hierarchy' : 'Hi\u00e9rarchie') + '</strong> \u2014 ' + (App.lang === 'en'
+        ? 'Interactive force-directed graph (vis.js) showing ancestors, descendants, and related concepts. Click any node to navigate to that concept.'
+        : 'Graphe interactif (vis.js) montrant anc\u00eatres, descendants et concepts li\u00e9s. Cliquez sur un n\u0153ud pour naviguer.')
+      + '</li>'
+      + '<li><strong>' + (App.lang === 'en' ? 'Synonyms' : 'Synonymes') + '</strong> \u2014 ' + (App.lang === 'en'
+        ? 'Alternative names for the concept from the OMOP vocabulary (including translations in other languages).'
+        : 'Noms alternatifs du concept depuis le vocabulaire OMOP (y compris des traductions dans d\u2019autres langues).')
+      + '</li></ul>'
 
       + '<h2 id="doc-tab-comments">Comments Tab</h2>'
       + detailTabs('en', 'comments')
@@ -1170,6 +1286,18 @@ var DocumentationPage = (function() {
       + '<button class="expr-add-tab" style="cursor:default">'
       + (App.lang === 'en' ? 'Custom Concept' : 'Concept personnalis\u00e9') + '</button>'
       + '</div>'
+      + '<ul>'
+      + '<li><strong>' + (App.lang === 'en' ? 'OHDSI Vocabularies' : 'Vocabulaires OHDSI') + '</strong> \u2014 '
+      + (App.lang === 'en'
+        ? 'Search and add existing OMOP standard concepts from the OHDSI vocabulary database (SNOMED, LOINC, RxNorm, etc.). This is the primary way to build concept set expressions.'
+        : 'Recherchez et ajoutez des concepts OMOP standards existants depuis la base de vocabulaires OHDSI (SNOMED, LOINC, RxNorm, etc.). C\u2019est la m\u00e9thode principale pour construire les expressions.')
+      + '</li>'
+      + '<li><strong>' + (App.lang === 'en' ? 'Custom Concept' : 'Concept personnalis\u00e9') + '</strong> \u2014 '
+      + (App.lang === 'en'
+        ? 'Create a non-OMOP concept manually when no standard concept exists in the OHDSI vocabularies. Use as a last resort \u2014 custom concepts are not interoperable with the OHDSI ecosystem.'
+        : 'Cr\u00e9ez manuellement un concept hors OMOP quand aucun concept standard n\u2019existe dans les vocabulaires OHDSI. \u00c0 utiliser en dernier recours \u2014 les concepts personnalis\u00e9s ne sont pas interop\u00e9rables avec l\u2019\u00e9cosyst\u00e8me OHDSI.')
+      + '</li>'
+      + '</ul>'
 
       // --- OHDSI Vocabularies tab ---
       + '<h4>' + (App.lang === 'en' ? 'OHDSI Vocabularies' : 'Vocabulaires OHDSI') + '</h4>'
@@ -1698,8 +1826,19 @@ var DocumentationPage = (function() {
       + mockResolvedTable('fr')
 
       + '<h3>Panneau de d\u00e9tail concept</h3>'
-      + '<p>Cliquez sur un concept pour voir ses m\u00e9tadonn\u00e9es, liens ATHENA et FHIR, et un graphe '
-      + 'hi\u00e9rarchique interactif.</p>'
+      + '<p>Cliquez sur un concept pour afficher le panneau de d\u00e9tails. Il contient trois sections\u00a0:</p>'
+      + '<p style="font-size:12px; color:var(--text-muted); margin-bottom:4px"><i class="fas fa-info-circle"></i> '
+      + 'Exemple\u00a0: \u00ab Heart rate --W exercise \u00bb (LOINC 89273-7).</p>'
+      + mockConceptDetailPanel('fr')
+      + '<p>La grille <strong>D\u00e9tails du concept</strong> affiche toutes les m\u00e9tadonn\u00e9es, '
+      + 'et des liens vers <a href="https://athena.ohdsi.org/" target="_blank">ATHENA</a> '
+      + 'et le <a href="https://tx.fhir.org/r4/" target="_blank">serveur de terminologie FHIR</a>.</p>'
+      + '<p>Trois onglets sous les m\u00e9tadonn\u00e9es\u00a0:</p>'
+      + '<ul>'
+      + '<li><strong>Related</strong> \u2014 Relations avec d\u2019autres concepts. Filtrables par type, vocabulaire et nom.</li>'
+      + '<li><strong>Hi\u00e9rarchie</strong> \u2014 Graphe interactif (vis.js) des anc\u00eatres, descendants et concepts li\u00e9s.</li>'
+      + '<li><strong>Synonymes</strong> \u2014 Noms alternatifs depuis le vocabulaire OMOP.</li>'
+      + '</ul>'
 
       + '<h2 id="doc-tab-comments">Onglet Commentaires</h2>'
       + detailTabs('fr', 'comments')
@@ -2045,54 +2184,44 @@ var DocumentationPage = (function() {
     tocEl.innerHTML = html;
   }
 
-  var tocObserver = null;
+  var tocScrollHandler = null;
 
-  function setupTocObserver() {
-    if (tocObserver) { tocObserver.disconnect(); tocObserver = null; }
+  function setupTocScroll() {
     var contentEl = document.getElementById('doc-content');
     var tocEl = document.getElementById('doc-toc');
     if (!contentEl || !tocEl) return;
+
+    // Remove previous handler
+    if (tocScrollHandler) contentEl.removeEventListener('scroll', tocScrollHandler);
+
     var headings = document.getElementById('doc-content-inner').querySelectorAll('h2, h3, h4');
     if (headings.length === 0) return;
 
-    // Use IntersectionObserver relative to the scroll container
-    var visibleIds = [];
-    tocObserver = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        var idx = visibleIds.indexOf(entry.target.id);
-        if (entry.isIntersecting && idx === -1) {
-          visibleIds.push(entry.target.id);
-        } else if (!entry.isIntersecting && idx !== -1) {
-          visibleIds.splice(idx, 1);
-        }
-      });
-      // Highlight the first visible heading
-      var links = tocEl.querySelectorAll('a[data-toc-target]');
-      var activeId = visibleIds.length > 0 ? visibleIds[0] : null;
-      // Find topmost visible heading by DOM order
-      if (visibleIds.length > 1) {
-        for (var i = 0; i < headings.length; i++) {
-          if (visibleIds.indexOf(headings[i].id) !== -1) {
-            activeId = headings[i].id;
-            break;
-          }
+    tocScrollHandler = function() {
+      var scrollTop = contentEl.scrollTop;
+      var activeId = headings[0].id; // default to first
+      for (var i = 0; i < headings.length; i++) {
+        if (headings[i].offsetTop - contentEl.offsetTop <= scrollTop + 20) {
+          activeId = headings[i].id;
+        } else {
+          break;
         }
       }
+      var links = tocEl.querySelectorAll('a[data-toc-target]');
       for (var j = 0; j < links.length; j++) {
         links[j].classList.toggle('active', links[j].getAttribute('data-toc-target') === activeId);
       }
-    }, { root: contentEl, rootMargin: '0px 0px -70% 0px', threshold: 0 });
+    };
 
-    for (var k = 0; k < headings.length; k++) {
-      tocObserver.observe(headings[k]);
-    }
+    contentEl.addEventListener('scroll', tocScrollHandler, { passive: true });
+    tocScrollHandler(); // initial highlight
   }
 
   function renderAll() {
     renderSidebar();
     renderContent();
     renderToc();
-    setupTocObserver();
+    setupTocScroll();
   }
 
   // ==================== EVENTS ====================
@@ -2139,10 +2268,57 @@ var DocumentationPage = (function() {
     renderAll();
   }
 
+  var _hierarchyGraphs = {};
+
+  function _initHierarchyGraph(prefix) {
+    var containerId = prefix + '-hierarchy-graph';
+    if (_hierarchyGraphs[containerId]) return;
+    var container = document.getElementById(containerId);
+    if (!container || typeof vis === 'undefined') return;
+
+    var nodes = new vis.DataSet([
+      { id: 1003106, label: 'General heart rate\n[LOINC]', color: { background: '#6c757d', border: '#555' }, font: { color: '#fff', size: 11 }, widthConstraint: { minimum: 140, maximum: 220 } },
+      { id: 1003302, label: 'Specific heart rate\n[LOINC]', color: { background: '#6c757d', border: '#555' }, font: { color: '#fff', size: 11 }, widthConstraint: { minimum: 140, maximum: 220 } },
+      { id: 1004124, label: 'Heart rate taken in\nspecific position\n[LOINC]', color: { background: '#6c757d', border: '#555' }, font: { color: '#fff', size: 11 }, widthConstraint: { minimum: 140, maximum: 220 } },
+      { id: 45876230, label: 'Heart rate\npositional molecular\n[LOINC]', color: { background: '#6c757d', border: '#555' }, font: { color: '#fff', size: 11 }, widthConstraint: { minimum: 140, maximum: 220 } },
+      { id: 36303943, label: 'Heart rate --W exercise\n[LOINC]', color: { background: '#0f60af', border: '#0a4a8a' }, font: { color: '#fff', size: 12 }, widthConstraint: { minimum: 140, maximum: 220 } }
+    ]);
+    var edges = new vis.DataSet([
+      { from: 1003106, to: 1003302, arrows: 'to', color: { color: '#ccc' } },
+      { from: 1003302, to: 1004124, arrows: 'to', color: { color: '#ccc' } },
+      { from: 1003302, to: 45876230, arrows: 'to', color: { color: '#ccc' } },
+      { from: 1004124, to: 36303943, arrows: 'to', color: { color: '#ccc' } },
+      { from: 45876230, to: 36303943, arrows: 'to', color: { color: '#ccc' } }
+    ]);
+
+    _hierarchyGraphs[containerId] = new vis.Network(container, { nodes: nodes, edges: edges }, {
+      layout: { hierarchical: { direction: 'UD', sortMethod: 'directed', levelSeparation: 70, nodeSpacing: 200 } },
+      nodes: { shape: 'box', borderWidth: 1, margin: 10, shadow: false },
+      edges: { smooth: { type: 'cubicBezier' }, color: { color: '#ccc', highlight: '#0f60af' } },
+      physics: false,
+      interaction: { dragNodes: false, zoomView: true, dragView: true }
+    });
+  }
+
+  function _switchVtab(prefix, tab) {
+    var tabs = document.querySelectorAll('#' + prefix + '-tabs .concept-vocab-tab');
+    for (var i = 0; i < tabs.length; i++) {
+      tabs[i].classList.toggle('active', tabs[i].getAttribute('data-vtab') === tab);
+    }
+    ['related', 'hierarchy', 'synonyms'].forEach(function(n) {
+      var el = document.getElementById(prefix + '-' + n);
+      if (el) el.style.display = (n === tab) ? '' : 'none';
+    });
+    if (tab === 'hierarchy') {
+      setTimeout(function() { _initHierarchyGraph(prefix); }, 50);
+    }
+  }
+
   return {
     show: show,
     hide: hide,
     onLanguageChange: onLanguageChange,
-    navigateTo: navigateTo
+    navigateTo: navigateTo,
+    _switchVtab: _switchVtab
   };
 })();

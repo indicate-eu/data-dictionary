@@ -2524,7 +2524,8 @@ select.form-input { appearance: auto; }
 
 /* Custom concept form */
 .custom-concept-form { max-width: 600px; margin: 0 auto; padding: 20px 0; }
-.custom-concept-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.custom-concept-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.custom-concept-row > label { padding-top: 8px; }
 .custom-concept-row > label { min-width: 130px; font-size: 13px; font-weight: 600; color: var(--text); text-align: right; }
 .custom-concept-row > .form-input, .custom-concept-row > select.form-input, .custom-concept-row > .custom-concept-ms, .custom-concept-row > .custom-concept-input-wrap { width: 300px; min-width: 300px; flex: 0 0 300px; }
 .custom-concept-input-wrap { display: flex; flex-direction: column; gap: 4px; }
@@ -2802,7 +2803,7 @@ select.form-input { appearance: auto; }
 .doc-content h2 {
   font-size: 20px;
   font-weight: 600;
-  margin: 32px 0 12px 0;
+  margin: 32px 0 16px 0;
   color: var(--text);
   padding-bottom: 8px;
   border-bottom: 2px solid transparent;
@@ -2811,7 +2812,7 @@ select.form-input { appearance: auto; }
 .doc-content h3 {
   font-size: 16px;
   font-weight: 600;
-  margin: 24px 0 8px 0;
+  margin: 24px 0 12px 0;
   color: var(--text);
   padding-bottom: 6px;
   border-bottom: 1.5px solid transparent;
@@ -2820,7 +2821,7 @@ select.form-input { appearance: auto; }
 .doc-content h4 {
   font-size: 14px;
   font-weight: 600;
-  margin: 20px 0 6px 0;
+  margin: 20px 0 10px 0;
   color: var(--text);
   padding-bottom: 5px;
   border-bottom: 1px solid transparent;
@@ -3013,7 +3014,7 @@ select.form-input { appearance: auto; }
   border-left: 1px solid var(--border);
 }
 .doc-toc-title {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -3029,7 +3030,7 @@ select.form-input { appearance: auto; }
 .doc-toc li a {
   display: block;
   padding: 3px 12px;
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-muted);
   text-decoration: none;
   border-left: 2px solid transparent;
@@ -3042,8 +3043,8 @@ select.form-input { appearance: auto; }
   font-weight: 600;
   border-left-color: var(--primary);
 }
-.doc-toc li.toc-h3 a { padding-left: 20px; font-size: 11px; }
-.doc-toc li.toc-h4 a { padding-left: 28px; font-size: 10px; }
+.doc-toc li.toc-h3 a { padding-left: 20px; font-size: 13px; }
+.doc-toc li.toc-h4 a { padding-left: 28px; font-size: 12px; }
 
 /* Documentation responsive */
 @media (max-width: 1100px) {
