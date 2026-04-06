@@ -48,8 +48,9 @@ var DocumentationPage = (function() {
       {
         title: en ? 'Settings' : 'Param\u00e8tres',
         items: [
-          { id: 'ohdsi-vocabularies', label: en ? 'OHDSI Vocabularies' : 'Vocabulaires OHDSI', draft: true },
-          { id: 'dictionary-settings', label: en ? 'Dictionary Settings' : 'Param\u00e8tres du dictionnaire', draft: true }
+          { id: 'dictionary-settings', label: en ? 'Dictionary Settings' : 'Param\u00e8tres du dictionnaire' },
+          { id: 'dev-tools', label: en ? 'Dev Tools' : 'Outils de d\u00e9veloppement' },
+          { id: 'local-data', label: en ? 'Local Data' : 'Donn\u00e9es locales' }
         ]
       }
     ];
@@ -70,8 +71,9 @@ var DocumentationPage = (function() {
       'exporting':            en ? exportingEN()             : exportingFR(),
       'projects':             en ? projectsEN()              : projectsFR(),
       'mapping-recommendations': en ? mappingEN()            : mappingFR(),
-      'ohdsi-vocabularies':   en ? ohdsiVocabEN()            : ohdsiVocabFR(),
-      'dictionary-settings':  en ? dictSettingsEN()          : dictSettingsFR()
+      'dictionary-settings':  en ? dictSettingsEN()          : dictSettingsFR(),
+      'dev-tools':            en ? devToolsEN()              : devToolsFR(),
+      'local-data':           en ? localDataEN()             : localDataFR()
     };
   }
 
@@ -2047,12 +2049,189 @@ var DocumentationPage = (function() {
       + '</ul>';
   }
 
-  function ohdsiVocabEN() {
-    return '<h1>OHDSI Vocabularies</h1>'
+  function mockSqlEditor(lang) {
+    var en = lang === 'en';
+    return '<div class="doc-mock-modal" style="max-width:100%; padding:0; border-radius:var(--radius)">'
+      // Toolbar
+      + '<div style="display:flex; align-items:center; gap:8px; padding:8px 12px; border-bottom:1px solid var(--border); background:var(--gray-light)">'
+      + '<select class="form-input" style="max-width:220px; font-size:12px; padding:4px 6px" disabled>'
+      + '<option>-- ' + (en ? 'Example queries' : 'Requ\u00eates d\u2019exemple') + ' --</option></select>'
+      + '<button class="btn-submit" style="font-size:12px; padding:4px 10px" disabled>'
+      + '<i class="fas fa-play"></i> Run</button>'
+      + '<span style="font-size:11px; color:var(--text-muted); margin-left:4px">Ctrl+Enter</span>'
+      + '</div>'
+      // Split layout
+      + '<div style="display:grid; grid-template-columns:1fr 1fr; min-height:120px">'
+      // Left: SQL code
+      + '<div style="border-right:1px solid var(--border); padding:10px 12px; font-family:monospace; font-size:12px; '
+      + 'white-space:pre; background:#fff; line-height:1.5; color:#333; overflow:auto">'
+      + '<span style="color:#0000ff">SELECT</span> concept_id, concept_name\n'
+      + '<span style="color:#0000ff">FROM</span> concept\n'
+      + '<span style="color:#0000ff">WHERE</span> standard_concept = <span style="color:#a31515">\'S\'</span>\n'
+      + '<span style="color:#0000ff">LIMIT</span> <span style="color:#098658">50</span>'
+      + '</div>'
+      // Right: results
+      + '<div style="padding:10px 12px; overflow:auto; background:#fff">'
+      + '<div style="display:flex; align-items:center; gap:8px; margin-bottom:8px">'
+      + '<span style="font-size:11px; color:var(--text-muted)">50 rows</span>'
+      + '<button class="btn-outline-sm" style="margin-left:auto; font-size:11px; padding:2px 8px" disabled>'
+      + '<i class="fas fa-download"></i> CSV</button></div>'
+      + '<table class="table" style="font-size:11px"><thead><tr>'
+      + '<th>concept_id</th><th>concept_name</th>'
+      + '</tr></thead><tbody>'
+      + '<tr><td>4239408</td><td>Systolic blood pressure</td></tr>'
+      + '<tr><td>4302666</td><td>Heart rate</td></tr>'
+      + '<tr><td>37393863</td><td>Body temperature</td></tr>'
+      + '<tr><td colspan="2" style="text-align:center; color:var(--text-muted); font-style:italic">...</td></tr>'
+      + '</tbody></table>'
+      + '</div></div></div>';
+  }
+
+  function devToolsEN() {
+    return '<h1>Dev Tools</h1>'
+      + '<p>Access via the Settings button (gear icon) in the top-right corner of the header \u2192 Dev Tools.</p>'
+      + '<p>The Dev Tools page provides advanced features for developers and power users.</p>'
+
+      + '<h2>SQL Editor</h2>'
+      + '<p>Query the OHDSI vocabulary database directly using SQL.</p>'
+      + '<p>A dropdown provides pre-built example queries.</p>'
+      + '<p>Results are displayed in a datatable with an option to export as CSV.</p>'
+      + mockSqlEditor('en')
+
+      + '<h2>Schema / ERD</h2>'
+      + '<p>View the database schema and entity-relationship diagram for the vocabulary tables.</p>';
+  }
+
+  function mockDataUpdateModal(lang) {
+    var en = lang === 'en';
+    return '<div class="doc-mock-modal" style="max-width:600px">'
+      + '<div class="modal-header"><h3 style="margin:0; font-size:14px">'
+      + '<i class="fas fa-cloud-arrow-down"></i> '
+      + (en ? 'Data Update Available' : 'Mise \u00e0 jour disponible') + '</h3>'
+      + '<span class="modal-close" style="cursor:default">&times;</span></div>'
+      + '<div style="padding:16px 20px; font-size:13px">'
+      + '<p style="margin:0 0 12px">' + (en ? 'The data dictionary has been updated.' : 'Le dictionnaire de donn\u00e9es a \u00e9t\u00e9 mis \u00e0 jour.') + '</p>'
+      + '<details open style="margin-bottom:4px">'
+      + '<summary style="cursor:pointer; font-size:13px; font-weight:600; color:var(--primary); margin-bottom:6px">'
+      + '<i class="fas fa-list"></i> '
+      + (en ? '3 concept set(s) changed remotely' : '3 jeu(x) de concepts modifi\u00e9(s) \u00e0 distance') + '</summary>'
+      + '<table class="table" style="font-size:12px; margin-top:4px"><thead><tr>'
+      + '<th>ID</th><th>' + (en ? 'Name' : 'Nom') + '</th><th>' + (en ? 'Version' : 'Version') + '</th><th>' + (en ? 'Modified' : 'Modifi\u00e9') + '</th>'
+      + '</tr></thead><tbody>'
+      + '<tr><td>207</td><td>Plasma glucose</td><td>1.0.0 \u2192 1.1.0</td><td>2025-03-10 \u2192 2025-04-01</td></tr>'
+      + '<tr><td>341</td><td>Certoparin</td><td>1.0.0 \u2192 1.0.1</td><td>2025-03-15 \u2192 2025-04-02</td></tr>'
+      + '<tr><td>342</td><td>Decision authority documented</td><td>\u2014</td>'
+      + '<td><span style="color:var(--accent-green); font-weight:600">' + (en ? 'New' : 'Nouveau') + '</span></td></tr>'
+      + '</tbody></table></details>'
+      + '</div>'
+      + '<div class="modal-footer">'
+      + '<button class="btn-cancel" disabled>' + (en ? 'Later' : 'Plus tard') + '</button>'
+      + '<button class="btn-submit" disabled><i class="fas fa-check"></i> '
+      + (en ? 'Apply Updates' : 'Appliquer') + '</button>'
+      + '</div></div>';
+  }
+
+  function mockSettingsDropdown(lang) {
+    var en = lang === 'en';
+    return '<div style="display:inline-block; position:relative; margin:12px 0">'
+      + '<div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); '
+      + 'box-shadow:0 4px 12px rgba(0,0,0,.12); min-width:220px; padding:4px 0; font-size:13px">'
+      + '<a style="display:flex; align-items:center; gap:8px; padding:8px 14px; color:var(--text); text-decoration:none; cursor:default">'
+      + '<i class="fas fa-book-medical" style="width:16px; text-align:center; color:var(--gray)"></i> '
+      + (en ? 'Dictionary Settings' : 'Param\u00e8tres du dictionnaire') + '</a>'
+      + '<a style="display:flex; align-items:center; gap:8px; padding:8px 14px; color:var(--text); text-decoration:none; cursor:default">'
+      + '<i class="fas fa-code" style="width:16px; text-align:center; color:var(--gray)"></i> '
+      + (en ? 'Dev Tools' : 'Outils de d\u00e9veloppement') + '</a>'
+      + '<div style="height:1px; background:var(--border); margin:4px 0"></div>'
+      + '<a style="display:flex; align-items:center; gap:8px; padding:8px 14px; color:#dc3545; text-decoration:none; cursor:default">'
+      + '<i class="fas fa-rotate-right" style="width:16px; text-align:center; color:#dc3545"></i> '
+      + (en ? 'Reset local data' : 'R\u00e9initialiser les donn\u00e9es locales') + '</a>'
+      + '</div></div>';
+  }
+
+  function localDataEN() {
+    return '<h1>Local Data</h1>'
+      + '<p>The INDICATE Data Dictionary is a <strong>fully client-side application</strong>. '
+      + 'All data is stored locally in your browser \u2014 nothing is sent to a server.</p>'
+
+      + '<h2>How it Works</h2>'
+      + '<p>The application uses two browser storage mechanisms:</p>'
+      + '<ul>'
+      + '<li><strong>localStorage</strong> \u2014 stores concept sets, projects, mapping recommendations, '
+      + 'unit conversions, recommended units, user profile, reviews, and language preferences. '
+      + 'All your edits (adding, modifying, or deleting concept sets and projects) are saved here.</li>'
+      + '<li><strong>IndexedDB</strong> \u2014 stores the OHDSI vocabulary database, powered by '
+      + '<a href="https://duckdb.org/docs/api/wasm/overview" target="_blank">DuckDB-WASM</a>. '
+      + 'This is a full SQL database running entirely in your browser, enabling concept search, '
+      + 'hierarchy visualization, and expression resolution without any server.</li>'
+      + '</ul>'
+      + '<p>Your data persists across sessions and browser restarts.</p>'
+
+      + '<h2>Data Updates</h2>'
+      + '<p>When the application is deployed on GitHub Pages, the source data (concept sets, projects, etc.) '
+      + 'may be updated by contributors via pull requests.</p>'
+      + '<p>When you visit the application and new data is available, a modal appears:</p>'
+      + mockDataUpdateModal('en')
+      + '<ul>'
+      + '<li><strong>Apply Updates</strong> \u2014 merges the remote updates into your local data. '
+      + 'If you have local edits on the same concept sets, the modal highlights conflicts and lets you '
+      + 'choose between your local version and the remote version for each one.</li>'
+      + '<li><strong>Later</strong> \u2014 dismisses the modal and keeps your current local data unchanged. '
+      + 'The prompt will reappear on your next visit.</li>'
+      + '</ul>'
+
+      + '<h2>Reset Local Data</h2>'
+      + '<p>If you want to discard all local modifications and start fresh with the latest deployed version, '
+      + 'open the Settings dropdown (gear icon, top-right of the header) and click <strong>Reset local data</strong>:</p>'
+      + mockSettingsDropdown('en')
+      + '<p>This clears all localStorage data (concept sets, projects, reviews, profile, preferences) '
+      + 'and reloads the application with the original data from GitHub Pages.</p>'
+
+      + infoBox('Warning',
+        'Reset local data is irreversible. '
+        + 'Make sure to <strong>export</strong> any work you want to keep before resetting. '
+        + 'See ' + docLink('exporting', 'Exporting') + ' and '
+        + docLink('reviewing', 'Reviewing & GitHub') + '.', 'warning')
+
+      + '<h2>OHDSI Vocabulary Database</h2>'
+      + '<p>The vocabulary database stored in IndexedDB is independent from the Reset local data action. '
+      + 'To manage it, use the <strong>OHDSI Vocabularies</strong> tab in '
+      + docLink('dictionary-settings', 'Dictionary Settings') + '.</p>';
+  }
+
+  function mockSettingsExportModal(lang, title) {
+    var en = lang === 'en';
+    return '<div class="doc-mock-modal" style="max-width:480px">'
+      + '<div class="modal-header"><h3 style="margin:0; font-size:14px"><i class="fas fa-download"></i> '
+      + title + '</h3>'
+      + '<span class="modal-close" style="cursor:default">&times;</span></div>'
+      + '<div style="padding:12px"><div class="export-options-container" style="gap:8px; padding:4px 0">'
+      + mockExportOpt('fas fa-file-download', '#0f60af',
+        en ? 'Download File' : 'T\u00e9l\u00e9charger',
+        en ? 'Download as JSON file' : 'T\u00e9l\u00e9charger en fichier JSON')
+      + mockExportOpt('fas fa-clipboard', '#28a745',
+        en ? 'Copy to Clipboard' : 'Copier',
+        en ? 'Copy JSON to clipboard' : 'Copier le JSON dans le presse-papiers')
+      + '</div></div>'
+      + '<div class="modal-footer"><button class="btn-cancel" disabled>' + (en ? 'Cancel' : 'Annuler') + '</button></div>'
+      + '</div>';
+  }
+
+  function dictSettingsEN() {
+    return '<h1>Dictionary Settings</h1>'
+      + '<p>Access via the Settings button (gear icon) in the top-right corner of the header \u2192 Dictionary Settings.</p>'
+      + '<p>The page has three tabs:</p>'
+      + '<ul>'
+      + '<li><strong>OHDSI Vocabularies</strong> \u2014 import and manage the local vocabulary database</li>'
+      + '<li><strong>Unit Conversions</strong> \u2014 conversion factors between measurement units</li>'
+      + '<li><strong>Recommended Units</strong> \u2014 recommended unit per measurement concept</li>'
+      + '</ul>'
+
+      + '<h2>OHDSI Vocabularies</h2>'
       + '<p>The application can import OHDSI vocabulary files into a <strong>DuckDB database that runs '
       + 'entirely in your browser</strong>. This enables powerful features without requiring any server.</p>'
 
-      + '<h2>What it Enables</h2>'
+      + '<h3>What it Enables</h3>'
       + '<ul>'
       + '<li><strong>Concept search</strong> \u2014 Search OMOP concepts by name, ID, or code when adding concepts to expressions</li>'
       + '<li><strong>Live resolution</strong> \u2014 Resolve concept set expressions in real-time (expand descendants and mapped concepts)</li>'
@@ -2061,57 +2240,63 @@ var DocumentationPage = (function() {
       + '<li><strong>SQL queries</strong> \u2014 Query the vocabulary database directly in the Dev Tools SQL editor</li>'
       + '</ul>'
 
-      + '<h2>How to Import</h2>'
+      + '<h3>How to Import</h3>'
       + '<ol>'
-      + '<li>Download vocabulary files from <a href="https://athena.ohdsi.org/" target="_blank">ATHENA</a> (CSV format)</li>'
+      + '<li>Download vocabulary files from <a href="https://athena.ohdsi.org/vocabulary/list" target="_blank">ATHENA</a> (CSV or Parquet format)</li>'
       + '<li>Go to <strong>Settings</strong> (gear icon) \u2192 <strong>Dictionary Settings</strong> \u2192 <strong>OHDSI Vocabularies</strong> tab</li>'
-      + '<li>Click <strong>Select Vocabulary Folder</strong> and choose the folder containing the vocabulary CSV files</li>'
+      + '<li>Click <strong>Select Vocabulary Folder</strong> and choose the folder containing the vocabulary files</li>'
       + '<li>Wait for the import to complete \u2014 a progress bar shows per-file status</li>'
       + '</ol>'
       + '<p>The import reads CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, CONCEPT_ANCESTOR.csv, and related files, '
       + 'indexes them in DuckDB, and saves the database to browser storage.</p>'
 
-      + infoBox('Browser Compatibility',
-        'Chrome and Edge provide the best experience with persistent folder access. '
-        + 'On Firefox and Safari, you may need to re-select the vocabulary folder each visit.')
-
-      + '<h2>Re-importing and Deleting</h2>'
-      + '<p>Use <strong>Re-import Vocabularies</strong> to update after downloading new vocabulary files. '
-      + 'Use <strong>Delete Database</strong> to remove the local vocabulary database.</p>'
-
-      + '<h2>Dev Tools: SQL Editor</h2>'
-      + '<p>In Settings \u2192 Dev Tools, a SQL editor lets you query the vocabulary database directly. '
-      + 'Pre-built example queries are provided. The Schema/ERD tab shows the database structure.</p>';
-  }
-
-  function dictSettingsEN() {
-    return '<h1>Dictionary Settings</h1>'
-      + '<p>Access via Settings (gear icon) \u2192 Dictionary Settings.</p>'
+      + '<h3>Re-importing and Deleting</h3>'
+      + '<p>To update the vocabulary database after downloading new files, delete the existing database '
+      + 'and re-import by selecting the folder again.</p>'
+      + '<ul>'
+      + '<li><strong>Delete Database</strong> \u2014 removes the local vocabulary database entirely</li>'
+      + '<li><strong>Select Vocabulary Folder</strong> \u2014 re-import from the vocabulary files folder</li>'
+      + '</ul>'
 
       + '<h2>Unit Conversions</h2>'
-      + '<p>Manage conversion factors between measurement units. The table shows source and target '
-      + 'concepts with their units and conversion factors.</p>'
+      + '<p>Manage conversion factors between measurement units.</p>'
+      + '<p>The table shows source and target concepts with their units and conversion factors.</p>'
+      + '<p>Use the column filters to search within each column.</p>'
+
+      + '<h3>Actions</h3>'
       + '<ul>'
-      + '<li><strong>Add</strong> \u2014 Create new conversions with source/target concept IDs, unit names, and factors</li>'
-      + '<li><strong>Edit</strong> \u2014 Click a conversion factor to edit it inline</li>'
-      + '<li><strong>Test</strong> \u2014 Open a calculator to verify the conversion (supports bidirectional testing)</li>'
-      + '<li><strong>Delete</strong> \u2014 Remove a conversion with confirmation</li>'
-      + '<li><strong>Export</strong> \u2014 Download all conversions as JSON</li>'
+      + '<li><strong>Add Conversion</strong> \u2014 create a new conversion with source/target concept IDs, unit names, and factor. '
+      + 'The add dialog will be improved in a future version to include a concept search datatable.</li>'
+      + '<li><strong>Edit factor</strong> \u2014 click a conversion factor cell to edit it inline</li>'
+      + '<li><strong>Test</strong> \u2014 open a calculator to verify the conversion (supports bidirectional swap)</li>'
+      + '<li><strong>Delete</strong> \u2014 remove a conversion with confirmation</li>'
       + '</ul>'
+
+      + '<h3>Export</h3>'
+      + '<p>Click <strong>Export</strong> to open the export modal:</p>'
+      + mockSettingsExportModal('en', 'Export')
 
       + '<h2>Recommended Units</h2>'
-      + '<p>Define the recommended unit for each measurement concept. This helps ensure consistent '
-      + 'unit usage across the dictionary.</p>'
+      + '<p>Define the recommended unit for each measurement concept.</p>'
+      + '<p>This helps ensure consistent unit usage across the dictionary, and is used for automatic '
+      + 'unit conversions when exporting concept sets as SQL.</p>'
+      + '<p>Use the column filters to search within each column.</p>'
+
+      + '<h3>Actions</h3>'
       + '<ul>'
-      + '<li><strong>Add</strong> \u2014 Associate a concept with its recommended unit (concept ID, name, code)</li>'
-      + '<li><strong>Delete</strong> \u2014 Remove a recommendation</li>'
-      + '<li><strong>Export</strong> \u2014 Download as JSON</li>'
-      + '<li><strong>Search</strong> \u2014 Fuzzy search across all fields</li>'
+      + '<li><strong>Add Recommended Unit</strong> \u2014 associate a concept with its recommended unit (concept ID, name, code). '
+      + 'The add dialog will be improved in a future version to include a concept search datatable.</li>'
+      + '<li><strong>Delete</strong> \u2014 remove a recommendation with confirmation</li>'
       + '</ul>'
 
+      + '<h3>Export</h3>'
+      + '<p>Click <strong>Export</strong> to open the export modal:</p>'
+      + mockSettingsExportModal('en', 'Export')
+
       + infoBox('Vocabulary Enrichment',
-        'If an OHDSI vocabulary database is loaded, concept names are automatically '
-        + 'looked up from the database when adding unit conversions or recommended units.');
+        'When an OHDSI vocabulary database is loaded, concept names in both tables are '
+        + 'automatically resolved from the database. If the database is not yet ready when '
+        + 'you open a tab, the application retries automatically.');
   }
 
   // ==================== FRENCH CONTENT ====================
@@ -2165,93 +2350,120 @@ var DocumentationPage = (function() {
       + '</div>'
 
       + '<h2>\u00c0 propos du projet</h2>'
-      + '<p>Les d\u00e9finitions ont \u00e9t\u00e9 d\u00e9velopp\u00e9es par un processus it\u00e9ratif '
-      + 'de consensus, lors de r\u00e9unions bimensuelles r\u00e9unissant experts cliniques, data scientists '
-      + 'et sp\u00e9cialistes d\u2019interop\u00e9rabilit\u00e9. La biblioth\u00e8que comprend plus de '
-      + '330 jeux de concepts en neuf cat\u00e9gories. Tout le contenu est open source sur '
-      + '<a href="https://github.com/indicate-eu/data-dictionary-content" target="_blank">GitHub</a>.</p>';
+      + '<p>Les d\u00e9finitions des jeux de concepts ont \u00e9t\u00e9 d\u00e9velopp\u00e9es par un processus '
+      + 'it\u00e9ratif de consensus. Les responsables de cas d\u2019usage ont d\u2019abord identifi\u00e9 les '
+      + 'variables n\u00e9cessaires \u00e0 leurs applications cliniques. Ces exigences ont \u00e9t\u00e9 '
+      + 'affin\u00e9es lors de r\u00e9unions bimensuelles interdisciplinaires r\u00e9unissant experts '
+      + 'cliniques, data scientists et sp\u00e9cialistes d\u2019interop\u00e9rabilit\u00e9.</p>'
+      + '<p>La biblioth\u00e8que comprend actuellement plus de 330 jeux de concepts organis\u00e9s en '
+      + 'neuf cat\u00e9gories. Tout le contenu est open source sur '
+      + '<a href="https://github.com/indicate-eu/data-dictionary-content" target="_blank">GitHub</a>. '
+      + 'En savoir plus sur <a href="https://indicate-europe.eu/" target="_blank">indicate-europe.eu</a>.</p>';
   }
 
   function gettingStartedFR() {
     return '<h1>Prise en main</h1>'
-      + '<p>L\u2019application fonctionne enti\u00e8rement dans le navigateur \u2014 aucune installation requise.</p>'
+      + '<p>L\u2019application fonctionne enti\u00e8rement dans le navigateur \u2014 aucune installation '
+      + 'ni serveur requis. Ouvrez simplement la page web et commencez \u00e0 naviguer.</p>'
 
       + '<h2>Visite rapide</h2>'
+      + '<p>La barre de navigation en haut donne acc\u00e8s aux sections principales\u00a0:</p>'
       + '<ul>'
-      + '<li><strong>Dictionnaire de donn\u00e9es</strong> \u2014 Parcourir les jeux de concepts (' + docLink('browsing', 'd\u00e9tails') + ')</li>'
-      + '<li><strong>Recommandations de mapping</strong> \u2014 Guide de mapping (' + docLink('mapping-recommendations', 'd\u00e9tails') + ')</li>'
-      + '<li><strong>Projets</strong> \u2014 Grouper les jeux par projet (' + docLink('projects', 'd\u00e9tails') + ')</li>'
+      + '<li><strong>Dictionnaire de donn\u00e9es</strong> \u2014 Parcourir et rechercher les jeux de concepts (' + docLink('browsing', 'd\u00e9tails') + ')</li>'
+      + '<li><strong>Recommandations de mapping</strong> \u2014 Guide de mapping des variables locales (' + docLink('mapping-recommendations', 'd\u00e9tails') + ')</li>'
+      + '<li><strong>Projets</strong> \u2014 Grouper les jeux de concepts par projet de recherche (' + docLink('projects', 'd\u00e9tails') + ')</li>'
       + '<li><strong>Documentation</strong> \u2014 Cette page</li>'
       + '</ul>'
 
       + '<h2>Optionnel\u00a0: Importer les vocabulaires OHDSI</h2>'
       + '<p>Pour les fonctionnalit\u00e9s avanc\u00e9es (recherche de concepts, expansion des descendants, '
-      + 'graphe hi\u00e9rarchique, optimisation), importez les fichiers OHDSI dans une base DuckDB locale. '
+      + 'visualisation hi\u00e9rarchique, optimisation des expressions), vous pouvez importer les fichiers '
+      + 'de vocabulaires OHDSI dans une base DuckDB locale qui fonctionne dans le navigateur. '
       + 'Voir ' + docLink('ohdsi-vocabularies', 'Vocabulaires OHDSI') + '.</p>'
 
       + '<h2>Profil utilisateur</h2>'
-      + '<p>Cliquez sur votre nom en haut \u00e0 droite pour configurer votre profil. '
-      + 'L\u2019onglet <strong>Auteur</strong> contient votre nom, affiliation, profession et ORCID \u2014 '
-      + 'ces informations sont int\u00e9gr\u00e9es aux jeux de concepts que vous cr\u00e9ez ou relisez. '
-      + 'L\u2019onglet <strong>Organisation</strong> permet de d\u00e9finir le nom et l\u2019URL de '
-      + 'l\u2019organisation qui appara\u00eetront dans les m\u00e9tadonn\u00e9es.</p>'
+      + '<p>Cliquez sur votre nom en haut \u00e0 droite pour configurer votre profil.</p>'
+      + '<p>L\u2019onglet <strong>Auteur</strong> contient votre nom, affiliation, profession et ORCID \u2014 '
+      + 'ces informations sont int\u00e9gr\u00e9es aux jeux de concepts que vous cr\u00e9ez ou relisez.</p>'
+      + '<p>L\u2019onglet <strong>Organisation</strong> permet de d\u00e9finir le nom et l\u2019URL de '
+      + 'l\u2019organisation qui appara\u00eetront dans les m\u00e9tadonn\u00e9es des jeux de concepts.</p>'
       + profileMock('fr')
 
       + '<h2>Langue</h2>'
-      + '<p>Basculez entre anglais et fran\u00e7ais avec le bouton <strong>EN</strong>/<strong>FR</strong>. '
-      + 'Les noms, cat\u00e9gories et descriptions des jeux de concepts sont multilingues (actuellement anglais et fran\u00e7ais). '
-      + 'Le support d\u2019autres langues pourra \u00eatre ajout\u00e9 \u00e0 l\u2019avenir.</p>'
+      + '<p>Basculez entre anglais et fran\u00e7ais avec le bouton <strong>EN</strong>/<strong>FR</strong> '
+      + 'dans l\u2019en-t\u00eate. Les noms, cat\u00e9gories et descriptions des jeux de concepts sont '
+      + 'multilingues (actuellement anglais et fran\u00e7ais). Le support d\u2019autres langues pourra '
+      + '\u00eatre ajout\u00e9 \u00e0 l\u2019avenir.</p>'
 
       + '<h2>Stockage local</h2>'
-      + '<p>Toutes vos modifications sont stock\u00e9es dans le navigateur (localStorage). '
-      + 'Pour partager des modifications, utilisez le ' + docLink('reviewing', 'workflow GitHub') + '.</p>';
+      + '<p>Toutes vos modifications (jeux de concepts, projets, relectures) sont stock\u00e9es dans le '
+      + 'stockage local de votre navigateur. Elles persistent entre les sessions mais restent locales \u00e0 '
+      + 'votre navigateur. Pour partager des modifications, utilisez le '
+      + docLink('reviewing', 'workflow GitHub') + '.</p>';
   }
 
   function whatAreConceptSetsFR() {
     return '<h1>Les jeux de concepts</h1>'
 
       + '<p>Un <strong>jeu de concepts</strong> (concept set) est une collection r\u00e9utilisable '
-      + 'de concepts OMOP d\u00e9finissant une variable clinique (ex. \u00ab Fr\u00e9quence cardiaque \u00bb, '
-      + '\u00ab Cr\u00e9atinine s\u00e9rique \u00bb). Plut\u00f4t que de manipuler des codes LOINC ou SNOMED '
-      + 'individuels, on travaille avec des jeux qui regroupent les codes sous des \u00e9tiquettes cliniques.</p>'
+      + 'de concepts de vocabulaire OMOP d\u00e9finissant une variable clinique (ex. \u00ab Fr\u00e9quence '
+      + 'cardiaque \u00bb, \u00ab Cr\u00e9atinine s\u00e9rique \u00bb, \u00ab Nor\u00e9pin\u00e9phrine \u00bb). '
+      + 'Plut\u00f4t que de manipuler des codes LOINC ou SNOMED individuels, les chercheurs et ing\u00e9nieurs '
+      + 'de donn\u00e9es travaillent avec des jeux de concepts qui regroupent les codes associ\u00e9s sous '
+      + 'des \u00e9tiquettes cliniques intuitives.</p>'
 
       + '<h2>La Sp\u00e9cification OHDSI</h2>'
-      + '<p>Chaque jeu suit la '
+      + '<p>Chaque jeu de concepts suit la '
       + '<a href="https://ohdsi.github.io/TAB/Concept-Set-Specification.html" target="_blank">'
-      + 'Sp\u00e9cification OHDSI des Concept Sets</a>. Une expression est une liste d\u2019\u00e9l\u00e9ments, '
-      + 'chacun r\u00e9f\u00e9ren\u00e7ant un concept OMOP avec trois options\u00a0:</p>'
+      + 'Sp\u00e9cification OHDSI des Concept Sets</a>, le format standard utilis\u00e9 par ATLAS et '
+      + 'l\u2019\u00e9cosyst\u00e8me OHDSI. Une expression de jeu de concepts est une liste d\u2019\u00e9l\u00e9ments, '
+      + 'o\u00f9 chacun r\u00e9f\u00e9rence un concept OMOP et poss\u00e8de trois options bool\u00e9ennes\u00a0:</p>'
       + '<ul>'
-      + '<li><strong>Exclure</strong> \u2014 Retirer ce concept du jeu</li>'
-      + '<li><strong>Descendants</strong> \u2014 Inclure tous les descendants hi\u00e9rarchiques</li>'
+      + '<li><strong>Exclure</strong> \u2014 Retirer ce concept (et optionnellement ses descendants) du jeu</li>'
+      + '<li><strong>Descendants</strong> \u2014 Inclure tous les concepts descendants dans la hi\u00e9rarchie du vocabulaire</li>'
       + '<li><strong>Mapp\u00e9</strong> \u2014 Inclure les concepts li\u00e9s par des relations \u00ab Maps to \u00bb</li>'
       + '</ul>'
 
       + infoBox('Expression vs. R\u00e9solus',
-        'L\u2019<strong>expression</strong> est ce que vous r\u00e9digez \u2014 une liste compacte. '
-        + 'Le <strong>jeu r\u00e9solu</strong> est le r\u00e9sultat apr\u00e8s expansion des descendants et exclusions.')
+        'L\u2019<strong>expression</strong> est ce que vous r\u00e9digez \u2014 une liste compacte de concepts '
+        + 's\u00e9lectionn\u00e9s avec leurs options. Le <strong>jeu r\u00e9solu</strong> est le r\u00e9sultat '
+        + '\u00e9tendu apr\u00e8s application des descendants, mapp\u00e9s et exclusions. Par exemple, une expression '
+        + 'avec un seul concept de classification LOINC + Descendants peut se r\u00e9soudre en des dizaines '
+        + 'de codes de mesure sp\u00e9cifiques.')
 
       + '<h2>M\u00e9tadonn\u00e9es \u00e9tendues</h2>'
+      + '<p>Au-del\u00e0 de la sp\u00e9cification OHDSI standard, chaque jeu de concepts de la biblioth\u00e8que '
+      + 'INDICATE inclut des m\u00e9tadonn\u00e9es suppl\u00e9mentaires\u00a0:</p>'
       + '<ul>'
-      + '<li><strong>Version</strong> \u2014 Versioning s\u00e9mantique avec historique</li>'
-      + '<li><strong>Statut de relecture</strong> \u2014 Brouillon, En attente, Approuv\u00e9, \u00c0 r\u00e9viser, Obsol\u00e8te</li>'
-      + '<li><strong>Auteur</strong> \u2014 Nom, affiliation, profession, ORCID</li>'
-      + '<li><strong>Traductions</strong> \u2014 Noms et cat\u00e9gories multilingues (actuellement anglais et fran\u00e7ais, extensible \u00e0 d\u2019autres langues)</li>'
-      + '<li><strong>Commentaires d\u2019experts</strong> \u2014 Champ Markdown pour recommandations</li>'
-      + '<li><strong>Profils statistiques</strong> \u2014 Distributions pour la validation</li>'
-      + '<li><strong>Historique de relectures</strong> \u2014 Nom, date, statut et commentaires</li>'
+      + '<li><strong>Version</strong> \u2014 Versioning s\u00e9mantique (ex. 1.0.0) avec un historique des versions</li>'
+      + '<li><strong>Statut de relecture</strong> \u2014 Brouillon, En attente de relecture, Approuv\u00e9, \u00c0 r\u00e9viser ou Obsol\u00e8te</li>'
+      + '<li><strong>Informations auteur</strong> \u2014 Nom, affiliation, profession, ORCID</li>'
+      + '<li><strong>Traductions</strong> \u2014 Nom, cat\u00e9gorie et sous-cat\u00e9gorie multilingues (actuellement anglais et fran\u00e7ais, extensible \u00e0 d\u2019autres langues)</li>'
+      + '<li><strong>Commentaires d\u2019experts</strong> \u2014 Champ Markdown pour les recommandations cliniques et ETL</li>'
+      + '<li><strong>Profils statistiques</strong> \u2014 Distributions attendues pour la validation des donn\u00e9es</li>'
+      + '<li><strong>Historique de relectures</strong> \u2014 Nom du relecteur, date, statut et commentaires pour chaque relecture</li>'
       + '</ul>'
 
       + '<h2>Cat\u00e9gories</h2>'
+      + '<p>Les jeux de concepts sont organis\u00e9s en neuf cat\u00e9gories cliniques\u00a0:</p>'
       + '<ul>'
       + '<li>D\u00e9mographie & Rencontres</li>'
-      + '<li>Pathologies</li>'
-      + '<li>Observations cliniques (\u00e9chelles)</li>'
+      + '<li>Pathologies (diagnostics)</li>'
+      + '<li>Observations cliniques (\u00e9chelles d\u2019\u00e9valuation)</li>'
       + '<li>Signes vitaux</li>'
       + '<li>Biologie</li>'
       + '<li>Microbiologie</li>'
       + '<li>Ventilation</li>'
       + '<li>M\u00e9dicaments</li>'
       + '<li>Proc\u00e9dures</li>'
+      + '</ul>'
+
+      + '<h2>Cas d\u2019utilisation</h2>'
+      + '<p>Ces jeux de concepts expertis\u00e9s, relus et versionn\u00e9s peuvent \u00eatre utilis\u00e9s pour\u00a0:</p>'
+      + '<ul>'
+      + '<li><strong>D\u00e9finition de cohortes</strong> \u2014 Comme briques de base dans ATLAS ou des requ\u00eates personnalis\u00e9es</li>'
+      + '<li><strong>D\u00e9veloppement ETL</strong> \u2014 Pour prioriser et valider les mappings de concepts</li>'
+      + '<li><strong>Faisabilit\u00e9 d\u2019\u00e9tudes</strong> \u2014 Pour \u00e9valuer la disponibilit\u00e9 des donn\u00e9es dans un r\u00e9seau f\u00e9d\u00e9r\u00e9</li>'
       + '</ul>';
   }
 
@@ -2289,27 +2501,33 @@ var DocumentationPage = (function() {
 
   function conceptSetDetailsFR() {
     return '<h1>D\u00e9tails d\u2019un jeu de concepts</h1>'
-      + '<p>La vue d\u00e9taill\u00e9e pr\u00e9sente toutes les informations, organis\u00e9es en quatre onglets\u00a0: <strong>Concepts</strong>, <strong>Commentaires</strong>, <strong>Statistiques</strong> et <strong>Relecture</strong>.</p>'
+      + '<p>La vue d\u00e9taill\u00e9e affiche toutes les informations d\u2019un jeu de concepts, organis\u00e9es en quatre onglets\u00a0: <strong>Concepts</strong>, <strong>Commentaires</strong>, <strong>Statistiques</strong> et <strong>Relecture</strong>.</p>'
 
       + '<h2 id="doc-tab-concepts">Onglet Concepts</h2>'
       + detailTabs('fr', 'concepts')
-      + '<p>Deux modes, accessibles via un commutateur\u00a0: <strong>Expression</strong> et <strong>R\u00e9solus</strong>.</p>'
+      + '<p>Cet onglet propose deux modes, accessibles via un commutateur\u00a0: <strong>Expression</strong> et <strong>R\u00e9solus</strong>.</p>'
 
       + '<h3>Mode Expression</h3>'
       + conceptModeToggle('fr', 'expression')
-      + '<p>Affiche les \u00e9l\u00e9ments de l\u2019expression avec leurs options\u00a0: '
-      + '<strong>Exclure</strong>, <strong>Descendants</strong> et <strong>Mapp\u00e9</strong>. '
-      + 'Ces options contr\u00f4lent la r\u00e9solution du jeu de concepts. '
+      + '<p>Affiche l\u2019expression du jeu de concepts \u2014 les \u00e9l\u00e9ments r\u00e9dig\u00e9s avec leurs options.</p>'
+      + '<p>Chaque ligne affiche le Vocabulaire, le Nom du concept, le Code, le Domaine, la Classe de concept, '
+      + 'le statut Standard, et trois options bool\u00e9ennes\u00a0: <strong>Exclure</strong>, '
+      + '<strong>Descendants</strong> et <strong>Mapp\u00e9</strong>.</p>'
+      + '<p>Ces options contr\u00f4lent la r\u00e9solution de l\u2019expression en jeu final de concepts. '
       + 'Voir ' + docLink('editing-concept-sets', 'Modifier un jeu de concepts') + ' pour les explications d\u00e9taill\u00e9es.</p>'
-      + '<p>Filtres par vocabulaire, domaine, standard et recherche floue par nom.</p>'
+      + '<p>Utilisez les filtres de colonnes (vocabulaire, domaine, standard, recherche floue par nom) pour naviguer dans les expressions volumineuses.</p>'
       + '<p style="font-size:12px; color:var(--text-muted); margin-bottom:4px"><i class="fas fa-info-circle"></i> '
       + 'Exemple\u00a0: expression du jeu de concepts Fr\u00e9quence cardiaque.</p>'
       + mockExpressionTable('fr')
 
       + '<h3>Mode R\u00e9solus</h3>'
       + conceptModeToggle('fr', 'resolved')
-      + '<p>Affiche le r\u00e9sultat apr\u00e8s expansion. Si une base de vocabulaires est charg\u00e9e '
-      + '(voir ' + docLink('ohdsi-vocabularies', 'Vocabulaires OHDSI') + '), la r\u00e9solution se fait en temps r\u00e9el.</p>'
+      + '<p>Affiche le r\u00e9sultat \u00e9tendu apr\u00e8s application de toute la logique de l\u2019expression. '
+      + 'C\u2019est l\u2019ensemble r\u00e9el de concepts OMOP qui serait utilis\u00e9 dans une requ\u00eate. '
+      + 'Les colonnes incluent ID du concept, Vocabulaire, Nom, Code, Domaine, Standard et Classe de concept.</p>'
+      + '<p>Si une base de vocabulaires OHDSI est charg\u00e9e (voir ' + docLink('ohdsi-vocabularies', 'Vocabulaires OHDSI') + '), '
+      + 'la r\u00e9solution est calcul\u00e9e en temps r\u00e9el dans le navigateur. Sinon, les jeux r\u00e9solus '
+      + 'pr\u00e9-calcul\u00e9s du d\u00e9p\u00f4t sont utilis\u00e9s.</p>'
       + '<p style="font-size:12px; color:var(--text-muted); margin-bottom:4px"><i class="fas fa-info-circle"></i> '
       + 'Exemple\u00a0: jeu r\u00e9solu Fr\u00e9quence cardiaque \u2014 les concepts OMOP standards apr\u00e8s expansion.</p>'
       + mockResolvedTable('fr')
@@ -2319,22 +2537,30 @@ var DocumentationPage = (function() {
       + '<p style="font-size:12px; color:var(--text-muted); margin-bottom:4px"><i class="fas fa-info-circle"></i> '
       + 'Exemple\u00a0: \u00ab Heart rate --W exercise \u00bb (LOINC 89273-7).</p>'
       + mockConceptDetailPanel('fr')
-      + '<p>La grille <strong>D\u00e9tails du concept</strong> affiche toutes les m\u00e9tadonn\u00e9es, '
-      + 'et des liens vers <a href="https://athena.ohdsi.org/" target="_blank">ATHENA</a> '
-      + 'et le <a href="https://tx.fhir.org/r4/" target="_blank">serveur de terminologie FHIR</a>.</p>'
-      + '<p>Trois onglets sous les m\u00e9tadonn\u00e9es\u00a0:</p>'
+
+      + '<p style="margin-top:20px">La grille <strong>D\u00e9tails du concept</strong> affiche toutes les m\u00e9tadonn\u00e9es, '
+      + 'avec des liens vers <a href="https://athena.ohdsi.org/" target="_blank">ATHENA</a> (via l\u2019ID du concept) '
+      + 'et le <a href="https://tx.fhir.org/r4/" target="_blank">serveur de terminologie FHIR</a> (via la Ressource FHIR).</p>'
+      + '<p>Trois onglets sous les m\u00e9tadonn\u00e9es fournissent des informations compl\u00e9mentaires\u00a0:</p>'
       + '<ul>'
-      + '<li><strong>Related</strong> \u2014 Relations avec d\u2019autres concepts. Filtrables par type, vocabulaire et nom.</li>'
-      + '<li><strong>Hi\u00e9rarchie</strong> \u2014 Graphe interactif (vis.js) des anc\u00eatres, descendants et concepts li\u00e9s.</li>'
-      + '<li><strong>Synonymes</strong> \u2014 Noms alternatifs depuis le vocabulaire OMOP.</li>'
+      + '<li><strong>Related</strong> \u2014 Relations avec d\u2019autres concepts (Is a, Has component, Maps to, etc.). Filtrables par type de relation, vocabulaire et nom.</li>'
+      + '<li><strong>Hi\u00e9rarchie</strong> \u2014 Graphe interactif force-directed (vis.js) montrant anc\u00eatres, descendants et concepts li\u00e9s. Cliquez sur un n\u0153ud pour naviguer vers ce concept.</li>'
+      + '<li><strong>Synonymes</strong> \u2014 Noms alternatifs du concept depuis le vocabulaire OMOP (y compris des traductions dans d\u2019autres langues).</li>'
       + '</ul>'
 
       + '<h2 id="doc-tab-comments">Onglet Commentaires</h2>'
       + detailTabs('fr', 'comments')
-      + '<p>Recommandations d\u2019experts en Markdown. \u00c9diteur avec aper\u00e7u en direct en mode \u00e9dition.</p>'
+      + '<p>Affiche les recommandations d\u2019experts en Markdown. Les commentaires d\u00e9crivent g\u00e9n\u00e9ralement\u00a0:</p>'
+      + '<ul>'
+      + '<li>La signification clinique et le contexte du jeu de concepts</li>'
+      + '<li>Quels concepts privil\u00e9gier dans des sc\u00e9narios sp\u00e9cifiques</li>'
+      + '<li>Les pi\u00e8ges courants lors de l\u2019ETL</li>'
+      + '<li>Les diff\u00e9rences entre concepts similaires de diff\u00e9rents vocabulaires</li>'
+      + '</ul>'
+      + '<p>En mode \u00e9dition, un \u00e9diteur double panneau avec aper\u00e7u Markdown en direct est disponible.</p>'
       + mockCommentsPanel('fr')
       + '<p>Pour les recommandations plus g\u00e9n\u00e9rales concernant plusieurs jeux de concepts '
-      + '(strat\u00e9gies de mapping, bonnes pratiques ETL), consultez la page '
+      + '(bonnes pratiques ETL, strat\u00e9gies de mapping), consultez la page '
       + docLink('mapping-recommendations', 'Recommandations de mapping') + '.</p>'
 
       + '<h2 id="doc-tab-statistics">Onglet Statistiques</h2>'
@@ -2342,11 +2568,13 @@ var DocumentationPage = (function() {
       + infoBox('En cours de d\u00e9veloppement',
         'Cette fonctionnalit\u00e9 est encore en discussion et n\u2019a pas encore \u00e9t\u00e9 '
         + 'mise en \u0153uvre en pratique. Le format et le contenu des profils statistiques pourront \u00e9voluer.', 'warning')
+      + '<p>Affiche les distributions attendues des donn\u00e9es pour aider \u00e0 valider vos donn\u00e9es lors de l\u2019ETL\u00a0:</p>'
       + '<ul>'
-      + '<li><strong>Donn\u00e9es num\u00e9riques</strong> \u2014 Min, P5, Q1, M\u00e9diane, Moyenne, Q3, P95, Max, \u00c9T, CV</li>'
-      + '<li><strong>Histogrammes</strong></li>'
-      + '<li><strong>Donn\u00e9es cat\u00e9gorielles</strong></li>'
-      + '<li><strong>Profils multiples</strong> (Adulte, Enfant, Nouveau-n\u00e9)</li>'
+      + '<li><strong>Donn\u00e9es num\u00e9riques</strong> \u2014 Min, P5, P25 (Q1), M\u00e9diane, Moyenne, P75 (Q3), P95, Max, \u00c9T, CV</li>'
+      + '<li><strong>Histogrammes</strong> \u2014 Diagrammes en barres horizontales de la distribution des valeurs</li>'
+      + '<li><strong>Donn\u00e9es cat\u00e9gorielles</strong> \u2014 Cat\u00e9gories avec effectifs et pourcentages</li>'
+      + '<li><strong>Profils multiples</strong> \u2014 ex. Adulte, Enfant, Nouveau-n\u00e9 avec des plages de r\u00e9f\u00e9rence diff\u00e9rentes</li>'
+      + '<li><strong>Fr\u00e9quence de mesure</strong> \u2014 Intervalle d\u2019enregistrement typique (horaire, quotidien, etc.)</li>'
       + '</ul>'
 
       + '<h2 id="doc-tab-review">Onglet Relecture</h2>'
@@ -2357,113 +2585,380 @@ var DocumentationPage = (function() {
       + '<p>Voir ' + docLink('reviewing', 'Relecture & GitHub') + ' pour le workflow complet de soumission '
       + 'de relectures et de proposition de modifications sur GitHub.</p>'
 
-      + '<h2>En-t\u00eate</h2>'
+      + '<h2>M\u00e9tadonn\u00e9es de l\u2019en-t\u00eate</h2>'
+      + '<p>L\u2019en-t\u00eate de la vue d\u00e9taill\u00e9e affiche\u00a0:</p>'
       + '<ul>'
-      + '<li><strong>Badge de version</strong> \u2014 Cliquez pour l\u2019historique</li>'
-      + '<li><strong>Badge de statut</strong> \u2014 Modifiable en mode \u00e9dition</li>'
-      + '<li><strong>Exporter</strong> \u2014 Copier dans le presse-papiers ou t\u00e9l\u00e9charger en JSON (voir ' + docLink('exporting', 'Exporter') + ')</li>'
+      + '<li><strong>Badge de version</strong> \u2014 Cliquez pour afficher l\u2019historique des versions</li>'
+      + '<li><strong>Badge de statut de relecture</strong> \u2014 Cliquez pour modifier le statut (en mode \u00e9dition)</li>'
+      + '<li><strong>Exporter</strong> \u2014 T\u00e9l\u00e9charger ou copier en JSON, proposer sur GitHub, '
+      + 'ou g\u00e9n\u00e9rer une requ\u00eate SQL OMOP avec conversions d\u2019unit\u00e9s (voir ' + docLink('exporting', 'Exporter') + ')</li>'
       + '</ul>';
   }
 
   function editingConceptSetsFR() {
-    return '<h1>Modifier un jeu de concepts</h1>'
-      + '<p>Cliquez sur le bouton <strong>Modifier</strong> (ic\u00f4ne crayon) pour entrer en mode \u00e9dition.</p>'
+    return '<h1>Modifier les jeux de concepts</h1>'
+      + '<p>Toutes les modifications sont sauvegard\u00e9es dans le stockage local de votre navigateur. '
+      + 'Elles persistent entre les sessions mais sont li\u00e9es \u00e0 votre navigateur.</p>'
+      + infoBox('Avertissement stockage local',
+        'Si vous effacez les donn\u00e9es de votre navigateur, les modifications locales seront perdues. '
+        + 'Pensez \u00e0 <strong>exporter</strong> votre travail en JSON et/ou '
+        + '<strong>proposer des modifications sur GitHub</strong> via une pull request pour les pr\u00e9server. '
+        + 'Voir ' + docLink('exporting', 'Exporter') + ' et '
+        + docLink('reviewing', 'Relecture & GitHub') + '.', 'warning')
 
-      + '<h2>Mode \u00e9dition de la liste</h2>'
+      + '<p>Cette section couvre deux niveaux d\u2019\u00e9dition\u00a0: d\u2019abord, la gestion de la liste des jeux de concepts '
+      + '(ajout, suppression, renommage)\u00a0; puis, l\u2019\u00e9dition des d\u00e9tails d\u2019un jeu de concepts '
+      + '(expression, commentaires, statistiques).</p>'
+
+      + '<h2>Modifier la liste des jeux de concepts</h2>'
+      + '<p>Ces actions s\u2019appliquent au tableau principal du Dictionnaire de donn\u00e9es.</p>'
+
+      + '<h3>Entrer en mode \u00e9dition</h3>'
+      + '<p>Cliquez sur le bouton <strong>\u00c9diter</strong> dans la barre d\u2019outils\u00a0:</p>'
+      + '<div style="display:flex; gap:6px; justify-content:center; margin:16px 0; flex-wrap:wrap; align-items:center">'
+      + '<button class="btn-primary-custom btn-gray" style="cursor:default"><i class="fas fa-pen"></i> \u00c9diter</button>'
+      + '<button class="btn-primary-custom" style="cursor:default"><i class="fas fa-download"></i> Exporter</button>'
+      + '</div>'
+      + '<p>La barre d\u2019outils change pour afficher les contr\u00f4les de s\u00e9lection, d\u2019ajout et de sauvegarde/annulation\u00a0:</p>'
+      + '<div style="display:flex; gap:6px; justify-content:center; margin:16px 0; flex-wrap:wrap; align-items:center">'
+      + '<button class="btn-secondary-custom btn-sm" style="cursor:default"><i class="fas fa-check-square"></i></button>'
+      + '<button class="btn-secondary-custom btn-sm" style="cursor:default"><i class="far fa-square"></i></button>'
+      + '<button class="btn-danger-custom btn-sm" style="cursor:default"><i class="fas fa-trash"></i></button>'
+      + '<span style="font-size:12px; color:var(--text-muted)">0 s\u00e9lectionn\u00e9(s)</span>'
+      + '<button class="btn-primary-custom btn-gray" style="cursor:default"><i class="fas fa-times"></i> Annuler</button>'
+      + '<button class="btn-primary-custom" style="cursor:default"><i class="fas fa-save"></i> Enregistrer</button>'
+      + '<button class="btn-success-custom" style="cursor:default"><i class="fas fa-plus"></i> Ajouter un jeu de concepts</button>'
+      + '</div>'
+
+      + '<h3>Ajouter un jeu de concepts</h3>'
+      + '<p>En mode \u00e9dition, cliquez sur <strong>Ajouter un jeu de concepts</strong> (bouton vert). Un modal s\u2019ouvre '
+      + 'o\u00f9 vous fournissez un nom et une cat\u00e9gorie (obligatoires), et optionnellement une sous-cat\u00e9gorie '
+      + 'et une description. Utilisez le bouton <strong>+</strong> \u00e0 c\u00f4t\u00e9 de la cat\u00e9gorie ou '
+      + 'sous-cat\u00e9gorie pour en cr\u00e9er une nouvelle.</p>'
+      + mockNewConceptSetModal('fr')
+
+      + '<h3>S\u00e9lectionner, modifier & supprimer</h3>'
+      + '<p>En mode \u00e9dition, deux colonnes suppl\u00e9mentaires apparaissent sur chaque ligne\u00a0: une '
+      + '<strong>case \u00e0 cocher</strong> pour la s\u00e9lection et une <strong>ic\u00f4ne crayon</strong> pour modifier ce jeu.</p>'
+      + mockEditModeTable(App.lang)
+      + '<p style="margin-top:16px"><button class="cs-row-edit-btn" style="cursor:default"><i class="fas fa-pen"></i></button> '
+      + '<strong>Modifier</strong> \u2014 '
+      + 'Ouvre le modal d\u2019\u00e9dition (m\u00eame formulaire que \u00ab Nouveau jeu de concepts \u00bb, pr\u00e9-rempli).</p>'
+      + '<p><button class="btn-secondary-custom btn-sm" style="cursor:default"><i class="fas fa-check-square"></i></button> '
+      + '<button class="btn-secondary-custom btn-sm" style="cursor:default"><i class="far fa-square"></i></button> '
+      + '<strong>Tout s\u00e9lectionner / D\u00e9s\u00e9lectionner</strong> \u2014 '
+      + 'Basculer la s\u00e9lection sur toutes les lignes.</p>'
+      + '<p><button class="btn-danger-custom btn-sm" style="cursor:default"><i class="fas fa-trash"></i></button> '
+      + '<strong>Supprimer</strong> \u2014 '
+      + 'Supprimer les jeux de concepts s\u00e9lectionn\u00e9s.</p>'
+
+      + '<h3>Enregistrer & Annuler</h3>'
+      + '<p>Toutes les modifications en mode \u00e9dition sont en attente jusqu\u2019\u00e0 ce que vous agissiez explicitement\u00a0:</p>'
       + '<ul>'
-      + '<li><strong>Ajouter</strong> \u2014 Bouton + pour cr\u00e9er un nouveau jeu</li>'
-      + '<li><strong>S\u00e9lection & suppression</strong> \u2014 Cases \u00e0 cocher pour op\u00e9rations groupées</li>'
-      + '<li><strong>\u00c9dition inline</strong> \u2014 Double-clic sur Cat\u00e9gorie, Sous-cat\u00e9gorie ou Nom</li>'
+      + '<li><strong>Enregistrer</strong> \u2014 Valide toutes les modifications en attente dans le stockage local</li>'
+      + '<li><strong>Annuler</strong> \u2014 Annule toutes les modifications, restaurant la liste \u00e0 son \u00e9tat avant '
+      + 'l\u2019entr\u00e9e en mode \u00e9dition. Cela d\u00e9fait tout\u00a0: ajouts, modifications et suppressions.</li>'
       + '</ul>'
 
-      + '<h2>Modifier l\u2019expression</h2>'
-
-      + '<h3>Ajouter des concepts</h3>'
-      + '<ul>'
-      + '<li><strong>Recherche OHDSI</strong> \u2014 Par nom, ID ou code. N\u00e9cessite l\u2019'
-      + docLink('ohdsi-vocabularies', 'import des vocabulaires') + '.</li>'
-      + '<li><strong>Concept personnalis\u00e9</strong> \u2014 Pour les concepts sans \u00e9quivalent OMOP (ID \u2265 2,1 milliards). \u00c0 \u00e9viter.</li>'
-      + '</ul>'
-
-      + '<h3>Importer un JSON</h3>'
-      + '<p>Collez un jeu de concepts au format ATLAS ou INDICATE. D\u00e9duplication automatique.</p>'
+      + '<h2>Modifier les d\u00e9tails d\u2019un jeu de concepts</h2>'
+      + '<p>Ouvrez un jeu de concepts, puis cliquez sur <strong>\u00c9diter</strong> dans l\u2019en-t\u00eate. '
+      + 'Les boutons \u00c9diter et Exporter sont remplac\u00e9s par Importer, Annuler et Enregistrer\u00a0:</p>'
+      + '<div style="display:flex; gap:6px; justify-content:center; margin:16px 0; flex-wrap:wrap">'
+      + '<button class="btn-primary-custom btn-purple" style="cursor:default"><i class="fas fa-file-import"></i> Importer</button>'
+      + '<button class="btn-primary-custom btn-gray" style="cursor:default"><i class="fas fa-times"></i> Annuler</button>'
+      + '<button class="btn-primary-custom" style="cursor:default"><i class="fas fa-save"></i> Enregistrer</button>'
+      + '</div>'
 
       + '<h3>Options de l\u2019expression</h3>'
       + '<p>Chaque concept de l\u2019expression a trois options que vous pouvez basculer directement dans '
       + 'le tableau. Ces options suivent la '
       + '<a href="https://ohdsi.github.io/TAB/Concept-Set-Specification.html" target="_blank">'
       + 'Sp\u00e9cification OHDSI des Concept Sets</a>\u00a0:</p>'
+      + '<p style="font-size:12px; color:var(--text-muted); margin-bottom:4px"><i class="fas fa-info-circle"></i> '
+      + 'Exemple\u00a0: expression Fr\u00e9quence cardiaque en mode \u00e9dition. Les interrupteurs contr\u00f4lent chaque option. L\u2019ic\u00f4ne corbeille supprime un \u00e9l\u00e9ment.</p>'
+      + mockExpressionEditTable(App.lang)
 
-      + '<p><strong>Descendants</strong> \u2014 Inclut automatiquement tous les concepts descendants dans la '
-      + 'hi\u00e9rarchie du vocabulaire (relations \u00ab Is a \u00bb / \u00ab Subsumes \u00bb, stock\u00e9es '
+      + '<p><strong>Descendants</strong> \u2014 Lorsque coch\u00e9, tous les concepts descendants dans la '
+      + 'hi\u00e9rarchie du vocabulaire sont automatiquement inclus. Les vocabulaires OMOP organisent les concepts '
+      + 'en arbres hi\u00e9rarchiques via les relations \u00ab Is a \u00bb / \u00ab Subsumes \u00bb (stock\u00e9es '
       + 'dans la table CONCEPT_ANCESTOR). Par exemple, le concept hi\u00e9rarchique LOINC '
       + '\u00ab Heart rate \u00bb a des dizaines de descendants comme \u00ab Heart rate \u2013\u2013resting \u00bb, '
-      + '\u00ab Heart rate \u2013\u2013sitting \u00bb, \u00ab Heart rate by Pulse oximetry \u00bb, etc.</p>'
+      + '\u00ab Heart rate \u2013\u2013sitting \u00bb, \u00ab Heart rate by Pulse oximetry \u00bb, etc. '
+      + 'Cocher Descendants sur un concept parent les capture tous sans les lister individuellement.</p>'
 
-      + '<p><strong>Mapp\u00e9</strong> \u2014 Inclut les concepts non standards li\u00e9s par des relations '
-      + '\u00ab Maps to \u00bb / \u00ab Mapped from \u00bb. Dans le vocabulaire OMOP, chaque id\u00e9e '
-      + 'clinique a un seul concept d\u00e9sign\u00e9 <strong>Standard</strong> (marqu\u00e9 \u00ab S \u00bb). '
-      + 'Les autres codes repr\u00e9sentant la m\u00eame id\u00e9e sont <strong>non standards</strong> et '
-      + 'li\u00e9s au concept Standard via \u00ab Maps to \u00bb. Par exemple, SNOMED \u00ab Heart rate \u00bb '
-      + '(ID 4239408, non standard) mappe vers LOINC \u00ab Heart rate \u00bb (ID 3027018, Standard).</p>'
+      + '<p><strong>Mapp\u00e9</strong> \u2014 Lorsque coch\u00e9, les concepts non standards li\u00e9s au '
+      + 'concept s\u00e9lectionn\u00e9 via les relations \u00ab Maps to \u00bb / \u00ab Mapped from \u00bb sont '
+      + '\u00e9galement inclus. Dans le vocabulaire OMOP, chaque id\u00e9e clinique a un seul concept '
+      + 'd\u00e9sign\u00e9 <strong>Standard</strong> (marqu\u00e9 \u00ab S \u00bb). Les autres codes de vocabulaire '
+      + 'repr\u00e9sentant la m\u00eame id\u00e9e sont <strong>non standards</strong> et li\u00e9s au concept '
+      + 'Standard via \u00ab Maps to \u00bb. Par exemple, SNOMED \u00ab Heart rate \u00bb (ID 4239408, non standard) '
+      + 'mappe vers LOINC \u00ab Heart rate \u00bb (ID 3027018, Standard). Cocher Mapp\u00e9 garantit que les '
+      + 'concepts non standards d\u2019autres vocabulaires sont captur\u00e9s avec le concept standard.</p>'
 
-      + '<p><strong>Exclure</strong> \u2014 Retire ce concept du jeu r\u00e9solu. Si Descendants est aussi '
-      + 'coch\u00e9, tous ses descendants sont \u00e9galement exclus. Cela permet d\u2019inclure un concept '
-      + 'parent large avec ses descendants, puis d\u2019exclure s\u00e9lectivement certaines branches. '
-      + 'Par exemple, dans le jeu Fr\u00e9quence cardiaque, \u00ab Fetal heart rate \u00bb est exclu avec '
-      + 'Descendants pour retirer les mesures sp\u00e9cifiques au f\u0153tus.</p>'
+      + '<p><strong>Exclure</strong> \u2014 Lorsque coch\u00e9, ce concept est retir\u00e9 du jeu r\u00e9solu. '
+      + 'Si Descendants est \u00e9galement coch\u00e9, tous ses descendants sont aussi exclus. Cela permet '
+      + 'd\u2019inclure un concept parent large avec ses descendants, puis d\u2019exclure s\u00e9lectivement '
+      + 'certaines branches. Par exemple, dans le jeu Fr\u00e9quence cardiaque, \u00ab Fetal heart rate \u00bb '
+      + 'est exclu avec Descendants pour retirer les mesures sp\u00e9cifiques au f\u0153tus.</p>'
 
       + infoBox('Algorithme de r\u00e9solution',
-        'Le jeu est r\u00e9solu en deux phases\u00a0: (1) construire l\u2019<strong>ensemble d\u2019inclusion</strong> '
-        + '\u00e0 partir des \u00e9l\u00e9ments non exclus, en \u00e9tendant via Descendants et Mapp\u00e9\u00a0; '
-        + '(2) construire l\u2019<strong>ensemble d\u2019exclusion</strong> avec la m\u00eame logique\u00a0; '
-        + '(3) le r\u00e9sultat final est <strong>inclusion moins exclusion</strong>.')
+        'Le jeu de concepts est r\u00e9solu en trois \u00e9tapes\u00a0:'
+        + '<ol style="margin:8px 0 0 0; padding-left:20px">'
+        + '<li>Construire l\u2019<strong>ensemble d\u2019inclusion</strong> \u00e0 partir de tous les \u00e9l\u00e9ments o\u00f9 Exclure est d\u00e9coch\u00e9, en \u00e9tendant via Descendants et Mapp\u00e9 selon la configuration</li>'
+        + '<li>Construire l\u2019<strong>ensemble d\u2019exclusion</strong> \u00e0 partir des \u00e9l\u00e9ments o\u00f9 Exclure est coch\u00e9, avec la m\u00eame logique d\u2019expansion</li>'
+        + '<li>R\u00e9sultat final = <strong>ensemble d\u2019inclusion moins ensemble d\u2019exclusion</strong></li>'
+        + '</ol>')
+
+      + '<h3>Ajouter des concepts</h3>'
+      + '<p>En mode \u00e9dition, la barre d\u2019outils de l\u2019expression affiche des boutons suppl\u00e9mentaires\u00a0:</p>'
+      + '<div style="display:flex; gap:6px; justify-content:center; margin:16px 0; flex-wrap:wrap; align-items:center">'
+      + '<button class="btn-secondary-custom btn-sm" style="cursor:default"><i class="fas fa-check-square"></i></button>'
+      + '<button class="btn-secondary-custom btn-sm" style="cursor:default"><i class="far fa-square"></i></button>'
+      + '<button class="btn-danger-custom btn-sm" style="cursor:default"><i class="fas fa-trash"></i></button>'
+      + '<span style="font-size:12px; color:var(--text-muted)">0 s\u00e9lectionn\u00e9(s)</span>'
+      + '<button class="btn-success-custom" style="cursor:default"><i class="fas fa-plus"></i> Ajouter des concepts</button>'
+      + '<button class="btn-primary-custom" style="cursor:default"><i class="fas fa-magic"></i> Optimiser</button>'
+      + '</div>'
+      + '<p>Cliquez sur <strong>Ajouter des concepts</strong> pour ouvrir un modal plein \u00e9cran avec deux onglets\u00a0:</p>'
+      + '<div style="display:flex; gap:0; justify-content:center; margin:16px 0">'
+      + '<button class="expr-add-tab active" style="cursor:default">Vocabulaires OHDSI</button>'
+      + '<button class="expr-add-tab" style="cursor:default">Concept personnalis\u00e9</button>'
+      + '</div>'
+      + '<ul>'
+      + '<li><strong>Vocabulaires OHDSI</strong> \u2014 '
+      + 'Recherchez et ajoutez des concepts OMOP standards depuis la base de vocabulaires OHDSI (SNOMED, LOINC, RxNorm, etc.). C\u2019est la m\u00e9thode principale pour construire les expressions.</li>'
+      + '<li><strong>Concept personnalis\u00e9</strong> \u2014 '
+      + 'Cr\u00e9ez manuellement un concept hors OMOP quand aucun concept standard n\u2019existe. \u00c0 utiliser en dernier recours \u2014 les concepts personnalis\u00e9s ne sont pas interop\u00e9rables avec l\u2019\u00e9cosyst\u00e8me OHDSI.</li>'
+      + '</ul>'
+
+      + '<h4>Vocabulaires OHDSI</h4>'
+      + '<p>Recherchez dans la base de vocabulaires OHDSI locale par nom, ID ou code. N\u00e9cessite l\u2019'
+      + docLink('ohdsi-vocabularies', 'import des vocabulaires')
+      + '. La recherche utilise une <strong>correspondance floue</strong> sur les noms.</p>'
+      + '<div class="doc-mock-modal" style="max-width:100%; padding:12px 16px">'
+      + '<div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap">'
+      + '<input type="text" class="form-input" placeholder="Rechercher par nom, code ou ID..." value="heart rate" readonly style="flex:1; min-width:200px">'
+      + '<button class="btn-primary-custom" style="cursor:default"><i class="fas fa-search"></i> Rechercher</button>'
+      + '<button class="btn-primary-custom btn-gray" style="cursor:default"><i class="fas fa-filter"></i> Filtres</button>'
+      + '<label style="display:inline-flex; align-items:center; gap:4px; font-size:12px; color:var(--text-muted); white-space:nowrap">'
+      + '<input type="checkbox" checked onclick="return false"> <span>Limite 10K</span></label>'
+      + '</div></div>'
+      + '<p style="margin-top:16px">Le bouton <strong>Filtres</strong> ouvre un popup pour affiner les r\u00e9sultats\u00a0:</p>'
+      + mockFiltersPopup(App.lang)
+      + '<p><strong>Limite 10K</strong> limite les r\u00e9sultats \u00e0 10\u202f000 pour \u00e9viter de surcharger le tableau.</p>'
+      + '<p>Les r\u00e9sultats sont affich\u00e9s dans un tableau avec filtres par colonne\u00a0:</p>'
+      + mockAddConceptsTable(App.lang)
+      + '<p>Sous le tableau, deux panneaux affichent les d\u00e9tails du concept s\u00e9lectionn\u00e9\u00a0:</p>'
+      + '<ul>'
+      + '<li><strong>D\u00e9tails du concept</strong> \u2014 M\u00e9tadonn\u00e9es compl\u00e8tes, liens ATHENA et FHIR</li>'
+      + '<li><strong>Hi\u00e9rarchie</strong> \u2014 Graphe interactif des anc\u00eatres, descendants et concepts li\u00e9s</li>'
+      + '</ul>'
+      + '<p>En bas, configurez les options et ajoutez le(s) concept(s) s\u00e9lectionn\u00e9(s)\u00a0:</p>'
+      + mockAddConceptsFooter(App.lang, false)
+      + '<p>Cochez <strong>S\u00e9lection multiple</strong> pour s\u00e9lectionner plusieurs concepts avec les '
+      + 'cases \u00e0 cocher du tableau, puis les ajouter en une seule fois.</p>'
+
+      + '<h4>Concept personnalis\u00e9</h4>'
+      + '<p>Cr\u00e9ez des concepts hors OMOP quand aucun concept standard n\u2019existe. \u00c0 utiliser avec parcimonie.</p>'
+      + mockCustomConceptForm(App.lang)
+      + '<p>Seule l\u2019option <strong>Exclure</strong> est disponible pour les concepts personnalis\u00e9s, '
+      + 'car Descendants et Mapp\u00e9 reposent sur des relations de vocabulaire OMOP inexistantes pour les entr\u00e9es personnalis\u00e9es.</p>'
+      + mockAddConceptsFooter(App.lang, true)
+
+      + '<h3>Importer un JSON</h3>'
+      + '<p>Cliquez sur <strong>Importer</strong> (bouton violet) pour coller une expression au format ATLAS ou INDICATE. '
+      + 'L\u2019importateur accepte les noms de champs en MAJUSCULES (ATLAS) et en camelCase (INDICATE), '
+      + 'd\u00e9duplique par ID de concept, et rapporte les compteurs d\u2019ajouts/ignor\u00e9s.</p>'
+
+      + '<h3>Supprimer des concepts</h3>'
+      + '<p>Utilisez l\u2019ic\u00f4ne corbeille sur chaque ligne, ou s\u00e9lectionnez plusieurs lignes avec les cases \u00e0 cocher '
+      + 'et cliquez sur le bouton rouge corbeille dans la barre d\u2019outils.</p>'
 
       + '<h3>Optimiser l\u2019expression</h3>'
-      + '<p>Le bouton <strong>Optimiser</strong> simplifie l\u2019expression en analysant la hi\u00e9rarchie '
-      + '(n\u00e9cessite une base de vocabulaires).</p>'
+      + '<p>Cliquez sur <strong>Optimiser</strong> pour simplifier l\u2019expression en utilisant l\u2019analyse de la '
+      + 'hi\u00e9rarchie du vocabulaire (n\u00e9cessite une base de vocabulaires OHDSI). L\u2019optimiseur\u00a0:</p>'
+      + '<ul>'
+      + '<li>Supprime les descendants d\u00e9j\u00e0 couverts par l\u2019option \u00ab Inclure les descendants \u00bb d\u2019un parent (descendant)</li>'
+      + '<li>Supprime les \u00e9l\u00e9ments parents qui n\u2019\u00e9largissent pas le p\u00e9rim\u00e8tre (ascendant)</li>'
+      + '<li>Affiche une comparaison avant/apr\u00e8s avec les \u00e9l\u00e9ments qui seraient supprim\u00e9s ou ajout\u00e9s</li>'
+      + '<li>Avertit si l\u2019optimisation modifie le jeu r\u00e9solu</li>'
+      + '</ul>'
 
-      + '<h2>Modifier les commentaires</h2>'
-      + '<p>\u00c9diteur Markdown avec aper\u00e7u en direct. Contenu stock\u00e9 par langue.</p>'
+      + '<h3>Modifier les commentaires</h3>'
+      + '<p>Dans l\u2019onglet Commentaires, le mode \u00e9dition ouvre un \u00e9diteur ACE avec coloration syntaxique '
+      + 'Markdown et un panneau d\u2019aper\u00e7u en direct. Utilisez Cmd/Ctrl+S pour enregistrer. Les commentaires sont stock\u00e9s par langue.</p>'
 
-      + '<h2>Modifier les statistiques</h2>'
-      + '<p>\u00c9diteur JSON avec un mod\u00e8le de structure attendue.</p>'
+      + '<h3>Modifier les statistiques</h3>'
+      + '<p>Dans l\u2019onglet Statistiques, le mode \u00e9dition ouvre un \u00e9diteur JSON. Un mod\u00e8le avec '
+      + 'la structure attendue est fourni. Vous pouvez d\u00e9finir des donn\u00e9es num\u00e9riques (min, max, moyenne, '
+      + 'm\u00e9diane, \u00c9T, percentiles, histogramme), des donn\u00e9es cat\u00e9gorielles, la fr\u00e9quence '
+      + 'de mesure et des profils de population multiples.</p>'
 
-      + '<h2>Version & Statut</h2>'
-      + '<p>Lors de la sauvegarde, mettez \u00e0 jour la version et ajoutez un r\u00e9sum\u00e9.</p>';
+      + '<h3>Version & Statut</h3>'
+      + '<p>Lors de l\u2019enregistrement des modifications, vous pouvez mettre \u00e0 jour la version '
+      + '(suggestion\u00a0: incr\u00e9ment patch) et ajouter un r\u00e9sum\u00e9 de version. Le statut de relecture '
+      + 'peut \u00eatre modifi\u00e9 via le badge de statut dans l\u2019en-t\u00eate.</p>';
   }
 
   function reviewingFR() {
-    return '<h1>Relecture & GitHub</h1>'
-      + '<p>Le dictionnaire utilise un workflow GitHub. Tout le contenu est stock\u00e9 en JSON dans le '
-      + 'd\u00e9p\u00f4t <a href="https://github.com/indicate-eu/data-dictionary-content" target="_blank">'
+    return '<h1>Relecture & Proposition sur GitHub</h1>'
+      + '<p>Le Dictionnaire de Donn\u00e9es INDICATE utilise un workflow GitHub pour contribuer des modifications. '
+      + 'Tout le contenu est stock\u00e9 en fichiers JSON dans le d\u00e9p\u00f4t '
+      + '<a href="https://github.com/indicate-eu/data-dictionary-content" target="_blank">'
       + 'indicate-eu/data-dictionary-content</a>.</p>'
 
+      // ===== SOUMETTRE UNE RELECTURE =====
       + '<h2>Soumettre une relecture</h2>'
-      + '<ol>'
-      + '<li>Ouvrez un jeu de concepts, onglet <strong>Relecture</strong></li>'
-      + '<li>Cliquez <strong>Ajouter une relecture</strong></li>'
-      + '<li>Choisissez un statut et r\u00e9digez vos commentaires</li>'
-      + '<li>Soumettez</li>'
-      + '</ol>'
+      + '<p>Ouvrez un jeu de concepts, allez dans l\u2019onglet <strong>Relecture</strong>, et cliquez sur '
+      + '<button class="tab-btn-green" style="cursor:default"><i class="fas fa-plus"></i> Ajouter une relecture</button>. '
+      + 'Un \u00e9diteur plein \u00e9cran s\u2019ouvre\u00a0:</p>'
 
-      + '<h2>Proposer sur GitHub</h2>'
-      + '<ol>'
-      + '<li>Le JSON mis \u00e0 jour est copi\u00e9 dans votre presse-papiers</li>'
-      + '<li>L\u2019\u00e9diteur GitHub s\u2019ouvre automatiquement</li>'
-      + '<li>Collez, committez sur une nouvelle branche et ouvrez une pull request</li>'
-      + '</ol>'
+      + '<div class="doc-mock-modal" style="max-width:100%">'
+      + '<div style="padding:6px 15px; border-bottom:1px solid #ddd; background:#f8f9fa; display:flex; align-items:center; gap:12px">'
+      + '<h3 style="margin:0; font-size:15px">Ajouter une relecture</h3>'
+      + '<label style="font-size:12px; font-weight:600; color:var(--text-muted)">Statut\u00a0:</label>'
+      + '<select class="form-input" disabled style="width:140px; height:28px; font-size:12px; padding:2px 8px">'
+      + '<option>\u00c0 r\u00e9viser</option></select>'
+      + '<button class="btn-success-custom" style="cursor:default"><i class="fas fa-check"></i> Soumettre la relecture</button>'
+      + '<span style="flex:1"></span>'
+      + '<span class="modal-close" style="cursor:default; font-size:20px">&times;</span>'
+      + '</div>'
+      + '<div style="display:flex; min-height:180px">'
+      + '<div style="flex:1; border-right:1px solid #ddd; display:flex; flex-direction:column">'
+      + '<div style="font-size:12px; font-weight:600; color:var(--text-muted); padding:6px 12px; border-bottom:1px solid #eee">'
+      + '<i class="fas fa-pencil-alt"></i> \u00c9diteur</div>'
+      + '<div style="padding:12px; font-family:monospace; font-size:12px; color:#333; flex:1; background:#fafafa; white-space:pre-wrap">'
+      + 'La fr\u00e9quence cardiaque f\u0153tale devrait \u00eatre exclue de ce jeu.\n\n'
+      + 'Elle est enregistr\u00e9e au **niveau maternel** (dans le dossier obst\u00e9trical de la m\u00e8re), '
+      + 'cr\u00e9ant un risque de confusion avec la fr\u00e9quence cardiaque propre de la m\u00e8re.\n\n'
+      + 'Je sugg\u00e8re de la d\u00e9placer dans un jeu de concepts d\u00e9di\u00e9.'
+      + '</div></div>'
+      + '<div style="flex:1; display:flex; flex-direction:column">'
+      + '<div style="font-size:12px; font-weight:600; color:var(--text-muted); padding:6px 12px; border-bottom:1px solid #eee">'
+      + '<i class="fas fa-eye"></i> Aper\u00e7u</div>'
+      + '<div style="padding:12px; font-size:13px; flex:1">'
+      + '<p style="margin:0 0 10px">La fr\u00e9quence cardiaque f\u0153tale devrait \u00eatre exclue de ce jeu.</p>'
+      + '<p style="margin:0 0 10px">Elle est enregistr\u00e9e au <strong>niveau maternel</strong> (dans le dossier obst\u00e9trical de la m\u00e8re), '
+      + 'cr\u00e9ant un risque de confusion avec la fr\u00e9quence cardiaque propre de la m\u00e8re.</p>'
+      + '<p style="margin:0">Je sugg\u00e8re de la d\u00e9placer dans un jeu de concepts d\u00e9di\u00e9.</p>'
+      + '</div></div>'
+      + '</div></div>'
 
-      + '<h2>Que pouvez-vous contribuer ?</h2>'
+      + '<p>S\u00e9lectionnez un <strong>statut</strong> (Approuv\u00e9 ou \u00c0 r\u00e9viser), r\u00e9digez vos commentaires en '
+      + 'Markdown dans l\u2019\u00e9diteur de gauche avec un aper\u00e7u en direct \u00e0 droite, puis cliquez sur <strong>Soumettre la relecture</strong>.</p>'
+      + '<p>Votre relecture est stock\u00e9e dans la session actuelle du navigateur et appara\u00eet dans l\u2019onglet Relecture.</p>'
+
+      // ===== PROPOSER SUR GITHUB =====
+      + '<h2>Proposer des modifications sur GitHub</h2>'
+      + '<p>Vous pouvez proposer des modifications sur GitHub de deux mani\u00e8res\u00a0:</p>'
       + '<ul>'
-      + '<li>Nouveaux jeux de concepts</li>'
-      + '<li>Ajout/suppression de concepts dans les expressions</li>'
-      + '<li>Commentaires d\u2019experts</li>'
-      + '<li>Donn\u00e9es statistiques</li>'
-      + '<li>Relectures</li>'
-      + '<li>Traductions fran\u00e7aises</li>'
-      + '<li><a href="https://github.com/indicate-eu/data-dictionary-content/issues" target="_blank">Signaler des bugs</a></li>'
-      + '</ul>';
+      + '<li>Dans l\u2019onglet <strong>Relecture</strong>, apr\u00e8s avoir soumis une relecture, un bouton '
+      + '<button class="tab-btn-green" style="cursor:default"><i class="fab fa-github"></i> Proposer sur GitHub</button>'
+      + ' appara\u00eet</li>'
+      + '<li>Depuis <strong>n\u2019importe quel onglet</strong>, cliquez sur '
+      + '<button class="btn-primary-custom" style="cursor:default"><i class="fas fa-download"></i> Exporter</button>'
+      + ' et choisissez l\u2019option GitHub</li>'
+      + '</ul>'
+      + '<p>Dans les deux cas, cliquer sur le bouton\u00a0:</p>'
+      + '<ol>'
+      + '<li>Copie le JSON complet mis \u00e0 jour dans votre presse-papiers</li>'
+      + '<li>Ouvre l\u2019\u00e9diteur GitHub pour ce fichier \u2014 si vous n\u2019avez pas les droits d\u2019\u00e9criture, '
+      + 'vous serez invit\u00e9 \u00e0 <strong>forker</strong> le d\u00e9p\u00f4t</li>'
+      + '<li>Collez le JSON depuis votre presse-papiers, en rempla\u00e7ant le contenu du fichier</li>'
+      + '<li>Committez sur une nouvelle branche et ouvrez une <strong>pull request</strong></li>'
+      + '</ol>'
+
+      + infoBox('Pas de compte GitHub\u00a0?',
+        'Vous pouvez toujours parcourir et utiliser le dictionnaire localement. Le workflow GitHub n\u2019est n\u00e9cessaire '
+        + 'que pour contribuer des modifications \u00e0 la biblioth\u00e8que partag\u00e9e.')
+
+      // ===== QUE POUVEZ-VOUS CONTRIBUER =====
+      + '<h2>Que pouvez-vous contribuer\u00a0?</h2>'
+      + '<ul>'
+      + '<li><strong>Nouveaux jeux de concepts</strong> \u2014 Pour les variables cliniques pas encore couvertes</li>'
+      + '<li><strong>Ajout/suppression de concepts</strong> \u2014 Am\u00e9liorer les expressions existantes</li>'
+      + '<li><strong>Commentaires d\u2019experts</strong> \u2014 Recommandations cliniques pour l\u2019ETL et le mapping</li>'
+      + '<li><strong>Donn\u00e9es statistiques</strong> \u2014 Distributions de r\u00e9f\u00e9rence pour la validation</li>'
+      + '<li><strong>Relectures</strong> \u2014 Approuver ou demander la r\u00e9vision de jeux de concepts</li>'
+      + '<li><strong>Traductions</strong> \u2014 Am\u00e9liorer ou ajouter des traductions</li>'
+      + '<li><strong>Signalement de bugs</strong> \u2014 '
+      + '<a href="https://github.com/indicate-eu/data-dictionary-content/issues" target="_blank">Ouvrir un ticket</a></li>'
+      + '</ul>'
+
+      // ===== STRUCTURE DU D\u00c9P\u00d4T =====
+      + '<h2>Structure du d\u00e9p\u00f4t</h2>'
+      + '<p>Le d\u00e9p\u00f4t <a href="https://github.com/indicate-eu/data-dictionary-content" target="_blank">'
+      + 'indicate-eu/data-dictionary-content</a> est organis\u00e9 comme suit\u00a0:</p>'
+      + '<div class="doc-mock-modal" style="max-width:100%; padding:12px 16px">'
+      + '<table style="font-size:12px; font-family:monospace; margin:0; border-collapse:collapse">'
+      + '<tr><td style="padding:3px 16px 3px 0; white-space:nowrap; color:var(--primary); font-weight:600; border:none">concept_sets/</td>'
+      + '<td style="padding:3px 0; border:none; font-family:inherit; color:var(--text)">Un fichier JSON par jeu de concepts ({id}.json)</td></tr>'
+      + '<tr><td style="padding:3px 16px 3px 0; white-space:nowrap; color:var(--primary); font-weight:600; border:none">concept_sets_resolved/</td>'
+      + '<td style="padding:3px 0; border:none; font-family:inherit; color:var(--text)">Jeux de concepts r\u00e9solus (g\u00e9n\u00e9r\u00e9s par resolve.py)</td></tr>'
+      + '<tr><td style="padding:3px 16px 3px 0; white-space:nowrap; color:var(--primary); font-weight:600; border:none">projects/</td>'
+      + '<td style="padding:3px 0; border:none; font-family:inherit; color:var(--text)">Un fichier JSON par projet ({id}.json)</td></tr>'
+      + '<tr><td style="padding:3px 16px 3px 0; white-space:nowrap; color:var(--primary); font-weight:600; border:none">mapping_recommendations/</td>'
+      + '<td style="padding:3px 0; border:none; font-family:inherit; color:var(--text)">Recommandations de mapping (JSON multilingue)</td></tr>'
+      + '<tr><td style="padding:3px 16px 3px 0; white-space:nowrap; color:var(--primary); font-weight:600; border:none">units/</td>'
+      + '<td style="padding:3px 0; border:none; font-family:inherit; color:var(--text)">unit_conversions.csv + recommended_units.csv</td></tr>'
+      + '<tr><td style="padding:3px 16px 3px 0; white-space:nowrap; color:var(--primary); font-weight:600; border:none">docs/</td>'
+      + '<td style="padding:3px 0; border:none; font-family:inherit; color:var(--text)">Site statique GitHub Pages (HTML, JS, CSS, fichiers de donn\u00e9es g\u00e9n\u00e9r\u00e9s)</td></tr>'
+      + '<tr><td style="padding:3px 16px 3px 0; white-space:nowrap; color:#e67700; font-weight:600; border:none">build.py</td>'
+      + '<td style="padding:3px 0; border:none; font-family:inherit; color:var(--text)">Agr\u00e8ge tous les JSON dans docs/data.json et docs/data_inline.js</td></tr>'
+      + '<tr><td style="padding:3px 16px 3px 0; white-space:nowrap; color:#e67700; font-weight:600; border:none">resolve.py</td>'
+      + '<td style="padding:3px 0; border:none; font-family:inherit; color:var(--text)">R\u00e9sout les expressions des jeux de concepts avec les vocabulaires OMOP</td></tr>'
+      + '</table></div>'
+
+      // ===== PIPELINE DE BUILD =====
+      + '<h2>Pipeline de build</h2>'
+      + '<p>Deux scripts Python maintiennent les fichiers de donn\u00e9es utilis\u00e9s par l\u2019application web\u00a0:</p>'
+
+      + '<h3>resolve.py</h3>'
+      + '<p>R\u00e9sout les expressions des jeux de concepts en \u00e9tendant les descendants et les concepts mapp\u00e9s '
+      + 'en utilisant les tables de vocabulaires OMOP stock\u00e9es dans une base DuckDB.</p>'
+      + '<div class="doc-mock-modal" style="max-width:100%; padding:12px 16px; font-family:monospace; font-size:12px; white-space:pre-wrap">'
+      + 'python3 resolve.py --db /path/to/ohdsi_vocabularies.duckdb\n'
+      + '# ou\n'
+      + 'python3 resolve.py --csv-dir /path/to/athena_csv_folder'
+      + '</div>'
+      + '<p>Vous pouvez fournir soit une base DuckDB (<code>--db</code>) soit un dossier de fichiers CSV Athena '
+      + '(<code>--csv-dir</code> contenant CONCEPT.csv, CONCEPT_ANCESTOR.csv, CONCEPT_RELATIONSHIP.csv).</p>'
+      + '<p>Pour chaque jeu de concepts, il\u00a0:</p>'
+      + '<ol>'
+      + '<li>Partitionne les \u00e9l\u00e9ments de l\u2019expression en inclus et exclus</li>'
+      + '<li>\u00c9tend chaque ensemble avec les descendants et concepts mapp\u00e9s selon la configuration</li>'
+      + '<li>Calcule\u00a0: inclus \u2212 exclus</li>'
+      + '<li>\u00c9crit le jeu r\u00e9solu dans <code>concept_sets_resolved/{id}.json</code> \u2014 '
+      + 'ces fichiers pr\u00e9-calcul\u00e9s permettent de parcourir l\u2019onglet R\u00e9solus sans importer de base de vocabulaires localement</li>'
+      + '</ol>'
+
+      + '<h3>build.py</h3>'
+      + '<p>Agr\u00e8ge tous les fichiers JSON sources dans les fichiers de donn\u00e9es consomm\u00e9s par le site statique.</p>'
+      + '<div class="doc-mock-modal" style="max-width:100%; padding:12px 16px; font-family:monospace; font-size:12px">'
+      + 'python3 build.py'
+      + '</div>'
+      + '<p>Produit\u00a0:</p>'
+      + '<ul>'
+      + '<li><code>docs/data.json</code> \u2014 JSON compact pour un usage programmatique</li>'
+      + '<li><code>docs/data_inline.js</code> \u2014 M\u00eames donn\u00e9es sous forme <code>const DATA={...};</code> pour inclusion directe par script</li>'
+      + '</ul>'
+
+      + infoBox('Rebuild complet',
+        'Apr\u00e8s modification des fichiers de donn\u00e9es sources, ex\u00e9cutez les deux scripts\u00a0:<br>'
+        + '<code style="font-size:12px">python3 resolve.py --db /path/to/vocabularies.duckdb && python3 build.py</code><br>'
+        + 'ou avec des fichiers CSV\u00a0:<br>'
+        + '<code style="font-size:12px">python3 resolve.py --csv-dir /path/to/athena_csv && python3 build.py</code>')
+
+      // ===== SKILLS CLAUDE CODE =====
+      + '<h2>Skills Claude Code</h2>'
+      + '<p>Si vous utilisez <a href="https://github.com/anthropics/claude-code" target="_blank">Claude Code</a> '
+      + 'pour travailler sur ce d\u00e9p\u00f4t, trois skills (commandes slash) sont disponibles\u00a0:</p>'
+      + '<ul>'
+      + '<li><code>/resolve-concept-sets</code> \u2014 Ex\u00e9cute resolve.py pour r\u00e9soudre un ou tous les jeux de concepts</li>'
+      + '<li><code>/build-catalog</code> \u2014 Ex\u00e9cute build.py pour reg\u00e9n\u00e9rer les fichiers de donn\u00e9es du site statique</li>'
+      + '<li><code>/describe-concept-set</code> \u2014 G\u00e9n\u00e8re une description clinique d\u00e9taill\u00e9e pour un jeu de concepts</li>'
+      + '</ul>'
+      + '<p>Ceux-ci automatisent le pipeline de build et assistent la r\u00e9daction de la documentation.</p>';
   }
 
   function exportingFR() {
@@ -2499,44 +2994,58 @@ var DocumentationPage = (function() {
       + '</ul>'
 
       + '<h2>Requ\u00eate SQL OMOP</h2>'
-      + '<p>G\u00e9n\u00e8re une requ\u00eate SQL pour les concepts r\u00e9solus du jeu\u00a0:</p>'
+      + '<p>L\u2019option <strong>Copier la requ\u00eate SQL OMOP</strong> g\u00e9n\u00e8re une requ\u00eate SQL pour extraire '
+      + 'les donn\u00e9es des tables OMOP CDM pour les concepts r\u00e9solus du jeu de concepts actuel.</p>'
+      + '<p>La requ\u00eate g\u00e9n\u00e9r\u00e9e\u00a0:</p>'
       + '<ul>'
-      + '<li>S\u00e9lectionne dans la table OMOP adapt\u00e9e au domaine</li>'
-      + '<li>Filtre sur les concepts standards r\u00e9solus</li>'
-      + '<li>Inclut les <strong>conversions d\u2019unit\u00e9s</strong> depuis '
-      + docLink('dictionary-settings', 'Param\u00e8tres du dictionnaire') + '</li>'
+      + '<li>S\u00e9lectionne dans la table OMOP adapt\u00e9e au domaine du concept '
+      + '(measurement, condition_occurrence, drug_exposure, procedure_occurrence, observation, device_exposure)</li>'
+      + '<li>Filtre sur les IDs de concepts standards r\u00e9solus</li>'
+      + '<li>Inclut les <strong>conversions d\u2019unit\u00e9s</strong> lorsque disponibles \u2014 en utilisant les facteurs de conversion '
+      + 'd\u00e9finis dans ' + docLink('dictionary-settings', 'Param\u00e8tres du dictionnaire') + ' (onglet Conversions d\u2019unit\u00e9s), '
+      + 'la requ\u00eate convertit les valeurs vers l\u2019<strong>unit\u00e9 recommand\u00e9e</strong> d\u00e9finie dans '
+      + 'l\u2019onglet Unit\u00e9s recommand\u00e9es</li>'
       + '</ul>'
+      + '<p>Le SQL est copi\u00e9 dans votre presse-papiers et un aper\u00e7u est affich\u00e9 dans le modal.</p>'
 
       + '<h2>Export projet</h2>'
       + '<p>Depuis la vue d\u00e9taill\u00e9e d\u2019un projet, cliquez '
       + '<button class="btn-primary-custom" style="cursor:default"><i class="fas fa-download"></i> Exporter</button>'
-      + ' pour t\u00e9l\u00e9charger, copier ou proposer sur GitHub.</p>'
-      + '<p>L\u2019onglet Jeux de concepts propose aussi '
+      + ' pour ouvrir le modal d\u2019export\u00a0:</p>'
+      + mockGenericExportModal('fr', 'Exporter le projet')
+      + '<p>L\u2019onglet Jeux de concepts propose \u00e9galement '
       + '<button class="btn-primary-custom" style="cursor:default"><i class="fas fa-file-csv"></i> Exporter CSV</button>'
-      + ' pour exporter tous les concepts OMOP du projet en CSV.</p>';
+      + ' pour t\u00e9l\u00e9charger tous les concepts OMOP des jeux de concepts du projet en CSV, '
+      + 'utile pour les pipelines d\u2019analyse.</p>';
   }
 
   function projectsFR() {
     return '<h1>G\u00e9rer les projets</h1>'
-      + '<p>La page <strong>Projets</strong> permet d\u2019organiser les jeux de concepts en projets de recherche.</p>'
+      + '<p>La page <strong>Projets</strong> permet d\u2019organiser les jeux de concepts en projets de recherche. '
+      + 'Un projet peut \u00eatre une \u00e9tude clinique, un pipeline de machine learning, un tableau de bord, '
+      + 'ou toute initiative data-driven.</p>'
 
       + '<h2>Liste des projets</h2>'
-      + '<p>Les projets sont affich\u00e9s sous forme de cartes avec nom, description, nombre de jeux de concepts, auteur et date. '
-      + 'Utilisez le champ de recherche pour filtrer. Cliquez sur une carte pour ouvrir le projet.</p>'
+      + '<p>Les projets sont affich\u00e9s sous forme de cartes montrant le nom, la description, le nombre de jeux de concepts, l\u2019auteur et la date. '
+      + 'Utilisez le champ de recherche pour filtrer par nom ou description. Cliquez sur une carte pour ouvrir le projet.</p>'
       + mockProjectCard('fr')
 
       + '<h2>Cr\u00e9er un projet</h2>'
-      + '<p>En mode \u00e9dition, cliquez <strong>Ajouter un projet</strong>. Nom et description multilingues (actuellement EN/FR).</p>'
+      + '<p>En mode \u00e9dition, cliquez <strong>Ajouter un projet</strong>. Fournissez un nom et une description courte '
+      + '(multilingues, actuellement EN/FR). L\u2019auteur est pr\u00e9-rempli depuis votre profil.</p>'
       + mockNewProjectModal('fr')
 
-      + '<h2>Vue d\u00e9taill\u00e9e</h2>'
+      + '<h2>Vue d\u00e9taill\u00e9e du projet</h2>'
+      + '<p>Cliquez sur une carte de projet pour ouvrir sa vue d\u00e9taill\u00e9e avec deux onglets\u00a0:</p>'
 
       + '<h3>Onglet Description</h3>'
-      + '<p>Description longue en Markdown, \u00e9dition multilingue c\u00f4te \u00e0 c\u00f4te.</p>'
+      + '<p>Description longue au format Markdown avec aper\u00e7u en direct en mode \u00e9dition. '
+      + 'La description est \u00e9dit\u00e9e pour la langue actuellement s\u00e9lectionn\u00e9e.</p>'
 
       + '<h3>Onglet Jeux de concepts</h3>'
-      + '<p>En lecture\u00a0: tableau triable et filtrable des jeux du projet. Cliquez pour naviguer vers un jeu.</p>'
-      + '<p>En \u00e9dition\u00a0: double panneau pour ajouter/retirer des jeux\u00a0:</p>'
+      + '<p>En mode lecture, affiche un tableau triable et filtrable des jeux de concepts du projet. '
+      + 'Cliquez sur une ligne pour naviguer vers ce jeu de concepts.</p>'
+      + '<p>En mode \u00e9dition, une interface \u00e0 double panneau vous permet de\u00a0:</p>'
       + '<ul>'
       + '<li><strong>Panneau gauche</strong> \u2014 Jeux de concepts disponibles (pas encore dans le projet)</li>'
       + '<li><strong>Panneau droit</strong> \u2014 Jeux de concepts assign\u00e9s au projet</li>'
@@ -2546,8 +3055,9 @@ var DocumentationPage = (function() {
       + mockProjectCSEditPanels('fr')
 
       + infoBox('Bonne pratique',
-        'Incluez tous les jeux n\u00e9cessaires \u00e0 votre analyse, m\u00eame ceux utilis\u00e9s '
-        + 'uniquement pour l\u2019ajustement ou la stratification.')
+        'Incluez tous les jeux de concepts n\u00e9cessaires \u00e0 votre analyse, m\u00eame ceux utilis\u00e9s '
+        + 'uniquement pour l\u2019ajustement ou la stratification. Cela garantit une collecte compl\u00e8te '
+        + 'des donn\u00e9es d\u00e8s le d\u00e9part.')
 
       + '<h2>Export</h2>'
       + '<p>La vue d\u00e9taill\u00e9e du projet propose deux options d\u2019export\u00a0:</p>'
@@ -2597,60 +3107,152 @@ var DocumentationPage = (function() {
       + '</ul>';
   }
 
-  function ohdsiVocabFR() {
-    return '<h1>Vocabulaires OHDSI</h1>'
-      + '<p>L\u2019application peut importer des fichiers de vocabulaires OHDSI dans une <strong>base DuckDB '
-      + 'qui fonctionne enti\u00e8rement dans votre navigateur</strong>.</p>'
+  function devToolsFR() {
+    return '<h1>Outils de d\u00e9veloppement</h1>'
+      + '<p>Acc\u00e8s via le bouton Param\u00e8tres (engrenage) en haut \u00e0 droite du header \u2192 Outils de d\u00e9veloppement.</p>'
+      + '<p>La page Dev Tools fournit des fonctionnalit\u00e9s avanc\u00e9es pour les d\u00e9veloppeurs.</p>'
 
-      + '<h2>Ce que \u00e7a permet</h2>'
+      + '<h2>\u00c9diteur SQL</h2>'
+      + '<p>Interrogez directement la base de vocabulaires OHDSI en SQL.</p>'
+      + '<p>Un menu d\u00e9roulant propose des requ\u00eates d\u2019exemple pr\u00e9construites.</p>'
+      + '<p>Les r\u00e9sultats s\u2019affichent dans un datatable avec export CSV possible.</p>'
+      + mockSqlEditor('fr')
+
+      + '<h2>Sch\u00e9ma / ERD</h2>'
+      + '<p>Visualisez le sch\u00e9ma de la base et le diagramme entit\u00e9-relation des tables de vocabulaires.</p>';
+  }
+
+  function localDataFR() {
+    return '<h1>Donn\u00e9es locales</h1>'
+      + '<p>Le Dictionnaire de Donn\u00e9es INDICATE est une <strong>application enti\u00e8rement c\u00f4t\u00e9 client</strong>. '
+      + 'Toutes les donn\u00e9es sont stock\u00e9es localement dans votre navigateur \u2014 rien n\u2019est envoy\u00e9 vers un serveur.</p>'
+
+      + '<h2>Fonctionnement</h2>'
+      + '<p>L\u2019application utilise deux m\u00e9canismes de stockage du navigateur\u00a0:</p>'
       + '<ul>'
-      + '<li><strong>Recherche de concepts</strong> \u2014 Par nom, ID ou code lors de l\u2019ajout de concepts</li>'
-      + '<li><strong>R\u00e9solution en direct</strong> \u2014 Expansion des descendants et concepts mapp\u00e9s en temps r\u00e9el</li>'
-      + '<li><strong>Graphe hi\u00e9rarchique</strong> \u2014 Visualisation interactive des relations entre concepts</li>'
-      + '<li><strong>Optimisation</strong> \u2014 Simplification des expressions par analyse hi\u00e9rarchique</li>'
-      + '<li><strong>Requ\u00eates SQL</strong> \u2014 \u00c9diteur SQL dans les Outils de d\u00e9veloppement</li>'
+      + '<li><strong>localStorage</strong> \u2014 stocke les jeux de concepts, projets, recommandations de mapping, '
+      + 'conversions d\u2019unit\u00e9s, unit\u00e9s recommand\u00e9es, profil utilisateur, relectures et pr\u00e9f\u00e9rences de langue. '
+      + 'Toutes vos modifications (ajout, modification, suppression) sont sauvegard\u00e9es ici.</li>'
+      + '<li><strong>IndexedDB</strong> \u2014 stocke la base de vocabulaires OHDSI, propuls\u00e9e par '
+      + '<a href="https://duckdb.org/docs/api/wasm/overview" target="_blank">DuckDB-WASM</a>. '
+      + 'C\u2019est une base SQL compl\u00e8te fonctionnant enti\u00e8rement dans votre navigateur, permettant la recherche de concepts, '
+      + 'la visualisation hi\u00e9rarchique et la r\u00e9solution d\u2019expressions sans aucun serveur.</li>'
+      + '</ul>'
+      + '<p>Vos donn\u00e9es persistent entre les sessions et les red\u00e9marrages du navigateur.</p>'
+
+      + '<h2>Mises \u00e0 jour des donn\u00e9es</h2>'
+      + '<p>Quand l\u2019application est d\u00e9ploy\u00e9e sur GitHub Pages, les donn\u00e9es sources (jeux de concepts, projets, etc.) '
+      + 'peuvent \u00eatre mises \u00e0 jour par les contributeurs via des pull requests.</p>'
+      + '<p>Lorsque vous visitez l\u2019application et que de nouvelles donn\u00e9es sont disponibles, un modal appara\u00eet\u00a0:</p>'
+      + mockDataUpdateModal('fr')
+      + '<ul>'
+      + '<li><strong>Appliquer</strong> \u2014 fusionne les mises \u00e0 jour distantes dans vos donn\u00e9es locales. '
+      + 'Si vous avez des modifications locales sur les m\u00eames jeux de concepts, le modal met en \u00e9vidence les conflits '
+      + 'et vous laisse choisir entre votre version locale et la version distante pour chacun.</li>'
+      + '<li><strong>Plus tard</strong> \u2014 ferme le modal et conserve vos donn\u00e9es locales inchang\u00e9es. '
+      + 'Le message r\u00e9appara\u00eetra lors de votre prochaine visite.</li>'
       + '</ul>'
 
-      + '<h2>Comment importer</h2>'
-      + '<ol>'
-      + '<li>T\u00e9l\u00e9chargez les vocabulaires depuis <a href="https://athena.ohdsi.org/" target="_blank">ATHENA</a> (format CSV)</li>'
-      + '<li>Allez dans <strong>Param\u00e8tres</strong> (engrenage) \u2192 <strong>Param\u00e8tres g\u00e9n\u00e9raux</strong></li>'
-      + '<li>Cliquez <strong>S\u00e9lectionner le dossier</strong> et choisissez le dossier des fichiers CSV</li>'
-      + '<li>Attendez la fin de l\u2019import \u2014 une barre de progression indique l\u2019\u00e9tat</li>'
-      + '</ol>'
+      + '<h2>R\u00e9initialiser les donn\u00e9es locales</h2>'
+      + '<p>Pour supprimer toutes les modifications locales et repartir avec la derni\u00e8re version d\u00e9ploy\u00e9e, '
+      + 'ouvrez le menu Param\u00e8tres (engrenage, en haut \u00e0 droite du header) et cliquez sur <strong>R\u00e9initialiser les donn\u00e9es locales</strong>\u00a0:</p>'
+      + mockSettingsDropdown('fr')
+      + '<p>Cela efface toutes les donn\u00e9es localStorage (jeux de concepts, projets, relectures, profil, pr\u00e9f\u00e9rences) '
+      + 'et recharge l\u2019application avec les donn\u00e9es originales de GitHub Pages.</p>'
 
-      + infoBox('Compatibilit\u00e9 navigateur',
-        'Chrome et Edge offrent la meilleure exp\u00e9rience avec un acc\u00e8s persistant. '
-        + 'Sur Firefox et Safari, il faudra peut-\u00eatre res\u00e9lectionner le dossier \u00e0 chaque visite.')
+      + infoBox('Attention',
+        'La r\u00e9initialisation est irr\u00e9versible. '
+        + 'Assurez-vous d\u2019<strong>exporter</strong> tout travail que vous souhaitez conserver avant de r\u00e9initialiser. '
+        + 'Voir ' + docLink('exporting', 'Exporter') + ' et '
+        + docLink('reviewing', 'Relecture & GitHub') + '.', 'warning')
 
-      + '<h2>Reimporter et supprimer</h2>'
-      + '<p>Utilisez <strong>R\u00e9importer</strong> apr\u00e8s une mise \u00e0 jour des vocabulaires. '
-      + '<strong>Supprimer la base</strong> pour retirer la base locale.</p>';
+      + '<h2>Base de vocabulaires OHDSI</h2>'
+      + '<p>La base de vocabulaires stock\u00e9e dans IndexedDB est ind\u00e9pendante de l\u2019action R\u00e9initialiser les donn\u00e9es locales. '
+      + 'Pour la g\u00e9rer, utilisez l\u2019onglet <strong>Vocabulaires OHDSI</strong> dans '
+      + docLink('dictionary-settings', 'Param\u00e8tres du dictionnaire') + '.</p>';
   }
 
   function dictSettingsFR() {
     return '<h1>Param\u00e8tres du dictionnaire</h1>'
-      + '<p>Acc\u00e8s via Param\u00e8tres (engrenage) \u2192 Param\u00e8tres du dictionnaire.</p>'
+      + '<p>Acc\u00e8s via le bouton Param\u00e8tres (engrenage) en haut \u00e0 droite du header \u2192 Param\u00e8tres du dictionnaire.</p>'
+      + '<p>La page comporte trois onglets\u00a0:</p>'
+      + '<ul>'
+      + '<li><strong>Vocabulaires OHDSI</strong> \u2014 importer et g\u00e9rer la base de vocabulaires locale</li>'
+      + '<li><strong>Conversions d\u2019unit\u00e9s</strong> \u2014 facteurs de conversion entre unit\u00e9s de mesure</li>'
+      + '<li><strong>Unit\u00e9s recommand\u00e9es</strong> \u2014 unit\u00e9 recommand\u00e9e par concept de mesure</li>'
+      + '</ul>'
+
+      + '<h2>Vocabulaires OHDSI</h2>'
+      + '<p>L\u2019application peut importer des fichiers de vocabulaires OHDSI dans une <strong>base DuckDB '
+      + 'qui fonctionne enti\u00e8rement dans votre navigateur</strong>. Cela permet des fonctionnalit\u00e9s '
+      + 'avanc\u00e9es sans n\u00e9cessiter de serveur.</p>'
+
+      + '<h3>Ce que \u00e7a permet</h3>'
+      + '<ul>'
+      + '<li><strong>Recherche de concepts</strong> \u2014 par nom, ID ou code lors de l\u2019ajout de concepts aux expressions</li>'
+      + '<li><strong>R\u00e9solution en direct</strong> \u2014 expansion des descendants et concepts mapp\u00e9s en temps r\u00e9el</li>'
+      + '<li><strong>Graphe hi\u00e9rarchique</strong> \u2014 visualisation interactive des relations entre concepts</li>'
+      + '<li><strong>Optimisation</strong> \u2014 simplification des expressions par analyse hi\u00e9rarchique</li>'
+      + '<li><strong>Requ\u00eates SQL</strong> \u2014 \u00e9diteur SQL dans les Outils de d\u00e9veloppement</li>'
+      + '</ul>'
+
+      + '<h3>Comment importer</h3>'
+      + '<ol>'
+      + '<li>T\u00e9l\u00e9chargez les vocabulaires depuis <a href="https://athena.ohdsi.org/vocabulary/list" target="_blank">ATHENA</a> (format CSV ou Parquet)</li>'
+      + '<li>Allez dans <strong>Param\u00e8tres</strong> (engrenage) \u2192 <strong>Param\u00e8tres du dictionnaire</strong> \u2192 onglet <strong>Vocabulaires OHDSI</strong></li>'
+      + '<li>Cliquez <strong>S\u00e9lectionner le dossier</strong> et choisissez le dossier contenant les fichiers</li>'
+      + '<li>Attendez la fin de l\u2019import \u2014 une barre de progression indique l\u2019\u00e9tat</li>'
+      + '</ol>'
+      + '<p>L\u2019import lit CONCEPT.csv, CONCEPT_RELATIONSHIP.csv, CONCEPT_ANCESTOR.csv et les fichiers associ\u00e9s, '
+      + 'les indexe dans DuckDB et sauvegarde la base dans le stockage du navigateur.</p>'
+
+      + '<h3>R\u00e9importer et supprimer</h3>'
+      + '<p>Pour mettre \u00e0 jour la base apr\u00e8s avoir t\u00e9l\u00e9charg\u00e9 de nouveaux fichiers, '
+      + 'supprimez la base existante puis r\u00e9importez en s\u00e9lectionnant \u00e0 nouveau le dossier.</p>'
+      + '<ul>'
+      + '<li><strong>Delete Database</strong> \u2014 supprime enti\u00e8rement la base locale</li>'
+      + '<li><strong>Select Vocabulary Folder</strong> \u2014 r\u00e9importer depuis le dossier de vocabulaires</li>'
+      + '</ul>'
 
       + '<h2>Conversions d\u2019unit\u00e9s</h2>'
       + '<p>G\u00e9rez les facteurs de conversion entre unit\u00e9s de mesure.</p>'
+      + '<p>Le tableau affiche les concepts source et cible avec leurs unit\u00e9s et facteurs de conversion.</p>'
+      + '<p>Utilisez les filtres de colonnes pour rechercher dans chaque colonne.</p>'
+
+      + '<h3>Actions</h3>'
       + '<ul>'
-      + '<li><strong>Ajouter</strong> \u2014 Source, cible, facteur de conversion</li>'
-      + '<li><strong>Modifier</strong> \u2014 Cliquez sur le facteur pour l\u2019\u00e9diter en ligne</li>'
-      + '<li><strong>Tester</strong> \u2014 Calculatrice bidirectionnelle</li>'
-      + '<li><strong>Supprimer</strong> et <strong>Exporter</strong> en JSON</li>'
+      + '<li><strong>Ajouter une conversion</strong> \u2014 cr\u00e9er une conversion avec concepts source/cible, unit\u00e9s et facteur. '
+      + 'Le formulaire d\u2019ajout sera am\u00e9lior\u00e9 dans une future version avec un datatable de recherche de concepts.</li>'
+      + '<li><strong>Modifier le facteur</strong> \u2014 cliquez sur la cellule du facteur pour l\u2019\u00e9diter en ligne</li>'
+      + '<li><strong>Tester</strong> \u2014 ouvrir une calculatrice pour v\u00e9rifier la conversion (inversion bidirectionnelle)</li>'
+      + '<li><strong>Supprimer</strong> \u2014 supprimer une conversion avec confirmation</li>'
       + '</ul>'
+
+      + '<h3>Export</h3>'
+      + '<p>Cliquez sur <strong>Export</strong> pour ouvrir le modal d\u2019export\u00a0:</p>'
+      + mockSettingsExportModal('fr', 'Export')
 
       + '<h2>Unit\u00e9s recommand\u00e9es</h2>'
-      + '<p>D\u00e9finissez l\u2019unit\u00e9 recommand\u00e9e par concept de mesure.</p>'
+      + '<p>D\u00e9finissez l\u2019unit\u00e9 recommand\u00e9e pour chaque concept de mesure.</p>'
+      + '<p>Ceci garantit un usage coh\u00e9rent des unit\u00e9s dans le dictionnaire et est utilis\u00e9 '
+      + 'pour les conversions automatiques lors de l\u2019export SQL des jeux de concepts.</p>'
+      + '<p>Utilisez les filtres de colonnes pour rechercher dans chaque colonne.</p>'
+
+      + '<h3>Actions</h3>'
       + '<ul>'
-      + '<li><strong>Ajouter</strong> \u2014 Concept ID, nom, code, unit\u00e9</li>'
-      + '<li><strong>Supprimer</strong> et <strong>Exporter</strong> en JSON</li>'
-      + '<li><strong>Recherche</strong> floue sur tous les champs</li>'
+      + '<li><strong>Ajouter une unit\u00e9 recommand\u00e9e</strong> \u2014 associer un concept \u00e0 son unit\u00e9 recommand\u00e9e (ID, nom, code). '
+      + 'Le formulaire d\u2019ajout sera am\u00e9lior\u00e9 dans une future version avec un datatable de recherche de concepts.</li>'
+      + '<li><strong>Supprimer</strong> \u2014 supprimer une recommandation avec confirmation</li>'
       + '</ul>'
 
-      + infoBox('Enrichissement vocabulaire',
-        'Si une base OHDSI est charg\u00e9e, les noms de concepts sont automatiquement compl\u00e9t\u00e9s.');
+      + '<h3>Export</h3>'
+      + '<p>Cliquez sur <strong>Export</strong> pour ouvrir le modal d\u2019export\u00a0:</p>'
+      + mockSettingsExportModal('fr', 'Export')
+
+      + infoBox('Enrichissement des vocabulaires',
+        'Lorsqu\u2019une base de vocabulaires OHDSI est charg\u00e9e, les noms de concepts des deux tableaux sont '
+        + 'automatiquement r\u00e9solus depuis la base. Si la base n\u2019est pas encore pr\u00eate \u00e0 l\u2019ouverture '
+        + 'd\u2019un onglet, l\u2019application r\u00e9essaie automatiquement.');
   }
 
   // ==================== RENDERING ====================
