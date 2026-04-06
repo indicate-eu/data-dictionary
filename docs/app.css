@@ -2908,6 +2908,9 @@ select.form-input { appearance: auto; }
 
 .doc-mock-modal .btn-cancel,
 .doc-mock-modal .btn-submit { opacity: 0.6; cursor: default; }
+.doc-mock-modal h3 { margin: 20px 0 8px 0; }
+.doc-mock-modal p { margin: 0 0 10px 0; }
+.doc-mock-modal ul { margin: 0 0 12px 0; }
 
 /* Documentation draft sections */
 .doc-draft-badge {

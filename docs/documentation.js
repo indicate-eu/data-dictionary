@@ -210,7 +210,10 @@ var DocumentationPage = (function() {
     var html = '<div class="detail-header-tabs" style="justify-content:center; margin:16px 0 12px">';
     for (var i = 0; i < tabs.length; i++) {
       var t = tabs[i];
-      html += '<button class="tab-btn-blue' + (t.id === activeTab ? ' active' : '') + '" style="cursor:default">'
+      var isActive = t.id === activeTab;
+      var cursor = isActive ? 'cursor:default' : 'cursor:pointer';
+      var onclick = isActive ? '' : ' onclick="var el=document.getElementById(\'doc-tab-' + t.id + '\');if(el)el.scrollIntoView({behavior:\'smooth\',block:\'start\'})"';
+      html += '<button class="tab-btn-blue' + (isActive ? ' active' : '') + '" style="' + cursor + '"' + onclick + '>'
         + '<i class="fas ' + t.icon + '"></i> ' + t.label + '</button>';
     }
     html += '</div>';
@@ -325,6 +328,80 @@ var DocumentationPage = (function() {
     return html;
   }
 
+  function mockCommentsPanel(lang) {
+    var en = lang === 'en';
+    var content = en
+      ? '<h3 style="margin-top:0">Definition & Clinical Context</h3>'
+        + '<p>Heart rate is the number of heartbeats per unit of time (bpm). Normal ranges: 60\u2013100 bpm in adults, '
+        + '110\u2013160 bpm in neonates. This concept set captures numeric heart rate values only, excluding pulse '
+        + 'waveform morphology, rhythm classification, and fetal heart rate.</p>'
+
+        + '<h3>Included Concepts</h3>'
+        + '<p>22 standard concepts (20 LOINC + 2 SNOMED) organised by clinical context:</p>'
+        + '<ul style="margin-bottom:8px">'
+        + '<li><strong>General</strong> \u2014 <em>3027018 / 8867-4 Heart rate</em>: default concept when source does not specify method or site</li>'
+        + '<li><strong>By method</strong> \u2014 e.g. <em>3001376 / 8889-8 Heart rate by Pulse oximetry</em>, '
+        + '<em>21490670 / 60978-4 Heart rate Intra arterial line by Invasive</em></li>'
+        + '<li><strong>By position</strong> \u2014 e.g. <em>40771524 / 68999-2 Heart rate \u2013\u2013supine</em></li>'
+        + '<li><strong>By condition</strong> \u2014 e.g. <em>3040891 / 40443-4 Heart rate \u2013\u2013resting</em></li>'
+        + '<li><strong>Neonatal screening</strong> \u2014 pre- and postductal pulse oximetry</li>'
+        + '</ul>'
+
+        + '<h3>Excluded Concepts</h3>'
+        + '<ul style="margin-bottom:8px">'
+        + '<li><strong>Pulse waveform & intensity</strong> \u2014 morphology observations, not numeric rates</li>'
+        + '<li><strong>Fetal heart rate</strong> \u2014 covered by a dedicated concept set</li>'
+        + '<li><strong>Timed aggregates</strong> \u2014 Holter/telemetry summaries (max, mean, min over hours)</li>'
+        + '<li><strong>Calculated differences</strong> \u2014 e.g. orthostatic heart rate delta</li>'
+        + '</ul>'
+
+        + '<h3>Mapping Notes</h3>'
+        + '<ul style="margin-bottom:0">'
+        + '<li><strong>Default</strong>: "HR", "Pulse", "FC" \u2192 <em>Heart rate (3027018)</em></li>'
+        + '<li><strong>SpO2-derived</strong>: "SpO2 PR", "Pleth HR" \u2192 <em>Heart rate by Pulse oximetry (3001376)</em></li>'
+        + '<li><strong>Arterial line</strong>: "Art line HR" \u2192 <em>Heart rate Intra arterial line (21490670)</em></li>'
+        + '</ul>'
+
+      : '<h3 style="margin-top:0">D\u00e9finition & Contexte clinique</h3>'
+        + '<p>La fr\u00e9quence cardiaque est le nombre de battements par minute (bpm). Valeurs normales\u00a0: '
+        + '60\u2013100 bpm chez l\u2019adulte, 110\u2013160 bpm chez le nouveau-n\u00e9. Ce jeu capture uniquement '
+        + 'les valeurs num\u00e9riques, excluant la morphologie du pouls, la classification du rythme et la '
+        + 'fr\u00e9quence cardiaque f\u0153tale.</p>'
+
+        + '<h3>Concepts inclus</h3>'
+        + '<p>22 concepts standards (20 LOINC + 2 SNOMED) organis\u00e9s par contexte\u00a0:</p>'
+        + '<ul style="margin-bottom:8px">'
+        + '<li><strong>G\u00e9n\u00e9ral</strong> \u2014 <em>3027018 / 8867-4 Heart rate</em>\u00a0: concept par d\u00e9faut</li>'
+        + '<li><strong>Par m\u00e9thode</strong> \u2014 ex. <em>3001376 / 8889-8 Heart rate by Pulse oximetry</em>, '
+        + '<em>21490670 / 60978-4 Heart rate Intra arterial line</em></li>'
+        + '<li><strong>Par position</strong> \u2014 ex. <em>40771524 / 68999-2 Heart rate \u2013\u2013supine</em></li>'
+        + '<li><strong>Par condition</strong> \u2014 ex. <em>3040891 / 40443-4 Heart rate \u2013\u2013resting</em></li>'
+        + '<li><strong>D\u00e9pistage n\u00e9onatal</strong> \u2014 oxym\u00e9trie pr\u00e9- et post-ductale</li>'
+        + '</ul>'
+
+        + '<h3>Concepts exclus</h3>'
+        + '<ul style="margin-bottom:8px">'
+        + '<li><strong>Forme d\u2019onde & intensit\u00e9 du pouls</strong> \u2014 observations morphologiques</li>'
+        + '<li><strong>Fr\u00e9quence cardiaque f\u0153tale</strong> \u2014 jeu de concepts d\u00e9di\u00e9</li>'
+        + '<li><strong>Agr\u00e9gats temporels</strong> \u2014 r\u00e9sum\u00e9s Holter/t\u00e9l\u00e9m\u00e9trie</li>'
+        + '<li><strong>Diff\u00e9rences calcul\u00e9es</strong> \u2014 ex. delta orthostatique</li>'
+        + '</ul>'
+
+        + '<h3>Notes de mapping</h3>'
+        + '<ul style="margin-bottom:0">'
+        + '<li><strong>Par d\u00e9faut</strong>\u00a0: \u00ab HR \u00bb, \u00ab Pouls \u00bb, \u00ab FC \u00bb \u2192 <em>Heart rate (3027018)</em></li>'
+        + '<li><strong>SpO2</strong>\u00a0: \u00ab SpO2 PR \u00bb, \u00ab Pleth HR \u00bb \u2192 <em>Heart rate by Pulse oximetry (3001376)</em></li>'
+        + '<li><strong>Ligne art\u00e9rielle</strong>\u00a0: \u00ab Art line HR \u00bb \u2192 <em>Heart rate Intra arterial line (21490670)</em></li>'
+        + '</ul>';
+
+    return '<p style="font-size:12px; color:var(--text-muted); margin-bottom:4px"><i class="fas fa-info-circle"></i> '
+      + (en ? 'Example: Heart rate concept set comments (condensed).' : 'Exemple\u00a0: commentaires du jeu Fr\u00e9quence cardiaque (condens\u00e9).') + '</p>'
+      + '<div class="doc-mock-modal" style="max-width:100%">'
+      + '<div style="padding:20px; font-size:13px; line-height:1.6">'
+      + content
+      + '</div></div>';
+  }
+
   function mockReviewTable(lang) {
     var en = lang === 'en';
     var reviews = [
@@ -335,18 +412,8 @@ var DocumentationPage = (function() {
         statusLabel: en ? 'Approved' : 'Approuv\u00e9',
         version: '1.0.1',
         comment: en
-          ? 'Concept set is comprehensive. LOINC hierarchy coverage is good, and the exclusion of fetal heart rate concepts is appropriate for adult ICU use cases.'
-          : 'Jeu de concepts complet. La couverture de la hi\u00e9rarchie LOINC est bonne, et l\u2019exclusion des concepts de fr\u00e9quence cardiaque f\u0153tale est pertinente pour les cas d\u2019utilisation en r\u00e9animation adulte.'
-      },
-      {
-        name: 'Boris Delange',
-        date: '2026-02-28',
-        status: 'approved',
-        statusLabel: en ? 'Approved' : 'Approuv\u00e9',
-        version: '1.0.0',
-        comment: en
-          ? 'OK with initial concept set.'
-          : 'OK avec le jeu de concepts initial.'
+          ? 'Concept set is comprehensive. Good coverage of the LOINC hierarchy. The exclusion of fetal heart rate with a dedicated concept set makes sense, as fetal HR is recorded at the maternal level and could be confused with the mother\'s own heart rate during data alignment.'
+          : 'Jeu de concepts complet. Bonne couverture de la hi\u00e9rarchie LOINC. L\u2019exclusion de la fr\u00e9quence cardiaque f\u0153tale dans un jeu d\u00e9di\u00e9 est pertinente, car la FC f\u0153tale est enregistr\u00e9e au niveau maternel et pourrait \u00eatre confondue avec celle de la m\u00e8re lors de l\u2019alignement des donn\u00e9es.'
       },
       {
         name: 'John Doe',
@@ -355,8 +422,8 @@ var DocumentationPage = (function() {
         statusLabel: en ? 'Needs Revision' : '\u00c0 r\u00e9viser',
         version: '1.0.0',
         comment: en
-          ? 'I would have removed concept "Heart rate \u2013\u2013W exercise" from the set, as exercise-related measurements are not relevant in the ICU context.'
-          : 'J\u2019aurais retir\u00e9 le concept \u00ab Heart rate \u2013\u2013W exercise \u00bb du jeu, car les mesures li\u00e9es \u00e0 l\u2019exercice ne sont pas pertinentes en r\u00e9animation.'
+          ? 'Fetal heart rate should be excluded from this set. It is recorded at the maternal level (in the mother\'s obstetric record), creating a risk of confusion with the mother\'s own heart rate. I suggest moving it to a dedicated concept set to prevent mixing fetal and maternal values during data alignment.'
+          : 'La fr\u00e9quence cardiaque f\u0153tale devrait \u00eatre exclue de ce jeu. Elle est enregistr\u00e9e au niveau maternel (dans le dossier obst\u00e9trical de la m\u00e8re), ce qui cr\u00e9e un risque de confusion avec la FC de la m\u00e8re. Je sugg\u00e8re de la d\u00e9placer dans un jeu de concepts d\u00e9di\u00e9 pour \u00e9viter de m\u00e9langer les valeurs f\u0153tales et maternelles lors de l\u2019alignement.'
       }
     ];
 
@@ -595,7 +662,7 @@ var DocumentationPage = (function() {
     return '<h1>Concept Set Details</h1>'
       + '<p>The detail view shows everything about a concept set, organized in four tabs: <strong>Concepts</strong>, <strong>Comments</strong>, <strong>Statistics</strong>, and <strong>Review</strong>.</p>'
 
-      + '<h2>Concepts Tab</h2>'
+      + '<h2 id="doc-tab-concepts">Concepts Tab</h2>'
       + detailTabs('en', 'concepts')
       + '<p>This tab has two modes, toggled with a switch: <strong>Expression</strong> and <strong>Resolved</strong>.</p>'
 
@@ -637,7 +704,7 @@ var DocumentationPage = (function() {
       + '<li>Interactive hierarchy graph (ancestors, descendants, related concepts) using vis.js</li>'
       + '</ul>'
 
-      + '<h2>Comments Tab</h2>'
+      + '<h2 id="doc-tab-comments">Comments Tab</h2>'
       + detailTabs('en', 'comments')
       + '<p>Displays expert guidance in Markdown. Comments typically describe:</p>'
       + '<ul>'
@@ -647,10 +714,11 @@ var DocumentationPage = (function() {
       + '<li>Differences between similar concepts across vocabularies</li>'
       + '</ul>'
       + '<p>In edit mode, a dual-pane editor with live Markdown preview is available.</p>'
+      + mockCommentsPanel('en')
       + '<p>For broader recommendations that apply across multiple concept sets (e.g. general ETL guidance, '
       + 'mapping strategies), see the ' + docLink('mapping-recommendations', 'Mapping Recommendations') + ' page.</p>'
 
-      + '<h2>Statistics Tab</h2>'
+      + '<h2 id="doc-tab-statistics">Statistics Tab</h2>'
       + detailTabs('en', 'statistics')
       + infoBox('Work in Progress',
         'This feature is still under discussion and has not yet been implemented in practice. '
@@ -664,7 +732,7 @@ var DocumentationPage = (function() {
       + '<li><strong>Measurement frequency</strong> \u2014 Typical recording interval (hourly, daily, etc.)</li>'
       + '</ul>'
 
-      + '<h2>Review Tab</h2>'
+      + '<h2 id="doc-tab-review">Review Tab</h2>'
       + detailTabs('en', 'review')
       + '<p>Displays the review history for this concept set. Each review records the reviewer, date, '
       + 'status, version reviewed, and comments.</p>'
@@ -677,7 +745,7 @@ var DocumentationPage = (function() {
       + '<ul>'
       + '<li><strong>Version badge</strong> \u2014 Click to view the version history log</li>'
       + '<li><strong>Review status badge</strong> \u2014 Click to change status (in edit mode)</li>'
-      + '<li><strong>View JSON</strong> link \u2014 Opens the raw JSON file on GitHub</li>'
+      + '<li><strong>Export</strong> \u2014 Copy to clipboard or download as JSON (see ' + docLink('exporting', 'Exporting') + ')</li>'
       + '</ul>';
   }
 
@@ -1154,7 +1222,7 @@ var DocumentationPage = (function() {
     return '<h1>D\u00e9tails d\u2019un jeu de concepts</h1>'
       + '<p>La vue d\u00e9taill\u00e9e pr\u00e9sente toutes les informations, organis\u00e9es en quatre onglets\u00a0: <strong>Concepts</strong>, <strong>Commentaires</strong>, <strong>Statistiques</strong> et <strong>Relecture</strong>.</p>'
 
-      + '<h2>Onglet Concepts</h2>'
+      + '<h2 id="doc-tab-concepts">Onglet Concepts</h2>'
       + detailTabs('fr', 'concepts')
       + '<p>Deux modes, accessibles via un commutateur\u00a0: <strong>Expression</strong> et <strong>R\u00e9solus</strong>.</p>'
 
@@ -1181,14 +1249,15 @@ var DocumentationPage = (function() {
       + '<p>Cliquez sur un concept pour voir ses m\u00e9tadonn\u00e9es, liens ATHENA et FHIR, et un graphe '
       + 'hi\u00e9rarchique interactif.</p>'
 
-      + '<h2>Onglet Commentaires</h2>'
+      + '<h2 id="doc-tab-comments">Onglet Commentaires</h2>'
       + detailTabs('fr', 'comments')
       + '<p>Recommandations d\u2019experts en Markdown. \u00c9diteur avec aper\u00e7u en direct en mode \u00e9dition.</p>'
+      + mockCommentsPanel('fr')
       + '<p>Pour les recommandations plus g\u00e9n\u00e9rales concernant plusieurs jeux de concepts '
       + '(strat\u00e9gies de mapping, bonnes pratiques ETL), consultez la page '
       + docLink('mapping-recommendations', 'Recommandations de mapping') + '.</p>'
 
-      + '<h2>Onglet Statistiques</h2>'
+      + '<h2 id="doc-tab-statistics">Onglet Statistiques</h2>'
       + detailTabs('fr', 'statistics')
       + infoBox('En cours de d\u00e9veloppement',
         'Cette fonctionnalit\u00e9 est encore en discussion et n\u2019a pas encore \u00e9t\u00e9 '
@@ -1200,7 +1269,7 @@ var DocumentationPage = (function() {
       + '<li><strong>Profils multiples</strong> (Adulte, Enfant, Nouveau-n\u00e9)</li>'
       + '</ul>'
 
-      + '<h2>Onglet Relecture</h2>'
+      + '<h2 id="doc-tab-review">Onglet Relecture</h2>'
       + detailTabs('fr', 'review')
       + '<p>Affiche l\u2019historique des relectures pour ce jeu de concepts. Chaque relecture enregistre '
       + 'le relecteur, la date, le statut, la version relue et les commentaires.</p>'
@@ -1212,7 +1281,7 @@ var DocumentationPage = (function() {
       + '<ul>'
       + '<li><strong>Badge de version</strong> \u2014 Cliquez pour l\u2019historique</li>'
       + '<li><strong>Badge de statut</strong> \u2014 Modifiable en mode \u00e9dition</li>'
-      + '<li><strong>Voir JSON</strong> \u2014 Lien vers le fichier brut sur GitHub</li>'
+      + '<li><strong>Exporter</strong> \u2014 Copier dans le presse-papiers ou t\u00e9l\u00e9charger en JSON (voir ' + docLink('exporting', 'Exporter') + ')</li>'
       + '</ul>';
   }
 
