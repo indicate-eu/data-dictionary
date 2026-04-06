@@ -202,8 +202,8 @@
                     <th data-col="name" data-i18n="Concept Name">Concept Name</th>
                     <th data-col="code" data-i18n="Concept Code">Concept Code</th>
                     <th data-col="domain" data-i18n="Domain">Domain</th>
-                    <th data-col="standard" class="td-center" data-i18n="Standard">Standard</th>
                     <th data-col="class" data-i18n="Concept Class">Concept Class</th>
+                    <th data-col="standard" class="td-center" data-i18n="Standard">Standard</th>
                   </tr>
                   <tr class="filter-row">
                     <th data-col="conceptId"><input type="text" class="column-filter" id="resolved-filter-conceptId" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
@@ -211,8 +211,8 @@
                     <th data-col="name"><input type="text" class="column-filter" id="resolved-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
                     <th data-col="code"><input type="text" class="column-filter" id="resolved-filter-code" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
                     <th data-col="domain"><select class="column-filter" id="resolved-filter-domain"><option value="" data-i18n="All">All</option></select></th>
-                    <th data-col="standard"><div class="ms-container" id="resolved-filter-standard"></div></th>
                     <th data-col="class"><select class="column-filter" id="resolved-filter-class"><option value="" data-i18n="All">All</option></select></th>
+                    <th data-col="standard"><div class="ms-container" id="resolved-filter-standard"></div></th>
                   </tr>
                 </thead>
                 <tbody id="resolved-tbody"></tbody>
@@ -240,10 +240,12 @@
               <thead>
                 <tr>
                   <th class="expr-select-col" style="width:36px"></th>
+                  <th data-col="conceptId" style="width:8%" data-i18n="Concept ID">Concept ID</th>
                   <th data-col="vocabulary" style="width:12%" data-i18n="Vocabulary">Vocabulary</th>
                   <th data-col="name" style="width:22%" data-i18n="Concept Name">Concept Name</th>
                   <th data-col="code" style="width:10%" data-i18n="Concept Code">Concept Code</th>
                   <th data-col="domain" style="width:10%" data-i18n="Domain">Domain</th>
+                  <th data-col="class" style="width:10%" data-i18n="Concept Class">Concept Class</th>
                   <th data-col="standard" style="width:9%" class="td-center" data-i18n="Standard">Standard</th>
                   <th data-col="exclude" style="width:9%" class="td-center" data-i18n="Exclude">Exclude</th>
                   <th data-col="descendants" style="width:9%" class="td-center" data-i18n="Descendants">Descendants</th>
@@ -252,10 +254,12 @@
                 </tr>
                 <tr class="filter-row" id="expression-filter-row">
                   <th class="expr-select-col"></th>
+                  <th data-col="conceptId"><input type="text" class="column-filter" id="expr-filter-conceptId" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
                   <th data-col="vocabulary"><div class="ms-container" id="expr-filter-vocabulary"></div></th>
                   <th data-col="name"><input type="text" class="column-filter" id="expr-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
                   <th data-col="code"><input type="text" class="column-filter" id="expr-filter-code" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
                   <th data-col="domain"><select class="column-filter" id="expr-filter-domain"><option value="" data-i18n="All">All</option></select></th>
+                  <th data-col="class"><select class="column-filter" id="expr-filter-class"><option value="" data-i18n="All">All</option></select></th>
                   <th data-col="standard"><div class="ms-container" id="expr-filter-standard"></div></th>
                   <th data-col="exclude"><select class="column-filter" id="expr-filter-exclude"><option value="" data-i18n="All">All</option><option value="yes">Yes</option><option value="no">No</option></select></th>
                   <th data-col="descendants"><select class="column-filter" id="expr-filter-descendants"><option value="" data-i18n="All">All</option><option value="yes">Yes</option><option value="no">No</option></select></th>

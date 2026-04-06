@@ -331,7 +331,7 @@ var ConceptSetsPage = (function() {
     var allItems = exprEditMode ? exprEditItems : ((selectedConceptSet.expression && selectedConceptSet.expression.items) || []);
     var table = document.getElementById('expression-table');
     var tbody = document.getElementById('expression-tbody');
-    var colSpan = exprEditMode ? 10 : 8;
+    var colSpan = exprEditMode ? 12 : 10;
 
     // Toggle table classes
     table.classList.toggle('expr-edit-mode', exprEditMode);
@@ -345,10 +345,12 @@ var ConceptSetsPage = (function() {
     var filtered = indexed.filter(function(entry) {
       var item = entry.item;
       var c = item.concept;
+      if (filters.conceptId && String(c.conceptId || '').toLowerCase().indexOf(filters.conceptId) === -1) return false;
       if (filters.vocabulary.size > 0 && !filters.vocabulary.has(c.vocabularyId || '')) return false;
       if (filters.name && !fuzzyMatchBool((c.conceptName || '').toLowerCase(), filters.name)) return false;
       if (filters.code && (c.conceptCode || '').toLowerCase().indexOf(filters.code) === -1) return false;
       if (filters.domain && (c.domainId || '') !== filters.domain) return false;
+      if (filters.conceptClass && (c.conceptClassId || '') !== filters.conceptClass) return false;
       if (filters.standard.size > 0 && !filters.standard.has(c.standardConcept || '')) return false;
       if (filters.exclude === 'yes' && !item.isExcluded) return false;
       if (filters.exclude === 'no' && item.isExcluded) return false;
@@ -405,10 +407,12 @@ var ConceptSetsPage = (function() {
 
       return '<tr data-idx="' + i + '"' + rowClass + '>' +
         (exprEditMode ? selectCol : '') +
+        '<td>' + App.escapeHtml(String(c.conceptId || '')) + '</td>' +
         '<td>' + App.escapeHtml(c.vocabularyId) + '</td>' +
         '<td>' + App.escapeHtml(c.conceptName) + '</td>' +
         '<td>' + App.escapeHtml(c.conceptCode) + '</td>' +
         '<td>' + App.escapeHtml(c.domainId) + '</td>' +
+        '<td>' + App.escapeHtml(c.conceptClassId || '') + '</td>' +
         '<td class="td-center">' + App.standardBadge(c) + '</td>' +
         excludeCell + descCell + mappedCell +
         (exprEditMode ? actionCol : '') +
@@ -1800,12 +1804,16 @@ var ConceptSetsPage = (function() {
 
     var athenaUrl = 'https://athena.ohdsi.org/search-terms/terms/' + r.concept_id;
 
+    var copyBtn = function(value) {
+      return ' <i class="far fa-clone detail-copy-btn" data-copy="' + App.escapeHtml(String(value)) + '" title="Copy"></i>';
+    };
+
     el.innerHTML = alreadyHtml +
       '<div class="concept-details-container"><div class="concept-details-grid">' +
-      '<div class="detail-item"><strong>Concept Name:</strong><span>' + App.escapeHtml(r.concept_name) + '</span></div>' +
-      '<div class="detail-item"><strong>View in ATHENA:</strong><span><a href="' + athenaUrl + '" target="_blank">' + r.concept_id + '</a></span></div>' +
+      '<div class="detail-item"><strong>Concept Name:</strong><span>' + App.escapeHtml(r.concept_name) + copyBtn(r.concept_name) + '</span></div>' +
+      '<div class="detail-item"><strong>OMOP Concept ID:</strong><span><a href="' + athenaUrl + '" target="_blank">' + r.concept_id + '</a>' + copyBtn(r.concept_id) + '</span></div>' +
       '<div class="detail-item"><strong>Vocabulary ID:</strong><span>' + App.escapeHtml(r.vocabulary_id) + '</span></div>' +
-      '<div class="detail-item"><strong>Concept Code:</strong><span>' + App.escapeHtml(r.concept_code || '') + '</span></div>' +
+      '<div class="detail-item"><strong>Concept Code:</strong><span>' + App.escapeHtml(r.concept_code || '') + copyBtn(r.concept_code || '') + '</span></div>' +
       '<div class="detail-item"><strong>Domain:</strong><span>' + App.escapeHtml(r.domain_id || '') + '</span></div>' +
       '<div class="detail-item"><strong>Standard:</strong><span style="color:' + standardColor + ';font-weight:600">' + standardText + '</span></div>' +
       '<div class="detail-item"><strong>Concept Class:</strong><span>' + App.escapeHtml(r.concept_class_id || '') + '</span></div>' +
@@ -2397,19 +2405,21 @@ var ConceptSetsPage = (function() {
   var exprFilterStandard = new Set();
 
   var resolvedColumns = {
-    conceptId: { label: 'Concept ID', visible: true },
+    conceptId: { label: 'Concept ID', visible: false },
     vocabulary: { label: 'Vocabulary', visible: true },
     name: { label: 'Concept Name', visible: true },
     code: { label: 'Concept Code', visible: true },
     domain: { label: 'Domain', visible: false },
-    standard: { label: 'Standard', visible: true },
-    'class': { label: 'Concept Class', visible: false }
+    'class': { label: 'Concept Class', visible: false },
+    standard: { label: 'Standard', visible: true }
   };
   var expressionColumns = {
+    conceptId: { label: 'Concept ID', visible: false },
     vocabulary: { label: 'Vocabulary', visible: true },
     name: { label: 'Concept Name', visible: true },
     code: { label: 'Concept Code', visible: true },
     domain: { label: 'Domain', visible: true },
+    'class': { label: 'Concept Class', visible: false },
     standard: { label: 'Standard', visible: true },
     exclude: { label: 'Exclude', visible: true },
     descendants: { label: 'Descendants', visible: true },
@@ -2460,13 +2470,14 @@ var ConceptSetsPage = (function() {
 
   // ==================== EXPRESSION TABLE FILTERS ====================
   function populateExpressionFilters(items) {
-    var vocabs = {}, domains = {}, standards = {};
+    var vocabs = {}, domains = {}, standards = {}, classes = {};
     items.forEach(function(item) {
       var c = item.concept;
       vocabs[c.vocabularyId || ''] = true;
       domains[c.domainId || ''] = true;
       var sc = c.standardConcept || '';
       standards[sc] = standardLabel(sc);
+      classes[c.conceptClassId || ''] = true;
     });
 
     var vocabValues = Object.keys(vocabs).sort();
@@ -2474,14 +2485,18 @@ var ConceptSetsPage = (function() {
       expressionPage = 1; renderExpressionTable();
     });
 
-    var sel = document.getElementById('expr-filter-domain');
-    var cur = sel.value;
-    var opts = '<option value="">All</option>';
-    Object.keys(domains).sort().forEach(function(v) {
-      opts += '<option value="' + App.escapeHtml(v) + '">' + App.escapeHtml(v || '(empty)') + '</option>';
-    });
-    sel.innerHTML = opts;
-    sel.value = cur;
+    function fillSelect(id, values) {
+      var sel = document.getElementById(id);
+      var cur = sel.value;
+      var opts = '<option value="">All</option>';
+      Object.keys(values).sort().forEach(function(v) {
+        opts += '<option value="' + App.escapeHtml(v) + '">' + App.escapeHtml(v || '(empty)') + '</option>';
+      });
+      sel.innerHTML = opts;
+      sel.value = cur;
+    }
+    fillSelect('expr-filter-domain', domains);
+    fillSelect('expr-filter-class', classes);
 
     var stdValues = Object.keys(standards).sort();
     var stdLabels = {};
@@ -2493,10 +2508,12 @@ var ConceptSetsPage = (function() {
 
   function getExpressionFilters() {
     return {
+      conceptId: document.getElementById('expr-filter-conceptId').value.toLowerCase(),
       vocabulary: exprFilterVocab,
       name: document.getElementById('expr-filter-name').value.toLowerCase(),
       code: document.getElementById('expr-filter-code').value.toLowerCase(),
       domain: document.getElementById('expr-filter-domain').value,
+      conceptClass: document.getElementById('expr-filter-class').value,
       standard: exprFilterStandard,
       exclude: document.getElementById('expr-filter-exclude').value,
       descendants: document.getElementById('expr-filter-descendants').value,
@@ -2525,9 +2542,11 @@ var ConceptSetsPage = (function() {
   function resetExpressionFilters() {
     exprFilterVocab.clear();
     exprFilterStandard.clear();
+    document.getElementById('expr-filter-conceptId').value = '';
     document.getElementById('expr-filter-name').value = '';
     document.getElementById('expr-filter-code').value = '';
     document.getElementById('expr-filter-domain').value = '';
+    document.getElementById('expr-filter-class').value = '';
     document.getElementById('expr-filter-exclude').value = '';
     document.getElementById('expr-filter-descendants').value = '';
     document.getElementById('expr-filter-mapped').value = '';
@@ -2659,8 +2678,8 @@ var ConceptSetsPage = (function() {
         '<td>' + App.escapeHtml(c.conceptName) + '</td>' +
         '<td>' + App.escapeHtml(c.conceptCode) + '</td>' +
         '<td>' + App.escapeHtml(c.domainId) + '</td>' +
+        '<td>' + App.escapeHtml(c.conceptClassId || '') + '</td>' +
         '<td class="td-center">' + App.standardBadge(c) + '</td>' +
-        '<td>' + App.escapeHtml(c.conceptClassId) + '</td>' +
         '</tr>';
     }).join('');
     applyColumnVisibility();
@@ -2839,13 +2858,17 @@ var ConceptSetsPage = (function() {
       ? '<div style="margin-bottom:8px"><button class="btn-outline-sm" id="concept-detail-back"><i class="fas fa-arrow-left"></i> Back</button></div>'
       : '';
 
+    var copyBtn = function(value) {
+      return ' <i class="far fa-clone detail-copy-btn" data-copy="' + App.escapeHtml(String(value)) + '" title="Copy"></i>';
+    };
+
     el.innerHTML = backBtnHtml +
       '<div class="concept-details-container"><div class="concept-details-grid">' +
-      '<div class="detail-item"><strong>Concept Name:</strong><span>' + App.escapeHtml(concept.conceptName) + '</span></div>' +
-      '<div class="detail-item"><strong>View in ATHENA:</strong><span><a href="' + athenaUrl + '" target="_blank">' + concept.conceptId + '</a></span></div>' +
+      '<div class="detail-item"><strong>Concept Name:</strong><span>' + App.escapeHtml(concept.conceptName) + copyBtn(concept.conceptName) + '</span></div>' +
+      '<div class="detail-item"><strong>OMOP Concept ID:</strong><span><a href="' + athenaUrl + '" target="_blank">' + concept.conceptId + '</a>' + copyBtn(concept.conceptId) + '</span></div>' +
       '<div class="detail-item"><strong>Vocabulary ID:</strong><span>' + App.escapeHtml(concept.vocabularyId) + '</span></div>' +
       '<div class="detail-item"><strong>FHIR Resource:</strong><span>' + fhirHtml + '</span></div>' +
-      '<div class="detail-item"><strong>Concept Code:</strong><span>' + App.escapeHtml(concept.conceptCode) + '</span></div>' +
+      '<div class="detail-item"><strong>Concept Code:</strong><span>' + App.escapeHtml(concept.conceptCode) + copyBtn(concept.conceptCode) + '</span></div>' +
       '<div class="detail-item"><strong>Standard:</strong><span style="color:' + standardColor + ';font-weight:600">' + App.escapeHtml(standardText) + '</span></div>' +
       '<div class="detail-item"><strong>Domain:</strong><span>' + App.escapeHtml(concept.domainId) + '</span></div>' +
       '<div class="detail-item"><strong>Validity:</strong><span style="color:' + validityColor + ';font-weight:600">' + validityText + '</span></div>' +
@@ -4538,6 +4561,22 @@ var ConceptSetsPage = (function() {
 
   // ==================== EVENTS ====================
   function initEvents() {
+    // Copy buttons in concept detail panels
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest('.detail-copy-btn');
+      if (!btn) return;
+      var text = btn.getAttribute('data-copy');
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(function() {
+        btn.classList.replace('far', 'fas');
+        btn.classList.replace('fa-clone', 'fa-check');
+        setTimeout(function() {
+          btn.classList.replace('fas', 'far');
+          btn.classList.replace('fa-check', 'fa-clone');
+        }, 1200);
+      });
+    });
+
     // Toolbar: selection mode toggle
     document.getElementById('cs-edit-list-btn').addEventListener('click', enterListEditMode);
     document.getElementById('cs-list-cancel-btn').addEventListener('click', cancelListEdits);

@@ -194,6 +194,132 @@ var DocumentationPage = (function() {
     return html;
   }
 
+  function detailTabs(lang, activeTab) {
+    var en = lang === 'en';
+    var tabs = [
+      { id: 'concepts', icon: 'fa-list', label: 'Concepts' },
+      { id: 'comments', icon: 'fa-comment', label: en ? 'Comments' : 'Commentaires' },
+      { id: 'statistics', icon: 'fa-chart-bar', label: en ? 'Statistics' : 'Statistiques' },
+      { id: 'review', icon: 'fa-clipboard-check', label: en ? 'Review' : 'Relecture' }
+    ];
+    var html = '<div class="detail-header-tabs" style="justify-content:center; margin:16px 0 12px">';
+    for (var i = 0; i < tabs.length; i++) {
+      var t = tabs[i];
+      html += '<button class="tab-btn-blue' + (t.id === activeTab ? ' active' : '') + '" style="cursor:default">'
+        + '<i class="fas ' + t.icon + '"></i> ' + t.label + '</button>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function conceptModeToggle(lang, activeMode) {
+    var en = lang === 'en';
+    var resolved = en ? 'Resolved' : 'R\u00e9solus';
+    var expression = 'Expression';
+    return '<div style="margin:12px 0; display:flex; justify-content:center">'
+      + '<div class="toggle-group">'
+      + '<button class="toggle-btn' + (activeMode === 'resolved' ? ' active' : '') + '" style="cursor:default">' + resolved + '</button>'
+      + '<button class="toggle-btn' + (activeMode === 'expression' ? ' active' : '') + '" style="cursor:default">' + expression + '</button>'
+      + '</div></div>';
+  }
+
+  function mockExpressionTable(lang) {
+    var en = lang === 'en';
+    var flagYes = '<span class="flag-yes">Yes</span>';
+    var flagNo = '<span class="flag-no">No</span>';
+    var flagYesDanger = '<span class="flag-yes-danger">Yes</span>';
+    var rows = [
+      { vocab: 'LOINC', name: 'Heart rate', code: 'LP415670-1', domain: 'Measurement', std: 'C', excl: false, desc: true, map: true },
+      { vocab: 'LOINC', name: 'Heart rate.beat-to-beat | Heart', code: 'LP415748-5', domain: 'Measurement', std: 'C', excl: false, desc: true, map: true },
+      { vocab: 'SNOMED', name: 'Heart rate', code: '364075005', domain: 'Measurement', std: 'S', excl: false, desc: true, map: true },
+      { vocab: 'SNOMED', name: 'Resting heart rate', code: '444981005', domain: 'Measurement', std: 'S', excl: false, desc: true, map: true },
+      { vocab: 'SNOMED', name: 'Fetal heart rate', code: '249043002', domain: 'Measurement', std: 'S', excl: true, desc: true, map: true },
+      { vocab: 'LOINC', name: 'Heart rate at First encounter', code: '69000-8', domain: 'Measurement', std: 'S', excl: true, desc: true, map: true }
+    ];
+    var stdBadge = function(s) {
+      if (s === 'S') return '<span class="badge badge-standard">Standard</span>';
+      return '<span class="badge badge-classification">Classification</span>';
+    };
+    var fl = en ? 'Filter...' : 'Filtrer...';
+    var html = '<div class="doc-mock-table"><table><thead><tr>'
+      + '<th>' + (en ? 'Vocabulary' : 'Vocabulaire') + '</th>'
+      + '<th>' + (en ? 'Concept Name' : 'Nom du concept') + '</th>'
+      + '<th>' + (en ? 'Domain' : 'Domaine') + '</th>'
+      + '<th>Standard</th>'
+      + '<th>' + (en ? 'Exclude' : 'Exclure') + '</th>'
+      + '<th>Desc.</th>'
+      + '<th>' + (en ? 'Mapped' : 'Mapp\u00e9') + '</th>'
+      + '</tr><tr class="doc-mock-filter-row">'
+      + '<th><input type="text" class="form-input" placeholder="' + fl + '" readonly></th>'
+      + '<th><input type="text" class="form-input" placeholder="' + fl + '" readonly></th>'
+      + '<th><input type="text" class="form-input" placeholder="' + fl + '" readonly></th>'
+      + '<th><input type="text" class="form-input" placeholder="' + fl + '" readonly></th>'
+      + '<th><input type="text" class="form-input" placeholder="' + fl + '" readonly></th>'
+      + '<th><input type="text" class="form-input" placeholder="' + fl + '" readonly></th>'
+      + '<th><input type="text" class="form-input" placeholder="' + fl + '" readonly></th>'
+      + '</tr></thead><tbody>';
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i];
+      html += '<tr>'
+        + '<td>' + r.vocab + '</td>'
+        + '<td>' + r.name + '</td>'
+        + '<td>' + (en ? r.domain : 'Mesure') + '</td>'
+        + '<td>' + stdBadge(r.std) + '</td>'
+        + '<td class="td-center">' + (r.excl ? flagYesDanger : flagNo) + '</td>'
+        + '<td class="td-center">' + (r.excl ? (r.desc ? flagYesDanger : flagNo) : (r.desc ? flagYes : flagNo)) + '</td>'
+        + '<td class="td-center">' + (r.excl ? (r.map ? flagYesDanger : flagNo) : (r.map ? flagYes : flagNo)) + '</td>'
+        + '</tr>';
+    }
+    html += '<tr><td colspan="7" style="text-align:center; color:var(--text-muted); font-size:12px; padding:8px">'
+      + (en ? '... 38 items total' : '... 38 \u00e9l\u00e9ments au total')
+      + '</td></tr>';
+    html += '</tbody></table></div>';
+    return html;
+  }
+
+  function mockResolvedTable(lang) {
+    var en = lang === 'en';
+    var rows = [
+      { id: 3027018, vocab: 'LOINC', name: 'Heart rate', code: '8867-4', domain: 'Measurement', std: 'S' },
+      { id: 36303943, vocab: 'LOINC', name: 'Heart rate --W exercise', code: '89273-7', domain: 'Measurement', std: 'S' },
+      { id: 36305351, vocab: 'LOINC', name: 'Heart rate --during anesthesia', code: '89278-6', domain: 'Measurement', std: 'S' },
+      { id: 3040891, vocab: 'LOINC', name: 'Heart rate --resting', code: '40443-4', domain: 'Measurement', std: 'S' },
+      { id: 40771525, vocab: 'LOINC', name: 'Heart rate --sitting', code: '69001-6', domain: 'Measurement', std: 'S' },
+      { id: 3001376, vocab: 'LOINC', name: 'Heart rate by Pulse oximetry', code: '8889-8', domain: 'Measurement', std: 'S' },
+      { id: 40481601, vocab: 'SNOMED', name: 'Resting heart rate', code: '444981005', domain: 'Measurement', std: 'S' },
+      { id: 35610095, vocab: 'SNOMED', name: 'Heart rate at cardiac apex', code: '429525003', domain: 'Measurement', std: 'S' }
+    ];
+    var fl = en ? 'Filter...' : 'Filtrer...';
+    var html = '<div class="doc-mock-table"><table><thead><tr>'
+      + '<th>' + (en ? 'Concept ID' : 'ID Concept') + '</th>'
+      + '<th>' + (en ? 'Vocabulary' : 'Vocabulaire') + '</th>'
+      + '<th>' + (en ? 'Concept Name' : 'Nom du concept') + '</th>'
+      + '<th>' + (en ? 'Concept Code' : 'Code') + '</th>'
+      + '<th>Standard</th>'
+      + '</tr><tr class="doc-mock-filter-row">'
+      + '<th><input type="text" class="form-input" placeholder="' + fl + '" readonly></th>'
+      + '<th><input type="text" class="form-input" placeholder="' + fl + '" readonly></th>'
+      + '<th><input type="text" class="form-input" placeholder="' + fl + '" readonly></th>'
+      + '<th><input type="text" class="form-input" placeholder="' + fl + '" readonly></th>'
+      + '<th><input type="text" class="form-input" placeholder="' + fl + '" readonly></th>'
+      + '</tr></thead><tbody>';
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i];
+      html += '<tr>'
+        + '<td>' + r.id + '</td>'
+        + '<td>' + r.vocab + '</td>'
+        + '<td>' + r.name + '</td>'
+        + '<td>' + r.code + '</td>'
+        + '<td><span class="badge badge-standard">Standard</span></td>'
+        + '</tr>';
+    }
+    html += '<tr><td colspan="5" style="text-align:center; color:var(--text-muted); font-size:12px; padding:8px">'
+      + (en ? '... 23 standard concepts resolved (63 total)' : '... 23 concepts standards r\u00e9solus (63 au total)')
+      + '</td></tr>';
+    html += '</tbody></table></div>';
+    return html;
+  }
+
   function docLink(sectionId, label) {
     return '<a href="#/documentation?section=' + sectionId + '">' + label + '</a>';
   }
@@ -391,28 +517,40 @@ var DocumentationPage = (function() {
 
   function conceptSetDetailsEN() {
     return '<h1>Concept Set Details</h1>'
-      + '<p>The detail view shows everything about a concept set, organized in tabs.</p>'
+      + '<p>The detail view shows everything about a concept set, organized in four tabs: <strong>Concepts</strong>, <strong>Comments</strong>, <strong>Statistics</strong>, and <strong>Review</strong>.</p>'
 
       + '<h2>Concepts Tab</h2>'
-      + '<p>This tab has two modes, toggled with a switch:</p>'
+      + detailTabs('en', 'concepts')
+      + '<p>This tab has two modes, toggled with a switch: <strong>Expression</strong> and <strong>Resolved</strong>.</p>'
 
       + '<h3>Expression Mode</h3>'
-      + '<p>Shows the concept set expression \u2014 the authored items with their flags. '
-      + 'Each row shows:</p>'
-      + '<ul>'
-      + '<li>Vocabulary, Concept Name, Concept Code, Domain</li>'
-      + '<li>Standard status (Standard, Classification, Non-standard)</li>'
-      + '<li>Exclude, Descendants, and Mapped flags (Yes/No)</li>'
-      + '</ul>'
+      + conceptModeToggle('en', 'expression')
+      + '<p>Shows the concept set expression \u2014 the authored items with their flags.</p>'
+      + '<p>Each row shows Vocabulary, Concept Name, Concept Code, Domain, Concept Class, '
+      + 'Standard status, and three boolean flags: <strong>Exclude</strong>, '
+      + '<strong>Descendants</strong>, and <strong>Mapped</strong>.</p>'
+      + '<p>These flags control how the expression is resolved into the final set of concepts. '
+      + 'See ' + docLink('editing-concept-sets', 'Editing Concept Sets') + ' for detailed explanations.</p>'
       + '<p>Use the column filters (vocabulary, domain, standard, fuzzy name search) to navigate large expressions.</p>'
+      + '<p style="font-size:12px; color:var(--text-muted); margin-bottom:4px"><i class="fas fa-info-circle"></i> '
+      + 'Example: Heart rate concept set expression.'
+      + '</p>'
+      + mockExpressionTable('en')
 
       + '<h3>Resolved Mode</h3>'
+      + conceptModeToggle('en', 'resolved')
       + '<p>Shows the expanded result after applying all expression logic. This is the actual set of '
       + 'OMOP concepts that would be used in a query. Columns include Concept ID, Vocabulary, Name, '
       + 'Code, Domain, Standard, and Concept Class.</p>'
       + '<p>If an OHDSI vocabulary database is loaded (see ' + docLink('ohdsi-vocabularies', 'OHDSI Vocabularies') + '), '
       + 'resolution is computed live in the browser. Otherwise, pre-computed resolved sets from the '
       + 'repository are used.</p>'
+      + '<p style="font-size:12px; color:var(--text-muted); margin-bottom:4px"><i class="fas fa-info-circle"></i> '
+      + (App.lang === 'en'
+        ? 'Example: Heart rate resolved set \u2014 the actual standard OMOP concepts after expansion.'
+        : 'Exemple\u00a0: jeu r\u00e9solu Fr\u00e9quence cardiaque \u2014 les concepts OMOP standards apr\u00e8s expansion.')
+      + '</p>'
+      + mockResolvedTable(App.lang)
 
       + '<h3>Concept Detail Panel</h3>'
       + '<p>Click any concept row to display a detail panel on the right with:</p>'
@@ -424,6 +562,7 @@ var DocumentationPage = (function() {
       + '</ul>'
 
       + '<h2>Comments Tab</h2>'
+      + detailTabs('en', 'comments')
       + '<p>Displays expert guidance in Markdown. Comments typically describe:</p>'
       + '<ul>'
       + '<li>The clinical meaning and context of the concept set</li>'
@@ -434,6 +573,10 @@ var DocumentationPage = (function() {
       + '<p>In edit mode, a dual-pane editor with live Markdown preview is available.</p>'
 
       + '<h2>Statistics Tab</h2>'
+      + detailTabs('en', 'statistics')
+      + infoBox('Work in Progress',
+        'This feature is still under discussion and has not yet been implemented in practice. '
+        + 'The format and content of statistical profiles may evolve.', 'warning')
       + '<p>Shows expected data distributions to help validate your data during ETL:</p>'
       + '<ul>'
       + '<li><strong>Numeric data</strong> \u2014 Min, P5, P25 (Q1), Median, Mean, P75 (Q3), P95, Max, SD, CV</li>'
@@ -444,6 +587,7 @@ var DocumentationPage = (function() {
       + '</ul>'
 
       + '<h2>Review Tab</h2>'
+      + detailTabs('en', 'review')
       + '<p>Displays the review history for this concept set, with each reviewer\'s name, date, status, '
       + 'version, and comments. See ' + docLink('reviewing', 'Reviewing & GitHub') + ' for the full workflow.</p>'
 
@@ -487,8 +631,40 @@ var DocumentationPage = (function() {
       + 'The importer accepts both UPPERCASE (ATLAS) and camelCase (INDICATE) field names, '
       + 'deduplicates by concept ID, and reports added/skipped counts.</p>'
 
-      + '<h3>Toggling Flags</h3>'
-      + '<p>Click the Exclude, Descendants, or Mapped toggles directly in the table to change them.</p>'
+      + '<h3>Expression Flags</h3>'
+      + '<p>Each concept in the expression has three flags that you can toggle directly in the table. '
+      + 'These flags follow the '
+      + '<a href="https://ohdsi.github.io/TAB/Concept-Set-Specification.html" target="_blank">'
+      + 'OHDSI Concept Set Specification</a>:</p>'
+
+      + '<p><strong>Descendants</strong> \u2014 When checked, all descendant concepts in the '
+      + 'vocabulary hierarchy are automatically included. OMOP vocabularies organize concepts '
+      + 'in hierarchical trees using "Is a" / "Subsumes" relationships (stored in the '
+      + 'CONCEPT_ANCESTOR table). For example, the LOINC hierarchy concept "Heart rate" has dozens '
+      + 'of descendants like "Heart rate \u2013\u2013resting", "Heart rate \u2013\u2013sitting", '
+      + '"Heart rate by Pulse oximetry", etc. Checking Descendants on a parent concept captures '
+      + 'all of them without listing each one individually.</p>'
+
+      + '<p><strong>Mapped</strong> \u2014 When checked, non-standard concepts that are linked to the '
+      + 'selected concept via "Maps to" / "Mapped from" relationships are also included. '
+      + 'In the OMOP vocabulary, each clinical idea has one designated <strong>Standard</strong> concept '
+      + '(marked "S"). Other vocabulary codes representing the same idea are <strong>non-standard</strong> '
+      + 'and are linked to the Standard concept via "Maps to". For example, SNOMED "Heart rate" '
+      + '(concept ID 4239408, non-standard) maps to LOINC "Heart rate" (concept ID 3027018, Standard). '
+      + 'Checking Mapped ensures that source codes from other vocabularies are captured alongside the '
+      + 'standard concept.</p>'
+
+      + '<p><strong>Exclude</strong> \u2014 When checked, this concept is removed from the resolved set. '
+      + 'If Descendants is also checked, all its descendant concepts are excluded too. This allows you to '
+      + 'include a broad parent concept with its descendants, then selectively exclude specific branches. '
+      + 'For example, in the Heart rate concept set, "Fetal heart rate" is excluded with Descendants to '
+      + 'remove fetal-specific measurements from the set.</p>'
+
+      + infoBox('Resolution Algorithm',
+        'The concept set is resolved in two phases: (1) build the <strong>inclusion set</strong> from '
+        + 'all items where Exclude is unchecked, expanding via Descendants and Mapped as configured; '
+        + '(2) build the <strong>exclusion set</strong> from items where Exclude is checked, with the '
+        + 'same expansion logic; (3) the final result is <strong>inclusion set minus exclusion set</strong>.')
 
       + '<h3>Deleting Concepts</h3>'
       + '<p>Use the delete icon on each row, or select multiple rows and click Delete Selected.</p>'
@@ -895,27 +1071,44 @@ var DocumentationPage = (function() {
 
   function conceptSetDetailsFR() {
     return '<h1>D\u00e9tails d\u2019un jeu de concepts</h1>'
-      + '<p>La vue d\u00e9taill\u00e9e pr\u00e9sente toutes les informations, organis\u00e9es en onglets.</p>'
+      + '<p>La vue d\u00e9taill\u00e9e pr\u00e9sente toutes les informations, organis\u00e9es en quatre onglets\u00a0: <strong>Concepts</strong>, <strong>Commentaires</strong>, <strong>Statistiques</strong> et <strong>Relecture</strong>.</p>'
 
       + '<h2>Onglet Concepts</h2>'
-      + '<p>Deux modes, accessibles via un commutateur\u00a0:</p>'
+      + detailTabs('fr', 'concepts')
+      + '<p>Deux modes, accessibles via un commutateur\u00a0: <strong>Expression</strong> et <strong>R\u00e9solus</strong>.</p>'
 
       + '<h3>Mode Expression</h3>'
-      + '<p>Affiche les \u00e9l\u00e9ments de l\u2019expression avec les options Exclure, Descendants et Mapp\u00e9. '
-      + 'Filtres par vocabulaire, domaine, standard et recherche floue par nom.</p>'
+      + conceptModeToggle('fr', 'expression')
+      + '<p>Affiche les \u00e9l\u00e9ments de l\u2019expression avec leurs options\u00a0: '
+      + '<strong>Exclure</strong>, <strong>Descendants</strong> et <strong>Mapp\u00e9</strong>. '
+      + 'Ces options contr\u00f4lent la r\u00e9solution du jeu de concepts. '
+      + 'Voir ' + docLink('editing-concept-sets', 'Modifier un jeu de concepts') + ' pour les explications d\u00e9taill\u00e9es.</p>'
+      + '<p>Filtres par vocabulaire, domaine, standard et recherche floue par nom.</p>'
+      + '<p style="font-size:12px; color:var(--text-muted); margin-bottom:4px"><i class="fas fa-info-circle"></i> '
+      + 'Exemple\u00a0: expression du jeu de concepts Fr\u00e9quence cardiaque.</p>'
+      + mockExpressionTable('fr')
 
       + '<h3>Mode R\u00e9solus</h3>'
+      + conceptModeToggle('fr', 'resolved')
       + '<p>Affiche le r\u00e9sultat apr\u00e8s expansion. Si une base de vocabulaires est charg\u00e9e '
       + '(voir ' + docLink('ohdsi-vocabularies', 'Vocabulaires OHDSI') + '), la r\u00e9solution se fait en temps r\u00e9el.</p>'
+      + '<p style="font-size:12px; color:var(--text-muted); margin-bottom:4px"><i class="fas fa-info-circle"></i> '
+      + 'Exemple\u00a0: jeu r\u00e9solu Fr\u00e9quence cardiaque \u2014 les concepts OMOP standards apr\u00e8s expansion.</p>'
+      + mockResolvedTable('fr')
 
       + '<h3>Panneau de d\u00e9tail concept</h3>'
       + '<p>Cliquez sur un concept pour voir ses m\u00e9tadonn\u00e9es, liens ATHENA et FHIR, et un graphe '
       + 'hi\u00e9rarchique interactif.</p>'
 
       + '<h2>Onglet Commentaires</h2>'
+      + detailTabs('fr', 'comments')
       + '<p>Recommandations d\u2019experts en Markdown. \u00c9diteur avec aper\u00e7u en direct en mode \u00e9dition.</p>'
 
       + '<h2>Onglet Statistiques</h2>'
+      + detailTabs('fr', 'statistics')
+      + infoBox('En cours de d\u00e9veloppement',
+        'Cette fonctionnalit\u00e9 est encore en discussion et n\u2019a pas encore \u00e9t\u00e9 '
+        + 'mise en \u0153uvre en pratique. Le format et le contenu des profils statistiques pourront \u00e9voluer.', 'warning')
       + '<ul>'
       + '<li><strong>Donn\u00e9es num\u00e9riques</strong> \u2014 Min, P5, Q1, M\u00e9diane, Moyenne, Q3, P95, Max, \u00c9T, CV</li>'
       + '<li><strong>Histogrammes</strong></li>'
@@ -924,6 +1117,7 @@ var DocumentationPage = (function() {
       + '</ul>'
 
       + '<h2>Onglet Relecture</h2>'
+      + detailTabs('fr', 'review')
       + '<p>Historique des relectures. Voir ' + docLink('reviewing', 'Relecture & GitHub') + '.</p>'
 
       + '<h2>En-t\u00eate</h2>'
@@ -957,8 +1151,36 @@ var DocumentationPage = (function() {
       + '<h3>Importer un JSON</h3>'
       + '<p>Collez un jeu de concepts au format ATLAS ou INDICATE. D\u00e9duplication automatique.</p>'
 
-      + '<h3>Options des concepts</h3>'
-      + '<p>Cliquez sur les bascules Exclure, Descendants ou Mapp\u00e9 directement dans le tableau.</p>'
+      + '<h3>Options de l\u2019expression</h3>'
+      + '<p>Chaque concept de l\u2019expression a trois options que vous pouvez basculer directement dans '
+      + 'le tableau. Ces options suivent la '
+      + '<a href="https://ohdsi.github.io/TAB/Concept-Set-Specification.html" target="_blank">'
+      + 'Sp\u00e9cification OHDSI des Concept Sets</a>\u00a0:</p>'
+
+      + '<p><strong>Descendants</strong> \u2014 Inclut automatiquement tous les concepts descendants dans la '
+      + 'hi\u00e9rarchie du vocabulaire (relations \u00ab Is a \u00bb / \u00ab Subsumes \u00bb, stock\u00e9es '
+      + 'dans la table CONCEPT_ANCESTOR). Par exemple, le concept hi\u00e9rarchique LOINC '
+      + '\u00ab Heart rate \u00bb a des dizaines de descendants comme \u00ab Heart rate \u2013\u2013resting \u00bb, '
+      + '\u00ab Heart rate \u2013\u2013sitting \u00bb, \u00ab Heart rate by Pulse oximetry \u00bb, etc.</p>'
+
+      + '<p><strong>Mapp\u00e9</strong> \u2014 Inclut les concepts non standards li\u00e9s par des relations '
+      + '\u00ab Maps to \u00bb / \u00ab Mapped from \u00bb. Dans le vocabulaire OMOP, chaque id\u00e9e '
+      + 'clinique a un seul concept d\u00e9sign\u00e9 <strong>Standard</strong> (marqu\u00e9 \u00ab S \u00bb). '
+      + 'Les autres codes repr\u00e9sentant la m\u00eame id\u00e9e sont <strong>non standards</strong> et '
+      + 'li\u00e9s au concept Standard via \u00ab Maps to \u00bb. Par exemple, SNOMED \u00ab Heart rate \u00bb '
+      + '(ID 4239408, non standard) mappe vers LOINC \u00ab Heart rate \u00bb (ID 3027018, Standard).</p>'
+
+      + '<p><strong>Exclure</strong> \u2014 Retire ce concept du jeu r\u00e9solu. Si Descendants est aussi '
+      + 'coch\u00e9, tous ses descendants sont \u00e9galement exclus. Cela permet d\u2019inclure un concept '
+      + 'parent large avec ses descendants, puis d\u2019exclure s\u00e9lectivement certaines branches. '
+      + 'Par exemple, dans le jeu Fr\u00e9quence cardiaque, \u00ab Fetal heart rate \u00bb est exclu avec '
+      + 'Descendants pour retirer les mesures sp\u00e9cifiques au f\u0153tus.</p>'
+
+      + infoBox('Algorithme de r\u00e9solution',
+        'Le jeu est r\u00e9solu en deux phases\u00a0: (1) construire l\u2019<strong>ensemble d\u2019inclusion</strong> '
+        + '\u00e0 partir des \u00e9l\u00e9ments non exclus, en \u00e9tendant via Descendants et Mapp\u00e9\u00a0; '
+        + '(2) construire l\u2019<strong>ensemble d\u2019exclusion</strong> avec la m\u00eame logique\u00a0; '
+        + '(3) le r\u00e9sultat final est <strong>inclusion moins exclusion</strong>.')
 
       + '<h3>Optimiser l\u2019expression</h3>'
       + '<p>Le bouton <strong>Optimiser</strong> simplifie l\u2019expression en analysant la hi\u00e9rarchie '

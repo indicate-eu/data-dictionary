@@ -683,6 +683,7 @@ tbody td {
 .detail-item > span {
   display: flex;
   align-items: center;
+  flex: 1;
   color: #333;
   font-size: 13px;
 }
@@ -691,6 +692,15 @@ tbody td {
   text-decoration: underline;
 }
 .detail-item a:hover { color: var(--primary-hover); }
+.detail-copy-btn {
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-left: auto;
+  padding-left: 6px;
+  transition: color .15s;
+}
+.detail-copy-btn:hover { color: var(--primary); }
 
 /* Vocab tabs (Related / Hierarchy / Synonyms) */
 .concept-vocab-tab-bar { display: flex; gap: 4px; margin: 16px 0 8px; border-bottom: 2px solid var(--border); padding: 0 4px; }
