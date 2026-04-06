@@ -374,7 +374,6 @@ var App = (function() {
     'Guest':                         { fr: 'Invité' },
     'Reset':                         { fr: 'Réinitialiser' },
     'EN':                            { fr: 'EN' },
-    'General Settings':              { fr: 'Paramètres généraux' },
     'Dictionary Settings':           { fr: 'Paramètres du dictionnaire' },
     'Dev Tools':                     { fr: 'Outils de développement' },
     'Documentation':                 { fr: 'Documentation' },
@@ -612,7 +611,7 @@ var App = (function() {
     'Apply Optimization':            { fr: 'Appliquer l\'optimisation' },
 
     // Add Concepts modal
-    'Load OHDSI vocabularies in General Settings to search concepts.': { fr: 'Chargez les vocabulaires OHDSI dans les Paramètres généraux pour rechercher des concepts.' },
+    'Load OHDSI vocabularies in Dictionary Settings to search concepts.': { fr: 'Chargez les vocabulaires OHDSI dans les Paramètres du dictionnaire pour rechercher des concepts.' },
     'Search concepts by name, code, or ID...': { fr: 'Rechercher des concepts par nom, code ou ID...' },
     'Filters':                       { fr: 'Filtres' },
     'Class':                         { fr: 'Classe' },

@@ -37,10 +37,6 @@
       <i class="fas fa-list-check"></i>
       <span data-i18n="Projects">Projects</span>
     </a>
-    <a class="nav-tab" href="#/documentation" data-page="documentation">
-      <i class="fas fa-circle-question"></i>
-      <span data-i18n="Documentation">Documentation</span>
-    </a>
   </nav>
   <div class="header-right">
     <button class="current-user-badge" id="user-badge" title="Edit profile">
@@ -48,12 +44,12 @@
       <span id="user-badge-name">Guest</span>
     </button>
     <button class="lang-toggle" id="lang-toggle" title="Switch language">EN</button>
+    <a class="doc-btn" href="#/documentation" title="Documentation">?</a>
     <div class="nav-dropdown">
       <button class="header-icon-btn" id="nav-settings-btn" title="Settings">
         <i class="fas fa-cog"></i>
       </button>
       <div class="nav-dropdown-menu nav-dropdown-menu-right" id="nav-settings-menu" style="display:none">
-        <a href="#/general-settings" data-page="general-settings"><i class="fas fa-cog"></i> <span data-i18n="General Settings">General Settings</span></a>
         <a href="#/settings" data-page="settings"><i class="fas fa-book-medical"></i> <span data-i18n="Dictionary Settings">Dictionary Settings</span></a>
         <a href="#/dev-tools" data-page="dev-tools"><i class="fas fa-code"></i> <span data-i18n="Dev Tools">Dev Tools</span></a>
         <div class="nav-dropdown-divider"></div>
@@ -430,21 +426,12 @@
     <div class="panel" id="proj-tab-context-edit" style="display:none">
       <div class="panel-body">
         <div class="project-detail-section">
-          <h4 data-i18n="Long description (EN)">Long description (EN)</h4>
+          <h4 data-i18n="Long description">Long description</h4>
           <div class="md-editor-wrap">
             <div class="md-editor-pane">
-              <textarea class="md-editor-textarea" id="proj-edit-long-desc-en" data-i18n-placeholder="Enter long description in English (Markdown supported)..." placeholder="Enter long description in English (Markdown supported)..."></textarea>
+              <textarea class="md-editor-textarea" id="proj-edit-long-desc" data-i18n-placeholder="Enter long description (Markdown supported)..." placeholder="Enter long description (Markdown supported)..."></textarea>
             </div>
-            <div class="md-editor-pane md-preview" id="proj-edit-long-desc-en-preview"></div>
-          </div>
-        </div>
-        <div class="project-detail-section">
-          <h4 data-i18n="Long description (FR)">Long description (FR)</h4>
-          <div class="md-editor-wrap">
-            <div class="md-editor-pane">
-              <textarea class="md-editor-textarea" id="proj-edit-long-desc-fr" data-i18n-placeholder="Enter long description in French (Markdown supported)..." placeholder="Entrez la description longue en français (Markdown supporté)..."></textarea>
-            </div>
-            <div class="md-editor-pane md-preview" id="proj-edit-long-desc-fr-preview"></div>
+            <div class="md-editor-pane md-preview" id="proj-edit-long-desc-preview"></div>
           </div>
         </div>
       </div>
@@ -632,120 +619,60 @@
 <div class="main page-container" id="page-settings">
   <!-- Settings tabs -->
   <div class="settings-tabs" id="settings-tabs">
-    <button class="settings-tab active" data-tab="conversions">
-      <i class="fas fa-exchange-alt"></i> Unit Conversions
+    <button class="settings-tab active" data-tab="vocabularies">
+      <i class="fas fa-database"></i> <span data-i18n="OHDSI Vocabularies">OHDSI Vocabularies</span>
+    </button>
+    <button class="settings-tab" data-tab="conversions">
+      <i class="fas fa-exchange-alt"></i> <span data-i18n="Unit Conversions">Unit Conversions</span>
     </button>
     <button class="settings-tab" data-tab="units">
-      <i class="fas fa-balance-scale"></i> Recommended Units
+      <i class="fas fa-balance-scale"></i> <span data-i18n="Recommended Units">Recommended Units</span>
     </button>
   </div>
 
   <div class="settings-content">
-    <!-- TAB 1: Unit Conversions -->
-    <div class="settings-tab-content" id="tab-conversions">
-      <div class="settings-toolbar">
-        <input type="text" class="search-input" id="conv-search" placeholder="Search conversions...">
-        <button class="tab-btn-green" id="conv-add-btn" style="margin-left:auto">
-          <i class="fas fa-plus"></i> Add Conversion
-        </button>
-        <button class="btn-primary-custom" id="conv-export-btn">
-          <i class="fas fa-download"></i> Export
-        </button>
-      </div>
-      <div class="panel-table-wrap">
-        <table id="conv-table">
-          <thead>
-            <tr>
-              <th style="width:10%">Concept ID 1</th>
-              <th style="width:18%">Concept 1</th>
-              <th style="width:10%">Unit 1</th>
-              <th style="width:10%" class="td-center">Factor</th>
-              <th style="width:10%">Concept ID 2</th>
-              <th style="width:18%">Concept 2</th>
-              <th style="width:10%">Unit 2</th>
-              <th style="width:14%" class="td-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody id="conv-tbody"></tbody>
-        </table>
-      </div>
-    </div>
+    <!-- TAB: OHDSI Vocabularies -->
+    <div class="settings-tab-content" id="tab-vocabularies">
+      <div class="vocab-page">
 
-    <!-- TAB 3: Recommended Units -->
-    <div class="settings-tab-content" id="tab-units" style="display:none">
-      <div class="settings-toolbar">
-        <input type="text" class="search-input" id="ru-search" placeholder="Search recommended units...">
-        <button class="tab-btn-green" id="ru-add-btn" style="margin-left:auto">
-          <i class="fas fa-plus"></i> Add Recommended Unit
-        </button>
-        <button class="btn-primary-custom" id="ru-export-btn">
-          <i class="fas fa-download"></i> Export
-        </button>
-      </div>
-      <div class="panel-table-wrap">
-        <table id="ru-table">
-          <thead>
-            <tr>
-              <th style="width:10%">Concept ID</th>
-              <th style="width:22%">Measurement</th>
-              <th style="width:12%">Code</th>
-              <th style="width:12%">Unit Concept ID</th>
-              <th style="width:18%">Unit</th>
-              <th style="width:12%">Unit Code</th>
-              <th style="width:14%" class="td-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody id="ru-tbody"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════
-     PAGE: General Settings (#/general-settings)
-     ═══════════════════════════════════════════════════════════ -->
-<div class="main page-container" id="page-general-settings">
-  <div class="vocab-page">
-
-    <!-- Status panel -->
-    <div class="vocab-status-panel" id="vocab-status-panel">
-      <div class="vocab-status-icon" id="vocab-status-icon">
-        <i class="fas fa-database"></i>
-      </div>
-      <div class="vocab-status-text">
-        <div class="vocab-status-title" id="vocab-status-title">OHDSI Vocabularies</div>
-        <div class="vocab-status-msg" id="vocab-status-msg">Checking database status...</div>
-      </div>
-    </div>
-
-    <!-- Info box -->
-    <div class="vocab-info-box">
-      <i class="fas fa-info-circle"></i>
-      <span>
-        Vocabulary files (CSV or Parquet) are available from
-        <a href="https://athena.ohdsi.org/vocabulary/list" target="_blank" rel="noopener">ATHENA</a>.
-        Download the desired vocabularies, then select the folder below.
-        The database will be stored locally in your browser and persists across sessions.
-      </span>
-    </div>
-
-    <!-- Parquet recommendation -->
-    <div class="vocab-info-box vocab-info-parquet">
-      <i class="fas fa-sitemap"></i>
-      <div>
-        <strong>Parquet format recommended.</strong>
-        With Parquet files, you can browse the hierarchy of <em>any</em> OMOP concept — including concepts not yet in the catalog.
-        With CSV files, hierarchy browsing is limited to concepts already used in existing concept sets.
-        <button type="button" id="vocab-parquet-howto-toggle" class="btn-link">Show conversion instructions</button>
-        <div id="vocab-parquet-howto" style="display:none; margin-top:10px">
-          <div class="vocab-code-tabs">
-            <button class="vocab-code-tab active" data-lang="bash">DuckDB CLI</button>
-            <button class="vocab-code-tab" data-lang="python">Python</button>
+        <!-- Status panel -->
+        <div class="vocab-status-panel" id="vocab-status-panel">
+          <div class="vocab-status-icon" id="vocab-status-icon">
+            <i class="fas fa-database"></i>
           </div>
-          <div class="vocab-code-block" data-lang="bash">
-            <button class="vocab-code-copy" title="Copy to clipboard"><i class="fas fa-copy"></i></button>
-            <pre><code># Install: brew install duckdb (macOS) or see duckdb.org/docs/installation
+          <div class="vocab-status-text">
+            <div class="vocab-status-title" id="vocab-status-title">OHDSI Vocabularies</div>
+            <div class="vocab-status-msg" id="vocab-status-msg">Checking database status...</div>
+          </div>
+        </div>
+
+        <!-- Info box -->
+        <div class="vocab-info-box">
+          <i class="fas fa-info-circle"></i>
+          <span>
+            Vocabulary files (CSV or Parquet) are available from
+            <a href="https://athena.ohdsi.org/vocabulary/list" target="_blank" rel="noopener">ATHENA</a>.
+            Download the desired vocabularies, then select the folder below.
+            The database will be stored locally in your browser and persists across sessions.
+          </span>
+        </div>
+
+        <!-- Parquet recommendation -->
+        <div class="vocab-info-box vocab-info-parquet">
+          <i class="fas fa-sitemap"></i>
+          <div>
+            <strong>Parquet format recommended.</strong>
+            With Parquet files, you can browse the hierarchy of <em>any</em> OMOP concept — including concepts not yet in the catalog.
+            With CSV files, hierarchy browsing is limited to concepts already used in existing concept sets.
+            <button type="button" id="vocab-parquet-howto-toggle" class="btn-link">Show conversion instructions</button>
+            <div id="vocab-parquet-howto" style="display:none; margin-top:10px">
+              <div class="vocab-code-tabs">
+                <button class="vocab-code-tab active" data-lang="bash">DuckDB CLI</button>
+                <button class="vocab-code-tab" data-lang="python">Python</button>
+              </div>
+              <div class="vocab-code-block" data-lang="bash">
+                <button class="vocab-code-copy" title="Copy to clipboard"><i class="fas fa-copy"></i></button>
+                <pre><code># Install: brew install duckdb (macOS) or see duckdb.org/docs/installation
 
 cd /path/to/athena_download
 
@@ -755,10 +682,10 @@ for f in CONCEPT CONCEPT_ANCESTOR CONCEPT_RELATIONSHIP CONCEPT_SYNONYM \
     "COPY (SELECT * FROM read_csv('$f.csv', delim='\t', header=true, quote='')) \
      TO '$f.parquet' (FORMAT PARQUET);"
 done</code></pre>
-          </div>
-          <div class="vocab-code-block" data-lang="python" style="display:none">
-            <button class="vocab-code-copy" title="Copy to clipboard"><i class="fas fa-copy"></i></button>
-            <pre><code># pip install duckdb
+              </div>
+              <div class="vocab-code-block" data-lang="python" style="display:none">
+                <button class="vocab-code-copy" title="Copy to clipboard"><i class="fas fa-copy"></i></button>
+                <pre><code># pip install duckdb
 
 cd /path/to/athena_download
 
@@ -770,53 +697,140 @@ for f in ['CONCEPT','CONCEPT_ANCESTOR','CONCEPT_RELATIONSHIP','CONCEPT_SYNONYM',
         duckdb.sql(\"COPY (SELECT * FROM read_csv('\"+f+\".csv', delim='\t', header=true, quote='')) TO '\"+f+\".parquet' (FORMAT PARQUET)\")
         print(f'  {f}.csv -> {f}.parquet')
 "</code></pre>
+              </div>
+              <p class="vocab-code-note">Run this in the folder containing the Athena CSV files. Both CSV and Parquet files can coexist — Parquet files are preferred when both are present.</p>
+            </div>
           </div>
-          <p class="vocab-code-note">Run this in the folder containing the Athena CSV files. Both CSV and Parquet files can coexist — Parquet files are preferred when both are present.</p>
         </div>
+
+        <!-- Browser compatibility warning (hidden by default, shown by JS) -->
+        <div class="vocab-info-box vocab-info-warning" id="vocab-browser-warning" style="display:none">
+          <i class="fas fa-exclamation-triangle"></i>
+          <span id="vocab-browser-warning-msg"></span>
+        </div>
+
+        <!-- Actions -->
+        <div class="vocab-actions" id="vocab-actions">
+          <button class="btn-submit" id="vocab-select-folder" style="display:none">
+            <i class="fas fa-folder-open"></i> Select Vocabulary Folder
+          </button>
+          <button class="btn-submit" id="vocab-regrant" style="display:none">
+            <i class="fas fa-key"></i> Re-grant Folder Access
+          </button>
+          <button class="btn-primary-custom btn-danger" id="vocab-delete-db" style="display:none">
+            <i class="fas fa-trash"></i> Delete Database
+          </button>
+          <!-- Hidden Firefox fallback input -->
+          <input type="file" id="vocab-file-input" webkitdirectory directory multiple style="display:none">
+        </div>
+
+        <!-- Progress section -->
+        <div class="vocab-progress-section" id="vocab-progress-section" style="display:none">
+          <div class="vocab-progress-header">
+            <span id="vocab-progress-label">Importing...</span>
+            <span id="vocab-progress-pct">0%</span>
+          </div>
+          <div class="vocab-progress-bar">
+            <div class="vocab-progress-fill" id="vocab-progress-fill" style="width:0%"></div>
+          </div>
+          <div class="vocab-file-list" id="vocab-file-list"></div>
+        </div>
+
+        <!-- Stats grid (shown when DB is ready) -->
+        <div class="vocab-stats-section" id="vocab-stats-section" style="display:none">
+          <h3 class="vocab-section-title">Database Views</h3>
+          <div class="vocab-stats-grid" id="vocab-stats-grid"></div>
+        </div>
+
       </div>
     </div>
 
-    <!-- Browser compatibility warning (hidden by default, shown by JS) -->
-    <div class="vocab-info-box vocab-info-warning" id="vocab-browser-warning" style="display:none">
-      <i class="fas fa-exclamation-triangle"></i>
-      <span id="vocab-browser-warning-msg"></span>
-    </div>
-
-    <!-- Actions -->
-    <div class="vocab-actions" id="vocab-actions">
-      <button class="btn-submit" id="vocab-select-folder" style="display:none">
-        <i class="fas fa-folder-open"></i> Select Vocabulary Folder
-      </button>
-      <button class="btn-submit" id="vocab-regrant" style="display:none">
-        <i class="fas fa-key"></i> Re-grant Folder Access
-      </button>
-      <button class="btn-cancel" id="vocab-delete-db" style="display:none">
-        <i class="fas fa-trash"></i> Delete Database
-      </button>
-      <!-- Hidden Firefox fallback input -->
-      <input type="file" id="vocab-file-input" webkitdirectory directory multiple style="display:none">
-    </div>
-
-    <!-- Progress section -->
-    <div class="vocab-progress-section" id="vocab-progress-section" style="display:none">
-      <div class="vocab-progress-header">
-        <span id="vocab-progress-label">Importing...</span>
-        <span id="vocab-progress-pct">0%</span>
+    <!-- TAB: Unit Conversions -->
+    <div class="settings-tab-content" id="tab-conversions" style="display:none">
+      <div class="settings-toolbar">
+        <button class="tab-btn-green" id="conv-add-btn" style="margin-left:auto">
+          <i class="fas fa-plus"></i> <span data-i18n="Add Conversion">Add Conversion</span>
+        </button>
+        <button class="btn-primary-custom" id="conv-export-btn">
+          <i class="fas fa-download"></i> <span data-i18n="Export">Export</span>
+        </button>
       </div>
-      <div class="vocab-progress-bar">
-        <div class="vocab-progress-fill" id="vocab-progress-fill" style="width:0%"></div>
+      <div class="panel-table-wrap" style="flex:1; min-height:0; overflow:auto" id="conv-table-wrap">
+        <table id="conv-table">
+          <thead>
+            <tr>
+              <th style="width:8%">Concept ID 1</th>
+              <th style="width:18%">Concept 1</th>
+              <th style="width:10%">Unit 1</th>
+              <th style="width:8%" class="td-center">Factor</th>
+              <th style="width:8%">Concept ID 2</th>
+              <th style="width:18%">Concept 2</th>
+              <th style="width:10%">Unit 2</th>
+              <th style="width:10%" class="td-center">Actions</th>
+            </tr>
+            <tr class="filter-row">
+              <th><input type="text" class="column-filter" id="conv-filter-cid1" placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="conv-filter-cname1" placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="conv-filter-uname1" placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="conv-filter-factor" placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="conv-filter-cid2" placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="conv-filter-cname2" placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="conv-filter-uname2" placeholder="Filter..."></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="conv-tbody"></tbody>
+        </table>
       </div>
-      <div class="vocab-file-list" id="vocab-file-list"></div>
+      <div class="pagination" id="conv-pagination">
+        <span id="conv-page-info"></span>
+        <div class="pagination-buttons" id="conv-page-buttons"></div>
+      </div>
     </div>
 
-    <!-- Stats grid (shown when DB is ready) -->
-    <div class="vocab-stats-section" id="vocab-stats-section" style="display:none">
-      <h3 class="vocab-section-title">Database Views</h3>
-      <div class="vocab-stats-grid" id="vocab-stats-grid"></div>
+    <!-- TAB: Recommended Units -->
+    <div class="settings-tab-content" id="tab-units" style="display:none">
+      <div class="settings-toolbar">
+        <button class="tab-btn-green" id="ru-add-btn" style="margin-left:auto">
+          <i class="fas fa-plus"></i> <span data-i18n="Add Recommended Unit">Add Recommended Unit</span>
+        </button>
+        <button class="btn-primary-custom" id="ru-export-btn">
+          <i class="fas fa-download"></i> <span data-i18n="Export">Export</span>
+        </button>
+      </div>
+      <div class="panel-table-wrap" style="flex:1; min-height:0; overflow:auto" id="ru-table-wrap">
+        <table id="ru-table">
+          <thead>
+            <tr>
+              <th style="width:10%">Concept ID</th>
+              <th style="width:22%">Measurement</th>
+              <th style="width:12%">Code</th>
+              <th style="width:10%">Unit Concept ID</th>
+              <th style="width:18%">Unit</th>
+              <th style="width:12%">Unit Code</th>
+              <th style="width:10%" class="td-center">Actions</th>
+            </tr>
+            <tr class="filter-row">
+              <th><input type="text" class="column-filter" id="ru-filter-cid" placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="ru-filter-cname" placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="ru-filter-ccode" placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="ru-filter-uid" placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="ru-filter-uname" placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="ru-filter-ucode" placeholder="Filter..."></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="ru-tbody"></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="ru-pagination">
+        <span id="ru-page-info"></span>
+        <div class="pagination-buttons" id="ru-page-buttons"></div>
+      </div>
     </div>
-
   </div>
 </div>
+
 
 <!-- ═══════════════════════════════════════════════════════════
      PAGE: Dev Tools (#/dev-tools)
@@ -839,7 +853,7 @@ for f in ['CONCEPT','CONCEPT_ANCESTOR','CONCEPT_RELATIONSHIP','CONCEPT_SYNONYM',
       <div class="devtools-db-status devtools-db-empty" id="devtools-db-status">
         <i class="fas fa-database"></i>
         <span id="devtools-db-msg">Checking database...</span>
-        <a href="#/general-settings" class="devtools-db-link" id="devtools-db-link" style="display:none">
+        <a href="#/settings" class="devtools-db-link" id="devtools-db-link" style="display:none">
           Set up vocabularies
         </a>
       </div>
@@ -1355,7 +1369,7 @@ Enter your review comments here using Markdown syntax.
     <!-- No DB message -->
     <div id="expr-add-no-db" style="display:none; padding:20px; text-align:center; color:var(--text-muted); font-size:13px">
       <i class="fas fa-info-circle" style="color:var(--primary); margin-right:6px"></i>
-      <span data-i18n="Load OHDSI vocabularies in General Settings to search concepts.">Load OHDSI vocabularies in General Settings to search concepts.</span>
+      <span data-i18n="Load OHDSI vocabularies in Dictionary Settings to search concepts.">Load OHDSI vocabularies in Dictionary Settings to search concepts.</span>
     </div>
     <!-- Search bar -->
     <div id="expr-add-search-row">

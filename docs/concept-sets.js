@@ -1478,12 +1478,12 @@ var ConceptSetsPage = (function() {
             showReady();
           } else {
             noDb.innerHTML = '<i class="fas fa-info-circle" style="color:var(--primary); margin-right:6px"></i>' +
-              'Load OHDSI vocabularies in <a href="#/general-settings" style="color:var(--primary); font-weight:600">General Settings</a> to search concepts.';
+              'Load OHDSI vocabularies in <a href="#/settings" style="color:var(--primary); font-weight:600">Dictionary Settings</a> to search concepts.';
             showNoDb();
           }
         }).catch(function() {
           noDb.innerHTML = '<i class="fas fa-info-circle" style="color:var(--primary); margin-right:6px"></i>' +
-            'Load OHDSI vocabularies in <a href="#/general-settings" style="color:var(--primary); font-weight:600">General Settings</a> to search concepts.';
+            'Load OHDSI vocabularies in <a href="#/settings" style="color:var(--primary); font-weight:600">Dictionary Settings</a> to search concepts.';
           showNoDb();
         });
       });
@@ -2915,7 +2915,7 @@ var ConceptSetsPage = (function() {
     var hint = document.createElement('div');
     hint.style.cssText = 'margin-top:16px; padding:12px 16px; background:#f8f9fa; border:1px solid #e0e0e0; border-radius:6px; font-size:13px; color:#666';
     hint.innerHTML = '<i class="fas fa-info-circle" style="color:var(--primary); margin-right:6px"></i>' +
-      'Load OHDSI vocabularies in <a href="#/general-settings" style="color:var(--primary); font-weight:600">General Settings</a>' +
+      'Load OHDSI vocabularies in <a href="#/settings" style="color:var(--primary); font-weight:600">Dictionary Settings</a>' +
       ' to view related concepts, hierarchy, and synonyms.';
     el.appendChild(hint);
   }

@@ -13,8 +13,7 @@ var ProjectsPage = (function() {
 
   // ==================== EDIT MODE STATE ====================
   var editMode = false;
-  var editLongDescEn = '';
-  var editLongDescFr = '';
+  var editLongDesc = '';
   var editConceptSetIds = []; // working copy of concept set IDs
   var currentTab = 'context';
 
@@ -128,10 +127,8 @@ var ProjectsPage = (function() {
       if (!proj.translations) proj.translations = { en: {}, fr: {} };
       if (!proj.translations.en) proj.translations.en = {};
       if (!proj.translations.fr) proj.translations.fr = {};
-      proj.translations.en.name = name;
-      proj.translations.fr.name = name;
-      proj.translations.en.short_description = shortDesc;
-      proj.translations.fr.short_description = shortDesc;
+      proj.translations[App.lang].name = name;
+      proj.translations[App.lang].short_description = shortDesc;
       proj.createdBy = author;
       proj.modifiedDate = new Date().toISOString().split('T')[0];
       App.updateProject(proj);
@@ -158,7 +155,7 @@ var ProjectsPage = (function() {
       App.addProject(proj);
       closeCreateModal();
       renderProjectCards();
-      showProjectDetail(proj.id);
+      Router.navigate('/projects', { id: proj.id });
       App.showToast(App.i18n('Project created.'), 'success');
     }
   }
@@ -277,19 +274,15 @@ var ProjectsPage = (function() {
   function enterEditMode() {
     if (!selectedProject) return;
     editMode = true;
-    var trEn = (selectedProject.translations && selectedProject.translations.en) || {};
-    var trFr = (selectedProject.translations && selectedProject.translations.fr) || {};
-    editLongDescEn = trEn.long_description || '';
-    editLongDescFr = trFr.long_description || '';
+    var tr = App.tProj(selectedProject);
+    editLongDesc = tr.long_description || '';
     editConceptSetIds = (selectedProject.conceptSetIds || []).slice();
 
     updateEditButtons();
 
-    // Populate editors
-    document.getElementById('proj-edit-long-desc-en').value = editLongDescEn;
-    document.getElementById('proj-edit-long-desc-fr').value = editLongDescFr;
-    updateLongDescEnPreview();
-    updateLongDescFrPreview();
+    // Populate editor
+    document.getElementById('proj-edit-long-desc').value = editLongDesc;
+    updateLongDescPreview();
 
     // Reset CS edit filters
     availFilterCategories.clear();
@@ -320,10 +313,8 @@ var ProjectsPage = (function() {
   function saveEdit() {
     if (!selectedProject) return;
     if (!selectedProject.translations) selectedProject.translations = { en: {}, fr: {} };
-    if (!selectedProject.translations.en) selectedProject.translations.en = {};
-    if (!selectedProject.translations.fr) selectedProject.translations.fr = {};
-    selectedProject.translations.en.long_description = editLongDescEn;
-    selectedProject.translations.fr.long_description = editLongDescFr;
+    if (!selectedProject.translations[App.lang]) selectedProject.translations[App.lang] = {};
+    selectedProject.translations[App.lang].long_description = editLongDesc;
     selectedProject.conceptSetIds = editConceptSetIds.slice();
     selectedProject.modifiedDate = new Date().toISOString().split('T')[0];
     App.updateProject(selectedProject);
@@ -344,21 +335,10 @@ var ProjectsPage = (function() {
   }
 
   // ==================== MARKDOWN PREVIEW ====================
-  function updateLongDescEnPreview() {
-    var val = document.getElementById('proj-edit-long-desc-en').value;
-    editLongDescEn = val;
-    var preview = document.getElementById('proj-edit-long-desc-en-preview');
-    if (val.trim()) {
-      preview.innerHTML = App.renderMarkdown(val);
-    } else {
-      preview.innerHTML = '<span class="md-preview-empty">Preview will appear here...</span>';
-    }
-  }
-
-  function updateLongDescFrPreview() {
-    var val = document.getElementById('proj-edit-long-desc-fr').value;
-    editLongDescFr = val;
-    var preview = document.getElementById('proj-edit-long-desc-fr-preview');
+  function updateLongDescPreview() {
+    var val = document.getElementById('proj-edit-long-desc').value;
+    editLongDesc = val;
+    var preview = document.getElementById('proj-edit-long-desc-preview');
     if (val.trim()) {
       preview.innerHTML = App.renderMarkdown(val);
     } else {
@@ -759,8 +739,13 @@ var ProjectsPage = (function() {
     document.getElementById('proj-edit-save-btn').addEventListener('click', saveEdit);
 
     // Markdown editors — live preview
-    document.getElementById('proj-edit-long-desc-en').addEventListener('input', updateLongDescEnPreview);
-    document.getElementById('proj-edit-long-desc-fr').addEventListener('input', updateLongDescFrPreview);
+    document.getElementById('proj-edit-long-desc').addEventListener('input', updateLongDescPreview);
+    document.getElementById('proj-edit-long-desc').addEventListener('keydown', function(e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+        e.preventDefault();
+        saveEdit();
+      }
+    });
 
     // CS edit name filters
     document.getElementById('proj-avail-filter-name').addEventListener('input', function(e) {
@@ -793,7 +778,7 @@ var ProjectsPage = (function() {
       if (e.target === document.getElementById('proj-modal')) closeCreateModal();
     });
     // Enter key in modal name field
-    document.getElementById('proj-modal-name-en').addEventListener('keydown', function(e) {
+    document.getElementById('proj-modal-name').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') { e.preventDefault(); submitModal(); }
     });
 

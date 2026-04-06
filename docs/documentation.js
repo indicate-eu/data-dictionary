@@ -36,7 +36,7 @@ var DocumentationPage = (function() {
       {
         title: en ? 'Projects' : 'Projets',
         items: [
-          { id: 'projects', label: en ? 'Managing Projects' : 'G\u00e9rer les projets', draft: true }
+          { id: 'projects', label: en ? 'Managing Projects' : 'G\u00e9rer les projets' }
         ]
       },
       {
@@ -1778,6 +1778,66 @@ var DocumentationPage = (function() {
       + '</div>';
   }
 
+  function mockProjectCSEditPanels(lang) {
+    var en = lang === 'en';
+    var available = [
+      { cat: en ? 'Vitals' : 'Signes vitaux', sub: en ? 'Other vitals' : 'Autres signes vitaux', name: en ? 'Body temperature' : 'Temp\u00e9rature corporelle' },
+      { cat: en ? 'Vitals' : 'Signes vitaux', sub: en ? 'Other vitals' : 'Autres signes vitaux', name: en ? 'Body weight' : 'Poids corporel' },
+      { cat: en ? 'Labs' : 'Laboratoire', sub: en ? 'Liver test' : 'Bilan h\u00e9patique', name: en ? 'Albumin' : 'Albumine' }
+    ];
+    var project = [
+      { cat: en ? 'Vitals' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', name: en ? 'Heart rate' : 'Fr\u00e9quence cardiaque' },
+      { cat: en ? 'Vitals' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', name: en ? 'Blood pressure' : 'Pression art\u00e9rielle' },
+      { cat: en ? 'Labs' : 'Laboratoire', sub: en ? 'Other labs' : 'Autres labos', name: en ? 'Creatinine' : 'Cr\u00e9atinine' },
+      { cat: en ? 'Labs' : 'Laboratoire', sub: en ? 'Liver test' : 'Bilan h\u00e9patique', name: en ? 'Bilirubin' : 'Bilirubine' }
+    ];
+    var td = 'padding:5px 8px; border-bottom:1px solid #eee; font-size:12px';
+    function rowAvail(d) {
+      return '<tr>'
+        + '<td style="' + td + '">' + d.cat + '</td>'
+        + '<td style="' + td + '">' + d.sub + '</td>'
+        + '<td style="' + td + '">' + d.name + '</td>'
+        + '<td style="' + td + '"><button class="proj-cs-add-btn" style="cursor:default"><i class="fas fa-plus-circle"></i></button></td>'
+        + '</tr>';
+    }
+    function rowProj(d) {
+      return '<tr>'
+        + '<td style="' + td + '"><button class="proj-cs-remove-btn" style="cursor:default"><i class="fas fa-minus-circle"></i></button></td>'
+        + '<td style="' + td + '">' + d.cat + '</td>'
+        + '<td style="' + td + '">' + d.sub + '</td>'
+        + '<td style="' + td + '">' + d.name + '</td>'
+        + '</tr>';
+    }
+    var thStyle = 'padding:6px 8px; border-bottom:2px solid var(--border); color:var(--primary); font-weight:600; font-size:11px; text-align:left';
+    return '<div style="display:flex; gap:16px; margin:16px 0">'
+      // Left panel — available
+      + '<div style="flex:1; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden">'
+      + '<div style="padding:8px 12px; background:var(--gray-light); font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px">'
+      + (en ? 'Available Concept Sets' : 'Jeux de concepts disponibles') + '</div>'
+      + '<table style="width:100%; border-collapse:collapse"><thead><tr>'
+      + '<th style="' + thStyle + '">' + (en ? 'Category' : 'Cat\u00e9gorie') + '</th>'
+      + '<th style="' + thStyle + '">' + (en ? 'Subcategory' : 'Sous-cat\u00e9gorie') + '</th>'
+      + '<th style="' + thStyle + '">' + (en ? 'Name' : 'Nom') + '</th>'
+      + '<th style="' + thStyle + '; width:40px"></th>'
+      + '</tr></thead><tbody>'
+      + available.map(rowAvail).join('')
+      + '</tbody></table></div>'
+      // Right panel — project
+      + '<div style="flex:1; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden">'
+      + '<div style="padding:8px 12px; background:var(--gray-light); font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px">'
+      + (en ? 'Project Concept Sets' : 'Jeux de concepts du projet')
+      + ' <span style="font-weight:400">(' + project.length + ')</span></div>'
+      + '<table style="width:100%; border-collapse:collapse"><thead><tr>'
+      + '<th style="' + thStyle + '; width:40px"></th>'
+      + '<th style="' + thStyle + '">' + (en ? 'Category' : 'Cat\u00e9gorie') + '</th>'
+      + '<th style="' + thStyle + '">' + (en ? 'Subcategory' : 'Sous-cat\u00e9gorie') + '</th>'
+      + '<th style="' + thStyle + '">' + (en ? 'Name' : 'Nom') + '</th>'
+      + '</tr></thead><tbody>'
+      + project.map(rowProj).join('')
+      + '</tbody></table></div>'
+      + '</div>';
+  }
+
   function mockBulkExportModal(lang) {
     var en = lang === 'en';
     return '<div class="doc-mock-modal" style="max-width:480px">'
@@ -1870,7 +1930,7 @@ var DocumentationPage = (function() {
 
       + '<h3>Description Tab</h3>'
       + '<p>A Markdown-formatted long description with live preview in edit mode. '
-      + 'Bilingual editing (EN/FR side by side).</p>'
+      + 'The description is edited for the currently selected language.</p>'
 
       + '<h3>Concept Sets Tab</h3>'
       + '<p>In read mode, shows a sortable, filterable table of the project\'s concept sets. '
@@ -1879,17 +1939,48 @@ var DocumentationPage = (function() {
       + '<ul>'
       + '<li><strong>Left panel</strong> \u2014 Available concept sets (not yet in the project)</li>'
       + '<li><strong>Right panel</strong> \u2014 Concept sets assigned to the project</li>'
-      + '<li>Use the add/remove buttons to move concept sets between panels</li>'
+      + '<li>Use the <i class="fas fa-plus-circle" style="color:var(--success)"></i> and <i class="fas fa-minus-circle" style="color:var(--danger)"></i> buttons to move concept sets between panels</li>'
       + '<li>Filter both panels by category, subcategory, or name</li>'
       + '</ul>'
-
-      + '<h3>CSV Export</h3>'
-      + '<p>In the Concept Sets tab (read mode), click the CSV button to download all OMOP concepts '
-      + 'from the project\'s concept sets, including expression flags.</p>'
+      + mockProjectCSEditPanels(App.lang)
 
       + infoBox('Best Practice',
         'Include all concept sets needed for your analysis, even those only used for adjustment or '
-        + 'stratification. This ensures complete data collection from the start.');
+        + 'stratification. This ensures complete data collection from the start.')
+
+      + '<h2>Exporting</h2>'
+      + '<p>The project detail view offers two export options:</p>'
+
+      + '<h3>JSON Export</h3>'
+      + '<p>Click the <strong>Export</strong> button in the project header to export the project definition as JSON. '
+      + 'You can download it as a file, copy to clipboard, or propose changes on GitHub.</p>'
+      + mockProjectExportModal('en')
+
+      + '<h3>CSV Export</h3>'
+      + '<p>In the Concept Sets tab (read mode), click the <strong>CSV</strong> button to download all OMOP concepts '
+      + 'from the project\'s concept sets as a CSV file. The export includes concept set metadata '
+      + '(ID, name, category, subcategory) and expression flags (excluded, descendants, mapped) for each concept.</p>';
+  }
+
+  function mockProjectExportModal(lang) {
+    var en = lang === 'en';
+    return '<div class="doc-mock-modal" style="max-width:480px">'
+      + '<div class="modal-header"><h3 style="margin:0; font-size:14px"><i class="fas fa-download"></i> '
+      + (en ? 'Export Project' : 'Exporter le projet') + '</h3>'
+      + '<span class="modal-close" style="cursor:default">&times;</span></div>'
+      + '<div style="padding:12px"><div class="export-options-container" style="gap:8px; padding:4px 0">'
+      + mockExportOpt('fas fa-file-download', '#0f60af',
+        en ? 'Download File' : 'T\u00e9l\u00e9charger le fichier',
+        en ? 'Download as a JSON file' : 'T\u00e9l\u00e9charger en tant que fichier JSON')
+      + mockExportOpt('fas fa-clipboard', '#28a745',
+        en ? 'Copy to Clipboard' : 'Copier dans le presse-papiers',
+        en ? 'Copy the project JSON to clipboard' : 'Copier le JSON du projet dans le presse-papiers')
+      + mockExportOpt('fab fa-github', '#6f42c1',
+        en ? 'Propose on GitHub' : 'Proposer sur GitHub',
+        en ? 'Copy to clipboard and open GitHub editor' : 'Copier dans le presse-papiers et ouvrir l\u2019\u00e9diteur GitHub')
+      + '</div></div>'
+      + '<div class="modal-footer"><button class="btn-cancel" disabled>' + (en ? 'Cancel' : 'Annuler') + '</button></div>'
+      + '</div>';
   }
 
   function mockMappingToolbar(lang) {
@@ -1973,7 +2064,7 @@ var DocumentationPage = (function() {
       + '<h2>How to Import</h2>'
       + '<ol>'
       + '<li>Download vocabulary files from <a href="https://athena.ohdsi.org/" target="_blank">ATHENA</a> (CSV format)</li>'
-      + '<li>Go to <strong>Settings</strong> (gear icon) \u2192 <strong>General Settings</strong></li>'
+      + '<li>Go to <strong>Settings</strong> (gear icon) \u2192 <strong>Dictionary Settings</strong> \u2192 <strong>OHDSI Vocabularies</strong> tab</li>'
       + '<li>Click <strong>Select Vocabulary Folder</strong> and choose the folder containing the vocabulary CSV files</li>'
       + '<li>Wait for the import to complete \u2014 a progress bar shows per-file status</li>'
       + '</ol>'
@@ -2445,14 +2536,31 @@ var DocumentationPage = (function() {
 
       + '<h3>Onglet Jeux de concepts</h3>'
       + '<p>En lecture\u00a0: tableau triable et filtrable des jeux du projet. Cliquez pour naviguer vers un jeu.</p>'
-      + '<p>En \u00e9dition\u00a0: double panneau pour ajouter/retirer des jeux.</p>'
-
-      + '<h3>Export CSV</h3>'
-      + '<p>T\u00e9l\u00e9chargez tous les concepts OMOP du projet avec les options de l\u2019expression.</p>'
+      + '<p>En \u00e9dition\u00a0: double panneau pour ajouter/retirer des jeux\u00a0:</p>'
+      + '<ul>'
+      + '<li><strong>Panneau gauche</strong> \u2014 Jeux de concepts disponibles (pas encore dans le projet)</li>'
+      + '<li><strong>Panneau droit</strong> \u2014 Jeux de concepts assign\u00e9s au projet</li>'
+      + '<li>Utilisez les boutons <i class="fas fa-plus-circle" style="color:var(--success)"></i> et <i class="fas fa-minus-circle" style="color:var(--danger)"></i> pour d\u00e9placer les jeux entre les panneaux</li>'
+      + '<li>Filtrez les deux panneaux par cat\u00e9gorie, sous-cat\u00e9gorie ou nom</li>'
+      + '</ul>'
+      + mockProjectCSEditPanels('fr')
 
       + infoBox('Bonne pratique',
         'Incluez tous les jeux n\u00e9cessaires \u00e0 votre analyse, m\u00eame ceux utilis\u00e9s '
-        + 'uniquement pour l\u2019ajustement ou la stratification.');
+        + 'uniquement pour l\u2019ajustement ou la stratification.')
+
+      + '<h2>Export</h2>'
+      + '<p>La vue d\u00e9taill\u00e9e du projet propose deux options d\u2019export\u00a0:</p>'
+
+      + '<h3>Export JSON</h3>'
+      + '<p>Cliquez sur le bouton <strong>Export</strong> dans l\u2019en-t\u00eate du projet pour exporter la d\u00e9finition du projet en JSON. '
+      + 'Vous pouvez t\u00e9l\u00e9charger le fichier, copier dans le presse-papiers ou proposer des modifications sur GitHub.</p>'
+      + mockProjectExportModal('fr')
+
+      + '<h3>Export CSV</h3>'
+      + '<p>Dans l\u2019onglet Jeux de concepts (mode lecture), cliquez sur le bouton <strong>CSV</strong> pour t\u00e9l\u00e9charger '
+      + 'tous les concepts OMOP des jeux du projet en fichier CSV. L\u2019export inclut les m\u00e9tadonn\u00e9es du jeu '
+      + '(ID, nom, cat\u00e9gorie, sous-cat\u00e9gorie) et les options de l\u2019expression (exclu, descendants, mapp\u00e9) pour chaque concept.</p>';
   }
 
   function mappingFR() {

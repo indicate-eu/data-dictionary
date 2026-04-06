@@ -213,6 +213,27 @@ body {
   transition: background .2s;
 }
 .lang-toggle:hover { background: #0d4d8f; }
+
+/* Documentation help button */
+.doc-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #f39c12;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .2s;
+  flex-shrink: 0;
+}
+.doc-btn:hover { background: #e08e0b; }
+.doc-btn:active { color: #fff; }
 .lang-toggle.reset { background: #6c757d; }
 .lang-toggle.reset:hover { background: #545b62; }
 
@@ -294,7 +315,7 @@ body {
 
 /* Main layout */
 .main { padding: 10px; flex: 1; overflow: hidden; display: flex; flex-direction: column; }
-.page-container { display: none; }
+.page-container { display: none; flex-direction: column; flex: 1; min-height: 0; }
 
 .list-view { display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: hidden; }
 
@@ -1825,7 +1846,17 @@ select.form-input { appearance: auto; }
 .settings-content {
   background: #fff;
   border-radius: 0 0 var(--radius) var(--radius);
-  min-height: 400px;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.settings-content > .settings-tab-content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
 }
 
 /* Mapping editor layout */
@@ -2166,7 +2197,7 @@ select.form-input { appearance: auto; }
   color: white;
 }
 
-#page-general-settings { overflow: hidden auto; }
+#tab-vocabularies { overflow: hidden auto; }
 
 .vocab-actions {
   display: flex;
