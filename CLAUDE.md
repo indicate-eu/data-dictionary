@@ -43,6 +43,7 @@ data-dictionary/                   # (repo root)
 │   ├── data_inline.js         # Generated data (const DATA={...};)
 │   ├── data.json              # Generated data (pure JSON)
 │   ├── resolved_concept_ids.json  # Generated: unique concept IDs from resolved sets
+│   ├── concept_sets_resolved/     # Generated: deferred resolved JSON files (lazy-loaded)
 │   ├── favicon.png
 │   ├── logo.png
 │   └── data_dictionary.png
@@ -198,10 +199,12 @@ python3 build.py
 4. Loads `units/unit_conversions.json` and `units/recommended_units.json`
 5. Loads `mapping_recommendations/mapping_recommendations.json`
 6. Computes a content hash for cache-busting
-7. Produces three output files:
-   - `docs/data.json` — compact JSON with all data (`conceptSets`, `projects`, `resolvedConceptSets`, `unitConversions`, `recommendedUnits`, `mappingRecommendations`, `dataVersion`, `dataHash`)
+7. Splits resolved concept sets: those with ≤100 concepts are inlined in the data files; those with >100 are deferred (only metadata is inlined, full data is lazy-loaded from individual files)
+8. Produces output files:
+   - `docs/data.json` — compact JSON with all data (`conceptSets`, `projects`, `resolvedConceptSets`, `unitConversions`, `recommendedUnits`, `mappingRecommendations`, `dataVersion`, `dataHash`). Deferred resolved sets have `resolvedDeferred: true` and `resolvedCount` instead of full concept lists.
    - `docs/data_inline.js` — same data wrapped as `const DATA={...};` for direct `<script>` inclusion
    - `docs/resolved_concept_ids.json` — unique concept IDs from resolved sets (used by DuckDB loader for filtering)
+   - `docs/concept_sets_resolved/{id}.json` — individual resolved files for deferred concept sets (fetched on demand by the browser)
 
 ### Full rebuild
 
@@ -289,7 +292,7 @@ Enable GitHub Pages in repository settings, pointing to the `docs/` folder on th
 ## Important Workflow Rules
 
 - **After any change to source data files** (`concept_sets/`, `projects/`, `concept_sets_resolved/`, `units/`, `mapping_recommendations/`), you MUST run `/build-catalog` to regenerate `docs/data.json` and `docs/data_inline.js`. Without this step, the GitHub Pages site will not reflect the changes.
-- **Never edit `docs/data.json`, `docs/data_inline.js`, or `docs/resolved_concept_ids.json` by hand** — they are generated files. Always edit the source JSON and rebuild.
+- **Never edit `docs/data.json`, `docs/data_inline.js`, `docs/resolved_concept_ids.json`, or `docs/concept_sets_resolved/` by hand** — they are generated files. Always edit the source JSON and rebuild.
 - **ID counters** (`id_counters.json`): contains `nextConceptSetId` and `nextProjectId` — monotonic counters that never decrease. `build.py` validates and auto-corrects them at build time. When creating a new concept set or project JSON file manually, increment the relevant counter. Never reuse a deleted ID.
 
 ## Key Conventions
