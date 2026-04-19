@@ -4763,21 +4763,24 @@ var ConceptSetsPage = (function() {
       byDomain[d].push(c);
     });
 
-    // Build conversions for a single chosen reference unit, across all concepts in the set.
-    // Returns { conversions: { sourceUnitId -> factor }, coveredConceptIds: Set, orphanConcepts: [] }
-    function getConversionsToRef(domainConcepts, refUid) {
-      var conceptIds = {};
-      domainConcepts.forEach(function(c) { conceptIds[c.conceptId] = true; });
-      var conversions = {};
+    // For each measurement concept, return the per-concept map { srcUnitId -> factor }
+    // of conversions that target the chosen reference unit. Factors depend on the
+    // concept (e.g. molecular weight), so we keep them separated by concept.
+    // unit_conversions.json already stores both directions (A->B factor f, B->A factor 1/f)
+    // as separate rows, so we only match rows where unitConceptId2 === refUid.
+    function getPerConceptConversions(domainConcepts, refUid) {
+      var perConcept = {};
+      domainConcepts.forEach(function(c) { perConcept[c.conceptId] = {}; });
       App.unitConversions.forEach(function(conv) {
-        if (conceptIds[conv.conceptId1] && conv.unitConceptId2 === refUid) {
-          conversions[conv.unitConceptId1] = conv.conversionFactor;
+        if (conv.unitConceptId2 !== refUid) return;
+        if (perConcept[conv.conceptId1] !== undefined) {
+          perConcept[conv.conceptId1][conv.unitConceptId1] = conv.conversionFactor;
         }
-        if (conceptIds[conv.conceptId2] && conv.unitConceptId1 === refUid) {
-          conversions[conv.unitConceptId2] = conv.conversionFactor;
+        if (perConcept[conv.conceptId2] !== undefined) {
+          perConcept[conv.conceptId2][conv.unitConceptId1] = conv.conversionFactor;
         }
       });
-      return conversions;
+      return perConcept;
     }
 
     var lines = [];
@@ -4811,33 +4814,79 @@ var ConceptSetsPage = (function() {
       // Build SELECT columns
       var selectCols = mapping.columns.slice(); // copy
 
-      // For Measurement domain, add unit conversion logic if a reference unit is chosen
-      var unitCaseExpr = null;
+      // For Measurement domain, rewrite value_as_number with unit conversion if
+      // a reference unit is chosen. Factors depend on the concept, but if all
+      // concepts in the set happen to share the same factor for a given
+      // (srcUnit -> refUnit) pair, we collapse to a flat CASE on unit_concept_id.
+      // Otherwise we fall back to a nested CASE (outer on measurement_concept_id,
+      // inner on unit_concept_id) so each concept gets its own factor.
+      // The resulting column keeps the standard OMOP name `value_as_number`.
+      var valueAsNumberExpr = null;
       if (domain === 'Measurement' && refUnitId) {
-        var conversions = getConversionsToRef(domainConcepts, refUnitId);
-        var caseParts = [];
-        caseParts.push('        -- Reference unit concept_id: ' + refUnitId);
-        caseParts.push('        WHEN unit_concept_id = ' + refUnitId + ' THEN value_as_number');
-        var sourceUnits = Object.keys(conversions).map(function(k) { return parseInt(k, 10); });
-        sourceUnits.forEach(function(srcUnitId) {
-          var factor = conversions[srcUnitId];
-          caseParts.push('        WHEN unit_concept_id = ' + srcUnitId +
-            ' THEN value_as_number * ' + factor +
-            ' -- convert unit ' + srcUnitId + ' -> ' + refUnitId);
+        var perConcept = getPerConceptConversions(domainConcepts, refUnitId);
+
+        // Collect all factors seen per source unit, to detect ambiguity.
+        var factorsBySrc = {}; // srcUnitId -> Set of factors
+        domainConcepts.forEach(function(c) {
+          var m = perConcept[c.conceptId] || {};
+          Object.keys(m).forEach(function(srcUnitId) {
+            if (!factorsBySrc[srcUnitId]) factorsBySrc[srcUnitId] = {};
+            factorsBySrc[srcUnitId][m[srcUnitId]] = true;
+          });
         });
-        unitCaseExpr = '    CASE\n' + caseParts.join('\n') +
-          '\n        ELSE NULL -- unknown unit, no conversion available' +
-          '\n    END AS value_as_number_converted';
+        var ambiguous = Object.keys(factorsBySrc).some(function(srcUnitId) {
+          return Object.keys(factorsBySrc[srcUnitId]).length > 1;
+        });
+
+        if (!ambiguous) {
+          // Flat CASE on unit_concept_id.
+          var caseParts = [];
+          caseParts.push('        -- Reference unit concept_id: ' + refUnitId);
+          caseParts.push('        WHEN unit_concept_id = ' + refUnitId + ' THEN value_as_number');
+          Object.keys(factorsBySrc).forEach(function(srcUnitId) {
+            var factor = Object.keys(factorsBySrc[srcUnitId])[0];
+            caseParts.push('        WHEN unit_concept_id = ' + parseInt(srcUnitId, 10) +
+              ' THEN value_as_number * ' + factor +
+              ' -- convert unit ' + srcUnitId + ' -> ' + refUnitId);
+          });
+          valueAsNumberExpr = '    CASE\n' + caseParts.join('\n') +
+            '\n        ELSE NULL -- unknown unit, no conversion available' +
+            '\n    END AS value_as_number';
+        } else {
+          // Nested CASE per concept.
+          var outerParts = [];
+          outerParts.push('        -- Reference unit concept_id: ' + refUnitId);
+          outerParts.push('        -- Conversion factors differ between concepts — switching per measurement_concept_id');
+          domainConcepts.forEach(function(c) {
+            var srcUnits = Object.keys(perConcept[c.conceptId] || {}).map(function(k) { return parseInt(k, 10); });
+            outerParts.push('        WHEN measurement_concept_id = ' + c.conceptId + ' THEN -- ' + c.conceptName);
+            outerParts.push('            CASE');
+            outerParts.push('                WHEN unit_concept_id = ' + refUnitId + ' THEN value_as_number');
+            srcUnits.forEach(function(srcUnitId) {
+              var factor = perConcept[c.conceptId][srcUnitId];
+              outerParts.push('                WHEN unit_concept_id = ' + srcUnitId +
+                ' THEN value_as_number * ' + factor +
+                ' -- convert unit ' + srcUnitId + ' -> ' + refUnitId);
+            });
+            outerParts.push('                ELSE NULL -- unknown unit, no conversion for this concept');
+            outerParts.push('            END');
+          });
+          valueAsNumberExpr = '    CASE\n' + outerParts.join('\n') +
+            '\n    END AS value_as_number';
+        }
       } else if (domain === 'Measurement' && !refUnitId) {
         lines.push('-- Note: no reference unit selected — raw value_as_number returned without conversion.');
       }
 
-      // Build the query
+      // Build the query. When we rewrite value_as_number via CASE, skip the
+      // plain value_as_number column to avoid a duplicate name.
       lines.push('');
       lines.push('SELECT');
-      var colLines = selectCols.map(function(col) { return '    ' + col; });
-      if (unitCaseExpr) {
-        colLines.push(unitCaseExpr);
+      var colLines = selectCols
+        .filter(function(col) { return !(valueAsNumberExpr && col === 'value_as_number'); })
+        .map(function(col) { return '    ' + col; });
+      if (valueAsNumberExpr) {
+        colLines.push(valueAsNumberExpr);
       }
       lines.push(colLines.join(',\n'));
 
