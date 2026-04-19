@@ -58,7 +58,21 @@ var ConceptSetsPage = (function() {
   var addFilterDomain = new Set();
   var addFilterClass = new Set();
   var addFilterDropdownsBuilt = false;
-  var addFilterStandard = 'S';
+  var addFilterStandard = new Set(['S']);
+  var STANDARD_OPTIONS = ['S', 'C', 'non'];
+  function standardLabel(val) {
+    return val === 'S' ? App.i18n('Standard')
+      : val === 'C' ? App.i18n('Classification')
+      : val === 'non' ? App.i18n('Non-standard')
+      : val;
+  }
+  function getStandardLabelMap() {
+    return {
+      'S': App.i18n('Standard'),
+      'C': App.i18n('Classification'),
+      'non': App.i18n('Non-standard')
+    };
+  }
   var addFilterValid = true;
   // Persistent modal state (preserved across open/close)
   var addExclude = false;
@@ -1406,6 +1420,13 @@ var ConceptSetsPage = (function() {
     });
   }
 
+  function updateExcludeModeClass() {
+    var row = document.getElementById('expr-add-toggles-row');
+    var excl = document.getElementById('expr-add-exclude');
+    if (!row || !excl) return;
+    row.classList.toggle('exclude-mode', excl.checked);
+  }
+
   function openAddModal() {
     var modal = document.getElementById('expr-add-modal');
     var noDb = document.getElementById('expr-add-no-db');
@@ -1430,14 +1451,14 @@ var ConceptSetsPage = (function() {
     document.getElementById('expr-add-exclude').checked = addExclude;
     document.getElementById('expr-add-descendants').checked = addDescendants;
     document.getElementById('expr-add-mapped').checked = addMapped;
+    updateExcludeModeClass();
     document.getElementById('expr-add-limit').checked = addLimitChecked;
     // Restore column filters
     ['expr-add-cf-id','expr-add-cf-name','expr-add-cf-vocab','expr-add-cf-code','expr-add-cf-domain','expr-add-cf-class','expr-add-cf-standard'].forEach(function(id) {
       var el = document.getElementById(id);
       if (el) el.value = addColumnFilters[id] || '';
     });
-    // Sync filter popup inputs with state
-    document.getElementById('expr-add-filter-standard').value = addFilterStandard;
+    // Sync filter popup inputs with state (standard is now a multi-select, rebuilt by buildAddFilterDropdowns)
     document.getElementById('expr-add-filter-valid').checked = addFilterValid;
     updateAddCount();
     resetAddDetailPanels();
@@ -1451,6 +1472,7 @@ var ConceptSetsPage = (function() {
       footer.style.display = addActiveTab === 'ohdsi' ? '' : 'none';
       searchRow.style.display = addActiveTab === 'ohdsi' ? '' : 'none';
       buildAddFilterDropdowns().then(function() {
+        renderAddActiveFilters();
         if (document.getElementById('expr-add-search').value.trim()) {
           searchAddConcepts();
         } else {
@@ -1544,9 +1566,10 @@ var ConceptSetsPage = (function() {
       var domains = (results[1] || []).map(function(r) { return r.domain_id; });
       var classes = (results[2] || []).map(function(r) { return r.concept_class_id; });
 
-      App.buildMultiSelectDropdown('expr-add-filter-vocab', vocabs, addFilterVocab, function() {});
-      App.buildMultiSelectDropdown('expr-add-filter-domain', domains, addFilterDomain, function() {});
-      App.buildMultiSelectDropdown('expr-add-filter-class', classes, addFilterClass, function() {});
+      App.buildMultiSelectDropdown('expr-add-filter-vocab', vocabs, addFilterVocab, renderAddActiveFilters);
+      App.buildMultiSelectDropdown('expr-add-filter-domain', domains, addFilterDomain, renderAddActiveFilters);
+      App.buildMultiSelectDropdown('expr-add-filter-class', classes, addFilterClass, renderAddActiveFilters);
+      App.buildMultiSelectDropdown('expr-add-filter-standard', STANDARD_OPTIONS, addFilterStandard, renderAddActiveFilters, getStandardLabelMap());
       addFilterDropdownsBuilt = true;
     });
   }
@@ -1566,12 +1589,14 @@ var ConceptSetsPage = (function() {
       var vals3 = Array.from(addFilterClass).map(function(v) { return '\'' + v.replace(/'/g, "''") + '\''; });
       parts.push('concept_class_id IN (' + vals3.join(',') + ')');
     }
-    if (addFilterStandard === 'S') {
-      parts.push('standard_concept = \'S\'');
-    } else if (addFilterStandard === 'C') {
-      parts.push('standard_concept = \'C\'');
-    } else if (addFilterStandard === 'non') {
-      parts.push('(standard_concept IS NULL OR standard_concept NOT IN (\'S\',\'C\'))');
+    // Standard is now a multi-select Set. An empty Set means "no filter" (all).
+    // Any combination of 'S', 'C', 'non' ORs the matching conditions.
+    if (addFilterStandard.size > 0 && addFilterStandard.size < STANDARD_OPTIONS.length) {
+      var stdConds = [];
+      if (addFilterStandard.has('S')) stdConds.push('standard_concept = \'S\'');
+      if (addFilterStandard.has('C')) stdConds.push('standard_concept = \'C\'');
+      if (addFilterStandard.has('non')) stdConds.push('(standard_concept IS NULL OR standard_concept NOT IN (\'S\',\'C\'))');
+      parts.push('(' + stdConds.join(' OR ') + ')');
     }
     if (addFilterValid) {
       parts.push('(invalid_reason IS NULL OR invalid_reason = \'\')');
@@ -1619,22 +1644,50 @@ var ConceptSetsPage = (function() {
     updateAddCount();
     resetAddDetailPanels();
 
-    // Build search conditions (multi-word: all words must match name, or exact match on code/id)
     var esc = q.replace(/'/g, "''");
+    var qLower = esc.toLowerCase();
     var isNumeric = /^\d+$/.test(q);
-    var searchConds = [];
-    if (isNumeric) {
-      searchConds.push('concept_id = ' + q);
-    }
-    // Multi-word fuzzy: each word must appear in concept_name
     var words = esc.split(/\s+/).filter(function(w) { return w.length > 0; });
+
+    // Fast path: if the query is purely numeric, try an exact concept_id match first.
+    // If it hits, return that single row immediately — no broader text search needed.
+    if (isNumeric) {
+      VocabDB.query(
+        'SELECT concept_id, concept_name, vocabulary_id, domain_id, concept_class_id, concept_code, standard_concept, invalid_reason ' +
+        'FROM concept WHERE concept_id = ' + q + ' LIMIT 1'
+      ).then(function(rows) {
+        if (rows && rows.length > 0) {
+          addConceptResults = rows;
+          applyAddColumnFilters();
+        } else {
+          runFullAddSearch();
+        }
+      }).catch(function() {
+        runFullAddSearch();
+      });
+      return;
+    }
+    runFullAddSearch();
+
+    function runFullAddSearch() {
+
+    // Fuzzy threshold: jaro_winkler_similarity returns 0..1, 1 = identical.
+    // 0.88 catches single-character typos on short-to-medium strings while
+    // keeping the result set manageable.
+    var FUZZY_THRESHOLD = 0.88;
+
+    // WHERE conditions: exact ID, substring on code, substring on name (all words),
+    // plus fuzzy similarity on full name. OR-joined so fuzzy broadens the set.
+    var searchConds = [];
+    if (isNumeric) searchConds.push('concept_id = ' + q);
+    searchConds.push('concept_code ILIKE \'%' + esc + '%\'');
     if (words.length > 1) {
       var nameConds = words.map(function(w) { return 'concept_name ILIKE \'%' + w + '%\''; });
       searchConds.push('(' + nameConds.join(' AND ') + ')');
     } else {
       searchConds.push('concept_name ILIKE \'%' + esc + '%\'');
     }
-    searchConds.push('concept_code ILIKE \'%' + esc + '%\'');
+    searchConds.push('jaro_winkler_similarity(LOWER(concept_name), \'' + qLower + '\') >= ' + FUZZY_THRESHOLD);
 
     var whereParts = ['(' + searchConds.join(' OR ') + ')'];
     whereParts = whereParts.concat(buildAddFilterWhere());
@@ -1642,9 +1695,30 @@ var ConceptSetsPage = (function() {
     var useLimit = document.getElementById('expr-add-limit').checked;
     var limitClause = useLimit ? ' LIMIT 10000' : '';
 
-    var sql = 'SELECT concept_id, concept_name, vocabulary_id, domain_id, concept_class_id, concept_code, standard_concept, invalid_reason ' +
+    // Ranking:
+    //   0 = exact concept_id or concept_code match
+    //   1 = exact name match
+    //   2 = name starts with query
+    //   3 = name contains all query words as substrings
+    //   4 = fuzzy-only match (Jaro-Winkler above threshold)
+    // Within each rank: standard first, then higher fuzzy score, then shorter name, then alphabetical.
+    var rankExpr =
+      'CASE ' +
+        (isNumeric ? 'WHEN concept_id = ' + q + ' THEN 0 ' : '') +
+        'WHEN LOWER(concept_code) = \'' + qLower + '\' THEN 0 ' +
+        'WHEN LOWER(concept_name) = \'' + qLower + '\' THEN 1 ' +
+        'WHEN LOWER(concept_name) LIKE \'' + qLower + '%\' THEN 2 ' +
+        'WHEN ' + words.map(function(w) {
+          return 'LOWER(concept_name) LIKE \'%' + w.toLowerCase() + '%\'';
+        }).join(' AND ') + ' THEN 3 ' +
+        'ELSE 4 ' +
+      'END';
+
+    var sql = 'SELECT concept_id, concept_name, vocabulary_id, domain_id, concept_class_id, concept_code, standard_concept, invalid_reason, ' +
+      rankExpr + ' AS match_rank, ' +
+      'jaro_winkler_similarity(LOWER(concept_name), \'' + qLower + '\') AS fuzzy_score ' +
       'FROM concept WHERE ' + whereParts.join(' AND ') +
-      ' ORDER BY CASE WHEN standard_concept = \'S\' THEN 0 ELSE 1 END, concept_name' + limitClause;
+      ' ORDER BY match_rank, CASE WHEN standard_concept = \'S\' THEN 0 ELSE 1 END, fuzzy_score DESC, LENGTH(concept_name), concept_name' + limitClause;
 
     VocabDB.query(sql).then(function(rows) {
       addConceptResults = rows || [];
@@ -1652,6 +1726,7 @@ var ConceptSetsPage = (function() {
     }).catch(function(err) {
       tbody.innerHTML = '<tr><td colspan="' + colSpan + '" style="padding:20px; color:var(--danger)">' + App.escapeHtml(err.message) + '</td></tr>';
     });
+    }
   }
 
   // --- Column filters (client-side, on already-fetched results) ---
@@ -1775,10 +1850,114 @@ var ConceptSetsPage = (function() {
     updateAddCount();
   }
 
+  // --- Active filter chips (shown below search bar) ---
+  function renderAddActiveFilters() {
+    var wrap = document.getElementById('expr-add-active-filters');
+    if (!wrap) return;
+    var chips = [];
+
+    function addChip(type, label, value) {
+      chips.push(
+        '<span class="expr-add-chip" data-type="' + type + '"' +
+          (value !== undefined ? ' data-value="' + App.escapeHtml(String(value)) + '"' : '') + '>' +
+          '<span class="expr-add-chip-label">' + App.escapeHtml(label) + '</span>' +
+          '<button class="expr-add-chip-x" title="' + App.i18n('Remove filter') + '"><i class="fas fa-times"></i></button>' +
+        '</span>'
+      );
+    }
+
+    addFilterVocab.forEach(function(v) { addChip('vocab', App.i18n('Vocabulary') + ': ' + (v || '(empty)'), v); });
+    addFilterDomain.forEach(function(v) { addChip('domain', App.i18n('Domain') + ': ' + (v || '(empty)'), v); });
+    addFilterClass.forEach(function(v) { addChip('class', App.i18n('Class') + ': ' + (v || '(empty)'), v); });
+
+    // Standard filter: one chip per selected option. Empty set = no chip (means "all allowed").
+    addFilterStandard.forEach(function(v) {
+      addChip('standard', App.i18n('Standard') + ': ' + standardLabel(v), v);
+    });
+    // Valid-only chip: shown whenever the filter is active (default = active).
+    if (addFilterValid) {
+      addChip('valid', App.i18n('Valid only'));
+    }
+
+    wrap.style.display = '';
+    var hasAny = addFilterVocab.size > 0 || addFilterDomain.size > 0 || addFilterClass.size > 0 ||
+      addFilterStandard.size > 0 || addFilterValid;
+    wrap.innerHTML = chips.join('') +
+      (hasAny ? '<button class="expr-add-chip-clear" id="expr-add-chips-clear">' + App.i18n('Clear all') + '</button>' : '');
+  }
+
+  function removeAddActiveFilter(type, value) {
+    if (type === 'vocab') addFilterVocab.delete(value);
+    else if (type === 'domain') addFilterDomain.delete(value);
+    else if (type === 'class') addFilterClass.delete(value);
+    else if (type === 'standard') addFilterStandard.delete(value);
+    else if (type === 'valid') {
+      addFilterValid = false;
+      var validCb = document.getElementById('expr-add-filter-valid');
+      if (validCb) validCb.checked = false;
+    }
+    // Sync multi-select checkboxes in popup
+    if (type === 'vocab' || type === 'domain' || type === 'class' || type === 'standard') {
+      var containerId = 'expr-add-filter-' + type;
+      var targetSet = type === 'vocab' ? addFilterVocab
+        : type === 'domain' ? addFilterDomain
+        : type === 'class' ? addFilterClass
+        : addFilterStandard;
+      var container = document.getElementById(containerId);
+      if (container) {
+        container.querySelectorAll('.ms-option input[type="checkbox"]').forEach(function(cb) {
+          var v = cb.value || '';
+          cb.checked = targetSet.has(v);
+        });
+      }
+      if (App.updateMsToggleLabel) App.updateMsToggleLabel(containerId, targetSet);
+    }
+    renderAddActiveFilters();
+    if (document.getElementById('expr-add-search').value.trim()) searchAddConcepts();
+    else loadAddDefaults();
+  }
+
+  function clearAllAddActiveFilters() {
+    addFilterVocab.clear();
+    addFilterDomain.clear();
+    addFilterClass.clear();
+    addFilterStandard.clear();
+    addFilterValid = false;
+    var validCb = document.getElementById('expr-add-filter-valid');
+    if (validCb) validCb.checked = false;
+    ['expr-add-filter-vocab', 'expr-add-filter-domain', 'expr-add-filter-class', 'expr-add-filter-standard'].forEach(function(id) {
+      var container = document.getElementById(id);
+      if (!container) return;
+      var targetSet = id === 'expr-add-filter-vocab' ? addFilterVocab
+        : id === 'expr-add-filter-domain' ? addFilterDomain
+        : id === 'expr-add-filter-class' ? addFilterClass
+        : addFilterStandard;
+      container.querySelectorAll('.ms-option input[type="checkbox"]').forEach(function(cb) {
+        cb.checked = targetSet.has(cb.value || '');
+      });
+    });
+    if (App.updateMsToggleLabel) {
+      App.updateMsToggleLabel('expr-add-filter-vocab', addFilterVocab);
+      App.updateMsToggleLabel('expr-add-filter-domain', addFilterDomain);
+      App.updateMsToggleLabel('expr-add-filter-class', addFilterClass);
+      App.updateMsToggleLabel('expr-add-filter-standard', addFilterStandard, getStandardLabelMap());
+    }
+    renderAddActiveFilters();
+    if (document.getElementById('expr-add-search').value.trim()) searchAddConcepts();
+    else loadAddDefaults();
+  }
+
   function updateAddCount() {
     var n = addConceptSelectedIds.size;
     document.getElementById('expr-add-count').textContent = n + ' selected';
-    document.getElementById('expr-add-submit').disabled = false;
+    var btn = document.getElementById('expr-add-submit');
+    btn.disabled = false;
+    var label = btn.querySelector('span[data-i18n]');
+    if (label) {
+      var key = n > 1 ? 'Add Concepts' : 'Add Concept';
+      label.setAttribute('data-i18n', key);
+      label.textContent = App.i18n(key);
+    }
   }
 
   // --- Selected Concept Details panel ---
@@ -2037,29 +2216,55 @@ var ConceptSetsPage = (function() {
     descendants.forEach(function(d) { hierarchyConceptMap[Number(d.concept_id)] = d; });
 
     // Custom tooltip on hover
-    var tooltipTimeout = null;
+    var tooltipShowTimeout = null;
+    var tooltipHideTimeout = null;
     addModalHierarchyNetwork.on('hoverNode', function(params) {
-      clearTimeout(tooltipTimeout);
-      var domPos = params.event.center || { x: params.event.offsetX || params.pointer.DOM.x, y: params.event.offsetY || params.pointer.DOM.y };
-      tooltipTimeout = setTimeout(function() {
-        showHierarchyTooltip(params.node, canvasEl, domPos);
+      if (hierarchyPinnedId !== null) return;
+      clearTimeout(tooltipShowTimeout);
+      clearTimeout(tooltipHideTimeout);
+      var domPos = params.pointer && params.pointer.DOM ? params.pointer.DOM : { x: 0, y: 0 };
+      tooltipShowTimeout = setTimeout(function() {
+        if (hierarchyPinnedId !== null) return;
+        showHierarchyTooltip(params.node, canvasEl, domPos, { showSearch: true });
       }, 300);
     });
     addModalHierarchyNetwork.on('blurNode', function() {
-      clearTimeout(tooltipTimeout);
-      setTimeout(function() {
+      if (hierarchyPinnedId !== null) return;
+      clearTimeout(tooltipShowTimeout);
+      clearTimeout(tooltipHideTimeout);
+      tooltipHideTimeout = setTimeout(function() {
+        if (hierarchyPinnedId !== null) return;
         if (!document.querySelector('.hierarchy-tooltip:hover')) hideHierarchyTooltip();
       }, 200);
     });
-    addModalHierarchyNetwork.on('dragStart', function() { hideHierarchyTooltip(); });
-    addModalHierarchyNetwork.on('zoom', function() { hideHierarchyTooltip(); });
+    // Click on a node: pin the tooltip. Re-clicking the same node unpins it.
+    // Click outside a node: unpin tooltip and deselect.
+    addModalHierarchyNetwork.on('click', function(params) {
+      clearTimeout(tooltipShowTimeout);
+      clearTimeout(tooltipHideTimeout);
+      if (params.nodes && params.nodes.length === 1) {
+        var nodeId = Number(params.nodes[0]);
+        if (hierarchyPinnedId === nodeId) {
+          unpinHierarchyTooltip();
+          addModalHierarchyNetwork.unselectAll();
+          return;
+        }
+        var domPos = params.pointer && params.pointer.DOM ? params.pointer.DOM : { x: 0, y: 0 };
+        hierarchyPinnedId = null;
+        showHierarchyTooltip(nodeId, canvasEl, domPos, { showSearch: true, pin: true });
+      } else {
+        // Click outside a node: unpin tooltip and deselect
+        unpinHierarchyTooltip();
+        addModalHierarchyNetwork.unselectAll();
+      }
+    });
 
     // Double-click to navigate within modal hierarchy
     addModalHierarchyNetwork.on('doubleClick', function(params) {
       if (params.nodes.length === 1) {
         var cid = params.nodes[0];
         if (cid === selfId) return;
-        hideHierarchyTooltip();
+        unpinHierarchyTooltip();
         addModalHierarchyHistory.push(selfId);
         loadAddModalHierarchy(cid);
       }
@@ -2507,9 +2712,8 @@ var ConceptSetsPage = (function() {
     fillSelect('expr-filter-domain', domains);
     fillSelect('expr-filter-class', classes);
 
-    var stdValues = Object.keys(standards).sort();
-    var stdLabels = {};
-    stdValues.forEach(function(v) { stdLabels[v] = standards[v]; });
+    var stdValues = ['S', 'C', ''];
+    var stdLabels = { 'S': 'Standard', 'C': 'Classification', '': 'Non-standard' };
     App.buildMultiSelectDropdown('expr-filter-standard', stdValues, exprFilterStandard, function() {
       expressionPage = 1; renderExpressionTable();
     }, stdLabels);
@@ -2590,9 +2794,10 @@ var ConceptSetsPage = (function() {
 
     fillSelect('resolved-filter-domain', domains);
 
-    var stdValues = Object.keys(standards).sort();
-    var stdLabels = {};
-    stdValues.forEach(function(v) { stdLabels[v] = standards[v]; });
+    // Always offer the 3 standard options, regardless of what's actually present in the data,
+    // so users can uncheck categories that aren't represented without leaving ghost selections.
+    var stdValues = ['S', 'C', ''];
+    var stdLabels = { 'S': 'Standard', 'C': 'Classification', '': 'Non-standard' };
     App.buildMultiSelectDropdown('resolved-filter-standard', stdValues, resolvedFilterStandard, function() {
       resolvedPage = 1; renderResolvedTable(true);
     }, stdLabels);
@@ -2815,7 +3020,7 @@ var ConceptSetsPage = (function() {
         });
         return;
       }
-      renderResolvedTableWithData(appendCustomConcepts([], items), keepFilters);
+      showResolvedDbUnavailable();
       return;
     }
 
@@ -2834,7 +3039,22 @@ var ConceptSetsPage = (function() {
             renderResolvedTableWithData(appendCustomConcepts(concepts, items), keepFilters);
           });
         } else {
-          renderResolvedTableWithData(appendCustomConcepts([], items), keepFilters);
+          // No pre-resolved data — try to remount DB and show loading state
+          showResolvedDbLoading();
+          VocabDB.remountFromStoredHandles().then(function(ok) {
+            if (ok) {
+              resolveExpressionLive(items).then(function(concepts) {
+                renderResolvedTableWithData(concepts, keepFilters);
+              }).catch(function(err) {
+                console.error('Live resolve failed:', err);
+                renderResolvedTableWithData([], keepFilters);
+              });
+            } else {
+              showResolvedDbUnavailable();
+            }
+          }).catch(function() {
+            showResolvedDbUnavailable();
+          });
         }
         return;
       }
@@ -2845,6 +3065,22 @@ var ConceptSetsPage = (function() {
         renderResolvedTableWithData([], keepFilters);
       });
     });
+  }
+
+  function showResolvedDbLoading() {
+    var tbody = document.getElementById('resolved-tbody');
+    var colCount = Object.keys(resolvedColumns).length;
+    tbody.innerHTML = '<tr><td colspan="' + colCount + '" class="empty-state"><p><i class="fas fa-spinner fa-spin" style="color:var(--primary); margin-right:6px"></i>' + App.i18n('Loading vocabulary database...') + '</p></td></tr>';
+    document.getElementById('cs-concept-count').textContent = '0 / 0';
+    renderPaginationControls('resolved-pagination', 'resolved-page-info', 'resolved-page-buttons', 1, 0, resolvedPageSize);
+  }
+
+  function showResolvedDbUnavailable() {
+    var tbody = document.getElementById('resolved-tbody');
+    var colCount = Object.keys(resolvedColumns).length;
+    tbody.innerHTML = '<tr><td colspan="' + colCount + '" class="empty-state"><p><i class="fas fa-info-circle" style="color:var(--primary); margin-right:6px"></i>' + App.i18n('Load OHDSI vocabularies in') + ' <a href="#/settings" style="color:var(--primary); font-weight:600">' + App.i18n('Dictionary Settings') + '</a> ' + App.i18n('to resolve concepts.') + '</p></td></tr>';
+    document.getElementById('cs-concept-count').textContent = '0 / 0';
+    renderPaginationControls('resolved-pagination', 'resolved-page-info', 'resolved-page-buttons', 1, 0, resolvedPageSize);
   }
 
   // ==================== CONCEPT DETAIL ====================
@@ -3331,6 +3567,8 @@ var ConceptSetsPage = (function() {
 
   // Store concept data for custom tooltips
   var hierarchyConceptMap = {};
+  // When set, a tooltip is "pinned" (opened via click) and hover tooltips are suppressed.
+  var hierarchyPinnedId = null;
 
   function copyToClipboard(text, btnEl) {
     navigator.clipboard.writeText(text).then(function() {
@@ -3339,9 +3577,12 @@ var ConceptSetsPage = (function() {
     });
   }
 
-  function showHierarchyTooltip(conceptId, canvasEl, domPos) {
+  function showHierarchyTooltip(conceptId, canvasEl, domPos, opts) {
     var c = hierarchyConceptMap[conceptId];
     if (!c) return;
+    // If a tooltip is already pinned, hover-triggered tooltips are suppressed.
+    var pinning = opts && opts.pin;
+    if (hierarchyPinnedId !== null && !pinning) return;
     hideHierarchyTooltip();
 
     var std = c.standard_concept === 'S' ? 'Standard' : (c.standard_concept === 'C' ? 'Classification' : 'Non-standard');
@@ -3350,6 +3591,7 @@ var ConceptSetsPage = (function() {
     var copyBtn = function(val) {
       return '<td class="ht-action"><button class="ht-copy" data-copy="' + App.escapeHtml(String(val)) + '" title="Copy"><i class="far fa-clone"></i></button></td>';
     };
+    var showSearch = opts && opts.showSearch;
     tip.innerHTML =
       '<table class="hierarchy-tooltip-table">' +
         '<tr><td class="ht-label">Name</td><td class="ht-value"><strong>' + App.escapeHtml(String(c.concept_name)) + '</strong></td>' + copyBtn(c.concept_name) + '</tr>' +
@@ -3359,18 +3601,26 @@ var ConceptSetsPage = (function() {
         '<tr><td class="ht-label">Domain</td><td class="ht-value">' + App.escapeHtml(String(c.domain_id || '')) + '</td><td></td></tr>' +
         '<tr><td class="ht-label">Class</td><td class="ht-value">' + App.escapeHtml(String(c.concept_class_id || '')) + '</td><td></td></tr>' +
         '<tr><td class="ht-label">Standard</td><td class="ht-value">' + std + '</td><td></td></tr>' +
-      '</table>';
+      '</table>' +
+      (showSearch
+        ? '<div class="ht-search-row"><button class="ht-search-btn" data-cid="' + c.concept_id + '" data-vocab="' + App.escapeHtml(String(c.vocabulary_id || '')) + '"><i class="fas fa-search"></i> Search this concept</button></div>'
+        : '');
 
-    // Position relative to the canvas container
-    var rect = canvasEl.getBoundingClientRect();
-    tip.style.left = (domPos.x + 12) + 'px';
-    tip.style.top = (domPos.y + 12) + 'px';
-    canvasEl.appendChild(tip);
+    // Attach to body in fixed position so the tooltip is never clipped by the
+    // hierarchy container's overflow:hidden.
+    var canvasRect = canvasEl.getBoundingClientRect();
+    var viewportX = canvasRect.left + domPos.x;
+    var viewportY = canvasRect.top + domPos.y;
+    tip.style.left = (viewportX + 12) + 'px';
+    tip.style.top = (viewportY + 12) + 'px';
+    document.body.appendChild(tip);
 
-    // Adjust if overflows
+    // Adjust against the viewport if the tooltip overflows
     var tipRect = tip.getBoundingClientRect();
-    if (tipRect.right > rect.right - 10) tip.style.left = (domPos.x - tipRect.width - 12) + 'px';
-    if (tipRect.bottom > rect.bottom - 10) tip.style.top = (domPos.y - tipRect.height - 12) + 'px';
+    var vw = window.innerWidth;
+    var vh = window.innerHeight;
+    if (tipRect.right > vw - 10) tip.style.left = Math.max(10, viewportX - tipRect.width - 12) + 'px';
+    if (tipRect.bottom > vh - 10) tip.style.top = Math.max(10, viewportY - tipRect.height - 12) + 'px';
 
     // Copy button events
     tip.querySelectorAll('.ht-copy').forEach(function(btn) {
@@ -3380,9 +3630,72 @@ var ConceptSetsPage = (function() {
       });
     });
 
+    // Search-this-concept button: reset add-modal filters (keep only vocabulary),
+    // put the concept ID in the search bar, and run the search.
+    var searchBtn = tip.querySelector('.ht-search-btn');
+    if (searchBtn) {
+      searchBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var cid = searchBtn.getAttribute('data-cid');
+        var vocab = searchBtn.getAttribute('data-vocab') || '';
+        // Reset pre-query filters
+        addFilterVocab.clear();
+        if (vocab) addFilterVocab.add(vocab);
+        addFilterDomain.clear();
+        addFilterClass.clear();
+        addFilterStandard.clear();
+        addFilterValid = true;
+        var validCb = document.getElementById('expr-add-filter-valid');
+        if (validCb) validCb.checked = true;
+        ['expr-add-filter-vocab', 'expr-add-filter-domain', 'expr-add-filter-class', 'expr-add-filter-standard'].forEach(function(id) {
+          var container = document.getElementById(id);
+          if (!container) return;
+          var targetSet = id === 'expr-add-filter-vocab' ? addFilterVocab
+            : id === 'expr-add-filter-domain' ? addFilterDomain
+            : id === 'expr-add-filter-class' ? addFilterClass
+            : addFilterStandard;
+          container.querySelectorAll('.ms-option input[type="checkbox"]').forEach(function(cb) {
+            var v = cb.getAttribute('data-value') || cb.value || '';
+            cb.checked = targetSet.has(v);
+          });
+        });
+        if (App.updateMsToggleLabel) {
+          App.updateMsToggleLabel('expr-add-filter-vocab', addFilterVocab);
+          App.updateMsToggleLabel('expr-add-filter-domain', addFilterDomain);
+          App.updateMsToggleLabel('expr-add-filter-class', addFilterClass);
+          App.updateMsToggleLabel('expr-add-filter-standard', addFilterStandard, getStandardLabelMap());
+        }
+        // Clear column filters
+        ['expr-add-cf-id','expr-add-cf-name','expr-add-cf-vocab','expr-add-cf-code','expr-add-cf-domain','expr-add-cf-class','expr-add-cf-standard'].forEach(function(id) {
+          var inp = document.getElementById(id);
+          if (inp) inp.value = '';
+        });
+        // Put concept ID in the search bar and run search
+        var searchInput = document.getElementById('expr-add-search');
+        if (searchInput) searchInput.value = cid;
+        renderAddActiveFilters();
+        hideHierarchyTooltip();
+        searchAddConcepts();
+      });
+    }
+
     tip._hideTimeout = null;
     tip.addEventListener('mouseenter', function() { clearTimeout(tip._hideTimeout); });
-    tip.addEventListener('mouseleave', function() { hideHierarchyTooltip(); });
+    tip.addEventListener('mouseleave', function() {
+      // Pinned tooltips stay open until explicitly dismissed
+      if (hierarchyPinnedId !== null) return;
+      hideHierarchyTooltip();
+    });
+
+    if (pinning) {
+      hierarchyPinnedId = Number(conceptId);
+      tip.classList.add('pinned');
+    }
+  }
+
+  function unpinHierarchyTooltip() {
+    hierarchyPinnedId = null;
+    hideHierarchyTooltip();
   }
 
   function hideHierarchyTooltip() {
@@ -3576,30 +3889,52 @@ var ConceptSetsPage = (function() {
     vocabTabsHierarchyNetwork = new vis.Network(canvasEl, data, options);
 
     // Custom tooltip on hover
-    var tooltipTimeout = null;
+    var tooltipShowTimeout = null;
+    var tooltipHideTimeout = null;
     vocabTabsHierarchyNetwork.on('hoverNode', function(params) {
-      clearTimeout(tooltipTimeout);
-      var domPos = params.event.center || { x: params.event.offsetX || params.pointer.DOM.x, y: params.event.offsetY || params.pointer.DOM.y };
-      tooltipTimeout = setTimeout(function() {
+      if (hierarchyPinnedId !== null) return;
+      clearTimeout(tooltipShowTimeout);
+      clearTimeout(tooltipHideTimeout);
+      var domPos = params.pointer && params.pointer.DOM ? params.pointer.DOM : { x: 0, y: 0 };
+      tooltipShowTimeout = setTimeout(function() {
+        if (hierarchyPinnedId !== null) return;
         showHierarchyTooltip(params.node, canvasEl, domPos);
       }, 300);
     });
     vocabTabsHierarchyNetwork.on('blurNode', function() {
-      clearTimeout(tooltipTimeout);
-      // Delay hide so user can move mouse to tooltip
-      setTimeout(function() {
+      if (hierarchyPinnedId !== null) return;
+      clearTimeout(tooltipShowTimeout);
+      clearTimeout(tooltipHideTimeout);
+      tooltipHideTimeout = setTimeout(function() {
+        if (hierarchyPinnedId !== null) return;
         if (!document.querySelector('.hierarchy-tooltip:hover')) hideHierarchyTooltip();
       }, 200);
     });
-    vocabTabsHierarchyNetwork.on('dragStart', function() { hideHierarchyTooltip(); });
-    vocabTabsHierarchyNetwork.on('zoom', function() { hideHierarchyTooltip(); });
+    vocabTabsHierarchyNetwork.on('click', function(params) {
+      clearTimeout(tooltipShowTimeout);
+      clearTimeout(tooltipHideTimeout);
+      if (params.nodes && params.nodes.length === 1) {
+        var nodeId = Number(params.nodes[0]);
+        if (hierarchyPinnedId === nodeId) {
+          unpinHierarchyTooltip();
+          vocabTabsHierarchyNetwork.unselectAll();
+          return;
+        }
+        var domPos = params.pointer && params.pointer.DOM ? params.pointer.DOM : { x: 0, y: 0 };
+        hierarchyPinnedId = null;
+        showHierarchyTooltip(nodeId, canvasEl, domPos, { pin: true });
+      } else {
+        unpinHierarchyTooltip();
+        vocabTabsHierarchyNetwork.unselectAll();
+      }
+    });
 
     // Double-click on node: navigate hierarchy in-place
     vocabTabsHierarchyNetwork.on('doubleClick', function(params) {
       if (params.nodes.length === 1) {
         var cid = params.nodes[0];
         if (cid === selfId) return;
-        hideHierarchyTooltip();
+        unpinHierarchyTooltip();
         hierarchyHistory.push(selfId);
         hierarchyPreviousId = selfId;
         loadHierarchyGraph(cid, el);
@@ -5109,6 +5444,7 @@ var ConceptSetsPage = (function() {
       if (e.key === 'Enter') searchAddConcepts();
     });
     document.getElementById('expr-add-select-all').addEventListener('change', toggleAddSelectAll);
+    document.getElementById('expr-add-exclude').addEventListener('change', updateExcludeModeClass);
     document.getElementById('expr-add-multiple').addEventListener('change', function() {
       addMultiSelect = this.checked;
       // When switching to multi-select, keep existing selection; when switching to single, clear
@@ -5159,11 +5495,11 @@ var ConceptSetsPage = (function() {
       popup.style.display = addFiltersVisible ? '' : 'none';
     });
     document.getElementById('expr-add-filters-apply').addEventListener('click', function() {
-      // Vocab/Domain/Class are already updated live via multi-select onChange
-      addFilterStandard = document.getElementById('expr-add-filter-standard').value;
+      // All filters (including Standard) are now multi-selects updated live via onChange
       addFilterValid = document.getElementById('expr-add-filter-valid').checked;
       addFiltersVisible = false;
       document.getElementById('expr-add-filters-popup').style.display = 'none';
+      renderAddActiveFilters();
       // Re-run query with new filters
       if (document.getElementById('expr-add-search').value.trim()) {
         searchAddConcepts();
@@ -5175,12 +5511,10 @@ var ConceptSetsPage = (function() {
       addFilterVocab.clear();
       addFilterDomain.clear();
       addFilterClass.clear();
-      addFilterStandard = '';
+      addFilterStandard.clear();
       addFilterValid = false;
-      document.getElementById('expr-add-filter-standard').value = '';
       document.getElementById('expr-add-filter-valid').checked = false;
-      // Rebuild dropdowns to reflect cleared state
-      ['expr-add-filter-vocab', 'expr-add-filter-domain', 'expr-add-filter-class'].forEach(function(id) {
+      ['expr-add-filter-vocab', 'expr-add-filter-domain', 'expr-add-filter-class', 'expr-add-filter-standard'].forEach(function(id) {
         var container = document.getElementById(id);
         if (container) {
           container.querySelectorAll('.ms-option input[type="checkbox"]').forEach(function(cb) { cb.checked = false; });
@@ -5189,6 +5523,21 @@ var ConceptSetsPage = (function() {
       App.updateMsToggleLabel('expr-add-filter-vocab', addFilterVocab);
       App.updateMsToggleLabel('expr-add-filter-domain', addFilterDomain);
       App.updateMsToggleLabel('expr-add-filter-class', addFilterClass);
+      App.updateMsToggleLabel('expr-add-filter-standard', addFilterStandard, getStandardLabelMap());
+      renderAddActiveFilters();
+    });
+
+    // Chip interactions: click × to remove a single filter, "Clear all" to reset
+    document.getElementById('expr-add-active-filters').addEventListener('click', function(e) {
+      if (e.target.closest('#expr-add-chips-clear')) {
+        clearAllAddActiveFilters();
+        return;
+      }
+      var xBtn = e.target.closest('.expr-add-chip-x');
+      if (!xBtn) return;
+      var chip = xBtn.closest('.expr-add-chip');
+      if (!chip) return;
+      removeAddActiveFilter(chip.getAttribute('data-type'), chip.getAttribute('data-value'));
     });
     // Limit 10K checkbox: confirm before loading all concepts
     document.getElementById('expr-add-limit').addEventListener('change', function() {
@@ -5204,16 +5553,18 @@ var ConceptSetsPage = (function() {
       var q = document.getElementById('expr-add-search').value.trim();
       if (q) {
         var esc = q.replace(/'/g, "''");
+        var qLower = esc.toLowerCase();
         var isNumeric = /^\d+$/.test(q);
         var searchConds = [];
         if (isNumeric) searchConds.push('concept_id = ' + q);
+        searchConds.push('concept_code ILIKE \'%' + esc + '%\'');
         var words = esc.split(/\s+/).filter(function(w) { return w.length > 0; });
         if (words.length > 1) {
           searchConds.push('(' + words.map(function(w) { return 'concept_name ILIKE \'%' + w + '%\''; }).join(' AND ') + ')');
         } else {
           searchConds.push('concept_name ILIKE \'%' + esc + '%\'');
         }
-        searchConds.push('concept_code ILIKE \'%' + esc + '%\'');
+        searchConds.push('jaro_winkler_similarity(LOWER(concept_name), \'' + qLower + '\') >= 0.88');
         whereParts.unshift('(' + searchConds.join(' OR ') + ')');
       }
       var whereStr = whereParts.length ? ' WHERE ' + whereParts.join(' AND ') : '';

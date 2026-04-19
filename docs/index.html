@@ -1393,12 +1393,7 @@ Enter your review comments here using Markdown syntax.
           </div>
           <div class="expr-add-filters-row">
             <label data-i18n="Standard">Standard</label>
-            <select class="form-input form-input-sm" id="expr-add-filter-standard">
-              <option value="" data-i18n="All">All</option>
-              <option value="S" selected data-i18n="Standard">Standard</option>
-              <option value="C" data-i18n="Classification">Classification</option>
-              <option value="non" data-i18n="Non-standard">Non-standard</option>
-            </select>
+            <div class="ms-container" id="expr-add-filter-standard" style="flex:1"></div>
           </div>
           <div class="expr-add-filters-row">
             <label data-i18n="Valid only">Valid only</label>
@@ -1414,6 +1409,8 @@ Enter your review comments here using Markdown syntax.
         <input type="checkbox" id="expr-add-limit" checked> <span data-i18n="Limit 10K">Limit 10K</span>
       </label>
     </div>
+    <!-- Active filter chips -->
+    <div id="expr-add-active-filters" class="expr-add-active-filters" style="display:none"></div>
     <!-- Top: Results table -->
     <div id="expr-add-results-wrap">
       <div id="expr-add-table-scroll">
@@ -1513,7 +1510,7 @@ Enter your review comments here using Markdown syntax.
         <input type="checkbox" id="expr-add-multiple"> <span data-i18n="Multiple Selection">Multiple Selection</span>
       </label>
     </div>
-    <div style="display:flex; align-items:center; gap:12px">
+    <div style="display:flex; align-items:center; gap:12px" id="expr-add-toggles-row">
       <label style="display:inline-flex; align-items:center; gap:4px; cursor:pointer">
         <span class="toggle-switch toggle-sm toggle-exclude"><input type="checkbox" id="expr-add-exclude"><span class="toggle-slider"></span></span>
         <span style="font-size:13px; font-weight:500" data-i18n="Exclude">Exclude</span>
@@ -1527,7 +1524,7 @@ Enter your review comments here using Markdown syntax.
         <span style="font-size:13px; font-weight:500" data-i18n="Mapped">Mapped</span>
       </label>
       <span id="expr-add-count" style="font-size:12px; color:var(--text-muted)" data-i18n="0 selected">0 selected</span>
-      <button class="btn-success-custom" id="expr-add-submit" disabled><i class="fas fa-plus"></i> <span data-i18n="Add Concepts">Add Concepts</span></button>
+      <button class="btn-success-custom" id="expr-add-submit" disabled><i class="fas fa-plus"></i> <span data-i18n="Add Concept">Add Concept</span></button>
     </div>
   </div>
   <!-- Custom concept footer -->

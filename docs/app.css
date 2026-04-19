@@ -801,8 +801,8 @@ tbody td {
 }
 /* Custom hierarchy tooltip */
 .hierarchy-tooltip {
-  position: absolute;
-  z-index: 100;
+  position: fixed;
+  z-index: 11000;
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -823,6 +823,21 @@ tbody td {
   color: var(--text-muted);
 }
 .ht-copy:hover { background: var(--gray-100); color: var(--text); }
+
+.ht-search-row { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--gray-200); display: flex; justify-content: center; }
+.ht-search-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--primary); color: #fff; border: none; border-radius: 4px;
+  cursor: pointer; padding: 5px 10px; font-size: 12px; font-weight: 500;
+}
+.ht-search-btn:hover { background: var(--primary-dark, #0a4a8a); }
+.ht-search-btn i { font-size: 11px; }
+
+/* Pinned state (shown when a node is clicked) */
+.hierarchy-tooltip.pinned {
+  border-color: var(--primary);
+  box-shadow: 0 4px 20px rgba(15, 96, 175, 0.25);
+}
 
 /* Hierarchy warning overlay (for large graphs, shown inside wrapper to preserve fullscreen) */
 .hierarchy-warn-overlay {
@@ -2537,6 +2552,7 @@ select.form-input { appearance: auto; }
 .toggle-sm .toggle-slider::before { height: 12px; width: 12px; }
 .toggle-sm input:checked + .toggle-slider::before { transform: translateX(14px); }
 .toggle-exclude input:checked + .toggle-slider { background: var(--danger); }
+.exclude-mode .toggle-switch input:checked + .toggle-slider { background: var(--danger); }
 
 /* Expression edit actions (in toggle bar) */
 #expr-edit-actions { display: flex; align-items: center; gap: 6px; }
@@ -2625,6 +2641,36 @@ select.form-input { appearance: auto; }
 .expr-add-filters-row label { font-size: 12px; font-weight: 600; color: var(--text-muted); min-width: 70px; }
 .expr-add-filters-row .form-input-sm { padding: 3px 8px; font-size: 12px; }
 .expr-add-filters-row select.form-input-sm { padding: 3px 6px; font-size: 12px; }
+
+/* Add concepts: active filter chips */
+.expr-add-active-filters {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  padding: 6px 0 4px; margin-bottom: 4px;
+}
+.expr-add-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: var(--gray-100, #eef2f7); color: var(--text);
+  border: 1px solid var(--gray-300, #d0d7e2); border-radius: 12px;
+  padding: 2px 4px 2px 10px; font-size: 12px; line-height: 1.6;
+}
+.expr-add-chip[data-type="vocab"]    { background: #e7f1fd; border-color: #b6d4f5; color: #0f4b8a; }
+.expr-add-chip[data-type="domain"]   { background: #e0f5f7; border-color: #a8dce3; color: #0d6b78; }
+.expr-add-chip[data-type="class"]    { background: #fde8d8; border-color: #f5b982; color: #8a3a00; }
+.expr-add-chip[data-type="standard"] { background: #f3e8fb; border-color: #d9bdee; color: #6b2a9c; }
+.expr-add-chip[data-type="valid"]    { background: #e8f7ec; border-color: #b5e2bf; color: #1e7e34; }
+.expr-add-chip-label { white-space: nowrap; }
+.expr-add-chip-x {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 16px; height: 16px; border: none; border-radius: 50%;
+  background: transparent; color: var(--text-muted);
+  cursor: pointer; padding: 0; font-size: 9px;
+}
+.expr-add-chip-x:hover { background: var(--gray-300, #d0d7e2); color: var(--text); }
+.expr-add-chip-clear {
+  background: none; border: none; color: var(--primary);
+  cursor: pointer; font-size: 12px; padding: 2px 6px; font-weight: 500;
+}
+.expr-add-chip-clear:hover { text-decoration: underline; }
 
 /* Add concepts: column filter row */
 #expr-add-col-filter-row { display: none; }

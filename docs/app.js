@@ -480,6 +480,7 @@ var App = (function() {
     'Resolved':                      { fr: 'Résolus' },
     'Expression':                    { fr: 'Expression' },
     'Add Concepts':                  { fr: 'Ajouter des concepts' },
+    'Add Concept':                   { fr: 'Ajouter le concept' },
     'Select':                        { fr: 'Sélectionner' },
     'Delete Selected':               { fr: 'Supprimer la sélection' },
     'Optimize':                      { fr: 'Optimiser' },
@@ -993,12 +994,13 @@ var App = (function() {
     });
   }
 
-  function updateMsToggleLabel(containerId, selectedSet) {
+  function updateMsToggleLabel(containerId, selectedSet, labelMap) {
     var container = document.getElementById(containerId);
     if (!container) return;
     var toggle = container.querySelector('.ms-toggle');
     if (toggle) {
-      toggle.innerHTML = (selectedSet.size === 0 ? i18n('All') : selectedSet.size === 1 ? escapeHtml([...selectedSet][0]) : selectedSet.size + ' ' + i18n('selected')) + ' <i class="fas fa-chevron-down" style="font-size:9px;margin-left:2px"></i>';
+      function getLabel(v) { return labelMap ? (labelMap[v] || v) : v; }
+      toggle.innerHTML = (selectedSet.size === 0 ? i18n('All') : selectedSet.size === 1 ? escapeHtml(getLabel([...selectedSet][0])) : selectedSet.size + ' ' + i18n('selected')) + ' <i class="fas fa-chevron-down" style="font-size:9px;margin-left:2px"></i>';
     }
   }
 
