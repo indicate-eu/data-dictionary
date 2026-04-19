@@ -3,7 +3,7 @@ var App = (function() {
   'use strict';
 
   var APP_NAME = 'INDICATE Data Dictionary (Web)';
-  var APP_VERSION = '1.0.3';
+  var APP_VERSION = '1.0.4';
 
   // ==================== STATE ====================
   var conceptSets = [];
