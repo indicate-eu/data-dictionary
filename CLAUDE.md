@@ -300,3 +300,28 @@ Enable GitHub Pages in repository settings, pointing to the `docs/` folder on th
 - **Athena links**: Concept IDs link to `https://athena.ohdsi.org/search-terms/terms/{conceptId}`
 - **Categories**: Concept sets are grouped by category/subcategory from metadata translations
 - **Versioning**: Concept sets use semantic versioning (`version` field)
+
+## Unit Conventions
+
+For laboratory (biology) concepts, the recommended unit stored in `units/recommended_units.json` follows the **`EXAMPLE_UCUM_UNITS`** field of the **official LOINC table** (`LoincTable/Loinc.csv` from the LOINC distribution, downloadable at https://loinc.org/downloads/). This column gives the UCUM unit most commonly observed for the LOINC code and serves as our single source of truth.
+
+If `EXAMPLE_UCUM_UNITS` lists several units, pick the one matching the concept's property (e.g. `umol/L` for a `Moles/volume` LOINC, `mg/dL` for a `Mass/volume` LOINC). Any deviation from LOINC's example unit must be justified in the concept set description.
+
+For **non-laboratory concepts** (vital signs, anthropometrics, clinical scales, drug doses, etc.), the methodology for choosing a recommended unit is **not yet defined** — LOINC's `EXAMPLE_UCUM_UNITS` is not always present or authoritative outside biology, and no single cross-domain reference has been adopted yet. To be determined.
+
+### How to query it
+
+Given the LOINC `concept_code` of an OMOP concept (visible in the concept detail view, or via `SELECT concept_code FROM concept WHERE concept_id = <id>`), look it up directly in `Loinc.csv`:
+
+```python
+import csv
+codes = {'14631-6', '1975-2'}  # LOINC codes you care about
+with open('<path>/LoincTable/Loinc.csv', newline='', encoding='utf-8') as f:
+    for row in csv.DictReader(f):
+        if row['LOINC_NUM'] in codes:
+            print(row['LOINC_NUM'], row['EXAMPLE_UCUM_UNITS'])
+# 14631-6 umol/L
+# 1975-2  mg/dL
+```
+
+Or once the vocabulary is loaded into DuckDB (see `resolve.py`), you can join OMOP's `concept.concept_code` with a table built from `Loinc.csv` to expose the recommended unit side by side with concept metadata.
