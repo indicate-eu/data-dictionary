@@ -1814,19 +1814,60 @@ select.form-input { appearance: auto; }
 }
 .export-preview-header {
   margin-bottom: 10px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
 }
-.export-preview-badge {
+.export-sql-unit-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.export-sql-unit-row label {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.export-sql-unit-row select {
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+  font-size: 13px;
+  min-width: 140px;
+}
+.export-sql-unit-row select:disabled {
+  background: #f3f4f6;
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+.export-sql-unit-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+.export-preview-copy-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 6px 14px;
-  background: #d4edda;
-  color: #155724;
+  background: var(--primary);
+  color: #fff;
+  border: none;
   border-radius: var(--radius);
   font-size: 13px;
   font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
 }
+.export-preview-copy-btn:hover { background: var(--primary-dark, #0a4d87); }
+.export-preview-copy-btn.copied {
+  background: #28a745;
+  cursor: default;
+}
+.export-preview-copy-btn.copied:hover { background: #28a745; }
 #export-preview-ace {
   flex: 1;
   min-height: 0;

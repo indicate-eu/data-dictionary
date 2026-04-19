@@ -128,26 +128,26 @@ Present web sources found to the user and let them decide which to include in th
 
 The INDICATE data dictionary maintains two unit files that specify how measurements should be stored:
 
-- `units/recommended_units.csv` — Maps each OMOP measurement concept to its recommended unit (columns: `concept_id`, `recommended_unit_concept_id`)
-- `units/unit_conversions.csv` — Lists conversion factors between units for specific measurements (columns: `omop_concept_id_1`, `unit_concept_id_1`, `conversion_factor`, `omop_concept_id_2`, `unit_concept_id_2`)
+- `units/recommended_units.json` — Maps each OMOP measurement concept to its recommended unit (fields: `conceptId`, `recommendedUnitConceptId`, plus names/codes when available)
+- `units/unit_conversions.json` — Lists conversion factors between units for specific measurements (fields: `conceptId1`, `unitConceptId1`, `conversionFactor`, `conceptId2`, `unitConceptId2`)
 
 These files are available locally in the repository or via GitHub:
-- `https://raw.githubusercontent.com/indicate-eu/data-dictionary/refs/heads/main/units/recommended_units.csv`
-- `https://raw.githubusercontent.com/indicate-eu/data-dictionary/refs/heads/main/units/unit_conversions.csv`
+- `https://raw.githubusercontent.com/indicate-eu/data-dictionary/refs/heads/main/units/recommended_units.json`
+- `https://raw.githubusercontent.com/indicate-eu/data-dictionary/refs/heads/main/units/unit_conversions.json`
 
 **Lookup process**:
 
 1. Get the OMOP concept IDs of all resolved standard concepts from the resolved concept set JSON.
-2. Search `recommended_units.csv` for rows where `concept_id` matches any of these OMOP concept IDs. This gives the recommended unit concept ID for each measurement.
-3. Search `unit_conversions.csv` for rows where `omop_concept_id_1` or `omop_concept_id_2` matches any of these OMOP concept IDs. This gives the accepted alternative units and their conversion factors.
+2. Search `recommended_units.json` for entries where `conceptId` matches any of these OMOP concept IDs. This gives the recommended unit concept ID for each measurement.
+3. Search `unit_conversions.json` for entries where `conceptId1` or `conceptId2` matches any of these OMOP concept IDs. This gives the accepted alternative units and their conversion factors.
 4. To resolve unit concept IDs to human-readable names (e.g., 8541 → "beats per minute"), look up the concept ID in the OMOP vocabulary. If an OMOP vocabulary database is not available, use Athena (`https://athena.ohdsi.org/search-terms/terms/{unitConceptId}`) or infer from LOINC `EXAMPLE_UCUM_UNITS` field.
 
 ```bash
-# Example: search recommended units for concept IDs from resolved set
-grep -E "^(3027018|4239408|...)" units/recommended_units.csv
+# Example: filter recommended_units.json by a list of concept IDs
+jq '[.[] | select(.conceptId == 3027018 or .conceptId == 4239408)]' units/recommended_units.json
 
-# Example: search conversions for those concept IDs
-grep -E "(3027018|4239408|...)" units/unit_conversions.csv
+# Example: filter unit_conversions.json by a list of concept IDs
+jq '[.[] | select(.conceptId1 == 3027018 or .conceptId2 == 3027018)]' units/unit_conversions.json
 ```
 
 **What to extract**:
@@ -251,7 +251,7 @@ Key rules for references:
 - **Only cite truly external sources**: clinical guidelines, textbooks, web references (e.g., StatPearls, UpToDate, society guidelines).
 - **Do NOT list individual concept codes** (LOINC codes, SNOMED IDs, UMLS CUIs) in the references section. The concepts are identified by their codes in the body text.
 - **Web sources**: Standard bibliographic format with author, title, publisher, and URL.
-- **INDICATE units data**: Reference `recommended_units.csv` and `unit_conversions.csv` if unit data was found and used.
+- **INDICATE units data**: Reference `recommended_units.json` and `unit_conversions.json` if unit data was found and used.
 
 #### Structure
 

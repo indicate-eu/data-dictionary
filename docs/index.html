@@ -1106,7 +1106,14 @@ LIMIT 50</div>
       <!-- Step 3: Preview copied content -->
       <div id="export-step-preview" style="display:none">
         <div class="export-preview-header">
-          <span class="export-preview-badge"><i class="fas fa-check"></i> <span data-i18n="Copied to clipboard!">Copied to clipboard!</span></span>
+          <div id="export-sql-unit-row" class="export-sql-unit-row" style="display:none">
+            <label for="export-sql-unit-select" data-i18n="Reference unit:">Reference unit:</label>
+            <select id="export-sql-unit-select"></select>
+            <span id="export-sql-unit-hint" class="export-sql-unit-hint"></span>
+          </div>
+          <button type="button" id="export-preview-copy-btn" class="export-preview-copy-btn">
+            <i class="fas fa-clipboard"></i> <span data-i18n="Copy to clipboard">Copy to clipboard</span>
+          </button>
         </div>
         <div id="export-preview-ace" style="width:100%;height:100%;min-height:300px"></div>
       </div>

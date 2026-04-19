@@ -15,10 +15,8 @@ data-dictionary/                   # (repo root)
 │   └── {id}.json
 ├── projects/                  # JSON files (project definitions)
 │   └── 1.json ... 6.json
-├── units/                     # Unit mappings (CSV sources + JSON for build)
-│   ├── recommended_units.csv
+├── units/                     # Unit mappings
 │   ├── recommended_units.json
-│   ├── unit_conversions.csv
 │   └── unit_conversions.json
 ├── mapping_recommendations/   # Mapping recommendations (multilingual JSON)
 │   └── mapping_recommendations.json

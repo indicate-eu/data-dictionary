@@ -4430,13 +4430,37 @@ var ConceptSetsPage = (function() {
     modal.classList.remove('export-preview-mode');
   }
 
-  function showExportPreview(content, aceMode) {
+  var exportPreviewCopyResetTimer = null;
+
+  function resetExportCopyBtn() {
+    var btn = document.getElementById('export-preview-copy-btn');
+    if (!btn) return;
+    btn.classList.remove('copied');
+    btn.innerHTML = '<i class="fas fa-clipboard"></i> <span data-i18n="Copy to clipboard">' + App.i18n('Copy to clipboard') + '</span>';
+  }
+
+  function markExportCopyBtnCopied() {
+    var btn = document.getElementById('export-preview-copy-btn');
+    if (!btn) return;
+    btn.classList.add('copied');
+    btn.innerHTML = '<i class="fas fa-check"></i> <span>' + App.i18n('Copied to clipboard!') + '</span>';
+    if (exportPreviewCopyResetTimer) clearTimeout(exportPreviewCopyResetTimer);
+    exportPreviewCopyResetTimer = setTimeout(resetExportCopyBtn, 2000);
+  }
+
+  function showExportPreview(content, aceMode, opts) {
     document.getElementById('export-step-method').style.display = 'none';
     document.getElementById('export-step-format').style.display = 'none';
     document.getElementById('export-step-preview').style.display = '';
     document.getElementById('cs-export-back').style.display = 'none';
     var modal = document.querySelector('#cs-export-modal .modal');
     modal.classList.add('export-preview-mode');
+
+    // Hide SQL unit row unless explicitly shown by caller
+    var unitRow = document.getElementById('export-sql-unit-row');
+    if (unitRow) unitRow.style.display = (opts && opts.showUnitRow) ? '' : 'none';
+
+    resetExportCopyBtn();
 
     if (!exportPreviewEditor) {
       exportPreviewEditor = ace.edit('export-preview-ace');
@@ -4450,6 +4474,123 @@ var ConceptSetsPage = (function() {
     exportPreviewEditor.session.setMode('ace/mode/' + aceMode);
     exportPreviewEditor.setValue(content, -1);
     exportPreviewEditor.resize();
+  }
+
+  function updateExportPreviewContent(content) {
+    if (!exportPreviewEditor) return;
+    exportPreviewEditor.setValue(content, -1);
+    exportPreviewEditor.resize();
+    resetExportCopyBtn();
+  }
+
+  function showSqlExportPreview() {
+    if (!selectedConceptSet) return;
+    var select = document.getElementById('export-sql-unit-select');
+    var hint = document.getElementById('export-sql-unit-hint');
+
+    // Reset UI to loading
+    select.innerHTML = '<option>' + App.i18n('Loading units...') + '</option>';
+    select.disabled = true;
+    if (hint) hint.textContent = '';
+
+    showExportPreview('-- ' + App.i18n('Loading...'), 'sql', { showUnitRow: true });
+
+    var unitIds = getAvailableReferenceUnits();
+    if (unitIds.length === 0) {
+      select.innerHTML = '<option>' + App.i18n('No reference unit available') + '</option>';
+      select.disabled = true;
+      if (hint) hint.textContent = App.i18n('No unit conversion defined for this concept set.');
+      updateExportPreviewContent(buildOMOPSQL(null));
+      return;
+    }
+
+    function renderOptions(unitEntries) {
+      // unitEntries: [{ unitId, code, name }]
+      // Sort by code (fallback to id)
+      unitEntries.sort(function(a, b) {
+        var ak = (a.code || String(a.unitId)).toLowerCase();
+        var bk = (b.code || String(b.unitId)).toLowerCase();
+        return ak.localeCompare(bk);
+      });
+      var opts = unitEntries.map(function(u) {
+        var label = u.code || u.name || ('concept_id=' + u.unitId);
+        var title = u.name || u.code || '';
+        return '<option value="' + u.unitId + '" title="' + App.escapeHtml(title) + '">' + App.escapeHtml(label) + '</option>';
+      }).join('');
+      select.innerHTML = opts;
+      select.disabled = false;
+      if (hint) hint.textContent = '';
+
+      // Choose default: prefer the most common recommended unit among CS concepts
+      var defaultUnitId = pickDefaultRefUnitId(unitEntries.map(function(u) { return u.unitId; }));
+      if (defaultUnitId) select.value = String(defaultUnitId);
+
+      updateExportPreviewContent(buildOMOPSQL(parseInt(select.value, 10)));
+    }
+
+    function finishWithMaps(codeMap, nameMap) {
+      // Enrich from any runtime-filled fields on App.recommendedUnits / unitConversions
+      App.recommendedUnits.forEach(function(ru) {
+        if (ru.recommendedUnitConceptId) {
+          if (!codeMap[ru.recommendedUnitConceptId] && ru.recommendedUnitCode) codeMap[ru.recommendedUnitConceptId] = ru.recommendedUnitCode;
+          if (!nameMap[ru.recommendedUnitConceptId] && ru.recommendedUnitName) nameMap[ru.recommendedUnitConceptId] = ru.recommendedUnitName;
+        }
+      });
+      App.unitConversions.forEach(function(conv) {
+        if (conv.unitConceptId1 && !nameMap[conv.unitConceptId1] && conv.unitName1) nameMap[conv.unitConceptId1] = conv.unitName1;
+        if (conv.unitConceptId2 && !nameMap[conv.unitConceptId2] && conv.unitName2) nameMap[conv.unitConceptId2] = conv.unitName2;
+      });
+      var entries = unitIds.map(function(id) { return { unitId: id, code: codeMap[id] || '', name: nameMap[id] || '' }; });
+      renderOptions(entries);
+    }
+
+    var vocabAvailable = (typeof VocabDB !== 'undefined' && VocabDB.isDatabaseReady);
+    if (!vocabAvailable) { finishWithMaps({}, {}); return; }
+
+    // Make sure the DB is mounted (it may be available in IndexedDB but not yet loaded this session).
+    var readyPromise = VocabDB.isDatabaseReady().then(function(ready) {
+      if (ready) return true;
+      if (typeof VocabDB.remountFromStoredHandles === 'function') {
+        return VocabDB.remountFromStoredHandles().then(function() {
+          return VocabDB.isDatabaseReady();
+        }).catch(function() { return false; });
+      }
+      return false;
+    });
+
+    readyPromise.then(function(ready) {
+      if (!ready) {
+        if (hint) hint.textContent = App.i18n('Load OHDSI vocabularies in Settings to see unit names.');
+        finishWithMaps({}, {});
+        return;
+      }
+      VocabDB.lookupConcepts(unitIds).then(function(rows) {
+        var codeMap = {};
+        var nameMap = {};
+        (rows || []).forEach(function(r) { codeMap[r.concept_id] = r.concept_code; nameMap[r.concept_id] = r.concept_name; });
+        finishWithMaps(codeMap, nameMap);
+      }).catch(function() { finishWithMaps({}, {}); });
+    });
+  }
+
+  function pickDefaultRefUnitId(candidateIds) {
+    if (!selectedConceptSet || !candidateIds || candidateIds.length === 0) return null;
+    var candSet = {};
+    candidateIds.forEach(function(id) { candSet[id] = true; });
+    var concepts = getSqlExportConcepts().filter(function(c) { return (c.domainId || '') === 'Measurement'; });
+    var conceptIdSet = {};
+    concepts.forEach(function(c) { conceptIdSet[c.conceptId] = true; });
+    var counts = {};
+    App.recommendedUnits.forEach(function(ru) {
+      if (conceptIdSet[ru.conceptId] && candSet[ru.recommendedUnitConceptId]) {
+        counts[ru.recommendedUnitConceptId] = (counts[ru.recommendedUnitConceptId] || 0) + 1;
+      }
+    });
+    var best = null, bestCount = -1;
+    Object.keys(counts).forEach(function(k) {
+      if (counts[k] > bestCount) { best = parseInt(k, 10); bestCount = counts[k]; }
+    });
+    return best || candidateIds[0];
   }
 
   function exportStepMethod(method) {
@@ -4467,12 +4608,7 @@ var ConceptSetsPage = (function() {
     }
     if (method === 'sql') {
       if (!selectedConceptSet) return;
-      var sql = buildOMOPSQL();
-      navigator.clipboard.writeText(sql).then(function() {
-        showExportPreview(sql, 'sql');
-      }).catch(function() {
-        App.showToast(App.i18n('Could not copy to clipboard.'), 'error');
-      });
+      showSqlExportPreview();
       return;
     }
     exportMethod = method;
@@ -4577,13 +4713,41 @@ var ConceptSetsPage = (function() {
     }
   };
 
-  function buildOMOPSQL() {
+  function getSqlExportConcepts() {
+    if (!selectedConceptSet) return [];
+    var resolved = App.resolvedIndex[selectedConceptSet.id];
+    if ((!resolved || resolved.length === 0) && resolvedCurrentConcepts.length > 0) {
+      resolved = resolvedCurrentConcepts;
+    }
+    return (resolved || []).filter(function(c) { return c.standardConcept === 'S'; });
+  }
+
+  // Returns the set of candidate reference unit concept IDs for the current CS:
+  // the union of recommended units for any concept in the set, plus any unit that
+  // is a target of a conversion involving a concept in the set.
+  function getAvailableReferenceUnits() {
+    var concepts = getSqlExportConcepts().filter(function(c) { return (c.domainId || '') === 'Measurement'; });
+    if (concepts.length === 0) return [];
+    var conceptIds = {};
+    concepts.forEach(function(c) { conceptIds[c.conceptId] = true; });
+    var unitIdSet = {};
+    App.recommendedUnits.forEach(function(ru) {
+      if (conceptIds[ru.conceptId] && ru.recommendedUnitConceptId) {
+        unitIdSet[ru.recommendedUnitConceptId] = true;
+      }
+    });
+    App.unitConversions.forEach(function(conv) {
+      if (conceptIds[conv.conceptId1] && conv.unitConceptId2) unitIdSet[conv.unitConceptId2] = true;
+      if (conceptIds[conv.conceptId2] && conv.unitConceptId1) unitIdSet[conv.unitConceptId1] = true;
+    });
+    return Object.keys(unitIdSet).map(function(k) { return parseInt(k, 10); });
+  }
+
+  function buildOMOPSQL(refUnitId) {
     var cs = selectedConceptSet;
     var tr = App.t(cs);
     var csName = tr.name || cs.name || 'Concept Set';
-    var resolved = App.resolvedIndex[cs.id] || [];
-    // Filter to standard concepts only
-    var concepts = resolved.filter(function(c) { return c.standardConcept === 'S'; });
+    var concepts = getSqlExportConcepts();
 
     if (concepts.length === 0) {
       return '-- Concept Set: ' + csName + ' (ID: ' + cs.id + ')\n' +
@@ -4599,58 +4763,21 @@ var ConceptSetsPage = (function() {
       byDomain[d].push(c);
     });
 
-    // Build recommended unit index: conceptId -> recommendedUnitConceptId
-    var ruIndex = {};
-    App.recommendedUnits.forEach(function(ru) {
-      ruIndex[ru.conceptId] = ru.recommendedUnitConceptId;
-    });
-
-    // Build conversion index: for each resolved concept, find conversions
-    // Key: unitConceptId (source) -> { factor, targetUnitConceptId }
-    function getConversionsForConcepts(domainConcepts) {
+    // Build conversions for a single chosen reference unit, across all concepts in the set.
+    // Returns { conversions: { sourceUnitId -> factor }, coveredConceptIds: Set, orphanConcepts: [] }
+    function getConversionsToRef(domainConcepts, refUid) {
       var conceptIds = {};
       domainConcepts.forEach(function(c) { conceptIds[c.conceptId] = true; });
-
-      // Find the recommended unit for these concepts (pick the most common one)
-      var recUnitCounts = {};
-      domainConcepts.forEach(function(c) {
-        var ru = ruIndex[c.conceptId];
-        if (ru) {
-          recUnitCounts[ru] = (recUnitCounts[ru] || 0) + 1;
-        }
-      });
-
-      // Group concepts by their recommended unit
-      var groups = {}; // recUnitId -> { concepts: [], conversions: { sourceUnitId -> factor } }
-      domainConcepts.forEach(function(c) {
-        var ru = ruIndex[c.conceptId];
-        var key = ru || 'none';
-        if (!groups[key]) groups[key] = { recUnitId: ru, concepts: [], conversions: {} };
-        groups[key].concepts.push(c);
-      });
-
-      // Find conversions for each group
+      var conversions = {};
       App.unitConversions.forEach(function(conv) {
-        // Check if conceptId1 is in our set and has a recommended unit matching conceptId2's unit
-        if (conceptIds[conv.conceptId1]) {
-          var ru = ruIndex[conv.conceptId1];
-          if (ru && conv.unitConceptId2 === ru && groups[ru]) {
-            // This conversion goes FROM unitConceptId1 TO the recommended unit
-            groups[ru].conversions[conv.unitConceptId1] = conv.conversionFactor;
-          }
+        if (conceptIds[conv.conceptId1] && conv.unitConceptId2 === refUid) {
+          conversions[conv.unitConceptId1] = conv.conversionFactor;
         }
-        // Also check reverse: conceptId2 is in our set
-        if (conceptIds[conv.conceptId2]) {
-          var ru2 = ruIndex[conv.conceptId2];
-          if (ru2 && conv.unitConceptId1 === ru2 && groups[ru2]) {
-            // conceptId2 has recommended unit = unitConceptId1, and conv goes FROM unitConceptId2 TO unitConceptId1
-            // So the reverse factor would be 1/conversionFactor... but we have the direct entry
-            // Actually, we should look for conv where the TARGET is the recommended unit
-          }
+        if (conceptIds[conv.conceptId2] && conv.unitConceptId1 === refUid) {
+          conversions[conv.unitConceptId2] = conv.conversionFactor;
         }
       });
-
-      return groups;
+      return conversions;
     }
 
     var lines = [];
@@ -4684,62 +4811,25 @@ var ConceptSetsPage = (function() {
       // Build SELECT columns
       var selectCols = mapping.columns.slice(); // copy
 
-      // For Measurement domain, add unit conversion logic
+      // For Measurement domain, add unit conversion logic if a reference unit is chosen
       var unitCaseExpr = null;
-      if (domain === 'Measurement') {
-        var groups = getConversionsForConcepts(domainConcepts);
-        var groupKeys = Object.keys(groups);
-
-        // Check if there are any recommended units
-        var hasRecUnit = groupKeys.some(function(k) { return k !== 'none'; });
-
-        if (hasRecUnit) {
-          // Build CASE expression for unit conversion
-          var caseParts = [];
-
-          groupKeys.forEach(function(key) {
-            var g = groups[key];
-            if (key === 'none') return;
-
-            var recUnitId = g.recUnitId;
-            var conceptList = g.concepts.map(function(c) { return c.conceptId; });
-
-            if (caseParts.length > 0) caseParts.push('');
-            caseParts.push('        -- Recommended unit concept_id: ' + recUnitId);
-            caseParts.push('        -- Applies to:');
-            g.concepts.forEach(function(c) {
-              caseParts.push('        --   ' + c.conceptId + ' (' + c.conceptName + ')');
-            });
-            caseParts.push('        WHEN unit_concept_id = ' + recUnitId + ' THEN value_as_number');
-
-            var sourceUnits = Object.keys(g.conversions);
-            sourceUnits.forEach(function(srcUnitId) {
-              var factor = g.conversions[srcUnitId];
-              caseParts.push('        WHEN unit_concept_id = ' + srcUnitId +
-                ' THEN value_as_number * ' + factor +
-                ' -- convert unit ' + srcUnitId + ' -> ' + recUnitId);
-            });
-          });
-
-          // Check if some concepts have no recommended unit
-          var noRecUnit = groups['none'];
-          if (noRecUnit) {
-            if (caseParts.length > 0) caseParts.push('');
-            caseParts.push('        -- No recommended unit for:');
-            noRecUnit.concepts.forEach(function(c) {
-              caseParts.push('        --   ' + c.conceptId + ' (' + c.conceptName + ')');
-            });
-          }
-
-          if (caseParts.length > 0) {
-            unitCaseExpr = '    CASE\n' + caseParts.join('\n') +
-              '\n        ELSE NULL -- unknown unit, no conversion available' +
-              '\n    END AS value_as_number_converted';
-          }
-        } else {
-          lines.push('-- Note: no recommended units defined for these measurement concepts.');
-          lines.push('-- Unit conversion column not included.');
-        }
+      if (domain === 'Measurement' && refUnitId) {
+        var conversions = getConversionsToRef(domainConcepts, refUnitId);
+        var caseParts = [];
+        caseParts.push('        -- Reference unit concept_id: ' + refUnitId);
+        caseParts.push('        WHEN unit_concept_id = ' + refUnitId + ' THEN value_as_number');
+        var sourceUnits = Object.keys(conversions).map(function(k) { return parseInt(k, 10); });
+        sourceUnits.forEach(function(srcUnitId) {
+          var factor = conversions[srcUnitId];
+          caseParts.push('        WHEN unit_concept_id = ' + srcUnitId +
+            ' THEN value_as_number * ' + factor +
+            ' -- convert unit ' + srcUnitId + ' -> ' + refUnitId);
+        });
+        unitCaseExpr = '    CASE\n' + caseParts.join('\n') +
+          '\n        ELSE NULL -- unknown unit, no conversion available' +
+          '\n    END AS value_as_number_converted';
+      } else if (domain === 'Measurement' && !refUnitId) {
+        lines.push('-- Note: no reference unit selected — raw value_as_number returned without conversion.');
       }
 
       // Build the query
@@ -4785,6 +4875,7 @@ var ConceptSetsPage = (function() {
       var aceMode = (format === 'sql') ? 'sql' : 'json';
       navigator.clipboard.writeText(content).then(function() {
         showExportPreview(content, aceMode);
+        markExportCopyBtnCopied();
       }).catch(function() {
         App.showToast(App.i18n('Could not copy to clipboard. Try downloading the file instead.'), 'error');
       });
@@ -5709,6 +5800,19 @@ var ConceptSetsPage = (function() {
     document.getElementById('export-step-format').addEventListener('click', function(e) {
       var opt = e.target.closest('.export-option[data-format]');
       if (opt) executeExport(opt.dataset.format);
+    });
+    document.getElementById('export-sql-unit-select').addEventListener('change', function() {
+      var val = parseInt(this.value, 10);
+      if (!isNaN(val)) updateExportPreviewContent(buildOMOPSQL(val));
+    });
+    document.getElementById('export-preview-copy-btn').addEventListener('click', function() {
+      if (!exportPreviewEditor) return;
+      var content = exportPreviewEditor.getValue();
+      navigator.clipboard.writeText(content).then(function() {
+        markExportCopyBtnCopied();
+      }).catch(function() {
+        App.showToast(App.i18n('Could not copy to clipboard.'), 'error');
+      });
     });
 
     // Version modal events
