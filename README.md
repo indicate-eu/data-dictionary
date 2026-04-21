@@ -7,13 +7,10 @@
 
 ![Catalog Screenshot](docs/data_dictionary.png)
 
-> **A clinician writing a research protocol rarely says _"I need LOINC 1975-2 and 14631-6."_
-> They say _"I need total bilirubin."_
-> A data engineer building an OMOP ETL needs the exact concept IDs, descendants, and unit conversions.**
+> A clinician writing a research protocol rarely says _"I need LOINC 1975-2 and 14631-6."_ They say _"I need total bilirubin."_<br />
+> A data engineer building an OMOP ETL needs the exact concept IDs, descendants, and unit conversions.
 >
-> The **INDICATE Data Dictionary** sits between those two worlds — a shared workbench where clinical
-> variables are defined *once*, reviewed by experts, versioned, and handed off to data teams as
-> ready-to-use **OHDSI concept sets** with SQL, unit harmonization, and ATLAS-compatible JSON.
+> The **INDICATE Data Dictionary** sits between those two worlds — a shared workbench where clinical variables are defined *once*, reviewed by experts, versioned, and handed off to data teams as ready-to-use **OHDSI concept sets** with SQL, unit harmonization, and ATLAS-compatible JSON.
 
 ---
 
