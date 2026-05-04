@@ -44,7 +44,12 @@ Parse these to identify:
 
 For each vocabulary source, search for definitions and metadata.
 
-#### 3a. UMLS (most important for definitions)
+**Priority order for the analyte definition** (used to write the "Definition & Clinical Context" paragraph):
+1. **LOINC Part description** — for any concept set whose primary vocabulary is LOINC (most lab tests). Visit `https://loinc.org/{concept_code}/` for any of the standard concepts in the set; the "Part description" section gives a short, authoritative definition of the analyte. Prefer this when available — it is the most concise and well-targeted source for a data engineer.
+2. **UMLS / MeSH / SNOMED definitions** (Step 3a / 3c below) — fallback when LOINC has no Part description, or as a complement to enrich a thin LOINC description.
+3. **Web search** (Step 3d) — last resort, for niche concepts or when neither LOINC nor UMLS provide enough context. Always cite what you use.
+
+#### 3a. UMLS (fallback for definitions when LOINC is thin)
 
 **Find the parent CUI** — Search `MRCONSO.RRF` for the general concept (not individual LOINC codes, which rarely have definitions):
 ```bash
@@ -128,8 +133,8 @@ This is especially useful for:
 
 The INDICATE data dictionary maintains two unit files that specify how measurements should be stored:
 
-- `units/recommended_units.json` — Maps each OMOP measurement concept to its recommended unit (fields: `conceptId`, `recommendedUnitConceptId`, plus names/codes when available)
-- `units/unit_conversions.json` — Lists conversion factors between units for specific measurements. Each row stores **one direction** of a conversion. Fields: `conceptId1`, `unitConceptId1`, `conversionFactor`, `conceptId2`, `unitConceptId2` — meaning "1 unit of `unitConceptId1` for `conceptId1` = `conversionFactor` units of `unitConceptId2` for `conceptId2`". Reverse directions are stored as separate rows.
+- `units/recommended_units.json` — Maps each OMOP measurement concept to its recommended unit (fields: `conceptId`, `conceptName`, `conceptCode`, `vocabularyId`, `domainId`, `recommendedUnitConceptId`, `recommendedUnitName`, `recommendedUnitCode`, `recommendedUnitVocabularyId`).
+- `units/unit_conversions.json` — Lists conversion factors between units for a given measurement concept. **One row = one direction** for one concept. Fields: `conceptId`, `conceptName`, `sourceUnitConceptId`, `sourceUnitCode`, `sourceUnitName`, `conversionFactor`, `targetUnitConceptId`, `targetUnitCode`, `targetUnitName` — meaning "1 unit of `sourceUnitConceptId` for `conceptId` = `conversionFactor` units of `targetUnitConceptId`". Each measurement concept that supports unit conversion has multiple rows (one per pair × direction).
 
 These files are available locally in the repository or via GitHub:
 - `https://raw.githubusercontent.com/indicate-eu/data-dictionary/refs/heads/main/units/recommended_units.json`
@@ -147,7 +152,7 @@ These files are available locally in the repository or via GitHub:
 jq '[.[] | select(.conceptId == 3027018 or .conceptId == 4239408)]' units/recommended_units.json
 
 # Example: filter unit_conversions.json by a list of concept IDs
-jq '[.[] | select((.conceptId1 as $c | [3027018, 4239408] | index($c)))]' units/unit_conversions.json
+jq '[.[] | select((.conceptId as $c | [3027018, 4239408] | index($c)))]' units/unit_conversions.json
 ```
 
 **What to extract**:
@@ -155,16 +160,35 @@ jq '[.[] | select((.conceptId1 as $c | [3027018, 4239408] | index($c)))]' units/
 - Any alternative units with conversion factors (e.g., "/min" ↔ "{beats}/min")
 - Whether all concepts in the set share the same recommended unit or if there are exceptions
 
-#### 3f. Authoritative source for the SI / reference unit (laboratory measurements)
+#### 3f. Authoritative source for the standard unit (laboratory measurements)
 
-When the description claims a unit is the "SI unit", "IFCC-recommended", "metrological standard" or similar, the claim must be backed by an authoritative source. The **JCTLM (Joint Committee for Traceability in Laboratory Medicine)** database is the recommended single source for laboratory measurements: it lists the higher-order reference measurement procedures and reference materials endorsed by BIPM, IFCC and ILAC, including the unit (`Quantity`) in which the reference procedure expresses the measurand.
+When the description claims a unit is the "SI unit", "IFCC-recommended", "metrological standard", or similar, the claim must be backed by an authoritative source. The recommended primary source is **NPU (Nomenclature for Properties and Units)**, an IUPAC/IFCC-maintained codification system that defines, for each clinical laboratory measurand, the system (specimen), the kind-of-property, and the standard unit. NPU is broader than JCTLM (it covers concentrations, activities, ratios, qualitative panels) and explicitly publishes both the SI variant and the conventional variant when both are in use (e.g. `µkat/L` and `U/L` for enzyme activities).
+
+NPU codes are kept locally at:
+
+```
+/Users/borisdelange/Documents/Vocabularies/NPU - Unités internationales/npu-codes-latest.csv
+```
+
+The file is also available online from the NPU/IFCC website. Each row contains, among others: `npu_code`, `system` (e.g. `Plasma`, `Serum`, `Capillary blood`), `component` (analyte), `kind_of_property` (e.g. `substance concentration`, `catalytic activity concentration`), `unit` (full name, e.g. `micromole per litre`, `microkatal per litre`), `unit_short` (UCUM-like short form, e.g. `µmol/L`, `µkat/L`, `U/L`), `active`.
 
 Lookup approach:
-1. Open the JCTLM database (<https://www.jctlmdb.org/#/app/home>) and search for the analyte of the concept set (e.g., "bilirubin", "creatinine").
-2. From the matching reference measurement procedure entries, note the `Quantity` (e.g., "Amount-of-substance concentration") and the service measurement range (e.g., "31.8 µmol/L to 92.9 µmol/L"). This gives you the unit metrologically endorsed for that analyte.
-3. Cite the JCTLM database (single canonical reference, see below) — do not cite individual JCTLM entries by URL.
+1. Filter the CSV for `active == 1` and `component` matching the analyte (e.g. `Bilirubins`, `Gamma-Glutamyltransferase`, `Alkaline phosphatase`). Restrict `system` to blood-related values (`Plasma`, `Serum`, `Capillary blood`, `Blood`, `Patient(blood)`) for "in blood" concept sets.
+2. Read the `unit_short` column. For analytes with both a SI variant and a conventional variant (typical for enzymes), there will be two rows — one with `µkat/L`, one with `U/L`. Treat both as accepted units, but pick the one matching what real labs report (usually the conventional variant for enzymes, the SI variant for concentrations).
+3. Cite NPU as a single canonical source (see References Format below).
 
-Use this source preferentially over registry pages, calculators, or other third-party sites for any laboratory unit claim. For non-laboratory measurements (vital signs, scales, etc.), there is no equivalent single source — fall back to clinical guidelines or the LOINC `EXAMPLE_UCUM_UNITS` field.
+```python
+# Example: list NPU codes for bilirubin in plasma/serum
+import csv
+with open(".../npu-codes-latest.csv", encoding="utf-8") as f:
+    for r in csv.DictReader(f):
+        if r["active"] == "1" and r["component"].startswith("Bilirubin") and r["system"] in {"Plasma", "Serum"}:
+            print(r["npu_code"], r["short_definition"], r["unit_short"])
+```
+
+**JCTLM as a complement (optional)**: when the analyte has a higher-order reference measurement procedure listed by JCTLM (e.g. the Doumas method for total bilirubin, the IFCC reference procedure for GGT at 37 °C), JCTLM can be cited in addition to NPU as the metrological reference. JCTLM tends to express results in SI units (`µmol/L` for concentrations, `µkat/L` for catalytic activities) and is useful when explaining the unit conversion factor (e.g. `1 U/L = 0.01667 µkat/L`). The JCTLM database is at <https://www.jctlmdb.org/#/app/home>.
+
+For **non-laboratory measurements** (vital signs, scales, anthropometrics), there is no NPU equivalent — fall back to clinical guidelines or the LOINC `EXAMPLE_UCUM_UNITS` field.
 
 ### Step 4: Present Raw Data
 
@@ -269,14 +293,25 @@ Key rules for references:
 - **Only cite truly external sources**: clinical guidelines, textbooks, web references (e.g., StatPearls, UpToDate, society guidelines).
 - **Do NOT list individual concept codes** (LOINC codes, SNOMED IDs, UMLS CUIs) in the references section. The concepts are identified by their codes in the body text.
 - **Web sources**: Standard bibliographic format with author, title, publisher, and URL.
-- **JCTLM database for laboratory units**: when a description backs a claim about the SI / IFCC-recommended / metrological reference unit for a laboratory analyte, cite the JCTLM database. Format:
+- **LOINC Part description (for the analyte definition)**: when the description quotes or paraphrases LOINC's Part description text for the analyte, cite the LOINC page of one of the standard concepts in the set. Pick the most representative one (e.g. the serum/plasma variant for a blood test). Format:
+  ```
+  Regenstrief Institute. LOINC code {loinc_code} — {long_common_name}.
+  Available: <a href="https://loinc.org/{loinc_code}/" target="_blank">https://loinc.org/{loinc_code}/</a>
+  ```
+- **NPU (for the standard unit)**: when the description claims a unit is the "SI unit", "IFCC-recommended", "metrological standard", or similar, cite NPU. Format:
+  ```
+  Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).
+  Available: <a href="https://npu-terminology.org/npu-database/" target="_blank">https://npu-terminology.org/npu-database/</a>
+  ```
+  Cite NPU once even when multiple NPU codes inform the description; do not link individual code pages.
+- **JCTLM (optional complement to NPU)**: cite JCTLM when discussing the higher-order reference measurement procedure of an analyte (e.g., the Doumas method for total bilirubin, IFCC ALP 2011) or when explaining a unit conversion taken from a JCTLM entry. Format:
   ```
   Joint Committee for Traceability in Laboratory Medicine (JCTLM). Database of higher-order
   reference measurement procedures, reference materials and reference measurement services.
   BIPM/IFCC/ILAC.
   Available: <a href="https://www.jctlmdb.org/#/app/home" target="_blank">https://www.jctlmdb.org/#/app/home</a>
   ```
-  Cite the database as a single canonical reference even when multiple JCTLM entries inform the description; do not link individual JCTLM entry pages.
+  Cite the database as a single canonical reference; do not link individual JCTLM entries.
 - **Do NOT cite the INDICATE units files** (`recommended_units.json`, `unit_conversions.json`) as references. These are internal data and not authoritative external sources.
 
 #### Structure
