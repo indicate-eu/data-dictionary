@@ -5252,9 +5252,9 @@
     "conceptCode": "1971-1",
     "vocabularyId": "LOINC",
     "domainId": "Measurement",
-    "recommendedUnitConceptId": 8751,
-    "recommendedUnitName": "milligram per liter",
-    "recommendedUnitCode": "mg/L",
+    "recommendedUnitConceptId": 8840,
+    "recommendedUnitName": "milligram per deciliter",
+    "recommendedUnitCode": "mg/dL",
     "recommendedUnitVocabularyId": "UCUM"
   },
   {

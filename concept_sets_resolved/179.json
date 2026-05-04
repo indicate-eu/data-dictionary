@@ -18,6 +18,15 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "14630-8",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 40654440,
+      "conceptName": "Bilirubin.non-glucuronidated|Moment in time|Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Group",
+      "conceptCode": "LG43430-4",
+      "standardConcept": "C"
     }
   ]
 }

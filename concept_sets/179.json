@@ -1,51 +1,32 @@
 {
   "id": 179,
-  "name": "Indirect bilirubin",
+  "name": "Indirect bilirubin in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-04",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3007242,
-          "conceptName": "Bilirubin.indirect [Moles/volume] in Serum or Plasma",
+          "conceptId": 40654440,
+          "conceptName": "Bilirubin.non-glucuronidated|Moment in time|Serum or Plasma",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "14630-8",
-          "validStartDate": "1970-01-01",
+          "conceptClassId": "LOINC Group",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LG43430-4",
+          "validStartDate": "2018-06-15",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3007359,
-          "conceptName": "Bilirubin.indirect [Mass/volume] in Serum or Plasma",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1971-1",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -57,16 +38,17 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Indirect bilirubin",
+        "name": "Indirect bilirubin in blood",
         "category": "Labs",
-        "subcategory": "Liver test"
+        "subcategory": "Liver test",
+        "longDescription": "## Definition & Clinical Context\n\nIndirect bilirubin (also called \"unconjugated\" bilirubin) is the fraction of bilirubin that has **not** been processed by the liver yet [1]. In real-world data, this value is **almost never measured directly** — it is typically **calculated** as `total bilirubin − direct bilirubin` (or, less commonly, by HPLC or specific photometric methods). Most laboratory information systems still output it as a separate result line, which is why a dedicated LOINC code exists. The source data will typically be a single numeric result per patient-timestamp, on serum or plasma. It is collected in routine biochemistry as part of a liver panel, especially when investigating jaundice. Results are reported either in mass units (**mg/dL**) or in SI units (**µmol/L**). There is no JCTLM reference measurement procedure specifically for indirect or unconjugated bilirubin; the closest reference procedures listed by JCTLM (Doumas method) target total bilirubin and report results as amount-of-substance concentration in µmol/L [2]. By extension and by the same metrological convention, indirect bilirubin should also be reported in µmol/L on the SI side. Both µmol/L and mg/dL are in active use in practice; the choice varies by lab and by country.\n\n## Included Concepts\n\nThe set contains two LOINC \"Lab Test\" concepts, both measured in serum or plasma. Each measurand has a mass-concentration variant (mg/dL) and a substance-concentration variant (µmol/L).\n\n- *3007359 / 1971-1 — Bilirubin.indirect [Mass/volume] in Serum or Plasma (LOINC)*: reported in mg/dL.\n- *3007242 / 14630-8 — Bilirubin.indirect [Moles/volume] in Serum or Plasma (LOINC)*: reported in µmol/L.\n\n**Note on units.** Recommended unit follows the LOINC property: the mass-concentration concept uses **mg/dL** (concept 8840), the substance-concentration concept uses **µmol/L** (concept 8749). Conversion: 1 mg/dL = 17.1 µmol/L; 1 µmol/L = 0.0585 mg/dL (molar mass of bilirubin ≈ 584.66 g/mol).\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded. The set is defined by anchoring on the LOINC group for non-glucuronidated bilirubin in serum or plasma and pulling in all its descendants. This naturally excludes:\n\n- **Total bilirubin** (covered by a separate concept set).\n- **Conjugated / direct bilirubin** (covered by a separate concept set).\n- **Other specimens** such as cord blood, body fluids, and peritoneal fluid — indirect bilirubin variants exist for these but are out of scope for this set.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"indirect bilirubin\" or \"unconjugated bilirubin\" without further specification: `3007359 / 1971-1 — Bilirubin.indirect [Mass/volume] in Serum or Plasma` if the value is in mg/dL, `3007242 / 14630-8 — Bilirubin.indirect [Moles/volume] in Serum or Plasma` if the value is in µmol/L.\n- **Calculated vs measured**: in most clinical workflows the indirect bilirubin value is derived from total − direct, not directly measured. Both the calculated and the directly measured values map to the same LOINC concepts above — there is no LOINC distinction between calculated and measured. If the source system flags the result as calculated, preserve that flag in the measurement source value but do not change the target concept.\n- **Do not confuse with**: total bilirubin, conjugated/direct bilirubin, delta bilirubin, neonatal transcutaneous bilirubin, or bilirubin in urine — all belong to other concept sets.\n\n## References\n\n[1] Kalakonda A, Jenkins BA, John S. Physiology, Bilirubin. In: StatPearls. Treasure Island (FL): StatPearls Publishing; 2023.\n    Available: <a href=\"https://www.ncbi.nlm.nih.gov/books/NBK470290/\" target=\"_blank\">https://www.ncbi.nlm.nih.gov/books/NBK470290/</a>\n\n[2] Joint Committee for Traceability in Laboratory Medicine (JCTLM). Database of higher-order reference measurement procedures, reference materials and reference measurement services. BIPM/IFCC/ILAC.\n    Available: <a href=\"https://www.jctlmdb.org/#/app/home\" target=\"_blank\">https://www.jctlmdb.org/#/app/home</a>\n"
       },
       "fr": {
-        "name": "Bilirubine non conjuguée",
+        "name": "Bilirubine non conjuguée sanguine",
         "category": "Biologie",
         "subcategory": "Bilan hépatique"
       }
