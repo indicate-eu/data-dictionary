@@ -17275,9 +17275,9 @@
     "conceptCode": "2324-2",
     "vocabularyId": "LOINC",
     "domainId": "Measurement",
-    "recommendedUnitConceptId": 8923,
-    "recommendedUnitName": "international unit per liter",
-    "recommendedUnitCode": "[iU]/L",
+    "recommendedUnitConceptId": 8645,
+    "recommendedUnitName": "unit per liter",
+    "recommendedUnitCode": "[U]/L",
     "recommendedUnitVocabularyId": "UCUM"
   },
   {
