@@ -11,7 +11,7 @@ Generate a detailed clinical description for an INDICATE concept set, using UMLS
 
 ## Instructions
 
-You are an expert in OHDSI/OMOP vocabularies and clinical terminologies. Your task is to generate a comprehensive description of a concept set that helps clinicians, laboratory experts, data scientists, and clinical informaticians understand what the concept set captures and how to align source data to it.
+You are an expert in OHDSI/OMOP vocabularies and clinical terminologies. Your task is to generate a concise description of a concept set that helps **data engineers and data scientists, typically without a medical background**, understand what the concept set captures and how to align source data to it. The description should give just enough context to make correct mapping decisions — not to teach clinical medicine.
 
 ### Step 1: Get Configuration
 
@@ -122,14 +122,14 @@ This is especially useful for:
 - Understanding clinical nuances (e.g., when to use invasive vs non-invasive measurement)
 - Normal ranges and units in specific clinical contexts (ICU, neonatal, etc.)
 
-Present web sources found to the user and let them decide which to include in the final description.
+**Cite what you use.** If a specific factual claim in the description (e.g. "this is most often measured on venous samples", "this is the SI unit", "blood-gas analysers can measure it via co-oximetry") came from a web source, cite that source in the References section. Do NOT make assertive statements based on general knowledge alone — either find a citable source, soften the wording (e.g. "in practice, varies by lab"), or remove the claim. Present web sources found to the user and let them decide which to include in the final description.
 
 #### 3e. Units Data (recommended units & conversions)
 
 The INDICATE data dictionary maintains two unit files that specify how measurements should be stored:
 
 - `units/recommended_units.json` — Maps each OMOP measurement concept to its recommended unit (fields: `conceptId`, `recommendedUnitConceptId`, plus names/codes when available)
-- `units/unit_conversions.json` — Lists conversion factors between units for specific measurements (fields: `conceptId`, `sourceUnitConceptId`, `conversionFactor`, `targetUnitConceptId`)
+- `units/unit_conversions.json` — Lists conversion factors between units for specific measurements. Each row stores **one direction** of a conversion. Fields: `conceptId1`, `unitConceptId1`, `conversionFactor`, `conceptId2`, `unitConceptId2` — meaning "1 unit of `unitConceptId1` for `conceptId1` = `conversionFactor` units of `unitConceptId2` for `conceptId2`". Reverse directions are stored as separate rows.
 
 These files are available locally in the repository or via GitHub:
 - `https://raw.githubusercontent.com/indicate-eu/data-dictionary/refs/heads/main/units/recommended_units.json`
@@ -147,13 +147,24 @@ These files are available locally in the repository or via GitHub:
 jq '[.[] | select(.conceptId == 3027018 or .conceptId == 4239408)]' units/recommended_units.json
 
 # Example: filter unit_conversions.json by a list of concept IDs
-jq '[.[] | select(.conceptId == 3027018)]' units/unit_conversions.json
+jq '[.[] | select((.conceptId1 as $c | [3027018, 4239408] | index($c)))]' units/unit_conversions.json
 ```
 
 **What to extract**:
 - The recommended unit for each standard concept (or confirm they all share the same recommended unit)
 - Any alternative units with conversion factors (e.g., "/min" ↔ "{beats}/min")
 - Whether all concepts in the set share the same recommended unit or if there are exceptions
+
+#### 3f. Authoritative source for the SI / reference unit (laboratory measurements)
+
+When the description claims a unit is the "SI unit", "IFCC-recommended", "metrological standard" or similar, the claim must be backed by an authoritative source. The **JCTLM (Joint Committee for Traceability in Laboratory Medicine)** database is the recommended single source for laboratory measurements: it lists the higher-order reference measurement procedures and reference materials endorsed by BIPM, IFCC and ILAC, including the unit (`Quantity`) in which the reference procedure expresses the measurand.
+
+Lookup approach:
+1. Open the JCTLM database (<https://www.jctlm.org/database/>) and search for the analyte of the concept set (e.g., "bilirubin", "creatinine").
+2. From the matching reference measurement procedure entries, note the `Quantity` (e.g., "Amount-of-substance concentration") and the service measurement range (e.g., "31.8 µmol/L to 92.9 µmol/L"). This gives you the unit metrologically endorsed for that analyte.
+3. Cite the JCTLM database (single canonical reference, see below) — do not cite individual JCTLM entries by URL.
+
+Use this source preferentially over registry pages, calculators, or other third-party sites for any laboratory unit claim. For non-laboratory measurements (vital signs, scales, etc.), there is no equivalent single source — fall back to clinical guidelines or the LOINC `EXAMPLE_UCUM_UNITS` field.
 
 ### Step 4: Present Raw Data
 
@@ -218,18 +229,24 @@ Generate a structured description in Markdown and **write it to a temporary file
 
 #### Writing Guidelines
 
-- **Audience**: Clinicians, laboratory experts, data scientists, and clinical informaticians — some may be domain experts, others not
-- **Goal**: Enable correct data alignment and provide a shared reference for multidisciplinary teams
-- **Tone**: Precise, technical but accessible — a clinician should recognize the clinical reality, a data scientist should understand what to map
+- **Audience**: Data engineers and data scientists, typically without a medical background, who need to align source data to this concept set. Clinicians may also read it, but the text must be self-sufficient for a non-clinician.
+- **Goal**: Give the reader just enough to understand what is being measured and how to map source data correctly — not to teach clinical medicine.
+- **Tone**: Concise and concrete. Explain unavoidable jargon in plain language. No physiopathology, no disease mechanisms, no normal ranges (unless they actually disambiguate concepts — e.g. adult vs neonatal), no differential-diagnosis advice, no patient-management guidance, no historical context.
+- **When in doubt, cut.** Prefer a shorter description that a data engineer can scan in 30 seconds over a thorough clinical review. If a sentence is not directly useful for mapping, remove it.
 - **Keep it simple**: Do NOT include LOINC technical jargon in the description body (no LOINC class names like "HRTRATE.ATOM", no "System is XXX (unspecified)", no UMLS semantic type codes like "T201"). The LOINC/UMLS decomposition data is used to *inform* the writing but should not appear verbatim. The description must be easy to read for a non-terminologist.
 - **UMLS as a source, not in the text**: UMLS definitions (MeSH, NCI, ICF, etc.) should be used to write authoritative clinical definitions, but UMLS-specific identifiers (CUIs, semantic types, MeSH descriptor IDs) should only appear in the References section, never in the body text. Same for MeSH hierarchy — describe the clinical context naturally (e.g., "Heart rate is a vital sign and a hemodynamic parameter") without citing MeSH tree numbers.
 - **DO NOT** repeat general ETL/mapping rules (LOINC for labs, RxNorm for drugs, etc.) — these are documented elsewhere
 - **DO** include the OMOP concept_id alongside the vocabulary code and the vocabulary name for every concept citation, using the format `concept_id / concept_code (vocabulary)` (e.g., `3027018 / 8867-4 (LOINC)`, `4091643 / 249043002 (SNOMED)`). The OMOP concept_id comes first, then the vocabulary code, then the vocabulary name in parentheses. This applies everywhere a concept is cited: included concepts, excluded concepts (both hierarchy nodes and individual standard concepts), inline references in prose, and mapping notes.
+- **In Mapping Notes, also include the concept name** alongside the concept_id and vocabulary code, formatted as `concept_id / concept_code — concept_name`. This makes recommendations readable without forcing the reader to look up each code (the audience may not know the codes by heart). Example: ``3024128 / 1975-2 — Bilirubin.total [Mass/volume] in Serum or Plasma``.
+- **Do NOT mention LOINC Group / classification / hierarchy concepts in the body of the description** (e.g., LOINC Groups like `LG6199-6`, LOINC Hierarchy nodes, or other non-standard classifier concepts). The convention across all concept sets in this repository is that these classification concepts are only used to anchor descendant inclusion — they are never standard concepts and are never mapping targets, so the reader does not need to be told that. Describe the inclusion strategy in plain natural language ("anchored on the two LOINC groups for X, pulling in all their descendants") rather than referencing the classification codes or OHDSI flags.
+- **Avoid OHDSI / OMOP jargon**: do not use technical flag names like `includeDescendants: true`, `isExcluded: false`, `standardConcept: "S"` in the description body. Translate to plain English ("descendants are included", "excluded from the set", "the standard concepts in this set"). The audience may not know the OHDSI conventions.
 - **DO** explain clinical nuances that affect mapping decisions
 - **DO** explain what distinguishes each concept from similar ones
 - **DO** group concepts logically (by method, site, condition) rather than alphabetically
 - **DO** highlight which concept is the most generic/default one
 - **No assumptions in mapping notes**: When information is missing from the source data (e.g., method, site, or position not documented), always map to the most general concept. Do NOT suggest alternative specific concepts as fallbacks — if the information is not there, use the generic concept, period.
+- **No general mapping rules**: Mapping notes should only contain guidance specific to this concept set. Do NOT include generic ETL rules that apply to all measurements (e.g. "if the source does not specify a unit, flag the record"). Such rules belong in the project-wide mapping recommendations, not in a single concept set's description.
+- **One source per fact**: When citing a reference, prefer a single authoritative source per claim rather than stacking multiple references that say the same thing. Add a second reference only if it brings genuinely different information (e.g., a guideline + a measurement-method paper).
 
 #### References Format
 
@@ -251,20 +268,32 @@ Key rules for references:
 - **Only cite truly external sources**: clinical guidelines, textbooks, web references (e.g., StatPearls, UpToDate, society guidelines).
 - **Do NOT list individual concept codes** (LOINC codes, SNOMED IDs, UMLS CUIs) in the references section. The concepts are identified by their codes in the body text.
 - **Web sources**: Standard bibliographic format with author, title, publisher, and URL.
-- **INDICATE units data**: Reference `recommended_units.json` and `unit_conversions.json` if unit data was found and used.
+- **JCTLM database for laboratory units**: when a description backs a claim about the SI / IFCC-recommended / metrological reference unit for a laboratory analyte, cite the JCTLM database. Format:
+  ```
+  Joint Committee for Traceability in Laboratory Medicine (JCTLM). Database of higher-order
+  reference measurement procedures, reference materials and reference measurement services.
+  BIPM/IFCC/ILAC.
+  Available: <a href="https://www.jctlm.org/database/" target="_blank">https://www.jctlm.org/database/</a>
+  ```
+  Cite the database as a single canonical reference even when multiple JCTLM entries inform the description; do not link individual JCTLM entry pages.
+- **Do NOT cite the INDICATE units files** (`recommended_units.json`, `unit_conversions.json`) as references. These are internal data and not authoritative external sources.
 
 #### Structure
 
 ```markdown
 ## Definition & Clinical Context
 
-[2-4 paragraphs combining:]
-- Authoritative definition (synthesized from MeSH/NCI/UMLS definitions, without mentioning UMLS explicitly)
-- What this measures and why it matters clinically
-- Where this fits clinically (e.g., "a vital sign and hemodynamic parameter" — derived from MeSH hierarchy but expressed naturally)
-- Key clinical contexts where this is used (ICU, emergency, routine monitoring...)
-- Normal ranges if relevant and available [with reference]
-- Units of measurement (from LOINC EXAMPLE_UCUM_UNITS and/or INDICATE units data)
+[ONE short paragraph, 3-5 sentences maximum, answering only:]
+- What is it? (plain-language definition — one sentence)
+- What does "measuring it" produce concretely? (what a lab machine or device outputs — one sentence)
+- In which clinical setting is it typically collected? (one short sentence)
+- What units is it reported in? (one sentence)
+
+DO NOT include: physiopathology, disease mechanisms, normal ranges (unless a range
+actually disambiguates concepts in this set — e.g. adult vs neonatal), differential
+diagnoses, detailed measurement methods, historical context, or patient-management
+advice. If a sentence is not directly useful to a data engineer deciding how to
+map source data, remove it.
 
 ## Included Concepts
 
@@ -293,9 +322,11 @@ Key rules for references:
 
 - Which concept to use as default when the source doesn't specify method/site
 - Common source system names that map to specific concepts
-- Disambiguation tips for similar-sounding concepts
-- Any gotchas or common mapping errors
+- Disambiguation tips for similar-sounding concepts within this set (e.g. "serum or plasma" vs "serum, plasma or blood")
+- Any gotchas specific to this concept set
+- Always cite concepts with both code and concept name (e.g. ``3024128 / 1975-2 — Bilirubin.total [Mass/volume] in Serum or Plasma``)
 - IMPORTANT: Never suggest fallback to a specific concept when information is missing — always default to the most general concept
+- DO NOT include generic ETL rules that apply to all concept sets (e.g., unit inference, source preservation conventions). These belong in the project-wide mapping recommendations.
 
 ## References
 
