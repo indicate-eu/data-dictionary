@@ -1,70 +1,32 @@
 {
   "id": 192,
-  "name": "Plasma eosinophils",
+  "name": "Eosinophils in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-05",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3009932,
-          "conceptName": "Eosinophils [#/volume] in Blood by Manual count",
+          "conceptId": 40653994,
+          "conceptName": "Eosinophils|Number Concentration (count/vol)|Moment in time|Blood",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "712-0",
-          "validStartDate": "1970-01-01",
+          "conceptClassId": "LOINC Group",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LG32849-8",
+          "validStartDate": "2018-06-15",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3013115,
-          "conceptName": "Eosinophils [#/volume] in Blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "26449-9",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3028615,
-          "conceptName": "Eosinophils [#/volume] in Blood by Automated count",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "711-2",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -76,18 +38,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Plasma eosinophils",
+        "name": "Eosinophils in blood",
         "category": "Laboratory tests",
         "subcategory": "Complete blood count",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nEosinophils are a type of granulocyte (typically 1–4 % of circulating leukocytes) characterised by eosinophilic granules containing major basic protein and other cytotoxic mediators [1]. They are involved in defence against parasitic infections and in allergic and inflammatory responses; an elevated absolute count (eosinophilia) is seen in allergic disease, parasitic infection, drug reactions, and some haematological disorders. The source data will typically be a single numeric result per patient-timestamp, produced by a haematology analyser as part of the differential white-cell count, on whole blood (EDTA tube). It is collected in routine biochemistry and intensive care. Results are reported as an absolute number concentration, typically in **`10*9/L`** (NPU SI convention, equivalent to `G/L`) or in the US notation **`10*3/uL`** (numerically identical: `1 ×10⁹/L = 1 ×10³/µL`).\n\n## Included Concepts\n\nThe set is anchored on the LOINC Group `40653994 / LG32849-8 — Eosinophils|Number Concentration (count/vol)|Moment in time|Blood (LOINC Group)` and pulls in all its descendants. This resolves to three standard concepts, which differ only by counting method.\n\n### Generic (method not specified)\n- *3013115 / 26449-9 — Eosinophils [#/volume] in Blood (LOINC)*: most widely used LOINC code, returned by haematology analysers when the method is not detailed.\n\n### Method-specific\n- *3028615 / 711-2 — Eosinophils [#/volume] in Blood by Automated count (LOINC)*: automated impedance, optical or flow-cytometric count (most common in routine practice).\n- *3009932 / 712-0 — Eosinophils [#/volume] in Blood by Manual count (LOINC)*: manual differential on a stained smear under microscope (used as a confirmation when the analyser flags the result, or in low-resource settings).\n\n**Note on units.** Recommended unit: **`10*9/L`** (`9444 / 10*9/L — billion per liter (UCUM)`), aligned with NPU [2]. LOINC's `EXAMPLE_UCUM_UNITS` is `10*3/uL` (`8848 / 10*3/uL — thousand per microliter (UCUM)`), which is the same physical quantity in US notation. Conversion: `1 ×10⁹/L = 1 ×10³/µL` (factor 1).\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded. The set is defined by anchoring on the LOINC Group for eosinophil number concentration in blood and pulling in all its descendants. This naturally excludes:\n\n- **Percentage / fraction variants** — eosinophils as a fraction of total leukocytes, not an absolute count:\n  - `3006504 / 26450-7 — Eosinophils/100 leukocytes in Blood`\n  - `3010457 / 713-8 — Eosinophils/100 leukocytes in Blood by Automated count`\n  - `3015956 / 714-6 — Eosinophils/100 leukocytes in Blood by Manual count`\n  - `43055367 / 71674-6 — Eosinophils/Leukocytes [Pure number fraction] in Blood by Manual count`\n  - `43055372 / 71679-5 — Eosinophils/Leukocytes [Pure number fraction] in Blood by Automated count`\n- **Qualitative presence** — not a quantitative count:\n  - `3004123 / 32173-7 — Eosinophils [Presence] in Blood by Wright stain`\n- **Aggregated counts** — eosinophils combined with other cell types, not an eosinophil-specific count:\n  - `3005836 / 32349-3 — Basophils+Eosinophils+Monocytes [#/volume] in Blood`\n  - `3013950 / 32154-7 — Basophils+Eosinophils+Monocytes [#/volume] in Blood by Automated count`\n- **Other specimens**: cord blood (e.g. `44787047 / 74404-5 — Eosinophils [#/volume] in Cord blood`), fetal blood, body fluid, bone marrow, CSF, dialysis fluid, pleural/synovial/peritoneal fluid — out of scope for a \"blood\" concept set.\n- **Allergy-panel concepts** (`X eosinophil bound Ab` series, eosinophil cationic protein, etc.) — these measure related but distinct analytes, not the absolute eosinophil count.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"eosinophils\", \"Eo\", \"EO#\" or similar absolute count without specifying the method: `3013115 / 26449-9 — Eosinophils [#/volume] in Blood`. By far the most common.\n- **Method-specific source**: if the source explicitly states \"automated\" or \"manual\", map to the corresponding method-specific concept (`3028615 / 711-2 — Eosinophils [#/volume] in Blood by Automated count` or `3009932 / 712-0 — Eosinophils [#/volume] in Blood by Manual count`). Otherwise, default to `3013115 / 26449-9 — Eosinophils [#/volume] in Blood` — do **not** infer the method from the analyser brand.\n- **Source reports a percentage** (e.g. `2 %` of leukocytes): this is **not** the same measurand. It belongs to a different concept set (eosinophil percentage). Do not map a percentage value to the absolute-count concepts above.\n- **Unit notation**: source systems may report `10*9/L`, `G/L`, `10*3/uL`, `K/uL`, or `/uL` (×1000). All correspond to the same physical quantity for the absolute count and can be converted to the recommended `10*9/L` (factor 1 with `10*3/uL`, factor 0.001 with `/uL`).\n- **Do not confuse with**: eosinophil percentage (`/100 leukocytes`), eosinophil cationic protein (ECP), eosinophil-bound IgE allergy tests, or eosinophils on non-blood specimens — all belong to other concept sets.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 26449-9 — Eosinophils [#/volume] in Blood (Part description for \"Eosinophils\").\n    Available: <a href=\"https://loinc.org/26449-9/\" target=\"_blank\">https://loinc.org/26449-9/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>"
       },
       "fr": {
-        "name": "Éosinophiles plasmatiques",
+        "name": "Éosinophiles sanguins",
         "category": "Biologie",
         "subcategory": "Numération sanguine",
         "shortDescription": null,

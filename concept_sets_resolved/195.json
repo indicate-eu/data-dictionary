@@ -36,6 +36,15 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "804-5",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 40654026,
+      "conceptName": "Leukocytes|Number Concentration (count/vol)|Moment in time|Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Group",
+      "conceptCode": "LG32857-1",
+      "standardConcept": "C"
     }
   ]
 }

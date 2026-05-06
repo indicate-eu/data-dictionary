@@ -20,6 +20,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 1616298,
+      "conceptName": "Platelets [#/volume] in Blood by Automated count.optical",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "97995-5",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3031586,
       "conceptName": "Platelets [#/volume] in Blood by Estimate",
       "vocabularyId": "LOINC",
@@ -54,6 +63,24 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "13056-7",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 40654106,
+      "conceptName": "Platelets|Number Concentration (count/vol)|Moment in time|Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Group",
+      "conceptCode": "LG32892-8",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 40654108,
+      "conceptName": "Platelets|Number Concentration (count/vol)|Moment in time|Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Group",
+      "conceptCode": "LG32776-3",
+      "standardConcept": "C"
     }
   ]
 }

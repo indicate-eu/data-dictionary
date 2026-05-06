@@ -27,6 +27,15 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "705-4",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 40653984,
+      "conceptName": "Basophils|Number Concentration (count/vol)|Moment in time|Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Group",
+      "conceptCode": "LG32848-0",
+      "standardConcept": "C"
     }
   ]
 }

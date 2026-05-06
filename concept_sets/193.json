@@ -1,70 +1,32 @@
 {
   "id": 193,
-  "name": "Plasma erythrocytes",
+  "name": "Erythrocytes in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-05",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3020416,
-          "conceptName": "Erythrocytes [#/volume] in Blood by Automated count",
+          "conceptId": 40654005,
+          "conceptName": "Erythrocytes|Number Concentration (count/vol)|Moment in time|Blood",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "789-8",
-          "validStartDate": "1970-01-01",
+          "conceptClassId": "LOINC Group",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LG32850-6",
+          "validStartDate": "2018-06-15",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3026361,
-          "conceptName": "Erythrocytes [#/volume] in Blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "26453-1",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3027017,
-          "conceptName": "Erythrocytes [#/volume] in Blood by Manual count",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "790-6",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -76,18 +38,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Plasma erythrocytes",
+        "name": "Erythrocytes in blood",
         "category": "Laboratory tests",
         "subcategory": "Complete blood count",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nErythrocytes (red blood cells, RBCs) are the most abundant cells in blood; they carry haemoglobin and transport oxygen from the lungs to peripheral tissues [1]. The absolute red-cell count is a core component of the complete blood count (CBC). It is altered in anaemia (decreased), polycythaemia (increased), bleeding, dehydration, and many haematological disorders. The source data will typically be a single numeric result per patient-timestamp, produced by a haematology analyser as part of the CBC, on whole blood (EDTA tube). It is collected in routine biochemistry and intensive care. Results are reported as a number concentration, typically in **`10*12/L`** (NPU SI convention, equivalent to `T/L`) or in the US notation **`10*6/uL`** (numerically identical: `1 ×10¹²/L = 1 ×10⁶/µL`).\n\n## Included Concepts\n\nThe set is anchored on the LOINC Group `40654005 / LG32850-6 — Erythrocytes|Number Concentration (count/vol)|Moment in time|Blood (LOINC Group)` and pulls in all its descendants. This resolves to three standard concepts, which differ only by counting method.\n\n### Generic (method not specified)\n- *3026361 / 26453-1 — Erythrocytes [#/volume] in Blood (LOINC)*: most widely used LOINC code, returned by haematology analysers when the method is not detailed.\n\n### Method-specific\n- *3020416 / 789-8 — Erythrocytes [#/volume] in Blood by Automated count (LOINC)*: automated impedance, optical or flow-cytometric count (most common in routine practice).\n- *3027017 / 790-6 — Erythrocytes [#/volume] in Blood by Manual count (LOINC)*: manual counting on a haemocytometer (rare in modern practice; mostly historical or research).\n\n**Note on units.** Recommended unit: **`10*12/L`** (`8734 / 10*12/L — trillion per liter (UCUM)`), aligned with NPU [2]. LOINC's `EXAMPLE_UCUM_UNITS` is `10*6/uL` (`8815 / 10*6/uL — million per microliter (UCUM)`), which is the same physical quantity in US notation. Conversion: `1 ×10¹²/L = 1 ×10⁶/µL` (factor 1).\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded. The set is defined by anchoring on the LOINC Group for erythrocyte number concentration in blood and pulling in all its descendants. This naturally excludes:\n\n- **Other specimens**: cord blood (e.g. `45888181 / 71663-9 — Erythrocytes [#/volume] in Cord blood`), fetal blood, body fluid, CSF, dialysis fluid, peritoneal/pleural fluid, urine — out of scope for a \"blood\" concept set.\n- **Derived measurements**: mean corpuscular volume (MCV), mean corpuscular haemoglobin (MCH), red cell distribution width (RDW), nucleated red cells, reticulocyte counts — these are separate measurands.\n- **Volume fraction of erythrocytes** (i.e. hematocrit) — a different quantity, captured in the dedicated \"Hematocrit in blood\" concept set.\n- **Aggregations** like `(Maximum value during study)` — out of scope.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"RBC\", \"Erythrocytes\", \"GR\" (globules rouges) or similar without specifying the method: `3026361 / 26453-1 — Erythrocytes [#/volume] in Blood`. By far the most common.\n- **Method-specific source**: if the source explicitly states \"automated\" or \"manual\", map to the corresponding method-specific concept (`3020416 / 789-8 — Erythrocytes [#/volume] in Blood by Automated count` or `3027017 / 790-6 — Erythrocytes [#/volume] in Blood by Manual count`). Otherwise, default to `3026361 / 26453-1 — Erythrocytes [#/volume] in Blood` — do **not** infer the method from the analyser brand.\n- **Unit notation**: source systems may report `10*12/L`, `T/L`, `10*6/uL`, `M/uL`, or `/uL` (×1,000,000). All correspond to the same physical quantity and can be converted to the recommended `10*12/L` (factor 1 with `10*6/uL`, factor 10⁻⁶ with `/uL`).\n- **Do not confuse with**: hematocrit (volume fraction of erythrocytes), haemoglobin concentration, MCV, MCH, MCHC, RDW, or erythrocytes on non-blood specimens — all belong to other concept sets.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 26453-1 — Erythrocytes [#/volume] in Blood (Part description for \"Erythrocytes\").\n    Available: <a href=\"https://loinc.org/26453-1/\" target=\"_blank\">https://loinc.org/26453-1/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>"
       },
       "fr": {
-        "name": "Érythrocytes plasmatiques",
+        "name": "Érythrocytes sanguins",
         "category": "Biologie",
         "subcategory": "Numération sanguine",
         "shortDescription": null,

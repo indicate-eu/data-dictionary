@@ -20,6 +20,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 1092234,
+      "conceptName": "Monocytes [#/volume] in Blood by Flow cytometry (FC)",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "104548-3",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3034107,
       "conceptName": "Monocytes [#/volume] in Blood by Manual count",
       "vocabularyId": "LOINC",
@@ -27,6 +36,15 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "743-5",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 40654069,
+      "conceptName": "Monocytes|Number Concentration (count/vol)|Moment in time|Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Group",
+      "conceptCode": "LG32885-2",
+      "standardConcept": "C"
     }
   ]
 }

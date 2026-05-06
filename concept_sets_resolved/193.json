@@ -27,6 +27,15 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "790-6",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 40654005,
+      "conceptName": "Erythrocytes|Number Concentration (count/vol)|Moment in time|Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Group",
+      "conceptCode": "LG32850-6",
+      "standardConcept": "C"
     }
   ]
 }

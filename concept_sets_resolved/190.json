@@ -2,6 +2,69 @@
   "conceptSetId": 190,
   "resolvedConcepts": [
     {
+      "conceptId": 42869587,
+      "conceptName": "Hematocrit [Pure volume fraction] of Arterial blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "71832-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1092441,
+      "conceptName": "Hematocrit [Pure volume fraction] of Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "104826-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42869588,
+      "conceptName": "Hematocrit [Pure volume fraction] of Blood by Automated count",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "71833-8",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42869586,
+      "conceptName": "Hematocrit [Pure volume fraction] of Capillary blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "71831-2",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42869585,
+      "conceptName": "Hematocrit [Pure volume fraction] of Mixed venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "71830-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42869584,
+      "conceptName": "Hematocrit [Pure volume fraction] of Venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "71829-6",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3023230,
+      "conceptName": "Hematocrit [Volume Fraction] of Arterial blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "32354-3",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3009542,
       "conceptName": "Hematocrit [Volume Fraction] of Blood",
       "vocabularyId": "LOINC",
@@ -53,6 +116,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "42908-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3034037,
+      "conceptName": "Hematocrit [Volume Fraction] of Mixed venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "41655-2",
       "standardConcept": "S"
     },
     {

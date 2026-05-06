@@ -2,6 +2,24 @@
   "conceptSetId": 194,
   "resolvedConcepts": [
     {
+      "conceptId": 3002173,
+      "conceptName": "Hemoglobin [Mass/volume] in Arterial blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "30313-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3006239,
+      "conceptName": "Hemoglobin [Mass/volume] in Arterial blood by Oximetry",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "14775-1",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3000963,
       "conceptName": "Hemoglobin [Mass/volume] in Blood",
       "vocabularyId": "LOINC",
@@ -81,6 +99,78 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "76769-9",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 21490721,
+      "conceptName": "Hemoglobin [Moles/volume] in Arterial blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "75928-2",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40762351,
+      "conceptName": "Hemoglobin [Moles/volume] in Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "59260-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1092194,
+      "conceptName": "Hemoglobin [Moles/volume] in Mixed venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "105300-8",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1002216,
+      "conceptName": "Hemoglobin [Moles/volume] in Venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "93846-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1094436,
+      "conceptName": "Hemoglobin|Moment in time|BldMV",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Group",
+      "conceptCode": "LG51666-2",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 40654905,
+      "conceptName": "Hemoglobin|Moment in time|Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Group",
+      "conceptCode": "LG44868-4",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 40654906,
+      "conceptName": "Hemoglobin|Moment in time|Blood arterial",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Group",
+      "conceptCode": "LG44874-2",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 1002591,
+      "conceptName": "Hemoglobin|Moment in time|Blood venous",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Group",
+      "conceptCode": "LG50949-3",
+      "standardConcept": "C"
     }
   ]
 }

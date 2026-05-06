@@ -1,127 +1,51 @@
 {
   "id": 199,
-  "name": "Plasma platelets",
+  "name": "Platelets in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-05",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3006297,
-          "conceptName": "Platelets [#/volume] in Plasma",
+          "conceptId": 40654106,
+          "conceptName": "Platelets|Number Concentration (count/vol)|Moment in time|Blood",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "26516-5",
-          "validStartDate": "1970-01-01",
+          "conceptClassId": "LOINC Group",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LG32892-8",
+          "validStartDate": "2018-06-15",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3007461,
-          "conceptName": "Platelets [#/volume] in Blood",
+          "conceptId": 40654108,
+          "conceptName": "Platelets|Number Concentration (count/vol)|Moment in time|Plasma",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "26515-7",
-          "validStartDate": "1970-01-01",
+          "conceptClassId": "LOINC Group",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LG32776-3",
+          "validStartDate": "2018-06-15",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3010834,
-          "conceptName": "Platelets [#/volume] in Blood by Manual count",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "778-1",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3016682,
-          "conceptName": "Platelets [#/volume] in Plasma by Automated count",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "13056-7",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3024929,
-          "conceptName": "Platelets [#/volume] in Blood by Automated count",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "777-3",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3031586,
-          "conceptName": "Platelets [#/volume] in Blood by Estimate",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "49497-1",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -133,18 +57,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Plasma platelets",
+        "name": "Platelets in blood",
         "category": "Laboratory tests",
         "subcategory": "Complete blood count",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nPlatelets (thrombocytes) are small anuclear blood cell fragments produced by megakaryocytes that mediate primary haemostasis [1]. The platelet count is part of the complete blood count (CBC) and is used to assess bleeding risk (thrombocytopenia, e.g. < 50 ×10⁹/L for surgical risk, < 10 ×10⁹/L for spontaneous bleeding) and thrombotic risk (thrombocytosis). The source data will typically be a single numeric result per patient-timestamp, produced by a haematology analyser as part of the CBC, on whole blood (EDTA tube) or, less commonly, on platelet-rich plasma. It is collected in routine biochemistry and intensive care. Results are reported as a number concentration, typically in **`10*9/L`** (NPU SI convention, equivalent to `G/L`) or in the US notation **`10*3/uL`** (numerically identical: `1 ×10⁹/L = 1 ×10³/µL`).\n\n## Included Concepts\n\nThe set is anchored on **two** LOINC Groups, one for whole blood and one for plasma — real-world data uses either matrix:\n\n- `40654106 / LG32892-8 — Platelets|Number Concentration (count/vol)|Moment in time|Blood (LOINC Group)`\n- `40654108 / LG32776-3 — Platelets|Number Concentration (count/vol)|Moment in time|Plasma (LOINC Group)`\n\nBoth pull in their descendants. The set resolves to seven standard concepts, grouped here by specimen and method.\n\n### Whole blood (default)\n\n#### Generic (method not specified)\n- *3007461 / 26515-7 — Platelets [#/volume] in Blood (LOINC)*: most widely used LOINC code for platelet count on whole blood.\n\n#### Method-specific\n- *3024929 / 777-3 — Platelets [#/volume] in Blood by Automated count (LOINC)*: automated impedance or optical count (most common in routine practice).\n- *1616298 / 97995-5 — Platelets [#/volume] in Blood by Automated count.optical (LOINC)*: explicit optical (laser/fluorescence) count, used by some analysers when impedance results are unreliable (e.g. platelet clumping, fragmented red cells).\n- *3010834 / 778-1 — Platelets [#/volume] in Blood by Manual count (LOINC)*: manual count on a haemocytometer.\n- *3031586 / 49497-1 — Platelets [#/volume] in Blood by Estimate (LOINC)*: visually estimated from a stained smear (rare, used as a sanity check when the analyser flags the result).\n\n### Plasma\n\n- *3006297 / 26516-5 — Platelets [#/volume] in Plasma (LOINC)*: generic platelet count on plasma.\n- *3016682 / 13056-7 — Platelets [#/volume] in Plasma by Automated count (LOINC)*: automated count on plasma.\n\n**Note on units.** Recommended unit: **`10*9/L`** (`9444 / 10*9/L — billion per liter (UCUM)`), aligned with NPU [2]. LOINC's `EXAMPLE_UCUM_UNITS` is `10*3/uL` (`8848 / 10*3/uL — thousand per microliter (UCUM)`), which is the same physical quantity in US notation. Conversion: `1 ×10⁹/L = 1 ×10³/µL` (factor 1).\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded. The set is defined by anchoring on the LOINC Groups for platelet number concentration in blood and in plasma and pulling in all their descendants. This naturally excludes:\n\n- **Cord blood** (`Platelets|Number Concentration (count/vol)|Moment in time|Blood - cord` group) — out of scope for a routine \"blood\" concept set.\n- **Mean platelet volume (MPV)**, **platelet distribution width (PDW)**, **immature platelet fraction (IPF)**, **plateletcrit (PCT)** — different measurands captured under their own concept sets if needed.\n- **Platelet aggregation tests**, **platelet activation markers** (e.g. CD62P), **platelet function assays** — separate measurands.\n- **Other specimens**: body fluid, ascites, peritoneal/pleural fluid, dialysis fluid — out of scope.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"Platelets\", \"PLT\" or similar without further specification: `3007461 / 26515-7 — Platelets [#/volume] in Blood`. By far the most common LOINC code, used for whole-blood EDTA samples on a haematology analyser.\n- **Method-specific source**: if the source explicitly states \"automated\", \"manual\" or \"estimate\", map to the corresponding method-specific blood concept (`3024929 / 777-3 — Platelets [#/volume] in Blood by Automated count`, `3010834 / 778-1 — Platelets [#/volume] in Blood by Manual count`, `3031586 / 49497-1 — Platelets [#/volume] in Blood by Estimate`). If the source explicitly states \"optical count\" (e.g. CD61 fluorescence-based count for thrombocytopenia confirmation), map to `1616298 / 97995-5 — Platelets [#/volume] in Blood by Automated count.optical`. Otherwise, default to `3007461 / 26515-7 — Platelets [#/volume] in Blood` — do **not** infer the method from the analyser brand.\n- **Source explicitly reports plasma matrix** (e.g. citrated plasma): map to `3006297 / 26516-5 — Platelets [#/volume] in Plasma` (generic) or `3016682 / 13056-7 — Platelets [#/volume] in Plasma by Automated count` (if automated). Plasma platelet counts are uncommon in routine biochemistry — a typical EDTA CBC reports the whole-blood concept.\n- **Unit notation**: source systems may report `10*9/L`, `G/L`, `10*3/uL`, `K/uL`, or `/uL` (×1000). All correspond to the same physical quantity and can be converted to the recommended `10*9/L` (factor 1 with `10*3/uL`, factor 0.001 with `/uL`).\n- **Do not confuse with**: mean platelet volume (MPV), platelet distribution width (PDW), immature platelet fraction (IPF), plateletcrit, platelet aggregation/function tests, or platelets on non-blood/plasma specimens — all belong to other concept sets.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 26515-7 — Platelets [#/volume] in Blood (Part description for \"Platelets\").\n    Available: <a href=\"https://loinc.org/26515-7/\" target=\"_blank\">https://loinc.org/26515-7/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>"
       },
       "fr": {
-        "name": "Plaquettes plasmatiques",
+        "name": "Plaquettes sanguines",
         "category": "Biologie",
         "subcategory": "Numération sanguine",
         "shortDescription": null,

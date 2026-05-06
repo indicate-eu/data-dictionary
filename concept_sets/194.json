@@ -1,26 +1,102 @@
 {
   "id": 194,
-  "name": "Plasma hemoglobin",
+  "name": "Hemoglobin in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-06",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 1616317,
-          "conceptName": "Hemoglobin [Mass/volume] in Capillary blood by Oximetry",
+          "conceptId": 40654905,
+          "conceptName": "Hemoglobin|Moment in time|Blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Group",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LG44868-4",
+          "validStartDate": "2018-06-15",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 40654906,
+          "conceptName": "Hemoglobin|Moment in time|Blood arterial",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Group",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LG44874-2",
+          "validStartDate": "2018-06-15",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1002591,
+          "conceptName": "Hemoglobin|Moment in time|Blood venous",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Group",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LG50949-3",
+          "validStartDate": "2019-12-13",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1094436,
+          "conceptName": "Hemoglobin|Moment in time|BldMV",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Group",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LG51666-2",
+          "validStartDate": "2024-08-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 40758903,
+          "conceptName": "Hemoglobin [Mass/volume] in Blood by Oximetry",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "97556-5",
-          "validStartDate": "2021-08-23",
+          "conceptCode": "55782-7",
+          "validStartDate": "2009-06-18",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -31,33 +107,14 @@
       },
       {
         "concept": {
-          "conceptId": 3000963,
-          "conceptName": "Hemoglobin [Mass/volume] in Blood",
+          "conceptId": 3027484,
+          "conceptName": "Hemoglobin [Mass/volume] in Blood by calculation",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "718-7",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3004119,
-          "conceptName": "Hemoglobin [Mass/volume] in Venous blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "30350-3",
+          "conceptCode": "20509-6",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -88,14 +145,14 @@
       },
       {
         "concept": {
-          "conceptId": 3007302,
-          "conceptName": "Hemoglobin [Mass/volume] in Mixed venous blood",
+          "conceptId": 3006239,
+          "conceptName": "Hemoglobin [Mass/volume] in Arterial blood by Oximetry",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "30351-1",
+          "conceptCode": "14775-1",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -107,34 +164,15 @@
       },
       {
         "concept": {
-          "conceptId": 3027484,
-          "conceptName": "Hemoglobin [Mass/volume] in Blood by calculation",
+          "conceptId": 46235392,
+          "conceptName": "Hemoglobin [Mass/volume] in Venous blood by Oximetry",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "20509-6",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 40758903,
-          "conceptName": "Hemoglobin [Mass/volume] in Blood by Oximetry",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "55782-7",
-          "validStartDate": "2009-06-18",
+          "conceptCode": "76769-9",
+          "validStartDate": "2015-03-16",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -164,15 +202,15 @@
       },
       {
         "concept": {
-          "conceptId": 46235392,
-          "conceptName": "Hemoglobin [Mass/volume] in Venous blood by Oximetry",
+          "conceptId": 1616317,
+          "conceptName": "Hemoglobin [Mass/volume] in Capillary blood by Oximetry",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "76769-9",
-          "validStartDate": "2015-03-16",
+          "conceptCode": "97556-5",
+          "validStartDate": "2021-08-23",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -190,18 +228,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Plasma hemoglobin",
+        "name": "Hemoglobin in blood",
         "category": "Laboratory tests",
         "subcategory": "Complete blood count",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nHaemoglobin (Hb) is the iron-containing oxygen-transport protein contained in erythrocytes [1]. The concentration of haemoglobin in blood is the primary laboratory marker of anaemia (decreased) and polycythaemia (increased). It is part of every routine complete blood count (CBC) and is also measured directly on point-of-care blood-gas analysers via co-oximetry. The source data will typically be a single numeric result per patient-timestamp, produced by a haematology analyser on whole blood (EDTA tube), or by a blood-gas/co-oximetry channel on arterial, venous, capillary or mixed venous blood. Results are reported either as a **mass concentration** (`g/L` or `g/dL`, the dominant convention worldwide) or as a **substance concentration** (`mmol/L`, an SI variant explicitly recognised by ICSH/IFCC/WASP [3] and by NPU [2]; less commonly used in routine practice but encountered in some labs).\n\n## Included Concepts\n\nThe set is anchored on four LOINC Groups (one per blood specimen — generic, arterial, venous, mixed venous), with their descendants pulled in. Each Group resolves to both the mass-concentration (`[Mass/volume]`) and the substance-concentration (`[Moles/volume]`) variant for that specimen — both are kept in the set because they describe the same measurand reported in different units (see \"Note on units\" below). Seven additional standard concepts that no Group covers (by-Oximetry, by-calculation, and Capillary blood variants) are added explicitly. Within the set, concepts vary by specimen, method (analyser vs co-oximetry vs calculation), and clinical context.\n\n### Generic blood (method not specified)\n- *3000963 / 718-7 — Hemoglobin [Mass/volume] in Blood (LOINC)*: most widely used LOINC code for the mass-concentration form, returned by haematology analysers when the method is not detailed.\n- *40762351 / 59260-0 — Hemoglobin [Moles/volume] in Blood (LOINC)*: substance-concentration form, used by labs that report haemoglobin in `mmol/L` (the SI alternative recognised by ICSH/IFCC/WASP [3]).\n\n### Method-specific\n- *40758903 / 55782-7 — Hemoglobin [Mass/volume] in Blood by Oximetry (LOINC)*: co-oximetry on a blood-gas analyser (typical of point-of-care devices).\n- *3027484 / 20509-6 — Hemoglobin [Mass/volume] in Blood by calculation (LOINC)*: derived from other measurements (e.g. from hematocrit), rather than directly measured.\n\n### Specimen-specific (mass concentration)\n- *3002173 / 30313-1 — Hemoglobin [Mass/volume] in Arterial blood (LOINC)*: explicit arterial sample (often from a blood-gas analyser).\n- *3004119 / 30350-3 — Hemoglobin [Mass/volume] in Venous blood (LOINC)*: explicit venous sample.\n- *3006184 / 30352-9 — Hemoglobin [Mass/volume] in Capillary blood (LOINC)*: capillary heel-prick or fingerstick (neonatal, point-of-care).\n- *3007302 / 30351-1 — Hemoglobin [Mass/volume] in Mixed venous blood (LOINC)*: mixed venous sample (typically from a Swan-Ganz catheter).\n\n### Specimen-specific (substance concentration)\n- *21490721 / 75928-2 — Hemoglobin [Moles/volume] in Arterial blood (LOINC)*\n- *1002216 / 93846-4 — Hemoglobin [Moles/volume] in Venous blood (LOINC)*\n- *1092194 / 105300-8 — Hemoglobin [Moles/volume] in Mixed venous blood (LOINC)*\n\n### Specimen + method combinations (oximetry on a specific specimen)\n- *3006239 / 14775-1 — Hemoglobin [Mass/volume] in Arterial blood by Oximetry (LOINC)*\n- *46235392 / 76769-9 — Hemoglobin [Mass/volume] in Venous blood by Oximetry (LOINC)*\n- *46235391 / 76768-1 — Hemoglobin [Mass/volume] in Mixed venous blood by Oximetry (LOINC)*\n- *1616317 / 97556-5 — Hemoglobin [Mass/volume] in Capillary blood by Oximetry (LOINC)*\n\n**Note on units.**\n\n- **Recommended unit for `[Mass/volume]` concepts**: **`g/L`** (`8636 / g/L — gram per liter (UCUM)`), aligned with NPU [2] and ICSH 1995 [3]. LOINC's `EXAMPLE_UCUM_UNITS` is `g/dL` for the older non-oximetry concepts and `g/L` for the more recent oximetry concepts; the project standardises on `g/L`.\n- **Recommended unit for `[Moles/volume]` concepts**: **`mmol/L`** (`8753 / mmol/L — millimole per liter (UCUM)`), per LOINC's `EXAMPLE_UCUM_UNITS`.\n- **Conversion between mass and substance concentration**: ICSH 1995 [3] establishes the convention: when haemoglobin is reported in `mmol/L` it is, by international agreement (ICSH/IFCC/WASP), the substance concentration **per haem group / per Fe atom / per globin monomer** (notation `Hb(Fe)`), not per haemoglobin tetramer (`Hb(4Fe)`). The relative molecular mass of the haemoglobin monomer is **16,114.5 g/mol** (= 64,458 / 4) [3]. The resulting conversion factors are: `1 mmol/L = 16.1145 g/L`, `1 g/L = 0.06206 mmol/L` (and `1 mmol/L ≈ 1.6114 g/dL`, `1 g/dL ≈ 0.6206 mmol/L`). These factors are recorded in `units/unit_conversions.json` so that source values reported in `mmol/L` are converted to the recommended `g/L` at storage time. Pure-unit conversions for the mass form (`g/dL ↔ g/L`, factor 10) are also recorded.\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded. The following LOINC concepts that exist for haemoglobin in blood are deliberately not part of this set:\n\n- **Cord/fetal blood and blood-product specimens**:\n  - `40757420 / 54289-4 — Hemoglobin [Mass/volume] in Blood from Blood product unit`\n  - `40763941 / 61180-6 — Hemoglobin [Mass/volume] in Blood from Fetus`\n  - cord blood variants — out of scope for a routine \"blood\" concept set.\n- **Pre-therapeutic phlebotomy** (`3048275 / 48725-6 — Hemoglobin [Mass/volume] in Blood --pre therapeutic phlebotomy`) — research/protocol context.\n- **Calculated specimen-specific variants** (`1091111 / 105040-0 — Hemoglobin [Mass/volume] in Mixed venous blood by calculation`, `1091321 / 105274-5 — Hemoglobin [Mass/volume] in Venous blood by calculation`) — recently introduced LOINC codes; rare in real-world data. Not currently included; consider adding if a source uses them.\n- **Central venous variants** (`1617122 / 97550-8 — Hemoglobin [Mass/volume] in Central venous blood by calculation`, `1617021 / 97555-7 — Hemoglobin [Mass/volume] in Central venous blood by Oximetry`) — niche, rarely reported separately. Treat central venous as venous.\n- **Free haemoglobin** (`Hemoglobin.free`), haemoglobin variants (HbA1c, HbA2, HbF, HbS), methaemoglobin, carboxyhaemoglobin — these are separate measurands captured in other concept sets.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"Hb\", \"Hgb\", \"haemoglobin\" or similar without further specification: `3000963 / 718-7 — Hemoglobin [Mass/volume] in Blood`. By far the most common LOINC code.\n- **Specimen-specific source**: if the source explicitly states \"arterial\", \"venous\", \"capillary\", or \"mixed venous\" blood, map to the corresponding specimen concept (`3002173 / 30313-1 — Hemoglobin [Mass/volume] in Arterial blood`, etc.). If the source is a blood-gas analyser and explicitly co-oximetry, prefer the specimen + oximetry combination (e.g. `3006239 / 14775-1 — Hemoglobin [Mass/volume] in Arterial blood by Oximetry`).\n- **Method-specific source**: map \"co-oximetry\" results to `40758903 / 55782-7 — Hemoglobin [Mass/volume] in Blood by Oximetry` if no specimen is stated, or to the specimen + Oximetry variant if both are known. Map calculated results (Hb derived from hematocrit) to `3027484 / 20509-6 — Hemoglobin [Mass/volume] in Blood by calculation`. Otherwise, default to `3000963 / 718-7 — Hemoglobin [Mass/volume] in Blood` — do **not** infer the method from the analyser brand.\n- **Source reports `mmol/L`**: map to the corresponding `[Moles/volume]` concept (`40762351 / 59260-0 — Hemoglobin [Moles/volume] in Blood` for the generic case, or the specimen-specific variant if applicable). Do **not** convert manually to `g/L` — the unit conversions in `units/unit_conversions.json` handle this automatically using the ICSH `Hb(Fe)` convention.\n- **Do not confuse with**: hematocrit (volume fraction of erythrocytes), erythrocyte count, MCH, MCHC, free haemoglobin, glycated haemoglobin (HbA1c), methaemoglobin, carboxyhaemoglobin, or haemoglobin on non-blood specimens — all belong to other concept sets.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 718-7 — Hemoglobin [Mass/volume] in Blood (Part description for \"Hemoglobin\").\n    Available: <a href=\"https://loinc.org/718-7/\" target=\"_blank\">https://loinc.org/718-7/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n\n[3] International Council for Standardisation in Haematology (ICSH), Expert Panel on Haemoglobinometry. Recommendations for reference method for haemoglobinometry in human blood (ICSH standard 1995) and specifications for international haemiglobincyanide standard (4th edition). J Clin Pathol. 1996;49(4):271-274.\n    Available: <a href=\"https://pubmed.ncbi.nlm.nih.gov/8655699/\" target=\"_blank\">https://pubmed.ncbi.nlm.nih.gov/8655699/</a>"
       },
       "fr": {
-        "name": "Hémoglobine plasmatique",
+        "name": "Hémoglobine sanguine",
         "category": "Biologie",
         "subcategory": "Numération sanguine",
         "shortDescription": null,

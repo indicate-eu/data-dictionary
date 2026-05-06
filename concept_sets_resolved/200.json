@@ -36,6 +36,15 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "42758-3",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 40654117,
+      "conceptName": "Reticulocytes|Number Concentration (count/vol)|Moment in time|Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Group",
+      "conceptCode": "LG32882-9",
+      "standardConcept": "C"
     }
   ]
 }

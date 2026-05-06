@@ -1,89 +1,32 @@
 {
   "id": 200,
-  "name": "Plasma reticulocytes",
+  "name": "Reticulocytes in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-05",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3023520,
-          "conceptName": "Reticulocytes [#/volume] in Blood",
+          "conceptId": 40654117,
+          "conceptName": "Reticulocytes|Number Concentration (count/vol)|Moment in time|Blood",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "14196-0",
-          "validStartDate": "1970-01-01",
+          "conceptClassId": "LOINC Group",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LG32882-9",
+          "validStartDate": "2018-06-15",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3037637,
-          "conceptName": "Reticulocytes [#/volume] in Blood by calculation",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "42758-3",
-          "validStartDate": "2015-06-28",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3041154,
-          "conceptName": "Reticulocytes [#/volume] in Blood by Manual count",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "40665-2",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 40763528,
-          "conceptName": "Reticulocytes [#/volume] in Blood by Automated count",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "60474-4",
-          "validStartDate": "2010-07-26",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -95,18 +38,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Plasma reticulocytes",
+        "name": "Reticulocytes in blood",
         "category": "Laboratory tests",
         "subcategory": "Complete blood count",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nReticulocytes are immature, anucleate red blood cells that have just been released from the bone marrow and still contain residual ribosomal RNA, visible as a reticulum after supravital staining [1]. The reticulocyte count reflects bone-marrow erythropoietic activity: it is elevated in regenerative anaemias (haemolysis, blood loss) and depressed in non-regenerative anaemias (aplasia, iron/B12/folate deficiency, chemotherapy). The source data will typically be a single numeric result per patient-timestamp, produced by a haematology analyser using fluorescent staining of nucleic acids, on whole blood (EDTA tube). It is collected when an unexplained anaemia or a bone-marrow recovery is being investigated. Results are reported as a number concentration, typically in **`10*9/L`** (NPU SI convention, equivalent to `G/L`) or in the US notation **`10*3/uL`** (numerically identical: `1 ×10⁹/L = 1 ×10³/µL`).\n\n## Included Concepts\n\nThe set is anchored on the LOINC Group `40654117 / LG32882-9 — Reticulocytes|Number Concentration (count/vol)|Moment in time|Blood (LOINC Group)` and pulls in all its descendants. This resolves to four standard concepts, which differ by counting method.\n\n### Generic (method not specified)\n- *3023520 / 14196-0 — Reticulocytes [#/volume] in Blood (LOINC)*: most widely used LOINC code, returned by haematology analysers when the method is not detailed.\n\n### Method-specific\n- *40763528 / 60474-4 — Reticulocytes [#/volume] in Blood by Automated count (LOINC)*: automated flow-cytometric count using fluorescent nucleic-acid stains (most common in modern practice).\n- *3041154 / 40665-2 — Reticulocytes [#/volume] in Blood by Manual count (LOINC)*: manual count on a stained smear (e.g. new methylene blue), historical method.\n- *3037637 / 42758-3 — Reticulocytes [#/volume] in Blood by calculation (LOINC)*: derived from the reticulocyte percentage and the absolute red-cell count, rather than directly counted.\n\n**Note on units.** Recommended unit: **`10*9/L`** (`9444 / 10*9/L — billion per liter (UCUM)`), aligned with NPU [2]. LOINC's `EXAMPLE_UCUM_UNITS` is `10*3/uL` (`8848 / 10*3/uL — thousand per microliter (UCUM)`) for the absolute count, which is the same physical quantity in US notation. Conversion: `1 ×10⁹/L = 1 ×10³/µL` (factor 1). Note: LOINC lists `10*3/L` as the example unit for `42758-3`, which is almost certainly a typographical inconsistency in the LOINC distribution; the value is the same physical quantity as `10*3/uL`. Map accordingly.\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded. The set is defined by anchoring on the LOINC Group for reticulocyte number concentration in blood and pulling in all its descendants. This naturally excludes:\n\n- **Reticulocyte percentage / fraction variants** — `Reticulocytes/100 erythrocytes`, `Reticulocytes/Erythrocytes [Pure number fraction]` — these describe a relative composition, not an absolute count, and are a separate measurand.\n- **Reticulocyte indices** — mean reticulocyte volume (MRV), reticulocyte haemoglobin content (CHr / Ret-He), immature reticulocyte fraction (IRF), high/medium/low fluorescence ratios — these are derived parameters captured under their own concept sets if needed.\n- **Other specimens**: cord blood, fetal blood, body fluid, bone marrow — out of scope for a \"blood\" concept set.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"Reticulocytes\", \"Retic\", \"Ret#\" or similar absolute count without specifying the method: `3023520 / 14196-0 — Reticulocytes [#/volume] in Blood`. By far the most common.\n- **Method-specific source**: if the source explicitly states \"automated\", \"manual\" or \"calculation\", map to the corresponding method-specific concept. Otherwise, default to `3023520 / 14196-0 — Reticulocytes [#/volume] in Blood`.\n- **Source reports a percentage** (e.g. `1.5 %` of erythrocytes): this is **not** the same measurand. It belongs to a different concept set (reticulocyte percentage). Many older datasets report only the percentage.\n- **Unit notation**: source systems may report `10*9/L`, `G/L`, `10*3/uL`, `K/uL`, or `/uL` (×1000). All correspond to the same physical quantity and can be converted to the recommended `10*9/L` (factor 1 with `10*3/uL`, factor 0.001 with `/uL`).\n- **Do not confuse with**: reticulocyte percentage, mean reticulocyte volume (MRV), reticulocyte haemoglobin content (CHr / Ret-He), immature reticulocyte fraction (IRF), or reticulocytes on non-blood specimens — all belong to other concept sets.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 14196-0 — Reticulocytes [#/volume] in Blood (Part description for \"Reticulocytes\").\n    Available: <a href=\"https://loinc.org/14196-0/\" target=\"_blank\">https://loinc.org/14196-0/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>"
       },
       "fr": {
-        "name": "Réticulocytes plasmatiques",
+        "name": "Réticulocytes sanguins",
         "category": "Biologie",
         "subcategory": "Numération sanguine",
         "shortDescription": null,

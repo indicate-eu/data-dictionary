@@ -27,6 +27,15 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "753-4",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 40654088,
+      "conceptName": "Neutrophils|Number Concentration (count/vol)|Moment in time|Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Group",
+      "conceptCode": "LG32886-0",
+      "standardConcept": "C"
     }
   ]
 }

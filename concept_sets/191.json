@@ -1,70 +1,32 @@
 {
   "id": 191,
-  "name": "Plasma basophils",
+  "name": "Basophils in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-04",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3006315,
-          "conceptName": "Basophils [#/volume] in Blood",
+          "conceptId": 40653984,
+          "conceptName": "Basophils|Number Concentration (count/vol)|Moment in time|Blood",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "26444-0",
-          "validStartDate": "1970-01-01",
+          "conceptClassId": "LOINC Group",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LG32848-0",
+          "validStartDate": "2018-06-15",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3013429,
-          "conceptName": "Basophils [#/volume] in Blood by Automated count",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "704-7",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3027651,
-          "conceptName": "Basophils [#/volume] in Blood by Manual count",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "705-4",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -76,18 +38,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Plasma basophils",
+        "name": "Basophils in blood",
         "category": "Laboratory tests",
         "subcategory": "Complete blood count",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nBasophils are the rarest type of circulating white blood cell (typically <1 % of leukocytes), characterised by dense basophilic granules containing histamine and heparin [1]. They are involved in allergic and inflammatory responses, and an elevated absolute count may be seen in chronic myeloid leukaemia and some other myeloproliferative disorders. The source data will typically be a single numeric result per patient-timestamp, produced by a haematology analyser as part of the differential white-cell count, on whole blood (EDTA tube). It is collected in routine biochemistry and intensive care. Results are reported as an absolute number concentration, typically in **`10*9/L`** (NPU SI convention, equivalent to `G/L`) or in the US notation **`10*3/uL`** (numerically identical: `1 ×10⁹/L = 1 ×10³/µL`).\n\n## Included Concepts\n\nThe set is anchored on the LOINC Group `40653984 / LG32848-0 — Basophils|Number Concentration (count/vol)|Moment in time|Blood (LOINC Group)` and pulls in all its descendants. This resolves to three standard concepts, which differ only by counting method.\n\n### Generic (method not specified)\n- *3006315 / 26444-0 — Basophils [#/volume] in Blood (LOINC)*: most widely used LOINC code, returned by haematology analysers when the method is not detailed.\n\n### Method-specific\n- *3013429 / 704-7 — Basophils [#/volume] in Blood by Automated count (LOINC)*: automated impedance, optical or flow-cytometric count (most common in routine practice).\n- *3027651 / 705-4 — Basophils [#/volume] in Blood by Manual count (LOINC)*: manual differential on a stained smear under microscope (used as a confirmation when the analyser flags the result, or in low-resource settings).\n\n**Note on units.** Recommended unit: **`10*9/L`** (`9444 / 10*9/L — billion per liter (UCUM)`), aligned with NPU [2]. LOINC's `EXAMPLE_UCUM_UNITS` is `10*3/uL` (`8848 / 10*3/uL — thousand per microliter (UCUM)`), which is the same physical quantity in US notation. Conversion: `1 ×10⁹/L = 1 ×10³/µL` (factor 1).\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded. The set is defined by anchoring on the LOINC Group for basophil number concentration in blood and pulling in all its descendants. This naturally excludes:\n\n- **Percentage / fraction variants** — basophils as a fraction of total leukocytes, not an absolute count:\n  - `3022096 / 30180-4 — Basophils/100 leukocytes in Blood`\n  - `3013869 / 706-2 — Basophils/100 leukocytes in Blood by Automated count`\n  - `3009797 / 707-0 — Basophils/100 leukocytes in Blood by Manual count`\n  - `43055368 / 71675-3 — Basophils/Leukocytes [Pure number fraction] in Blood by Manual count`\n  - `43055373 / 71680-3 — Basophils/Leukocytes [Pure number fraction] in Blood by Automated count`\n- **Aggregated counts** — basophils combined with other cell types, not a basophil-specific count:\n  - `3005836 / 32349-3 — Basophils+Eosinophils+Monocytes [#/volume] in Blood`\n  - `3013950 / 32154-7 — Basophils+Eosinophils+Monocytes [#/volume] in Blood by Automated count`\n- **Other specimens**: cord blood (e.g. `44787049 / 74406-0 — Basophils [#/volume] in Cord blood`), fetal blood, body fluid, bone marrow, CSF, dialysis fluid, pleural/synovial/peritoneal fluid — out of scope for a \"blood\" concept set.\n- **Immature / band-form variants** and basophil/mast-cell aggregations — out of scope for a routine differential count.\n- **Allergy-panel concepts** (`X basophil bound Ab` series) — these measure IgE bound to basophils for allergen-specific testing, a different measurand.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"basophils\", \"Baso\", \"BA#\" or similar absolute count without specifying the method: `3006315 / 26444-0 — Basophils [#/volume] in Blood`. By far the most common.\n- **Method-specific source**: if the source explicitly states \"automated\" or \"manual\", map to the corresponding method-specific concept (`3013429 / 704-7 — Basophils [#/volume] in Blood by Automated count` or `3027651 / 705-4 — Basophils [#/volume] in Blood by Manual count`). Otherwise, default to `3006315 / 26444-0 — Basophils [#/volume] in Blood` — do **not** infer the method from the analyser brand.\n- **Source reports a percentage** (e.g. `0.5 %` of leukocytes): this is **not** the same measurand. It belongs to a different concept set (basophil percentage). Do not map a percentage value to the absolute-count concepts above.\n- **Unit notation**: source systems may report `10*9/L`, `G/L`, `10*3/uL`, `K/uL`, or `/uL` (×1000). All correspond to the same physical quantity for the absolute count and can be converted to the recommended `10*9/L` (factor 1 with `10*3/uL`, factor 0.001 with `/uL`).\n- **Do not confuse with**: basophil percentage (`/100 leukocytes`), immature basophils, basophil-bound IgE allergy tests, basophil activation tests (CD63), or basophils on non-blood specimens — all belong to other concept sets.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 26444-0 — Basophils [#/volume] in Blood (Part description for \"Basophils\").\n    Available: <a href=\"https://loinc.org/26444-0/\" target=\"_blank\">https://loinc.org/26444-0/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>"
       },
       "fr": {
-        "name": "Basophiles plasmatiques",
+        "name": "Basophiles sanguins",
         "category": "Biologie",
         "subcategory": "Numération sanguine",
         "shortDescription": null,

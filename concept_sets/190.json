@@ -1,12 +1,12 @@
 {
   "id": 190,
-  "name": "Hematocrit",
+  "name": "Hematocrit in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-04",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,44 +20,6 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "20570-8",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3013752,
-          "conceptName": "Hematocrit [Volume Fraction] of Blood by Impedance",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "31100-1",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3019909,
-          "conceptName": "Hematocrit [Volume Fraction] of Blood by Centrifugation",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "4545-0",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -88,14 +50,71 @@
       },
       {
         "concept": {
-          "conceptId": 3028813,
-          "conceptName": "Hematocrit [Volume Fraction] of Capillary blood",
+          "conceptId": 3019909,
+          "conceptName": "Hematocrit [Volume Fraction] of Blood by Centrifugation",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "42908-4",
+          "conceptCode": "4545-0",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3013752,
+          "conceptName": "Hematocrit [Volume Fraction] of Blood by Impedance",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "31100-1",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3050746,
+          "conceptName": "Hematocrit [Volume Fraction] of Blood by Estimated",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "48703-3",
+          "validStartDate": "2007-03-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3023230,
+          "conceptName": "Hematocrit [Volume Fraction] of Arterial blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "32354-3",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -126,15 +145,148 @@
       },
       {
         "concept": {
-          "conceptId": 3050746,
-          "conceptName": "Hematocrit [Volume Fraction] of Blood by Estimated",
+          "conceptId": 3028813,
+          "conceptName": "Hematocrit [Volume Fraction] of Capillary blood",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "48703-3",
-          "validStartDate": "2007-03-21",
+          "conceptCode": "42908-4",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3034037,
+          "conceptName": "Hematocrit [Volume Fraction] of Mixed venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "41655-2",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1092441,
+          "conceptName": "Hematocrit [Pure volume fraction] of Blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "104826-3",
+          "validStartDate": "2024-08-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42869588,
+          "conceptName": "Hematocrit [Pure volume fraction] of Blood by Automated count",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "71833-8",
+          "validStartDate": "2012-05-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42869587,
+          "conceptName": "Hematocrit [Pure volume fraction] of Arterial blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "71832-0",
+          "validStartDate": "2012-05-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42869584,
+          "conceptName": "Hematocrit [Pure volume fraction] of Venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "71829-6",
+          "validStartDate": "2012-05-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42869585,
+          "conceptName": "Hematocrit [Pure volume fraction] of Mixed venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "71830-4",
+          "validStartDate": "2012-05-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42869586,
+          "conceptName": "Hematocrit [Pure volume fraction] of Capillary blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "71831-2",
+          "validStartDate": "2012-05-21",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -152,18 +304,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Hematocrit",
+        "name": "Hematocrit in blood",
         "category": "Laboratory tests",
         "subcategory": "Complete blood count",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nThe hematocrit is the volume fraction of red blood cells (erythrocytes) in whole blood — i.e. the proportion of the blood volume occupied by erythrocytes [1]. It is part of every routine complete blood count (CBC) and is used to assess anaemia, polycythaemia, hydration status, and to follow blood loss or transfusion. The source data will typically be a single numeric result per patient-timestamp, produced by a haematology analyser on whole blood (EDTA tube). It is collected in routine biochemistry and intensive care, including on point-of-care blood-gas analysers that compute hematocrit from haemoglobin or measure it directly by impedance. Results are reported as a fraction, either as a percentage (e.g. **42 %**) or as a unitless ratio (e.g. **0.42** or `0.42 L/L`); the two are mathematically equivalent.\n\n## Included Concepts\n\nThe set contains fifteen LOINC \"Lab Test\" concepts. LOINC distinguishes two property variants for the same physical quantity:\n\n- **`[Volume Fraction]` (VFr)** — historical convention, reported in `%` or `L/L` (e.g. 42 % or 0.42 L/L).\n- **`[Pure volume fraction]` (VFr.DF)** — IUPAC-aligned convention introduced in 2017, reported as a dimensionless number (e.g. 0.42 with no unit). Mathematically identical to VFr.\n\nBoth conventions are included because real-world datasets may use either. Within each convention, concepts vary by specimen and by measurement method.\n\n### Volume Fraction (historical, reported in % or L/L)\n\n#### Generic blood (method not specified)\n- *3009542 / 20570-8 — Hematocrit [Volume Fraction] of Blood (LOINC)*: most widely used LOINC code, returned by haematology analysers when the method is not detailed.\n\n#### Method-specific\n- *3023314 / 4544-3 — Hematocrit [Volume Fraction] of Blood by Automated count (LOINC)*: automated impedance or optical method (most common).\n- *3019909 / 4545-0 — Hematocrit [Volume Fraction] of Blood by Centrifugation (LOINC)*: micro-haematocrit reference method, manual centrifugation.\n- *3013752 / 31100-1 — Hematocrit [Volume Fraction] of Blood by Impedance (LOINC)*: impedance-based count.\n- *3050746 / 48703-3 — Hematocrit [Volume Fraction] of Blood by Estimated (LOINC)*: estimated from haemoglobin (typically Hct ≈ 3 × Hb), used by some point-of-care devices.\n\n#### Specimen-specific\n- *3023230 / 32354-3 — Hematocrit [Volume Fraction] of Arterial blood (LOINC)*: explicit arterial sample (often from a blood-gas analyser).\n- *3034976 / 41654-5 — Hematocrit [Volume Fraction] of Venous blood (LOINC)*: explicit venous sample.\n- *3028813 / 42908-4 — Hematocrit [Volume Fraction] of Capillary blood (LOINC)*: capillary heel-prick or fingerstick (neonatal, point-of-care).\n- *3034037 / 41655-2 — Hematocrit [Volume Fraction] of Mixed venous blood (LOINC)*: mixed venous sample (typically from a Swan-Ganz catheter).\n\n### Pure volume fraction (IUPAC, reported as a dimensionless number)\n\n- *1092441 / 104826-3 — Hematocrit [Pure volume fraction] of Blood (LOINC)*\n- *42869588 / 71833-8 — Hematocrit [Pure volume fraction] of Blood by Automated count (LOINC)*\n- *42869587 / 71832-0 — Hematocrit [Pure volume fraction] of Arterial blood (LOINC)*\n- *42869584 / 71829-6 — Hematocrit [Pure volume fraction] of Venous blood (LOINC)*\n- *42869585 / 71830-4 — Hematocrit [Pure volume fraction] of Mixed venous blood (LOINC)*\n- *42869586 / 71831-2 — Hematocrit [Pure volume fraction] of Capillary blood (LOINC)*\n\n**Note on units.** Recommended unit follows the LOINC property:\n- For `[Volume Fraction]` concepts: **`%`** (`8554 / % — percent (UCUM)`). LOINC's `EXAMPLE_UCUM_UNITS` is `%` for all variants.\n- For `[Pure volume fraction]` concepts: **`1`** (`32912 / 1 — Generic unit for indivisible thing (UCUM)`, dimensionless), aligned with NPU [2].\n- `L/L` (`44777604 / L/L — liter per liter (UCUM)`) is mathematically equivalent and may be used as an alternative source unit. Conversions: `1 L/L = 100 %`, `1 % = 0.01 L/L`, `1 (dimensionless) = 100 %`.\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The following LOINC concepts that exist for hematocrit are deliberately not part of this set:\n\n- **Other specimens**: cord blood, body fluid, bone marrow, CSF, dialysis fluid, pleural fluid, synovial fluid, urine, stem cell product, fetal blood — out of scope for a \"blood\" concept set.\n- **Glucose tolerance test series** — hematocrit measured at fixed time points during an oral glucose challenge (research/study context, not routine care):\n  - `1091805 / 104874-3 — Hematocrit [Volume Fraction] of Blood --baseline` (pre-dose, t=0)\n  - `1092140 / 104875-0 — Hematocrit [Volume Fraction] of Blood --30 minutes post dose glucose`\n  - `1091711 / 104876-8 — Hematocrit [Volume Fraction] of Blood --1 hour post dose glucose`\n  - `1091224 / 104877-6 — Hematocrit [Volume Fraction] of Blood --1.5 hours post dose glucose`\n  - `1091140 / 104878-4 — Hematocrit [Volume Fraction] of Blood --2 hours post dose glucose`\n  - `1091362 / 104879-2 — Hematocrit [Volume Fraction] of Blood --2.5 hours post dose glucose`\n  - `1092370 / 104880-0 — Hematocrit [Volume Fraction] of Blood --3 hours post dose glucose`\n- **Test status / panel concepts** — these are panel grouping or test-status codes, not measurement results:\n  - `3039251 / 39227-4 — Hematocrit test status CPHS`\n  - `3001643 / 24360-0 — Hemoglobin and Hematocrit panel - Blood`\n  - `3964676 / 101655-9 — Basic metabolic and hematocrit panel - Blood`\n  - `1260092 / 104076-5 — Basic metabolic with hemoglobin and hematocrit panel - Blood`\n- **Ratios** like `3010748 / 16931-8 — Hematocrit/Hemoglobin [Ratio] of Blood by Automated count` — a derived ratio, not a hematocrit value.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"hematocrit\", \"Ht\", \"Hct\", \"PCV\" (packed cell volume) or similar without further specification: `3009542 / 20570-8 — Hematocrit [Volume Fraction] of Blood`. By far the most common LOINC code.\n- **Method-specific source**: if the source explicitly states the method (impedance, centrifugation, estimated), map to the corresponding method-specific concept. Otherwise, default to the generic `3009542 / 20570-8 — Hematocrit [Volume Fraction] of Blood`.\n- **Specimen-specific source**: if the source explicitly states \"arterial\", \"venous\", \"capillary\", or \"mixed venous\" blood, map to the corresponding specimen concept.\n- **Source uses the dimensionless representation** (e.g. value `0.42` without `%` or `L/L`): if the LOINC code in the source is one of the `[Pure volume fraction]` codes (e.g. `1092441 / 104826-3 — Hematocrit [Pure volume fraction] of Blood`), map to that concept. If the source uses the historical `[Volume Fraction]` codes but reports `0.42` as a fraction, map to the `[Volume Fraction]` concept and store the value with the unit `L/L` (which is the alternative supported by the unit conversions).\n- **Do not confuse with**: erythrocyte count (cells per volume, different concept set), haemoglobin concentration, mean corpuscular volume (MCV), or hematocrit on non-blood specimens.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 20570-8 — Hematocrit [Volume Fraction] of Blood (Part description for \"Erythrocyte\").\n    Available: <a href=\"https://loinc.org/20570-8/\" target=\"_blank\">https://loinc.org/20570-8/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>"
       },
       "fr": {
-        "name": "Hématocrite",
+        "name": "Hématocrite sanguin",
         "category": "Biologie",
         "subcategory": "Numération sanguine",
         "shortDescription": null,
