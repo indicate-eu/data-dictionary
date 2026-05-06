@@ -84,6 +84,22 @@
     }
   });
 
+  // Apply branding from config (title, favicon, header logo and title)
+  var cfg = App.config || {};
+  if (cfg.title) document.title = cfg.title;
+  var branding = cfg.branding || {};
+  if (branding.favicon) {
+    var favLink = document.querySelector('link[rel="icon"]');
+    if (favLink) favLink.href = branding.favicon;
+  }
+  var headerLogo = document.querySelector('.header-logo');
+  if (headerLogo) {
+    if (branding.logo) headerLogo.src = branding.logo;
+    if (branding.logoAlt) headerLogo.alt = branding.logoAlt;
+  }
+  var headerTitle = document.querySelector('.header-title');
+  if (headerTitle && cfg.title) headerTitle.textContent = cfg.title;
+
   // Boot the app
   App.loadData();
   App.checkForDataUpdate();
@@ -91,9 +107,12 @@
   App.initSharedEvents();
   App.translateDOM();
 
-  // Footer
+  // Footer — configurable via config.footer (supports {name} and {version} placeholders)
   var footer = document.getElementById('app-footer');
-  if (footer) footer.textContent = App.APP_NAME + ' v' + App.APP_VERSION;
+  if (footer) {
+    var tpl = cfg.footer || '{name} v{version}';
+    footer.textContent = tpl.replace('{name}', App.APP_NAME).replace('{version}', App.APP_VERSION);
+  }
 
   Router.init();
 })();

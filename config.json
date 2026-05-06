@@ -1,0 +1,25 @@
+{
+  "title": "INDICATE Data Dictionary",
+  "appName": "INDICATE Data Dictionary",
+  "appVersion": "1.1.0",
+  "footer": "{name} v{version}",
+  "languages": ["en", "fr"],
+  "defaultLanguage": "en",
+  "github": {
+    "repo": "indicate-eu/data-dictionary",
+    "branch": "main"
+  },
+  "organization": {
+    "name": "INDICATE Consortium",
+    "url": "https://indicate-eu.org"
+  },
+  "customVocabulary": {
+    "id": "INDICATE",
+    "codePrefix": "INDICATE-"
+  },
+  "branding": {
+    "logo": "logo.png",
+    "favicon": "favicon.png",
+    "logoAlt": "INDICATE"
+  }
+}

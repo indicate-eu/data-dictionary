@@ -2,8 +2,10 @@
 var App = (function() {
   'use strict';
 
-  var APP_NAME = 'INDICATE Data Dictionary (Web)';
-  var APP_VERSION = '1.0.4';
+  // Config is injected by build.py from config.json (root). DATA.config is the source of truth.
+  var config = (typeof DATA !== 'undefined' && DATA.config) ? DATA.config : {};
+  var APP_NAME = config.appName || 'Data Dictionary';
+  var APP_VERSION = config.appVersion || '0.0.0';
 
   // ==================== STATE ====================
   var conceptSets = [];
@@ -1568,6 +1570,23 @@ var App = (function() {
   return {
     APP_NAME: APP_NAME,
     APP_VERSION: APP_VERSION,
+    config: config,
+    github: function(path) {
+      var repo = (config.github && config.github.repo) || '';
+      var branch = (config.github && config.github.branch) || 'main';
+      var p = path || '';
+      return 'https://github.com/' + repo + '/' + p.replace(/^\//, '').replace(/^edit\//, 'edit/' + branch + '/').replace(/^blob\//, 'blob/' + branch + '/');
+    },
+    githubEdit: function(filePath) {
+      var repo = (config.github && config.github.repo) || '';
+      var branch = (config.github && config.github.branch) || 'main';
+      return 'https://github.com/' + repo + '/edit/' + branch + '/' + filePath.replace(/^\//, '');
+    },
+    githubBlob: function(filePath) {
+      var repo = (config.github && config.github.repo) || '';
+      var branch = (config.github && config.github.branch) || 'main';
+      return 'https://github.com/' + repo + '/blob/' + branch + '/' + filePath.replace(/^\//, '');
+    },
     // State getters/setters
     get conceptSets() { return conceptSets; },
     get projects() { return projects; },

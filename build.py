@@ -39,6 +39,12 @@ def load_text_file(path):
 
 
 def main():
+    config_path = os.path.join(ROOT, "config.json")
+    if not os.path.isfile(config_path):
+        raise SystemExit(f"Missing config.json at {config_path}. See config.json in the repo root.")
+    with open(config_path, "r", encoding="utf-8") as f:
+        config = json.load(f)
+
     concept_sets = load_json_dir(os.path.join(ROOT, "concept_sets"))
     projects = load_json_dir(os.path.join(ROOT, "projects"))
 
@@ -115,6 +121,7 @@ def main():
     data = {
         "dataVersion": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "dataHash": data_hash,
+        "config": config,
         "conceptSets": concept_sets,
         "projects": projects,
         "resolvedConceptSets": resolved_inline,

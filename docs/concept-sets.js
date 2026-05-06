@@ -2,7 +2,10 @@
 var ConceptSetsPage = (function() {
   'use strict';
 
-  var GITHUB_REPO = 'indicate-eu/data-dictionary';
+  function GITHUB_REPO() { return (App.config.github && App.config.github.repo) || ''; }
+  function GITHUB_BRANCH() { return (App.config.github && App.config.github.branch) || 'main'; }
+  function CUSTOM_VOCAB_ID() { return (App.config.customVocabulary && App.config.customVocabulary.id) || 'CUSTOM'; }
+  function CUSTOM_VOCAB_PREFIX() { return (App.config.customVocabulary && App.config.customVocabulary.codePrefix) || 'CUSTOM-'; }
 
   /** Decode escaped UTF-8 hex bytes (e.g. <e5><bf><83>) to proper characters */
   function decodeEscapedUtf8(str) {
@@ -275,7 +278,7 @@ var ConceptSetsPage = (function() {
     var link = document.getElementById('cs-view-json');
     if (!selectedConceptSet || !link) return;
     var folder = (csConceptMode === 'expression') ? 'concept_sets' : 'concept_sets_resolved';
-    link.href = 'https://github.com/' + GITHUB_REPO + '/blob/main/' + folder + '/' + selectedConceptSet.id + '.json';
+    link.href = 'https://github.com/' + GITHUB_REPO() + '/blob/' + GITHUB_BRANCH() + '/' + folder + '/' + selectedConceptSet.id + '.json';
   }
 
   function switchConceptMode(mode) {
@@ -2489,7 +2492,7 @@ var ConceptSetsPage = (function() {
     var domain = customDomainValue;
     var conceptClass = customClassValue;
     var code = document.getElementById('custom-concept-code').value.trim();
-    var vocab = document.getElementById('custom-concept-vocabulary').value.trim() || 'INDICATE';
+    var vocab = document.getElementById('custom-concept-vocabulary').value.trim() || CUSTOM_VOCAB_ID();
     var isExcluded = document.getElementById('custom-concept-exclude').checked;
 
     // Validation
@@ -2509,7 +2512,7 @@ var ConceptSetsPage = (function() {
         conceptClassId: conceptClass,
         standardConcept: '',
         standardConceptCaption: 'Non-standard',
-        conceptCode: code || 'INDICATE-' + conceptId,
+        conceptCode: code || CUSTOM_VOCAB_PREFIX() + conceptId,
         validStartDate: now,
         validEndDate: '2099-12-31',
         invalidReason: null,
@@ -2548,7 +2551,7 @@ var ConceptSetsPage = (function() {
     // Populate fields
     document.getElementById('edit-cc-id').value = c.conceptId;
     document.getElementById('edit-cc-name').value = c.conceptName || '';
-    document.getElementById('edit-cc-vocabulary').value = c.vocabularyId || 'INDICATE';
+    document.getElementById('edit-cc-vocabulary').value = c.vocabularyId || CUSTOM_VOCAB_ID();
     document.getElementById('edit-cc-code').value = c.conceptCode || '';
     document.getElementById('edit-cc-standard').value = c.standardConceptCaption || 'Non-standard';
 
@@ -2588,7 +2591,7 @@ var ConceptSetsPage = (function() {
     var domain = editCcDomainValue;
     var conceptClass = editCcClassValue;
     var code = document.getElementById('edit-cc-code').value.trim();
-    var vocab = document.getElementById('edit-cc-vocabulary').value.trim() || 'INDICATE';
+    var vocab = document.getElementById('edit-cc-vocabulary').value.trim() || CUSTOM_VOCAB_ID();
 
     // Validation
     if (!name) { App.showToast(App.i18n('Please enter a concept name.'), 'error'); return; }
@@ -2602,7 +2605,7 @@ var ConceptSetsPage = (function() {
     c.domainId = domain;
     c.vocabularyId = vocab;
     c.conceptClassId = conceptClass;
-    c.conceptCode = code || ('INDICATE-' + c.conceptId);
+    c.conceptCode = code || (CUSTOM_VOCAB_PREFIX() + c.conceptId);
 
     renderExpressionTable();
     closeEditCustomConceptModal();
@@ -4286,7 +4289,7 @@ var ConceptSetsPage = (function() {
     navigator.clipboard.writeText(json).then(function() {
       App.showToast(App.i18n('JSON copied to clipboard! Paste it in the GitHub editor.'), 'success', 5000);
     }).catch(function() {});
-    var url = 'https://github.com/' + GITHUB_REPO + '/edit/main/concept_sets/' + selectedConceptSet.id + '.json';
+    var url = App.githubEdit('concept_sets/' + selectedConceptSet.id + '.json');
     window.open(url, '_blank');
   }
 
@@ -4605,7 +4608,7 @@ var ConceptSetsPage = (function() {
       navigator.clipboard.writeText(json).then(function() {
         App.showToast(App.i18n('JSON copied to clipboard! Paste it in the GitHub editor.'), 'success', 5000);
       }).catch(function() {});
-      var url = 'https://github.com/' + GITHUB_REPO + '/edit/main/concept_sets/' + selectedConceptSet.id + '.json';
+      var url = App.githubEdit('concept_sets/' + selectedConceptSet.id + '.json');
       window.open(url, '_blank');
       closeExportModal();
       return;
@@ -5371,7 +5374,7 @@ var ConceptSetsPage = (function() {
       tags: [],
       metadata: {
         uniqueId: crypto.randomUUID(),
-        organization: App.getOrganization() || { name: 'INDICATE Consortium', url: 'https://indicate-eu.org' },
+        organization: App.getOrganization() || App.config.organization || { name: '', url: '' },
         reviewStatus: 'draft',
         origin: null,
         translations: {
