@@ -103,7 +103,7 @@ Near-term, in roughly this order:
 
 1. **Refine the INDICATE concept sets and run the review process** — a first stable version of the 300+ concept sets is released and is already being used by data providers to build their OMOP ETLs. As those first ETLs run and the dictionary gets exercised against real data, providers surface suggestions (missing concepts, ambiguous mappings, unit edge cases) that feed back into the definitions.
 2. **`source_to_concept_map.csv` upload for data providers** — let a site upload its OMOP `source_to_concept_map` and instantly see, per clinical project, which variables it can actually populate (eligibility check for multi-site studies). Runs entirely in the browser via DuckDB-WASM.
-3. **Fork-as-a-template** — make the app domain-agnostic so any group (oncology, cardiology, primary care, a single-center registry…) can fork the repo, empty the data folders, and bootstrap their own governed data dictionary on GitHub Pages in minutes. Currently the app is INDICATE-specific in a few places; we'll factor those out.
+3. **Fork-as-a-template** — *now available.* Any group (oncology, cardiology, primary care, a single-center registry…) can use this repo as a template, edit `config.json`, run `reset.py`, and bootstrap their own governed data dictionary on GitHub Pages or GitLab Pages in minutes. See [FORKING.md](FORKING.md) for the step-by-step guide.
 4. **OHDSI community alignment** — bring this into the OHDSI ecosystem. The goal isn't to maintain a parallel tool forever, but to bring library-grade governance to concept sets *inside* OHDSI. Two possible paths, both worth discussing:
    - **Extend ATLAS** — add the review workflow, semantic versioning, and `longDescription` field to ATLAS directly, using this app as a reference implementation.
    - **A dedicated OHDSI Concept Set Library** — a counterpart to the Phenotype Library, cross-network, community-governed.
@@ -125,7 +125,12 @@ mapping_recommendations/   # Multilingual ETL mapping guidance
 docs/                      # GitHub Pages SPA (browse/edit/review in the browser)
 build.py                   # Aggregates JSON → docs/data.json + docs/data_inline.js
 resolve.py                 # Expands expressions via OMOP vocab (DuckDB)
+reset.py                   # Wipes content for a fresh fork (see FORKING.md)
+update_from_upstream.py    # Pulls code updates from this repo into a fork
+config.json                # Per-fork branding, GitHub repo, organization
+.gitlab-ci.yml             # GitLab Pages deployment (no-op on GitHub)
 CLAUDE.md                  # Project conventions, schemas, build pipeline
+FORKING.md                 # Guide for teams reusing this app for their own dictionary
 ```
 
 See [CLAUDE.md](CLAUDE.md) for full schemas, build pipeline, and conventions.
@@ -143,6 +148,8 @@ python3 build.py                                             # regenerates docs/
 (Skip `resolve.py` if you don't have an OHDSI vocabulary DuckDB — the site works without it, you just won't see resolved concept lists.)
 
 **Propose a change** — edit any `concept_sets/{id}.json`, open a PR. Or use the in-browser editor and click *"Propose on GitHub"* — it copies the JSON and opens the correct edit page for you.
+
+**Fork it for your own dictionary** — see [FORKING.md](FORKING.md) for the end-to-end guide (use this template → edit `config.json` → replace logo → `python3 reset.py` → publish on GitHub Pages or GitLab Pages).
 
 ## Documentation
 

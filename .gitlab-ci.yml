@@ -1,0 +1,33 @@
+# GitLab CI configuration for forks deployed on GitLab Pages.
+# Mirrors the GitHub Pages setup: serves the static site from /docs.
+#
+# GitLab Pages requires the published content to live in a `public/` directory,
+# so this job just copies docs/ into public/. No build step is needed because
+# docs/data.json and docs/data_inline.js are committed (regenerated locally
+# with `python3 build.py` after any change to source data).
+#
+# To use:
+#   1. In your GitLab repo, go to Settings -> Pages (it is enabled by default).
+#   2. Push to the default branch — the `pages` job runs on every push.
+#   3. The site is served at https://<group>.gitlab.io/<project>/ (or a custom
+#      domain if configured).
+#
+# If you would rather build data files in CI instead of committing them,
+# replace the script with:
+#     - apt-get update && apt-get install -y python3
+#     - python3 build.py
+#     - mkdir -p public && cp -r docs/* public/
+# and remove docs/data.json, docs/data_inline.js, docs/resolved_concept_ids.json,
+# docs/concept_sets_resolved/ from the repo (and add them to .gitignore).
+
+pages:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - mkdir -p public
+    - cp -r docs/. public/
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

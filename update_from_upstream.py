@@ -38,6 +38,7 @@ UPSTREAM_PATHS = [
     "FORKING.md",
     "config.local.example.json",
     ".gitignore",
+    ".gitlab-ci.yml",
     "docs/index.html",
     "docs/app.css",
     "docs/app.js",

@@ -2,21 +2,24 @@
 
 The INDICATE Data Dictionary is designed to be forked and reused by other teams. This guide walks through:
 1. **Initial setup** — fork, configure, wipe INDICATE content
-2. **Day-to-day** — adding your own concept sets, building, deploying
+2. **Day-to-day** — adding your own concept sets, building
 3. **Updating** — pulling the latest code from upstream while keeping your content
+4. **Deployment** — publishing the static site (GitHub Pages or GitLab Pages)
 
 ---
 
 ## 1. Initial setup
 
-### 1.1. Fork or clone
+### 1.1. Create your repository
 
-Fork on GitHub (`Use this template` or the regular fork button), then clone your fork:
+The recommended path is **"Use this template"** on GitHub: it gives you a clean, separate history rather than a fork that always points back at INDICATE. On <https://github.com/indicate-eu/data-dictionary>, click `Use this template` → `Create a new repository`, name it (e.g. `<your-org>/data-dictionary`), then clone it locally:
 
 ```bash
 git clone git@github.com:<your-org>/<your-repo>.git
 cd <your-repo>
 ```
+
+If you prefer GitLab, mirror or import the repo there: GitLab's `New project` → `Import project` → `Repository by URL` accepts `https://github.com/indicate-eu/data-dictionary.git`. The repo ships a `.gitlab-ci.yml` so GitLab Pages works out of the box (see §4.2).
 
 ### 1.2. Edit `config.json`
 
@@ -114,7 +117,7 @@ git commit -m "Initialize fork for <my team>"
 git push
 ```
 
-Enable GitHub Pages in your repo settings (Source: branch `main`, folder `/docs`).
+Then publish the static site (see §4 below).
 
 ---
 
@@ -156,7 +159,7 @@ python3 update_from_upstream.py
 What it does:
 1. Adds (or updates) a git remote named `upstream` pointing at the URL in `config.json -> github.upstream`.
 2. Runs `git fetch upstream <branch>`.
-3. Checks out a fixed list of code paths from `upstream/<branch>`: `build.py`, `resolve.py`, `reset.py`, `update_from_upstream.py`, all of `docs/*.js`, `docs/*.html`, `docs/*.css`, `.claude/skills/`, `CLAUDE.md`, `FORKING.md`, `config.local.example.json`, `.gitignore`.
+3. Checks out a fixed list of code paths from `upstream/<branch>`: `build.py`, `resolve.py`, `reset.py`, `update_from_upstream.py`, all of `docs/*.js`, `docs/*.html`, `docs/*.css`, `.claude/skills/`, `CLAUDE.md`, `FORKING.md`, `config.local.example.json`, `.gitignore`, `.gitlab-ci.yml`.
 4. Leaves your content alone: `concept_sets/`, `projects/`, `units/`, `mapping_recommendations/`, `id_counters.json`, `config.json`, `config.local.json`, `docs/logo.png`, `docs/favicon.png`, `docs/data_dictionary.png`, and the generated `docs/data.json` / `docs/data_inline.js`.
 
 Flags:
@@ -180,3 +183,35 @@ If a code change conflicts with a local customization (e.g. you edited `docs/doc
 ### When NOT to use it
 
 `update_from_upstream.py` is for routine updates. If the upstream has done a breaking change (e.g. renamed `config.json` keys), read the upstream `CHANGELOG` or commit log first — you may need to migrate your `config.json` by hand before running the update.
+
+---
+
+## 4. Deployment
+
+The static site lives in `docs/`. Both GitHub Pages and GitLab Pages can serve it directly without a build step (because `docs/data.json` and `docs/data_inline.js` are committed — they are regenerated locally with `python3 build.py` whenever source data changes).
+
+### 4.1. GitHub Pages
+
+In the GitHub repo: `Settings` → `Pages` → `Source: Deploy from a branch` → `Branch: main, folder: /docs` → `Save`. After 1–2 minutes the site is published at:
+
+```
+https://<your-org>.github.io/<your-repo>/
+```
+
+Each push to `main` redeploys automatically. You can also use a custom domain via the same settings page.
+
+### 4.2. GitLab Pages
+
+The repo ships a `.gitlab-ci.yml` that publishes `docs/` to GitLab Pages on every push to the default branch. No configuration needed beyond pushing the repo to GitLab — GitLab Pages is enabled by default for public projects, and the `pages` job runs as part of the standard pipeline.
+
+After the first successful pipeline, the site is published at:
+
+```
+https://<group>.gitlab.io/<project>/
+```
+
+(or, for personal namespaces, `https://<username>.gitlab.io/<project>/`). Custom domains are configured in `Settings` → `Pages`.
+
+### 4.3. Rebuilding data files when needed
+
+If you would rather not commit the generated files (`docs/data.json`, `docs/data_inline.js`, `docs/resolved_concept_ids.json`, `docs/concept_sets_resolved/`), add them to `.gitignore` and uncomment the build step inside `.gitlab-ci.yml` (or set up an equivalent GitHub Actions workflow). The default setup commits them to keep CI minimal — the data is the canonical artifact, the page just serves it.
