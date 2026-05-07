@@ -40,8 +40,10 @@ var ConceptSetsPage = (function() {
   var resolvedPage = 1;
   var resolvedPageSize = 50;
   var resolvedCurrentConcepts = [];
+  var resolvedSort = { key: null, asc: true };
   var expressionPage = 1;
   var expressionPageSize = 50;
+  var exprSort = { key: null, asc: true };
 
   // Selection mode state (CS list)
   var selectionMode = false;
@@ -219,10 +221,10 @@ var ConceptSetsPage = (function() {
       return '<tr data-id="' + d.id + '"' + (isSelected ? ' class="selected"' : '') + '>' +
         '<td class="cs-select-col"><input type="checkbox" class="cs-row-checkbox" data-id="' + d.id + '"' + (isSelected ? ' checked' : '') + '></td>' +
         '<td class="cs-edit-col"><button class="cs-row-edit-btn" data-edit-id="' + d.id + '" title="Edit"><i class="fas fa-pen"></i></button></td>' +
-        '<td><span class="badge badge-category">' + App.escapeHtml(d.category) + '</span></td>' +
-        '<td><span class="badge badge-subcategory">' + App.escapeHtml(d.subcategory) + '</span></td>' +
-        '<td data-tooltip="' + App.escapeHtml(d.name) + '"><strong>' + App.escapeHtml(d.name) + '</strong></td>' +
-        '<td class="desc-truncated"' + (d.description ? ' data-tooltip="' + App.escapeHtml(d.description) + '"' : '') + '>' + App.escapeHtml(App.truncate(d.description, 100)) + '</td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(d.category) + '"><span class="badge badge-category">' + App.escapeHtml(d.category) + '</span></td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(d.subcategory) + '"><span class="badge badge-subcategory">' + App.escapeHtml(d.subcategory) + '</span></td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(d.name) + '"><strong>' + App.escapeHtml(d.name) + '</strong></td>' +
+        '<td class="cell-truncate"' + (d.description ? ' data-tooltip="' + App.escapeHtml(d.description) + '"' : '') + '>' + App.escapeHtml(App.truncate(d.description, 100)) + '</td>' +
         '<td class="td-center">' + App.escapeHtml(d.version) + '</td>' +
         '<td class="td-center">' + App.statusBadge(d.reviewStatus) + '</td>' +
         '</tr>';
@@ -391,7 +393,9 @@ var ConceptSetsPage = (function() {
       return true;
     });
 
+    sortExpressionEntries(filtered);
     document.getElementById('cs-concept-count').textContent = filtered.length + (filtered.length !== allItems.length ? ' / ' + allItems.length : '');
+    updateExpressionSortIndicators();
 
     if (allItems.length === 0) {
       tbody.innerHTML = '<tr><td colspan="' + colSpan + '" class="empty-state"><p>' + App.i18n('No concepts in this concept set') + '</p></td></tr>';
@@ -435,14 +439,19 @@ var ConceptSetsPage = (function() {
         mappedCell = '<td class="td-center">' + (item.includeMapped ? '<span class="' + (isExcl ? 'flag-yes-danger' : 'flag-yes') + '">Yes</span>' : '<span class="flag-no">No</span>') + '</td>';
       }
 
+      var cVocab = c.vocabularyId || '';
+      var cName = c.conceptName || '';
+      var cCode = c.conceptCode || '';
+      var cDomain = c.domainId || '';
+      var cClass = c.conceptClassId || '';
       return '<tr data-idx="' + i + '"' + rowClass + '>' +
         (exprEditMode ? selectCol : '') +
-        '<td>' + App.escapeHtml(c.vocabularyId) + '</td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(cVocab) + '">' + App.escapeHtml(cVocab) + '</td>' +
         '<td>' + App.escapeHtml(String(c.conceptId || '')) + '</td>' +
-        '<td>' + App.escapeHtml(c.conceptName) + '</td>' +
-        '<td>' + App.escapeHtml(c.conceptCode) + '</td>' +
-        '<td>' + App.escapeHtml(c.domainId) + '</td>' +
-        '<td>' + App.escapeHtml(c.conceptClassId || '') + '</td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(cName) + '">' + App.escapeHtml(cName) + '</td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(cCode) + '">' + App.escapeHtml(cCode) + '</td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(cDomain) + '">' + App.escapeHtml(cDomain) + '</td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(cClass) + '">' + App.escapeHtml(cClass) + '</td>' +
         '<td class="td-center">' + App.standardBadge(c) + '</td>' +
         excludeCell + descCell + mappedCell +
         (exprEditMode ? actionCol : '') +
@@ -2851,6 +2860,73 @@ var ConceptSetsPage = (function() {
     });
   }
 
+  var resolvedSortAccessors = {
+    vocabulary: function(c) { return c.vocabularyId || ''; },
+    conceptId:  function(c) { return c.conceptId || 0; },
+    name:       function(c) { return c.conceptName || ''; },
+    code:       function(c) { return c.conceptCode || ''; },
+    domain:     function(c) { return c.domainId || ''; },
+    'class':    function(c) { return c.conceptClassId || ''; },
+    standard:   function(c) { return c.standardConcept || ''; }
+  };
+  function sortResolvedConcepts(concepts) {
+    if (!resolvedSort.key) return;
+    var acc = resolvedSortAccessors[resolvedSort.key];
+    if (!acc) return;
+    var asc = resolvedSort.asc;
+    concepts.sort(function(a, b) {
+      var va = acc(a), vb = acc(b);
+      if (typeof va === 'string') va = va.toLowerCase();
+      if (typeof vb === 'string') vb = vb.toLowerCase();
+      if (va < vb) return asc ? -1 : 1;
+      if (va > vb) return asc ? 1 : -1;
+      return 0;
+    });
+  }
+  function updateResolvedSortIndicators() {
+    document.querySelectorAll('#resolved-table thead th[data-sort]').forEach(function(th) {
+      var isCur = th.dataset.sort === resolvedSort.key;
+      th.classList.toggle('sorted', isCur);
+      var icon = th.querySelector('.sort-icon');
+      if (icon) icon.textContent = (isCur && !resolvedSort.asc) ? '▼' : '▲';
+    });
+  }
+
+  var exprSortAccessors = {
+    vocabulary:  function(e) { return (e.item.concept.vocabularyId || ''); },
+    conceptId:   function(e) { return e.item.concept.conceptId || 0; },
+    name:        function(e) { return (e.item.concept.conceptName || ''); },
+    code:        function(e) { return (e.item.concept.conceptCode || ''); },
+    domain:      function(e) { return (e.item.concept.domainId || ''); },
+    'class':     function(e) { return (e.item.concept.conceptClassId || ''); },
+    standard:    function(e) { return (e.item.concept.standardConcept || ''); },
+    exclude:     function(e) { return e.item.isExcluded ? 1 : 0; },
+    descendants: function(e) { return e.item.includeDescendants ? 1 : 0; },
+    mapped:      function(e) { return e.item.includeMapped ? 1 : 0; }
+  };
+  function sortExpressionEntries(entries) {
+    if (!exprSort.key) return;
+    var acc = exprSortAccessors[exprSort.key];
+    if (!acc) return;
+    var asc = exprSort.asc;
+    entries.sort(function(a, b) {
+      var va = acc(a), vb = acc(b);
+      if (typeof va === 'string') va = va.toLowerCase();
+      if (typeof vb === 'string') vb = vb.toLowerCase();
+      if (va < vb) return asc ? -1 : 1;
+      if (va > vb) return asc ? 1 : -1;
+      return 0;
+    });
+  }
+  function updateExpressionSortIndicators() {
+    document.querySelectorAll('#expression-table thead th[data-sort]').forEach(function(th) {
+      var isCur = th.dataset.sort === exprSort.key;
+      th.classList.toggle('sorted', isCur);
+      var icon = th.querySelector('.sort-icon');
+      if (icon) icon.textContent = (isCur && !exprSort.asc) ? '▼' : '▲';
+    });
+  }
+
   function renderResolvedTableWithData(allConcepts, keepFilters) {
     resolvedCurrentConcepts = allConcepts || [];
     var tbody = document.getElementById('resolved-tbody');
@@ -2874,6 +2950,7 @@ var ConceptSetsPage = (function() {
 
     var filters = getResolvedFilters();
     var concepts = filterResolvedConcepts(allConcepts, filters);
+    sortResolvedConcepts(concepts);
     document.getElementById('cs-concept-count').textContent = concepts.length + ' / ' + allConcepts.length;
 
     if (allConcepts.length === 0) {
@@ -2897,17 +2974,23 @@ var ConceptSetsPage = (function() {
 
     tbody.innerHTML = pageConcepts.map(function(c) {
       var origIdx = allConcepts.indexOf(c);
+      var vocab = c.vocabularyId || '';
+      var name = c.conceptName || '';
+      var code = c.conceptCode || '';
+      var domain = c.domainId || '';
+      var klass = c.conceptClassId || '';
       return '<tr data-idx="' + origIdx + '">' +
-        '<td>' + App.escapeHtml(c.vocabularyId) + '</td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(vocab) + '">' + App.escapeHtml(vocab) + '</td>' +
         '<td>' + c.conceptId + '</td>' +
-        '<td>' + App.escapeHtml(c.conceptName) + '</td>' +
-        '<td>' + App.escapeHtml(c.conceptCode) + '</td>' +
-        '<td>' + App.escapeHtml(c.domainId) + '</td>' +
-        '<td>' + App.escapeHtml(c.conceptClassId || '') + '</td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(name) + '">' + App.escapeHtml(name) + '</td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(code) + '">' + App.escapeHtml(code) + '</td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(domain) + '">' + App.escapeHtml(domain) + '</td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(klass) + '">' + App.escapeHtml(klass) + '</td>' +
         '<td class="td-center">' + App.standardBadge(c) + '</td>' +
         '</tr>';
     }).join('');
     applyColumnVisibility();
+    updateResolvedSortIndicators();
     renderPaginationControls('resolved-pagination', 'resolved-page-info', 'resolved-page-buttons', resolvedPage, concepts.length, resolvedPageSize);
   }
 
@@ -5554,6 +5637,28 @@ var ConceptSetsPage = (function() {
       renderCSTable();
     });
 
+    // Resolved table sort
+    document.getElementById('resolved-table').querySelector('thead').addEventListener('click', function(e) {
+      var th = e.target.closest('th[data-sort]');
+      if (!th) return;
+      var key = th.dataset.sort;
+      if (resolvedSort.key === key) resolvedSort.asc = !resolvedSort.asc;
+      else { resolvedSort.key = key; resolvedSort.asc = true; }
+      resolvedPage = 1;
+      renderResolvedTable(true);
+    });
+
+    // Expression table sort
+    document.getElementById('expression-table').querySelector('thead').addEventListener('click', function(e) {
+      var th = e.target.closest('th[data-sort]');
+      if (!th) return;
+      var key = th.dataset.sort;
+      if (exprSort.key === key) exprSort.asc = !exprSort.asc;
+      else { exprSort.key = key; exprSort.asc = true; }
+      expressionPage = 1;
+      renderExpressionTable();
+    });
+
     // CS pagination
     document.getElementById('cs-page-buttons').addEventListener('click', function(e) {
       var btn = e.target.closest('button[data-page]');
@@ -6057,7 +6162,8 @@ var ConceptSetsPage = (function() {
       if (selectedConceptSet) Router.navigate('/concept-sets');
     });
 
-    // Column resizing for both tables
+    // Column resizing
+    App.initColResize('cs-table');
     App.initColResize('resolved-table');
     App.initColResize('expression-table');
   }

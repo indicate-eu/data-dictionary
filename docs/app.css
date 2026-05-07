@@ -1074,6 +1074,22 @@ tbody td {
   text-overflow: ellipsis;
 }
 
+/* Generic cell truncation — clip to column width with ellipsis. Works with
+   table-layout:fixed; otherwise the column will just grow to fit the text. */
+.cell-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 0; /* tricks browsers into respecting the column width */
+}
+/* Badge inside a truncating cell: cap to cell width with its own ellipsis. */
+.cell-truncate > .badge {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
 /* Global hover tooltip (data-tooltip) — black bubble, follows pointer via JS */
 .app-tooltip {
   position: fixed;

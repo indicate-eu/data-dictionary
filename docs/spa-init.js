@@ -78,11 +78,33 @@
       tip.style.top = y + 'px';
     }
 
+    function isTruncated(el) {
+      // An element is "tronqué" only if its layout actually clips text — i.e.
+      // it has overflow != visible AND content overflows. Wrapping onto multi-
+      // ple lines is not truncation (the text is still all visible).
+      // Also check direct children: a wrapper cell may not overflow if a child
+      // (e.g. a badge) truncates itself.
+      function check(node) {
+        var cs = window.getComputedStyle(node);
+        var clipsX = cs.overflowX !== 'visible' || cs.textOverflow === 'ellipsis';
+        if (clipsX && node.scrollWidth > node.clientWidth + 1) return true;
+        var clipsY = cs.overflowY !== 'visible';
+        if (clipsY && node.scrollHeight > node.clientHeight + 1) return true;
+        return false;
+      }
+      if (check(el)) return true;
+      for (var i = 0; i < el.children.length; i++) {
+        if (check(el.children[i])) return true;
+      }
+      return false;
+    }
+
     document.addEventListener('mouseover', function (e) {
       var el = e.target.closest && e.target.closest('[data-tooltip]');
       if (!el) return;
       var text = el.getAttribute('data-tooltip');
       if (!text) return;
+      if (!isTruncated(el)) return;
       current = el;
       tip.textContent = text;
       tip.style.display = 'block';

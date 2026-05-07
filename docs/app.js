@@ -1611,6 +1611,14 @@ var App = (function() {
           document.body.style.userSelect = '';
           document.removeEventListener('mousemove', onMove);
           document.removeEventListener('mouseup', onUp);
+          // Swallow the click that fires on the <th> right after mouseup,
+          // otherwise the parent th's sort handler would trigger.
+          var swallow = function(ev) {
+            ev.stopPropagation();
+            ev.preventDefault();
+            window.removeEventListener('click', swallow, true);
+          };
+          window.addEventListener('click', swallow, true);
         }
         document.addEventListener('mousemove', onMove);
         document.addEventListener('mouseup', onUp);
