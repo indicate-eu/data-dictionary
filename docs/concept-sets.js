@@ -221,8 +221,8 @@ var ConceptSetsPage = (function() {
         '<td class="cs-edit-col"><button class="cs-row-edit-btn" data-edit-id="' + d.id + '" title="Edit"><i class="fas fa-pen"></i></button></td>' +
         '<td><span class="badge badge-category">' + App.escapeHtml(d.category) + '</span></td>' +
         '<td><span class="badge badge-subcategory">' + App.escapeHtml(d.subcategory) + '</span></td>' +
-        '<td><strong>' + App.escapeHtml(d.name) + '</strong></td>' +
-        '<td class="desc-truncated">' + App.escapeHtml(App.truncate(d.description, 100)) + '</td>' +
+        '<td data-tooltip="' + App.escapeHtml(d.name) + '"><strong>' + App.escapeHtml(d.name) + '</strong></td>' +
+        '<td class="desc-truncated"' + (d.description ? ' data-tooltip="' + App.escapeHtml(d.description) + '"' : '') + '>' + App.escapeHtml(App.truncate(d.description, 100)) + '</td>' +
         '<td class="td-center">' + App.escapeHtml(d.version) + '</td>' +
         '<td class="td-center">' + App.statusBadge(d.reviewStatus) + '</td>' +
         '</tr>';

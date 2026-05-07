@@ -22,9 +22,15 @@ var ProjectsPage = (function() {
   var availFilterCategories = new Set();
   var availFilterSubcategories = new Set();
   var availFilterName = '';
+  var availFilterReviewStatuses = new Set();
   var projEditFilterCategories = new Set();
   var projEditFilterSubcategories = new Set();
   var projEditFilterName = '';
+  var projEditFilterReviewStatuses = new Set();
+
+  // CS edit table column visibility (review and version hidden by default)
+  var availColVis = { review: false, version: false };
+  var projColVis = { review: false, version: false };
 
   // ==================== CREATE/EDIT MODAL STATE ====================
   var modalEditingId = null; // null = create, number = edit
@@ -212,6 +218,23 @@ var ProjectsPage = (function() {
 
     document.getElementById('proj-export-csv').style.display = (isVars && !editMode) ? '' : 'none';
 
+    // Update all button: only on variables tab in read mode, and only if there are outdated CS
+    var updateAllBtn = document.getElementById('proj-update-all-btn');
+    if (updateAllBtn) {
+      if (!isVars || editMode || !selectedProject) {
+        updateAllBtn.style.display = 'none';
+      } else {
+        var entries = App.getProjectConceptSetEntries(selectedProject);
+        var nOutdated = entries.filter(function(e) {
+          var latest = App.getLatestVersion(e.id);
+          return latest && e.version && latest !== e.version;
+        }).length;
+        updateAllBtn.style.display = nOutdated > 0 ? '' : 'none';
+        var countSpan = updateAllBtn.querySelector('.update-all-count');
+        if (countSpan) countSpan.textContent = nOutdated > 0 ? ' (' + nOutdated + ')' : '';
+      }
+    }
+
     if (selectedProject) {
       var url = '#/projects?id=' + selectedProject.id;
       if (tabName !== 'context') url += '&tab=' + tabName;
@@ -291,9 +314,11 @@ var ProjectsPage = (function() {
     // Reset CS edit filters
     availFilterCategories.clear();
     availFilterSubcategories.clear();
+    availFilterReviewStatuses.clear();
     availFilterName = '';
     projEditFilterCategories.clear();
     projEditFilterSubcategories.clear();
+    projEditFilterReviewStatuses.clear();
     projEditFilterName = '';
     document.getElementById('proj-avail-filter-name').value = '';
     document.getElementById('proj-proj-filter-name').value = '';
@@ -394,6 +419,18 @@ var ProjectsPage = (function() {
       App.updateMsToggleLabel('proj-avail-filter-subcategory', availFilterSubcategories);
     }
 
+    var availStatuses = [...new Set(availData.map(function(d) { return d.reviewStatus; }))].filter(Boolean).sort();
+    var availStatusLabelMap = {};
+    availStatuses.forEach(function(s) { availStatusLabelMap[s] = App.statusLabelsMap[s] || s; });
+    availFilterReviewStatuses.forEach(function(s) { if (!availStatuses.includes(s)) availFilterReviewStatuses.delete(s); });
+    if (skipId !== 'proj-avail-filter-reviewStatus') {
+      App.buildMultiSelectDropdown('proj-avail-filter-reviewStatus', availStatuses, availFilterReviewStatuses, function() {
+        renderCSEditTables();
+      }, availStatusLabelMap);
+    } else {
+      App.updateMsToggleLabel('proj-avail-filter-reviewStatus', availFilterReviewStatuses);
+    }
+
     // Project table filters
     var projCats = sortCats([...new Set(projData.map(function(d) { return d.category; }))]);
     var projSubData = projEditFilterCategories.size > 0 ? projData.filter(function(d) { return projEditFilterCategories.has(d.category); }) : projData;
@@ -415,6 +452,18 @@ var ProjectsPage = (function() {
     } else {
       App.updateMsToggleLabel('proj-proj-filter-subcategory', projEditFilterSubcategories);
     }
+
+    var projStatuses = [...new Set(projData.map(function(d) { return d.reviewStatus; }))].filter(Boolean).sort();
+    var projStatusLabelMap = {};
+    projStatuses.forEach(function(s) { projStatusLabelMap[s] = App.statusLabelsMap[s] || s; });
+    projEditFilterReviewStatuses.forEach(function(s) { if (!projStatuses.includes(s)) projEditFilterReviewStatuses.delete(s); });
+    if (skipId !== 'proj-proj-filter-reviewStatus') {
+      App.buildMultiSelectDropdown('proj-proj-filter-reviewStatus', projStatuses, projEditFilterReviewStatuses, function() {
+        renderCSEditTables();
+      }, projStatusLabelMap);
+    } else {
+      App.updateMsToggleLabel('proj-proj-filter-reviewStatus', projEditFilterReviewStatuses);
+    }
   }
 
   // ==================== CS EDIT TABLES ====================
@@ -427,6 +476,7 @@ var ProjectsPage = (function() {
     var leftData = allCS.filter(function(d) { return idSet[d.id]; });
     if (projEditFilterCategories.size > 0) leftData = leftData.filter(function(d) { return projEditFilterCategories.has(d.category); });
     if (projEditFilterSubcategories.size > 0) leftData = leftData.filter(function(d) { return projEditFilterSubcategories.has(d.subcategory); });
+    if (projEditFilterReviewStatuses.size > 0) leftData = leftData.filter(function(d) { return projEditFilterReviewStatuses.has(d.reviewStatus); });
     if (projEditFilterName) {
       var q = projEditFilterName.toLowerCase();
       leftData = leftData.filter(function(d) {
@@ -444,14 +494,20 @@ var ProjectsPage = (function() {
     leftData.sort(function(a, b) { return (a.category + a.subcategory + a.name).localeCompare(b.category + b.subcategory + b.name); });
 
     var leftTbody = document.getElementById('proj-cs-edit-left-tbody');
+    var pinnedById = {};
+    editConceptSets.forEach(function(e) { pinnedById[e.id] = e.version; });
     leftTbody.innerHTML = leftData.map(function(d) {
+      var pinned = pinnedById[d.id] || '';
       return '<tr>' +
         '<td><button class="proj-cs-remove-btn" data-id="' + d.id + '" title="Remove"><i class="fas fa-minus-circle"></i></button></td>' +
         '<td><span class="badge badge-category">' + App.escapeHtml(d.category) + '</span></td>' +
         '<td><span class="badge badge-subcategory">' + App.escapeHtml(d.subcategory) + '</span></td>' +
-        '<td>' + App.escapeHtml(d.name) + '</td>' +
+        '<td data-tooltip="' + App.escapeHtml(d.name) + '">' + App.escapeHtml(d.name) + '</td>' +
+        '<td class="proj-proj-col-review" style="white-space:nowrap">' + App.statusBadge(d.reviewStatus) + '</td>' +
+        '<td class="proj-proj-col-version" style="white-space:nowrap; font-family:monospace; font-size:12px">' + App.escapeHtml(pinned) + '</td>' +
         '</tr>';
     }).join('');
+    applyCSEditColVis('proj-proj', projColVis);
 
     document.getElementById('proj-cs-edit-count').textContent = '(' + editConceptSets.length + ')';
 
@@ -459,6 +515,7 @@ var ProjectsPage = (function() {
     var rightData = allCS.filter(function(d) { return !idSet[d.id]; });
     if (availFilterCategories.size > 0) rightData = rightData.filter(function(d) { return availFilterCategories.has(d.category); });
     if (availFilterSubcategories.size > 0) rightData = rightData.filter(function(d) { return availFilterSubcategories.has(d.subcategory); });
+    if (availFilterReviewStatuses.size > 0) rightData = rightData.filter(function(d) { return availFilterReviewStatuses.has(d.reviewStatus); });
     if (availFilterName) {
       var q = availFilterName.toLowerCase();
       rightData = rightData.filter(function(d) {
@@ -480,10 +537,21 @@ var ProjectsPage = (function() {
       return '<tr>' +
         '<td><span class="badge badge-category">' + App.escapeHtml(d.category) + '</span></td>' +
         '<td><span class="badge badge-subcategory">' + App.escapeHtml(d.subcategory) + '</span></td>' +
-        '<td>' + App.escapeHtml(d.name) + '</td>' +
+        '<td data-tooltip="' + App.escapeHtml(d.name) + '">' + App.escapeHtml(d.name) + '</td>' +
+        '<td class="proj-avail-col-review" style="white-space:nowrap">' + App.statusBadge(d.reviewStatus) + '</td>' +
+        '<td class="proj-avail-col-version" style="white-space:nowrap; font-family:monospace; font-size:12px">' + App.escapeHtml(d.version) + '</td>' +
         '<td><button class="proj-cs-add-btn" data-id="' + d.id + '" title="Add"><i class="fas fa-plus-circle"></i></button></td>' +
         '</tr>';
     }).join('');
+    applyCSEditColVis('proj-avail', availColVis);
+  }
+
+  function applyCSEditColVis(prefix, state) {
+    ['review', 'version'].forEach(function(col) {
+      var vis = state[col];
+      var els = document.querySelectorAll('.' + prefix + '-col-' + col);
+      els.forEach(function(el) { el.style.display = vis ? '' : 'none'; });
+    });
   }
 
   function addCSToProject(csId) {
@@ -611,8 +679,8 @@ var ProjectsPage = (function() {
       return '<tr data-id="' + d.id + '" data-pinned="' + App.escapeHtml(d.pinnedVersion) + '" style="cursor:pointer">' +
         '<td><span class="badge badge-category">' + App.escapeHtml(d.category) + '</span></td>' +
         '<td><span class="badge badge-subcategory">' + App.escapeHtml(d.subcategory) + '</span></td>' +
-        '<td><strong>' + App.escapeHtml(d.name) + '</strong></td>' +
-        '<td class="desc-truncated">' + App.escapeHtml(d.description) + '</td>' +
+        '<td data-tooltip="' + App.escapeHtml(d.name) + '"><strong>' + App.escapeHtml(d.name) + '</strong></td>' +
+        '<td class="desc-truncated"' + (d.description ? ' data-tooltip="' + App.escapeHtml(d.description) + '"' : '') + '>' + App.escapeHtml(d.description) + '</td>' +
         '<td style="white-space:nowrap">' + App.statusBadge(d.reviewStatus) + '</td>' +
         '<td style="white-space:nowrap; font-family:monospace; font-size:12px">' + App.escapeHtml(d.pinnedVersion) + '</td>' +
         '<td style="white-space:nowrap; font-family:monospace; font-size:12px' + (d.outdated ? '; font-weight:bold' : '') + '">' + App.escapeHtml(d.latestVersion) + '</td>' +
@@ -891,6 +959,40 @@ var ProjectsPage = (function() {
       var btn = e.target.closest('.proj-cs-add-btn');
       if (!btn) return;
       addCSToProject(parseInt(btn.dataset.id));
+    });
+
+    // CS edit column visibility dropdowns
+    function buildCSEditColDropdown(ddId, state) {
+      var dd = document.getElementById(ddId);
+      dd.innerHTML =
+        '<label><input type="checkbox" data-col="review"' + (state.review ? ' checked' : '') + '> ' + App.escapeHtml(App.i18n('Review')) + '</label>' +
+        '<label><input type="checkbox" data-col="version"' + (state.version ? ' checked' : '') + '> ' + App.escapeHtml(App.i18n('Version')) + '</label>';
+    }
+    function wireColVis(btnId, ddId, state, classPrefix) {
+      buildCSEditColDropdown(ddId, state);
+      document.getElementById(btnId).addEventListener('click', function(e) {
+        e.stopPropagation();
+        var dd = document.getElementById(ddId);
+        dd.style.display = dd.style.display === 'none' ? '' : 'none';
+      });
+      document.getElementById(ddId).addEventListener('change', function(e) {
+        var cb = e.target;
+        if (!cb.dataset.col) return;
+        state[cb.dataset.col] = cb.checked;
+        applyCSEditColVis(classPrefix, state);
+      });
+    }
+    wireColVis('proj-avail-col-vis-btn', 'proj-avail-col-vis-dropdown', availColVis, 'proj-avail');
+    wireColVis('proj-proj-col-vis-btn', 'proj-proj-col-vis-dropdown', projColVis, 'proj-proj');
+    document.addEventListener('click', function(e) {
+      var availDd = document.getElementById('proj-avail-col-vis-dropdown');
+      var projDd = document.getElementById('proj-proj-col-vis-dropdown');
+      if (availDd && availDd.style.display !== 'none' && !document.getElementById('proj-avail-col-vis-wrapper').contains(e.target)) {
+        availDd.style.display = 'none';
+      }
+      if (projDd && projDd.style.display !== 'none' && !document.getElementById('proj-proj-col-vis-wrapper').contains(e.target)) {
+        projDd.style.display = 'none';
+      }
     });
 
     // ==================== CREATE/EDIT MODAL EVENTS ====================

@@ -57,6 +57,51 @@
   if (MappingRecommendationsPage.onLanguageChange) App.onLanguageChange(MappingRecommendationsPage.onLanguageChange);
   if (DocumentationPage.onLanguageChange) App.onLanguageChange(DocumentationPage.onLanguageChange);
 
+  // Global tooltip for elements with [data-tooltip]
+  (function () {
+    var tip = document.createElement('div');
+    tip.className = 'app-tooltip';
+    tip.style.display = 'none';
+    document.body.appendChild(tip);
+    var current = null;
+
+    function position(e) {
+      var pad = 14;
+      var x = e.clientX + pad;
+      var y = e.clientY + pad;
+      var rect = tip.getBoundingClientRect();
+      if (x + rect.width + 4 > window.innerWidth) x = e.clientX - rect.width - pad;
+      if (y + rect.height + 4 > window.innerHeight) y = e.clientY - rect.height - pad;
+      if (x < 4) x = 4;
+      if (y < 4) y = 4;
+      tip.style.left = x + 'px';
+      tip.style.top = y + 'px';
+    }
+
+    document.addEventListener('mouseover', function (e) {
+      var el = e.target.closest && e.target.closest('[data-tooltip]');
+      if (!el) return;
+      var text = el.getAttribute('data-tooltip');
+      if (!text) return;
+      current = el;
+      tip.textContent = text;
+      tip.style.display = 'block';
+      position(e);
+      requestAnimationFrame(function () { tip.classList.add('visible'); });
+    });
+    document.addEventListener('mousemove', function (e) {
+      if (!current) return;
+      position(e);
+    });
+    document.addEventListener('mouseout', function (e) {
+      if (!current) return;
+      if (e.relatedTarget && current.contains(e.relatedTarget)) return;
+      current = null;
+      tip.classList.remove('visible');
+      tip.style.display = 'none';
+    });
+  })();
+
   // Centralized Escape key handler
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {

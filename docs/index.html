@@ -489,8 +489,12 @@
       <div style="display:flex; gap:16px; flex:1; min-height:0">
         <!-- Left: available concept sets -->
         <div style="flex:1; display:flex; flex-direction:column; min-height:0">
-          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px; padding:8px 0 0 8px">
             <h4 style="margin:0; font-size:14px; color:var(--text-muted)" data-i18n="AVAILABLE CONCEPT SETS">AVAILABLE CONCEPT SETS</h4>
+            <div class="col-vis-wrapper" id="proj-avail-col-vis-wrapper" style="position:relative; margin-left:auto">
+              <button class="btn-outline-sm" id="proj-avail-col-vis-btn"><i class="fas fa-columns"></i> <span data-i18n="Columns">Columns</span></button>
+              <div class="col-vis-dropdown" id="proj-avail-col-vis-dropdown" style="display:none"></div>
+            </div>
           </div>
           <div class="panel-table-wrap" style="flex:1; min-height:0">
             <table class="concept-related-table" id="proj-cs-edit-right-table">
@@ -499,12 +503,16 @@
                   <th style="width:25%" data-i18n="Category">Category</th>
                   <th style="width:25%" data-i18n="Subcategory">Subcategory</th>
                   <th data-i18n="Name">Name</th>
+                  <th class="proj-avail-col-review" style="width:90px; display:none" data-i18n="Review">Review</th>
+                  <th class="proj-avail-col-version" style="width:80px; display:none" data-i18n="Version">Version</th>
                   <th style="width:40px"></th>
                 </tr>
                 <tr class="filter-row">
                   <th><div class="ms-container" id="proj-avail-filter-category"></div></th>
                   <th><div class="ms-container" id="proj-avail-filter-subcategory"></div></th>
                   <th><input type="text" class="column-filter" id="proj-avail-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+                  <th class="proj-avail-col-review" style="display:none"><div class="ms-container" id="proj-avail-filter-reviewStatus"></div></th>
+                  <th class="proj-avail-col-version" style="display:none"></th>
                   <th></th>
                 </tr>
               </thead>
@@ -514,9 +522,13 @@
         </div>
         <!-- Right: project concept sets -->
         <div style="flex:1; display:flex; flex-direction:column; min-height:0">
-          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px; padding:8px 0 0 8px">
             <h4 style="margin:0; font-size:14px; color:var(--text-muted)" data-i18n="PROJECT CONCEPT SETS">PROJECT CONCEPT SETS</h4>
             <span id="proj-cs-edit-count" style="font-size:12px; color:var(--text-muted)"></span>
+            <div class="col-vis-wrapper" id="proj-proj-col-vis-wrapper" style="position:relative; margin-left:auto">
+              <button class="btn-outline-sm" id="proj-proj-col-vis-btn"><i class="fas fa-columns"></i> <span data-i18n="Columns">Columns</span></button>
+              <div class="col-vis-dropdown" id="proj-proj-col-vis-dropdown" style="display:none"></div>
+            </div>
           </div>
           <div class="panel-table-wrap" style="flex:1; min-height:0">
             <table class="concept-related-table" id="proj-cs-edit-left-table">
@@ -526,12 +538,16 @@
                   <th style="width:25%" data-i18n="Category">Category</th>
                   <th style="width:25%" data-i18n="Subcategory">Subcategory</th>
                   <th data-i18n="Name">Name</th>
+                  <th class="proj-proj-col-review" style="width:90px; display:none" data-i18n="Review">Review</th>
+                  <th class="proj-proj-col-version" style="width:80px; display:none" data-i18n="Version">Version</th>
                 </tr>
                 <tr class="filter-row">
                   <th></th>
                   <th><div class="ms-container" id="proj-proj-filter-category"></div></th>
                   <th><div class="ms-container" id="proj-proj-filter-subcategory"></div></th>
                   <th><input type="text" class="column-filter" id="proj-proj-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+                  <th class="proj-proj-col-review" style="display:none"><div class="ms-container" id="proj-proj-filter-reviewStatus"></div></th>
+                  <th class="proj-proj-col-version" style="display:none"></th>
                 </tr>
               </thead>
               <tbody id="proj-cs-edit-left-tbody"></tbody>

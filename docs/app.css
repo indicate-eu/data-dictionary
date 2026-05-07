@@ -1074,6 +1074,27 @@ tbody td {
   text-overflow: ellipsis;
 }
 
+/* Global hover tooltip (data-tooltip) — black bubble, follows pointer via JS */
+.app-tooltip {
+  position: fixed;
+  z-index: 9999;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.45;
+  padding: 6px 10px;
+  border-radius: 6px;
+  max-width: 360px;
+  white-space: normal;
+  word-break: break-word;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  opacity: 0;
+  transition: opacity .12s ease;
+}
+.app-tooltip.visible { opacity: 1; }
+
 .export-btn {
   padding: 6px 14px;
   background: white;
@@ -2861,8 +2882,12 @@ select.form-input { appearance: auto; }
 .md-preview strong { font-weight: 700; }
 .md-preview-empty { color: #aaa; font-style: italic; font-size: 13px; }
 
+/* When Update all is visible (display != none), Export CSV sits next to it instead of being pushed by its own margin-left:auto */
+#proj-update-all-btn:not([style*="display:none"]) + #proj-export-csv,
+#proj-update-all-btn:not([style*="display: none"]) + #proj-export-csv { margin-left: 6px; }
+
 /* Project CS edit tables */
-#proj-tab-variables-edit { flex: 1; min-height: 0; margin-top: 16px; }
+#proj-tab-variables-edit { display: flex; flex-direction: column; flex: 1; min-height: 0; margin-top: 16px; }
 #proj-tab-variables-edit .panel-table-wrap { overflow-y: auto; }
 #proj-tab-variables-edit table tbody tr { cursor: default; }
 .proj-cs-remove-btn, .proj-cs-add-btn {
@@ -2878,7 +2903,8 @@ select.form-input { appearance: auto; }
   font-size: 12px; padding: 4px 8px; border-radius: var(--radius);
   color: #92400e; white-space: nowrap;
 }
-.proj-cs-update-btn:hover { background: #fef3c7; border-color: #f59e0b; }
+.proj-cs-update-btn:hover { background: #fef3c7; border-color: #f59e0b; cursor: pointer; }
+.proj-cs-update-btn, .proj-cs-update-btn * { cursor: pointer; }
 
 .cs-version-banner {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
