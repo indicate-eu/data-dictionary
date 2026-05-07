@@ -100,11 +100,21 @@ Copy `config.local.example.json` to `config.local.json` (gitignored):
 cp config.local.example.json config.local.json
 ```
 
-Then open `config.local.json` and fill in the paths to your local terminology resources. All entries are optional; fill in only what you have, the tools will prompt you for missing paths when needed.
+`config.local.json` looks like this:
 
-Each key points to a different terminology resource:
+```json
+{
+  "ohdsiVocab": "/path/to/ohdsi_vocabularies.duckdb_or_folder_with_CSV_or_Parquet",
+  "loincPath": "/path/to/loinc_distribution",
+  "snomedPath": "/path/to/snomed_rf2_release",
+  "umlsPath": "/path/to/umls_metathesaurus",
+  "npuCodesPath": "/path/to/npu-codes-latest.csv"
+}
+```
 
-- **`ohdsiVocab`** — the OHDSI vocabulary, used by `resolve.py` and the `resolve-concept-sets` skill to expand concept sets (descendants, mapped concepts) using the `CONCEPT`, `CONCEPT_ANCESTOR`, and `CONCEPT_RELATIONSHIP` tables. Download the vocabularies you need (LOINC, SNOMED, RxNorm, ATC, UCUM, etc.) from [ATHENA](https://athena.ohdsi.org/vocabulary/list) (free, OHDSI account required). Three formats are accepted, auto-detected:
+All entries are optional; fill in only what you have, the tools will prompt you for missing paths when needed. Each key points to a different terminology resource:
+
+- **`ohdsiVocab`** — the OHDSI vocabulary, used by `resolve.py` and the `resolve-concept-sets` skill to expand concept sets (descendants, mapped concepts) using the `CONCEPT`, `CONCEPT_ANCESTOR`, and `CONCEPT_RELATIONSHIP` tables. Download the vocabularies you need (LOINC, SNOMED, RxNorm, ATC, UCUM, etc.) from <a href="https://athena.ohdsi.org/vocabulary/list" target="_blank" rel="noopener">ATHENA</a> (free, OHDSI account required). Three formats are accepted, auto-detected:
 
   - a folder of **Parquet files** — *recommended*: faster to load, much smaller on disk, and the in-browser SPA uses them to let you browse the hierarchy of *any* OMOP concept (including concepts not yet in the catalog). With CSV, in-browser hierarchy browsing is limited to concepts already used in existing concept sets.
   - a folder of **CSV files** as downloaded from Athena — works out of the box, no conversion needed.
@@ -112,7 +122,7 @@ Each key points to a different terminology resource:
 
   Athena ships CSV by default. To convert to Parquet, run one of the following in the folder containing the Athena CSV files (both CSV and Parquet can coexist — Parquet files are preferred when both are present):
 
-  **DuckDB CLI** (install: `brew install duckdb` on macOS, or see [duckdb.org/docs/installation](https://duckdb.org/docs/installation)):
+  **DuckDB CLI** (install: `brew install duckdb` on macOS, or see <a href="https://duckdb.org/docs/installation" target="_blank" rel="noopener">duckdb.org/docs/installation</a>):
   ```bash
   cd /path/to/athena_download
 
@@ -138,13 +148,13 @@ Each key points to a different terminology resource:
   "
   ```
 
-- **`loincPath`** — the official LOINC distribution, used by the `describe-concept-set` skill to retrieve LOINC Part descriptions and `EXAMPLE_UCUM_UNITS` (the source of truth for recommended units on laboratory concepts). Download from [https://loinc.org/downloads/](https://loinc.org/downloads/) (free, registration required) and point this to the unzipped folder containing `LoincTable/Loinc.csv` and `AccessoryFiles/`.
+- **`loincPath`** — the official LOINC distribution, used by the `describe-concept-set` skill to retrieve LOINC Part descriptions and `EXAMPLE_UCUM_UNITS` (the source of truth for recommended units on laboratory concepts). Download from <a href="https://loinc.org/downloads/" target="_blank" rel="noopener">https://loinc.org/downloads/</a> (free, registration required) and point this to the unzipped folder containing `LoincTable/Loinc.csv` and `AccessoryFiles/`.
 
-- **`snomedPath`** — the SNOMED CT International RF2 release, used by the `describe-concept-set` skill to retrieve SNOMED Fully Specified Names and textual definitions. Download from [https://www.nlm.nih.gov/healthit/snomedct/international.html](https://www.nlm.nih.gov/healthit/snomedct/international.html) (free, UMLS licence required) and point this to the unzipped RF2 snapshot folder.
+- **`snomedPath`** — the SNOMED CT International RF2 release, used by the `describe-concept-set` skill to retrieve SNOMED Fully Specified Names and textual definitions. Download from <a href="https://www.nlm.nih.gov/healthit/snomedct/international.html" target="_blank" rel="noopener">https://www.nlm.nih.gov/healthit/snomedct/international.html</a> (free, UMLS licence required) and point this to the unzipped RF2 snapshot folder.
 
-- **`umlsPath`** — the UMLS Metathesaurus, used by the `describe-concept-set` skill as a fallback source of clinical definitions when LOINC Part descriptions and SNOMED definitions are sparse. Download from [https://www.nlm.nih.gov/research/umls/licensedcontent/umlsknowledgesources.html](https://www.nlm.nih.gov/research/umls/licensedcontent/umlsknowledgesources.html) (free, UMLS licence required) and point this to the Metathesaurus folder containing `MRCONSO.RRF` and `MRDEF.RRF`.
+- **`umlsPath`** — the UMLS Metathesaurus, used by the `describe-concept-set` skill as a fallback source of clinical definitions when LOINC Part descriptions and SNOMED definitions are sparse. Download from <a href="https://www.nlm.nih.gov/research/umls/licensedcontent/umlsknowledgesources.html" target="_blank" rel="noopener">https://www.nlm.nih.gov/research/umls/licensedcontent/umlsknowledgesources.html</a> (free, UMLS licence required) and point this to the Metathesaurus folder containing `MRCONSO.RRF` and `MRDEF.RRF`.
 
-- **`npuCodesPath`** — the NPU (Nomenclature for Properties and Units) database, used by the `describe-concept-set` skill as the primary citable source for laboratory measurement definitions (NPU is the IFCC/IUPAC reference for clinical biology). Download from [https://npu-terminology.org/npu-database/](https://npu-terminology.org/npu-database/) (free) and point this to the `npu-codes-latest.csv` file.
+- **`npuCodesPath`** — the NPU (Nomenclature for Properties and Units) database, used by the `describe-concept-set` skill as the primary citable source for laboratory measurement definitions (NPU is the IFCC/IUPAC reference for clinical biology). Download from <a href="https://npu-terminology.org/npu-database/" target="_blank" rel="noopener">https://npu-terminology.org/npu-database/</a> (free) and point this to the `npu-codes-latest.csv` file.
 
 For more detail on what each terminology contains and how the skills use them, see the in-app **Documentation → Sources** page.
 
