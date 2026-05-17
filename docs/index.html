@@ -466,8 +466,7 @@
               <th data-sort="reviewStatus" style="width:8%"><span data-i18n="Review">Review</span> <span class="sort-icon">&#9650;</span></th>
               <th data-sort="pinnedVersion" style="width:5%"><span data-i18n="Pinned">Pinned</span> <span class="sort-icon">&#9650;</span></th>
               <th data-sort="latestVersion" style="width:5%"><span data-i18n="Latest">Latest</span> <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="versionStatus" style="width:6%"><span data-i18n="Update">Update</span> <span class="sort-icon">&#9650;</span></th>
-              <th style="width:3%"></th>
+              <th data-sort="versionStatus" style="width:9%"><span data-i18n="Update">Update</span> <span class="sort-icon">&#9650;</span></th>
             </tr>
             <tr class="filter-row">
               <th><div class="ms-container" id="proj-filter-group"></div></th>
@@ -480,7 +479,6 @@
               <th></th>
               <th></th>
               <th><div class="ms-container" id="proj-filter-versionStatus"></div></th>
-              <th></th>
             </tr>
           </thead>
           <tbody id="proj-cs-tbody"></tbody>
@@ -635,6 +633,32 @@
     <div class="modal-footer">
       <button class="btn-secondary-custom" id="proj-group-modal-cancel" data-i18n="Cancel">Cancel</button>
       <button class="btn-primary-custom" id="proj-group-modal-submit"><i class="fas fa-save"></i> <span data-i18n="Save">Save</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Update Concept Set Modal -->
+<div class="modal-overlay" id="proj-cs-update-modal" style="display:none">
+  <div class="modal-box" style="width:640px; max-width:90vw">
+    <div class="modal-header">
+      <h3><i class="fas fa-arrow-up"></i> <span data-i18n="Update concept set">Update concept set</span></h3>
+      <button class="modal-close" id="proj-cs-update-modal-close">&times;</button>
+    </div>
+    <div class="modal-body" style="padding:20px">
+      <p style="margin:0 0 12px">
+        <strong id="proj-cs-update-modal-name" style="color:var(--text)"></strong>
+        <span style="color:var(--text-muted); margin-left:8px">
+          <span id="proj-cs-update-modal-from" style="font-family:monospace"></span>
+          &nbsp;→&nbsp;
+          <span id="proj-cs-update-modal-to" style="font-family:monospace; color:var(--primary); font-weight:600"></span>
+        </span>
+      </p>
+      <p id="proj-cs-update-modal-summary" style="margin:0 0 12px; padding:8px 12px; background:var(--bg-muted, #f8fafc); border-radius:4px; font-size:13px; color:var(--text-muted)"></p>
+      <div id="proj-cs-update-modal-diff"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary-custom" id="proj-cs-update-modal-cancel" data-i18n="Cancel">Cancel</button>
+      <button class="btn-primary-custom" id="proj-cs-update-modal-confirm"><i class="fas fa-arrow-up"></i> <span data-i18n="Update to latest">Update to latest</span></button>
     </div>
   </div>
 </div>

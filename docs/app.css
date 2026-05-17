@@ -1315,6 +1315,17 @@ td .status-badge:hover, td .version-badge:hover {
 td .status-badge, td .version-badge {
   cursor: default;
 }
+
+/* Outdated badge in the project Update column: interactive — hover shows it can be
+   clicked to open the update modal. */
+.proj-cs-update-badge {
+  transition: filter .15s, transform .15s, box-shadow .15s;
+}
+.proj-cs-update-badge:hover {
+  filter: brightness(1.05);
+  transform: scale(1.05);
+  box-shadow: 0 0 0 2px rgba(146, 64, 14, 0.18);
+}
 .org-badge {
   display: inline-block;
   padding: 4px 10px;

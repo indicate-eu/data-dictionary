@@ -14,6 +14,10 @@ var ProjectsPage = (function() {
   var projCsGroups = new Set();
   var projCsRules = new Set();
   var projCsVersionStatuses = new Set();
+  // Frozen display order for the read-mode project CS table. Captured when sort
+  // criteria change, then reused as-is by subsequent renders so actions like
+  // "update to latest" never reshuffle the rows. null = needs (re)computation.
+  var readOrderedCSIds = null;
 
   // ==================== EDIT MODE STATE ====================
   var editMode = false;
@@ -361,6 +365,7 @@ var ProjectsPage = (function() {
     projCsGroups.clear();
     projCsRules.clear();
     projCsVersionStatuses.clear();
+    readOrderedCSIds = null;
     document.getElementById('proj-filter-name').value = '';
     populateProjColumnFilters();
     renderProjectCSTable();
@@ -499,6 +504,8 @@ var ProjectsPage = (function() {
     document.getElementById('proj-detail-meta').innerHTML =
       '<span class="badge badge-count"><i class="fas fa-list"></i> ' + App.getProjectConceptSetEntries(selectedProject).length + ' ' + App.i18n('concept sets') + '</span>' +
       '<span style="color:var(--text-muted); font-size:13px"><i class="fas fa-user"></i> ' + App.escapeHtml(selectedProject.createdBy || '') + ' <i class="fas fa-calendar-alt" style="margin-left:8px"></i> ' + App.escapeHtml(App.formatDate(selectedProject.createdDate) || '') + '</span>';
+    // Groups may have been added/renamed/reordered; rebuild the read-mode order.
+    readOrderedCSIds = null;
     populateProjColumnFilters();
     renderProjectCSTable();
     renderProjectCards();
@@ -1223,30 +1230,43 @@ var ProjectsPage = (function() {
       });
     }
 
-    data.sort(function(a, b) {
-      var va = (a[projCsSort.key] || '').toString().toLowerCase();
-      var vb = (b[projCsSort.key] || '').toString().toLowerCase();
-      if (va < vb) return projCsSort.asc ? -1 : 1;
-      if (va > vb) return projCsSort.asc ? 1 : -1;
-      return 0;
-    });
+    // If we have a frozen display order, reuse it as-is (actions like "update to
+    // latest" don't reshuffle the table). Otherwise apply the active sort criterion
+    // and freeze the resulting order for subsequent renders.
+    if (readOrderedCSIds) {
+      var pos = {};
+      readOrderedCSIds.forEach(function(id, idx) { pos[id] = idx; });
+      data.sort(function(a, b) {
+        var pa = a.id in pos ? pos[a.id] : Number.MAX_SAFE_INTEGER;
+        var pb = b.id in pos ? pos[b.id] : Number.MAX_SAFE_INTEGER;
+        return pa - pb;
+      });
+    } else {
+      data.sort(function(a, b) {
+        var va = (a[projCsSort.key] || '').toString().toLowerCase();
+        var vb = (b[projCsSort.key] || '').toString().toLowerCase();
+        if (va < vb) return projCsSort.asc ? -1 : 1;
+        if (va > vb) return projCsSort.asc ? 1 : -1;
+        return a.id - b.id;
+      });
+      readOrderedCSIds = data.map(function(d) { return d.id; });
+    }
 
     var tbody = document.getElementById('proj-cs-tbody');
     tbody.innerHTML = data.map(function(d) {
-      var statusCell, actionCell;
+      var statusCell;
       if (!d.pinnedVersion) {
         statusCell = '<span style="color:var(--text-muted); font-size:12px">' + App.i18n('No version') + '</span>';
-        actionCell = '';
       } else if (d.outdated) {
-        statusCell = '<span class="badge" style="background:#fef3c7; color:#92400e"><i class="fas fa-exclamation-triangle"></i> ' + App.i18n('Outdated') + '</span>';
-        actionCell = '<button class="proj-cs-update-btn" data-id="' + d.id + '" title="' + App.escapeHtml(App.i18n('Update to latest')) + '"><i class="fas fa-arrow-up"></i> ' + App.i18n('Update') + '</button>';
+        statusCell = '<span class="badge proj-cs-update-badge" data-cs-id="' + d.id + '" title="' + App.escapeHtml(App.i18n('Click to view changes and update')) + '" style="background:#fef3c7; color:#92400e; cursor:pointer"><i class="fas fa-exclamation-triangle"></i> ' + App.i18n('Outdated') + '</span>';
       } else {
         statusCell = '<span class="badge" style="background:#dcfce7; color:#166534"><i class="fas fa-check"></i> ' + App.i18n('Up to date') + '</span>';
-        actionCell = '';
       }
       var ruleCell = d.groupRule ? ruleBadge(d.groupRule) : '';
+      // Read-mode pill is informational only — switching a CS to another group is
+      // a structural edit and belongs to the edit-mode UI.
       var groupCell = d.groupName
-        ? '<span class="proj-cs-group-pill clickable" data-cs-id="' + d.id + '" title="' + App.escapeHtml(App.i18n('Change group')) + '">' + App.escapeHtml(d.groupName) + ' <i class="fas fa-chevron-down" style="font-size:9px; opacity:0.6"></i></span>'
+        ? '<span class="proj-cs-group-pill">' + App.escapeHtml(d.groupName) + '</span>'
         : '';
       return '<tr data-id="' + d.id + '" data-pinned="' + App.escapeHtml(d.pinnedVersion) + '" style="cursor:pointer">' +
         '<td class="cell-truncate"' + (d.groupName ? ' data-tooltip="' + App.escapeHtml(d.groupName) + '"' : '') + '>' + groupCell + '</td>' +
@@ -1259,7 +1279,6 @@ var ProjectsPage = (function() {
         '<td style="white-space:nowrap; font-family:monospace; font-size:12px">' + App.escapeHtml(d.pinnedVersion) + '</td>' +
         '<td style="white-space:nowrap; font-family:monospace; font-size:12px' + (d.outdated ? '; font-weight:bold' : '') + '">' + App.escapeHtml(d.latestVersion) + '</td>' +
         '<td style="white-space:nowrap">' + statusCell + '</td>' +
-        '<td style="white-space:nowrap">' + actionCell + '</td>' +
         '</tr>';
     }).join('');
 
@@ -1335,6 +1354,96 @@ var ProjectsPage = (function() {
     App.showToast(App.i18n('Updated {n} concept set(s) to latest version.').replace('{n}', outdatedIds.length), 'success');
   }
 
+  // ==================== UPDATE-CS MODAL ====================
+  var updatingCSId = null;
+
+  // Compute the added / removed concept ids between the pinned and the latest version
+  // of a concept set, by diffing their resolved-concept lists.
+  function diffResolved(csId, pinnedVersion) {
+    var oldList = App.getResolvedConceptSet(csId, pinnedVersion) || [];
+    var newList = App.getResolvedConceptSet(csId) || [];
+    var oldById = {};
+    oldList.forEach(function(c) { oldById[c.conceptId] = c; });
+    var newById = {};
+    newList.forEach(function(c) { newById[c.conceptId] = c; });
+    var added = newList.filter(function(c) { return !oldById[c.conceptId]; });
+    var removed = oldList.filter(function(c) { return !newById[c.conceptId]; });
+    return { added: added, removed: removed, oldCount: oldList.length, newCount: newList.length };
+  }
+
+  function conceptLine(c, sign) {
+    var color = sign === '+' ? '#166534' : '#991b1b';
+    var bg = sign === '+' ? '#dcfce7' : '#fee2e2';
+    var url = 'https://athena.ohdsi.org/search-terms/terms/' + c.conceptId;
+    return '<li style="display:flex; align-items:center; gap:6px; padding:3px 0; font-size:13px">' +
+      '<span style="display:inline-block; width:16px; text-align:center; font-weight:700; color:' + color + '; background:' + bg + '; border-radius:3px">' + sign + '</span>' +
+      '<a href="' + url + '" target="_blank" rel="noopener" style="font-family:monospace; font-size:12px; color:var(--text-muted)">' + c.conceptId + '</a>' +
+      '<span style="flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap" title="' + App.escapeHtml(c.conceptName || '') + '">' + App.escapeHtml(c.conceptName || '') + '</span>' +
+      '<span class="badge badge-vocab" style="font-size:11px">' + App.escapeHtml(c.vocabularyId || '') + '</span>' +
+    '</li>';
+  }
+
+  function openUpdateCSModal(csId) {
+    if (!selectedProject) return;
+    var cs = App.getConceptSet(csId);
+    if (!cs) return;
+    // Find pinned version from current project state.
+    var pinned = '';
+    App.getProjectGroups(selectedProject).forEach(function(g) {
+      (g.conceptSets || []).forEach(function(e) { if (e.id === csId) pinned = e.version || ''; });
+    });
+    var latest = App.getLatestVersion(csId);
+    if (!pinned || !latest || pinned === latest) return; // not really outdated
+    updatingCSId = csId;
+
+    var tr = App.t(cs);
+    var csName = tr.name || cs.name || ('#' + csId);
+    document.getElementById('proj-cs-update-modal-name').textContent = csName;
+    document.getElementById('proj-cs-update-modal-from').textContent = 'v' + pinned;
+    document.getElementById('proj-cs-update-modal-to').textContent = 'v' + latest;
+
+    var diff = diffResolved(csId, pinned);
+    var summary = document.getElementById('proj-cs-update-modal-summary');
+    summary.innerHTML =
+      '<span>' + App.escapeHtml(App.i18n('Resolved concepts')) + ': <strong>' + diff.oldCount + '</strong> → <strong>' + diff.newCount + '</strong></span>' +
+      ' &middot; ' +
+      '<span style="color:#166534"><strong>+' + diff.added.length + '</strong> ' + App.i18n('added') + '</span>' +
+      ' &middot; ' +
+      '<span style="color:#991b1b"><strong>−' + diff.removed.length + '</strong> ' + App.i18n('removed') + '</span>';
+
+    var body = document.getElementById('proj-cs-update-modal-diff');
+    if (diff.added.length === 0 && diff.removed.length === 0) {
+      body.innerHTML = '<p style="color:var(--text-muted); font-style:italic; margin:8px 0">' +
+        App.i18n('No change in the resolved concept list between these two versions. Only metadata was updated.') +
+        '</p>';
+    } else {
+      body.innerHTML =
+        (diff.added.length > 0 ? '<h4 style="margin:12px 0 6px; font-size:13px; color:#166534">' + App.i18n('Added') + ' (' + diff.added.length + ')</h4>' +
+          '<ul style="list-style:none; margin:0; padding:0; max-height:200px; overflow-y:auto; border:1px solid var(--border); border-radius:4px; padding:4px 8px">' +
+          diff.added.map(function(c) { return conceptLine(c, '+'); }).join('') +
+          '</ul>' : '') +
+        (diff.removed.length > 0 ? '<h4 style="margin:12px 0 6px; font-size:13px; color:#991b1b">' + App.i18n('Removed') + ' (' + diff.removed.length + ')</h4>' +
+          '<ul style="list-style:none; margin:0; padding:0; max-height:200px; overflow-y:auto; border:1px solid var(--border); border-radius:4px; padding:4px 8px">' +
+          diff.removed.map(function(c) { return conceptLine(c, '-'); }).join('') +
+          '</ul>' : '');
+    }
+
+    document.getElementById('proj-cs-update-modal').style.display = '';
+  }
+
+  function closeUpdateCSModal() {
+    var m = document.getElementById('proj-cs-update-modal');
+    if (m) m.style.display = 'none';
+    updatingCSId = null;
+  }
+
+  function confirmUpdateCS() {
+    if (updatingCSId == null) return;
+    var csId = updatingCSId;
+    closeUpdateCSModal();
+    updatePinnedVersion(csId);
+  }
+
   function hideProjectDetail() {
     if (editMode) exitEditMode();
     document.getElementById('proj-detail-view').classList.remove('active');
@@ -1408,11 +1517,11 @@ var ProjectsPage = (function() {
         openChangeGroupMenu(parseInt(groupPill.dataset.csId), groupPill);
         return;
       }
-      // Update button: bump pinned version to latest, in-place
-      var updateBtn = e.target.closest('.proj-cs-update-btn');
-      if (updateBtn) {
+      // Outdated badge: open the per-CS update modal with diff + confirm
+      var updateBadge = e.target.closest('.proj-cs-update-badge');
+      if (updateBadge) {
         e.stopPropagation();
-        updatePinnedVersion(parseInt(updateBtn.dataset.id));
+        openUpdateCSModal(parseInt(updateBadge.dataset.csId));
         return;
       }
       var tr = e.target.closest('tr[data-id]');
@@ -1440,6 +1549,9 @@ var ProjectsPage = (function() {
       var key = th.dataset.sort;
       if (projCsSort.key === key) projCsSort.asc = !projCsSort.asc;
       else { projCsSort.key = key; projCsSort.asc = true; }
+      // Header click is the only path that re-sorts the table; drop the frozen
+      // order so renderProjectCSTable() rebuilds it from projCsSort.
+      readOrderedCSIds = null;
       renderProjectCSTable();
     });
 
@@ -1704,6 +1816,14 @@ var ProjectsPage = (function() {
       if (e.target === document.getElementById('proj-group-delete-modal')) closeDeleteGroupModal();
     });
 
+    // ==================== UPDATE-CS MODAL EVENTS ====================
+    document.getElementById('proj-cs-update-modal-close').addEventListener('click', closeUpdateCSModal);
+    document.getElementById('proj-cs-update-modal-cancel').addEventListener('click', closeUpdateCSModal);
+    document.getElementById('proj-cs-update-modal-confirm').addEventListener('click', confirmUpdateCS);
+    document.getElementById('proj-cs-update-modal').addEventListener('click', function(e) {
+      if (e.target === document.getElementById('proj-cs-update-modal')) closeUpdateCSModal();
+    });
+
   }
 
   // ==================== PAGE MODULE ====================
@@ -1738,6 +1858,7 @@ var ProjectsPage = (function() {
     closeRenameModal();
     closeChangeGroupMenu();
     closeDeleteGroupModal();
+    closeUpdateCSModal();
     closeAllMenus();
   }
 
