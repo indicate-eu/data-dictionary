@@ -6,7 +6,7 @@ var App = (function() {
   // These are intentionally not configurable: forks ride on this app version.
   // The dictionary's own identity (title, branding, organization) lives in config.json.
   var APP_NAME = 'INDICATE Data Dictionary';
-  var APP_VERSION = '1.1.0';
+  var APP_VERSION = '1.2.0';
   var APP_GITHUB_URL = 'https://github.com/indicate-eu/data-dictionary';
 
   // Config injected by build.py from config.json (root). Branding, GitHub repo of the fork, etc.
