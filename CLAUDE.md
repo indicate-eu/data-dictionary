@@ -158,17 +158,38 @@ data-dictionary/                   # (repo root)
   "createdBy": "Boris Delange",
   "createdDate": "2024-01-01",
   "modifiedDate": "2024-01-01",
-  "conceptSets": [
-    { "id": 1, "version": "1.0.0" },
-    { "id": 2, "version": "1.1.1" },
-    { "id": 3, "version": "1.0.0" }
+  "groups": [
+    {
+      "id": "group-vitals",
+      "name": { "en": "Vital signs", "fr": "Constantes" },
+      "rule": "all_required",
+      "conceptSets": [
+        { "id": 1, "version": "1.0.0" },
+        { "id": 2, "version": "1.1.1" }
+      ]
+    },
+    {
+      "id": "group-anticoagulants",
+      "name": { "en": "Anticoagulants", "fr": "Anticoagulants" },
+      "rule": "at_least_one",
+      "conceptSets": [
+        { "id": 167, "version": "1.0.0" },
+        { "id": 168, "version": "1.0.0" }
+      ]
+    }
   ]
 }
 ```
 
-Each entry in `conceptSets` pins a concept set ID to a specific version. The SPA uses this to render the project against that exact version of the concept set, even if the concept set has since been bumped to a newer version. See [Versioned concept sets in projects](#versioned-concept-sets-in-projects) below.
+Concept sets are organized into named `groups`, each carrying an eligibility `rule`:
 
-The SPA also accepts the legacy `conceptSetIds: [1, 2, 3]` field as a transitional fallback — entries are treated as `{id, version: <latest>}`. This is only meant to keep old `localStorage` projects (created before versioning was introduced) loadable, not as a supported alternative format. All `projects/*.json` files committed to the repo must use `conceptSets`.
+- `all_required` — every concept set in the group must be covered.
+- `at_least_one` — at least one concept set in the group must be covered.
+- `optional` — the group is informative; no concept set is required.
+
+`groups[].name` is bilingual (same shape as concept set translations). `groups[].id` is a stable slug used internally (e.g. by future eligibility computations); it does not need to be human-readable. Each entry in `groups[].conceptSets` pins a concept set ID to a specific version — the SPA renders the project against that exact pinned version, even if the concept set has since been bumped. See [Versioned concept sets in projects](#versioned-concept-sets-in-projects) below.
+
+For backwards compatibility the SPA also reads two legacy shapes — the flat `conceptSets: [{id, version}]`, and the older `conceptSetIds: [1, 2, 3]` (bare ids, treated as `{id, version: <latest>}`). Both are normalized at read time into a single synthetic `Default` group with rule `all_required`. This is only to keep `localStorage` projects created before the schema change loadable; **all `projects/*.json` files committed to the repo must use `groups`.**
 
 ## Build Pipeline
 

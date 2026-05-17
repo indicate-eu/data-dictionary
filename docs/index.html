@@ -457,17 +457,21 @@
         <table id="proj-cs-table">
           <thead>
             <tr>
-              <th data-sort="category" style="width:14%"><span data-i18n="Category">Category</span> <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="subcategory" style="width:14%"><span data-i18n="Subcategory">Subcategory</span> <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="name" style="width:20%"><span data-i18n="Name">Name</span> <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="description" style="width:20%"><span data-i18n="Description">Description</span> <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="reviewStatus" style="width:9%"><span data-i18n="Review">Review</span> <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="pinnedVersion" style="width:6%"><span data-i18n="Pinned">Pinned</span> <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="latestVersion" style="width:6%"><span data-i18n="Latest">Latest</span> <span class="sort-icon">&#9650;</span></th>
-              <th style="width:7%"><span data-i18n="Update">Update</span></th>
-              <th style="width:4%"></th>
+              <th data-sort="groupName" style="width:10%"><span data-i18n="Group">Group</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="groupRule" style="width:9%"><span data-i18n="Group rule">Group rule</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="category" style="width:11%"><span data-i18n="Category">Category</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="subcategory" style="width:11%"><span data-i18n="Subcategory">Subcategory</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="name" style="width:17%"><span data-i18n="Name">Name</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="description" style="width:15%"><span data-i18n="Description">Description</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="reviewStatus" style="width:8%"><span data-i18n="Review">Review</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="pinnedVersion" style="width:5%"><span data-i18n="Pinned">Pinned</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="latestVersion" style="width:5%"><span data-i18n="Latest">Latest</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="versionStatus" style="width:6%"><span data-i18n="Update">Update</span> <span class="sort-icon">&#9650;</span></th>
+              <th style="width:3%"></th>
             </tr>
             <tr class="filter-row">
+              <th><div class="ms-container" id="proj-filter-group"></div></th>
+              <th><div class="ms-container" id="proj-filter-rule"></div></th>
               <th><div class="ms-container" id="proj-filter-category"></div></th>
               <th><div class="ms-container" id="proj-filter-subcategory"></div></th>
               <th><input type="text" class="column-filter" id="proj-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
@@ -475,7 +479,7 @@
               <th><div class="ms-container" id="proj-filter-reviewStatus"></div></th>
               <th></th>
               <th></th>
-              <th></th>
+              <th><div class="ms-container" id="proj-filter-versionStatus"></div></th>
               <th></th>
             </tr>
           </thead>
@@ -486,9 +490,11 @@
 
     <!-- Variables tab (edit mode) -->
     <div class="panel" id="proj-tab-variables-edit" style="display:none">
+      <div id="proj-groups-toolbar" class="proj-groups-toolbar"></div>
+      <div id="proj-cs-bulk-bar" class="proj-cs-bulk-bar" style="display:none"></div>
       <div style="display:flex; gap:16px; flex:1; min-height:0">
         <!-- Left: available concept sets -->
-        <div style="flex:1; display:flex; flex-direction:column; min-height:0">
+        <div style="flex:1 1 0; min-width:0; display:flex; flex-direction:column; min-height:0">
           <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px; padding:8px 0 0 8px">
             <h4 style="margin:0; font-size:14px; color:var(--text-muted)" data-i18n="AVAILABLE CONCEPT SETS">AVAILABLE CONCEPT SETS</h4>
             <div class="col-vis-wrapper" id="proj-avail-col-vis-wrapper" style="position:relative; margin-left:auto">
@@ -500,19 +506,19 @@
             <table class="concept-related-table" id="proj-cs-edit-right-table">
               <thead>
                 <tr>
-                  <th style="width:25%" data-i18n="Category">Category</th>
-                  <th style="width:25%" data-i18n="Subcategory">Subcategory</th>
-                  <th data-i18n="Name">Name</th>
-                  <th class="proj-avail-col-review" style="width:90px; display:none" data-i18n="Review">Review</th>
-                  <th class="proj-avail-col-version" style="width:80px; display:none" data-i18n="Version">Version</th>
+                  <th data-col="category" data-sort="category" style="width:25%"><span data-i18n="Category">Category</span> <span class="sort-icon">&#9650;</span></th>
+                  <th data-col="subcategory" data-sort="subcategory" style="width:25%"><span data-i18n="Subcategory">Subcategory</span> <span class="sort-icon">&#9650;</span></th>
+                  <th data-col="name" data-sort="name"><span data-i18n="Name">Name</span> <span class="sort-icon">&#9650;</span></th>
+                  <th data-col="review" data-sort="reviewStatus" style="width:110px; display:none"><span data-i18n="Review">Review</span> <span class="sort-icon">&#9650;</span></th>
+                  <th data-col="version" data-sort="version" style="width:80px; display:none"><span data-i18n="Version">Version</span> <span class="sort-icon">&#9650;</span></th>
                   <th style="width:40px"></th>
                 </tr>
                 <tr class="filter-row">
-                  <th><div class="ms-container" id="proj-avail-filter-category"></div></th>
-                  <th><div class="ms-container" id="proj-avail-filter-subcategory"></div></th>
-                  <th><input type="text" class="column-filter" id="proj-avail-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
-                  <th class="proj-avail-col-review" style="display:none"><div class="ms-container" id="proj-avail-filter-reviewStatus"></div></th>
-                  <th class="proj-avail-col-version" style="display:none"></th>
+                  <th data-col="category"><div class="ms-container" id="proj-avail-filter-category"></div></th>
+                  <th data-col="subcategory"><div class="ms-container" id="proj-avail-filter-subcategory"></div></th>
+                  <th data-col="name"><input type="text" class="column-filter" id="proj-avail-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+                  <th data-col="review" style="display:none"><div class="ms-container" id="proj-avail-filter-reviewStatus"></div></th>
+                  <th data-col="version" style="display:none"></th>
                   <th></th>
                 </tr>
               </thead>
@@ -521,7 +527,7 @@
           </div>
         </div>
         <!-- Right: project concept sets -->
-        <div style="flex:1; display:flex; flex-direction:column; min-height:0">
+        <div style="flex:1 1 0; min-width:0; display:flex; flex-direction:column; min-height:0">
           <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px; padding:8px 0 0 8px">
             <h4 style="margin:0; font-size:14px; color:var(--text-muted)" data-i18n="PROJECT CONCEPT SETS">PROJECT CONCEPT SETS</h4>
             <span id="proj-cs-edit-count" style="font-size:12px; color:var(--text-muted)"></span>
@@ -534,20 +540,24 @@
             <table class="concept-related-table" id="proj-cs-edit-left-table">
               <thead>
                 <tr>
-                  <th style="width:40px"></th>
-                  <th style="width:25%" data-i18n="Category">Category</th>
-                  <th style="width:25%" data-i18n="Subcategory">Subcategory</th>
-                  <th data-i18n="Name">Name</th>
-                  <th class="proj-proj-col-review" style="width:90px; display:none" data-i18n="Review">Review</th>
-                  <th class="proj-proj-col-version" style="width:80px; display:none" data-i18n="Version">Version</th>
+                  <th style="width:32px"><input type="checkbox" id="proj-cs-select-all"></th>
+                  <th style="width:32px"></th>
+                  <th data-col="group" data-sort="groupName" style="width:100px"><span data-i18n="Group">Group</span> <span class="sort-icon">&#9650;</span></th>
+                  <th data-col="category" data-sort="category" style="width:20%"><span data-i18n="Category">Category</span> <span class="sort-icon">&#9650;</span></th>
+                  <th data-col="subcategory" data-sort="subcategory" style="width:20%"><span data-i18n="Subcategory">Subcategory</span> <span class="sort-icon">&#9650;</span></th>
+                  <th data-col="name" data-sort="name"><span data-i18n="Name">Name</span> <span class="sort-icon">&#9650;</span></th>
+                  <th data-col="review" data-sort="reviewStatus" style="width:110px; display:none"><span data-i18n="Review">Review</span> <span class="sort-icon">&#9650;</span></th>
+                  <th data-col="version" data-sort="version" style="width:80px; display:none"><span data-i18n="Version">Version</span> <span class="sort-icon">&#9650;</span></th>
                 </tr>
                 <tr class="filter-row">
                   <th></th>
-                  <th><div class="ms-container" id="proj-proj-filter-category"></div></th>
-                  <th><div class="ms-container" id="proj-proj-filter-subcategory"></div></th>
-                  <th><input type="text" class="column-filter" id="proj-proj-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
-                  <th class="proj-proj-col-review" style="display:none"><div class="ms-container" id="proj-proj-filter-reviewStatus"></div></th>
-                  <th class="proj-proj-col-version" style="display:none"></th>
+                  <th></th>
+                  <th data-col="group"></th>
+                  <th data-col="category"><div class="ms-container" id="proj-proj-filter-category"></div></th>
+                  <th data-col="subcategory"><div class="ms-container" id="proj-proj-filter-subcategory"></div></th>
+                  <th data-col="name"><input type="text" class="column-filter" id="proj-proj-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+                  <th data-col="review" style="display:none"><div class="ms-container" id="proj-proj-filter-reviewStatus"></div></th>
+                  <th data-col="version" style="display:none"></th>
                 </tr>
               </thead>
               <tbody id="proj-cs-edit-left-tbody"></tbody>
@@ -601,6 +611,49 @@
     <div class="modal-footer">
       <button class="btn-secondary-custom" id="proj-delete-cancel" data-i18n="Cancel">Cancel</button>
       <button class="btn-primary-custom btn-danger" id="proj-delete-confirm"><i class="fas fa-trash"></i> <span data-i18n="Delete">Delete</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Group Rename Modal -->
+<div class="modal-overlay" id="proj-group-modal" style="display:none">
+  <div class="modal-box" style="width:500px">
+    <div class="modal-header">
+      <h3><i class="fas fa-pen"></i> <span data-i18n="Rename group">Rename group</span></h3>
+      <button class="modal-close" id="proj-group-modal-close">&times;</button>
+    </div>
+    <div class="modal-body" style="display:flex; flex-direction:column; gap:12px; padding:20px">
+      <div>
+        <label class="form-label" for="proj-group-modal-name-en">Name (EN)</label>
+        <input type="text" class="form-input" id="proj-group-modal-name-en" placeholder="Group name in English">
+      </div>
+      <div>
+        <label class="form-label" for="proj-group-modal-name-fr">Nom (FR)</label>
+        <input type="text" class="form-input" id="proj-group-modal-name-fr" placeholder="Nom du groupe en français">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary-custom" id="proj-group-modal-cancel" data-i18n="Cancel">Cancel</button>
+      <button class="btn-primary-custom" id="proj-group-modal-submit"><i class="fas fa-save"></i> <span data-i18n="Save">Save</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Group Confirm Modal -->
+<div class="modal-overlay" id="proj-group-delete-modal" style="display:none">
+  <div class="modal-box" style="width:420px">
+    <div class="modal-header">
+      <h3><i class="fas fa-trash"></i> <span data-i18n="Delete group">Delete group</span></h3>
+      <button class="modal-close" id="proj-group-delete-close">&times;</button>
+    </div>
+    <div class="modal-body" style="padding:20px">
+      <p data-i18n="Are you sure you want to delete this group?">Are you sure you want to delete this group?</p>
+      <p id="proj-group-delete-name" style="font-weight:600; margin-top:8px"></p>
+      <p id="proj-group-delete-move-line" style="margin-top:8px; color:var(--text-muted); font-size:13px"></p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary-custom" id="proj-group-delete-cancel" data-i18n="Cancel">Cancel</button>
+      <button class="btn-primary-custom btn-danger" id="proj-group-delete-confirm"><i class="fas fa-trash"></i> <span data-i18n="Delete">Delete</span></button>
     </div>
   </div>
 </div>

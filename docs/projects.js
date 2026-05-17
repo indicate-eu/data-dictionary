@@ -6,17 +6,67 @@ var ProjectsPage = (function() {
   var selectedProject = null;
 
   // ==================== PROJECT CS TABLE STATE ====================
-  var projCsSort = { key: 'category', asc: true };
+  var projCsSort = { key: 'groupName', asc: true };
   var projCsFilterName = '';
   var projCsCategories = new Set();
   var projCsSubcategories = new Set();
   var projCsReviewStatuses = new Set();
+  var projCsGroups = new Set();
+  var projCsRules = new Set();
+  var projCsVersionStatuses = new Set();
 
   // ==================== EDIT MODE STATE ====================
   var editMode = false;
   var editLongDesc = '';
-  var editConceptSets = []; // working copy of [{id, version}] entries
+  // Working copy of project groups during edit: [{id, name:{en,fr}, rule, conceptSets:[{id,version}]}]
+  var editGroups = [];
+  // Id of the group that new CS are added to (and where bulk-moved CS land); always one of editGroups[*].id
+  var editActiveGroupId = null;
+  // Checked CS ids in the project-side edit table (for bulk move-to-group)
+  var editSelectedCS = new Set();
+  // Stable display order of concept sets in the PROJECT CS edit table. Initialized when
+  // entering edit mode (sorted by group + category + subcategory + name), then only
+  // mutated when CS are added (append) or removed (drop). Changing a CS's group does NOT
+  // reorder it.
+  var editOrderedCSIds = [];
   var currentTab = 'context';
+
+  // ==================== GROUP HELPERS (edit-mode) ====================
+  function editGroupsAllEntries() {
+    var out = [];
+    editGroups.forEach(function(g) { (g.conceptSets || []).forEach(function(e) { out.push(e); }); });
+    return out;
+  }
+  function editGroupForCS(csId) {
+    for (var i = 0; i < editGroups.length; i++) {
+      if ((editGroups[i].conceptSets || []).some(function(e) { return e.id === csId; })) return editGroups[i];
+    }
+    return null;
+  }
+  function ensureActiveGroup() {
+    if (editGroups.length === 0) {
+      editGroups.push({
+        id: 'group-default',
+        name: { en: 'Default', fr: 'Par défaut' },
+        rule: App.DEFAULT_GROUP_RULE,
+        conceptSets: []
+      });
+    }
+    if (!editGroups.some(function(g) { return g.id === editActiveGroupId; })) {
+      editActiveGroupId = editGroups[0].id;
+    }
+  }
+
+  // ==================== RULE BADGE ====================
+  var RULE_META = {
+    all_required: { i18n: 'All required',   color: '#fee2e2', fg: '#991b1b', icon: 'fa-asterisk' },
+    at_least_one: { i18n: 'At least one',  color: '#fef3c7', fg: '#92400e', icon: 'fa-check-circle' },
+    optional:     { i18n: 'Optional',      color: '#dbeafe', fg: '#1e40af', icon: 'fa-circle' }
+  };
+  function ruleBadge(rule) {
+    var meta = RULE_META[rule] || RULE_META.optional;
+    return '<span class="badge rule-badge rule-' + rule + '" style="background:' + meta.color + '; color:' + meta.fg + '"><i class="fas ' + meta.icon + '"></i> ' + App.i18n(meta.i18n) + '</span>';
+  }
 
   // CS edit table filter state (available = right panel, project = left panel)
   var availFilterCategories = new Set();
@@ -28,9 +78,30 @@ var ProjectsPage = (function() {
   var projEditFilterName = '';
   var projEditFilterReviewStatuses = new Set();
 
-  // CS edit table column visibility (review and version hidden by default)
-  var availColVis = { review: false, version: false };
-  var projColVis = { review: false, version: false };
+  // CS edit table column visibility: full config per column (label + visible). All
+  // visibility toggles are driven by `data-col="<key>"` attributes on the matching
+  // <th> and <td> cells.
+  var projEditColumns = {
+    group:       { label: 'Group',       visible: true },
+    category:    { label: 'Category',    visible: true },
+    subcategory: { label: 'Subcategory', visible: true },
+    name:        { label: 'Name',        visible: true },
+    review:      { label: 'Review',      visible: false },
+    version:     { label: 'Version',     visible: false }
+  };
+  var availEditColumns = {
+    category:    { label: 'Category',    visible: true },
+    subcategory: { label: 'Subcategory', visible: true },
+    name:        { label: 'Name',        visible: true },
+    review:      { label: 'Review',      visible: false },
+    version:     { label: 'Version',     visible: false }
+  };
+
+  // CS edit table sort state. key === null means "no sort" — the project-side table
+  // falls back to the stable editOrderedCSIds order, the available-side table falls
+  // back to alphabetic (category + subcategory + name).
+  var projEditSort = { key: null, asc: true };  // for the project-CS table (left in HTML)
+  var availEditSort = { key: null, asc: true }; // for the available-CS table (right in HTML)
 
   // ==================== CREATE/EDIT MODAL STATE ====================
   var modalEditingId = null; // null = create, number = edit
@@ -157,7 +228,12 @@ var ProjectsPage = (function() {
         createdBy: author,
         createdDate: today,
         modifiedDate: today,
-        conceptSets: []
+        groups: [{
+          id: 'group-default',
+          name: { en: 'Default', fr: 'Par défaut' },
+          rule: App.DEFAULT_GROUP_RULE,
+          conceptSets: []
+        }]
       };
       App.addProject(proj);
       closeCreateModal();
@@ -209,11 +285,18 @@ var ProjectsPage = (function() {
       document.getElementById('proj-tab-context-edit').style.display = isVars ? 'none' : '';
       document.getElementById('proj-tab-variables').style.display = 'none';
       document.getElementById('proj-tab-variables-edit').style.display = isVars ? '' : 'none';
+      if (isVars) {
+        App.initColResize('proj-cs-edit-left-table', { lockNow: true });
+        App.initColResize('proj-cs-edit-right-table', { lockNow: true });
+      }
     } else {
       document.getElementById('proj-tab-context').style.display = isVars ? 'none' : '';
       document.getElementById('proj-tab-context-edit').style.display = 'none';
       document.getElementById('proj-tab-variables').style.display = isVars ? '' : 'none';
       document.getElementById('proj-tab-variables-edit').style.display = 'none';
+      if (isVars) {
+        App.initColResize('proj-cs-table', { lockNow: true });
+      }
     }
 
     document.getElementById('proj-export-csv').style.display = (isVars && !editMode) ? '' : 'none';
@@ -270,11 +353,14 @@ var ProjectsPage = (function() {
     renderContextReadMode();
 
     // Reset filters
-    projCsSort = { key: 'category', asc: true };
+    projCsSort = { key: 'groupName', asc: true };
     projCsFilterName = '';
     projCsCategories.clear();
     projCsSubcategories.clear();
     projCsReviewStatuses.clear();
+    projCsGroups.clear();
+    projCsRules.clear();
+    projCsVersionStatuses.clear();
     document.getElementById('proj-filter-name').value = '';
     populateProjColumnFilters();
     renderProjectCSTable();
@@ -301,9 +387,48 @@ var ProjectsPage = (function() {
     editMode = true;
     var tr = App.tProj(selectedProject);
     editLongDesc = tr.long_description || '';
-    editConceptSets = App.getProjectConceptSetEntries(selectedProject).map(function(e) {
-      return { id: e.id, version: e.version };
+    // Deep-copy the project's groups so cancel() can discard cleanly.
+    editGroups = App.getProjectGroups(selectedProject).map(function(g) {
+      return {
+        id: g.id,
+        name: g.name && typeof g.name === 'object' ? { en: g.name.en || '', fr: g.name.fr || '' } : { en: g.name || '', fr: g.name || '' },
+        rule: g.rule || App.DEFAULT_GROUP_RULE,
+        conceptSets: (g.conceptSets || []).map(function(e) { return { id: e.id, version: e.version }; })
+      };
     });
+    if (editGroups.length === 0) {
+      editGroups.push({
+        id: 'group-default',
+        name: { en: 'Default', fr: 'Par défaut' },
+        rule: App.DEFAULT_GROUP_RULE,
+        conceptSets: []
+      });
+    }
+    editActiveGroupId = editGroups[0].id;
+    editSelectedCS.clear();
+    projEditSort = { key: null, asc: true };
+    availEditSort = { key: null, asc: true };
+
+    // Seed the stable display order: sort once by group + category + subcategory + name,
+    // then freeze. From here on, the order only mutates when CS are added (append) or
+    // removed (drop) — moving a CS between groups won't shuffle the table.
+    var csById = {};
+    App.getCSData().forEach(function(d) { csById[d.id] = d; });
+    var groupByCS = {};
+    editGroups.forEach(function(g) {
+      (g.conceptSets || []).forEach(function(e) { groupByCS[e.id] = g; });
+    });
+    editOrderedCSIds = editGroupsAllEntries()
+      .map(function(e) { return e.id; })
+      .sort(function(aId, bId) {
+        var a = csById[aId] || { category: '', subcategory: '', name: '' };
+        var b = csById[bId] || { category: '', subcategory: '', name: '' };
+        var ga = groupByCS[aId], gb = groupByCS[bId];
+        var gan = ga ? App.getGroupName(ga) : '';
+        var gbn = gb ? App.getGroupName(gb) : '';
+        return (gan + a.category + a.subcategory + a.name)
+          .localeCompare(gbn + b.category + b.subcategory + b.name);
+      });
 
     updateEditButtons();
 
@@ -344,10 +469,25 @@ var ProjectsPage = (function() {
     if (!selectedProject.translations) selectedProject.translations = { en: {}, fr: {} };
     if (!selectedProject.translations[App.lang]) selectedProject.translations[App.lang] = {};
     selectedProject.translations[App.lang].long_description = editLongDesc;
-    selectedProject.conceptSets = editConceptSets.map(function(e) {
-      return { id: e.id, version: e.version };
+    // Persist every group the user defined, including empty ones (they may want to add
+    // concept sets later). Only ensure at least one group exists.
+    var groupsOut = editGroups.map(function(g) {
+      return {
+        id: g.id,
+        name: g.name,
+        rule: g.rule,
+        conceptSets: (g.conceptSets || []).map(function(e) { return { id: e.id, version: e.version }; })
+      };
     });
-    delete selectedProject.conceptSetIds;
+    if (groupsOut.length === 0) {
+      groupsOut.push({
+        id: 'group-default',
+        name: { en: 'Default', fr: 'Par défaut' },
+        rule: App.DEFAULT_GROUP_RULE,
+        conceptSets: []
+      });
+    }
+    App.setProjectGroups(selectedProject, groupsOut);
     selectedProject.modifiedDate = new Date().toISOString().split('T')[0];
     App.updateProject(selectedProject);
 
@@ -382,7 +522,7 @@ var ProjectsPage = (function() {
   function populateCSEditFilters(skipId) {
     var allCS = App.getCSData();
     var idSet = {};
-    editConceptSets.forEach(function(e) { idSet[e.id] = true; });
+    editGroupsAllEntries().forEach(function(e) { idSet[e.id] = true; });
 
     var availData = allCS.filter(function(d) { return !idSet[d.id]; });
     var projData = allCS.filter(function(d) { return idSet[d.id]; });
@@ -468,9 +608,17 @@ var ProjectsPage = (function() {
 
   // ==================== CS EDIT TABLES ====================
   function renderCSEditTables() {
+    ensureActiveGroup();
+    renderGroupsToolbar();
+
     var allCS = App.getCSData();
+    var allEntries = editGroupsAllEntries();
     var idSet = {};
-    editConceptSets.forEach(function(e) { idSet[e.id] = true; });
+    allEntries.forEach(function(e) { idSet[e.id] = true; });
+    var groupById = {};
+    editGroups.forEach(function(g) {
+      (g.conceptSets || []).forEach(function(e) { groupById[e.id] = g; });
+    });
 
     // Left table: concept sets in the project (right pane in UI)
     var leftData = allCS.filter(function(d) { return idSet[d.id]; });
@@ -491,25 +639,61 @@ var ProjectsPage = (function() {
         return true;
       });
     }
-    leftData.sort(function(a, b) { return (a.category + a.subcategory + a.name).localeCompare(b.category + b.subcategory + b.name); });
+    var pinnedById = {};
+    allEntries.forEach(function(e) { pinnedById[e.id] = e.version; });
+    // Decorate rows with group name + pinned version for sorting / display.
+    leftData.forEach(function(d) {
+      var g = groupById[d.id];
+      d.groupName = g ? (App.getGroupName(g) || '') : '';
+      d.version = pinnedById[d.id] || '';
+    });
+
+    if (projEditSort.key) {
+      // User-driven sort overrides the stable order.
+      var k = projEditSort.key, asc = projEditSort.asc ? 1 : -1;
+      leftData.sort(function(a, b) {
+        var va = (a[k] || '').toString().toLowerCase();
+        var vb = (b[k] || '').toString().toLowerCase();
+        if (va < vb) return -1 * asc;
+        if (va > vb) return 1 * asc;
+        return 0;
+      });
+    } else {
+      // Default: stable order from editOrderedCSIds (preserves positions across group
+      // changes). Any CS missing from the order list (defensive) sorts to the end.
+      var orderPos = {};
+      editOrderedCSIds.forEach(function(id, idx) { orderPos[id] = idx; });
+      leftData.sort(function(a, b) {
+        var pa = a.id in orderPos ? orderPos[a.id] : Number.MAX_SAFE_INTEGER;
+        var pb = b.id in orderPos ? orderPos[b.id] : Number.MAX_SAFE_INTEGER;
+        return pa - pb;
+      });
+    }
 
     var leftTbody = document.getElementById('proj-cs-edit-left-tbody');
-    var pinnedById = {};
-    editConceptSets.forEach(function(e) { pinnedById[e.id] = e.version; });
     leftTbody.innerHTML = leftData.map(function(d) {
       var pinned = pinnedById[d.id] || '';
-      return '<tr>' +
+      var g = groupById[d.id];
+      var groupCell = g
+        ? '<span class="proj-cs-group-pill clickable" data-cs-id="' + d.id + '" data-tooltip="' + App.escapeHtml(App.getGroupName(g)) + ' · ' + App.escapeHtml(App.i18n((RULE_META[g.rule] || RULE_META.optional).i18n)) + '">' + App.escapeHtml(App.getGroupName(g)) + ' <i class="fas fa-chevron-down" style="font-size:9px; opacity:0.6"></i></span>'
+        : '';
+      var checked = editSelectedCS.has(d.id) ? ' checked' : '';
+      var groupNameTooltip = g ? App.getGroupName(g) : '';
+      return '<tr data-id="' + d.id + '">' +
+        '<td><input type="checkbox" class="proj-cs-select-cb" data-id="' + d.id + '"' + checked + '></td>' +
         '<td><button class="proj-cs-remove-btn" data-id="' + d.id + '" title="Remove"><i class="fas fa-minus-circle"></i></button></td>' +
-        '<td><span class="badge badge-category">' + App.escapeHtml(d.category) + '</span></td>' +
-        '<td><span class="badge badge-subcategory">' + App.escapeHtml(d.subcategory) + '</span></td>' +
-        '<td data-tooltip="' + App.escapeHtml(d.name) + '">' + App.escapeHtml(d.name) + '</td>' +
-        '<td class="proj-proj-col-review" style="white-space:nowrap">' + App.statusBadge(d.reviewStatus) + '</td>' +
-        '<td class="proj-proj-col-version" style="white-space:nowrap; font-family:monospace; font-size:12px">' + App.escapeHtml(pinned) + '</td>' +
+        '<td data-col="group" class="cell-truncate"' + (groupNameTooltip ? ' data-tooltip="' + App.escapeHtml(groupNameTooltip) + '"' : '') + '>' + groupCell + '</td>' +
+        '<td data-col="category" class="cell-truncate" data-tooltip="' + App.escapeHtml(d.category) + '"><span class="badge badge-category">' + App.escapeHtml(d.category) + '</span></td>' +
+        '<td data-col="subcategory" class="cell-truncate" data-tooltip="' + App.escapeHtml(d.subcategory) + '"><span class="badge badge-subcategory">' + App.escapeHtml(d.subcategory) + '</span></td>' +
+        '<td data-col="name" class="cell-truncate" data-tooltip="' + App.escapeHtml(d.name) + '"><strong>' + App.escapeHtml(d.name) + '</strong></td>' +
+        '<td data-col="review" style="white-space:nowrap">' + App.statusBadge(d.reviewStatus) + '</td>' +
+        '<td data-col="version" style="white-space:nowrap; font-family:monospace; font-size:12px">' + App.escapeHtml(pinned) + '</td>' +
         '</tr>';
     }).join('');
-    applyCSEditColVis('proj-proj', projColVis);
+    applyCSEditColVis('proj-cs-edit-left-table', projEditColumns);
+    renderBulkActionBar();
 
-    document.getElementById('proj-cs-edit-count').textContent = '(' + editConceptSets.length + ')';
+    document.getElementById('proj-cs-edit-count').textContent = '(' + allEntries.length + ')';
 
     // Right table: available concept sets (not in project, left pane in UI)
     var rightData = allCS.filter(function(d) { return !idSet[d.id]; });
@@ -530,56 +714,396 @@ var ProjectsPage = (function() {
         return true;
       });
     }
-    rightData.sort(function(a, b) { return (a.category + a.subcategory + a.name).localeCompare(b.category + b.subcategory + b.name); });
+    if (availEditSort.key) {
+      var rk = availEditSort.key, rasc = availEditSort.asc ? 1 : -1;
+      rightData.sort(function(a, b) {
+        var va = (a[rk] || '').toString().toLowerCase();
+        var vb = (b[rk] || '').toString().toLowerCase();
+        if (va < vb) return -1 * rasc;
+        if (va > vb) return 1 * rasc;
+        return 0;
+      });
+    } else {
+      rightData.sort(function(a, b) { return (a.category + a.subcategory + a.name).localeCompare(b.category + b.subcategory + b.name); });
+    }
 
     var rightTbody = document.getElementById('proj-cs-edit-right-tbody');
     rightTbody.innerHTML = rightData.map(function(d) {
       return '<tr>' +
-        '<td><span class="badge badge-category">' + App.escapeHtml(d.category) + '</span></td>' +
-        '<td><span class="badge badge-subcategory">' + App.escapeHtml(d.subcategory) + '</span></td>' +
-        '<td data-tooltip="' + App.escapeHtml(d.name) + '">' + App.escapeHtml(d.name) + '</td>' +
-        '<td class="proj-avail-col-review" style="white-space:nowrap">' + App.statusBadge(d.reviewStatus) + '</td>' +
-        '<td class="proj-avail-col-version" style="white-space:nowrap; font-family:monospace; font-size:12px">' + App.escapeHtml(d.version) + '</td>' +
+        '<td data-col="category" class="cell-truncate" data-tooltip="' + App.escapeHtml(d.category) + '"><span class="badge badge-category">' + App.escapeHtml(d.category) + '</span></td>' +
+        '<td data-col="subcategory" class="cell-truncate" data-tooltip="' + App.escapeHtml(d.subcategory) + '"><span class="badge badge-subcategory">' + App.escapeHtml(d.subcategory) + '</span></td>' +
+        '<td data-col="name" class="cell-truncate" data-tooltip="' + App.escapeHtml(d.name) + '"><strong>' + App.escapeHtml(d.name) + '</strong></td>' +
+        '<td data-col="review" style="white-space:nowrap">' + App.statusBadge(d.reviewStatus) + '</td>' +
+        '<td data-col="version" style="white-space:nowrap; font-family:monospace; font-size:12px">' + App.escapeHtml(d.version) + '</td>' +
         '<td><button class="proj-cs-add-btn" data-id="' + d.id + '" title="Add"><i class="fas fa-plus-circle"></i></button></td>' +
         '</tr>';
     }).join('');
-    applyCSEditColVis('proj-avail', availColVis);
+    applyCSEditColVis('proj-cs-edit-right-table', availEditColumns);
+
+    refreshSortIndicators('proj-cs-edit-left-table', projEditSort);
+    refreshSortIndicators('proj-cs-edit-right-table', availEditSort);
   }
 
-  function applyCSEditColVis(prefix, state) {
-    ['review', 'version'].forEach(function(col) {
-      var vis = state[col];
-      var els = document.querySelectorAll('.' + prefix + '-col-' + col);
-      els.forEach(function(el) { el.style.display = vis ? '' : 'none'; });
+  function refreshSortIndicators(tableId, sortState) {
+    var table = document.getElementById(tableId);
+    if (!table) return;
+    table.querySelectorAll('thead th[data-sort]').forEach(function(th) {
+      var isActive = sortState.key && th.dataset.sort === sortState.key;
+      th.classList.toggle('sorted', !!isActive);
+      var icon = th.querySelector('.sort-icon');
+      if (icon) icon.textContent = (isActive && !sortState.asc) ? '▼' : '▲';
+    });
+  }
+
+  // Three-state cycle on a header click: asc → desc → no sort (default).
+  function cycleSort(sortState, key) {
+    if (sortState.key !== key) { sortState.key = key; sortState.asc = true; return; }
+    if (sortState.asc) { sortState.asc = false; return; }
+    sortState.key = null;
+    sortState.asc = true;
+  }
+
+  function applyCSEditColVis(tableId, columns) {
+    var table = document.getElementById(tableId);
+    if (!table) return;
+    Object.keys(columns).forEach(function(col) {
+      var vis = columns[col].visible;
+      table.querySelectorAll('[data-col="' + col + '"]').forEach(function(el) {
+        el.style.display = vis ? '' : 'none';
+      });
     });
   }
 
   function addCSToProject(csId) {
-    if (editConceptSets.some(function(e) { return e.id === csId; })) return;
-    editConceptSets.push({ id: csId, version: App.getLatestVersion(csId) });
+    if (editGroupsAllEntries().some(function(e) { return e.id === csId; })) return;
+    ensureActiveGroup();
+    var target = editGroups.find(function(g) { return g.id === editActiveGroupId; }) || editGroups[0];
+    target.conceptSets.push({ id: csId, version: App.getLatestVersion(csId) });
+    if (editOrderedCSIds.indexOf(csId) < 0) editOrderedCSIds.push(csId);
     populateCSEditFilters();
     renderCSEditTables();
   }
 
   function removeCSFromProject(csId) {
-    editConceptSets = editConceptSets.filter(function(e) { return e.id !== csId; });
+    editGroups.forEach(function(g) {
+      g.conceptSets = (g.conceptSets || []).filter(function(e) { return e.id !== csId; });
+    });
+    editSelectedCS.delete(csId);
+    editOrderedCSIds = editOrderedCSIds.filter(function(id) { return id !== csId; });
     populateCSEditFilters();
     renderCSEditTables();
+  }
+
+  function moveSelectedToGroup(groupId) {
+    var target = editGroups.find(function(g) { return g.id === groupId; });
+    if (!target) return;
+    var moved = 0;
+    editSelectedCS.forEach(function(csId) {
+      var entry = null;
+      editGroups.forEach(function(g) {
+        var idx = (g.conceptSets || []).findIndex(function(e) { return e.id === csId; });
+        if (idx >= 0) {
+          if (g.id !== target.id) {
+            entry = g.conceptSets.splice(idx, 1)[0];
+          }
+        }
+      });
+      if (entry) { target.conceptSets.push(entry); moved += 1; }
+    });
+    editSelectedCS.clear();
+    renderCSEditTables();
+    if (moved > 0) {
+      App.showToast(App.i18n('Moved {n} concept set(s).').replace('{n}', moved), 'success');
+    }
+  }
+
+  // ==================== GROUPS TOOLBAR ====================
+  function renderGroupsToolbar() {
+    var bar = document.getElementById('proj-groups-toolbar');
+    if (!bar) return;
+    ensureActiveGroup();
+    var lang = App.lang;
+    var rows = editGroups.map(function(g, idx) {
+      var n = (g.conceptSets || []).length;
+      var name = App.getGroupName(g, lang);
+      var isActive = g.id === editActiveGroupId;
+      return '<div class="proj-group-row' + (isActive ? ' active' : '') + '" data-group-id="' + App.escapeHtml(g.id) + '">' +
+        '<button class="proj-group-select" data-group-id="' + App.escapeHtml(g.id) + '" title="' + App.escapeHtml(App.i18n('Make active group')) + '">' +
+          '<span class="proj-group-name"><strong>' + App.escapeHtml(name || App.i18n('Unnamed')) + '</strong>' +
+          ' <span class="proj-group-count">(' + n + ')</span></span>' +
+        '</button>' +
+        '<select class="proj-group-rule form-input" data-group-id="' + App.escapeHtml(g.id) + '" title="' + App.escapeHtml(App.i18n('Group rule')) + '">' +
+          App.GROUP_RULES.map(function(r) {
+            return '<option value="' + r + '"' + (g.rule === r ? ' selected' : '') + '>' + App.escapeHtml(App.i18n((RULE_META[r] || {}).i18n || r)) + '</option>';
+          }).join('') +
+        '</select>' +
+        '<div class="proj-group-actions">' +
+          '<button class="proj-group-action proj-group-rename" data-group-id="' + App.escapeHtml(g.id) + '" title="' + App.escapeHtml(App.i18n('Rename')) + '"><i class="fas fa-pen"></i></button>' +
+          '<button class="proj-group-action proj-group-move" data-group-id="' + App.escapeHtml(g.id) + '" data-dir="up" title="' + App.escapeHtml(App.i18n('Move up')) + '"' + (idx === 0 ? ' disabled' : '') + '><i class="fas fa-arrow-up"></i></button>' +
+          '<button class="proj-group-action proj-group-move" data-group-id="' + App.escapeHtml(g.id) + '" data-dir="down" title="' + App.escapeHtml(App.i18n('Move down')) + '"' + (idx === editGroups.length - 1 ? ' disabled' : '') + '><i class="fas fa-arrow-down"></i></button>' +
+          '<button class="proj-group-action proj-group-delete" data-group-id="' + App.escapeHtml(g.id) + '" title="' + App.escapeHtml(App.i18n('Delete group')) + '"' + (editGroups.length <= 1 ? ' disabled' : '') + '><i class="fas fa-trash"></i></button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+    bar.innerHTML =
+      '<div class="proj-groups-header">' +
+        '<span class="proj-groups-title"><i class="fas fa-layer-group"></i> ' + App.escapeHtml(App.i18n('Groups')) + '</span>' +
+        '<button class="btn-outline-sm proj-group-add"><i class="fas fa-plus"></i> ' + App.escapeHtml(App.i18n('Add group')) + '</button>' +
+      '</div>' +
+      '<div class="proj-group-rows">' + rows + '</div>';
+  }
+
+  function renderBulkActionBar() {
+    var bar = document.getElementById('proj-cs-bulk-bar');
+    if (!bar) return;
+    if (editSelectedCS.size === 0) {
+      bar.style.display = 'none';
+      return;
+    }
+    bar.style.display = '';
+    bar.innerHTML =
+      '<span class="proj-cs-bulk-count">' + App.escapeHtml(App.i18n('{n} selected').replace('{n}', editSelectedCS.size)) + '</span>' +
+      '<label for="proj-cs-bulk-target" class="proj-cs-bulk-label">' + App.escapeHtml(App.i18n('Move to')) + '</label>' +
+      '<select id="proj-cs-bulk-target" class="proj-cs-bulk-select">' +
+        editGroups.map(function(g) {
+          return '<option value="' + App.escapeHtml(g.id) + '">' + App.escapeHtml(App.getGroupName(g) || App.i18n('Unnamed')) + '</option>';
+        }).join('') +
+      '</select>' +
+      '<button class="btn-primary-custom" id="proj-cs-bulk-apply"><i class="fas fa-arrow-right"></i> ' + App.escapeHtml(App.i18n('Move')) + '</button>';
+  }
+
+  function addGroup() {
+    var id = App.newGroupId({ groups: editGroups });
+    editGroups.push({
+      id: id,
+      name: { en: 'New group', fr: 'Nouveau groupe' },
+      rule: App.DEFAULT_GROUP_RULE,
+      conceptSets: []
+    });
+    editActiveGroupId = id;
+    renderCSEditTables();
+  }
+
+  var deletingGroupId = null;
+
+  function openDeleteGroupModal(groupId) {
+    if (editGroups.length <= 1) return;
+    var g = editGroups.find(function(x) { return x.id === groupId; });
+    if (!g) return;
+    deletingGroupId = groupId;
+    var n = (g.conceptSets || []).length;
+    var name = App.getGroupName(g) || App.i18n('Unnamed');
+    document.getElementById('proj-group-delete-name').textContent = name;
+    var moveLine = document.getElementById('proj-group-delete-move-line');
+    if (n > 0) {
+      var target = editGroups.find(function(x) { return x.id !== groupId; });
+      var targetName = target ? (App.getGroupName(target) || App.i18n('Unnamed')) : '';
+      moveLine.style.display = '';
+      moveLine.innerHTML = App.i18n('Its {n} concept set(s) will be moved to "{target}".')
+        .replace('{n}', n).replace('{target}', App.escapeHtml(targetName));
+    } else {
+      moveLine.style.display = 'none';
+    }
+    document.getElementById('proj-group-delete-modal').style.display = '';
+  }
+
+  function closeDeleteGroupModal() {
+    var m = document.getElementById('proj-group-delete-modal');
+    if (m) m.style.display = 'none';
+    deletingGroupId = null;
+  }
+
+  function confirmDeleteGroup() {
+    if (deletingGroupId == null) return;
+    var groupId = deletingGroupId;
+    closeDeleteGroupModal();
+    if (editGroups.length <= 1) return;
+    var g = editGroups.find(function(x) { return x.id === groupId; });
+    if (!g) return;
+    if ((g.conceptSets || []).length > 0) {
+      var target = editGroups.find(function(x) { return x.id !== groupId; });
+      if (target) {
+        target.conceptSets = (target.conceptSets || []).concat(g.conceptSets);
+      }
+    }
+    editGroups = editGroups.filter(function(x) { return x.id !== groupId; });
+    ensureActiveGroup();
+    renderCSEditTables();
+  }
+
+  function moveGroup(groupId, dir) {
+    var idx = editGroups.findIndex(function(g) { return g.id === groupId; });
+    if (idx < 0) return;
+    var j = dir === 'up' ? idx - 1 : idx + 1;
+    if (j < 0 || j >= editGroups.length) return;
+    var tmp = editGroups[idx]; editGroups[idx] = editGroups[j]; editGroups[j] = tmp;
+    renderGroupsToolbar();
+  }
+
+  // Group being edited in the rename modal (null when modal is closed).
+  var renamingGroupId = null;
+
+  // ==================== CHANGE-GROUP POPUP MENU ====================
+  // Lightweight dropdown anchored under the clicked group pill.
+  function openChangeGroupMenu(csId, anchor) {
+    if (!selectedProject || !anchor) return;
+    closeChangeGroupMenu();
+    var inEdit = editMode;
+    var groups = inEdit ? editGroups : App.getProjectGroups(selectedProject);
+    var currentGroupId = null;
+    groups.forEach(function(g) {
+      if ((g.conceptSets || []).some(function(e) { return e.id === csId; })) currentGroupId = g.id;
+    });
+
+    var menu = document.createElement('div');
+    menu.className = 'proj-cs-group-menu';
+    menu.innerHTML = groups.map(function(g) {
+      var isCurrent = g.id === currentGroupId;
+      var name = App.getGroupName(g) || App.i18n('Unnamed');
+      var ruleLabel = App.i18n((RULE_META[g.rule] || RULE_META.optional).i18n);
+      return '<button class="proj-cs-group-menu-item' + (isCurrent ? ' current' : '') + '" data-group-id="' + App.escapeHtml(g.id) + '">' +
+        '<i class="fas fa-check proj-cs-group-menu-check"' + (isCurrent ? '' : ' style="visibility:hidden"') + '></i>' +
+        '<span class="proj-cs-group-menu-name">' + App.escapeHtml(name) + '</span>' +
+        '<span class="proj-cs-group-menu-rule">' + App.escapeHtml(ruleLabel) + '</span>' +
+      '</button>';
+    }).join('');
+    document.body.appendChild(menu);
+
+    // Position under the anchor, clamped to viewport.
+    var rect = anchor.getBoundingClientRect();
+    var menuW = menu.offsetWidth || 240;
+    var left = Math.max(8, Math.min(window.innerWidth - menuW - 8, rect.left));
+    var top = rect.bottom + 4;
+    if (top + menu.offsetHeight > window.innerHeight - 8) {
+      top = Math.max(8, rect.top - menu.offsetHeight - 4);
+    }
+    menu.style.left = left + 'px';
+    menu.style.top = top + 'px';
+
+    menu.addEventListener('click', function(e) {
+      var item = e.target.closest('.proj-cs-group-menu-item');
+      if (!item) return;
+      e.stopPropagation();
+      applyGroupChange(csId, item.dataset.groupId, inEdit);
+      closeChangeGroupMenu();
+    });
+
+    // Close on outside click / scroll / resize.
+    setTimeout(function() {
+      document.addEventListener('click', closeChangeGroupMenu, { once: true });
+    }, 0);
+    window.addEventListener('scroll', closeChangeGroupMenu, { once: true, capture: true });
+    window.addEventListener('resize', closeChangeGroupMenu, { once: true });
+  }
+
+  function closeChangeGroupMenu() {
+    var menus = document.querySelectorAll('.proj-cs-group-menu');
+    menus.forEach(function(m) { m.remove(); });
+  }
+
+  function applyGroupChange(csId, targetGroupId, inEdit) {
+    if (!selectedProject) return;
+    if (inEdit) {
+      var entry = null;
+      editGroups.forEach(function(g) {
+        var idx = (g.conceptSets || []).findIndex(function(e) { return e.id === csId; });
+        if (idx >= 0 && g.id !== targetGroupId) entry = g.conceptSets.splice(idx, 1)[0];
+      });
+      var target = editGroups.find(function(g) { return g.id === targetGroupId; });
+      if (entry && target) target.conceptSets.push(entry);
+      if (!entry) return; // already in target group
+      renderCSEditTables();
+      return;
+    }
+    // Read mode: mutate selectedProject through setProjectGroups.
+    var groups = App.getProjectGroups(selectedProject).map(function(g) {
+      return {
+        id: g.id, name: g.name, rule: g.rule || App.DEFAULT_GROUP_RULE,
+        conceptSets: (g.conceptSets || []).map(function(e) { return { id: e.id, version: e.version }; })
+      };
+    });
+    var entry = null;
+    groups.forEach(function(g) {
+      var idx = g.conceptSets.findIndex(function(e) { return e.id === csId; });
+      if (idx >= 0 && g.id !== targetGroupId) entry = g.conceptSets.splice(idx, 1)[0];
+    });
+    if (!entry) return; // no-op: clicked the current group
+    var target = groups.find(function(g) { return g.id === targetGroupId; });
+    if (target) target.conceptSets.push(entry);
+    App.setProjectGroups(selectedProject, groups);
+    selectedProject.modifiedDate = new Date().toISOString().split('T')[0];
+    App.updateProject(selectedProject);
+    populateProjColumnFilters();
+    renderProjectCSTable();
+    App.showToast(App.i18n('Concept set moved to group.'), 'success');
+  }
+
+  function openRenameModal(groupId) {
+    var g = editGroups.find(function(x) { return x.id === groupId; });
+    if (!g) return;
+    renamingGroupId = groupId;
+    var nameObj = (g.name && typeof g.name === 'object') ? g.name : { en: g.name || '', fr: g.name || '' };
+    document.getElementById('proj-group-modal-name-en').value = nameObj.en || '';
+    document.getElementById('proj-group-modal-name-fr').value = nameObj.fr || '';
+    document.getElementById('proj-group-modal').style.display = '';
+    setTimeout(function() {
+      var input = document.getElementById('proj-group-modal-name-' + App.lang);
+      if (input) { input.focus(); input.select(); }
+    }, 0);
+  }
+
+  function closeRenameModal() {
+    document.getElementById('proj-group-modal').style.display = 'none';
+    renamingGroupId = null;
+  }
+
+  function submitRenameModal() {
+    if (renamingGroupId == null) return;
+    var g = editGroups.find(function(x) { return x.id === renamingGroupId; });
+    if (!g) { closeRenameModal(); return; }
+    var en = document.getElementById('proj-group-modal-name-en').value.trim();
+    var fr = document.getElementById('proj-group-modal-name-fr').value.trim();
+    // Require at least one non-empty name; mirror it to the other locale if missing.
+    if (!en && !fr) {
+      App.showToast(App.i18n('Group name is required.'), 'error');
+      return;
+    }
+    g.name = { en: en || fr, fr: fr || en };
+    closeRenameModal();
+    renderCSEditTables();
+  }
+
+  function setGroupRule(groupId, rule) {
+    if (App.GROUP_RULES.indexOf(rule) < 0) return;
+    var g = editGroups.find(function(x) { return x.id === groupId; });
+    if (!g) return;
+    g.rule = rule;
+    renderGroupsToolbar();
   }
 
   // ==================== READ-MODE CS TABLE ====================
   function getProjectCSData() {
     if (!selectedProject) return [];
-    var entries = App.getProjectConceptSetEntries(selectedProject);
+    var groups = App.getProjectGroups(selectedProject);
     var pinnedById = {};
-    entries.forEach(function(e) { pinnedById[e.id] = e.version || ''; });
+    var groupById = {};
+    groups.forEach(function(g) {
+      (g.conceptSets || []).forEach(function(e) {
+        pinnedById[e.id] = e.version || '';
+        groupById[e.id] = g;
+      });
+    });
     var ids = new Set(Object.keys(pinnedById).map(function(k) { return parseInt(k); }));
     return App.getCSData().filter(function(d) { return ids.has(d.id); }).map(function(d) {
       var pinned = pinnedById[d.id] || '';
       var latest = d.version || '';
+      var g = groupById[d.id];
       d.pinnedVersion = pinned;
       d.latestVersion = latest;
       d.outdated = pinned && latest && pinned !== latest;
+      d.versionStatus = !pinned ? 'no_version' : (d.outdated ? 'outdated' : 'up_to_date');
+      d.groupName = g ? App.getGroupName(g) : '';
+      d.groupRule = g ? (g.rule || '') : '';
       return d;
     });
   }
@@ -591,6 +1115,47 @@ var ProjectsPage = (function() {
 
   function populateProjColumnFilters(skipId) {
     var data = getProjectCSData();
+
+    // Group filter
+    var groupNames = [...new Set(data.map(function(d) { return d.groupName; }))].filter(Boolean).sort();
+    projCsGroups.forEach(function(s) { if (!groupNames.includes(s)) projCsGroups.delete(s); });
+    if (skipId !== 'proj-filter-group') {
+      App.buildMultiSelectDropdown('proj-filter-group', groupNames, projCsGroups, function() {
+        renderProjectCSTable();
+      });
+    } else {
+      App.updateMsToggleLabel('proj-filter-group', projCsGroups);
+    }
+
+    // Rule filter
+    var rules = [...new Set(data.map(function(d) { return d.groupRule; }))].filter(Boolean).sort();
+    var ruleLabelMap = {};
+    rules.forEach(function(r) { ruleLabelMap[r] = App.i18n((RULE_META[r] || {}).i18n || r); });
+    projCsRules.forEach(function(s) { if (!rules.includes(s)) projCsRules.delete(s); });
+    if (skipId !== 'proj-filter-rule') {
+      App.buildMultiSelectDropdown('proj-filter-rule', rules, projCsRules, function() {
+        renderProjectCSTable();
+      }, ruleLabelMap);
+    } else {
+      App.updateMsToggleLabel('proj-filter-rule', projCsRules);
+    }
+
+    // Version-status filter (Update column)
+    var versionStatuses = [...new Set(data.map(function(d) { return d.versionStatus; }))].filter(Boolean).sort();
+    var versionStatusLabels = {
+      outdated: App.i18n('Outdated'),
+      up_to_date: App.i18n('Up to date'),
+      no_version: App.i18n('No version')
+    };
+    projCsVersionStatuses.forEach(function(s) { if (!versionStatuses.includes(s)) projCsVersionStatuses.delete(s); });
+    if (skipId !== 'proj-filter-versionStatus') {
+      App.buildMultiSelectDropdown('proj-filter-versionStatus', versionStatuses, projCsVersionStatuses, function() {
+        renderProjectCSTable();
+      }, versionStatusLabels);
+    } else {
+      App.updateMsToggleLabel('proj-filter-versionStatus', projCsVersionStatuses);
+    }
+
     var categories = [...new Set(data.map(function(d) { return d.category; }))].sort(function(a, b) {
       var aO = a.toLowerCase() === 'other' || a.toLowerCase() === 'autres';
       var bO = b.toLowerCase() === 'other' || b.toLowerCase() === 'autres';
@@ -637,9 +1202,12 @@ var ProjectsPage = (function() {
     if (!selectedProject) return;
     var data = getProjectCSData();
 
+    if (projCsGroups.size > 0) data = data.filter(function(d) { return projCsGroups.has(d.groupName); });
+    if (projCsRules.size > 0) data = data.filter(function(d) { return projCsRules.has(d.groupRule); });
     if (projCsCategories.size > 0) data = data.filter(function(d) { return projCsCategories.has(d.category); });
     if (projCsSubcategories.size > 0) data = data.filter(function(d) { return projCsSubcategories.has(d.subcategory); });
     if (projCsReviewStatuses.size > 0) data = data.filter(function(d) { return projCsReviewStatuses.has(d.reviewStatus); });
+    if (projCsVersionStatuses.size > 0) data = data.filter(function(d) { return projCsVersionStatuses.has(d.versionStatus); });
     if (projCsFilterName) {
       var q = projCsFilterName.toLowerCase();
       data = data.filter(function(d) {
@@ -676,11 +1244,17 @@ var ProjectsPage = (function() {
         statusCell = '<span class="badge" style="background:#dcfce7; color:#166534"><i class="fas fa-check"></i> ' + App.i18n('Up to date') + '</span>';
         actionCell = '';
       }
+      var ruleCell = d.groupRule ? ruleBadge(d.groupRule) : '';
+      var groupCell = d.groupName
+        ? '<span class="proj-cs-group-pill clickable" data-cs-id="' + d.id + '" title="' + App.escapeHtml(App.i18n('Change group')) + '">' + App.escapeHtml(d.groupName) + ' <i class="fas fa-chevron-down" style="font-size:9px; opacity:0.6"></i></span>'
+        : '';
       return '<tr data-id="' + d.id + '" data-pinned="' + App.escapeHtml(d.pinnedVersion) + '" style="cursor:pointer">' +
-        '<td><span class="badge badge-category">' + App.escapeHtml(d.category) + '</span></td>' +
-        '<td><span class="badge badge-subcategory">' + App.escapeHtml(d.subcategory) + '</span></td>' +
-        '<td data-tooltip="' + App.escapeHtml(d.name) + '"><strong>' + App.escapeHtml(d.name) + '</strong></td>' +
-        '<td class="desc-truncated"' + (d.description ? ' data-tooltip="' + App.escapeHtml(d.description) + '"' : '') + '>' + App.escapeHtml(d.description) + '</td>' +
+        '<td class="cell-truncate"' + (d.groupName ? ' data-tooltip="' + App.escapeHtml(d.groupName) + '"' : '') + '>' + groupCell + '</td>' +
+        '<td style="white-space:nowrap">' + ruleCell + '</td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(d.category) + '"><span class="badge badge-category">' + App.escapeHtml(d.category) + '</span></td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(d.subcategory) + '"><span class="badge badge-subcategory">' + App.escapeHtml(d.subcategory) + '</span></td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(d.name) + '"><strong>' + App.escapeHtml(d.name) + '</strong></td>' +
+        '<td class="cell-truncate"' + (d.description ? ' data-tooltip="' + App.escapeHtml(d.description) + '"' : '') + '>' + App.escapeHtml(d.description) + '</td>' +
         '<td style="white-space:nowrap">' + App.statusBadge(d.reviewStatus) + '</td>' +
         '<td style="white-space:nowrap; font-family:monospace; font-size:12px">' + App.escapeHtml(d.pinnedVersion) + '</td>' +
         '<td style="white-space:nowrap; font-family:monospace; font-size:12px' + (d.outdated ? '; font-weight:bold' : '') + '">' + App.escapeHtml(d.latestVersion) + '</td>' +
@@ -706,20 +1280,31 @@ var ProjectsPage = (function() {
   }
 
   // ==================== UPDATE PINNED VERSIONS ====================
+  function bumpInGroups(groups, csId, version) {
+    // Mutates groups in place: bumps every entry with matching id (should be a single one).
+    var changed = false;
+    groups.forEach(function(g) {
+      (g.conceptSets || []).forEach(function(e) {
+        if (e.id === csId && e.version !== version) { e.version = version; changed = true; }
+      });
+    });
+    return changed;
+  }
+
   function updatePinnedVersion(csId) {
     if (!selectedProject) return;
-    var entries = App.getProjectConceptSetEntries(selectedProject).map(function(e) {
-      return { id: e.id, version: e.version };
-    });
     var latest = App.getLatestVersion(csId);
     if (!latest) return;
-    var changed = false;
-    entries.forEach(function(e) {
-      if (e.id === csId && e.version !== latest) { e.version = latest; changed = true; }
+    // Materialize the groups (handles legacy fallback) and write back through setProjectGroups
+    // so the project is canonicalized to the new schema even if it was legacy on entry.
+    var groups = App.getProjectGroups(selectedProject).map(function(g) {
+      return {
+        id: g.id, name: g.name, rule: g.rule || App.DEFAULT_GROUP_RULE,
+        conceptSets: (g.conceptSets || []).map(function(e) { return { id: e.id, version: e.version }; })
+      };
     });
-    if (!changed) return;
-    selectedProject.conceptSets = entries;
-    delete selectedProject.conceptSetIds;
+    if (!bumpInGroups(groups, csId, latest)) return;
+    App.setProjectGroups(selectedProject, groups);
     selectedProject.modifiedDate = new Date().toISOString().split('T')[0];
     App.updateProject(selectedProject);
     populateProjColumnFilters();
@@ -732,17 +1317,17 @@ var ProjectsPage = (function() {
     var data = getProjectCSData();
     var outdatedIds = data.filter(function(d) { return d.outdated; }).map(function(d) { return d.id; });
     if (outdatedIds.length === 0) return;
-    var entries = App.getProjectConceptSetEntries(selectedProject).map(function(e) {
-      return { id: e.id, version: e.version };
+    var groups = App.getProjectGroups(selectedProject).map(function(g) {
+      return {
+        id: g.id, name: g.name, rule: g.rule || App.DEFAULT_GROUP_RULE,
+        conceptSets: (g.conceptSets || []).map(function(e) { return { id: e.id, version: e.version }; })
+      };
     });
-    entries.forEach(function(e) {
-      if (outdatedIds.indexOf(e.id) >= 0) {
-        var latest = App.getLatestVersion(e.id);
-        if (latest) e.version = latest;
-      }
+    outdatedIds.forEach(function(id) {
+      var latest = App.getLatestVersion(id);
+      if (latest) bumpInGroups(groups, id, latest);
     });
-    selectedProject.conceptSets = entries;
-    delete selectedProject.conceptSetIds;
+    App.setProjectGroups(selectedProject, groups);
     selectedProject.modifiedDate = new Date().toISOString().split('T')[0];
     App.updateProject(selectedProject);
     populateProjColumnFilters();
@@ -816,6 +1401,13 @@ var ProjectsPage = (function() {
 
     // Project concept set click -> navigate to concept sets page via router
     document.getElementById('proj-cs-tbody').addEventListener('click', function(e) {
+      // Group pill: open change-group dropdown, don't navigate
+      var groupPill = e.target.closest('.proj-cs-group-pill.clickable');
+      if (groupPill) {
+        e.stopPropagation();
+        openChangeGroupMenu(parseInt(groupPill.dataset.csId), groupPill);
+        return;
+      }
       // Update button: bump pinned version to latest, in-place
       var updateBtn = e.target.closest('.proj-cs-update-btn');
       if (updateBtn) {
@@ -860,42 +1452,49 @@ var ProjectsPage = (function() {
     // CSV export for project concepts
     document.getElementById('proj-export-csv').addEventListener('click', function() {
       if (!selectedProject) return;
-      var entries = App.getProjectConceptSetEntries(selectedProject);
+      var groups = App.getProjectGroups(selectedProject);
       var rows = [];
-      rows.push(['concept_set_id', 'concept_set_name', 'concept_set_category', 'concept_set_subcategory',
+      rows.push(['group_name', 'group_rule',
+        'concept_set_id', 'concept_set_name', 'concept_set_category', 'concept_set_subcategory',
         'concept_id', 'concept_name', 'domain_id', 'vocabulary_id', 'concept_class_id', 'concept_code',
         'standard_concept', 'invalid_reason', 'valid_start_date', 'valid_end_date',
         'is_excluded', 'include_descendants', 'include_mapped'].join(','));
 
-      entries.map(function(e) {
-        return App.getConceptSet(e.id, e.version);
-      }).filter(function(cs) { return cs; }).forEach(function(cs) {
-        var tr = App.t(cs);
-        var csName = (tr.name || cs.name || '').replace(/"/g, '""');
-        var csCat = (tr.category || '').replace(/"/g, '""');
-        var csSub = (tr.subcategory || '').replace(/"/g, '""');
-        var items = (cs.expression && cs.expression.items) || [];
-        items.forEach(function(item) {
-          var c = item.concept;
-          rows.push([
-            cs.id,
-            '"' + csName + '"',
-            '"' + csCat + '"',
-            '"' + csSub + '"',
-            c.conceptId,
-            '"' + (c.conceptName || '').replace(/"/g, '""') + '"',
-            '"' + (c.domainId || '') + '"',
-            '"' + (c.vocabularyId || '') + '"',
-            '"' + (c.conceptClassId || '') + '"',
-            '"' + (c.conceptCode || '') + '"',
-            '"' + (c.standardConcept || '') + '"',
-            '"' + (c.invalidReasonCaption || '') + '"',
-            '"' + (c.validStartDate || '') + '"',
-            '"' + (c.validEndDate || '') + '"',
-            item.isExcluded ? 'TRUE' : 'FALSE',
-            item.includeDescendants ? 'TRUE' : 'FALSE',
-            item.includeMapped ? 'TRUE' : 'FALSE'
-          ].join(','));
+      groups.forEach(function(g) {
+        var groupName = (App.getGroupName(g) || '').replace(/"/g, '""');
+        var groupRule = g.rule || '';
+        (g.conceptSets || []).forEach(function(e) {
+          var cs = App.getConceptSet(e.id, e.version);
+          if (!cs) return;
+          var tr = App.t(cs);
+          var csName = (tr.name || cs.name || '').replace(/"/g, '""');
+          var csCat = (tr.category || '').replace(/"/g, '""');
+          var csSub = (tr.subcategory || '').replace(/"/g, '""');
+          var items = (cs.expression && cs.expression.items) || [];
+          items.forEach(function(item) {
+            var c = item.concept;
+            rows.push([
+              '"' + groupName + '"',
+              '"' + groupRule + '"',
+              cs.id,
+              '"' + csName + '"',
+              '"' + csCat + '"',
+              '"' + csSub + '"',
+              c.conceptId,
+              '"' + (c.conceptName || '').replace(/"/g, '""') + '"',
+              '"' + (c.domainId || '') + '"',
+              '"' + (c.vocabularyId || '') + '"',
+              '"' + (c.conceptClassId || '') + '"',
+              '"' + (c.conceptCode || '') + '"',
+              '"' + (c.standardConcept || '') + '"',
+              '"' + (c.invalidReasonCaption || '') + '"',
+              '"' + (c.validStartDate || '') + '"',
+              '"' + (c.validEndDate || '') + '"',
+              item.isExcluded ? 'TRUE' : 'FALSE',
+              item.includeDescendants ? 'TRUE' : 'FALSE',
+              item.includeMapped ? 'TRUE' : 'FALSE'
+            ].join(','));
+          });
         });
       });
 
@@ -949,11 +1548,20 @@ var ProjectsPage = (function() {
       renderCSEditTables();
     });
 
-    // CS edit add/remove buttons (delegated)
+    // CS edit add/remove buttons + checkbox selection (delegated)
     document.getElementById('proj-cs-edit-left-tbody').addEventListener('click', function(e) {
+      var groupPill = e.target.closest('.proj-cs-group-pill.clickable');
+      if (groupPill) { e.stopPropagation(); openChangeGroupMenu(parseInt(groupPill.dataset.csId), groupPill); return; }
       var btn = e.target.closest('.proj-cs-remove-btn');
-      if (!btn) return;
-      removeCSFromProject(parseInt(btn.dataset.id));
+      if (btn) { removeCSFromProject(parseInt(btn.dataset.id)); return; }
+    });
+    document.getElementById('proj-cs-edit-left-tbody').addEventListener('change', function(e) {
+      var cb = e.target.closest('.proj-cs-select-cb');
+      if (!cb) return;
+      var id = parseInt(cb.dataset.id);
+      if (cb.checked) editSelectedCS.add(id);
+      else editSelectedCS.delete(id);
+      renderBulkActionBar();
     });
     document.getElementById('proj-cs-edit-right-tbody').addEventListener('click', function(e) {
       var btn = e.target.closest('.proj-cs-add-btn');
@@ -961,15 +1569,73 @@ var ProjectsPage = (function() {
       addCSToProject(parseInt(btn.dataset.id));
     });
 
-    // CS edit column visibility dropdowns
-    function buildCSEditColDropdown(ddId, state) {
-      var dd = document.getElementById(ddId);
-      dd.innerHTML =
-        '<label><input type="checkbox" data-col="review"' + (state.review ? ' checked' : '') + '> ' + App.escapeHtml(App.i18n('Review')) + '</label>' +
-        '<label><input type="checkbox" data-col="version"' + (state.version ? ' checked' : '') + '> ' + App.escapeHtml(App.i18n('Version')) + '</label>';
+    // Sortable headers on both edit tables.
+    document.getElementById('proj-cs-edit-left-table').querySelector('thead').addEventListener('click', function(e) {
+      var th = e.target.closest('th[data-sort]');
+      if (!th) return;
+      cycleSort(projEditSort, th.dataset.sort);
+      renderCSEditTables();
+    });
+    document.getElementById('proj-cs-edit-right-table').querySelector('thead').addEventListener('click', function(e) {
+      var th = e.target.closest('th[data-sort]');
+      if (!th) return;
+      cycleSort(availEditSort, th.dataset.sort);
+      renderCSEditTables();
+    });
+
+    // Select all checkbox header
+    var selectAllCb = document.getElementById('proj-cs-select-all');
+    if (selectAllCb) {
+      selectAllCb.addEventListener('change', function(e) {
+        var rows = document.querySelectorAll('#proj-cs-edit-left-tbody .proj-cs-select-cb');
+        rows.forEach(function(cb) {
+          var id = parseInt(cb.dataset.id);
+          cb.checked = e.target.checked;
+          if (e.target.checked) editSelectedCS.add(id);
+          else editSelectedCS.delete(id);
+        });
+        renderBulkActionBar();
+      });
     }
-    function wireColVis(btnId, ddId, state, classPrefix) {
-      buildCSEditColDropdown(ddId, state);
+
+    // Groups toolbar (delegated)
+    document.getElementById('proj-groups-toolbar').addEventListener('click', function(e) {
+      var addBtn = e.target.closest('.proj-group-add');
+      if (addBtn) { addGroup(); return; }
+      var selectBtn = e.target.closest('.proj-group-select');
+      if (selectBtn) { editActiveGroupId = selectBtn.dataset.groupId; renderGroupsToolbar(); return; }
+      var renameBtn = e.target.closest('.proj-group-rename');
+      if (renameBtn) { openRenameModal(renameBtn.dataset.groupId); return; }
+      var moveBtn = e.target.closest('.proj-group-move');
+      if (moveBtn) { moveGroup(moveBtn.dataset.groupId, moveBtn.dataset.dir); return; }
+      var deleteBtn = e.target.closest('.proj-group-delete');
+      if (deleteBtn) { openDeleteGroupModal(deleteBtn.dataset.groupId); return; }
+    });
+    document.getElementById('proj-groups-toolbar').addEventListener('change', function(e) {
+      var sel = e.target.closest('.proj-group-rule');
+      if (sel) setGroupRule(sel.dataset.groupId, sel.value);
+    });
+
+    // Bulk action bar (delegated)
+    document.getElementById('proj-cs-bulk-bar').addEventListener('click', function(e) {
+      if (e.target.closest('#proj-cs-bulk-apply')) {
+        var target = document.getElementById('proj-cs-bulk-target');
+        if (target) moveSelectedToGroup(target.value);
+        return;
+      }
+    });
+
+    // CS edit column visibility dropdowns — auto-generated from the column configs.
+    function buildCSEditColDropdown(ddId, columns) {
+      var dd = document.getElementById(ddId);
+      dd.innerHTML = Object.keys(columns).map(function(col) {
+        var c = columns[col];
+        return '<label><input type="checkbox" data-col="' + col + '"' +
+          (c.visible ? ' checked' : '') + '> ' + App.escapeHtml(App.i18n(c.label)) + '</label>';
+      }).join('');
+    }
+    function wireColVis(btnId, ddId, columns, tableId) {
+      buildCSEditColDropdown(ddId, columns);
       document.getElementById(btnId).addEventListener('click', function(e) {
         e.stopPropagation();
         var dd = document.getElementById(ddId);
@@ -977,13 +1643,13 @@ var ProjectsPage = (function() {
       });
       document.getElementById(ddId).addEventListener('change', function(e) {
         var cb = e.target;
-        if (!cb.dataset.col) return;
-        state[cb.dataset.col] = cb.checked;
-        applyCSEditColVis(classPrefix, state);
+        if (!cb.dataset.col || !columns[cb.dataset.col]) return;
+        columns[cb.dataset.col].visible = cb.checked;
+        applyCSEditColVis(tableId, columns);
       });
     }
-    wireColVis('proj-avail-col-vis-btn', 'proj-avail-col-vis-dropdown', availColVis, 'proj-avail');
-    wireColVis('proj-proj-col-vis-btn', 'proj-proj-col-vis-dropdown', projColVis, 'proj-proj');
+    wireColVis('proj-avail-col-vis-btn', 'proj-avail-col-vis-dropdown', availEditColumns, 'proj-cs-edit-right-table');
+    wireColVis('proj-proj-col-vis-btn', 'proj-proj-col-vis-dropdown', projEditColumns, 'proj-cs-edit-left-table');
     document.addEventListener('click', function(e) {
       var availDd = document.getElementById('proj-avail-col-vis-dropdown');
       var projDd = document.getElementById('proj-proj-col-vis-dropdown');
@@ -1015,6 +1681,29 @@ var ProjectsPage = (function() {
     document.getElementById('proj-delete-modal').addEventListener('click', function(e) {
       if (e.target === document.getElementById('proj-delete-modal')) closeDeleteModal();
     });
+
+    // ==================== GROUP RENAME MODAL EVENTS ====================
+    document.getElementById('proj-group-modal-close').addEventListener('click', closeRenameModal);
+    document.getElementById('proj-group-modal-cancel').addEventListener('click', closeRenameModal);
+    document.getElementById('proj-group-modal-submit').addEventListener('click', submitRenameModal);
+    document.getElementById('proj-group-modal').addEventListener('click', function(e) {
+      if (e.target === document.getElementById('proj-group-modal')) closeRenameModal();
+    });
+    ['proj-group-modal-name-en', 'proj-group-modal-name-fr'].forEach(function(id) {
+      document.getElementById(id).addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') { e.preventDefault(); submitRenameModal(); }
+        else if (e.key === 'Escape') { e.preventDefault(); closeRenameModal(); }
+      });
+    });
+
+    // ==================== GROUP DELETE MODAL EVENTS ====================
+    document.getElementById('proj-group-delete-close').addEventListener('click', closeDeleteGroupModal);
+    document.getElementById('proj-group-delete-cancel').addEventListener('click', closeDeleteGroupModal);
+    document.getElementById('proj-group-delete-confirm').addEventListener('click', confirmDeleteGroup);
+    document.getElementById('proj-group-delete-modal').addEventListener('click', function(e) {
+      if (e.target === document.getElementById('proj-group-delete-modal')) closeDeleteGroupModal();
+    });
+
   }
 
   // ==================== PAGE MODULE ====================
@@ -1046,6 +1735,9 @@ var ProjectsPage = (function() {
   function hide() {
     closeCreateModal();
     closeDeleteModal();
+    closeRenameModal();
+    closeChangeGroupMenu();
+    closeDeleteGroupModal();
     closeAllMenus();
   }
 

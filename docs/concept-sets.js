@@ -5544,18 +5544,23 @@ var ConceptSetsPage = (function() {
         if (!selectedConceptSet || !selectedFromProjectId) return;
         var proj = App.projects.find(function(p) { return p.id === selectedFromProjectId; });
         if (!proj) return;
-        var entries = App.getProjectConceptSetEntries(proj).map(function(e) {
-          return { id: e.id, version: e.version };
-        });
         var latest = App.getLatestVersion(selectedConceptSet.id);
         if (!latest) return;
+        // Deep-copy groups so we can mutate before persisting through setProjectGroups.
+        var groups = App.getProjectGroups(proj).map(function(g) {
+          return {
+            id: g.id, name: g.name, rule: g.rule || App.DEFAULT_GROUP_RULE,
+            conceptSets: (g.conceptSets || []).map(function(e) { return { id: e.id, version: e.version }; })
+          };
+        });
         var changed = false;
-        entries.forEach(function(e) {
-          if (e.id === selectedConceptSet.id && e.version !== latest) { e.version = latest; changed = true; }
+        groups.forEach(function(g) {
+          (g.conceptSets || []).forEach(function(e) {
+            if (e.id === selectedConceptSet.id && e.version !== latest) { e.version = latest; changed = true; }
+          });
         });
         if (!changed) return;
-        proj.conceptSets = entries;
-        delete proj.conceptSetIds;
+        App.setProjectGroups(proj, groups);
         proj.modifiedDate = new Date().toISOString().split('T')[0];
         App.updateProject(proj);
         App.showToast(App.i18n('Project updated to latest version of this concept set.'), 'success');

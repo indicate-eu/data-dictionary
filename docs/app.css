@@ -1306,6 +1306,15 @@ tr:has(+ .filter-row) th { border-bottom: none !important; }
   filter: brightness(1.15);
   transform: scale(1.05);
 }
+/* Inside table cells, badges are informational — drop the hover affordance.
+   The badge is still rendered, just no scale/brightness on mouseover. */
+td .status-badge:hover, td .version-badge:hover {
+  filter: none;
+  transform: none;
+}
+td .status-badge, td .version-badge {
+  cursor: default;
+}
 .org-badge {
   display: inline-block;
   padding: 4px 10px;
@@ -3263,4 +3272,225 @@ select.form-input { appearance: auto; }
   .doc-content { padding: 20px 16px; }
   .doc-feature-grid { grid-template-columns: 1fr; }
   .doc-audience-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ==================== Project groups & rules ==================== */
+.proj-groups-toolbar {
+  padding: 10px 12px;
+  background: var(--bg-muted, #f8fafc);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 6px;
+  margin: 8px 0;
+}
+.proj-groups-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.proj-groups-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted, #64748b);
+}
+.proj-groups-title i { margin-right: 4px; }
+.proj-group-rows {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+  gap: 8px;
+}
+.proj-group-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  background: #fff;
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 6px;
+  font-size: 13px;
+  min-width: 0;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.proj-group-row.active {
+  border-color: var(--primary, #0f60af);
+  box-shadow: 0 0 0 2px rgba(15, 96, 175, 0.12);
+}
+.proj-group-row .proj-group-select {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  font: inherit;
+  color: inherit;
+  border-radius: 4px;
+  text-align: left;
+}
+.proj-group-row .proj-group-select:hover {
+  background: var(--bg-muted, #f1f5f9);
+}
+.proj-group-row.active .proj-group-select strong {
+  color: var(--primary, #0f60af);
+}
+.proj-group-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.proj-group-count {
+  color: var(--text-muted, #64748b);
+  font-weight: 400;
+  margin-left: 4px;
+}
+.proj-group-row select.proj-group-rule {
+  height: 28px;
+  font-size: 12px;
+  padding: 2px 22px 2px 6px;
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 4px;
+  background: #fff;
+  width: 110px;
+}
+.proj-group-actions {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.proj-group-action {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 4px 7px;
+  cursor: pointer;
+  color: var(--text-muted, #64748b);
+  font-size: 12px;
+}
+.proj-group-action:hover:not(:disabled) {
+  background: var(--bg-muted, #f1f5f9);
+  color: var(--text, #1e293b);
+  border-color: var(--border, #e2e8f0);
+}
+.proj-group-action.proj-group-delete:hover:not(:disabled) {
+  color: #dc3545;
+  background: #fde7ea;
+  border-color: #fbd1d7;
+}
+.proj-group-action:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.rule-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.proj-cs-group-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  background: var(--bg-muted, #f1f5f9);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-size: 12px;
+  color: var(--text, #1e293b);
+  white-space: nowrap;
+}
+.proj-cs-group-pill.clickable {
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.proj-cs-group-pill.clickable:hover {
+  background: #e2eaf3;
+  border-color: var(--primary, #0f60af);
+  color: var(--primary, #0f60af);
+}
+
+/* Change-group dropdown menu (anchored under a clicked group pill) */
+.proj-cs-group-menu {
+  position: fixed;
+  z-index: 1000;
+  min-width: 240px;
+  max-width: 360px;
+  max-height: 320px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
+  padding: 4px 0;
+}
+.proj-cs-group-menu-item {
+  display: grid;
+  grid-template-columns: 18px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: var(--text, #1e293b);
+  text-align: left;
+  font-size: 13px;
+}
+.proj-cs-group-menu-item:hover {
+  background: var(--bg-muted, #f1f5f9);
+}
+.proj-cs-group-menu-item.current {
+  background: rgba(15, 96, 175, 0.06);
+}
+.proj-cs-group-menu-check {
+  color: var(--primary, #0f60af);
+  font-size: 11px;
+}
+.proj-cs-group-menu-name {
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.proj-cs-group-menu-rule {
+  color: var(--text-muted, #64748b);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+/* Bulk action bar (selection of project concept sets) */
+.proj-cs-bulk-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #eef4fb;
+  border: 1px solid #cfe0f3;
+  border-radius: 6px;
+  margin: 0 0 8px 0;
+  font-size: 13px;
+}
+.proj-cs-bulk-count {
+  font-weight: 600;
+  color: var(--primary, #0f60af);
+}
+.proj-cs-bulk-label {
+  color: var(--text-muted, #64748b);
+}
+.proj-cs-bulk-bar select.proj-cs-bulk-select {
+  width: 190px;
+  height: 32px;
+  padding: 4px 24px 4px 10px;
+  font-size: 13px;
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 4px;
+  background: #fff;
 }

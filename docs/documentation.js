@@ -2156,20 +2156,31 @@ var DocumentationPage = (function() {
       + 'The description is edited for the currently selected language.</p>'
 
       + '<h3>Concept Sets Tab</h3>'
-      + '<p>In read mode, shows a sortable, filterable table of the project\'s concept sets. '
+      + '<p>In read mode, shows a sortable, filterable table of the project\'s concept sets, organized by group. '
       + 'Click a row to navigate to that concept set.</p>'
       + '<p>In edit mode, a dual-panel interface lets you:</p>'
       + '<ul>'
       + '<li><strong>Left panel</strong> \u2014 Available concept sets (not yet in the project)</li>'
-      + '<li><strong>Right panel</strong> \u2014 Concept sets assigned to the project</li>'
-      + '<li>Use the <i class="fas fa-plus-circle" style="color:var(--success)"></i> and <i class="fas fa-minus-circle" style="color:var(--danger)"></i> buttons to move concept sets between panels</li>'
+      + '<li><strong>Right panel</strong> \u2014 Concept sets assigned to the project, with their group</li>'
+      + '<li>Use the <i class="fas fa-plus-circle" style="color:var(--success)"></i> and <i class="fas fa-minus-circle" style="color:var(--danger)"></i> buttons to move concept sets between panels. Added concept sets land in the currently active group (highlighted in the toolbar).</li>'
+      + '<li>Select multiple rows via checkboxes to move them between groups in bulk</li>'
       + '<li>Filter both panels by category, subcategory, or name</li>'
       + '</ul>'
       + mockProjectCSEditPanels(App.lang)
 
+      + '<h3>Groups and Eligibility Rules</h3>'
+      + '<p>Concept sets within a project are organized into named <strong>groups</strong>. Each group carries an eligibility <strong>rule</strong> that documents how the group should be interpreted when checking whether a data provider can support the project:</p>'
+      + '<ul>'
+      + '<li><strong>All required</strong> \u2014 every concept set in the group must be covered by the data provider\'s mapping. Use this for variables that are non-negotiable (e.g. heart rate, mortality outcome).</li>'
+      + '<li><strong>At least one</strong> \u2014 at least one concept set in the group must be covered. Use this for clinically equivalent alternatives (e.g. an anticoagulants group: having any one anticoagulant mapped is enough to be eligible).</li>'
+      + '<li><strong>Optional</strong> \u2014 the group is informative; no concept set is required. Use this for nice-to-have variables.</li>'
+      + '</ul>'
+      + '<p>In edit mode, use the toolbar at the top of the variables tab to add, rename, reorder, or delete groups, change a group\'s rule, and pick the active group (the one new concept sets are added to).</p>'
+
       + infoBox('Best Practice',
         'Include all concept sets needed for your analysis, even those only used for adjustment or '
-        + 'stratification. This ensures complete data collection from the start.')
+        + 'stratification. Use group rules to express what is mandatory vs. nice-to-have \u2014 this lets data '
+        + 'providers see at a glance whether they can support the project with their current OMOP mapping.')
 
       + '<h2>Exporting</h2>'
       + '<p>The project detail view offers two export options:</p>'
@@ -3490,21 +3501,32 @@ var DocumentationPage = (function() {
       + 'La description est \u00e9dit\u00e9e pour la langue actuellement s\u00e9lectionn\u00e9e.</p>'
 
       + '<h3>Onglet Jeux de concepts</h3>'
-      + '<p>En mode lecture, affiche un tableau triable et filtrable des jeux de concepts du projet. '
+      + '<p>En mode lecture, affiche un tableau triable et filtrable des jeux de concepts du projet, organis\u00e9s par groupe. '
       + 'Cliquez sur une ligne pour naviguer vers ce jeu de concepts.</p>'
       + '<p>En mode \u00e9dition, une interface \u00e0 double panneau vous permet de\u00a0:</p>'
       + '<ul>'
       + '<li><strong>Panneau gauche</strong> \u2014 Jeux de concepts disponibles (pas encore dans le projet)</li>'
-      + '<li><strong>Panneau droit</strong> \u2014 Jeux de concepts assign\u00e9s au projet</li>'
-      + '<li>Utilisez les boutons <i class="fas fa-plus-circle" style="color:var(--success)"></i> et <i class="fas fa-minus-circle" style="color:var(--danger)"></i> pour d\u00e9placer les jeux entre les panneaux</li>'
+      + '<li><strong>Panneau droit</strong> \u2014 Jeux de concepts assign\u00e9s au projet, avec leur groupe</li>'
+      + '<li>Utilisez les boutons <i class="fas fa-plus-circle" style="color:var(--success)"></i> et <i class="fas fa-minus-circle" style="color:var(--danger)"></i> pour d\u00e9placer les jeux entre les panneaux. Les jeux ajout\u00e9s atterrissent dans le groupe actif (mis en \u00e9vidence dans la barre d\u2019outils).</li>'
+      + '<li>S\u00e9lectionnez plusieurs lignes via les cases \u00e0 cocher pour les d\u00e9placer entre groupes en masse</li>'
       + '<li>Filtrez les deux panneaux par cat\u00e9gorie, sous-cat\u00e9gorie ou nom</li>'
       + '</ul>'
       + mockProjectCSEditPanels('fr')
 
+      + '<h3>Groupes et r\u00e8gles d\u2019\u00e9ligibilit\u00e9</h3>'
+      + '<p>Les jeux de concepts d\u2019un projet sont organis\u00e9s en <strong>groupes</strong> nomm\u00e9s. Chaque groupe porte une <strong>r\u00e8gle</strong> d\u2019\u00e9ligibilit\u00e9 qui documente la mani\u00e8re d\u2019interpr\u00e9ter ce groupe lorsqu\u2019on \u00e9value si un centre de donn\u00e9es peut supporter le projet\u00a0:</p>'
+      + '<ul>'
+      + '<li><strong>Tous obligatoires</strong> \u2014 chaque jeu de concepts du groupe doit \u00eatre couvert par le mapping du centre. \u00c0 utiliser pour les variables non n\u00e9gociables (ex.\u00a0: fr\u00e9quence cardiaque, mortalit\u00e9).</li>'
+      + '<li><strong>Au moins un</strong> \u2014 au moins un jeu de concepts du groupe doit \u00eatre couvert. \u00c0 utiliser pour des alternatives cliniquement \u00e9quivalentes (ex.\u00a0: un groupe \u00ab\u00a0anticoagulants\u00a0\u00bb\u00a0: avoir un seul anticoagulant mapp\u00e9 suffit \u00e0 \u00eatre \u00e9ligible).</li>'
+      + '<li><strong>Optionnel</strong> \u2014 le groupe est informatif\u00a0; aucun jeu n\u2019est requis. \u00c0 utiliser pour les variables nice-to-have.</li>'
+      + '</ul>'
+      + '<p>En mode \u00e9dition, utilisez la barre d\u2019outils en haut de l\u2019onglet variables pour ajouter, renommer, r\u00e9organiser ou supprimer des groupes, changer la r\u00e8gle d\u2019un groupe, et choisir le groupe actif (celui dans lequel atterrissent les nouveaux jeux de concepts).</p>'
+
       + infoBox('Bonne pratique',
         'Incluez tous les jeux de concepts n\u00e9cessaires \u00e0 votre analyse, m\u00eame ceux utilis\u00e9s '
-        + 'uniquement pour l\u2019ajustement ou la stratification. Cela garantit une collecte compl\u00e8te '
-        + 'des donn\u00e9es d\u00e8s le d\u00e9part.')
+        + 'uniquement pour l\u2019ajustement ou la stratification. Utilisez les r\u00e8gles de groupes pour exprimer '
+        + 'ce qui est obligatoire vs. nice-to-have \u2014 cela permet aux centres de voir d\u2019un coup d\u2019\u0153il '
+        + 's\u2019ils peuvent supporter le projet avec leur mapping OMOP actuel.')
 
       + '<h2>Export</h2>'
       + '<p>La vue d\u00e9taill\u00e9e du projet propose deux options d\u2019export\u00a0:</p>'

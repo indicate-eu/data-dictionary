@@ -1523,15 +1523,93 @@ var App = (function() {
     return cs ? (cs.version || '') : '';
   }
 
-  /** Iterate project.conceptSets entries with fallback when the project still uses the legacy `conceptSetIds`. */
+  // Group rule constants
+  var GROUP_RULES = ['all_required', 'at_least_one', 'optional'];
+  var DEFAULT_GROUP_RULE = 'all_required';
+
+  /**
+   * Return the flat list of {id, version} entries pinned by a project, traversing
+   * groups when present. Falls back to the legacy flat `conceptSets` array, then
+   * to the very old `conceptSetIds` array of bare ids.
+   */
   function getProjectConceptSetEntries(proj) {
-    if (proj && Array.isArray(proj.conceptSets)) return proj.conceptSets;
-    if (proj && Array.isArray(proj.conceptSetIds)) {
+    if (!proj) return [];
+    if (Array.isArray(proj.groups)) {
+      var out = [];
+      proj.groups.forEach(function(g) {
+        if (g && Array.isArray(g.conceptSets)) {
+          g.conceptSets.forEach(function(e) { out.push(e); });
+        }
+      });
+      return out;
+    }
+    if (Array.isArray(proj.conceptSets)) return proj.conceptSets;
+    if (Array.isArray(proj.conceptSetIds)) {
       return proj.conceptSetIds.map(function(id) {
         return { id: id, version: getLatestVersion(id) };
       });
     }
     return [];
+  }
+
+  /**
+   * Return the groups of a project, normalizing legacy projects (flat `conceptSets`
+   * or `conceptSetIds`) into a single synthetic "Default" group with rule
+   * `all_required`. The returned array is always a live reference to `proj.groups`
+   * when the project already uses the new format; for legacy projects it is a
+   * freshly built array (not persisted back to `proj`).
+   */
+  function getProjectGroups(proj) {
+    if (!proj) return [];
+    if (Array.isArray(proj.groups)) return proj.groups;
+    var entries = [];
+    if (Array.isArray(proj.conceptSets)) {
+      entries = proj.conceptSets.slice();
+    } else if (Array.isArray(proj.conceptSetIds)) {
+      entries = proj.conceptSetIds.map(function(id) {
+        return { id: id, version: getLatestVersion(id) };
+      });
+    }
+    return [{
+      id: 'group-default',
+      name: { en: 'Default', fr: 'Par défaut' },
+      rule: DEFAULT_GROUP_RULE,
+      conceptSets: entries
+    }];
+  }
+
+  /**
+   * Replace `proj.groups` with the provided groups array, removing any legacy
+   * `conceptSets` / `conceptSetIds` fields so the project is canonicalized to
+   * the new schema on save.
+   */
+  function setProjectGroups(proj, groups) {
+    if (!proj) return;
+    proj.groups = Array.isArray(groups) ? groups : [];
+    delete proj.conceptSets;
+    delete proj.conceptSetIds;
+  }
+
+  /** Translate a group's bilingual `name` field, with sensible fallbacks. */
+  function getGroupName(group, l) {
+    if (!group) return '';
+    var key = l || lang;
+    if (group.name && typeof group.name === 'object') {
+      return group.name[key] || group.name.en || group.name.fr || '';
+    }
+    return group.name || '';
+  }
+
+  /** Generate a unique group id within the given project's existing groups. */
+  function newGroupId(proj) {
+    var existing = {};
+    (proj && Array.isArray(proj.groups) ? proj.groups : []).forEach(function(g) {
+      if (g && g.id) existing[g.id] = true;
+    });
+    var n = (proj && Array.isArray(proj.groups) ? proj.groups.length : 0) + 1;
+    var id = 'group-' + n;
+    while (existing[id]) { n += 1; id = 'group-' + n; }
+    return id;
   }
 
   // ==================== GETCSDATA ====================
@@ -1560,7 +1638,7 @@ var App = (function() {
    * Widths are locked on first drag so hidden tables work correctly.
    * @param {string} tableId - the table element id
    */
-  function initColResize(tableId) {
+  function initColResize(tableId, opts) {
     var table = document.getElementById(tableId);
     if (!table || table._colResizeInit) return;
     table._colResizeInit = true;
@@ -1573,8 +1651,23 @@ var App = (function() {
       if (table.classList.contains('col-resizable')) return;
       table.classList.add('col-resizable');
       ths.forEach(function(th) {
+        // Skip columns that are currently hidden — their offsetWidth is 0, and freezing
+        // it would persist that 0 even after the user reveals the column. We keep the
+        // existing inline width (from HTML `style="width:Xpx"`) so revealing the column
+        // gives it back its intended width.
+        if (th.offsetParent === null || th.offsetWidth === 0) return;
         th.style.width = th.offsetWidth + 'px';
       });
+    }
+
+    // Optionally engage table-layout:fixed immediately (so cell-truncate takes effect
+    // before the user drags). We add the `col-resizable` class but do NOT freeze
+    // widths in px — the table keeps its inline %-based widths, which means the
+    // table stays within its container and toggling columns redistributes width
+    // proportionally rather than triggering horizontal scroll. The first drag will
+    // call lockWidths() and switch to absolute px widths from there.
+    if (opts && opts.lockNow) {
+      table.classList.add('col-resizable');
     }
 
     // Add resize handles
@@ -1730,6 +1823,12 @@ var App = (function() {
     getResolvedConceptSet: getResolvedConceptSet,
     getLatestVersion: getLatestVersion,
     getProjectConceptSetEntries: getProjectConceptSetEntries,
+    getProjectGroups: getProjectGroups,
+    setProjectGroups: setProjectGroups,
+    getGroupName: getGroupName,
+    newGroupId: newGroupId,
+    GROUP_RULES: GROUP_RULES,
+    DEFAULT_GROUP_RULE: DEFAULT_GROUP_RULE,
     onLanguageChange: function(cb) { languageChangeCallbacks.push(cb); },
     onBeforeNavigate: function(cb) { beforeNavigateCallbacks.push(cb); },
     onHome: function(cb) { homeCallbacks.push(cb); },

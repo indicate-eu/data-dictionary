@@ -30,6 +30,17 @@ def git_show(sha, repo_path):
         return None
 
 
+def project_cs_entries(p):
+    """Return the flat list of {id, version} entries pinned by a project, traversing
+    groups when present and falling back to the legacy flat `conceptSets` array."""
+    if isinstance(p.get("groups"), list):
+        out = []
+        for g in p["groups"]:
+            out.extend(g.get("conceptSets") or [])
+        return out
+    return p.get("conceptSets") or []
+
+
 def collect_versioned_snapshots(projects, concept_sets, versions_index):
     """For each (id, version) pinned by a project where version != current source version,
     fetch the snapshot of concept_sets/{id}.json and concept_sets_resolved/{id}.json at the
@@ -38,7 +49,7 @@ def collect_versioned_snapshots(projects, concept_sets, versions_index):
     current_versions = {cs["id"]: cs.get("version") for cs in concept_sets}
     needed = set()
     for p in projects:
-        for entry in p.get("conceptSets", []):
+        for entry in project_cs_entries(p):
             cs_id = entry.get("id")
             version = entry.get("version")
             if cs_id is None or not version:
