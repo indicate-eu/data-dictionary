@@ -27,6 +27,11 @@ var App = (function() {
   var homeCallbacks = [];
   var userConceptSets = JSON.parse(localStorage.getItem('indicate_user_cs') || '[]');
   var userProjects = JSON.parse(localStorage.getItem('indicate_user_proj') || '[]');
+  // Mapping projects: local-only workspaces (a centre's source-to-concept-map +
+  // eligibility evaluation against INDICATE projects). Stored only in
+  // localStorage — they may contain centre-specific data and are never proposed
+  // back to the repo.
+  var mappingProjects = JSON.parse(localStorage.getItem('indicate_mapping_projects') || '[]');
   var modifiedCsIds = new Set(JSON.parse(localStorage.getItem('indicate_modified_cs_ids') || '[]'));
   var modifiedProjIds = new Set(JSON.parse(localStorage.getItem('indicate_modified_proj_ids') || '[]'));
 
@@ -394,6 +399,7 @@ var App = (function() {
     'Concept Set Details':           { fr: 'Détails d\'un jeu de concepts' },
     'Managing Projects':             { fr: 'Gestion des projets' },
     'Mapping Recommendations':       { fr: 'Recommandations de mapping' },
+    'Concept Mapping':               { fr: 'Alignement de concepts' },
     'Settings':                      { fr: 'Paramètres' },
     'Getting Started':               { fr: 'Pour commencer' },
     'Features':                      { fr: 'Fonctionnalités' },
@@ -793,6 +799,11 @@ var App = (function() {
 
   function tProj(proj) {
     var tr = proj.translations;
+    return (tr && tr[lang]) || (tr && tr.en) || {};
+  }
+
+  function tMappingProject(mp) {
+    var tr = mp && mp.translations;
     return (tr && tr[lang]) || (tr && tr.en) || {};
   }
 
@@ -1487,6 +1498,36 @@ var App = (function() {
     saveUserProjects();
   }
 
+  // ==================== MAPPING PROJECTS (localStorage only) ====================
+  function saveMappingProjects() {
+    localStorage.setItem('indicate_mapping_projects', JSON.stringify(mappingProjects));
+  }
+  function getMappingProjects() {
+    return mappingProjects;
+  }
+  function getMappingProject(id) {
+    for (var i = 0; i < mappingProjects.length; i++) {
+      if (mappingProjects[i].id === id) return mappingProjects[i];
+    }
+    return null;
+  }
+  function addMappingProject(mp) {
+    mappingProjects.push(mp);
+    saveMappingProjects();
+  }
+  function updateMappingProject(mp) {
+    var found = false;
+    for (var i = 0; i < mappingProjects.length; i++) {
+      if (mappingProjects[i].id === mp.id) { mappingProjects[i] = mp; found = true; break; }
+    }
+    if (!found) mappingProjects.push(mp);
+    saveMappingProjects();
+  }
+  function deleteMappingProject(id) {
+    mappingProjects = mappingProjects.filter(function(mp) { return mp.id !== id; });
+    saveMappingProjects();
+  }
+
   // ==================== VERSIONED CONCEPT SETS ====================
   /**
    * Return the concept set object for (id, version). If `version` is falsy or matches
@@ -1798,6 +1839,7 @@ var App = (function() {
     checkForDataUpdate: checkForDataUpdate,
     t: t,
     tProj: tProj,
+    tMappingProject: tMappingProject,
     escapeHtml: escapeHtml,
     showToast: showToast,
     renderMarkdown: renderMarkdown,
@@ -1844,6 +1886,11 @@ var App = (function() {
     addProject: addProject,
     updateProject: updateProject,
     deleteProject: deleteProject,
+    getMappingProjects: getMappingProjects,
+    getMappingProject: getMappingProject,
+    addMappingProject: addMappingProject,
+    updateMappingProject: updateMappingProject,
+    deleteMappingProject: deleteMappingProject,
     i18n: i18n,
     formatDate: formatDate,
     translateDOM: translateDOM,

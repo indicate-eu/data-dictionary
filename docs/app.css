@@ -3505,3 +3505,50 @@ select.form-input { appearance: auto; }
   border-radius: 4px;
   background: #fff;
 }
+
+/* ==================== Mapping page (two tabs) ==================== */
+/* The Mapping page reuses Settings tab styling (.settings-tabs / .settings-tab /
+   .settings-content / .settings-tab-content) and the Projects list view inside
+   the first tab (.toolbar + .project-cards). Only a few targeted overrides are
+   needed below. */
+
+/* Breathing room between the tabs strip and the content of each tab. */
+#mapping-tab-projects { padding: 16px 16px 0 16px; }
+
+/* Empty state inside the project cards grid. */
+.mapping-projects-empty {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+/* Recommendations tab: content area + right sidebar (which carries the action
+   buttons at the top, then the table-of-contents list below). */
+#mapping-tab-recommendations {
+  padding: 0;
+}
+#mapping-tab-recommendations .mapping-layout {
+  flex: 1;
+  position: static; /* override the absolute-positioning context from legacy CSS */
+}
+/* Pull the sidebar content closer to the top of the tab so the action buttons
+   line up roughly with the start of the main content. */
+#mapping-tab-recommendations #mapping-toc {
+  padding-top: 4px;
+}
+/* Action buttons side by side inside the right sidebar, centred. */
+#mapping-toc .mapping-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+#mapping-toc .mapping-actions .btn-primary-custom {
+  justify-content: center;
+}

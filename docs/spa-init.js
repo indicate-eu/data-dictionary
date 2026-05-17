@@ -7,7 +7,7 @@
 
   var pages = {
     '/concept-sets':    { el: 'page-concept-sets',    mod: ConceptSetsPage },
-    '/mapping-recommendations': { el: 'page-mapping-recommendations', mod: MappingRecommendationsPage },
+    '/mapping':         { el: 'page-mapping',         mod: MappingPage },
     '/projects':        { el: 'page-projects',        mod: ProjectsPage },
     '/settings':        { el: 'page-settings',        mod: SettingsPage },
     '/dev-tools':       { el: 'page-dev-tools',       mod: DevToolsPage },
@@ -51,10 +51,16 @@
     })(keys[i]);
   }
 
+  // Legacy alias: the old Mapping Recommendations page now lives as a tab of
+  // the Mapping page. Redirect bookmarks / external links to the new URL.
+  Router.register('/mapping-recommendations', function () {
+    Router.navigate('/mapping', { tab: 'recommendations' });
+  });
+
   // Register language change callbacks for pages that support it
   if (ConceptSetsPage.onLanguageChange) App.onLanguageChange(ConceptSetsPage.onLanguageChange);
   if (ProjectsPage.onLanguageChange) App.onLanguageChange(ProjectsPage.onLanguageChange);
-  if (MappingRecommendationsPage.onLanguageChange) App.onLanguageChange(MappingRecommendationsPage.onLanguageChange);
+  if (MappingPage.onLanguageChange) App.onLanguageChange(MappingPage.onLanguageChange);
   if (DocumentationPage.onLanguageChange) App.onLanguageChange(DocumentationPage.onLanguageChange);
 
   // Global tooltip for elements with [data-tooltip]
@@ -174,7 +180,7 @@
     if (projTab) projTab.style.display = 'none';
   }
   if (tabs.showMappingRecommendations === false) {
-    var mrTab = document.querySelector('.nav-tab[data-page="mapping-recommendations"]');
+    var mrTab = document.querySelector('.nav-tab[data-page="mapping"]');
     if (mrTab) mrTab.style.display = 'none';
   }
 

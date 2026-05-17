@@ -29,9 +29,9 @@
       <i class="fas fa-book"></i>
       <span data-i18n="Data Dictionary">Data Dictionary</span>
     </a>
-    <a class="nav-tab" href="#/mapping-recommendations" data-page="mapping-recommendations">
+    <a class="nav-tab" href="#/mapping" data-page="mapping">
       <i class="fas fa-comment-dots"></i>
-      <span data-i18n="Mapping Recommendations">Mapping Recommendations</span>
+      <span data-i18n="Concept Mapping">Concept Mapping</span>
     </a>
     <a class="nav-tab" href="#/projects" data-page="projects">
       <i class="fas fa-list-check"></i>
@@ -683,57 +683,132 @@
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════
-     PAGE: Mapping Recommendations (#/mapping-recommendations)
+     PAGE: Mapping (#/mapping)
      ═══════════════════════════════════════════════════════════ -->
-<div class="main page-container" id="page-mapping-recommendations" style="display:none">
-  <div class="mapping-layout">
-    <!-- Floating action buttons (top-left, no reserved column) -->
-    <div class="mapping-floating-actions" id="mapping-toolbar-view">
-      <button class="btn-primary-custom btn-gray" id="mapping-page-edit-btn">
-        <i class="fas fa-pen"></i> <span data-i18n="Edit">Edit</span>
-      </button>
-      <button class="btn-primary-custom" id="mapping-page-export-btn">
-        <i class="fas fa-download"></i> <span data-i18n="Export">Export</span>
-      </button>
-    </div>
-    <div class="mapping-floating-actions" id="mapping-toolbar-edit" style="display:none">
-      <button class="btn-primary-custom btn-gray" id="mapping-page-cancel-btn">
-        <i class="fas fa-times"></i> <span data-i18n="Cancel">Cancel</span>
-      </button>
-      <button class="btn-primary-custom" id="mapping-page-save-btn">
-        <i class="fas fa-save"></i> <span data-i18n="Save">Save</span>
-      </button>
-    </div>
-    <!-- Center column: content -->
-    <main class="mapping-main" id="mapping-main">
-      <!-- View mode -->
-      <div class="mapping-view-container" id="mapping-view-container">
-        <div class="doc-content-inner mapping-content" id="mapping-view-content">
-          <div class="markdown-preview-placeholder" data-i18n="No mapping recommendations available.">No mapping recommendations available.</div>
+<div class="main page-container" id="page-mapping" style="display:none">
+  <!-- Tabs row (settings-style) -->
+  <div class="settings-tabs" id="mapping-tabs">
+    <button class="settings-tab active" data-tab="projects">
+      <i class="fas fa-folder-open"></i> <span data-i18n="My mapping projects">My mapping projects</span>
+    </button>
+    <button class="settings-tab" data-tab="recommendations">
+      <i class="fas fa-comment-dots"></i> <span data-i18n="Recommendations">Recommendations</span>
+    </button>
+  </div>
+
+  <div class="settings-content">
+    <!-- ===== Tab: My mapping projects ===== -->
+    <div class="settings-tab-content" id="mapping-tab-projects">
+      <div class="list-view">
+        <div class="toolbar">
+          <input type="text" class="search-input" id="mapping-projects-search" placeholder="Search mapping projects..." data-i18n-placeholder="Search mapping projects...">
+          <div style="display:flex; gap:8px; align-items:center">
+            <button class="btn-success-custom" id="mapping-projects-create-btn">
+              <i class="fas fa-plus"></i> <span data-i18n="New mapping project">New mapping project</span>
+            </button>
+          </div>
         </div>
+        <div class="project-cards" id="mapping-projects-cards"></div>
       </div>
-      <!-- Edit mode -->
-      <div class="mapping-edit-container" id="mapping-edit-container">
-        <div class="mapping-editor-layout">
-          <div class="mapping-editor-pane">
-            <div class="mapping-pane-header"><i class="fas fa-pencil-alt"></i> Markdown Editor</div>
-            <div class="mapping-pane-body">
-              <div id="mapping-page-ace-editor"></div>
+    </div>
+
+    <!-- ===== Tab: Recommendations (legacy content) ===== -->
+    <div class="settings-tab-content" id="mapping-tab-recommendations" style="display:none">
+      <div class="mapping-layout">
+        <!-- Center column: content -->
+        <main class="mapping-main" id="mapping-main">
+          <!-- View mode -->
+          <div class="mapping-view-container" id="mapping-view-container">
+            <div class="doc-content-inner mapping-content" id="mapping-view-content">
+              <div class="markdown-preview-placeholder" data-i18n="No mapping recommendations available.">No mapping recommendations available.</div>
             </div>
           </div>
-          <div class="mapping-editor-pane">
-            <div class="mapping-pane-header"><i class="fas fa-eye"></i> Preview</div>
-            <div class="mapping-pane-body">
-              <div class="doc-content-inner mapping-content" id="mapping-page-preview">
-                <div class="markdown-preview-placeholder">Preview will appear here...</div>
+          <!-- Edit mode -->
+          <div class="mapping-edit-container" id="mapping-edit-container">
+            <div class="mapping-editor-layout">
+              <div class="mapping-editor-pane">
+                <div class="mapping-pane-header"><i class="fas fa-pencil-alt"></i> Markdown Editor</div>
+                <div class="mapping-pane-body">
+                  <div id="mapping-page-ace-editor"></div>
+                </div>
+              </div>
+              <div class="mapping-editor-pane">
+                <div class="mapping-pane-header"><i class="fas fa-eye"></i> Preview</div>
+                <div class="mapping-pane-body">
+                  <div class="doc-content-inner mapping-content" id="mapping-page-preview">
+                    <div class="markdown-preview-placeholder">Preview will appear here...</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </main>
+        <!-- Right column: actions + TOC -->
+        <aside class="doc-toc" id="mapping-toc">
+          <!-- Action buttons live at the top of the right sidebar. -->
+          <div class="mapping-actions" id="mapping-toolbar-view">
+            <button class="btn-primary-custom btn-gray" id="mapping-page-edit-btn">
+              <i class="fas fa-pen"></i> <span data-i18n="Edit">Edit</span>
+            </button>
+            <button class="btn-primary-custom" id="mapping-page-export-btn">
+              <i class="fas fa-download"></i> <span data-i18n="Export">Export</span>
+            </button>
+          </div>
+          <div class="mapping-actions" id="mapping-toolbar-edit" style="display:none">
+            <button class="btn-primary-custom btn-gray" id="mapping-page-cancel-btn">
+              <i class="fas fa-times"></i> <span data-i18n="Cancel">Cancel</span>
+            </button>
+            <button class="btn-primary-custom" id="mapping-page-save-btn">
+              <i class="fas fa-save"></i> <span data-i18n="Save">Save</span>
+            </button>
+          </div>
+          <!-- The TOC list is rendered into this container by the JS module. -->
+          <div id="mapping-toc-list"></div>
+        </aside>
       </div>
-    </main>
-    <!-- Right column: TOC -->
-    <aside class="doc-toc" id="mapping-toc"></aside>
+    </div>
+  </div>
+</div>
+
+<!-- Mapping Project Create/Edit Modal -->
+<div class="modal-overlay" id="mapping-project-modal" style="display:none">
+  <div class="modal-box" style="width:560px">
+    <div class="modal-header">
+      <h3 id="mapping-project-modal-title"><i class="fas fa-plus"></i> <span data-i18n="New mapping project">New mapping project</span></h3>
+      <button class="modal-close" id="mapping-project-modal-close">&times;</button>
+    </div>
+    <div class="modal-body" style="display:flex; flex-direction:column; gap:12px; padding:20px">
+      <div>
+        <label class="form-label" for="mapping-project-modal-name" data-i18n="Name *">Name *</label>
+        <input type="text" class="form-input" id="mapping-project-modal-name" placeholder="e.g. CHU Rennes — ICU mapping" data-i18n-placeholder="e.g. CHU Rennes — ICU mapping">
+      </div>
+      <div>
+        <label class="form-label" for="mapping-project-modal-description" data-i18n="Description">Description</label>
+        <textarea class="form-input" id="mapping-project-modal-description" rows="3" style="min-height:auto" placeholder="Notes about the centre, OMOP version, extraction date..." data-i18n-placeholder="Notes about the centre, OMOP version, extraction date..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary-custom" id="mapping-project-modal-cancel" data-i18n="Cancel">Cancel</button>
+      <button class="btn-primary-custom" id="mapping-project-modal-submit"><i class="fas fa-plus"></i> <span data-i18n="Create">Create</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Mapping Project Delete Confirm Modal -->
+<div class="modal-overlay" id="mapping-project-delete-modal" style="display:none">
+  <div class="modal-box" style="width:420px">
+    <div class="modal-header">
+      <h3><i class="fas fa-trash"></i> <span data-i18n="Delete mapping project">Delete mapping project</span></h3>
+      <button class="modal-close" id="mapping-project-delete-close">&times;</button>
+    </div>
+    <div class="modal-body" style="padding:20px">
+      <p data-i18n="Are you sure you want to delete this mapping project?">Are you sure you want to delete this mapping project?</p>
+      <p id="mapping-project-delete-name" style="font-weight:600; margin-top:8px"></p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary-custom" id="mapping-project-delete-cancel" data-i18n="Cancel">Cancel</button>
+      <button class="btn-primary-custom btn-danger" id="mapping-project-delete-confirm"><i class="fas fa-trash"></i> <span data-i18n="Delete">Delete</span></button>
+    </div>
   </div>
 </div>
 
@@ -1950,7 +2025,7 @@ Enter your review comments here using Markdown syntax.
 <script src="router.js"></script>
 <script src="concept-sets.js"></script>
 <script src="projects.js"></script>
-<script src="mapping-recommendations.js"></script>
+<script src="mapping.js"></script>
 <script src="settings.js"></script>
 <script src="general-settings.js"></script>
 <script src="dev-tools.js"></script>
