@@ -699,7 +699,8 @@
   <div class="settings-content">
     <!-- ===== Tab: My mapping projects ===== -->
     <div class="settings-tab-content" id="mapping-tab-projects">
-      <div class="list-view">
+      <!-- List view (cards) -->
+      <div class="list-view" id="mapping-projects-list-view">
         <div class="toolbar">
           <input type="text" class="search-input" id="mapping-projects-search" placeholder="Search mapping projects..." data-i18n-placeholder="Search mapping projects...">
           <div style="display:flex; gap:8px; align-items:center">
@@ -709,6 +710,63 @@
           </div>
         </div>
         <div class="project-cards" id="mapping-projects-cards"></div>
+      </div>
+
+      <!-- Detail view (single mapping project) -->
+      <div class="detail-view" id="mapping-project-detail-view">
+        <div class="detail-header" style="align-items:center">
+          <button class="btn-back-discrete" id="mapping-project-back" title="Mapping projects">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <span class="project-name-badge" id="mapping-project-detail-title"></span>
+          <div class="detail-meta" id="mapping-project-detail-meta"></div>
+        </div>
+
+        <!-- Internal tabs -->
+        <div class="settings-tabs" id="mapping-project-tabs">
+          <button class="settings-tab active" data-tab="overview">
+            <i class="fas fa-chart-pie"></i> <span data-i18n="Overview">Overview</span>
+          </button>
+          <button class="settings-tab" data-tab="concepts">
+            <i class="fas fa-list"></i> <span data-i18n="Mapped concepts">Mapped concepts</span>
+          </button>
+          <button class="settings-tab" data-tab="eligibility">
+            <i class="fas fa-check-double"></i> <span data-i18n="Eligibility">Eligibility</span>
+          </button>
+        </div>
+
+        <div class="settings-content mapping-project-content">
+
+          <!-- Overview tab: dashboard widgets + import CTA -->
+          <div class="settings-tab-content" id="mapping-project-tab-overview">
+            <div class="mapping-widgets" id="mapping-project-widgets"></div>
+            <div class="mapping-import-cta" id="mapping-project-import-cta">
+              <i class="fas fa-file-csv mapping-import-icon"></i>
+              <p class="mapping-import-text" id="mapping-import-text" data-i18n="No mapping data imported yet. Upload a source-to-concept-map CSV to evaluate your eligibility to INDICATE projects.">No mapping data imported yet. Upload a source-to-concept-map CSV to evaluate your eligibility to INDICATE projects.</p>
+              <button class="btn-primary-custom" id="mapping-project-import-btn">
+                <i class="fas fa-upload"></i> <span data-i18n="Import CSV">Import CSV</span>
+              </button>
+            </div>
+            <div class="mapping-eligibility-preview" id="mapping-project-eligibility-preview"></div>
+          </div>
+
+          <!-- Concepts tab: datatable of imported concept_ids (placeholder for now) -->
+          <div class="settings-tab-content" id="mapping-project-tab-concepts" style="display:none">
+            <div class="mapping-empty-state">
+              <i class="fas fa-table"></i>
+              <p data-i18n="Import a CSV to see your mapped concepts here.">Import a CSV to see your mapped concepts here.</p>
+            </div>
+          </div>
+
+          <!-- Eligibility tab: project-by-project eligibility breakdown (placeholder) -->
+          <div class="settings-tab-content" id="mapping-project-tab-eligibility" style="display:none">
+            <div class="mapping-empty-state">
+              <i class="fas fa-check-double"></i>
+              <p data-i18n="Import a CSV to see how your mapping covers each INDICATE project.">Import a CSV to see how your mapping covers each INDICATE project.</p>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
 
@@ -808,6 +866,33 @@
     <div class="modal-footer">
       <button class="btn-secondary-custom" id="mapping-project-delete-cancel" data-i18n="Cancel">Cancel</button>
       <button class="btn-primary-custom btn-danger" id="mapping-project-delete-confirm"><i class="fas fa-trash"></i> <span data-i18n="Delete">Delete</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Mapping Project: Import CSV Modal -->
+<div class="modal-overlay" id="mapping-import-modal" style="display:none">
+  <div class="modal-box" style="width:640px; max-width:90vw">
+    <div class="modal-header">
+      <h3><i class="fas fa-upload"></i> <span data-i18n="Import mapping CSV">Import mapping CSV</span></h3>
+      <button class="modal-close" id="mapping-import-modal-close">&times;</button>
+    </div>
+    <div class="modal-body" style="display:flex; flex-direction:column; gap:14px; padding:20px">
+      <p style="margin:0; color:var(--text-muted); font-size:13px" data-i18n="Upload a CSV exported from your OMOP environment. Three formats are auto-detected: OMOP source_to_concept_map (with header), a minimal CSV containing a concept_id column, or a single-column list of concept ids.">Upload a CSV exported from your OMOP environment. Three formats are auto-detected: OMOP source_to_concept_map (with header), a minimal CSV containing a concept_id column, or a single-column list of concept ids.</p>
+      <div>
+        <label class="form-label" for="mapping-import-file" data-i18n="CSV file">CSV file</label>
+        <input type="file" class="form-input" id="mapping-import-file" accept=".csv,.tsv,.txt,text/csv">
+      </div>
+      <div id="mapping-import-preview" style="display:none">
+        <label class="form-label" data-i18n="Preview">Preview</label>
+        <div class="mapping-import-summary" id="mapping-import-summary"></div>
+        <div class="mapping-import-sample" id="mapping-import-sample"></div>
+      </div>
+      <div id="mapping-import-error" class="mapping-import-error" style="display:none"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary-custom" id="mapping-import-modal-cancel" data-i18n="Cancel">Cancel</button>
+      <button class="btn-primary-custom" id="mapping-import-modal-submit" disabled><i class="fas fa-check"></i> <span data-i18n="Import">Import</span></button>
     </div>
   </div>
 </div>

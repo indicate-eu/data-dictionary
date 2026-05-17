@@ -11,9 +11,10 @@ var MappingPage = (function() {
   var initialized = false;
   var currentTab = 'projects'; // 'projects' | 'recommendations'
   var selectedMappingProjectId = null;
+  var detailTab = 'overview'; // 'overview' | 'concepts' | 'eligibility'
   var deleteTargetId = null;
 
-  // ==================== TABS ====================
+  // ==================== TABS (top-level) ====================
   function switchTab(tabName) {
     if (tabName !== 'projects' && tabName !== 'recommendations') tabName = 'projects';
     currentTab = tabName;
@@ -26,17 +27,147 @@ var MappingPage = (function() {
       tabName === 'recommendations' ? '' : 'none';
 
     // Reflect the active tab in the URL so deep-linking + refresh works.
-    var url = '#/mapping';
-    if (tabName === 'recommendations') url += '?tab=recommendations';
-    history.replaceState(null, '', url);
+    // The detail view (?id=...) writes its own URL elsewhere.
+    if (tabName === 'projects' && !selectedMappingProjectId) {
+      history.replaceState(null, '', '#/mapping');
+    } else if (tabName === 'recommendations') {
+      selectedMappingProjectId = null;
+      hideDetailView();
+      history.replaceState(null, '', '#/mapping?tab=recommendations');
+    }
 
     if (tabName === 'recommendations') {
       ensureRecommendationsInit();
       if (!recoEditing) renderRecoView();
       else if (recoEditor) recoEditor.resize();
     } else {
-      renderMappingProjects();
+      if (selectedMappingProjectId) {
+        showDetailView(selectedMappingProjectId);
+      } else {
+        showListView();
+      }
     }
+  }
+
+  // ==================== LIST VIEW ↔ DETAIL VIEW ====================
+  function showListView() {
+    document.getElementById('mapping-projects-list-view').style.display = '';
+    document.getElementById('mapping-project-detail-view').classList.remove('active');
+    renderMappingProjects();
+  }
+
+  function hideDetailView() {
+    document.getElementById('mapping-project-detail-view').classList.remove('active');
+    document.getElementById('mapping-projects-list-view').style.display = '';
+  }
+
+  function showDetailView(mpId) {
+    var mp = App.getMappingProject(mpId);
+    if (!mp) { selectedMappingProjectId = null; showListView(); return; }
+    selectedMappingProjectId = mpId;
+    document.getElementById('mapping-projects-list-view').style.display = 'none';
+    document.getElementById('mapping-project-detail-view').classList.add('active');
+    renderDetailHeader(mp);
+    switchDetailTab(detailTab || 'overview');
+    var url = '#/mapping?id=' + encodeURIComponent(mpId);
+    if (detailTab && detailTab !== 'overview') url += '&detail=' + detailTab;
+    history.replaceState(null, '', url);
+  }
+
+  function renderDetailHeader(mp) {
+    var tr = App.tMappingProject(mp);
+    document.getElementById('mapping-project-detail-title').textContent =
+      tr.name || App.i18n('Untitled');
+    var n = (mp.conceptIds || []).length;
+    var meta = '';
+    if (n > 0) {
+      meta += '<span class="badge badge-count"><i class="fas fa-list"></i> ' + n + ' ' + App.i18n('mapped concepts') + '</span>';
+    } else {
+      meta += '<span style="color:var(--text-muted); font-size:13px"><i class="fas fa-info-circle"></i> ' + App.i18n('No mapping data yet') + '</span>';
+    }
+    meta += '<span style="color:var(--text-muted); font-size:13px; margin-left:8px"><i class="fas fa-calendar-alt"></i> ' + App.escapeHtml(App.formatDate(mp.modifiedDate || mp.createdDate) || '') + '</span>';
+    document.getElementById('mapping-project-detail-meta').innerHTML = meta;
+  }
+
+  function switchDetailTab(tabName) {
+    if (['overview', 'concepts', 'eligibility'].indexOf(tabName) < 0) tabName = 'overview';
+    detailTab = tabName;
+    document.querySelectorAll('#mapping-project-tabs .settings-tab').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.tab === tabName);
+    });
+    document.getElementById('mapping-project-tab-overview').style.display =
+      tabName === 'overview' ? '' : 'none';
+    document.getElementById('mapping-project-tab-concepts').style.display =
+      tabName === 'concepts' ? '' : 'none';
+    document.getElementById('mapping-project-tab-eligibility').style.display =
+      tabName === 'eligibility' ? '' : 'none';
+
+    if (selectedMappingProjectId) {
+      var url = '#/mapping?id=' + encodeURIComponent(selectedMappingProjectId);
+      if (tabName !== 'overview') url += '&detail=' + tabName;
+      history.replaceState(null, '', url);
+    }
+
+    if (tabName === 'overview') renderOverview();
+    else if (tabName === 'concepts') renderConceptsTab();
+    else if (tabName === 'eligibility') renderEligibilityTab();
+  }
+
+  function renderOverview() {
+    var mp = selectedMappingProjectId && App.getMappingProject(selectedMappingProjectId);
+    if (!mp) return;
+    var widgets = document.getElementById('mapping-project-widgets');
+    var ids = mp.conceptIds || [];
+    var n = ids.length;
+
+    // Matched-in-dictionary count: how many unique mapped ids are present in
+    // at least one resolved concept set of the INDICATE dictionary.
+    var matched = 0;
+    if (n > 0) {
+      var dict = mappedConceptDictionary();
+      var seen = new Set();
+      ids.forEach(function(id) {
+        if (seen.has(id)) return;
+        seen.add(id);
+        if (dict[id]) matched++;
+      });
+    }
+
+    // Eligible-projects count: number of INDICATE projects with score 100%.
+    var eligible = 0, total = (App.projects || []).length;
+    if (n > 0) {
+      var results = evaluateAllProjects(mp);
+      eligible = results.filter(function(r) { return r.eligible; }).length;
+    }
+
+    widgets.innerHTML = [
+      widgetCard('fa-list', n, App.i18n('Mapped concepts')),
+      widgetCard('fa-check', n > 0 ? matched : '—', App.i18n('Matched in dictionary')),
+      widgetCard('fa-check-double', n > 0 ? (eligible + ' / ' + total) : '—', App.i18n('Eligible projects'))
+    ].join('');
+
+    // Toggle the import CTA depending on whether data is already present.
+    var cta = document.getElementById('mapping-project-import-cta');
+    var ctaText = document.getElementById('mapping-import-text');
+    if (n === 0) {
+      ctaText.textContent = App.i18n('No mapping data imported yet. Upload a source-to-concept-map CSV to evaluate your eligibility to INDICATE projects.');
+    } else {
+      var imported = mp.stats && mp.stats.sourceFile ? mp.stats.sourceFile : '';
+      ctaText.textContent = App.i18n('{n} concepts imported.').replace('{n}', n) +
+        (imported ? ' ' + App.i18n('Source:') + ' ' + imported : '') +
+        ' ' + App.i18n('Re-import a CSV to replace the current mapping.');
+    }
+    cta.style.display = '';
+
+    renderEligibilityPreview(mp);
+  }
+
+  function widgetCard(icon, value, label) {
+    return '<div class="mapping-widget">' +
+      '<div class="mapping-widget-icon"><i class="fas ' + icon + '"></i></div>' +
+      '<div class="mapping-widget-value">' + App.escapeHtml(String(value)) + '</div>' +
+      '<div class="mapping-widget-label">' + App.escapeHtml(label) + '</div>' +
+    '</div>';
   }
 
   // ==================== MAPPING PROJECTS — LIST ====================
@@ -454,10 +585,43 @@ var MappingPage = (function() {
         else if (action === 'delete') openDeleteModal(iid);
         return;
       }
-      // Plain card click: detail view not implemented in this commit. Will land
-      // in a follow-up that adds the per-project dashboard.
+      // Plain card click: open the per-project detail view.
+      var card = e.target.closest('.project-card[data-id]');
+      if (card) {
+        var cardId = card.dataset.id;
+        if (cardId) {
+          detailTab = 'overview';
+          showDetailView(cardId);
+        }
+        return;
+      }
     });
     document.addEventListener('click', closeAllCardMenus);
+
+    // Detail view: back button + internal tabs + import button
+    document.getElementById('mapping-project-back').addEventListener('click', function() {
+      selectedMappingProjectId = null;
+      detailTab = 'overview';
+      showListView();
+      history.replaceState(null, '', '#/mapping');
+    });
+    document.getElementById('mapping-project-tabs').addEventListener('click', function(e) {
+      var tab = e.target.closest('.settings-tab');
+      if (!tab) return;
+      switchDetailTab(tab.dataset.tab);
+    });
+
+    // Import CSV button (Overview tab)
+    document.getElementById('mapping-project-import-btn').addEventListener('click', openImportModal);
+
+    // Import CSV modal
+    document.getElementById('mapping-import-modal-close').addEventListener('click', closeImportModal);
+    document.getElementById('mapping-import-modal-cancel').addEventListener('click', closeImportModal);
+    document.getElementById('mapping-import-modal-submit').addEventListener('click', submitImport);
+    document.getElementById('mapping-import-modal').addEventListener('click', function(e) {
+      if (e.target === document.getElementById('mapping-import-modal')) closeImportModal();
+    });
+    document.getElementById('mapping-import-file').addEventListener('change', onImportFileChange);
 
     // Create / edit modal
     document.getElementById('mapping-project-modal-close').addEventListener('click', closeCreateModal);
@@ -479,14 +643,531 @@ var MappingPage = (function() {
     });
   }
 
+  // ==================== CSV PARSER ====================
+  // Minimal RFC 4180-ish CSV parser: handles commas / tabs / semicolons as
+  // separators, quoted fields with embedded commas and doubled quotes, and
+  // CRLF / LF line endings.
+  function parseCSV(text) {
+    if (!text) return { sep: ',', rows: [] };
+    // Strip BOM if present.
+    if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+
+    // Detect separator from the first non-empty line (try , then ; then \t).
+    var firstLine = '';
+    for (var i = 0; i < text.length; i++) {
+      var ch = text[i];
+      if (ch === '\n' || ch === '\r') {
+        if (firstLine) break;
+      } else {
+        firstLine += ch;
+      }
+    }
+    var sep = ',';
+    if (firstLine.indexOf('\t') >= 0 && (firstLine.indexOf(',') < 0 || firstLine.split('\t').length > firstLine.split(',').length)) {
+      sep = '\t';
+    } else if (firstLine.indexOf(';') >= 0 && firstLine.indexOf(',') < 0) {
+      sep = ';';
+    }
+
+    var rows = [];
+    var row = [];
+    var field = '';
+    var inQuotes = false;
+    var len = text.length;
+    for (var p = 0; p < len; p++) {
+      var c = text[p];
+      if (inQuotes) {
+        if (c === '"') {
+          if (text[p + 1] === '"') { field += '"'; p++; }
+          else { inQuotes = false; }
+        } else {
+          field += c;
+        }
+        continue;
+      }
+      if (c === '"') { inQuotes = true; continue; }
+      if (c === sep) { row.push(field); field = ''; continue; }
+      if (c === '\n' || c === '\r') {
+        // Push the field + row if we have content. Skip blank lines.
+        if (field !== '' || row.length > 0) {
+          row.push(field);
+          if (row.some(function(v) { return String(v).trim() !== ''; })) rows.push(row);
+          row = []; field = '';
+        }
+        // Swallow CRLF as a single line break.
+        if (c === '\r' && text[p + 1] === '\n') p++;
+        continue;
+      }
+      field += c;
+    }
+    if (field !== '' || row.length > 0) {
+      row.push(field);
+      if (row.some(function(v) { return String(v).trim() !== ''; })) rows.push(row);
+    }
+    return { sep: sep, rows: rows };
+  }
+
+  // ==================== CSV FORMAT DETECTION ====================
+  // Returns { format, idIndex, sourceIndex|null, hasHeader, headers|null }.
+  // format ∈ 'stcm' | 'concept_id_with_source' | 'concept_id_list'.
+  function detectFormat(rows) {
+    if (rows.length === 0) return null;
+    var first = rows[0].map(function(c) { return String(c).trim().toLowerCase(); });
+
+    // Looks like a header? Header = first row contains only non-numeric tokens
+    // AND at least one token matches our well-known column names.
+    var allNonNumeric = first.every(function(c) { return c !== '' && !/^-?\d+$/.test(c); });
+    var hasKnownColumn = first.some(function(c) {
+      return c === 'target_concept_id' || c === 'concept_id' || c === 'omop_concept_id' ||
+             c === 'source_code' || c === 'source_concept_id' || c === 'source_value';
+    });
+    var hasHeader = allNonNumeric && hasKnownColumn;
+
+    if (hasHeader) {
+      var targetIdx = first.indexOf('target_concept_id');
+      if (targetIdx < 0) targetIdx = first.indexOf('concept_id');
+      if (targetIdx < 0) targetIdx = first.indexOf('omop_concept_id');
+      if (targetIdx < 0) return null; // no usable column
+
+      var sourceIdx = first.indexOf('source_code');
+      if (sourceIdx < 0) sourceIdx = first.indexOf('source_value');
+      if (sourceIdx < 0) sourceIdx = first.indexOf('source_label');
+
+      var stcmCols = ['source_code', 'source_concept_id', 'target_concept_id', 'source_vocabulary_id'];
+      var isStcm = stcmCols.filter(function(c) { return first.indexOf(c) >= 0; }).length >= 2;
+
+      return {
+        format: isStcm ? 'stcm' : (sourceIdx >= 0 ? 'concept_id_with_source' : 'concept_id_list'),
+        idIndex: targetIdx,
+        sourceIndex: sourceIdx >= 0 ? sourceIdx : null,
+        hasHeader: true,
+        headers: rows[0]
+      };
+    }
+
+    // No header — does every row consist of a single numeric field? Then it's
+    // a bare list of concept ids.
+    var allSingleNumeric = rows.every(function(r) {
+      return r.length === 1 && /^-?\d+$/.test(String(r[0]).trim());
+    });
+    if (allSingleNumeric) {
+      return {
+        format: 'concept_id_list',
+        idIndex: 0,
+        sourceIndex: null,
+        hasHeader: false,
+        headers: null
+      };
+    }
+    return null;
+  }
+
+  // Extract { conceptIds, sources } from rows + detection info.
+  function extractMapping(rows, detection) {
+    var startIdx = detection.hasHeader ? 1 : 0;
+    var conceptIds = [];
+    var sources = detection.sourceIndex !== null ? [] : null;
+    for (var i = startIdx; i < rows.length; i++) {
+      var raw = String(rows[i][detection.idIndex] || '').trim();
+      if (!/^-?\d+$/.test(raw)) continue;
+      var id = parseInt(raw, 10);
+      if (!id || id === 0) continue; // 0 = unmapped placeholder in STCM
+      conceptIds.push(id);
+      if (sources) sources.push(String(rows[i][detection.sourceIndex] || '').trim());
+    }
+    return { conceptIds: conceptIds, sources: sources };
+  }
+
+  // ==================== ELIGIBILITY ENGINE ====================
+  // Per concept set: covered if at least one resolved concept id is in the
+  // mapping. Per group: rule decides whether the group is satisfied + computes
+  // a coverage score (0..1). Per project: average of non-optional group
+  // scores. Optional groups are computed but excluded from the project score.
+  function buildMappedSet(mp) {
+    var s = new Set();
+    (mp.conceptIds || []).forEach(function(id) { s.add(id); });
+    return s;
+  }
+
+  function evaluateProject(project, mappedSet) {
+    var groups = App.getProjectGroups(project) || [];
+    var groupResults = groups.map(function(g) {
+      var entries = g.conceptSets || [];
+      var coveredCount = 0;
+      var perCS = entries.map(function(e) {
+        var resolved = App.getResolvedConceptSet(e.id, e.version) || [];
+        var covered = false;
+        for (var i = 0; i < resolved.length; i++) {
+          if (mappedSet.has(resolved[i].conceptId)) { covered = true; break; }
+        }
+        if (covered) coveredCount++;
+        return { id: e.id, version: e.version, covered: covered, total: resolved.length };
+      });
+      var rule = g.rule || App.DEFAULT_GROUP_RULE;
+      var score;
+      var satisfied;
+      if (entries.length === 0) { score = 1; satisfied = true; }
+      else if (rule === 'all_required') {
+        score = coveredCount / entries.length;
+        satisfied = coveredCount === entries.length;
+      } else if (rule === 'at_least_one') {
+        score = coveredCount > 0 ? 1 : 0;
+        satisfied = coveredCount > 0;
+      } else { // optional
+        score = entries.length > 0 ? coveredCount / entries.length : 1;
+        satisfied = true;
+      }
+      return {
+        id: g.id, name: App.getGroupName(g), rule: rule,
+        coveredCount: coveredCount, total: entries.length,
+        perCS: perCS, score: score, satisfied: satisfied
+      };
+    });
+
+    // Project score: average of non-optional group scores (0..1). If a project
+    // has only optional groups, fall back to their average.
+    var nonOptional = groupResults.filter(function(g) { return g.rule !== 'optional'; });
+    var scored = nonOptional.length > 0 ? nonOptional : groupResults;
+    var avg = scored.length > 0
+      ? scored.reduce(function(a, g) { return a + g.score; }, 0) / scored.length
+      : 1;
+    var pct = Math.round(avg * 100);
+    return {
+      project: project,
+      groups: groupResults,
+      score: pct,
+      eligible: scored.every(function(g) { return g.satisfied; })
+    };
+  }
+
+  function evaluateAllProjects(mp) {
+    var mappedSet = buildMappedSet(mp);
+    return (App.projects || []).map(function(p) { return evaluateProject(p, mappedSet); });
+  }
+
+  // ==================== IMPORT MODAL ====================
+  var importParsed = null; // { conceptIds, sources, detection, rowsPreview }
+
+  function openImportModal() {
+    if (!selectedMappingProjectId) return;
+    importParsed = null;
+    document.getElementById('mapping-import-file').value = '';
+    document.getElementById('mapping-import-preview').style.display = 'none';
+    document.getElementById('mapping-import-error').style.display = 'none';
+    document.getElementById('mapping-import-modal-submit').disabled = true;
+    document.getElementById('mapping-import-modal').style.display = '';
+  }
+  function closeImportModal() {
+    document.getElementById('mapping-import-modal').style.display = 'none';
+    importParsed = null;
+  }
+  function importError(message) {
+    var err = document.getElementById('mapping-import-error');
+    err.textContent = message;
+    err.style.display = '';
+    document.getElementById('mapping-import-preview').style.display = 'none';
+    document.getElementById('mapping-import-modal-submit').disabled = true;
+  }
+  function onImportFileChange(e) {
+    document.getElementById('mapping-import-error').style.display = 'none';
+    document.getElementById('mapping-import-preview').style.display = 'none';
+    document.getElementById('mapping-import-modal-submit').disabled = true;
+    importParsed = null;
+    var file = e.target.files && e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function() {
+      try {
+        var parsed = parseCSV(reader.result);
+        var detection = detectFormat(parsed.rows);
+        if (!detection) {
+          importError(App.i18n("Couldn't detect a usable concept_id column. Expected either an OMOP source_to_concept_map header, a concept_id column, or a single-column list of concept ids."));
+          return;
+        }
+        var extracted = extractMapping(parsed.rows, detection);
+        if (extracted.conceptIds.length === 0) {
+          importError(App.i18n('No valid concept_id rows found in the file.'));
+          return;
+        }
+        importParsed = {
+          fileName: file.name,
+          detection: detection,
+          conceptIds: extracted.conceptIds,
+          sources: extracted.sources,
+          rows: parsed.rows
+        };
+        renderImportPreview();
+        document.getElementById('mapping-import-modal-submit').disabled = false;
+      } catch (err) {
+        console.error(err);
+        importError(App.i18n('Failed to parse CSV: ') + (err && err.message ? err.message : err));
+      }
+    };
+    reader.onerror = function() { importError(App.i18n('Failed to read the file.')); };
+    reader.readAsText(file);
+  }
+  function renderImportPreview() {
+    if (!importParsed) return;
+    var detection = importParsed.detection;
+    var n = importParsed.conceptIds.length;
+    var unique = new Set(importParsed.conceptIds).size;
+    var formatLabel;
+    if (detection.format === 'stcm') formatLabel = App.i18n('OMOP source_to_concept_map');
+    else if (detection.format === 'concept_id_with_source') formatLabel = App.i18n('CSV with concept_id + source');
+    else formatLabel = App.i18n('Single-column concept_id list');
+
+    document.getElementById('mapping-import-summary').innerHTML =
+      '<div><strong>' + App.escapeHtml(formatLabel) + '</strong></div>' +
+      '<div>' + n + ' ' + App.i18n('rows with a valid concept_id') + ' · <strong>' + unique + '</strong> ' + App.i18n('unique concepts') + '</div>';
+
+    // Show the first 10 rows as a quick sanity check.
+    var startIdx = detection.hasHeader ? 1 : 0;
+    var sampleRows = importParsed.rows.slice(startIdx, startIdx + 10);
+    var sample = document.getElementById('mapping-import-sample');
+    var headerCells;
+    if (detection.hasHeader) {
+      headerCells = importParsed.rows[0].map(function(h) {
+        return '<th>' + App.escapeHtml(String(h)) + '</th>';
+      }).join('');
+    } else {
+      headerCells = '<th>concept_id</th>';
+    }
+    var bodyRows = sampleRows.map(function(r) {
+      return '<tr>' + r.map(function(c) { return '<td>' + App.escapeHtml(String(c)) + '</td>'; }).join('') + '</tr>';
+    }).join('');
+    sample.innerHTML = '<table><thead><tr>' + headerCells + '</tr></thead><tbody>' + bodyRows + '</tbody></table>';
+
+    document.getElementById('mapping-import-preview').style.display = '';
+  }
+  function submitImport() {
+    if (!importParsed || !selectedMappingProjectId) return;
+    var mp = App.getMappingProject(selectedMappingProjectId);
+    if (!mp) return;
+    var ids = importParsed.conceptIds.slice();
+    mp.conceptIds = ids;
+    mp.format = importParsed.detection.format;
+    mp.stats = {
+      total: ids.length,
+      unique: new Set(ids).size,
+      importedAt: new Date().toISOString(),
+      sourceFile: importParsed.fileName
+    };
+    mp.modifiedDate = new Date().toISOString().split('T')[0];
+    App.updateMappingProject(mp);
+    closeImportModal();
+    App.showToast(App.i18n('Imported {n} concepts.').replace('{n}', ids.length), 'success');
+    // Refresh detail view.
+    renderDetailHeader(mp);
+    if (detailTab === 'overview') renderOverview();
+    else if (detailTab === 'concepts') renderConceptsTab();
+    else if (detailTab === 'eligibility') renderEligibilityTab();
+  }
+
+  // ==================== POST-IMPORT RENDERS ====================
+  function renderConceptsTab() {
+    var mp = selectedMappingProjectId && App.getMappingProject(selectedMappingProjectId);
+    if (!mp) return;
+    var panel = document.getElementById('mapping-project-tab-concepts');
+    var ids = mp.conceptIds || [];
+    if (ids.length === 0) {
+      panel.innerHTML = '<div class="mapping-empty-state">' +
+        '<i class="fas fa-table"></i>' +
+        '<p>' + App.escapeHtml(App.i18n('Import a CSV to see your mapped concepts here.')) + '</p>' +
+      '</div>';
+      return;
+    }
+    // Build a lookup of concept_id → resolved concept metadata across the whole
+    // dictionary (so we can tell which mapped ids are in INDICATE concept sets).
+    var dictById = mappedConceptDictionary();
+    var unique = Array.from(new Set(ids));
+    var matchedCount = unique.filter(function(id) { return dictById[id]; }).length;
+
+    panel.innerHTML =
+      '<div style="padding:16px; display:flex; flex-direction:column; min-height:0; flex:1">' +
+        '<div class="mapping-concepts-toolbar">' +
+          '<input type="text" class="search-input" id="mapping-concepts-search" placeholder="' + App.escapeHtml(App.i18n('Filter by concept id or name...')) + '">' +
+          '<label style="font-size:13px; color:var(--text-muted)"><input type="checkbox" id="mapping-concepts-only-matched"> ' + App.escapeHtml(App.i18n('Only show concepts present in the dictionary')) + '</label>' +
+          '<span style="color:var(--text-muted); font-size:13px; margin-left:auto">' + unique.length + ' ' + App.i18n('unique') + ' · ' + matchedCount + ' ' + App.i18n('in dictionary') + '</span>' +
+        '</div>' +
+        '<div class="mapping-concepts-table-wrap"><table id="mapping-concepts-table"><thead><tr>' +
+          '<th>concept_id</th>' +
+          '<th>' + App.escapeHtml(App.i18n('Name')) + '</th>' +
+          '<th>' + App.escapeHtml(App.i18n('Vocabulary')) + '</th>' +
+          '<th>' + App.escapeHtml(App.i18n('Domain')) + '</th>' +
+          '<th>' + App.escapeHtml(App.i18n('In dictionary')) + '</th>' +
+        '</tr></thead><tbody id="mapping-concepts-tbody"></tbody></table></div>' +
+      '</div>';
+
+    function renderRows() {
+      var q = (document.getElementById('mapping-concepts-search').value || '').toLowerCase();
+      var onlyMatched = document.getElementById('mapping-concepts-only-matched').checked;
+      var rows = unique
+        .filter(function(id) { return !onlyMatched || dictById[id]; })
+        .map(function(id) {
+          var c = dictById[id];
+          var name = c ? c.conceptName : '';
+          var vocab = c ? c.vocabularyId : '';
+          var domain = c ? c.domainId : '';
+          return { id: id, name: name || '', vocab: vocab || '', domain: domain || '', inDict: !!c };
+        })
+        .filter(function(r) {
+          if (!q) return true;
+          return String(r.id).indexOf(q) >= 0 ||
+            r.name.toLowerCase().indexOf(q) >= 0 ||
+            r.vocab.toLowerCase().indexOf(q) >= 0;
+        });
+      var tbody = document.getElementById('mapping-concepts-tbody');
+      // Cap at 500 rows to keep things responsive in this first pass.
+      var capped = rows.slice(0, 500);
+      tbody.innerHTML = capped.map(function(r) {
+        return '<tr>' +
+          '<td><a href="https://athena.ohdsi.org/search-terms/terms/' + r.id + '" target="_blank" rel="noopener" style="font-family:monospace">' + r.id + '</a></td>' +
+          '<td>' + App.escapeHtml(r.name) + '</td>' +
+          '<td>' + App.escapeHtml(r.vocab) + '</td>' +
+          '<td>' + App.escapeHtml(r.domain) + '</td>' +
+          '<td>' + (r.inDict
+            ? '<span style="color:#166534"><i class="fas fa-check"></i></span>'
+            : '<span style="color:var(--text-muted)">—</span>') + '</td>' +
+          '</tr>';
+      }).join('');
+      if (rows.length > 500) {
+        tbody.innerHTML += '<tr><td colspan="5" style="text-align:center; color:var(--text-muted); font-style:italic; padding:10px">' +
+          App.i18n('Showing the first 500 rows out of') + ' ' + rows.length + '.</td></tr>';
+      }
+    }
+
+    document.getElementById('mapping-concepts-search').addEventListener('input', renderRows);
+    document.getElementById('mapping-concepts-only-matched').addEventListener('change', renderRows);
+    renderRows();
+  }
+
+  // Map concept_id → metadata (from resolved concept sets of the dictionary).
+  // Built lazily and cached for the lifetime of the page module.
+  var _conceptDictCache = null;
+  function mappedConceptDictionary() {
+    if (_conceptDictCache) return _conceptDictCache;
+    var dict = {};
+    (App.conceptSets || []).forEach(function(cs) {
+      var resolved = App.getResolvedConceptSet(cs.id) || [];
+      resolved.forEach(function(c) {
+        // Keep the first occurrence; resolved concepts share metadata across CS.
+        if (!dict[c.conceptId]) dict[c.conceptId] = c;
+      });
+    });
+    _conceptDictCache = dict;
+    return dict;
+  }
+
+  function renderEligibilityTab() {
+    var mp = selectedMappingProjectId && App.getMappingProject(selectedMappingProjectId);
+    if (!mp) return;
+    var panel = document.getElementById('mapping-project-tab-eligibility');
+    if (!mp.conceptIds || mp.conceptIds.length === 0) {
+      panel.innerHTML = '<div class="mapping-empty-state">' +
+        '<i class="fas fa-check-double"></i>' +
+        '<p>' + App.escapeHtml(App.i18n('Import a CSV to see how your mapping covers each INDICATE project.')) + '</p>' +
+      '</div>';
+      return;
+    }
+    var results = evaluateAllProjects(mp);
+    var rows = [];
+    results.forEach(function(r) {
+      var projTr = App.tProj(r.project);
+      var projName = projTr.name || ('#' + r.project.id);
+      r.groups.forEach(function(g) {
+        rows.push({
+          projectId: r.project.id, projectName: projName,
+          groupName: g.name, rule: g.rule,
+          coveredCount: g.coveredCount, total: g.total,
+          score: Math.round(g.score * 100), satisfied: g.satisfied
+        });
+      });
+    });
+
+    var ruleLabel = function(r) {
+      if (r === 'all_required') return App.i18n('All required');
+      if (r === 'at_least_one') return App.i18n('At least one');
+      return App.i18n('Optional');
+    };
+    panel.innerHTML =
+      '<div style="padding:16px; display:flex; flex-direction:column; min-height:0; flex:1">' +
+        '<div class="mapping-eligibility-table-wrap"><table id="mapping-eligibility-table"><thead><tr>' +
+          '<th>' + App.escapeHtml(App.i18n('Project')) + '</th>' +
+          '<th>' + App.escapeHtml(App.i18n('Group')) + '</th>' +
+          '<th>' + App.escapeHtml(App.i18n('Group rule')) + '</th>' +
+          '<th>' + App.escapeHtml(App.i18n('Covered')) + '</th>' +
+          '<th>' + App.escapeHtml(App.i18n('Score')) + '</th>' +
+          '<th>' + App.escapeHtml(App.i18n('Status')) + '</th>' +
+        '</tr></thead><tbody>' +
+          rows.map(function(r) {
+            var statusBadge = r.rule === 'optional'
+              ? '<span style="color:var(--text-muted); font-size:12px">' + App.escapeHtml(App.i18n('Informative')) + '</span>'
+              : (r.satisfied
+                  ? '<span class="badge" style="background:#dcfce7; color:#166534"><i class="fas fa-check"></i> ' + App.escapeHtml(App.i18n('Satisfied')) + '</span>'
+                  : '<span class="badge" style="background:#fee2e2; color:#991b1b"><i class="fas fa-times"></i> ' + App.escapeHtml(App.i18n('Not satisfied')) + '</span>');
+            return '<tr>' +
+              '<td>' + App.escapeHtml(r.projectName) + '</td>' +
+              '<td>' + App.escapeHtml(r.groupName || '') + '</td>' +
+              '<td>' + App.escapeHtml(ruleLabel(r.rule)) + '</td>' +
+              '<td style="font-family:monospace">' + r.coveredCount + ' / ' + r.total + '</td>' +
+              '<td style="font-weight:600">' + r.score + '%</td>' +
+              '<td>' + statusBadge + '</td>' +
+            '</tr>';
+          }).join('') +
+        '</tbody></table></div>' +
+      '</div>';
+  }
+
+  function renderEligibilityPreview(mp) {
+    var preview = document.getElementById('mapping-project-eligibility-preview');
+    if (!mp || !mp.conceptIds || mp.conceptIds.length === 0) {
+      preview.innerHTML = '';
+      return;
+    }
+    var results = evaluateAllProjects(mp);
+    if (results.length === 0) { preview.innerHTML = ''; return; }
+
+    preview.innerHTML =
+      '<h4 style="margin:24px 0 12px; font-size:13px; text-transform:uppercase; letter-spacing:0.3px; color:var(--text-muted)">' +
+        App.escapeHtml(App.i18n('Eligibility per INDICATE project')) +
+      '</h4>' +
+      '<div class="mapping-eligibility-list">' +
+        results.map(function(r) {
+          var cls = r.score === 100 ? 'score-full' : (r.score >= 75 ? 'score-mid' : 'score-low');
+          var projTr = App.tProj(r.project);
+          var projName = projTr.name || ('#' + r.project.id);
+          return '<div class="mapping-eligibility-row ' + cls + '">' +
+            '<div>' + App.escapeHtml(projName) + '</div>' +
+            '<div class="mapping-eligibility-bar"><div class="mapping-eligibility-fill" style="width:' + r.score + '%"></div></div>' +
+            '<div class="mapping-eligibility-score">' + r.score + '%</div>' +
+          '</div>';
+        }).join('') +
+      '</div>';
+  }
+
   // ==================== PAGE MODULE ====================
   function show(query) {
     if (!initialized) {
       initialized = true;
       initEvents();
     }
-    var tab = (query && query.tab) === 'recommendations' ? 'recommendations' : 'projects';
-    switchTab(tab);
+    var qTab = query && query.tab;
+    var qId = query && query.id;
+    var qDetail = query && query.detail;
+    if (qTab === 'recommendations') {
+      selectedMappingProjectId = null;
+      switchTab('recommendations');
+      return;
+    }
+    // Default to the projects tab (with optional detail-view selection).
+    if (qId) {
+      selectedMappingProjectId = qId;
+      detailTab = ['overview', 'concepts', 'eligibility'].indexOf(qDetail) >= 0 ? qDetail : 'overview';
+    } else {
+      selectedMappingProjectId = null;
+      detailTab = 'overview';
+    }
+    switchTab('projects');
   }
 
   function hide() {
