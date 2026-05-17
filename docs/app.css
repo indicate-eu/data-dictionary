@@ -3526,7 +3526,7 @@ select.form-input { appearance: auto; }
   display: flex;
 }
 #mapping-project-detail-view .settings-tabs {
-  margin-top: 12px;
+  margin-top: 4px;
 }
 #mapping-project-detail-view .mapping-project-content {
   flex: 1;
@@ -3686,10 +3686,12 @@ select.form-input { appearance: auto; }
 }
 #mapping-concepts-table th,
 #mapping-concepts-table td {
-  padding: 6px 10px;
+  padding: 4px 10px;
   border-bottom: 1px solid var(--border);
   text-align: left;
 }
+#mapping-concepts-table th.td-center,
+#mapping-concepts-table td.td-center { text-align: center; }
 #mapping-concepts-table th {
   font-weight: 600;
   font-size: 12px;
@@ -3747,6 +3749,141 @@ select.form-input { appearance: auto; }
   color: #b91c1c;
 }
 .mapping-eligibility-row .mapping-eligibility-score { background: none !important; }
+.mapping-eligibility-row.clickable {
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.mapping-eligibility-row.clickable:hover {
+  border-color: var(--primary, #0f60af);
+  box-shadow: 0 0 0 2px rgba(15, 96, 175, 0.12);
+}
+
+/* Overview empty state when no CSV imported (less prominent than the cards). */
+.mapping-overview-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  background: var(--bg-muted, #f8fafc);
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 16px;
+}
+.mapping-overview-empty i {
+  font-size: 28px;
+  margin-bottom: 8px;
+  opacity: 0.6;
+}
+.mapping-overview-empty p { margin: 0; max-width: 480px; }
+
+/* Overview: per-project eligibility teaser cards (mirrors .project-card with a
+   score-coloured top accent). */
+.mapping-eligibility-cards {
+  margin-top: 0;
+  overflow: visible;
+}
+.mapping-eligibility-card {
+  position: relative;
+  cursor: pointer;
+  border-top-width: 4px;
+  border-top-style: solid;
+}
+.mapping-eligibility-card.score-full { border-top-color: #16a34a; }
+.mapping-eligibility-card.score-mid  { border-top-color: #f59e0b; }
+.mapping-eligibility-card.score-low  { border-top-color: #dc2626; }
+.mapping-eligibility-card-score {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-weight: 700;
+  font-size: 18px;
+}
+.mapping-eligibility-card.score-full .mapping-eligibility-card-score { color: #16a34a; }
+.mapping-eligibility-card.score-mid  .mapping-eligibility-card-score { color: #b45309; }
+.mapping-eligibility-card.score-low  .mapping-eligibility-card-score { color: #b91c1c; }
+
+/* Mapped concepts + Eligibility tabs: breathing room around the content. */
+#mapping-project-tab-concepts { padding: 16px; }
+#mapping-project-tab-eligibility { padding: 16px; }
+.mapping-eligibility-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0 16px;
+  flex-wrap: wrap;
+}
+.mapping-eligibility-project-picker {
+  min-width: 320px;
+  max-width: 480px;
+}
+.mapping-eligibility-project-picker .ms-toggle {
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+/* Coverage details button (last column of the eligibility table). */
+.mapping-cs-details-btn {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  color: var(--text-muted, #64748b);
+}
+.mapping-cs-details-btn:hover {
+  background: var(--bg-muted, #f1f5f9);
+  color: var(--primary, #0f60af);
+  border-color: var(--border, #e2e8f0);
+}
+
+/* concept_id link: subdued monospace, no purple visited state. */
+.concept-id-link {
+  font-family: monospace;
+  color: var(--text-muted, #64748b);
+  text-decoration: none;
+}
+.concept-id-link:hover { color: var(--primary, #0f60af); text-decoration: underline; }
+.concept-id-link:visited { color: var(--text-muted, #64748b); }
+
+/* Yes / No badges for the In dictionary column. Compact like .status-badge in td. */
+.mapping-yes-badge, .mapping-no-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.mapping-yes-badge { background: #dcfce7; color: #166534; }
+.mapping-no-badge  { background: #fee2e2; color: #991b1b; }
+
+/* Loading / unresolved placeholders inside Mapped concepts cells. */
+.mapping-cell-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted, #64748b);
+  font-style: italic;
+  font-size: 12px;
+}
+.mapping-cell-unresolved {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted, #64748b);
+  font-style: italic;
+  font-size: 12px;
+}
+.mapping-cell-unresolved i { color: #9ca3af; }
+
+/* Compact Covered / Not covered badges in the Eligibility table (same scale
+   as .status-badge inside a td). Override the inline-styled .badge default. */
+#mapping-eligibility-table td .badge {
+  padding: 2px 8px;
+  font-size: 11px;
+}
 
 /* Eligibility tab: detailed table */
 .mapping-eligibility-table-wrap {
@@ -3769,10 +3906,14 @@ select.form-input { appearance: auto; }
 }
 #mapping-eligibility-table th,
 #mapping-eligibility-table td {
-  padding: 6px 10px;
+  padding: 4px 10px;
   border-bottom: 1px solid var(--border);
   text-align: left;
 }
+#mapping-eligibility-table th.td-center,
+#mapping-eligibility-table td.td-center { text-align: center; }
+#mapping-eligibility-table tbody tr { cursor: pointer; }
+#mapping-eligibility-table tbody tr:hover { background: var(--primary-light); }
 #mapping-eligibility-table th {
   font-weight: 600;
   font-size: 12px;

@@ -36,6 +36,12 @@
     if (menu) menu.style.display = 'none';
   }
 
+  // Remember the last full hash visited for each top-level page (session-only,
+  // i.e. not persisted across reloads). Lets the user click a header nav tab
+  // and land back where they were on that page, including any query state
+  // (e.g. opened mapping project, current Eligibility selection, etc.).
+  var lastHashByPath = {};
+
   // Register routes
   var keys = Object.keys(pages);
   for (var i = 0; i < keys.length; i++) {
@@ -51,10 +57,55 @@
     })(keys[i]);
   }
 
+  // Track the latest hash per page so a header click can restore it. We read
+  // the path straight from the URL (not from currentPage) because `hashchange`
+  // fires before the Router updates currentPage when the user navigates from
+  // page A to page B — using currentPage there would mis-attribute the new
+  // hash to page A.
+  function rememberHash() {
+    var hash = window.location.hash;
+    if (!hash) return;
+    var parsed = Router.parseHash();
+    if (!parsed || !parsed.path) return;
+    // Only track paths we registered (skip legacy aliases that redirect).
+    if (!pages[parsed.path]) return;
+    lastHashByPath[parsed.path] = hash;
+  }
+  window.addEventListener('hashchange', rememberHash);
+  // Also pick up replaceState updates from page modules (which don't fire
+  // hashchange). They go through Router.replaceState() to notify us.
+  if (Router.onHashReplaced) Router.onHashReplaced(rememberHash);
+  // Also after the initial render — the very first route was set before this
+  // listener was attached.
+  setTimeout(rememberHash, 0);
+
   // Legacy alias: the old Mapping Recommendations page now lives as a tab of
   // the Mapping page. Redirect bookmarks / external links to the new URL.
   Router.register('/mapping-recommendations', function () {
     Router.navigate('/mapping', { tab: 'recommendations' });
+  });
+
+  // Intercept clicks on header nav tabs so they restore the last visited URL
+  // for that page (including query state) instead of always going to the bare
+  // path. If we don't have a remembered URL yet, we let the default href run.
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('.header-nav .nav-tab[data-page]');
+    if (!link) return;
+    var pageName = link.getAttribute('data-page');
+    var path = '/' + pageName;
+    var remembered = lastHashByPath[path];
+    if (!remembered) return; // first visit → default href takes you to the bare path
+    if (window.location.hash === remembered) {
+      // Already on the exact URL — clicking again resets to the bare path,
+      // which feels natural (a "Home" shortcut for that section).
+      e.preventDefault();
+      window.location.hash = link.getAttribute('href');
+      return;
+    }
+    // The default href would replace the hash with /pageName (no query). Use
+    // the remembered hash instead.
+    e.preventDefault();
+    window.location.hash = remembered;
   });
 
   // Register language change callbacks for pages that support it

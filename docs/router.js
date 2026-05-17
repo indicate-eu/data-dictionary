@@ -57,9 +57,22 @@ var Router = (function () {
     handleHashChange();
   }
 
+  // Rewrite the URL without triggering the router (same semantics as
+  // history.replaceState on the hash) but notify listeners that the hash
+  // changed in-place. Used by pages that mutate query string state without
+  // wanting a full navigation — keeps per-page hash tracking in sync.
+  var hashReplaceListeners = [];
+  function replaceState(url) {
+    history.replaceState(null, '', url);
+    hashReplaceListeners.forEach(function (cb) { try { cb(url); } catch (e) {} });
+  }
+  function onHashReplaced(cb) { hashReplaceListeners.push(cb); }
+
   return {
     register: register,
     navigate: navigate,
+    replaceState: replaceState,
+    onHashReplaced: onHashReplaced,
     init: init,
     getCurrentRoute: function () { return currentRoute; },
     parseHash: parseHash

@@ -29,11 +29,11 @@ var MappingPage = (function() {
     // Reflect the active tab in the URL so deep-linking + refresh works.
     // The detail view (?id=...) writes its own URL elsewhere.
     if (tabName === 'projects' && !selectedMappingProjectId) {
-      history.replaceState(null, '', '#/mapping');
+      Router.replaceState('#/mapping');
     } else if (tabName === 'recommendations') {
       selectedMappingProjectId = null;
       hideDetailView();
-      history.replaceState(null, '', '#/mapping?tab=recommendations');
+      Router.replaceState('#/mapping?tab=recommendations');
     }
 
     if (tabName === 'recommendations') {
@@ -71,7 +71,7 @@ var MappingPage = (function() {
     switchDetailTab(detailTab || 'overview');
     var url = '#/mapping?id=' + encodeURIComponent(mpId);
     if (detailTab && detailTab !== 'overview') url += '&detail=' + detailTab;
-    history.replaceState(null, '', url);
+    Router.replaceState(url);
   }
 
   function renderDetailHeader(mp) {
@@ -105,7 +105,7 @@ var MappingPage = (function() {
     if (selectedMappingProjectId) {
       var url = '#/mapping?id=' + encodeURIComponent(selectedMappingProjectId);
       if (tabName !== 'overview') url += '&detail=' + tabName;
-      history.replaceState(null, '', url);
+      Router.replaceState(url);
     }
 
     if (tabName === 'overview') renderOverview();
@@ -146,18 +146,10 @@ var MappingPage = (function() {
       widgetCard('fa-check-double', n > 0 ? (eligible + ' / ' + total) : '—', App.i18n('Eligible projects'))
     ].join('');
 
-    // Toggle the import CTA depending on whether data is already present.
-    var cta = document.getElementById('mapping-project-import-cta');
-    var ctaText = document.getElementById('mapping-import-text');
-    if (n === 0) {
-      ctaText.textContent = App.i18n('No mapping data imported yet. Upload a source-to-concept-map CSV to evaluate your eligibility to INDICATE projects.');
-    } else {
-      var imported = mp.stats && mp.stats.sourceFile ? mp.stats.sourceFile : '';
-      ctaText.textContent = App.i18n('{n} concepts imported.').replace('{n}', n) +
-        (imported ? ' ' + App.i18n('Source:') + ' ' + imported : '') +
-        ' ' + App.i18n('Re-import a CSV to replace the current mapping.');
-    }
-    cta.style.display = '';
+    // Show an empty-state hint pointing to the Mapped concepts tab when no
+    // data has been imported yet; hide it once there's data.
+    var empty = document.getElementById('mapping-overview-empty');
+    if (empty) empty.style.display = n === 0 ? '' : 'none';
 
     renderEligibilityPreview(mp);
   }
@@ -603,7 +595,7 @@ var MappingPage = (function() {
       selectedMappingProjectId = null;
       detailTab = 'overview';
       showListView();
-      history.replaceState(null, '', '#/mapping');
+      Router.replaceState('#/mapping');
     });
     document.getElementById('mapping-project-tabs').addEventListener('click', function(e) {
       var tab = e.target.closest('.settings-tab');
@@ -611,8 +603,9 @@ var MappingPage = (function() {
       switchDetailTab(tab.dataset.tab);
     });
 
-    // Import CSV button (Overview tab)
-    document.getElementById('mapping-project-import-btn').addEventListener('click', openImportModal);
+    // The Import CSV button now lives at the top of the Mapped concepts tab and
+    // is wired in renderConceptsTab() when that tab renders. Nothing to wire
+    // here at boot-time.
 
     // Import CSV modal
     document.getElementById('mapping-import-modal-close').addEventListener('click', closeImportModal);
@@ -622,6 +615,25 @@ var MappingPage = (function() {
       if (e.target === document.getElementById('mapping-import-modal')) closeImportModal();
     });
     document.getElementById('mapping-import-file').addEventListener('change', onImportFileChange);
+
+    // CS coverage details modal — handlers go via event delegation on the
+    // overlay itself so they survive any potential later re-renders, and an
+    // Escape listener closes the modal when it's open.
+    var detailsModal = document.getElementById('mapping-cs-details-modal');
+    detailsModal.addEventListener('click', function(e) {
+      // Close on overlay click OR on any close-trigger inside the box.
+      if (e.target === detailsModal ||
+          e.target.closest('#mapping-cs-details-close') ||
+          e.target.closest('#mapping-cs-details-done')) {
+        e.stopPropagation();
+        closeCSDetailsModal();
+      }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && detailsModal.style.display !== 'none') {
+        closeCSDetailsModal();
+      }
+    });
 
     // Create / edit modal
     document.getElementById('mapping-project-modal-close').addEventListener('click', closeCreateModal);
@@ -964,81 +976,340 @@ var MappingPage = (function() {
   }
 
   // ==================== POST-IMPORT RENDERS ====================
+  // Sort state for the Mapped concepts table. key === null means no sort
+  // (insertion order, i.e. order of arrival in the CSV).
+  var conceptsSort = { key: null, asc: true };
+  var conceptsFilters = {
+    name: '',
+    vocabularies: new Set(),
+    domains: new Set(),
+    inDict: new Set()
+  };
+
   function renderConceptsTab() {
     var mp = selectedMappingProjectId && App.getMappingProject(selectedMappingProjectId);
     if (!mp) return;
     var panel = document.getElementById('mapping-project-tab-concepts');
     var ids = mp.conceptIds || [];
-    if (ids.length === 0) {
-      panel.innerHTML = '<div class="mapping-empty-state">' +
-        '<i class="fas fa-table"></i>' +
-        '<p>' + App.escapeHtml(App.i18n('Import a CSV to see your mapped concepts here.')) + '</p>' +
+
+    // Top toolbar: import button + summary.
+    var toolbar =
+      '<div class="mapping-concepts-toolbar">' +
+        '<button class="btn-outline-sm" id="mapping-concepts-import-btn">' +
+          '<i class="fas fa-upload"></i> ' + App.escapeHtml(App.i18n(ids.length === 0 ? 'Import CSV' : 'Re-import CSV')) +
+        '</button>' +
+        (ids.length > 0
+          ? '<span id="mapping-concepts-summary" style="color:var(--text-muted); font-size:13px; margin-left:8px"></span>'
+          : '') +
       '</div>';
+
+    if (ids.length === 0) {
+      panel.innerHTML = toolbar +
+        '<div class="mapping-empty-state">' +
+          '<i class="fas fa-file-csv"></i>' +
+          '<p>' + App.escapeHtml(App.i18n('No mapping data imported yet. Upload a CSV to populate this table.')) + '</p>' +
+        '</div>';
+      document.getElementById('mapping-concepts-import-btn').addEventListener('click', openImportModal);
       return;
     }
-    // Build a lookup of concept_id → resolved concept metadata across the whole
-    // dictionary (so we can tell which mapped ids are in INDICATE concept sets).
-    var dictById = mappedConceptDictionary();
-    var unique = Array.from(new Set(ids));
-    var matchedCount = unique.filter(function(id) { return dictById[id]; }).length;
 
-    panel.innerHTML =
-      '<div style="padding:16px; display:flex; flex-direction:column; min-height:0; flex:1">' +
-        '<div class="mapping-concepts-toolbar">' +
-          '<input type="text" class="search-input" id="mapping-concepts-search" placeholder="' + App.escapeHtml(App.i18n('Filter by concept id or name...')) + '">' +
-          '<label style="font-size:13px; color:var(--text-muted)"><input type="checkbox" id="mapping-concepts-only-matched"> ' + App.escapeHtml(App.i18n('Only show concepts present in the dictionary')) + '</label>' +
-          '<span style="color:var(--text-muted); font-size:13px; margin-left:auto">' + unique.length + ' ' + App.i18n('unique') + ' · ' + matchedCount + ' ' + App.i18n('in dictionary') + '</span>' +
-        '</div>' +
-        '<div class="mapping-concepts-table-wrap"><table id="mapping-concepts-table"><thead><tr>' +
-          '<th>concept_id</th>' +
-          '<th>' + App.escapeHtml(App.i18n('Name')) + '</th>' +
-          '<th>' + App.escapeHtml(App.i18n('Vocabulary')) + '</th>' +
-          '<th>' + App.escapeHtml(App.i18n('Domain')) + '</th>' +
-          '<th>' + App.escapeHtml(App.i18n('In dictionary')) + '</th>' +
-        '</tr></thead><tbody id="mapping-concepts-tbody"></tbody></table></div>' +
+    // Reset filters/sort when entering the tab afresh.
+    conceptsSort = { key: null, asc: true };
+    conceptsFilters = { name: '', vocabularies: new Set(), domains: new Set(), inDict: new Set() };
+
+    // Build the table shell that mirrors #cs-table styling on the Data
+    // Dictionary page (sortable headers + filter row). Column order matches
+    // what helps the user spot mapped-but-not-in-dictionary concepts first:
+    // vocabulary → name → domain → in dictionary.
+    panel.innerHTML = toolbar +
+      '<div class="table-container">' +
+        '<table id="mapping-concepts-table">' +
+          '<thead>' +
+            '<tr>' +
+              '<th data-sort="vocab" style="width:14%"><span data-i18n="Vocabulary">Vocabulary</span> <span class="sort-icon">&#9650;</span></th>' +
+              '<th data-sort="id" style="width:12%"><span data-i18n="concept_id">concept_id</span> <span class="sort-icon">&#9650;</span></th>' +
+              '<th data-sort="name" style="width:38%"><span data-i18n="Name">Name</span> <span class="sort-icon">&#9650;</span></th>' +
+              '<th data-sort="domain" style="width:14%"><span data-i18n="Domain">Domain</span> <span class="sort-icon">&#9650;</span></th>' +
+              '<th data-sort="inDict" style="width:12%" class="td-center"><span data-i18n="In dictionary">In dictionary</span> <span class="sort-icon">&#9650;</span></th>' +
+            '</tr>' +
+            '<tr class="filter-row">' +
+              '<th><div class="ms-container" id="mapping-concepts-filter-vocab"></div></th>' +
+              '<th></th>' +
+              '<th><input type="text" class="column-filter" id="mapping-concepts-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>' +
+              '<th><div class="ms-container" id="mapping-concepts-filter-domain"></div></th>' +
+              '<th><div class="ms-container" id="mapping-concepts-filter-inDict"></div></th>' +
+            '</tr>' +
+          '</thead>' +
+          '<tbody id="mapping-concepts-tbody"></tbody>' +
+        '</table>' +
       '</div>';
 
-    function renderRows() {
-      var q = (document.getElementById('mapping-concepts-search').value || '').toLowerCase();
-      var onlyMatched = document.getElementById('mapping-concepts-only-matched').checked;
-      var rows = unique
-        .filter(function(id) { return !onlyMatched || dictById[id]; })
-        .map(function(id) {
-          var c = dictById[id];
-          var name = c ? c.conceptName : '';
-          var vocab = c ? c.vocabularyId : '';
-          var domain = c ? c.domainId : '';
-          return { id: id, name: name || '', vocab: vocab || '', domain: domain || '', inDict: !!c };
-        })
-        .filter(function(r) {
-          if (!q) return true;
-          return String(r.id).indexOf(q) >= 0 ||
-            r.name.toLowerCase().indexOf(q) >= 0 ||
-            r.vocab.toLowerCase().indexOf(q) >= 0;
+    document.getElementById('mapping-concepts-import-btn').addEventListener('click', openImportModal);
+
+    // Compute the full row dataset once (it doesn't change while we filter/sort).
+    var dictById = mappedConceptDictionary();
+    var unique = Array.from(new Set(ids));
+    var allRows = unique.map(function(id) {
+      var c = dictById[id];
+      // status:
+      //   'resolved'   → metadata available (from INDICATE dictionary or later
+      //                  from the OHDSI vocabulary DB).
+      //   'loading'    → vocab DB query is in progress for this concept.
+      //   'unresolved' → no metadata available: either no vocab DB loaded, or
+      //                  the DB had no row for this id.
+      // Start everything missing as 'unresolved'; the async vocab probe below
+      // promotes the eligible rows to 'loading' once it has confirmed the DB
+      // is actually ready (required tables present).
+      return {
+        id: id,
+        name: c ? (c.conceptName || '') : '',
+        vocab: c ? (c.vocabularyId || '') : '',
+        domain: c ? (c.domainId || '') : '',
+        inDict: !!c,
+        status: c ? 'resolved' : 'unresolved'
+      };
+    });
+
+    // Populate filter dropdowns once from the full dataset.
+    var allVocabs = [...new Set(allRows.map(function(r) { return r.vocab; }).filter(Boolean))].sort();
+    var allDomains = [...new Set(allRows.map(function(r) { return r.domain; }).filter(Boolean))].sort();
+    var inDictLabels = { 'yes': App.i18n('Yes'), 'no': App.i18n('No') };
+    App.buildMultiSelectDropdown('mapping-concepts-filter-vocab', allVocabs, conceptsFilters.vocabularies, renderConceptsRows);
+    App.buildMultiSelectDropdown('mapping-concepts-filter-domain', allDomains, conceptsFilters.domains, renderConceptsRows);
+    App.buildMultiSelectDropdown('mapping-concepts-filter-inDict', ['yes', 'no'], conceptsFilters.inDict, renderConceptsRows, inDictLabels);
+
+    document.getElementById('mapping-concepts-filter-name').addEventListener('input', function(e) {
+      conceptsFilters.name = e.target.value;
+      renderConceptsRows();
+    });
+
+    // Sort on header click.
+    panel.querySelector('thead').addEventListener('click', function(e) {
+      var th = e.target.closest('th[data-sort]');
+      if (!th) return;
+      var key = th.dataset.sort;
+      if (conceptsSort.key !== key) { conceptsSort.key = key; conceptsSort.asc = true; }
+      else if (conceptsSort.asc) conceptsSort.asc = false;
+      else { conceptsSort.key = null; conceptsSort.asc = true; }
+      renderConceptsRows();
+    });
+
+    // Keep a reference to allRows so renderConceptsRows can reuse it without
+    // recomputing every filter cycle.
+    panel._mappingConceptsRows = allRows;
+    renderConceptsRows();
+
+    // Best-effort enrichment: for ids without dictionary metadata, query the
+    // user's locally-loaded OHDSI vocabulary DB (DuckDB-WASM) for vocabulary /
+    // name / domain so they show up in the table instead of empty cells.
+    enrichConceptsFromVocabDB(allRows, panel);
+  }
+
+  // Cached result of isDatabaseReady() so the renderer can pick the right
+  // unresolved-cell message synchronously. null = not checked yet, true/false
+  // = last known answer.
+  var _vocabReadyCached = null;
+
+  function enrichConceptsFromVocabDB(allRows, panel) {
+    if (!window.VocabDB) { _vocabReadyCached = false; return; }
+    // While the auto-mount flow runs (may take a few seconds when remounting
+    // stored Parquet handles), keep cells in a "Loading…" state so the user
+    // doesn't see a misleading "Load OHDSI vocabularies" flash.
+    _vocabReadyCached = null;
+    var candidates = allRows.filter(function(r) { return r.status === 'unresolved' && !r.inDict; });
+    candidates.forEach(function(r) { r.status = 'loading'; });
+    if (candidates.length > 0) renderConceptsRows();
+
+    // Trigger the same auto-mount flow other pages use (Add Concepts modal,
+    // Dev Tools): init DuckDB if needed, check readiness, fall back to
+    // re-mounting stored Parquet handles from IndexedDB if the tables are
+    // still missing. This lets a returning user pick up the vocabulary they
+    // imported in a previous session without re-uploading anything.
+    ensureVocabDB().then(function(ready) {
+      _vocabReadyCached = !!ready;
+      if (!ready) {
+        // Revert the loading rows back to unresolved so the renderer picks
+        // the "Load OHDSI vocabularies" message instead of a stale spinner.
+        candidates.forEach(function(r) {
+          if (r.status === 'loading') r.status = 'unresolved';
         });
-      var tbody = document.getElementById('mapping-concepts-tbody');
-      // Cap at 500 rows to keep things responsive in this first pass.
-      var capped = rows.slice(0, 500);
-      tbody.innerHTML = capped.map(function(r) {
-        return '<tr>' +
-          '<td><a href="https://athena.ohdsi.org/search-terms/terms/' + r.id + '" target="_blank" rel="noopener" style="font-family:monospace">' + r.id + '</a></td>' +
-          '<td>' + App.escapeHtml(r.name) + '</td>' +
-          '<td>' + App.escapeHtml(r.vocab) + '</td>' +
-          '<td>' + App.escapeHtml(r.domain) + '</td>' +
-          '<td>' + (r.inDict
-            ? '<span style="color:#166534"><i class="fas fa-check"></i></span>'
-            : '<span style="color:var(--text-muted)">—</span>') + '</td>' +
-          '</tr>';
-      }).join('');
-      if (rows.length > 500) {
-        tbody.innerHTML += '<tr><td colspan="5" style="text-align:center; color:var(--text-muted); font-style:italic; padding:10px">' +
-          App.i18n('Showing the first 500 rows out of') + ' ' + rows.length + '.</td></tr>';
+        renderConceptsRows();
+        return;
       }
+      if (candidates.length === 0) { renderConceptsRows(); return; }
+      // Rows are already in 'loading' state from above; query now.
+      runEnrichmentQuery(allRows, candidates);
+    });
+  }
+
+  // Mirror of ensureVocabDB() from concept-sets.js: brings the user's stored
+  // OHDSI vocabularies back online if they were imported in a previous
+  // session. Returns a Promise<bool> that resolves to true ⇔ vocab tables are
+  // queryable.
+  function ensureVocabDB() {
+    if (!window.VocabDB) return Promise.resolve(false);
+    if (window.VocabDB.getImportMode && window.VocabDB.getImportMode()) {
+      return Promise.resolve(true);
+    }
+    if (!window.VocabDB.initDuckDB) return Promise.resolve(false);
+    return window.VocabDB.initDuckDB().then(function() {
+      return window.VocabDB.isDatabaseReady();
+    }).then(function(ready) {
+      if (ready) return true;
+      if (window.VocabDB.remountFromStoredHandles) {
+        return window.VocabDB.remountFromStoredHandles();
+      }
+      return false;
+    }).catch(function() { return false; });
+  }
+
+  function runEnrichmentQuery(allRows, loadingRows) {
+    var missingIds = loadingRows.map(function(r) { return r.id; });
+    // Cap to avoid pathological queries on truly large mappings; the OMOP
+    // `concept` table is millions of rows but a literal IN(...) of a few
+    // thousand ids stays fast.
+    var capped = missingIds.slice(0, 5000);
+    window.VocabDB.lookupConcepts(capped).then(function(rows) {
+      var byId = {};
+      (rows || []).forEach(function(r) { byId[r.concept_id] = r; });
+      loadingRows.forEach(function(r) {
+        var v = byId[r.id];
+        if (v) {
+          r.name = r.name || v.concept_name || '';
+          r.vocab = r.vocab || v.vocabulary_id || '';
+          r.domain = r.domain || v.domain_id || '';
+          r.status = 'resolved';
+        } else {
+          r.status = 'unresolved';
+        }
+        // Note: not flipping inDict — these come from the vocab, not from
+        // INDICATE concept sets.
+      });
+      // Any rows beyond the cap stay 'loading' indefinitely — they will not be
+      // queried in this round. Flip them to 'unresolved' to avoid a permanent
+      // spinner state in the UI.
+      if (missingIds.length > capped.length) {
+        allRows.forEach(function(r) {
+          if (r.status === 'loading' && capped.indexOf(r.id) < 0) r.status = 'unresolved';
+        });
+      }
+      // Refresh dropdowns to surface newly-discovered vocab/domain values,
+      // then re-render.
+      var fVocab = [...new Set(allRows.map(function(r) { return r.vocab; }).filter(Boolean))].sort();
+      var fDom = [...new Set(allRows.map(function(r) { return r.domain; }).filter(Boolean))].sort();
+      App.buildMultiSelectDropdown('mapping-concepts-filter-vocab', fVocab, conceptsFilters.vocabularies, renderConceptsRows);
+      App.buildMultiSelectDropdown('mapping-concepts-filter-domain', fDom, conceptsFilters.domains, renderConceptsRows);
+      renderConceptsRows();
+    }).catch(function(err) {
+      console.warn('VocabDB lookup failed for mapped concepts enrichment:', err);
+      // On error, the loading rows fall back to unresolved.
+      loadingRows.forEach(function(r) { r.status = 'unresolved'; });
+      renderConceptsRows();
+    });
+  }
+
+  function renderConceptsRows() {
+    var panel = document.getElementById('mapping-project-tab-concepts');
+    var allRows = panel._mappingConceptsRows || [];
+    var f = conceptsFilters;
+    var rows = allRows.filter(function(r) {
+      if (f.vocabularies.size > 0 && !f.vocabularies.has(r.vocab)) return false;
+      if (f.domains.size > 0 && !f.domains.has(r.domain)) return false;
+      if (f.inDict.size > 0) {
+        var key = r.inDict ? 'yes' : 'no';
+        if (!f.inDict.has(key)) return false;
+      }
+      if (f.name) {
+        var q = f.name.toLowerCase();
+        var hay = (String(r.id) + ' ' + r.name + ' ' + r.vocab + ' ' + r.domain).toLowerCase();
+        if (hay.indexOf(q) < 0) return false;
+      }
+      return true;
+    });
+
+    if (conceptsSort.key) {
+      var k = conceptsSort.key;
+      var asc = conceptsSort.asc ? 1 : -1;
+      rows.sort(function(a, b) {
+        var va = a[k], vb = b[k];
+        if (k === 'id') return (va - vb) * asc;
+        if (k === 'inDict') return ((va === vb) ? 0 : (va ? -1 : 1)) * asc;
+        return String(va).toLowerCase().localeCompare(String(vb).toLowerCase()) * asc;
+      });
     }
 
-    document.getElementById('mapping-concepts-search').addEventListener('input', renderRows);
-    document.getElementById('mapping-concepts-only-matched').addEventListener('change', renderRows);
-    renderRows();
+    // Sort indicators
+    panel.querySelectorAll('thead th[data-sort]').forEach(function(th) {
+      var isActive = conceptsSort.key === th.dataset.sort;
+      th.classList.toggle('sorted', !!isActive);
+      var icon = th.querySelector('.sort-icon');
+      if (icon) icon.textContent = (isActive && !conceptsSort.asc) ? '▼' : '▲';
+    });
+
+    // Summary
+    var summary = document.getElementById('mapping-concepts-summary');
+    if (summary) {
+      var inDictCount = allRows.filter(function(r) { return r.inDict; }).length;
+      summary.textContent = allRows.length + ' ' + App.i18n('unique') +
+        ' · ' + inDictCount + ' ' + App.i18n('in dictionary') +
+        (rows.length !== allRows.length ? ' · ' + rows.length + ' ' + App.i18n('shown') : '');
+    }
+
+    var tbody = document.getElementById('mapping-concepts-tbody');
+    var capped = rows.slice(0, 500);
+    var loadingCell = '<span class="mapping-cell-loading"><i class="fas fa-circle-notch fa-spin"></i> ' +
+      App.escapeHtml(App.i18n('Loading…')) + '</span>';
+    // Pick the unresolved cell based on the cached vocab-readiness probe:
+    //   - null  → probe still in flight → show the loading spinner; we don't
+    //             yet know whether a vocab DB is available, so we mustn't tell
+    //             the user "Load OHDSI vocabularies" prematurely.
+    //   - true  → tables are loaded, the id just isn't in the OMOP vocabulary.
+    //   - false → no DB, or tables not imported yet → tell the user how to
+    //             get this resolved.
+    var unresolvedCell;
+    if (_vocabReadyCached === null) {
+      unresolvedCell = loadingCell;
+    } else if (_vocabReadyCached === true) {
+      unresolvedCell = '<span class="mapping-cell-unresolved"><i class="fas fa-question-circle"></i> ' +
+        App.escapeHtml(App.i18n('Not in vocabulary')) + '</span>';
+    } else {
+      unresolvedCell = '<span class="mapping-cell-unresolved"><i class="fas fa-info-circle"></i> ' +
+        App.escapeHtml(App.i18n('Load OHDSI vocabularies to resolve')) + '</span>';
+    }
+
+    tbody.innerHTML = capped.map(function(r) {
+      var inDictBadge = r.inDict
+        ? '<span class="mapping-yes-badge">' + App.escapeHtml(App.i18n('Yes')) + '</span>'
+        : '<span class="mapping-no-badge">' + App.escapeHtml(App.i18n('No')) + '</span>';
+
+      var vocabCell, nameCell, domainCell;
+      if (r.status === 'loading') {
+        vocabCell = '<td>' + loadingCell + '</td>';
+        nameCell = '<td>' + loadingCell + '</td>';
+        domainCell = '<td>' + loadingCell + '</td>';
+      } else if (r.status === 'unresolved') {
+        vocabCell = '<td>' + unresolvedCell + '</td>';
+        nameCell = '<td>' + unresolvedCell + '</td>';
+        domainCell = '<td>' + unresolvedCell + '</td>';
+      } else {
+        vocabCell = '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(r.vocab) + '">' + App.escapeHtml(r.vocab) + '</td>';
+        nameCell = '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(r.name) + '"><strong>' + App.escapeHtml(r.name) + '</strong></td>';
+        domainCell = '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(r.domain) + '">' + App.escapeHtml(r.domain) + '</td>';
+      }
+
+      return '<tr>' +
+        vocabCell +
+        '<td><a class="concept-id-link" href="https://athena.ohdsi.org/search-terms/terms/' + r.id + '" target="_blank" rel="noopener">' + r.id + '</a></td>' +
+        nameCell +
+        domainCell +
+        '<td class="td-center">' + inDictBadge + '</td>' +
+      '</tr>';
+    }).join('');
+    if (rows.length > 500) {
+      tbody.innerHTML += '<tr><td colspan="5" style="text-align:center; color:var(--text-muted); font-style:italic; padding:10px">' +
+        App.i18n('Showing the first 500 rows out of') + ' ' + rows.length + '.</td></tr>';
+    }
+    App.initColResize('mapping-concepts-table', { lockNow: true });
   }
 
   // Map concept_id → metadata (from resolved concept sets of the dictionary).
@@ -1058,6 +1329,88 @@ var MappingPage = (function() {
     return dict;
   }
 
+  // Project selected in the Eligibility tab. null = first project, or none if
+  // the user has not imported a mapping yet.
+  var selectedEligibilityProjectId = null;
+  var eligibilitySort = { key: null, asc: true };
+  var eligibilityFilters = {
+    name: '',
+    groups: new Set(),
+    rules: new Set(),
+    statuses: new Set() // 'covered' | 'not_covered'
+  };
+
+  function ruleLabel(r) {
+    if (r === 'all_required') return App.i18n('All required');
+    if (r === 'at_least_one') return App.i18n('At least one');
+    return App.i18n('Optional');
+  }
+
+  // Single-select dropdown styled like the .ms-toggle / .ms-dropdown pattern
+  // used by the multi-select filters elsewhere in the app, so the look is
+  // consistent. Closes on outside click; values is an array of
+  // { value, label } objects.
+  function buildSingleSelectPicker(containerId, values, selectedValue, onChange) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+    function selectedLabel() {
+      var found = values.find(function(v) { return String(v.value) === String(selectedValue); });
+      return found ? found.label : App.i18n('Select…');
+    }
+    var showSearch = values.length > 10;
+    container.innerHTML =
+      '<div class="ms-toggle" tabindex="0">' + App.escapeHtml(selectedLabel()) + ' <i class="fas fa-chevron-down" style="font-size:9px;margin-left:2px"></i></div>' +
+      '<div class="ms-dropdown" style="display:none">' +
+        (showSearch ? '<div class="ms-search-wrap"><input type="text" class="ms-search" placeholder="' + App.escapeHtml(App.i18n('Search')) + '…"></div>' : '') +
+        '<div class="ms-options">' +
+          values.map(function(v) {
+            var isSel = String(v.value) === String(selectedValue);
+            return '<div class="ms-option-single' + (isSel ? ' ms-option-selected' : '') + '" data-value="' + App.escapeHtml(String(v.value)) + '">' +
+              App.escapeHtml(v.label) + '</div>';
+          }).join('') +
+        '</div>' +
+      '</div>';
+
+    var toggle = container.querySelector('.ms-toggle');
+    var dropdown = container.querySelector('.ms-dropdown');
+    var searchInput = container.querySelector('.ms-search');
+
+    toggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      document.querySelectorAll('.ms-dropdown').forEach(function(d) { if (d !== dropdown) d.style.display = 'none'; });
+      var wasHidden = dropdown.style.display === 'none';
+      dropdown.style.display = wasHidden ? '' : 'none';
+      if (wasHidden && searchInput) { searchInput.value = ''; searchInput.focus(); }
+    });
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        var q = searchInput.value.toLowerCase();
+        container.querySelectorAll('.ms-option-single').forEach(function(opt) {
+          var label = opt.textContent.toLowerCase();
+          opt.style.display = label.indexOf(q) !== -1 ? '' : 'none';
+        });
+      });
+      searchInput.addEventListener('click', function(e) { e.stopPropagation(); });
+    }
+    dropdown.addEventListener('click', function(e) {
+      var btn = e.target.closest('.ms-option-single');
+      if (!btn) return;
+      selectedValue = btn.dataset.value;
+      // Update visual state.
+      container.querySelectorAll('.ms-option-single').forEach(function(o) {
+        o.classList.toggle('ms-option-selected', o === btn);
+      });
+      toggle.innerHTML = App.escapeHtml(selectedLabel()) + ' <i class="fas fa-chevron-down" style="font-size:9px;margin-left:2px"></i>';
+      dropdown.style.display = 'none';
+      onChange(selectedValue);
+    });
+
+    // Close on outside click.
+    document.addEventListener('click', function closer(e) {
+      if (!container.contains(e.target)) dropdown.style.display = 'none';
+    });
+  }
+
   function renderEligibilityTab() {
     var mp = selectedMappingProjectId && App.getMappingProject(selectedMappingProjectId);
     if (!mp) return;
@@ -1069,53 +1422,271 @@ var MappingPage = (function() {
       '</div>';
       return;
     }
+
     var results = evaluateAllProjects(mp);
+    if (results.length === 0) {
+      panel.innerHTML = '<div class="mapping-empty-state"><p>' +
+        App.escapeHtml(App.i18n('No INDICATE projects to evaluate.')) + '</p></div>';
+      return;
+    }
+
+    // Pick a project: honour the explicit selection if still valid, else the
+    // first project. The selection survives across tab switches.
+    var resultById = {};
+    results.forEach(function(r) { resultById[r.project.id] = r; });
+    if (!resultById[selectedEligibilityProjectId]) {
+      selectedEligibilityProjectId = results[0].project.id;
+    }
+
+    // Project picker values (label = project name + score %).
+    var pickerValues = results.map(function(r) {
+      var projName = App.tProj(r.project).name || ('#' + r.project.id);
+      return { value: r.project.id, label: projName };
+    });
+
+    eligibilitySort = { key: null, asc: true };
+    eligibilityFilters = { name: '', groups: new Set(), rules: new Set(), statuses: new Set() };
+
+    panel.innerHTML =
+      '<div class="mapping-eligibility-toolbar">' +
+        '<label class="form-label" style="margin-bottom:0; align-self:center">' +
+          App.escapeHtml(App.i18n('Project')) + '</label>' +
+        '<div class="ms-container mapping-eligibility-project-picker" id="mapping-eligibility-project"></div>' +
+        '<span id="mapping-eligibility-summary" style="color:var(--text-muted); font-size:13px; margin-left:auto"></span>' +
+      '</div>' +
+      '<div class="table-container">' +
+        '<table id="mapping-eligibility-table">' +
+          '<thead>' +
+            '<tr>' +
+              '<th data-sort="groupName" style="width:18%"><span data-i18n="Group">Group</span> <span class="sort-icon">&#9650;</span></th>' +
+              '<th data-sort="rule" style="width:14%"><span data-i18n="Group rule">Group rule</span> <span class="sort-icon">&#9650;</span></th>' +
+              '<th data-sort="csName" style="width:32%"><span data-i18n="Concept set">Concept set</span> <span class="sort-icon">&#9650;</span></th>' +
+              '<th data-sort="resolved" style="width:10%" class="td-center"><span data-i18n="Resolved">Resolved</span> <span class="sort-icon">&#9650;</span></th>' +
+              '<th data-sort="covered" style="width:14%" class="td-center"><span data-i18n="Status">Status</span> <span class="sort-icon">&#9650;</span></th>' +
+              '<th style="width:8%" class="td-center"><span data-i18n="Details">Details</span></th>' +
+            '</tr>' +
+            '<tr class="filter-row">' +
+              '<th><div class="ms-container" id="mapping-eligibility-filter-group"></div></th>' +
+              '<th><div class="ms-container" id="mapping-eligibility-filter-rule"></div></th>' +
+              '<th><input type="text" class="column-filter" id="mapping-eligibility-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>' +
+              '<th></th>' +
+              '<th><div class="ms-container" id="mapping-eligibility-filter-status"></div></th>' +
+              '<th></th>' +
+            '</tr>' +
+          '</thead>' +
+          '<tbody id="mapping-eligibility-tbody"></tbody>' +
+        '</table>' +
+      '</div>';
+
+    // Wire the project picker (styled dropdown, single-select).
+    buildSingleSelectPicker('mapping-eligibility-project', pickerValues, selectedEligibilityProjectId, function(newValue) {
+      selectedEligibilityProjectId = parseInt(newValue, 10);
+      writeEligibilityUrl();
+      // Reset filters & sort when the project changes.
+      eligibilitySort = { key: null, asc: true };
+      eligibilityFilters = { name: '', groups: new Set(), rules: new Set(), statuses: new Set() };
+      renderEligibilityRows();
+    });
+
+    panel.querySelector('thead').addEventListener('click', function(e) {
+      var th = e.target.closest('th[data-sort]');
+      if (!th) return;
+      var key = th.dataset.sort;
+      if (eligibilitySort.key !== key) { eligibilitySort.key = key; eligibilitySort.asc = true; }
+      else if (eligibilitySort.asc) eligibilitySort.asc = false;
+      else { eligibilitySort.key = null; eligibilitySort.asc = true; }
+      renderEligibilityRows();
+    });
+
+    document.getElementById('mapping-eligibility-filter-name').addEventListener('input', function(e) {
+      eligibilityFilters.name = e.target.value;
+      renderEligibilityRows();
+    });
+
+    // tbody delegated click: magnifier button opens the details modal; any
+    // other click on the row navigates to the concept set detail page.
+    document.getElementById('mapping-eligibility-tbody').addEventListener('click', function(e) {
+      var btn = e.target.closest('.mapping-cs-details-btn');
+      if (btn) {
+        e.stopPropagation();
+        openCSDetailsModal(parseInt(btn.dataset.csId, 10), btn.dataset.csVersion || '');
+        return;
+      }
+      var row = e.target.closest('tr[data-cs-id]');
+      if (!row) return;
+      var query = { id: row.dataset.csId };
+      var v = row.dataset.csVersion;
+      if (v) query.version = v;
+      Router.navigate('/concept-sets', query);
+    });
+
+    renderEligibilityRows();
+    writeEligibilityUrl();
+  }
+
+  function writeEligibilityUrl() {
+    if (!selectedMappingProjectId) return;
+    var url = '#/mapping?id=' + encodeURIComponent(selectedMappingProjectId) + '&detail=eligibility';
+    if (selectedEligibilityProjectId) url += '&project=' + selectedEligibilityProjectId;
+    Router.replaceState(url);
+  }
+
+  function renderEligibilityRows() {
+    var mp = selectedMappingProjectId && App.getMappingProject(selectedMappingProjectId);
+    if (!mp || !selectedEligibilityProjectId) return;
+    var project = (App.projects || []).find(function(p) { return p.id === selectedEligibilityProjectId; });
+    if (!project) return;
+    var mappedSet = buildMappedSet(mp);
+    var result = evaluateProject(project, mappedSet);
+
+    // Flatten groups → per-CS rows (one row per concept set in the project).
     var rows = [];
-    results.forEach(function(r) {
-      var projTr = App.tProj(r.project);
-      var projName = projTr.name || ('#' + r.project.id);
-      r.groups.forEach(function(g) {
+    result.groups.forEach(function(g) {
+      g.perCS.forEach(function(cs) {
+        var live = App.getConceptSet(cs.id, cs.version) || App.getConceptSet(cs.id);
+        var name = live ? (App.t(live).name || live.name || ('#' + cs.id)) : ('#' + cs.id);
         rows.push({
-          projectId: r.project.id, projectName: projName,
-          groupName: g.name, rule: g.rule,
-          coveredCount: g.coveredCount, total: g.total,
-          score: Math.round(g.score * 100), satisfied: g.satisfied
+          groupName: g.name || '',
+          rule: g.rule,
+          csId: cs.id,
+          csVersion: cs.version || '',
+          csName: name,
+          resolved: cs.total,
+          covered: cs.covered
         });
       });
     });
 
-    var ruleLabel = function(r) {
-      if (r === 'all_required') return App.i18n('All required');
-      if (r === 'at_least_one') return App.i18n('At least one');
-      return App.i18n('Optional');
+    // Populate filter dropdowns from the full row set.
+    var allGroups = [...new Set(rows.map(function(r) { return r.groupName; }).filter(Boolean))].sort();
+    var allRules = [...new Set(rows.map(function(r) { return r.rule; }))].sort();
+    var ruleLabelMap = {};
+    allRules.forEach(function(r) { ruleLabelMap[r] = ruleLabel(r); });
+    var statusLabelMap = {
+      'covered': App.i18n('Covered'),
+      'not_covered': App.i18n('Not covered')
     };
-    panel.innerHTML =
-      '<div style="padding:16px; display:flex; flex-direction:column; min-height:0; flex:1">' +
-        '<div class="mapping-eligibility-table-wrap"><table id="mapping-eligibility-table"><thead><tr>' +
-          '<th>' + App.escapeHtml(App.i18n('Project')) + '</th>' +
-          '<th>' + App.escapeHtml(App.i18n('Group')) + '</th>' +
-          '<th>' + App.escapeHtml(App.i18n('Group rule')) + '</th>' +
-          '<th>' + App.escapeHtml(App.i18n('Covered')) + '</th>' +
-          '<th>' + App.escapeHtml(App.i18n('Score')) + '</th>' +
-          '<th>' + App.escapeHtml(App.i18n('Status')) + '</th>' +
-        '</tr></thead><tbody>' +
-          rows.map(function(r) {
-            var statusBadge = r.rule === 'optional'
-              ? '<span style="color:var(--text-muted); font-size:12px">' + App.escapeHtml(App.i18n('Informative')) + '</span>'
-              : (r.satisfied
-                  ? '<span class="badge" style="background:#dcfce7; color:#166534"><i class="fas fa-check"></i> ' + App.escapeHtml(App.i18n('Satisfied')) + '</span>'
-                  : '<span class="badge" style="background:#fee2e2; color:#991b1b"><i class="fas fa-times"></i> ' + App.escapeHtml(App.i18n('Not satisfied')) + '</span>');
-            return '<tr>' +
-              '<td>' + App.escapeHtml(r.projectName) + '</td>' +
-              '<td>' + App.escapeHtml(r.groupName || '') + '</td>' +
-              '<td>' + App.escapeHtml(ruleLabel(r.rule)) + '</td>' +
-              '<td style="font-family:monospace">' + r.coveredCount + ' / ' + r.total + '</td>' +
-              '<td style="font-weight:600">' + r.score + '%</td>' +
-              '<td>' + statusBadge + '</td>' +
-            '</tr>';
-          }).join('') +
-        '</tbody></table></div>' +
-      '</div>';
+    App.buildMultiSelectDropdown('mapping-eligibility-filter-group', allGroups, eligibilityFilters.groups, renderEligibilityRows);
+    App.buildMultiSelectDropdown('mapping-eligibility-filter-rule', allRules, eligibilityFilters.rules, renderEligibilityRows, ruleLabelMap);
+    App.buildMultiSelectDropdown('mapping-eligibility-filter-status', ['covered', 'not_covered'], eligibilityFilters.statuses, renderEligibilityRows, statusLabelMap);
+
+    // Filtering.
+    var f = eligibilityFilters;
+    var filtered = rows.filter(function(r) {
+      if (f.groups.size > 0 && !f.groups.has(r.groupName)) return false;
+      if (f.rules.size > 0 && !f.rules.has(r.rule)) return false;
+      if (f.statuses.size > 0) {
+        var key = r.covered ? 'covered' : 'not_covered';
+        if (!f.statuses.has(key)) return false;
+      }
+      if (f.name) {
+        var q = f.name.toLowerCase();
+        if (r.csName.toLowerCase().indexOf(q) < 0) return false;
+      }
+      return true;
+    });
+
+    if (eligibilitySort.key) {
+      var k = eligibilitySort.key;
+      var asc = eligibilitySort.asc ? 1 : -1;
+      filtered.sort(function(a, b) {
+        var va = a[k], vb = b[k];
+        if (k === 'resolved') return ((va || 0) - (vb || 0)) * asc;
+        if (k === 'covered') return ((va === vb) ? 0 : (va ? -1 : 1)) * asc;
+        return String(va || '').toLowerCase().localeCompare(String(vb || '').toLowerCase()) * asc;
+      });
+    }
+
+    // Sort indicators.
+    var panel = document.getElementById('mapping-project-tab-eligibility');
+    panel.querySelectorAll('thead th[data-sort]').forEach(function(th) {
+      var isActive = eligibilitySort.key === th.dataset.sort;
+      th.classList.toggle('sorted', !!isActive);
+      var icon = th.querySelector('.sort-icon');
+      if (icon) icon.textContent = (isActive && !eligibilitySort.asc) ? '▼' : '▲';
+    });
+
+    // Summary line.
+    var summary = document.getElementById('mapping-eligibility-summary');
+    if (summary) {
+      var coveredCount = rows.filter(function(r) { return r.covered; }).length;
+      summary.textContent = App.i18n('Coverage:') + ' ' + coveredCount + ' / ' + rows.length +
+        ' · ' + App.i18n('Project score:') + ' ' + result.score + '%';
+    }
+
+    var tbody = document.getElementById('mapping-eligibility-tbody');
+    tbody.innerHTML = filtered.map(function(r) {
+      var statusCell = r.covered
+        ? '<span class="badge" style="background:#dcfce7; color:#166534"><i class="fas fa-check"></i> ' + App.escapeHtml(App.i18n('Covered')) + '</span>'
+        : '<span class="badge" style="background:#fee2e2; color:#991b1b"><i class="fas fa-times"></i> ' + App.escapeHtml(App.i18n('Not covered')) + '</span>';
+      return '<tr data-cs-id="' + r.csId + '" data-cs-version="' + App.escapeHtml(r.csVersion) + '" style="cursor:pointer">' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(r.groupName) + '">' + App.escapeHtml(r.groupName) + '</td>' +
+        '<td>' + App.escapeHtml(ruleLabel(r.rule)) + '</td>' +
+        '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(r.csName) + '"><strong>' + App.escapeHtml(r.csName) + '</strong></td>' +
+        '<td class="td-center" style="font-family:monospace">' + r.resolved + '</td>' +
+        '<td class="td-center">' + statusCell + '</td>' +
+        '<td class="td-center"><button class="mapping-cs-details-btn" data-cs-id="' + r.csId + '" data-cs-version="' + App.escapeHtml(r.csVersion) + '" title="' + App.escapeHtml(App.i18n('View coverage details')) + '"><i class="fas fa-search"></i></button></td>' +
+      '</tr>';
+    }).join('');
+    App.initColResize('mapping-eligibility-table', { lockNow: true });
+  }
+
+  // ==================== CS COVERAGE DETAILS MODAL ====================
+  function openCSDetailsModal(csId, csVersion) {
+    var mp = selectedMappingProjectId && App.getMappingProject(selectedMappingProjectId);
+    if (!mp) return;
+    var live = App.getConceptSet(csId, csVersion) || App.getConceptSet(csId);
+    var resolved = App.getResolvedConceptSet(csId, csVersion) || [];
+    var mappedSet = buildMappedSet(mp);
+    var covered = [];
+    var missing = [];
+    resolved.forEach(function(c) {
+      if (mappedSet.has(c.conceptId)) covered.push(c);
+      else missing.push(c);
+    });
+
+    var csName = live ? (App.t(live).name || live.name || ('#' + csId)) : ('#' + csId);
+    document.getElementById('mapping-cs-details-title').innerHTML =
+      '<i class="fas fa-search"></i> ' + App.escapeHtml(csName);
+
+    // Use neutral wording: this set's "resolved concepts" split into ones the
+    // user already has locally vs the others. Coverage is binary (≥1 concept
+    // mapped suffices), so framing the missing ones as a "gap" would mislead.
+    document.getElementById('mapping-cs-details-summary').innerHTML =
+      '<span>' + App.escapeHtml(App.i18n('Resolved concepts in this set')) + ': <strong>' + resolved.length + '</strong></span>' +
+      ' &middot; <span style="color:#166534"><strong>' + covered.length + '</strong> ' + App.escapeHtml(App.i18n('local')) + '</span>' +
+      ' &middot; <span style="color:var(--text-muted)"><strong>' + missing.length + '</strong> ' + App.escapeHtml(App.i18n('other')) + '</span>';
+
+    var lists = document.getElementById('mapping-cs-details-lists');
+    function renderList(title, items, color, sign) {
+      if (items.length === 0) return '';
+      return '<h4 style="margin:12px 0 6px; font-size:13px; color:' + color + '">' + App.escapeHtml(title) + ' (' + items.length + ')</h4>' +
+        '<ul style="list-style:none; margin:0; padding:4px 8px; max-height:200px; overflow-y:auto; border:1px solid var(--border); border-radius:4px">' +
+          items.map(function(c) { return mappingCSDetailsLine(c, sign); }).join('') +
+        '</ul>';
+    }
+    lists.innerHTML =
+      renderList(App.i18n('Local concepts in this set'), covered, '#166534', '✓') +
+      renderList(App.i18n('Other concepts in this set'), missing, 'var(--text-muted)', '·');
+
+    document.getElementById('mapping-cs-details-modal').style.display = '';
+  }
+
+  function mappingCSDetailsLine(c, sign) {
+    var isLocal = sign === '✓';
+    var color = isLocal ? '#166534' : 'var(--text-muted)';
+    var bg = isLocal ? '#dcfce7' : 'var(--bg-muted, #f1f5f9)';
+    var url = 'https://athena.ohdsi.org/search-terms/terms/' + c.conceptId;
+    return '<li style="display:flex; align-items:center; gap:6px; padding:3px 0; font-size:13px">' +
+      '<span style="display:inline-block; width:16px; text-align:center; font-weight:700; color:' + color + '; background:' + bg + '; border-radius:3px">' + sign + '</span>' +
+      '<a href="' + url + '" target="_blank" rel="noopener" style="font-family:monospace; font-size:12px; color:var(--text-muted)">' + c.conceptId + '</a>' +
+      '<span style="flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap" title="' + App.escapeHtml(c.conceptName || '') + '">' + App.escapeHtml(c.conceptName || '') + '</span>' +
+      '<span class="badge badge-vocab" style="font-size:11px">' + App.escapeHtml(c.vocabularyId || '') + '</span>' +
+    '</li>';
+  }
+
+  function closeCSDetailsModal() {
+    document.getElementById('mapping-cs-details-modal').style.display = 'none';
   }
 
   function renderEligibilityPreview(mp) {
@@ -1131,18 +1702,36 @@ var MappingPage = (function() {
       '<h4 style="margin:24px 0 12px; font-size:13px; text-transform:uppercase; letter-spacing:0.3px; color:var(--text-muted)">' +
         App.escapeHtml(App.i18n('Eligibility per INDICATE project')) +
       '</h4>' +
-      '<div class="mapping-eligibility-list">' +
+      '<div class="project-cards mapping-eligibility-cards">' +
         results.map(function(r) {
           var cls = r.score === 100 ? 'score-full' : (r.score >= 75 ? 'score-mid' : 'score-low');
           var projTr = App.tProj(r.project);
           var projName = projTr.name || ('#' + r.project.id);
-          return '<div class="mapping-eligibility-row ' + cls + '">' +
-            '<div>' + App.escapeHtml(projName) + '</div>' +
-            '<div class="mapping-eligibility-bar"><div class="mapping-eligibility-fill" style="width:' + r.score + '%"></div></div>' +
-            '<div class="mapping-eligibility-score">' + r.score + '%</div>' +
+          var shortDesc = projTr.short_description || '';
+          // Count covered / total CS across the project (informative footer).
+          var total = 0, covered = 0;
+          r.groups.forEach(function(g) {
+            total += g.total;
+            covered += g.coveredCount;
+          });
+          return '<div class="project-card mapping-eligibility-card ' + cls + '" data-project-id="' + r.project.id + '" title="' + App.escapeHtml(App.i18n('See coverage breakdown')) + '">' +
+            '<div class="mapping-eligibility-card-score">' + r.score + '%</div>' +
+            '<h3>' + App.escapeHtml(projName) + '</h3>' +
+            '<p>' + App.escapeHtml(shortDesc || ' ') + '</p>' +
+            '<div class="project-card-footer">' +
+              '<span><i class="fas fa-check"></i> ' + covered + ' / ' + total + ' ' + App.escapeHtml(App.i18n('concept sets covered')) + '</span>' +
+            '</div>' +
           '</div>';
         }).join('') +
       '</div>';
+
+    // Delegate click → switch to Eligibility tab pre-filtered on that project.
+    preview.querySelector('.mapping-eligibility-cards').addEventListener('click', function(e) {
+      var card = e.target.closest('.mapping-eligibility-card[data-project-id]');
+      if (!card) return;
+      selectedEligibilityProjectId = parseInt(card.dataset.projectId, 10);
+      switchDetailTab('eligibility');
+    });
   }
 
   // ==================== PAGE MODULE ====================
@@ -1163,6 +1752,11 @@ var MappingPage = (function() {
     if (qId) {
       selectedMappingProjectId = qId;
       detailTab = ['overview', 'concepts', 'eligibility'].indexOf(qDetail) >= 0 ? qDetail : 'overview';
+      var qProject = query && query.project;
+      if (detailTab === 'eligibility' && qProject) {
+        var pid = parseInt(qProject, 10);
+        if (!isNaN(pid)) selectedEligibilityProjectId = pid;
+      }
     } else {
       selectedMappingProjectId = null;
       detailTab = 'overview';
@@ -1173,6 +1767,8 @@ var MappingPage = (function() {
   function hide() {
     closeCreateModal();
     closeDeleteModal();
+    closeImportModal();
+    closeCSDetailsModal();
     closeAllCardMenus();
   }
 

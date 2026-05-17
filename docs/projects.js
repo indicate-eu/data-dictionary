@@ -1278,7 +1278,7 @@ var ProjectsPage = (function() {
         '<td style="white-space:nowrap">' + App.statusBadge(d.reviewStatus) + '</td>' +
         '<td style="white-space:nowrap; font-family:monospace; font-size:12px">' + App.escapeHtml(d.pinnedVersion) + '</td>' +
         '<td style="white-space:nowrap; font-family:monospace; font-size:12px' + (d.outdated ? '; font-weight:bold' : '') + '">' + App.escapeHtml(d.latestVersion) + '</td>' +
-        '<td style="white-space:nowrap">' + statusCell + '</td>' +
+        '<td class="td-center" style="white-space:nowrap">' + statusCell + '</td>' +
         '</tr>';
     }).join('');
 

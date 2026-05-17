@@ -466,7 +466,7 @@
               <th data-sort="reviewStatus" style="width:8%"><span data-i18n="Review">Review</span> <span class="sort-icon">&#9650;</span></th>
               <th data-sort="pinnedVersion" style="width:5%"><span data-i18n="Pinned">Pinned</span> <span class="sort-icon">&#9650;</span></th>
               <th data-sort="latestVersion" style="width:5%"><span data-i18n="Latest">Latest</span> <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="versionStatus" style="width:9%"><span data-i18n="Update">Update</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="versionStatus" class="td-center" style="width:9%"><span data-i18n="Update">Update</span> <span class="sort-icon">&#9650;</span></th>
             </tr>
             <tr class="filter-row">
               <th><div class="ms-container" id="proj-filter-group"></div></th>
@@ -737,34 +737,21 @@
 
         <div class="settings-content mapping-project-content">
 
-          <!-- Overview tab: dashboard widgets + import CTA -->
+          <!-- Overview tab: dashboard widgets + per-project eligibility teaser -->
           <div class="settings-tab-content" id="mapping-project-tab-overview">
             <div class="mapping-widgets" id="mapping-project-widgets"></div>
-            <div class="mapping-import-cta" id="mapping-project-import-cta">
-              <i class="fas fa-file-csv mapping-import-icon"></i>
-              <p class="mapping-import-text" id="mapping-import-text" data-i18n="No mapping data imported yet. Upload a source-to-concept-map CSV to evaluate your eligibility to INDICATE projects.">No mapping data imported yet. Upload a source-to-concept-map CSV to evaluate your eligibility to INDICATE projects.</p>
-              <button class="btn-primary-custom" id="mapping-project-import-btn">
-                <i class="fas fa-upload"></i> <span data-i18n="Import CSV">Import CSV</span>
-              </button>
+            <div class="mapping-overview-empty" id="mapping-overview-empty" style="display:none">
+              <i class="fas fa-file-csv"></i>
+              <p data-i18n="No mapping data imported yet. Switch to the Mapped concepts tab to upload a CSV.">No mapping data imported yet. Switch to the Mapped concepts tab to upload a CSV.</p>
             </div>
             <div class="mapping-eligibility-preview" id="mapping-project-eligibility-preview"></div>
           </div>
 
-          <!-- Concepts tab: datatable of imported concept_ids (placeholder for now) -->
-          <div class="settings-tab-content" id="mapping-project-tab-concepts" style="display:none">
-            <div class="mapping-empty-state">
-              <i class="fas fa-table"></i>
-              <p data-i18n="Import a CSV to see your mapped concepts here.">Import a CSV to see your mapped concepts here.</p>
-            </div>
-          </div>
+          <!-- Concepts tab: import toolbar + datatable (rendered by JS) -->
+          <div class="settings-tab-content" id="mapping-project-tab-concepts" style="display:none"></div>
 
-          <!-- Eligibility tab: project-by-project eligibility breakdown (placeholder) -->
-          <div class="settings-tab-content" id="mapping-project-tab-eligibility" style="display:none">
-            <div class="mapping-empty-state">
-              <i class="fas fa-check-double"></i>
-              <p data-i18n="Import a CSV to see how your mapping covers each INDICATE project.">Import a CSV to see how your mapping covers each INDICATE project.</p>
-            </div>
-          </div>
+          <!-- Eligibility tab: project picker + datatable (rendered by JS) -->
+          <div class="settings-tab-content" id="mapping-project-tab-eligibility" style="display:none"></div>
 
         </div>
       </div>
@@ -866,6 +853,23 @@
     <div class="modal-footer">
       <button class="btn-secondary-custom" id="mapping-project-delete-cancel" data-i18n="Cancel">Cancel</button>
       <button class="btn-primary-custom btn-danger" id="mapping-project-delete-confirm"><i class="fas fa-trash"></i> <span data-i18n="Delete">Delete</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Mapping Project: Concept Set eligibility details modal -->
+<div class="modal-overlay" id="mapping-cs-details-modal" style="display:none">
+  <div class="modal-box" style="width:760px; max-width:92vw">
+    <div class="modal-header">
+      <h3 id="mapping-cs-details-title"><i class="fas fa-search"></i> <span data-i18n="Coverage details">Coverage details</span></h3>
+      <button class="modal-close" id="mapping-cs-details-close">&times;</button>
+    </div>
+    <div class="modal-body" style="padding:20px; display:flex; flex-direction:column; gap:12px">
+      <div id="mapping-cs-details-summary" style="font-size:13px"></div>
+      <div id="mapping-cs-details-lists"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary-custom" id="mapping-cs-details-done" data-i18n="Close">Close</button>
     </div>
   </div>
 </div>

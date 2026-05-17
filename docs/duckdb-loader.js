@@ -727,6 +727,10 @@
     REQUIRED_PARQUET: REQUIRED_PARQUET,
     OPTIONAL_PARQUET: OPTIONAL_PARQUET,
     getImportMode: function () { return importMode; },
+    /** Synchronous: is there an active DuckDB connection? Says nothing about
+     *  whether REQUIRED_TABLES are loaded — use isDatabaseReady() (Promise)
+     *  for the full readiness check. */
+    hasConnection: function () { return !!conn; },
     initDuckDB: initDuckDB,
     isDatabaseReady: isDatabaseReady,
     importFromDirectory: importFromDirectory,
