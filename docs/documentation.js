@@ -1791,36 +1791,39 @@ var DocumentationPage = (function() {
       { cat: en ? 'Vitals' : 'Signes vitaux', sub: en ? 'Other vitals' : 'Autres signes vitaux', name: en ? 'Body weight' : 'Poids corporel' },
       { cat: en ? 'Labs' : 'Laboratoire', sub: en ? 'Liver test' : 'Bilan h\u00e9patique', name: en ? 'Albumin' : 'Albumine' }
     ];
+    var groupVitals = en ? 'Vital signs' : 'Constantes';
+    var groupLabs = en ? 'Labs' : 'Laboratoire';
     var project = [
-      { cat: en ? 'Vitals' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', name: en ? 'Heart rate' : 'Fr\u00e9quence cardiaque' },
-      { cat: en ? 'Vitals' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', name: en ? 'Blood pressure' : 'Pression art\u00e9rielle' },
-      { cat: en ? 'Labs' : 'Laboratoire', sub: en ? 'Other labs' : 'Autres labos', name: en ? 'Creatinine' : 'Cr\u00e9atinine' },
-      { cat: en ? 'Labs' : 'Laboratoire', sub: en ? 'Liver test' : 'Bilan h\u00e9patique', name: en ? 'Bilirubin' : 'Bilirubine' }
+      { group: groupVitals, cat: en ? 'Vitals' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', name: en ? 'Heart rate' : 'Fr\u00e9quence cardiaque' },
+      { group: groupVitals, cat: en ? 'Vitals' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', name: en ? 'Blood pressure' : 'Pression art\u00e9rielle' },
+      { group: groupLabs,   cat: en ? 'Labs' : 'Laboratoire',     sub: en ? 'Other labs' : 'Autres labos',     name: en ? 'Creatinine' : 'Cr\u00e9atinine' },
+      { group: groupLabs,   cat: en ? 'Labs' : 'Laboratoire',     sub: en ? 'Liver test' : 'Bilan h\u00e9patique', name: en ? 'Bilirubin' : 'Bilirubine' }
     ];
     var td = 'padding:5px 8px; border-bottom:1px solid #eee; font-size:12px';
     function rowAvail(d) {
       return '<tr>'
-        + '<td style="' + td + '">' + d.cat + '</td>'
-        + '<td style="' + td + '">' + d.sub + '</td>'
-        + '<td style="' + td + '">' + d.name + '</td>'
-        + '<td style="' + td + '"><button class="proj-cs-add-btn" style="cursor:default"><i class="fas fa-plus-circle"></i></button></td>'
+        + '<td style="' + td + '"><span class="badge badge-category">' + d.cat + '</span></td>'
+        + '<td style="' + td + '"><span class="badge badge-subcategory">' + d.sub + '</span></td>'
+        + '<td class="cell-truncate" style="' + td + '" data-tooltip="' + d.name + '"><strong>' + d.name + '</strong></td>'
+        + '<td style="' + td + '; width:40px"><button class="proj-cs-add-btn" style="cursor:default"><i class="fas fa-plus-circle"></i></button></td>'
         + '</tr>';
     }
     function rowProj(d) {
       return '<tr>'
-        + '<td style="' + td + '"><button class="proj-cs-remove-btn" style="cursor:default"><i class="fas fa-minus-circle"></i></button></td>'
-        + '<td style="' + td + '">' + d.cat + '</td>'
-        + '<td style="' + td + '">' + d.sub + '</td>'
-        + '<td style="' + td + '">' + d.name + '</td>'
+        + '<td style="' + td + '; width:40px"><button class="proj-cs-remove-btn" style="cursor:default"><i class="fas fa-minus-circle"></i></button></td>'
+        + '<td style="' + td + '"><span class="proj-cs-group-pill">' + d.group + '</span></td>'
+        + '<td style="' + td + '"><span class="badge badge-category">' + d.cat + '</span></td>'
+        + '<td style="' + td + '"><span class="badge badge-subcategory">' + d.sub + '</span></td>'
+        + '<td class="cell-truncate" style="' + td + '" data-tooltip="' + d.name + '"><strong>' + d.name + '</strong></td>'
         + '</tr>';
     }
     var thStyle = 'padding:6px 8px; border-bottom:2px solid var(--border); color:var(--primary); font-weight:600; font-size:11px; text-align:left';
-    return '<div style="display:flex; gap:16px; margin:16px 0">'
+    return '<div style="display:flex; flex-direction:column; gap:16px; margin:16px 0">'
       // Left panel — available
-      + '<div style="flex:1; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden">'
+      + '<div style="flex:1; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; background:#fff">'
       + '<div style="padding:8px 12px; background:var(--gray-light); font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px">'
       + (en ? 'Available Concept Sets' : 'Jeux de concepts disponibles') + '</div>'
-      + '<table style="width:100%; border-collapse:collapse"><thead><tr>'
+      + '<table style="width:100%; border-collapse:collapse; table-layout:fixed"><thead><tr>'
       + '<th style="' + thStyle + '">' + (en ? 'Category' : 'Cat\u00e9gorie') + '</th>'
       + '<th style="' + thStyle + '">' + (en ? 'Subcategory' : 'Sous-cat\u00e9gorie') + '</th>'
       + '<th style="' + thStyle + '">' + (en ? 'Name' : 'Nom') + '</th>'
@@ -1829,12 +1832,13 @@ var DocumentationPage = (function() {
       + available.map(rowAvail).join('')
       + '</tbody></table></div>'
       // Right panel — project
-      + '<div style="flex:1; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden">'
+      + '<div style="flex:1; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; background:#fff">'
       + '<div style="padding:8px 12px; background:var(--gray-light); font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px">'
       + (en ? 'Project Concept Sets' : 'Jeux de concepts du projet')
       + ' <span style="font-weight:400">(' + project.length + ')</span></div>'
-      + '<table style="width:100%; border-collapse:collapse"><thead><tr>'
+      + '<table style="width:100%; border-collapse:collapse; table-layout:fixed"><thead><tr>'
       + '<th style="' + thStyle + '; width:40px"></th>'
+      + '<th style="' + thStyle + '">' + (en ? 'Group' : 'Groupe') + '</th>'
       + '<th style="' + thStyle + '">' + (en ? 'Category' : 'Cat\u00e9gorie') + '</th>'
       + '<th style="' + thStyle + '">' + (en ? 'Subcategory' : 'Sous-cat\u00e9gorie') + '</th>'
       + '<th style="' + thStyle + '">' + (en ? 'Name' : 'Nom') + '</th>'
@@ -2159,7 +2163,9 @@ var DocumentationPage = (function() {
 
       + '<h3>Concept Sets Tab</h3>'
       + '<p>In read mode, shows a sortable, filterable table of the project\'s concept sets, organized by group. '
-      + 'Click a row to navigate to that concept set.</p>'
+      + 'Each row shows the group it belongs to, the group\'s rule, and the version pinning status. '
+      + 'Click a row to navigate to that concept set; click the group pill or the <em>Outdated</em> badge for inline actions.</p>'
+      + mockProjectCSRowWithGroup('en')
       + '<p>In edit mode, a dual-panel interface lets you:</p>'
       + '<ul>'
       + '<li><strong>Left panel</strong> \u2014 Available concept sets (not yet in the project)</li>'
@@ -2171,18 +2177,42 @@ var DocumentationPage = (function() {
       + mockProjectCSEditPanels(App.lang)
 
       + '<h3>Groups and Eligibility Rules</h3>'
-      + '<p>Concept sets within a project are organized into named <strong>groups</strong>. Each group carries an eligibility <strong>rule</strong> that documents how the group should be interpreted when checking whether a data provider can support the project:</p>'
+      + '<p>Concept sets within a project are organized into named <strong>groups</strong>. Each group carries '
+      + 'an eligibility <strong>rule</strong> that documents how the group should be interpreted when checking '
+      + 'whether a data provider can support the project:</p>'
       + '<ul>'
-      + '<li><strong>All required</strong> \u2014 every concept set in the group must be covered by the data provider\'s mapping. Use this for variables that are non-negotiable (e.g. heart rate, mortality outcome).</li>'
+      + '<li><strong>All required</strong> \u2014 every concept set in the group must be covered by the data provider\'s mapping. Use this for variables that are non-negotiable (e.g. heart rate, blood pressure).</li>'
       + '<li><strong>At least one</strong> \u2014 at least one concept set in the group must be covered. Use this for clinically equivalent alternatives (e.g. an anticoagulants group: having any one anticoagulant mapped is enough to be eligible).</li>'
       + '<li><strong>Optional</strong> \u2014 the group is informative; no concept set is required. Use this for nice-to-have variables.</li>'
       + '</ul>'
-      + '<p>In edit mode, use the toolbar at the top of the variables tab to add, rename, reorder, or delete groups, change a group\'s rule, and pick the active group (the one new concept sets are added to).</p>'
+
+      + '<h4>Managing groups in edit mode</h4>'
+      + '<p>A toolbar at the top of the variables tab in edit mode lists every group as a row, with controls '
+      + 'to add, rename (\u270e), reorder (\u2191\u2193), or delete (\ud83d\uddd1) groups, change a group\'s rule via a dropdown, '
+      + 'and select the active group (the one new concept sets are added to \u2014 highlighted with a blue outline).</p>'
+      + mockProjectGroupsToolbar('en')
+
+      + '<h4>Reassigning concept sets to another group</h4>'
+      + '<p>Tick the checkbox of one or several rows in the project-side table to reveal a bulk action '
+      + 'bar above the table. Pick a target group and click <strong>Move</strong> — the selected concept '
+      + 'sets are reassigned to that group. In read mode you can also click the group pill on a single '
+      + 'row to pick another group from an anchored dropdown.</p>'
+      + mockChangeGroupMenu('en')
 
       + infoBox('Best Practice',
         'Include all concept sets needed for your analysis, even those only used for adjustment or '
         + 'stratification. Use group rules to express what is mandatory vs. nice-to-have \u2014 this lets data '
         + 'providers see at a glance whether they can support the project with their current OMOP mapping.')
+
+      + '<h3>Updating a pinned concept set</h3>'
+      + '<p>Concept set versions are pinned per project so old reports stay reproducible. When a concept '
+      + 'set has a newer version, an <em>Outdated</em> badge appears in the Update column. Click it to '
+      + 'review what changed and decide whether to update:</p>'
+      + mockUpdateCSModal('en')
+      + '<p>The modal lists the resolved concepts that were <strong>added</strong> in the latest version '
+      + '(green) and the ones that were <strong>removed</strong> (red), so you can assess the impact on '
+      + 'your analysis before bumping. Confirm to bump only that concept set in the project \u2014 other '
+      + 'pinned versions are unaffected.</p>'
 
       + '<h2>Exporting</h2>'
       + '<p>The project detail view offers two export options:</p>'
@@ -2196,6 +2226,145 @@ var DocumentationPage = (function() {
       + '<p>In the Concept Sets tab (read mode), click the <strong>CSV</strong> button to download all OMOP concepts '
       + 'from the project\'s concept sets as a CSV file. The export includes concept set metadata '
       + '(ID, name, category, subcategory) and expression flags (excluded, descendants, mapped) for each concept.</p>';
+  }
+
+  // ==================== MOCKS: PROJECT GROUPS ====================
+  // Read-only mirrors of the new group-management UI on the Projects page, so
+  // the doc visually shows what's described in the surrounding paragraphs.
+
+  function mockProjectGroupsToolbar(lang) {
+    var en = lang === 'en';
+    function groupRow(name, count, rule, isActive) {
+      var ruleOptions = [
+        { v: 'all_required', label: en ? 'All required' : 'Tous obligatoires' },
+        { v: 'at_least_one', label: en ? 'At least one' : 'Au moins un' },
+        { v: 'optional',     label: en ? 'Optional'     : 'Optionnel' }
+      ].map(function(o) {
+        return '<option' + (o.v === rule ? ' selected' : '') + '>' + o.label + '</option>';
+      }).join('');
+      return '<div class="proj-group-row' + (isActive ? ' active' : '') + '" style="cursor:default">'
+        + '<button class="proj-group-select" style="cursor:default">'
+        +   '<span class="proj-group-name"><strong>' + name + '</strong>'
+        +   ' <span class="proj-group-count">(' + count + ')</span></span>'
+        + '</button>'
+        + '<select class="proj-group-rule form-input" disabled>' + ruleOptions + '</select>'
+        + '<div class="proj-group-actions">'
+        +   '<button class="proj-group-action" disabled><i class="fas fa-pen"></i></button>'
+        +   '<button class="proj-group-action" disabled><i class="fas fa-arrow-up"></i></button>'
+        +   '<button class="proj-group-action" disabled><i class="fas fa-arrow-down"></i></button>'
+        +   '<button class="proj-group-action proj-group-delete" disabled><i class="fas fa-trash"></i></button>'
+        + '</div>'
+      + '</div>';
+    }
+    // Force two cards on a single row (50/50) regardless of the doc-content
+    // width, so the layout shown here stays compact.
+    return '<div class="proj-groups-toolbar" style="margin:16px 0">'
+      + '<div class="proj-groups-header">'
+      +   '<span class="proj-groups-title"><i class="fas fa-layer-group"></i> '
+      +     (en ? 'Groups' : 'Groupes') + '</span>'
+      +   '<button class="btn-outline-sm" style="cursor:default"><i class="fas fa-plus"></i> '
+      +     (en ? 'Add group' : 'Ajouter un groupe') + '</button>'
+      + '</div>'
+      + '<div class="proj-group-rows" style="grid-template-columns:1fr 1fr">'
+      +   groupRow(en ? 'Vital signs'    : 'Constantes',    12, 'all_required', true)
+      +   groupRow(en ? 'Anticoagulants' : 'Anticoagulants', 8, 'at_least_one', false)
+      + '</div></div>';
+  }
+
+  function mockProjectCSRowWithGroup(lang) {
+    var en = lang === 'en';
+    var ruleBadge = '<span class="rule-badge" style="background:#fee2e2; color:#991b1b">'
+      + '<i class="fas fa-asterisk"></i> ' + (en ? 'All required' : 'Tous obligatoires') + '</span>';
+    var outdated = '<span class="badge proj-cs-update-badge" '
+      + 'style="background:#fef3c7; color:#92400e; cursor:pointer">'
+      + '<i class="fas fa-exclamation-triangle"></i> ' + (en ? 'Outdated' : 'Obsolète') + '</span>';
+    return '<div class="doc-mock-modal" style="max-width:100%; padding:0; border-radius:var(--radius)">'
+      + '<div class="table-container" style="max-height:none">'
+      + '<table style="font-size:12px; table-layout:auto; width:100%; border-collapse:collapse">'
+      + '<thead><tr>'
+      +   '<th style="padding:6px 10px; text-align:left">' + (en ? 'Group' : 'Groupe') + '</th>'
+      +   '<th style="padding:6px 10px; text-align:left">' + (en ? 'Group rule' : 'Règle du groupe') + '</th>'
+      +   '<th style="padding:6px 10px; text-align:left">' + (en ? 'Name' : 'Nom') + '</th>'
+      +   '<th style="padding:6px 10px; text-align:left">' + (en ? 'Pinned' : 'Version') + '</th>'
+      +   '<th class="td-center" style="padding:6px 10px">' + (en ? 'Update' : 'Mise à jour') + '</th>'
+      + '</tr></thead><tbody>'
+      + '<tr><td style="padding:4px 10px"><span class="proj-cs-group-pill">' + (en ? 'Vital signs' : 'Constantes') + '</span></td>'
+      +     '<td style="padding:4px 10px">' + ruleBadge + '</td>'
+      +     '<td style="padding:4px 10px"><strong>Heart rate</strong></td>'
+      +     '<td style="padding:4px 10px; font-family:monospace">1.0.0</td>'
+      +     '<td class="td-center" style="padding:4px 10px">' + outdated + '</td></tr>'
+      + '<tr><td style="padding:4px 10px"><span class="proj-cs-group-pill">' + (en ? 'Anticoagulants' : 'Anticoagulants') + '</span></td>'
+      +     '<td style="padding:4px 10px"><span class="rule-badge" style="background:#fef3c7; color:#92400e"><i class="fas fa-check-circle"></i> ' + (en ? 'At least one' : 'Au moins un') + '</span></td>'
+      +     '<td style="padding:4px 10px"><strong>Enoxaparin sodium</strong></td>'
+      +     '<td style="padding:4px 10px; font-family:monospace">1.1.0</td>'
+      +     '<td class="td-center" style="padding:4px 10px"><span class="badge" style="background:#dcfce7; color:#166534; padding:2px 8px; font-size:11px"><i class="fas fa-check"></i> ' + (en ? 'Up to date' : 'À jour') + '</span></td></tr>'
+      + '</tbody></table>'
+      + '</div></div>';
+  }
+
+  function mockChangeGroupMenu(lang) {
+    var en = lang === 'en';
+    // Bulk action bar shown above the project-CS table when the user has
+    // checked one or more rows in edit mode. Pick a target group and click
+    // Move; the selected concept sets are reassigned to that group.
+    return '<div class="proj-cs-bulk-bar" style="margin:16px 0">'
+      + '<span class="proj-cs-bulk-count">1 ' + (en ? 'selected' : 'sélectionné') + '</span>'
+      + '<label class="proj-cs-bulk-label">' + (en ? 'Move to' : 'Déplacer vers') + '</label>'
+      + '<select class="proj-cs-bulk-select" disabled>'
+      +   '<option>' + (en ? 'Vital signs' : 'Constantes') + '</option>'
+      +   '<option>' + (en ? 'Anticoagulants' : 'Anticoagulants') + '</option>'
+      + '</select>'
+      + '<button class="btn-primary-custom" style="cursor:default">'
+      +   '<i class="fas fa-arrow-right"></i> ' + (en ? 'Move' : 'Déplacer')
+      + '</button>'
+      + '</div>';
+  }
+
+  function mockUpdateCSModal(lang) {
+    var en = lang === 'en';
+    function line(sign, id, name, vocab) {
+      var color = sign === '+' ? '#166534' : '#991b1b';
+      var bg = sign === '+' ? '#dcfce7' : '#fee2e2';
+      return '<li style="display:flex; align-items:center; gap:6px; padding:3px 0; font-size:12px">'
+        + '<span style="display:inline-block; width:16px; text-align:center; font-weight:700; color:' + color + '; background:' + bg + '; border-radius:3px">' + sign + '</span>'
+        + '<span style="font-family:monospace; font-size:11px; color:var(--text-muted)">' + id + '</span>'
+        + '<span style="flex:1">' + name + '</span>'
+        + '<span class="badge badge-vocab" style="font-size:11px">' + vocab + '</span>'
+      + '</li>';
+    }
+    return '<div class="doc-mock-modal" style="max-width:560px">'
+      + '<div class="modal-header"><h3 style="margin:0; font-size:14px"><i class="fas fa-arrow-up"></i> '
+      +   (en ? 'Update concept set' : 'Mettre à jour le concept set') + '</h3>'
+      +   '<span class="modal-close" style="cursor:default">&times;</span></div>'
+      + '<div class="modal-body" style="display:flex; flex-direction:column; gap:10px; padding:14px; font-size:12px">'
+      +   '<p style="margin:0">'
+      +     '<strong>Heart rate</strong>'
+      +     '<span style="color:var(--text-muted); margin-left:8px">'
+      +       '<span style="font-family:monospace">v1.0.0</span> → '
+      +       '<span style="font-family:monospace; color:var(--primary); font-weight:600">v1.1.0</span>'
+      +     '</span>'
+      +   '</p>'
+      +   '<p style="margin:0; padding:8px 12px; background:var(--bg-muted, #f8fafc); border-radius:4px; color:var(--text-muted)">'
+      +     (en ? 'Resolved concepts' : 'Concepts résolus') + ': <strong>10</strong> → <strong>12</strong>'
+      +     ' · <span style="color:#166534"><strong>+3</strong> ' + (en ? 'added' : 'ajoutés') + '</span>'
+      +     ' · <span style="color:#991b1b"><strong>−1</strong> ' + (en ? 'removed' : 'retirés') + '</span>'
+      +   '</p>'
+      +   '<h4 style="margin:8px 0 4px; font-size:12px; color:#166534">' + (en ? 'Added' : 'Ajoutés') + ' (3)</h4>'
+      +   '<ul style="list-style:none; margin:0; padding:4px 8px; border:1px solid var(--border); border-radius:4px">'
+      +     line('+', '4244396', 'Heart rate by palpation',  'SNOMED')
+      +     line('+', '4239408', 'Heart rate by EKG',         'SNOMED')
+      +   '</ul>'
+      +   '<h4 style="margin:8px 0 4px; font-size:12px; color:#991b1b">' + (en ? 'Removed' : 'Retirés') + ' (1)</h4>'
+      +   '<ul style="list-style:none; margin:0; padding:4px 8px; border:1px solid var(--border); border-radius:4px">'
+      +     line('−', '4034850', 'Pulse rate (deprecated)',  'SNOMED')
+      +   '</ul>'
+      + '</div>'
+      + '<div class="modal-footer">'
+      +   '<button class="btn-cancel" disabled>' + (en ? 'Cancel' : 'Annuler') + '</button>'
+      +   '<button class="btn-submit" disabled><i class="fas fa-arrow-up"></i> '
+      +     (en ? 'Update to latest' : 'Mettre à jour') + '</button>'
+      + '</div>'
+      + '</div>';
   }
 
   function mockProjectExportModal(lang) {
@@ -3807,7 +3976,10 @@ var DocumentationPage = (function() {
 
       + '<h3>Onglet Jeux de concepts</h3>'
       + '<p>En mode lecture, affiche un tableau triable et filtrable des jeux de concepts du projet, organis\u00e9s par groupe. '
-      + 'Cliquez sur une ligne pour naviguer vers ce jeu de concepts.</p>'
+      + 'Chaque ligne montre le groupe auquel elle appartient, la r\u00e8gle du groupe et l\u2019\u00e9tat de la version \u00e9pingl\u00e9e. '
+      + 'Cliquez sur une ligne pour naviguer vers ce jeu de concepts\u00a0; cliquez sur la pastille de groupe ou le badge '
+      + '<em>Obsol\u00e8te</em> pour les actions inline.</p>'
+      + mockProjectCSRowWithGroup('fr')
       + '<p>En mode \u00e9dition, une interface \u00e0 double panneau vous permet de\u00a0:</p>'
       + '<ul>'
       + '<li><strong>Panneau gauche</strong> \u2014 Jeux de concepts disponibles (pas encore dans le projet)</li>'
@@ -3821,17 +3993,41 @@ var DocumentationPage = (function() {
       + '<h3>Groupes et r\u00e8gles d\u2019\u00e9ligibilit\u00e9</h3>'
       + '<p>Les jeux de concepts d\u2019un projet sont organis\u00e9s en <strong>groupes</strong> nomm\u00e9s. Chaque groupe porte une <strong>r\u00e8gle</strong> d\u2019\u00e9ligibilit\u00e9 qui documente la mani\u00e8re d\u2019interpr\u00e9ter ce groupe lorsqu\u2019on \u00e9value si un centre de donn\u00e9es peut supporter le projet\u00a0:</p>'
       + '<ul>'
-      + '<li><strong>Tous obligatoires</strong> \u2014 chaque jeu de concepts du groupe doit \u00eatre couvert par le mapping du centre. \u00c0 utiliser pour les variables non n\u00e9gociables (ex.\u00a0: fr\u00e9quence cardiaque, mortalit\u00e9).</li>'
+      + '<li><strong>Tous obligatoires</strong> \u2014 chaque jeu de concepts du groupe doit \u00eatre couvert par le mapping du centre. \u00c0 utiliser pour les variables non n\u00e9gociables (ex.\u00a0: fr\u00e9quence cardiaque, pression art\u00e9rielle).</li>'
       + '<li><strong>Au moins un</strong> \u2014 au moins un jeu de concepts du groupe doit \u00eatre couvert. \u00c0 utiliser pour des alternatives cliniquement \u00e9quivalentes (ex.\u00a0: un groupe \u00ab\u00a0anticoagulants\u00a0\u00bb\u00a0: avoir un seul anticoagulant mapp\u00e9 suffit \u00e0 \u00eatre \u00e9ligible).</li>'
       + '<li><strong>Optionnel</strong> \u2014 le groupe est informatif\u00a0; aucun jeu n\u2019est requis. \u00c0 utiliser pour les variables nice-to-have.</li>'
       + '</ul>'
-      + '<p>En mode \u00e9dition, utilisez la barre d\u2019outils en haut de l\u2019onglet variables pour ajouter, renommer, r\u00e9organiser ou supprimer des groupes, changer la r\u00e8gle d\u2019un groupe, et choisir le groupe actif (celui dans lequel atterrissent les nouveaux jeux de concepts).</p>'
+      + '<h4>G\u00e9rer les groupes en mode \u00e9dition</h4>'
+      + '<p>Une barre d\u2019outils en haut de l\u2019onglet variables liste chaque groupe sur une ligne, avec les '
+      + 'contr\u00f4les pour ajouter, renommer (\u270e), r\u00e9ordonner (\u2191\u2193) ou supprimer (\ud83d\uddd1) un groupe, changer sa '
+      + 'r\u00e8gle via un menu d\u00e9roulant, et s\u00e9lectionner le groupe actif (celui dans lequel atterrissent les '
+      + 'nouveaux jeux de concepts \u2014 mis en \u00e9vidence par un contour bleu).</p>'
+      + mockProjectGroupsToolbar('fr')
+
+      + '<h4>R\u00e9affecter des jeux de concepts \u00e0 un autre groupe</h4>'
+      + '<p>Cochez la case d\u2019une ou plusieurs lignes du panneau projet pour faire appara\u00eetre une barre '
+      + 'd\u2019action au-dessus du tableau. Choisissez un groupe cible et cliquez sur <strong>D\u00e9placer</strong> \u2014 '
+      + 'les jeux de concepts s\u00e9lectionn\u00e9s sont r\u00e9assign\u00e9s \u00e0 ce groupe. En mode lecture, vous pouvez aussi '
+      + 'cliquer sur la pastille de groupe d\u2019une seule ligne pour choisir un autre groupe via un menu '
+      + 'd\u00e9roulant ancr\u00e9.</p>'
+      + mockChangeGroupMenu('fr')
 
       + infoBox('Bonne pratique',
         'Incluez tous les jeux de concepts n\u00e9cessaires \u00e0 votre analyse, m\u00eame ceux utilis\u00e9s '
         + 'uniquement pour l\u2019ajustement ou la stratification. Utilisez les r\u00e8gles de groupes pour exprimer '
         + 'ce qui est obligatoire vs. nice-to-have \u2014 cela permet aux centres de voir d\u2019un coup d\u2019\u0153il '
         + 's\u2019ils peuvent supporter le projet avec leur mapping OMOP actuel.')
+
+      + '<h3>Mettre \u00e0 jour un jeu de concepts \u00e9pingl\u00e9</h3>'
+      + '<p>Les versions des jeux de concepts sont \u00e9pingl\u00e9es par projet pour que les anciens rapports '
+      + 'restent reproductibles. Quand un jeu a une version plus r\u00e9cente, un badge <em>Obsol\u00e8te</em> '
+      + 'appara\u00eet dans la colonne \u00ab Mise \u00e0 jour \u00bb. Cliquez-le pour examiner le diff\u00e9rentiel et d\u00e9cider '
+      + 'de mettre \u00e0 jour ou non :</p>'
+      + mockUpdateCSModal('fr')
+      + '<p>Le modal liste les concepts r\u00e9solus <strong>ajout\u00e9s</strong> dans la derni\u00e8re version '
+      + '(vert) et ceux qui ont \u00e9t\u00e9 <strong>retir\u00e9s</strong> (rouge), pour que vous puissiez \u00e9valuer '
+      + 'l\u2019impact sur votre analyse avant de valider. Confirmer ne met \u00e0 jour que ce jeu de concepts '
+      + 'dans le projet \u2014 les autres versions \u00e9pingl\u00e9es ne sont pas affect\u00e9es.</p>'
 
       + '<h2>Export</h2>'
       + '<p>La vue d\u00e9taill\u00e9e du projet propose deux options d\u2019export\u00a0:</p>'
