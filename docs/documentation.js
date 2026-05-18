@@ -41,9 +41,10 @@ var DocumentationPage = (function() {
         ]
       },
       {
-        title: en ? 'Mapping Recommendations' : 'Recommandations',
+        title: en ? 'Concept Mapping' : 'Alignement de concepts',
         items: [
-          { id: 'mapping-recommendations', label: en ? 'Mapping Recommendations' : 'Recommandations de mapping' }
+          { id: 'mapping-projects',        label: en ? 'Mapping projects'         : 'Projets de mapping' },
+          { id: 'mapping-recommendations', label: en ? 'Mapping recommendations'  : 'Recommandations de mapping' }
         ]
       },
       {
@@ -72,7 +73,8 @@ var DocumentationPage = (function() {
       'exporting':            en ? exportingEN()             : exportingFR(),
       'sources':              en ? sourcesEN()               : sourcesFR(),
       'projects':             en ? projectsEN()              : projectsFR(),
-      'mapping-recommendations': en ? mappingEN()            : mappingFR(),
+      'mapping-projects':        en ? mappingProjectsEN()    : mappingProjectsFR(),
+      'mapping-recommendations': en ? mappingRecoEN()        : mappingRecoFR(),
       'dictionary-settings':  en ? dictSettingsEN()          : dictSettingsFR(),
       'dev-tools':            en ? devToolsEN()              : devToolsFR(),
       'local-data':           en ? localDataEN()             : localDataFR()
@@ -903,7 +905,7 @@ var DocumentationPage = (function() {
       + '<p>The navigation bar at the top provides access to the main sections:</p>'
       + '<ul>'
       + '<li><strong>Data Dictionary</strong> \u2014 Browse and search concept sets (' + docLink('browsing', 'details') + ')</li>'
-      + '<li><strong>Mapping Recommendations</strong> \u2014 Guidance for mapping local variables (' + docLink('mapping-recommendations', 'details') + ')</li>'
+      + '<li><strong>Concept Mapping</strong> \u2014 Evaluate your eligibility to INDICATE projects from your source-to-concept map, and consult mapping recommendations (' + docLink('mapping-projects', 'details') + ')</li>'
       + '<li><strong>Projects</strong> \u2014 Group concept sets by research project (' + docLink('projects', 'details') + ')</li>'
       + '<li><strong>Documentation</strong> \u2014 This page</li>'
       + '</ul>'
@@ -2248,19 +2250,321 @@ var DocumentationPage = (function() {
       + '</div>';
   }
 
-  function mappingEN() {
-    return '<h1>Mapping Recommendations</h1>'
-      + '<p>The <strong>Mapping Recommendations</strong> page provides expert-curated guidance for '
-      + 'mapping common local ICU variables to OMOP standard concepts.</p>'
+  // ==================== MOCKS: MAPPING PROJECTS ====================
+  // Each mock renders a small chunk of UI using the real CSS classes (in a
+  // read-only / disabled state) so the doc visually mirrors what the user
+  // sees in the app. Style mirrors the existing mockProjectCard/mockNewProjectModal
+  // helpers above.
 
-      + '<h2>What are Mapping Recommendations?</h2>'
+  function mockMappingProjectCard(lang) {
+    var en = lang === 'en';
+    return '<div style="display:flex; justify-content:center; margin:16px 0">'
+      + '<div class="project-card" style="cursor:default; max-width:450px; position:relative">'
+      + '<div style="margin:0 0 8px; font-size:16px; font-weight:600">CHU Rennes — ICU mapping</div>'
+      + '<p style="margin:0 0 12px; color:var(--text-muted)">'
+      + (en
+          ? 'Source-to-concept map exported from our OMOP ETL on 2026-05-17.'
+          : 'Source-to-concept map exporté depuis notre ETL OMOP le 2026-05-17.')
+      + '</p>'
+      + '<div class="project-card-footer">'
+      + '<span><i class="fas fa-list"></i> 341 ' + (en ? 'mapped concepts' : 'concepts mappés') + '</span>'
+      + '<span><i class="fas fa-calendar-alt"></i> 2026-05-17</span>'
+      + '</div>'
+      + '</div></div>';
+  }
+
+  function mockNewMappingProjectModal(lang) {
+    var en = lang === 'en';
+    return '<div class="doc-mock-modal">'
+      + '<div class="modal-header">'
+      + '<h3 style="margin:0"><i class="fas fa-plus"></i> '
+        + (en ? 'New mapping project' : 'Nouveau projet de mapping') + '</h3>'
+      + '<span class="modal-close" style="cursor:default">&times;</span>'
+      + '</div>'
+      + '<div class="modal-body" style="display:flex; flex-direction:column; gap:12px">'
+      + '<div><label class="form-label">' + (en ? 'Name *' : 'Nom *') + '</label>'
+      + '<input type="text" class="form-input" value="CHU Rennes — ICU mapping" readonly></div>'
+      + '<div><label class="form-label">' + (en ? 'Description' : 'Description') + '</label>'
+      + '<textarea class="form-input" rows="2" style="min-height:auto" readonly>'
+      + (en
+          ? 'Source-to-concept map exported from our OMOP ETL on 2026-05-17.'
+          : 'Source-to-concept map exporté depuis notre ETL OMOP le 2026-05-17.')
+      + '</textarea></div>'
+      + '</div>'
+      + '<div class="modal-footer">'
+      + '<button class="btn-cancel" disabled>' + (en ? 'Cancel' : 'Annuler') + '</button>'
+      + '<button class="btn-submit" disabled><i class="fas fa-plus"></i> ' + (en ? 'Create' : 'Créer') + '</button>'
+      + '</div>'
+      + '</div>';
+  }
+
+  function mockMappingWidgets(lang) {
+    var en = lang === 'en';
+    function widget(icon, value, label) {
+      // Slightly tighter padding + smaller value font than the live widget so
+      // three cards reliably fit on one row in the narrower doc content area.
+      return '<div class="mapping-widget" style="padding:10px 12px; min-width:0">'
+        + '<div class="mapping-widget-icon"><i class="fas ' + icon + '"></i></div>'
+        + '<div class="mapping-widget-value" style="font-size:20px">' + value + '</div>'
+        + '<div class="mapping-widget-label">' + label + '</div>'
+      + '</div>';
+    }
+    // Force three equal columns regardless of doc-content width.
+    return '<div class="mapping-widgets" style="margin:16px 0; grid-template-columns:repeat(3, 1fr)">'
+      + widget('fa-list', '341', en ? 'Mapped concepts' : 'Concepts mappés')
+      + widget('fa-check', '218', en ? 'Matched in dictionary' : 'Présents dans le dictionnaire')
+      + widget('fa-check-double', '3 / 6', en ? 'Eligible projects' : 'Projets éligibles')
+      + '</div>';
+  }
+
+  function mockMappingEligibilityCards(lang) {
+    var en = lang === 'en';
+    function card(name, desc, score) {
+      var cls = score === 100 ? 'score-full' : (score >= 75 ? 'score-mid' : 'score-low');
+      return '<div class="project-card mapping-eligibility-card ' + cls + '" style="cursor:default; position:relative">'
+        + '<div class="mapping-eligibility-card-score">' + score + '%</div>'
+        + '<h3 style="margin:0 0 6px; padding-right:48px; font-size:15px; font-weight:600">' + name + '</h3>'
+        + '<p style="margin:0 0 10px; color:var(--text-muted); font-size:13px">' + desc + '</p>'
+        + '<div class="project-card-footer" style="font-size:12px">'
+        + '<span><i class="fas fa-check"></i> ' + (en ? 'concept sets covered' : 'concept sets couverts') + '</span>'
+        + '</div>'
+      + '</div>';
+    }
+    return '<div class="project-cards" style="margin:12px 0; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); overflow:visible">'
+      + card('MIMIC-EU [Minimal]', en ? 'Federated atlas of acute care cases.' : 'Atlas fédéré de cas de soins aigus.', 100)
+      + card('Quality Benchmarking', en ? 'Continuous improvement via benchmarking.' : 'Amélioration continue par benchmarking.', 82)
+      + card('Rare ICU outcomes', en ? 'Pooling across centres for rare events.' : 'Mutualisation pour événements rares.', 54)
+      + '</div>';
+  }
+
+  function mockMappingImportModal(lang) {
+    var en = lang === 'en';
+    return '<div class="doc-mock-modal" style="max-width:560px">'
+      + '<div class="modal-header"><h3 style="margin:0; font-size:14px"><i class="fas fa-upload"></i> '
+      + (en ? 'Import mapping CSV' : 'Importer un CSV de mapping') + '</h3>'
+      + '<span class="modal-close" style="cursor:default">&times;</span></div>'
+      + '<div class="modal-body" style="display:flex; flex-direction:column; gap:10px; padding:14px">'
+      + '<p style="margin:0; color:var(--text-muted); font-size:12px">'
+      + (en
+          ? 'OMOP source_to_concept_map · CSV with a concept_id column · single-column list of concept_ids — all auto-detected.'
+          : 'source_to_concept_map OMOP · CSV avec colonne concept_id · liste mono-colonne de concept_id — tous auto-détectés.')
+      + '</p>'
+      + '<div><label class="form-label">' + (en ? 'CSV file' : 'Fichier CSV') + '</label>'
+      + '<input type="file" class="form-input" disabled></div>'
+      + '<div style="background:var(--bg-muted, #f8fafc); border:1px solid var(--border); border-radius:4px; padding:8px 10px; font-size:12px">'
+      + '<div><strong>' + (en ? 'OMOP source_to_concept_map' : 'source_to_concept_map OMOP') + '</strong></div>'
+      + '<div>358 ' + (en ? 'rows with a valid concept_id' : 'lignes avec un concept_id valide')
+      + ' · <strong>341</strong> ' + (en ? 'unique concepts' : 'concepts uniques') + '</div>'
+      + '</div>'
+      + '</div>'
+      + '<div class="modal-footer">'
+      + '<button class="btn-cancel" disabled>' + (en ? 'Cancel' : 'Annuler') + '</button>'
+      + '<button class="btn-submit" disabled><i class="fas fa-check"></i> ' + (en ? 'Import' : 'Importer') + '</button>'
+      + '</div>'
+      + '</div>';
+  }
+
+  function mockMappedConceptsTable(lang) {
+    var en = lang === 'en';
+    var coveredBadge = '<span class="mapping-yes-badge">' + (en ? 'Yes' : 'Oui') + '</span>';
+    var notCoveredBadge = '<span class="mapping-no-badge">' + (en ? 'No' : 'Non') + '</span>';
+    return '<div class="doc-mock-modal" style="max-width:100%; padding:0; border-radius:var(--radius)">'
+      + '<div class="table-container" style="max-height:none">'
+      + '<table id="mapping-concepts-table" style="font-size:12px; table-layout:auto">'
+      + '<thead><tr>'
+      + '<th>' + (en ? 'Vocabulary' : 'Vocabulaire') + '</th>'
+      + '<th>concept_id</th>'
+      + '<th>' + (en ? 'Name' : 'Nom') + '</th>'
+      + '<th>' + (en ? 'Domain' : 'Domain') + '</th>'
+      + '<th class="td-center">' + (en ? 'In dictionary' : 'Dans le dictionnaire') + '</th>'
+      + '</tr></thead><tbody>'
+      + '<tr><td>LOINC</td><td><a class="concept-id-link">3013682</a></td><td><strong>Heart rate</strong></td><td>Measurement</td><td class="td-center">' + coveredBadge + '</td></tr>'
+      + '<tr><td>SNOMED</td><td><a class="concept-id-link">4226798</a></td><td><strong>Sepsis</strong></td><td>Condition</td><td class="td-center">' + coveredBadge + '</td></tr>'
+      + '<tr><td>RxNorm</td><td><a class="concept-id-link">19009166</a></td><td><strong>Enoxaparin sodium</strong></td><td>Drug</td><td class="td-center">' + notCoveredBadge + '</td></tr>'
+      + '<tr><td>LOINC</td><td><a class="concept-id-link">3037556</a></td><td><strong>Glucose [Mass/volume]</strong></td><td>Measurement</td><td class="td-center">' + coveredBadge + '</td></tr>'
+      + '</tbody></table>'
+      + '</div></div>';
+  }
+
+  function mockEligibilityTable(lang) {
+    var en = lang === 'en';
+    function badge(covered) {
+      return covered
+        ? '<span class="badge" style="background:#dcfce7; color:#166534; padding:2px 8px; font-size:11px"><i class="fas fa-check"></i> ' + (en ? 'Covered' : 'Couvert') + '</span>'
+        : '<span class="badge" style="background:#fee2e2; color:#991b1b; padding:2px 8px; font-size:11px"><i class="fas fa-times"></i> ' + (en ? 'Not covered' : 'Non couvert') + '</span>';
+    }
+    return '<div class="doc-mock-modal" style="max-width:100%; padding:0; border-radius:var(--radius)">'
+      + '<div style="display:flex; align-items:center; gap:8px; padding:8px 12px; border-bottom:1px solid var(--border); background:var(--gray-light); font-size:12px">'
+      + '<strong>' + (en ? 'Project' : 'Projet') + ' :</strong>'
+      + '<div class="ms-toggle" style="cursor:default; padding:4px 10px; min-width:0; width:180px; display:inline-flex; align-items:center; justify-content:space-between">MIMIC-EU [Minimal] <i class="fas fa-chevron-down" style="font-size:9px"></i></div>'
+      + '<span style="margin-left:auto; color:var(--text-muted)">'
+      + (en ? 'Coverage:' : 'Couverture :') + ' 24 / 28 · ' + (en ? 'Project score:' : 'Score :') + ' 86%'
+      + '</span>'
+      + '</div>'
+      + '<div class="table-container" style="max-height:none">'
+      + '<table id="mapping-eligibility-table" style="font-size:12px; table-layout:auto">'
+      + '<thead><tr>'
+      + '<th>' + (en ? 'Group' : 'Groupe') + '</th>'
+      + '<th>' + (en ? 'Group rule' : 'Règle du groupe') + '</th>'
+      + '<th>' + (en ? 'Concept set' : 'Concept set') + '</th>'
+      + '<th class="td-center">' + (en ? 'Resolved' : 'Résolus') + '</th>'
+      + '<th class="td-center">' + (en ? 'Status' : 'Statut') + '</th>'
+      + '<th class="td-center">' + (en ? 'Details' : 'Détails') + '</th>'
+      + '</tr></thead><tbody>'
+      + '<tr><td>Vital signs</td><td>' + (en ? 'All required' : 'Tous obligatoires') + '</td><td><strong>Heart rate</strong></td><td class="td-center">12</td><td class="td-center">' + badge(true) + '</td><td class="td-center"><i class="fas fa-search" style="color:var(--text-muted)"></i></td></tr>'
+      + '<tr><td>Anticoagulants</td><td>' + (en ? 'At least one' : 'Au moins un') + '</td><td><strong>Enoxaparin</strong></td><td class="td-center">8</td><td class="td-center">' + badge(true) + '</td><td class="td-center"><i class="fas fa-search" style="color:var(--text-muted)"></i></td></tr>'
+      + '<tr><td>Anticoagulants</td><td>' + (en ? 'At least one' : 'Au moins un') + '</td><td><strong>Heparin sodium</strong></td><td class="td-center">5</td><td class="td-center">' + badge(false) + '</td><td class="td-center"><i class="fas fa-search" style="color:var(--text-muted)"></i></td></tr>'
+      + '</tbody></table>'
+      + '</div></div>';
+  }
+
+  function mockCoverageDetailsModal(lang) {
+    var en = lang === 'en';
+    function line(sign, id, name, vocab, isLocal) {
+      var color = isLocal ? '#166534' : 'var(--text-muted)';
+      var bg = isLocal ? '#dcfce7' : 'var(--bg-muted, #f1f5f9)';
+      return '<li style="display:flex; align-items:center; gap:6px; padding:3px 0; font-size:12px">'
+        + '<span style="display:inline-block; width:16px; text-align:center; font-weight:700; color:' + color + '; background:' + bg + '; border-radius:3px">' + sign + '</span>'
+        + '<span style="font-family:monospace; font-size:11px; color:var(--text-muted)">' + id + '</span>'
+        + '<span style="flex:1">' + name + '</span>'
+        + '<span class="badge badge-vocab" style="font-size:11px">' + vocab + '</span>'
+      + '</li>';
+    }
+    return '<div class="doc-mock-modal" style="max-width:560px">'
+      + '<div class="modal-header"><h3 style="margin:0; font-size:14px"><i class="fas fa-search"></i> Heart rate</h3>'
+      + '<span class="modal-close" style="cursor:default">&times;</span></div>'
+      + '<div class="modal-body" style="display:flex; flex-direction:column; gap:10px; padding:14px; font-size:12px">'
+      + '<div><span>' + (en ? 'Resolved concepts in this set' : 'Concepts résolus dans ce set') + ' : <strong>12</strong></span>'
+      + ' · <span style="color:#166534"><strong>4</strong> ' + (en ? 'local' : 'local') + '</span>'
+      + ' · <span style="color:var(--text-muted)"><strong>8</strong> ' + (en ? 'other' : 'autres') + '</span></div>'
+      + '<h4 style="margin:0; font-size:12px; color:#166534">' + (en ? 'Local concepts in this set' : 'Concepts locaux dans ce set') + ' (4)</h4>'
+      + '<ul style="list-style:none; margin:0; padding:4px 8px; border:1px solid var(--border); border-radius:4px">'
+      + line('✓', '3013682', 'Heart rate', 'LOINC', true)
+      + line('✓', '8867', 'Heart rate (clinical)', 'SNOMED', true)
+      + '</ul>'
+      + '<h4 style="margin:0; font-size:12px; color:var(--text-muted)">' + (en ? 'Other concepts in this set' : 'Autres concepts du set') + ' (8)</h4>'
+      + '<ul style="list-style:none; margin:0; padding:4px 8px; border:1px solid var(--border); border-radius:4px">'
+      + line('·', '4239408', 'Heart rate by EKG', 'SNOMED', false)
+      + line('·', '4244396', 'Heart rate by palpation', 'SNOMED', false)
+      + '</ul>'
+      + '</div>'
+      + '<div class="modal-footer"><button class="btn-cancel" disabled>' + (en ? 'Close' : 'Fermer') + '</button></div>'
+      + '</div>';
+  }
+
+  function mappingProjectsEN() {
+    return '<h1>Mapping projects</h1>'
+      + '<p>A <strong>mapping project</strong> is a local workspace where a data provider imports '
+      + 'their <code>source_to_concept_map</code> (or any CSV with a column of OMOP <code>concept_id</code>) '
+      + 'and checks, in seconds, which INDICATE projects their current OMOP mapping can support.</p>'
+
+      + infoBox('Local data', 'Mapping projects live entirely in your browser '
+        + '(<code>localStorage</code>). They are never uploaded to the repository \u2014 your source-to-concept map '
+        + 'stays on your machine.')
+
+      + '<h2>Where to find it</h2>'
+      + '<p>Header navigation \u2192 <strong>Concept Mapping</strong> \u2192 <em>My mapping projects</em> tab.</p>'
+      + '<p>Mapping projects are displayed as cards showing name, description and the number of '
+      + 'concepts last imported. Click a card to open it.</p>'
+      + mockMappingProjectCard('en')
+
+      + '<h2>Creating a mapping project</h2>'
+      + '<p>Click <strong>+ New mapping project</strong>. The modal asks for a name and an optional '
+      + 'description (both bilingual EN / FR, same convention as INDICATE projects \u2014 the language you '
+      + 'type in is mirrored to the other locale when empty).</p>'
+      + mockNewMappingProjectModal('en')
+
+      + '<h2>Importing a CSV</h2>'
+      + '<p>Open a mapping project and switch to the <em>Mapped concepts</em> tab. Use the '
+      + '<strong>Import CSV</strong> / <strong>Re-import CSV</strong> button at the top to upload a file. '
+      + 'Three formats are auto-detected:</p>'
+      + '<ul>'
+      + '<li><strong>OMOP <code>source_to_concept_map</code></strong> \u2014 standard header with '
+      + '<code>source_code</code>, <code>source_concept_id</code>, <code>target_concept_id</code> etc.</li>'
+      + '<li><strong>CSV with a <code>concept_id</code> column</strong> \u2014 any CSV that has at least '
+      + 'one column named <code>concept_id</code> (or <code>target_concept_id</code> / <code>omop_concept_id</code>) '
+      + 'with optional source columns.</li>'
+      + '<li><strong>Single-column list of <code>concept_id</code> values</strong> \u2014 the simplest '
+      + 'shape, no header required.</li>'
+      + '</ul>'
+      + '<p>A preview shows the detected format, the total number of rows with a valid '
+      + '<code>concept_id</code>, and the unique count. Confirming commits the import; any previous '
+      + 'mapping is replaced.</p>'
+      + mockMappingImportModal('en')
+
+      + '<h2>The three internal tabs</h2>'
+
+      + '<h3>Overview</h3>'
+      + '<p>The dashboard opens with three counters: how many concepts you imported, how many were '
+      + 'matched in the INDICATE dictionary, and how many INDICATE projects you are fully eligible for.</p>'
+      + mockMappingWidgets('en')
+      + '<p>Below the counters, a grid of cards shows your eligibility against each INDICATE project, '
+      + 'colour-coded by score:</p>'
+      + '<ul>'
+      + '<li><span class="badge" style="background:#dcfce7; color:#166534">100%</span> all groups satisfied \u2014 fully eligible</li>'
+      + '<li><span class="badge" style="background:#fef3c7; color:#92400e">75\u201399%</span> mostly covered, some gaps</li>'
+      + '<li><span class="badge" style="background:#fee2e2; color:#991b1b">&lt;75%</span> significant gaps</li>'
+      + '</ul>'
+      + mockMappingEligibilityCards('en')
+      + '<p>Click a card to jump to the Eligibility tab pre-filtered on that project.</p>'
+
+      + '<h3>Mapped concepts</h3>'
+      + '<p>Datatable of every unique <code>concept_id</code> from your CSV. Columns: Vocabulary, '
+      + '<code>concept_id</code> (Athena link), Name, Domain, In dictionary (Yes / No).</p>'
+      + mockMappedConceptsTable('en')
+      + '<p>Concepts that are not in any INDICATE concept set are looked up against the OHDSI '
+      + 'vocabulary database you loaded in <strong>General settings</strong>. While that lookup is '
+      + 'in flight, the cells show <em>Loading\u2026</em>; if a concept is not in the vocabulary either, '
+      + 'the cell falls back to <em>Not in vocabulary</em>. If you have never loaded a vocabulary, '
+      + 'cells say <em>Load OHDSI vocabularies to resolve</em>.</p>'
+
+      + '<h3>Eligibility</h3>'
+      + '<p>Pick an INDICATE project with the dropdown at the top. The table lists every concept set '
+      + 'of that project with its group, group rule, the number of resolved concepts in that set, '
+      + 'and a <strong>Covered</strong> / <strong>Not covered</strong> badge. A row is covered as '
+      + 'soon as at least one of its resolved concepts is in your mapping \u2014 you do not need every '
+      + 'concept of the set.</p>'
+      + mockEligibilityTable('en')
+      + '<p>Click the magnifier in the last column to open a per-concept-set details modal showing '
+      + 'the concepts you already have locally (green) versus the other concepts in the set (grey). '
+      + 'Click a row anywhere else to jump to the concept set\u2019s detail page in the Data Dictionary.</p>'
+      + mockCoverageDetailsModal('en')
+
+      + '<h2>Eligibility scoring</h2>'
+      + '<p>Each group is scored according to its rule:</p>'
+      + '<ul>'
+      + '<li><strong>All required</strong> \u2014 score = covered / total. The group is satisfied only when every concept set is covered.</li>'
+      + '<li><strong>At least one</strong> \u2014 score = 100% as soon as one concept set is covered, 0% otherwise.</li>'
+      + '<li><strong>Optional</strong> \u2014 score is informative; the group never blocks eligibility.</li>'
+      + '</ul>'
+      + '<p>The project score is the average of non-optional group scores, rounded to an integer percentage.</p>'
+
+      + infoBox('Best practice',
+        'Re-import your <code>source_to_concept_map</code> whenever your OMOP ETL changes. The '
+        + 'eligibility picture for INDICATE projects evolves with your mapping coverage \u2014 keep it '
+        + 'fresh so you can spot gaps early.')
+
+      + '<h2>Deletion</h2>'
+      + '<p>Mapping projects are stored locally and never appear in the public catalog. To delete one '
+      + 'permanently, use the trash action on its card. Clearing your browser data will also remove all '
+      + 'mapping projects.</p>';
+  }
+
+  function mappingRecoEN() {
+    return '<h1>Mapping recommendations</h1>'
+      + '<p>The <strong>Mapping recommendations</strong> tab provides expert-curated guidance for '
+      + 'mapping common local ICU variables to OMOP standard concepts. It lives next to the '
+      + 'Mapping projects tab on the Concept Mapping page.</p>'
+
+      + '<h2>What are mapping recommendations?</h2>'
       + '<p>During an ETL process to convert local clinical data to the OMOP CDM, deciding how to map '
-      + 'each local variable to standard concepts is one of the most challenging steps. Mapping recommendations '
-      + 'provide structured guidance for common variables found in ICU databases.</p>'
+      + 'each local variable to standard concepts is one of the most challenging steps. Mapping '
+      + 'recommendations provide structured guidance for common variables found in ICU databases.</p>'
 
       + '<h2>Viewing</h2>'
-      + '<p>The content is rendered as Markdown, allowing rich formatting with tables, links, and structured guidance.</p>'
-      + '<p>Two buttons are available in the top-right corner:</p>'
+      + '<p>The content is rendered as Markdown, allowing rich formatting with tables, links, and structured guidance. '
+      + 'A table of contents in the right sidebar tracks the section you are reading as you scroll.</p>'
+      + '<p>Two buttons live at the top of the right sidebar:</p>'
       + mockMappingToolbar('en')
       + '<ul>'
       + '<li><strong>Export</strong> \u2014 opens the export modal (see below)</li>'
@@ -2268,7 +2572,8 @@ var DocumentationPage = (function() {
       + '</ul>'
 
       + '<h2>Editing</h2>'
-      + '<p>In edit mode, an ACE editor with Markdown syntax highlighting opens alongside a live preview panel.</p>'
+      + '<p>In edit mode, an ACE editor with Markdown syntax highlighting opens alongside a live preview panel. '
+      + 'The two panes scroll in sync so you keep your bearings while editing long sections.</p>'
       + '<p>Content is multilingual \u2014 switching language saves the current text and loads the other language.</p>'
 
       + '<h2>Exporting</h2>'
@@ -2602,7 +2907,7 @@ var DocumentationPage = (function() {
       + '<p>La barre de navigation en haut donne acc\u00e8s aux sections principales\u00a0:</p>'
       + '<ul>'
       + '<li><strong>Dictionnaire de donn\u00e9es</strong> \u2014 Parcourir et rechercher les jeux de concepts (' + docLink('browsing', 'd\u00e9tails') + ')</li>'
-      + '<li><strong>Recommandations de mapping</strong> \u2014 Guide de mapping des variables locales (' + docLink('mapping-recommendations', 'd\u00e9tails') + ')</li>'
+      + '<li><strong>Alignement de concepts</strong> \u2014 \u00c9valuer l\u2019\u00e9ligibilit\u00e9 aux projets INDICATE \u00e0 partir de votre source-to-concept map, et consulter les recommandations de mapping (' + docLink('mapping-projects', 'd\u00e9tails') + ')</li>'
       + '<li><strong>Projets</strong> \u2014 Grouper les jeux de concepts par projet de recherche (' + docLink('projects', 'd\u00e9tails') + ')</li>'
       + '<li><strong>Documentation</strong> \u2014 Cette page</li>'
       + '</ul>'
@@ -3542,10 +3847,112 @@ var DocumentationPage = (function() {
       + '(ID, nom, cat\u00e9gorie, sous-cat\u00e9gorie) et les options de l\u2019expression (exclu, descendants, mapp\u00e9) pour chaque concept.</p>';
   }
 
-  function mappingFR() {
+  function mappingProjectsFR() {
+    return '<h1>Projets de mapping</h1>'
+      + '<p>Un <strong>projet de mapping</strong> est un espace de travail local o\u00f9 un centre de donn\u00e9es '
+      + 'importe son <code>source_to_concept_map</code> (ou tout CSV avec une colonne de <code>concept_id</code> '
+      + 'OMOP) et v\u00e9rifie en quelques secondes \u00e0 quels projets INDICATE son mapping OMOP actuel permet '
+      + 'de participer.</p>'
+
+      + infoBox('Donn\u00e9es locales', 'Les projets de mapping vivent enti\u00e8rement dans le navigateur '
+        + '(<code>localStorage</code>). Ils ne sont jamais envoy\u00e9s au d\u00e9p\u00f4t \u2014 votre source-to-concept '
+        + 'map reste sur votre machine.')
+
+      + '<h2>O\u00f9 le trouver\u00a0?</h2>'
+      + '<p>Navigation\u00a0\u2192 <strong>Alignement de concepts</strong> \u2192 onglet <em>Projets de mapping</em>.</p>'
+      + '<p>Les projets de mapping sont affich\u00e9s sous forme de cartes montrant le nom, la description '
+      + 'et le nombre de concepts import\u00e9s. Cliquez sur une carte pour l\u2019ouvrir.</p>'
+      + mockMappingProjectCard('fr')
+
+      + '<h2>Cr\u00e9er un projet de mapping</h2>'
+      + '<p>Cliquez sur <strong>+ Nouveau projet de mapping</strong>. Le modal demande un nom et une '
+      + 'description optionnelle (bilingues EN / FR, m\u00eame convention que les projets INDICATE \u2014 la '
+      + 'langue dans laquelle vous saisissez est dupliqu\u00e9e dans l\u2019autre locale si elle est vide).</p>'
+      + mockNewMappingProjectModal('fr')
+
+      + '<h2>Importer un CSV</h2>'
+      + '<p>Ouvrez un projet de mapping et passez sur l\u2019onglet <em>Concepts mapp\u00e9s</em>. Utilisez le '
+      + 'bouton <strong>Importer un CSV</strong> / <strong>R\u00e9importer un CSV</strong> en haut pour t\u00e9l\u00e9verser '
+      + 'un fichier. Trois formats sont d\u00e9tect\u00e9s automatiquement\u00a0:</p>'
+      + '<ul>'
+      + '<li><strong><code>source_to_concept_map</code> OMOP</strong> \u2014 en-t\u00eate standard avec '
+      + '<code>source_code</code>, <code>source_concept_id</code>, <code>target_concept_id</code>, etc.</li>'
+      + '<li><strong>CSV avec une colonne <code>concept_id</code></strong> \u2014 tout CSV ayant au moins une '
+      + 'colonne nomm\u00e9e <code>concept_id</code> (ou <code>target_concept_id</code> / <code>omop_concept_id</code>) '
+      + 'et \u00e9ventuellement une colonne source.</li>'
+      + '<li><strong>Liste mono-colonne de <code>concept_id</code></strong> \u2014 le format le plus simple, '
+      + 'sans en-t\u00eate.</li>'
+      + '</ul>'
+      + '<p>Un aper\u00e7u affiche le format d\u00e9tect\u00e9, le nombre total de lignes valides et le nombre d\u2019ids '
+      + 'uniques. Confirmer remplace le mapping pr\u00e9c\u00e9dent.</p>'
+      + mockMappingImportModal('fr')
+
+      + '<h2>Les trois onglets internes</h2>'
+
+      + '<h3>Aper\u00e7u</h3>'
+      + '<p>Le dashboard s\u2019ouvre sur trois indicateurs\u00a0: combien de concepts vous avez import\u00e9s, '
+      + 'combien sont pr\u00e9sents dans le dictionnaire INDICATE, et pour combien de projets INDICATE vous \u00eates '
+      + 'pleinement \u00e9ligible.</p>'
+      + mockMappingWidgets('fr')
+      + '<p>Sous les indicateurs, une grille de cartes montre l\u2019\u00e9ligibilit\u00e9 \u00e0 chaque projet INDICATE, '
+      + 'cod\u00e9e par couleur\u00a0:</p>'
+      + '<ul>'
+      + '<li><span class="badge" style="background:#dcfce7; color:#166534">100%</span> tous les groupes satisfaits \u2014 pleinement \u00e9ligible</li>'
+      + '<li><span class="badge" style="background:#fef3c7; color:#92400e">75\u201399%</span> majoritairement couvert, quelques manques</li>'
+      + '<li><span class="badge" style="background:#fee2e2; color:#991b1b">&lt;75%</span> manques importants</li>'
+      + '</ul>'
+      + mockMappingEligibilityCards('fr')
+      + '<p>Cliquez sur une carte pour aller directement sur l\u2019onglet \u00c9ligibilit\u00e9 avec ce projet d\u00e9j\u00e0 s\u00e9lectionn\u00e9.</p>'
+
+      + '<h3>Concepts mapp\u00e9s</h3>'
+      + '<p>Datatable de chaque <code>concept_id</code> unique import\u00e9. Colonnes\u00a0: Vocabulaire, '
+      + '<code>concept_id</code> (lien Athena), Nom, Domain, Pr\u00e9sent dans le dictionnaire (Oui / Non).</p>'
+      + mockMappedConceptsTable('fr')
+      + '<p>Les concepts absents de tout concept set INDICATE sont r\u00e9solus contre la base OHDSI charg\u00e9e dans '
+      + '<strong>Param\u00e8tres g\u00e9n\u00e9raux</strong>. Pendant la r\u00e9solution les cellules affichent '
+      + '<em>Loading\u2026</em>\u00a0; si le concept n\u2019est pas trouv\u00e9 dans la base non plus, la cellule '
+      + 'indique <em>Not in vocabulary</em>. Si aucune base de vocabulaires n\u2019a \u00e9t\u00e9 charg\u00e9e, les cellules '
+      + 'affichent <em>Load OHDSI vocabularies to resolve</em>.</p>'
+
+      + '<h3>\u00c9ligibilit\u00e9</h3>'
+      + '<p>Choisissez un projet INDICATE avec le menu d\u00e9roulant en haut. La table liste chaque concept '
+      + 'set du projet avec son groupe, sa r\u00e8gle, le nombre de concepts r\u00e9solus, et un badge '
+      + '<strong>Couvert</strong> / <strong>Non couvert</strong>. Une ligne est couverte d\u00e8s qu\u2019au moins un '
+      + 'de ses concepts r\u00e9solus figure dans votre mapping \u2014 vous n\u2019avez pas besoin de tous les concepts '
+      + 'du set.</p>'
+      + mockEligibilityTable('fr')
+      + '<p>Cliquez sur la loupe dans la derni\u00e8re colonne pour ouvrir le modal de d\u00e9tail par concept set, '
+      + 'affichant les concepts d\u00e9j\u00e0 pr\u00e9sents localement (vert) et les autres concepts du set (gris). '
+      + 'Cliquez sur une ligne en dehors de la loupe pour passer \u00e0 la fiche d\u00e9taill\u00e9e du concept set '
+      + 'dans le dictionnaire.</p>'
+      + mockCoverageDetailsModal('fr')
+
+      + '<h2>Calcul du score</h2>'
+      + '<p>Chaque groupe est not\u00e9 selon sa r\u00e8gle\u00a0:</p>'
+      + '<ul>'
+      + '<li><strong>Tous obligatoires</strong> \u2014 score = couverts / total. Le groupe n\u2019est satisfait '
+      + 'que lorsque tous les concept sets sont couverts.</li>'
+      + '<li><strong>Au moins un</strong> \u2014 score = 100% d\u00e8s qu\u2019un concept set est couvert, 0% sinon.</li>'
+      + '<li><strong>Optionnel</strong> \u2014 score informatif, n\u2019affecte pas l\u2019\u00e9ligibilit\u00e9.</li>'
+      + '</ul>'
+      + '<p>Le score du projet est la moyenne des scores des groupes non optionnels, arrondi en pourcentage entier.</p>'
+
+      + infoBox('Bonne pratique',
+        'R\u00e9importez votre <code>source_to_concept_map</code> \u00e0 chaque \u00e9volution de votre ETL OMOP. '
+        + 'La photographie de l\u2019\u00e9ligibilit\u00e9 aux projets INDICATE \u00e9volue avec votre couverture de mapping \u2014 '
+        + 'gardez-la \u00e0 jour pour d\u00e9tecter les manques t\u00f4t.')
+
+      + '<h2>Suppression</h2>'
+      + '<p>Les projets de mapping sont stock\u00e9s localement et n\u2019apparaissent jamais dans le catalogue '
+      + 'public. Pour en supprimer un d\u00e9finitivement, utilisez l\u2019action poubelle sur sa carte. Effacer '
+      + 'les donn\u00e9es du navigateur supprime \u00e9galement tous les projets de mapping.</p>';
+  }
+
+  function mappingRecoFR() {
     return '<h1>Recommandations de mapping</h1>'
-      + '<p>La page <strong>Recommandations de mapping</strong> fournit des recommandations expertis\u00e9es '
-      + 'pour mapper les variables cliniques locales vers les concepts OMOP standards.</p>'
+      + '<p>L\u2019onglet <strong>Recommandations de mapping</strong> fournit des recommandations '
+      + 'expertis\u00e9es pour mapper les variables cliniques locales vers les concepts OMOP standards. '
+      + 'Il c\u00f4toie l\u2019onglet Projets de mapping sur la page Alignement de concepts.</p>'
 
       + '<h2>Que sont les recommandations de mapping\u00a0?</h2>'
       + '<p>Lors d\u2019un processus ETL pour convertir des donn\u00e9es cliniques locales vers le CDM OMOP, '
@@ -3554,8 +3961,9 @@ var DocumentationPage = (function() {
       + 'variables courantes des bases de donn\u00e9es de r\u00e9animation.</p>'
 
       + '<h2>Visualisation</h2>'
-      + '<p>Le contenu est rendu en Markdown avec mise en forme riche (tableaux, liens, listes).</p>'
-      + '<p>Deux boutons sont disponibles en haut \u00e0 droite\u00a0:</p>'
+      + '<p>Le contenu est rendu en Markdown avec mise en forme riche (tableaux, liens, listes). '
+      + 'Une table des mati\u00e8res \u00e0 droite suit votre position dans le document au fil du d\u00e9filement.</p>'
+      + '<p>Deux boutons sont disponibles en haut de la barre lat\u00e9rale droite\u00a0:</p>'
       + mockMappingToolbar('fr')
       + '<ul>'
       + '<li><strong>Export</strong> \u2014 ouvre le modal d\u2019export (voir ci-dessous)</li>'
@@ -3563,7 +3971,9 @@ var DocumentationPage = (function() {
       + '</ul>'
 
       + '<h2>\u00c9dition</h2>'
-      + '<p>En mode \u00e9dition, un \u00e9diteur ACE avec coloration syntaxique Markdown s\u2019ouvre \u00e0 c\u00f4t\u00e9 d\u2019un panneau d\u2019aper\u00e7u en direct.</p>'
+      + '<p>En mode \u00e9dition, un \u00e9diteur ACE avec coloration syntaxique Markdown s\u2019ouvre \u00e0 c\u00f4t\u00e9 d\u2019un '
+      + 'panneau d\u2019aper\u00e7u en direct. Les deux panneaux d\u00e9filent en synchronisation pour ne pas perdre votre '
+      + 'rep\u00e8re sur les longues sections.</p>'
       + '<p>Le contenu est multilingue \u2014 changer de langue sauvegarde le texte actuel et charge l\u2019autre langue.</p>'
 
       + '<h2>Export</h2>'

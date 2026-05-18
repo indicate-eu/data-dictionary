@@ -3794,6 +3794,24 @@ select.form-input { appearance: auto; }
 .mapping-eligibility-card.score-full { border-top-color: #16a34a; }
 .mapping-eligibility-card.score-mid  { border-top-color: #f59e0b; }
 .mapping-eligibility-card.score-low  { border-top-color: #dc2626; }
+/* Eligibility cards: on hover, the whole border picks up the score colour so
+   the card glows in its status colour (green / amber / red) rather than the
+   generic primary blue. The card title is neutral text, not the primary blue
+   used in standard project cards. */
+.mapping-eligibility-card h3 {
+  color: var(--text);
+  /* Cancel the doc-content h3 orange underline when this card is shown inside
+     the documentation mocks: it's a card title, not a section heading. */
+  border-bottom: none;
+  border-image: none;
+  padding-bottom: 0;
+}
+.mapping-eligibility-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+.mapping-eligibility-card.score-full:hover { border-color: #16a34a; }
+.mapping-eligibility-card.score-mid:hover  { border-color: #f59e0b; }
+.mapping-eligibility-card.score-low:hover  { border-color: #dc2626; }
 .mapping-eligibility-card-score {
   position: absolute;
   top: 10px;
