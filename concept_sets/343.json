@@ -1,0 +1,89 @@
+{
+  "id": 343,
+  "name": "Coagulation factor V antigen",
+  "description": null,
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-05-06",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-05-06",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 3027396,
+          "conceptName": "Coagulation factor V Ag [Units/volume] in Platelet poor plasma by Immunoassay",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "3194-8",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3023945,
+          "conceptName": "Coagulation factor V Ag actual/normal in Platelet poor plasma by Immunoassay",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "3195-5",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "42132b8b-729b-480c-a27a-88bdc3e82fa0",
+    "organization": {
+      "name": "INDICATE Consortium",
+      "url": "https://indicate-eu.org"
+    },
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Coagulation factor V antigen",
+        "category": "Laboratory tests",
+        "subcategory": "Hemostasis",
+        "shortDescription": null,
+        "longDescription": "## Definition & Clinical Context\n\nFactor V antigen is the **immunological measurement of the factor V protein concentration** in plasma — what this concept set measures. It quantifies how much factor V protein is present, irrespective of whether the molecule is functionally active [1]. The result is a single numeric value per patient-timestamp, produced on platelet-poor plasma by immunoassay [1, 2]. Results are reported either as a percentage of normal plasma concentration or in IU/mL [3].\n\n**Note: activity vs antigen.** This concept set covers **antigen** only — the immunological mass of the factor V protein. The functional capacity of the protein in the clotting cascade is captured by a separate concept set, \"Coagulation factor V activity\". The two values can diverge in qualitative deficits where antigen is normal but activity is reduced [1] — they are different study variables and must not be merged.\n\n## Included Concepts\n\nThe set contains two LOINC \"Lab Test\" concepts, both measuring factor V antigenic concentration in platelet-poor plasma by immunoassay, differing only by the result representation:\n\n- *3027396 / 3194-8 — Coagulation factor V Ag [Units/volume] in Platelet poor plasma by Immunoassay (LOINC)*: result expressed in **U/mL** or **IU/mL**.\n- *3023945 / 3195-5 — Coagulation factor V Ag actual/normal in Platelet poor plasma by Immunoassay (LOINC)*: result expressed as a **percentage** of pooled normal plasma antigenic concentration.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`:\n- For `3194-8` (Units/volume): **`[arb'U]/mL`** (concept 8980 — arbitrary unit per millilitre, equivalent to IU/mL).\n- For `3195-5` (actual/normal): **`%`** (concept 8554 — percent).\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The following LOINC concepts that exist for factor V are deliberately not part of this set (they belong to other concept sets):\n\n- **Factor V activity** (`3005757 / 3193-0`, `3006924 / 3192-2`): captured by \"Coagulation factor V activity\".\n- **Factor V inhibitor** (`3004057 / 3191-4`, `21494686 / 81124-0`): rare bleeding disorder workup, separate scope.\n- **Factor V activity and inhibitor panel** (`36031832 / 96458-5`): panel grouping concept, not a measurement result.\n\n## Mapping Notes\n\n- **Default concept** when the source explicitly reports \"factor V antigen\", \"factor V Ag\", \"facteur V antigène\" with the result expressed as a percentage of normal: `3023945 / 3195-5 — Coagulation factor V Ag actual/normal in Platelet poor plasma by Immunoassay`.\n- **Source reports IU/mL or U/mL for factor V antigen**: map to `3027396 / 3194-8 — Coagulation factor V Ag [Units/volume] in Platelet poor plasma by Immunoassay`.\n- **Source reports a single \"factor V\" without specifying activity vs antigen**: by default, map to the \"Coagulation factor V activity\" concept set — the activity assay is the routine clinical measurement; antigen is a specialty test. Only map to this antigen concept set when the source unambiguously labels the result as \"Ag\" / \"antigen\" / \"antigène\".\n- **Do not confuse with**: factor V activity (different concept set), factor V Leiden genotype (genetic test, not immunoassay), factor V inhibitor titre.\n\n## References\n\n[1] Asselta R, Tenchini ML, Duga S. Inherited defects of coagulation factor V: the hemorrhagic side. *J Thromb Haemost*. 2006;4(1):26-34.\n    Available: <a href=\"https://doi.org/10.1111/j.1538-7836.2005.01590.x\" target=\"_blank\">https://doi.org/10.1111/j.1538-7836.2005.01590.x</a>\n\n[2] Regenstrief Institute. LOINC code 3194-8 — Coagulation factor V Ag [Units/volume] in Platelet poor plasma by Immunoassay.\n    Available: <a href=\"https://loinc.org/3194-8/\" target=\"_blank\">https://loinc.org/3194-8/</a>\n\n[3] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
+      },
+      "fr": {
+        "name": "Antigène du facteur V de coagulation",
+        "category": "Biologie",
+        "subcategory": "Hémostase",
+        "shortDescription": null,
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

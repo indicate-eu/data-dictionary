@@ -1,12 +1,12 @@
 {
   "id": 167,
-  "name": "Coagulation factor V",
+  "name": "Coagulation factor V activity",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-06",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -28,6 +28,25 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3006924,
+          "conceptName": "Coagulation factor V activated [Units/volume] in Platelet poor plasma by Coagulation assay",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "3192-2",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
       }
     ]
   },
@@ -38,18 +57,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Coagulation factor V",
+        "name": "Coagulation factor V activity",
         "category": "Laboratory tests",
         "subcategory": "Hemostasis",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nCoagulation factor V is a clotting protein synthesised mainly by the liver [1]. Its **activity** — what this concept set measures — reflects the functional capacity of the protein in the clotting cascade [1]. The result is a single numeric value per patient-timestamp, produced by a coagulation analyser on platelet-poor plasma using a one-stage clot-based assay [1, 2]. Results are reported either as a percentage of normal plasma activity or in IU/mL [3].\n\n**Note: activity vs antigen.** This concept set covers **functional activity** only — what the factor V protein actually does in the clotting cascade. The antigenic concentration of factor V (immunological measurement of protein mass irrespective of activity) is captured by a separate concept set, \"Coagulation factor V antigen\". The two values can diverge in qualitative deficits where antigen is normal but activity is reduced — they are different study variables and must not be merged.\n\n## Included Concepts\n\nThe set contains two LOINC \"Lab Test\" concepts, both measuring functional factor V activity in platelet-poor plasma by clot-based coagulation assay, differing only by the result representation:\n\n- *3005757 / 3193-0 — Coagulation factor V activity actual/normal in Platelet poor plasma by Coagulation assay (LOINC)*: result expressed as a **percentage** of pooled normal plasma activity (e.g. 75 %). Most widely used representation, returned by routine coagulation analysers.\n- *3006924 / 3192-2 — Coagulation factor V activated [Units/volume] in Platelet poor plasma by Coagulation assay (LOINC)*: result expressed in **U/mL** or **IU/mL** (e.g. 0.75 IU/mL). Less common representation; numerically equivalent to the percentage divided by 100.\n\n**Note on units.** Recommended unit follows LOINC: **`%`** (concept 8554) for `3193-0`. For `3192-2`, the recommended unit is `[arb'U]/mL` (arbitrary unit per millilitre, equivalent to IU/mL). Source systems may report `U/mL`, `IU/mL` or `[IU]/mL` interchangeably.\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The following LOINC concepts that exist for factor V are deliberately not part of this set:\n\n- **Factor V antigen** (`3027396 / 3194-8 — Coagulation factor V Ag [Units/volume]`, `3023945 / 3195-5 — Coagulation factor V Ag actual/normal`): captured by the separate concept set \"Coagulation factor V antigen\".\n- **Factor V activated** (`3006924 / 3192-2`): NB — included above. The activated form measured here is the assay readout, not factor Va in vivo.\n- **Factor V inhibitor** (`3004057 / 3191-4 — Coagulation factor V inhibitor [Units/volume]`, `21494686 / 81124-0 — Coagulation factor V inhibitor [Presence]`): out of scope; describes acquired antibodies against factor V (rare bleeding disorder), not the factor V activity itself.\n- **Factor V activity and inhibitor panel** (`36031832 / 96458-5`): a panel grouping concept, not a measurement result.\n- **Factor V Leiden mutation** (a separate genetic test): not a coagulation measurement; out of scope.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"factor V\", \"FV\", \"facteur V\" or \"factor V activity\" without further specification, with the value expressed as a percentage of normal: `3005757 / 3193-0 — Coagulation factor V activity actual/normal in Platelet poor plasma by Coagulation assay`. By far the most common LOINC code.\n- **Source reports IU/mL or U/mL**: map to `3006924 / 3192-2 — Coagulation factor V activated [Units/volume] in Platelet poor plasma by Coagulation assay`. If the source provides both the % and the IU/mL representation as separate columns, store both — they are equivalent but allow consumers to choose.\n- **Do not confuse with**: factor V antigen (different concept set), factor V Leiden genotype (genetic test, not coagulation), factor V inhibitor (autoantibody titer), factor V deficient plasma reagent (laboratory reagent, not a patient measurement).\n- **Method preservation**: when the source records the assay method (one-stage clot vs chromogenic, deficient plasma reagent supplier, etc.), preserve it in the measurement source value — it does not change the target concept.\n\n## References\n\n[1] Mann KG, Kalafatis M. Factor V: a combination of Dr Jekyll and Mr Hyde. *Blood*. 2003;101(1):20-30.\n    Available: <a href=\"https://doi.org/10.1182/blood-2002-01-0290\" target=\"_blank\">https://doi.org/10.1182/blood-2002-01-0290</a>\n\n[2] Regenstrief Institute. LOINC code 3193-0 — Coagulation factor V activity actual/normal in Platelet poor plasma by Coagulation assay (Part description for \"Coagulation factor V activity\").\n    Available: <a href=\"https://loinc.org/3193-0/\" target=\"_blank\">https://loinc.org/3193-0/</a>\n\n[3] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
-        "name": "Facteur V de coagulation",
+        "name": "Activité du facteur V de coagulation",
         "category": "Biologie",
         "subcategory": "Hémostase",
         "shortDescription": null,

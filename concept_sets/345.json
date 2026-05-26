@@ -1,0 +1,70 @@
+{
+  "id": 345,
+  "name": "Prothrombin ratio in blood",
+  "description": null,
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-05-26",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-05-26",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 3033658,
+          "conceptName": "Prothrombin time (PT) actual/Normal",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "5894-1",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "5c9e24d6-ac12-4065-b57b-d0bbbc81fd57",
+    "organization": {
+      "name": "INDICATE Consortium",
+      "url": "https://indicate-eu.org"
+    },
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Prothrombin ratio in blood",
+        "category": "Laboratory tests",
+        "subcategory": "Hemostasis",
+        "shortDescription": null,
+        "longDescription": "## Definition & Clinical Context\n\nThe prothrombin ratio is a transformation of the prothrombin time (PT) expressed as a percentage of the activity of pooled normal plasma. It is one of the standard outputs of a coagulation analyser, alongside the PT in seconds. A healthy patient has a prothrombin ratio of ~100 %; lower values indicate longer clotting times.\n\nThe source data will typically be a single numeric result per patient-timestamp, produced by a coagulation analyser on platelet poor plasma (PPP). Results are reported in **%** [2].\n\n**Note: prothrombin ratio vs PT vs INR.** The prothrombin ratio (this concept set), the PT in seconds, and the INR are three different representations of the same underlying physical measurement, with different normalisations:\n- **Prothrombin ratio** — percentage of pooled normal plasma activity (this concept set).\n- **PT (seconds)** — raw measurement; depends on the laboratory's thromboplastin reagent. Captured by a separate concept set, \"Prothrombin time in blood\".\n- **INR** — dimensionless, reagent-independent transformation. Used for vitamin K antagonist (VKA) monitoring. Captured by a separate concept set, \"INR in blood\".\n\nThe three representations are **not interconvertible** without the laboratory's local calibration curve. The data dictionary keeps them addressable independently — analyses needing a homogeneous variable should pick one representation rather than merging across.\n\n## Included Concepts\n\nThe set contains one LOINC \"Lab Test\" concept:\n\n- *3033658 / 5894-1 — Prothrombin time (PT) actual/Normal*: result expressed as a percentage of pooled normal plasma activity.\n\n**Note on units.** Recommended unit follows LOINC: **`%`** (concept 8554 — percent).\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The following LOINC concepts that exist for PT actual/Normal variants are deliberately not part of this set:\n\n- **PIVKA-sensitive / PIVKA-insensitive variants** (`3039709 / 52753-1`, `3042131 / 52761-4`, `3042392 / 52752-3`, `3041830 / 52760-6`): specialised assays for vitamin K antagonist monitoring, not the routine prothrombin ratio.\n- **Factor substitution / control / mixing study** variants (e.g. `1091858 / 105049-1`): research context, not routine measurement.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"prothrombin ratio\" or \"prothrombin index\" with the value as a percentage of normal: `3033658 / 5894-1 — Prothrombin time (PT) actual/Normal`.\n- **Source reports PT in seconds**: do **not** map to this concept set. PT in seconds has its own concept set, \"Prothrombin time in blood\".\n- **Source reports INR**: do **not** map to this concept set. INR has its own concept set, \"INR in blood\".\n- **Do not confuse with**: PT in seconds, INR, aPTT, thrombin time, Reptilase time.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 5894-1 — Prothrombin time (PT) actual/Normal.\n    Available: <a href=\"https://loinc.org/5894-1/\" target=\"_blank\">https://loinc.org/5894-1/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
+      },
+      "fr": {
+        "name": "Taux de prothrombine sanguin",
+        "category": "Biologie",
+        "subcategory": "Hémostase",
+        "shortDescription": null,
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

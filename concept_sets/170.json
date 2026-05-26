@@ -1,108 +1,89 @@
 {
   "id": 170,
-  "name": "INR",
+  "name": "INR in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-06",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3022217,
-          "conceptName": "INR in Platelet poor plasma by Coagulation assay",
+          "conceptId": 37057823,
+          "conceptName": "INR | Platelet poor plasma | Coagulation",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "6301-6",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP394061-8",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3032080,
-          "conceptName": "INR in Blood by Coagulation assay",
+          "conceptId": 37074906,
+          "conceptName": "INR | Blood | Coagulation",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "34714-6",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP394058-4",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3039326,
-          "conceptName": "INR in Platelet poor plasma by Coagulation assay --post heparin neutralization",
+          "conceptId": 37042344,
+          "conceptName": "INR | Blood capillary | Coagulation",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "52129-4",
-          "validStartDate": "2008-03-28",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3042605,
-          "conceptName": "INR in Platelet poor plasma or blood by Coagulation assay",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "38875-1",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP394059-2",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3051593,
-          "conceptName": "INR in Capillary blood by Coagulation assay",
+          "conceptId": 37072728,
+          "conceptName": "INR | Platelet poor plasma or blood | Coagulation",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "46418-0",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP394062-6",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -114,18 +95,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "INR",
+        "name": "INR in blood",
         "category": "Laboratory tests",
         "subcategory": "Hemostasis",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nThe International Normalized Ratio (INR) is a standardised, dimensionless transformation of the prothrombin time (PT) [1]. By construction, it is independent of the thromboplastin reagent used by the laboratory, which makes INR values comparable across labs — unlike PT in seconds.\n\nThe source data will typically be a single numeric result per patient-timestamp, produced by a coagulation analyser on platelet poor plasma (PPP), or by a point-of-care device on capillary fingerstick blood. Results are reported as a dimensionless ratio (e.g. 2.4) [2].\n\n**Note: relationship with PT.** The INR is derived from the PT but is *not* the same measurement. PT is reported in seconds and depends on the laboratory's reagent; INR is reported as a dimensionless ratio and is reagent-independent by construction. The data dictionary keeps them as separate concept sets (\"Prothrombin time\" and this set).\n\n## Included Concepts\n\nThe set is built around four LOINC Hierarchy concepts, each expanded to include all their descendants. Together they pull in five LOINC \"Lab Test\" concepts covering INR measurements across all relevant specimens.\n\n**Platelet poor plasma**, anchored on *37057823 / LP394061-8 — INR | Platelet poor plasma | Coagulation*:\n\n- *3022217 / 6301-6 — INR in Platelet poor plasma by Coagulation assay*: the standard hospital lab measurement. Most widely used LOINC code worldwide.\n- *3039326 / 52129-4 — INR in Platelet poor plasma by Coagulation assay --post heparin neutralization*: same numerical interpretation as the standard INR; produced when a heparinised sample is treated with polybrene/heparinase before measurement.\n\n**Whole blood**, anchored on *37074906 / LP394058-4 — INR | Blood | Coagulation*:\n\n- *3032080 / 34714-6 — INR in Blood by Coagulation assay*: INR measured on whole blood (non-capillary).\n\n**Capillary blood (point-of-care)**, anchored on *37042344 / LP394059-2 — INR | Blood capillary | Coagulation*:\n\n- *3051593 / 46418-0 — INR in Capillary blood by Coagulation assay*: point-of-care fingerstick INR (CoaguChek and others), used for vitamin K antagonist (VKA) self-monitoring.\n\n**Specimen-agnostic**, anchored on *37072728 / LP394062-6 — INR | Platelet poor plasma or blood | Coagulation*:\n\n- *3042605 / 38875-1 — INR in Platelet poor plasma or blood by Coagulation assay*: used when the source aggregates results without a specimen tag.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`{INR}`** — an annotation-only marker. The INR is dimensionless by construction; some source systems report no unit, others report `1`, `{INR}`, or `INR`. All represent the same dimensionless quantity.\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The following LOINC concepts that exist for INR-related quantities are deliberately not part of this set:\n\n- **INR goal** (`37071262 / LP407479-7 — INR goal | Platelet poor plasma | Coagulation`): the *target* INR for a patient under VKA therapy, not a measurement of the actual INR.\n- **Reverse INR** (`40774777 / LP64562-9 — reverse INR | Platelet poor plasma`): a reciprocal-scale derivative used in some research contexts, not the routine INR.\n- **Fetus** specimens (e.g. `37035036 / LP394064-2 — INR | Fetus | Coagulation`): out of scope for routine adult/paediatric care.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"INR\", \"International Normalized Ratio\", \"ratio normalisé international\" without further specification: `3022217 / 6301-6 — INR in Platelet poor plasma by Coagulation assay`. By far the most common LOINC code (routine hospital lab on citrated plasma).\n- **Point-of-care INR** (CoaguChek, fingerstick): map to `3051593 / 46418-0 — INR in Capillary blood by Coagulation assay`.\n- **Specimen unspecified**: map to `3042605 / 38875-1 — INR in Platelet poor plasma or blood by Coagulation assay`.\n- **Whole blood** (non-capillary): map to `3032080 / 34714-6 — INR in Blood by Coagulation assay`.\n- **Heparinised sample treated for INR measurement**: map to `3039326 / 52129-4 — INR in Platelet poor plasma by Coagulation assay --post heparin neutralization`. The result is equivalent to a standard INR.\n- **Do not confuse with**: prothrombin time in seconds (separate concept set), or the French \"TP\" (taux de prothrombine), reported in % — TP is a different transformation of the PT and must never be mapped to INR.\n- **Unit handling**: the INR has no unit; some source datasets report `1` or `{INR}`. Map all to a unitless representation.\n\n## References\n\n[1] World Health Organization. Guidelines for thromboplastins and plasma used to control oral anticoagulant therapy. WHO Technical Report Series, No. 889, Annex 3, 1999.\n    Available: <a href=\"https://www.who.int/publications/m/item/who-trs-889-annex-3\" target=\"_blank\">https://www.who.int/publications/m/item/who-trs-889-annex-3</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
-        "name": "INR",
+        "name": "INR sanguin",
         "category": "Biologie",
         "subcategory": "Hémostase",
         "shortDescription": null,

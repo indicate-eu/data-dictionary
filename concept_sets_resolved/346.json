@@ -1,0 +1,14 @@
+{
+  "conceptSetId": 346,
+  "resolvedConcepts": [
+    {
+      "conceptId": 40766287,
+      "conceptName": "aPTT actual/normal in Platelet poor plasma by Coagulation assay",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "63561-5",
+      "standardConcept": "S"
+    }
+  ]
+}

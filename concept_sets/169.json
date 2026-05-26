@@ -1,69 +1,145 @@
 {
   "id": 169,
-  "name": "Fibrinogen",
+  "name": "Fibrinogen in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-06",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3016407,
-          "conceptName": "Fibrinogen [Mass/volume] in Platelet poor plasma by Coagulation assay",
+          "conceptId": 37032427,
+          "conceptName": "Fibrinogen | Platelet poor plasma | Coagulation",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "3255-7",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP394019-6",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3018928,
-          "conceptName": "Fibrinogen [Mass/volume] in Platelet poor plasma by Heat denaturation",
+          "conceptId": 1618662,
+          "conceptName": "Fibrinogen | Blood | Coagulation",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "30902-1",
-          "validStartDate": "2001-10-25",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP422984-7",
+          "validStartDate": "2021-08-23",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3052964,
-          "conceptName": "Fibrinogen [Mass/volume] in Platelet poor plasma by Coagulation.derived",
+          "conceptId": 3002937,
+          "conceptName": "Fibrinogen [Presence] in Platelet poor plasma",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "48664-7",
-          "validStartDate": "2007-03-20",
+          "conceptCode": "16859-1",
+          "validStartDate": "1998-06-04",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3008766,
+          "conceptName": "Fibrinogen [Interpretation] in Platelet poor plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "21002-1",
+          "validStartDate": "1999-04-23",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3026131,
+          "conceptName": "Fibrinogen Ag/Fibrinogen [Mass Ratio] in Platelet poor plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "31158-9",
+          "validStartDate": "2002-03-05",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3016628,
+          "conceptName": "Fibrinogen Ag [Mass/volume] in Platelet poor plasma by Immunoassay",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "3256-5",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3037950,
+          "conceptName": "Fibrinogen Ag [Mass/volume] in Platelet poor plasma by Nephelometry",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "42772-4",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       }
@@ -76,18 +152,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Fibrinogen",
+        "name": "Fibrinogen in blood",
         "category": "Laboratory tests",
         "subcategory": "Hemostasis",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nFibrinogen is a clotting protein that is the substrate of thrombin in the final step of coagulation: thrombin cleaves fibrinogen into fibrin monomers, which polymerise and are then cross-linked by activated factor XIII (XIIIa) to form a stable clot [1]. The source data will typically be a single numeric result per patient-timestamp, produced on platelet poor plasma (PPP) by a clot-based coagulation assay or, on whole blood, by a viscoelastic test [2]. Results are reported as a mass concentration in g/L or mg/dL [3].\n\nClinically, fibrinogen is part of the standard coagulation monitoring in trauma resuscitation, alongside the prothrombin time and platelet count [2].\n\n**Note: \"fibrinogen\" vs \"fibrinogen antigen\".** This concept set covers **fibrinogen measured by clot-based or viscoelastic assays** — these assays only detect fibrinogen that is functionally able to be clotted by thrombin. The antigenic concentration of fibrinogen (immunoassay measurement of protein mass, irrespective of clottability) is captured by a separate concept set, \"Fibrinogen antigen\". The two values can diverge in dysfibrinogenaemia, where antigen is normal but the clot-based result is reduced — they are different study variables and must not be merged.\n\n## Included Concepts\n\nThe set is built around two LOINC Hierarchy concepts, each expanded to include all their descendants. After applying the exclusions below, the set resolves to four LOINC \"Lab Test\" concepts.\n\n**Platelet poor plasma**, anchored on *37032427 / LP394019-6 — Fibrinogen | Platelet poor plasma | Coagulation*:\n\n- *3016407 / 3255-7 — Fibrinogen [Mass/volume] in Platelet poor plasma by Coagulation assay*: the **Clauss method** — the reference clinical assay [2]. Most widely used LOINC code worldwide for routine fibrinogen measurement.\n- *3052964 / 48664-7 — Fibrinogen [Mass/volume] in Platelet poor plasma by Coagulation.derived*: **PT-derived fibrinogen** — fibrinogen estimated indirectly from the optical density change during the prothrombin time test. Some labs report it as a screening proxy.\n- *3018928 / 30902-1 — Fibrinogen [Mass/volume] in Platelet poor plasma by Heat denaturation*: historical method (heat precipitation), rarely used today; preserved for legacy datasets.\n\n**Whole blood**, anchored on *1618662 / LP422984-7 — Fibrinogen | Blood | Coagulation*:\n\n- *1616312 / 97016-0 — Fibrinogen [Mass/volume] in Blood by calculation*: fibrinogen estimated from a whole-blood viscoelastic test (FIBTEM in ROTEM, FF in TEG); used in trauma and cardiac-surgery resuscitation when a rapid bedside estimate is needed [2].\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`g/L`** (concept 8636) for all four codes. Source systems may report `g/L`, `mg/dL`, or `mg/L`. Conversions: `1 g/L = 100 mg/dL = 1000 mg/L`.\n\n## Excluded Concepts\n\nThe two hierarchy anchors above also pull in five LOINC concepts that are explicitly excluded:\n\n- *3002937 / 16859-1 — Fibrinogen [Presence] in Platelet poor plasma*: qualitative result, not a quantitative measurement.\n- *3008766 / 21002-1 — Fibrinogen [Interpretation] in Platelet poor plasma*: text interpretation, not a numerical result.\n- *3026131 / 31158-9 — Fibrinogen Ag/Fibrinogen [Mass Ratio] in Platelet poor plasma*: derived ratio, not a fibrinogen concentration.\n- *3016628 / 3256-5 — Fibrinogen Ag [Mass/volume] in Platelet poor plasma by Immunoassay*: antigenic concentration — captured by the separate concept set \"Fibrinogen antigen\".\n- *3037950 / 42772-4 — Fibrinogen Ag [Mass/volume] in Platelet poor plasma by Nephelometry*: same as above, with a method specification — also captured by \"Fibrinogen antigen\".\n\nThe set also deliberately omits the following LOINC concepts that exist for fibrinogen:\n\n- **Fibrinogen fragments** (degradation products) and **Fibrin+Fibrinogen fragments** (FDP): different measurands, captured by D-dimer or FDP concept sets when relevant.\n- **Cryofibrinogen**: a different assay measuring cold-precipitable fibrinogen — different clinical context (cryofibrinogenaemia workup).\n- **Tissue, Smears, and Urine** specimens: out of scope.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"fibrinogen\", \"Fg\", \"FGN\", \"fibrinogène\" without further specification, on platelet poor plasma: `3016407 / 3255-7 — Fibrinogen [Mass/volume] in Platelet poor plasma by Coagulation assay` (Clauss method). By far the most common LOINC code.\n- **PT-derived fibrinogen**: if the source explicitly states \"PT-derived\", \"fibrinogen derived\", or reports the value alongside the PT result without a separate Clauss measurement, map to `3052964 / 48664-7 — Fibrinogen [Mass/volume] in Platelet poor plasma by Coagulation.derived`.\n- **Viscoelastic-derived fibrinogen** (FIBTEM in ROTEM, FF in TEG): map to `1616312 / 97016-0 — Fibrinogen [Mass/volume] in Blood by calculation`. Note: viscoelastic devices report fibrinogen-equivalent values that correlate with but do not numerically equal the Clauss result.\n- **Source unit is mg/dL**: convert to g/L using `1 mg/dL = 0.01 g/L` (i.e. divide by 100).\n- **Do not confuse with**: fibrinogen antigen (separate concept set), fibrin degradation products (FDP), D-dimer, fibrin monomer, cryofibrinogen, factor XIII activity.\n\n## References\n\n[1] Mosesson MW. Fibrinogen and fibrin structure and functions. *J Thromb Haemost*. 2005;3(8):1894-904.\n    Available: <a href=\"https://doi.org/10.1111/j.1538-7836.2005.01365.x\" target=\"_blank\">https://doi.org/10.1111/j.1538-7836.2005.01365.x</a>\n\n[2] Spahn DR, Bouillon B, Cerny V, et al. The European guideline on management of major bleeding and coagulopathy following trauma: fifth edition. *Crit Care*. 2019;23(1):98.\n    Available: <a href=\"https://doi.org/10.1186/s13054-019-2347-3\" target=\"_blank\">https://doi.org/10.1186/s13054-019-2347-3</a>\n\n[3] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
-        "name": "Fibrinogène",
+        "name": "Fibrinogène sanguin",
         "category": "Biologie",
         "subcategory": "Hémostase",
         "shortDescription": null,

@@ -1,0 +1,23 @@
+{
+  "conceptSetId": 343,
+  "resolvedConcepts": [
+    {
+      "conceptId": 3027396,
+      "conceptName": "Coagulation factor V Ag [Units/volume] in Platelet poor plasma by Immunoassay",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "3194-8",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3023945,
+      "conceptName": "Coagulation factor V Ag actual/normal in Platelet poor plasma by Immunoassay",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "3195-5",
+      "standardConcept": "S"
+    }
+  ]
+}

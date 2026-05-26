@@ -2,6 +2,15 @@
   "conceptSetId": 167,
   "resolvedConcepts": [
     {
+      "conceptId": 3006924,
+      "conceptName": "Coagulation factor V activated [Units/volume] in Platelet poor plasma by Coagulation assay",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "3192-2",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3005757,
       "conceptName": "Coagulation factor V activity actual/normal in Platelet poor plasma by Coagulation assay",
       "vocabularyId": "LOINC",

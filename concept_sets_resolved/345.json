@@ -1,0 +1,14 @@
+{
+  "conceptSetId": 345,
+  "resolvedConcepts": [
+    {
+      "conceptId": 3033658,
+      "conceptName": "Prothrombin time (PT) actual/Normal",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "5894-1",
+      "standardConcept": "S"
+    }
+  ]
+}

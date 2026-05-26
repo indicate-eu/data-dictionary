@@ -45,6 +45,42 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "38875-1",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 37042344,
+      "conceptName": "INR | Blood capillary | Coagulation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP394059-2",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37074906,
+      "conceptName": "INR | Blood | Coagulation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP394058-4",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37072728,
+      "conceptName": "INR | Platelet poor plasma or blood | Coagulation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP394062-6",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37057823,
+      "conceptName": "INR | Platelet poor plasma | Coagulation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP394061-8",
+      "standardConcept": "C"
     }
   ]
 }

@@ -1,0 +1,23 @@
+{
+  "conceptSetId": 344,
+  "resolvedConcepts": [
+    {
+      "conceptId": 3016628,
+      "conceptName": "Fibrinogen Ag [Mass/volume] in Platelet poor plasma by Immunoassay",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "3256-5",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3037950,
+      "conceptName": "Fibrinogen Ag [Mass/volume] in Platelet poor plasma by Nephelometry",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "42772-4",
+      "standardConcept": "S"
+    }
+  ]
+}

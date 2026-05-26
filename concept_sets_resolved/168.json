@@ -11,24 +11,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3052716,
-      "conceptName": "Fibrin D-dimer DDU [Mass/volume] in Platelet poor plasma by Immunoassay",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "48058-2",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42870366,
-      "conceptName": "Fibrin D-dimer FEU [Mass/volume] in Blood by Immunoassay",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "71427-9",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 3051714,
       "conceptName": "Fibrin D-dimer FEU [Mass/volume] in Platelet poor plasma",
       "vocabularyId": "LOINC",
@@ -38,13 +20,58 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 37021210,
+      "conceptName": "Fibrin D-dimer [Mass/volume] in Blood by Immunoassay.DDU",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "91556-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42870366,
+      "conceptName": "Fibrin D-dimer [Mass/volume] in Blood by Rapid immunoassay",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "71427-9",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3052716,
+      "conceptName": "Fibrin D-dimer [Mass/volume] in Platelet poor plasma by Immunoassay.DDU",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "48058-2",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3052648,
-      "conceptName": "Fibrin D-dimer FEU [Mass/volume] in Platelet poor plasma by Immunoassay",
+      "conceptName": "Fibrin D-dimer [Mass/volume] in Platelet poor plasma by Immunoassay.FEU",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "48067-3",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 1470777,
+      "conceptName": "Fibrin D-dimer | Blood | Coagulation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP443381-1",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37072890,
+      "conceptName": "Fibrin D-dimer | Platelet poor plasma | Coagulation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP394010-5",
+      "standardConcept": "C"
     }
   ]
 }

@@ -1,107 +1,107 @@
 {
   "id": 168,
-  "name": "Fibrin D-dimer",
+  "name": "Fibrin D-dimer in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-06",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3048530,
-          "conceptName": "Fibrin D-dimer DDU [Mass/volume] in Platelet poor plasma",
+          "conceptId": 37072890,
+          "conceptName": "Fibrin D-dimer | Platelet poor plasma | Coagulation",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "48066-5",
-          "validStartDate": "2007-01-05",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP394010-5",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1470777,
+          "conceptName": "Fibrin D-dimer | Blood | Coagulation",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP443381-1",
+          "validStartDate": "2025-02-26",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3015823,
+          "conceptName": "Fibrin D-dimer [Presence] in Platelet poor plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "15179-5",
+          "validStartDate": "1998-03-09",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3051714,
-          "conceptName": "Fibrin D-dimer FEU [Mass/volume] in Platelet poor plasma",
+          "conceptId": 3033464,
+          "conceptName": "Fibrin D-dimer [Presence] in Platelet poor plasma by Latex agglutination",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "48065-7",
-          "validStartDate": "2007-01-05",
+          "conceptCode": "29280-5",
+          "validStartDate": "2001-02-14",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3052648,
-          "conceptName": "Fibrin D-dimer FEU [Mass/volume] in Platelet poor plasma by Immunoassay",
+          "conceptId": 3038383,
+          "conceptName": "Fibrin D-dimer [Titer] in Platelet poor plasma",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "48067-3",
-          "validStartDate": "2007-01-05",
+          "conceptCode": "38898-3",
+          "validStartDate": "2005-01-03",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3052716,
-          "conceptName": "Fibrin D-dimer DDU [Mass/volume] in Platelet poor plasma by Immunoassay",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "48058-2",
-          "validStartDate": "2007-01-05",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 42870366,
-          "conceptName": "Fibrin D-dimer FEU [Mass/volume] in Blood by Immunoassay",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "71427-9",
-          "validStartDate": "2012-03-26",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       }
@@ -114,18 +114,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Fibrin D-dimer",
+        "name": "Fibrin D-dimer in blood",
         "category": "Laboratory tests",
         "subcategory": "Hemostasis",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nFibrin D-dimer is a degradation product of cross-linked fibrin, formed by the sequential action of three enzymes — thrombin, factor XIIIa, and plasmin — and is a specific marker of fibrin formation and fibrinolysis [1]. The main clinical use is the exclusion of venous thromboembolism (VTE): a normal D-dimer in a patient with a low or intermediate clinical pretest probability has a high negative predictive value and rules out VTE without imaging [1, 2].\n\nThe source data will typically be a single numeric result per patient-timestamp, produced by an immunoassay on platelet-poor plasma or, for some point-of-care devices, whole blood.\n\n**Note on units — D-dimer units (DDU) vs fibrinogen-equivalent units (FEU).** D-dimer can be reported in two distinct unit systems — **DDU** (mass of the D-dimer fragment) and **FEU** (mass expressed as the parent fibrinogen molecule) — and **the two are not numerically equivalent**. Conversion between systems is assay-dependent and not standardised across manufacturers [3]. The same patient sample run on a DDU-reporting assay vs. an FEU-reporting assay will yield different numerical values. **Always preserve the unit (DDU or FEU) when mapping** — never strip or convert silently. The LOINC code itself encodes which unit system is used (suffix `.DDU` vs `.FEU` in the LOINC long name).\n\n## Included Concepts\n\nThe set is built around two LOINC Hierarchy concepts, each expanded to include all their descendants. Together they pull in nine LOINC \"Lab Test\" concepts covering quantitative D-dimer measurements in platelet poor plasma (PPP) and in whole blood.\n\n**Platelet poor plasma**, anchored on *37072890 / LP394010-5 — Fibrin D-dimer | Platelet poor plasma | Coagulation*:\n\n- *3051714 / 48065-7 — Fibrin D-dimer FEU [Mass/volume] in Platelet poor plasma*: most widely used FEU code worldwide; default for FEU sources that do not specify the assay method.\n- *3052648 / 48067-3 — Fibrin D-dimer [Mass/volume] in Platelet poor plasma by Immunoassay.FEU*: same quantity as `48065-7`, with the immunoassay method explicit.\n- *3048530 / 48066-5 — Fibrin D-dimer DDU [Mass/volume] in Platelet poor plasma*: default for DDU sources that do not specify the assay method.\n- *3052716 / 48058-2 — Fibrin D-dimer [Mass/volume] in Platelet poor plasma by Immunoassay.DDU*: same quantity as `48066-5`, with the immunoassay method explicit.\n\n**Whole blood** (point-of-care assays), anchored on *1470777 / LP443381-1 — Fibrin D-dimer | Blood | Coagulation*:\n\n- *42870366 / 71427-9 — Fibrin D-dimer [Mass/volume] in Blood by Rapid immunoassay*: most common LOINC code for whole-blood point-of-care D-dimer devices.\n- *37021210 / 91556-1 — Fibrin D-dimer [Mass/volume] in Blood by Immunoassay.DDU*: whole-blood D-dimer reported in DDU.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`:\n- DDU codes: **`ug/L{DDU}`** or equivalently `ng/mL{DDU}`.\n- FEU codes: **`ng{FEU}/mL`** or `mg{FEU}/L`.\n\nSource systems may report `mg/L`, `ug/mL`, `mg/L FEU`, `ng/mL DDU`, etc. — the unit string and the LOINC code together unambiguously specify the result. Conversion between DDU and FEU is assay-dependent [3]; do not assume a fixed factor without consulting the assay package insert.\n\n## Excluded Concepts\n\nThe two hierarchy anchors above also pull in three qualitative LOINC concepts that are explicitly excluded:\n\n- *3015823 / 15179-5 — Fibrin D-dimer [Presence] in Platelet poor plasma*: qualitative result (present / absent), not a quantitative measurement. Cannot be merged with numerical mg/L values.\n- *3033464 / 29280-5 — Fibrin D-dimer [Presence] in Platelet poor plasma by Latex agglutination*: same as above, with a method specification.\n- *3038383 / 38898-3 — Fibrin D-dimer [Titer] in Platelet poor plasma*: titer (e.g. 1:8, 1:16) is a dilution-based result of historical assays — different unit system, different statistical handling.\n\nThe set also deliberately omits the following LOINC concepts that exist for D-dimer:\n\n- **Cerebrospinal fluid** specimens (e.g. `40777694 / LP52466-7 — Fibrin D-dimer | Cerebral spinal fluid`): out of scope for a \"blood\" concept set.\n- **Panel concepts** (e.g. `37032186 / LP394459-4 — Short Fibrin D-dimer FEU and DDU panel`): grouping concepts, not measurement results.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"D-dimer\", \"DDi\", \"DD\", \"D-dimères\" without further specification, on platelet-poor plasma, in **mg/L FEU** or **ng/mL FEU** (the most common reporting convention worldwide): `3051714 / 48065-7 — Fibrin D-dimer FEU [Mass/volume] in Platelet poor plasma`.\n- **Source reports DDU**: map to `3048530 / 48066-5 — Fibrin D-dimer DDU [Mass/volume] in Platelet poor plasma` (or `3052716 / 48058-2` if the source explicitly mentions immunoassay method).\n- **Source uses a whole-blood point-of-care assay** (Cardiac Reader, Triage, etc.): map to `42870366 / 71427-9 — Fibrin D-dimer [Mass/volume] in Blood by Rapid immunoassay`.\n- **DDU vs FEU disambiguation**: when the source unit string is ambiguous (e.g. just `mg/L` without DDU/FEU annotation), check the assay manufacturer documentation.\n- **Do not convert units silently**: if a source reports DDU and the recommended unit in the data dictionary is FEU (or vice-versa), preserve the original value and unit; conversion is assay-dependent.\n- **Do not confuse with**: fibrinogen degradation products (FDP — broader pool of fibrin/fibrinogen breakdown products, different LOINC concepts), soluble fibrin monomer (different marker), or thrombin-antithrombin complex.\n\n## References\n\n[1] Adam SS, Key NS, Greenberg CS. D-dimer antigen: current concepts and future prospects. *Blood*. 2009;113(13):2878-87.\n    Available: <a href=\"https://doi.org/10.1182/blood-2008-06-165845\" target=\"_blank\">https://doi.org/10.1182/blood-2008-06-165845</a>\n\n[2] Konstantinides SV, Meyer G, Becattini C, et al. 2019 ESC Guidelines for the diagnosis and management of acute pulmonary embolism. *Eur Heart J*. 2020;41(4):543-603.\n    Available: <a href=\"https://doi.org/10.1093/eurheartj/ehz405\" target=\"_blank\">https://doi.org/10.1093/eurheartj/ehz405</a>\n\n[3] Longstaff C, Adcock D, Olson JD, et al. Harmonisation of D-dimer — A call for action. *Thromb Res*. 2016;137:219-220.\n    Available: <a href=\"https://doi.org/10.1016/j.thromres.2015.11.031\" target=\"_blank\">https://doi.org/10.1016/j.thromres.2015.11.031</a>\n"
       },
       "fr": {
-        "name": "Fibrin D-dimer",
+        "name": "D-dimères sanguins",
         "category": "Biologie",
         "subcategory": "Hémostase",
         "shortDescription": null,

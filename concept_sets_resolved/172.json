@@ -2,15 +2,6 @@
   "conceptSetId": 172,
   "resolvedConcepts": [
     {
-      "conceptId": 40766287,
-      "conceptName": "aPTT actual/normal in Platelet poor plasma by Coagulation assay",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "63561-5",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 3013466,
       "conceptName": "aPTT in Blood by Coagulation assay",
       "vocabularyId": "LOINC",
@@ -29,33 +20,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3041974,
-      "conceptName": "aPTT in Platelet poor plasma by Coagulation assay -- after addition of protein C activator + Factor V depleted plasma/aPTT",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "52766-3",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3052968,
-      "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --after addition of APC",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "48590-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3042436,
-      "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --baseline",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "40100-0",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 3041232,
       "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --post heparin neutralization",
       "vocabularyId": "LOINC",
@@ -63,6 +27,24 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "52123-7",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 37037324,
+      "conceptName": "aPTT | Blood | Coagulation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP393943-8",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37041593,
+      "conceptName": "aPTT | Platelet poor plasma | Coagulation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP393946-1",
+      "standardConcept": "C"
     }
   ]
 }

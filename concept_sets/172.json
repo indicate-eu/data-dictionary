@@ -1,88 +1,126 @@
 {
   "id": 172,
-  "name": "aPTT",
+  "name": "aPTT in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-06",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3013466,
-          "conceptName": "aPTT in Blood by Coagulation assay",
+          "conceptId": 37041593,
+          "conceptName": "aPTT | Platelet poor plasma | Coagulation",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "3173-2",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP393946-1",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3018677,
-          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay",
+          "conceptId": 37037324,
+          "conceptName": "aPTT | Blood | Coagulation",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "14979-9",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP393943-8",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3041232,
-          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --post heparin neutralization",
+          "conceptId": 3004144,
+          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --2nd specimen",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "52123-7",
-          "validStartDate": "2008-03-28",
+          "conceptCode": "13058-3",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3041974,
-          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay -- after addition of protein C activator + Factor V depleted plasma/aPTT",
+          "conceptId": 3007328,
+          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --3rd specimen",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "52766-3",
-          "validStartDate": "2008-04-10",
+          "conceptCode": "13059-1",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3008791,
+          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --4th specimen",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "13060-9",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3039283,
+          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --2 hours pre XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40099-4",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       },
@@ -101,7 +139,254 @@
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3038425,
+          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --30 minutes post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40101-8",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3038547,
+          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --1 hour post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40102-6",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3040681,
+          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --1.5 hours post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40103-4",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3042294,
+          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --2 hours post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40104-2",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3040598,
+          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --3 hours post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40105-9",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3040750,
+          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --4 hours post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40106-7",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3040623,
+          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --6 hours post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40107-5",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3040743,
+          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --8 hours post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40108-3",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3042449,
+          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --12 hours post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40109-1",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3038668,
+          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --1 day post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40110-9",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3042634,
+          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay --18 hours post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40111-7",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3016529,
+          "conceptName": "aPTT in Blood by Coagulation 1:1 saline",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "16631-4",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3045961,
+          "conceptName": "aPTT in Platelet poor plasma by Coagulation 1:1 saline",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "43734-3",
+          "validStartDate": "2006-02-15",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       },
@@ -120,7 +405,45 @@
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3041974,
+          "conceptName": "aPTT in Platelet poor plasma by Coagulation assay -- after addition of protein C activator + Factor V depleted plasma/aPTT",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "52766-3",
+          "validStartDate": "2008-04-10",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3041944,
+          "conceptName": "Activated partial thromboplastin time (aPTT) in Platelet poor plasma by Coagulation assay -- after addition of protein C activator/Activated partial thromboplastin time (aPTT)",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "52767-1",
+          "validStartDate": "2008-04-10",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       },
@@ -134,12 +457,12 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "63561-5",
-          "validStartDate": "2011-02-25",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       }
@@ -152,18 +475,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "aPTT",
+        "name": "aPTT in blood",
         "category": "Laboratory tests",
         "subcategory": "Hemostasis",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nThe activated partial thromboplastin time (aPTT) measures the time, in seconds, required for plasma to form a clot after addition of an activator, a phospholipid emulsion, and calcium [1]. The source data will typically be a single numeric result per patient-timestamp, produced by a coagulation analyser on platelet poor plasma (PPP). Results are reported in seconds [2].\n\n**Note: aPTT vs aPTT ratio.** The aPTT (this concept set) and the aPTT ratio are two different representations of the same underlying physical measurement, with different normalisations:\n- **aPTT (seconds)** — raw measurement; depends on the laboratory's reagent.\n- **aPTT ratio** — patient time divided by the laboratory's normal control time. Captured by a separate concept set, \"aPTT ratio in blood\".\n\nThe two representations are **not interconvertible** without the laboratory's local normal control. The data dictionary keeps them addressable independently — analyses needing a homogeneous variable should pick one representation rather than merging across.\n\n## Included Concepts\n\nThe set is built around two LOINC Hierarchy concepts, each expanded to include all their descendants. After applying the exclusions below, the set resolves to three LOINC \"Lab Test\" concepts.\n\n**Platelet poor plasma**, anchored on *37041593 / LP393946-1 — aPTT | Platelet poor plasma | Coagulation*:\n\n- *3018677 / 14979-9 — aPTT in Platelet poor plasma by Coagulation assay*: the standard hospital lab measurement. Most widely used LOINC code worldwide.\n- *3041232 / 52123-7 — aPTT in Platelet poor plasma by Coagulation assay --post heparin neutralization*: clinically equivalent to a standard aPTT — produced when a heparinised sample is treated with polybrene/heparinase before measurement.\n\n**Whole blood**, anchored on *37037324 / LP393943-8 — aPTT | Blood | Coagulation*:\n\n- *3013466 / 3173-2 — aPTT in Blood by Coagulation assay*: aPTT measured on whole blood (rare; some point-of-care devices). Not to be confused with the activated clotting time (ACT), which is a distinct point-of-care test.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`s`** (concept 8555 — second) for all three codes. Source systems may report aPTT in `s` or `sec`; conversion is identity.\n\n## Excluded Concepts\n\nThe two hierarchy anchors above pull in 22 LOINC concepts that are explicitly excluded:\n\n**aPTT ratio**:\n\n- *40766287 / 63561-5 — aPTT actual/normal in Platelet poor plasma by Coagulation assay*: dimensionless ratio (patient/normal control). Captured by the separate concept set \"aPTT ratio in blood\".\n\n**Sequential specimen series (3 codes)** — successive aPTT measurements on a series of timed specimens during a thrombolysis or anticoagulation protocol (research/protocol context):\n\n- *3004144 / 13058-3* — aPTT --2nd specimen\n- *3007328 / 13059-1* — aPTT --3rd specimen\n- *3008791 / 13060-9* — aPTT --4th specimen\n\n**Pharmacokinetic challenge series (13 codes)** — aPTT measured at fixed timepoints relative to a pharmacological challenge:\n\n- *3039283 / 40099-4* — aPTT --2 hours pre XXX challenge\n- *3042436 / 40100-0* — aPTT --baseline\n- *3038425 / 40101-8* — aPTT --30 minutes post XXX challenge\n- *3038547 / 40102-6* — aPTT --1 hour post XXX challenge\n- *3040681 / 40103-4* — aPTT --1.5 hours post XXX challenge\n- *3042294 / 40104-2* — aPTT --2 hours post XXX challenge\n- *3040598 / 40105-9* — aPTT --3 hours post XXX challenge\n- *3040750 / 40106-7* — aPTT --4 hours post XXX challenge\n- *3040623 / 40107-5* — aPTT --6 hours post XXX challenge\n- *3040743 / 40108-3* — aPTT --8 hours post XXX challenge\n- *3042449 / 40109-1* — aPTT --12 hours post XXX challenge\n- *3038668 / 40110-9* — aPTT --1 day post XXX challenge\n- *3042634 / 40111-7* — aPTT --18 hours post XXX challenge\n\n**1:1 saline mixing studies (2 codes)** — patient plasma diluted 1:1 with saline to investigate the cause of a prolonged aPTT:\n\n- *3016529 / 16631-4* — aPTT in Blood by Coagulation 1:1 saline\n- *3045961 / 43734-3* — aPTT in Platelet poor plasma by Coagulation 1:1 saline\n\n**Activated protein C (APC) resistance variant**:\n\n- *3052968 / 48590-4 — aPTT in Platelet poor plasma by Coagulation assay --after addition of APC*: APC resistance test (factor V Leiden screen). Different clinical question, belongs to a thrombophilia-screening concept set.\n\n**Protein C activator panels (2 codes)**:\n\n- *3041974 / 52766-3* — aPTT --after addition of protein C activator + Factor V depleted plasma/aPTT\n- *3041944 / 52767-1* — aPTT --after addition of protein C activator/aPTT\n\nThe set also deliberately omits:\n\n- **Control / Pool / Fetus specimens**: laboratory QC data or out-of-scope specimens.\n- **Lupus-sensitive aPTT** variants: research/specialised assays for antiphospholipid syndrome workup.\n- **CRRT / circuit-blood specimens**: specialised monitoring, out of scope for routine aPTT.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"aPTT\", \"APTT\", \"PTT\" in seconds without further specification: `3018677 / 14979-9 — aPTT in Platelet poor plasma by Coagulation assay`. By far the most common LOINC code (routine hospital lab on citrated plasma).\n- **Source reports an aPTT ratio** (patient/control, dimensionless): do **not** map to aPTT. The aPTT ratio has its own concept set, \"aPTT ratio in blood\".\n- **Whole-blood aPTT** (rare): map to `3013466 / 3173-2 — aPTT in Blood by Coagulation assay`. Note: this is **not** the activated clotting time (ACT) — ACT is a different point-of-care test with its own LOINC code.\n- **Heparinised sample treated for aPTT measurement**: map to `3041232 / 52123-7 — aPTT in Platelet poor plasma by Coagulation assay --post heparin neutralization`.\n- **Do not confuse with**: prothrombin time (separate concept set), activated clotting time (ACT), APC resistance test, thrombin time, or anti-Xa heparin level.\n\n## References\n\n[1] Langdell RD, Wagner RH, Brinkhous KM. Effect of antihemophilic factor on one-stage clotting tests; a presumptive test for hemophilia and a simple one-stage antihemophilic factor assay procedure. *J Lab Clin Med*. 1953;41(4):637-47.\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
-        "name": "aPTT",
+        "name": "TCA sanguin",
         "category": "Biologie",
         "subcategory": "Hémostase",
         "shortDescription": null,

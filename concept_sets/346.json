@@ -1,0 +1,70 @@
+{
+  "id": 346,
+  "name": "aPTT ratio in blood",
+  "description": null,
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-05-26",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-05-26",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 40766287,
+          "conceptName": "aPTT actual/normal in Platelet poor plasma by Coagulation assay",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "63561-5",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "73c0376d-d7ad-4f6e-a010-6c89b5ace06c",
+    "organization": {
+      "name": "INDICATE Consortium",
+      "url": "https://indicate-eu.org"
+    },
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "aPTT ratio in blood",
+        "category": "Laboratory tests",
+        "subcategory": "Hemostasis",
+        "shortDescription": null,
+        "longDescription": "## Definition & Clinical Context\n\nThe aPTT ratio is a transformation of the activated partial thromboplastin time (aPTT) expressed as the patient's time divided by the laboratory's normal control time. It is one of the standard outputs of a coagulation analyser, alongside the aPTT in seconds. A healthy patient has an aPTT ratio of ~1.\n\nThe source data will typically be a single numeric result per patient-timestamp, produced by a coagulation analyser on platelet poor plasma (PPP). Results are reported as a dimensionless ratio [1].\n\n**Note: aPTT ratio vs aPTT.** The aPTT ratio (this concept set) and the aPTT in seconds are two different representations of the same underlying physical measurement, with different normalisations:\n- **aPTT ratio** — patient time divided by the laboratory's normal control time (this concept set).\n- **aPTT (seconds)** — raw measurement; depends on the laboratory's reagent. Captured by a separate concept set, \"aPTT in blood\".\n\nThe two representations are **not interconvertible** without the laboratory's local normal control. The data dictionary keeps them addressable independently — analyses needing a homogeneous variable should pick one representation rather than merging across.\n\n## Included Concepts\n\nThe set contains one LOINC \"Lab Test\" concept:\n\n- *40766287 / 63561-5 — aPTT actual/normal in Platelet poor plasma by Coagulation assay*: dimensionless ratio (patient/normal control).\n\n**Note on units.** The aPTT ratio is dimensionless. LOINC's `EXAMPLE_UCUM_UNITS` lists no unit; some source systems report no unit, others report `1` or `{ratio}`. All represent the same dimensionless quantity.\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The aPTT-derived ratios related to protein C / APC resistance assays (e.g. `48590-4`, `52766-3`, `52767-1`) are deliberately not part of this set — they are specialised tests with a different clinical question.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"aPTT ratio\" (patient/control, dimensionless): `40766287 / 63561-5 — aPTT actual/normal in Platelet poor plasma by Coagulation assay`.\n- **Source reports aPTT in seconds**: do **not** map to this concept set. The aPTT in seconds has its own concept set, \"aPTT in blood\".\n- **Do not confuse with**: aPTT in seconds, prothrombin ratio, INR, activated clotting time (ACT), APC resistance test, thrombin time, or anti-Xa heparin level.\n\n## References\n\n[1] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n\n[2] Regenstrief Institute. LOINC code 63561-5 — aPTT actual/normal in Platelet poor plasma by Coagulation assay.\n    Available: <a href=\"https://loinc.org/63561-5/\" target=\"_blank\">https://loinc.org/63561-5/</a>\n"
+      },
+      "fr": {
+        "name": "Ratio TCA sanguin",
+        "category": "Biologie",
+        "subcategory": "Hémostase",
+        "shortDescription": null,
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

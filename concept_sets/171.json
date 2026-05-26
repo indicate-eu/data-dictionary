@@ -1,88 +1,88 @@
 {
   "id": 171,
-  "name": "Prothrombin time",
+  "name": "Prothrombin time in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-06",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3002417,
-          "conceptName": "Prothrombin time (PT) in Blood by Coagulation assay",
+          "conceptId": 37041470,
+          "conceptName": "Prothrombin time (PT) | Platelet poor plasma | Coagulation",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "5964-2",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP394044-4",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3033658,
-          "conceptName": "Prothrombin time (PT) actual/Normal",
+          "conceptId": 37044890,
+          "conceptName": "Prothrombin time (PT) | Blood | Coagulation",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "5894-1",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP394042-8",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3034426,
-          "conceptName": "Prothrombin time (PT)",
+          "conceptId": 37070720,
+          "conceptName": "Prothrombin time (PT) | Blood capillary | Coagulation",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "5902-2",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP394043-6",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3039931,
-          "conceptName": "Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --post heparin neutralization",
+          "conceptId": 3039247,
+          "conceptName": "Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --2 hours pre XXX challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "52122-9",
-          "validStartDate": "2008-03-28",
+          "conceptCode": "40087-9",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       },
@@ -101,26 +101,235 @@
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3053181,
-          "conceptName": "Prothrombin time (PT) in Capillary blood by Coagulation assay",
+          "conceptId": 3044207,
+          "conceptName": "Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --30 minutes post XXX challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "46417-2",
-          "validStartDate": "2006-08-02",
+          "conceptCode": "40089-5",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3040416,
+          "conceptName": "Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --1 hour post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40090-3",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3041180,
+          "conceptName": "Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --1.5 hours post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40091-1",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3043920,
+          "conceptName": "Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --2 hours post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40092-9",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3042059,
+          "conceptName": "Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --3 hours post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40093-7",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3042352,
+          "conceptName": "Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --4 hours post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40094-5",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3039508,
+          "conceptName": "Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --6 hours post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40095-2",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3041143,
+          "conceptName": "Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --8 hours post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40096-0",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3040364,
+          "conceptName": "Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --12 hours post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40097-8",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3038261,
+          "conceptName": "Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --1 day post XXX challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "40098-6",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3037666,
+          "conceptName": "Prothrombin time (PT) in Platelet poor plasma by Coagulation 1:1 saline",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "42638-7",
+          "validStartDate": "2005-10-11",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3033658,
+          "conceptName": "Prothrombin time (PT) actual/Normal",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "5894-1",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       }
@@ -133,18 +342,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Prothrombin time",
+        "name": "Prothrombin time in blood",
         "category": "Laboratory tests",
         "subcategory": "Hemostasis",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nThe prothrombin time (PT) measures the time, in seconds, required for plasma to form a clot after addition of thromboplastin and calcium [1]. The source data will typically be a single numeric result per patient-timestamp, produced by a coagulation analyser on platelet poor plasma (PPP), or by a point-of-care device on capillary fingerstick blood. Results are reported in seconds [2].\n\n**Note: PT vs INR vs prothrombin ratio.** The PT (this concept set), the INR, and the prothrombin ratio are three different representations of the same underlying physical measurement, with different normalisations:\n- **PT (seconds)** — raw measurement; depends on the laboratory's thromboplastin reagent.\n- **INR** — dimensionless, reagent-independent transformation. Used for vitamin K antagonist (VKA) monitoring. Captured by a separate concept set, \"INR in blood\".\n- **Prothrombin ratio** — percentage of pooled normal plasma activity. Captured by a separate concept set, \"Prothrombin ratio in blood\".\n\nThe three representations are **not interconvertible** without the laboratory's local calibration curve. The data dictionary keeps them addressable independently — analyses needing a homogeneous variable should pick one representation rather than merging across.\n\n## Included Concepts\n\nThe set is built around three LOINC Hierarchy concepts, each expanded to include all their descendants. After applying the exclusions below, the set resolves to four LOINC \"Lab Test\" concepts.\n\n**Platelet poor plasma**, anchored on *37041470 / LP394044-4 — Prothrombin time (PT) | Platelet poor plasma | Coagulation*:\n\n- *3034426 / 5902-2 — Prothrombin time (PT)*: generic PT concept used when the LOINC code in the source does not specify the specimen — a \"wildcard\" for systems that do not differentiate. Result in seconds.\n- *3039931 / 52122-9 — Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --post heparin neutralization*: clinically equivalent to a standard PT — produced when a heparinised sample is treated with polybrene/heparinase before measurement.\n\n**Whole blood**, anchored on *37044890 / LP394042-8 — Prothrombin time (PT) | Blood | Coagulation*:\n\n- *3002417 / 5964-2 — Prothrombin time (PT) in Blood by Coagulation assay*: PT measured on whole blood (rare; some point-of-care devices).\n\n**Capillary blood (point-of-care)**, anchored on *37070720 / LP394043-6 — Prothrombin time (PT) | Blood capillary | Coagulation*:\n\n- *3053181 / 46417-2 — Prothrombin time (PT) in Capillary blood by Coagulation assay*: point-of-care fingerstick PT.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`s`** (concept 8555 — second) for all four codes. Source systems may report PT in `s` or `sec`; conversion is identity.\n\n## Excluded Concepts\n\nThe three hierarchy anchors above pull in 14 LOINC concepts that are explicitly excluded:\n\n**Prothrombin ratio**:\n\n- *3033658 / 5894-1 — Prothrombin time (PT) actual/Normal*: result expressed as a percentage of pooled normal plasma activity. Captured by the separate concept set \"Prothrombin ratio in blood\".\n\n**Pharmacokinetic challenge series (12 codes)** — PT measured at fixed timepoints relative to a pharmacological challenge (research/protocol context, not routine clinical care):\n\n- *3039247 / 40087-9* — PT --2 hours pre XXX challenge\n- *3041133 / 40088-7* — PT --baseline\n- *3044207 / 40089-5* — PT --30 minutes post XXX challenge\n- *3040416 / 40090-3* — PT --1 hour post XXX challenge\n- *3041180 / 40091-1* — PT --1.5 hours post XXX challenge\n- *3043920 / 40092-9* — PT --2 hours post XXX challenge\n- *3042059 / 40093-7* — PT --3 hours post XXX challenge\n- *3042352 / 40094-5* — PT --4 hours post XXX challenge\n- *3039508 / 40095-2* — PT --6 hours post XXX challenge\n- *3041143 / 40096-0* — PT --8 hours post XXX challenge\n- *3040364 / 40097-8* — PT --12 hours post XXX challenge\n- *3038261 / 40098-6* — PT --1 day post XXX challenge\n\n**1:1 saline mixing study**:\n\n- *3037666 / 42638-7 — Prothrombin time (PT) in Platelet poor plasma by Coagulation 1:1 saline*: mixing study to investigate the cause of an abnormal PT (factor deficiency vs. inhibitor). Out of scope for routine PT.\n\nThe set also deliberately omits:\n\n- **Control specimens**: laboratory QC data, not patient measurements.\n- **Fetus** specimens: out of scope.\n- **Factor substitution** PT and **PIVKA-sensitive** PT variants: research/specialised assays.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"PT\", \"Quick\", \"prothrombin time\" in seconds without further specification: `3034426 / 5902-2 — Prothrombin time (PT)` (generic).\n- **Source reports a prothrombin ratio / prothrombin index in %**: do **not** map to PT. The prothrombin ratio has its own concept set, \"Prothrombin ratio in blood\".\n- **Source reports INR**: do **not** map to PT. INR has its own concept set, \"INR in blood\".\n- **Point-of-care PT** (capillary fingerstick): map to `3053181 / 46417-2 — Prothrombin time (PT) in Capillary blood by Coagulation assay`.\n- **Whole blood** (non-capillary): map to `3002417 / 5964-2 — Prothrombin time (PT) in Blood by Coagulation assay`.\n- **Heparinised sample treated for PT measurement**: map to `3039931 / 52122-9 — Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --post heparin neutralization`.\n- **Do not confuse with**: INR, prothrombin ratio, aPTT (different test, separate concept set), thrombin time, Reptilase time.\n\n## References\n\n[1] Quick AJ. The prothrombin in hemophilia and in obstructive jaundice. *J Biol Chem*. 1935;109:73-74.\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
-        "name": "Temps de prothrombine",
+        "name": "Temps de prothrombine sanguin",
         "category": "Biologie",
         "subcategory": "Hémostase",
         "shortDescription": null,

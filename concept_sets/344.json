@@ -1,0 +1,89 @@
+{
+  "id": 344,
+  "name": "Fibrinogen antigen",
+  "description": null,
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-05-06",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-05-06",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 3016628,
+          "conceptName": "Fibrinogen Ag [Mass/volume] in Platelet poor plasma by Immunoassay",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "3256-5",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3037950,
+          "conceptName": "Fibrinogen Ag [Mass/volume] in Platelet poor plasma by Nephelometry",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "42772-4",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "ad467207-2c7a-4d93-b8c5-a450c00b37fe",
+    "organization": {
+      "name": "INDICATE Consortium",
+      "url": "https://indicate-eu.org"
+    },
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Fibrinogen antigen",
+        "category": "Laboratory tests",
+        "subcategory": "Hemostasis",
+        "shortDescription": null,
+        "longDescription": "## Definition & Clinical Context\n\nFibrinogen antigen is the **immunological measurement of the fibrinogen protein concentration** in plasma — what this concept set measures. It quantifies how much fibrinogen protein is present, irrespective of whether the molecule is functionally clottable by thrombin [1]. The result is a single numeric value per patient-timestamp, produced on platelet poor plasma (PPP) by immunoassay [2]. Results are reported as a mass concentration in g/L or mg/dL [3].\n\nClinically, fibrinogen antigen aids in the diagnosis of fibrinogen deficiencies (acquired or congenital) and is used for monitoring the severity and treatment of disseminated intravascular coagulation (DIC) and fibrinolysis [2].\n\n**Note: \"fibrinogen\" vs \"fibrinogen antigen\".** This concept set covers **fibrinogen antigen** only — the immunological mass of the fibrinogen protein. The functionally clottable fibrinogen, measured by clot-based or viscoelastic assays, is captured by a separate concept set, \"Fibrinogen in blood\". The two values can diverge in dysfibrinogenaemia, where antigen is normal but the clot-based result is reduced — they are different study variables and must not be merged.\n\n## Included Concepts\n\nThe set contains two LOINC \"Lab Test\" concepts, both measuring fibrinogen antigenic concentration in platelet poor plasma, differing only by the assay method:\n\n- *3016628 / 3256-5 — Fibrinogen Ag [Mass/volume] in Platelet poor plasma by Immunoassay*: generic immunoassay code. Most widely used.\n- *3037950 / 42772-4 — Fibrinogen Ag [Mass/volume] in Platelet poor plasma by Nephelometry*: same quantity, with the nephelometry method explicit.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mg/dL`** for both codes. Source systems may also report in `g/L`; conversion `1 g/L = 100 mg/dL`.\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The following LOINC concepts that exist for fibrinogen are deliberately not part of this set (they belong to other concept sets):\n\n- **Fibrinogen by clot-based or viscoelastic assay**: captured by \"Fibrinogen in blood\".\n- **Fibrinogen Ag/Fibrinogen [Mass Ratio]** (`3026131 / 31158-9`): a derived ratio used to detect dysfibrinogenaemia, computed downstream from the activity and antigen values — not a primary measurement.\n- **Fibrinogen [Presence]** / **Fibrinogen [Interpretation]**: qualitative concepts.\n- **Cryofibrinogen, Fibrinogen fragments, Fibrin+Fibrinogen fragments**: different measurands.\n- **Tissue and Smears specimens**: out of scope.\n\n## Mapping Notes\n\n- **Default concept** when the source explicitly reports \"fibrinogen antigen\", \"fibrinogen Ag\": `3016628 / 3256-5 — Fibrinogen Ag [Mass/volume] in Platelet poor plasma by Immunoassay`.\n- **Source explicitly states nephelometry method**: map to `3037950 / 42772-4 — Fibrinogen Ag [Mass/volume] in Platelet poor plasma by Nephelometry`.\n- **Source reports a single \"fibrinogen\" without specifying activity vs antigen**: by default, map to the \"Fibrinogen in blood\" concept set — the clot-based assay is the routine clinical measurement; antigen is a specialty test. Only map to this antigen concept set when the source unambiguously labels the result as \"Ag\" / \"antigen\".\n- **Source unit is mg/dL**: most LOINC codes for fibrinogen Ag have `EXAMPLE_UCUM_UNITS = mg/dL`, but European labs typically report in `g/L`. Conversion: `1 g/L = 100 mg/dL`.\n- **Do not confuse with**: fibrinogen by clot-based assay (separate concept set), fibrinogen fragments (degradation products), D-dimer, cryofibrinogen.\n\n## References\n\n[1] Mosesson MW. Fibrinogen and fibrin structure and functions. *J Thromb Haemost*. 2005;3(8):1894-904.\n    Available: <a href=\"https://doi.org/10.1111/j.1538-7836.2005.01365.x\" target=\"_blank\">https://doi.org/10.1111/j.1538-7836.2005.01365.x</a>\n\n[2] Regenstrief Institute. LOINC code 3256-5 — Fibrinogen Ag [Mass/volume] in Platelet poor plasma by Immunoassay.\n    Available: <a href=\"https://loinc.org/3256-5/\" target=\"_blank\">https://loinc.org/3256-5/</a>\n\n[3] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
+      },
+      "fr": {
+        "name": "Antigène du fibrinogène",
+        "category": "Biologie",
+        "subcategory": "Hémostase",
+        "shortDescription": null,
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

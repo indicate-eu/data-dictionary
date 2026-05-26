@@ -11,15 +11,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3033658,
-      "conceptName": "Prothrombin time (PT) actual/Normal",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "5894-1",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 3002417,
       "conceptName": "Prothrombin time (PT) in Blood by Coagulation assay",
       "vocabularyId": "LOINC",
@@ -38,15 +29,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3041133,
-      "conceptName": "Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --baseline",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "40088-7",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 3039931,
       "conceptName": "Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --post heparin neutralization",
       "vocabularyId": "LOINC",
@@ -54,6 +36,33 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "52122-9",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 37070720,
+      "conceptName": "Prothrombin time (PT) | Blood capillary | Coagulation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP394043-6",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37044890,
+      "conceptName": "Prothrombin time (PT) | Blood | Coagulation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP394042-8",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37041470,
+      "conceptName": "Prothrombin time (PT) | Platelet poor plasma | Coagulation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP394044-4",
+      "standardConcept": "C"
     }
   ]
 }
