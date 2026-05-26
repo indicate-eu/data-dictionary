@@ -1,12 +1,12 @@
 {
   "id": 8,
-  "name": "Glasgow coma scale",
-  "description": null,
-  "version": "1.0.0",
+  "name": "Glasgow coma scale total",
+  "description": "Single integer GCS total score (3–15), summing the eye, verbal and motor components",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -28,63 +28,6 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3008223,
-          "conceptName": "Glasgow coma score motor",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Clinical Observation",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "9268-4",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3009094,
-          "conceptName": "Glasgow coma score verbal",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Clinical Observation",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "9270-0",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3016335,
-          "conceptName": "Glasgow coma score eye opening",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Clinical Observation",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "9267-6",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
       }
     ]
   },
@@ -95,22 +38,22 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Glasgow coma scale",
+        "name": "Glasgow coma scale total",
         "category": "Clinical observations",
         "subcategory": "Neurological assessment",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Single integer GCS total score (3–15), summing the eye, verbal and motor components",
+        "longDescription": "## Definition & Clinical Context\n\nThe Glasgow Coma Scale (GCS) total score is the sum of the three component scores — eye opening (E), verbal response (V) and motor response (M) — yielding a single integer between 3 (deep unresponsive coma) and 15 (fully alert and oriented). The scale was originally developed by Teasdale and Jennett in 1974 for the standardised evaluation of patients with acute brain injury [1].\n\nA total score ≤ 8 is conventionally used to define coma and is a common threshold for intubation in trauma settings. The total alone should be interpreted with caution: clinically very different patterns can yield the same sum (e.g. E1 V1 M6 vs E4 V4 M3), which is why the three component scores are recorded as separate variables (see the dedicated concept sets for eye opening, verbal response and motor response).\n\nWhen any component cannot be assessed (e.g. periorbital oedema, intubation, sedation), the total score is not meaningful and should not be reported — only the assessable component scores should be recorded.\n\n## Included Concepts\n\nThis concept set contains the single LOINC concept representing the recorded GCS total score:\n- `3007194` — Glasgow coma score total (`9269-2`, Clinical Observation)\n\n## Related Concept Sets\n\nThe three component scores are captured separately:\n- Glasgow coma scale eye opening\n- Glasgow coma scale verbal response\n- Glasgow coma scale motor response\n\n## References\n\n[1] Teasdale G, Jennett B. Assessment of coma and impaired consciousness: a practical scale. *Lancet*. 1974;2(7872):81-84. doi:10.1016/s0140-6736(74)91639-0. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/4136544/\" target=\"_blank\">4136544</a>"
       },
       "fr": {
-        "name": "Glasgow coma scale",
+        "name": "Glasgow coma scale total",
         "category": "Observations cliniques",
         "subcategory": "Évaluation neurologique",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Score total GCS unique (3–15), somme des sous-scores d'ouverture des yeux, verbal et moteur",
+        "longDescription": "## Définition et contexte clinique\n\nLe score total du Glasgow Coma Scale (GCS) est la somme des trois sous-scores — ouverture des yeux (E), réponse verbale (V) et réponse motrice (M) — donnant un entier compris entre 3 (coma profond aréactif) et 15 (patient parfaitement éveillé et orienté). L'échelle a été initialement développée par Teasdale et Jennett en 1974 pour l'évaluation standardisée des patients présentant un traumatisme crânien aigu [1].\n\nUn score total ≤ 8 définit conventionnellement le coma et constitue un seuil fréquent d'indication d'intubation en traumatologie. Le total seul doit être interprété avec prudence : des situations cliniques très différentes peuvent donner la même somme (par ex. E1 V1 M6 vs E4 V4 M3), raison pour laquelle les trois sous-scores sont enregistrés comme des variables séparées (voir les concept sets dédiés à l'ouverture des yeux, la réponse verbale et la réponse motrice).\n\nLorsqu'une composante ne peut pas être évaluée (par ex. œdème périorbitaire, intubation, sédation), le score total perd son sens et ne doit pas être rapporté — seuls les sous-scores évaluables doivent être enregistrés.\n\n## Concepts inclus\n\nCe concept set contient l'unique concept LOINC représentant le score total GCS enregistré :\n- `3007194` — Glasgow coma score total (`9269-2`, Clinical Observation)\n\n## Concept sets associés\n\nLes trois sous-scores sont capturés séparément :\n- Glasgow coma scale eye opening\n- Glasgow coma scale verbal response\n- Glasgow coma scale motor response\n\n## Références\n\n[1] Teasdale G, Jennett B. Assessment of coma and impaired consciousness: a practical scale. *Lancet*. 1974;2(7872):81-84. doi:10.1016/s0140-6736(74)91639-0. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/4136544/\" target=\"_blank\">4136544</a>"
       }
     },
     "createdByDetails": {

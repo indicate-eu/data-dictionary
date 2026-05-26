@@ -1,0 +1,70 @@
+{
+  "id": 349,
+  "name": "Glasgow coma scale motor response",
+  "description": "GCS motor sub-score (1–6): obeys, localising, normal flexion, abnormal flexion, extension, none",
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-05-27",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-05-27",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 3008223,
+          "conceptName": "Glasgow coma score motor",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "9268-4",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "1438c899-c5f9-4a76-8f1c-a4244ddabaa5",
+    "organization": {
+      "name": "INDICATE Consortium",
+      "url": "https://indicate-eu.org"
+    },
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Glasgow coma scale motor response",
+        "category": "Clinical observations",
+        "subcategory": "Neurological assessment",
+        "shortDescription": "GCS motor sub-score (1–6): obeys, localising, normal flexion, abnormal flexion, extension, none",
+        "longDescription": "## Definition & Clinical Context\n\nThe motor response component (M) of the Glasgow Coma Scale assesses the best motor response obtained, by observing spontaneous movement and the response to verbal command and to a noxious stimulus. It is scored on a 6-point scale [1]:\n- 6 obeys commands — performs the requested action (e.g. raise two fingers)\n- 5 localising — purposeful movement towards the source of a noxious stimulus\n- 4 normal flexion — withdraws limb from the noxious stimulus\n- 3 abnormal flexion — decorticate posturing (flexion of upper limbs, extension of lower limbs)\n- 2 extension — decerebrate posturing (extension of all four limbs)\n- 1 none — no motor response\n\nThe motor sub-score is the strongest single predictor of outcome among the three GCS components and is often used in isolation in field triage scales (e.g. as the M-score in the Simplified Motor Score). Always record the best response observed across the four limbs, not the worst.\n\nThis concept set captures only the recorded motor sub-score; the global GCS total and the eye opening and verbal components are captured in separate concept sets.\n\n## Included Concepts\n\nThis concept set contains the single LOINC concept representing the recorded GCS motor sub-score:\n- `3008223` — Glasgow coma score motor (`9268-4`, Clinical Observation)\n\n## References\n\n[1] Teasdale G, Jennett B. Assessment of coma and impaired consciousness: a practical scale. *Lancet*. 1974;2(7872):81-84. doi:10.1016/s0140-6736(74)91639-0. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/4136544/\" target=\"_blank\">4136544</a>"
+      },
+      "fr": {
+        "name": "Glasgow coma scale motor response",
+        "category": "Observations cliniques",
+        "subcategory": "Évaluation neurologique",
+        "shortDescription": "Sous-score GCS moteur (1–6) : obéit, localisée, flexion normale, flexion anormale, extension, aucune",
+        "longDescription": "## Définition et contexte clinique\n\nLe sous-score de réponse motrice (M) du Glasgow Coma Scale évalue la meilleure réponse motrice obtenue, en observant les mouvements spontanés et la réponse à un ordre verbal et à un stimulus nociceptif. Il est coté sur une échelle de 6 points [1] :\n- 6 obéit aux ordres — effectue l'action demandée (par ex. lever deux doigts)\n- 5 localisée — mouvement orienté vers la source du stimulus nociceptif\n- 4 flexion normale — retrait du membre face au stimulus nociceptif\n- 3 flexion anormale — posture de décortication (flexion des membres supérieurs, extension des membres inférieurs)\n- 2 extension — posture de décérébration (extension des quatre membres)\n- 1 aucune — aucune réponse motrice\n\nLe sous-score moteur est le meilleur prédicteur isolé du pronostic parmi les trois composantes du GCS et il est souvent utilisé seul dans les échelles de tri préhospitalier (par ex. comme M-score dans le Simplified Motor Score). Il faut toujours enregistrer la meilleure réponse observée sur les quatre membres, pas la pire.\n\nCe concept set ne couvre que le sous-score moteur enregistré ; le score total GCS et les sous-scores d'ouverture des yeux et verbal sont capturés dans des concept sets séparés.\n\n## Concepts inclus\n\nCe concept set contient l'unique concept LOINC représentant le sous-score moteur GCS enregistré :\n- `3008223` — Glasgow coma score motor (`9268-4`, Clinical Observation)\n\n## Références\n\n[1] Teasdale G, Jennett B. Assessment of coma and impaired consciousness: a practical scale. *Lancet*. 1974;2(7872):81-84. doi:10.1016/s0140-6736(74)91639-0. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/4136544/\" target=\"_blank\">4136544</a>"
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

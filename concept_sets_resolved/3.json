@@ -6,7 +6,7 @@
       "conceptName": "Behavioral Pain Scale (BPS)",
       "vocabularyId": "INDICATE",
       "domainId": "Measurement",
-      "conceptClassId": "Staging / Scales",
+      "conceptClassId": "Observable Entity",
       "conceptCode": "BPS",
       "standardConcept": ""
     }

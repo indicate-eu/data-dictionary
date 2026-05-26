@@ -1,12 +1,12 @@
 {
   "id": 12,
-  "name": "Pupillary response",
-  "description": null,
-  "version": "1.0.0",
+  "name": "Pupil diameter",
+  "description": "Bedside manual measurement of pupil resting diameter in millimetres, recorded separately for each eye",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -47,44 +47,6 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 21490963,
-          "conceptName": "Right pupil Pupillary response",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Clinical Observation",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "79815-7",
-          "validStartDate": "2016-06-24",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 21491763,
-          "conceptName": "Left pupil Pupillary response",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Clinical Observation",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "79899-1",
-          "validStartDate": "2016-06-24",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
       }
     ]
   },
@@ -95,22 +57,22 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Pupillary response",
+        "name": "Pupil diameter",
         "category": "Clinical observations",
         "subcategory": "Neurological assessment",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Bedside manual measurement of pupil resting diameter in millimetres, recorded separately for each eye",
+        "longDescription": "## Definition & Clinical Context\n\nPupil diameter is the resting size of the pupil, measured at the bedside in millimetres, separately for each eye. The normal range under typical ambient lighting is approximately 2–6 mm; sizes outside this range are described as miosis (< 2 mm) or mydriasis (> 6 mm) and may signal toxidromes, brainstem pathology or pharmacological effects [1].\n\nThe two pupils are always recorded independently because pupillary innervation is asymmetric (the parasympathetic fibres travel with cranial nerve III). Anisocoria — a difference of more than 1 mm between the two pupils — is a red flag for ipsilateral mass effect or uncal herniation in patients with altered consciousness, although small physiological anisocoria is common in healthy individuals.\n\nThis concept set captures the manual bedside measurement (visually or with a millimetre rule). Pupillometer-derived diameters from automated infrared devices are mapped to the same LOINC concepts in many implementations, but the source of the measurement should be documented as a separate variable when both are available.\n\n## Included Concepts\n\nThis concept set contains the two LOINC concepts representing the manually recorded pupil diameter, separately for each eye:\n- `3010321` — Right eye Pupil diameter Manual (`8643-9`, Clinical Observation)\n- `3026611` — Left eye Pupil diameter Manual (`8641-3`, Clinical Observation)\n\n## Related Concept Sets\n\nPupillary reactivity to light is captured in a separate concept set (Pupillary response), since the two measurements have different scales and units and cannot be combined or compared.\n\n## References\n\n[1] Posner JB, Saper CB, Schiff ND, Claassen J. *Plum and Posner's Diagnosis and Treatment of Stupor and Coma*. 5th ed. Oxford University Press; 2019. Chapter 2: Examination of the comatose patient."
       },
       "fr": {
-        "name": "Réponse pupillaire",
+        "name": "Diamètre pupillaire",
         "category": "Observations cliniques",
         "subcategory": "Évaluation neurologique",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Mesure manuelle au lit du patient du diamètre pupillaire de repos en millimètres, séparément pour chaque œil",
+        "longDescription": "## Définition et contexte clinique\n\nLe diamètre pupillaire est la taille de repos de la pupille, mesurée au lit du patient en millimètres, séparément pour chaque œil. L'intervalle normal sous lumière ambiante typique est d'environ 2–6 mm ; les valeurs en dehors de cet intervalle sont qualifiées de myosis (< 2 mm) ou de mydriase (> 6 mm) et peuvent évoquer des toxidromes, une pathologie du tronc cérébral ou un effet pharmacologique [1].\n\nLes deux pupilles sont toujours enregistrées indépendamment car l'innervation pupillaire est asymétrique (les fibres parasympathiques cheminent avec le nerf crânien III). L'anisocorie — une différence de plus de 1 mm entre les deux pupilles — est un signe d'alerte évoquant un effet de masse ipsilatéral ou un engagement uncal chez un patient avec trouble de la conscience, bien qu'une petite anisocorie physiologique soit fréquente chez les sujets sains.\n\nCe concept set ne couvre que la mesure manuelle au lit (visuelle ou à la règle millimétrique). Les diamètres issus d'un pupillomètre infrarouge automatisé sont mappés sur les mêmes concepts LOINC dans de nombreuses implémentations, mais la source de la mesure devrait être documentée comme une variable distincte lorsque les deux sont disponibles.\n\n## Concepts inclus\n\nCe concept set contient les deux concepts LOINC représentant le diamètre pupillaire mesuré manuellement, séparément pour chaque œil :\n- `3010321` — Right eye Pupil diameter Manual (`8643-9`, Clinical Observation)\n- `3026611` — Left eye Pupil diameter Manual (`8641-3`, Clinical Observation)\n\n## Concept sets associés\n\nLa réactivité pupillaire à la lumière est capturée dans un concept set séparé (Pupillary response), les deux mesures ayant des échelles et des unités différentes et ne pouvant pas être combinées ou comparées.\n\n## Références\n\n[1] Posner JB, Saper CB, Schiff ND, Claassen J. *Plum and Posner's Diagnosis and Treatment of Stupor and Coma*. 5e éd. Oxford University Press ; 2019. Chapitre 2 : Examen du patient comateux."
       }
     },
     "createdByDetails": {

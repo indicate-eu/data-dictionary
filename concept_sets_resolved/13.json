@@ -2,12 +2,12 @@
   "conceptSetId": 13,
   "resolvedConcepts": [
     {
-      "conceptId": 4105091,
-      "conceptName": "Ramsay sedation scale",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Staging / Scales",
-      "conceptCode": "281400004",
+      "conceptId": 1091379,
+      "conceptName": "Ramsay sedation scale total score [Reported.RSS]",
+      "vocabularyId": "LOINC",
+      "domainId": "Observation",
+      "conceptClassId": "Survey",
+      "conceptCode": "105044-2",
       "standardConcept": "S"
     }
   ]

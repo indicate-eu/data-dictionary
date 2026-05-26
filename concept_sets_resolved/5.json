@@ -6,7 +6,7 @@
       "conceptName": "Delirium Detection Score (DDS)",
       "vocabularyId": "INDICATE",
       "domainId": "Measurement",
-      "conceptClassId": "Staging / Scales",
+      "conceptClassId": "Observable Entity",
       "conceptCode": "DDS",
       "standardConcept": ""
     }

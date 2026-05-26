@@ -1,22 +1,22 @@
 {
-  "conceptSetId": 12,
+  "conceptSetId": 350,
   "resolvedConcepts": [
     {
-      "conceptId": 3026611,
-      "conceptName": "Left eye Pupil diameter Manual",
+      "conceptId": 21491763,
+      "conceptName": "Left pupil Pupillary response",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
-      "conceptCode": "8641-3",
+      "conceptCode": "79899-1",
       "standardConcept": "S"
     },
     {
-      "conceptId": 3010321,
-      "conceptName": "Right eye Pupil diameter Manual",
+      "conceptId": 21490963,
+      "conceptName": "Right pupil Pupillary response",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
-      "conceptCode": "8643-9",
+      "conceptCode": "79815-7",
       "standardConcept": "S"
     }
   ]

@@ -1,13 +1,13 @@
 {
-  "conceptSetId": 8,
+  "conceptSetId": 347,
   "resolvedConcepts": [
     {
-      "conceptId": 3007194,
-      "conceptName": "Glasgow coma score total",
+      "conceptId": 3016335,
+      "conceptName": "Glasgow coma score eye opening",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
-      "conceptCode": "9269-2",
+      "conceptCode": "9267-6",
       "standardConcept": "S"
     }
   ]

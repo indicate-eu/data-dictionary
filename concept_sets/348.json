@@ -1,0 +1,70 @@
+{
+  "id": 348,
+  "name": "Glasgow coma scale verbal response",
+  "description": "GCS verbal sub-score (1–5): oriented, confused, words, sounds, none",
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-05-27",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-05-27",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 3009094,
+          "conceptName": "Glasgow coma score verbal",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "9270-0",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "9203e31f-c725-4d58-87d4-4c9f7336f82b",
+    "organization": {
+      "name": "INDICATE Consortium",
+      "url": "https://indicate-eu.org"
+    },
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Glasgow coma scale verbal response",
+        "category": "Clinical observations",
+        "subcategory": "Neurological assessment",
+        "shortDescription": "GCS verbal sub-score (1–5): oriented, confused, words, sounds, none",
+        "longDescription": "## Definition & Clinical Context\n\nThe verbal response component (V) of the Glasgow Coma Scale assesses the content and coherence of the patient's spoken response. It is scored on a 5-point scale [1]:\n- 5 oriented — correctly states name, place and time\n- 4 confused — converses but disoriented or confused\n- 3 words — articulates intelligible words but no coherent conversation\n- 2 sounds — produces only moans, groans or unintelligible sounds\n- 1 none — no verbal response\n\nThe verbal sub-score depends on intact higher cortical function, language and respiratory tract patency. In intubated or tracheostomised patients the verbal component cannot be assessed; the convention is to record it as not testable (NT, sometimes notated \"T\") rather than score 1, since a score of 1 would otherwise spuriously suggest deeper impairment than is actually documented.\n\nThis concept set captures only the recorded verbal sub-score; the global GCS total and the eye opening and motor components are captured in separate concept sets.\n\n## Included Concepts\n\nThis concept set contains the single LOINC concept representing the recorded GCS verbal sub-score:\n- `3009094` — Glasgow coma score verbal (`9270-0`, Clinical Observation)\n\n## References\n\n[1] Teasdale G, Jennett B. Assessment of coma and impaired consciousness: a practical scale. *Lancet*. 1974;2(7872):81-84. doi:10.1016/s0140-6736(74)91639-0. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/4136544/\" target=\"_blank\">4136544</a>"
+      },
+      "fr": {
+        "name": "Glasgow coma scale verbal response",
+        "category": "Observations cliniques",
+        "subcategory": "Évaluation neurologique",
+        "shortDescription": "Sous-score GCS verbal (1–5) : orientée, confuse, mots, sons, aucune",
+        "longDescription": "## Définition et contexte clinique\n\nLe sous-score de réponse verbale (V) du Glasgow Coma Scale évalue le contenu et la cohérence de la parole du patient. Il est coté sur une échelle de 5 points [1] :\n- 5 orientée — donne correctement son nom, le lieu et la date\n- 4 confuse — converse mais est désorienté ou confus\n- 3 mots — articule des mots intelligibles sans conversation cohérente\n- 2 sons — émet uniquement des gémissements, plaintes ou sons inintelligibles\n- 1 aucune — aucune réponse verbale\n\nLe sous-score verbal dépend d'une fonction corticale supérieure intacte, du langage et de la perméabilité des voies aériennes. Chez les patients intubés ou trachéotomisés, la composante verbale ne peut pas être évaluée ; la convention est de l'enregistrer comme non testable (NT, parfois notée « T ») plutôt que de la coter 1, car un score de 1 suggérerait à tort une atteinte plus profonde que celle réellement documentée.\n\nCe concept set ne couvre que le sous-score verbal enregistré ; le score total GCS et les sous-scores d'ouverture des yeux et moteur sont capturés dans des concept sets séparés.\n\n## Concepts inclus\n\nCe concept set contient l'unique concept LOINC représentant le sous-score verbal GCS enregistré :\n- `3009094` — Glasgow coma score verbal (`9270-0`, Clinical Observation)\n\n## Références\n\n[1] Teasdale G, Jennett B. Assessment of coma and impaired consciousness: a practical scale. *Lancet*. 1974;2(7872):81-84. doi:10.1016/s0140-6736(74)91639-0. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/4136544/\" target=\"_blank\">4136544</a>"
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

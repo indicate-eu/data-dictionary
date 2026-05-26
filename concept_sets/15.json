@@ -1,12 +1,12 @@
 {
   "id": 15,
   "name": "Visual analog pain scale",
-  "description": null,
-  "version": "1.1.1",
+  "description": "Unidimensional self-reported scale on which the patient marks pain intensity on a continuous 100 mm line",
+  "version": "1.1.2",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-05-06",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -45,14 +45,14 @@
         "name": "Visual analog pain scale",
         "category": "Clinical observations",
         "subcategory": "Neurological assessment",
-        "shortDescription": null,
+        "shortDescription": "Unidimensional self-reported scale on which the patient marks pain intensity on a continuous 100 mm line",
         "longDescription": "## Definition & Clinical Context\n\nThe Visual Analogue Scale (VAS) for pain is a unidimensional self-reported scale on which the patient marks the intensity of their pain on a continuous line, conventionally 100 mm long, anchored at one end by \"no pain\" and at the other by \"worst pain imaginable\" or equivalent wording [1].\n\nThe score corresponds to the distance in millimetres from the \"no pain\" anchor to the patient's mark, yielding a continuous value between 0 and 100. The VAS was popularised for the clinical assessment of pain by Huskisson, who established its sensitivity to change and its applicability across a range of clinical contexts [1].\n\n## Included Concepts\n\nThis concept set contains the SNOMED Observable Entity concept representing the recorded VAS pain score:\n- `40481449` — Visual analog scale pain score (`443394008`, Observable Entity)\n\n## Excluded Concepts\n\nThe following SNOMED concepts are intentionally **not** included:\n- `4165600` — Visual analog pain scale (`273904000`, Staging / Scales) — represents the assessment tool rather than the recorded score value\n- `40492247` — Assessment using visual analog pain scale (`445719003`, Procedure) — represents the act of assessment, not the recorded score value\n\n## References\n\n[1] Huskisson EC. Measurement of pain. *Lancet*. 1974;2(7889):1127-1131. doi:10.1016/s0140-6736(74)90884-8. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/4139420/\" target=\"_blank\">4139420</a>"
       },
       "fr": {
         "name": "Visual analog pain scale",
         "category": "Observations cliniques",
         "subcategory": "Évaluation neurologique",
-        "shortDescription": null,
+        "shortDescription": "Échelle unidimensionnelle auto-rapportée sur laquelle le patient marque l'intensité de sa douleur sur une ligne continue de 100 mm",
         "longDescription": "## Définition et contexte clinique\n\nLa VAS (Visual Analogue Scale, échelle visuelle analogique) pour la douleur est une échelle unidimensionnelle d'auto-évaluation sur laquelle le patient marque l'intensité de sa douleur sur une ligne continue, conventionnellement de 100 mm, ancrée à une extrémité par « aucune douleur » et à l'autre par « la pire douleur imaginable » ou un libellé équivalent [1].\n\nLe score correspond à la distance en millimètres entre l'ancrage « aucune douleur » et la marque du patient, produisant une valeur continue entre 0 et 100. La VAS a été popularisée pour l'évaluation clinique de la douleur par Huskisson, qui en a établi la sensibilité au changement et l'applicabilité dans divers contextes cliniques [1].\n\n## Concepts inclus\n\nCe concept set contient le concept SNOMED Observable Entity représentant le score VAS de douleur enregistré :\n- `40481449` — Visual analog scale pain score (`443394008`, Observable Entity)\n\n## Concepts exclus\n\nLes concepts SNOMED suivants sont intentionnellement **non inclus** :\n- `4165600` — Visual analog pain scale (`273904000`, Staging / Scales) — représente l'outil d'évaluation et non la valeur du score enregistré\n- `40492247` — Assessment using visual analog pain scale (`445719003`, Procedure) — représente l'acte d'évaluation, non la valeur du score enregistré\n\n## Références\n\n[1] Huskisson EC. Measurement of pain. *Lancet*. 1974;2(7889):1127-1131. doi:10.1016/s0140-6736(74)90884-8. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/4139420/\" target=\"_blank\">4139420</a>"
       }
     },

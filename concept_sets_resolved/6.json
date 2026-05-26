@@ -6,7 +6,7 @@
       "conceptName": "Delirium Observation Screening (DOS) scale",
       "vocabularyId": "INDICATE",
       "domainId": "Measurement",
-      "conceptClassId": "Staging / Scales",
+      "conceptClassId": "Observable Entity",
       "conceptCode": "DOS-scale",
       "standardConcept": ""
     }

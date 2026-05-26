@@ -1,0 +1,70 @@
+{
+  "id": 347,
+  "name": "Glasgow coma scale eye opening",
+  "description": "GCS eye opening sub-score (1–4): spontaneous, to sound, to pressure, none",
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-05-27",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-05-27",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 3016335,
+          "conceptName": "Glasgow coma score eye opening",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "9267-6",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "3c4806fa-c71f-48ca-a44f-f6c0bdc0f02e",
+    "organization": {
+      "name": "INDICATE Consortium",
+      "url": "https://indicate-eu.org"
+    },
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Glasgow coma scale eye opening",
+        "category": "Clinical observations",
+        "subcategory": "Neurological assessment",
+        "shortDescription": "GCS eye opening sub-score (1–4): spontaneous, to sound, to pressure, none",
+        "longDescription": "## Definition & Clinical Context\n\nThe eye opening component (E) of the Glasgow Coma Scale assesses arousal by observing under what stimulus the patient opens their eyes. It is scored on a 4-point scale [1]:\n- 4 spontaneous — eyes open without any prompt\n- 3 to sound — eyes open in response to verbal command\n- 2 to pressure — eyes open only to a noxious stimulus (e.g. trapezius pinch, supraorbital pressure)\n- 1 none — no eye opening to any stimulus\n\nThe eye opening score reflects the integrity of the brainstem arousal systems. When eye opening cannot be assessed (e.g. severe periorbital oedema, eyelid laceration, recent ophthalmic surgery), the component should be recorded as not testable (NT) rather than scored 1.\n\nThis concept set captures only the recorded eye opening sub-score; the global GCS total and the verbal and motor components are captured in separate concept sets.\n\n## Included Concepts\n\nThis concept set contains the single LOINC concept representing the recorded GCS eye opening sub-score:\n- `3016335` — Glasgow coma score eye opening (`9267-6`, Clinical Observation)\n\n## References\n\n[1] Teasdale G, Jennett B. Assessment of coma and impaired consciousness: a practical scale. *Lancet*. 1974;2(7872):81-84. doi:10.1016/s0140-6736(74)91639-0. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/4136544/\" target=\"_blank\">4136544</a>"
+      },
+      "fr": {
+        "name": "Glasgow coma scale eye opening",
+        "category": "Observations cliniques",
+        "subcategory": "Évaluation neurologique",
+        "shortDescription": "Sous-score GCS d'ouverture des yeux (1–4) : spontanée, au bruit, à la pression, aucune",
+        "longDescription": "## Définition et contexte clinique\n\nLe sous-score d'ouverture des yeux (E) du Glasgow Coma Scale évalue l'éveil en observant à quel stimulus le patient ouvre les yeux. Il est coté sur une échelle de 4 points [1] :\n- 4 spontanée — yeux ouverts sans sollicitation\n- 3 au bruit — yeux ouverts en réponse à un ordre verbal\n- 2 à la pression — yeux ouverts uniquement à un stimulus nociceptif (par ex. pincement du trapèze, pression sus-orbitaire)\n- 1 aucune — aucune ouverture des yeux à aucun stimulus\n\nLe sous-score d'ouverture des yeux reflète l'intégrité des systèmes d'éveil du tronc cérébral. Lorsque l'ouverture des yeux ne peut pas être évaluée (par ex. œdème périorbitaire sévère, plaie palpébrale, chirurgie ophtalmique récente), la composante doit être enregistrée comme non testable (NT) plutôt que cotée 1.\n\nCe concept set ne couvre que le sous-score d'ouverture des yeux enregistré ; le score total GCS et les sous-scores verbal et moteur sont capturés dans des concept sets séparés.\n\n## Concepts inclus\n\nCe concept set contient l'unique concept LOINC représentant le sous-score d'ouverture des yeux GCS enregistré :\n- `3016335` — Glasgow coma score eye opening (`9267-6`, Clinical Observation)\n\n## Références\n\n[1] Teasdale G, Jennett B. Assessment of coma and impaired consciousness: a practical scale. *Lancet*. 1974;2(7872):81-84. doi:10.1016/s0140-6736(74)91639-0. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/4136544/\" target=\"_blank\">4136544</a>"
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

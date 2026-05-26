@@ -6,7 +6,7 @@
       "conceptName": "Delirium Rating Scale-revised-98 (DRS-R-98)",
       "vocabularyId": "INDICATE",
       "domainId": "Measurement",
-      "conceptClassId": "Staging / Scales",
+      "conceptClassId": "Observable Entity",
       "conceptCode": "DRS-R-98",
       "standardConcept": ""
     }

@@ -6,7 +6,7 @@
       "conceptName": "3-minute Diagnostic Interview for CAM-defined Delirium (3D-CAM)",
       "vocabularyId": "INDICATE",
       "domainId": "Measurement",
-      "conceptClassId": "Staging / Scales",
+      "conceptClassId": "Observable Entity",
       "conceptCode": "3D-CAM",
       "standardConcept": ""
     }

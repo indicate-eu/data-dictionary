@@ -1,13 +1,13 @@
 {
-  "conceptSetId": 8,
+  "conceptSetId": 349,
   "resolvedConcepts": [
     {
-      "conceptId": 3007194,
-      "conceptName": "Glasgow coma score total",
+      "conceptId": 3008223,
+      "conceptName": "Glasgow coma score motor",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
-      "conceptCode": "9269-2",
+      "conceptCode": "9268-4",
       "standardConcept": "S"
     }
   ]

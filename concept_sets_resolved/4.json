@@ -6,7 +6,7 @@
       "conceptName": "Confusion Assessment Method for the Intensive Care Unit (CAM-ICU)",
       "vocabularyId": "INDICATE",
       "domainId": "Measurement",
-      "conceptClassId": "Staging / Scales",
+      "conceptClassId": "Observable Entity",
       "conceptCode": "CAM-ICU",
       "standardConcept": ""
     }

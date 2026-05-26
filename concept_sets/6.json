@@ -1,12 +1,12 @@
 {
   "id": 6,
   "name": "Delirium Observation Screening (DOS) Scale",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Nursing observation-based screening instrument for early recognition of delirium, completed each shift",
+  "version": "1.0.2",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-03-15",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.1",
   "expression": {
     "items": [
@@ -16,7 +16,7 @@
           "conceptName": "Delirium Observation Screening (DOS) scale",
           "domainId": "Measurement",
           "vocabularyId": "INDICATE",
-          "conceptClassId": "Staging / Scales",
+          "conceptClassId": "Observable Entity",
           "standardConcept": "",
           "standardConceptCaption": "Non-standard",
           "conceptCode": "DOS-scale",
@@ -45,14 +45,14 @@
         "name": "Delirium Observation Screening (DOS) Scale",
         "category": "Clinical observations",
         "subcategory": "Neurological assessment",
-        "shortDescription": null,
+        "shortDescription": "Nursing observation-based screening instrument for early recognition of delirium, completed each shift",
         "longDescription": "## Definition & Clinical Context\n\nThe DOS (Delirium Observation Screening Scale) is a nursing observation-based screening instrument for early recognition of delirium based on DSM-IV criteria [1].\n\nThe instrument comprises 13 items covering behaviours such as:\n- dozing off during conversation\n- distractibility and inattention\n- disorientation in time or place\n- slow response to instructions\n- restlessness or picking behaviour\n- hallucinations\n\nEach item is scored 0 (normal) or 1 (abnormal behaviour observed). The total score ranges from 0 to 13. A score ≥ 3 suggests delirium. The scale is completed once per nursing shift (up to three times per 24 hours).\n\n## Included Concepts\n\nThis concept set contains a single custom concept, as no equivalent exists in standard terminologies (SNOMED, LOINC).\n\n## References\n\n[1] Schuurmans MJ, Shortridge-Baggett LM, Duursma SA. The Delirium Observation Screening Scale: a screening instrument for delirium. *Res Theory Nurs Pract*. 2003;17(1):31-50. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/12751884/\" target=\"_blank\">12751884</a>"
       },
       "fr": {
         "name": "Delirium Observation Screening (DOS) Scale",
         "category": "Observations cliniques",
         "subcategory": "Évaluation neurologique",
-        "shortDescription": null,
+        "shortDescription": "Outil de dépistage du delirium par l'observation infirmière, complété à chaque vacation pour une détection précoce",
         "longDescription": "## Définition et contexte clinique\n\nLe DOS (Delirium Observation Screening Scale) est un instrument de dépistage du délirium basé sur l'observation infirmière, fondé sur les critères du DSM-IV [1].\n\nL'instrument comprend 13 items couvrant des comportements tels que :\n- assoupissement pendant la conversation\n- distractibilité et inattention\n- désorientation dans le temps ou l'espace\n- lenteur de réponse aux instructions\n- agitation ou comportement de préhension\n- hallucinations\n\nChaque item est coté 0 (normal) ou 1 (comportement anormal observé). Le score total varie de 0 à 13. Un score ≥ 3 suggère un délirium. L'échelle est complétée une fois par poste infirmier (jusqu'à trois fois par 24 heures).\n\n## Concepts inclus\n\nCe concept set contient un seul concept custom, aucun équivalent n'existant dans les terminologies standard (SNOMED, LOINC).\n\n## Références\n\n[1] Schuurmans MJ, Shortridge-Baggett LM, Duursma SA. The Delirium Observation Screening Scale: a screening instrument for delirium. *Res Theory Nurs Pract*. 2003;17(1):31-50. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/12751884/\" target=\"_blank\">12751884</a>"
       }
     },

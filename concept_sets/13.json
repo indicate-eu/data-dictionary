@@ -1,15 +1,34 @@
 {
   "id": 13,
   "name": "Ramsay sedation scale",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Six-level clinician-rated scale for assessing sedation depth in adult ICU patients",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
+      {
+        "concept": {
+          "conceptId": 1091379,
+          "conceptName": "Ramsay sedation scale total score [Reported.RSS]",
+          "domainId": "Observation",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Survey",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "105044-2",
+          "validStartDate": "2024-08-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
       {
         "concept": {
           "conceptId": 4105091,
@@ -25,7 +44,7 @@
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       }
@@ -38,22 +57,22 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Ramsay sedation scale",
         "category": "Clinical observations",
         "subcategory": "Neurological assessment",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Six-level clinician-rated scale for assessing sedation depth in adult ICU patients",
+        "longDescription": "## Definition & Clinical Context\n\nThe Ramsay Sedation Scale (RSS) is a six-level clinician-rated scale for assessing the depth of sedation in adult intensive care unit patients. It was originally developed in the context of a clinical trial of alphaxalone–alphadolone sedation and is one of the earliest and most widely used sedation scales [1].\n\nThe scale assigns a single score from 1 to 6 based on bedside observation and response to stimulation:\n- 1 anxious, agitated or restless\n- 2 cooperative, oriented and tranquil\n- 3 responsive to commands only\n- 4 brisk response to a light glabellar tap or loud auditory stimulus\n- 5 sluggish response to a light glabellar tap or loud auditory stimulus\n- 6 no response\n\nLevels 1–3 describe awake states (with level 2 considered the target for most sedated patients), while levels 4–6 describe progressively deeper sedation. The RSS has since been largely superseded in research and modern critical-care practice by the RASS and SAS, which offer better discrimination at lighter levels of sedation, but it remains in widespread clinical use and is frequently referenced in legacy ICU datasets.\n\n## Included Concepts\n\nThis concept set contains the LOINC Survey concept representing the recorded Ramsay total score:\n- `1091379` — Ramsay sedation scale total score [Reported.RSS] (`105044-2`, Survey)\n\n## Excluded Concepts\n\nThe following SNOMED concept is intentionally **not** included, as it represents the assessment tool rather than the recorded score value:\n- `4105091` — Ramsay sedation scale (`281400004`, Staging / Scales)\n\n## References\n\n[1] Ramsay MA, Savege TM, Simpson BR, Goodwin R. Controlled sedation with alphaxalone-alphadolone. *Br Med J*. 1974;2(5920):656-659. doi:10.1136/bmj.2.5920.656. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/4835444/\" target=\"_blank\">4835444</a>"
       },
       "fr": {
         "name": "Ramsay sedation scale",
         "category": "Observations cliniques",
         "subcategory": "Évaluation neurologique",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Échelle à six niveaux cotée par le clinicien pour évaluer la profondeur de la sédation chez les patients adultes de réanimation",
+        "longDescription": "## Définition et contexte clinique\n\nLa Ramsay Sedation Scale (RSS) est une échelle à six niveaux cotée par le clinicien pour évaluer la profondeur de la sédation chez les patients adultes de réanimation. Elle a été initialement développée dans le cadre d'un essai clinique évaluant la sédation par alphaxalone–alphadolone et constitue l'une des premières et des plus largement utilisées des échelles de sédation [1].\n\nL'échelle attribue un score unique de 1 à 6 à partir de l'observation au lit du patient et de sa réponse à la stimulation :\n- 1 anxieux, agité ou nerveux\n- 2 coopérant, orienté et tranquille\n- 3 répond uniquement aux ordres\n- 4 réponse vive à un tapotement glabellaire léger ou à un stimulus auditif fort\n- 5 réponse lente à un tapotement glabellaire léger ou à un stimulus auditif fort\n- 6 aucune réponse\n\nLes niveaux 1 à 3 décrivent un patient éveillé (le niveau 2 étant la cible recherchée chez la plupart des patients sédatés), tandis que les niveaux 4 à 6 décrivent une sédation de plus en plus profonde. La RSS a depuis été largement supplantée en recherche et en pratique de réanimation moderne par les échelles RASS et SAS, qui offrent une meilleure discrimination aux niveaux de sédation légère, mais elle reste largement utilisée en clinique et fréquemment retrouvée dans les jeux de données de réanimation anciens.\n\n## Concepts inclus\n\nCe concept set contient le concept LOINC Survey représentant le score total Ramsay enregistré :\n- `1091379` — Ramsay sedation scale total score [Reported.RSS] (`105044-2`, Survey)\n\n## Concepts exclus\n\nLe concept SNOMED suivant est intentionnellement **non inclus**, car il représente l'outil d'évaluation et non la valeur du score enregistré :\n- `4105091` — Ramsay sedation scale (`281400004`, Staging / Scales)\n\n## Références\n\n[1] Ramsay MA, Savege TM, Simpson BR, Goodwin R. Controlled sedation with alphaxalone-alphadolone. *Br Med J*. 1974;2(5920):656-659. doi:10.1136/bmj.2.5920.656. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/4835444/\" target=\"_blank\">4835444</a>"
       }
     },
     "createdByDetails": {

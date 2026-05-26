@@ -1,12 +1,12 @@
 {
   "id": 2,
   "name": "4 A's Test for Delirium Screening",
-  "description": null,
-  "version": "1.1.1",
+  "description": "Rapid four-item bedside screening tool for delirium, designed for routine use without special training",
+  "version": "1.1.2",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-05-06",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.1",
   "expression": {
     "items": [
@@ -45,14 +45,14 @@
         "name": "4 A's Test for Delirium Screening",
         "category": "Clinical observations",
         "subcategory": "Neurological assessment",
-        "shortDescription": null,
+        "shortDescription": "Rapid four-item bedside screening tool for delirium, designed for routine use without special training",
         "longDescription": "## Definition & Clinical Context\n\nThe 4AT (4 'A's Test) is a rapid screening tool for delirium, designed for use in routine clinical practice without special training. It takes less than 2 minutes to administer and can be used with patients who have visual or hearing impairment, or who are too drowsy or agitated to undergo formal cognitive testing [1].\n\nThe instrument comprises four items:\n- alertness\n- AMT4 (Abbreviated Mental Test-4, a brief orientation screen)\n- attention (months of the year backwards)\n- acute change or fluctuating course\n\nThe total score ranges from 0 to 12. A score of 0 suggests delirium is unlikely, 1–3 indicates possible cognitive impairment warranting further investigation, and ≥ 4 suggests possible delirium.\n\n## Included Concepts\n\nThis concept set contains the SNOMED Observable Entity concept representing the recorded 4AT score:\n- `3662221` — 4AT (4 A's Test) score (`1239211000000103`)\n\n## Excluded Concepts\n\nThe following SNOMED concept is intentionally **not** included, as it represents the assessment tool rather than the recorded score value:\n- `3662219` — 4AT - 4 A's Test (`1239191000000102`, Staging / Scales)\n\n## References\n\n[1] Bellelli G, Morandi A, Davis D, et al. Validation of the 4AT, a new instrument for rapid delirium screening: a study in 234 hospitalised older people. *Age Ageing*. 2014;43(4):496-502. doi:10.1093/ageing/afu021. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/24590568/\" target=\"_blank\">24590568</a>"
       },
       "fr": {
         "name": "4 A's Test for Delirium Screening score",
         "category": "Observations cliniques",
         "subcategory": "Évaluation neurologique",
-        "shortDescription": null,
+        "shortDescription": "Outil de dépistage rapide du delirium à quatre items, conçu pour un usage en routine sans formation spécifique",
         "longDescription": "## Définition et contexte clinique\n\nLe 4AT (4 'A's Test) est un outil de dépistage rapide du délirium, conçu pour être utilisé en pratique clinique courante sans formation spécifique. Son administration prend moins de 2 minutes et il peut être utilisé chez les patients présentant une déficience visuelle ou auditive, ou trop somnolents ou agités pour réaliser une évaluation cognitive formelle [1].\n\nL'instrument comprend quatre items :\n- vigilance\n- AMT4 (Abbreviated Mental Test-4, un test bref d'orientation)\n- attention (mois de l'année à l'envers)\n- changement aigu ou évolution fluctuante\n\nLe score total varie de 0 à 12. Un score de 0 suggère que le délirium est peu probable, 1–3 indique un trouble cognitif possible nécessitant des investigations complémentaires, et ≥ 4 suggère un délirium possible.\n\n## Concepts inclus\n\nCe concept set contient le concept SNOMED Observable Entity représentant le score 4AT enregistré :\n- `3662221` — 4AT (4 A's Test) score (`1239211000000103`)\n\n## Concepts exclus\n\nLe concept SNOMED suivant est intentionnellement **non inclus**, car il représente l'outil d'évaluation et non la valeur du score enregistré :\n- `3662219` — 4AT - 4 A's Test (`1239191000000102`, Staging / Scales)\n\n## Références\n\n[1] Bellelli G, Morandi A, Davis D, et al. Validation of the 4AT, a new instrument for rapid delirium screening: a study in 234 hospitalised older people. *Age Ageing*. 2014;43(4):496-502. doi:10.1093/ageing/afu021. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/24590568/\" target=\"_blank\">24590568</a>"
       }
     },

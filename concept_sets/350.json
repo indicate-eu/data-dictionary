@@ -1,0 +1,89 @@
+{
+  "id": 350,
+  "name": "Pupillary response",
+  "description": "Bedside categorical assessment of pupillary light reactivity (brisk / sluggish / absent), recorded separately for each eye",
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-05-27",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-05-27",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 21490963,
+          "conceptName": "Right pupil Pupillary response",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "79815-7",
+          "validStartDate": "2016-06-24",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21491763,
+          "conceptName": "Left pupil Pupillary response",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "79899-1",
+          "validStartDate": "2016-06-24",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "20d165ec-9101-4858-b6d7-11593df00ba0",
+    "organization": {
+      "name": "INDICATE Consortium",
+      "url": "https://indicate-eu.org"
+    },
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Pupillary response",
+        "category": "Clinical observations",
+        "subcategory": "Neurological assessment",
+        "shortDescription": "Bedside categorical assessment of pupillary light reactivity (brisk / sluggish / absent), recorded separately for each eye",
+        "longDescription": "## Definition & Clinical Context\n\nThe pupillary response (also called pupillary light reflex) describes the constriction of the pupil in response to a directly applied light stimulus. It is recorded at the bedside as a categorical variable for each eye, conventionally classified as [1]:\n- brisk — prompt, full constriction (the normal response)\n- sluggish — delayed or incomplete constriction\n- absent / non-reactive / fixed — no constriction\n\nThe pupillary response tests the integrity of the afferent (cranial nerve II) and efferent (cranial nerve III, parasympathetic) limbs of the light reflex and the connecting brainstem nuclei. A unilateral non-reactive pupil in a comatose patient is a red flag for ipsilateral mass effect or uncal herniation; bilaterally fixed and dilated pupils signal severe brainstem dysfunction.\n\nThe two pupils are always recorded independently. This concept set captures the manual bedside assessment; automated infrared pupillometry yielding quantitative metrics (constriction velocity, percentage change, NPi) is a distinct concept and is not included here.\n\n## Included Concepts\n\nThis concept set contains the two LOINC concepts representing the manually recorded pupillary response, separately for each eye:\n- `21490963` — Right pupil Pupillary response (`79815-7`, Clinical Observation)\n- `21491763` — Left pupil Pupillary response (`79899-1`, Clinical Observation)\n\n## Related Concept Sets\n\nPupil size is captured in a separate concept set (Pupil diameter), since the two measurements have different scales and units and cannot be combined or compared.\n\n## References\n\n[1] Posner JB, Saper CB, Schiff ND, Claassen J. *Plum and Posner's Diagnosis and Treatment of Stupor and Coma*. 5th ed. Oxford University Press; 2019. Chapter 2: Examination of the comatose patient."
+      },
+      "fr": {
+        "name": "Réponse pupillaire",
+        "category": "Observations cliniques",
+        "subcategory": "Évaluation neurologique",
+        "shortDescription": "Évaluation catégorielle au lit du patient de la réactivité pupillaire à la lumière (vive / paresseuse / abolie), séparément pour chaque œil",
+        "longDescription": "## Définition et contexte clinique\n\nLa réponse pupillaire (également appelée réflexe photomoteur) décrit la constriction de la pupille en réponse à un stimulus lumineux directement appliqué. Elle est enregistrée au lit du patient comme une variable catégorielle pour chaque œil, conventionnellement classée en [1] :\n- vive — constriction immédiate et complète (réponse normale)\n- paresseuse — constriction retardée ou incomplète\n- abolie / non réactive / fixée — aucune constriction\n\nLa réponse pupillaire teste l'intégrité des voies afférente (nerf crânien II) et efférente (nerf crânien III, parasympathique) du réflexe photomoteur et des noyaux du tronc cérébral qui les connectent. Une pupille unilatérale non réactive chez un patient comateux est un signe d'alerte évoquant un effet de masse ipsilatéral ou un engagement uncal ; des pupilles bilatéralement fixées et dilatées signent une dysfonction sévère du tronc cérébral.\n\nLes deux pupilles sont toujours enregistrées indépendamment. Ce concept set couvre l'évaluation manuelle au lit ; la pupillométrie infrarouge automatisée fournissant des métriques quantitatives (vitesse de constriction, pourcentage de variation, NPi) est un concept distinct et n'est pas incluse ici.\n\n## Concepts inclus\n\nCe concept set contient les deux concepts LOINC représentant la réponse pupillaire enregistrée manuellement, séparément pour chaque œil :\n- `21490963` — Right pupil Pupillary response (`79815-7`, Clinical Observation)\n- `21491763` — Left pupil Pupillary response (`79899-1`, Clinical Observation)\n\n## Concept sets associés\n\nLa taille des pupilles est capturée dans un concept set séparé (Pupil diameter), les deux mesures ayant des échelles et des unités différentes et ne pouvant pas être combinées ou comparées.\n\n## Références\n\n[1] Posner JB, Saper CB, Schiff ND, Claassen J. *Plum and Posner's Diagnosis and Treatment of Stupor and Coma*. 5e éd. Oxford University Press ; 2019. Chapitre 2 : Examen du patient comateux."
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}
