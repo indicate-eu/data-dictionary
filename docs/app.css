@@ -1146,8 +1146,8 @@ td .status-badge {
 .status-badge.draft { background: #6c757d; color: white; }
 .status-badge.pending_review { background: #ffc107; color: #000; }
 .status-badge.approved { background: #28a745; color: white; }
-.status-badge.needs_revision { background: #dc3545; color: white; }
-.status-badge.deprecated { background: #495057; color: white; }
+.status-badge.needs_revision { background: #fd7e14; color: white; }
+.status-badge.deprecated { background: #dc3545; color: white; }
 
 /* Column filter dropdowns */
 .column-filter {
