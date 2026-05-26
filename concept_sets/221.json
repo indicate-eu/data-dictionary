@@ -2,11 +2,11 @@
   "id": 221,
   "name": "Urinary sodium",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -31,14 +31,14 @@
       },
       {
         "concept": {
-          "conceptId": 3014485,
-          "conceptName": "Sodium [Moles/volume] in 24 hour Urine",
+          "conceptId": 3034249,
+          "conceptName": "Sodium [Moles/volume] in Urine collected for unspecified duration",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "21525-1",
+          "conceptCode": "35678-2",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -57,20 +57,20 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Urinary sodium",
         "category": "Laboratory tests",
-        "subcategory": "Urine electrolytes",
+        "subcategory": "Biochemistry",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nUrinary sodium is the concentration of sodium in a urine specimen — typically a spot (random) urine sample [1]. The source data will typically be a single numeric result per patient-timestamp, produced by a biochemistry analyser. Results are reported as a substance concentration in mmol/L (SI unit) or mEq/L; the two are numerically equivalent for sodium [2].\n\n## Included Concepts\n\nThe set lists two LOINC \"Lab Test\" concepts measuring the sodium concentration in a spot urine specimen:\n\n- *3003181 / 2955-3 — Sodium [Moles/volume] in Urine (LOINC)*: spot (random) urine sample. Most widely used LOINC code.\n- *3034249 / 35678-2 — Sodium [Moles/volume] in Urine collected for unspecified duration (LOINC)*: used when the source does not specify whether the sample is spot or timed.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mmol/L`** (concept 8753 — millimole per litre). Source systems may report `mmol/L` or `mEq/L`; for sodium (a monovalent cation) the two are numerically equal.\n\n## Excluded Concepts\n\nThe following LOINC concepts that exist for urinary sodium are deliberately not part of this set, grouped by reason for exclusion.\n\n### Timed urine collections — different specimen (timed vs. spot)\n\n- *3014485 / 21525-1 — Sodium [Moles/volume] in 24 hour Urine*\n- *40760484 / 57370-9 — Sodium [Moles/volume] in 12 hour Urine*\n- *44816583 / 74685-9 — Sodium [Moles/volume] in 4 hour Urine*\n- *40760495 / 57382-4 — Sodium [Moles/volume] in 2 hour Urine*\n- *3004907 / 21526-9 — Sodium [Mass/volume] in 24 hour Urine*\n\n### Excretion rates — different measurand (amount per unit time, not a concentration)\n\n- *3002079 / 2956-1 — Sodium [Moles/time] in 24 hour Urine*\n- *40762087 / 58994-5 — Sodium [Moles/time] in 18 hour Urine*\n- *3023636 / 18377-2 — Sodium [Moles/time] in 12 hour Urine*\n- *3015574 / 18376-4 — Sodium [Moles/time] in 6 hour Urine*\n- *3041697 / 53122-8 — Sodium [Moles/time] in 1 hour Urine*\n- *3008007 / 21527-7 — Sodium [Mass/time] in 24 hour Urine*\n- *3024341 / 26763-3 — Sodium [Mass/time] in 2 hour Urine*\n- *3006990 / 32553-0 — Sodium [Molar amount] in Urine collected for unspecified duration*\n\n### Ratios — different measurand (ratio to another analyte)\n\n- *3014208 / 11149-2 — Sodium/Creatinine [Mass Ratio] in Urine*\n- *3018135 / 13809-9 — Sodium/Creatinine [Mass Ratio] in 24 hour Urine*\n- *3045687 / 33951-5 — Sodium/Creatinine [Molar ratio] in Urine*\n- *3044783 / 44405-9 — Sodium/Creatinine [Molar ratio] in 24 hour Urine*\n- *3047005 / 43223-7 — Sodium/Creatinine [Ratio] in Urine*\n- *40760099 / 56980-6 — Sodium/Creatinine [Ratio] in 24 hour Urine*\n- *3037478 / 2959-5 — Sodium/Potassium [Molar ratio] in Urine*\n- *3046935 / 44406-7 — Sodium/Potassium [Molar ratio] in 24 hour Urine*\n\n### Renal clearance — different measurand (clearance, requires both urine and serum)\n\n- *3028085 / 26761-7 — Sodium renal clearance in 2 hour Urine and Serum or Plasma*\n- *3020988 / 2957-9 — Sodium renal clearance in 24 hour Urine and Serum or Plasma*\n\n### Sodium urate crystals — different measurand (uric acid crystals in urine sediment)\n\n- *3965693 / 101734-2 — Sodium Urate crystals [Energy Difference] in 24 hour Urine*\n- *3965219 / 101826-6 — Sodium Urate crystals [Saturation Fraction] in 24 hour Urine*\n- *3966197 / 101935-5 — Sodium urate crystals [Energy Difference] in Urine*\n- *3030374 / 33031-6 — Sodium urate crystals [#/area] in Urine sediment by Microscopy low power field*\n- *3046391 / 43423-3 — Sodium urate [Saturation Fraction] in 24 hour Urine*\n- *3041656 / 53129-3 — Sodium urate crystals [#/area] in Urine sediment by Microscopy high power field*\n- *3040317 / 53788-6 — Sodium urate crystals [Presence] in Urine sediment by Light microscopy*\n\n### Other\n\n- *36659714 / 94842-2 — Sodium [Moles/volume] in Urine from Fetus*: fetus specimen, out of scope.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"urinary sodium\", \"urine Na\", \"spot urine sodium\" without further specification: `3003181 / 2955-3 — Sodium [Moles/volume] in Urine`. By far the most common LOINC code.\n- **Source unit is mEq/L**: numerically equivalent to mmol/L for sodium; no conversion needed.\n- **Source reports a 24-hour (or other timed) urine collection**: do **not** map to this concept set. Timed urinary sodium is out of scope.\n- **Source reports a sodium-to-creatinine or sodium-to-potassium ratio**: do **not** map. These are different measurands.\n- **Do not confuse with**: sodium in blood (separate concept set, \"Sodium in blood\"), urinary sodium excretion rate (mmol/24h), fractional excretion of sodium (a derived value).\n\n## References\n\n[1] Regenstrief Institute. LOINC code 2955-3 — Sodium [Moles/volume] in Urine.\n    Available: <a href=\"https://loinc.org/2955-3/\" target=\"_blank\">https://loinc.org/2955-3/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
         "name": "Sodium urinaire",
         "category": "Biologie",
-        "subcategory": "Ionogramme urinaire",
+        "subcategory": "Biochimie",
         "shortDescription": null,
         "longDescription": null
       }

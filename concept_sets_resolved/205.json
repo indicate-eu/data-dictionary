@@ -2,6 +2,15 @@
   "conceptSetId": 205,
   "resolvedConcepts": [
     {
+      "conceptId": 3031248,
+      "conceptName": "Chloride [Moles/volume] in Arterial blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "41650-3",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3018572,
       "conceptName": "Chloride [Moles/volume] in Blood",
       "vocabularyId": "LOINC",
@@ -38,6 +47,24 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 40757500,
+      "conceptName": "Chloride [Moles/volume] in Serum or Plasma --post dialysis",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "54369-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46235783,
+      "conceptName": "Chloride [Moles/volume] in Serum, Plasma or Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "77138-6",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3035285,
       "conceptName": "Chloride [Moles/volume] in Venous blood",
       "vocabularyId": "LOINC",
@@ -45,6 +72,69 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "41649-5",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 37072330,
+      "conceptName": "Chloride | Blood arterial | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386575-7",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37025347,
+      "conceptName": "Chloride | Blood capillary | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386576-5",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 1762003,
+      "conceptName": "Chloride | Blood mixed venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP433116-3",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37071140,
+      "conceptName": "Chloride | Blood venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386577-3",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37045131,
+      "conceptName": "Chloride | Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386574-0",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37027122,
+      "conceptName": "Chloride | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386588-0",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37038125,
+      "conceptName": "Chloride | Serum, Plasma or Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386589-8",
+      "standardConcept": "C"
     }
   ]
 }

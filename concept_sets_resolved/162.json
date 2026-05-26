@@ -1,14 +1,4 @@
 {
   "conceptSetId": 162,
-  "resolvedConcepts": [
-    {
-      "conceptId": 3043706,
-      "conceptName": "Sodium [Moles/volume] in Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "32717-1",
-      "standardConcept": "S"
-    }
-  ]
+  "resolvedConcepts": []
 }

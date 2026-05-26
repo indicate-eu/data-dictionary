@@ -1,35 +1,15 @@
 {
   "id": 156,
-  "name": "ABG chloride",
+  "name": "[Deprecated] ABG chloride",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
-    "items": [
-      {
-        "concept": {
-          "conceptId": 3031248,
-          "conceptName": "Chloride [Moles/volume] in Arterial blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "41650-3",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      }
-    ]
+    "items": []
   },
   "tags": [],
   "metadata": {
@@ -38,18 +18,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "deprecated",
     "origin": null,
     "translations": {
       "en": {
-        "name": "ABG chloride",
+        "name": "[Deprecated] ABG chloride",
         "category": "Laboratory tests",
         "subcategory": "Arterial blood gases",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "**Deprecated** — merged into the \"Chloride in blood\" concept set, since the arterial vs. plasma distinction is not clinically meaningful for chloride."
       },
       "fr": {
-        "name": "Gaz du sang - Chlore",
+        "name": "[Deprecated] Gaz du sang - Chlore",
         "category": "Biologie",
         "subcategory": "Gaz du sang artériel",
         "shortDescription": null,

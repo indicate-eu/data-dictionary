@@ -1,133 +1,266 @@
 {
   "id": 203,
-  "name": "Plasma bicarbonate",
+  "name": "Bicarbonate in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3006576,
-          "conceptName": "Bicarbonate [Moles/volume] in Blood",
+          "conceptId": 37057819,
+          "conceptName": "Bicarbonate | Blood | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1959-6",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386552-6",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3015235,
-          "conceptName": "Bicarbonate [Moles/volume] in Capillary blood",
+          "conceptId": 37068572,
+          "conceptName": "Bicarbonate | Blood arterial | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1961-2",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386553-4",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3016293,
-          "conceptName": "Bicarbonate [Moles/volume] in Serum or Plasma",
+          "conceptId": 37076969,
+          "conceptName": "Bicarbonate | Blood capillary | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1963-8",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386554-2",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3025817,
-          "conceptName": "Bicarbonate [Moles/volume] in Mixed venous blood",
+          "conceptId": 37049671,
+          "conceptName": "Bicarbonate | Blood cord | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "19229-4",
-          "validStartDate": "1998-11-25",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386555-9",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3027273,
-          "conceptName": "Bicarbonate [Moles/volume] in Venous blood",
+          "conceptId": 37078895,
+          "conceptName": "Bicarbonate | Blood cord arterial | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "14627-4",
-          "validStartDate": "1998-01-16",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386556-7",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37044873,
+          "conceptName": "Bicarbonate | Blood cord venous | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386557-5",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37077887,
+          "conceptName": "Bicarbonate | Blood mixed venous | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386558-3",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37052094,
+          "conceptName": "Bicarbonate | Blood venous | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386559-1",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1618525,
+          "conceptName": "Bicarbonate | Blood central venous | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP426950-4",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37053332,
+          "conceptName": "Bicarbonate | Plasma | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386565-8",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37043622,
+          "conceptName": "Bicarbonate | Serum | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386568-2",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37025013,
+          "conceptName": "Bicarbonate | Serum or Plasma | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386569-0",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
   },
   "tags": [],
   "metadata": {
-    "uniqueId": "846d99f0-6afc-429d-888b-ab6d3c8e515d",
+    "uniqueId": "9d54b1bd-7e3a-4c8f-b7e2-1c9d5e8a2f6b",
     "organization": {
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Plasma bicarbonate",
+        "name": "Bicarbonate in blood",
         "category": "Laboratory tests",
-        "subcategory": "Plasma electrolytes",
+        "subcategory": "Biochemistry",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nBicarbonate (HCO3⁻) is the main extracellular buffer and a key component of acid-base balance [1]. The source data will typically be a single numeric result per patient-timestamp, produced by a biochemistry analyser, a blood gas analyser, or a point-of-care device. Results are reported as a substance concentration in mmol/L (SI unit) or mEq/L; the two are numerically equivalent for bicarbonate [2].\n\nThis concept set aggregates bicarbonate measurements across blood specimens (serum, plasma, arterial, venous, capillary, mixed venous, central venous, cord blood and unspecified blood).\n\n**Note: actual vs. standard bicarbonate.** LOINC distinguishes two forms:\n- **Actual bicarbonate** — calculated from the patient's measured pH and PaCO2 at the time of sampling.\n- **Standard bicarbonate** — recalculated as if PaCO2 were 40 mmHg at 37 °C, to isolate the metabolic component independently of the respiratory status.\n\nIn the absence of respiratory disturbance the two values are nearly identical, but they can diverge substantially in respiratory acidosis or alkalosis. **Both forms are included in this concept set** because most clinical sources and studies aggregate them under \"bicarbonate\". Study designs that explicitly compare actual vs. standard bicarbonate should preserve the distinction at the source value level.\n\n## Included Concepts\n\nThe set is anchored on twelve LOINC Hierarchy concepts (one per blood specimen, scoped to `Chemistry - non-challenge`), with their descendants pulled in. It resolves to 18 LOINC \"Lab Test\" concepts, grouped here by specimen.\n\n### Serum or plasma (default specimen for routine biochemistry)\n\n- *3016293 / 1963-8 — Bicarbonate [Moles/volume] in Serum or Plasma (LOINC)*: most widely used LOINC code worldwide.\n- *42868453 / 69964-5 — Bicarbonate [Moles/volume] standard in Plasma (LOINC)*: standard form.\n- *40757490 / 54359-5 — Bicarbonate [Moles/volume] in Plasma --post dialysis (LOINC)*: point-in-time measurement immediately after a haemodialysis session.\n- *3050416 / 48631-6 — Bicarbonate [Moles/volume] in Serum --post dialysis (LOINC)*: point-in-time measurement immediately after a haemodialysis session.\n\n### Generic blood (specimen unspecified)\n\n- *3006576 / 1959-6 — Bicarbonate [Moles/volume] in Blood (LOINC)*\n\n### Arterial blood\n\n- *3008152 / 1960-4 — Bicarbonate [Moles/volume] in Arterial blood (LOINC)*: typically reported by a blood gas analyser.\n- *3014218 / 19230-2 — Bicarbonate [Moles/volume] standard in Arterial blood (LOINC)*: standard form.\n\n### Venous blood\n\n- *3027273 / 14627-4 — Bicarbonate [Moles/volume] in Venous blood (LOINC)*\n- *3007628 / 19232-8 — Bicarbonate [Moles/volume] standard in Venous blood (LOINC)*: standard form.\n\n### Central venous blood\n\n- *1616794 / 97543-3 — Bicarbonate [Moles/volume] in Central venous blood (LOINC)*: from a central venous catheter.\n- *1617100 / 97544-1 — Bicarbonate [Moles/volume] standard in Central venous blood (LOINC)*: standard form.\n\n### Mixed venous blood\n\n- *3025817 / 19229-4 — Bicarbonate [Moles/volume] in Mixed venous blood (LOINC)*: typically from a Swan-Ganz catheter.\n- *3006538 / 19233-6 — Bicarbonate [Moles/volume] standard in Mixed venous blood (LOINC)*: standard form.\n\n### Capillary blood\n\n- *3015235 / 1961-2 — Bicarbonate [Moles/volume] in Capillary blood (LOINC)*: capillary heel-prick or fingerstick (neonatal, point-of-care).\n- *3004490 / 19231-0 — Bicarbonate [Moles/volume] standard in Capillary blood (LOINC)*: standard form.\n\n### Cord blood (obstetric)\n\n- *3037749 / 14151-5 — Bicarbonate [Moles/volume] in Cord blood (LOINC)*: cord blood, unspecified arterial vs. venous.\n- *3017809 / 28640-1 — Bicarbonate [Moles/volume] in Arterial cord blood (LOINC)*\n- *3041008 / 39460-1 — Bicarbonate [Moles/volume] standard in Arterial cord blood (LOINC)*: standard form.\n- *3018650 / 28641-9 — Bicarbonate [Moles/volume] in Venous cord blood (LOINC)*\n- *3040637 / 39459-3 — Bicarbonate [Moles/volume] standard in Venous cord blood (LOINC)*: standard form.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mmol/L`** (concept 8753 — millimole per litre). Source systems may report `mmol/L` or `mEq/L`; for bicarbonate (a monovalent anion) the two are numerically equal.\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The set deliberately omits the following LOINC concepts:\n\n- **Red Blood Cells specimens**: intra-erythrocytic bicarbonate, specialised research measurement.\n- **Body fluid, CSF, dialysis fluid, peritoneal fluid, pleural fluid, amniotic fluid, water, nonbiological fluid specimens**: out of scope for a \"blood\" concept set.\n- **Urine specimens**: out of scope (captured by the separate \"Urinary bicarbonate\" concept set).\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"bicarbonate\", \"HCO3\", \"total CO2\", \"tCO2\" without further specification: `3016293 / 1963-8 — Bicarbonate [Moles/volume] in Serum or Plasma`. By far the most common LOINC code.\n- **Source reports a bicarbonate value from a blood gas analyser** (typically arterial): map to `3008152 / 1960-4 — Bicarbonate [Moles/volume] in Arterial blood`.\n- **Source explicitly labels the value as \"standard bicarbonate\"** (or \"sHCO3\", \"sBic\"): map to the corresponding `standard` LOINC code for the specimen. Do **not** merge with the actual bicarbonate without checking the study design — the two values can diverge in respiratory disturbances.\n- **Source unit is mEq/L**: numerically equivalent to mmol/L for bicarbonate; no conversion needed.\n- **Do not confuse with**: urinary bicarbonate (separate concept set), base excess (different measurand), carbon dioxide partial pressure (PaCO2 — different measurand, separate concept set).\n\n## References\n\n[1] Regenstrief Institute. LOINC code 1963-8 — Bicarbonate [Moles/volume] in Serum or Plasma.\n    Available: <a href=\"https://loinc.org/1963-8/\" target=\"_blank\">https://loinc.org/1963-8/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
-        "name": "Bicarbonates plasmatiques",
+        "name": "Bicarbonates sanguins",
         "category": "Biologie",
-        "subcategory": "Ionogramme plasmatique",
+        "subcategory": "Biochimie",
         "shortDescription": null,
         "longDescription": null
       }

@@ -1,14 +1,4 @@
 {
   "conceptSetId": 156,
-  "resolvedConcepts": [
-    {
-      "conceptId": 3031248,
-      "conceptName": "Chloride [Moles/volume] in Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "41650-3",
-      "standardConcept": "S"
-    }
-  ]
+  "resolvedConcepts": []
 }

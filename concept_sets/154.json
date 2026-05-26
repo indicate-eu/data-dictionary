@@ -1,54 +1,15 @@
 {
   "id": 154,
-  "name": "ABG bicarbonate",
+  "name": "[Deprecated] ABG bicarbonate",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
-    "items": [
-      {
-        "concept": {
-          "conceptId": 3008152,
-          "conceptName": "Bicarbonate [Moles/volume] in Arterial blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1960-4",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3017809,
-          "conceptName": "Bicarbonate [Moles/volume] in Arterial cord blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "28640-1",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      }
-    ]
+    "items": []
   },
   "tags": [],
   "metadata": {
@@ -57,18 +18,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "deprecated",
     "origin": null,
     "translations": {
       "en": {
-        "name": "ABG bicarbonate",
+        "name": "[Deprecated] ABG bicarbonate",
         "category": "Laboratory tests",
         "subcategory": "Arterial blood gases",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "**Deprecated** — merged into the \"Bicarbonate in blood\" concept set, since the arterial vs. plasma distinction is not clinically meaningful for bicarbonate."
       },
       "fr": {
-        "name": "Gaz du sang - Bicarbonates",
+        "name": "[Deprecated] Gaz du sang - Bicarbonates",
         "category": "Biologie",
         "subcategory": "Gaz du sang artériel",
         "shortDescription": null,

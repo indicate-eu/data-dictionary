@@ -1,23 +1,4 @@
 {
   "conceptSetId": 154,
-  "resolvedConcepts": [
-    {
-      "conceptId": 3008152,
-      "conceptName": "Bicarbonate [Moles/volume] in Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "1960-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3017809,
-      "conceptName": "Bicarbonate [Moles/volume] in Arterial cord blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "28640-1",
-      "standardConcept": "S"
-    }
-  ]
+  "resolvedConcepts": []
 }

@@ -1,35 +1,15 @@
 {
   "id": 161,
-  "name": "ABG potassium",
+  "name": "[Deprecated] ABG potassium",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
-    "items": [
-      {
-        "concept": {
-          "conceptId": 3043409,
-          "conceptName": "Potassium [Moles/volume] in Arterial blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "32713-0",
-          "validStartDate": "2002-10-14",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      }
-    ]
+    "items": []
   },
   "tags": [],
   "metadata": {
@@ -38,18 +18,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "deprecated",
     "origin": null,
     "translations": {
       "en": {
-        "name": "ABG potassium",
+        "name": "[Deprecated] ABG potassium",
         "category": "Laboratory tests",
         "subcategory": "Arterial blood gases",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "**Deprecated** — merged into the \"Potassium in blood\" concept set, since the arterial vs. plasma distinction is not clinically meaningful for potassium."
       },
       "fr": {
-        "name": "Gaz du sang - Potassium",
+        "name": "[Deprecated] Gaz du sang - Potassium",
         "category": "Biologie",
         "subcategory": "Gaz du sang artériel",
         "shortDescription": null,

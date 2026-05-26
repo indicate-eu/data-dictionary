@@ -2,21 +2,21 @@
   "conceptSetId": 214,
   "resolvedConcepts": [
     {
-      "conceptId": 3052013,
-      "conceptName": "Bicarbonate [Moles/time] in 24 hour Urine",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "47579-8",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 3008251,
       "conceptName": "Bicarbonate [Moles/volume] in Urine",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "1964-6",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21493400,
+      "conceptName": "Bicarbonate [Moles/volume] in Urine collected for unspecified duration",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "80613-3",
       "standardConcept": "S"
     }
   ]

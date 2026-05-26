@@ -2,21 +2,21 @@
   "conceptSetId": 216,
   "resolvedConcepts": [
     {
-      "conceptId": 3002752,
-      "conceptName": "Chloride [Moles/volume] in 24 hour Urine",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "21194-6",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 3007733,
       "conceptName": "Chloride [Moles/volume] in Urine",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "2078-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3037311,
+      "conceptName": "Chloride [Moles/volume] in Urine collected for unspecified duration",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "35676-6",
       "standardConcept": "S"
     }
   ]

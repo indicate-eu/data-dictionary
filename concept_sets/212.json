@@ -1,126 +1,202 @@
 {
   "id": 212,
-  "name": "Plasma sodium",
+  "name": "Sodium in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3000285,
-          "conceptName": "Sodium [Moles/volume] in Blood",
+          "conceptId": 37036048,
+          "conceptName": "Sodium | Blood | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "2947-0",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386631-8",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3019550,
-          "conceptName": "Sodium [Moles/volume] in Serum or Plasma",
+          "conceptId": 37035773,
+          "conceptName": "Sodium | Blood arterial | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "2951-2",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386632-6",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3031579,
-          "conceptName": "Sodium [Moles/volume] in Mixed venous blood",
+          "conceptId": 37051016,
+          "conceptName": "Sodium | Blood capillary | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "41657-8",
-          "validStartDate": "2005-07-05",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386633-4",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3038702,
-          "conceptName": "Sodium [Moles/volume] in Capillary blood",
+          "conceptId": 37072044,
+          "conceptName": "Sodium | Blood mixed venous | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "39792-7",
-          "validStartDate": "2005-03-14",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386634-2",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3041473,
-          "conceptName": "Sodium [Moles/volume] in Venous blood",
+          "conceptId": 37074940,
+          "conceptName": "Sodium | Blood venous | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "39791-9",
-          "validStartDate": "2005-03-14",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386635-9",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 42528959,
-          "conceptName": "Sodium [Mass/volume] in Red Blood Cells",
+          "conceptId": 37055139,
+          "conceptName": "Sodium | Serum or Plasma | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "82812-9",
-          "validStartDate": "2017-02-21",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386648-2",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37061512,
+          "conceptName": "Sodium | Serum, Plasma or Blood | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386649-0",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3000288,
+          "conceptName": "Sodium/Potassium [Molar ratio] in Serum or Plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "28003-2",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3044738,
+          "conceptName": "Sodium [Moles/volume] (Maximum value during study) in Serum or Plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "44783-9",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3032987,
+          "conceptName": "Sodium [Moles/volume] corrected for glucose in Serum or Plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "51419-0",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       }
@@ -128,25 +204,25 @@
   },
   "tags": [],
   "metadata": {
-    "uniqueId": "6d91f5af-027d-4b93-8ff5-0cf5c067cb35",
+    "uniqueId": "8a8df0c1-e7a4-4bd5-bbd5-1a6c7e9b9e35",
     "organization": {
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Plasma sodium",
+        "name": "Sodium in blood",
         "category": "Laboratory tests",
-        "subcategory": "Plasma electrolytes",
+        "subcategory": "Biochemistry",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nSodium is the principal extracellular cation. Its concentration in blood is one of the most frequently ordered laboratory measurements [1]. The source data will typically be a single numeric result per patient-timestamp, produced by a biochemistry analyser or a point-of-care device. Results are reported as a substance concentration in mmol/L (SI unit) or mEq/L; the two are numerically equivalent for sodium [2].\n\nThis concept set aggregates sodium measurements across blood specimens (serum, plasma, arterial, venous, capillary, mixed venous and unspecified blood), because the sodium concentration does not depend meaningfully on the sampling site.\n\n## Included Concepts\n\nThe set is anchored on seven LOINC Hierarchy concepts (one per blood specimen, scoped to `Chemistry - non-challenge`), with their descendants pulled in. After exclusions, the set resolves to seven LOINC \"Lab Test\" concepts, grouped here by specimen.\n\n### Serum or plasma (default specimen for routine biochemistry)\n\n- *3019550 / 2951-2 — Sodium [Moles/volume] in Serum or Plasma (LOINC)*: most widely used LOINC code worldwide.\n- *44816586 / 74688-3 — Sodium [Moles/volume] in Serum or Plasma --post dialysis (LOINC)*: point-in-time measurement immediately after a haemodialysis session.\n\n### Generic blood (specimen unspecified)\n\n- *3000285 / 2947-0 — Sodium [Moles/volume] in Blood (LOINC)*: used when the source reports sodium on whole blood without further specification.\n- *46235784 / 77139-4 — Sodium [Moles/volume] in Serum, Plasma or Blood (LOINC)*: specimen-agnostic.\n\n### Arterial blood\n\n- *3043706 / 32717-1 — Sodium [Moles/volume] in Arterial blood (LOINC)*: typically reported by a blood gas analyser.\n\n### Venous blood\n\n- *3041473 / 39791-9 — Sodium [Moles/volume] in Venous blood (LOINC)*\n\n### Capillary blood\n\n- *3038702 / 39792-7 — Sodium [Moles/volume] in Capillary blood (LOINC)*: capillary heel-prick or fingerstick (neonatal, point-of-care).\n\n### Mixed venous blood\n\n- *3031579 / 41657-8 — Sodium [Moles/volume] in Mixed venous blood (LOINC)*: typically from a Swan-Ganz catheter.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mmol/L`** (concept 8753 — millimole per litre). Source systems may report `mmol/L` or `mEq/L`; for sodium (a monovalent cation) the two are numerically equal.\n\n## Excluded Concepts\n\nThe Serum/Plasma hierarchy above pulls in three LOINC concepts that are explicitly excluded:\n\n- *3000288 / 28003-2 — Sodium/Potassium [Molar ratio] in Serum or Plasma*: derived ratio, not a sodium concentration.\n- *3044738 / 44783-9 — Sodium [Moles/volume] (Maximum value during study) in Serum or Plasma*: aggregated value over a study window, not a point-in-time measurement.\n- *3032987 / 51419-0 — Sodium [Moles/volume] corrected for glucose in Serum or Plasma*: derived value (corrected for hyperglycaemia), not the raw measurement.\n\nThe set also deliberately omits the following LOINC concepts:\n\n- **Red Blood Cells specimens** (`3001838 / 12907-2 — Sodium [Moles/volume] in Red Blood Cells`, `42528959 / 82812-9 — Sodium [Mass/volume] in Red Blood Cells`): intra-erythrocytic sodium, specialised research measurement.\n- **Vasopressin challenge tests** (`1001778 / 93997-5 — Sodium [Moles/volume] in Serum or Plasma --1 hour post dose vasopressin`, `1002415 / 94006-4 — Sodium [Moles/volume] in Serum or Plasma --2 hours post dose vasopressin`): research protocols.\n- **Sodium and Potassium panels** (`3045783 / 34548-8 — Sodium and Potassium panel [Moles/volume] - Serum or Plasma`, `44786996 / 74353-4 — Sodium and Potassium panel [Moles/volume] - Blood`): panel grouping concepts, not measurement results.\n- **Sodium nitrite / sodium benzoate IgE** (`40759830 / 56711-5 — Sodium benzoate IgE Ab [Units/volume] in Serum`, `36031761 / 96293-6 — Sodium nitrite IgE Ab [Units/volume] in Serum`): allergology tests, different measurand.\n- **Urine, CSF, sweat, dialysate, and other body fluid specimens**: out of scope for a \"blood\" concept set.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"sodium\", \"Na\", \"natraemia\" without further specification: `3019550 / 2951-2 — Sodium [Moles/volume] in Serum or Plasma`. By far the most common LOINC code.\n- **Source reports a sodium value from a blood gas analyser** (typically arterial): map to `3043706 / 32717-1 — Sodium [Moles/volume] in Arterial blood`.\n- **Specimen unspecified**: map to `46235784 / 77139-4 — Sodium [Moles/volume] in Serum, Plasma or Blood`.\n- **Source unit is mEq/L**: numerically equivalent to mmol/L for sodium; no conversion needed.\n- **Do not confuse with**: urinary sodium (different measurand, separate concept set when relevant), corrected sodium for hyperglycaemia (a derived value), Na/K ratio.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 2951-2 — Sodium [Moles/volume] in Serum or Plasma.\n    Available: <a href=\"https://loinc.org/2951-2/\" target=\"_blank\">https://loinc.org/2951-2/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
-        "name": "Sodium plasmatique",
+        "name": "Natrémie sanguine",
         "category": "Biologie",
-        "subcategory": "Ionogramme plasmatique",
+        "subcategory": "Biochimie",
         "shortDescription": null,
         "longDescription": null
       }

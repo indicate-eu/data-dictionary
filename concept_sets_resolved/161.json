@@ -1,14 +1,4 @@
 {
   "conceptSetId": 161,
-  "resolvedConcepts": [
-    {
-      "conceptId": 3043409,
-      "conceptName": "Potassium [Moles/volume] in Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "32713-0",
-      "standardConcept": "S"
-    }
-  ]
+  "resolvedConcepts": []
 }

@@ -1,133 +1,171 @@
 {
   "id": 205,
-  "name": "Plasma chloride",
+  "name": "Chloride in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 1761323,
-          "conceptName": "Chloride [Moles/volume] in Mixed venous blood",
+          "conceptId": 37045131,
+          "conceptName": "Chloride | Blood | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "100745-9",
-          "validStartDate": "2022-08-08",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3014576,
-          "conceptName": "Chloride [Moles/volume] in Serum or Plasma",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "2075-0",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386574-0",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3018572,
-          "conceptName": "Chloride [Moles/volume] in Blood",
+          "conceptId": 37072330,
+          "conceptName": "Chloride | Blood arterial | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "2069-3",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386575-7",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3035285,
-          "conceptName": "Chloride [Moles/volume] in Venous blood",
+          "conceptId": 37025347,
+          "conceptName": "Chloride | Blood capillary | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "41649-5",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386576-5",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3039964,
-          "conceptName": "Chloride [Moles/volume] in Capillary blood",
+          "conceptId": 37071140,
+          "conceptName": "Chloride | Blood venous | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "51590-8",
-          "validStartDate": "2007-12-12",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386577-3",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1762003,
+          "conceptName": "Chloride | Blood mixed venous | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP433116-3",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37027122,
+          "conceptName": "Chloride | Serum or Plasma | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386588-0",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37038125,
+          "conceptName": "Chloride | Serum, Plasma or Blood | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386589-8",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
   },
   "tags": [],
   "metadata": {
-    "uniqueId": "038ecefb-1c14-4fbf-ae90-a7889a515d3b",
+    "uniqueId": "f1c0a4bb-0e5f-4d20-9bf7-9d2b7e8c4e1c",
     "organization": {
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Plasma chloride",
+        "name": "Chloride in blood",
         "category": "Laboratory tests",
-        "subcategory": "Plasma electrolytes",
+        "subcategory": "Biochemistry",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nChloride is the principal extracellular anion. Its concentration in blood is one of the routine electrolyte measurements [1]. The source data will typically be a single numeric result per patient-timestamp, produced by a biochemistry analyser or a point-of-care device. Results are reported as a substance concentration in mmol/L (SI unit) or mEq/L; the two are numerically equivalent for chloride [2].\n\nThis concept set aggregates chloride measurements across blood specimens (serum, plasma, arterial, venous, capillary, mixed venous and unspecified blood), because the chloride concentration does not depend meaningfully on the sampling site.\n\n## Included Concepts\n\nThe set is anchored on seven LOINC Hierarchy concepts (one per blood specimen, scoped to `Chemistry - non-challenge`), with their descendants pulled in. After exclusions, the set resolves to seven LOINC \"Lab Test\" concepts, grouped here by specimen.\n\n### Serum or plasma (default specimen for routine biochemistry)\n\n- *3014576 / 2075-0 — Chloride [Moles/volume] in Serum or Plasma (LOINC)*: most widely used LOINC code worldwide.\n- *40757500 / 54369-4 — Chloride [Moles/volume] in Serum or Plasma --post dialysis (LOINC)*: point-in-time measurement immediately after a haemodialysis session.\n\n### Generic blood (specimen unspecified)\n\n- *3018572 / 2069-3 — Chloride [Moles/volume] in Blood (LOINC)*: used when the source reports chloride on whole blood without further specification.\n- *46235783 / 77138-6 — Chloride [Moles/volume] in Serum, Plasma or Blood (LOINC)*: specimen-agnostic.\n\n### Arterial blood\n\n- *3031248 / 41650-3 — Chloride [Moles/volume] in Arterial blood (LOINC)*: typically reported by a blood gas analyser.\n\n### Venous blood\n\n- *3035285 / 41649-5 — Chloride [Moles/volume] in Venous blood (LOINC)*\n\n### Capillary blood\n\n- *3039964 / 51590-8 — Chloride [Moles/volume] in Capillary blood (LOINC)*: capillary heel-prick or fingerstick (neonatal, point-of-care).\n\n### Mixed venous blood\n\n- *1761323 / 100745-9 — Chloride [Moles/volume] in Mixed venous blood (LOINC)*: typically from a Swan-Ganz catheter.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mmol/L`** (concept 8753 — millimole per litre). Source systems may report `mmol/L` or `mEq/L`; for chloride (a monovalent anion) the two are numerically equal.\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The set deliberately omits the following LOINC concepts:\n\n- **Red Blood Cells specimens**: intra-erythrocytic chloride, specialised research measurement.\n- **Body fluid, CSF, dialysis fluid, gastric fluid, peritoneal fluid, pleural fluid, sweat, saliva, stool, urine, amniotic fluid, vitreous fluid, water, mother's milk specimens**: out of scope for a \"blood\" concept set.\n- **Fetus specimens**: out of scope.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"chloride\", \"Cl\", \"chloraemia\" without further specification: `3014576 / 2075-0 — Chloride [Moles/volume] in Serum or Plasma`. By far the most common LOINC code.\n- **Source reports a chloride value from a blood gas analyser** (typically arterial): map to `3031248 / 41650-3 — Chloride [Moles/volume] in Arterial blood`.\n- **Specimen unspecified**: map to `46235783 / 77138-6 — Chloride [Moles/volume] in Serum, Plasma or Blood`.\n- **Source unit is mEq/L**: numerically equivalent to mmol/L for chloride; no conversion needed.\n- **Do not confuse with**: urinary chloride (different measurand, separate concept set when relevant).\n\n## References\n\n[1] Regenstrief Institute. LOINC code 2075-0 — Chloride [Moles/volume] in Serum or Plasma.\n    Available: <a href=\"https://loinc.org/2075-0/\" target=\"_blank\">https://loinc.org/2075-0/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
-        "name": "Chlore plasmatique",
+        "name": "Chlorémie sanguine",
         "category": "Biologie",
-        "subcategory": "Ionogramme plasmatique",
+        "subcategory": "Biochimie",
         "shortDescription": null,
         "longDescription": null
       }

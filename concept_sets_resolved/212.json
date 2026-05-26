@@ -2,12 +2,12 @@
   "conceptSetId": 212,
   "resolvedConcepts": [
     {
-      "conceptId": 42528959,
-      "conceptName": "Sodium [Mass/volume] in Red Blood Cells",
+      "conceptId": 3043706,
+      "conceptName": "Sodium [Moles/volume] in Arterial blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "82812-9",
+      "conceptCode": "32717-1",
       "standardConcept": "S"
     },
     {
@@ -47,6 +47,24 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 44816586,
+      "conceptName": "Sodium [Moles/volume] in Serum or Plasma --post dialysis",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "74688-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46235784,
+      "conceptName": "Sodium [Moles/volume] in Serum, Plasma or Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "77139-4",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3041473,
       "conceptName": "Sodium [Moles/volume] in Venous blood",
       "vocabularyId": "LOINC",
@@ -54,6 +72,69 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "39791-9",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 37035773,
+      "conceptName": "Sodium | Blood arterial | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386632-6",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37051016,
+      "conceptName": "Sodium | Blood capillary | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386633-4",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37072044,
+      "conceptName": "Sodium | Blood mixed venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386634-2",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37074940,
+      "conceptName": "Sodium | Blood venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386635-9",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37036048,
+      "conceptName": "Sodium | Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386631-8",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37055139,
+      "conceptName": "Sodium | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386648-2",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37061512,
+      "conceptName": "Sodium | Serum, Plasma or Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386649-0",
+      "standardConcept": "C"
     }
   ]
 }
