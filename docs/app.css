@@ -2945,7 +2945,7 @@ select.form-input { appearance: auto; }
 .cs-version-banner {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
   background: #fef3c7; color: #92400e; border: 1px solid #f59e0b;
-  border-radius: var(--radius); padding: 8px 12px; margin: 8px 16px; font-size: 13px;
+  border-radius: var(--radius); padding: 8px 12px; margin: 0 0 12px 0; font-size: 13px;
 }
 .cs-version-banner-text { flex: 1; }
 .cs-version-banner-actions { display: flex; align-items: center; gap: 12px; }

@@ -3097,6 +3097,15 @@ var ConceptSetsPage = (function() {
       return;
     }
 
+    // Snapshot mode: the resolved concepts for the pinned version are inlined
+    // in DATA.resolvedConceptSetVersions by build.py. Never live-resolve in this
+    // mode — the current VocabDB may not match the snapshot's source vocab.
+    if (selectedSnapshotVersion) {
+      var snap = App.getResolvedConceptSet(selectedConceptSet.id, selectedSnapshotVersion) || [];
+      renderResolvedTableWithData(appendCustomConcepts(snap, items), keepFilters);
+      return;
+    }
+
     // If no DuckDB, fall back to pre-resolved data + custom concepts
     if (typeof VocabDB === 'undefined') {
       var preResolved = App.resolvedIndex[selectedConceptSet.id];
@@ -4304,8 +4313,6 @@ var ConceptSetsPage = (function() {
     }
     banner.querySelector('.cs-version-banner-text').textContent = msg;
     banner.style.display = '';
-    var updBtn = document.getElementById('cs-version-banner-update');
-    updBtn.style.display = fromProject ? '' : 'none';
   }
 
   function hideCSDetail() {
@@ -4849,7 +4856,9 @@ var ConceptSetsPage = (function() {
 
   function getSqlExportConcepts() {
     if (!selectedConceptSet) return [];
-    var resolved = App.resolvedIndex[selectedConceptSet.id];
+    var resolved = selectedSnapshotVersion
+      ? App.getResolvedConceptSet(selectedConceptSet.id, selectedSnapshotVersion)
+      : App.resolvedIndex[selectedConceptSet.id];
     if ((!resolved || resolved.length === 0) && resolvedCurrentConcepts.length > 0) {
       resolved = resolvedCurrentConcepts;
     }
@@ -5529,42 +5538,19 @@ var ConceptSetsPage = (function() {
 
   // ==================== EVENTS ====================
   function initEvents() {
-    // Version snapshot banner: actions
+    // Version snapshot banner: "View latest version" action.
+    // We render the latest version directly (rather than relying on Router.navigate
+    // → hashchange → show, which is fragile if the URL change ends up being a no-op
+    // for the router), and replaceState the URL so the address bar stays in sync.
     var bannerLatest = document.getElementById('cs-version-banner-latest');
     if (bannerLatest) {
       bannerLatest.addEventListener('click', function(e) {
         e.preventDefault();
         if (!selectedConceptSet) return;
-        Router.navigate('/concept-sets', { id: selectedConceptSet.id });
-      });
-    }
-    var bannerUpdate = document.getElementById('cs-version-banner-update');
-    if (bannerUpdate) {
-      bannerUpdate.addEventListener('click', function() {
-        if (!selectedConceptSet || !selectedFromProjectId) return;
-        var proj = App.projects.find(function(p) { return p.id === selectedFromProjectId; });
-        if (!proj) return;
-        var latest = App.getLatestVersion(selectedConceptSet.id);
-        if (!latest) return;
-        // Deep-copy groups so we can mutate before persisting through setProjectGroups.
-        var groups = App.getProjectGroups(proj).map(function(g) {
-          return {
-            id: g.id, name: g.name, rule: g.rule || App.DEFAULT_GROUP_RULE,
-            conceptSets: (g.conceptSets || []).map(function(e) { return { id: e.id, version: e.version }; })
-          };
-        });
-        var changed = false;
-        groups.forEach(function(g) {
-          (g.conceptSets || []).forEach(function(e) {
-            if (e.id === selectedConceptSet.id && e.version !== latest) { e.version = latest; changed = true; }
-          });
-        });
-        if (!changed) return;
-        App.setProjectGroups(proj, groups);
-        proj.modifiedDate = new Date().toISOString().split('T')[0];
-        App.updateProject(proj);
-        App.showToast(App.i18n('Project updated to latest version of this concept set.'), 'success');
-        Router.navigate('/concept-sets', { id: selectedConceptSet.id });
+        var id = selectedConceptSet.id;
+        showCSDetail(id);
+        var hash = '#/concept-sets?id=' + encodeURIComponent(id);
+        Router.replaceState(hash);
       });
     }
 
