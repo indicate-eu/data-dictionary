@@ -2,15 +2,6 @@
   "conceptSetId": 285,
   "resolvedConcepts": [
     {
-      "conceptId": 44813449,
-      "conceptName": "Medical contraindication to ear syringing",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Context-dependent",
-      "conceptCode": "784911000000106",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 4141768,
       "conceptName": "Medical contraindication to procedure",
       "vocabularyId": "SNOMED",

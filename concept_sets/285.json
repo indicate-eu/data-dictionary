@@ -28,25 +28,6 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 44813449,
-          "conceptName": "Medical contraindication to ear syringing",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Context-dependent",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "784911000000106",
-          "validStartDate": "2011-10-03",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
       }
     ]
   },
