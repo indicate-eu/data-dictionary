@@ -93,150 +93,6 @@
           "version": "1.0.0"
         },
         {
-          "id": 33,
-          "version": "1.0.1"
-        },
-        {
-          "id": 34,
-          "version": "1.0.1"
-        },
-        {
-          "id": 35,
-          "version": "1.0.1"
-        },
-        {
-          "id": 36,
-          "version": "1.0.1"
-        },
-        {
-          "id": 37,
-          "version": "1.0.1"
-        },
-        {
-          "id": 38,
-          "version": "1.0.1"
-        },
-        {
-          "id": 39,
-          "version": "1.0.1"
-        },
-        {
-          "id": 40,
-          "version": "1.0.1"
-        },
-        {
-          "id": 41,
-          "version": "1.0.1"
-        },
-        {
-          "id": 42,
-          "version": "1.0.1"
-        },
-        {
-          "id": 43,
-          "version": "1.0.1"
-        },
-        {
-          "id": 44,
-          "version": "1.0.1"
-        },
-        {
-          "id": 45,
-          "version": "1.0.1"
-        },
-        {
-          "id": 46,
-          "version": "1.0.1"
-        },
-        {
-          "id": 47,
-          "version": "1.0.1"
-        },
-        {
-          "id": 48,
-          "version": "1.0.1"
-        },
-        {
-          "id": 49,
-          "version": "1.0.1"
-        },
-        {
-          "id": 50,
-          "version": "1.0.1"
-        },
-        {
-          "id": 51,
-          "version": "1.0.1"
-        },
-        {
-          "id": 52,
-          "version": "1.0.1"
-        },
-        {
-          "id": 53,
-          "version": "1.0.1"
-        },
-        {
-          "id": 54,
-          "version": "1.0.1"
-        },
-        {
-          "id": 55,
-          "version": "1.0.1"
-        },
-        {
-          "id": 56,
-          "version": "1.0.1"
-        },
-        {
-          "id": 57,
-          "version": "1.0.1"
-        },
-        {
-          "id": 58,
-          "version": "1.0.1"
-        },
-        {
-          "id": 59,
-          "version": "1.0.1"
-        },
-        {
-          "id": 60,
-          "version": "1.0.1"
-        },
-        {
-          "id": 61,
-          "version": "1.0.1"
-        },
-        {
-          "id": 62,
-          "version": "1.0.1"
-        },
-        {
-          "id": 122,
-          "version": "1.0.1"
-        },
-        {
-          "id": 123,
-          "version": "1.0.1"
-        },
-        {
-          "id": 124,
-          "version": "1.0.1"
-        },
-        {
-          "id": 125,
-          "version": "1.0.1"
-        },
-        {
-          "id": 126,
-          "version": "1.0.1"
-        },
-        {
-          "id": 127,
-          "version": "1.0.1"
-        },
-        {
           "id": 151,
           "version": "1.0.0"
         },
@@ -385,12 +241,176 @@
           "version": "1.0.0"
         },
         {
-          "id": 341,
+          "id": 342,
+          "version": "1.0.0"
+        }
+      ]
+    },
+    {
+      "id": "group-anticoagulants",
+      "name": {
+        "en": "Anticoagulants",
+        "fr": "Anticoagulants"
+      },
+      "rule": "at_least_one",
+      "conceptSets": [
+        {
+          "id": 33,
           "version": "1.0.1"
         },
         {
-          "id": 342,
-          "version": "1.0.0"
+          "id": 34,
+          "version": "1.0.1"
+        },
+        {
+          "id": 35,
+          "version": "1.0.1"
+        },
+        {
+          "id": 36,
+          "version": "1.0.1"
+        },
+        {
+          "id": 37,
+          "version": "1.0.1"
+        },
+        {
+          "id": 38,
+          "version": "1.0.1"
+        },
+        {
+          "id": 39,
+          "version": "1.0.1"
+        },
+        {
+          "id": 40,
+          "version": "1.0.1"
+        },
+        {
+          "id": 41,
+          "version": "1.0.1"
+        },
+        {
+          "id": 42,
+          "version": "1.0.1"
+        },
+        {
+          "id": 43,
+          "version": "1.0.1"
+        },
+        {
+          "id": 44,
+          "version": "1.0.1"
+        },
+        {
+          "id": 45,
+          "version": "1.0.1"
+        },
+        {
+          "id": 46,
+          "version": "1.0.1"
+        },
+        {
+          "id": 47,
+          "version": "1.0.1"
+        },
+        {
+          "id": 48,
+          "version": "1.0.1"
+        },
+        {
+          "id": 49,
+          "version": "1.0.1"
+        },
+        {
+          "id": 50,
+          "version": "1.0.1"
+        },
+        {
+          "id": 51,
+          "version": "1.0.1"
+        },
+        {
+          "id": 52,
+          "version": "1.0.1"
+        },
+        {
+          "id": 53,
+          "version": "1.0.1"
+        },
+        {
+          "id": 54,
+          "version": "1.0.1"
+        },
+        {
+          "id": 55,
+          "version": "1.0.1"
+        },
+        {
+          "id": 56,
+          "version": "1.0.1"
+        },
+        {
+          "id": 57,
+          "version": "1.0.1"
+        },
+        {
+          "id": 58,
+          "version": "1.0.1"
+        },
+        {
+          "id": 59,
+          "version": "1.0.1"
+        },
+        {
+          "id": 60,
+          "version": "1.0.1"
+        },
+        {
+          "id": 61,
+          "version": "1.0.1"
+        },
+        {
+          "id": 62,
+          "version": "1.0.1"
+        },
+        {
+          "id": 341,
+          "version": "1.0.1"
+        }
+      ]
+    },
+    {
+      "id": "group-insulin",
+      "name": {
+        "en": "Insulin",
+        "fr": "Insuline"
+      },
+      "rule": "at_least_one",
+      "conceptSets": [
+        {
+          "id": 122,
+          "version": "1.0.1"
+        },
+        {
+          "id": 123,
+          "version": "1.0.1"
+        },
+        {
+          "id": 124,
+          "version": "1.0.1"
+        },
+        {
+          "id": 125,
+          "version": "1.0.1"
+        },
+        {
+          "id": 126,
+          "version": "1.0.1"
+        },
+        {
+          "id": 127,
+          "version": "1.0.1"
         }
       ]
     }
