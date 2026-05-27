@@ -11,6 +11,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 1447859,
+      "conceptName": "Whole blood specimen with citrate",
+      "vocabularyId": "SNOMED",
+      "domainId": "Specimen",
+      "conceptClassId": "Specimen",
+      "conceptCode": "1351816006",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 37155361,
       "conceptName": "Whole blood specimen with edetic acid",
       "vocabularyId": "SNOMED",
@@ -35,6 +44,24 @@
       "domainId": "Specimen",
       "conceptClassId": "Specimen",
       "conceptCode": "838971000000104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1447857,
+      "conceptName": "Whole blood specimen with hirudin",
+      "vocabularyId": "SNOMED",
+      "domainId": "Specimen",
+      "conceptClassId": "Specimen",
+      "conceptCode": "1351813003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1447858,
+      "conceptName": "Whole blood specimen with lithium heparin",
+      "vocabularyId": "SNOMED",
+      "domainId": "Specimen",
+      "conceptClassId": "Specimen",
+      "conceptCode": "1351815005",
       "standardConcept": "S"
     },
     {

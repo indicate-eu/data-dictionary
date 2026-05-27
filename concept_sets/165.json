@@ -2,33 +2,14 @@
   "id": 165,
   "name": "Venous blood specimen",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
-      {
-        "concept": {
-          "conceptId": 4001226,
-          "conceptName": "Mixed venous blood specimen",
-          "domainId": "Specimen",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Specimen",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "119298005",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
       {
         "concept": {
           "conceptId": 4045667,
@@ -45,6 +26,25 @@
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 45766302,
+          "conceptName": "Venous cord blood specimen",
+          "domainId": "Specimen",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Specimen",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "703431007",
+          "validStartDate": "2014-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       }
@@ -57,7 +57,7 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
@@ -65,7 +65,7 @@
         "category": "Laboratory tests",
         "subcategory": "Blood specimen type",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nVenous blood specimen is a sample of blood obtained by venipuncture or from a venous catheter. It includes peripheral venous samples (routine biology), central venous samples (drawn from a central venous catheter) and mixed venous samples (drawn from a pulmonary artery catheter). Compared with arterial blood, venous blood has lower PO2 and SO2, higher PCO2, and slightly lower pH, reflecting tissue oxygen extraction and CO2 production.\n\nThis concept set is intended to populate the OMOP `specimen_concept_id` field (or equivalent in other CDMs), not to represent a measurement. It complements the analyte-side concept sets (e.g. \"pH in venous blood\", \"Oxygen partial pressure in venous blood\") by encoding which blood sample the measurement was made on.\n\n**Note: SNOMED does not provide a separate \"Central venous blood specimen\" code.** Central venous samples are recorded as `Venous blood specimen` at the specimen level; the central-venous distinction is captured by the analyte-side LOINC code (`... in Central venous blood`).\n\n## Included Concepts\n\nThe set is anchored on the SNOMED Specimen concept `Venous blood specimen`, expanded to include all its descendants. The set resolves to two specimens:\n\n- *4045667 / 122555007 — Venous blood specimen (SNOMED)*\n- *4001226 / 119298005 — Mixed venous blood specimen (SNOMED)*\n\n## Excluded Concepts\n\nThe following SNOMED Specimen descendant is deliberately excluded by name:\n\n- *45766302 / 703431007 — Venous cord blood specimen*: cord blood is physiologically distinct from post-natal venous blood.\n\n## Mapping Notes\n\n- **Default mapping** when the source data records a sample drawn from a peripheral or central vein: `4045667 / 122555007 — Venous blood specimen`.\n- **Source explicitly records a pulmonary artery catheter / Swan-Ganz sample**: map to `4001226 / 119298005 — Mixed venous blood specimen`.\n- **Source records umbilical / cord sampling**: do **not** map. Out of scope.\n- **Source records an arterial sample**: use \"Arterial blood specimen\" instead.\n\n## References\n\n[1] SNOMED International. SNOMED CT — Venous blood specimen (122555007). Available via OHDSI Athena: <a href=\"https://athena.ohdsi.org/search-terms/terms/4045667\" target=\"_blank\">https://athena.ohdsi.org/search-terms/terms/4045667</a>\n"
       },
       "fr": {
         "name": "Prélèvement sanguin veineux",
