@@ -31,6 +31,7 @@ var ConceptSetsPage = (function() {
   var csCategories = new Set();
   var csSubcategories = new Set();
   var csFilterReviewStatus = new Set();
+  var csFilterReviewStatusDefaulted = false; // first populate seeds it with all statuses except 'deprecated'
   var selectedConceptSet = null;
   var selectedSnapshotVersion = null; // non-null when viewing a pinned snapshot
   var selectedFromProjectId = null;   // non-null when navigated from a project's variables tab
@@ -174,6 +175,12 @@ var ConceptSetsPage = (function() {
     csSubcategories.forEach(function(s) { if (!subcategories.includes(s)) csSubcategories.delete(s); });
 
     var statuses = [...new Set(data.map(function(d) { return d.reviewStatus; }))].filter(Boolean).sort();
+
+    // Default selection on first populate: all statuses checked except 'deprecated'.
+    if (!csFilterReviewStatusDefaulted && statuses.length > 0) {
+      csFilterReviewStatusDefaulted = true;
+      statuses.forEach(function(s) { if (s !== 'deprecated') csFilterReviewStatus.add(s); });
+    }
 
     if (skipId !== 'filter-category') {
       App.buildMultiSelectDropdown('filter-category', categories, csCategories, function() {
@@ -6217,6 +6224,7 @@ var ConceptSetsPage = (function() {
     csCategories.clear();
     csSubcategories.clear();
     csFilterReviewStatus.clear();
+    csFilterReviewStatusDefaulted = false;
     csFilterName = '';
     document.getElementById('filter-name').value = '';
     csPage = 1;
