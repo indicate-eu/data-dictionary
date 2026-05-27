@@ -11,39 +11,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3033254,
-      "conceptName": "Oxygen [Partial pressure] adjusted to patient's actual temperature in Arterial cord blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "49696-8",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 3027801,
       "conceptName": "Oxygen [Partial pressure] in Arterial blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "2703-7",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3021706,
-      "conceptName": "Oxygen [Partial pressure] in Arterial cord blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "28648-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42869603,
-      "conceptName": "Oxygen saturation [Pure mass fraction] in Arterial cord blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "71848-6",
       "standardConcept": "S"
     }
   ]

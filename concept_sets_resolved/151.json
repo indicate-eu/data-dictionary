@@ -11,66 +11,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3032759,
-      "conceptName": "Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Arterial cord blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "49694-3",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 3027946,
       "conceptName": "Carbon dioxide [Partial pressure] in Arterial blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "2019-8",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3003932,
-      "conceptName": "Carbon dioxide [Partial pressure] in Arterial cord blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "28644-3",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3009609,
-      "conceptName": "Carbon dioxide, total [Moles/volume] in Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "2026-3",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3037663,
-      "conceptName": "Carbon dioxide, total [Moles/volume] in Arterial blood by calculation",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "41647-9",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3043950,
-      "conceptName": "Carbon dioxide, total [Moles/volume] in Arterial cord blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "39466-8",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40761030,
-      "conceptName": "Carbon dioxide, total [Moles/volume] in Arterial cord blood by calculation",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "57921-9",
       "standardConcept": "S"
     }
   ]

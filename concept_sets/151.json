@@ -1,53 +1,15 @@
 {
   "id": 151,
-  "name": "ABG PaCO2",
+  "name": "Carbon dioxide partial pressure in arterial blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
-      {
-        "concept": {
-          "conceptId": 3003932,
-          "conceptName": "Carbon dioxide [Partial pressure] in Arterial cord blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "28644-3",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3009609,
-          "conceptName": "Carbon dioxide, total [Moles/volume] in Arterial blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "2026-3",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
       {
         "concept": {
           "conceptId": 3027946,
@@ -58,63 +20,6 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "2019-8",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3032759,
-          "conceptName": "Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Arterial cord blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "49694-3",
-          "validStartDate": "2007-08-09",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3037663,
-          "conceptName": "Carbon dioxide, total [Moles/volume] in Arterial blood by calculation",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "41647-9",
-          "validStartDate": "2005-07-05",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3043950,
-          "conceptName": "Carbon dioxide, total [Moles/volume] in Arterial cord blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "39466-8",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -142,25 +47,6 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 40761030,
-          "conceptName": "Carbon dioxide, total [Moles/volume] in Arterial cord blood by calculation",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "57921-9",
-          "validStartDate": "2009-11-18",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
       }
     ]
   },
@@ -171,20 +57,20 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "ABG PaCO2",
+        "name": "Carbon dioxide partial pressure in arterial blood",
         "category": "Laboratory tests",
-        "subcategory": "Arterial blood gases",
+        "subcategory": "Biochemistry",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nThe arterial partial pressure of carbon dioxide (PaCO2) is the pressure exerted by CO2 dissolved in arterial blood. It reflects alveolar ventilation: PaCO2 rises when ventilation is insufficient (hypoventilation, respiratory failure) and falls when ventilation is excessive (hyperventilation) [1]. Together with pH and bicarbonate, it characterises the respiratory component of acid-base balance. The source data will typically be a single numeric result per patient-timestamp, produced by a blood gas analyser on an arterial sample. Results are reported as a partial pressure in mmHg (US convention) or kPa (SI / European convention) [2].\n\n**Note: arterial vs venous.** Arterial and venous PCO2 differ substantially (venous PCO2 is typically 4-6 mmHg higher). The arterio-venous PCO2 gradient is itself a clinical signal of perfusion. This concept set covers **arterial** PCO2 only. Venous and central venous PCO2 are captured by the separate concept set \"Carbon dioxide partial pressure in venous blood\".\n\n**Note: temperature-corrected variant.** Modern blood gas analysers measure at 37 °C. A separate LOINC code exists for PCO2 corrected to the patient's actual temperature (relevant in hypothermia, e.g. therapeutic hypothermia post-cardiac arrest). Both forms are included here; downstream analyses that need to distinguish them must use the LOINC code, not the value.\n\n**Note: do not confuse with total CO2.** LOINC distinguishes `Carbon dioxide [Partial pressure]` (PaCO2, dissolved gas, mmHg or kPa) from `Carbon dioxide, total [Moles/volume]` (total CO2 content of the sample, mmol/L) — the latter is essentially the bicarbonate plus dissolved CO2 and belongs with the separate concept set \"Bicarbonate in blood\". Only `[Partial pressure]` codes are included here.\n\n## Included Concepts\n\nThe set lists two LOINC \"Lab Test\" concepts for PCO2 in arterial blood (cord blood excluded):\n\n- *3027946 / 2019-8 — Carbon dioxide [Partial pressure] in Arterial blood (LOINC)*: most widely used.\n- *3045156 / 32771-8 — Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Arterial blood (LOINC)*: temperature-corrected variant.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mm[Hg]`** (concept 8876 — millimetre of mercury). Conversion: `1 mmHg = 0.1333 kPa`, `1 kPa ≈ 7.50 mmHg`.\n\n## Excluded Concepts\n\nThe following LOINC concepts that exist for CO2 in arterial blood are deliberately not part of this set, grouped by reason for exclusion.\n\n### Total CO2 — different measurand\n\n- *3009609 / 2026-3 — Carbon dioxide, total [Moles/volume] in Arterial blood*\n- *3037663 / 41647-9 — Carbon dioxide, total [Moles/volume] in Arterial blood by calculation*\n\n### Cord blood specimens — physiologically distinct\n\n- *3003932 / 28644-3 — Carbon dioxide [Partial pressure] in Arterial cord blood*\n- *3032759 / 49694-3 — Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Arterial cord blood*\n- *3043950 / 39466-8 — Carbon dioxide, total [Moles/volume] in Arterial cord blood*\n- *40761030 / 57921-9 — Carbon dioxide, total [Moles/volume] in Arterial cord blood by calculation*\n\n## Mapping Notes\n\n- **Default concept** when the source reports an arterial PCO2 (e.g. blood gas analyser): `3027946 / 2019-8 — Carbon dioxide [Partial pressure] in Arterial blood`.\n- **Source unit is kPa**: convert to mmHg using `1 kPa ≈ 7.50 mmHg`.\n- **Source reports PCO2 from venous, mixed venous or central venous blood**: do **not** map to this concept set. Use \"Carbon dioxide partial pressure in venous blood\" instead.\n- **Source reports \"total CO2\" or \"TCO2\" (mmol/L)**: do **not** map. Map to the \"Bicarbonate in blood\" concept set (clinically equivalent in routine practice).\n- **Do not confuse with**: venous PCO2 (separate concept set), bicarbonate (separate concept set), end-tidal CO2 (EtCO2, exhaled gas — different measurand).\n\n## References\n\n[1] Regenstrief Institute. LOINC code 2019-8 — Carbon dioxide [Partial pressure] in Arterial blood.\n    Available: <a href=\"https://loinc.org/2019-8/\" target=\"_blank\">https://loinc.org/2019-8/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
-        "name": "ABG PaCO2",
+        "name": "Pression partielle artérielle en CO2",
         "category": "Biologie",
-        "subcategory": "Gaz du sang artériel",
+        "subcategory": "Biochimie",
         "shortDescription": null,
         "longDescription": null
       }

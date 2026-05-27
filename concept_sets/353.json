@@ -1,0 +1,203 @@
+{
+  "id": 353,
+  "name": "Oxygen partial pressure in venous blood",
+  "description": null,
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-05-27",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-05-27",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 3024354,
+          "conceptName": "Oxygen [Partial pressure] in Venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "2705-2",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3004529,
+          "conceptName": "Oxygen [Partial pressure] adjusted to patient's actual temperature in Venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "19258-3",
+          "validStartDate": "1998-11-16",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3038071,
+          "conceptName": "Oxygen [Partial pressure] in Mixed venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "19211-2",
+          "validStartDate": "1998-11-16",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3019464,
+          "conceptName": "Oxygen [Partial pressure] adjusted to patient's actual temperature in Mixed venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "19257-5",
+          "validStartDate": "1998-11-16",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1616654,
+          "conceptName": "Oxygen [Partial pressure] in Central venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "97540-9",
+          "validStartDate": "2022-02-04",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1617238,
+          "conceptName": "Oxygen [Partial pressure] adjusted to patient's actual temperature in Central venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "97541-7",
+          "validStartDate": "2022-02-04",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3028626,
+          "conceptName": "Oxygen [Partial pressure] in Capillary blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "2704-5",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3019240,
+          "conceptName": "Oxygen [Partial pressure] adjusted to patient's actual temperature in Capillary blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "19256-7",
+          "validStartDate": "1998-11-16",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "b73e6f29-8c4d-4b1a-9f3e-2d8e5c4a7e62",
+    "organization": {
+      "name": "INDICATE Consortium",
+      "url": "https://indicate-eu.org"
+    },
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Oxygen partial pressure in venous blood",
+        "category": "Laboratory tests",
+        "subcategory": "Biochemistry",
+        "shortDescription": null,
+        "longDescription": "## Definition & Clinical Context\n\nThe venous partial pressure of oxygen (PvO2 / PcvO2) is the pressure exerted by O2 dissolved in venous blood, after tissue oxygen extraction. In healthy adults, mixed venous PO2 is ~40 mmHg, much lower than arterial PO2 (~80-100 mmHg under room air) [1]. PvO2 is used in intensive care to assess the adequacy of oxygen delivery relative to consumption, especially via the venous oxygen saturation derived from it.\n\nThe source data will typically be a single numeric result per patient-timestamp, produced by a blood gas analyser on a venous sample. Results are reported as a partial pressure in mmHg (US convention) or kPa (SI / European convention) [2].\n\n**Note: venous specimens.** This concept set covers peripheral venous, central venous (central venous catheter), and mixed venous (pulmonary artery catheter) blood, plus capillary blood. Central and mixed venous PO2 are most clinically relevant in critical care; peripheral venous PO2 is highly dependent on tourniquet, local perfusion and metabolism. The user should preserve the specimen distinction in analyses where the source-of-blood matters.\n\n## Included Concepts\n\nThe set lists eight LOINC \"Lab Test\" concepts for PO2 in non-arterial blood (cord blood excluded), grouped by specimen.\n\n### Venous blood\n\n- *3024354 / 2705-2 — Oxygen [Partial pressure] in Venous blood (LOINC)*\n- *3004529 / 19258-3 — Oxygen [Partial pressure] adjusted to patient's actual temperature in Venous blood (LOINC)*\n\n### Mixed venous blood\n\n- *3038071 / 19211-2 — Oxygen [Partial pressure] in Mixed venous blood (LOINC)*\n- *3019464 / 19257-5 — Oxygen [Partial pressure] adjusted to patient's actual temperature in Mixed venous blood (LOINC)*\n\n### Central venous blood\n\n- *1616654 / 97540-9 — Oxygen [Partial pressure] in Central venous blood (LOINC)*\n- *1617238 / 97541-7 — Oxygen [Partial pressure] adjusted to patient's actual temperature in Central venous blood (LOINC)*\n\n### Capillary blood\n\n- *3028626 / 2704-5 — Oxygen [Partial pressure] in Capillary blood (LOINC)*\n- *3019240 / 19256-7 — Oxygen [Partial pressure] adjusted to patient's actual temperature in Capillary blood (LOINC)*\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mm[Hg]`** (concept 8876 — millimetre of mercury). Conversion: `1 mmHg = 0.1333 kPa`, `1 kPa ≈ 7.50 mmHg`.\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The set deliberately omits:\n\n- **Arterial blood specimens**: covered by the separate \"Oxygen partial pressure in arterial blood\" concept set.\n- **Cord blood specimens**: physiologically distinct from post-natal blood.\n- **P50 codes (`Oxygen [Partial pressure] saturation adjusted to 0.5`)**: marker of haemoglobin oxygen affinity, different measurand.\n- **Oxygen saturation codes**: covered by the separate \"Oxygen saturation in venous blood\" concept set.\n\n## Mapping Notes\n\n- **Default concept** when the source reports a venous PO2 without further specification: `3024354 / 2705-2 — Oxygen [Partial pressure] in Venous blood`.\n- **Source explicitly mentions central venous or mixed venous**: map to the matching LOINC code rather than the generic venous one.\n- **Source unit is kPa**: convert to mmHg using `1 kPa ≈ 7.50 mmHg`.\n- **Source reports PO2 from arterial blood**: do **not** map. Use \"Oxygen partial pressure in arterial blood\" instead.\n- **Source reports venous oxygen saturation**: do **not** map. Use \"Oxygen saturation in venous blood\" (different measurand).\n- **Do not confuse with**: arterial PO2 (separate concept set), oxygen saturation (separate concept set), P50.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 2705-2 — Oxygen [Partial pressure] in Venous blood.\n    Available: <a href=\"https://loinc.org/2705-2/\" target=\"_blank\">https://loinc.org/2705-2/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
+      },
+      "fr": {
+        "name": "Pression partielle veineuse en O2",
+        "category": "Biologie",
+        "subcategory": "Biochimie",
+        "shortDescription": null,
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

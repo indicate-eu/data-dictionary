@@ -2,21 +2,39 @@
   "conceptSetId": 153,
   "resolvedConcepts": [
     {
+      "conceptId": 3039426,
+      "conceptName": "Oxygen saturation Calculated from oxygen partial pressure in Arterial blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "51733-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42869598,
+      "conceptName": "Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Arterial blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "71843-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42869607,
+      "conceptName": "Oxygen saturation [Pure mass fraction] in Arterial blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "71852-8",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3016502,
       "conceptName": "Oxygen saturation in Arterial blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "2708-6",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3014295,
-      "conceptName": "Oxygen saturation in Arterial cord blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "28642-7",
       "standardConcept": "S"
     }
   ]

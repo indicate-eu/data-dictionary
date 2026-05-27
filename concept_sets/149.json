@@ -1,32 +1,127 @@
 {
   "id": 149,
-  "name": "ABG Base excess",
+  "name": "Base excess in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3003396,
-          "conceptName": "Base excess in Arterial blood by calculation",
+          "conceptId": 37044495,
+          "conceptName": "Base excess | Blood | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1925-7",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP383304-5",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37068055,
+          "conceptName": "Base excess | Blood arterial | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP383305-2",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37072545,
+          "conceptName": "Base excess | Blood venous | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP383311-0",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37047002,
+          "conceptName": "Base excess | Blood mixed venous | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP383310-2",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1618167,
+          "conceptName": "Base excess | Blood central venous | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP426940-5",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37043543,
+          "conceptName": "Base excess | Blood capillary | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP383306-0",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -38,20 +133,20 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "ABG Base excess",
+        "name": "Base excess in blood",
         "category": "Laboratory tests",
-        "subcategory": "Arterial blood gases",
+        "subcategory": "Biochemistry",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nBase excess (BE) is the amount of strong acid (or base, when negative) that would need to be added per litre of blood to return its pH to 7.40 at a PCO2 of 40 mmHg and 37 °C [1, 2]. It is calculated by the blood gas analyser from pH, PCO2 and haemoglobin, and isolates the metabolic component of acid-base balance from the respiratory component (the PCO2 normalisation step). Routine clinical values fall within ±2 mmol/L; negative values indicate metabolic acidosis, positive values metabolic alkalosis. The source data will typically be a single numeric result per patient-timestamp, expressed in mmol/L.\n\n**Note: arterial vs venous.** Because BE is defined at a fixed PCO2, the arterio-venous PCO2 difference is removed by construction. As a result, BE on arterial blood and on peripheral / central venous blood is clinically very close in most situations, and the two are routinely used interchangeably for assessing metabolic acid-base status. Larger differences may appear in low-flow states (tourniquet, limb ischaemia, shock). This concept set covers all common blood specimens (arterial, venous, mixed venous, central venous, capillary, generic blood).\n\n**Note: BE vs standard BE (SBE).** LOINC distinguishes \"Base excess\" (in vivo, Siggaard-Andersen) from \"Base excess standard\" (standardised to Hb = 5 g/dL, also called extracellular fluid base excess). Both are produced by modern blood gas analysers. They differ by 1-2 mmol/L on average; the standard form is less sensitive to haemoglobin variation. Both are included in this concept set; downstream analyses that need to distinguish them must use the LOINC code, not the value.\n\n## Included Concepts\n\nThe set is anchored on six LOINC Hierarchy concepts (scoped to `Chemistry - non-challenge`), each expanded to include all their descendants. The set resolves to 11 LOINC \"Lab Test\" concepts.\n\n### Whole blood\n\n- *3012501 / 11555-0 — Base excess in Blood by calculation (LOINC)*: generic blood specimen.\n\n### Arterial blood\n\n- *3003396 / 1925-7 — Base excess in Arterial blood by calculation (LOINC)*: most widely used.\n- *3021421 / 19235-1 — Base excess standard in Arterial blood by calculation (LOINC)*: standardised form.\n\n### Venous blood\n\n- *3002032 / 1927-3 — Base excess in Venous blood by calculation (LOINC)*\n- *3027215 / 19237-7 — Base excess standard in Venous blood by calculation (LOINC)*\n\n### Mixed venous blood\n\n- *3023001 / 19234-4 — Base excess in Mixed venous blood by calculation (LOINC)*\n- *3010329 / 19238-5 — Base excess standard in Mixed venous blood by calculation (LOINC)*\n\n### Central venous blood\n\n- *1616922 / 97546-6 — Base excess in Central venous blood by calculation (LOINC)*\n- *1616406 / 97547-4 — Base excess standard in Central venous blood by calculation (LOINC)*\n\n### Capillary blood\n\n- *3003129 / 1926-5 — Base excess in Capillary blood by calculation (LOINC)*\n- *3026613 / 19236-9 — Base excess standard in Capillary blood by calculation (LOINC)*\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mmol/L`** (concept 8753 — millimole per litre).\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The set deliberately omits the following LOINC concepts:\n\n- **Cord blood and fetus specimens**: physiologically distinct from post-natal blood.\n- **Base excess.100% oxygenated variants**: special calculation under hyperoxic assumption, rarely used outside research.\n- **Extracellular fluid, nonbiological fluid specimens**: out of scope.\n\n## Mapping Notes\n\n- **Default concept** when the source reports a base excess value without specifying specimen: `3003396 / 1925-7 — Base excess in Arterial blood by calculation`, by far the most common.\n- **Source reports \"BE\" or \"BE(B)\" without distinguishing standard vs in vivo**: in clinical practice this is treated as in vivo (Siggaard-Andersen) BE; map to the `Base excess in X blood` LOINC code rather than the `Base excess standard` one.\n- **Source explicitly reports SBE (standard base excess)**: map to the matching `Base excess standard in X blood` LOINC code.\n- **Do not confuse with**: bicarbonate (separate concept set, \"Bicarbonate in blood\"), anion gap, strong ion difference (different acid-base parameters).\n\n## References\n\n[1] Siggaard-Andersen O. The Van Slyke equation. *Scand J Clin Lab Invest Suppl*. 1977;146:15-20.\n    Available: <a href=\"https://doi.org/10.3109/00365517709098927\" target=\"_blank\">https://doi.org/10.3109/00365517709098927</a>\n\n[2] Regenstrief Institute. LOINC code 1925-7 — Base excess in Arterial blood by calculation.\n    Available: <a href=\"https://loinc.org/1925-7/\" target=\"_blank\">https://loinc.org/1925-7/</a>\n"
       },
       "fr": {
-        "name": "Gaz du sang - Excès de base",
+        "name": "Excès de base sanguin",
         "category": "Biologie",
-        "subcategory": "Gaz du sang artériel",
+        "subcategory": "Biochimie",
         "shortDescription": null,
         "longDescription": null
       }

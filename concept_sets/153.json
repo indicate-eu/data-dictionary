@@ -1,34 +1,15 @@
 {
   "id": 153,
-  "name": "ABG SaO2",
+  "name": "Oxygen saturation in arterial blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
-      {
-        "concept": {
-          "conceptId": 3014295,
-          "conceptName": "Oxygen saturation in Arterial cord blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "28642-7",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
       {
         "concept": {
           "conceptId": 3016502,
@@ -47,6 +28,63 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3039426,
+          "conceptName": "Oxygen saturation Calculated from oxygen partial pressure in Arterial blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "51733-4",
+          "validStartDate": "2007-08-09",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42869607,
+          "conceptName": "Oxygen saturation [Pure mass fraction] in Arterial blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "71852-8",
+          "validStartDate": "2012-05-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42869598,
+          "conceptName": "Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Arterial blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "71843-7",
+          "validStartDate": "2012-05-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
       }
     ]
   },
@@ -57,20 +95,20 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "ABG SaO2",
+        "name": "Oxygen saturation in arterial blood",
         "category": "Laboratory tests",
-        "subcategory": "Arterial blood gases",
+        "subcategory": "Biochemistry",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nArterial oxygen saturation (SaO2) is the fraction of haemoglobin in arterial blood bound to oxygen, expressed as a percentage. It is measured on an arterial blood sample by a CO-oximeter (multi-wavelength spectrophotometer in the blood gas analyser), which directly distinguishes oxyhaemoglobin from deoxy-, carboxy- and methaemoglobin [1]. SaO2 is the reference for arterial oxygenation and reflects the position on the haemoglobin-oxygen dissociation curve at the patient's PaO2. The source data will typically be a single numeric result per patient-timestamp, reported as a percentage (0-100%).\n\n**Note: SaO2 vs SpO2.** This concept set covers **SaO2 measured by CO-oximetry on an arterial blood sample only** — a one-shot laboratory measurement. It does **not** cover pulse oximetry (SpO2), which is a continuous, transcutaneous estimate produced by a pulse oximeter at the fingertip or earlobe. SpO2 is biased upward of SaO2 in carbon monoxide intoxication, methemoglobinemia, severe anaemia or low perfusion, and is captured by a separate concept set (\"Oxygen saturation by pulse oximetry\", if defined; LOINC class is `Clinical Observation`).\n\n**Note: arterial vs venous.** Arterial saturation (SaO2 ~ 95-100% in healthy adults at sea level) and venous saturation (SvO2 ~ 65-75%) are different measurands and must not be merged. Venous and central venous saturation are captured by the separate concept set \"Oxygen saturation in venous blood\".\n\n**Note: directly measured vs calculated.** LOINC distinguishes `Oxygen saturation in Arterial blood` (direct CO-oximetry, code 2708-6) from `Oxygen saturation Calculated from oxygen partial pressure in Arterial blood` (computed from PaO2 via the haemoglobin dissociation curve, code 51733-4). Both forms are included here; the calculated variant is less reliable when dyshaemoglobinaemias are present.\n\n## Included Concepts\n\nThe set lists four LOINC \"Lab Test\" concepts for SaO2 (cord blood excluded), grouped by representation.\n\n### Volume fraction (%, traditional)\n\n- *3016502 / 2708-6 — Oxygen saturation in Arterial blood (LOINC)*: most widely used.\n- *3039426 / 51733-4 — Oxygen saturation Calculated from oxygen partial pressure in Arterial blood (LOINC)*: derived from PaO2.\n\n### Pure mass fraction (UCUM variants)\n\n- *42869607 / 71852-8 — Oxygen saturation [Pure mass fraction] in Arterial blood (LOINC)*\n- *42869598 / 71843-7 — Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Arterial blood (LOINC)*\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`%`** (concept 8554 — percent). The `[Pure mass fraction]` variants are dimensionless ratios between 0 and 1.\n\n## Excluded Concepts\n\nThe following LOINC concepts that exist for arterial oxygen saturation are deliberately not part of this set, grouped by reason for exclusion.\n\n### Pulse oximetry (SpO2) — different measurement principle\n\n- All `Oxygen saturation in Arterial blood by Pulse oximetry` codes (LOINC class is mostly `Clinical Observation`): different measurement principle (transcutaneous, non-invasive, continuous), with different biases.\n\n### Cord blood — physiologically distinct\n\n- *3014295 / 28642-7 — Oxygen saturation in Arterial cord blood*\n- *42869603 / 71848-6 — Oxygen saturation [Pure mass fraction] in Arterial cord blood*\n\n### Other specimens\n\n- All venous, mixed venous, central venous codes: captured by the separate \"Oxygen saturation in venous blood\" concept set.\n\n## Mapping Notes\n\n- **Default concept** when the source reports SaO2 measured on an arterial blood gas (CO-oximetry): `3016502 / 2708-6 — Oxygen saturation in Arterial blood`.\n- **Source unit is a fraction (0-1)** rather than percent: map to the `[Pure mass fraction]` variant.\n- **Source is a pulse oximetry reading (SpO2)**: do **not** map to this concept set. Use the dedicated pulse oximetry concept set.\n- **Source explicitly says \"calculated from PaO2\"**: map to the `Calculated from oxygen partial pressure` variant.\n- **Source reports SvO2 / ScvO2 (venous saturation)**: do **not** map. Use \"Oxygen saturation in venous blood\" instead.\n- **Do not confuse with**: SpO2 (pulse oximetry, different concept set), SvO2/ScvO2 (venous saturation, separate concept set), PaO2 (oxygen partial pressure, separate concept set).\n\n## References\n\n[1] Regenstrief Institute. LOINC code 2708-6 — Oxygen saturation in Arterial blood.\n    Available: <a href=\"https://loinc.org/2708-6/\" target=\"_blank\">https://loinc.org/2708-6/</a>\n"
       },
       "fr": {
-        "name": "ABG SaO2",
+        "name": "Saturation artérielle en O2",
         "category": "Biologie",
-        "subcategory": "Gaz du sang artériel",
+        "subcategory": "Biochimie",
         "shortDescription": null,
         "longDescription": null
       }

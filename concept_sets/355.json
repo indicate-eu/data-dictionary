@@ -1,0 +1,203 @@
+{
+  "id": 355,
+  "name": "pH in venous blood",
+  "description": null,
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-05-27",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-05-27",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 3012544,
+          "conceptName": "pH of Venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "2746-6",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3038999,
+          "conceptName": "pH of Venous blood adjusted to patient's actual temperature",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "39486-6",
+          "validStartDate": "2005-07-05",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3012388,
+          "conceptName": "pH of Mixed venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "19213-8",
+          "validStartDate": "1998-11-16",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3030238,
+          "conceptName": "pH of Mixed venous blood adjusted to patient's actual temperature",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "50980-2",
+          "validStartDate": "2007-08-09",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1616438,
+          "conceptName": "pH of Central venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "97536-7",
+          "validStartDate": "2022-02-04",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1617447,
+          "conceptName": "pH of Central venous blood adjusted to patient's actual temperature",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "97537-5",
+          "validStartDate": "2022-02-04",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3009343,
+          "conceptName": "pH of Capillary blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "2745-8",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3040135,
+          "conceptName": "pH of Capillary blood adjusted to patient's actual temperature",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "39485-8",
+          "validStartDate": "2005-07-05",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "d3a7e1f9-2b6c-4e8a-9f3d-5c1e7a4b8d62",
+    "organization": {
+      "name": "INDICATE Consortium",
+      "url": "https://indicate-eu.org"
+    },
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "pH in venous blood",
+        "category": "Laboratory tests",
+        "subcategory": "Biochemistry",
+        "shortDescription": null,
+        "longDescription": "## Definition & Clinical Context\n\nVenous pH is the negative log of the hydrogen ion activity in venous blood, typically 0.02-0.04 lower than arterial pH (acidic shift from tissue CO2 production) [1]. Although arterial pH remains the reference for acid-base management, venous pH is widely used as a less invasive surrogate in the emergency department and in non-critical settings (e.g. diabetic ketoacidosis, asthma), where the small arterio-venous difference does not change clinical decisions [2]. In low-flow states (shock, cardiac arrest), the gradient widens and venous pH overestimates the severity of acidaemia compared to the arterial value.\n\nThe source data will typically be a single numeric result per patient-timestamp, produced by a blood gas analyser on a venous sample. pH is dimensionless.\n\n**Note: venous specimens.** This concept set covers peripheral venous, central venous (central venous catheter), mixed venous (pulmonary artery catheter) and capillary blood. The user should preserve the specimen distinction in analyses where the source-of-blood matters.\n\n**Note: temperature-corrected variant.** Modern blood gas analysers measure at 37 °C. A separate LOINC code exists for pH corrected to the patient's actual temperature (relevant in hypothermia). Both forms are included; downstream analyses that need to distinguish them must use the LOINC code, not the value.\n\n## Included Concepts\n\nThe set lists eight LOINC \"Lab Test\" concepts for pH in non-arterial blood (cord blood excluded), grouped by specimen.\n\n### Venous blood\n\n- *3012544 / 2746-6 — pH of Venous blood (LOINC)*\n- *3038999 / 39486-6 — pH of Venous blood adjusted to patient's actual temperature (LOINC)*\n\n### Mixed venous blood\n\n- *3012388 / 19213-8 — pH of Mixed venous blood (LOINC)*\n- *3030238 / 50980-2 — pH of Mixed venous blood adjusted to patient's actual temperature (LOINC)*\n\n### Central venous blood\n\n- *1616438 / 97536-7 — pH of Central venous blood (LOINC)*\n- *1617447 / 97537-5 — pH of Central venous blood adjusted to patient's actual temperature (LOINC)*\n\n### Capillary blood\n\n- *3009343 / 2745-8 — pH of Capillary blood (LOINC)*\n- *3040135 / 39485-8 — pH of Capillary blood adjusted to patient's actual temperature (LOINC)*\n\n**Note on units.** pH is dimensionless. LOINC's `EXAMPLE_UCUM_UNITS` is **`[pH]`** (concept 8482 — pH unit).\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The set deliberately omits:\n\n- **Arterial blood specimens**: covered by the separate \"pH in arterial blood\" concept set.\n- **Cord blood specimens**: physiologically distinct from post-natal blood.\n- **Generic blood (`pH of Blood`)**: ambiguous specimen, not used in routine clinical practice; out of scope.\n\n## Mapping Notes\n\n- **Default concept** when the source reports a venous pH without further specification: `3012544 / 2746-6 — pH of Venous blood`.\n- **Source explicitly mentions central venous or mixed venous**: map to the matching LOINC code rather than the generic venous one.\n- **Source reports pH from arterial blood**: do **not** map. Use \"pH in arterial blood\" instead.\n- **Do not confuse with**: arterial pH (separate concept set), urinary pH, gastric pH.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 2746-6 — pH of Venous blood.\n    Available: <a href=\"https://loinc.org/2746-6/\" target=\"_blank\">https://loinc.org/2746-6/</a>\n\n[2] Kelly AM. Review article: Can venous blood gas analysis replace arterial in emergency medical care? *Emerg Med Australas*. 2010;22(6):493-8.\n    Available: <a href=\"https://doi.org/10.1111/j.1742-6723.2010.01344.x\" target=\"_blank\">https://doi.org/10.1111/j.1742-6723.2010.01344.x</a>\n"
+      },
+      "fr": {
+        "name": "pH veineux",
+        "category": "Biologie",
+        "subcategory": "Biochimie",
+        "shortDescription": null,
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

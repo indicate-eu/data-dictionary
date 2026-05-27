@@ -1,23 +1,4 @@
 {
   "conceptSetId": 150,
-  "resolvedConcepts": [
-    {
-      "conceptId": 42869587,
-      "conceptName": "Hematocrit [Pure volume fraction] of Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "71832-0",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3023230,
-      "conceptName": "Hematocrit [Volume Fraction] of Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "32354-3",
-      "standardConcept": "S"
-    }
-  ]
+  "resolvedConcepts": []
 }

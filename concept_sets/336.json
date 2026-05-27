@@ -1,54 +1,15 @@
 {
   "id": 336,
-  "name": "Oxygen saturation",
+  "name": "[Deprecated] Oxygen saturation",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
-    "items": [
-      {
-        "concept": {
-          "conceptId": 42869603,
-          "conceptName": "Oxygen saturation [Pure mass fraction] in Arterial cord blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "71848-6",
-          "validStartDate": "2012-05-21",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 42869607,
-          "conceptName": "Oxygen saturation [Pure mass fraction] in Arterial blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "71852-8",
-          "validStartDate": "2012-05-21",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      }
-    ]
+    "items": []
   },
   "tags": [],
   "metadata": {
@@ -57,18 +18,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "deprecated",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Oxygen saturation",
+        "name": "[Deprecated] Oxygen saturation",
         "category": "Laboratory tests",
         "subcategory": "Arterial blood gases",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "**Deprecated** — merged into the \"Oxygen saturation in arterial blood\" concept set. The previous content (arterial-only `[Pure mass fraction]` codes) overlapped with concept set 153."
       },
       "fr": {
-        "name": "Saturation en oxygène",
+        "name": "[Deprecated] Saturation en oxygène",
         "category": "Biologie",
         "subcategory": "Gaz du sang artériel",
         "shortDescription": null,

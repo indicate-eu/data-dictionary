@@ -1,0 +1,77 @@
+{
+  "conceptSetId": 353,
+  "resolvedConcepts": [
+    {
+      "conceptId": 3019240,
+      "conceptName": "Oxygen [Partial pressure] adjusted to patient's actual temperature in Capillary blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "19256-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1617238,
+      "conceptName": "Oxygen [Partial pressure] adjusted to patient's actual temperature in Central venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "97541-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3019464,
+      "conceptName": "Oxygen [Partial pressure] adjusted to patient's actual temperature in Mixed venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "19257-5",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3004529,
+      "conceptName": "Oxygen [Partial pressure] adjusted to patient's actual temperature in Venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "19258-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3028626,
+      "conceptName": "Oxygen [Partial pressure] in Capillary blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "2704-5",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1616654,
+      "conceptName": "Oxygen [Partial pressure] in Central venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "97540-9",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3038071,
+      "conceptName": "Oxygen [Partial pressure] in Mixed venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "19211-2",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3024354,
+      "conceptName": "Oxygen [Partial pressure] in Venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "2705-2",
+      "standardConcept": "S"
+    }
+  ]
+}

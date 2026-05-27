@@ -1,23 +1,4 @@
 {
   "conceptSetId": 336,
-  "resolvedConcepts": [
-    {
-      "conceptId": 42869607,
-      "conceptName": "Oxygen saturation [Pure mass fraction] in Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "71852-8",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42869603,
-      "conceptName": "Oxygen saturation [Pure mass fraction] in Arterial cord blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "71848-6",
-      "standardConcept": "S"
-    }
-  ]
+  "resolvedConcepts": []
 }

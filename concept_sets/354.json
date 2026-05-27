@@ -1,0 +1,279 @@
+{
+  "id": 354,
+  "name": "Oxygen saturation in venous blood",
+  "description": null,
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-05-27",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-05-27",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 3024928,
+          "conceptName": "Oxygen saturation in Venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "2711-0",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3041253,
+          "conceptName": "Oxygen saturation Calculated from oxygen partial pressure in Venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "51731-8",
+          "validStartDate": "2007-08-09",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42869600,
+          "conceptName": "Oxygen saturation [Pure mass fraction] in Venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "71845-2",
+          "validStartDate": "2012-05-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42869596,
+          "conceptName": "Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "71841-1",
+          "validStartDate": "2012-05-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3018465,
+          "conceptName": "Oxygen saturation in Mixed venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "19224-5",
+          "validStartDate": "1998-11-16",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 44786762,
+          "conceptName": "Oxygen saturation Calculated from oxygen partial pressure in Mixed venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "74105-8",
+          "validStartDate": "2015-12-09",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42869601,
+          "conceptName": "Oxygen saturation [Pure mass fraction] in Mixed venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "71846-0",
+          "validStartDate": "2012-05-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1616373,
+          "conceptName": "Oxygen saturation in Central venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "97549-0",
+          "validStartDate": "2022-02-04",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3021901,
+          "conceptName": "Oxygen saturation in Capillary blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "2709-4",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3039986,
+          "conceptName": "Oxygen saturation Calculated from oxygen partial pressure in Capillary blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "51732-6",
+          "validStartDate": "2007-08-09",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42869606,
+          "conceptName": "Oxygen saturation [Pure mass fraction] in Capillary blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "71851-0",
+          "validStartDate": "2012-05-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42869597,
+          "conceptName": "Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Capillary blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "71842-9",
+          "validStartDate": "2012-05-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "f8c4e2d1-7a36-4e9b-bc5a-1d6e8a2c4f73",
+    "organization": {
+      "name": "INDICATE Consortium",
+      "url": "https://indicate-eu.org"
+    },
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Oxygen saturation in venous blood",
+        "category": "Laboratory tests",
+        "subcategory": "Biochemistry",
+        "shortDescription": null,
+        "longDescription": "## Definition & Clinical Context\n\nVenous oxygen saturation is the fraction of haemoglobin in venous blood bound to oxygen, expressed as a percentage. It is measured by CO-oximetry on a venous blood sample. In critical care, it is used to assess the balance between oxygen delivery and consumption: a low venous saturation suggests inadequate oxygen delivery relative to demand (low cardiac output, anaemia, hypoxaemia) or increased extraction.\n\nThe source data will typically be a single numeric result per patient-timestamp, reported as a percentage (0-100%).\n\n**Note: SvO2 vs ScvO2 vs peripheral SvO2.** Three distinct venous saturation measurements exist, with different sampling sites and clinical interpretations [1, 2]:\n\n- **SvO2 (mixed venous saturation)** — sampled from the pulmonary artery via a pulmonary artery catheter. It is the true average venous saturation of the whole body and the gold standard for oxygen delivery/consumption balance. Normal range: ~ 65-75%.\n- **ScvO2 (central venous saturation)** — sampled from a central venous catheter, typically in the superior vena cava. It reflects upper-body return only, not the whole body, but is much less invasive than SvO2 and used as a surrogate. Values are typically 2-3% higher than SvO2 in resting healthy adults; the relationship inverts in shock. ScvO2 < 70% is one of the targets of early goal-directed therapy in sepsis (its clinical benefit is now controversial, but the variable remains widely measured) [3].\n- **Peripheral venous saturation** — sampled from a peripheral vein. Highly dependent on tourniquet, local perfusion and local metabolism. Of limited clinical value as a marker of systemic oxygen balance.\n\nThis concept set covers all venous specimens (peripheral, mixed venous, central venous, capillary). The user must preserve the LOINC code in downstream analyses where the source-of-blood matters — values are **not interchangeable** across specimens.\n\n**Note: directly measured vs calculated.** LOINC distinguishes `Oxygen saturation in X blood` (direct CO-oximetry) from `Oxygen saturation Calculated from oxygen partial pressure` (computed from PO2 via the haemoglobin dissociation curve). Both forms are included; calculated values are less reliable when dyshaemoglobinaemias are present.\n\n## Included Concepts\n\nThe set lists 12 LOINC \"Lab Test\" concepts for venous oxygen saturation (cord blood excluded), grouped by specimen.\n\n### Venous blood\n\n- *3024928 / 2711-0 — Oxygen saturation in Venous blood (LOINC)*\n- *3041253 / 51731-8 — Oxygen saturation Calculated from oxygen partial pressure in Venous blood (LOINC)*\n- *42869600 / 71845-2 — Oxygen saturation [Pure mass fraction] in Venous blood (LOINC)*\n- *42869596 / 71841-1 — Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Venous blood (LOINC)*\n\n### Mixed venous blood (SvO2)\n\n- *3018465 / 19224-5 — Oxygen saturation in Mixed venous blood (LOINC)*\n- *44786762 / 74105-8 — Oxygen saturation Calculated from oxygen partial pressure in Mixed venous blood (LOINC)*\n- *42869601 / 71846-0 — Oxygen saturation [Pure mass fraction] in Mixed venous blood (LOINC)*\n\n### Central venous blood (ScvO2)\n\n- *1616373 / 97549-0 — Oxygen saturation in Central venous blood (LOINC)*\n\n### Capillary blood\n\n- *3021901 / 2709-4 — Oxygen saturation in Capillary blood (LOINC)*\n- *3039986 / 51732-6 — Oxygen saturation Calculated from oxygen partial pressure in Capillary blood (LOINC)*\n- *42869606 / 71851-0 — Oxygen saturation [Pure mass fraction] in Capillary blood (LOINC)*\n- *42869597 / 71842-9 — Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Capillary blood (LOINC)*\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`%`** (concept 8554 — percent). The `[Pure mass fraction]` variants are dimensionless ratios between 0 and 1.\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The set deliberately omits:\n\n- **Arterial blood specimens**: covered by the separate \"Oxygen saturation in arterial blood\" concept set.\n- **Cord blood specimens**: physiologically distinct from post-natal blood.\n- **Pulse oximetry codes**: pulse oximetry produces an SpO2 estimate that, by sensor placement, is intended to approximate arterial saturation, not venous.\n\n## Mapping Notes\n\n- **Default concept** when the source reports a venous saturation without further specification: `3024928 / 2711-0 — Oxygen saturation in Venous blood`.\n- **Source explicitly says SvO2 (mixed venous, pulmonary artery catheter)**: map to `3018465 / 19224-5 — Oxygen saturation in Mixed venous blood`.\n- **Source explicitly says ScvO2 (central venous catheter)**: map to `1616373 / 97549-0 — Oxygen saturation in Central venous blood`.\n- **Source unit is a fraction (0-1)** rather than percent: map to the `[Pure mass fraction]` variant.\n- **Source reports arterial saturation (SaO2, SpO2)**: do **not** map. Use \"Oxygen saturation in arterial blood\" or the pulse oximetry concept set.\n- **Do not confuse with**: arterial saturation (separate concept set), oxygen partial pressure (separate concept set).\n\n## References\n\n[1] Walley KR. Use of central venous oxygen saturation to guide therapy. *Am J Respir Crit Care Med*. 2011;184(5):514-20.\n    Available: <a href=\"https://doi.org/10.1164/rccm.201010-1584CI\" target=\"_blank\">https://doi.org/10.1164/rccm.201010-1584CI</a>\n\n[2] Reinhart K, Kuhn HJ, Hartog C, Bredle DL. Continuous central venous and pulmonary artery oxygen saturation monitoring in the critically ill. *Intensive Care Med*. 2004;30(8):1572-8.\n    Available: <a href=\"https://doi.org/10.1007/s00134-004-2337-y\" target=\"_blank\">https://doi.org/10.1007/s00134-004-2337-y</a>\n\n[3] Rivers E, Nguyen B, Havstad S, Ressler J, Muzzin A, Knoblich B, et al. Early goal-directed therapy in the treatment of severe sepsis and septic shock. *N Engl J Med*. 2001;345(19):1368-77.\n    Available: <a href=\"https://doi.org/10.1056/NEJMoa010307\" target=\"_blank\">https://doi.org/10.1056/NEJMoa010307</a>\n"
+      },
+      "fr": {
+        "name": "Saturation veineuse en O2",
+        "category": "Biologie",
+        "subcategory": "Biochimie",
+        "shortDescription": null,
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

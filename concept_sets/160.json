@@ -1,34 +1,15 @@
 {
   "id": 160,
-  "name": "ABG pH",
+  "name": "pH in arterial blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
-      {
-        "concept": {
-          "conceptId": 3006598,
-          "conceptName": "pH of Arterial cord blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "28646-8",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
       {
         "concept": {
           "conceptId": 3019977,
@@ -66,25 +47,6 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3030109,
-          "conceptName": "pH of Arterial cord blood adjusted to patient's actual temperature",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "49698-4",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
       }
     ]
   },
@@ -95,20 +57,20 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "ABG pH",
+        "name": "pH in arterial blood",
         "category": "Laboratory tests",
-        "subcategory": "Arterial blood gases",
+        "subcategory": "Biochemistry",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nArterial pH (pHa) is the negative log of the hydrogen ion activity in arterial blood, normally between 7.35 and 7.45. It is the primary descriptor of acid-base balance: pHa < 7.35 defines acidaemia, pHa > 7.45 defines alkalaemia [1]. Together with PaCO2 and bicarbonate, it allows the distinction of respiratory vs metabolic disorders and their compensation. The source data will typically be a single numeric result per patient-timestamp, produced by a blood gas analyser on an arterial sample. pH is dimensionless.\n\n**Note: arterial vs venous.** Arterial and venous pH differ by ~ 0.02-0.04 (venous pH is lower because of CO2 production by tissues). The difference widens in low-flow states. Although venous pH is sometimes used as a surrogate for arterial pH in non-critical settings, the two are not strictly interchangeable. This concept set covers **arterial** pH only. Venous, mixed venous, central venous and capillary pH are captured by the separate concept set \"pH in venous blood\".\n\n**Note: temperature-corrected variant.** Modern blood gas analysers measure at 37 °C. A separate LOINC code exists for pH corrected to the patient's actual temperature (relevant in hypothermia, e.g. therapeutic hypothermia post-cardiac arrest). The choice between α-stat (measure at 37 °C) and pH-stat (temperature-corrected) management is a long-standing debate in cardiac and neurosurgery [2]. Both forms are included here; downstream analyses that need to distinguish them must use the LOINC code, not the value.\n\n## Included Concepts\n\nThe set lists two LOINC \"Lab Test\" concepts for pH in arterial blood (cord blood excluded):\n\n- *3019977 / 2744-1 — pH of Arterial blood (LOINC)*: most widely used.\n- *3029473 / 33254-4 — pH of Arterial blood adjusted to patient's actual temperature (LOINC)*: temperature-corrected (pH-stat) variant.\n\n**Note on units.** pH is dimensionless. LOINC's `EXAMPLE_UCUM_UNITS` is **`[pH]`** (concept 8482 — pH unit).\n\n## Excluded Concepts\n\nThe following LOINC concepts are deliberately not part of this set:\n\n### Cord blood specimens — physiologically distinct\n\n- *3006598 / 28646-8 — pH of Arterial cord blood*\n- *3030109 / 49698-4 — pH of Arterial cord blood adjusted to patient's actual temperature*\n\n### Other specimens\n\n- All venous, mixed venous, central venous, capillary, generic blood codes: captured by the separate \"pH in venous blood\" concept set or generic-blood concept set if defined.\n\n## Mapping Notes\n\n- **Default concept** when the source reports an arterial pH (e.g. blood gas analyser): `3019977 / 2744-1 — pH of Arterial blood`.\n- **Source reports pH from venous, mixed venous or central venous blood**: do **not** map to this concept set. Use \"pH in venous blood\" instead.\n- **Source explicitly says \"temperature-corrected\" or \"pH-stat\"**: map to `3029473 / 33254-4`.\n- **Do not confuse with**: venous pH (separate concept set), urinary pH, gastric pH (different specimens).\n\n## References\n\n[1] Regenstrief Institute. LOINC code 2744-1 — pH of Arterial blood.\n    Available: <a href=\"https://loinc.org/2744-1/\" target=\"_blank\">https://loinc.org/2744-1/</a>\n\n[2] Bacher A. Effects of body temperature on blood gases. *Intensive Care Med*. 2005;31(1):24-7.\n    Available: <a href=\"https://doi.org/10.1007/s00134-004-2369-3\" target=\"_blank\">https://doi.org/10.1007/s00134-004-2369-3</a>\n"
       },
       "fr": {
-        "name": "Gaz du sang - pH",
+        "name": "pH artériel",
         "category": "Biologie",
-        "subcategory": "Gaz du sang artériel",
+        "subcategory": "Biochimie",
         "shortDescription": null,
         "longDescription": null
       }
