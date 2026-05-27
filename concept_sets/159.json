@@ -1,51 +1,51 @@
 {
   "id": 159,
-  "name": "ABG lactate",
+  "name": "Lactate in arterial blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3018405,
-          "conceptName": "Lactate [Moles/volume] in Arterial blood",
+          "conceptId": 37055558,
+          "conceptName": "Lactate | Blood arterial | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "2518-9",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385562-6",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3035561,
-          "conceptName": "Lactate [Mass/volume] in Arterial blood",
+          "conceptId": 37075357,
+          "conceptName": "Lactate | Plasma arterial | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "30242-2",
-          "validStartDate": "2001-10-01",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385572-5",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -57,20 +57,20 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "ABG lactate",
+        "name": "Lactate in arterial blood",
         "category": "Laboratory tests",
-        "subcategory": "Arterial blood gases",
+        "subcategory": "Biochemistry",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nLactate is the end-product of anaerobic glucose metabolism; its concentration in arterial blood is a key marker of tissue hypoperfusion and is widely used in shock, sepsis, and critical care [1]. The source data will typically be a single numeric result per patient-timestamp, produced by a blood gas analyser or a point-of-care device on arterial blood. Results are reported as a substance concentration in mmol/L (SI unit) or as a mass concentration in mg/dL [2].\n\n**Note: arterial vs venous lactate.** Lactate concentrations in arterial and venous blood are **not numerically equivalent** — the arterio-venous difference reflects tissue lactate production/clearance and is clinically meaningful. This concept set covers **arterial lactate** only. Venous lactate (including capillary, mixed venous, central venous, serum/plasma generic) is captured by a separate concept set, \"Lactate in venous blood\". Cord blood and fetus specimens are excluded.\n\n## Included Concepts\n\nThe set is anchored on two LOINC Hierarchy concepts (scoped to `Chemistry - non-challenge`), with their descendants pulled in. The set resolves to three LOINC \"Lab Test\" concepts.\n\n### Arterial blood\n\n- *3018405 / 2518-9 — Lactate [Moles/volume] in Arterial blood (LOINC)*: most widely used LOINC code for arterial lactate.\n- *3035561 / 30242-2 — Lactate [Mass/volume] in Arterial blood (LOINC)*: same measurand expressed as mass concentration.\n- *3020410 / 32132-3 — Lactate [Moles/volume] in Arterial plasma (LOINC)*: less common variant where the specimen is explicitly arterial plasma rather than whole arterial blood.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mmol/L`** (concept 8753 — millimole per litre) for `[Moles/volume]` codes and **`mg/dL`** (concept 8840) for `[Mass/volume]` codes. Conversion: `1 mg/dL ≈ 0.111 mmol/L` (molar mass of lactate = 89.07 g/mol).\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The set deliberately omits the following LOINC concepts:\n\n- **Venous, mixed venous, capillary, central venous, generic Blood, Serum or Plasma specimens**: captured by the separate concept set \"Lactate in venous blood\".\n- **Cord blood and fetus specimens**: physiologically distinct from post-natal blood.\n- **Lactate/Pyruvate ratio**: different measurand.\n- **Lactate dehydrogenase (LDH)**: different analyte, captured by the separate \"Lactate dehydrogenase (LDH) in blood\" concept set.\n- **CSF, body fluid, dialysis fluid and other specimens**: out of scope for a \"blood\" concept set.\n\n## Mapping Notes\n\n- **Default concept** when the source reports a lactate value explicitly from arterial blood (e.g. blood gas analyser, arterial sample): `3018405 / 2518-9 — Lactate [Moles/volume] in Arterial blood`.\n- **Source unit is mg/dL**: convert to mmol/L using `1 mg/dL ≈ 0.111 mmol/L`.\n- **Source reports a lactate value without specifying arterial origin**: do **not** map to this concept set. Use the separate \"Lactate in venous blood\" concept set, which aggregates venous, capillary, mixed venous and generic specimens.\n- **Do not confuse with**: venous lactate (separate concept set, arterio-venous difference is clinically meaningful), lactate dehydrogenase (LDH, different analyte), lactate/pyruvate ratio.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 2518-9 — Lactate [Moles/volume] in Arterial blood.\n    Available: <a href=\"https://loinc.org/2518-9/\" target=\"_blank\">https://loinc.org/2518-9/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
-        "name": "Gaz du sang - Lactate",
+        "name": "Lactate artériel",
         "category": "Biologie",
-        "subcategory": "Gaz du sang artériel",
+        "subcategory": "Biochimie",
         "shortDescription": null,
         "longDescription": null
       }

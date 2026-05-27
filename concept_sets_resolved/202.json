@@ -2,12 +2,48 @@
   "conceptSetId": 202,
   "resolvedConcepts": [
     {
+      "conceptId": 46235170,
+      "conceptName": "Albumin [Mass/volume] in Blood by Bromocresol purple (BCP) dye binding method",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "76631-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1260115,
+      "conceptName": "Albumin [Mass/volume] in Serum by Immunoassay",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "103577-3",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3024561,
       "conceptName": "Albumin [Mass/volume] in Serum or Plasma",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "1751-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40763912,
+      "conceptName": "Albumin [Mass/volume] in Serum or Plasma by Bromocresol green (BCG) dye binding method",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "61151-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40763913,
+      "conceptName": "Albumin [Mass/volume] in Serum or Plasma by Bromocresol purple (BCP) dye binding method",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "61152-5",
       "standardConcept": "S"
     },
     {
@@ -26,6 +62,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "101198-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46236953,
+      "conceptName": "Albumin [Mass/volume] in Serum, Plasma or Blood by Bromocresol purple (BCP) dye binding method",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "77148-5",
       "standardConcept": "S"
     },
     {
@@ -54,6 +99,42 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "62234-0",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 37036806,
+      "conceptName": "Albumin | Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP384476-0",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37048896,
+      "conceptName": "Albumin | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP384485-1",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37063387,
+      "conceptName": "Albumin | Serum | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP384484-4",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37074175,
+      "conceptName": "Albumin | Serum, Plasma or Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP384486-9",
+      "standardConcept": "C"
     }
   ]
 }

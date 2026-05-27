@@ -9,6 +9,33 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "2532-0",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 3022250,
+      "conceptName": "Lactate dehydrogenase [Enzymatic activity/volume] in Serum or Plasma by Lactate to pyruvate reaction",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "14804-9",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3005225,
+      "conceptName": "Lactate dehydrogenase [Enzymatic activity/volume] in Serum or Plasma by Pyruvate to lactate reaction",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "14805-6",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37056637,
+      "conceptName": "Lactate dehydrogenase | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP383084-3",
+      "standardConcept": "C"
     }
   ]
 }

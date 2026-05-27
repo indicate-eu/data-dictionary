@@ -11,15 +11,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3017809,
-      "conceptName": "Bicarbonate [Moles/volume] in Arterial cord blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "28640-1",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 3006576,
       "conceptName": "Bicarbonate [Moles/volume] in Blood",
       "vocabularyId": "LOINC",
@@ -44,15 +35,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "97543-3",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3037749,
-      "conceptName": "Bicarbonate [Moles/volume] in Cord blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "14151-5",
       "standardConcept": "S"
     },
     {
@@ -101,30 +83,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3018650,
-      "conceptName": "Bicarbonate [Moles/volume] in Venous cord blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "28641-9",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 3014218,
       "conceptName": "Bicarbonate [Moles/volume] standard in Arterial blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "19230-2",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3041008,
-      "conceptName": "Bicarbonate [Moles/volume] standard in Arterial cord blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "39460-1",
       "standardConcept": "S"
     },
     {
@@ -173,15 +137,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3040637,
-      "conceptName": "Bicarbonate [Moles/volume] standard in Venous cord blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "39459-3",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 37068572,
       "conceptName": "Bicarbonate | Blood arterial | Chemistry - non-challenge",
       "vocabularyId": "LOINC",
@@ -206,33 +161,6 @@
       "domainId": "Measurement",
       "conceptClassId": "LOINC Hierarchy",
       "conceptCode": "LP426950-4",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37078895,
-      "conceptName": "Bicarbonate | Blood cord arterial | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386556-7",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37044873,
-      "conceptName": "Bicarbonate | Blood cord venous | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386557-5",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37049671,
-      "conceptName": "Bicarbonate | Blood cord | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386555-9",
       "standardConcept": "C"
     },
     {

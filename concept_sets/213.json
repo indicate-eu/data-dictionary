@@ -1,88 +1,145 @@
 {
   "id": 213,
-  "name": "Plasma urea",
+  "name": "Urea in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3009810,
-          "conceptName": "Urea [Mass/volume] in Blood",
+          "conceptId": 37032095,
+          "conceptName": "Urea | Blood | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "20977-5",
-          "validStartDate": "1999-03-26",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385430-6",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37052730,
+          "conceptName": "Urea | Blood arterial | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385431-4",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37070945,
+          "conceptName": "Urea | Blood venous | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385432-2",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37027482,
+          "conceptName": "Urea | Serum or Plasma | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385441-3",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37025227,
+          "conceptName": "Urea | Serum, Plasma or Blood | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385442-1",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3040431,
+          "conceptName": "Urea/Creatinine [Molar ratio] in Serum or Plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "39783-6",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3020779,
-          "conceptName": "Urea [Moles/volume] in Serum or Plasma",
+          "conceptId": 40760116,
+          "conceptName": "Urea/Creatinine [Mass Ratio] in Serum or Plasma",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "22664-7",
-          "validStartDate": "1999-11-16",
+          "conceptCode": "56997-0",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 43534077,
-          "conceptName": "Urea [Moles/volume] in Blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "72903-8",
-          "validStartDate": "2013-01-25",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 43534100,
-          "conceptName": "Urea [Moles/volume] in Venous blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "72926-9",
-          "validStartDate": "2013-01-25",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       }
@@ -90,25 +147,25 @@
   },
   "tags": [],
   "metadata": {
-    "uniqueId": "741a99f4-54f9-4fa0-a9b7-6ec6ce61242a",
+    "uniqueId": "fa742e8c-d51c-4d3b-9a6b-3e8c1f5a4d2b",
     "organization": {
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Plasma urea",
+        "name": "Urea in blood",
         "category": "Laboratory tests",
-        "subcategory": "Plasma electrolytes",
+        "subcategory": "Biochemistry",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nUrea is the main nitrogenous end-product of protein catabolism; its concentration in blood is used to assess renal function and the protein catabolic state [1]. In US sources it is often reported as **blood urea nitrogen (BUN)** — the nitrogen content of urea, which is **not numerically equal** to urea itself (see Mapping Notes below). The source data will typically be a single numeric result per patient-timestamp, produced by a biochemistry analyser. Results are reported as a substance concentration in mmol/L (SI unit) or as a mass concentration in mg/dL [2].\n\nThis concept set aggregates urea measurements across blood specimens (serum, plasma, arterial, venous and unspecified blood).\n\n## Included Concepts\n\nThe set is anchored on five LOINC Hierarchy concepts (one per blood specimen, scoped to `Chemistry - non-challenge`), with their descendants pulled in. After exclusions, the set resolves to eight LOINC \"Lab Test\" concepts, grouped here by specimen.\n\n### Serum or plasma (default specimen for routine biochemistry)\n\n- *3020779 / 22664-7 — Urea [Moles/volume] in Serum or Plasma (LOINC)*: most widely used LOINC code worldwide.\n- *3034204 / 3091-6 — Urea [Mass/volume] in Serum or Plasma (LOINC)*: same measurand expressed as mass concentration.\n- *3042602 / 39776-0 — Urea [Moles/volume] in Serum or Plasma --post dialysis (LOINC)*: point-in-time measurement immediately after a haemodialysis session.\n- *3039815 / 39777-8 — Urea [Moles/volume] in Serum or Plasma --pre dialysis (LOINC)*: point-in-time measurement immediately before a haemodialysis session.\n\n### Generic blood (specimen unspecified)\n\n- *43534077 / 72903-8 — Urea [Moles/volume] in Blood (LOINC)*\n- *3009810 / 20977-5 — Urea [Mass/volume] in Blood (LOINC)*: same measurand expressed as mass concentration.\n- *46235781 / 77136-0 — Urea [Moles/volume] in Serum, Plasma or Blood (LOINC)*: specimen-agnostic.\n\n### Arterial blood\n\n- *43534101 / 72927-7 — Urea [Moles/volume] in Arterial blood (LOINC)*\n\n### Venous blood\n\n- *43534100 / 72926-9 — Urea [Moles/volume] in Venous blood (LOINC)*\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mmol/L`** (concept 8753 — millimole per litre) for `[Moles/volume]` codes and **`mg/dL`** (concept 8840) for `[Mass/volume]` codes. Conversion: `1 mmol/L urea ≈ 6.01 mg/dL urea` (molar mass of urea = 60.06 g/mol).\n\n## Excluded Concepts\n\nThe Serum/Plasma hierarchy above pulls in two LOINC concepts that are explicitly excluded:\n\n- *3040431 / 39783-6 — Urea/Creatinine [Molar ratio] in Serum or Plasma*: derived ratio, not a urea concentration.\n- *40760116 / 56997-0 — Urea/Creatinine [Mass Ratio] in Serum or Plasma*: derived ratio, not a urea concentration.\n\nThe set also deliberately omits the following LOINC concepts:\n\n- **Urine specimens**: out of scope (captured by the separate \"Urinary urea\" concept set).\n- **Body fluid, CSF and other specimens**: out of scope for a \"blood\" concept set.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"urea\", \"urée\" without further specification: `3020779 / 22664-7 — Urea [Moles/volume] in Serum or Plasma`. By far the most common LOINC code.\n- **Source reports BUN (blood urea nitrogen)**: BUN measures only the nitrogen content of urea (2 N atoms × 14 g/mol = 28 g/mol). Conversion: `1 mg/dL BUN ≈ 0.357 mmol/L urea` and `1 mmol/L urea ≈ 2.8 mg/dL BUN`. **Do not map a BUN value directly to a urea LOINC code without converting**, otherwise the value will be off by a factor of ~2.14.\n- **Source unit is mg/dL urea**: convert to mmol/L using `1 mg/dL ≈ 0.1665 mmol/L` (i.e. divide by 6.006).\n- **Do not confuse with**: urea nitrogen / BUN (uses different LOINC codes, conversion factor required), urinary urea, urea/creatinine ratio.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 22664-7 — Urea [Moles/volume] in Serum or Plasma.\n    Available: <a href=\"https://loinc.org/22664-7/\" target=\"_blank\">https://loinc.org/22664-7/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
-        "name": "Urée plasmatique",
+        "name": "Urémie sanguine",
         "category": "Biologie",
-        "subcategory": "Ionogramme plasmatique",
+        "subcategory": "Biochimie",
         "shortDescription": null,
         "longDescription": null
       }

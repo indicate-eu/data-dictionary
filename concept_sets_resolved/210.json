@@ -11,6 +11,33 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3011904,
+      "conceptName": "Phosphate [Mass/volume] in Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "2777-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3050450,
+      "conceptName": "Phosphate [Mass/volume] in Serum or Plasma --post dialysis",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "48617-5",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3049552,
+      "conceptName": "Phosphate [Mass/volume] in Serum or Plasma --pre dialysis",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "48641-5",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3018913,
       "conceptName": "Phosphate [Moles/volume] in Blood",
       "vocabularyId": "LOINC",
@@ -27,6 +54,33 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "14879-1",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 40759093,
+      "conceptName": "Phosphate [Moles/volume] in Serum or Plasma --post dialysis",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "55972-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37064066,
+      "conceptName": "Phosphate | Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386044-4",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37062662,
+      "conceptName": "Phosphate | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386057-6",
+      "standardConcept": "C"
     }
   ]
 }

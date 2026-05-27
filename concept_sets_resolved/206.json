@@ -2,6 +2,15 @@
   "conceptSetId": 206,
   "resolvedConcepts": [
     {
+      "conceptId": 3007760,
+      "conceptName": "Creatinine [Mass/volume] in Arterial blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "21232-4",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3051825,
       "conceptName": "Creatinine [Mass/volume] in Blood",
       "vocabularyId": "LOINC",
@@ -17,6 +26,24 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "2160-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3018968,
+      "conceptName": "Creatinine [Mass/volume] in Serum or Plasma --post dialysis",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "11041-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3022243,
+      "conceptName": "Creatinine [Mass/volume] in Serum or Plasma --pre dialysis",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "11042-9",
       "standardConcept": "S"
     },
     {
@@ -38,6 +65,33 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3040209,
+      "conceptName": "Creatinine [Moles/volume] in Serum or Plasma --post dialysis",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "51620-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3040495,
+      "conceptName": "Creatinine [Moles/volume] in Serum or Plasma --pre dialysis",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "51619-5",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1260102,
+      "conceptName": "Creatinine [Moles/volume] in Serum or Plasma by LC/MS/MS",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "103616-9",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 46235076,
       "conceptName": "Creatinine [Moles/volume] in Serum, Plasma or Blood",
       "vocabularyId": "LOINC",
@@ -54,6 +108,51 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "101475-2",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 37076562,
+      "conceptName": "Creatinine | Blood arterial | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385351-4",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 3967510,
+      "conceptName": "Creatinine | Blood venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP434752-4",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37074896,
+      "conceptName": "Creatinine | Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385350-6",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37029387,
+      "conceptName": "Creatinine | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385359-7",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37056619,
+      "conceptName": "Creatinine | Serum, Plasma or Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385360-5",
+      "standardConcept": "C"
     }
   ]
 }

@@ -2,12 +2,39 @@
   "conceptSetId": 218,
   "resolvedConcepts": [
     {
-      "conceptId": 3000361,
-      "conceptName": "Glucose [Moles/time] in 24 hour Urine",
+      "conceptId": 3020399,
+      "conceptName": "Glucose [Mass/volume] in Urine",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "15077-1",
+      "conceptCode": "2350-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3035214,
+      "conceptName": "Glucose [Mass/volume] in Urine collected for unspecified duration",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "35662-6",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3005570,
+      "conceptName": "Glucose [Moles/volume] in Urine",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "15076-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44786994,
+      "conceptName": "Glucose [Moles/volume] in Urine collected for unspecified duration",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "74351-8",
       "standardConcept": "S"
     }
   ]

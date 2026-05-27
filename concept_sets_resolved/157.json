@@ -1,23 +1,4 @@
 {
   "conceptSetId": 157,
-  "resolvedConcepts": [
-    {
-      "conceptId": 3031266,
-      "conceptName": "Glucose [Mass/volume] in Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "41651-1",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3044242,
-      "conceptName": "Glucose [Moles/volume] in Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "39481-7",
-      "standardConcept": "S"
-    }
-  ]
+  "resolvedConcepts": []
 }

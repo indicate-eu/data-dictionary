@@ -1,88 +1,164 @@
 {
   "id": 155,
-  "name": "ABG calcium ionized",
+  "name": "Ionized calcium in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3041706,
-          "conceptName": "Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Arterial blood",
+          "conceptId": 37073217,
+          "conceptName": "Calcium.ionized | Blood | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "53138-4",
-          "validStartDate": "2008-05-06",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385973-5",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37036351,
+          "conceptName": "Calcium.ionized | Blood arterial | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385974-3",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37073269,
+          "conceptName": "Calcium.ionized | Blood capillary | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385975-0",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37066721,
+          "conceptName": "Calcium.ionized | Blood mixed venous | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385978-4",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37068391,
+          "conceptName": "Calcium.ionized | Blood venous | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385979-2",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37058150,
+          "conceptName": "Calcium.ionized | Serum or Plasma | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385983-4",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3032710,
+          "conceptName": "Calcium.ionized/Calcium.total corrected for albumin in Blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "49936-8",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3044331,
-          "conceptName": "Calcium.ionized [Moles/volume] in Arterial blood",
+          "conceptId": 3032782,
+          "conceptName": "Calcium.ionized/Calcium.total corrected for albumin in Serum or Plasma",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "34581-9",
-          "validStartDate": "2003-09-05",
+          "conceptCode": "49935-0",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 40757497,
-          "conceptName": "Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Cord blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "54366-0",
-          "validStartDate": "2008-12-18",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 40757498,
-          "conceptName": "Calcium.ionized [Moles/volume] in Cord blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "54367-8",
-          "validStartDate": "2008-12-18",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       }
@@ -95,20 +171,20 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "ABG calcium ionized",
+        "name": "Ionized calcium in blood",
         "category": "Laboratory tests",
-        "subcategory": "Arterial blood gases",
+        "subcategory": "Biochemistry",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nIonized (free) calcium is the biologically active fraction of total calcium — typically ~50 % of total calcium in plasma. It is measured directly by ion-selective membrane electrodes on blood gas analysers and on dedicated biochemistry platforms. It is the variable of interest in critical care (hypocalcaemia, transfusion-related hypocalcaemia, post-cardiac-surgery monitoring) where rapid acid-base disturbances or hypoalbuminaemia make total calcium misleading [1]. The source data will typically be a single numeric result per patient-timestamp. Results are reported as a substance concentration in mmol/L (SI unit) or as a mass concentration in mg/dL [2].\n\nThis concept set aggregates **ionized calcium** measurements across blood specimens (serum, plasma, arterial, venous, mixed venous, capillary and unspecified blood). Cord blood and fetus specimens are excluded.\n\n**Note: ionized vs total calcium.** This concept set covers **ionized (free) calcium** only. Total calcium (including the protein-bound and complexed fractions) is captured by a separate concept set, \"Calcium in blood\". The two are different measurands with different reference ranges and clinical interpretation; they must not be merged.\n\n**Note: actual vs. pH-adjusted ionized calcium.** LOINC distinguishes two forms:\n- **Ionized calcium** — measured at the patient's actual pH.\n- **Ionized calcium adjusted to pH 7.4** — recalculated as if pH were 7.4, to neutralise the effect of acid-base status on calcium binding.\n\nIn the absence of acid-base disturbance the two values are nearly identical, but they can diverge in acidosis or alkalosis. **Both forms are included in this concept set** because most clinical sources and studies aggregate them under \"ionized calcium\". Study designs that explicitly compare actual vs. pH-adjusted ionized calcium should preserve the distinction at the source value level.\n\n## Included Concepts\n\nThe set is anchored on six LOINC Hierarchy concepts (one per blood specimen, scoped to `Chemistry - non-challenge`), with their descendants pulled in. After exclusions, the set resolves to 22 LOINC \"Lab Test\" concepts, grouped here by specimen.\n\n### Serum or plasma\n\n- *3021347 / 1995-0 — Calcium.ionized [Moles/volume] in Serum or Plasma (LOINC)*: most widely used substance-concentration form.\n- *3027694 / 17863-2 — Calcium.ionized [Mass/volume] in Serum or Plasma (LOINC)*: same measurand expressed as mass concentration.\n- *3013784 / 12180-6 — Calcium.ionized [Moles/volume] in Serum or Plasma by Ion-selective membrane electrode (ISE) (LOINC)*: ISE method explicit.\n- *3024250 / 17864-0 — Calcium.ionized [Mass/volume] in Serum or Plasma by Ion-selective membrane electrode (ISE) (LOINC)*: ISE method explicit, mass form.\n- *3015774 / 13959-2 — Calcium.ionized [Moles/volume] in Serum or Plasma by calculation (LOINC)*: derived by calculation (rather than directly measured).\n- *3016431 / 19072-8 — Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Serum or Plasma (LOINC)*: pH-adjusted form.\n- *40760451 / 57333-7 — Calcium.ionized [Mass/volume] adjusted to pH 7.4 in Serum or Plasma by Ion-selective membrane electrode (ISE) (LOINC)*: pH-adjusted form, mass, ISE.\n\n### Generic blood (specimen unspecified)\n\n- *3021119 / 1994-3 — Calcium.ionized [Moles/volume] in Blood (LOINC)*: typically reported by a blood gas analyser.\n- *3036426 / 38230-9 — Calcium.ionized [Mass/volume] in Blood (LOINC)*: same measurand expressed as mass concentration.\n- *3050068 / 47596-2 — Calcium.ionized [Moles/volume] in Blood by Ion-selective membrane electrode (ISE) (LOINC)*: ISE method explicit.\n- *3048816 / 47598-8 — Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Blood (LOINC)*: pH-adjusted form.\n\n### Arterial blood\n\n- *3044331 / 34581-9 — Calcium.ionized [Moles/volume] in Arterial blood (LOINC)*\n- *40762532 / 59470-5 — Calcium.ionized [Mass/volume] in Arterial blood (LOINC)*\n- *3041706 / 53138-4 — Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Arterial blood (LOINC)*: pH-adjusted form.\n- *40762534 / 59472-1 — Calcium.ionized [Mass/volume] adjusted to pH 7.4 in Arterial blood by Ion-selective membrane electrode (ISE) (LOINC)*: pH-adjusted form, mass, ISE.\n\n### Venous blood\n\n- *3033705 / 41645-3 — Calcium.ionized [Moles/volume] in Venous blood (LOINC)*\n- *40762533 / 59471-3 — Calcium.ionized [Mass/volume] in Venous blood (LOINC)*\n- *3041671 / 53140-0 — Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Venous blood (LOINC)*: pH-adjusted form.\n- *40762535 / 59473-9 — Calcium.ionized [Mass/volume] adjusted to pH 7.4 in Venous blood by Ion-selective membrane electrode (ISE) (LOINC)*: pH-adjusted form, mass, ISE.\n\n### Mixed venous blood\n\n- *3032271 / 41646-1 — Calcium.ionized [Moles/volume] in Mixed venous blood (LOINC)*: typically from a Swan-Ganz catheter.\n\n### Capillary blood\n\n- *3035279 / 41644-6 — Calcium.ionized [Moles/volume] in Capillary blood (LOINC)*\n- *3039602 / 53139-2 — Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Capillary blood (LOINC)*: pH-adjusted form.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mmol/L`** (concept 8753 — millimole per litre) for `[Moles/volume]` codes and **`mg/dL`** (concept 8840) for `[Mass/volume]` codes. Conversion: `1 mmol/L ≈ 4.01 mg/dL`.\n\n## Excluded Concepts\n\nThe hierarchies above pull in two LOINC concepts that are explicitly excluded:\n\n### Ratios — different measurand (ratio to total calcium)\n\n- *3032710 / 49936-8 — Calcium.ionized/Calcium.total corrected for albumin in Blood*\n- *3032782 / 49935-0 — Calcium.ionized/Calcium.total corrected for albumin in Serum or Plasma*\n\nThe set also deliberately omits the following LOINC concepts:\n\n- **Cord blood specimens** (e.g. `40757498 / 54367-8 — Calcium.ionized [Moles/volume] in Cord blood`, `40757497 / 54366-0 — Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Cord blood`): physiologically distinct from post-natal blood.\n- **Blood drawn from CRRT circuit** (e.g. via `LP385977-6` hierarchy): specialised intra-circuit monitoring, not a routine patient measurement.\n- **Body fluid, CSF, dialysis fluid, nonbiological fluid specimens**: out of scope for a \"blood\" concept set.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"ionized calcium\", \"iCa\", \"free calcium\", \"Ca++\" without further specification: `3021347 / 1995-0 — Calcium.ionized [Moles/volume] in Serum or Plasma`. If the source comes from a blood gas analyser, prefer `3021119 / 1994-3 — Calcium.ionized [Moles/volume] in Blood` or the arterial variant.\n- **Source explicitly labels the value as \"adjusted to pH 7.4\"** (or \"pH-corrected ionized calcium\"): map to the corresponding `adjusted to pH 7.4` LOINC code for the specimen. Do **not** merge with the actual ionized calcium without checking the study design.\n- **Source unit is mg/dL**: convert to mmol/L using `1 mg/dL ≈ 0.2495 mmol/L`.\n- **Source reports \"calcium\" or \"Ca\" without specifying ionized/total**: by default, total calcium is the routine biochemistry measurement; map to the \"Calcium in blood\" concept set unless the source unambiguously labels the result as ionized.\n- **Do not confuse with**: total calcium (separate concept set), corrected calcium (separate concept set, \"Corrected calcium in blood\").\n\n## References\n\n[1] Regenstrief Institute. LOINC code 1995-0 — Calcium.ionized [Moles/volume] in Serum or Plasma.\n    Available: <a href=\"https://loinc.org/1995-0/\" target=\"_blank\">https://loinc.org/1995-0/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
-        "name": "Gaz du sang - Calcium ionisé",
+        "name": "Calcium ionisé sanguin",
         "category": "Biologie",
-        "subcategory": "Gaz du sang artériel",
+        "subcategory": "Biochimie",
         "shortDescription": null,
         "longDescription": null
       }

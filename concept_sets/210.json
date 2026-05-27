@@ -1,95 +1,76 @@
 {
   "id": 210,
-  "name": "Plasma phosphate",
+  "name": "Phosphate in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3003458,
-          "conceptName": "Phosphate [Moles/volume] in Serum or Plasma",
+          "conceptId": 37064066,
+          "conceptName": "Phosphate | Blood | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "14879-1",
-          "validStartDate": "1998-01-16",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3018913,
-          "conceptName": "Phosphate [Moles/volume] in Blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "24519-1",
-          "validStartDate": "2000-05-10",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3024232,
-          "conceptName": "Phosphate [Mass/volume] in Blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "2774-8",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386044-4",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37062662,
+          "conceptName": "Phosphate | Serum or Plasma | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP386057-6",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
   },
   "tags": [],
   "metadata": {
-    "uniqueId": "8b0d7eee-a118-4b53-996e-f60b30bef7c6",
+    "uniqueId": "fb1c7e3a-9b8f-4d2c-8e5a-3a7c1f9e8b4d",
     "organization": {
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Plasma phosphate",
+        "name": "Phosphate in blood",
         "category": "Laboratory tests",
-        "subcategory": "Plasma electrolytes",
+        "subcategory": "Biochemistry",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nPhosphate (inorganic) is one of the routine electrolytes; its concentration in blood is measured to investigate hypo- or hyperphosphataemia, particularly in critical care, kidney disease, and refeeding syndrome [1]. The source data will typically be a single numeric result per patient-timestamp, produced by a biochemistry analyser. Results are reported as a substance concentration in mmol/L (SI unit) or as a mass concentration in mg/dL [2].\n\n## Included Concepts\n\nThe set is anchored on two LOINC Hierarchy concepts (one per blood specimen, scoped to `Chemistry - non-challenge`), with their descendants pulled in. The set resolves to seven LOINC \"Lab Test\" concepts, grouped here by specimen.\n\n### Serum or plasma (default specimen for routine biochemistry)\n\n- *3003458 / 14879-1 — Phosphate [Moles/volume] in Serum or Plasma (LOINC)*: most widely used LOINC code worldwide.\n- *3011904 / 2777-1 — Phosphate [Mass/volume] in Serum or Plasma (LOINC)*: same measurand expressed as mass concentration.\n- *3050450 / 48617-5 — Phosphate [Mass/volume] in Serum or Plasma --post dialysis (LOINC)*: point-in-time measurement immediately after a haemodialysis session.\n- *3049552 / 48641-5 — Phosphate [Mass/volume] in Serum or Plasma --pre dialysis (LOINC)*: point-in-time measurement immediately before a haemodialysis session.\n- *40759093 / 55972-4 — Phosphate [Moles/volume] in Serum or Plasma --post dialysis (LOINC)*: same as `48617-5` expressed as substance concentration.\n\n### Generic blood (specimen unspecified)\n\n- *3018913 / 24519-1 — Phosphate [Moles/volume] in Blood (LOINC)*\n- *3024232 / 2774-8 — Phosphate [Mass/volume] in Blood (LOINC)*: same measurand expressed as mass concentration.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mmol/L`** (concept 8753 — millimole per litre) for `[Moles/volume]` codes and **`mg/dL`** (concept 8840) for `[Mass/volume]` codes. Conversion: `1 mmol/L ≈ 3.10 mg/dL` (molar mass of phosphorus = 30.974 g/mol; the LOINC \"Phosphate\" component refers to inorganic phosphate, reported as elemental phosphorus).\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The set deliberately omits the following LOINC concepts:\n\n- **Red Blood Cells specimens**: intra-erythrocytic phosphate, specialised research measurement.\n- **Urine, CSF, body fluid and other specimens**: out of scope for a \"blood\" concept set.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"phosphate\", \"phosphorus\", \"P\", \"PO4\", \"phosphataemia\" without further specification: `3003458 / 14879-1 — Phosphate [Moles/volume] in Serum or Plasma`. By far the most common LOINC code.\n- **Source unit is mg/dL**: convert to mmol/L using `1 mg/dL ≈ 0.3229 mmol/L` (i.e. divide by 3.0974).\n- **Source labels the analyte as \"phosphorus\"**: identical to \"phosphate\" in this context — both refer to the inorganic phosphate concentration expressed as elemental phosphorus.\n- **Do not confuse with**: organic phosphate (phospholipids, ATP, etc.), urinary phosphate, intra-erythrocytic phosphate.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 14879-1 — Phosphate [Moles/volume] in Serum or Plasma.\n    Available: <a href=\"https://loinc.org/14879-1/\" target=\"_blank\">https://loinc.org/14879-1/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
-        "name": "Phosphate plasmatique",
+        "name": "Phosphorémie sanguine",
         "category": "Biologie",
-        "subcategory": "Ionogramme plasmatique",
+        "subcategory": "Biochimie",
         "shortDescription": null,
         "longDescription": null
       }

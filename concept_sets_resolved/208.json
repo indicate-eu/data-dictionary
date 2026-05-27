@@ -2,15 +2,6 @@
   "conceptSetId": 208,
   "resolvedConcepts": [
     {
-      "conceptId": 3035561,
-      "conceptName": "Lactate [Mass/volume] in Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "30242-2",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 40762125,
       "conceptName": "Lactate [Mass/volume] in Blood",
       "vocabularyId": "LOINC",
@@ -26,6 +17,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "51829-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3020138,
+      "conceptName": "Lactate [Mass/volume] in Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "14118-4",
       "standardConcept": "S"
     },
     {
@@ -65,6 +65,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3005491,
+      "conceptName": "Lactate [Moles/volume] in Plasma venous",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "32133-1",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3014111,
       "conceptName": "Lactate [Moles/volume] in Serum or Plasma",
       "vocabularyId": "LOINC",
@@ -81,6 +90,60 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "2519-7",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 37054780,
+      "conceptName": "Lactate | Blood capillary | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385563-4",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37050255,
+      "conceptName": "Lactate | Blood mixed venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385565-9",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37027811,
+      "conceptName": "Lactate | Blood venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385566-7",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37037874,
+      "conceptName": "Lactate | Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385561-8",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37061337,
+      "conceptName": "Lactate | Plasma venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385573-3",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37029805,
+      "conceptName": "Lactate | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385575-8",
+      "standardConcept": "C"
     }
   ]
 }

@@ -18,6 +18,33 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "2518-9",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 3020410,
+      "conceptName": "Lactate [Moles/volume] in Arterial plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "32132-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37055558,
+      "conceptName": "Lactate | Blood arterial | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385562-6",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37075357,
+      "conceptName": "Lactate | Plasma arterial | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385572-5",
+      "standardConcept": "C"
     }
   ]
 }

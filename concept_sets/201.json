@@ -1,32 +1,32 @@
 {
   "id": 201,
-  "name": "Plasma LDH",
+  "name": "Lactate dehydrogenase (LDH) in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3016436,
-          "conceptName": "Lactate dehydrogenase [Enzymatic activity/volume] in Serum or Plasma",
+          "conceptId": 37056637,
+          "conceptName": "Lactate dehydrogenase | Serum or Plasma | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "2532-0",
-          "validStartDate": "2020-06-15",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP383084-3",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -38,20 +38,20 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Plasma LDH",
+        "name": "Lactate dehydrogenase (LDH) in blood",
         "category": "Laboratory tests",
-        "subcategory": "Plasma electrolytes",
+        "subcategory": "Biochemistry",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nLactate dehydrogenase (LDH) is a cytoplasmic enzyme present in most tissues; its release into the blood follows cellular damage. The serum or plasma activity is measured as a non-specific marker of tissue injury (haemolysis, liver, muscle, malignancy) [1]. The source data will typically be a single numeric result per patient-timestamp, produced by a biochemistry analyser. Results are reported as an enzymatic activity in U/L (international units per litre) [2].\n\n## Included Concepts\n\nThe set is anchored on one LOINC Hierarchy concept (scoped to `Chemistry - non-challenge`), with its descendants pulled in. The set resolves to three LOINC \"Lab Test\" concepts in serum or plasma.\n\n### Serum or plasma (default specimen)\n\n- *3016436 / 2532-0 — Lactate dehydrogenase [Enzymatic activity/volume] in Serum or Plasma (LOINC)*: generic LOINC code, method-agnostic. Most widely used.\n- *3022250 / 14804-9 — Lactate dehydrogenase [Enzymatic activity/volume] in Serum or Plasma by Lactate to pyruvate reaction (LOINC)*: same measurand, with the assay direction explicit.\n- *3005225 / 14805-6 — Lactate dehydrogenase [Enzymatic activity/volume] in Serum or Plasma by Pyruvate to lactate reaction (LOINC)*: same measurand, with the assay direction explicit. The two reaction directions yield different absolute values (lactate→pyruvate is conventionally ~2× higher than pyruvate→lactate); the LOINC code preserves this method information.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`U/L`** (concept 8645 — unit per litre). Source systems may report `U/L` or `IU/L`; the two are numerically equal.\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The set deliberately omits the following LOINC concepts:\n\n- **Red Blood Cells specimens**: intra-erythrocytic LDH, specialised research measurement.\n- **Urine, CSF, body fluid and other specimens**: out of scope for a \"blood\" concept set.\n- **LDH isoenzymes** (LDH-1 through LDH-5): different measurands, captured by dedicated concept sets when needed.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"LDH\", \"lactate dehydrogenase\", \"lactic acid dehydrogenase\" without further specification: `3016436 / 2532-0 — Lactate dehydrogenase [Enzymatic activity/volume] in Serum or Plasma`. By far the most common LOINC code.\n- **Source explicitly mentions the assay direction**: map to the corresponding `14804-9` (lactate-to-pyruvate) or `14805-6` (pyruvate-to-lactate) code. The two are **not numerically equivalent** — preserve the source method.\n- **Source unit is IU/L**: identical to U/L.\n- **Do not confuse with**: LDH isoenzymes (LDH-1 to LDH-5), lactate (the metabolite, a different concept set), pyruvate.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 2532-0 — Lactate dehydrogenase [Enzymatic activity/volume] in Serum or Plasma.\n    Available: <a href=\"https://loinc.org/2532-0/\" target=\"_blank\">https://loinc.org/2532-0/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
-        "name": "Plasma LDH",
+        "name": "Lactate déshydrogénase (LDH) sanguine",
         "category": "Biologie",
-        "subcategory": "Ionogramme plasmatique",
+        "subcategory": "Biochimie",
         "shortDescription": null,
         "longDescription": null
       }

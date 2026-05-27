@@ -2,12 +2,21 @@
   "conceptSetId": 215,
   "resolvedConcepts": [
     {
-      "conceptId": 3010838,
-      "conceptName": "Calcium [Moles/time] in 24 hour Urine",
+      "conceptId": 3006661,
+      "conceptName": "Calcium [Mass/volume] in Urine",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "14637-3",
+      "conceptCode": "17862-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3034244,
+      "conceptName": "Calcium [Mass/volume] in Urine collected for unspecified duration",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "35675-8",
       "standardConcept": "S"
     },
     {
@@ -17,6 +26,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "2004-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42869545,
+      "conceptName": "Calcium [Moles/volume] in Urine collected for unspecified duration",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "71790-0",
       "standardConcept": "S"
     }
   ]

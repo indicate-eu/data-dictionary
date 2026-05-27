@@ -1,54 +1,15 @@
 {
   "id": 157,
-  "name": "ABG glucose",
+  "name": "[Deprecated] ABG glucose",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
-    "items": [
-      {
-        "concept": {
-          "conceptId": 3031266,
-          "conceptName": "Glucose [Mass/volume] in Arterial blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "41651-1",
-          "validStartDate": "2005-07-05",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3044242,
-          "conceptName": "Glucose [Moles/volume] in Arterial blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "39481-7",
-          "validStartDate": "2005-03-08",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      }
-    ]
+    "items": []
   },
   "tags": [],
   "metadata": {
@@ -57,18 +18,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "deprecated",
     "origin": null,
     "translations": {
       "en": {
-        "name": "ABG glucose",
+        "name": "[Deprecated] ABG glucose",
         "category": "Laboratory tests",
         "subcategory": "Arterial blood gases",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "**Deprecated** — merged into the \"Glucose in blood\" concept set, since the arterial vs. plasma distinction is not clinically meaningful for glucose."
       },
       "fr": {
-        "name": "Gaz du sang - Glucose",
+        "name": "[Deprecated] Gaz du sang - Glycémie",
         "category": "Biologie",
         "subcategory": "Gaz du sang artériel",
         "shortDescription": null,

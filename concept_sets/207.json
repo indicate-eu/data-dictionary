@@ -1,240 +1,430 @@
 {
   "id": 207,
-  "name": "Plasma glucose",
+  "name": "Glucose in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
-  "modifiedBy": "Gregor Lichtner",
-  "modifiedDate": "2026-03-23",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 1761753,
-          "conceptName": "Glucose [Moles/volume] in Mixed venous blood",
+          "conceptId": 37034437,
+          "conceptName": "Glucose | Blood | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "100746-7",
-          "validStartDate": "2022-08-08",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3000483,
-          "conceptName": "Glucose [Mass/volume] in Blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "2339-0",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385526-1",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3001501,
-          "conceptName": "Glucose [Moles/volume] in Capillary blood by Glucometer",
+          "conceptId": 37035201,
+          "conceptName": "Glucose | Blood arterial | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "14743-9",
-          "validStartDate": "1998-01-16",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3004077,
-          "conceptName": "Glucose [Mass/volume] in Capillary blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "32016-8",
-          "validStartDate": "2002-05-20",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3013826,
-          "conceptName": "Glucose [Moles/volume] in Serum or Plasma",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "14749-6",
-          "validStartDate": "1998-01-16",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3020491,
-          "conceptName": "Glucose [Moles/volume] in Blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "15074-8",
-          "validStartDate": "1998-02-06",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3031266,
-          "conceptName": "Glucose [Mass/volume] in Arterial blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "41651-1",
-          "validStartDate": "2005-07-05",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3033408,
-          "conceptName": "Glucose [Mass/volume] in Venous blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "41652-9",
-          "validStartDate": "2005-07-05",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3038515,
-          "conceptName": "Glucose [Moles/volume] in Venous blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "39480-9",
-          "validStartDate": "2005-03-08",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3004501,
-          "conceptName": "Glucose [Mass/volume] in Serum or Plasma",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "2345-7",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385527-9",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 1092148,
-          "conceptName": "Glucose [Mass/volume] in Mixed venous blood",
+          "conceptId": 37023397,
+          "conceptName": "Glucose | Blood capillary | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "104655-6",
-          "validStartDate": "2024-08-06",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385528-7",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3034962,
-          "conceptName": "Glucose [Mass/volume] in Capillary blood by Glucometer",
+          "conceptId": 37030222,
+          "conceptName": "Glucose | Blood venous | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "41653-7",
-          "validStartDate": "2005-07-05",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385530-3",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1762037,
+          "conceptName": "Glucose | Blood mixed venous | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP433115-5",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37065054,
+          "conceptName": "Glucose | Serum or Plasma | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385540-2",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37060543,
+          "conceptName": "Glucose | Serum, Plasma or Blood | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385541-0",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3014305,
+          "conceptName": "Glucose [Presence] in Blood by Test strip",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "5914-7",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3046715,
+          "conceptName": "Glucose/Insulin [Mass Ratio] in Serum or Plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "43740-0",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 40765155,
+          "conceptName": "Glucose/Insulin [Ratio] in Serum or Plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "62418-9",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1002230,
+          "conceptName": "Glucose [Mass/volume] mean in Serum or Plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "93791-2",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3003541,
+          "conceptName": "Glucose [Mass/volume] in Serum or Plasma --4 hour specimen",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "12611-0",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3032986,
+          "conceptName": "Glucose [Mass/volume] in Serum or Plasma --1st specimen",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "50206-2",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3032779,
+          "conceptName": "Glucose [Mass/volume] in Serum or Plasma --2nd specimen",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "50212-0",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3030416,
+          "conceptName": "Glucose [Mass/volume] in Serum or Plasma --3rd specimen",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "50213-8",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3032719,
+          "conceptName": "Glucose [Mass/volume] in Serum or Plasma --4th specimen",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "50214-6",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3028944,
+          "conceptName": "Glucose [Mass/volume] in Serum or Plasma --5th specimen",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "50215-3",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3032230,
+          "conceptName": "Glucose [Mass/volume] in Serum or Plasma --6th specimen",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "50216-1",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3031928,
+          "conceptName": "Glucose [Mass/volume] in Serum or Plasma --7th specimen",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "50207-0",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3029014,
+          "conceptName": "Glucose [Mass/volume] in Serum or Plasma --8th specimen",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "50217-9",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3031929,
+          "conceptName": "Glucose [Mass/volume] in Serum or Plasma --9th specimen",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "50218-7",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3032780,
+          "conceptName": "Glucose [Mass/volume] in Serum or Plasma --10th specimen",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "50208-8",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       }
@@ -242,25 +432,25 @@
   },
   "tags": [],
   "metadata": {
-    "uniqueId": "4cda779f-0ee9-4adf-9690-12461d7e3df0",
+    "uniqueId": "8a3e1c5d-7b9f-4a2c-9e8b-5d7a1f6b3c2e",
     "organization": {
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Plasma glucose",
+        "name": "Glucose in blood",
         "category": "Laboratory tests",
-        "subcategory": "Plasma electrolytes",
+        "subcategory": "Biochemistry",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nGlucose in blood is one of the most frequently ordered laboratory measurements, monitored in diabetes mellitus, critical care, perioperative care, and many other contexts [1]. The source data will typically be a single numeric result per patient-timestamp, produced by a biochemistry analyser, a blood gas analyser, or a point-of-care glucometer. Results are reported as a substance concentration in mmol/L (SI unit, used in Europe) or as a mass concentration in mg/dL (used in the US) [2].\n\nThis concept set aggregates glucose measurements across blood specimens (serum, plasma, arterial, venous, capillary, mixed venous and unspecified blood). Cord blood and fetus specimens are excluded.\n\n**Note on capillary glucose (glucometer / POCT).** Capillary glucose measured by a glucometer (point-of-care test) is included in this concept set, but data scientists should be aware that:\n- Capillary glucose can differ from venous/plasma glucose by 10–15 % in the post-prandial state.\n- Glucometers calibrated to plasma-equivalent values are now standard, but legacy devices may report whole-blood values that are ~10–15 % lower.\nStudy designs that require strict comparability across specimens should preserve the LOINC code and the measurement source value.\n\n## Included Concepts\n\nThe set is anchored on seven LOINC Hierarchy concepts (one per blood specimen, scoped to `Chemistry - non-challenge`), with their descendants pulled in. After exclusions, the set resolves to 21 LOINC \"Lab Test\" concepts, grouped here by specimen.\n\n### Serum or plasma (default specimen for routine biochemistry)\n\n- *3013826 / 14749-6 — Glucose [Moles/volume] in Serum or Plasma (LOINC)*: most widely used LOINC code worldwide (SI form).\n- *3004501 / 2345-7 — Glucose [Mass/volume] in Serum or Plasma (LOINC)*: same measurand expressed as mass concentration (US form).\n- *40757626 / 54495-7 — Glucose [Moles/volume] in Serum or Plasma --post dialysis (LOINC)*: point-in-time measurement immediately after a haemodialysis session.\n\n### Generic blood (specimen unspecified)\n\n- *3020491 / 15074-8 — Glucose [Moles/volume] in Blood (LOINC)*\n- *3000483 / 2339-0 — Glucose [Mass/volume] in Blood (LOINC)*: same measurand expressed as mass concentration.\n- *3011424 / 2340-8 — Glucose [Mass/volume] in Blood by Automated test strip (LOINC)*\n- *3014053 / 2341-6 — Glucose [Mass/volume] in Blood by Test strip manual (LOINC)*\n- *43055143 / 72516-8 — Glucose [Moles/volume] in Blood by Automated test strip (LOINC)*\n- *46235168 / 76629-5 — Fasting glucose [Moles/volume] in Blood (LOINC)*: fasting variant.\n- *44816672 / 74774-1 — Glucose [Mass/volume] in Serum, Plasma or Blood (LOINC)*: specimen-agnostic.\n- *46236948 / 77135-2 — Glucose [Moles/volume] in Serum, Plasma or Blood (LOINC)*: specimen-agnostic.\n- *46236950 / 77145-1 — Fasting glucose [Moles/volume] in Serum, Plasma or Blood (LOINC)*: specimen-agnostic fasting variant.\n\n### Arterial blood\n\n- *3044242 / 39481-7 — Glucose [Moles/volume] in Arterial blood (LOINC)*\n- *3031266 / 41651-1 — Glucose [Mass/volume] in Arterial blood (LOINC)*: same measurand expressed as mass concentration.\n- *1091312 / 104598-8 — Glucose [Mass/volume] in Arterial blood by Glucometer (LOINC)*\n\n### Venous blood\n\n- *3038515 / 39480-9 — Glucose [Moles/volume] in Venous blood (LOINC)*\n- *3033408 / 41652-9 — Glucose [Mass/volume] in Venous blood (LOINC)*: same measurand expressed as mass concentration.\n- *1092005 / 104597-0 — Glucose [Mass/volume] in Venous blood by Glucometer (LOINC)*\n\n### Capillary blood (glucometer / POCT)\n\n- *3040151 / 51596-5 — Glucose [Moles/volume] in Capillary blood (LOINC)*\n- *3004077 / 32016-8 — Glucose [Mass/volume] in Capillary blood (LOINC)*\n- *3001501 / 14743-9 — Glucose [Moles/volume] in Capillary blood by Glucometer (LOINC)*: point-of-care glucometer.\n- *3034962 / 41653-7 — Glucose [Mass/volume] in Capillary blood by Glucometer (LOINC)*: point-of-care glucometer.\n\n### Mixed venous blood\n\n- *1761753 / 100746-7 — Glucose [Moles/volume] in Mixed venous blood (LOINC)*\n- *1092148 / 104655-6 — Glucose [Mass/volume] in Mixed venous blood (LOINC)*\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mmol/L`** (concept 8753 — millimole per litre) for `[Moles/volume]` codes and **`mg/dL`** (concept 8840) for `[Mass/volume]` codes. Conversion: `1 mg/dL ≈ 0.0555 mmol/L` (molar mass of glucose = 180.16 g/mol); `1 mmol/L ≈ 18.02 mg/dL`.\n\n## Excluded Concepts\n\nThe hierarchies above pull in 15 LOINC concepts that are explicitly excluded, grouped by reason for exclusion.\n\n### Sequential specimen series — protocol-specific (e.g. oral glucose tolerance test, OGTT)\n\n- *3032986 / 50206-2 — Glucose [Mass/volume] in Serum or Plasma --1st specimen*\n- *3032779 / 50212-0 — Glucose [Mass/volume] in Serum or Plasma --2nd specimen*\n- *3030416 / 50213-8 — Glucose [Mass/volume] in Serum or Plasma --3rd specimen*\n- *3032719 / 50214-6 — Glucose [Mass/volume] in Serum or Plasma --4th specimen*\n- *3028944 / 50215-3 — Glucose [Mass/volume] in Serum or Plasma --5th specimen*\n- *3032230 / 50216-1 — Glucose [Mass/volume] in Serum or Plasma --6th specimen*\n- *3031928 / 50207-0 — Glucose [Mass/volume] in Serum or Plasma --7th specimen*\n- *3029014 / 50217-9 — Glucose [Mass/volume] in Serum or Plasma --8th specimen*\n- *3031929 / 50218-7 — Glucose [Mass/volume] in Serum or Plasma --9th specimen*\n- *3032780 / 50208-8 — Glucose [Mass/volume] in Serum or Plasma --10th specimen*\n- *3003541 / 12611-0 — Glucose [Mass/volume] in Serum or Plasma --4 hour specimen*\n\n### Ratios — different measurand\n\n- *3046715 / 43740-0 — Glucose/Insulin [Mass Ratio] in Serum or Plasma*\n- *40765155 / 62418-9 — Glucose/Insulin [Ratio] in Serum or Plasma*\n\n### Aggregated value — not a point-in-time measurement\n\n- *1002230 / 93791-2 — Glucose [Mass/volume] mean in Serum or Plasma*\n\n### Qualitative — different measurand (presence, not a concentration)\n\n- *3014305 / 5914-7 — Glucose [Presence] in Blood by Test strip*\n\nThe set also deliberately omits the following LOINC concepts:\n\n- **Cord blood and fetus specimens**: physiologically distinct from post-natal blood.\n- **Urine specimens**: out of scope (captured by the separate \"Urinary glucose\" concept set).\n- **CSF, body fluid, dialysis fluid, peritoneal fluid and other specimens**: out of scope for a \"blood\" concept set.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"glucose\", \"glycaemia\", \"sugar\" without further specification: `3013826 / 14749-6 — Glucose [Moles/volume] in Serum or Plasma` (SI form). If the source uses US conventional units, prefer `3004501 / 2345-7 — Glucose [Mass/volume] in Serum or Plasma`.\n- **Source unit is mg/dL**: convert to mmol/L using `1 mg/dL ≈ 0.0555 mmol/L` (i.e. divide by 18.02).\n- **Source reports a fingerstick / capillary / glucometer / POCT glucose**: map to the corresponding Capillary blood code (`14743-9`, `41653-7`, `32016-8`, `51596-5`).\n- **Source reports a fasting glucose**: map to `46235168 / 76629-5 — Fasting glucose [Moles/volume] in Blood` or `46236950 / 77145-1 — Fasting glucose [Moles/volume] in Serum, Plasma or Blood`.\n- **Source reports an OGTT (oral glucose tolerance test) series** (e.g. 0, 30, 60, 90, 120 min after 75 g oral glucose): do **not** map to this concept set. OGTT timepoints are out of scope.\n- **Do not confuse with**: HbA1c (different measurand, separate concept set), urinary glucose, glucose/insulin ratio, mean glucose.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 14749-6 — Glucose [Moles/volume] in Serum or Plasma.\n    Available: <a href=\"https://loinc.org/14749-6/\" target=\"_blank\">https://loinc.org/14749-6/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
-        "name": "Glucose plasmatique",
+        "name": "Glycémie sanguine",
         "category": "Biologie",
-        "subcategory": "Ionogramme plasmatique",
+        "subcategory": "Biochimie",
         "shortDescription": null,
         "longDescription": null
       }

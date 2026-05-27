@@ -11,12 +11,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3021770,
-      "conceptName": "Magnesium [Mass/volume] in Red Blood Cells",
+      "conceptId": 3001420,
+      "conceptName": "Magnesium [Mass/volume] in Serum or Plasma",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "26746-8",
+      "conceptCode": "19123-9",
       "standardConcept": "S"
     },
     {
@@ -36,6 +36,33 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "2601-3",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 40759058,
+      "conceptName": "Magnesium [Moles/volume] in Serum or Plasma --post dialysis",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "55937-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37064897,
+      "conceptName": "Magnesium | Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386017-0",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37062081,
+      "conceptName": "Magnesium | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386028-7",
+      "standardConcept": "C"
     }
   ]
 }

@@ -2,33 +2,14 @@
   "id": 215,
   "name": "Urinary calcium",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
-      {
-        "concept": {
-          "conceptId": 3010838,
-          "conceptName": "Calcium [Moles/time] in 24 hour Urine",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "14637-3",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
       {
         "concept": {
           "conceptId": 3018133,
@@ -47,6 +28,63 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3006661,
+          "conceptName": "Calcium [Mass/volume] in Urine",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "17862-4",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42869545,
+          "conceptName": "Calcium [Moles/volume] in Urine collected for unspecified duration",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "71790-0",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3034244,
+          "conceptName": "Calcium [Mass/volume] in Urine collected for unspecified duration",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "35675-8",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
       }
     ]
   },
@@ -57,20 +95,20 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Urinary calcium",
         "category": "Laboratory tests",
-        "subcategory": "Urine electrolytes",
+        "subcategory": "Biochemistry",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nUrinary calcium is the concentration of calcium in a urine specimen — typically a spot (random) urine sample [1]. The source data will typically be a single numeric result per patient-timestamp, produced by a biochemistry analyser. Results are reported as a substance concentration in mmol/L (SI unit) or as a mass concentration in mg/dL [2].\n\n## Included Concepts\n\nThe set lists four LOINC \"Lab Test\" concepts measuring the calcium concentration in a spot urine specimen:\n\n- *3018133 / 2004-0 — Calcium [Moles/volume] in Urine (LOINC)*: spot (random) urine sample. Most widely used LOINC code.\n- *3006661 / 17862-4 — Calcium [Mass/volume] in Urine (LOINC)*: same measurand expressed as mass concentration.\n- *42869545 / 71790-0 — Calcium [Moles/volume] in Urine collected for unspecified duration (LOINC)*: used when the source does not specify whether the sample is spot or timed.\n- *3034244 / 35675-8 — Calcium [Mass/volume] in Urine collected for unspecified duration (LOINC)*: same measurand expressed as mass concentration.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mmol/L`** (concept 8753 — millimole per litre) for `[Moles/volume]` codes and **`mg/dL`** (concept 8840) for `[Mass/volume]` codes.\n\n## Excluded Concepts\n\nThe following LOINC concepts that exist for urinary calcium are deliberately not part of this set, grouped by reason for exclusion.\n\n### Timed urine collections — different specimen (timed vs. spot)\n\n- *3024431 / 12511-2 — Calcium [Mass/volume] in 4 hour Urine*\n- *3017730 / 18488-7 — Calcium [Mass/volume] in 24 hour Urine*\n- *3009630 / 25362-5 — Calcium [Moles/volume] in 24 hour Urine*\n- *40760452 / 57334-5 — Calcium [Mass/volume] in 2 hour Urine*\n- *40760453 / 57335-2 — Calcium [Mass/volume] in 12 hour Urine*\n\n### Excretion rates — different measurand (amount per unit time, not a concentration)\n\n- *3010838 / 14637-3 — Calcium [Moles/time] in 24 hour Urine*\n- *3007687 / 6874-2 — Calcium [Mass/time] in 24 hour Urine*\n- *3017170 / 18186-7 — Calcium [Mass/time] in 12 hour Urine*\n- *3041568 / 51610-4 — Calcium [Moles/time] in 12 hour Urine*\n- *3007614 / 16518-3 — Calcium [Mass/time] in 2 hour Urine*\n- *3017858 / 27091-8 — Calcium [Mass/time] in 4 hour Urine*\n- *3039921 / 53124-4 — Calcium [Moles/time] in 1 hour Urine*\n- *40762093 / 59000-0 — Calcium [Mass/time] in 18 hour Urine*\n- *3014721 / 32541-5 — Calcium [Molar amount] in Urine collected for unspecified duration*\n\n### Ratios — different measurand (ratio to another analyte)\n\n- *3035982 / 13717-4 — Calcium/Creatinine [Mass Ratio] in 24 hour Urine*\n- *3017754 / 24518-3 — Calcium/Creatinine [Molar ratio] in Urine*\n- *3023147 / 27037-1 — Calcium/Creatinine [Mass Ratio] in 2 hour Urine*\n- *3030451 / 50839-0 — Calcium/Creatinine [Molar ratio] in 24 hour Urine*\n- *3002481 / 9321-1 — Calcium/Creatinine [Mass Ratio] in Urine*\n- *3032454 / 49937-6 — Calcium/Oxalate [Molar ratio] in Urine*\n\n### Qualitative — different measurand (presence, not a concentration)\n\n- *3012065 / 29276-3 — Calcium [Presence] in Urine*\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"urinary calcium\", \"urine Ca\", \"spot urine calcium\" without further specification: `3018133 / 2004-0 — Calcium [Moles/volume] in Urine`. By far the most common LOINC code.\n- **Source unit is mg/dL**: convert to mmol/L using `1 mg/dL ≈ 0.2495 mmol/L`.\n- **Source unit is mEq/L**: convert to mmol/L using `1 mEq/L = 0.5 mmol/L` (calcium is divalent).\n- **Source reports a 24-hour (or other timed) urine collection**: do **not** map to this concept set. Timed urinary calcium is out of scope.\n- **Source reports a calcium-to-creatinine ratio**: do **not** map. These are different measurands.\n- **Do not confuse with**: calcium in blood (separate concept set, \"Calcium in blood\"), ionized calcium (separate concept set), urinary calcium excretion rate (mmol/24h), calcium/creatinine ratio.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 2004-0 — Calcium [Moles/volume] in Urine.\n    Available: <a href=\"https://loinc.org/2004-0/\" target=\"_blank\">https://loinc.org/2004-0/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
         "name": "Calcium urinaire",
         "category": "Biologie",
-        "subcategory": "Ionogramme urinaire",
+        "subcategory": "Biochimie",
         "shortDescription": null,
         "longDescription": null
       }

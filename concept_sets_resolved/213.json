@@ -11,6 +11,24 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3034204,
+      "conceptName": "Urea [Mass/volume] in Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "3091-6",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43534101,
+      "conceptName": "Urea [Moles/volume] in Arterial blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "72927-7",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 43534077,
       "conceptName": "Urea [Moles/volume] in Blood",
       "vocabularyId": "LOINC",
@@ -29,6 +47,33 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3042602,
+      "conceptName": "Urea [Moles/volume] in Serum or Plasma --post dialysis",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "39776-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3039815,
+      "conceptName": "Urea [Moles/volume] in Serum or Plasma --pre dialysis",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "39777-8",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46235781,
+      "conceptName": "Urea [Moles/volume] in Serum, Plasma or Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "77136-0",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 43534100,
       "conceptName": "Urea [Moles/volume] in Venous blood",
       "vocabularyId": "LOINC",
@@ -36,6 +81,51 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "72926-9",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 37052730,
+      "conceptName": "Urea | Blood arterial | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385431-4",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37070945,
+      "conceptName": "Urea | Blood venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385432-2",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37032095,
+      "conceptName": "Urea | Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385430-6",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37027482,
+      "conceptName": "Urea | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385441-3",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37025227,
+      "conceptName": "Urea | Serum, Plasma or Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385442-1",
+      "standardConcept": "C"
     }
   ]
 }

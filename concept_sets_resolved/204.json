@@ -20,6 +20,24 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3042419,
+      "conceptName": "Calcium [Mass/volume] in Serum or Plasma --post dialysis",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "51950-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1092214,
+      "conceptName": "Calcium [Moles/volume] in Arterial blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "104654-9",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3005162,
       "conceptName": "Calcium [Moles/volume] in Blood",
       "vocabularyId": "LOINC",
@@ -38,6 +56,24 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3015377,
+      "conceptName": "Calcium [Moles/volume] in Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "2000-8",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40762241,
+      "conceptName": "Calcium [Moles/volume] in Serum or Plasma --post dialysis",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "59148-7",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3032543,
       "conceptName": "Calcium [Moles/volume] in Venous blood",
       "vocabularyId": "LOINC",
@@ -45,6 +81,51 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "42857-3",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 1093101,
+      "conceptName": "Calcium | Blood arterial | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP441252-6",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37068005,
+      "conceptName": "Calcium | Blood capillary | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385950-3",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37066531,
+      "conceptName": "Calcium | Blood venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385952-9",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37057542,
+      "conceptName": "Calcium | Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385949-5",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37035164,
+      "conceptName": "Calcium | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385966-9",
+      "standardConcept": "C"
     }
   ]
 }

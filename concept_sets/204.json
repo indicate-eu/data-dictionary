@@ -1,107 +1,316 @@
 {
   "id": 204,
-  "name": "Plasma calcium",
+  "name": "Calcium in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3005162,
-          "conceptName": "Calcium [Moles/volume] in Blood",
+          "conceptId": 37057542,
+          "conceptName": "Calcium | Blood | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1996-8",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385949-5",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3006906,
-          "conceptName": "Calcium [Mass/volume] in Serum or Plasma",
+          "conceptId": 1093101,
+          "conceptName": "Calcium | Blood arterial | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "17861-6",
-          "validStartDate": "1998-07-09",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP441252-6",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3032503,
-          "conceptName": "Calcium [Mass/volume] in Blood",
+          "conceptId": 37068005,
+          "conceptName": "Calcium | Blood capillary | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "49765-1",
-          "validStartDate": "2007-08-10",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385950-3",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3032543,
-          "conceptName": "Calcium [Moles/volume] in Venous blood",
+          "conceptId": 37066531,
+          "conceptName": "Calcium | Blood venous | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "42857-3",
-          "validStartDate": "2005-11-07",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385952-9",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3034988,
-          "conceptName": "Calcium [Moles/volume] in Capillary blood",
+          "conceptId": 37035164,
+          "conceptName": "Calcium | Serum or Plasma | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "42593-4",
-          "validStartDate": "2005-09-30",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385966-9",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3027495,
+          "conceptName": "Calcium [Presence] in Blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "27182-5",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3049461,
+          "conceptName": "Calcium [Moles/volume] corrected for total protein in Blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "47597-0",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3004064,
+          "conceptName": "Calcium [Moles/volume] corrected for total protein in Serum or Plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "18281-6",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3020059,
+          "conceptName": "Calcium [Moles/volume] corrected for albumin in Serum or Plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "29265-6",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3030597,
+          "conceptName": "Calcium [Mass/volume] corrected for total protein in Serum or Plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "34907-6",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3047107,
+          "conceptName": "Calcium [Mass/volume] corrected for albumin in Serum or Plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "46099-8",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3007393,
+          "conceptName": "Calcium/Albumin [Mass Ratio] in Serum or Plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "13444-5",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3025742,
+          "conceptName": "Calcium/Osmolality [Ratio] in Serum or Plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "13448-6",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3007264,
+          "conceptName": "Calcium/Phosphate [Mass Ratio] in Serum or Plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "16525-8",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3005674,
+          "conceptName": "Calcium/Protein [Mass Ratio] in Serum or Plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "16526-6",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3026798,
+          "conceptName": "Calcium/Sodium [Mass Ratio] in Serum or Plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "16527-4",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       }
@@ -109,25 +318,25 @@
   },
   "tags": [],
   "metadata": {
-    "uniqueId": "a528eae4-c5e2-495a-be3f-0a8519cf9175",
+    "uniqueId": "97c3a8e1-5d2f-4b9a-8e7f-6c1d3a8b5f2e",
     "organization": {
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Plasma calcium",
+        "name": "Calcium in blood",
         "category": "Laboratory tests",
-        "subcategory": "Plasma electrolytes",
+        "subcategory": "Biochemistry",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nTotal calcium in blood includes the protein-bound fraction (mostly to albumin), the complexed fraction (bound to phosphate, citrate, bicarbonate), and the ionized (free, biologically active) fraction. It is the routine biochemistry measurement [1]. The source data will typically be a single numeric result per patient-timestamp, produced by a biochemistry analyser. Results are reported as a substance concentration in mmol/L (SI unit) or as a mass concentration in mg/dL [2].\n\nThis concept set aggregates **total calcium** measurements across blood specimens (serum, plasma, arterial, venous, capillary and unspecified blood). Cord blood and fetus specimens are excluded.\n\n**Note: total vs ionized vs corrected calcium.** This concept set covers **total calcium** only. The ionized (free) fraction — the biologically active form, sensitive to pH and albumin — is captured by a separate concept set, \"Ionized calcium in blood\". The total calcium mathematically adjusted for albumin or total protein is captured by another separate concept set, \"Corrected calcium in blood\". The three are different measurands with different reference ranges and clinical interpretation; they must not be merged.\n\n## Included Concepts\n\nThe set is anchored on five LOINC Hierarchy concepts (one per blood specimen, scoped to `Chemistry - non-challenge`), with their descendants pulled in. After exclusions, the set resolves to seven LOINC \"Lab Test\" concepts, grouped here by specimen.\n\n### Serum or plasma (default specimen for routine biochemistry)\n\n- *3015377 / 2000-8 — Calcium [Moles/volume] in Serum or Plasma (LOINC)*: most widely used LOINC code worldwide.\n- *3006906 / 17861-6 — Calcium [Mass/volume] in Serum or Plasma (LOINC)*: same measurand expressed as mass concentration.\n- *3042419 / 51950-4 — Calcium [Mass/volume] in Serum or Plasma --post dialysis (LOINC)*: point-in-time measurement immediately after a haemodialysis session.\n- *40762241 / 59148-7 — Calcium [Moles/volume] in Serum or Plasma --post dialysis (LOINC)*: same as `51950-4` expressed as substance concentration.\n\n### Generic blood (specimen unspecified)\n\n- *3005162 / 1996-8 — Calcium [Moles/volume] in Blood (LOINC)*\n- *3032503 / 49765-1 — Calcium [Mass/volume] in Blood (LOINC)*: same measurand expressed as mass concentration.\n\n### Arterial blood\n\n- *1092214 / 104654-9 — Calcium [Moles/volume] in Arterial blood (LOINC)*\n\n### Venous blood\n\n- *3032543 / 42857-3 — Calcium [Moles/volume] in Venous blood (LOINC)*\n\n### Capillary blood\n\n- *3034988 / 42593-4 — Calcium [Moles/volume] in Capillary blood (LOINC)*\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mmol/L`** (concept 8753 — millimole per litre) for `[Moles/volume]` codes and **`mg/dL`** (concept 8840) for `[Mass/volume]` codes. Conversion: `1 mmol/L ≈ 4.01 mg/dL` (molar mass of Ca = 40.078 g/mol); `1 mEq/L = 0.5 mmol/L` (calcium is divalent).\n\n## Excluded Concepts\n\nThe hierarchies above pull in 11 LOINC concepts that are explicitly excluded, grouped by reason for exclusion.\n\n### Corrected for albumin or total protein — derived value, not the raw measurement\n\n- *3049461 / 47597-0 — Calcium [Moles/volume] corrected for total protein in Blood*\n- *3004064 / 18281-6 — Calcium [Moles/volume] corrected for total protein in Serum or Plasma*\n- *3020059 / 29265-6 — Calcium [Moles/volume] corrected for albumin in Serum or Plasma*\n- *3030597 / 34907-6 — Calcium [Mass/volume] corrected for total protein in Serum or Plasma*\n- *3047107 / 46099-8 — Calcium [Mass/volume] corrected for albumin in Serum or Plasma*\n\n### Ratios — different measurand (ratio to another analyte)\n\n- *3007393 / 13444-5 — Calcium/Albumin [Mass Ratio] in Serum or Plasma*\n- *3025742 / 13448-6 — Calcium/Osmolality [Ratio] in Serum or Plasma*\n- *3007264 / 16525-8 — Calcium/Phosphate [Mass Ratio] in Serum or Plasma*\n- *3005674 / 16526-6 — Calcium/Protein [Mass Ratio] in Serum or Plasma*\n- *3026798 / 16527-4 — Calcium/Sodium [Mass Ratio] in Serum or Plasma*\n\n### Qualitative — different measurand (presence, not a concentration)\n\n- *3027495 / 27182-5 — Calcium [Presence] in Blood*\n\nThe set also deliberately omits the following LOINC concepts:\n\n- **Ionized (free) calcium**: different measurand, captured by the separate concept set \"Ionized calcium in blood\".\n- **Cord blood and fetus specimens**: physiologically distinct from post-natal blood.\n- **Red Blood Cells specimens**: intra-erythrocytic calcium, specialised research measurement.\n- **Urine specimens**: out of scope (captured by the separate \"Urinary calcium\" concept set).\n- **Body fluid, CSF, calculus (stone), dialysis fluid, peritoneal fluid, pleural fluid, gastric fluid, hair, saliva, semen, stool, synovial fluid, amniotic fluid, water, nonbiological fluid, sweat specimens**: out of scope for a \"blood\" concept set.\n\n## Mapping Notes\n\n- **Default concept** when the source reports \"calcium\", \"Ca\", \"calcaemia\" without further specification: `3015377 / 2000-8 — Calcium [Moles/volume] in Serum or Plasma`. By far the most common LOINC code.\n- **Source explicitly labels the value as \"ionized\", \"iCa\", \"free calcium\"**: do **not** map to this concept set. Use the separate \"Ionized calcium in blood\" concept set.\n- **Source unit is mg/dL**: convert to mmol/L using `1 mg/dL ≈ 0.2495 mmol/L` (i.e. divide by 4.008).\n- **Source unit is mEq/L**: convert to mmol/L using `1 mEq/L = 0.5 mmol/L` (calcium is divalent).\n- **Source reports a corrected calcium** (corrected for albumin or total protein): do **not** map to this concept set. Use the separate \"Corrected calcium in blood\" concept set.\n- **Do not confuse with**: ionized calcium (separate concept set, \"Ionized calcium in blood\"), corrected calcium (separate concept set, \"Corrected calcium in blood\"), urinary calcium.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 2000-8 — Calcium [Moles/volume] in Serum or Plasma.\n    Available: <a href=\"https://loinc.org/2000-8/\" target=\"_blank\">https://loinc.org/2000-8/</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
-        "name": "Calcium plasmatique",
+        "name": "Calcémie sanguine",
         "category": "Biologie",
-        "subcategory": "Ionogramme plasmatique",
+        "subcategory": "Biochimie",
         "shortDescription": null,
         "longDescription": null
       }
