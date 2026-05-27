@@ -2,6 +2,24 @@
   "conceptSetId": 184,
   "resolvedConcepts": [
     {
+      "conceptId": 3034639,
+      "conceptName": "Hemoglobin A1c [Mass/volume] in Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "41995-2",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42869630,
+      "conceptName": "Hemoglobin A1c/Hemoglobin.total [Pure mass fraction] in Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "71875-9",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3004410,
       "conceptName": "Hemoglobin A1c/Hemoglobin.total in Blood",
       "vocabularyId": "LOINC",
@@ -35,6 +53,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "59261-8",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40765129,
+      "conceptName": "Hemoglobin A1c/Hemoglobin.total in Blood by JDS/JSCC protocol",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "62388-4",
       "standardConcept": "S"
     },
     {

@@ -1,88 +1,164 @@
 {
   "id": 189,
-  "name": "Troponin T",
+  "name": "Troponin T in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3019572,
-          "conceptName": "Troponin T.cardiac [Mass/volume] in Venous blood",
+          "conceptId": 37066693,
+          "conceptName": "Troponin T.cardiac | Blood | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "6597-9",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385944-6",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3019800,
-          "conceptName": "Troponin T.cardiac [Mass/volume] in Serum or Plasma",
+          "conceptId": 37071238,
+          "conceptName": "Troponin T.cardiac | Blood venous | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "6598-7",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385945-3",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3048529,
-          "conceptName": "Troponin T.cardiac [Mass/volume] in Blood",
+          "conceptId": 37045968,
+          "conceptName": "Troponin T.cardiac | Serum or Plasma | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP385946-1",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1470757,
+          "conceptName": "Troponin T.cardiac | Serum, Plasma or Blood | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP444070-9",
+          "validStartDate": "2022-08-29",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3052931,
+          "conceptName": "Troponin T.cardiac [Presence] in Blood",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "48425-3",
+          "conceptCode": "48426-1",
           "validStartDate": "2007-02-12",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 40769783,
-          "conceptName": "Troponin T.cardiac [Mass/volume] in Serum or Plasma by High sensitivity method",
+          "conceptId": 3042837,
+          "conceptName": "Troponin T.cardiac [Presence] in Serum or Plasma",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "67151-1",
-          "validStartDate": "2011-07-05",
+          "conceptCode": "33204-9",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36304662,
+          "conceptName": "Troponin T.cardiac [Interpretation] in Serum or Plasma Qualitative by High sensitivity method",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "89575-5",
+          "validStartDate": "2017-12-12",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3965306,
+          "conceptName": "Troponin T.cardiac [Mass/volume] in 6 hour Serum or Plasma",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "101915-7",
+          "validStartDate": "2022-08-29",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       }
@@ -95,20 +171,20 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Troponin T",
+        "name": "Troponin T in blood",
         "category": "Laboratory tests",
-        "subcategory": "Other labs",
+        "subcategory": "Cardiac markers",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nCardiac troponin T (cTnT) is a regulatory protein of the cardiac muscle thin filament. It is released into the circulation when cardiomyocytes are damaged, making it a highly specific marker of myocardial injury. Plasma cTnT rises 3-6 hours after the onset of myocardial infarction, peaks at 12-24 hours, and remains elevated for up to 10-14 days [1]. Together with cardiac troponin I (cTnI), cTnT is the central biomarker for diagnosis of acute myocardial infarction (Fourth Universal Definition) [2]. It is also elevated in many other settings of cardiomyocyte stress (heart failure, pulmonary embolism, sepsis, chronic kidney disease, severe COVID-19).\n\nThe source data will typically be a single numeric result per patient-timestamp, produced by immunoassay. Results are reported as a mass concentration in ng/L (high-sensitivity assays, current standard) or ng/mL (older standard assays). `1 ng/mL = 1000 ng/L` [3].\n\n**Note: standard cTnT vs high-sensitivity cTnT (hs-cTnT).** Modern high-sensitivity troponin T assays can detect concentrations down to a few ng/L, well below the 99th percentile upper reference limit (~ 14 ng/L for hs-cTnT) — versus a detection limit of 30-50 ng/L for older standard assays [2]. Hs-cTnT has largely replaced standard cTnT in clinical practice and enables 0-h / 1-h or 0-h / 3-h rule-in/rule-out algorithms for non-ST-elevation acute coronary syndrome (NSTE-ACS). Standard and hs-cTnT values are **not numerically interchangeable**; the unit (ng/L vs ng/mL) is the most reliable indicator of which assay was used. Both are included in this concept set; downstream analyses that distinguish them must use the LOINC code and the source unit, not the value alone.\n\n**Note: cTnT vs cTnI.** Cardiac troponin T (cTnT) and cardiac troponin I (cTnI) are two distinct gene products. Both are cardiac-specific, both are used for the same clinical indications, and most institutions use only one. They are **not numerically interchangeable** and have different cut-offs. This concept set covers **cTnT only**.\n\n## Included Concepts\n\nThe set is anchored on four LOINC Hierarchy concepts (scoped to `Chemistry - non-challenge`), each expanded to include all their descendants. The set resolves to six LOINC \"Lab Test\" concepts, grouped here by specimen.\n\n### Serum or plasma\n\n- *3019800 / 6598-7 — Troponin T.cardiac [Mass/volume] in Serum or Plasma (LOINC)*: most widely used (older standard assays).\n- *40769783 / 67151-1 — Troponin T.cardiac [Mass/volume] in Serum or Plasma by High sensitivity method (LOINC)*: hs-cTnT, current standard.\n\n### Whole blood\n\n- *3048529 / 48425-3 — Troponin T.cardiac [Mass/volume] in Blood (LOINC)*\n- *1469858 / 106734-7 — Troponin T.cardiac [Mass/volume] in Serum, Plasma or Blood by Rapid immunoassay (LOINC)*: point-of-care.\n\n### Venous blood\n\n- *3019572 / 6597-9 — Troponin T.cardiac [Mass/volume] in Venous blood (LOINC)*\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`ng/L`** (concept 8842 — nanogram per litre) for high-sensitivity assays, **`ng/mL`** (concept 8859 — nanogram per millilitre) for standard assays. `1 ng/mL = 1000 ng/L`.\n\n## Excluded Concepts\n\nThe following LOINC concepts in Blood / Serum or Plasma are deliberately excluded by name:\n\n- *3052931 / 48426-1 — Troponin T.cardiac [Presence] in Blood*: qualitative, not a concentration.\n- *3042837 / 33204-9 — Troponin T.cardiac [Presence] in Serum or Plasma*: qualitative, not a concentration.\n- *36304662 / 89575-5 — Troponin T.cardiac [Interpretation] in Serum or Plasma Qualitative by High sensitivity method*: qualitative interpretation, not a concentration.\n- *3965306 / 101915-7 — Troponin T.cardiac [Mass/volume] in 6 hour Serum or Plasma*: timed-protocol variant (Δ-troponin at 6 h), out of scope for a raw-concentration concept set.\n\nIn addition, the set deliberately omits:\n\n- **Cord blood and fetus specimens**: physiologically distinct from post-natal blood.\n\n## Mapping Notes\n\n- **Default concept** when the source reports a troponin T value: `3019800 / 6598-7 — Troponin T.cardiac [Mass/volume] in Serum or Plasma`.\n- **Source explicitly says \"high sensitivity\" or unit is ng/L**: map to `40769783 / 67151-1 — ... by High sensitivity method`.\n- **Source reports a qualitative result (positive/negative)**: do **not** map. Qualitative results are out of scope.\n- **Source reports troponin I (cTnI)**: do **not** map to this concept set. Use a dedicated cTnI concept set instead (if defined).\n- **Source reports a Δ-troponin (change at 1 h, 3 h, 6 h)**: do **not** map. Δ-troponin is a derived measurement.\n- **Do not confuse with**: troponin I (cTnI, different molecule and cut-offs), CK-MB, myoglobin (different cardiac markers).\n\n## References\n\n[1] Apple FS, Sandoval Y, Jaffe AS, Ordonez-Llanos J. Cardiac troponin assays: guide to understanding analytical characteristics and their impact on clinical care. *Clin Chem*. 2017;63(1):73-81.\n    Available: <a href=\"https://doi.org/10.1373/clinchem.2016.255109\" target=\"_blank\">https://doi.org/10.1373/clinchem.2016.255109</a>\n\n[2] Thygesen K, Alpert JS, Jaffe AS, Chaitman BR, Bax JJ, Morrow DA, et al. Fourth Universal Definition of Myocardial Infarction (2018). *Circulation*. 2018;138(20):e618-51.\n    Available: <a href=\"https://doi.org/10.1161/CIR.0000000000000617\" target=\"_blank\">https://doi.org/10.1161/CIR.0000000000000617</a>\n\n[3] Regenstrief Institute. LOINC code 67151-1 — Troponin T.cardiac [Mass/volume] in Serum or Plasma by High sensitivity method.\n    Available: <a href=\"https://loinc.org/67151-1/\" target=\"_blank\">https://loinc.org/67151-1/</a>\n"
       },
       "fr": {
-        "name": "Troponin T",
+        "name": "Troponine T sanguine",
         "category": "Biologie",
-        "subcategory": "Autres analyses",
+        "subcategory": "Marqueurs cardiaques",
         "shortDescription": null,
         "longDescription": null
       }

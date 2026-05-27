@@ -9,6 +9,24 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "26881-3",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 3009104,
+      "conceptName": "Interleukin 6 [Units/volume] in Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "4655-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37040858,
+      "conceptName": "Interleukin 6 | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385040-3",
+      "standardConcept": "C"
     }
   ]
 }

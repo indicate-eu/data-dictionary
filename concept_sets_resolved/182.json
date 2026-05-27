@@ -18,6 +18,33 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "30934-4",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 3052295,
+      "conceptName": "Natriuretic peptide B [Moles/volume] in Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "47092-2",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37043162,
+      "conceptName": "Natriuretic peptide B | Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385934-7",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37046487,
+      "conceptName": "Natriuretic peptide B | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385935-4",
+      "standardConcept": "C"
     }
   ]
 }

@@ -18,6 +18,24 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "75241-0",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 1988947,
+      "conceptName": "Procalcitonin [Moles/volume] in Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "99099-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37036001,
+      "conceptName": "Procalcitonin | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP381196-7",
+      "standardConcept": "C"
     }
   ]
 }

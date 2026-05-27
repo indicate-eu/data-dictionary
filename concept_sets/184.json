@@ -1,25 +1,25 @@
 {
   "id": 184,
-  "name": "HbA1c",
+  "name": "Glycated hemoglobin (HbA1c) in blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3003309,
-          "conceptName": "Hemoglobin A1c/Hemoglobin.total in Blood by Electrophoresis",
+          "conceptId": 3004410,
+          "conceptName": "Hemoglobin A1c/Hemoglobin.total in Blood",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "4549-2",
+          "conceptCode": "4548-4",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -31,14 +31,14 @@
       },
       {
         "concept": {
-          "conceptId": 3004410,
-          "conceptName": "Hemoglobin A1c/Hemoglobin.total in Blood",
+          "conceptId": 3003309,
+          "conceptName": "Hemoglobin A1c/Hemoglobin.total in Blood by Electrophoresis",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "4548-4",
+          "conceptCode": "4549-2",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -104,6 +104,63 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 40765129,
+          "conceptName": "Hemoglobin A1c/Hemoglobin.total in Blood by JDS/JSCC protocol",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "62388-4",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42869630,
+          "conceptName": "Hemoglobin A1c/Hemoglobin.total [Pure mass fraction] in Blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "71875-9",
+          "validStartDate": "2012-05-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3034639,
+          "conceptName": "Hemoglobin A1c [Mass/volume] in Blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "41995-2",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
       }
     ]
   },
@@ -114,18 +171,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "HbA1c",
+        "name": "Glycated hemoglobin (HbA1c) in blood",
         "category": "Laboratory tests",
         "subcategory": "Other labs",
         "shortDescription": null,
-        "longDescription": null
+        "longDescription": "## Definition & Clinical Context\n\nGlycated hemoglobin (HbA1c) is the fraction of haemoglobin that has been non-enzymatically glycated, expressed as a percentage of total haemoglobin. Because red blood cells circulate for ~ 120 days, HbA1c reflects the average plasma glucose over the preceding 8-12 weeks [1]. It is the reference biomarker for monitoring long-term glycaemic control in diabetes mellitus and, since 2010, an accepted criterion for diabetes diagnosis (HbA1c ≥ 6.5% / ≥ 48 mmol/mol) [2].\n\nThe source data will typically be a single numeric result per patient-timestamp, produced by HPLC, immunoassay or capillary electrophoresis on a whole blood sample (EDTA tube). Results are reported in two unit systems: **NGSP (%)**, the historical US convention, and **IFCC (mmol/mol)**, the SI / European convention. The two are related by `HbA1c [mmol/mol] = 10.93 × HbA1c [%] − 23.50` (Master Equation, [1]).\n\n**Note: assay interferences.** HbA1c is unreliable in conditions affecting red cell turnover (haemolytic anaemia, recent transfusion, chronic kidney disease, pregnancy, iron-deficiency anaemia) and in the presence of haemoglobin variants (HbS, HbC, HbE) — interferences depend on the assay method [1]. Source data on assay method (HPLC, immunoassay, IFCC protocol) is preserved by separate LOINC codes.\n\n## Included Concepts\n\nThe set lists eight LOINC \"Lab Test\" concepts for HbA1c in blood (no LOINC Hierarchy is available in the loaded vocabulary), grouped by assay method or representation.\n\n### HbA1c / total haemoglobin ratio\n\n- *3004410 / 4548-4 — Hemoglobin A1c/Hemoglobin.total in Blood (LOINC)*: most widely used.\n- *3003309 / 4549-2 — Hemoglobin A1c/Hemoglobin.total in Blood by Electrophoresis (LOINC)*\n- *3005673 / 17856-6 — Hemoglobin A1c/Hemoglobin.total in Blood by HPLC (LOINC)*: HPLC method.\n- *3007263 / 17855-8 — Hemoglobin A1c/Hemoglobin.total in Blood by calculation (LOINC)*\n- *40762352 / 59261-8 — Hemoglobin A1c/Hemoglobin.total in Blood by IFCC protocol (LOINC)*: IFCC-standardised, reported in mmol/mol.\n- *40765129 / 62388-4 — Hemoglobin A1c/Hemoglobin.total in Blood by JDS/JSCC protocol (LOINC)*: Japanese protocol.\n- *42869630 / 71875-9 — Hemoglobin A1c/Hemoglobin.total [Pure mass fraction] in Blood (LOINC)*: dimensionless ratio variant.\n\n### Mass concentration\n\n- *3034639 / 41995-2 — Hemoglobin A1c [Mass/volume] in Blood (LOINC)*: rarely used.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`. For the ratio codes, NGSP reports use **`%`** (concept 8554 — percent), IFCC reports use **`mmol/mol`** (concept 9579 — millimole per mole). Conversion: `HbA1c [mmol/mol] = 10.93 × HbA1c [%] − 23.50`. The `[Pure mass fraction]` variant is a dimensionless ratio between 0 and 1.\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The set deliberately omits:\n\n- *36032094 / 96595-4 — Hemoglobin A1c/Hemoglobin.total in DBS*: dried blood spot, different specimen.\n- **Cord blood and fetus specimens**: physiologically distinct from post-natal blood.\n- **HbA1c goal / target codes**: clinical observation, not a measurement.\n\n## Mapping Notes\n\n- **Default concept** when the source reports an HbA1c value without specifying method: `3004410 / 4548-4 — Hemoglobin A1c/Hemoglobin.total in Blood`. The most common LOINC code.\n- **Source unit is mmol/mol** (or report explicitly says IFCC): map to `40762352 / 59261-8 — ... by IFCC protocol` and keep mmol/mol as the unit.\n- **Source unit is %** (or report explicitly says NGSP/DCCT): map to the generic ratio code and keep % as the unit.\n- **Source explicitly mentions HPLC, electrophoresis or another method**: map to the method-specific LOINC code if available.\n- **Source reports estimated average glucose (eAG)**: derived measurement, do **not** map to HbA1c. Out of scope.\n- **Do not confuse with**: fasting glucose, oral glucose tolerance test (OGTT), fructosamine (shorter-term glycation marker), glycated albumin.\n\n## References\n\n[1] Sacks DB, Arnold M, Bakris GL, Bruns DE, Horvath AR, Lernmark Å, et al. Guidelines and recommendations for laboratory analysis in the diagnosis and management of diabetes mellitus. *Clin Chem*. 2023;69(8):808-68.\n    Available: <a href=\"https://doi.org/10.1093/clinchem/hvad080\" target=\"_blank\">https://doi.org/10.1093/clinchem/hvad080</a>\n\n[2] American Diabetes Association. 2. Classification and diagnosis of diabetes: Standards of Medical Care in Diabetes-2023. *Diabetes Care*. 2023;46(Suppl 1):S19-40.\n    Available: <a href=\"https://doi.org/10.2337/dc23-S002\" target=\"_blank\">https://doi.org/10.2337/dc23-S002</a>\n\n[3] Regenstrief Institute. LOINC code 4548-4 — Hemoglobin A1c/Hemoglobin.total in Blood.\n    Available: <a href=\"https://loinc.org/4548-4/\" target=\"_blank\">https://loinc.org/4548-4/</a>\n"
       },
       "fr": {
-        "name": "HbA1c",
+        "name": "Hémoglobine glyquée (HbA1c) sanguine",
         "category": "Biologie",
         "subcategory": "Autres analyses",
         "shortDescription": null,

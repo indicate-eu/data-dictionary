@@ -29,6 +29,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 1469858,
+      "conceptName": "Troponin T.cardiac [Mass/volume] in Serum, Plasma or Blood by Rapid immunoassay",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "106734-7",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3019572,
       "conceptName": "Troponin T.cardiac [Mass/volume] in Venous blood",
       "vocabularyId": "LOINC",
@@ -36,6 +45,42 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "6597-9",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 37071238,
+      "conceptName": "Troponin T.cardiac | Blood venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385945-3",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37066693,
+      "conceptName": "Troponin T.cardiac | Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385944-6",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37045968,
+      "conceptName": "Troponin T.cardiac | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385946-1",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 1470757,
+      "conceptName": "Troponin T.cardiac | Serum, Plasma or Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP444070-9",
+      "standardConcept": "C"
     }
   ]
 }

@@ -38,6 +38,24 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 1091617,
+      "conceptName": "C reactive protein [Mass/volume] in Serum, Plasma or Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "105126-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1469985,
+      "conceptName": "C reactive protein [Mass/volume] in Serum, Plasma or Blood by Rapid immunoassay",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "106736-2",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 46234770,
       "conceptName": "C reactive protein [Moles/volume] in Serum or Plasma",
       "vocabularyId": "LOINC",
@@ -54,6 +72,42 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "76486-0",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 37076729,
+      "conceptName": "C reactive protein | Blood capillary | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP384543-7",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37051295,
+      "conceptName": "C reactive protein | Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP384542-9",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37025552,
+      "conceptName": "C reactive protein | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP384546-0",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 1092658,
+      "conceptName": "C reactive protein | Serum, Plasma or Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP442198-0",
+      "standardConcept": "C"
     }
   ]
 }
