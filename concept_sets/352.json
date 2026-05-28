@@ -2,7 +2,7 @@
   "id": 352,
   "name": "Carbon dioxide partial pressure in venous blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-05-27",
   "modifiedBy": "Boris Delange",
@@ -12,153 +12,210 @@
     "items": [
       {
         "concept": {
-          "conceptId": 3021447,
-          "conceptName": "Carbon dioxide [Partial pressure] in Venous blood",
+          "conceptId": 37028041,
+          "conceptName": "Carbon dioxide | Blood venous | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "2021-4",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP383328-4",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3041290,
-          "conceptName": "Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Venous blood",
+          "conceptId": 1618289,
+          "conceptName": "Carbon dioxide | Blood central venous | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "40619-9",
-          "validStartDate": "2005-07-05",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP426941-3",
+          "validStartDate": "2022-08-29",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3021513,
-          "conceptName": "Carbon dioxide [Partial pressure] in Mixed venous blood",
+          "conceptId": 37068772,
+          "conceptName": "Carbon dioxide | Blood mixed venous | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "19212-0",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP383327-6",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3029306,
-          "conceptName": "Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Mixed venous blood",
+          "conceptId": 37042819,
+          "conceptName": "Carbon dioxide | Blood capillary | Chemistry - non-challenge",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP383323-5",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3010140,
+          "conceptName": "Carbon dioxide, total [Moles/volume] in Venous blood",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "50981-0",
+          "conceptCode": "2027-1",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3049133,
+          "conceptName": "Carbon dioxide, total [Moles/volume] in Venous blood by calculation",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "48391-7",
+          "validStartDate": "2007-02-12",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1617274,
+          "conceptName": "Carbon dioxide, total [Moles/volume] in Central venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "97545-8",
+          "validStartDate": "2022-02-04",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3018225,
+          "conceptName": "Carbon dioxide, total [Moles/volume] in Mixed venous blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "19223-7",
+          "validStartDate": "1998-11-16",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 40761029,
+          "conceptName": "Carbon dioxide, total [Moles/volume] in Mixed venous blood by calculation",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "57920-1",
+          "validStartDate": "2009-11-18",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3009293,
+          "conceptName": "Carbon dioxide, total [Moles/volume] in Capillary blood",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "16551-4",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3038734,
+          "conceptName": "Carbon dioxide, total [Moles/volume] in Capillary blood by calculation",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Lab Test",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "51781-3",
           "validStartDate": "2007-08-09",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 1616989,
-          "conceptName": "Carbon dioxide [Partial pressure] in Central venous blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "97538-3",
-          "validStartDate": "2022-02-04",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 1616289,
-          "conceptName": "Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Central venous blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "97539-1",
-          "validStartDate": "2022-02-04",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3023024,
-          "conceptName": "Carbon dioxide [Partial pressure] in Capillary blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "2020-6",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3042462,
-          "conceptName": "Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Capillary blood",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "40620-7",
-          "validStartDate": "2005-07-05",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       }
@@ -179,7 +236,7 @@
         "category": "Laboratory tests",
         "subcategory": "Biochemistry",
         "shortDescription": null,
-        "longDescription": "## Definition & Clinical Context\n\nThe venous partial pressure of carbon dioxide (PvCO2 / PcvCO2) is the pressure exerted by CO2 dissolved in venous blood. It is typically 4-6 mmHg higher than arterial PCO2 in stable patients (reflecting tissue CO2 production), but the gradient widens substantially in low-flow states (cardiac arrest, septic shock, severe heart failure) [1]. The venous-arterial PCO2 difference (`PvCO2 − PaCO2`, also called Pv-aCO2) is used in intensive care as a marker of tissue perfusion: a wide gradient (> 6 mmHg) suggests inadequate cardiac output relative to tissue CO2 production [1].\n\nThe source data will typically be a single numeric result per patient-timestamp, produced by a blood gas analyser on a venous sample. Results are reported as a partial pressure in mmHg (US convention) or kPa (SI / European convention) [2].\n\n**Note: venous specimens.** This concept set covers peripheral venous, central venous (from a central venous catheter), and mixed venous (from a pulmonary artery catheter) blood, plus capillary blood. These are physiologically distinct: central venous PCO2 reflects upper-body return, mixed venous PCO2 reflects whole-body return, peripheral venous PCO2 reflects the drained tissue bed. The user should preserve the specimen distinction in analyses where the source-of-blood matters.\n\n**Note: do not confuse with total CO2.** LOINC distinguishes `Carbon dioxide [Partial pressure]` (PvCO2, dissolved gas, mmHg or kPa) from `Carbon dioxide, total [Moles/volume]` (total CO2 content, mmol/L). The latter is essentially the bicarbonate and belongs with the separate concept set \"Bicarbonate in blood\". Only `[Partial pressure]` codes are included here.\n\n## Included Concepts\n\nThe set lists eight LOINC \"Lab Test\" concepts for PCO2 in non-arterial blood (cord blood excluded), grouped by specimen.\n\n### Venous blood\n\n- *3021447 / 2021-4 — Carbon dioxide [Partial pressure] in Venous blood (LOINC)*\n- *3041290 / 40619-9 — Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Venous blood (LOINC)*\n\n### Mixed venous blood\n\n- *3021513 / 19212-0 — Carbon dioxide [Partial pressure] in Mixed venous blood (LOINC)*\n- *3029306 / 50981-0 — Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Mixed venous blood (LOINC)*\n\n### Central venous blood\n\n- *1616989 / 97538-3 — Carbon dioxide [Partial pressure] in Central venous blood (LOINC)*\n- *1616289 / 97539-1 — Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Central venous blood (LOINC)*\n\n### Capillary blood\n\n- *3023024 / 2020-6 — Carbon dioxide [Partial pressure] in Capillary blood (LOINC)*\n- *3042462 / 40620-7 — Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Capillary blood (LOINC)*\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mm[Hg]`** (concept 8876 — millimetre of mercury). Conversion: `1 mmHg = 0.1333 kPa`, `1 kPa ≈ 7.50 mmHg`.\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The set deliberately omits:\n\n- **Total CO2 codes (`Carbon dioxide, total [Moles/volume]`)**: different measurand, captured by the \"Bicarbonate in blood\" concept set.\n- **Arterial blood specimens**: covered by the separate \"Carbon dioxide partial pressure in arterial blood\" concept set.\n- **Cord blood specimens**: physiologically distinct from post-natal blood.\n\n## Mapping Notes\n\n- **Default concept** when the source reports a venous PCO2 without further specification: `3021447 / 2021-4 — Carbon dioxide [Partial pressure] in Venous blood`.\n- **Source explicitly mentions central venous or mixed venous**: map to the matching LOINC code rather than the generic venous one.\n- **Source unit is kPa**: convert to mmHg using `1 kPa ≈ 7.50 mmHg`.\n- **Source reports PCO2 from arterial blood**: do **not** map. Use \"Carbon dioxide partial pressure in arterial blood\" instead.\n- **Source reports \"total CO2\" or \"TCO2\" (mmol/L)**: do **not** map. Map to the \"Bicarbonate in blood\" concept set.\n- **Do not confuse with**: arterial PCO2 (separate concept set), bicarbonate (separate concept set), end-tidal CO2.\n\n## References\n\n[1] Vallet B, Pinsky MR, Cecconi M. Resuscitation of patients with septic shock: please \"mind the gap\"! *Intensive Care Med*. 2013;39(9):1653-5.\n    Available: <a href=\"https://doi.org/10.1007/s00134-013-2998-5\" target=\"_blank\">https://doi.org/10.1007/s00134-013-2998-5</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
+        "longDescription": "## Definition & Clinical Context\n\nThe venous partial pressure of carbon dioxide (PvCO2) is the pressure of CO2 dissolved in venous blood. It is typically 4-6 mmHg higher than arterial PCO2 in stable patients (reflecting tissue CO2 production), but the gradient widens substantially in low-flow states (shock, severe heart failure) [1]. The venous-arterial gradient (`PvCO2 − PaCO2`, also called Pv-aCO2) is used in intensive care as a marker of tissue perfusion: a wide gradient (> 6 mmHg) suggests inadequate cardiac output relative to tissue CO2 production [1]. The source data will typically be a single numeric result per patient-timestamp, produced by a blood gas analyser on a venous sample. Results are reported in mmHg (US convention) or kPa (SI / European convention) [2].\n\n**Note: arterial vs venous.** This concept set covers **venous PCO2 only** (peripheral venous, central venous, mixed venous, capillary blood). Arterial PCO2 is captured by the separate concept set \"Carbon dioxide partial pressure in arterial blood\".\n\n**Note: venous specimens.** Central venous PCO2 (CVC) reflects upper-body return, mixed venous PCO2 (pulmonary artery catheter) reflects whole-body return, peripheral venous PCO2 reflects the drained tissue bed. The user should preserve the specimen distinction in analyses where the source-of-blood matters.\n\n**Note: temperature-corrected variant.** Modern blood gas analysers measure at 37 °C. A separate LOINC code exists for PCO2 corrected to the patient's actual temperature (relevant in hypothermia). Both forms are included here; analyses that need to distinguish them must use the LOINC code, not the value.\n\n**Note: do not confuse with total CO2.** LOINC distinguishes `Carbon dioxide [Partial pressure]` (PvCO2, dissolved gas, mmHg or kPa) from `Carbon dioxide, total [Moles/volume]` (total CO2 content, mmol/L). The latter is essentially the bicarbonate plus dissolved CO2 and belongs with the separate concept set \"Bicarbonate in blood\". Only `[Partial pressure]` codes are included here.\n\n## Included Concepts\n\nThe set is anchored on four LOINC Hierarchy concepts (scoped to `Chemistry - non-challenge`), each expanded to include all their descendants, with total-CO2 codes excluded by name. The set resolves to eight LOINC \"Lab Test\" concepts, grouped here by specimen.\n\n### Venous blood\n\n- *3021447 / 2021-4 — Carbon dioxide [Partial pressure] in Venous blood (LOINC)*\n- *3041290 / 40619-9 — Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Venous blood (LOINC)*\n\n### Mixed venous blood\n\n- *3021513 / 19212-0 — Carbon dioxide [Partial pressure] in Mixed venous blood (LOINC)*\n- *3029306 / 50981-0 — Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Mixed venous blood (LOINC)*\n\n### Central venous blood\n\n- *1616989 / 97538-3 — Carbon dioxide [Partial pressure] in Central venous blood (LOINC)*\n- *1616289 / 97539-1 — Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Central venous blood (LOINC)*\n\n### Capillary blood\n\n- *3023024 / 2020-6 — Carbon dioxide [Partial pressure] in Capillary blood (LOINC)*\n- *3042462 / 40620-7 — Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Capillary blood (LOINC)*\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mm[Hg]`** (concept 8876 — millimetre of mercury). Conversion: `1 kPa ≈ 7.50 mmHg`.\n\n## Excluded Concepts\n\nThe following LOINC concepts that exist for CO2 in non-arterial blood are deliberately not part of this set, grouped by reason for exclusion.\n\n### Total CO2 — different measurand (bicarbonate equivalent)\n\n- *3010140 / 2027-1 — Carbon dioxide, total [Moles/volume] in Venous blood*\n- *3049133 / 48391-7 — Carbon dioxide, total [Moles/volume] in Venous blood by calculation*\n- *1617274 / 97545-8 — Carbon dioxide, total [Moles/volume] in Central venous blood*\n- *3018225 / 19223-7 — Carbon dioxide, total [Moles/volume] in Mixed venous blood*\n- *40761029 / 57920-1 — Carbon dioxide, total [Moles/volume] in Mixed venous blood by calculation*\n- *3009293 / 16551-4 — Carbon dioxide, total [Moles/volume] in Capillary blood*\n- *3038734 / 51781-3 — Carbon dioxide, total [Moles/volume] in Capillary blood by calculation*\n\n## Mapping Notes\n\n- **Default concept** when the source reports a venous PCO2 without further specification: `3021447 / 2021-4 — Carbon dioxide [Partial pressure] in Venous blood`.\n- **Source explicitly mentions central venous or mixed venous**: map to the matching LOINC code rather than the generic venous one.\n- **Source reports PCO2 from arterial blood**: do **not** map. Use \"Carbon dioxide partial pressure in arterial blood\" instead.\n- **Source reports \"total CO2\" or \"TCO2\" (mmol/L)**: do **not** map. Use the \"Bicarbonate in blood\" concept set.\n- **Do not confuse with**: arterial PCO2 (separate concept set), bicarbonate (separate concept set), end-tidal CO2.\n\n## References\n\n[1] Vallet B, Pinsky MR, Cecconi M. Resuscitation of patients with septic shock: please \"mind the gap\"! *Intensive Care Med*. 2013;39(9):1653-5.\n    Available: <a href=\"https://doi.org/10.1007/s00134-013-2998-5\" target=\"_blank\">https://doi.org/10.1007/s00134-013-2998-5</a>\n\n[2] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
         "name": "Pression partielle veineuse en CO2",

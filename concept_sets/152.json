@@ -2,7 +2,7 @@
   "id": 152,
   "name": "Oxygen partial pressure in arterial blood",
   "description": null,
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
@@ -12,39 +12,39 @@
     "items": [
       {
         "concept": {
-          "conceptId": 3027801,
-          "conceptName": "Oxygen [Partial pressure] in Arterial blood",
+          "conceptId": 37078026,
+          "conceptName": "Oxygen | Blood arterial | Chemistry - non-challenge",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "2703-7",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP383361-5",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 3022803,
-          "conceptName": "Oxygen [Partial pressure] adjusted to patient's actual temperature in Arterial blood",
+          "conceptId": 3015968,
+          "conceptName": "Oxygen [Partial pressure] saturation adjusted to 0.5 in Arterial blood",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "19255-9",
+          "conceptCode": "19214-6",
           "validStartDate": "1998-11-16",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       }
@@ -65,7 +65,7 @@
         "category": "Laboratory tests",
         "subcategory": "Biochemistry",
         "shortDescription": null,
-        "longDescription": "## Definition & Clinical Context\n\nThe arterial partial pressure of oxygen (PaO2) is the pressure exerted by O2 dissolved in arterial blood. It reflects the efficiency of pulmonary gas exchange and the alveolar-arterial transfer of oxygen. PaO2 falls in respiratory failure, shunt, ventilation/perfusion mismatch, and diffusion impairment. Together with the inspired oxygen fraction (FiO2), it forms the PaO2/FiO2 ratio used to grade hypoxaemia severity (ARDS Berlin criteria) [1, 2]. The source data will typically be a single numeric result per patient-timestamp, produced by a blood gas analyser on an arterial sample. Results are reported as a partial pressure in mmHg (US convention) or kPa (SI / European convention) [3].\n\n**Note: arterial vs venous.** Arterial PO2 (~80-100 mmHg under room air in healthy adults) is much higher than venous PO2 (~40 mmHg). They are fundamentally different measurands and must not be merged. This concept set covers **arterial** PO2 only. Venous, mixed venous and central venous PO2 are captured by the separate concept set \"Oxygen partial pressure in venous blood\".\n\n**Note: temperature-corrected variant.** Modern blood gas analysers measure at 37 °C. A separate LOINC code exists for PO2 corrected to the patient's actual temperature (relevant in hypothermia). Both forms are included here; downstream analyses that need to distinguish them must use the LOINC code, not the value.\n\n## Included Concepts\n\nThe set lists two LOINC \"Lab Test\" concepts for PO2 in arterial blood (cord blood excluded):\n\n- *3027801 / 2703-7 — Oxygen [Partial pressure] in Arterial blood (LOINC)*: most widely used.\n- *3022803 / 19255-9 — Oxygen [Partial pressure] adjusted to patient's actual temperature in Arterial blood (LOINC)*: temperature-corrected variant.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mm[Hg]`** (concept 8876 — millimetre of mercury). Conversion: `1 mmHg = 0.1333 kPa`, `1 kPa ≈ 7.50 mmHg`.\n\n## Excluded Concepts\n\nThe following LOINC concepts that exist for O2 in arterial blood are deliberately not part of this set, grouped by reason for exclusion.\n\n### P50 — different measurand\n\n- *3015968 / 19214-6 — Oxygen [Partial pressure] saturation adjusted to 0.5 in Arterial blood*: this is P50, the PO2 at which haemoglobin is 50% saturated — a marker of haemoglobin oxygen affinity, not the routine PaO2.\n\n### Cord blood specimens — physiologically distinct\n\n- *3021706 / 28648-4 — Oxygen [Partial pressure] in Arterial cord blood*\n- *3033254 / 49696-8 — Oxygen [Partial pressure] adjusted to patient's actual temperature in Arterial cord blood*\n\n### Oxygen saturation — different measurand\n\n- All `Oxygen saturation` codes: covered by the separate \"Oxygen saturation in arterial blood\" concept set.\n\n## Mapping Notes\n\n- **Default concept** when the source reports an arterial PO2 (e.g. blood gas analyser): `3027801 / 2703-7 — Oxygen [Partial pressure] in Arterial blood`.\n- **Source unit is kPa**: convert to mmHg using `1 kPa ≈ 7.50 mmHg`.\n- **Source reports PO2 from venous, mixed venous or central venous blood**: do **not** map to this concept set. Use \"Oxygen partial pressure in venous blood\" instead.\n- **Source reports oxygen saturation (SaO2/SpO2/%)**: do **not** map. Use \"Oxygen saturation in arterial blood\" (different measurand).\n- **Source reports P50** (haemoglobin oxygen affinity): out of scope of this concept set.\n- **Do not confuse with**: venous PO2 (separate concept set), oxygen saturation (separate concept set), inspired oxygen fraction (FiO2, ventilator setting).\n\n## References\n\n[1] ARDS Definition Task Force, Ranieri VM, Rubenfeld GD, Thompson BT, Ferguson ND, Caldwell E, et al. Acute respiratory distress syndrome: the Berlin Definition. *JAMA*. 2012;307(23):2526-33.\n    Available: <a href=\"https://doi.org/10.1001/jama.2012.5669\" target=\"_blank\">https://doi.org/10.1001/jama.2012.5669</a>\n\n[2] Regenstrief Institute. LOINC code 2703-7 — Oxygen [Partial pressure] in Arterial blood.\n    Available: <a href=\"https://loinc.org/2703-7/\" target=\"_blank\">https://loinc.org/2703-7/</a>\n\n[3] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
+        "longDescription": "## Definition & Clinical Context\n\nThe arterial partial pressure of oxygen (PaO2) is the pressure of O2 dissolved in arterial blood. It reflects the efficiency of pulmonary gas exchange and falls in respiratory failure, shunt, ventilation/perfusion mismatch, and diffusion impairment. Together with the inspired oxygen fraction (FiO2), it forms the PaO2/FiO2 ratio used to grade hypoxaemia severity (ARDS Berlin criteria) [1, 2]. The source data will typically be a single numeric result per patient-timestamp, produced by a blood gas analyser on an arterial sample. Results are reported in mmHg (US convention) or kPa (SI / European convention) [3].\n\n**Note: arterial vs venous.** Arterial PO2 (~80-100 mmHg under room air in healthy adults) is much higher than venous PO2 (~40 mmHg). They are fundamentally different measurands and must not be merged. This concept set covers **arterial PO2 only**. Venous, mixed venous, central venous and capillary PO2 are captured by the separate concept set \"Oxygen partial pressure in venous blood\".\n\n**Note: temperature-corrected variant.** Modern blood gas analysers measure at 37 °C. A separate LOINC code exists for PO2 corrected to the patient's actual temperature (relevant in hypothermia). Both forms are included here; analyses that need to distinguish them must use the LOINC code, not the value.\n\n**Note: do not confuse with P50.** LOINC has a separate code `Oxygen [Partial pressure] saturation adjusted to 0.5` (P50, the PO2 at which haemoglobin is 50% saturated — a marker of haemoglobin oxygen affinity, not the routine PaO2). It is excluded from this concept set.\n\n## Included Concepts\n\nThe set is anchored on the LOINC Hierarchy `Oxygen | Blood arterial | Chemistry - non-challenge`, expanded to include all its descendants, with the P50 code excluded by name. The set resolves to two LOINC \"Lab Test\" concepts:\n\n- *3027801 / 2703-7 — Oxygen [Partial pressure] in Arterial blood (LOINC)*: most widely used.\n- *3022803 / 19255-9 — Oxygen [Partial pressure] adjusted to patient's actual temperature in Arterial blood (LOINC)*: temperature-corrected variant.\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`mm[Hg]`** (concept 8876 — millimetre of mercury). Conversion: `1 kPa ≈ 7.50 mmHg`.\n\n## Excluded Concepts\n\nThe following LOINC concepts that exist for O2 in arterial blood are deliberately not part of this set, grouped by reason for exclusion.\n\n### P50 — different measurand\n\n- *3015968 / 19214-6 — Oxygen [Partial pressure] saturation adjusted to 0.5 in Arterial blood*: P50, haemoglobin oxygen affinity marker, not routine PaO2.\n\n### Cord blood specimens — physiologically distinct\n\n- *3021706 / 28648-4 — Oxygen [Partial pressure] in Arterial cord blood*\n- *3033254 / 49696-8 — Oxygen [Partial pressure] adjusted to patient's actual temperature in Arterial cord blood*\n\n### Oxygen saturation — different measurand\n\n- All `Oxygen saturation` codes: covered by the separate \"Oxygen saturation in arterial blood\" concept set.\n\n## Mapping Notes\n\n- **Default concept** when the source reports an arterial PO2 (e.g. blood gas analyser): `3027801 / 2703-7 — Oxygen [Partial pressure] in Arterial blood`.\n- **Source reports PO2 from venous, mixed venous or central venous blood**: do **not** map. Use \"Oxygen partial pressure in venous blood\" instead.\n- **Source reports oxygen saturation (SaO2/SpO2/%)**: do **not** map. Use \"Oxygen saturation in arterial blood\" (different measurand).\n- **Source reports P50** (haemoglobin oxygen affinity): out of scope of this concept set.\n- **Do not confuse with**: venous PO2 (separate concept set), oxygen saturation (separate concept set), inspired oxygen fraction (FiO2, ventilator setting).\n\n## References\n\n[1] ARDS Definition Task Force, Ranieri VM, Rubenfeld GD, Thompson BT, Ferguson ND, Caldwell E, et al. Acute respiratory distress syndrome: the Berlin Definition. *JAMA*. 2012;307(23):2526-33.\n    Available: <a href=\"https://doi.org/10.1001/jama.2012.5669\" target=\"_blank\">https://doi.org/10.1001/jama.2012.5669</a>\n\n[2] Regenstrief Institute. LOINC code 2703-7 — Oxygen [Partial pressure] in Arterial blood.\n    Available: <a href=\"https://loinc.org/2703-7/\" target=\"_blank\">https://loinc.org/2703-7/</a>\n\n[3] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
       },
       "fr": {
         "name": "Pression partielle artérielle en O2",

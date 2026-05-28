@@ -1,73 +1,15 @@
 {
   "id": 148,
-  "name": "Ammonia in blood",
+  "name": "[Deprecated] ABG Ammonia",
   "description": null,
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
   "modifiedDate": "2026-05-27",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
-    "items": [
-      {
-        "concept": {
-          "conceptId": 37031880,
-          "conceptName": "Ammonia | Blood | Chemistry - non-challenge",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "LOINC Hierarchy",
-          "standardConcept": "C",
-          "standardConceptCaption": "Classification",
-          "conceptCode": "LP385226-8",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": true,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 1002593,
-          "conceptName": "Ammonia | Blood arterial | Chemistry - non-challenge",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "LOINC Hierarchy",
-          "standardConcept": "C",
-          "standardConceptCaption": "Classification",
-          "conceptCode": "LP412010-3",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": true,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37053207,
-          "conceptName": "Ammonia | Plasma | Chemistry - non-challenge",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "LOINC Hierarchy",
-          "standardConcept": "C",
-          "standardConceptCaption": "Classification",
-          "conceptCode": "LP385231-8",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": true,
-        "includeMapped": false
-      }
-    ]
+    "items": []
   },
   "tags": [],
   "metadata": {
@@ -76,20 +18,20 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "pending_review",
+    "reviewStatus": "deprecated",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Ammonia in blood",
+        "name": "[Deprecated] ABG Ammonia",
         "category": "Laboratory tests",
-        "subcategory": "Biochemistry",
+        "subcategory": "Arterial blood gases",
         "shortDescription": null,
-        "longDescription": "## Definition & Clinical Context\n\nAmmonia (NH3) is produced mainly by gut bacteria and amino acid metabolism, and cleared by the liver via the urea cycle. Elevated blood ammonia reflects impaired hepatic detoxification or urea cycle disorders, and is a hallmark of hepatic encephalopathy and acute liver failure [1, 2]. The source data will typically be a single numeric result per patient-timestamp, produced by a biochemistry analyser. Results are reported as a substance concentration in µmol/L (SI unit) or as a mass concentration in µg/dL [3].\n\n**Note: specimen handling.** Ammonia is unstable at room temperature (continued in-tube production by erythrocytes and amino acid degradation). Samples must be drawn into a chilled tube, kept on ice, and analysed promptly. This concept set captures the measurement only; preanalytical conditions are out of scope.\n\n**Note: arterial vs venous.** Arterial and venous ammonia concentrations are very close in stable patients; the arterial sample is preferred in some intensive-care contexts because it minimises tourniquet-induced and muscle-related artefacts, but for typical clinical use the two are treated as the same measurand [1]. This concept set covers both arterial and venous blood, as well as plasma, under a single \"in blood\" scope.\n\n## Included Concepts\n\nThe set is anchored on three LOINC Hierarchy concepts (scoped to `Chemistry - non-challenge`), each expanded to include all their descendants. The set resolves to seven LOINC \"Lab Test\" concepts.\n\n### Whole blood\n\n- *3030942 / 32664-5 — Ammonia [Mass/volume] in Blood (LOINC)*\n- *3005347 / 1839-0 — Ammonia [Moles/volume] in Blood (LOINC)*: SI form.\n\n### Arterial blood\n\n- *1002144 / 93684-9 — Ammonia [Moles/volume] in Arterial blood (LOINC)*\n\n### Plasma\n\n- *3036887 / 22763-7 — Ammonia [Mass/volume] in Plasma (LOINC)*\n- *3011958 / 16362-6 — Ammonia [Moles/volume] in Plasma (LOINC)*: SI form.\n- *3030839 / 35254-2 — Ammonia [Mass or Moles/volume] in Plasma (LOINC)*: unit-agnostic form.\n\n### Serum\n\n- *3022189 / 20684-7 — Ammonia [Mass/volume] in Serum (LOINC)*\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`umol/L`** (concept 9551 — micromole per litre) for `[Moles/volume]` codes and **`ug/dL`** (concept 8723 — microgram per decilitre) for `[Mass/volume]` codes. Conversion: `1 µg/dL ≈ 0.587 µmol/L` (molar mass of ammonia = 17.03 g/mol).\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The set deliberately omits the following LOINC concepts:\n\n- **Cord blood and fetus specimens**: physiologically distinct from post-natal blood.\n- **CSF, body fluid, dialysis fluid, urine, stool, ingesta, water, tissue specimens**: out of scope for a \"blood\" concept set.\n- **Ammonia/Creatinine ratios**: different measurand.\n\n## Mapping Notes\n\n- **Default concept** when the source reports an ammonia value without specifying specimen: `3005347 / 1839-0 — Ammonia [Moles/volume] in Blood`.\n- **Source unit is µg/dL or µg/L**: convert to µmol/L using `1 µg/dL ≈ 0.587 µmol/L`.\n- **Source reports ammonia from CSF, dialysis fluid, urine or other non-blood specimens**: do **not** map. Out of scope.\n- **Do not confuse with**: blood urea nitrogen (BUN, separate concept set), urinary ammonia (separate concept set if added later).\n\n## References\n\n[1] Vilstrup H, Amodio P, Bajaj J, Cordoba J, Ferenci P, Mullen KD, et al. Hepatic encephalopathy in chronic liver disease: 2014 Practice Guideline by the AASLD and the EASL. *Hepatology*. 2014;60(2):715-35.\n    Available: <a href=\"https://doi.org/10.1002/hep.27210\" target=\"_blank\">https://doi.org/10.1002/hep.27210</a>\n\n[2] Regenstrief Institute. LOINC code 1839-0 — Ammonia [Moles/volume] in Blood.\n    Available: <a href=\"https://loinc.org/1839-0/\" target=\"_blank\">https://loinc.org/1839-0/</a>\n\n[3] Nomenclature for Properties and Units (NPU). IFCC/IUPAC. NPU codes (current release).\n    Available: <a href=\"https://npu-terminology.org/npu-database/\" target=\"_blank\">https://npu-terminology.org/npu-database/</a>\n"
+        "longDescription": "**Deprecated** — duplicate of the pre-existing \"Ammonia in blood\" concept set (Liver test). The arterial vs. plasma distinction is not clinically meaningful for ammonia, and all relevant LOINC codes (Plasma, Blood, Arterial blood) are already covered by the surviving concept set."
       },
       "fr": {
-        "name": "Ammoniémie",
+        "name": "[Deprecated] Gaz du sang - Ammoniaque",
         "category": "Biologie",
-        "subcategory": "Biochimie",
+        "subcategory": "Gaz du sang artériel",
         "shortDescription": null,
         "longDescription": null
       }

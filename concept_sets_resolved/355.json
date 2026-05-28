@@ -72,6 +72,42 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "39486-6",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 37029779,
+      "conceptName": "pH | Blood capillary | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP383433-2",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 1618115,
+      "conceptName": "pH | Blood central venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP426948-8",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37036413,
+      "conceptName": "pH | Blood mixed venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP383437-3",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37037079,
+      "conceptName": "pH | Blood venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP383438-1",
+      "standardConcept": "C"
     }
   ]
 }

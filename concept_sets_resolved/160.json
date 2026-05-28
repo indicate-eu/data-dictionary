@@ -18,6 +18,15 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "33254-4",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 37035022,
+      "conceptName": "pH | Blood arterial | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP383432-4",
+      "standardConcept": "C"
     }
   ]
 }

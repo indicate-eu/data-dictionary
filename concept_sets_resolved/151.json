@@ -18,6 +18,15 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "2019-8",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 37037933,
+      "conceptName": "Carbon dioxide | Blood arterial | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP383322-7",
+      "standardConcept": "C"
     }
   ]
 }

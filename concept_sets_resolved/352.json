@@ -72,6 +72,42 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "2021-4",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 37042819,
+      "conceptName": "Carbon dioxide | Blood capillary | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP383323-5",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 1618289,
+      "conceptName": "Carbon dioxide | Blood central venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP426941-3",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37068772,
+      "conceptName": "Carbon dioxide | Blood mixed venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP383327-6",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37028041,
+      "conceptName": "Carbon dioxide | Blood venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP383328-4",
+      "standardConcept": "C"
     }
   ]
 }
