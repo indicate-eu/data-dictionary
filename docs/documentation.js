@@ -2499,10 +2499,22 @@ var DocumentationPage = (function() {
         + '</div>'
       + '</div>';
     }
-    return '<div class="project-cards" style="margin:12px 0; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); overflow:visible">'
-      + card('MIMIC-EU [Minimal]', en ? 'Federated atlas of acute care cases.' : 'Atlas fédéré de cas de soins aigus.', 100)
-      + card('Quality Benchmarking', en ? 'Continuous improvement via benchmarking.' : 'Amélioration continue par benchmarking.', 82)
-      + card('Rare ICU outcomes', en ? 'Pooling across centres for rare events.' : 'Mutualisation pour événements rares.', 54)
+    return '<div class="project-cards" style="margin:12px 0; grid-template-columns:repeat(3, 1fr); overflow:visible">'
+      + card('MIMIC-EU [Minimal]',
+          en
+            ? 'Atlas of anonymized Acute Care cases for aggregating ICU datasets and developing clinically relevant AI algorithms.'
+            : 'Atlas de cas de soins aigus anonymisés pour agréger des jeux de données de réanimation et développer des algorithmes d’IA cliniquement pertinents.',
+          100)
+      + card('Early Detection of Organ Failure [Minimal]',
+          en
+            ? 'Machine learning models that predict organ failure using time-series data for clinical evaluation.'
+            : 'Modèles d’apprentissage automatique prédisant la défaillance d’organes à partir de séries temporelles cliniques.',
+          82)
+      + card('Prediction of Neonatal and Pediatric Sepsis [Minimal]',
+          en
+            ? 'Validates federated infrastructure for pediatric data access, focused on neonatal and pediatric sepsis.'
+            : 'Validation de l’infrastructure fédérée pour l’accès aux données pédiatriques, centrée sur le sepsis néonatal et pédiatrique.',
+          54)
       + '</div>';
   }
 
