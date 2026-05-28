@@ -1,7 +1,7 @@
 {
   "id": 187,
   "name": "N-terminal pro-B-type natriuretic peptide (NT-proBNP) in blood",
-  "description": null,
+  "description": "Biologically inactive N-terminal fragment of proBNP ; not numerically interchangeable with BNP",
   "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
@@ -83,14 +83,14 @@
         "name": "N-terminal pro-B-type natriuretic peptide (NT-proBNP) in blood",
         "category": "Laboratory tests",
         "subcategory": "Cardiac markers",
-        "shortDescription": null,
+        "shortDescription": "Biologically inactive N-terminal fragment of proBNP ; not numerically interchangeable with BNP",
         "longDescription": "## Definition & Clinical Context\n\nN-terminal pro-B-type natriuretic peptide (NT-proBNP) is the biologically inactive 76-amino-acid N-terminal fragment of proBNP, produced by ventricular cardiomyocytes. Plasma NT-proBNP rises in heart failure and is widely used to rule out the diagnosis in patients presenting with dyspnoea [1]. The source data will typically be a single numeric result per patient-timestamp, produced by immunoassay. Results are reported as a mass concentration in pg/mL (or ng/L — numerically identical) [2].\n\n**Note: NT-proBNP vs BNP.** ProBNP is cleaved into equimolar amounts of the biologically active **BNP** and the biologically inactive **NT-proBNP** [1]. In plasma, NT-proBNP concentrations are roughly 6 times higher than BNP because their clearance mechanisms differ [1]. The two are **not numerically interchangeable** and use different cut-offs. This concept set covers **NT-proBNP only** ; BNP is captured by the separate concept set \"B-type natriuretic peptide (BNP) in blood\".\n\n## Included Concepts\n\nThe set is anchored on three LOINC Hierarchy concepts (scoped to `Chemistry - non-challenge`), each expanded to include all their descendants. The set resolves to five LOINC \"Lab Test\" concepts, grouped here by specimen.\n\n### Serum or plasma\n\n- *3029187 / 33762-6 — Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Serum or Plasma (LOINC)*: most widely used.\n- *42529224 / 83107-3 — Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Serum or Plasma by Immunoassay (LOINC)*\n- *3029435 / 33763-4 — Natriuretic peptide.B prohormone N-Terminal [Moles/volume] in Serum or Plasma (LOINC)*: SI form.\n- *42529225 / 83108-1 — Natriuretic peptide.B prohormone N-Terminal [Moles/volume] in Serum or Plasma by Immunoassay (LOINC)*: SI form, immunoassay.\n\n### Whole blood\n\n- *42870364 / 71425-3 — Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Blood by Immunoassay (LOINC)*\n- *1469712 / 106735-4 — Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Serum, Plasma or Blood by Rapid immunoassay (LOINC)*\n\n**Note on units.** Recommended unit follows LOINC's `EXAMPLE_UCUM_UNITS`: **`pg/mL`** (concept 8845 — picogram per millilitre) for `[Mass/volume]` codes and **`pmol/L`** (concept 8729 — picomole per litre) for `[Moles/volume]` codes. `1 pg/mL = 1 ng/L` (numerically equal). The stoichiometric conversion factor is `1 pg/mL ≈ 0.118 pmol/L`, derived from the NT-proBNP molecular weight of ~ 8500 Da (the 76-amino-acid N-terminal fragment of proBNP — sequence from UniProt P16860).\n\n## Excluded Concepts\n\nNo concepts are explicitly excluded by name. The set deliberately omits:\n\n- **Pleural fluid, peritoneal dialysis fluid specimens**: out of scope for a \"blood\" concept set.\n- **Cord blood and fetus specimens**: physiologically distinct from post-natal blood.\n\n## Mapping Notes\n\n- **Default concept** when the source reports an NT-proBNP value: `3029187 / 33762-6 — Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Serum or Plasma`.\n- **Source reports BNP**: do **not** map. Use \"B-type natriuretic peptide (BNP) in blood\" instead.\n- **Do not confuse with**: BNP (separate concept set, different molecule and cut-offs), MR-proANP (mid-regional pro-atrial natriuretic peptide).\n\n## References\n\n[1] Novack ML, Zubair M. Natriuretic Peptide B Type Test. In: *StatPearls*. Treasure Island (FL): StatPearls Publishing.\n    Available: <a href=\"https://www.ncbi.nlm.nih.gov/books/NBK556136/\" target=\"_blank\">https://www.ncbi.nlm.nih.gov/books/NBK556136/</a>\n\n[2] Regenstrief Institute. LOINC code 33762-6 — Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Serum or Plasma.\n    Available: <a href=\"https://loinc.org/33762-6/\" target=\"_blank\">https://loinc.org/33762-6/</a>\n"
       },
       "fr": {
         "name": "Peptide natriurétique de type B N-terminal (NT-proBNP) sanguin",
         "category": "Biologie",
         "subcategory": "Marqueurs cardiaques",
-        "shortDescription": null,
+        "shortDescription": "Fragment N-terminal biologiquement inactif du proBNP, non interchangeable numériquement avec le BNP",
         "longDescription": null
       }
     },
