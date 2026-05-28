@@ -35,6 +35,8 @@ var ConceptSetsPage = (function() {
   var selectedConceptSet = null;
   var selectedSnapshotVersion = null; // non-null when viewing a pinned snapshot
   var selectedFromProjectId = null;   // non-null when navigated from a project's variables tab
+  // Tells the Back button whether history.back() will land on the list.
+  var listViewShownThisSession = false;
   var sqlExportUnitLabels = {}; // unit_concept_id -> short label (e.g. "mg/dL"), populated by the SQL export UI
   var csDetailTab = 'concepts';
   var csConceptMode = 'resolved';
@@ -5698,7 +5700,11 @@ var ConceptSetsPage = (function() {
 
     // CS back button
     document.getElementById('cs-back').addEventListener('click', function() {
-      history.back();
+      if (listViewShownThisSession) {
+        history.back();
+      } else {
+        Router.navigate('/concept-sets');
+      }
     });
 
     // CS detail tabs
@@ -6188,6 +6194,7 @@ var ConceptSetsPage = (function() {
         switchCSDetailTab(tab);
       }
     } else if (selectedConceptSet) {
+      listViewShownThisSession = true;
       // Back to list view (e.g. browser back button)
       if (exprEditMode) exitExprEditMode();
       if (commentsEditMode) exitCommentsEditMode();
@@ -6204,6 +6211,8 @@ var ConceptSetsPage = (function() {
       if (banner) banner.style.display = 'none';
       csDetailTab = 'concepts';
       csConceptMode = 'resolved';
+    } else {
+      listViewShownThisSession = true;
     }
   }
 
