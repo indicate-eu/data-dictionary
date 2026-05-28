@@ -18,7 +18,30 @@ var App = (function() {
   var unitConversions = [];
   var recommendedUnits = [];
   var mappingRecommendations = {};
-  var lang = localStorage.getItem('indicate_lang') || 'en';
+  // Lang resolution order: URL (?lang=fr) → localStorage → 'en'. URL wins so
+  // shared links open in the intended language even if the recipient previously
+  // chose the other one in this browser.
+  var lang = (function() {
+    var fromUrl = (function() {
+      var hash = window.location.hash || '';
+      var qIdx = hash.indexOf('?');
+      if (qIdx === -1) return null;
+      var pairs = hash.substring(qIdx + 1).split('&');
+      for (var i = 0; i < pairs.length; i++) {
+        var kv = pairs[i].split('=');
+        if (decodeURIComponent(kv[0]) === 'lang') {
+          var v = decodeURIComponent(kv[1] || '');
+          if (v === 'en' || v === 'fr') return v;
+        }
+      }
+      return null;
+    })();
+    if (fromUrl) {
+      localStorage.setItem('indicate_lang', fromUrl);
+      return fromUrl;
+    }
+    return localStorage.getItem('indicate_lang') || 'en';
+  })();
   var resolvedIndex = {}; // conceptSetId -> resolvedConcepts[]
   var resolvedDeferred = {}; // conceptSetId -> { count, promise? }
   var sessionReviews = JSON.parse(localStorage.getItem('indicate_reviews') || '{}');
@@ -1199,6 +1222,32 @@ var App = (function() {
     pendingExport = null;
   }
 
+  // Rewrite the current URL hash to reflect the active language as a query
+  // param: `lang=fr` when French, removed entirely when English (default).
+  // Other query params on the current route are preserved. Uses replaceState
+  // so the change is not pushed onto the history stack and doesn't re-route.
+  function updateLangInUrl() {
+    var hash = window.location.hash || '';
+    if (!hash) return;
+    var qIdx = hash.indexOf('?');
+    var path = qIdx === -1 ? hash : hash.substring(0, qIdx);
+    var pairs = qIdx === -1 ? [] : hash.substring(qIdx + 1).split('&').filter(Boolean);
+    var kept = [];
+    for (var i = 0; i < pairs.length; i++) {
+      var kv = pairs[i].split('=');
+      if (decodeURIComponent(kv[0]) !== 'lang') kept.push(pairs[i]);
+    }
+    if (lang !== 'en') kept.unshift('lang=fr');
+    var newHash = kept.length ? (path + '?' + kept.join('&')) : path;
+    if (newHash === hash) return;
+    var url = window.location.pathname + window.location.search + newHash;
+    if (Router && Router.replaceState) {
+      Router.replaceState(url);
+    } else {
+      history.replaceState(null, '', url);
+    }
+  }
+
   // ==================== SHARED EVENTS ====================
   function initSharedEvents() {
     // Language toggle
@@ -1209,6 +1258,7 @@ var App = (function() {
         lang = lang === 'en' ? 'fr' : 'en';
         localStorage.setItem('indicate_lang', lang);
         langBtn.textContent = lang.toUpperCase();
+        updateLangInUrl();
         translateDOM();
         updateUserBadge();
         languageChangeCallbacks.forEach(function(cb) { cb(); });

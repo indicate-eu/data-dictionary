@@ -85,6 +85,17 @@
     Router.navigate('/mapping', { tab: 'recommendations' });
   });
 
+  // Append ?lang=fr to a hash if the current URL has it and `hash` doesn't.
+  // English is the default and stays implicit.
+  function withCurrentLang(hash) {
+    if (!hash) return hash;
+    if (hash.indexOf('lang=') !== -1) return hash;
+    var cur = window.location.hash || '';
+    if (cur.indexOf('lang=fr') === -1) return hash;
+    var sep = hash.indexOf('?') === -1 ? '?' : '&';
+    return hash + sep + 'lang=fr';
+  }
+
   // Intercept clicks on header nav tabs so they restore the last visited URL
   // for that page (including query state) instead of always going to the bare
   // path. If we don't have a remembered URL yet, we let the default href run.
@@ -94,18 +105,28 @@
     var pageName = link.getAttribute('data-page');
     var path = '/' + pageName;
     var remembered = lastHashByPath[path];
-    if (!remembered) return; // first visit → default href takes you to the bare path
+    if (!remembered) {
+      // First visit → default href takes you to the bare path. Still preserve
+      // the active language by intercepting and rewriting the hash.
+      var bare = link.getAttribute('href');
+      var withLang = withCurrentLang(bare);
+      if (withLang !== bare) {
+        e.preventDefault();
+        window.location.hash = withLang;
+      }
+      return;
+    }
     if (window.location.hash === remembered) {
       // Already on the exact URL — clicking again resets to the bare path,
       // which feels natural (a "Home" shortcut for that section).
       e.preventDefault();
-      window.location.hash = link.getAttribute('href');
+      window.location.hash = withCurrentLang(link.getAttribute('href'));
       return;
     }
     // The default href would replace the hash with /pageName (no query). Use
     // the remembered hash instead.
     e.preventDefault();
-    window.location.hash = remembered;
+    window.location.hash = withCurrentLang(remembered);
   });
 
   // Register language change callbacks for pages that support it
