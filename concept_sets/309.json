@@ -1,7 +1,7 @@
 {
   "id": 309,
   "name": "Trial of spontaneous breathing",
-  "description": null,
+  "description": "Spontaneous breathing trial (SBT) — test of ventilator-weaning readiness; the act of performing the trial.",
   "version": "1.0.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
@@ -38,21 +38,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Trial of spontaneous breathing",
         "category": "Ventilation",
         "subcategory": "Ventilation device",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Spontaneous breathing trial (SBT) — test of ventilator-weaning readiness; the act of performing the trial.",
+        "longDescription": "## Definition & Clinical Context\n\nA spontaneous breathing trial (SBT) is a test in which a mechanically ventilated patient is allowed to breathe with little or no ventilator support for a short period, to assess whether they are ready to be weaned off the ventilator and extubated. In source data this is a **procedure** record marking that an SBT was performed; there is no unit. It is recorded in intensive care as part of the weaning process. The trial may be done on a T-piece, on low-level pressure support, or on CPAP, but the concept here captures the act of performing the trial regardless of how it is delivered.\n\n## Included Concepts\n\nThis set contains the single SNOMED concept for a spontaneous breathing trial:\n\n- *4308797 / 424139009 — Trial of spontaneous breathing (SNOMED)*: a spontaneous breathing trial. Synonym: \"Spontaneous breathing trial\".\n\n## Mapping Notes\n\n- Map a recorded spontaneous breathing trial (SBT) to *4308797 / 424139009 — Trial of spontaneous breathing*, regardless of the technique used to deliver it (T-piece, pressure support, CPAP).\n- **SBT vs weaning**: this set is the trial itself, not the broader weaning process. The act of weaning from ventilation (reducing/withdrawing support) is a distinct concept and is not included here.\n- **SBT vs extubation**: the trial assesses readiness; the actual removal of the tube is captured in the Extubation concept set."
       },
       "fr": {
         "name": "Épreuve de ventilation spontanée",
         "category": "Ventilation",
         "subcategory": "Dispositif de ventilation",
-        "shortDescription": null,
+        "shortDescription": "Épreuve de ventilation spontanée (SBT) — test d’aptitude au sevrage du ventilateur ; le geste de réaliser l’épreuve.",
         "longDescription": null
       }
     },
