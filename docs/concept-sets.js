@@ -35,8 +35,6 @@ var ConceptSetsPage = (function() {
   var selectedConceptSet = null;
   var selectedSnapshotVersion = null; // non-null when viewing a pinned snapshot
   var selectedFromProjectId = null;   // non-null when navigated from a project's variables tab
-  // Tells the Back button whether history.back() will land on the list.
-  var listViewShownThisSession = false;
   var sqlExportUnitLabels = {}; // unit_concept_id -> short label (e.g. "mg/dL"), populated by the SQL export UI
   var csDetailTab = 'concepts';
   var csConceptMode = 'resolved';
@@ -5759,13 +5757,13 @@ var ConceptSetsPage = (function() {
       Router.navigate('/concept-sets', { id: id });
     });
 
-    // CS back button
+    // CS back button — always return to the concept sets list, regardless of how
+    // the detail view was reached. Using history.back() is unreliable: if the user
+    // got here via another page (e.g. Documentation -> "Data Dictionary" restoring
+    // the remembered detail hash), the previous history entry is that other page,
+    // not the list. Navigating explicitly to the list view is the intended behaviour.
     document.getElementById('cs-back').addEventListener('click', function() {
-      if (listViewShownThisSession) {
-        history.back();
-      } else {
-        Router.navigate('/concept-sets');
-      }
+      Router.navigate('/concept-sets');
     });
 
     // CS detail tabs
@@ -6255,7 +6253,6 @@ var ConceptSetsPage = (function() {
         switchCSDetailTab(tab);
       }
     } else if (selectedConceptSet) {
-      listViewShownThisSession = true;
       // Back to list view (e.g. browser back button)
       if (exprEditMode) exitExprEditMode();
       if (commentsEditMode) exitCommentsEditMode();
@@ -6272,9 +6269,8 @@ var ConceptSetsPage = (function() {
       if (banner) banner.style.display = 'none';
       csDetailTab = 'concepts';
       csConceptMode = 'resolved';
-    } else {
-      listViewShownThisSession = true;
     }
+    // else: bare list view, nothing extra to do (renderAll already ran in init)
   }
 
   function hide() {
