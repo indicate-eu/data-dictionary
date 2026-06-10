@@ -1,8 +1,8 @@
 {
   "id": 360,
   "name": "Ventilation mode - Other/advanced",
-  "description": "Other/advanced ventilation modes — APRV and the continuous mandatory ventilation (CMV) family.",
-  "version": "1.0.0",
+  "description": "Other/advanced ventilation modes — APRV, CMV family, high-frequency (HFOV/HFJV/HFPPV) and NAVA.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-06-10",
   "modifiedBy": "Boris Delange",
@@ -237,6 +237,82 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4074666,
+          "conceptName": "High frequency oscillatory ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "243155002",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4055377,
+          "conceptName": "High frequency jet ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "243154003",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4055376,
+          "conceptName": "High frequency positive pressure ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "243153009",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1243692,
+          "conceptName": "Neurally adjusted ventilatory assist",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1297240007",
+          "validStartDate": "2024-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
       }
     ]
   },
@@ -254,14 +330,14 @@
         "name": "Ventilation mode - Other/advanced",
         "category": "Ventilation",
         "subcategory": "Ventilation mode",
-        "shortDescription": "Other/advanced ventilation modes — APRV and the continuous mandatory ventilation (CMV) family.",
-        "longDescription": "## Definition & Clinical Context\n\nVentilation modes that do not fall under the pressure-controlled, volume-controlled, spontaneous/support, high-frequency or NAVA categories — chiefly airway pressure release ventilation (APRV) and the continuous mandatory ventilation (CMV) family, plus continuous-flow apnoeic ventilation. In source data this is a **procedure** record indicating the ventilation mode in use; there is no unit. It is recorded in intensive care and anaesthesia for ventilated patients. The mode is independent of whether ventilation is invasive (via an endotracheal/tracheostomy tube) or non-invasive (via a mask) — that distinction is captured in the Invasive mechanical ventilation and Non-invasive ventilation concept sets.\n\n## Included Concepts\n\nThe set lists the SNOMED procedure concepts for these modes.\n\n- *4072515 / 243143008 — Airway pressure release ventilation (SNOMED)*\n- *37151336 / 1187022003 — Continuous mandatory ventilation volume-control inflation-type and assured constant airway pressure adjunct in the expiratory phase (SNOMED)*\n- *37151337 / 1187023008 — Continuous mandatory ventilation pressure-control inflation-type (SNOMED)*\n- *37151338 / 1187024002 — Continuous mandatory ventilation pressure-control inflation-type and assured constant airway pressure adjunct (SNOMED)*\n- *37151339 / 1187025001 — Continuous mandatory ventilation volume-targeted pressure-control inflation-type (SNOMED)*\n- *37152407 / 1186742007 — Intermittent mandatory ventilation with synchronized-termination pressure-control and assured constant airway pressure adjunct (SNOMED)*\n- *37152413 / 1186749003 — Continuous mandatory ventilation volume-control inflation-type (SNOMED)*\n- *37153603 / 1222606000 — Continuous mandatory ventilation (SNOMED)*\n- *37153604 / 1222607009 — Continuous mandatory ventilation with sigh (SNOMED)*\n- *37157167 / 1197612007 — Intermittent mandatory ventilation (SNOMED)*\n- *37157430 / 1217390002 — Intermittent mandatory ventilation with synchronized-termination pressure control and assured constant airway pressure adjunct during the inflation phase (SNOMED)*\n- *37158487 / 1260411001 — Continuous flow apneic ventilation (SNOMED)*\n\n## Mapping Notes\n\n- Map a recorded ventilation mode to the matching concept here based on the control variable / mode family, regardless of whether the patient is invasively or non-invasively ventilated.\n- **Mode vs ventilation act**: this set captures the *mode* only; whether the patient is on invasive or non-invasive ventilation is recorded separately (Invasive mechanical ventilation / Non-invasive ventilation concept sets).\n"
+        "shortDescription": "Other/advanced ventilation modes — APRV, CMV family, high-frequency (HFOV/HFJV/HFPPV) and NAVA.",
+        "longDescription": "## Definition & Clinical Context\n\nVentilation modes that do not fall under the pressure-controlled, volume-controlled, or spontaneous/support categories — airway pressure release ventilation (APRV), the continuous mandatory ventilation (CMV) family, high-frequency modes (oscillatory HFOV, jet HFJV, positive-pressure HFPPV), neurally adjusted ventilatory assist (NAVA), and continuous-flow apnoeic ventilation. In source data this is a **procedure** record indicating the ventilation mode in use; there is no unit. It is recorded in intensive care and anaesthesia for ventilated patients. The mode is independent of whether ventilation is invasive or non-invasive — that distinction is captured in the Invasive mechanical ventilation and Non-invasive ventilation concept sets.\n\n## Included Concepts\n\nThe set lists the SNOMED procedure concepts for these modes.\n\n- *1243692 / 1297240007 — Neurally adjusted ventilatory assist (SNOMED)*\n- *4055376 / 243153009 — High frequency positive pressure ventilation (SNOMED)*\n- *4055377 / 243154003 — High frequency jet ventilation (SNOMED)*\n- *4072515 / 243143008 — Airway pressure release ventilation (SNOMED)*\n- *4074666 / 243155002 — High frequency oscillatory ventilation (SNOMED)*\n- *37151336 / 1187022003 — Continuous mandatory ventilation volume-control inflation-type and assured constant airway pressure adjunct in the expiratory phase (SNOMED)*\n- *37151337 / 1187023008 — Continuous mandatory ventilation pressure-control inflation-type (SNOMED)*\n- *37151338 / 1187024002 — Continuous mandatory ventilation pressure-control inflation-type and assured constant airway pressure adjunct (SNOMED)*\n- *37151339 / 1187025001 — Continuous mandatory ventilation volume-targeted pressure-control inflation-type (SNOMED)*\n- *37152407 / 1186742007 — Intermittent mandatory ventilation with synchronized-termination pressure-control and assured constant airway pressure adjunct (SNOMED)*\n- *37152413 / 1186749003 — Continuous mandatory ventilation volume-control inflation-type (SNOMED)*\n- *37153603 / 1222606000 — Continuous mandatory ventilation (SNOMED)*\n- *37153604 / 1222607009 — Continuous mandatory ventilation with sigh (SNOMED)*\n- *37157167 / 1197612007 — Intermittent mandatory ventilation (SNOMED)*\n- *37157430 / 1217390002 — Intermittent mandatory ventilation with synchronized-termination pressure control and assured constant airway pressure adjunct during the inflation phase (SNOMED)*\n- *37158487 / 1260411001 — Continuous flow apneic ventilation (SNOMED)*\n\n## Mapping Notes\n\n- Map a recorded ventilation mode to the matching concept here when it does not fit the pressure-controlled (PCV), volume-controlled (VCV) or spontaneous/support mode sets.\n- **High-frequency** modes (HFOV, HFJV, HFPPV) and **NAVA** are grouped here as advanced/atypical modes rather than in their own sets.\n- **Mode vs ventilation act**: this set captures the *mode* only; whether the patient is on invasive or non-invasive ventilation is recorded separately (Invasive mechanical ventilation / Non-invasive ventilation concept sets).\n"
       },
       "fr": {
         "name": "Mode de ventilation - Autres/avancés",
         "category": "Ventilation",
         "subcategory": "Mode de ventilation",
-        "shortDescription": "Modes de ventilation autres/avancés — APRV et la famille ventilation mandataire continue (CMV).",
+        "shortDescription": "Modes de ventilation autres/avancés — APRV, famille CMV, haute fréquence (HFOV/HFJV/HFPPV) et NAVA.",
         "longDescription": null
       }
     },
@@ -273,7 +349,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-10",
+        "author": "Boris Delange",
+        "message": "Merge the High-frequency (was set 358: HFOV/HFJV/HFPPV) and NAVA (was set 359) families into Other/advanced; sets 358 and 359 deleted. Now holds APRV + CMV family + high-frequency + NAVA + apnoeic ventilation. Resolves to 16."
+      }
+    ],
     "distributionStats": null
   }
 }

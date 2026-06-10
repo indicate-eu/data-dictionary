@@ -1,26 +1,77 @@
 {
   "conceptSetId": 308,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
-      "conceptId": 4082249,
-      "conceptName": "Oxygenator therapy",
+      "conceptId": 603260,
+      "conceptName": "Oxygen administration using headbox",
       "vocabularyId": "SNOMED",
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
-      "conceptCode": "182714002",
+      "conceptCode": "1363901000000105",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4139525,
-      "conceptName": "High flow oxygen nasal cannula",
+      "conceptId": 1074232,
+      "conceptName": "Low flow oxygen delivery",
       "vocabularyId": "SNOMED",
-      "domainId": "Device",
-      "conceptClassId": "Physical Object",
-      "conceptCode": "426854004",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1336169000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3655950,
+      "conceptName": "Heated and humidified high flow oxygen therapy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "870533002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4056814,
+      "conceptName": "Catalytic oxygen therapy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "182713008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4072513,
+      "conceptName": "Long-term oxygen therapy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "243137006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4074661,
+      "conceptName": "Short-term oxygen therapy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "243136002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4119964,
+      "conceptName": "Humidified oxygen therapy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "304577004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4140455,
+      "conceptName": "Home oxygen therapy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "426990007",
       "standardConcept": "S"
     },
     {
@@ -39,6 +90,42 @@
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "371908008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4173351,
+      "conceptName": "Apneic oxygenation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "276732005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4201025,
+      "conceptName": "High concentration oxygen therapy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "315041000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4216695,
+      "conceptName": "Intranasal oxygen therapy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "71786000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4239130,
+      "conceptName": "Oxygen therapy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "57485005",
       "standardConcept": "S"
     },
     {
@@ -66,6 +153,33 @@
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "1259025002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37312322,
+      "conceptName": "Alcohol-oxygen vapor therapy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "788538002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44788929,
+      "conceptName": "SBOT - Short-burst oxygen therapy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "201651000000108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44788930,
+      "conceptName": "Ambulatory oxygen therapy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "201661000000106",
       "standardConcept": "S"
     },
     {

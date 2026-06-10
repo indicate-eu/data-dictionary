@@ -3,6 +3,15 @@
   "vocabularyVersion": null,
   "resolvedConcepts": [
     {
+      "conceptId": 3661882,
+      "conceptName": "Nocturnal continuous positive airway pressure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "34281000175105",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3661883,
       "conceptName": "Nocturnal dual pressure spontaneous ventilation support",
       "vocabularyId": "SNOMED",
@@ -30,6 +39,42 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 37152378,
+      "conceptName": "Spontaneous timed ventilation with pressure-support for spontaneous breaths and volume-control ventilator initiated inflation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186658003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152379,
+      "conceptName": "Spontaneous timed ventilation with pressure-support for spontaneous breaths and pressure-control with flow termination for ventilator initiated inflation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186672007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152380,
+      "conceptName": "Spontaneous timed ventilation with volume targeted pressure-support for spontaneous breaths and volume targeted pressure-control for ventilator initiated inflations",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186674008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152383,
+      "conceptName": "Continuous positive airway pressure with an assured constant airway pressure adjunct",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186678006",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 37152400,
       "conceptName": "Continuous spontaneous ventilation with pressure support",
       "vocabularyId": "SNOMED",
@@ -54,6 +99,15 @@
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "1186733000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152791,
+      "conceptName": "Spontaneous and/or timed ventilation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1197780003",
       "standardConcept": "S"
     },
     {

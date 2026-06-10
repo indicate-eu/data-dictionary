@@ -161,6 +161,120 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152378,
+          "conceptName": "Spontaneous timed ventilation with pressure-support for spontaneous breaths and volume-control ventilator initiated inflation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186658003",
+          "validStartDate": "2021-11-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152379,
+          "conceptName": "Spontaneous timed ventilation with pressure-support for spontaneous breaths and pressure-control with flow termination for ventilator initiated inflation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186672007",
+          "validStartDate": "2021-11-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152380,
+          "conceptName": "Spontaneous timed ventilation with volume targeted pressure-support for spontaneous breaths and volume targeted pressure-control for ventilator initiated inflations",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186674008",
+          "validStartDate": "2021-11-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152383,
+          "conceptName": "Continuous positive airway pressure with an assured constant airway pressure adjunct",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186678006",
+          "validStartDate": "2022-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152791,
+          "conceptName": "Spontaneous and/or timed ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1197780003",
+          "validStartDate": "2022-02-28",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3661882,
+          "conceptName": "Nocturnal continuous positive airway pressure",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "34281000175105",
+          "validStartDate": "2020-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
       }
     ]
   },
@@ -179,7 +293,7 @@
         "category": "Ventilation",
         "subcategory": "Ventilation mode",
         "shortDescription": "Spontaneous and support modes (pressure support, CPAP, bilevel/BiPAP) — the patient triggers breaths, the ventilator assists.",
-        "longDescription": "## Definition & Clinical Context\n\nSpontaneous and support ventilation modes, where the patient triggers each breath and the ventilator assists rather than imposing a mandatory rate — pressure support (PSV), continuous positive airway pressure (CPAP) and bilevel/dual-pressure support (BiPAP-type). In source data this is a **procedure** record indicating the ventilation mode in use; there is no unit. It is recorded in intensive care and anaesthesia for ventilated patients. The mode is independent of whether ventilation is invasive (via an endotracheal/tracheostomy tube) or non-invasive (via a mask) — that distinction is captured in the Invasive mechanical ventilation and Non-invasive ventilation concept sets.\n\n## Included Concepts\n\nThe set lists the SNOMED procedure concepts for these modes.\n\n- *3661883 / 34291000175108 — Nocturnal dual pressure spontaneous ventilation support (SNOMED)*\n- *4055262 / 243142003 — Dual pressure spontaneous ventilation support (SNOMED)*\n- *4165535 / 47545007 — Continuous positive airway pressure ventilation treatment (SNOMED)*\n- *37152400 / 1186731003 — Continuous spontaneous ventilation with pressure support (SNOMED)*\n- *37152401 / 1186732005 — Continuous spontaneous ventilation with volume targeted pressure-support (SNOMED)*\n- *37152402 / 1186733000 — Continuous spontaneous ventilation with effort support (SNOMED)*\n- *37154096 / 1259864003 — Pressure support ventilation (SNOMED)*\n- *40491848 / 447243000 — Bilevel positive airway pressure titration (SNOMED)*\n\n## Mapping Notes\n\n- Map a recorded ventilation mode to the matching concept here based on the control variable / mode family, regardless of whether the patient is invasively or non-invasively ventilated.\n- **Mode vs ventilation act**: this set captures the *mode* only; whether the patient is on invasive or non-invasive ventilation is recorded separately (Invasive mechanical ventilation / Non-invasive ventilation concept sets).\n"
+        "longDescription": "## Definition & Clinical Context\n\nSpontaneous and support ventilation modes, where the patient triggers each breath and the ventilator assists rather than imposing a mandatory rate — pressure support (PSV), continuous positive airway pressure (CPAP) and bilevel/dual-pressure support (BiPAP-type). In source data this is a **procedure** record indicating the ventilation mode in use; there is no unit. It is recorded in intensive care and anaesthesia for ventilated patients. The mode is independent of whether ventilation is invasive (via an endotracheal/tracheostomy tube) or non-invasive (via a mask) — that distinction is captured in the Invasive mechanical ventilation and Non-invasive ventilation concept sets.\n\n## Included Concepts\n\nThe set lists the SNOMED procedure concepts for these modes.\n\n- *3661882 / 34281000175105 — Nocturnal continuous positive airway pressure (SNOMED)*\n- *3661883 / 34291000175108 — Nocturnal dual pressure spontaneous ventilation support (SNOMED)*\n- *4055262 / 243142003 — Dual pressure spontaneous ventilation support (SNOMED)*\n- *4165535 / 47545007 — Continuous positive airway pressure ventilation treatment (SNOMED)*\n- *37152378 / 1186658003 — Spontaneous timed ventilation with pressure-support for spontaneous breaths and volume-control ventilator initiated inflation (SNOMED)*\n- *37152379 / 1186672007 — Spontaneous timed ventilation with pressure-support for spontaneous breaths and pressure-control with flow termination for ventilator initiated inflation (SNOMED)*\n- *37152380 / 1186674008 — Spontaneous timed ventilation with volume targeted pressure-support for spontaneous breaths and volume targeted pressure-control for ventilator initiated inflations (SNOMED)*\n- *37152383 / 1186678006 — Continuous positive airway pressure with an assured constant airway pressure adjunct (SNOMED)*\n- *37152400 / 1186731003 — Continuous spontaneous ventilation with pressure support (SNOMED)*\n- *37152401 / 1186732005 — Continuous spontaneous ventilation with volume targeted pressure-support (SNOMED)*\n- *37152402 / 1186733000 — Continuous spontaneous ventilation with effort support (SNOMED)*\n- *37152791 / 1197780003 — Spontaneous and/or timed ventilation (SNOMED)*\n- *37154096 / 1259864003 — Pressure support ventilation (SNOMED)*\n- *40491848 / 447243000 — Bilevel positive airway pressure titration (SNOMED)*\n\n## Mapping Notes\n\n- Map a recorded ventilation mode to the matching concept here based on the control variable / mode family, regardless of whether the patient is invasively or non-invasively ventilated.\n- **Mode vs ventilation act**: this set captures the *mode* only; whether the patient is on invasive or non-invasive ventilation is recorded separately (Invasive mechanical ventilation / Non-invasive ventilation concept sets).\n"
       },
       "fr": {
         "name": "Mode de ventilation - Spontané/aide",

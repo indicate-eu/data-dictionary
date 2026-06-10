@@ -1,110 +1,15 @@
 {
   "id": 307,
   "name": "Non-invasive ventilation",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Patient on non-invasive ventilation (via mask/interface, no tube); the act only — ventilation modes are separate.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-10",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
-      {
-        "concept": {
-          "conceptId": 3655902,
-          "conceptName": "Weaning from noninvasive ventilation",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "870392006",
-          "validStartDate": "2020-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3661882,
-          "conceptName": "Nocturnal continuous positive airway pressure",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "34281000175105",
-          "validStartDate": "2020-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3661883,
-          "conceptName": "Nocturnal dual pressure spontaneous ventilation support",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "34291000175108",
-          "validStartDate": "2020-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4055262,
-          "conceptName": "Dual pressure spontaneous ventilation support",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "243142003",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4165535,
-          "conceptName": "Continuous positive airway pressure ventilation treatment",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "47545007",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
       {
         "concept": {
           "conceptId": 4177224,
@@ -116,158 +21,6 @@
           "standardConceptCaption": "Standard",
           "conceptCode": "428311008",
           "validStartDate": "2008-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37152378,
-          "conceptName": "Spontaneous timed ventilation with pressure-support for spontaneous breaths and volume-control ventilator initiated inflation",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1186658003",
-          "validStartDate": "2021-11-30",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37152379,
-          "conceptName": "Spontaneous timed ventilation with pressure-support for spontaneous breaths and pressure-control with flow termination for ventilator initiated inflation",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1186672007",
-          "validStartDate": "2021-11-30",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37152380,
-          "conceptName": "Spontaneous timed ventilation with volume targeted pressure-support for spontaneous breaths and volume targeted pressure-control for ventilator initiated inflations",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1186674008",
-          "validStartDate": "2021-11-30",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37152383,
-          "conceptName": "Continuous positive airway pressure with an assured constant airway pressure adjunct",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1186678006",
-          "validStartDate": "2022-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37152400,
-          "conceptName": "Continuous spontaneous ventilation with pressure support",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1186731003",
-          "validStartDate": "2022-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37152401,
-          "conceptName": "Continuous spontaneous ventilation with volume targeted pressure-support",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1186732005",
-          "validStartDate": "2022-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37152402,
-          "conceptName": "Continuous spontaneous ventilation with effort support",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1186733000",
-          "validStartDate": "2022-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37152791,
-          "conceptName": "Spontaneous and/or timed ventilation",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1197780003",
-          "validStartDate": "2022-02-28",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -294,25 +47,6 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 40488414,
-          "conceptName": "Continuous positive airway pressure to nonventilated lung",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "448134000",
-          "validStartDate": "2011-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
       }
     ]
   },
@@ -323,21 +57,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Non-invasive ventilation",
         "category": "Ventilation",
         "subcategory": "Ventilation device",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Patient on non-invasive ventilation (via mask/interface, no tube); the act only — ventilation modes are separate.",
+        "longDescription": "## Definition & Clinical Context\n\nNon-invasive ventilation (NIV) is breathing support delivered through an external interface — a face or nasal mask, helmet, or similar — without an artificial airway inside the trachea. \"Non-invasive\" refers to that interface, as opposed to invasive ventilation, which is delivered through an endotracheal or tracheostomy tube. In source data this is a **procedure** record indicating that the patient was on non-invasive ventilation; there is no unit. It is recorded in intensive care, respiratory wards, and emergency settings.\n\n## Included Concepts\n\nThis set captures the act of non-invasive ventilation itself:\n\n- *4177224 / 428311008 — Non-invasive ventilation (SNOMED)*: the general concept; the default for \"patient on NIV\".\n- *40486624 / 447837008 — Non-invasive positive pressure ventilation (SNOMED)*: NIV delivering positive pressure (the usual form).\n\nThe **ventilation mode** used non-invasively (CPAP, bilevel/BiPAP, pressure support, spontaneous-timed, etc.) is a separate dimension — modes apply to invasive and non-invasive ventilation alike — and is captured in the ventilation-mode concept sets (in particular the spontaneous/support modes set), not here.\n\n## Mapping Notes\n\n- Map a record stating the patient was on non-invasive ventilation (via mask/interface) to *4177224 / 428311008 — Non-invasive ventilation*, or *40486624 / 447837008 — Non-invasive positive pressure ventilation* when positive-pressure NIV is specified.\n- **Mode is separate**: do not map a specific mode (CPAP, BiPAP/bilevel, pressure support, spontaneous-timed) to this set — those belong to the ventilation-mode concept sets. A patient can be on NIV *and* a specific mode at the same time; record each in its own set.\n- **Invasive vs non-invasive**: ventilation delivered through an endotracheal or tracheostomy tube is *invasive* and belongs to the Invasive mechanical ventilation concept set, not here.\n- **Weaning from NIV** is a distinct event (part of weaning) and is not the NIV act; it is not included in this set."
       },
       "fr": {
         "name": "Ventilation non invasive",
         "category": "Ventilation",
         "subcategory": "Dispositif de ventilation",
-        "shortDescription": null,
+        "shortDescription": "Patient sous ventilation non invasive (par masque/interface, sans sonde) ; le geste seul — les modes ventilatoires sont à part.",
         "longDescription": null
       }
     },
@@ -349,7 +83,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-10",
+        "author": "Boris Delange",
+        "message": "Reduce to the non-invasive ventilation act only (4177224 NIV, 40486624 NIPPV). Moved the NIV ventilatory modes (CPAP, BiPAP/dual-pressure, spontaneous-timed S/T, spontaneous-with-support, nocturnal CPAP) to the Spontaneous/support ventilation-mode set 357. Removed Weaning from NIV (3655902) and CPAP to non-ventilated lung (40488414). Added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

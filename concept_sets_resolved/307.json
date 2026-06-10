@@ -1,55 +1,7 @@
 {
   "conceptSetId": 307,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
-    {
-      "conceptId": 3655902,
-      "conceptName": "Weaning from noninvasive ventilation",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "870392006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3661882,
-      "conceptName": "Nocturnal continuous positive airway pressure",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "34281000175105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3661883,
-      "conceptName": "Nocturnal dual pressure spontaneous ventilation support",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "34291000175108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4055262,
-      "conceptName": "Dual pressure spontaneous ventilation support",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "243142003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4165535,
-      "conceptName": "Continuous positive airway pressure ventilation treatment",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "47545007",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 4177224,
       "conceptName": "Non-invasive ventilation",
@@ -60,93 +12,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37152378,
-      "conceptName": "Spontaneous timed ventilation with pressure-support for spontaneous breaths and volume-control ventilator initiated inflation",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1186658003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37152379,
-      "conceptName": "Spontaneous timed ventilation with pressure-support for spontaneous breaths and pressure-control with flow termination for ventilator initiated inflation",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1186672007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37152380,
-      "conceptName": "Spontaneous timed ventilation with volume targeted pressure-support for spontaneous breaths and volume targeted pressure-control for ventilator initiated inflations",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1186674008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37152383,
-      "conceptName": "Continuous positive airway pressure with an assured constant airway pressure adjunct",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1186678006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37152400,
-      "conceptName": "Continuous spontaneous ventilation with pressure support",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1186731003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37152401,
-      "conceptName": "Continuous spontaneous ventilation with volume targeted pressure-support",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1186732005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37152402,
-      "conceptName": "Continuous spontaneous ventilation with effort support",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1186733000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37152791,
-      "conceptName": "Spontaneous and/or timed ventilation",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1197780003",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 40486624,
       "conceptName": "Non-invasive positive pressure ventilation",
       "vocabularyId": "SNOMED",
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "447837008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40488414,
-      "conceptName": "Continuous positive airway pressure to nonventilated lung",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "448134000",
       "standardConcept": "S"
     }
   ]

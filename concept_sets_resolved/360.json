@@ -3,12 +3,48 @@
   "vocabularyVersion": null,
   "resolvedConcepts": [
     {
+      "conceptId": 1243692,
+      "conceptName": "Neurally adjusted ventilatory assist",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1297240007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4055376,
+      "conceptName": "High frequency positive pressure ventilation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "243153009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4055377,
+      "conceptName": "High frequency jet ventilation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "243154003",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4072515,
       "conceptName": "Airway pressure release ventilation",
       "vocabularyId": "SNOMED",
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "243143008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4074666,
+      "conceptName": "High frequency oscillatory ventilation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "243155002",
       "standardConcept": "S"
     },
     {
