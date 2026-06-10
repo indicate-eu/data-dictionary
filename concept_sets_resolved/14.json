@@ -6,13 +6,13 @@
   },
   "resolvedConcepts": [
     {
-      "conceptId": 1450955,
-      "conceptName": "Richmond Agitation Sedation Scale score",
+      "conceptId": 1447532,
+      "conceptName": "Richmond Agitation Sedation Scale",
       "vocabularyId": "SNOMED",
       "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "1345050000",
-      "standardConcept": null
+      "conceptClassId": "Staging / Scales",
+      "conceptCode": "1345048008",
+      "standardConcept": "S"
     }
   ]
 }

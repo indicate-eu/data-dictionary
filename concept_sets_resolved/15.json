@@ -6,13 +6,13 @@
   },
   "resolvedConcepts": [
     {
-      "conceptId": 40481449,
-      "conceptName": "Visual analog scale pain score",
+      "conceptId": 4165600,
+      "conceptName": "Visual analog pain scale",
       "vocabularyId": "SNOMED",
       "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "443394008",
-      "standardConcept": null
+      "conceptClassId": "Staging / Scales",
+      "conceptCode": "273904000",
+      "standardConcept": "S"
     }
   ]
 }

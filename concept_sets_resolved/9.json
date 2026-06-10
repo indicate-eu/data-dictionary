@@ -6,13 +6,13 @@
   },
   "resolvedConcepts": [
     {
-      "conceptId": 1450965,
-      "conceptName": "Intensive Care Delirium Screening Checklist score",
+      "conceptId": 1447893,
+      "conceptName": "Intensive Care Delirium Screening Checklist",
       "vocabularyId": "SNOMED",
       "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "1351995008",
-      "standardConcept": null
+      "conceptClassId": "Staging / Scales",
+      "conceptCode": "1351993001",
+      "standardConcept": "S"
     }
   ]
 }

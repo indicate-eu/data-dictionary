@@ -6,13 +6,13 @@
   },
   "resolvedConcepts": [
     {
-      "conceptId": 3662221,
-      "conceptName": "4AT (4 A's Test) score",
+      "conceptId": 3662219,
+      "conceptName": "4AT - 4 A's Test",
       "vocabularyId": "SNOMED",
       "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "1239211000000103",
-      "standardConcept": null
+      "conceptClassId": "Staging / Scales",
+      "conceptCode": "1239191000000102",
+      "standardConcept": "S"
     }
   ]
 }

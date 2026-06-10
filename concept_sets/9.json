@@ -2,24 +2,24 @@
   "id": 9,
   "name": "Intensive Care Delirium Screening Checklist (ICDSC)",
   "description": "Eight-item screening checklist for delirium based on DSM criteria, completed each nursing shift",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-05-27",
+  "modifiedDate": "2026-06-10",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.1",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 1450965,
-          "conceptName": "Intensive Care Delirium Screening Checklist score",
+          "conceptId": 1447893,
+          "conceptName": "Intensive Care Delirium Screening Checklist",
           "domainId": "Measurement",
           "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": null,
-          "standardConceptCaption": "Non-standard",
-          "conceptCode": "1351995008",
+          "conceptClassId": "Staging / Scales",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1351993001",
           "validStartDate": "2024-12-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -46,14 +46,14 @@
         "category": "Clinical observations",
         "subcategory": "Neurological assessment",
         "shortDescription": "Eight-item screening checklist for delirium based on DSM criteria, completed each nursing shift",
-        "longDescription": "## Definition & Clinical Context\n\nThe ICDSC (Intensive Care Delirium Screening Checklist) is a screening tool for delirium based on DSM (Diagnostic and Statistical Manual of Mental Disorders) criteria, designed to be completed by clinicians or nurses at the bedside using information from each 8-hour nursing shift or the previous 24 hours [1].\n\nThe checklist comprises eight items, each scored 0 or 1:\n- altered level of consciousness\n- inattention\n- disorientation\n- hallucination, delusion, or psychosis\n- psychomotor agitation or retardation\n- inappropriate speech or mood\n- sleep/wake cycle disturbance\n- symptom fluctuation\n\nThe total score ranges from 0 to 8. A score ≥ 4 suggests delirium.\n\n## Included Concepts\n\nThis concept set contains the SNOMED Observable Entity concept representing the recorded ICDSC score:\n- `1450965` — Intensive Care Delirium Screening Checklist score (`1351995008`)\n\n## References\n\n[1] Bergeron N, Dubois MJ, Dumont M, Dial S, Skrobik Y. Intensive Care Delirium Screening Checklist: evaluation of a new screening tool. *Intensive Care Med*. 2001;27(5):859-864. doi:10.1007/s001340100909. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/11430542/\" target=\"_blank\">11430542</a>"
+        "longDescription": "## Definition & Clinical Context\n\nThe ICDSC (Intensive Care Delirium Screening Checklist) is a screening tool for delirium based on DSM (Diagnostic and Statistical Manual of Mental Disorders) criteria, designed to be completed by clinicians or nurses at the bedside using information from each 8-hour nursing shift or the previous 24 hours [1].\n\nThe checklist comprises eight items, each scored 0 or 1:\n- altered level of consciousness\n- inattention\n- disorientation\n- hallucination, delusion, or psychosis\n- psychomotor agitation or retardation\n- inappropriate speech or mood\n- sleep/wake cycle disturbance\n- symptom fluctuation\n\nThe total score ranges from 0 to 8. A score ≥ 4 suggests delirium.\n\n## Included Concepts\n\nThis concept set contains the OMOP-standard SNOMED concept for the scale:\n- `1447893` — Intensive Care Delirium Screening Checklist (`1351993001`, Staging / Scales, Standard)\n\nThe non-standard SNOMED Observable Entity `1450965` (Intensive Care Delirium Screening Checklist score, `1351995008`) maps to this standard concept (OMOP `Maps to`), so recorded score values stored against the source code are captured through standard-concept resolution.\n\n## References\n\n[1] Bergeron N, Dubois MJ, Dumont M, Dial S, Skrobik Y. Intensive Care Delirium Screening Checklist: evaluation of a new screening tool. *Intensive Care Med*. 2001;27(5):859-864. doi:10.1007/s001340100909. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/11430542/\" target=\"_blank\">11430542</a>"
       },
       "fr": {
         "name": "Intensive Care Delirium Screening Checklist (ICDSC)",
         "category": "Observations cliniques",
         "subcategory": "Évaluation neurologique",
         "shortDescription": "Liste de contrôle à huit items pour le dépistage du delirium selon les critères DSM, complétée à chaque vacation infirmière",
-        "longDescription": "## Définition et contexte clinique\n\nL'ICDSC (Intensive Care Delirium Screening Checklist) est un outil de dépistage du délirium basé sur les critères du DSM (Diagnostic and Statistical Manual of Mental Disorders), conçu pour être rempli par des cliniciens ou des infirmiers au lit du patient à partir des informations recueillies sur chaque période de 8 heures ou les 24 heures précédentes [1].\n\nLa checklist comprend huit items, chacun coté 0 ou 1 :\n- altération du niveau de conscience\n- inattention\n- désorientation\n- hallucination, délire ou psychose\n- agitation ou ralentissement psychomoteur\n- discours ou humeur inappropriés\n- perturbation du cycle veille-sommeil\n- fluctuation des symptômes\n\nLe score total varie de 0 à 8. Un score ≥ 4 suggère un délirium.\n\n## Concepts inclus\n\nCe concept set contient le concept SNOMED Observable Entity représentant le score ICDSC enregistré :\n- `1450965` — Intensive Care Delirium Screening Checklist score (`1351995008`)\n\n## Références\n\n[1] Bergeron N, Dubois MJ, Dumont M, Dial S, Skrobik Y. Intensive Care Delirium Screening Checklist: evaluation of a new screening tool. *Intensive Care Med*. 2001;27(5):859-864. doi:10.1007/s001340100909. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/11430542/\" target=\"_blank\">11430542</a>"
+        "longDescription": "## Définition et contexte clinique\n\nL'ICDSC (Intensive Care Delirium Screening Checklist) est un outil de dépistage du délirium basé sur les critères du DSM (Diagnostic and Statistical Manual of Mental Disorders), conçu pour être rempli par des cliniciens ou des infirmiers au lit du patient à partir des informations recueillies sur chaque période de 8 heures ou les 24 heures précédentes [1].\n\nLa checklist comprend huit items, chacun coté 0 ou 1 :\n- altération du niveau de conscience\n- inattention\n- désorientation\n- hallucination, délire ou psychose\n- agitation ou ralentissement psychomoteur\n- discours ou humeur inappropriés\n- perturbation du cycle veille-sommeil\n- fluctuation des symptômes\n\nLe score total varie de 0 à 8. Un score ≥ 4 suggère un délirium.\n\n## Concepts inclus\n\nCe concept set contient le concept SNOMED standard OMOP de l'échelle :\n- `1447893` — Intensive Care Delirium Screening Checklist (`1351993001`, Staging / Scales, Standard)\n\nLe concept SNOMED Observable Entity non-standard `1450965` (Intensive Care Delirium Screening Checklist score, `1351995008`) se mappe vers ce concept standard (`Maps to` OMOP) ; les valeurs de score enregistrées sous le code source sont donc capturées via la résolution vers le concept standard.\n\n## Références\n\n[1] Bergeron N, Dubois MJ, Dumont M, Dial S, Skrobik Y. Intensive Care Delirium Screening Checklist: evaluation of a new screening tool. *Intensive Care Med*. 2001;27(5):859-864. doi:10.1007/s001340100909. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/11430542/\" target=\"_blank\">11430542</a>"
       }
     },
     "createdByDetails": {
@@ -67,10 +67,15 @@
     "versions": [
       {
         "version": "1.1.1",
-        "versionFrom": "1.0.0",
-        "summary": "Replaced custom INDICATE concept 2100000003 (ICDSC, vocabulary INDICATE) with SNOMED Observable Entity 1450965 (Intensive Care Delirium Screening Checklist score, code 1351995008, Non-standard). Rationale: a SNOMED equivalent now exists (added 2024-12-01) and is preferred over a custom concept. Long description updated accordingly.",
-        "changedBy": "Boris Delange",
-        "date": "2026-05-06"
+        "date": "2026-05-06",
+        "author": "Boris Delange",
+        "message": "Replaced custom INDICATE concept 2100000003 (ICDSC, vocabulary INDICATE) with SNOMED Observable Entity 1450965 (Intensive Care Delirium Screening Checklist score, code 1351995008, Non-standard). Rationale: a SNOMED equivalent now exists (added 2024-12-01) and is preferred over a custom concept. Long description updated accordingly."
+      },
+      {
+        "version": "1.1.3",
+        "date": "2026-06-10",
+        "author": "Boris Delange",
+        "message": "Switched to the standard SNOMED concept for the scale. A standard concept (the scale itself) is preferred over a more specific but non-standard 'score' concept, which should not be used directly in OMOP."
       }
     ],
     "distributionStats": null

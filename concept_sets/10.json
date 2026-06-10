@@ -2,24 +2,24 @@
   "id": 10,
   "name": "Numeric Pain Rating Scale",
   "description": "11-point (0–10) self-reported numeric scale on which the patient rates the intensity of their pain",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-05-27",
+  "modifiedDate": "2026-06-10",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 37151630,
-          "conceptName": "Numeric Pain Rating Scale score",
+          "conceptId": 37151627,
+          "conceptName": "Numeric Pain Rating Scale",
           "domainId": "Measurement",
           "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": null,
-          "standardConceptCaption": "Unknown",
-          "conceptCode": "1284857008",
+          "conceptClassId": "Staging / Scales",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1284852002",
           "validStartDate": "2023-05-31",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -46,14 +46,14 @@
         "category": "Clinical observations",
         "subcategory": "Neurological assessment",
         "shortDescription": "11-point (0–10) self-reported numeric scale on which the patient rates the intensity of their pain",
-        "longDescription": "## Definition & Clinical Context\n\nThe Numeric Pain Rating Scale (NPRS, also Numeric Rating Scale or NRS) is an 11-point (0–10) self-reported scale on which the patient rates the intensity of their pain, where 0 corresponds to \"no pain\" and 10 to the \"worst pain imaginable\" [1].\n\nThe scale is widely used in clinical practice because of its simplicity, brevity, and applicability to a wide range of populations including patients unable to use a continuous visual analogue scale. The original validation study compared the NRS with a simple descriptive scale and the visual analogue scale, and demonstrated that the 11-point NRS performs better than both alternatives [1].\n\n## Included Concepts\n\nThis concept set contains the SNOMED Observable Entity concept representing the recorded NPRS score:\n- `37151630` — Numeric Pain Rating Scale score (`1284857008`, Observable Entity)\n\n## Excluded Concepts\n\nThe following SNOMED concepts are intentionally **not** included:\n- `37151627` — Numeric Pain Rating Scale (`1284852002`, Staging / Scales) — represents the assessment tool rather than the recorded score value\n- `37174733` — Assessment using Numeric Pain Rating Scale (`1284856004`, Procedure) — represents the act of assessment, not the recorded score value\n\n## References\n\n[1] Downie WW, Leatham PA, Rhind VM, Wright V, Branco JA, Anderson JA. Studies with pain rating scales. *Ann Rheum Dis*. 1978;37(4):378-381. doi:10.1136/ard.37.4.378. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/686873/\" target=\"_blank\">686873</a>"
+        "longDescription": "## Definition & Clinical Context\n\nThe Numeric Pain Rating Scale (NPRS, also Numeric Rating Scale or NRS) is an 11-point (0–10) self-reported scale on which the patient rates the intensity of their pain, where 0 corresponds to \"no pain\" and 10 to the \"worst pain imaginable\" [1].\n\nThe scale is widely used in clinical practice because of its simplicity, brevity, and applicability to a wide range of populations including patients unable to use a continuous visual analogue scale. The original validation study compared the NRS with a simple descriptive scale and the visual analogue scale, and demonstrated that the 11-point NRS performs better than both alternatives [1].\n\n## Included Concepts\n\nThis concept set contains the OMOP-standard SNOMED concept for the scale:\n- `37151627` — Numeric Pain Rating Scale (`1284852002`, Staging / Scales, Standard)\n\nThe non-standard SNOMED Observable Entity `37151630` (Numeric Pain Rating Scale score, `1284857008`) maps to this standard concept (OMOP `Maps to`), so recorded score values stored against the source code are captured through standard-concept resolution.\n\n## Excluded Concepts\n\nThe following SNOMED concept is intentionally **not** included:\n- `37174733` — Assessment using Numeric Pain Rating Scale (`1284856004`, Procedure) — represents the act of assessment, not the recorded score value\n\n## References\n\n[1] Downie WW, Leatham PA, Rhind VM, Wright V, Branco JA, Anderson JA. Studies with pain rating scales. *Ann Rheum Dis*. 1978;37(4):378-381. doi:10.1136/ard.37.4.378. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/686873/\" target=\"_blank\">686873</a>"
       },
       "fr": {
         "name": "Numeric Pain Rating Scale",
         "category": "Observations cliniques",
         "subcategory": "Évaluation neurologique",
         "shortDescription": "Échelle numérique auto-rapportée à 11 points (0–10) sur laquelle le patient cote l'intensité de sa douleur",
-        "longDescription": "## Définition et contexte clinique\n\nLa NPRS (Numeric Pain Rating Scale, ou échelle numérique NRS) est une échelle d'auto-évaluation à 11 points (0–10) sur laquelle le patient cote l'intensité de sa douleur, où 0 correspond à « aucune douleur » et 10 à la « pire douleur imaginable » [1].\n\nElle est largement utilisée en pratique clinique du fait de sa simplicité, de sa brièveté et de son applicabilité à un large éventail de populations, y compris les patients ne pouvant pas utiliser une échelle visuelle analogique continue. L'étude princeps de validation a comparé la NRS à une échelle descriptive simple et à l'échelle visuelle analogique, et a montré que la NRS à 11 points est plus performante que ces deux alternatives [1].\n\n## Concepts inclus\n\nCe concept set contient le concept SNOMED Observable Entity représentant le score NPRS enregistré :\n- `37151630` — Numeric Pain Rating Scale score (`1284857008`, Observable Entity)\n\n## Concepts exclus\n\nLes concepts SNOMED suivants sont intentionnellement **non inclus** :\n- `37151627` — Numeric Pain Rating Scale (`1284852002`, Staging / Scales) — représente l'outil d'évaluation et non la valeur du score enregistré\n- `37174733` — Assessment using Numeric Pain Rating Scale (`1284856004`, Procedure) — représente l'acte d'évaluation, non la valeur du score enregistré\n\n## Références\n\n[1] Downie WW, Leatham PA, Rhind VM, Wright V, Branco JA, Anderson JA. Studies with pain rating scales. *Ann Rheum Dis*. 1978;37(4):378-381. doi:10.1136/ard.37.4.378. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/686873/\" target=\"_blank\">686873</a>"
+        "longDescription": "## Définition et contexte clinique\n\nLa NPRS (Numeric Pain Rating Scale, ou échelle numérique NRS) est une échelle d'auto-évaluation à 11 points (0–10) sur laquelle le patient cote l'intensité de sa douleur, où 0 correspond à « aucune douleur » et 10 à la « pire douleur imaginable » [1].\n\nElle est largement utilisée en pratique clinique du fait de sa simplicité, de sa brièveté et de son applicabilité à un large éventail de populations, y compris les patients ne pouvant pas utiliser une échelle visuelle analogique continue. L'étude princeps de validation a comparé la NRS à une échelle descriptive simple et à l'échelle visuelle analogique, et a montré que la NRS à 11 points est plus performante que ces deux alternatives [1].\n\n## Concepts inclus\n\nCe concept set contient le concept SNOMED standard OMOP de l'échelle :\n- `37151627` — Numeric Pain Rating Scale (`1284852002`, Staging / Scales, Standard)\n\nLe concept SNOMED Observable Entity non-standard `37151630` (Numeric Pain Rating Scale score, `1284857008`) se mappe vers ce concept standard (`Maps to` OMOP) ; les valeurs de score enregistrées sous le code source sont donc capturées via la résolution vers le concept standard.\n\n## Concepts exclus\n\nLe concept SNOMED suivant est intentionnellement **non inclus** :\n- `37174733` — Assessment using Numeric Pain Rating Scale (`1284856004`, Procedure) — représente l'acte d'évaluation, non la valeur du score enregistré\n\n## Références\n\n[1] Downie WW, Leatham PA, Rhind VM, Wright V, Branco JA, Anderson JA. Studies with pain rating scales. *Ann Rheum Dis*. 1978;37(4):378-381. doi:10.1136/ard.37.4.378. PMID: <a href=\"https://pubmed.ncbi.nlm.nih.gov/686873/\" target=\"_blank\">686873</a>"
       }
     },
     "createdByDetails": {
@@ -67,10 +67,15 @@
     "versions": [
       {
         "version": "1.1.1",
-        "versionFrom": "1.0.0",
-        "summary": "Removed SNOMED Staging/Scales concept 37151627 (Numeric Pain Rating Scale, Standard) and SNOMED Procedure concept 37174733 (Assessment using Numeric Pain Rating Scale). Rationale: this concept set is intended to identify recorded NPRS pain score values; only the Observable Entity (37151630, Numeric Pain Rating Scale score) is relevant. The Staging/Scales concept represents the tool and the Procedure concept represents the act of assessment, neither carries the score value.",
-        "changedBy": "Boris Delange",
-        "date": "2026-05-06"
+        "date": "2026-05-06",
+        "author": "Boris Delange",
+        "message": "Removed SNOMED Staging/Scales concept 37151627 (Numeric Pain Rating Scale, Standard) and SNOMED Procedure concept 37174733 (Assessment using Numeric Pain Rating Scale). Rationale: this concept set is intended to identify recorded NPRS pain score values; only the Observable Entity (37151630, Numeric Pain Rating Scale score) is relevant. The Staging/Scales concept represents the tool and the Procedure concept represents the act of assessment, neither carries the score value."
+      },
+      {
+        "version": "1.1.3",
+        "date": "2026-06-10",
+        "author": "Boris Delange",
+        "message": "Switched to the standard SNOMED concept for the scale. A standard concept (the scale itself) is preferred over a more specific but non-standard 'score' concept, which should not be used directly in OMOP. Reverses the v1.1.1 removal of the Staging/Scales concept."
       }
     ],
     "distributionStats": null
