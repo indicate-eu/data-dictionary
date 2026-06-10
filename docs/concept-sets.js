@@ -283,7 +283,8 @@ var ConceptSetsPage = (function() {
     if (selectedConceptSet) {
       var url = '#/concept-sets?id=' + selectedConceptSet.id;
       if (tabName !== 'concepts') url += '&tab=' + tabName;
-      history.replaceState(null, '', url);
+      // Go through the router so the active language (?lang=fr) is preserved.
+      Router.replaceState(url);
     }
   }
 

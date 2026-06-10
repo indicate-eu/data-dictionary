@@ -6,7 +6,7 @@ var App = (function() {
   // These are intentionally not configurable: forks ride on this app version.
   // The dictionary's own identity (title, branding, organization) lives in config.json.
   var APP_NAME = 'INDICATE Data Dictionary';
-  var APP_VERSION = '1.2.0';
+  var APP_VERSION = '1.2.1';
   var APP_GITHUB_URL = 'https://github.com/indicate-eu/data-dictionary';
 
   // Config injected by build.py from config.json (root). Branding, GitHub repo of the fork, etc.
@@ -809,7 +809,62 @@ var App = (function() {
     'Please select a domain.':       { fr: 'Veuillez sélectionner un domaine.' },
     'Please select a concept class.': { fr: 'Veuillez sélectionner une classe.' },
     ' custom concept added':         { fr: ' concept personnalisé ajouté' },
-    'Resolving concepts...':         { fr: 'Résolution des concepts...' }
+    'Resolving concepts...':         { fr: 'Résolution des concepts...' },
+    // Concept Mapping page
+    'New mapping project':           { fr: 'Nouveau projet d\'alignement' },
+    'Edit mapping project':          { fr: 'Modifier le projet d\'alignement' },
+    'Mapping project created.':      { fr: 'Projet d\'alignement créé.' },
+    'Mapping project updated.':      { fr: 'Projet d\'alignement mis à jour.' },
+    'Mapping project deleted.':      { fr: 'Projet d\'alignement supprimé.' },
+    'No mapping project yet. Create one to evaluate your eligibility to INDICATE projects.': { fr: 'Aucun projet d\'alignement pour le moment. Créez-en un pour évaluer votre éligibilité aux projets INDICATE.' },
+    'No mapping project matches your search.': { fr: 'Aucun projet d\'alignement ne correspond à votre recherche.' },
+    'No mapping data yet':           { fr: 'Aucune donnée d\'alignement pour le moment' },
+    'No mapping data imported yet. Upload a CSV to populate this table.': { fr: 'Aucune donnée d\'alignement importée. Importez un CSV pour remplir ce tableau.' },
+    'Untitled':                      { fr: 'Sans titre' },
+    'mapped concepts':               { fr: 'concepts alignés' },
+    'Mapped concepts':               { fr: 'Concepts alignés' },
+    'Matched in dictionary':         { fr: 'Correspondances dans le dictionnaire' },
+    'Eligible projects':             { fr: 'Projets éligibles' },
+    'Eligibility per INDICATE project': { fr: 'Éligibilité par projet INDICATE' },
+    'Import a CSV to see how your mapping covers each INDICATE project.': { fr: 'Importez un CSV pour voir comment votre alignement couvre chaque projet INDICATE.' },
+    'No INDICATE projects to evaluate.': { fr: 'Aucun projet INDICATE à évaluer.' },
+    'See coverage breakdown':        { fr: 'Voir le détail de la couverture' },
+    'View coverage details':         { fr: 'Voir les détails de couverture' },
+    'concept sets covered':          { fr: 'jeux de concepts couverts' },
+    'Coverage:':                     { fr: 'Couverture :' },
+    'Project score:':                { fr: 'Score du projet :' },
+    'Project':                       { fr: 'Projet' },
+    'Covered':                       { fr: 'Couvert' },
+    'Not covered':                   { fr: 'Non couvert' },
+    'All required':                  { fr: 'Tous requis' },
+    'At least one':                  { fr: 'Au moins un' },
+    'Optional':                      { fr: 'Optionnel' },
+    'Yes':                           { fr: 'Oui' },
+    'No':                            { fr: 'Non' },
+    'Local concepts in this set':    { fr: 'Concepts locaux dans ce jeu' },
+    'Resolved concepts in this set': { fr: 'Concepts résolus dans ce jeu' },
+    'Other concepts in this set':    { fr: 'Autres concepts dans ce jeu' },
+    'Not in vocabulary':             { fr: 'Absent du vocabulaire' },
+    'in dictionary':                 { fr: 'dans le dictionnaire' },
+    'local':                         { fr: 'local' },
+    'other':                         { fr: 'autre' },
+    'unique':                        { fr: 'uniques' },
+    'unique concepts':               { fr: 'concepts uniques' },
+    'Load OHDSI vocabularies to resolve': { fr: 'Chargez les vocabulaires OHDSI pour résoudre' },
+    'Loading…':                      { fr: 'Chargement…' },
+    'Select…':                       { fr: 'Sélectionner…' },
+    'Download as mapping_recommendations.json': { fr: 'Télécharger en mapping_recommendations.json' },
+    'OMOP source_to_concept_map':    { fr: 'OMOP source_to_concept_map' },
+    'Single-column concept_id list': { fr: 'Liste concept_id en une colonne' },
+    'CSV with concept_id + source':  { fr: 'CSV avec concept_id + source' },
+    'Imported {n} concepts.':        { fr: '{n} concepts importés.' },
+    'rows with a valid concept_id':  { fr: 'lignes avec un concept_id valide' },
+    'No valid concept_id rows found in the file.': { fr: 'Aucune ligne avec un concept_id valide trouvée dans le fichier.' },
+    'Couldn\'t detect a usable concept_id column. Expected either an OMOP source_to_concept_map header, a concept_id column, or a single-column list of concept ids.': { fr: 'Impossible de détecter une colonne concept_id exploitable. Attendu : un en-tête OMOP source_to_concept_map, une colonne concept_id, ou une liste de concept ids en une seule colonne.' },
+    'Failed to parse CSV: ':         { fr: 'Échec de l\'analyse du CSV : ' },
+    'Failed to read the file.':      { fr: 'Échec de la lecture du fichier.' },
+    'Showing the first 500 rows out of': { fr: 'Affichage des 500 premières lignes sur' },
+    'shown':                         { fr: 'affichées' }
   };
 
   function i18n(key) {
@@ -1268,7 +1323,11 @@ var App = (function() {
     if (newHash === hash) return;
     var url = window.location.pathname + window.location.search + newHash;
     if (Router && Router.replaceState) {
-      Router.replaceState(url);
+      // langAlreadyHandled=true: newHash already encodes the active language
+      // (lang=fr present, or deliberately absent for English). Without this,
+      // replaceState would re-inject lang=fr from the stale current URL when
+      // switching FR→EN, leaving the URL stuck on lang=fr.
+      Router.replaceState(url, true);
     } else {
       history.replaceState(null, '', url);
     }

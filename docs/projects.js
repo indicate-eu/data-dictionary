@@ -327,7 +327,8 @@ var ProjectsPage = (function() {
     if (selectedProject) {
       var url = '#/projects?id=' + selectedProject.id;
       if (tabName !== 'context') url += '&tab=' + tabName;
-      history.replaceState(null, '', url);
+      // Go through the router so the active language (?lang=fr) is preserved.
+      Router.replaceState(url);
     }
   }
 
@@ -1873,7 +1874,12 @@ var ProjectsPage = (function() {
   function onLanguageChange() {
     if (!initialized) return;
     renderProjectCards();
-    if (selectedProject) showProjectDetail(selectedProject.id);
+    if (selectedProject) {
+      // showProjectDetail resets to the context tab; preserve the active one.
+      var savedTab = currentTab;
+      showProjectDetail(selectedProject.id);
+      if (savedTab && savedTab !== 'context') switchProjectTab(savedTab);
+    }
   }
 
   return {

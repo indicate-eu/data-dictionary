@@ -89,12 +89,14 @@ var Router = (function () {
   // changed in-place. Used by pages that mutate query string state without
   // wanting a full navigation — keeps per-page hash tracking in sync.
   var hashReplaceListeners = [];
-  function replaceState(url) {
+  function replaceState(url, langAlreadyHandled) {
     // Preserve ?lang=fr if the caller dropped it. Callers pass raw hash strings
     // (e.g. "#/mapping?tab=recommendations") and shouldn't have to know about
-    // the lang query param.
+    // the lang query param. Callers that DO manage the lang param themselves
+    // (e.g. the language toggle, which deliberately removes lang when switching
+    // back to English) pass langAlreadyHandled=true so we don't second-guess them.
     var l = currentLangFromUrl();
-    if (l === 'fr' && url && url.indexOf('lang=') === -1) {
+    if (!langAlreadyHandled && l === 'fr' && url && url.indexOf('lang=') === -1) {
       var hashIdx = url.indexOf('#');
       if (hashIdx !== -1) {
         var prefix = url.substring(0, hashIdx);

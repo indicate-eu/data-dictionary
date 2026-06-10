@@ -269,7 +269,7 @@
   var footer = document.getElementById('app-footer');
   if (footer) {
     footer.innerHTML = App.APP_NAME + ' v' + App.APP_VERSION +
-      ' · <a href="' + App.APP_GITHUB_URL + '" target="_blank" rel="noopener">GitHub</a>';
+      ' · <a href="' + App.APP_GITHUB_URL + '" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a>';
   }
 
   Router.init();

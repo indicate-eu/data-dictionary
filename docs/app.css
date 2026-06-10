@@ -218,15 +218,15 @@ body {
 .doc-btn {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
+  gap: 8px;
+  padding: 6px 12px;
   background: #f39c12;
+  border: none;
+  border-radius: 20px;
   color: #fff;
-  font-size: 18px;
-  font-weight: 700;
   font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
   text-decoration: none;
   cursor: pointer;
   transition: background .2s;
@@ -234,6 +234,7 @@ body {
 }
 .doc-btn:hover { background: #e08e0b; }
 .doc-btn:active { color: #fff; }
+.doc-btn i { font-size: 16px; }
 .lang-toggle.reset { background: #6c757d; }
 .lang-toggle.reset:hover { background: #545b62; }
 
@@ -2956,13 +2957,32 @@ select.form-input { appearance: auto; }
 
 /* Footer */
 .app-footer {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   padding: 12px 0;
   font-size: 12px;
   color: var(--text-muted);
   border-top: 1px solid var(--gray-200);
   margin-top: auto;
 }
+.app-footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 2px 6px;
+  transition: color .2s, background .2s;
+}
+.app-footer a:hover {
+  color: var(--text);
+  background: var(--gray-200);
+}
+.app-footer a i { font-size: 13px; }
 
 /* ==================== Documentation Page ==================== */
 .doc-layout {
