@@ -4954,9 +4954,11 @@ var ConceptSetsPage = (function() {
       return lbl ? (lbl + ' (' + n + ')') : String(n);
     }
 
-    // For each measurement concept, return the per-concept map { srcUnitId -> factor }
-    // of conversions that target the chosen reference unit. Factors depend on the
-    // concept (e.g. molecular weight), so we keep them separated by concept.
+    // For each measurement concept, return the per-concept map
+    // { srcUnitId -> { factor, offset } } of conversions that target the chosen
+    // reference unit. Factors depend on the concept (e.g. molecular weight), so we
+    // keep them separated by concept. Conversions are affine: target = factor*source + offset
+    // (offset defaults to 0 for the common multiplicative case).
     // unit_conversions.json already stores both directions (A->B factor f, B->A factor 1/f)
     // as separate rows, so we only match rows where targetUnitConceptId === refUid.
     function getPerConceptConversions(domainConcepts, refUid) {
@@ -4965,10 +4967,29 @@ var ConceptSetsPage = (function() {
       App.unitConversions.forEach(function(conv) {
         if (conv.targetUnitConceptId !== refUid) return;
         if (perConcept[conv.conceptId] !== undefined) {
-          perConcept[conv.conceptId][conv.sourceUnitConceptId] = conv.conversionFactor;
+          perConcept[conv.conceptId][conv.sourceUnitConceptId] = {
+            factor: conv.conversionFactor,
+            offset: conv.offset || 0
+          };
         }
       });
       return perConcept;
+    }
+
+    // Render an affine conversion `value_as_number * factor (+|- offset)` for SQL.
+    // Omits the multiplier when factor === 1 and the offset term when offset === 0.
+    function conversionExpr(conv) {
+      var f = conv.factor;
+      var o = conv.offset || 0;
+      var expr;
+      if (f === 1) {
+        expr = 'value_as_number';
+      } else {
+        expr = 'value_as_number * ' + f;
+      }
+      if (o > 0) expr += ' + ' + o;
+      else if (o < 0) expr += ' - ' + Math.abs(o);
+      return expr;
     }
 
     var lines = [];
@@ -5010,20 +5031,24 @@ var ConceptSetsPage = (function() {
       // inner on unit_concept_id) so each concept gets its own factor.
       // The resulting column keeps the standard OMOP name `value_as_number`.
       var valueAsNumberExpr = null;
+      var unitConceptIdExpr = null;
       if (domain === 'Measurement' && refUnitId) {
         var perConcept = getPerConceptConversions(domainConcepts, refUnitId);
 
-        // Collect all factors seen per source unit, to detect ambiguity.
-        var factorsBySrc = {}; // srcUnitId -> Set of factors
+        // Collect all conversions seen per source unit, to detect ambiguity.
+        // Two conversions are "the same" only if both factor and offset match.
+        var convBySrc = {}; // srcUnitId -> { convKey -> {factor, offset} }
         domainConcepts.forEach(function(c) {
           var m = perConcept[c.conceptId] || {};
           Object.keys(m).forEach(function(srcUnitId) {
-            if (!factorsBySrc[srcUnitId]) factorsBySrc[srcUnitId] = {};
-            factorsBySrc[srcUnitId][m[srcUnitId]] = true;
+            if (!convBySrc[srcUnitId]) convBySrc[srcUnitId] = {};
+            var conv = m[srcUnitId];
+            convBySrc[srcUnitId][conv.factor + '|' + (conv.offset || 0)] = conv;
           });
         });
-        var ambiguous = Object.keys(factorsBySrc).some(function(srcUnitId) {
-          return Object.keys(factorsBySrc[srcUnitId]).length > 1;
+        var convertedSrcUnits = Object.keys(convBySrc).map(function(k) { return parseInt(k, 10); });
+        var ambiguous = Object.keys(convBySrc).some(function(srcUnitId) {
+          return Object.keys(convBySrc[srcUnitId]).length > 1;
         });
 
         if (!ambiguous) {
@@ -5031,14 +5056,14 @@ var ConceptSetsPage = (function() {
           var caseParts = [];
           caseParts.push('        -- Reference unit: ' + unitLabel(refUnitId));
           caseParts.push('        WHEN unit_concept_id = ' + refUnitId + ' THEN value_as_number');
-          Object.keys(factorsBySrc).forEach(function(srcUnitId) {
-            var factor = Object.keys(factorsBySrc[srcUnitId])[0];
+          Object.keys(convBySrc).forEach(function(srcUnitId) {
+            var conv = convBySrc[srcUnitId][Object.keys(convBySrc[srcUnitId])[0]];
             caseParts.push('        WHEN unit_concept_id = ' + parseInt(srcUnitId, 10) +
-              ' THEN value_as_number * ' + factor +
+              ' THEN ' + conversionExpr(conv) +
               ' -- convert ' + unitLabel(srcUnitId) + ' -> ' + unitLabel(refUnitId));
           });
           valueAsNumberExpr = '    CASE\n' + caseParts.join('\n') +
-            '\n        ELSE NULL -- unknown unit, no conversion available' +
+            '\n        ELSE value_as_number -- unknown unit, no conversion available: value kept as-is (still in its original unit)' +
             '\n    END AS value_as_number';
         } else {
           // Nested CASE per concept.
@@ -5051,31 +5076,51 @@ var ConceptSetsPage = (function() {
             outerParts.push('            CASE');
             outerParts.push('                WHEN unit_concept_id = ' + refUnitId + ' THEN value_as_number');
             srcUnits.forEach(function(srcUnitId) {
-              var factor = perConcept[c.conceptId][srcUnitId];
+              var conv = perConcept[c.conceptId][srcUnitId];
               outerParts.push('                WHEN unit_concept_id = ' + srcUnitId +
-                ' THEN value_as_number * ' + factor +
+                ' THEN ' + conversionExpr(conv) +
                 ' -- convert ' + unitLabel(srcUnitId) + ' -> ' + unitLabel(refUnitId));
             });
-            outerParts.push('                ELSE NULL -- unknown unit, no conversion for this concept');
+            outerParts.push('                ELSE value_as_number -- unknown unit, no conversion for this concept: value kept as-is');
             outerParts.push('            END');
           });
+          outerParts.push('        ELSE value_as_number -- concept not in conversion table: value kept as-is');
           valueAsNumberExpr = '    CASE\n' + outerParts.join('\n') +
             '\n    END AS value_as_number';
+        }
+
+        // When we convert value_as_number to the reference unit, the original
+        // unit_concept_id no longer describes the value. Rewrite it to the
+        // reference unit for every source unit that had a conversion applied, so
+        // the reported unit always matches the converted value. Rows in an
+        // unknown/non-convertible unit are left untouched in BOTH columns: the raw
+        // value_as_number and its original unit_concept_id are kept (no data is
+        // dropped). A commented-out WHERE clause is added so the user can instead
+        // filter those rows out if they prefer a fully-normalized result.
+        if (convertedSrcUnits.length > 0) {
+          var unitParts = [];
+          unitParts.push('        WHEN unit_concept_id IN (' +
+            [refUnitId].concat(convertedSrcUnits).join(', ') + ') THEN ' + refUnitId +
+            ' -- normalized to reference unit ' + unitLabel(refUnitId));
+          unitConceptIdExpr = '    CASE\n' + unitParts.join('\n') +
+            '\n        ELSE unit_concept_id -- non-convertible unit: kept as-is, value stays in its original unit\n' +
+            '    END AS unit_concept_id';
         }
       } else if (domain === 'Measurement' && !refUnitId) {
         lines.push('-- Note: no reference unit selected — raw value_as_number returned without conversion.');
       }
 
-      // Build the query. When we rewrite value_as_number via CASE, skip the
-      // plain value_as_number column to avoid a duplicate name.
+      // Build the query. When we rewrite value_as_number / unit_concept_id via
+      // CASE, skip the plain columns to avoid a duplicate name. The rewritten
+      // expressions are appended in their original column position.
       lines.push('');
       lines.push('SELECT');
       var colLines = selectCols
-        .filter(function(col) { return !(valueAsNumberExpr && col === 'value_as_number'); })
-        .map(function(col) { return '    ' + col; });
-      if (valueAsNumberExpr) {
-        colLines.push(valueAsNumberExpr);
-      }
+        .map(function(col) {
+          if (valueAsNumberExpr && col === 'value_as_number') return valueAsNumberExpr;
+          if (unitConceptIdExpr && col === 'unit_concept_id') return unitConceptIdExpr;
+          return '    ' + col;
+        });
       lines.push(colLines.join(',\n'));
 
       lines.push('FROM ' + mapping.table);
@@ -5087,6 +5132,14 @@ var ConceptSetsPage = (function() {
         lines.push(prefix + c.conceptId + ' -- ' + c.conceptName);
       });
       lines.push(')');
+
+      // When conversions are applied, rows in a non-convertible unit are returned
+      // with their raw value and original unit (nothing is dropped). Offer an
+      // opt-in filter to exclude those rows for a fully-normalized result.
+      if (unitConceptIdExpr) {
+        lines.push('-- Optional: uncomment to drop rows whose unit cannot be converted to the reference unit');
+        lines.push('-- AND unit_concept_id IN (' + [refUnitId].concat(convertedSrcUnits).join(', ') + ')');
+      }
 
       lines.push(';');
     });

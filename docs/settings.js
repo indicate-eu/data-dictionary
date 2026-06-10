@@ -200,7 +200,9 @@ var SettingsPage = (function() {
           '<td>' + App.escapeHtml(row.conceptName || '') + '</td>' +
           '<td title="' + App.escapeHtml(srcName) + '">' + App.escapeHtml(srcCode) + '</td>' +
           '<td class="td-center editable-cell" data-field="conversionFactor" data-idx="' + idx + '">' +
-            row.conversionFactor + '</td>' +
+            row.conversionFactor +
+            (row.offset ? ' <span class="conv-offset" title="affine offset: target = factor × source + offset">' +
+              (row.offset > 0 ? '+ ' : '− ') + Math.abs(row.offset) + '</span>' : '') + '</td>' +
           '<td title="' + App.escapeHtml(tgtName) + '">' + App.escapeHtml(tgtCode) + '</td>' +
           '<td class="td-center">' +
             '<button class="btn-action btn-action-test" data-idx="' + idx + '" title="Test">' +
@@ -265,8 +267,11 @@ var SettingsPage = (function() {
       '</strong> <i class="fas fa-arrow-right" style="color:var(--primary)"></i> <strong>' +
       App.escapeHtml(tgtUnit) + '</strong></div>';
     document.getElementById('test-conv-unit-from').textContent = srcUnit;
-    document.getElementById('test-conv-factor-label').textContent =
-      ' \u00d7 ' + parseFloat(testConvRow.conversionFactor.toPrecision(10));
+    var offset = testConvRow.offset || 0;
+    var label = ' \u00d7 ' + parseFloat(testConvRow.conversionFactor.toPrecision(10));
+    if (offset > 0) label += ' + ' + parseFloat(offset.toPrecision(10));
+    else if (offset < 0) label += ' \u2212 ' + parseFloat(Math.abs(offset).toPrecision(10));
+    document.getElementById('test-conv-factor-label').textContent = label;
     updateTestResult();
   }
 
@@ -277,14 +282,14 @@ var SettingsPage = (function() {
       resultEl.textContent = '\u2014';
       return;
     }
-    var result = val * testConvRow.conversionFactor;
+    var result = val * testConvRow.conversionFactor + (testConvRow.offset || 0);
     var unitLabel = testConvRow.targetUnitCode || testConvRow.targetUnitName || '';
     resultEl.textContent = result.toFixed(2) + (unitLabel ? ' ' + unitLabel : '');
   }
 
   function openAddConvModal() {
     ['conv-add-cid', 'conv-add-cname', 'conv-add-uid-src', 'conv-add-uname-src',
-     'conv-add-factor', 'conv-add-uid-tgt', 'conv-add-uname-tgt'
+     'conv-add-factor', 'conv-add-offset', 'conv-add-uid-tgt', 'conv-add-uname-tgt'
     ].forEach(function(id) { document.getElementById(id).value = ''; });
     document.getElementById('conv-add-modal').style.display = 'flex';
   }
@@ -293,6 +298,8 @@ var SettingsPage = (function() {
     var cid = parseInt(document.getElementById('conv-add-cid').value);
     var uidSrc = parseInt(document.getElementById('conv-add-uid-src').value);
     var factor = parseFloat(document.getElementById('conv-add-factor').value);
+    var offsetRaw = document.getElementById('conv-add-offset').value.trim();
+    var offset = offsetRaw === '' ? 0 : parseFloat(offsetRaw);
     var uidTgt = parseInt(document.getElementById('conv-add-uid-tgt').value);
 
     if (isNaN(cid) || isNaN(uidSrc) || isNaN(factor) || isNaN(uidTgt)) {
@@ -301,6 +308,10 @@ var SettingsPage = (function() {
     }
     if (factor <= 0) {
       App.showToast('Conversion factor must be a positive number.', 'error');
+      return;
+    }
+    if (isNaN(offset)) {
+      App.showToast('Offset must be a number.', 'error');
       return;
     }
 
@@ -313,7 +324,7 @@ var SettingsPage = (function() {
       return;
     }
 
-    convData.push({
+    var newRow = {
       conceptId: cid,
       conceptName: document.getElementById('conv-add-cname').value.trim(),
       sourceUnitConceptId: uidSrc,
@@ -323,7 +334,10 @@ var SettingsPage = (function() {
       targetUnitConceptId: uidTgt,
       targetUnitCode: '',
       targetUnitName: document.getElementById('conv-add-uname-tgt').value.trim()
-    });
+    };
+    // Keep purely multiplicative rows free of an offset key.
+    if (offset !== 0) newRow.offset = offset;
+    convData.push(newRow);
 
     document.getElementById('conv-add-modal').style.display = 'none';
     convPage = Math.ceil(convData.length / convPageSize);

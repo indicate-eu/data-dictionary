@@ -1943,9 +1943,15 @@ Enter your review comments here using Markdown syntax.
           <input type="text" id="conv-add-uname-src" class="form-input" placeholder="e.g. mg/dL">
         </div>
       </div>
-      <div class="form-group">
-        <label>Conversion Factor *</label>
-        <input type="number" id="conv-add-factor" class="form-input" step="any" min="0" placeholder="e.g. 0.0555">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Conversion Factor *</label>
+          <input type="number" id="conv-add-factor" class="form-input" step="any" min="0" placeholder="e.g. 0.0555">
+        </div>
+        <div class="form-group">
+          <label>Offset</label>
+          <input type="number" id="conv-add-offset" class="form-input" step="any" placeholder="0 (affine: target = factor × source + offset)">
+        </div>
       </div>
       <div class="form-row">
         <div class="form-group">
