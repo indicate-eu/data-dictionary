@@ -1,34 +1,15 @@
 {
   "id": 299,
   "name": "Endotracheal tube",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Endotracheal tube device of any type (anchored on the SNOMED device with all its descendant variants).",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-10",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
-      {
-        "concept": {
-          "conceptId": 3661742,
-          "conceptName": "Video intubation endotracheal tube",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "870581009",
-          "validStartDate": "2020-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
       {
         "concept": {
           "conceptId": 4097216,
@@ -45,235 +26,7 @@
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4148025,
-          "conceptName": "Oxford endotracheal tube",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "309803008",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4148969,
-          "conceptName": "Oral RAE endotracheal tube",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "309804002",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4148970,
-          "conceptName": "Nasal RAE endotracheal tube",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "309805001",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4149922,
-          "conceptName": "Armored endotracheal tube",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "309801005",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4149923,
-          "conceptName": "RAE endotracheal tube",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "309802003",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4222389,
-          "conceptName": "Magill type oral endotracheal tube",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "420344001",
-          "validStartDate": "2006-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4223308,
-          "conceptName": "Magill type nasal endotracheal tube",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "420855005",
-          "validStartDate": "2006-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4224877,
-          "conceptName": "Magill type endotracheal tube",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "420673005",
-          "validStartDate": "2006-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4225181,
-          "conceptName": "Preformed endotracheal tube",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "420977008",
-          "validStartDate": "2006-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4327418,
-          "conceptName": "Endotracheal tube with bronchial blocker",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "430553000",
-          "validStartDate": "2008-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37162306,
-          "conceptName": "Oxygen insufflation endotracheal tube",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1187321001",
-          "validStartDate": "2022-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 40486643,
-          "conceptName": "Endotracheal tube with directional tip",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "449298004",
-          "validStartDate": "2011-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -285,21 +38,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Endotracheal tube",
         "category": "Ventilation",
         "subcategory": "Airway device",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Endotracheal tube device of any type (anchored on the SNOMED device with all its descendant variants).",
+        "longDescription": "## Definition & Clinical Context\n\nAn endotracheal tube (ETT) is a flexible tube inserted through the mouth or nose into the trachea to secure the airway and connect the patient to a ventilator or anaesthesia circuit. In source data this is a **device** record, not a measurement: each entry identifies the type of tube placed in a patient, with no associated value or unit. It is most commonly recorded in intensive care, the operating theatre, and emergency settings, around intubation and mechanical ventilation. The variants in this set differ only by the tube's shape, reinforcement, or built-in features — clinically they are all endotracheal tubes.\n\n## Included Concepts\n\nThe set is anchored on the single SNOMED device concept *Endotracheal tube* with all its descendants, so every more specific tube type resolves automatically (and future SNOMED additions are captured without editing the set). This currently resolves to 19 concepts, grouped here by what distinguishes them.\n\n### Generic endotracheal tube (default)\n\nUse this when the source records an endotracheal tube without specifying a type.\n\n- *4097216 / 26412008 — Endotracheal tube (SNOMED)*: the general device concept; the default for any unspecified ETT.\n\n### By shape / preformed design\n\nTubes pre-bent to route away from the surgical field, mostly used in head-and-neck or facial procedures.\n\n- *4149923 / 309802003 — RAE endotracheal tube (SNOMED)*: a preformed (Ring–Adair–Elwyn) tube with a fixed bend.\n- *4148969 / 309804002 — Oral RAE endotracheal tube (SNOMED)*: oral RAE variant.\n- *4148970 / 309805001 — Nasal RAE endotracheal tube (SNOMED)*: nasal RAE variant.\n- *4225181 / 420977008 — Preformed endotracheal tube (SNOMED)*: any pre-shaped tube.\n- *4148025 / 309803008 — Oxford endotracheal tube (SNOMED)*: an L-shaped preformed tube.\n- *4224877 / 420673005 — Magill type endotracheal tube (SNOMED)*: a standard-curve (Magill) tube.\n- *4222389 / 420344001 — Magill type oral endotracheal tube (SNOMED)*: oral Magill variant.\n- *4223308 / 420855005 — Magill type nasal endotracheal tube (SNOMED)*: nasal Magill variant.\n\n### By construction / reinforcement\n\n- *4149922 / 309801005 — Armored endotracheal tube (SNOMED)*: wire-reinforced (\"armoured\") tube resistant to kinking.\n- *45763195 — Laser-resistant endotracheal tube (SNOMED)*: tube designed to withstand airway laser surgery.\n\n### By built-in feature\n\nTubes with an additional integrated function beyond securing the airway.\n\n- *4327418 / 430553000 — Endotracheal tube with bronchial blocker (SNOMED)*: incorporates a blocker for one-lung isolation.\n- *40486643 / 449298004 — Endotracheal tube with directional tip (SNOMED)*: steerable tip.\n- *37162306 / 1187321001 — Oxygen insufflation endotracheal tube (SNOMED)*: allows supplemental oxygen insufflation.\n- *45761574 — Cuff-suction endotracheal tube (SNOMED)*: with a port for subglottic secretion suction above the cuff.\n- *3661742 / 870581009 — Video intubation endotracheal tube (SNOMED)*: with an integrated camera for video-assisted intubation.\n- *45767499 — Electromyographic endotracheal tube (SNOMED)*: with electrodes for nerve (EMG) monitoring.\n- *45773232 — High-frequency ventilation endotracheal tube (SNOMED)*: designed for high-frequency ventilation.\n- *45758564 — Antimicrobial endotracheal tube (SNOMED)*: coated to reduce microbial colonisation.\n\n## Mapping Notes\n\n- **Default concept** when the source records an endotracheal tube without a specific type: *4097216 / 26412008 — Endotracheal tube*. Do not infer a specific variant from indirect clues — if the type is not documented, map to the generic concept.\n- **Tracheostomy tubes are a separate device** and do not belong here; they have their own concept set. An endotracheal tube passes through the larynx; a tracheostomy tube enters through a surgical neck stoma.\n- **This set is about the device, not the act**: placing or removing the tube (intubation, extubation) are procedures captured in their own concept sets, not here.\n- **Tube size / diameter is not part of the device identity**: the internal diameter is recorded separately (see the Endotracheal tube diameter concept set), not by choosing a different device concept."
       },
       "fr": {
         "name": "Sonde endotrachéale",
         "category": "Ventilation",
         "subcategory": "Dispositif des voies aériennes",
-        "shortDescription": null,
+        "shortDescription": "Dispositif de type sonde endotrachéale, quel qu’il soit (ancré sur le concept SNOMED et toutes ses variantes descendantes).",
         "longDescription": null
       }
     },
@@ -311,7 +64,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-10",
+        "author": "Boris Delange",
+        "message": "Simplify definition: replace the flat list of 14 device variants with a single anchor on Endotracheal tube (4097216) + includeDescendants (resolves to 19, adding antimicrobial, cuff-suction, electromyographic, high-frequency-ventilation and laser-resistant tubes). Added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

@@ -1,9 +1,6 @@
 {
   "conceptSetId": 299,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 3661742,
@@ -129,6 +126,51 @@
       "domainId": "Device",
       "conceptClassId": "Physical Object",
       "conceptCode": "449298004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45758564,
+      "conceptName": "Antimicrobial endotracheal tube",
+      "vocabularyId": "SNOMED",
+      "domainId": "Device",
+      "conceptClassId": "Physical Object",
+      "conceptCode": "463327000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45761574,
+      "conceptName": "Cuff-suction endotracheal tube",
+      "vocabularyId": "SNOMED",
+      "domainId": "Device",
+      "conceptClassId": "Physical Object",
+      "conceptCode": "467766005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45763195,
+      "conceptName": "Laser-resistant endotracheal tube",
+      "vocabularyId": "SNOMED",
+      "domainId": "Device",
+      "conceptClassId": "Physical Object",
+      "conceptCode": "470227004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45767499,
+      "conceptName": "Electromyographic endotracheal tube",
+      "vocabularyId": "SNOMED",
+      "domainId": "Device",
+      "conceptClassId": "Physical Object",
+      "conceptCode": "704923004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45773232,
+      "conceptName": "High-frequency ventilation endotracheal tube",
+      "vocabularyId": "SNOMED",
+      "domainId": "Device",
+      "conceptClassId": "Physical Object",
+      "conceptCode": "700604003",
       "standardConcept": "S"
     }
   ]
