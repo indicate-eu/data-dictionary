@@ -1,12 +1,12 @@
 {
   "id": 122,
-  "name": "Insulin Aspart",
+  "name": "[Deprecated] Insulin Aspart",
   "description": null,
-  "version": "1.0.1",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-04-09",
+  "modifiedDate": "2026-06-10",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -38,18 +38,18 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "pending_review",
+    "reviewStatus": "deprecated",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Insulin Aspart",
+        "name": "[Deprecated] Insulin Aspart",
         "category": "Medications",
         "subcategory": "Other drugs",
         "shortDescription": null,
         "longDescription": null
       },
       "fr": {
-        "name": "Insulin Aspart",
+        "name": "[Deprecated] Insulin Aspart",
         "category": "Médicaments",
         "subcategory": "Autres médicaments",
         "shortDescription": null,
@@ -70,6 +70,12 @@
         "date": "2026-04-09",
         "author": "Boris Delange",
         "message": "Changed concept set definition from specific Clinical Drug concepts to the RxNorm Ingredient with all descendants included."
+      },
+      {
+        "version": "1.1.0",
+        "date": "2026-06-10",
+        "author": "Boris Delange",
+        "message": "Deprecated. The source RxNorm Extension ingredient 'insulin aspart' (35198096) was deprecated in OMOP (RxNorm Extension 2026-01-14) and now maps to the standard RxNorm ingredient 'insulin aspart, human' (1567198). As a result this set became equivalent to concept set 123 'Insulin Aspart, Human', which already uses 1567198. Use concept set 123 instead."
       }
     ],
     "distributionStats": null

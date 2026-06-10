@@ -2,33 +2,14 @@
   "id": 291,
   "name": "Central venous catheter",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-10",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
-      {
-        "concept": {
-          "conceptId": 607720,
-          "conceptName": "Centrally inserted central venous catheter",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1155845001",
-          "validStartDate": "2021-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
       {
         "concept": {
           "conceptId": 4022465,
@@ -710,7 +691,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-10",
+        "author": "Boris Delange",
+        "message": "Removed deprecated SNOMED concept 607720 'Centrally inserted central venous catheter' (invalid in OMOP). Its replacement 4179206 'Central venous catheter' was already present in the set, so resolution is unchanged."
+      }
+    ],
     "distributionStats": null
   }
 }

@@ -2,11 +2,11 @@
   "id": 293,
   "name": "Enteral feeding",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-10",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -240,25 +240,6 @@
       },
       {
         "concept": {
-          "conceptId": 4175457,
-          "conceptName": "Tube feeding by Barron pump",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "50712000",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
           "conceptId": 4211519,
           "conceptName": "Tube feeding by drip method",
           "domainId": "Procedure",
@@ -267,25 +248,6 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "56948003",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4263536,
-          "conceptName": "Tube feeding of patient",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "61420007",
           "validStartDate": "2002-01-31",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -349,7 +311,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-10",
+        "author": "Boris Delange",
+        "message": "Removed deprecated SNOMED concepts 4175457 'Tube feeding by Barron pump' and 4263536 'Tube feeding of patient' (invalid in OMOP). Both map to 4042005 'Enteral feeding', which was already present in the set, so resolution is unchanged."
+      }
+    ],
     "distributionStats": null
   }
 }
