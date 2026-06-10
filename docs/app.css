@@ -1045,7 +1045,8 @@ tbody td {
 /* Project detail: tabs fill available space */
 #proj-tab-variables { display: flex; flex-direction: column; flex: 1; min-height: 0; margin-top: 16px; }
 /* Read mode: grey backdrop with a centered white card (like the CS Comments tab). */
-#proj-tab-context { overflow-y: auto; flex: 1; min-height: 0; margin-top: 16px; background: var(--gray-light); box-shadow: none; }
+#proj-tab-context { overflow-y: auto; flex: 1; min-height: 0; margin-top: 8px; background: var(--gray-light); box-shadow: none; }
+#proj-tab-context > .panel-body { padding: 8px; }
 #proj-long-description-section {
   background: #fff;
   border-radius: var(--radius);
