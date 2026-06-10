@@ -10,6 +10,27 @@ Workflow:
 
 The index maps {id: {version: commit_sha}} so build.py can later retrieve the
 exact JSON of any pinned (id, version) pair via `git show <sha>:concept_sets/{id}.json`.
+
+Why HEAD, and why two commits:
+  For every (id, version) pair NOT already in the index, this records the CURRENT
+  HEAD sha -- not the commit that historically introduced that version. It therefore
+  assumes the version on disk at HEAD is the canonical content for that pair. Two
+  consequences:
+
+  1. A file with uncommitted (staged or unstaged) changes is SKIPPED with a warning:
+     pinning HEAD while the file differs from HEAD would record a sha whose content
+     does not match. So you must commit the version bump BEFORE snapshotting, then
+     commit the updated index AFTER -- the two-commit workflow above.
+
+  2. If you batch several version bumps across multiple commits and snapshot only at
+     the end, every newly-seen pair is stamped with the same HEAD. That is fine ONLY
+     because each version's content is frozen the moment it is committed -- which is
+     why you must NEVER reuse a published (id, version) pair. If a version turns out
+     wrong, bump to a new version rather than rewriting the old one.
+
+This script is idempotent: pairs already in the index are never re-stamped, so
+re-running it (or build.py) does nothing once everything is recorded. Never edit
+concept_sets_versions.json by hand.
 """
 
 import glob

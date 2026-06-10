@@ -1540,22 +1540,27 @@ var DocumentationPage = (function() {
       + '<td style="padding:3px 0; border:none; font-family:inherit; color:var(--text)">Aggregates all JSON into docs/data.json and docs/data_inline.js</td></tr>'
       + '<tr><td style="padding:3px 16px 3px 0; white-space:nowrap; color:#e67700; font-weight:600; border:none">resolve.py</td>'
       + '<td style="padding:3px 0; border:none; font-family:inherit; color:var(--text)">Resolves concept set expressions using OMOP vocabularies</td></tr>'
+      + '<tr><td style="padding:3px 16px 3px 0; white-space:nowrap; color:#e67700; font-weight:600; border:none">snapshot.py</td>'
+      + '<td style="padding:3px 0; border:none; font-family:inherit; color:var(--text)">Records commit SHAs of bumped versions in concept_sets_versions.json (called by build.py)</td></tr>'
       + '</table></div>'
 
       // ===== BUILD PIPELINE =====
       + '<h2>Build Pipeline</h2>'
-      + '<p>Two Python scripts maintain the data files used by the web application:</p>'
+      + '<p>Three Python scripts maintain the data files used by the web application. They are independent steps \u2014 '
+      + 'in particular, <code>build.py</code> does <strong>not</strong> re-resolve concept sets; it reads whatever '
+      + '<code>concept_sets_resolved/</code> files already exist.</p>'
 
       + '<h3>resolve.py</h3>'
-      + '<p>Resolves concept set expressions by expanding descendants and mapped concepts using '
-      + 'OMOP vocabulary tables stored in a DuckDB database.</p>'
+      + '<p>Resolves concept set expressions by expanding descendants and mapped concepts using OMOP vocabulary tables. '
+      + 'Run it only after editing a concept set\u2019s expression.</p>'
       + '<div class="doc-mock-modal" style="max-width:100%; padding:12px 16px; font-family:monospace; font-size:12px; white-space:pre-wrap">'
-      + 'python3 resolve.py --db /path/to/ohdsi_vocabularies.duckdb\n'
-      + '# or\n'
-      + 'python3 resolve.py --csv-dir /path/to/athena_csv_folder'
+      + 'python3 resolve.py --vocab /path/to/ohdsi_vocabularies.duckdb\n'
+      + 'python3 resolve.py --vocab /path/to/athena_folder      # CSV or Parquet\n'
+      + 'python3 resolve.py --vocab /path/to/folder --id 10     # resolve one set'
       + '</div>'
-      + '<p>You can provide either a DuckDB database (<code>--db</code>) or a folder of Athena CSV files '
-      + '(<code>--csv-dir</code> containing CONCEPT.csv, CONCEPT_ANCESTOR.csv, CONCEPT_RELATIONSHIP.csv).</p>'
+      + '<p>The <code>--vocab</code> source is auto-detected: a DuckDB file (<code>.duckdb</code>), or a folder of '
+      + 'Athena CSV or Parquet files (CONCEPT, CONCEPT_ANCESTOR, CONCEPT_RELATIONSHIP). Omit <code>--vocab</code> to '
+      + 'use the <code>ohdsiVocab</code> key in <code>config.local.json</code>; use <code>--id</code> to resolve a single set.</p>'
       + '<p>For each concept set, it:</p>'
       + '<ol>'
       + '<li>Partitions expression items into included and excluded</li>'
@@ -1566,8 +1571,17 @@ var DocumentationPage = (function() {
       + 'without needing to import an OHDSI vocabulary database locally</li>'
       + '</ol>'
 
+      + '<h3>snapshot.py</h3>'
+      + '<p>Records, in <code>concept_sets_versions.json</code>, the Git commit SHA where each '
+      + '<code>(id, version)</code> pair lives, so historical versions pinned by projects can be retrieved later. '
+      + 'It is called automatically by <code>build.py</code>, so you rarely run it directly. Because the SHA it records '
+      + 'must point to a commit that already contains the new version on disk, the workflow is two commits: '
+      + '(1) bump the version field and commit it, (2) run <code>build.py</code> (which snapshots), then commit the updated '
+      + '<code>concept_sets_versions.json</code>. A concept set with uncommitted changes is skipped (with a warning) \u2014 '
+      + 'otherwise the recorded SHA would not match the file\u2019s content.</p>'
+
       + '<h3>build.py</h3>'
-      + '<p>Aggregates all source JSON files into data files consumed by the static site.</p>'
+      + '<p>Calls <code>snapshot.py</code>, then aggregates all source JSON files into the data files consumed by the static site. No vocabulary database needed.</p>'
       + '<div class="doc-mock-modal" style="max-width:100%; padding:12px 16px; font-family:monospace; font-size:12px">'
       + 'python3 build.py'
       + '</div>'
@@ -1579,9 +1593,8 @@ var DocumentationPage = (function() {
 
       + infoBox('Full rebuild',
         'After modifying source data files, run both scripts in sequence:<br>'
-        + '<code style="font-size:12px">python3 resolve.py --db /path/to/vocabularies.duckdb && python3 build.py</code><br>'
-        + 'or with CSV files:<br>'
-        + '<code style="font-size:12px">python3 resolve.py --csv-dir /path/to/athena_csv && python3 build.py</code>')
+        + '<code style="font-size:12px">python3 resolve.py --vocab /path/to/vocabularies.duckdb && python3 build.py</code><br>'
+        + 'The vocabulary source can also be a folder of Athena CSV or Parquet files.')
 
       // ===== CLAUDE CODE SKILLS =====
       + '<h2>Claude Code Skills</h2>'
@@ -2108,6 +2121,12 @@ var DocumentationPage = (function() {
       + '<code>doc/ANS_Note_de_version_JDV_Circuit_de_Biologie.pdf</code> in the ZIP describe the column semantics, '
       + 'the validation workflow, and per-version change notes.</li>'
       + '</ul>'
+      + '<h3>Affine conversions</h3>'
+      + '<p>Most conversions are purely multiplicative (<code>target = factor × source</code>). A few analytes need an '
+      + '<strong>affine</strong> conversion of the form <code>target = factor × source + offset</code>. Each entry may carry '
+      + 'an optional <code>offset</code> field; when it is absent or <code>0</code> the conversion is multiplicative '
+      + '(so existing entries are unaffected). Example — HbA1c <code>NGSP %</code> ↔ <code>IFCC mmol/mol</code>: '
+      + '<code>IFCC ≈ 10.929 × NGSP − 23.50</code>. Both the OMOP SQL export and the in-app conversion test apply the offset.</p>'
 
       // ===== OMOP =====
       + '<h2>OMOP vocabulary</h2>'
@@ -3783,22 +3802,27 @@ var DocumentationPage = (function() {
       + '<td style="padding:3px 0; border:none; font-family:inherit; color:var(--text)">Agr\u00e8ge tous les JSON dans docs/data.json et docs/data_inline.js</td></tr>'
       + '<tr><td style="padding:3px 16px 3px 0; white-space:nowrap; color:#e67700; font-weight:600; border:none">resolve.py</td>'
       + '<td style="padding:3px 0; border:none; font-family:inherit; color:var(--text)">R\u00e9sout les expressions des jeux de concepts avec les vocabulaires OMOP</td></tr>'
+      + '<tr><td style="padding:3px 16px 3px 0; white-space:nowrap; color:#e67700; font-weight:600; border:none">snapshot.py</td>'
+      + '<td style="padding:3px 0; border:none; font-family:inherit; color:var(--text)">Enregistre les SHA de commit des versions incr\u00e9ment\u00e9es dans concept_sets_versions.json (appel\u00e9 par build.py)</td></tr>'
       + '</table></div>'
 
       // ===== PIPELINE DE BUILD =====
       + '<h2>Pipeline de build</h2>'
-      + '<p>Deux scripts Python maintiennent les fichiers de donn\u00e9es utilis\u00e9s par l\u2019application web\u00a0:</p>'
+      + '<p>Trois scripts Python maintiennent les fichiers de donn\u00e9es utilis\u00e9s par l\u2019application web. Ce sont des \u00e9tapes '
+      + 'ind\u00e9pendantes \u2014 en particulier, <code>build.py</code> ne <strong>re-r\u00e9sout pas</strong> les jeux de concepts\u00a0; il lit '
+      + 'les fichiers <code>concept_sets_resolved/</code> existants tels quels.</p>'
 
       + '<h3>resolve.py</h3>'
       + '<p>R\u00e9sout les expressions des jeux de concepts en \u00e9tendant les descendants et les concepts mapp\u00e9s '
-      + 'en utilisant les tables de vocabulaires OMOP stock\u00e9es dans une base DuckDB.</p>'
+      + 'en utilisant les tables de vocabulaires OMOP. \u00c0 ex\u00e9cuter uniquement apr\u00e8s avoir modifi\u00e9 l\u2019expression d\u2019un jeu de concepts.</p>'
       + '<div class="doc-mock-modal" style="max-width:100%; padding:12px 16px; font-family:monospace; font-size:12px; white-space:pre-wrap">'
-      + 'python3 resolve.py --db /path/to/ohdsi_vocabularies.duckdb\n'
-      + '# ou\n'
-      + 'python3 resolve.py --csv-dir /path/to/athena_csv_folder'
+      + 'python3 resolve.py --vocab /path/to/ohdsi_vocabularies.duckdb\n'
+      + 'python3 resolve.py --vocab /path/to/athena_folder      # CSV ou Parquet\n'
+      + 'python3 resolve.py --vocab /path/to/folder --id 10     # r\u00e9sout un seul jeu'
       + '</div>'
-      + '<p>Vous pouvez fournir soit une base DuckDB (<code>--db</code>) soit un dossier de fichiers CSV Athena '
-      + '(<code>--csv-dir</code> contenant CONCEPT.csv, CONCEPT_ANCESTOR.csv, CONCEPT_RELATIONSHIP.csv).</p>'
+      + '<p>La source <code>--vocab</code> est d\u00e9tect\u00e9e automatiquement\u00a0: un fichier DuckDB (<code>.duckdb</code>), ou un dossier '
+      + 'de fichiers Athena CSV ou Parquet (CONCEPT, CONCEPT_ANCESTOR, CONCEPT_RELATIONSHIP). Omettez <code>--vocab</code> pour '
+      + 'utiliser la cl\u00e9 <code>ohdsiVocab</code> de <code>config.local.json</code>\u00a0; utilisez <code>--id</code> pour r\u00e9soudre un seul jeu.</p>'
       + '<p>Pour chaque jeu de concepts, il\u00a0:</p>'
       + '<ol>'
       + '<li>Partitionne les \u00e9l\u00e9ments de l\u2019expression en inclus et exclus</li>'
@@ -3808,8 +3832,17 @@ var DocumentationPage = (function() {
       + 'ces fichiers pr\u00e9-calcul\u00e9s permettent de parcourir l\u2019onglet R\u00e9solus sans importer de base de vocabulaires localement</li>'
       + '</ol>'
 
+      + '<h3>snapshot.py</h3>'
+      + '<p>Enregistre, dans <code>concept_sets_versions.json</code>, le SHA du commit Git o\u00f9 vit chaque paire '
+      + '<code>(id, version)</code>, afin de pouvoir r\u00e9cup\u00e9rer plus tard les versions historiques \u00e9pingl\u00e9es par les projets. '
+      + 'Il est appel\u00e9 automatiquement par <code>build.py</code>, vous le lancez donc rarement directement. Comme le SHA '
+      + 'qu\u2019il enregistre doit pointer vers un commit contenant d\u00e9j\u00e0 la nouvelle version sur le disque, le workflow se fait en deux commits : '
+      + '(1) incr\u00e9mentez le champ version et commitez-le, (2) lancez <code>build.py</code> (qui cr\u00e9e le snapshot), puis commitez le '
+      + '<code>concept_sets_versions.json</code> mis \u00e0 jour. Un jeu de concepts ayant des modifications non commit\u00e9es est ignor\u00e9 (avec un avertissement) \u2014 '
+      + 'sinon le SHA enregistr\u00e9 ne correspondrait pas au contenu du fichier.</p>'
+
       + '<h3>build.py</h3>'
-      + '<p>Agr\u00e8ge tous les fichiers JSON sources dans les fichiers de donn\u00e9es consomm\u00e9s par le site statique.</p>'
+      + '<p>Appelle <code>snapshot.py</code>, puis agr\u00e8ge tous les fichiers JSON sources dans les fichiers de donn\u00e9es consomm\u00e9s par le site statique. Aucune base de vocabulaires requise.</p>'
       + '<div class="doc-mock-modal" style="max-width:100%; padding:12px 16px; font-family:monospace; font-size:12px">'
       + 'python3 build.py'
       + '</div>'
@@ -3821,9 +3854,8 @@ var DocumentationPage = (function() {
 
       + infoBox('Rebuild complet',
         'Apr\u00e8s modification des fichiers de donn\u00e9es sources, ex\u00e9cutez les deux scripts\u00a0:<br>'
-        + '<code style="font-size:12px">python3 resolve.py --db /path/to/vocabularies.duckdb && python3 build.py</code><br>'
-        + 'ou avec des fichiers CSV\u00a0:<br>'
-        + '<code style="font-size:12px">python3 resolve.py --csv-dir /path/to/athena_csv && python3 build.py</code>')
+        + '<code style="font-size:12px">python3 resolve.py --vocab /path/to/vocabularies.duckdb && python3 build.py</code><br>'
+        + 'La source de vocabulaire peut aussi \u00eatre un dossier de fichiers Athena CSV ou Parquet.')
 
       // ===== SKILLS CLAUDE CODE =====
       + '<h2>Skills Claude Code</h2>'
@@ -4087,6 +4119,13 @@ var DocumentationPage = (function() {
       + '<code>doc/ANS_Note_de_version_JDV_Circuit_de_Biologie.pdf</code> dans le ZIP d\u00e9crivent la s\u00e9mantique des colonnes, '
       + 'le workflow de validation et les notes de version.</li>'
       + '</ul>'
+      + '<h3>Conversions affines</h3>'
+      + '<p>La plupart des conversions sont purement multiplicatives (<code>cible = facteur × source</code>). Quelques analytes '
+      + 'nécessitent une conversion <strong>affine</strong> de la forme <code>cible = facteur × source + offset</code>. Chaque entrée '
+      + 'peut porter un champ optionnel <code>offset</code> ; lorsqu’il est absent ou égal à <code>0</code>, la conversion reste '
+      + 'multiplicative (les entrées existantes ne sont donc pas affectées). Exemple — HbA1c <code>NGSP %</code> ↔ '
+      + '<code>IFCC mmol/mol</code> : <code>IFCC ≈ 10,929 × NGSP − 23,50</code>. L’export SQL OMOP et le testeur de conversion '
+      + 'intégré appliquent tous deux l’offset.</p>'
 
       // ===== OMOP =====
       + '<h2>Vocabulaire OMOP</h2>'
