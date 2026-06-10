@@ -665,6 +665,7 @@ var App = (function() {
     'Change Summary (optional)':     { fr: 'Résumé des modifications (optionnel)' },
     'Describe what changed...':      { fr: 'Décrivez les modifications...' },
     'Version History':               { fr: 'Historique des versions' },
+    'Summary':                       { fr: 'Résumé' },
 
     // Status modal
     'Change Status':                 { fr: 'Changer le statut' },
@@ -1908,6 +1909,9 @@ var App = (function() {
     APP_NAME: APP_NAME,
     APP_VERSION: APP_VERSION,
     APP_GITHUB_URL: APP_GITHUB_URL,
+    // Provenance tag written to createdByTool / modifiedByTool, e.g.
+    // "INDICATE Data Dictionary v1.2.1 (https://github.com/indicate-eu/data-dictionary)"
+    toolTag: function() { return APP_NAME + ' v' + APP_VERSION + ' (' + APP_GITHUB_URL + ')'; },
     config: config,
     github: function(path) {
       var repo = (config.github && config.github.repo) || '';
